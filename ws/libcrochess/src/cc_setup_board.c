@@ -57,8 +57,7 @@ static const int T = CC_PE_BrightStar;
 static const int M = CC_PE_Monolith;
 
 
-CcPieceEnum const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] = {
     { r, n, b, q, k, b, n, r },
     { p, p, p, p, p, p, p, p },
     { x, x, x, x, x, x, x, x },
@@ -69,8 +68,7 @@ CcPieceEnum const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICA
     { R, N, B, Q, K, B, N, R },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ] = {
     { r, e, n, b, q, k, b, n, e, r },
     { p, p, p, p, p, p, p, p, p, p },
     { x, x, x, x, x, x, x, x, x, x },
@@ -83,8 +81,7 @@ CcPieceEnum const CC_SETUP_BOARD_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_T
     { R, E, N, B, Q, K, B, N, E, R },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ] = {
     { r, e, a, n, b, q, k, b, n, a, e, r },
     { p, p, p, p, p, p, p, p, p, p, p, p },
     { x, x, x, x, x, x, x, x, x, x, x, x },
@@ -99,8 +96,7 @@ CcPieceEnum const CC_SETUP_BOARD_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_A
     { R, E, A, N, B, Q, K, B, N, A, E, R },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ] = {
     { r, e, a, u, n, b, q, k, b, n, u, a, e, r },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p },
     { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
@@ -117,8 +113,7 @@ CcPieceEnum const CC_SETUP_BOARD_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_A
     { R, E, A, U, N, B, Q, K, B, N, U, A, E, R },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ] = {
     { r, e, a, u, w, n, b, q, k, b, n, w, u, a, e, r },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
     { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
@@ -137,8 +132,7 @@ CcPieceEnum const CC_SETUP_BOARD_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_V
     { R, E, A, U, W, N, B, Q, K, B, N, W, U, A, E, R },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ] = {
     { t, r, n, b, w, e, u, a, q, k, a, u, e, w, b, n, r, T },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
     { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
@@ -159,8 +153,7 @@ CcPieceEnum const CC_SETUP_BOARD_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_
     { T, R, N, B, W, E, U, A, Q, K, A, U, E, W, B, N, R, t },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ] = {
     { t, r, n, b, c, w, e, u, a, q, k, a, u, e, w, c, b, n, r, T },
     { p, p, p, g, p, g, p, p, p, p, p, p, p, p, g, p, g, p, p, p },
     { p, p, g, p, p, p, g, p, p, p, p, p, p, g, p, p, p, g, p, p },
@@ -183,8 +176,7 @@ CcPieceEnum const CC_SETUP_BOARD_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAW
     { T, R, N, B, C, W, E, U, A, Q, K, A, U, E, W, C, B, N, R, t },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ] = {
     { t, r, n, b, s, w, u, e, c, a, q, k, a, c, e, u, w, s, b, n, r, T },
     { p, p, p, p, p, p, p, g, p, g, p, p, g, p, g, p, p, p, p, p, p, p },
     { p, p, p, p, p, p, g, p, p, p, g, g, p, p, p, g, p, p, p, p, p, p },
@@ -209,8 +201,7 @@ CcPieceEnum const CC_SETUP_BOARD_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAM
     { T, R, N, B, S, W, U, E, C, A, Q, K, A, C, E, U, W, S, B, N, R, t },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ] = {
     { t, r, n, b, s, c, u, w, e, a, h, q, k, h, a, e, w, u, c, s, b, n, r, T },
     { p, p, p, p, g, p, g, p, p, g, p, g, g, p, g, p, p, g, p, g, p, p, p, p },
     { p, p, p, g, p, p, p, g, g, p, p, g, g, p, p, g, g, p, p, p, g, p, p, p },
@@ -237,8 +228,7 @@ CcPieceEnum const CC_SETUP_BOARD_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CON
     { T, R, N, B, S, C, U, W, E, A, H, Q, K, H, A, E, W, U, C, S, B, N, R, t },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ] = {
     { t, r, n, b, s, c, u, w, e, a, h, q, k, h, a, e, w, u, c, s, b, n, r, T },
     { p, p, p, p, g, p, g, p, p, g, p, g, g, p, g, p, p, g, p, g, p, p, p, p },
     { p, p, p, g, p, p, p, g, g, p, p, g, g, p, p, g, g, p, p, p, g, p, p, p },
@@ -265,8 +255,7 @@ CcPieceEnum const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ C
     { T, R, N, B, S, C, U, W, E, A, H, Q, K, H, A, E, W, U, C, S, B, N, R, t },
 };
 
-CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ] =
-{
+CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ] = {
     { t, r, n, b, s, i, c, u, e, w, a, h, q, k, h, a, w, e, u, c, i, s, b, n, r, T },
     { p, p, p, p, p, g, p, g, p, p, g, p, g, g, p, g, p, p, g, p, g, p, p, p, p, p },
     { p, p, p, p, g, p, p, p, g, g, p, p, g, g, p, p, g, g, p, p, p, g, p, p, p, p },
@@ -296,10 +285,8 @@ CcPieceEnum const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BO
 };
 
 
-CcPieceEnum const * cc_setup_board_get( CcVariantEnum ve )
-{
-    switch ( ve )
-    {
+CcPieceEnum const * cc_setup_board_get( CcVariantEnum ve ) {
+    switch ( ve ) {
         case CC_VE_ClassicalChess : return (CcPieceEnum const *)CC_SETUP_BOARD_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return (CcPieceEnum const *)CC_SETUP_BOARD_CROATIAN_TIES;
         case CC_VE_MayanAscendancy : return (CcPieceEnum const *)CC_SETUP_BOARD_MAYAN_ASCENDANCY;
@@ -317,17 +304,14 @@ CcPieceEnum const * cc_setup_board_get( CcVariantEnum ve )
 }
 
 
-bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe )
-{
+bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe ) {
     CcPieceEnum const * su = cc_setup_board_get( ve );
     if ( !su ) return false;
 
     size_t size = cc_variant_board_size( ve );
 
-    for ( int i = 0; i < (int)size; ++i )
-    {
-        for ( int j = 0; j < (int)size; ++j )
-        {
+    for ( int i = 0; i < (int)size; ++i ) {
+        for ( int j = 0; j < (int)size; ++j ) {
             int z = size * i + j;
 
             if ( su[ z ] == pe )
@@ -340,14 +324,13 @@ bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe )
 
 int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
                                                 CcPieceEnum pe,
-                                                bool search_left_first )
-{
+                                                bool search_left_first ) {
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
-         ( CC_PIECE_IS_PAWN( pe ) ) ||
-         ( CC_PIECE_IS_SCOUT( pe ) ) ||
-         ( CC_PIECE_IS_GRENADIER( pe ) ) ||
-         ( CC_PIECE_IS_MONOLITH( pe ) ) )
+            ( CC_PIECE_IS_PAWN( pe ) ) ||
+            ( CC_PIECE_IS_SCOUT( pe ) ) ||
+            ( CC_PIECE_IS_GRENADIER( pe ) ) ||
+            ( CC_PIECE_IS_MONOLITH( pe ) ) )
         return CC_INVALID_COORD;
 
     CcPieceEnum const * su = cc_setup_board_get( ve );
@@ -362,8 +345,7 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
         ( pe == CC_PE_BrightStar ) ? (int)(size - 1)
                                    : 0;
 
-    for ( int j = start; (0 <= j) && (j < (int)size); j += step )
-    {
+    for ( int j = start; (0 <= j) && (j < (int)size); j += step ) {
         int z = size * rank + j;
 
         if ( su[ z ] == pe )

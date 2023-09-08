@@ -38,8 +38,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            CcStepLinkEnum sle,
                            CcPos step_pos,
                            CcSideEffect * restrict side_effect__o,
-                           CcParseMsg ** restrict parse_msgs__iod )
-{
+                           CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !side_effect_an ) return false;
     if ( !step_start_an ) return false;
     if ( !step_end_an ) return false;
@@ -60,10 +59,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     char const * se_an =
         side_effect_an + cc_side_effect_type_len( see, has_promotion_sign );
 
-    switch ( see )
-    {
-        case CC_SEE_None :
-        {
+    switch ( see ) {
+        case CC_SEE_None : {
 
 // TODO :: default interactions
 //
@@ -76,15 +73,13 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 //      -- if it's a capture made by Pawn, check if it's also a tag for promotion;
 //         it can't be promotion, if promote-to piece is missing
 
-            if ( CC_PIECE_IS_NONE( step_piece ) )
-            {
+            if ( CC_PIECE_IS_NONE( step_piece ) ) {
                 *side_effect__o = cc_side_effect_none();
                 return true;
             }
             else
             {
-                if ( sle == CC_SLE_Start )
-                {
+                if ( sle == CC_SLE_Start ) {
                     // Starting position, piece is the one found in destination of last ply, or the one starting a move.
 
 // TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
@@ -110,9 +105,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
                     *side_effect__o = cc_side_effect_none();
                     return true;
-                }
-                else
-                {
+                } else {
 // TODO :: silent capture ::
 //      -- if piece found on step-field has other owner
 //      -- if ply piece (the one currently moving) can capture
@@ -136,8 +129,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             }
         }
 
-        case CC_SEE_Capture :
-        {
+        case CC_SEE_Capture : {
 // TODO
 //
 //      -- moving promotion
@@ -145,10 +137,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             char piece_symbol = ' ';
 
-            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
-            {
-                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
-                {
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
+                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -164,8 +154,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 ++se_an;
             }
 
-            if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) )
-            {
+            if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
 
@@ -183,15 +172,13 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             char const * promo_an = se_an + cc_losing_tag_len( lte );
 
-            if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) )
-            {
+            if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) ) {
                 bool has_promo_sign = false;
 
                 CcSideEffectEnum promo =
                     cc_parse_side_effect_type( promo_an, &has_promo_sign );
 
-                if ( promo == CC_SEE_Promotion )
-                {
+                if ( promo == CC_SEE_Promotion ) {
                     promo_an += cc_side_effect_type_len( promo, has_promo_sign );
 
                     char promote_to_symbol = ' ';
@@ -199,8 +186,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     if ( !cc_fetch_piece_symbol( promo_an, &promote_to_symbol, true, false ) )
                         return false;
 
-                    if ( !cc_piece_symbol_is_valid( promote_to_symbol ) )
-                    {
+                    if ( !cc_piece_symbol_is_valid( promote_to_symbol ) ) {
                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -216,8 +202,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     bool is_light = cc_piece_is_light( step_piece );
                     CcPieceEnum promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
 
-                    if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) )
-                    {
+                    if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -232,9 +217,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
                     *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
                     return true;
-                }
-                else if ( promo == CC_SEE_TagForPromotion )
-                {
+                } else if ( promo == CC_SEE_TagForPromotion ) {
 // TODO :: add flag
                 }
             }
@@ -243,14 +226,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return true;
         }
 
-        case CC_SEE_Displacement :
-        {
+        case CC_SEE_Displacement : {
             char piece_symbol = ' ';
 
-            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
-            {
-                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
-                {
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
+                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -266,8 +246,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 ++se_an;
             }
 
-            if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) )
-            {
+            if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
 
@@ -287,8 +266,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_pos( pos_an, &pos, &pos_end_an ) )
-            {
+            if ( !cc_parse_pos( pos_an, &pos, &pos_end_an ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -300,8 +278,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false;
             }
 
-            if ( !cc_pos_is_valid( pos ) )
-            {
+            if ( !cc_pos_is_valid( pos ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -325,14 +302,12 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 // TODO :: castling
             return false;
 
-        case CC_SEE_Promotion :
-        {
+        case CC_SEE_Promotion : {
 // TODO -- static promotion
 //      -- moving promotion
 //      -- silent capture before promotion
 
-            if ( !CC_PIECE_IS_PAWN( step_piece ) )
-            {
+            if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -349,8 +324,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
                 return false;
 
-            if ( !cc_piece_symbol_is_valid( piece_symbol ) )
-            {
+            if ( !cc_piece_symbol_is_valid( piece_symbol ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -366,8 +340,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             bool is_light = cc_piece_is_light( step_piece );
             CcPieceEnum promote_to = cc_piece_from_symbol( piece_symbol, is_light );
 
-            if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) )
-            {
+            if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -384,12 +357,10 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return true;
         }
 
-        case CC_SEE_TagForPromotion :
-        {
+        case CC_SEE_TagForPromotion : {
 // TODO -- silent capture before promotion
 
-            if ( !CC_PIECE_IS_PAWN( step_piece ) )
-            {
+            if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -405,14 +376,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return true;
         }
 
-        case CC_SEE_Conversion :
-        {
+        case CC_SEE_Conversion : {
             char piece_symbol = ' ';
 
-            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) )
-            {
-                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
-                {
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
+                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -428,8 +396,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 ++se_an;
             }
 
-            if ( !CC_PIECE_CAN_BE_CONVERTED( step_piece ) )
-            {
+            if ( !CC_PIECE_CAN_BE_CONVERTED( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -449,10 +416,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return true;
         }
 
-        case CC_SEE_FailedConversion :
-        {
-            if ( !CC_PIECE_IS_STARCHILD( step_piece ) )
-            {
+        case CC_SEE_FailedConversion : {
+            if ( !CC_PIECE_IS_STARCHILD( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
 
@@ -471,14 +436,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         }
 
         case CC_SEE_Transparency : // Intentional fall-through ...
-        case CC_SEE_Divergence :
-        {
+        case CC_SEE_Divergence : {
             char piece_symbol = ' ';
 
-            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) )
-            {
-                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) )
-                {
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
+                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                     cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -509,10 +471,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return false;
 
         case CC_SEE_Resurrection : // Intentional fall-through ...
-        case CC_SEE_ResurrectingOpponent :
-        {
-            if ( !CC_PIECE_IS_NONE( step_piece ) )
-            {
+        case CC_SEE_ResurrectingOpponent : {
+            if ( !CC_PIECE_IS_NONE( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -529,8 +489,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
                 return false;
 
-            if ( !cc_piece_symbol_is_valid( piece_symbol ) )
-            {
+            if ( !cc_piece_symbol_is_valid( piece_symbol ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                 cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -554,8 +513,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             CcPieceEnum resurrecting = cc_piece_from_symbol( piece_symbol, is_light );
 
-            if ( !CC_PIECE_CAN_BE_RESURRECTED( resurrecting ) )
-            {
+            if ( !CC_PIECE_CAN_BE_RESURRECTED( resurrecting ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char pt = cc_piece_as_char( resurrecting );
 
@@ -571,15 +529,12 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             CcPos pos = CC_POS_CAST_INVALID;
 
-            if ( CC_PIECE_IS_WAVE( resurrecting ) || CC_PIECE_IS_STARCHILD( resurrecting ) )
-            {
+            if ( CC_PIECE_IS_WAVE( resurrecting ) || CC_PIECE_IS_STARCHILD( resurrecting ) ) {
                 char const * pos_an = se_an + 1;
                 char const * pos_end_an = NULL;
 
-                if ( cc_parse_pos( pos_an, &pos, &pos_end_an ) )
-                {
-                    if ( !cc_pos_is_valid( pos ) )
-                    {
+                if ( cc_parse_pos( pos_an, &pos, &pos_end_an ) ) {
+                    if ( !cc_pos_is_valid( pos ) ) {
                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -597,8 +552,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return true;
         }
 
-        case CC_SEE_FailedResurrection :
-        {
+        case CC_SEE_FailedResurrection : {
             *side_effect__o = cc_side_effect_failed_resurrection();
             return true;
         }

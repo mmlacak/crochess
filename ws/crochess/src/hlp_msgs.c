@@ -7,22 +7,19 @@
 
 #include "hlp_msgs.h"
 
-void print_license_intro( void )
-{
+void print_license_intro( void ) {
     printf( "Croatian chess - chess variants console application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
     // fflush( stdout );
 }
 
-void print_version_info( char const * restrict lib_ver, char const * restrict app_ver )
-{
+void print_version_info( char const * restrict lib_ver, char const * restrict app_ver ) {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
     // fflush( stdout );
 }
 
-void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver )
-{
+void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver ) {
     print_license_intro();
 
     printf( "Licensed under GNU GPL v3+ license. Use `about` for details.\n"
@@ -39,8 +36,7 @@ void print_app_intro( char const * restrict lib_ver, char const * restrict app_v
     // fflush( stdout );
 }
 
-void print_licence_text( void )
-{
+void print_licence_text( void ) {
     printf( "\n"
             "This program is free software: you can redistribute it and/or modify\n"
             "it under the terms of the GNU General Public License as published by\n"
@@ -57,14 +53,12 @@ void print_licence_text( void )
     // fflush( stdout );
 }
 
-void print_about_info( void )
-{
+void print_about_info( void ) {
     print_license_intro();
     print_licence_text();
 }
 
-void print_help( void )
-{
+void print_help( void ) {
     printf( "Commands:\n"
             "h, help       - prints this screen, `help <cmd>` for command details\n"
             "                e.g. `help tags` prints help about `tags` command\n"
@@ -90,13 +84,11 @@ void print_help( void )
             "Commands marked with * are currently not implemented.\n" );
 }
 
-void print_help_quit( void )
-{
+void print_help_quit( void ) {
     printf( "Quits application, any unsaved progress is lost.\n" );
 }
 
-void print_help_display( void )
-{
+void print_help_display( void ) {
     printf( "Displays current position, light player is positioned at the bottom,\n"
             "dark player is positioned at the top of the chessboard.\n"
             "\n"
@@ -104,8 +96,7 @@ void print_help_display( void )
             "as lower-case symbols.\n" );
 }
 
-void print_help_tags( void )
-{
+void print_help_tags( void ) {
     printf( "Displays current tags.\n"
             "Tags refer to pieces located at the same position as tag.\n"
             "\n"
@@ -114,13 +105,11 @@ void print_help_tags( void )
             "P -> Pawn tagged for promotion\n" );
 }
 
-void print_help_about( void )
-{
+void print_help_about( void ) {
     printf( "Displays copyright, license info.\n" );
 }
 
-void print_help_version( void )
-{
+void print_help_version( void ) {
     printf( "Displays versions of application, library; currently they are the same.\n"
             "Version has <major>.<minor>[.<feature>[.<commit>]] numbers, optionally with\n"
             "[-<prerelease>][+<meta>][~<breakage>] info; <meta> is used regularly.\n"
@@ -130,8 +119,7 @@ void print_help_version( void )
             "https://croatian-chess.blogspot.com/p/natver.html\n" );
 }
 
-void print_help_new_code( void )
-{
+void print_help_new_code( void ) {
     printf( "cc  -> Classical Chess\n"
             "ct  -> Croatian Ties\n"
             "ma  -> Mayan Ascendancy\n"
@@ -145,8 +133,7 @@ void print_help_new_code( void )
             "o   -> One\n" );
 }
 
-void print_help_new( void )
-{
+void print_help_new( void ) {
     printf( "Starts new game, in the same variant as the last one.\n"
             "To change variant, use code below as argument, e.g. `new ct`:\n\n" );
 
@@ -154,10 +141,8 @@ void print_help_new( void )
 }
 
 void print_new_code_invalid( char const * restrict str,
-                             size_t max_len__d )
-{
-    if ( str )
-    {
+                             size_t max_len__d ) {
+    if ( str ) {
         printf( "Unrecognized code: '" );
 
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )

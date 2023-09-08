@@ -21,16 +21,12 @@ char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[] = ",";
 
 CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
                                       bool is_end,
-                                      bool is_won )
-{
-    if ( is_end )
-    {
-        if ( is_won )
-        {
+                                      bool is_won ) {
+    if ( is_end ) {
+        if ( is_won ) {
             if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Light;
             if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Dark;
-        }
-        else
+        } else
             return CC_GSE_Draw;
     }
 
@@ -41,8 +37,7 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
     return gse;
 }
 
-CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse )
-{
+CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse ) {
     if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Dark;
     if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Light;
     return gse;
@@ -51,16 +46,14 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse )
 
 CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
-                       bool do_setup )
-{
+                       bool do_setup ) {
     CcGame * gm__a = malloc( sizeof( CcGame ) );
     if ( !gm__a ) return NULL;
 
     gm__a->status = status;
 
     gm__a->chessboard = cc_chessboard__new( ve, do_setup );
-    if ( !gm__a->chessboard )
-    {
+    if ( !gm__a->chessboard ) {
         CC_FREE( gm__a );
         return NULL;
     }
@@ -70,8 +63,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     return gm__a;
 }
 
-CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
-{
+CcGame * cc_game_duplicate_all__new( CcGame * restrict game ) {
     if ( !game ) return NULL;
 
     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
@@ -80,8 +72,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
     if ( !gm__a ) return NULL;
 
     CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
-    if ( game->chessboard && ( !cb__t ) )
-    {
+    if ( game->chessboard && ( !cb__t ) ) {
         cc_game_free_all( &gm__a );
         return NULL;
     }
@@ -89,8 +80,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
     CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
-    if ( game->moves && ( !mv__t ) )
-    {
+    if ( game->moves && ( !mv__t ) ) {
         cc_game_free_all( &gm__a );
         return NULL;
     }
@@ -100,8 +90,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game )
     return gm__a;
 }
 
-bool cc_game_free_all( CcGame ** restrict game__f )
-{
+bool cc_game_free_all( CcGame ** restrict game__f ) {
     if ( !game__f ) return false;
     if ( !*game__f ) return true;
 
@@ -119,8 +108,7 @@ bool cc_game_free_all( CcGame ** restrict game__f )
 }
 
 CcGame * cc_game_setup_from_string__new( char const * restrict setup,
-                                         CcGame * restrict before_setup__d )
-{
+                                         CcGame * restrict before_setup__d ) {
     if ( !setup ) return NULL;
 
     CcVariantEnum ve = CC_VE_One;
@@ -129,12 +117,9 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
     char const * s = setup;
     CcGame * game__a = NULL;
 
-    if ( before_setup__d )
-    {
+    if ( before_setup__d ) {
         game__a = cc_game_duplicate_all__new( before_setup__d );
-    }
-    else
-    {
+    } else {
         size_t len = cc_variant_from_symbol( s, &ve );
         gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;
 
@@ -148,8 +133,7 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
     char const * start = NULL;
     char const * end = NULL;
 
-    while ( cc_iter_token( s, CC_GAME_SEPARATORS_SETUP_FROM_STRING, &start, &end ) )
-    {
+    while ( cc_iter_token( s, CC_GAME_SEPARATORS_SETUP_FROM_STRING, &start, &end ) ) {
         char const * c = start;
 
         char piece_chr = *c++;
@@ -167,8 +151,7 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
         char tag = *c;
         CcTagEnum te = cc_tag_from_char( tag );
 
-        if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) )
-        {
+        if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) ) {
             cc_game_free_all( &game__a );
             return NULL;
         }

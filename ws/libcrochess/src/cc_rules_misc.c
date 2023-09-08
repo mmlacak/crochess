@@ -17,8 +17,7 @@
 
 static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
                                            char const * restrict an_end__d,
-                                           size_t max_len__d )
-{
+                                           size_t max_len__d ) {
     if ( !an_start ) return CC_DRAW_OFFER_NOT_FOUND;
 
     size_t len = cc_str_len( an_start, an_end__d, max_len__d );
@@ -36,20 +35,14 @@ static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
         return CC_DRAW_OFFER_NOT_FOUND;
 
     // Do mind: reverse order!
-    if ( *c == ')' )
-    {
-        if ( *--c == '=' )
-        {
-            if ( *--c == '(' )
-            {
+    if ( *c == ')' ) {
+        if ( *--c == '=' ) {
+            if ( *--c == '(' ) {
                 // "(=)" draw offered
                 return CC_DRAW_OFFER_FOUND;
             }
-        }
-        else if ( *c == '-' )
-        {
-            if ( *--c == '(' )
-            {
+        } else if ( *c == '-' ) {
+            if ( *--c == '(' ) {
                 // "(-)" draw offer canceled
                 return CC_DRAW_OFFER_CANCELED;
             }
@@ -61,8 +54,7 @@ static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
 
 
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
-                                       CcGameStatusEnum gse )
-{
+                                       CcGameStatusEnum gse ) {
     if ( !moves ) return false;
     if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false;
 
@@ -70,8 +62,7 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
     CcMove * m = moves;
     while ( m->next ) m = m->next; // rewind to last
 
-    while ( m )
-    {
+    while ( m ) {
         draw_offer = cc_an_str_ends_with_draw_offer( m->notation,
                                                      NULL,
                                                      CC_MAX_LEN_ZERO_TERMINATED );
@@ -91,8 +82,7 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
     return false;
 }
 
-int cc_promoting_rank( CcChessboard * restrict cb, bool is_light )
-{
+int cc_promoting_rank( CcChessboard * restrict cb, bool is_light ) {
     if ( !is_light ) return 0;
     if ( !cb ) return CC_INVALID_COORD;
 
@@ -101,10 +91,8 @@ int cc_promoting_rank( CcChessboard * restrict cb, bool is_light )
 
 // TODO :: DELETE
 //
-// bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag )
-// {
-//     switch ( lost )
-//     {
+// bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag ) {
+//     switch ( lost ) {
 //         case CC_TE_DelayedPromotion :
 //         case CC_TE_CanRush :
 //         case CC_TE_CanCastle :
@@ -120,28 +108,22 @@ int cc_promoting_rank( CcChessboard * restrict cb, bool is_light )
 bool cc_check_promote_or_tag( CcChessboard * restrict cb,
                               CcPieceEnum pawn,
                               CcPos start,
-                              CcPos destination )
-{
+                              CcPos destination ) {
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, start.i, start.j ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
-    if ( !cc_pos_is_equal( start, destination ) )
-    {
+    if ( !cc_pos_is_equal( start, destination ) ) {
         CcPos step = cc_pos_difference( destination, start );
 
-        if ( cc_is_pawn_step( cb->type, pawn, step ) )
-        {
+        if ( cc_is_pawn_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
                 return false;
-        }
-        else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) )
-        {
+        } else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
                 return false;
-        }
-        else
+        } else
             return false;
 
         // Movement (+ capture / activation) + promotion.
@@ -151,9 +133,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
 
         if ( rank == destination.j ) return true;
-    }
-    else
-    {
+    } else {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
         if ( !CC_PIECE_IS_THE_SAME( pe, pawn ) ) return false;
 
@@ -166,20 +146,16 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
     return false;
 }
 
-bool cc_delete_en_passant_tag( CcChessboard * restrict cb )
-{
+bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
     if ( !cb ) return false;
 
     unsigned int count = 0;
 
-    for ( int i = 0; i < (int)cb->size; ++i )
-    {
-        for ( int j = 0; j < (int)cb->size; ++j )
-        {
+    for ( int i = 0; i < (int)cb->size; ++i ) {
+        for ( int j = 0; j < (int)cb->size; ++j ) {
             CcTagEnum te = cc_chessboard_get_tag( cb, i, j );
 
-            if ( te == CC_TE_EnPassant )
-            {
+            if ( te == CC_TE_EnPassant ) {
                 if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )
                     return false;
 

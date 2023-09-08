@@ -14,8 +14,7 @@
 */
 
 
-int cc_gcd( int x, int y )
-{
+int cc_gcd( int x, int y ) {
     // https://en.wikipedia.org/wiki/Euclidean_algorithm
 
     int abs_x = abs( x );
@@ -26,8 +25,7 @@ int cc_gcd( int x, int y )
 
     int rem = 0;
 
-    while ( min > 0 )
-    {
+    while ( min > 0 ) {
         rem = max % min;
         max = min;
         min = rem;
@@ -36,8 +34,7 @@ int cc_gcd( int x, int y )
     return max;
 }
 
-size_t cc_diagonal( size_t size )
-{
+size_t cc_diagonal( size_t size ) {
     size_t s = 2 * size * size;
     long double d = ceill( sqrtl( (long double)s ) );
     return (size_t)d;

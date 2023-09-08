@@ -21,13 +21,11 @@
 */
 
 
-CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
-{
+CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup ) {
     CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
     if ( !cb__a ) return NULL;
 
-    if ( !cc_chessboard_init( cb__a, ve, do_setup ) )
-    {
+    if ( !cc_chessboard_init( cb__a, ve, do_setup ) ) {
         CC_FREE( cb__a );
         return NULL;
     }
@@ -37,8 +35,7 @@ CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
 
 bool cc_chessboard_init( CcChessboard * restrict cb__io,
                          CcVariantEnum ve,
-                         bool do_setup )
-{
+                         bool do_setup ) {
     if ( !cb__io ) return false;
 
     cb__io->type = ve;
@@ -50,8 +47,7 @@ bool cc_chessboard_init( CcChessboard * restrict cb__io,
         return cc_chessboard_clear( cb__io );
 }
 
-bool cc_chessboard_is_size_valid( CcChessboard * restrict cb )
-{
+bool cc_chessboard_is_size_valid( CcChessboard * restrict cb ) {
     if ( !cb ) return false;
 
     unsigned int size = cc_variant_board_size( cb->type );
@@ -59,14 +55,11 @@ bool cc_chessboard_is_size_valid( CcChessboard * restrict cb )
     return ( size == cb->size );
 }
 
-bool cc_chessboard_clear( CcChessboard * restrict cb__io )
-{
+bool cc_chessboard_clear( CcChessboard * restrict cb__io ) {
     if ( !cb__io ) return false;
 
-    for ( int i = 0; i < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++i )
-    {
-        for ( int j = 0; j < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++j )
-        {
+    for ( int i = 0; i < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++i ) {
+        for ( int j = 0; j < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++j ) {
             cb__io->board[ i ][ j ] = CC_PE_None;
             cb__io->tags[ i ][ j ] = CC_TE_None;
         }
@@ -75,8 +68,7 @@ bool cc_chessboard_clear( CcChessboard * restrict cb__io )
     return true;
 }
 
-bool cc_chessboard_setup( CcChessboard * restrict cb__io )
-{
+bool cc_chessboard_setup( CcChessboard * restrict cb__io ) {
     if ( !cb__io ) return false;
 
     if ( !cc_chessboard_clear( cb__io ) ) return false;
@@ -87,10 +79,8 @@ bool cc_chessboard_setup( CcChessboard * restrict cb__io )
     CcTagEnum const * tu = cc_setup_tags_get( cb__io->type );
     if ( !tu ) return false;
 
-    for ( int i = 0; i < (int)cb__io->size; ++i )
-    {
-        for ( int j = 0; j < (int)cb__io->size; ++j )
-        {
+    for ( int i = 0; i < (int)cb__io->size; ++i ) {
+        for ( int j = 0; j < (int)cb__io->size; ++j ) {
             int x = j;
             int y = cb__io->size - i - 1;
             int z = cb__io->size * i + j;
@@ -105,18 +95,15 @@ bool cc_chessboard_setup( CcChessboard * restrict cb__io )
 
 
 bool cc_chessboard_copy( CcChessboard * restrict into__io,
-                         CcChessboard * restrict from )
-{
+                         CcChessboard * restrict from ) {
     if ( !into__io ) return false;
     if ( !from ) return false;
 
     if ( !cc_chessboard_init( into__io, from->type, false ) )
         return false;
 
-    for ( int i = 0; i < (int)into__io->size; ++i )
-    {
-        for ( int j = 0; j < (int)into__io->size; ++j )
-        {
+    for ( int i = 0; i < (int)into__io->size; ++i ) {
+        for ( int j = 0; j < (int)into__io->size; ++j ) {
             into__io->board[ i ][ j ] = from->board[ i ][ j ];
             into__io->tags[ i ][ j ] = from->tags[ i ][ j ];
         }
@@ -125,8 +112,7 @@ bool cc_chessboard_copy( CcChessboard * restrict into__io,
     return true;
 }
 
-CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from )
-{
+CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from ) {
     if ( !from ) return NULL;
 
     CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
@@ -134,8 +120,7 @@ CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from )
 
     cc_chessboard_init( cb__a, from->type, false );
 
-    if ( !cc_chessboard_copy( cb__a, from ) )
-    {
+    if ( !cc_chessboard_copy( cb__a, from ) ) {
         CC_FREE( cb__a );
         return NULL;
     }
@@ -143,8 +128,7 @@ CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from )
     return cb__a;
 }
 
-bool cc_chessboard_free_all( CcChessboard ** restrict cb__f )
-{
+bool cc_chessboard_free_all( CcChessboard ** restrict cb__f ) {
     if ( !cb__f ) return false;
     if ( !*cb__f ) return true;
 
@@ -152,49 +136,41 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f )
     return true;
 }
 
-bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord )
-{
+bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord ) {
     if ( !cb ) return false;
     return CC_IS_COORD_ON_BOARD( cb->size, coord );
 }
 
-bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j )
-{
+bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j ) {
     if ( !cb ) return false;
     return CC_IS_COORD_2_ON_BOARD( cb->size, i, j );
 }
 
-bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord )
-{
+bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord ) {
     if ( !cb ) return false;
     size_t diag = cc_diagonal( cb->size );
     return ( ( (int)(-diag) <= coord ) && ( coord <= (int)( cb->size + diag ) ) );
 }
 
-bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int j )
-{
+bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int j ) {
     if ( !cb ) return false;
     size_t diag = cc_diagonal( cb->size );
     return ( ( (int)(-diag) <= i ) && ( i <= (int)( cb->size + diag ) ) && \
              ( (int)(-diag) <= j ) && ( j <= (int)( cb->size + diag ) ) );
 }
 
-bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j )
-{
+bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j ) {
     if ( !cb ) return false;
     return CC_IS_FIELD_ON_LIGHT_SIDE( cb->size, j );
 }
 
-bool cc_chessboard_is_field_on_dark_side( CcChessboard * restrict cb, int j )
-{
+bool cc_chessboard_is_field_on_dark_side( CcChessboard * restrict cb, int j ) {
     if ( !cb ) return false;
     return CC_IS_FIELD_ON_DARK_SIDE( cb->size, j );
 }
 
-CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb, int i, int j )
-{
-    if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
-    {
+CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb, int i, int j ) {
+    if ( cc_chessboard_is_pos_on_board( cb, i, j ) ) {
         return cb->board[ i ][ j ];
     }
 
@@ -203,10 +179,8 @@ CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb, int i, int j )
 
 CcTagEnum cc_chessboard_get_tag( CcChessboard * restrict cb,
                                  int i,
-                                 int j )
-{
-    if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
-    {
+                                 int j ) {
+    if ( cc_chessboard_is_pos_on_board( cb, i, j ) ) {
         return cb->tags[ i ][ j ];
     }
 
@@ -217,12 +191,10 @@ bool cc_chessboard_set_piece_tag( CcChessboard * restrict cb__io,
                                   int i,
                                   int j,
                                   CcPieceEnum pe,
-                                  CcTagEnum tt )
-{
+                                  CcTagEnum tt ) {
     if ( !cb__io ) return false;
 
-    if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) )
-    {
+    if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {
         cb__io->board[ i ][ j ] = pe;
         cb__io->tags[ i ][ j ] = tt;
 
@@ -236,20 +208,17 @@ bool cc_chessboard_set_piece_tag( CcChessboard * restrict cb__io,
 bool cc_chessboard_set_piece( CcChessboard * restrict cb__io,
                               int i,
                               int j,
-                              CcPieceEnum pe )
-{
+                              CcPieceEnum pe ) {
     return cc_chessboard_set_piece_tag( cb__io, i, j, pe, CC_TE_None );
 }
 
 bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
                             int i,
                             int j,
-                            CcTagEnum tt )
-{
+                            CcTagEnum tt ) {
     if ( !cb__io ) return false;
 
-    if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) )
-    {
+    if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {
         cb__io->tags[ i ][ j ] = tt;
 
         return ( cb__io->tags[ i ][ j ] == tt );
@@ -258,18 +227,15 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
     return false;
 }
 
-bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict cb_2 )
-{
+bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict cb_2 ) {
     if ( !cb ) return false;
     if ( !cb_2 ) return false;
 
     if ( cb->type != cb_2->type ) return false;
     if ( cb->size != cb_2->size ) return false;
 
-    for ( int i = 0; i < (int)cb->size; ++i )
-    {
-        for ( int j = 0; j < (int)cb->size; ++j )
-        {
+    for ( int i = 0; i < (int)cb->size; ++i ) {
+        for ( int j = 0; j < (int)cb->size; ++j ) {
             if ( cb->board[ i ][ j ] != cb_2->board[ i ][ j ] ) return false;
             if ( cb->tags[ i ][ j ] != cb_2->tags[ i ][ j ] ) return false;
         }
@@ -279,16 +245,14 @@ bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict
 }
 
 
-static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb )
-{
+static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb ) {
     if ( !cb ) return NULL;
 
     size_t len = 3 + 2 * cb->size + 3 + 1;
     char * divider__a = calloc( 1, len );
     if ( !divider__a ) return NULL;
 
-    for ( int i = 0; i < (int)len; ++i )
-    {
+    for ( int i = 0; i < (int)len; ++i ) {
         if ( i < 3 ) divider__a[ i ] = ' ';
         else if ( i < 3 + 2 * (int)cb->size - 1 ) divider__a[ i ] = '-';
         else if ( i < (int)len ) divider__a[ i ] = ' ';
@@ -300,8 +264,7 @@ static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb )
     return divider__a;
 }
 
-static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb )
-{
+static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb ) {
     if ( !cb ) return NULL;
 
     size_t len = 3 + 2 * cb->size + 3 + 1;
@@ -309,19 +272,16 @@ static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict c
     if ( !hr__a ) return NULL;
 
     char ch = 'a';
-    for ( int i = 0; i < (int)len; ++i )
-    {
+    for ( int i = 0; i < (int)len; ++i ) {
         if ( i < 3 ) hr__a[ i ] = ' ';
-        else if ( i < 3 + 2 * (int)cb->size )
-        {
+        else if ( i < 3 + 2 * (int)cb->size ) {
             if ( i % 2 == 0 ) hr__a[ i ] = ' ';
             else
             {
                 hr__a[ i ] = ch;
                 ++ch;
             }
-        }
-        else if ( i < (int)len ) hr__a[ i ] = ' ';
+        } else if ( i < (int)len ) hr__a[ i ] = ' ';
     }
 
     hr__a[ len - 2 ] = '\n';
@@ -331,16 +291,14 @@ static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict c
 }
 
 char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
-                                     bool is_board_or_tag )
-{
+                                     bool is_board_or_tag ) {
     if ( !cb ) return NULL;
 
     char * show__a = calloc( 1, 2048 );
     if ( !show__a ) return NULL;
 
     char * horizontal_ruler = cc_chessboard_get_horizontal_ruler__new( cb );
-    if ( !horizontal_ruler )
-    {
+    if ( !horizontal_ruler ) {
         CC_FREE( show__a );
         return NULL;
     }
@@ -348,8 +306,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
     strcat( show__a, horizontal_ruler );
 
     char * divider__a = cc_chessboard_get_divider__new( cb );
-    if ( !divider__a )
-    {
+    if ( !divider__a ) {
         CC_FREE( show__a );
         CC_FREE( horizontal_ruler );
         return NULL;
@@ -358,8 +315,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
     strcat( show__a, divider__a );
 
     char * row__a = calloc(1, 6);
-    if ( !row__a )
-    {
+    if ( !row__a ) {
         CC_FREE( show__a );
         CC_FREE( horizontal_ruler );
         CC_FREE( divider__a );
@@ -367,8 +323,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
     }
 
     char * field__a = calloc(1, 3);
-    if ( !field__a )
-    {
+    if ( !field__a ) {
         CC_FREE( show__a );
         CC_FREE( horizontal_ruler );
         CC_FREE( divider__a );
@@ -376,14 +331,12 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
         return NULL;
     }
 
-    for ( int i = 0; i < (int)cb->size; ++i )
-    {
+    for ( int i = 0; i < (int)cb->size; ++i ) {
         char r = (char)( cb->size - i );
         sprintf( row__a, "%2hhu|", r );
         strcat( show__a, row__a );
 
-        for ( int j = 0; j < (int)cb->size; ++j )
-        {
+        for ( int j = 0; j < (int)cb->size; ++j ) {
             char ch;
             int x = j;
             int y = cb->size - i - 1;
@@ -393,8 +346,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
             else
                 ch = cc_tag_as_char( cb->tags[ x ][ y ] );
 
-            if ( ch == ' ' )
-            {
+            if ( ch == ' ' ) {
                 if ( CC_IS_FIELD_LIGHT( x, y ) ) ch = '.';
                 else ch = ',';
             }
@@ -425,8 +377,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
 // TODO :: move out
 //
 bool cc_chessboard_print( CcChessboard * restrict cb,
-                          bool is_board_or_tag )
-{
+                          bool is_board_or_tag ) {
     if ( !cb ) return false;
 
     char * show__a = cc_chessboard_as_string__new( cb, is_board_or_tag );

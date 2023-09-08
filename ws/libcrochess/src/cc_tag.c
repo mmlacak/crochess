@@ -9,10 +9,8 @@
 */
 
 
-char cc_tag_as_char( CcTagEnum ct )
-{
-    switch ( ct )
-    {
+char cc_tag_as_char( CcTagEnum ct ) {
+    switch ( ct ) {
         case CC_TE_None : return CC_TAG_CHAR_NONE;
         case CC_TE_CanRush : return CC_TAG_CHAR_CAN_RUSH;
         case CC_TE_CanCastle : return CC_TAG_CHAR_CAN_CASTLE;
@@ -24,10 +22,8 @@ char cc_tag_as_char( CcTagEnum ct )
     }
 }
 
-CcTagEnum cc_tag_from_char( char c )
-{
-    switch ( c )
-    {
+CcTagEnum cc_tag_from_char( char c ) {
+    switch ( c ) {
         case CC_TAG_CHAR_NONE : return CC_TE_None;
         case CC_TAG_CHAR_CAN_RUSH : return CC_TE_CanRush;
         case CC_TAG_CHAR_CAN_CASTLE : return CC_TE_CanCastle;
@@ -40,10 +36,8 @@ CcTagEnum cc_tag_from_char( char c )
 }
 
 
-char const * cc_losing_tag_as_string( CcLosingTagEnum te )
-{
-    switch ( te )
-    {
+char const * cc_losing_tag_as_string( CcLosingTagEnum te ) {
+    switch ( te ) {
         case CC_LTE_DelayedPromotion : return "==";
         case CC_LTE_CanRush : return "::";
         case CC_LTE_CanCastle : return "&&";
@@ -52,10 +46,8 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum te )
     }
 }
 
-CcLosingTagEnum cc_tag_to_losing( CcTagEnum te )
-{
-    switch ( te )
-    {
+CcLosingTagEnum cc_tag_to_losing( CcTagEnum te ) {
+    switch ( te ) {
         case CC_TE_DelayedPromotion : return CC_LTE_DelayedPromotion;
         case CC_TE_CanRush : return CC_LTE_CanRush;
         case CC_TE_CanCastle : return CC_LTE_CanCastle;
@@ -64,10 +56,8 @@ CcLosingTagEnum cc_tag_to_losing( CcTagEnum te )
     }
 }
 
-CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte )
-{
-    switch ( lte )
-    {
+CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte ) {
+    switch ( lte ) {
         case CC_LTE_DelayedPromotion : return CC_TE_DelayedPromotion;
         case CC_LTE_CanRush : return CC_TE_CanRush;
         case CC_LTE_CanCastle : return CC_TE_CanCastle;

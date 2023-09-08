@@ -18,8 +18,7 @@
 
 
 CcStrings * cc_strings__new( char const * restrict str,
-                             size_t max_len__d )
-{
+                             size_t max_len__d ) {
     CcStrings * str__a = malloc( sizeof( CcStrings ) );
     if ( !str__a ) return NULL;
 
@@ -31,8 +30,7 @@ CcStrings * cc_strings__new( char const * restrict str,
 
 CcStrings * cc_strings_append( CcStrings * restrict strings__io,
                                char const * restrict str,
-                               size_t max_len__d )
-{
+                               size_t max_len__d ) {
     if ( !strings__io ) return NULL;
 
     CcStrings * str__t = cc_strings__new( str, max_len__d );
@@ -47,8 +45,7 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
 
 CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
                                   char const * restrict str,
-                                  size_t max_len__d )
-{
+                                  size_t max_len__d ) {
     if ( !strings__io ) return NULL;
 
     CcStrings * str__w = NULL;
@@ -63,8 +60,7 @@ CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
 
 CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
                                       size_t max_len__d,
-                                      char const * restrict fmt, ... )
-{
+                                      char const * restrict fmt, ... ) {
     if ( !strings__io ) return NULL;    // To avoid alloc() + free() of str__a;
                                         // even though this is never referenced.
 
@@ -84,8 +80,7 @@ CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
     return pm__w;
 }
 
-CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings )
-{
+CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {
     if ( !strings ) return NULL;
 
     CcStrings * new__a = cc_strings__new( strings->str, CC_MAX_LEN_ZERO_TERMINATED );
@@ -93,10 +88,8 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings )
 
     CcStrings * s = strings->next;
 
-    while ( s )
-    {
-        if ( !cc_strings_append( new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) )
-        {
+    while ( s ) {
+        if ( !cc_strings_append( new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) ) {
             cc_strings_free_all( &new__a );
             return NULL;
         }
@@ -107,16 +100,14 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings )
     return new__a;
 }
 
-bool cc_strings_free_all( CcStrings ** restrict strings__f )
-{
+bool cc_strings_free_all( CcStrings ** restrict strings__f ) {
     if ( !strings__f ) return false;
     if ( !*strings__f ) return true;
 
     CcStrings * str = *strings__f;
     CcStrings * tmp = NULL;
 
-    while ( str )
-    {
+    while ( str ) {
         CC_FREE( str->str );
 
         tmp = str->next;

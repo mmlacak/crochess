@@ -18,24 +18,20 @@
 CcMove * cc_move__new( char const * restrict notation,
                        size_t max_len__d,
                        CcPly ** restrict plies__n,
-                       CcMoveStatusEnum status )
-{
+                       CcMoveStatusEnum status ) {
     CcMove * mv__a = malloc( sizeof( CcMove ) );
     if ( !mv__a ) return NULL;
 
     mv__a->notation = cc_str_duplicate__new( notation, false, max_len__d );
-    if ( notation && ( !mv__a->notation ) )
-    {
+    if ( notation && ( !mv__a->notation ) ) {
         CC_FREE( mv__a );
         return NULL;
     }
 
-    if ( plies__n )
-    {
+    if ( plies__n ) {
         mv__a->plies = *plies__n;
         *plies__n = NULL; // Taking ownership.
-    }
-    else
+    } else
         mv__a->plies = NULL;
 
     mv__a->status = status;
@@ -50,8 +46,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
                          char const * restrict notation,
                          size_t max_len__d,
                          CcPly ** restrict plies__n,
-                         CcMoveStatusEnum status )
-{
+                         CcMoveStatusEnum status ) {
     if ( !moves__io ) return NULL;
 
     CcMove * mv__t = cc_move__new( notation, max_len__d, plies__n, status );
@@ -70,8 +65,7 @@ CcMove * cc_move_append_if( CcMove ** restrict moves__io,
                             char const * restrict notation,
                             size_t max_len__d,
                             CcPly ** restrict plies__n,
-                            CcMoveStatusEnum status )
-{
+                            CcMoveStatusEnum status ) {
     if ( !moves__io ) return NULL;
 
     CcMove * move__w = NULL;
@@ -84,8 +78,7 @@ CcMove * cc_move_append_if( CcMove ** restrict moves__io,
     return move__w;
 }
 
-CcMove * cc_move_duplicate_all__new( CcMove * restrict moves )
-{
+CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
     if ( !moves ) return NULL;
 
     CcMove * mv__a = NULL;
@@ -93,11 +86,9 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves )
 
     while ( from->prev ) from = from->prev; // rewind
 
-    do
-    {
+    do {
         CcPly * plies__t = cc_ply_duplicate_all__new( from->plies );
-        if ( !plies__t )
-        {
+        if ( !plies__t ) {
             cc_move_free_all( &mv__a );
             return NULL;
         }
@@ -107,8 +98,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves )
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             &plies__t,
                                             from->status );
-        if ( !mv__w )
-        {
+        if ( !mv__w ) {
             cc_ply_free_all( &plies__t ); // Failed append --> no ownership transfer ...
             cc_move_free_all( &mv__a );
             return NULL;
@@ -121,8 +111,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves )
     return mv__a;
 }
 
-bool cc_move_free_all( CcMove ** restrict moves__f )
-{
+bool cc_move_free_all( CcMove ** restrict moves__f ) {
     if ( !moves__f ) return false;
     if ( !*moves__f ) return true;
 
@@ -131,8 +120,7 @@ bool cc_move_free_all( CcMove ** restrict moves__f )
 
     while ( mv->prev ) mv = mv->prev; // rewind
 
-    while ( mv )
-    {
+    while ( mv ) {
         CC_FREE( mv->notation );
 
         CcPly ** plies = &( mv->plies );
@@ -148,16 +136,14 @@ bool cc_move_free_all( CcMove ** restrict moves__f )
 }
 
 
-size_t cc_move_plies_count( CcMove * restrict move )
-{
+size_t cc_move_plies_count( CcMove * restrict move ) {
     if ( !move ) return 0;
     if ( !move->plies ) return 0;
 
     size_t count = 1;
     CcPly * p = move->plies;
 
-    while ( p->next )
-    {
+    while ( p->next ) {
         ++count;
         p = p->next;
     }

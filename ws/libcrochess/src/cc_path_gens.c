@@ -14,8 +14,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                         CcPos starting,
                         CcPieceEnum piece,
                         bool include_opponent,
-                        CcPos * restrict pos__io )
-{
+                        CcPos * restrict pos__io ) {
     if ( !cb_before_activation ) return false;
     if ( !pos__io ) return false;
 
@@ -33,20 +32,16 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
     bool is_comparable = cc_pos_is_valid( starting ) ||
                          cc_pos_is_disambiguation( starting );
 
-    for ( int i = pos.i; i < size; ++i )
-    {
-        for ( int j = pos.j; j < size; ++j )
-        {
+    for ( int i = pos.i; i < size; ++i ) {
+        for ( int j = pos.j; j < size; ++j ) {
             CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, i, j );
 
             if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
-                 ( include_opponent && cc_piece_is_opposite( pe, piece ) ) )
-            {
+                    ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {
                 CcPos current = cc_pos( i, j );
 
                 if ( ( !is_comparable ) ||
-                       cc_pos_is_congruent( starting, current ) )
-                {
+                       cc_pos_is_congruent( starting, current ) ) {
                     *pos__io = current;
                     return true;
                 }
@@ -63,8 +58,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
 
 bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
                          CcPos start,
-                         CcPos destination )
-{
+                         CcPos destination ) {
     if ( !cb_before_activation ) return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb_before_activation, start.i, start.j ) )
@@ -81,28 +75,23 @@ bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
 bool cc_is_step_capture( CcPieceEnum activator,
                          CcPieceEnum piece,
                          CcPos step,
-                         CcPos step_2 )
-{
+                         CcPos step_2 ) {
     if ( !CC_PIECE_IS_VALID( piece ) ) return false;
 
     if ( !cc_pos_is_valid( step ) ) return false;
     if ( cc_pos_is_static_step( step ) ) return false;
 
-    if ( CC_PIECE_IS_PAWN( piece ) )
-    {
+    if ( CC_PIECE_IS_PAWN( piece ) ) {
         if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
         else
             return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
-    }
-    else if ( CC_PIECE_IS_SHAMAN( piece ) )
-    {
+    } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
         if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
         else
             return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
-    }
-    else if ( CC_PIECE_IS_WAVE( piece ) )
+    } else if ( CC_PIECE_IS_WAVE( piece ) )
         return cc_is_step_capture( CC_PE_None, activator, step, step_2 );
     else if ( CC_PIECE_IS_MONOLITH( piece ) )
         return false;
@@ -114,16 +103,14 @@ bool cc_is_step_capture( CcPieceEnum activator,
     return true;
 }
 
-bool cc_is_step_miracle( CcPieceEnum piece, CcPos step )
-{
+bool cc_is_step_miracle( CcPieceEnum piece, CcPos step ) {
     if ( CC_PIECE_IS_STARCHILD( piece ) )
         return CC_STARCHILD_MIRACLE_STEP_IS_VALID( step );
 
     return false;
 }
 
-bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step )
-{
+bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step ) {
     return ( ( ( piece == CC_PE_LightShaman ) &&
                CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step ) ) ||
              ( ( piece == CC_PE_DarkShaman ) &&
@@ -135,8 +122,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                       CcPos start,
                       CcPos destination,
                       CcPos step,
-                      CcPos step_2 )
-{
+                      CcPos step_2 ) {
     if ( !cc_check_path_args( cb_before_activation, start, destination ) )
         return false;
 
@@ -158,8 +144,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
 
     // Own Pyramid can be activated by any own piece on capture-fields, or
     // by Starchild on miracle-fields, or by Wave activated on those fields.
-    if ( CC_PIECE_IS_PYRAMID( target ) )
-    {
+    if ( CC_PIECE_IS_PYRAMID( target ) ) {
         if ( is_same_owner )
             return cc_is_step_capture( activator, piece, step, step_2 ) ||
                    cc_is_step_miracle( piece, step ) ||
@@ -175,16 +160,14 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
 
     // Wave can activate other Wave, or any other own piece, except King (already handled).
     // Pyramid can only be activated on capture- or miracle-fields (also handled).
-    if ( CC_PIECE_IS_WAVE( piece ) )
-    {
+    if ( CC_PIECE_IS_WAVE( piece ) ) {
         if ( CC_PIECE_IS_WAVE( target ) || is_same_owner )
             return true;
         else
             return false;
     }
 
-    if ( CC_PIECE_IS_STARCHILD( piece ) )
-    {
+    if ( CC_PIECE_IS_STARCHILD( piece ) ) {
         if ( CC_PIECE_IS_STARCHILD( target ) || CC_PIECE_IS_WAVE( target ) )
             // Starchild can activate own Starchild, Wave; on its step-fields.
             return is_same_owner;
@@ -209,11 +192,9 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
                  !CC_PIECE_IS_MONOLITH( piece ) &&
                  !CC_PIECE_IS_STAR( piece ) );
 
-    if ( CC_PIECE_IS_PYRAMID( piece ) )
-    {
+    if ( CC_PIECE_IS_PYRAMID( piece ) ) {
         // Pyramid can tag for promotion own Pawn on opponent's side of a chessboard.
-        if ( CC_PIECE_IS_PAWN( target ) && is_same_owner )
-        {
+        if ( CC_PIECE_IS_PAWN( target ) && is_same_owner ) {
             if ( cc_piece_is_light( piece ) )
                 return ( ( cc_chessboard_is_field_on_dark_side( cb_before_activation,
                                                                 start.j ) ) &&
@@ -227,8 +208,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
         }
 
         // Pyramid can convert any opponent's piece on own side of a chessboard.
-        if ( target_is_owned && !is_same_owner )
-        {
+        if ( target_is_owned && !is_same_owner ) {
             if ( cc_piece_is_light( piece ) )
                 return ( ( cc_chessboard_is_field_on_light_side( cb_before_activation,
                                                                  start.j ) ) &&
@@ -243,8 +223,7 @@ bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
     }
 
     // Any piece can capture opponent's piece, except Starchild, Wave, Star, Monolith.
-    if ( piece_is_owned && target_is_owned && !is_same_owner )
-    {
+    if ( piece_is_owned && target_is_owned && !is_same_owner ) {
         return ( !CC_PIECE_IS_WAVE( piece ) &&
                  !CC_PIECE_IS_STARCHILD( piece ) &&
                  !CC_PIECE_IS_MONOLITH( piece ) &&
@@ -264,8 +243,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                CcPos start,
                                CcPos destination,
                                CcPos step,
-                               CcPos step_2 )
-{
+                               CcPos step_2 ) {
     if ( !cc_check_path_args( cb_before_activation, start, destination ) )
         return NULL;
 
@@ -287,44 +265,36 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
     CcPos last_pos = CC_POS_CAST_INVALID;
 
     for ( CcPos pos = cc_pos_add( start, s, 1 );
-          !cc_pos_is_equal( pos, destination ) && \
-              cc_chessboard_is_pos_safe_off_board( cb_before_activation, pos.i, pos.j );
-          pos = cc_pos_add( pos, s, 1 ) )
-    {
+            !cc_pos_is_equal( pos, destination ) && \
+                cc_chessboard_is_pos_safe_off_board( cb_before_activation, pos.i, pos.j );
+            pos = cc_pos_add( pos, s, 1 ) ) {
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, pos.i, pos.j );
         CcTagEnum te = cc_chessboard_get_tag( cb_before_activation, pos.i, pos.j );
 
-        if ( CC_PIECE_IS_WAVE( piece ) )
-        {
+        if ( CC_PIECE_IS_WAVE( piece ) ) {
             if ( CC_PIECE_IS_MONOLITH( pe ) )
                 piece_in_the_way = true;
-        }
-        else if ( cc_is_step_shamans_capture( piece, step ) )
-        {
+        } else if ( cc_is_step_shamans_capture( piece, step ) ) {
             if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ||
                  !cc_piece_has_different_owner( piece, pe ) )
                 piece_in_the_way = true;
-        }
-        else
+        } else
             if ( !CC_PIECE_IS_NONE( pe ) )
                 piece_in_the_way = true;
 
-        if ( piece_in_the_way )
-        {
+        if ( piece_in_the_way ) {
             cc_pos_link_free_all( &path__a );
             return NULL;
         }
 
-        if ( !CC_POS_LINK_APPEND( path__a, pos, pe, te ) )
-        {
+        if ( !CC_POS_LINK_APPEND( path__a, pos, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
             return NULL;
         }
 
         last_pos = pos;
 
-        if ( is_alternating_steps )
-        {
+        if ( is_alternating_steps ) {
             s = is_even_step ? step_2 : step;
             is_even_step = !is_even_step;
         }
@@ -335,8 +305,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
     CcPos end = cc_pos_add( last_pos, s, 1 );
 
-    if ( !cc_pos_is_equal( end, destination ) )
-    {
+    if ( !cc_pos_is_equal( end, destination ) ) {
         cc_pos_link_free_all( &path__a );
         return NULL;
     }
@@ -349,8 +318,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                           destination.i,
                                           destination.j );
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-    {
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
         return NULL;
     }
@@ -362,8 +330,7 @@ bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
                              CcPieceEnum activator,
                              CcPos start,
                              CcPos destination,
-                             CcPieceEnum expected_type )
-{
+                             CcPieceEnum expected_type ) {
     if ( !cc_check_path_args( cb_before_activation, start, destination ) )
         return false;
 
@@ -390,8 +357,7 @@ bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
     return false;
 }
 
-bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos )
-{
+bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos ) {
     if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
         return true;
 
@@ -405,8 +371,7 @@ bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos )
 CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
                                CcPos start,
-                               CcPos destination )
-{
+                               CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -422,16 +387,12 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
     bool has_sideways_pawns = cc_variant_has_sideways_pawns( cb_before_activation->type );
     int momentum = cc_pos_momentum( start, destination );
 
-    if ( CC_PIECE_IS_PAWN( piece ) )
-    {
-        if ( cc_piece_is_light( piece ) )
-        {
-            if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) )
-            {
-                if ( momentum > 1 )
-                {
+    if ( CC_PIECE_IS_PAWN( piece ) ) {
+        if ( cc_piece_is_light( piece ) ) {
+            if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ) {
+                if ( momentum > 1 ) {
                     if ( CC_TAG_CAN_RUSH( tag ) &&
-                         cc_chessboard_is_field_on_light_side( cb_before_activation, destination.j ) )
+                            cc_chessboard_is_field_on_light_side( cb_before_activation, destination.j ) )
                         return cc_link_positions( cb_before_activation,
                                                   start,
                                                   destination,
@@ -441,24 +402,18 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                         return NULL;
                 }
             }
-            else if ( CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) )
-            {
+            else if ( CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) ) {
                 // Nothing to be done here, except bail-out.
             }
             else if ( has_sideways_pawns &&
-                      CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) )
-            {
+                      CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) {
                 // Nothing to be done here, except bail-out.
             }
             else
                 return NULL;
-        }
-        else if ( cc_piece_is_dark( piece ) )
-        {
-            if ( CC_DARK_PAWN_STEP_IS_VALID( step ) )
-            {
-                if ( momentum > 1 )
-                {
+        } else if ( cc_piece_is_dark( piece ) ) {
+            if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ) {
+                if ( momentum > 1 ) {
                     if ( CC_TAG_CAN_RUSH( tag ) &&
                          cc_chessboard_is_field_on_dark_side( cb_before_activation, destination.j ) )
                         return cc_link_positions( cb_before_activation,
@@ -470,19 +425,16 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                         return NULL;
                 }
             }
-            else if ( CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) )
-            {
+            else if ( CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ) {
                 // Nothing to be done here, except bail-out.
             }
             else if ( has_sideways_pawns &&
-                      CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) )
-            {
+                      CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) {
                 // Nothing to be done here, except bail-out.
             }
             else
                 return NULL;
-        }
-        else
+        } else
             return NULL;
 
         if ( !cc_pos_is_equal( pos_1, destination ) ) return NULL;
@@ -499,40 +451,32 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                               destination.i,
                                               destination.j );
 
-        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-        {
+        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
             return NULL;
         }
 
         return path__a;
-    }
-    else if ( CC_PIECE_IS_PAWN( activator ) &&
-              CC_PIECE_IS_WAVE( piece ) )
-    {
+    } else if ( CC_PIECE_IS_PAWN( activator ) &&
+              CC_PIECE_IS_WAVE( piece ) ) {
         if ( !cc_piece_has_same_owner( piece, activator ) ) return NULL;
 
-        if ( cc_piece_is_light( activator ) )
-        {
+        if ( cc_piece_is_light( activator ) ) {
             if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ||
-                 CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
-                 ( has_sideways_pawns &&
-                   CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) )
-            {
+                    CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
+                    ( has_sideways_pawns &&
+                    CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) ) {
                 return cc_link_positions( cb_before_activation,
                                           start,
                                           destination,
                                           step,
                                           CC_POS_CAST_STATIC_STEP );
             }
-        }
-        else if ( cc_piece_is_dark( activator ) )
-        {
+        } else if ( cc_piece_is_dark( activator ) ) {
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ||
-                 CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
-                 ( has_sideways_pawns &&
-                   CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) )
-            {
+                    CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
+                    ( has_sideways_pawns &&
+                    CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ) ) ) {
                 return cc_link_positions( cb_before_activation,
                                           start,
                                           destination,
@@ -548,8 +492,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
                                  CcPos start,
-                                 CcPos destination )
-{
+                                 CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -565,8 +508,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
 
-    if ( CC_PIECE_IS_KNIGHT( piece ) )
-    {
+    if ( CC_PIECE_IS_KNIGHT( piece ) ) {
         CcPos end = cc_pos_add( start, step, 1 );
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
@@ -582,16 +524,14 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
                                               destination.i,
                                               destination.j );
 
-        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-        {
+        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
             return NULL;
         }
 
         return path__a;
-    }
-    else if ( CC_PIECE_IS_KNIGHT( activator ) &&
-              CC_PIECE_IS_WAVE( piece ) )
+    } else if ( CC_PIECE_IS_KNIGHT( activator ) &&
+                CC_PIECE_IS_WAVE( piece ) )
         return cc_link_positions( cb_before_activation,
                                   start,
                                   destination,
@@ -604,8 +544,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
                                  CcPos start,
-                                 CcPos destination )
-{
+                                 CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -628,8 +567,7 @@ CcPosLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
                                CcPos start,
-                               CcPos destination )
-{
+                               CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -652,8 +590,7 @@ CcPosLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
                                 CcPieceEnum activator,
                                 CcPos start,
-                                CcPos destination )
-{
+                                CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -676,8 +613,7 @@ CcPosLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
                                CcPos start,
-                               CcPos destination )
-{
+                               CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -707,8 +643,7 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
                                           destination.i,
                                           destination.j );
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-    {
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
         return NULL;
     }
@@ -719,8 +654,7 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
                                   CcPos start,
-                                  CcPos destination )
-{
+                                  CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -743,8 +677,7 @@ CcPosLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_pyramid__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
                                   CcPos start,
-                                  CcPos destination )
-{
+                                  CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -767,8 +700,7 @@ CcPosLink * cc_path_pyramid__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
                                   CcPos start,
-                                  CcPos destination )
-{
+                                  CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -781,15 +713,12 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
     CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
     CcPos step = cc_pos_step( start, destination );
 
-    if ( cc_is_the_same_color( piece, start ) )
-    {
+    if ( cc_is_the_same_color( piece, start ) ) {
         if ( !CC_UNICORN_SHORT_STEP_IS_VALID( step ) ) return NULL;
-    }
-    else
+    } else
         if ( !CC_UNICORN_LONG_STEP_IS_VALID( step ) ) return NULL;
 
-    if ( CC_PIECE_IS_UNICORN( piece ) )
-    {
+    if ( CC_PIECE_IS_UNICORN( piece ) ) {
         CcPos end = cc_pos_add( start, step, 1 );
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
@@ -805,15 +734,13 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
                                               destination.i,
                                               destination.j );
 
-        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-        {
+        if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
             cc_pos_link_free_all( &path__a );
             return NULL;
         }
 
         return path__a;
-    }
-    else if ( CC_PIECE_IS_UNICORN( activator ) &&
+    } else if ( CC_PIECE_IS_UNICORN( activator ) &&
               CC_PIECE_IS_WAVE( piece ) )
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
         return cc_link_positions( cb_before_activation,
@@ -829,8 +756,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
                                CcPieceEnum activator,
                                CcPos start,
-                               CcPos destination )
-{
+                               CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -842,15 +768,12 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
                                               destination.i,
                                               destination.j );
-
     if ( !CC_PIECE_IS_NONE( pe ) ) return NULL;
 
     CcPos step = cc_pos_step( start, destination );
-
     if ( !CC_STAR_STEP_IS_VALID( step ) ) return NULL;
 
     CcPos end = cc_pos_add( start, step, 1 );
-
     if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
@@ -862,8 +785,7 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
                                           destination.i,
                                           destination.j );
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-    {
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
         return NULL;
     }
@@ -879,8 +801,7 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_shaman__new( CcChessboard * restrict cb_before_activation,
                                  CcPieceEnum activator,
                                  CcPos start,
-                                 CcPos destination )
-{
+                                 CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -909,8 +830,7 @@ CcPosLink * cc_path_shaman__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation,
                                     CcPieceEnum activator,
                                     CcPos start,
-                                    CcPos destination )
-{
+                                    CcPos destination ) {
     // <i> Internaly calls cc_check_path_args( ... )
     if ( !cc_is_activation_valid( cb_before_activation,
                                   activator,
@@ -948,8 +868,7 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
                                           destination.i,
                                           destination.j );
 
-    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) )
-    {
+    if ( !CC_POS_LINK_APPEND( path__a, destination, pe, te ) ) {
         cc_pos_link_free_all( &path__a );
         return NULL;
     }
@@ -961,8 +880,7 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
 CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
                                    CcPieceEnum activator,
                                    CcPos start,
-                                   CcPos destination )
-{
+                                   CcPos destination ) {
     if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
     else if ( CC_PIECE_IS_PAWN( activator ) )
@@ -1007,8 +925,7 @@ CcPosLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
 CcPosLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
                                   CcPieceEnum activator,
                                   CcPos start,
-                                  CcPos destination )
-{
+                                  CcPos destination ) {
     if ( CC_PIECE_IS_NONE( activator ) )
         return NULL;
     else if ( CC_PIECE_IS_PAWN( activator ) )

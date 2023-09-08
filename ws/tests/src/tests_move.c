@@ -31,8 +31,7 @@ bool test_move( char const * restrict an_str,
                 char const * restrict setup__d,
                 char const * restrict check_setup__d,
                 char const * restrict check_end__d,
-                CcGame ** restrict game__iodr )
-{
+                CcGame ** restrict game__iodr ) {
     if ( !an_str ) return false;
     if ( !setup__d && ( !game__iodr || !*game__iodr ) ) return false;
     // if ( game__iodr && !*game__iodr ) return false;
@@ -49,8 +48,7 @@ bool test_move( char const * restrict an_str,
     cc_chessboard_print( game__a->chessboard, true );
     cc_chessboard_print( game__a->chessboard, false );
 
-    if ( check_setup__d )
-    {
+    if ( check_setup__d ) {
         CcGame * setup__a = cc_game_setup_from_string__new( check_setup__d, before_setup );
         if ( !setup__a ) return false;
 
@@ -80,8 +78,7 @@ bool test_move( char const * restrict an_str,
     // }
 // TODO
 
-    if ( check_end__d )
-    {
+    if ( check_end__d ) {
         CcGame * end__a = cc_game_setup_from_string__new( check_end__d, before_setup );
         if ( !end__a ) return false;
 
@@ -91,16 +88,13 @@ bool test_move( char const * restrict an_str,
         cc_game_free_all( &end__a );
     }
 
-    if ( game__a->moves )
-    {
+    if ( game__a->moves ) {
         CcMove * m = game__a->moves;
         while ( m->next ) m = m->next;
 
         result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
         if ( !result ) result_at |= 0x8;
-    }
-    else
-    {
+    } else {
         result = false;
         result_at |= 0x10;
     }
@@ -117,8 +111,7 @@ bool test_move( char const * restrict an_str,
         *game__iodr = game__a;
     }
 
-    if ( !result )
-    {
+    if ( !result ) {
         printf( "Move '%s' failed, error(s) 0x%x.\n", an_str, result_at );
         printf( "-----------------------------------------------------------------------\n" );
     }
@@ -127,10 +120,8 @@ bool test_move( char const * restrict an_str,
 }
 
 
-bool tests_move( int test_number )
-{
-    if ( ( test_number < 0 ) || ( 48 < test_number ) )
-    {
+bool tests_move( int test_number ) {
+    if ( ( test_number < 0 ) || ( 48 < test_number ) ) {
         printf( "No such a move test: '%d'.\n", test_number );
         return false;
     }

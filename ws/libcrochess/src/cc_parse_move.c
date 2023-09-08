@@ -18,10 +18,8 @@ static bool cc_check_standalone_status( char const char_an,
                                         CcParseMsg ** restrict parse_msgs__iod,
                                         CcMoveStatusEnum mse,
                                         size_t max_len__d,
-                                        char const * restrict msg, ... )
-{
-    if ( iscntrl( char_an ) || isspace( char_an ) )
-    {
+                                        char const * restrict msg, ... ) {
+    if ( iscntrl( char_an ) || isspace( char_an ) ) {
         ( *temp__n )->status = mse;
 
         // Ownership transfer.
@@ -29,9 +27,7 @@ static bool cc_check_standalone_status( char const char_an,
         *temp__n = NULL;
 
         return true;
-    }
-    else
-    {
+    } else {
         va_list args;
         va_start( args, msg );
 
@@ -47,8 +43,7 @@ static bool cc_check_standalone_status( char const char_an,
 bool cc_parse_move( char const * restrict move_an,
                     CcGame * restrict game,
                     CcMove ** restrict move__o,
-                    CcParseMsg ** restrict parse_msgs__iod )
-{
+                    CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !move_an ) return false;
     if ( !game ) return false;
     if ( !move__o || *move__o ) return false;
@@ -56,8 +51,7 @@ bool cc_parse_move( char const * restrict move_an,
 
     if ( !game->chessboard ) return false;
 
-    if ( !CC_GAME_STATUS_IS_TURN( game->status ) )
-    {
+    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) {
         char const * msg =
             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
                                             : "Game is finished.\n";
@@ -73,10 +67,8 @@ bool cc_parse_move( char const * restrict move_an,
     CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
     if ( !move__t ) return false;
 
-    if ( *m_an == '#' )
-    {
-        if ( *++m_an == '#' )
-        {
+    if ( *m_an == '#' ) {
+        if ( *++m_an == '#' ) {
             // "##" resign
             return cc_check_standalone_status( *++m_an,
                                                &move__t,
@@ -85,9 +77,7 @@ bool cc_parse_move( char const * restrict move_an,
                                                CC_MSE_Resign,
                                                CC_MAX_LEN_ZERO_TERMINATED,
                                                "Invalid char(s) after resign.\n" );
-        }
-        else
-        {
+        } else {
             // "#" self-checkmate
 
 // TODO :: Do check if opponent is really (self-)checkmated.
@@ -104,18 +94,13 @@ bool cc_parse_move( char const * restrict move_an,
         }
     }
 
-    if ( *m_an == '(' )
-    {
-        if ( *++m_an == '=' )
-        {
-            if ( *++m_an == '=' )
-            {
-                if ( *++m_an == ')' )
-                {
+    if ( *m_an == '(' ) {
+        if ( *++m_an == '=' ) {
+            if ( *++m_an == '=' ) {
+                if ( *++m_an == ')' ) {
                     // "(==)" draw offer accepted
 
-                    if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) )
-                    {
+                    if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) ) {
                         return cc_check_standalone_status( *++m_an,
                                                            &move__t,
                                                            move__o,
@@ -163,8 +148,7 @@ bool cc_parse_move( char const * restrict move_an,
 
     CcPly * plies__t = NULL;
 
-    if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) )
-    {
+    if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) ) {
         cc_ply_free_all( &plies__t );
         cc_move_free_all( &move__t );
         return false;

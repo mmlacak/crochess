@@ -10,10 +10,8 @@
 #include "test_msgs.h"
 
 
-char * test_msgs_enum_label( TestMsgEnum tme )
-{
-    switch ( tme )
-    {
+char * test_msgs_enum_label( TestMsgEnum tme ) {
+    switch ( tme ) {
         case TME_Debug : return "Debug";
         case TME_Info : return "Info";
         case TME_Warning : return "Warning";
@@ -29,12 +27,10 @@ bool test_print_failure( bool expr,
                          char const * restrict msg,
                          char const * restrict file,
                          size_t line,
-                         char const * restrict func )
-{
+                         char const * restrict func ) {
     bool result = expr;
 
-    if ( !result )
-    {
+    if ( !result ) {
         printf( "%s: %s; in %s(), at %s[%lu].\n", test_msgs_enum_label( type ), msg, func, file, line );
         fflush( stdout );
     }
@@ -47,8 +43,7 @@ TestMsgs * test_msgs__new( TestMsgEnum type,
                            char const * restrict msg,
                            char const * restrict file,
                            size_t line,
-                           char const * restrict func )
-{
+                           char const * restrict func ) {
     TestMsgs * new = malloc( sizeof( TestMsgs ) );
     if ( !new ) return NULL;
 
@@ -69,8 +64,7 @@ TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
                              char const * restrict msg,
                              char const * restrict file,
                              size_t line,
-                             char const * restrict func )
-{
+                             char const * restrict func ) {
     if ( !test_msgs ) return NULL;
 
     TestMsgs * new = test_msgs__new( type, msg, file, line, func );
@@ -88,8 +82,7 @@ TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
                                      char const * restrict msg,
                                      char const * restrict file,
                                      size_t line,
-                                     char const * restrict func )
-{
+                                     char const * restrict func ) {
     if ( !test_msgs ) return NULL;
 
     TestMsgs * new = test_msgs_append( *test_msgs, type, msg, file, line, func );
@@ -99,16 +92,14 @@ TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
     return new;
 }
 
-bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f )
-{
+bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f ) {
     if ( !test_msgs__f ) return false;
     if ( !*test_msgs__f ) return true;
 
     TestMsgs * tm = *test_msgs__f;
     TestMsgs * tmp = NULL;
 
-    while ( tm )
-    {
+    while ( tm ) {
         CC_FREE( tm->msg );
         CC_FREE( tm->file );
         CC_FREE( tm->func );
@@ -123,16 +114,13 @@ bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f )
 }
 
 bool test_msgs_print_all( TestMsgs * restrict test_msgs,
-                          TestMsgEnum level )
-{
+                          TestMsgEnum level ) {
     if ( !test_msgs ) return false;
 
     TestMsgs * tm = test_msgs;
 
-    while ( tm )
-    {
-        if ( tm->type >= level )
-        {
+    while ( tm ) {
+        if ( tm->type >= level ) {
             printf( "%s: %s; in %s(), at %s[%lu].\n",
                     test_msgs_enum_label( tm->type ),
                     tm->msg,

@@ -9,8 +9,7 @@
 bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
                                CcPieceEnum pawn,
                                CcPos start,
-                               CcPos destination )
-{
+                               CcPos destination ) {
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, start.i, start.j ) ) return false;
@@ -30,8 +29,7 @@ bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
 bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
                             CcPieceEnum pawn,
                             CcPos start,
-                            CcPos destination )
-{
+                            CcPos destination ) {
     if ( !cb ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
     if ( !CC_IS_COORD_2_ON_BOARD( cb->size, start.i, start.j ) ) return false;
@@ -39,8 +37,7 @@ bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
-    if ( !CC_PIECE_IS_NONE( pe ) )
-    {
+    if ( !CC_PIECE_IS_NONE( pe ) ) {
         if ( !cc_piece_has_same_color( pawn, pe ) ) return false;
         if ( !CC_PIECE_CAN_BE_ACTIVATED( pe ) ) return false;
     }
@@ -48,16 +45,13 @@ bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
     CcPos step = CC_POS_CAST_INVALID;
 
     CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
-    if ( CC_TAG_CAN_RUSH( te ) )
-    {
+    if ( CC_TAG_CAN_RUSH( te ) ) {
         step = cc_pos_step( start, destination );
 
         // Can rush only forward.
-        if ( cc_piece_is_light( pawn ) )
-        {
+        if ( cc_piece_is_light( pawn ) ) {
             if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ) return true;
-        }
-        else
+        } else
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ) return true;
     }
 

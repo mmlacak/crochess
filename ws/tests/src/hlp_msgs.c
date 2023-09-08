@@ -8,22 +8,19 @@
 
 #include "hlp_msgs.h"
 
-void print_license_intro( void )
-{
+void print_license_intro( void ) {
     printf( "Croatian chess - chess variants tests application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
     // fflush( stdout );
 }
 
-void print_version_info( char const * restrict lib_ver, char const * restrict app_ver )
-{
+void print_version_info( char const * restrict lib_ver, char const * restrict app_ver ) {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
     // fflush( stdout );
 }
 
-void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver )
-{
+void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver ) {
     print_license_intro();
 
     printf( "Licensed under GNU GPL v3+ license. Use `about` for details.\n"
@@ -37,8 +34,7 @@ void print_app_intro( char const * restrict lib_ver, char const * restrict app_v
     // fflush( stdout );
 }
 
-void print_licence_text( void )
-{
+void print_licence_text( void ) {
     printf( "\n"
             "This program is free software: you can redistribute it and/or modify\n"
             "it under the terms of the GNU General Public License as published by\n"
@@ -55,14 +51,12 @@ void print_licence_text( void )
     // fflush( stdout );
 }
 
-void print_about_info( void )
-{
+void print_about_info( void ) {
     print_license_intro();
     print_licence_text();
 }
 
-void print_help_new_code( void )
-{
+void print_help_new_code( void ) {
     printf( "cc  -> Classical Chess\n"
             "ct  -> Croatian Ties\n"
             "ma  -> Mayan Ascendancy\n"
@@ -77,10 +71,8 @@ void print_help_new_code( void )
 }
 
 void print_new_code_invalid( char const * restrict str,
-                             size_t max_len__d )
-{
-    if ( str )
-    {
+                             size_t max_len__d ) {
+    if ( str ) {
         printf( "Unrecognized code: '" );
 
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )

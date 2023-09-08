@@ -27,13 +27,11 @@
 #include "tests_misc.h"
 
 
-void test_gcd( int x, int y )
-{
+void test_gcd( int x, int y ) {
     printf( "%d ~ %d --> %d\n", x, y, cc_gcd( x, y ) );
 }
 
-void test_pos_step( int i1, int j1, int i2, int j2 )
-{
+void test_pos_step( int i1, int j1, int i2, int j2 ) {
     CcPos step = cc_pos_step( cc_pos( i1, j1 ), cc_pos( i2, j2 ) );
     printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
 }
@@ -42,8 +40,7 @@ char * test_str_append_into( char const * restrict buffer,
                              char * restrict str__io,
                              size_t size_dest__d,
                              char const * restrict str,
-                             size_t max_len__d )
-{
+                             size_t max_len__d ) {
     printf( "Before: %s\n", buffer );
     char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );
     printf( "After: %s\n", buffer );
@@ -51,8 +48,7 @@ char * test_str_append_into( char const * restrict buffer,
 }
 
 
-bool tests_gcds( void )
-{
+bool tests_gcds( void ) {
     test_gcd(  54,  24 );
     test_gcd( -54,  24 );
     test_gcd(  54, -24 );
@@ -97,8 +93,7 @@ bool tests_gcds( void )
     return true;
 }
 
-bool tests_pos_steps( void )
-{
+bool tests_pos_steps( void ) {
     test_pos_step( 2, 3, 14, 15 );
     test_pos_step( 14, 15, 2, 3 );
     printf( "---------------------\n" );
@@ -118,8 +113,7 @@ bool tests_pos_steps( void )
     return true;
 }
 
-bool tests_str_append_into( void )
-{
+bool tests_str_append_into( void ) {
     char x[ BUFSIZ ];
 
     char * p = x;
@@ -146,8 +140,7 @@ bool tests_str_append_into( void )
     return (bool)( p );
 }
 
-bool tests_str_len( void )
-{
+bool tests_str_len( void ) {
     char const * hello = "Hello, buggy world!";
     char const * start = hello + 7;
     char const * end = start + 5;
@@ -189,10 +182,8 @@ bool tests_str_len( void )
 }
 
 
-bool tests_misc( int test_number )
-{
-    if ( ( test_number < 0 ) || ( 4 < test_number ) )
-    {
+bool tests_misc( int test_number ) {
+    if ( ( test_number < 0 ) || ( 4 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false;
     }

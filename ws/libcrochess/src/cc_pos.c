@@ -18,34 +18,28 @@
 //
 // Position.
 
-CcPos cc_pos( int i, int j )
-{
+CcPos cc_pos( int i, int j ) {
     CcPos pos = { .i = i, .j = j };
     return pos;
 }
 
-bool cc_pos_is_valid( CcPos pos )
-{
+bool cc_pos_is_valid( CcPos pos ) {
     return ( CC_IS_COORD_2_VALID( pos.i, pos.j ) );
 }
 
-bool cc_pos_is_static_step( CcPos pos )
-{
+bool cc_pos_is_static_step( CcPos pos ) {
     return ( ( pos.i == 0 ) && ( pos.j == 0 ) );
 }
 
-bool cc_pos_is_disambiguation( CcPos pos )
-{
+bool cc_pos_is_disambiguation( CcPos pos ) {
     return ( CC_IS_COORD_VALID( pos.i ) || CC_IS_COORD_VALID( pos.j ) );
 }
 
-bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
-{
+bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 ) {
     return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
 }
 
-bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
-{
+bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 ) {
     bool is_file = ( CC_IS_COORD_VALID( pos_1.i ) &&
                      CC_IS_COORD_VALID( pos_2.i ) );
 
@@ -61,8 +55,7 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
     return is_file || is_rank;
 }
 
-CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count )
-{
+CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 
@@ -75,8 +68,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count )
     return cc_pos( i, j );
 }
 
-CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count )
-{
+CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 
@@ -89,8 +81,7 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count )
     return cc_pos( i, j );
 }
 
-CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 )
-{
+CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 
@@ -103,8 +94,7 @@ CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 )
     return cc_pos( i, j );
 }
 
-CcPos cc_pos_step( CcPos start, CcPos destination )
-{
+CcPos cc_pos_step( CcPos start, CcPos destination ) {
     int diff_i = destination.i - start.i;
     int diff_j = destination.j - start.j;
 
@@ -117,8 +107,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination )
     return cc_pos( diff_i, diff_j );
 }
 
-int cc_pos_momentum( CcPos start, CcPos destination )
-{
+int cc_pos_momentum( CcPos start, CcPos destination ) {
     int diff_i = destination.i - start.i;
     int diff_j = destination.j - start.j;
 
@@ -128,23 +117,19 @@ int cc_pos_momentum( CcPos start, CcPos destination )
 }
 
 bool cc_pos_to_short_string( CcPos pos,
-                             cc_char_8 * restrict pos_str__o )
-{
+                             cc_char_8 * restrict pos_str__o ) {
     if ( !pos_str__o ) return false;
 
     #define LOWER_BOUNT (-100)
     #define UPPER_BOUND (1000)
 
-    if ( CC_IS_COORD_2_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) )
-    {
+    if ( CC_IS_COORD_2_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) ) {
         snprintf( *pos_str__o,
                   CC_MAX_LEN_CHAR_8,
                   "%c%hhd",
                   CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ),
                   (signed char)(pos.j + 1) );
-    }
-    else
-    {
+    } else {
         int count = 0; // snprintf() doesn't count '\0'
 
         if ( ( LOWER_BOUNT < pos.i ) && ( pos.i < UPPER_BOUND ) )
@@ -175,28 +160,24 @@ bool cc_pos_to_short_string( CcPos pos,
 //
 // Position + piece.
 
-CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag )
-{
+CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag ) {
     CcPosPieceTag ppt = { .pos = pos, .piece = piece, .tag = tag };
     return ppt;
 }
 
-bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt )
-{
+bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt ) {
     if ( !cc_pos_is_valid( ppt.pos ) ) return false;
     if ( !CC_PIECE_IS_VALID( ppt.piece ) ) return false;
     return true;
 }
 
-bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 )
-{
+bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
     if ( !cc_pos_is_equal( ppt_1.pos, ppt_2.pos ) ) return false;
     if ( !CC_PIECE_IS_THE_SAME( ppt_1.piece, ppt_2.piece ) ) return false;
     return true;
 }
 
-bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 )
-{
+bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
     if ( !cc_pos_is_congruent( ppt_1.pos, ppt_2.pos ) ) return false;
 
     if ( CC_PIECE_IS_NONE( ppt_1.piece ) ||
@@ -208,8 +189,7 @@ bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 )
 }
 
 bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
-                                       cc_char_16 * restrict ppt_str__o )
-{
+                                       cc_char_16 * restrict ppt_str__o ) {
     if ( !ppt_str__o ) return false;
 
     if ( !cc_pos_to_short_string( ppt.pos, (cc_char_8 *)ppt_str__o ) ) return false;
@@ -222,7 +202,6 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     if ( count >= CC_MAX_LEN_CHAR_8 ) return false;
 
     *p++ = cc_piece_symbol( ppt.piece );
-
     *p = '\0';
 
     return true;
@@ -232,21 +211,18 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 //
 // Linked positions.
 
-CcPosLink * cc_pos_link__new( CcPosPieceTag ppt )
-{
+CcPosLink * cc_pos_link__new( CcPosPieceTag ppt ) {
     CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
     pl__t->ppt = ppt;
-
     pl__t->next = NULL;
 
     return pl__t;
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPosPieceTag ppt )
-{
+                                CcPosPieceTag ppt ) {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__t = cc_pos_link__new( ppt );
@@ -255,15 +231,13 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     CcPosLink * pl = pos_link__io;
 
     while ( pl->next ) pl = pl->next; // rewind
-
     pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
 
     return pl__t;
 }
 
 CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPosPieceTag ppt )
-{
+                                   CcPosPieceTag ppt ) {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__w = NULL;
@@ -276,16 +250,14 @@ CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
     return pl__w;
 }
 
-bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
-{
+bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
     if ( !pos_link__f ) return false;
     if ( !*pos_link__f ) return true;
 
     CcPosLink * pl = *pos_link__f;
     CcPosLink * tmp = NULL;
 
-    while ( pl )
-    {
+    while ( pl ) {
         tmp = pl->next;
         CC_FREE( pl );
         pl = tmp;
@@ -295,15 +267,13 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f )
     return true;
 }
 
-size_t cc_pos_link_len( CcPosLink * restrict pos_link )
-{
+size_t cc_pos_link_len( CcPosLink * restrict pos_link ) {
     if ( !pos_link ) return 0;
 
     size_t len = 0;
     CcPosLink * pl = pos_link;
 
-    while ( pl )
-    {
+    while ( pl ) {
         ++len;
         pl = pl->next;
     }
@@ -311,8 +281,7 @@ size_t cc_pos_link_len( CcPosLink * restrict pos_link )
     return len;
 }
 
-char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
-{
+char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link ) {
     if ( !pos_link ) return NULL;
 
     // unused len is certainly > 0, because pos_link != NULL
@@ -331,23 +300,19 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link )
     cc_char_16 pos_c16 = CC_CHAR_16_EMPTY;
     CcPosLink * pl = pos_link;
 
-    while ( pl && ( unused > 0 ) )
-    {
-        if ( pl != pos_link ) // Not 1st pos ...
-        {
+    while ( pl && ( unused > 0 ) ) {
+        if ( pl != pos_link ) { // Not 1st pos ...
             *pl_str++ = '.';
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_piece_tag_to_short_string( pl->ppt, &pos_c16 ) )
-        {
+        if ( !cc_pos_piece_tag_to_short_string( pl->ppt, &pos_c16 ) ) {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
         pl_end = cc_str_append_into( pl_str, unused, pos_c16, CC_MAX_LEN_CHAR_16 );
-        if ( !pl_end )
-        {
+        if ( !pl_end ) {
             CC_FREE( pl_str__a );
             return NULL;
         }

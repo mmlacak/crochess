@@ -637,8 +637,7 @@ char * cc_str_duplicate__new( char const * restrict str,
 
     char * walking = buffer__a;
 
-    while ( iter( ... ) )
-    {
+    while ( iter( ... ) ) {
         walking = cc_str_append_into( walking, ... );
         if ( !walking ) break;
     }

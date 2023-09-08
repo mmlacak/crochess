@@ -27,8 +27,7 @@ char const * const CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL = "cot";
 char const * const CC_VARIANT_DISCOVERY_SYMBOL = "d";
 char const * const CC_VARIANT_ONE_SYMBOL = "o";
 
-char const * const CC_VARIANT_SYMBOLS[] =
-{
+char const * const CC_VARIANT_SYMBOLS[] = {
     CC_VARIANT_CLASSICAL_CHESS_SYMBOL,
     CC_VARIANT_CROATIAN_TIES_SYMBOL,
     CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL,
@@ -44,8 +43,7 @@ char const * const CC_VARIANT_SYMBOLS[] =
 
 
 size_t cc_variant_from_symbol( char const * restrict str,
-                               CcVariantEnum * ve__o )
-{
+                               CcVariantEnum * ve__o ) {
     if ( !str ) return false;
     if ( !ve__o ) return false;
 
@@ -53,99 +51,70 @@ size_t cc_variant_from_symbol( char const * restrict str,
     int ve = -1;
     size_t len = CC_LEN_VARIANT_SYMBOL_INVALID;
 
-    if ( *s == 'a' ||  *s == 'A' )
-    {
+    if ( *s == 'a' ||  *s == 'A' ) {
         ++s;
 
-        if ( *s == 'o' ||  *s == 'O' )
-        {
+        if ( *s == 'o' ||  *s == 'O' ) {
             ++s;
 
-            if ( *s == 'a' ||  *s == 'A' ) // "aoa"
-            {
+            if ( *s == 'a' ||  *s == 'A' ) { // "aoa"
                 ve = CC_VE_AgeOfAquarius;
                 len = 3;
             }
         }
-    }
-    else if ( *s == 'c' ||  *s == 'C' )
-    {
+    } else if ( *s == 'c' ||  *s == 'C' ) {
         ++s;
 
-        if ( *s == 'c' ||  *s == 'C' ) // "cc"
-        {
+        if ( *s == 'c' ||  *s == 'C' ) { // "cc"
             ve = CC_VE_ClassicalChess;
             len = 2;
-        }
-        else if ( *s == 't' ||  *s == 'T' ) // "ct"
-        {
+        } else if ( *s == 't' ||  *s == 'T' ) { // "ct"
             ve = CC_VE_CroatianTies;
             len = 2;
-        }
-        else if ( *s == 'o' ||  *s == 'O' )
-        {
+        } else if ( *s == 'o' ||  *s == 'O' ) {
             ++s;
 
-            if ( *s == 't' ||  *s == 'T' ) // "cot"
-            {
+            if ( *s == 't' ||  *s == 'T' ) { // "cot"
                 ve = CC_VE_ConquestOfTlalocan;
                 len = 3;
             }
         }
-    }
-    else if ( *s == 'd' ||  *s == 'D' ) // "d"
-    {
+    } else if ( *s == 'd' ||  *s == 'D' ) { // "d"
         ve = CC_VE_Discovery;
         len = 1;
-    }
-    else if ( *s == 'h' ||  *s == 'H' )
-    {
+    } else if ( *s == 'h' ||  *s == 'H' ) {
         ++s;
 
-        if ( *s == 'd' ||  *s == 'D' ) // "hd"
-        {
+        if ( *s == 'd' ||  *s == 'D' ) { // "hd"
             ve = CC_VE_HemerasDawn;
             len = 2;
         }
-    }
-    else if ( *s == 'm' ||  *s == 'M' )
-    {
+    } else if ( *s == 'm' ||  *s == 'M' ) {
         ++s;
 
-        if ( *s == 'a' ||  *s == 'A' ) // "ma"
-        {
+        if ( *s == 'a' ||  *s == 'A' ) { // "ma"
             ve = CC_VE_MayanAscendancy;
             len = 2;
-        }
-        else if ( *s == 'v' ||  *s == 'V' ) // "mv"
-        {
+        } else if ( *s == 'v' ||  *s == 'V' ) { // "mv"
             ve = CC_VE_MirandasVeil;
             len = 2;
         }
-    }
-    else if ( *s == 'n' ||  *s == 'N' ) // "n"
-    {
+    } else if ( *s == 'n' ||  *s == 'N' ) { // "n"
         ve = CC_VE_Nineteen;
         len = 1;
-    }
-    else if ( *s == 'o' ||  *s == 'O' ) // "o"
-    {
+    } else if ( *s == 'o' ||  *s == 'O' ) { // "o"
         ve = CC_VE_One;
         len = 1;
-    }
-    else if ( *s == 't' ||  *s == 'T' )
-    {
+    } else if ( *s == 't' ||  *s == 'T' ) {
         ++s;
 
-        if ( *s == 'r' ||  *s == 'R' ) // "tr"
-        {
+        if ( *s == 'r' ||  *s == 'R' ) { // "tr"
             ve = CC_VE_TamoanchanRevisited;
             len = 2;
         }
     }
 
-    if ( ve >= 0 )
-    {
+    if ( ve >= 0 ) {
         if ( isalnum( *++s ) )
             return CC_LEN_VARIANT_SYMBOL_INVALID;
 
@@ -156,10 +125,8 @@ size_t cc_variant_from_symbol( char const * restrict str,
     return CC_LEN_VARIANT_SYMBOL_INVALID;
 }
 
-char const * cc_variant_symbol( CcVariantEnum ve )
-{
-    switch ( ve )
-    {
+char const * cc_variant_symbol( CcVariantEnum ve ) {
+    switch ( ve ) {
         case CC_VE_ClassicalChess : return CC_VARIANT_CLASSICAL_CHESS_SYMBOL;
         case CC_VE_CroatianTies : return CC_VARIANT_CROATIAN_TIES_SYMBOL;
         case CC_VE_MayanAscendancy : return CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL;
@@ -176,10 +143,8 @@ char const * cc_variant_symbol( CcVariantEnum ve )
     }
 }
 
-char const * cc_variant_label( CcVariantEnum ve )
-{
-    switch ( ve )
-    {
+char const * cc_variant_label( CcVariantEnum ve ) {
+    switch ( ve ) {
         case CC_VE_ClassicalChess : return "Classical Chess";
         case CC_VE_CroatianTies : return "Croatian Ties";
         case CC_VE_MayanAscendancy : return "Mayan Ascendancy";
@@ -196,10 +161,8 @@ char const * cc_variant_label( CcVariantEnum ve )
     }
 }
 
-unsigned int cc_variant_board_size( CcVariantEnum ve )
-{
-    switch ( ve )
-    {
+unsigned int cc_variant_board_size( CcVariantEnum ve ) {
+    switch ( ve ) {
         case CC_VE_ClassicalChess : return CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return CC_VARIANT_BOARD_SIZE_CROATIAN_TIES;
         case CC_VE_MayanAscendancy : return CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY;
@@ -216,10 +179,8 @@ unsigned int cc_variant_board_size( CcVariantEnum ve )
     }
 }
 
-bool cc_variant_has_sideways_pawns( CcVariantEnum ve )
-{
-    switch ( ve )
-    {
+bool cc_variant_has_sideways_pawns( CcVariantEnum ve ) {
+    switch ( ve ) {
         case CC_VE_Nineteen :
         case CC_VE_HemerasDawn :
         case CC_VE_TamoanchanRevisited :

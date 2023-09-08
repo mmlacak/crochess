@@ -16,8 +16,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
                            CcPosPieceTag before_ply_start,
                            CcStep ** restrict step__o,
                            CcChessboard ** restrict cb__io,
-                           CcParseMsg ** restrict parse_msgs__iod )
-{
+                           CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !step_start_an ) return false;
     if ( !step_end_an ) return false;
     if ( !game ) return false;
@@ -26,8 +25,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !parse_msgs__iod ) return false;
 
     CcStepLinkEnum sle = cc_parse_step_link( step_start_an );
-    if ( sle == CC_SLE_None )
-    {
+    if ( sle == CC_SLE_None ) {
         char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
         cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -45,8 +43,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;
 
-    if ( !cc_parse_pos( s_an, &pos, &pos_end_an ) )
-    {
+    if ( !cc_parse_pos( s_an, &pos, &pos_end_an ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
         cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -66,8 +63,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                 sle,
                                 pos,
                                 &se,
-                                parse_msgs__iod ) )
-    {
+                                parse_msgs__iod ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
 
         cc_parse_msg_append_fmt_if( parse_msgs__iod,
@@ -95,8 +91,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
                      CcPosPieceTag before_ply_start,
                      CcStep ** restrict steps__o,
                      CcChessboard ** restrict cb__io,
-                     CcParseMsg ** restrict parse_msgs__iod )
-{
+                     CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !steps_start_an ) return false;
     if ( !steps_end_an ) return false;
     if ( !game ) return false;
@@ -107,8 +102,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
     char const * step_start_an = NULL;
     char const * step_end_an = NULL;
 
-    while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) )
-    {
+    while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * step__t = NULL;
 
 cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
@@ -116,15 +110,13 @@ cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO
         if ( !cc_parse_step( step_start_an, step_end_an, game, before_ply_start,
                              &step__t,
                              cb__io,
-                             parse_msgs__iod ) )
-        {
+                             parse_msgs__iod ) ) {
 printf( "!cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
             cc_step_free_all( &step__t );
             return false;
         }
 
-        if ( !cc_step_extend_if( steps__o, &step__t ) )
-        {
+        if ( !cc_step_extend_if( steps__o, &step__t ) ) {
 printf( "!cc_step_extend_if\n" );  // TODO :: DEBUG :: DELETE
             cc_step_free_all( &step__t );
             return false;
