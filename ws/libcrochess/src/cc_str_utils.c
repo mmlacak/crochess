@@ -23,8 +23,8 @@ bool cc_str_clear( char * restrict str__io,
     char * s = str__io;
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
-        while ( *s ) *s++ = '\0';
-    } else {
+        while ( *s ) *s++ = '\0'; }
+    else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) )
@@ -52,8 +52,8 @@ bool cc_str_count_chars( char const * restrict str,
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
         while ( *s != '\0' )
-            if ( fp_is_char( *s++ ) ) *count__o += 1;
-    } else {
+            if ( fp_is_char( *s++ ) ) *count__o += 1; }
+    else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) )
@@ -75,8 +75,8 @@ char const * cc_str_contains_char( char c,
 
     while ( *s != '\0' ) {
         if ( case_sensitive ) {
-            if ( *s == c ) return s;
-        } else {
+            if ( *s == c ) return s; }
+        else {
             if ( tolower( *s ) == tolower( c ) ) return s;
         }
 
@@ -104,8 +104,8 @@ char const * cc_str_traverse_chars( char const * restrict str,
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
         while ( ( *str__w )
              && ( skip_or_stop_at == fp_is_char( *str__w ) ) )
-                ++str__w;
-    } else {
+                ++str__w; }
+    else {
         size_t c = 0;
 
         while ( ( *str__w )
@@ -129,9 +129,9 @@ bool cc_str_to_case( char * restrict str__io,
         while ( *s ) {
             *s = ( to_upper_or_lower ) ? toupper( *s )
                                        : tolower( *s );
-            ++s;
+            ++s; }
         }
-    } else {
+    else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) ) {
@@ -163,9 +163,9 @@ char * cc_str_to_case__new( char const * restrict str,
         while ( *pos ) {
             *s++ = ( to_upper_or_lower ) ? toupper( *pos )
                                          : tolower( *pos );
-            ++pos;
+            ++pos; }
         }
-    } else {
+    else {
         size_t c = 0;
 
         while ( ( *pos ) && ( c++ < len ) ) {
@@ -193,8 +193,8 @@ char const * cc_str_end( char const * restrict start,
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
             while ( *s != '\0' ) ++s;
         else
-            while ( ( *s != '\0' ) && ( len++ < max_len__d ) ) ++s;
-    } else {
+            while ( ( *s != '\0' ) && ( len++ < max_len__d ) ) ++s; }
+    else {
         char const * e = end__d;
 
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
@@ -372,13 +372,13 @@ char * cc_str_duplicate__new( char const * restrict str,
         if ( do_reverse ) {
             *n-- = '\0';
 
-            for ( size_t i = 0; ( i < len ) && ( *s != '\0' ); ++i ) *n-- = *s++;
-        } else {
+            for ( size_t i = 0; ( i < len ) && ( *s != '\0' ); ++i ) *n-- = *s++; }
+        else {
             for ( size_t i = 0; ( i < len ) && ( *s != '\0' ); ++i ) *n++ = *s++;
 
-            *n = '\0';
+            *n = '\0'; }
         }
-    } else
+    else
         *str__a = '\0';
 
     return str__a;
@@ -400,8 +400,8 @@ char * cc_str_append_into( char * restrict str__io,
     while ( *io != '\0' ) {
         if ( if_ignore_size || ( count < size_dest__d ) ) {
             ++io;
-            ++count;
-        } else
+            ++count; }
+        else
             return NULL; // Early exit, I/O string is already full.
     }
 
@@ -415,8 +415,8 @@ char * cc_str_append_into( char * restrict str__io,
             *io++ = *s++;
 
             ++appended;
-            ++count;
-        } else
+            ++count; }
+        else
             break;
     }
 
@@ -452,8 +452,8 @@ char * cc_str_append__new( char const * restrict str_1__d,
             for ( size_t i = 0; ( i < len_2 ) && ( *s != '\0' ); ++i )
                 *n++ = *s++;
 
-        *n = '\0';
-    } else *str__a = '\0';
+        *n = '\0'; }
+    else *str__a = '\0';
 
     return str__a;
 }

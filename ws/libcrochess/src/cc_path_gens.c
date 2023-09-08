@@ -85,13 +85,13 @@ bool cc_is_step_capture( CcPieceEnum activator,
         if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
         else
-            return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
-    } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
+            return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ); }
+    else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
         if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
         else
-            return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
-    } else if ( CC_PIECE_IS_WAVE( piece ) )
+            return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step ); }
+    else if ( CC_PIECE_IS_WAVE( piece ) )
         return cc_is_step_capture( CC_PE_None, activator, step, step_2 );
     else if ( CC_PIECE_IS_MONOLITH( piece ) )
         return false;
@@ -273,12 +273,12 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
 
         if ( CC_PIECE_IS_WAVE( piece ) ) {
             if ( CC_PIECE_IS_MONOLITH( pe ) )
-                piece_in_the_way = true;
-        } else if ( cc_is_step_shamans_capture( piece, step ) ) {
+                piece_in_the_way = true; }
+        else if ( cc_is_step_shamans_capture( piece, step ) ) {
             if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ||
                  !cc_piece_has_different_owner( piece, pe ) )
-                piece_in_the_way = true;
-        } else
+                piece_in_the_way = true; }
+        else
             if ( !CC_PIECE_IS_NONE( pe ) )
                 piece_in_the_way = true;
 
@@ -410,8 +410,8 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                 // Nothing to be done here, except bail-out.
             }
             else
-                return NULL;
-        } else if ( cc_piece_is_dark( piece ) ) {
+                return NULL; }
+        else if ( cc_piece_is_dark( piece ) ) {
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ) {
                 if ( momentum > 1 ) {
                     if ( CC_TAG_CAN_RUSH( tag ) &&
@@ -433,8 +433,8 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                 // Nothing to be done here, except bail-out.
             }
             else
-                return NULL;
-        } else
+                return NULL; }
+        else
             return NULL;
 
         if ( !cc_pos_is_equal( pos_1, destination ) ) return NULL;
@@ -456,8 +456,8 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
             return NULL;
         }
 
-        return path__a;
-    } else if ( CC_PIECE_IS_PAWN( activator ) &&
+        return path__a; }
+    else if ( CC_PIECE_IS_PAWN( activator ) &&
               CC_PIECE_IS_WAVE( piece ) ) {
         if ( !cc_piece_has_same_owner( piece, activator ) ) return NULL;
 
@@ -471,8 +471,8 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
                                           destination,
                                           step,
                                           CC_POS_CAST_STATIC_STEP );
-            }
-        } else if ( cc_piece_is_dark( activator ) ) {
+            } }
+        else if ( cc_piece_is_dark( activator ) ) {
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ||
                     CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step ) ||
                     ( has_sideways_pawns &&
@@ -529,8 +529,8 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
             return NULL;
         }
 
-        return path__a;
-    } else if ( CC_PIECE_IS_KNIGHT( activator ) &&
+        return path__a; }
+    else if ( CC_PIECE_IS_KNIGHT( activator ) &&
                 CC_PIECE_IS_WAVE( piece ) )
         return cc_link_positions( cb_before_activation,
                                   start,
@@ -714,8 +714,8 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
     CcPos step = cc_pos_step( start, destination );
 
     if ( cc_is_the_same_color( piece, start ) ) {
-        if ( !CC_UNICORN_SHORT_STEP_IS_VALID( step ) ) return NULL;
-    } else
+        if ( !CC_UNICORN_SHORT_STEP_IS_VALID( step ) ) return NULL; }
+    else
         if ( !CC_UNICORN_LONG_STEP_IS_VALID( step ) ) return NULL;
 
     if ( CC_PIECE_IS_UNICORN( piece ) ) {
@@ -739,8 +739,8 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
             return NULL;
         }
 
-        return path__a;
-    } else if ( CC_PIECE_IS_UNICORN( activator ) &&
+        return path__a; }
+    else if ( CC_PIECE_IS_UNICORN( activator ) &&
               CC_PIECE_IS_WAVE( piece ) )
 // TODO :: FIX ME :: Wave activated by Unicorn moves like free-choice Centaur !!!
         return cc_link_positions( cb_before_activation,

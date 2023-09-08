@@ -140,13 +140,13 @@ CcLosingTagEnum cc_parse_losing_tag( char const * restrict an_str ) {
 
     if ( *c == '=' ) {
         if ( *++c == '=' )
-            return CC_LTE_DelayedPromotion; // "==" losing promotion
-    } else if ( *c == ':' ) {
+            return CC_LTE_DelayedPromotion; /* "==" losing promotion */ }
+    else if ( *c == ':' ) {
         if ( *++c == ':' )
-            return CC_LTE_CanRush; // "::" losing rushing
-    } else if ( *c == '&' ) {
+            return CC_LTE_CanRush; /* "::" losing rushing */ }
+    else if ( *c == '&' ) {
         if ( *++c == '&' )
-            return CC_LTE_CanCastle; // "&&" losing castling
+            return CC_LTE_CanCastle; /* "&&" losing castling */
     }
 
     return CC_LTE_None;
@@ -158,7 +158,7 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte ) {
         case CC_LTE_CanRush : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
         case CC_LTE_CanCastle : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
 
-        default : return 0; // Others are not losing tags.
+        default : return 0; /* Others are not losing tags. */
     }
 }
 
@@ -172,8 +172,8 @@ bool cc_convert_coords( char const * restrict pos,
     if ( islower( *p ) ) {
         if ( !file__o ) return false;
 
-        *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ );
-    } else
+        *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ ); }
+    else
         *file__o = CC_INVALID_COORD;
 
     if ( isdigit( *p ) ) {
@@ -184,8 +184,8 @@ bool cc_convert_coords( char const * restrict pos,
 
         if ( !rank__o ) return false;
 
-        *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p );
-    } else
+        *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p ); }
+    else
         *rank__o = CC_INVALID_COORD;
 
     return true;
@@ -215,17 +215,17 @@ bool cc_parse_pos( char const * restrict an_str,
             if ( !isdigit( *c ) )
                 end = c;
             else
-                return false; // Max len of rank is 2.
-        } else
-            end = c; // c was incremented above, see {1}.
-    } else if ( isdigit( *c ) ) {
+                return false; /* Max len of rank is 2. */ }
+        else
+            end = c; /* c was incremented above, see {1}. */ }
+    else if ( isdigit( *c ) ) {
         if ( isdigit( *++c ) ) ++c;
 
         if ( !isdigit( *c ) )
             end = c;
         else
-            return false; // Max len of rank is 2.
-    } else
+            return false; /* Max len of rank is 2. */ }
+    else
         return false;
 
     if ( !end ) return false;
@@ -259,12 +259,12 @@ CcStepLinkEnum cc_parse_step_link( char const * restrict an_str ) {
         if ( *++c == '.' )
             return CC_SLE_Distant;
 
-        return CC_SLE_Next;
-    } else if ( *c == '-' ) {
-        return CC_SLE_Destination;
-    } else if ( *c == ',' ) {
-        return CC_SLE_Reposition;
-    } else if ( isgraph( *c ) ) {
+        return CC_SLE_Next; }
+    else if ( *c == '-' ) {
+        return CC_SLE_Destination; }
+    else if ( *c == ',' ) {
+        return CC_SLE_Reposition; }
+    else if ( isgraph( *c ) ) {
         return CC_SLE_Start;
     }
 
@@ -356,31 +356,31 @@ CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
     char const * c = an_str;
 
     if ( *c == '*' ) {
-        return CC_SEE_Capture;
-    } else if ( *c == '<' ) {
-        return CC_SEE_Displacement;
-    } else if ( *c == ':' ) {
-        return CC_SEE_EnPassant;
-    } else if ( *c == '&' ) {
-        return CC_SEE_Castle;
-    } else if ( *c == '=' ) {
+        return CC_SEE_Capture; }
+    else if ( *c == '<' ) {
+        return CC_SEE_Displacement; }
+    else if ( *c == ':' ) {
+        return CC_SEE_EnPassant; }
+    else if ( *c == '&' ) {
+        return CC_SEE_Castle; }
+    else if ( *c == '=' ) {
         if ( isupper( *++c ) ) {
             *has_promotion_sign__o = true;
-            return CC_SEE_Promotion;
-        } else
-            return CC_SEE_TagForPromotion;
-    } else if ( *c == '%' ) {
+            return CC_SEE_Promotion; }
+        else
+            return CC_SEE_TagForPromotion; }
+    else if ( *c == '%' ) {
         if ( *++c == '%' )
             return CC_SEE_FailedConversion;
 
-        return CC_SEE_Conversion;
-    } else if ( *c == '^' ) {
-        return CC_SEE_Transparency;
-    } else if ( *c == '/' ) {
-        return CC_SEE_Divergence;
-    } else if ( *c == '>' ) {
-        return CC_SEE_DemoteToPawn;
-    } else if ( *c == '$' ) {
+        return CC_SEE_Conversion; }
+    else if ( *c == '^' ) {
+        return CC_SEE_Transparency; }
+    else if ( *c == '/' ) {
+        return CC_SEE_Divergence; }
+    else if ( *c == '>' ) {
+        return CC_SEE_DemoteToPawn; }
+    else if ( *c == '$' ) {
         if ( *++c == '$' ) {
             if ( *++c == '$' )
                 return CC_SEE_FailedResurrection;
@@ -388,8 +388,8 @@ CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
             return CC_SEE_ResurrectingOpponent;
         }
 
-        return CC_SEE_Resurrection;
-    } else if ( isupper( *c ) ) {
+        return CC_SEE_Resurrection; }
+    else if ( isupper( *c ) ) {
         *has_promotion_sign__o = false;
         return CC_SEE_Promotion; // Promotion without `=`.
     }

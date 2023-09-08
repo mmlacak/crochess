@@ -50,8 +50,8 @@ bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
 
         // Can rush only forward.
         if ( cc_piece_is_light( pawn ) ) {
-            if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ) return true;
-        } else
+            if ( CC_LIGHT_PAWN_STEP_IS_VALID( step ) ) return true; }
+        else
             if ( CC_DARK_PAWN_STEP_IS_VALID( step ) ) return true;
     }
 

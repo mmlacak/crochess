@@ -40,8 +40,8 @@ static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
             if ( *--c == '(' ) {
                 // "(=)" draw offered
                 return CC_DRAW_OFFER_FOUND;
-            }
-        } else if ( *c == '-' ) {
+            } }
+        else if ( *c == '-' ) {
             if ( *--c == '(' ) {
                 // "(-)" draw offer canceled
                 return CC_DRAW_OFFER_CANCELED;
@@ -119,11 +119,11 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
 
         if ( cc_is_pawn_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
-                return false;
-        } else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) ) {
+                return false; }
+        else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
-                return false;
-        } else
+                return false; }
+        else
             return false;
 
         // Movement (+ capture / activation) + promotion.
@@ -132,8 +132,8 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         int rank = cc_promoting_rank( cb, is_light );
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
 
-        if ( rank == destination.j ) return true;
-    } else {
+        if ( rank == destination.j ) return true; }
+    else {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
         if ( !CC_PIECE_IS_THE_SAME( pe, pawn ) ) return false;
 

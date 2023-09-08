@@ -93,8 +93,8 @@ bool test_move( char const * restrict an_str,
         while ( m->next ) m = m->next;
 
         result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
-        if ( !result ) result_at |= 0x8;
-    } else {
+        if ( !result ) result_at |= 0x8; }
+    else {
         result = false;
         result_at |= 0x10;
     }

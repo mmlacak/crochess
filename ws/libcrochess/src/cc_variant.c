@@ -60,52 +60,52 @@ size_t cc_variant_from_symbol( char const * restrict str,
             if ( *s == 'a' ||  *s == 'A' ) { // "aoa"
                 ve = CC_VE_AgeOfAquarius;
                 len = 3;
-            }
+            } }
         }
-    } else if ( *s == 'c' ||  *s == 'C' ) {
+    else if ( *s == 'c' ||  *s == 'C' ) {
         ++s;
 
         if ( *s == 'c' ||  *s == 'C' ) { // "cc"
             ve = CC_VE_ClassicalChess;
-            len = 2;
-        } else if ( *s == 't' ||  *s == 'T' ) { // "ct"
+            len = 2; }
+        else if ( *s == 't' ||  *s == 'T' ) { // "ct"
             ve = CC_VE_CroatianTies;
-            len = 2;
-        } else if ( *s == 'o' ||  *s == 'O' ) {
+            len = 2; }
+        else if ( *s == 'o' ||  *s == 'O' ) {
             ++s;
 
             if ( *s == 't' ||  *s == 'T' ) { // "cot"
                 ve = CC_VE_ConquestOfTlalocan;
                 len = 3;
-            }
+            } }
         }
-    } else if ( *s == 'd' ||  *s == 'D' ) { // "d"
+    else if ( *s == 'd' ||  *s == 'D' ) { // "d"
         ve = CC_VE_Discovery;
-        len = 1;
-    } else if ( *s == 'h' ||  *s == 'H' ) {
+        len = 1; }
+    else if ( *s == 'h' ||  *s == 'H' ) {
         ++s;
 
         if ( *s == 'd' ||  *s == 'D' ) { // "hd"
             ve = CC_VE_HemerasDawn;
-            len = 2;
+            len = 2; }
         }
-    } else if ( *s == 'm' ||  *s == 'M' ) {
+    else if ( *s == 'm' ||  *s == 'M' ) {
         ++s;
 
         if ( *s == 'a' ||  *s == 'A' ) { // "ma"
             ve = CC_VE_MayanAscendancy;
-            len = 2;
-        } else if ( *s == 'v' ||  *s == 'V' ) { // "mv"
+            len = 2; }
+        else if ( *s == 'v' ||  *s == 'V' ) { // "mv"
             ve = CC_VE_MirandasVeil;
-            len = 2;
+            len = 2; }
         }
-    } else if ( *s == 'n' ||  *s == 'N' ) { // "n"
+    else if ( *s == 'n' ||  *s == 'N' ) { // "n"
         ve = CC_VE_Nineteen;
-        len = 1;
-    } else if ( *s == 'o' ||  *s == 'O' ) { // "o"
+        len = 1; }
+    else if ( *s == 'o' ||  *s == 'O' ) { // "o"
         ve = CC_VE_One;
-        len = 1;
-    } else if ( *s == 't' ||  *s == 'T' ) {
+        len = 1; }
+    else if ( *s == 't' ||  *s == 'T' ) {
         ++s;
 
         if ( *s == 'r' ||  *s == 'R' ) { // "tr"

@@ -50,8 +50,8 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
 
     if ( steps__n ) {
         ply__a->steps = *steps__n;
-        *steps__n = NULL;
-    } else
+        *steps__n = NULL; }
+    else
         ply__a->steps = NULL;
 
     ply__a->next = NULL;

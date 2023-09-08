@@ -26,8 +26,8 @@ static bool cc_check_standalone_status( char const char_an,
         *move__o = *temp__n;
         *temp__n = NULL;
 
-        return true;
-    } else {
+        return true; }
+    else {
         va_list args;
         va_start( args, msg );
 
@@ -76,8 +76,8 @@ bool cc_parse_move( char const * restrict move_an,
                                                parse_msgs__iod,
                                                CC_MSE_Resign,
                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after resign.\n" );
-        } else {
+                                               "Invalid char(s) after resign.\n" ); }
+        else {
             // "#" self-checkmate
 
 // TODO :: Do check if opponent is really (self-)checkmated.

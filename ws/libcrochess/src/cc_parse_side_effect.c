@@ -77,8 +77,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 *side_effect__o = cc_side_effect_none();
                 return true;
             }
-            else
-            {
+            else {
                 if ( sle == CC_SLE_Start ) {
                     // Starting position, piece is the one found in destination of last ply, or the one starting a move.
 
@@ -104,8 +103,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 // TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
 
                     *side_effect__o = cc_side_effect_none();
-                    return true;
-                } else {
+                    return true; }
+                else {
 // TODO :: silent capture ::
 //      -- if piece found on step-field has other owner
 //      -- if ply piece (the one currently moving) can capture
@@ -216,8 +215,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     }
 
                     *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
-                    return true;
-                } else if ( promo == CC_SEE_TagForPromotion ) {
+                    return true; }
+                else if ( promo == CC_SEE_TagForPromotion ) {
 // TODO :: add flag
                 }
             }

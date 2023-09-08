@@ -46,36 +46,36 @@ CcSideEffect cc_side_effect( CcSideEffectEnum type,
     // Nothing more to do if type == CC_SEE_None.
     if ( sse.type == CC_SEE_Capture ) {
         sse.capture.piece = piece;
-        sse.capture.lost_tag = lost_tag;
-    } else if ( sse.type == CC_SEE_Displacement ) {
+        sse.capture.lost_tag = lost_tag; }
+    else if ( sse.type == CC_SEE_Displacement ) {
         sse.displacement.piece = piece;
         sse.displacement.lost_tag = lost_tag;
-        sse.displacement.destination = destination;
-    } else if ( sse.type == CC_SEE_EnPassant ) {
+        sse.displacement.destination = destination; }
+    else if ( sse.type == CC_SEE_EnPassant ) {
         sse.en_passant.pawn = piece;
-        sse.en_passant.distant = destination;
-    } else if ( sse.type == CC_SEE_Castle ) {
+        sse.en_passant.distant = destination; }
+    else if ( sse.type == CC_SEE_Castle ) {
         sse.castle.rook = piece;
         sse.castle.start = start;
-        sse.castle.destination = destination;
-    } else if ( sse.type == CC_SEE_Promotion ) {
+        sse.castle.destination = destination; }
+    else if ( sse.type == CC_SEE_Promotion ) {
         sse.promote.captured = piece;
         sse.promote.lost_tag = lost_tag;
-        sse.promote.promoted_to = promoted_to;
-    } else if ( sse.type == CC_SEE_TagForPromotion ) {
+        sse.promote.promoted_to = promoted_to; }
+    else if ( sse.type == CC_SEE_TagForPromotion ) {
         sse.tag_for_promotion.captured = piece;
-        sse.tag_for_promotion.lost_tag = lost_tag;
-    } else if ( sse.type == CC_SEE_Conversion ) {
+        sse.tag_for_promotion.lost_tag = lost_tag; }
+    else if ( sse.type == CC_SEE_Conversion ) {
         sse.convert.piece = piece;
-        sse.convert.lost_tag = lost_tag;
-    } else if ( sse.type == CC_SEE_Transparency ) {
-        sse.transparency.piece = piece;
-    } else if ( sse.type == CC_SEE_Divergence ) {
-        sse.diversion.piece = piece;
-    } else if ( sse.type == CC_SEE_DemoteToPawn ) {
+        sse.convert.lost_tag = lost_tag; }
+    else if ( sse.type == CC_SEE_Transparency ) {
+        sse.transparency.piece = piece; }
+    else if ( sse.type == CC_SEE_Divergence ) {
+        sse.diversion.piece = piece; }
+    else if ( sse.type == CC_SEE_DemoteToPawn ) {
         sse.demote.piece = piece;
-        sse.demote.distant = destination;
-    } else if ( sse.type == CC_SEE_Resurrection ||
+        sse.demote.distant = destination; }
+    else if ( sse.type == CC_SEE_Resurrection ||
               sse.type == CC_SEE_ResurrectingOpponent ) {
         sse.resurrect.piece = piece;
         sse.resurrect.destination = destination;
@@ -252,8 +252,8 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     if ( se.type == CC_SEE_Promotion ) {
         captured = se.promote.captured;
-        lte = se.promote.lost_tag;
-    } else if ( se.type == CC_SEE_TagForPromotion ) {
+        lte = se.promote.lost_tag; }
+    else if ( se.type == CC_SEE_TagForPromotion ) {
         captured = se.tag_for_promotion.captured;
         lte = se.tag_for_promotion.lost_tag;
     }

@@ -81,70 +81,70 @@ typedef struct CcSideEffect
         struct
         {
             CcPieceEnum piece; /**< Piece which has been captured. */
-            CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
-        } capture; /**< Capture. */
+            CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */ }
+        capture; /**< Capture. */
 
         struct
         {
             CcPieceEnum piece; /**< Piece which has been displaced. */
             CcLosingTagEnum lost_tag; /**< Flag, whether displaced piece has lost its tag. */
-            CcPos destination; /**< Displacement destination. */
-        } displacement; /**< Displacement, used during light Shaman's trance-journey. */
+            CcPos destination; /**< Displacement destination. */ }
+        displacement; /**< Displacement, used during light Shaman's trance-journey. */
 
         struct
         {
             CcPieceEnum pawn; /**< Pawn which has been captured. */
-            CcPos distant; /**< Position at which Pawn has been captured. */
-        } en_passant; /**< En passant. */
+            CcPos distant; /**< Position at which Pawn has been captured. */ }
+        en_passant; /**< En passant. */
 
         struct
         {
             CcPieceEnum rook; /**< Rook which castled. */
             CcPos start; /**< Starting position of a Rook. */
-            CcPos destination; /**< Castling Rook destination. */
-        } castle; /**< Castling. */
+            CcPos destination; /**< Castling Rook destination. */ }
+        castle; /**< Castling. */
 
         struct
         {
             CcPieceEnum captured; /**< Piece which has been captured, if any. */
             CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
-            CcPieceEnum promoted_to; /**< Piece to which Pawn has been promoted. */
-        } promote; /**< Promotion. */
+            CcPieceEnum promoted_to; /**< Piece to which Pawn has been promoted. */ }
+        promote; /**< Promotion. */
 
         struct
         {
             CcPieceEnum captured; /**< Piece which has been captured, if any. */
-            CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
-        } tag_for_promotion; /**< Tag for promotion. */
+            CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */ }
+        tag_for_promotion; /**< Tag for promotion. */
 
         struct
         {
             CcPieceEnum piece; /**< Piece which has been converted. */
-            CcLosingTagEnum lost_tag; /**< Flag, if converted piece has lost its tag. */
-        } convert; /**< Conversion. */
+            CcLosingTagEnum lost_tag; /**< Flag, if converted piece has lost its tag. */ }
+        convert; /**< Conversion. */
 
         struct
         {
-            CcPieceEnum piece; /**< Piece which has been "passed-over". */
-        } transparency; /**< Transparency. */
+            CcPieceEnum piece; /**< Piece which has been "passed-over". */ }
+        transparency; /**< Transparency. */
 
         struct
         {
-            CcPieceEnum piece; /**< Piece from which currently moving piece has been diverged. */
-        } diversion; /**< Divergence. */
+            CcPieceEnum piece; /**< Piece from which currently moving piece has been diverged. */ }
+        diversion; /**< Divergence. */
 
         struct
         {
             CcPieceEnum piece; /**< Piece which has been demoted to Pawn. */
             CcLosingTagEnum lost_tag; /**< Flag, whether demoted piece has lost its tag. */
-            CcPos distant; /**< Position at which piece has been demoted. */
-        } demote; /**< Demoting. */
+            CcPos distant; /**< Position at which piece has been demoted. */ }
+        demote; /**< Demoting. */
 
         struct
         {
             CcPieceEnum piece; /**< Piece which has been resurrected. */
-            CcPos destination; /**< Position at which Wave, Starchild has been resurrected. */
-        } resurrect; /**< Resurrection. */
+            CcPos destination; /**< Position at which Wave, Starchild has been resurrected. */ }
+        resurrect; /**< Resurrection. */
     }; /**< Union of all substructures used by different step side-effects. */
 } CcSideEffect;
 

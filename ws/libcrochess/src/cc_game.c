@@ -25,8 +25,8 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
     if ( is_end ) {
         if ( is_won ) {
             if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Light;
-            if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Dark;
-        } else
+            if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Dark; }
+        else
             return CC_GSE_Draw;
     }
 
@@ -118,14 +118,15 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
     CcGame * game__a = NULL;
 
     if ( before_setup__d ) {
-        game__a = cc_game_duplicate_all__new( before_setup__d );
-    } else {
+        game__a = cc_game_duplicate_all__new( before_setup__d ); }
+    else {
         size_t len = cc_variant_from_symbol( s, &ve );
         gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;
 
         game__a = cc_game__new( gse, ve, false );
 
-        s += len + 1; // +1 == next char, after separator (space) following variant symbol string
+        // +1 == next char, after separator (space) following variant symbol string
+        s += len + 1;
     }
 
     if ( !game__a ) return NULL;

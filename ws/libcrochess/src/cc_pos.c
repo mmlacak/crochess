@@ -128,8 +128,8 @@ bool cc_pos_to_short_string( CcPos pos,
                   CC_MAX_LEN_CHAR_8,
                   "%c%hhd",
                   CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ),
-                  (signed char)(pos.j + 1) );
-    } else {
+                  (signed char)(pos.j + 1) ); }
+    else {
         int count = 0; // snprintf() doesn't count '\0'
 
         if ( ( LOWER_BOUNT < pos.i ) && ( pos.i < UPPER_BOUND ) )

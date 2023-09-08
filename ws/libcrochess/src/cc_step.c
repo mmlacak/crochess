@@ -173,8 +173,8 @@ CcStep * cc_step_find_destination( CcStep * restrict steps ) {
             prev_step = true;
 
             prev = s;
-            s = s->next;
-        } else {
+            s = s->next; }
+        else {
             if ( prev_step && ( s->link == CC_SLE_Start ) )
                 return NULL;
             else

@@ -173,8 +173,8 @@ bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step ) {
         if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step );
         else
-            return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-    } else {
+            return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step ); }
+    else {
         if ( cc_piece_is_light( piece ) )
             return CC_LIGHT_PAWN_STEP_IS_VALID( step );
         else

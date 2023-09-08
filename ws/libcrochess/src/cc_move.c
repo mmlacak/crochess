@@ -30,8 +30,8 @@ CcMove * cc_move__new( char const * restrict notation,
 
     if ( plies__n ) {
         mv__a->plies = *plies__n;
-        *plies__n = NULL; // Taking ownership.
-    } else
+        *plies__n = NULL; /* Taking ownership.*/ }
+    else
         mv__a->plies = NULL;
 
     mv__a->status = status;

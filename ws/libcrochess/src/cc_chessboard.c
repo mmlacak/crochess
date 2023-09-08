@@ -276,12 +276,11 @@ static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict c
         if ( i < 3 ) hr__a[ i ] = ' ';
         else if ( i < 3 + 2 * (int)cb->size ) {
             if ( i % 2 == 0 ) hr__a[ i ] = ' ';
-            else
-            {
+            else {
                 hr__a[ i ] = ch;
                 ++ch;
-            }
-        } else if ( i < (int)len ) hr__a[ i ] = ' ';
+            } }
+        else if ( i < (int)len ) hr__a[ i ] = ' ';
     }
 
     hr__a[ len - 2 ] = '\n';
