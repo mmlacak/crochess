@@ -106,7 +106,7 @@ typedef struct CcGame
     Linked list of performed moves will be empty. If neccessary, it can be populated once newly allocated game is returned.
 
     @return
-    A newly allocated game, is successful, `NULL` otherwise.
+    A newly allocated game if successful, `NULL` otherwise.
 */
 CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
@@ -118,7 +118,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     @param game Game to duplicate.
 
     @return
-    A newly allocated game, is successful, `NULL` otherwise.
+    A newly allocated game if successful, `NULL` otherwise.
 */
 CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
 

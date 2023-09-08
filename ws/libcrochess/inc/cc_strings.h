@@ -41,7 +41,7 @@ CcStrings * cc_strings__new( char const * restrict str,
     @param max_len__d _Optional_, maximum length to copy.
 
     @return
-    Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
 CcStrings * cc_strings_append( CcStrings * restrict strings__io,
                                char const * restrict str,
@@ -67,7 +67,7 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     with a newly allocated string as its first element.
 
     @return
-    Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
 CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
                                   char const * restrict str,
@@ -94,7 +94,7 @@ CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
     with a newly allocated string as its first element.
 
     @return
-    Weak pointer to a newly allocated string, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
 CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
                                       size_t max_len__d,

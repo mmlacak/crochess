@@ -25,7 +25,7 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str )
     if ( *c == '|' )
     {
         if ( *++c == '|' )
-            return CC_PLE_FailedTeleportation; // "||" failed teleportation, oblation
+            return CC_PLE_TeleportationOblation; // "||" failed teleportation, oblation
 
         return CC_PLE_Teleportation; // "|" teleportation
     }
@@ -61,7 +61,7 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple )
         case CC_PLE_StartingPly : return 0; /* Just first ply, standalone or starting a cascade. */
         case CC_PLE_CascadingPly : return 1; /* Just one ply, continuing cascade. Corresponds to `~`. */
         case CC_PLE_Teleportation : return 1; /* Teleportation of piece. Corresponds to `|`. */
-        case CC_PLE_FailedTeleportation : return 2; /* Failed teleportation, corresponds to `||`. */
+        case CC_PLE_TeleportationOblation : return 2; /* Failed teleportation, corresponds to `||`. */
         case CC_PLE_TranceJourney : return 1; /* Trance-journey, corresponds to `@`. */
         case CC_PLE_DualTranceJourney : return 2; /* Double trance-journey, corresponds to `@@`. */
         case CC_PLE_FailedTranceJourney : return 3; /* Failed trance-journey, corresponds to `@@@`. */

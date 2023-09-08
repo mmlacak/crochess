@@ -67,7 +67,7 @@ typedef struct CcMove
     If no valid move is produced, `plies__n` are still valid, and accessible.
 
     @return
-    A newly allocated move, is successful, `NULL` otherwise.
+    A newly allocated move if successful, `NULL` otherwise.
 */
 CcMove * cc_move__new( char const * restrict notation,
                        size_t max_len__d,
@@ -86,7 +86,7 @@ CcMove * cc_move__new( char const * restrict notation,
     @see cc_move__new()
 
     @return
-    Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated move if successful, `NULL` otherwise.
 */
 CcMove * cc_move_append( CcMove * restrict moves__io,
                          char const * restrict notation,
@@ -113,7 +113,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     @see cc_move__new()
 
     @return
-    Weak pointer to a newly allocated move, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated move if successful, `NULL` otherwise.
 */
 CcMove * cc_move_append_if( CcMove ** restrict moves__io,
                             char const * restrict notation,
@@ -127,7 +127,7 @@ CcMove * cc_move_append_if( CcMove ** restrict moves__io,
     @param moves Linked list to duplicate.
 
     @return
-    A newly allocated moves, is successful, `NULL` otherwise.
+    A newly allocated moves if successful, `NULL` otherwise.
 */
 CcMove * cc_move_duplicate_all__new( CcMove * restrict moves );
 

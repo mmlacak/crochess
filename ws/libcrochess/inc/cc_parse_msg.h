@@ -57,7 +57,7 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     @param max_len__d _Optional_, maximum length to copy.
 
     @return
-    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
                                   CcParseMsgTypeEnum type,
@@ -80,7 +80,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
     with a newly allocated parser message as its first element.
 
     @return
-    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__iod,
                                      CcParseMsgTypeEnum type,
@@ -104,7 +104,7 @@ CcParseMsg * cc_parse_msg_append_if( CcParseMsg ** restrict parse_msgs__iod,
     with a newly allocated parser message as its first element.
 
     @return
-    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append_fmt_va_if( CcParseMsg ** restrict parse_msgs__iod,
                                             CcParseMsgTypeEnum type,
@@ -129,7 +129,7 @@ CcParseMsg * cc_parse_msg_append_fmt_va_if( CcParseMsg ** restrict parse_msgs__i
     with a newly allocated parser message as its first element.
 
     @return
-    Weak pointer to a newly allocated parser message, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_append_fmt_if( CcParseMsg ** restrict parse_msgs__iod,
                                          CcParseMsgTypeEnum type,
@@ -151,7 +151,7 @@ bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f );
 
     @param parse_msgs Linked list of parse messages.
 
-    @return Last parse message in a given linked list, if successful; `NULL` otherwise.
+    @return Last parse message in a given linked list if successful; `NULL` otherwise.
 */
 CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs );
 

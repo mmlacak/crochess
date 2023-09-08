@@ -390,7 +390,7 @@ char const * cc_str_contains_char( char c,
     @param skip_or_stop_at A flag, whether to skip (if `true`) or stop at (if `false`) filtered character.
     @param max_len__d _Optional_, maximum length to traverse.
 
-    @return A string pointer within a given string, if successful, `NULL` otherwise.
+    @return A string pointer within a given string if successful, `NULL` otherwise.
 
     If there is no searched-for characters in a string,
     function returns pointer to the terminating character (i.e. ``'\0'``) of a given string.
@@ -535,7 +535,7 @@ bool cc_str_is_equal( char const * restrict start_1,
     @note
     Function will zero-terminate copied string, if there is enough space.
 
-    @return Count of characters copied (not including ``'\0'``), if successful, `0` otherwise.
+    @return Count of characters copied (not including ``'\0'``) if successful, `0` otherwise.
 */
 size_t cc_str_copy( char const * restrict start,
                     char const * restrict end__d,

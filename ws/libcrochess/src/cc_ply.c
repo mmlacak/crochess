@@ -20,11 +20,14 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple )
         case CC_PLE_StartingPly : return "";
         case CC_PLE_CascadingPly : return "~";
         case CC_PLE_Teleportation : return "|";
-        case CC_PLE_FailedTeleportation : return "||";
+        case CC_PLE_TeleportationReemergence : return "||";
+        case CC_PLE_TeleportationOblation : return "|||";
         case CC_PLE_TranceJourney : return "@";
         case CC_PLE_DualTranceJourney : return "@@";
         case CC_PLE_FailedTranceJourney : return "@@@";
         case CC_PLE_PawnSacrifice : return ";;";
+        case CC_PLE_SenseJourney : return "\"";
+        case CC_PLE_FailedSenseJourney : return "'";
 
         default : return NULL;
     }

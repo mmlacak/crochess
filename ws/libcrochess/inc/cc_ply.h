@@ -26,11 +26,14 @@ typedef enum CcPlyLinkEnum
     CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
     CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
     CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
-    CC_PLE_FailedTeleportation, /**< Failed teleportation, corresponds to `||`. */
+    CC_PLE_TeleportationReemergence, /**< Failed teleportation, corresponds to `||`. */
+    CC_PLE_TeleportationOblation, /**< Failed teleportation, corresponds to `|||`. */
     CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
     CC_PLE_DualTranceJourney, /**< Double trance-journey, corresponds to `@@`. */
     CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
+    CC_PLE_SenseJourney, /**< Sense-journey, corresponds to `"`. */
+    CC_PLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */
 } CcPlyLinkEnum;
 
 
@@ -39,7 +42,8 @@ typedef enum CcPlyLinkEnum
 #define CC_PLY_LINK_IS_CASCADING(ple) ( (ple) == CC_PLE_CascadingPly )
 
 #define CC_PLY_LINK_IS_TELEPORTATION(ple) ( (ple) == CC_PLE_Teleportation )
-#define CC_PLY_LINK_IS_FAILED_TELEPORTATION(ple) ( (ple) == CC_PLE_FailedTeleportation )
+#define CC_PLY_LINK_IS_TELEPORTATION_REEMERGENCE(ple) ( (ple) == CC_PLE_TeleportationReemergence )
+#define CC_PLY_LINK_IS_TELEPORTATION_OBLATION(ple) ( (ple) == CC_PLE_TeleportationOblation )
 
 #define CC_PLY_LINK_IS_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_TranceJourney )
 #define CC_PLY_LINK_IS_DUAL_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_DualTranceJourney )
@@ -47,15 +51,22 @@ typedef enum CcPlyLinkEnum
 
 #define CC_PLY_LINK_IS_PAWN_SACRIFICE(ple) ( (ple) == CC_PLE_PawnSacrifice )
 
+#define CC_PLY_LINK_IS_SENSE_JOURNEY(ple) ( (ple) == CC_PLE_SenseJourney )
+#define CC_PLY_LINK_IS_FAILED_SENSE_JOURNEY(ple) ( (ple) == CC_PLE_FailedSenseJourney )
+
 
 #define CC_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PLE_None )
 
-#define CC_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )           \
-                                             || ( (ple) == CC_PLE_FailedTeleportation )
+#define CC_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )               \
+                                             || ( (ple) == CC_PLE_TeleportationReemergence )    \
+                                             || ( (ple) == CC_PLE_TeleportationOblation )
 
 #define CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )          \
                                               || ( (ple) == CC_PLE_DualTranceJourney )      \
                                               || ( (ple) == CC_PLE_FailedTranceJourney ) )
+
+#define CC_PLY_LINK_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PLE_SenseJourney )        \
+                                             || ( (ple) == CC_PLE_FailedSenseJourney )
 
 
 /**
@@ -81,15 +92,18 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
     `steps` can have only one item in a linked list, if a single destination field is needed.
     `steps` can be empty (`NULL`) for certain ply links.
 
-    |                             `link` |                                                                      `steps` |
-    | ---------------------------------: | ---------------------------------------------------------------------------: |
-    |                         CC_PLE_Ply |                                                       steps taken by a piece |
-    |               CC_PLE_Teleportation |                             steps taken if Wave, otherwise destination field |
-    |         CC_PLE_FailedTeleportation | steps are empty (`NULL`) if piece is oblationed, destination field otherwise |
-    |               CC_PLE_TranceJourney |                                                       steps taken by a piece |
-    |           CC_PLE_DualTranceJourney |                                          fields at which pieces are captured |
-    |         CC_PLE_FailedTranceJourney |                                                     steps are empty (`NULL`) |
-    |               CC_PLE_PawnSacrifice |                                                     steps taken by a Serpent |
+    |                             `link` |                                                                                  `steps` |
+    | ---------------------------------: | ---------------------------------------------------------------------------------------: |
+    |                         CC_PLE_Ply |                                                                   steps taken by a piece |
+    |               CC_PLE_Teleportation |                                         steps taken if Wave, otherwise destination field |
+    |    CC_PLE_TeleportationReemergence |                                                                        destination field |
+    |       CC_PLE_TeleportationOblation |                                                                 steps are empty (`NULL`) |
+    |               CC_PLE_TranceJourney |                                                          steps taken by entranced Shaman |
+    |           CC_PLE_DualTranceJourney | fields at which pieces are captured, `side_effect` contains captured piece, and lost tag |
+    |         CC_PLE_FailedTranceJourney |                                                                 steps are empty (`NULL`) |
+    |               CC_PLE_PawnSacrifice |                                                                 steps taken by a Serpent |
+    |                CC_PLE_SenseJourney |                                                            steps taken by uplifted piece |
+    |          CC_PLE_FailedSenseJourney |                                                                 steps are empty (`NULL`) |
 */
 typedef struct CcPly
 {
@@ -125,7 +139,7 @@ typedef struct CcPly
     If no valid ply is produced, steps are still valid, and accessible.
 
     @return
-    A newly allocated ply, is successful, `NULL` otherwise.
+    A newly allocated ply if successful, `NULL` otherwise.
 */
 CcPly * cc_ply__new( char const * restrict start_an__d,
                      char const * restrict end_an__d,
@@ -150,7 +164,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     @see cc_ply__new()
 
     @return
-    Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
 CcPly * cc_ply_append( CcPly * restrict plies__io,
                        char const * restrict start_an__d,
@@ -181,7 +195,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     with a newly allocated ply as its first element.
 
     @return
-    Weak pointer to a newly allocated ply, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
 CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                           char const * restrict start_an__d,
@@ -198,15 +212,43 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
     @param plies Linked list to duplicate.
 
     @return
-    A newly allocated plies, is successful, `NULL` otherwise.
+    A newly allocated plies if successful, `NULL` otherwise.
 */
 CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
 
-// TODO :: DOCS
+/**
+    Extends existing linked list with a newly allocated plies.
+
+    @param plies__io Linked list to extend.
+    @param plies__n Linked list with which to extend existing plies.
+
+    @note
+    Extending linked list `plies__n` has its ownership transferred to extended linked list `plies__io`;
+    as a result, inner pointer of `plies__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
+*/
 CcPly * cc_ply_extend( CcPly ** restrict plies__io,
                        CcPly ** restrict plies__n );
 
-// TODO :: DOCS
+/**
+    Extends existing linked list with a newly allocated plies, or initialize it, if it isn't.
+
+    @param plies__iod Linked list to extend, inner pointer can be `NULL`.
+    @param plies__n Linked list with which to extend existing plies.
+
+    @note
+    If linked list to extend (`plies__iod`) hasn't been allocated yet, this will initialize it
+    with content of an extending linked list, i.e. `plies__n`.
+
+    @note
+    Extending linked list `plies__n` has its ownership transferred to extended linked list `plies__iod`;
+    as a result, inner pointer of `plies__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
+*/
 CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
                           CcPly ** restrict plies__n );
 

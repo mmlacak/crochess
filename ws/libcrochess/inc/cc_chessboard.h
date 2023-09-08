@@ -34,7 +34,7 @@ typedef struct CcChessboard
     @param do_setup Wheather to set-up pieces to their initial positions.
                     If `false`, chessboard returned is empty.
 
-    @return A newly allocated chessboard is successful, `NULL` otherwise.
+    @return A newly allocated chessboard if successful, `NULL` otherwise.
 */
 CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup );
 
@@ -274,7 +274,7 @@ bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict
     @param cb Chessboard to display.
     @param is_board_or_tag Wheather pieces are displayed (if `true`), or tags (if `false`).
 
-    @return A newly allocated string is successful, `NULL` otherwise.
+    @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
                                      bool is_board_or_tag );
@@ -287,7 +287,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
     @param cb Chessboard to display.
     @param is_board_or_tag Wheather pieces are displayed (if `true`), or tags (if `false`).
 
-    @return `true` is successful, `false` otherwise.
+    @return `true` if successful, `false` otherwise.
 */
 bool cc_chessboard_print( CcChessboard * restrict cb,
                           bool is_board_or_tag );

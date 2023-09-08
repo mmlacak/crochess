@@ -63,7 +63,7 @@ typedef struct CcStep
     @param side_effect Side-effect structure.
 
     @return
-    A newly allocated step, is successful, `NULL` otherwise.
+    A newly allocated step if successful, `NULL` otherwise.
 */
 CcStep * cc_step__new( CcStepLinkEnum link,
                        CcPos field, CcSideEffect side_effect );
@@ -77,7 +77,7 @@ CcStep * cc_step__new( CcStepLinkEnum link,
     @param side_effect Side-effect structure.
 
     @return
-    Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
 CcStep * cc_step_append( CcStep * restrict steps__io,
                          CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
@@ -98,7 +98,7 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
     with a newly allocated step as its first element.
 
     @return
-    Weak pointer to a newly allocated step, is successful, `NULL` otherwise.
+    Weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
 CcStep * cc_step_append_if( CcStep ** restrict steps__iod,
                             CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
@@ -109,7 +109,7 @@ CcStep * cc_step_append_if( CcStep ** restrict steps__iod,
     @param steps__io Linked list to duplicate.
 
     @return
-    A newly allocated steps, is successful, `NULL` otherwise.
+    A newly allocated steps if successful, `NULL` otherwise.
 */
 CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 
@@ -124,7 +124,7 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
     as a result, inner pointer of `steps__n` is `NULL`-ed.
 
     @return
-    Weak pointer to extending portion of a linked list is successful, `NULL` otherwise.
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
 CcStep * cc_step_extend( CcStep ** restrict steps__io,
                          CcStep ** restrict steps__n );
@@ -144,7 +144,7 @@ CcStep * cc_step_extend( CcStep ** restrict steps__io,
     as a result, inner pointer of `steps__n` is `NULL`-ed.
 
     @return
-    Weak pointer to extending portion of a linked list is successful, `NULL` otherwise.
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
 CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
                             CcStep ** restrict steps__n );
