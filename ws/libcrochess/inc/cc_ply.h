@@ -92,18 +92,18 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
     `steps` can have only one item in a linked list, if a single destination field is needed.
     `steps` can be empty (`NULL`) for certain ply links.
 
-    |                             `link` |                                                                                  `steps` |
-    | ---------------------------------: | ---------------------------------------------------------------------------------------: |
-    |                         CC_PLE_Ply |                                                                   steps taken by a piece |
-    |               CC_PLE_Teleportation |                                         steps taken if Wave, otherwise destination field |
-    |    CC_PLE_TeleportationReemergence |                                                                        destination field |
-    |       CC_PLE_TeleportationOblation |                                                                 steps are empty (`NULL`) |
-    |               CC_PLE_TranceJourney |                                                          steps taken by entranced Shaman |
-    |           CC_PLE_DualTranceJourney | fields at which pieces are captured, `side_effect` contains captured piece, and lost tag |
-    |         CC_PLE_FailedTranceJourney |                                                                 steps are empty (`NULL`) |
-    |               CC_PLE_PawnSacrifice |                                                                 steps taken by a Serpent |
-    |                CC_PLE_SenseJourney |                                                            steps taken by uplifted piece |
-    |          CC_PLE_FailedSenseJourney |                                                                 steps are empty (`NULL`) |
+    |                             `link` | `steps`                                                                                                  |
+    | ---------------------------------: | :------------------------------------------------------------------------------------------------------- |
+    |                         CC_PLE_Ply | steps taken by a piece                                                                                   |
+    |               CC_PLE_Teleportation | steps taken if Wave, otherwise destination field                                                         |
+    |    CC_PLE_TeleportationReemergence | destination field                                                                                        |
+    |       CC_PLE_TeleportationOblation | steps are empty (`NULL`)                                                                                 |
+    |               CC_PLE_TranceJourney | steps taken by entranced Shaman                                                                          |
+    |           CC_PLE_DualTranceJourney | fields at which pieces are captured, `side_effect` contains captured, or displaced piece, and lost tag   |
+    |         CC_PLE_FailedTranceJourney | steps are empty (`NULL`)                                                                                 |
+    |               CC_PLE_PawnSacrifice | steps taken by a Serpent                                                                                 |
+    |                CC_PLE_SenseJourney | steps taken by uplifted piece                                                                            |
+    |          CC_PLE_FailedSenseJourney | steps are empty (`NULL`)                                                                                 |
 */
 typedef struct CcPly
 {
