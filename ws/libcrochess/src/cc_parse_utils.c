@@ -18,33 +18,30 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
 
     char const * c = an_str;
 
-    if ( *c == '~' )
-        return CC_PLE_CascadingPly; // "~" plies
+    if ( *c == '~' ) return CC_PLE_CascadingPly; // "~" plies
 
     if ( *c == '|' ) {
-        if ( *++c == '|' )
-            return CC_PLE_TeleportationOblation; // "||" failed teleportation, oblation
+        if ( *++c == '|' ) {
+            if ( *++c == '|' ) return CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
+            return CC_PLE_TeleportationReemergence; } // "||" failed teleportation, re-emergence
 
-        return CC_PLE_Teleportation; // "|" teleportation
-    }
+        return CC_PLE_Teleportation; } // "|" teleportation
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
-            if ( *++c == '@' )
-                return CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
+            if ( *++c == '@' ) return CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
+            return CC_PLE_DualTranceJourney; } // "@@" dual trance-journey, oblation
 
-            return CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
-        }
-
-        return CC_PLE_TranceJourney; // "@" trance-journey
-    }
+        return CC_PLE_TranceJourney; } // "@" trance-journey
 
     if ( *c == ';' )
         if ( *++c == ';' )
             return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
 
-    if ( isgraph( *c ) )
-        return CC_PLE_StartingPly;
+    if ( *c == '"' ) return CC_PLE_SenseJourney; // "\"" sense-journey
+    if ( *c == '\'' ) return CC_PLE_CascadingPly; // "'" failed sense-journey, oblation
+
+    if ( isgraph( *c ) ) return CC_PLE_StartingPly;
 
     return CC_PLE_None; }
 
@@ -54,11 +51,14 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
         case CC_PLE_StartingPly : return 0; /* Just first ply, standalone or starting a cascade. */
         case CC_PLE_CascadingPly : return 1; /* Just one ply, continuing cascade. Corresponds to `~`. */
         case CC_PLE_Teleportation : return 1; /* Teleportation of piece. Corresponds to `|`. */
-        case CC_PLE_TeleportationOblation : return 2; /* Failed teleportation, corresponds to `||`. */
+        case CC_PLE_TeleportationReemergence : return 2; /* Failed teleportation, re-emergence, corresponds to `||`. */
+        case CC_PLE_TeleportationOblation : return 3; /* Failed teleportation, oblation, corresponds to `|||`. */
         case CC_PLE_TranceJourney : return 1; /* Trance-journey, corresponds to `@`. */
         case CC_PLE_DualTranceJourney : return 2; /* Double trance-journey, corresponds to `@@`. */
         case CC_PLE_FailedTranceJourney : return 3; /* Failed trance-journey, corresponds to `@@@`. */
         case CC_PLE_PawnSacrifice : return 2; /* Pawn sacrifice, corresponds to `;;`. */
+        case CC_PLE_SenseJourney : return 1; /**< Sense-journey, corresponds to `"`. */
+        case CC_PLE_FailedSenseJourney : return 1; /**< Failed sense-journey, corresponds to `'`. */
 
         default : return 0; } }
 
