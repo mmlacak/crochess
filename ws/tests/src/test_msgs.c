@@ -18,7 +18,9 @@ char * test_msgs_enum_label( TestMsgEnum tme ) {
         case TME_Error : return "Error";
         case TME_Fatal : return "Fatal";
 
-        default : return "???"; } }
+        default : return "???";
+    }
+}
 
 bool test_print_failure( bool expr,
                          TestMsgEnum type,
@@ -30,9 +32,11 @@ bool test_print_failure( bool expr,
 
     if ( !result ) {
         printf( "%s: %s; in %s(), at %s[%lu].\n", test_msgs_enum_label( type ), msg, func, file, line );
-        fflush( stdout ); }
+        fflush( stdout );
+    }
 
-    return result; }
+    return result;
+}
 
 
 TestMsgs * test_msgs__new( TestMsgEnum type,
@@ -52,7 +56,8 @@ TestMsgs * test_msgs__new( TestMsgEnum type,
 
     new->next = NULL;
 
-    return new; }
+    return new;
+}
 
 TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
                              TestMsgEnum type,
@@ -69,7 +74,8 @@ TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
     while ( tm->next ) tm = tm->next; // rewind
     tm->next = new; // append
 
-    return new; }
+    return new;
+}
 
 TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
                                      TestMsgEnum type,
@@ -83,7 +89,8 @@ TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
 
     if ( !*test_msgs ) *test_msgs = new;
 
-    return new; }
+    return new;
+}
 
 bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f ) {
     if ( !test_msgs__f ) return false;
@@ -99,10 +106,12 @@ bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f ) {
 
         tmp = tm->next;
         CC_FREE( tm );
-        tm = tmp; }
+        tm = tmp;
+    }
 
     *test_msgs__f = NULL;
-    return true; }
+    return true;
+}
 
 bool test_msgs_print_all( TestMsgs * restrict test_msgs,
                           TestMsgEnum level ) {
@@ -119,8 +128,11 @@ bool test_msgs_print_all( TestMsgs * restrict test_msgs,
                     tm->file,
                     tm->line );
 
-            fflush( stdout ); }
+            fflush( stdout );
+        }
 
-        tm = tm->next; }
+        tm = tm->next;
+    }
 
-    return true; }
+    return true;
+}

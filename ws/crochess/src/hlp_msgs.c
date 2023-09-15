@@ -10,12 +10,14 @@
 void print_license_intro( void ) {
     printf( "Croatian chess - chess variants console application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
-    /* fflush( stdout ); */ }
+    // fflush( stdout );
+}
 
 void print_version_info( char const * restrict lib_ver, char const * restrict app_ver ) {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
-    /* fflush( stdout ); */ }
+    // fflush( stdout );
+}
 
 void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver ) {
     print_license_intro();
@@ -31,7 +33,8 @@ void print_app_intro( char const * restrict lib_ver, char const * restrict app_v
     printf( "\nUse `help` for command list, `help <cmd>` for detailed info.\n"
             "\n" );
 
-    /* fflush( stdout ); */ }
+    // fflush( stdout );
+}
 
 void print_licence_text( void ) {
     printf( "\n"
@@ -47,11 +50,13 @@ void print_licence_text( void ) {
             "\n"
             "You should have received a copy of the GNU General Public License\n"
             "along with this program.  If not, see <https://www.gnu.org/licenses/>.\n" );
-    /* fflush( stdout ); */ }
+    // fflush( stdout );
+}
 
 void print_about_info( void ) {
     print_license_intro();
-    print_licence_text(); }
+    print_licence_text();
+}
 
 void print_help( void ) {
     printf( "Commands:\n"
@@ -76,17 +81,20 @@ void print_help( void ) {
             "* l, load     - loads game/positions from PGN file\n"
             "                takes <path> as argument, e.g. `load my_new_game.pgn`\n"
             "\n"
-            "Commands marked with * are currently not implemented.\n" ); }
+            "Commands marked with * are currently not implemented.\n" );
+}
 
 void print_help_quit( void ) {
-    printf( "Quits application, any unsaved progress is lost.\n" ); }
+    printf( "Quits application, any unsaved progress is lost.\n" );
+}
 
 void print_help_display( void ) {
     printf( "Displays current position, light player is positioned at the bottom,\n"
             "dark player is positioned at the top of the chessboard.\n"
             "\n"
             "Light pieces are printed as upper-case, dark pieces are printed\n"
-            "as lower-case symbols.\n" ); }
+            "as lower-case symbols.\n" );
+}
 
 void print_help_tags( void ) {
     printf( "Displays current tags.\n"
@@ -94,10 +102,12 @@ void print_help_tags( void ) {
             "\n"
             "R -> Pawn can rush\n"
             "C -> Rooks, Kings can castle\n"
-            "P -> Pawn tagged for promotion\n" ); }
+            "P -> Pawn tagged for promotion\n" );
+}
 
 void print_help_about( void ) {
-    printf( "Displays copyright, license info.\n" ); }
+    printf( "Displays copyright, license info.\n" );
+}
 
 void print_help_version( void ) {
     printf( "Displays versions of application, library; currently they are the same.\n"
@@ -106,7 +116,8 @@ void print_help_version( void ) {
             "\n"
             "<meta> is compressed UTC <date>.<time> format, comparable to version found\n"
             "in the book. For details, see Natural Versioning 1.0, at:\n"
-            "https://croatian-chess.blogspot.com/p/natver.html\n" ); }
+            "https://croatian-chess.blogspot.com/p/natver.html\n" );
+}
 
 void print_help_new_code( void ) {
     printf( "cc  -> Classical Chess\n"
@@ -119,13 +130,15 @@ void print_help_new_code( void ) {
             "tr  -> Tamoanchan Revisited\n"
             "cot -> Conquest Of Tlalocan\n"
             "d   -> Discovery\n"
-            "o   -> One\n" ); }
+            "o   -> One\n" );
+}
 
 void print_help_new( void ) {
     printf( "Starts new game, in the same variant as the last one.\n"
             "To change variant, use code below as argument, e.g. `new ct`:\n\n" );
 
-    print_help_new_code(); }
+    print_help_new_code();
+}
 
 void print_new_code_invalid( char const * restrict str,
                              size_t max_len__d ) {
@@ -136,10 +149,13 @@ void print_new_code_invalid( char const * restrict str,
             printf( "%s", str );
         else {
             for ( size_t i = 0; i < max_len__d; ++i )
-                printf( "%c", *str++ ); }
+                printf( "%c", *str++ );
+        }
 
-        printf( "'.\n" ); }
+        printf( "'.\n" );
+    }
 
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
-    printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" ); }
+    printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" );
+}

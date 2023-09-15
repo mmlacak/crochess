@@ -55,7 +55,8 @@ bool test_move( char const * restrict an_str,
         result = cc_chessboard_is_equal( game__a->chessboard, setup__a->chessboard ) && result;
         if ( !result ) result_at |= 0x1;
 
-        cc_game_free_all( &setup__a ); }
+        cc_game_free_all( &setup__a );
+    }
 
 // TODO
     // if ( ( result = cc_apply_move( an_str, game__a, &pm__a ) && result ) )
@@ -84,17 +85,19 @@ bool test_move( char const * restrict an_str,
         result = cc_chessboard_is_equal( game__a->chessboard, end__a->chessboard ) && result;
         if ( !result ) result_at |= 0x4;
 
-        cc_game_free_all( &end__a ); }
+        cc_game_free_all( &end__a );
+    }
 
     if ( game__a->moves ) {
         CcMove * m = game__a->moves;
         while ( m->next ) m = m->next;
 
         result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
-        if ( !result ) result_at |= 0x8; }
-    else {
+        if ( !result ) result_at |= 0x8;
+    } else {
         result = false;
-        result_at |= 0x10; }
+        result_at |= 0x10;
+    }
 
     cc_parse_msg_free_all( &pm__a );
 
@@ -105,19 +108,23 @@ bool test_move( char const * restrict an_str,
         if ( *game__iodr )
             cc_game_free_all( game__iodr );
 
-        *game__iodr = game__a; }
+        *game__iodr = game__a;
+    }
 
     if ( !result ) {
         printf( "Move '%s' failed, error(s) 0x%x.\n", an_str, result_at );
-        printf( "-----------------------------------------------------------------------\n" ); }
+        printf( "-----------------------------------------------------------------------\n" );
+    }
 
-    return result; }
+    return result;
+}
 
 
 bool tests_move( int test_number ) {
     if ( ( test_number < 0 ) || ( 48 < test_number ) ) {
         printf( "No such a move test: '%d'.\n", test_number );
-        return false; }
+        return false;
+    }
 
     bool do_all_tests = ( test_number == 0 );
     bool result = true;
@@ -483,4 +490,5 @@ bool tests_move( int test_number ) {
     //     result = test_move( "[Ba5]~Wc7@@[Nd9]", NULL, NULL, NULL, NULL ) && result;
 
     printf( "Finished: '%d'.\n", result );
-    return result; }
+    return result;
+}

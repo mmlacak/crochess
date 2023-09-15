@@ -61,7 +61,8 @@ bool cc_str_count_chars( char const * restrict str,
                 *count__o += 1;
     }
 
-    return true; }
+    return true;
+}
 
 char const * cc_str_contains_char( char c,
                                    bool case_sensitive,

@@ -22,7 +22,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.300:732+20230915.060734"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.301:733+20230915.062732"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 bool print_all_moves( CcMove * restrict moves ) {
@@ -43,14 +43,18 @@ bool print_all_moves( CcMove * restrict moves ) {
 
             if ( !m->next ) {
                 printf( "%lu %s ...\n", index+1, l->notation );
-                break; } }
-        else {
+                break;
+            }
+        } else {
             d = m;
-            printf( "%lu %s %s\n", ++index, l->notation, d->notation ); }
+            printf( "%lu %s %s\n", ++index, l->notation, d->notation );
+        }
 
-        m = m->next; }
+        m = m->next;
+    }
 
-    return true; }
+    return true;
+}
 
 
 int main( void ) {
@@ -70,7 +74,8 @@ int main( void ) {
         ret = fgets( buffer, BUFSIZ, stdin );
         if ( !ret ) {
             printf( "Input error.\n" );
-            continue; }
+            continue;
+        }
 
         char const * token_start = NULL;
         char const * token_end = NULL;
@@ -79,23 +84,23 @@ int main( void ) {
 
         if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
              cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) ) {
-            break; }
-        else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
+            break;
+        } else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) ) {
-            print_version_info( CC_LIB_VERSION, CROCHESS_VERSION ); }
-        else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
+            print_version_info( CC_LIB_VERSION, CROCHESS_VERSION );
+        } else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) ) {
-            print_about_info(); }
-        else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
+            print_about_info();
+        } else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "display", NULL, BUFSIZ ) ) {
-            cc_chessboard_print( game__a->chessboard, true ); }
-        else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
+            cc_chessboard_print( game__a->chessboard, true );
+        } else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "tags", NULL, BUFSIZ ) ) {
-            cc_chessboard_print( game__a->chessboard, false ); }
-        else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
+            cc_chessboard_print( game__a->chessboard, false );
+        } else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) ) {
-            print_all_moves( game__a->moves ); }
-        else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
+            print_all_moves( game__a->moves );
+        } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
                 char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
@@ -121,8 +126,9 @@ int main( void ) {
                 // }
 // TODO
 
-                cc_parse_msg_free_all( &pm__a ); } }
-        else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
+                cc_parse_msg_free_all( &pm__a );
+            }
+        } else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;
             cc_char_8 code = CC_CHAR_8_EMPTY;
@@ -139,17 +145,19 @@ int main( void ) {
                     if ( !cc_game_free_all( &game__a ) )
                         continue;
 
-                    game__a = cc_game__new( CC_GSE_Turn_Light, ve, true ); }
-                else
-                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 ); }
+                    game__a = cc_game__new( CC_GSE_Turn_Light, ve, true );
+                } else
+                    print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
+            }
 
             bool is_empty = cc_str_is_empty( code );
             if ( is_empty || ( !is_empty && is_code ) ) {
                 cc_chessboard_setup( game__a->chessboard );
                 game__a->status = CC_GSE_Turn_Light;
 
-                cc_chessboard_print( game__a->chessboard, true ); } }
-        else if ( cc_str_is_equal( token_start, token_end, "h", NULL, BUFSIZ ) ||
+                cc_chessboard_print( game__a->chessboard, true );
+            }
+        } else if ( cc_str_is_equal( token_start, token_end, "h", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "?", NULL, BUFSIZ ) ||
                   cc_str_is_equal( token_start, token_end, "help", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
@@ -176,14 +184,17 @@ int main( void ) {
                 else
                     cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL ); }
             else
-                print_help(); }
-        else {
+                print_help();
+        } else {
             printf( "Unknown: '%s'.\n", buffer );
-            /* fflush( stdout ); */ } }
+            // fflush( stdout );
+        }
+    }
 
     cc_game_free_all( &game__a );
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );
 
-    return 0; }
+    return 0;
+}
