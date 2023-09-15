@@ -25,20 +25,23 @@ CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse,
     if ( is_end ) {
         if ( is_won ) {
             if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Light;
-            if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Dark; }
-        else
-            return CC_GSE_Draw; }
+            if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Dark;
+        } else
+            return CC_GSE_Draw;
+    }
 
     if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Turn_Dark;
     if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Turn_Light;
     if ( gse == CC_GSE_None ) return CC_GSE_None;
 
-    return gse; }
+    return gse;
+}
 
 CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse ) {
     if ( gse == CC_GSE_Turn_Light ) return CC_GSE_Win_Dark;
     if ( gse == CC_GSE_Turn_Dark ) return CC_GSE_Win_Light;
-    return gse; }
+    return gse;
+}
 
 
 CcGame * cc_game__new( CcGameStatusEnum status,
@@ -52,11 +55,13 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     gm__a->chessboard = cc_chessboard__new( ve, do_setup );
     if ( !gm__a->chessboard ) {
         CC_FREE( gm__a );
-        return NULL; }
+        return NULL;
+    }
 
     gm__a->moves = NULL;
 
-    return gm__a; }
+    return gm__a;
+}
 
 CcGame * cc_game_duplicate_all__new( CcGame * restrict game ) {
     if ( !game ) return NULL;
@@ -69,18 +74,21 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game ) {
     CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
     if ( game->chessboard && ( !cb__t ) ) {
         cc_game_free_all( &gm__a );
-        return NULL; }
+        return NULL;
+    }
 
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
     CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
     if ( game->moves && ( !mv__t ) ) {
         cc_game_free_all( &gm__a );
-        return NULL; }
+        return NULL;
+    }
 
     gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
 
-    return gm__a; }
+    return gm__a;
+}
 
 bool cc_game_free_all( CcGame ** restrict game__f ) {
     if ( !game__f ) return false;
@@ -96,7 +104,8 @@ bool cc_game_free_all( CcGame ** restrict game__f ) {
 
     CC_FREE_NULL( game__f );
 
-    return result; }
+    return result;
+}
 
 CcGame * cc_game_setup_from_string__new( char const * restrict setup,
                                          CcGame * restrict before_setup__d ) {
@@ -109,15 +118,16 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
     CcGame * game__a = NULL;
 
     if ( before_setup__d ) {
-        game__a = cc_game_duplicate_all__new( before_setup__d ); }
-    else {
+        game__a = cc_game_duplicate_all__new( before_setup__d );
+    } else {
         size_t len = cc_variant_from_symbol( s, &ve );
         gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;
 
         game__a = cc_game__new( gse, ve, false );
 
         // +1 == next char, after separator (space) following variant symbol string
-        s += len + 1; }
+        s += len + 1;
+    }
 
     if ( !game__a ) return NULL;
 
@@ -144,6 +154,9 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
 
         if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) ) {
             cc_game_free_all( &game__a );
-            return NULL; } }
+            return NULL;
+        }
+    }
 
-    return game__a; }
+    return game__a;
+}

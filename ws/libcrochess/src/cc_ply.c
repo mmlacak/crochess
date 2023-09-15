@@ -27,7 +27,9 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple ) {
         case CC_PLE_SenseJourney : return "\"";
         case CC_PLE_FailedSenseJourney : return "'";
 
-        default : return NULL; } }
+        default : return NULL;
+    }
+}
 
 
 CcPly * cc_ply__new( char const * restrict start_an__d,
@@ -48,13 +50,14 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
 
     if ( steps__n ) {
         ply__a->steps = *steps__n;
-        *steps__n = NULL; }
-    else
+        *steps__n = NULL;
+    } else
         ply__a->steps = NULL;
 
     ply__a->next = NULL;
 
-    return ply__a; }
+    return ply__a;
+}
 
 CcPly * cc_ply_append( CcPly * restrict plies__io,
                        char const * restrict start_an__d,
@@ -73,7 +76,8 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     while ( p->next ) p = p->next; // rewind
     p->next = ply__t; // append // Ownership transfer --> ply__t is now weak pointer.
 
-    return ply__t; }
+    return ply__t;
+}
 
 CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                           char const * restrict start_an__d,
@@ -105,7 +109,8 @@ CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
                                 lost_tag,
                                 steps__n );
 
-    return ply__w; }
+    return ply__w;
+}
 
 CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
     if ( !plies ) return NULL;
@@ -117,7 +122,8 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
         CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
         if ( !steps__t ) {
             cc_ply_free_all( &ply__a );
-            return NULL; }
+            return NULL;
+        }
 
         CcPly * ply__w = cc_ply_append_if( &ply__a,
                                            from->notation,
@@ -130,12 +136,15 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
         if ( !ply__w ) {
             cc_step_free_all( &steps__t ); // Failed append --> ownership not transferred ...
             cc_ply_free_all( &ply__a );
-            return NULL; }
+            return NULL;
+        }
 
-        from = from->next; }
+        from = from->next;
+    }
     while ( from );
 
-    return ply__a; }
+    return ply__a;
+}
 
 CcPly * cc_ply_extend( CcPly ** restrict plies__io,
                        CcPly ** restrict plies__n ) {
@@ -152,7 +161,8 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__io,
     last->next = *plies__n;
     *plies__n = NULL;
 
-    return last->next; }
+    return last->next;
+}
 
 CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
                           CcPly ** restrict plies__n ) {
@@ -166,9 +176,11 @@ CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
         *plies__iod = *plies__n;
         *plies__n = NULL;
 
-        return *plies__iod; }
+        return *plies__iod;
+    }
 
-    return cc_ply_extend( plies__iod, plies__n ); }
+    return cc_ply_extend( plies__iod, plies__n );
+}
 
 bool cc_ply_free_all( CcPly ** restrict plies__f ) {
     if ( !plies__f ) return false;
@@ -185,10 +197,12 @@ bool cc_ply_free_all( CcPly ** restrict plies__f ) {
 
         CcPly * tmp = ply->next;
         CC_FREE( ply );
-        ply = tmp; }
+        ply = tmp;
+    }
 
     *plies__f = NULL;
-    return result; }
+    return result;
+}
 
 
 bool cc_ply_contains_side_effects( CcPly * restrict ply ) {
@@ -198,9 +212,11 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply ) {
     CcStep * s = ply->steps;
     while ( s->next ) {
         if ( s->side_effect.type != CC_SEE_None ) return true;
-        s = s->next; }
+        s = s->next;
+    }
 
-    return false; }
+    return false;
+}
 
 CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
                                       CcPly * restrict ply__d ) {
@@ -225,11 +241,14 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
 
         if ( p == ply__d ) {
             ply_encountered = true;
-            break; }
+            break;
+        }
 
-        p = p->next; }
+        p = p->next;
+    }
 
-    return ply_encountered ? last_active_piece : CC_PE_None; }
+    return ply_encountered ? last_active_piece : CC_PE_None;
+}
 
 char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
     if ( !plies ) return NULL;
@@ -245,7 +264,8 @@ char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
         ++count_plies;
         count_steps += cc_step_count( p_count->steps );
 
-        p_count = p_count->next; }
+        p_count = p_count->next;
+    }
 
     //
     // Calc max string size, allocate.
@@ -265,7 +285,8 @@ char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
     // **Must** be zero-terminated!
     if ( !cc_str_clear( plies_str__a, unused_size ) ) /* Using size (instead of length) here is ok! */ {
         CC_FREE( plies_str__a );
-        return NULL; }
+        return NULL;
+    }
 
     //
     // Collect ply string, append to result.
@@ -281,7 +302,8 @@ char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
 
         if ( !end_ple ) {
             CC_FREE( plies_str__a );
-            return NULL; }
+            return NULL;
+        }
 
         unused_size -= ( end_ple - s );
         s = end_ple;
@@ -296,7 +318,8 @@ char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
 
         if ( !lte_str ) {
             CC_FREE( plies_str__a );
-            return NULL; }
+            return NULL;
+        }
 
         unused_size -= ( end_lte - s );
         s = end_lte;
@@ -307,19 +330,23 @@ char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
 
         if ( !steps_str__a ) {
             CC_FREE( plies_str__a );
-            return NULL; }
+            return NULL;
+        }
 
         char * end_steps = cc_str_append_into( s, unused_size, steps_str__a, CC_MAX_LEN_ZERO_TERMINATED );
 
         if ( !end_steps ) {
             CC_FREE( steps_str__a );
             CC_FREE( plies_str__a );
-            return NULL; }
+            return NULL;
+        }
 
         unused_size -= ( end_steps - s );
         s = end_steps;
 
         CC_FREE( steps_str__a );
-        p = p->next; }
+        p = p->next;
+    }
 
-    return plies_str__a; }
+    return plies_str__a;
+}

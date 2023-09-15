@@ -20,8 +20,7 @@
     This enumerates different ways plies can cascade,
     and directly corresponds to cascading plies separators and terminators.
 */
-typedef enum CcPlyLinkEnum
-{
+typedef enum CcPlyLinkEnum {
     CC_PLE_None, /**< Ply link not found, uninitialized, or error happened. */
     CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
     CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
@@ -33,7 +32,8 @@ typedef enum CcPlyLinkEnum
     CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
     CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
     CC_PLE_SenseJourney, /**< Sense-journey, corresponds to `"`. */
-    CC_PLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */ } CcPlyLinkEnum;
+    CC_PLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */
+} CcPlyLinkEnum;
 
 
 #define CC_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PLE_None )
@@ -104,8 +104,7 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
     |                CC_PLE_SenseJourney | steps taken by uplifted piece                                                                            |
     |          CC_PLE_FailedSenseJourney | steps are empty (`NULL`)                                                                                 |
 */
-typedef struct CcPly
-{
+typedef struct CcPly {
     char * notation; /**< Copy of move notation, originating this ply. */
 
     CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
@@ -113,7 +112,8 @@ typedef struct CcPly
     CcLosingTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
     CcStep * steps; /**< Steps taken by the piece. */
 
-    struct CcPly * next; /**< Next ply in a cascade. */ } CcPly;
+    struct CcPly * next; /**< Next ply in a cascade. */
+} CcPly;
 
 /**
     Returns newly allocated ply.

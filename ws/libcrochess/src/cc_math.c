@@ -28,11 +28,14 @@ int cc_gcd( int x, int y ) {
     while ( min > 0 ) {
         rem = max % min;
         max = min;
-        min = rem; }
+        min = rem;
+    }
 
-    return max; }
+    return max;
+}
 
 size_t cc_diagonal( size_t size ) {
     size_t s = 2 * size * size;
     long double d = ceill( sqrtl( (long double)s ) );
-    return (size_t)d; }
+    return (size_t)d;
+}

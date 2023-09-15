@@ -140,8 +140,7 @@
 
     Tag `CC_TE_None` is used for e.g. empty on-board fields, any off-board field.
 */
-typedef enum CcTagEnum
-{
+typedef enum CcTagEnum {
     CC_TE_None, /**< No tag applies. */
 
     CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
@@ -150,7 +149,8 @@ typedef enum CcTagEnum
 
     CC_TE_EnPassant, /**< En passant tag, semi-persistant. Gained in a move, used or lost in the very next one. */
 
-    CC_TE_PawnSacrifice, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */ } CcTagEnum;
+    CC_TE_PawnSacrifice, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */
+} CcTagEnum;
 
 
 /**
@@ -180,13 +180,13 @@ CcTagEnum cc_tag_from_char( char c );
     When converting from ordinary tag enum, `CC_LTE_None` is used for
     all values not enumerated here.
 */
-typedef enum CcLosingTagEnum
-{
+typedef enum CcLosingTagEnum {
     CC_LTE_None = (int)CC_TE_None, /**< No tag applies. */
 
     CC_LTE_CanRush = (int)CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
     CC_LTE_CanCastle = (int)CC_TE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
-    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */ } CcLosingTagEnum;
+    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
+} CcLosingTagEnum;
 
 /**
     Maximum length of a losing-tag symbol.

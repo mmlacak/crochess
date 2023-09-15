@@ -18,14 +18,14 @@
 /**
     Step link enumeration.
 */
-typedef enum CcStepLinkEnum
-{
+typedef enum CcStepLinkEnum {
     CC_SLE_None, /**< Step link not found, uninitialized, not parsed yet, or error happened. */
     CC_SLE_Start, /**< Position from which a piece started moving. */
     CC_SLE_Reposition, /**< In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
-    CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */ } CcStepLinkEnum;
+    CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
+} CcStepLinkEnum;
 
 /**
     Function returns string symbol, as used in algebraic notation, for a given step link.
@@ -45,13 +45,13 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle );
 /**
     Step structure, linked list.
 */
-typedef struct CcStep
-{
+typedef struct CcStep {
     CcStepLinkEnum link; /**< Type of a link to previous step. */
     CcPos field; /**< Field of a step. */
     CcSideEffect side_effect; /**< Side-effect structure. */
 
-    struct CcStep * next; /**< Next step in a linked list. */ } CcStep;
+    struct CcStep * next; /**< Next step in a linked list. */
+} CcStep;
 
 /**
     Returns a newly allocated step.

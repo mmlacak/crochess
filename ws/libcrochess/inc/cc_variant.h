@@ -76,8 +76,7 @@
 /**
     Enumeration of all variants.
 */
-typedef enum CcVariantEnum
-{
+typedef enum CcVariantEnum {
     CC_VE_ClassicalChess,
     CC_VE_CroatianTies,
     CC_VE_MayanAscendancy,
@@ -88,7 +87,8 @@ typedef enum CcVariantEnum
     CC_VE_TamoanchanRevisited,
     CC_VE_ConquestOfTlalocan,
     CC_VE_Discovery,
-    CC_VE_One, } CcVariantEnum;
+    CC_VE_One,
+} CcVariantEnum;
 
 
 /**

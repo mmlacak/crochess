@@ -35,7 +35,8 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                     step_str__a );
 
         CC_FREE( step_str__a );
-        return false; }
+        return false;
+    }
 
     char const * s_an = step_start_an + cc_step_link_len( sle );
 
@@ -51,7 +52,8 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                     "Error parsing step '%s'.\n",
                                     step_an__a );
         CC_FREE( step_an__a );
-        return false; }
+        return false;
+    }
 
     CcSideEffect se = cc_side_effect_none();
 
@@ -70,7 +72,8 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                     "Error parsing side-effect, in step '%s'.\n",
                                     step_an__a );
         CC_FREE( step_an__a );
-        return false; }
+        return false;
+    }
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
@@ -78,7 +81,8 @@ static bool cc_parse_step( char const * restrict step_start_an,
     *step__o = step__t;
     // step__t = NULL; // Not needed.
 
-    return true; }
+    return true;
+}
 
 
 bool cc_parse_steps( char const * restrict steps_start_an,
@@ -109,12 +113,15 @@ cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO
                              parse_msgs__iod ) ) {
 printf( "!cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
             cc_step_free_all( &step__t );
-            return false; }
+            return false;
+        }
 
         if ( !cc_step_extend_if( steps__o, &step__t ) ) {
 printf( "!cc_step_extend_if\n" );  // TODO :: DEBUG :: DELETE
             cc_step_free_all( &step__t );
-            return false; } }
+            return false;
+        }
+    }
 
 // TODO :: DEBUG :: DELETE
 //
@@ -123,8 +130,10 @@ printf( "!cc_step_extend_if\n" );  // TODO :: DEBUG :: DELETE
 
         cc_str_print( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 
-        CC_FREE( step_str__a ); }
+        CC_FREE( step_str__a );
+    }
 //
 // TODO :: DEBUG :: DELETE
 
-    return true; }
+    return true;
+}

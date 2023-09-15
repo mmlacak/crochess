@@ -23,18 +23,21 @@ bool cc_str_clear( char * restrict str__io,
     char * s = str__io;
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
-        while ( *s ) *s++ = '\0'; }
-    else {
+        while ( *s ) *s++ = '\0';
+    } else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) )
-            *s++ = '\0'; }
+            *s++ = '\0';
+    }
 
-    return true; }
+    return true;
+}
 
 bool cc_str_is_empty( char const * restrict str ) {
     if ( !str ) return true;
-    return ( *str == '\0' ); }
+    return ( *str == '\0' );
+}
 
 bool cc_str_count_chars( char const * restrict str,
                          cc_ctype_fp_ischar_t fp_is_char,
@@ -49,12 +52,14 @@ bool cc_str_count_chars( char const * restrict str,
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
         while ( *s != '\0' )
-            if ( fp_is_char( *s++ ) ) *count__o += 1; }
-    else {
+            if ( fp_is_char( *s++ ) ) *count__o += 1;
+    } else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) )
-            if ( fp_is_char( *s++ ) ) *count__o += 1; }
+            if ( fp_is_char( *s++ ) )
+                *count__o += 1;
+    }
 
     return true; }
 
@@ -70,9 +75,11 @@ char const * cc_str_contains_char( char c,
 
     while ( *s != '\0' ) {
         if ( case_sensitive ) {
-            if ( *s == c ) return s; }
-        else {
-            if ( tolower( *s ) == tolower( c ) ) return s; }
+            if ( *s == c ) return s;
+        } else {
+            if ( tolower( *s ) == tolower( c ) )
+                return s;
+        }
 
         if ( end__d && ( s >= end__d ) ) return NULL;
 
@@ -96,16 +103,18 @@ char const * cc_str_traverse_chars( char const * restrict str,
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
         while ( ( *str__w )
              && ( skip_or_stop_at == fp_is_char( *str__w ) ) )
-                ++str__w; }
-    else {
+                ++str__w;
+    } else {
         size_t c = 0;
 
         while ( ( *str__w )
              && ( c++ < max_len__d )
              && ( skip_or_stop_at == fp_is_char( *str__w ) ) )
-                ++str__w; }
+                ++str__w;
+    }
 
-    return str__w; }
+    return str__w;
+}
 
 
 bool cc_str_to_case( char * restrict str__io,
@@ -119,16 +128,20 @@ bool cc_str_to_case( char * restrict str__io,
         while ( *s ) {
             *s = ( to_upper_or_lower ) ? toupper( *s )
                                        : tolower( *s );
-            ++s; } }
-    else {
+            ++s;
+        }
+    } else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < max_len__d ) ) {
             *s = ( to_upper_or_lower ) ? toupper( *s )
                                        : tolower( *s );
-            ++s; } }
+            ++s;
+        }
+    }
 
-    return true; }
+    return true;
+}
 
 char * cc_str_to_case__new( char const * restrict str,
                             bool to_upper_or_lower,
@@ -149,18 +162,22 @@ char * cc_str_to_case__new( char const * restrict str,
         while ( *pos ) {
             *s++ = ( to_upper_or_lower ) ? toupper( *pos )
                                          : tolower( *pos );
-            ++pos; } }
-    else {
+            ++pos;
+        }
+    } else {
         size_t c = 0;
 
         while ( ( *pos ) && ( c++ < len ) ) {
             *s++ = ( to_upper_or_lower ) ? toupper( *pos )
                                          : tolower( *pos );
-            ++pos; } }
+            ++pos;
+        }
+    }
 
     lc__a[ len ] = '\0';
 
-    return lc__a; }
+    return lc__a;
+}
 
 
 char const * cc_str_end( char const * restrict start,
@@ -175,16 +192,18 @@ char const * cc_str_end( char const * restrict start,
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
             while ( *s != '\0' ) ++s;
         else
-            while ( ( *s != '\0' ) && ( len++ < max_len__d ) ) ++s; }
-    else {
+            while ( ( *s != '\0' ) && ( len++ < max_len__d ) ) ++s;
+    } else {
         char const * e = end__d;
 
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
             while ( ( *s != '\0' ) && ( s < e ) ) ++s;
         else
-            while ( ( *s != '\0' ) && ( s < e ) && ( len++ < max_len__d ) ) ++s; }
+            while ( ( *s != '\0' ) && ( s < e ) && ( len++ < max_len__d ) ) ++s;
+    }
 
-    return s; }
+    return s;
+}
 
 size_t cc_str_len( char const * restrict start,
                    char const * restrict end__d,
@@ -192,7 +211,8 @@ size_t cc_str_len( char const * restrict start,
     char const * end = cc_str_end( start, end__d, max_len__d );
     if ( !end ) return 0;
 
-    return (size_t)(end - start); }
+    return (size_t)(end - start);
+}
 
 int cc_str_len_fmt_va( char const * restrict fmt, va_list args ) {
     va_list tmp;
@@ -201,7 +221,8 @@ int cc_str_len_fmt_va( char const * restrict fmt, va_list args ) {
     int len = vsnprintf( NULL, 0, fmt, tmp ); // len does not include '\0'.
     va_end( tmp );
 
-    return len; }
+    return len;
+}
 
 int cc_str_len_format( char const * restrict fmt, ... ) {
     va_list args;
@@ -216,7 +237,8 @@ int cc_str_len_format( char const * restrict fmt, ... ) {
 
     va_end( args );
 
-    return len; }
+    return len;
+}
 
 bool cc_str_is_equal( char const * restrict start_1,
                       char const * restrict end_1__d,
@@ -232,7 +254,8 @@ bool cc_str_is_equal( char const * restrict start_1,
     if ( len_1 == 0 ) return true; // Two empty strings are equal.
 
     int res = strncmp( start_1, start_2, len_1 );
-    return ( res == 0 ); }
+    return ( res == 0 );
+}
 
 
 size_t cc_str_copy( char const * restrict start,
@@ -259,7 +282,8 @@ size_t cc_str_copy( char const * restrict start,
     if ( ( size_dest__d == CC_SIZE_IGNORE ) || ( len < size_dest__d ) )
         dest__o[ len ] = '\0';
 
-    return len; }
+    return len;
+}
 
 char * cc_str_copy__new( char const * restrict start,
                          char const * restrict end__d,
@@ -273,7 +297,8 @@ char * cc_str_copy__new( char const * restrict start,
     if ( !strncpy( str__a, start, len ) ) return NULL;
     str__a[ len ] = '\0';
 
-    return str__a; }
+    return str__a;
+}
 
 char * cc_str_fmt_va__new( size_t max_len__d,
                            char const * restrict fmt,
@@ -286,7 +311,8 @@ char * cc_str_fmt_va__new( size_t max_len__d,
     int len = cc_str_len_fmt_va( fmt, tmp );
     if ( len < 0 ) { // error ?
         va_end( tmp );
-        return NULL; }
+        return NULL;
+    }
 
     size_t len_min =
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
@@ -295,21 +321,25 @@ char * cc_str_fmt_va__new( size_t max_len__d,
     char * str__a = (char *)malloc( len_min + 1 );
     if ( !str__a ) {
         va_end( tmp );
-        return NULL; }
+        return NULL;
+    }
 
     int len_2 = vsnprintf( str__a, len_min + 1, fmt, tmp );
     if ( len_2 < 0 ) { // error ?
         CC_FREE( str__a );
         va_end( tmp );
-        return NULL; }
+        return NULL;
+    }
 
     va_end( tmp );
 
     if ( len_min != (size_t const)len_2 ) {
         CC_FREE( str__a );
-        return NULL; }
+        return NULL;
+    }
 
-    return str__a; }
+    return str__a;
+}
 
 char * cc_str_fmt__new( size_t max_len__d,
                         char const * restrict fmt, ... ) {
@@ -322,7 +352,8 @@ char * cc_str_fmt__new( size_t max_len__d,
 
     va_end( args );
 
-    return str__a; }
+    return str__a;
+}
 
 char * cc_str_duplicate__new( char const * restrict str,
                               bool do_reverse,
@@ -340,15 +371,17 @@ char * cc_str_duplicate__new( char const * restrict str,
         if ( do_reverse ) {
             *n-- = '\0';
 
-            for ( size_t i = 0; ( i < len ) && ( *s != '\0' ); ++i ) *n-- = *s++; }
-        else {
+            for ( size_t i = 0; ( i < len ) && ( *s != '\0' ); ++i ) *n-- = *s++;
+        } else {
             for ( size_t i = 0; ( i < len ) && ( *s != '\0' ); ++i ) *n++ = *s++;
 
-            *n = '\0'; } }
-    else
+            *n = '\0';
+        }
+    } else
         *str__a = '\0';
 
-    return str__a; }
+    return str__a;
+}
 
 char * cc_str_append_into( char * restrict str__io,
                            size_t size_dest__d,
@@ -366,9 +399,10 @@ char * cc_str_append_into( char * restrict str__io,
     while ( *io != '\0' ) {
         if ( if_ignore_size || ( count < size_dest__d ) ) {
             ++io;
-            ++count; }
-        else
-            return NULL; /* Early exit, I/O string is already full. */ }
+            ++count;
+        } else
+            return NULL; // Early exit, I/O string is already full.
+    }
 
     count += 1; // +1, to leave room for '\0'
     size_t appended = 0;
@@ -380,12 +414,14 @@ char * cc_str_append_into( char * restrict str__io,
             *io++ = *s++;
 
             ++appended;
-            ++count; }
-        else
-            break; }
+            ++count;
+        } else
+            break;
+    }
 
     *io = '\0';
-    return io; }
+    return io;
+}
 
 char * cc_str_append__new( char const * restrict str_1__d,
                            char const * restrict str_2__d,
@@ -415,10 +451,12 @@ char * cc_str_append__new( char const * restrict str_1__d,
             for ( size_t i = 0; ( i < len_2 ) && ( *s != '\0' ); ++i )
                 *n++ = *s++;
 
-        *n = '\0'; }
-    else *str__a = '\0';
+        *n = '\0';
+    } else
+        *str__a = '\0';
 
-    return str__a; }
+    return str__a;
+}
 
 char * cc_str_append_free__new( char ** restrict str_1__f,
                                 char ** restrict str_2__f,
@@ -442,7 +480,8 @@ char * cc_str_append_free__new( char ** restrict str_1__f,
     if ( str_2__f )
         CC_FREE_NULL( str_2__f );
 
-    return str__a; }
+    return str__a;
+}
 
 char * cc_str_append_fmt_va__new( char ** restrict str__f,
                                   size_t max_len__d,
@@ -454,7 +493,8 @@ char * cc_str_append_fmt_va__new( char ** restrict str__f,
     int len = cc_str_len_fmt_va( fmt, tmp ); // len does not include '\0'.
     if ( len < 0 ) { // error?
         va_end( tmp );
-        return NULL; }
+        return NULL;
+    }
 
     size_t len_min =
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
@@ -463,22 +503,26 @@ char * cc_str_append_fmt_va__new( char ** restrict str__f,
     char * str__t = (char *)malloc( len_min + 1 );
     if ( !str__t ) {
         va_end( tmp );
-        return NULL; }
+        return NULL;
+    }
 
     int len_2 = vsnprintf( str__t, len_min + 1, fmt, tmp );
     if ( len_2 < 0 ) { // error?
         CC_FREE( str__t );
         va_end( tmp );
-        return NULL; }
+        return NULL;
+    }
 
     va_end( tmp );
 
     if ( len_min != (size_t const)len_2 ) {
         CC_FREE( str__t );
-        return NULL; }
+        return NULL;
+    }
 
     // No need to free() str__f, str__t; cc_str_append_free__new() does that.
-    return cc_str_append_free__new( str__f, &str__t, max_len__d ); }
+    return cc_str_append_free__new( str__f, &str__t, max_len__d );
+}
 
 char * cc_str_append_fmt__new( char ** restrict str__f,
                                size_t max_len__d,
@@ -490,7 +534,8 @@ char * cc_str_append_fmt__new( char ** restrict str__f,
 
     va_end( args );
 
-    return str__a; }
+    return str__a;
+}
 
 // TODO :: (?) move / return newly allocated string (?)
 //
@@ -524,7 +569,8 @@ bool cc_str_print( char const * restrict start,
     char * fmt__a = cc_str_fmt_va__new( fmt_len__d, fmt__d, args );
     if ( !fmt__a ) {
         va_end( args );
-        return false; }
+        return false;
+    }
 
     result = printf( "%s", fmt__a );
 
@@ -538,6 +584,7 @@ bool cc_str_print( char const * restrict start,
     return true;
 
 #endif // __CC_STR_PRINT_INFO__
- }
+
+}
 //
 // TODO :: (?) move / return newly allocated string (?)

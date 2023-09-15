@@ -38,7 +38,8 @@ char const * const CC_VARIANT_SYMBOLS[] = {
     CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL,
     CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL,
     CC_VARIANT_DISCOVERY_SYMBOL,
-    CC_VARIANT_ONE_SYMBOL, };
+    CC_VARIANT_ONE_SYMBOL,
+};
 
 
 size_t cc_variant_from_symbol( char const * restrict str,
@@ -58,61 +59,71 @@ size_t cc_variant_from_symbol( char const * restrict str,
 
             if ( *s == 'a' ||  *s == 'A' ) { // "aoa"
                 ve = CC_VE_AgeOfAquarius;
-                len = 3; } } }
-    else if ( *s == 'c' ||  *s == 'C' ) {
+                len = 3;
+            }
+        }
+    } else if ( *s == 'c' ||  *s == 'C' ) {
         ++s;
 
         if ( *s == 'c' ||  *s == 'C' ) { // "cc"
             ve = CC_VE_ClassicalChess;
-            len = 2; }
-        else if ( *s == 't' ||  *s == 'T' ) { // "ct"
+            len = 2;
+        } else if ( *s == 't' ||  *s == 'T' ) { // "ct"
             ve = CC_VE_CroatianTies;
-            len = 2; }
-        else if ( *s == 'o' ||  *s == 'O' ) {
+            len = 2;
+        } else if ( *s == 'o' ||  *s == 'O' ) {
             ++s;
 
             if ( *s == 't' ||  *s == 'T' ) { // "cot"
                 ve = CC_VE_ConquestOfTlalocan;
-                len = 3; } } }
-    else if ( *s == 'd' ||  *s == 'D' ) { // "d"
+                len = 3;
+            }
+        }
+    } else if ( *s == 'd' ||  *s == 'D' ) { // "d"
         ve = CC_VE_Discovery;
-        len = 1; }
-    else if ( *s == 'h' ||  *s == 'H' ) {
+        len = 1;
+    } else if ( *s == 'h' ||  *s == 'H' ) {
         ++s;
 
         if ( *s == 'd' ||  *s == 'D' ) { // "hd"
             ve = CC_VE_HemerasDawn;
-            len = 2; } }
-    else if ( *s == 'm' ||  *s == 'M' ) {
+            len = 2;
+        }
+    } else if ( *s == 'm' ||  *s == 'M' ) {
         ++s;
 
         if ( *s == 'a' ||  *s == 'A' ) { // "ma"
             ve = CC_VE_MayanAscendancy;
-            len = 2; }
-        else if ( *s == 'v' ||  *s == 'V' ) { // "mv"
+            len = 2;
+        } else if ( *s == 'v' ||  *s == 'V' ) { // "mv"
             ve = CC_VE_MirandasVeil;
-            len = 2; } }
-    else if ( *s == 'n' ||  *s == 'N' ) { // "n"
+            len = 2;
+        }
+    } else if ( *s == 'n' ||  *s == 'N' ) { // "n"
         ve = CC_VE_Nineteen;
-        len = 1; }
-    else if ( *s == 'o' ||  *s == 'O' ) { // "o"
+        len = 1;
+    } else if ( *s == 'o' ||  *s == 'O' ) { // "o"
         ve = CC_VE_One;
-        len = 1; }
-    else if ( *s == 't' ||  *s == 'T' ) {
+        len = 1;
+    } else if ( *s == 't' ||  *s == 'T' ) {
         ++s;
 
         if ( *s == 'r' ||  *s == 'R' ) { // "tr"
             ve = CC_VE_TamoanchanRevisited;
-            len = 2; } }
+            len = 2;
+        }
+    }
 
     if ( ve >= 0 ) {
         if ( isalnum( *++s ) )
             return CC_LEN_VARIANT_SYMBOL_INVALID;
 
         *ve__o = (CcVariantEnum)ve;
-        return len; }
+        return len;
+    }
 
-    return CC_LEN_VARIANT_SYMBOL_INVALID; }
+    return CC_LEN_VARIANT_SYMBOL_INVALID;
+}
 
 char const * cc_variant_symbol( CcVariantEnum ve ) {
     switch ( ve ) {
@@ -128,7 +139,9 @@ char const * cc_variant_symbol( CcVariantEnum ve ) {
         case CC_VE_Discovery : return CC_VARIANT_DISCOVERY_SYMBOL;
         case CC_VE_One : return CC_VARIANT_ONE_SYMBOL;
 
-        default : return NULL; } }
+        default : return NULL;
+    }
+}
 
 char const * cc_variant_label( CcVariantEnum ve ) {
     switch ( ve ) {
@@ -144,7 +157,9 @@ char const * cc_variant_label( CcVariantEnum ve ) {
         case CC_VE_Discovery : return "Discovery";
         case CC_VE_One : return "One";
 
-        default : return NULL; } }
+        default : return NULL;
+    }
+}
 
 unsigned int cc_variant_board_size( CcVariantEnum ve ) {
     switch ( ve ) {
@@ -160,7 +175,9 @@ unsigned int cc_variant_board_size( CcVariantEnum ve ) {
         case CC_VE_Discovery : return CC_VARIANT_BOARD_SIZE_DISCOVERY;
         case CC_VE_One : return CC_VARIANT_BOARD_SIZE_ONE;
 
-        default : return 0; } }
+        default : return 0;
+    }
+}
 
 bool cc_variant_has_sideways_pawns( CcVariantEnum ve ) {
     switch ( ve ) {
@@ -173,4 +190,6 @@ bool cc_variant_has_sideways_pawns( CcVariantEnum ve ) {
             return true;
 
         default :
-            return false; } }
+            return false;
+    }
+}

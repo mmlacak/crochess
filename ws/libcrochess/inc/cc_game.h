@@ -51,14 +51,14 @@ extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
 /**
     Game status enumeration.
 */
-typedef enum CcGameStatusEnum
-{
+typedef enum CcGameStatusEnum {
     CC_GSE_None, /**< Uninitialized game. */
     CC_GSE_Turn_Light, /**< Light player is on turn. */
     CC_GSE_Turn_Dark, /**< Dark player is on turn. */
     CC_GSE_Win_Light, /**< Light player has won. */
     CC_GSE_Win_Dark, /**< Dark player has won. */
-    CC_GSE_Draw, /**< Game was drawn. */ } CcGameStatusEnum;
+    CC_GSE_Draw, /**< Game was drawn. */
+} CcGameStatusEnum;
 
 /**
     Function returns next game status, based on current one, and additional flags
@@ -87,11 +87,11 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse );
 /**
     Game structure.
 */
-typedef struct CcGame
-{
+typedef struct CcGame {
     CcGameStatusEnum status; /**< Current game status. */
     CcChessboard * chessboard; /**< Current position on a chessboard. */
-    CcMove * moves; /**< Queue of moves played so far. */ } CcGame;
+    CcMove * moves; /**< Queue of moves played so far. */
+} CcGame;
 
 /**
     Returns a newly allocated game.

@@ -15,8 +15,7 @@
 /**
     Move status enumeration, after a valid movement.
 */
-typedef enum CcMoveStatusEnum
-{
+typedef enum CcMoveStatusEnum {
     CC_MSE_None, /**< No status. */
     CC_MSE_DrawOffer, /**< Player offered a draw. */
     CC_MSE_DrawOffer_Revoked, /**< Player took back draw offer. */
@@ -30,21 +29,22 @@ typedef enum CcMoveStatusEnum
 
     CC_MSE_Resign, /**< Player resigned, game ended. */
     CC_MSE_DrawAccepted, /**< Player accepted draw offer, game ended. */
-    CC_MSE_DrawByRules, /**< Game was drawn by rules, game ended. */ } CcMoveStatusEnum;
+    CC_MSE_DrawByRules, /**< Game was drawn by rules, game ended. */
+} CcMoveStatusEnum;
 
 
 /**
     Move structure, linked list.
 */
-typedef struct CcMove
-{
+typedef struct CcMove {
     char * notation; /**< Original notation, before parsing. Usually, from user input. */
     CcPly * plies; /**< Plies. */
     // CcChessboard * cb; // TODO :: if adding, pieces and tags enums **should** be based on char, not int
     CcMoveStatusEnum status; /**< Status. */
 
     struct CcMove * prev; /**< Previous move, in a queue. */
-    struct CcMove * next; /**< Next move. */ } CcMove;
+    struct CcMove * next; /**< Next move. */
+} CcMove;
 
 
 /**

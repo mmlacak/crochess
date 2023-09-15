@@ -16,22 +16,22 @@
 /**
     Parser message enumeration.
 */
-typedef enum CcParseMsgTypeEnum
-{
+typedef enum CcParseMsgTypeEnum {
     CC_PMTE_Debug,
     CC_PMTE_Info,
     CC_PMTE_Warning,
     CC_PMTE_Error,
-    CC_PMTE_Fatal, } CcParseMsgTypeEnum;
+    CC_PMTE_Fatal,
+} CcParseMsgTypeEnum;
 
 /**
     Parser message structure, linked list.
 */
-typedef struct CcParseMsg
-{
+typedef struct CcParseMsg {
     CcParseMsgTypeEnum type; /**< Type of a parser message. */
     char * msg; /**< Parser message. */
-    struct CcParseMsg * next; /**< Next parser message, in a linked list. */ } CcParseMsg;
+    struct CcParseMsg * next; /**< Next parser message, in a linked list. */
+} CcParseMsg;
 
 /**
     Returns a newly allocated parser message.

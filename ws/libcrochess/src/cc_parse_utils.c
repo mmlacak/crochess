@@ -23,16 +23,20 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
     if ( *c == '|' ) {
         if ( *++c == '|' ) {
             if ( *++c == '|' ) return CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
-            return CC_PLE_TeleportationReemergence; } // "||" failed teleportation, re-emergence
+            return CC_PLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
+        }
 
-        return CC_PLE_Teleportation; } // "|" teleportation
+        return CC_PLE_Teleportation; // "|" teleportation
+    }
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
             if ( *++c == '@' ) return CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
-            return CC_PLE_DualTranceJourney; } // "@@" dual trance-journey, oblation
+            return CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+        }
 
-        return CC_PLE_TranceJourney; } // "@" trance-journey
+        return CC_PLE_TranceJourney; // "@" trance-journey
+    }
 
     if ( *c == ';' )
         if ( *++c == ';' )
@@ -43,7 +47,8 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
 
     if ( isgraph( *c ) ) return CC_PLE_StartingPly;
 
-    return CC_PLE_None; }
+    return CC_PLE_None;
+}
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
     switch ( ple ) {
@@ -60,7 +65,9 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
         case CC_PLE_SenseJourney : return 1; /**< Sense-journey, corresponds to `"`. */
         case CC_PLE_FailedSenseJourney : return 1; /**< Failed sense-journey, corresponds to `'`. */
 
-        default : return 0; } }
+        default : return 0;
+    }
+}
 
 char const * cc_next_ply_link( char const * restrict an_str ) {
     if ( !an_str ) return NULL;
@@ -74,7 +81,8 @@ char const * cc_next_ply_link( char const * restrict an_str ) {
     while ( cc_parse_ply_link( str__w ) == CC_PLE_StartingPly )
         ++str__w;
 
-    return str__w; }
+    return str__w;
+}
 
 bool cc_iter_ply( char const * restrict an_str,
                   char const ** restrict start__io,
@@ -102,9 +110,11 @@ bool cc_iter_ply( char const * restrict an_str,
 
     if ( !*end__io ) {
         *start__io = *end__io = NULL;
-        return false; }
+        return false;
+    }
 
-    return true; }
+    return true;
+}
 
 
 bool cc_fetch_piece_symbol( char const * restrict an_str,
@@ -124,7 +134,8 @@ bool cc_fetch_piece_symbol( char const * restrict an_str,
                                            : ' ';
 
     return return_validity ? cc_piece_symbol_is_valid( *piece_symbol__o )
-                           : true; }
+                           : true;
+}
 
 CcLosingTagEnum cc_parse_losing_tag( char const * restrict an_str ) {
     if ( !an_str ) return CC_LTE_None;
@@ -133,15 +144,17 @@ CcLosingTagEnum cc_parse_losing_tag( char const * restrict an_str ) {
 
     if ( *c == '=' ) {
         if ( *++c == '=' )
-            return CC_LTE_DelayedPromotion; /* "==" losing promotion */ }
-    else if ( *c == ':' ) {
+            return CC_LTE_DelayedPromotion; // "==" losing promotion
+    } else if ( *c == ':' ) {
         if ( *++c == ':' )
-            return CC_LTE_CanRush; /* "::" losing rushing */ }
-    else if ( *c == '&' ) {
+            return CC_LTE_CanRush; // "::" losing rushing
+    } else if ( *c == '&' ) {
         if ( *++c == '&' )
-            return CC_LTE_CanCastle; /* "&&" losing castling */ }
+            return CC_LTE_CanCastle; // "&&" losing castling
+    }
 
-    return CC_LTE_None; }
+    return CC_LTE_None;
+}
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte ) {
     switch ( lte ) {
@@ -149,7 +162,9 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte ) {
         case CC_LTE_CanRush : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
         case CC_LTE_CanCastle : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
 
-        default : return 0; /* Others are not losing tags. */ } }
+        default : return 0; /* Others are not losing tags. */
+    }
+}
 
 bool cc_convert_coords( char const * restrict pos,
                         int * restrict file__o,
@@ -161,8 +176,8 @@ bool cc_convert_coords( char const * restrict pos,
     if ( islower( *p ) ) {
         if ( !file__o ) return false;
 
-        *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ ); }
-    else
+        *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ );
+    } else
         *file__o = CC_INVALID_COORD;
 
     if ( isdigit( *p ) ) {
@@ -173,15 +188,17 @@ bool cc_convert_coords( char const * restrict pos,
 
         if ( !rank__o ) return false;
 
-        *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p ); }
-    else
+        *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p );
+    } else
         *rank__o = CC_INVALID_COORD;
 
-    return true; }
+    return true;
+}
 
 bool cc_convert_pos( char const * restrict pos,
                      CcPos * restrict pos__o ) {
-    return cc_convert_coords( pos, &pos__o->i, &pos__o->j ); }
+    return cc_convert_coords( pos, &pos__o->i, &pos__o->j );
+}
 
 bool cc_parse_pos( char const * restrict an_str,
                    CcPos * restrict pos__o,
@@ -202,17 +219,18 @@ bool cc_parse_pos( char const * restrict an_str,
             if ( !isdigit( *c ) )
                 end = c;
             else
-                return false; /* Max len of rank is 2. */ }
+                return false; // Max len of rank is 2.
+        }
         else
-            end = c; /* c was incremented above, see {1}. */ }
-    else if ( isdigit( *c ) ) {
+            end = c; // c was incremented above, see {1}.
+    } else if ( isdigit( *c ) ) {
         if ( isdigit( *++c ) ) ++c;
 
         if ( !isdigit( *c ) )
             end = c;
         else
-            return false; /* Max len of rank is 2. */ }
-    else
+            return false; // Max len of rank is 2.
+    } else
         return false;
 
     if ( !end ) return false;
@@ -233,7 +251,8 @@ bool cc_parse_pos( char const * restrict an_str,
     *pos__o = pos;
     *pos_end__o = end;
 
-    return true; }
+    return true;
+}
 
 
 CcStepLinkEnum cc_parse_step_link( char const * restrict an_str ) {
@@ -245,15 +264,17 @@ CcStepLinkEnum cc_parse_step_link( char const * restrict an_str ) {
         if ( *++c == '.' )
             return CC_SLE_Distant;
 
-        return CC_SLE_Next; }
-    else if ( *c == '-' ) {
-        return CC_SLE_Destination; }
-    else if ( *c == ',' ) {
-        return CC_SLE_Reposition; }
-    else if ( isgraph( *c ) ) {
-        return CC_SLE_Start; }
+        return CC_SLE_Next;
+    } else if ( *c == '-' ) {
+        return CC_SLE_Destination;
+    } else if ( *c == ',' ) {
+        return CC_SLE_Reposition;
+    } else if ( isgraph( *c ) ) {
+        return CC_SLE_Start;
+    }
 
-    return CC_SLE_None; }
+    return CC_SLE_None;
+}
 
 size_t cc_step_link_len( CcStepLinkEnum sle ) {
     switch ( sle ) {
@@ -264,7 +285,9 @@ size_t cc_step_link_len( CcStepLinkEnum sle ) {
         case CC_SLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
         case CC_SLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
 
-        default : return 0; } }
+        default : return 0;
+    }
+}
 
 char const * cc_next_step_link( char const * restrict an_str,
                                 char const * restrict ply_end ) {
@@ -281,7 +304,8 @@ char const * cc_next_step_link( char const * restrict an_str,
             ( str__w < ply_end ) )
         ++str__w;
 
-    return str__w; }
+    return str__w;
+}
 
 bool cc_iter_step( char const * restrict an_str,
                    char const * restrict ply_end,
@@ -308,9 +332,11 @@ bool cc_iter_step( char const * restrict an_str,
 
     if ( !*end__io ) {
         *start__io = *end__io = NULL;
-        return false; }
+        return false;
+    }
 
-    return true; }
+    return true;
+}
 
 bool cc_ply_an_contains_steps( char const * restrict an_str,
                                char const * restrict ply_end ) {
@@ -323,7 +349,8 @@ bool cc_ply_an_contains_steps( char const * restrict an_str,
 
     // ... but string might start with step link.
     // If it's start of a ply AN, this is an error, but that needs handling somwhere else.
-    return ( ( sle != CC_SLE_None ) && ( sle != CC_SLE_Start ) ); }
+    return ( ( sle != CC_SLE_None ) && ( sle != CC_SLE_Start ) );
+}
 
 
 CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
@@ -334,43 +361,46 @@ CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
     char const * c = an_str;
 
     if ( *c == '*' ) {
-        return CC_SEE_Capture; }
-    else if ( *c == '<' ) {
-        return CC_SEE_Displacement; }
-    else if ( *c == ':' ) {
-        return CC_SEE_EnPassant; }
-    else if ( *c == '&' ) {
-        return CC_SEE_Castle; }
-    else if ( *c == '=' ) {
+        return CC_SEE_Capture;
+    } else if ( *c == '<' ) {
+        return CC_SEE_Displacement;
+    } else if ( *c == ':' ) {
+        return CC_SEE_EnPassant;
+    } else if ( *c == '&' ) {
+        return CC_SEE_Castle;
+    } else if ( *c == '=' ) {
         if ( isupper( *++c ) ) {
             *has_promotion_sign__o = true;
-            return CC_SEE_Promotion; }
-        else
-            return CC_SEE_TagForPromotion; }
-    else if ( *c == '%' ) {
+            return CC_SEE_Promotion;
+        } else
+            return CC_SEE_TagForPromotion;
+    } else if ( *c == '%' ) {
         if ( *++c == '%' )
             return CC_SEE_FailedConversion;
 
-        return CC_SEE_Conversion; }
-    else if ( *c == '^' ) {
-        return CC_SEE_Transparency; }
-    else if ( *c == '/' ) {
-        return CC_SEE_Divergence; }
-    else if ( *c == '>' ) {
-        return CC_SEE_DemoteToPawn; }
-    else if ( *c == '$' ) {
+        return CC_SEE_Conversion;
+    } else if ( *c == '^' ) {
+        return CC_SEE_Transparency;
+    } else if ( *c == '/' ) {
+        return CC_SEE_Divergence;
+    } else if ( *c == '>' ) {
+        return CC_SEE_DemoteToPawn;
+    } else if ( *c == '$' ) {
         if ( *++c == '$' ) {
             if ( *++c == '$' )
                 return CC_SEE_FailedResurrection;
 
-            return CC_SEE_ResurrectingOpponent; }
+            return CC_SEE_ResurrectingOpponent;
+        }
 
-        return CC_SEE_Resurrection; }
-    else if ( isupper( *c ) ) {
+        return CC_SEE_Resurrection;
+    } else if ( isupper( *c ) ) {
         *has_promotion_sign__o = false;
-        return CC_SEE_Promotion; /* Promotion without `=`. */ }
+        return CC_SEE_Promotion; // Promotion without `=`.
+    }
 
-    return CC_SEE_None; }
+    return CC_SEE_None;
+}
 
 size_t cc_side_effect_type_len( CcSideEffectEnum see,
                                 bool has_promotion_sign ) {
@@ -391,7 +421,9 @@ size_t cc_side_effect_type_len( CcSideEffectEnum see,
         case CC_SEE_ResurrectingOpponent : return 2;
         case CC_SEE_FailedResurrection : return 3;
 
-        default : return 0; } }
+        default : return 0;
+    }
+}
 
 // TODO :: DELETE
 //

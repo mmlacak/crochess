@@ -38,7 +38,9 @@ CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light ) {
 
         case 'M' : return CC_PE_Monolith;
 
-        default : return CC_PE_None; } }
+        default : return CC_PE_None;
+    }
+}
 
 bool cc_piece_symbol_is_valid( char c ) {
     switch ( c ) {
@@ -63,7 +65,9 @@ bool cc_piece_symbol_is_valid( char c ) {
 
         case 'M' : return true;
 
-        default : return false; } }
+        default : return false;
+    }
+}
 
 CcPieceEnum cc_piece_opposite( CcPieceEnum pe ) {
     switch ( pe ) {
@@ -109,7 +113,9 @@ CcPieceEnum cc_piece_opposite( CcPieceEnum pe ) {
 
         case CC_PE_Monolith : return CC_PE_Monolith;
 
-        default : return CC_PE_None; } }
+        default : return CC_PE_None;
+    }
+}
 
 char cc_piece_as_char( CcPieceEnum pe ) {
     switch ( pe ) {
@@ -155,7 +161,9 @@ char cc_piece_as_char( CcPieceEnum pe ) {
 
         case CC_PE_Monolith : return 'M';
 
-        default : return '?'; } }
+        default : return '?';
+    }
+}
 
 CcPieceEnum cc_piece_from_char( char piece ) {
     switch ( piece ) {
@@ -201,7 +209,9 @@ CcPieceEnum cc_piece_from_char( char piece ) {
 
         case 'M' : return CC_PE_Monolith;
 
-        default : return CC_PE_None; } }
+        default : return CC_PE_None;
+    }
+}
 
 char const * cc_piece_label( CcPieceEnum pe ) {
     switch ( pe ) {
@@ -260,15 +270,19 @@ char const * cc_piece_label( CcPieceEnum pe ) {
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return "(default)"; } }
+        default : return "(default)";
+    }
+}
 
 char cc_piece_symbol( CcPieceEnum pe ) {
-    return toupper( cc_piece_as_char( pe ) ); }
+    return toupper( cc_piece_as_char( pe ) );
+}
 
 CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe ) {
     if ( cc_piece_is_dark( pe ) ) return CC_PE_DarkPawn;
     if ( cc_piece_is_light( pe ) ) return CC_PE_LightPawn;
-    return CC_PE_None; }
+    return CC_PE_None;
+}
 
 bool cc_piece_is_dark( CcPieceEnum pe ) {
     switch ( pe ) {
@@ -291,7 +305,9 @@ bool cc_piece_is_dark( CcPieceEnum pe ) {
             return true;
 
         default :
-            return false; } }
+            return false;
+    }
+}
 
 bool cc_piece_is_light( CcPieceEnum pe ) {
     switch ( pe ) {
@@ -314,20 +330,25 @@ bool cc_piece_is_light( CcPieceEnum pe ) {
             return true;
 
         default :
-            return false; } }
+            return false;
+    }
+}
 
 bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe ) {
     char ps = cc_piece_symbol( pe );
-    return ( symbol == ps ); }
+    return ( symbol == ps );
+}
 
 bool cc_piece_is_equal( char symbol, bool is_light, CcPieceEnum pe ) {
     CcPieceEnum piece = cc_piece_from_symbol( symbol, is_light );
-    return ( piece == pe ); }
+    return ( piece == pe );
+}
 
 bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( CC_PIECE_IS_THE_SAME( pe_1, pe_2 ) ) return true;
     if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
-    return false; }
+    return false;
+}
 
 bool cc_piece_has_same_color( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) )
@@ -336,38 +357,45 @@ bool cc_piece_has_same_color( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) )
         return true;
 
-    return false; }
+    return false;
+}
 
 bool cc_piece_has_same_shade( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
     if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
-    return false; }
+    return false;
+}
 
 bool cc_piece_is_opposite( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( ( !CC_PIECE_HAS_OWNER( pe_1 ) ) || ( !CC_PIECE_HAS_OWNER( pe_2 ) ) ) return false;
 
-    return ( pe_1 == cc_piece_opposite( pe_2 ) ); }
+    return ( pe_1 == cc_piece_opposite( pe_2 ) );
+}
 
 bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
 
-    return false; }
+    return false;
+}
 
 bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
 
-    return false; }
+    return false;
+}
 
 bool cc_piece_is_owned_figure( CcPieceEnum pe ) {
     if ( CC_PIECE_IS_PAWN( pe ) ) return false;
     if ( cc_piece_is_light( pe ) ) return true;
     if ( cc_piece_is_dark( pe ) ) return true;
-    return false; }
+    return false;
+}
 
 bool cc_piece_is_figure( CcPieceEnum pe ) {
     if ( CC_PIECE_IS_STAR( pe ) ) return true;
     if ( CC_PIECE_IS_MONOLITH( pe ) ) return true;
 
-    return cc_piece_is_owned_figure( pe ); }
+    return cc_piece_is_owned_figure( pe );
+}

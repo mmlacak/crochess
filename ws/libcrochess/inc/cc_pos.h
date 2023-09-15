@@ -42,7 +42,8 @@
 */
 typedef struct CcPos {
     int i; /**< File, horizontal coordinate. */
-    int j; /**< Rank, vertical coordinate. */ } CcPos;
+    int j; /**< Rank, vertical coordinate. */
+} CcPos;
 
 /**
     Casted invalid position value.
@@ -257,7 +258,8 @@ bool cc_pos_to_short_string( CcPos pos,
 typedef struct CcPosPieceTag {
     CcPos pos; /**< A position. */
     CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
-    CcTagEnum tag; /**< Tag, e.g. the one found at position. */ } CcPosPieceTag;
+    CcTagEnum tag; /**< Tag, e.g. the one found at position. */
+} CcPosPieceTag;
 
 /**
     Casted invalid position + piece + tag value.
@@ -406,7 +408,8 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 */
 typedef struct CcPosLink {
     CcPosPieceTag ppt; /**< A position + piece + tag. */
-    struct CcPosLink * next; /**< Link to a next position. */ } CcPosLink;
+    struct CcPosLink * next; /**< Link to a next position. */
+} CcPosLink;
 
 /**
     Function allocates a new linked position.

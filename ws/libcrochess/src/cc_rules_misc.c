@@ -39,13 +39,18 @@ static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
         if ( *--c == '=' ) {
             if ( *--c == '(' ) {
                 // "(=)" draw offered
-                return CC_DRAW_OFFER_FOUND; } }
-        else if ( *c == '-' ) {
+                return CC_DRAW_OFFER_FOUND;
+            }
+        } else if ( *c == '-' ) {
             if ( *--c == '(' ) {
                 // "(-)" draw offer canceled
-                return CC_DRAW_OFFER_CANCELED; } } }
+                return CC_DRAW_OFFER_CANCELED;
+            }
+        }
+    }
 
-    return CC_DRAW_OFFER_NOT_FOUND; }
+    return CC_DRAW_OFFER_NOT_FOUND;
+}
 
 
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
@@ -71,15 +76,18 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
         if ( m )
             m = m->prev;
         else
-            break; }
+            break;
+    }
 
-    return false; }
+    return false;
+}
 
 int cc_promoting_rank( CcChessboard * restrict cb, bool is_light ) {
     if ( !is_light ) return 0;
     if ( !cb ) return CC_INVALID_COORD;
 
-    return cb->size - 1; }
+    return cb->size - 1;
+}
 
 // TODO :: DELETE
 //
@@ -109,11 +117,11 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
 
         if ( cc_is_pawn_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
-                return false; }
-        else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) ) {
+                return false;
+        } else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
-                return false; }
-        else
+                return false;
+        } else
             return false;
 
         // Movement (+ capture / activation) + promotion.
@@ -122,17 +130,19 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         int rank = cc_promoting_rank( cb, is_light );
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
 
-        if ( rank == destination.j ) return true; }
-    else {
+        if ( rank == destination.j ) return true;
+    } else {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
         if ( !CC_PIECE_IS_THE_SAME( pe, pawn ) ) return false;
 
         // Static promotion.
 
         CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
-        if ( CC_TAG_CAN_PROMOTE( te ) ) return true; }
+        if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
+    }
 
-    return false; }
+    return false;
+}
 
 bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
     if ( !cb ) return false;
@@ -147,6 +157,10 @@ bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
                 if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )
                     return false;
 
-                ++count; } } }
+                ++count;
+            }
+        }
+    }
 
-    return ( count <= 1 ); }
+    return ( count <= 1 );
+}

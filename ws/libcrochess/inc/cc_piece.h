@@ -559,8 +559,7 @@
 
     Piece `CC_PE_None` is used for e.g. empty on-board fields, any off-board field.
 */
-typedef enum CcPieceEnum
-{
+typedef enum CcPieceEnum {
     CC_PE_DimStar = -17,
 
     CC_PE_DarkStarchild,
@@ -601,7 +600,8 @@ typedef enum CcPieceEnum
 
     CC_PE_BrightStar = 17,
 
-    CC_PE_Monolith, } CcPieceEnum;
+    CC_PE_Monolith,
+} CcPieceEnum;
 
 
 /**

@@ -26,8 +26,8 @@ static bool cc_check_standalone_status( char const char_an,
         *move__o = *temp__n;
         *temp__n = NULL;
 
-        return true; }
-    else {
+        return true;
+    } else {
         va_list args;
         va_start( args, msg );
 
@@ -35,7 +35,9 @@ static bool cc_check_standalone_status( char const char_an,
 
         va_end( args );
 
-        return false; } }
+        return false;
+    }
+}
 
 
 bool cc_parse_move( char const * restrict move_an,
@@ -58,7 +60,8 @@ bool cc_parse_move( char const * restrict move_an,
                                     CC_PMTE_Error,
                                     CC_MAX_LEN_ZERO_TERMINATED,
                                     msg );
-        return false; }
+        return false;
+    }
 
     char const * m_an = move_an;
     CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
@@ -73,8 +76,8 @@ bool cc_parse_move( char const * restrict move_an,
                                                parse_msgs__iod,
                                                CC_MSE_Resign,
                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after resign.\n" ); }
-        else {
+                                               "Invalid char(s) after resign.\n" );
+        } else {
             // "#" self-checkmate
 
 // TODO :: Do check if opponent is really (self-)checkmated.
@@ -87,7 +90,9 @@ bool cc_parse_move( char const * restrict move_an,
                                                parse_msgs__iod,
                                                CC_MSE_SelfCheckmate,
                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after self-checkmate.\n" ); } }
+                                               "Invalid char(s) after self-checkmate.\n" );
+        }
+    }
 
     if ( *m_an == '(' ) {
         if ( *++m_an == '=' ) {
@@ -102,14 +107,16 @@ bool cc_parse_move( char const * restrict move_an,
                                                            parse_msgs__iod,
                                                            CC_MSE_DrawAccepted,
                                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                                           "Invalid char(s) after accepted draw.\n" ); }
-                    else {
+                                                           "Invalid char(s) after accepted draw.\n" );
+                    } else {
                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                                     CC_PMTE_Error,
                                                     CC_MAX_LEN_ZERO_TERMINATED,
                                                     "No valid opponent's draw offer found.\n" );
-                        return false; } }
-                /*/ <i> Draw-by-rules should be issued by arbiter, not players;
+                        return false;
+                    }
+                }
+                // <i> Draw-by-rules should be issued by arbiter, not players;
                 //     i.e. should be issued by server, not clients.
                 //
                 // else if ( *m_an == '=' )
@@ -126,20 +133,24 @@ bool cc_parse_move( char const * restrict move_an,
                 //                                            CC_MAX_LEN_ZERO_TERMINATED,
                 //                                            "Invalid char(s) after draw by rules.\n" );
                 //     }
-                // } */ } }
+                // }
+            }
+        }
 
         cc_parse_msg_append_fmt_if( parse_msgs__iod,
                                     CC_PMTE_Error,
                                     CC_MAX_LEN_ZERO_TERMINATED,
                                     "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
-        return false; }
+        return false;
+    }
 
     CcPly * plies__t = NULL;
 
     if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) ) {
         cc_ply_free_all( &plies__t );
         cc_move_free_all( &move__t );
-        return false; }
+        return false;
+    }
 
 
 // // TODO :: DEBUG :: DELETE
@@ -170,4 +181,5 @@ bool cc_parse_move( char const * restrict move_an,
     *move__o = move__t; // Ownership transfer.
     move__t = NULL;
 
-    return true; }
+    return true;
+}

@@ -152,7 +152,9 @@
 
     @return `1` if on board, `0` otherwise.
 */
-#define CC_IS_COORD_ON_BOARD(board_size,coord) ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) && ( (int)(coord) < (int)(board_size) ) )
+#define CC_IS_COORD_ON_BOARD(board_size,coord)              \
+    ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) &&             \
+      ( (int)(coord) < (int)(board_size) ) )
 
 /**
     Macro to check if a given position is on board.
@@ -198,7 +200,9 @@
 
     @return `1` if on a light side, `0` otherwise.
 */
-#define CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank) ( ( 0 <= (int)(rank) ) && ( (int)(rank) < ( (int)(board_size) / 2 ) ) )
+#define CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank)          \
+    ( ( 0 <= (int)(rank) ) &&                               \
+      ( (int)(rank) < ( (int)(board_size) / 2 ) ) )
 
 /**
     Macro to check if a given position is on a dark side of a chessboard.
@@ -211,7 +215,9 @@
 
     @return `1` if on a dark side, `0` otherwise.
 */
-#define CC_IS_FIELD_ON_DARK_SIDE(board_size,rank) ( ( ( (int)(board_size) / 2 ) <= (int)(rank) ) && ( (int)(rank) < (int)(board_size) ) )
+#define CC_IS_FIELD_ON_DARK_SIDE(board_size,rank)           \
+    ( ( ( (int)(board_size) / 2 ) <= (int)(rank) ) &&       \
+      ( (int)(rank) < (int)(board_size) ) )
 
 
 /**
@@ -273,7 +279,8 @@
 */
 #define CC_FREE_NULL(ptr_ptr) {         \
     free( (void *)( *(ptr_ptr) ) );     \
-    *(ptr_ptr) = NULL; }
+    *(ptr_ptr) = NULL;                  \
+}
 
 /**
     Macro to call `printf()`, depending on a compile-time constant.

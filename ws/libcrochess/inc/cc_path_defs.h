@@ -171,9 +171,7 @@ extern CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ];
 
     @return `true` if step is valid, `false` otherwise.
 */
-bool cc_is_step_valid( CcPos step,
-                       CcPos const array[  ],
-                       size_t array_len );
+bool cc_is_step_valid( CcPos step, CcPos const array[  ], size_t array_len );
 
 
 /** @defgroup step_is_valid_macros The step validity macros

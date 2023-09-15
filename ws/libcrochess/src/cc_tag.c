@@ -18,7 +18,9 @@ char cc_tag_as_char( CcTagEnum ct ) {
         case CC_TE_EnPassant : return CC_TAG_CHAR_EN_PASSANT;
         case CC_TE_PawnSacrifice : return CC_TAG_CHAR_PAWN_SACRIFICE;
 
-        default : return CC_TAG_CHAR_INVALID; } }
+        default : return CC_TAG_CHAR_INVALID;
+    }
+}
 
 CcTagEnum cc_tag_from_char( char c ) {
     switch ( c ) {
@@ -29,7 +31,9 @@ CcTagEnum cc_tag_from_char( char c ) {
         case CC_TAG_CHAR_EN_PASSANT : return CC_TE_EnPassant;
         case CC_TAG_CHAR_PAWN_SACRIFICE : return CC_TE_PawnSacrifice;
 
-        default : return CC_TE_None; } }
+        default : return CC_TE_None;
+    }
+}
 
 
 char const * cc_losing_tag_as_string( CcLosingTagEnum te ) {
@@ -38,7 +42,9 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum te ) {
         case CC_LTE_CanRush : return "::";
         case CC_LTE_CanCastle : return "&&";
 
-        default : return ""; } }
+        default : return "";
+    }
+}
 
 CcLosingTagEnum cc_tag_to_losing( CcTagEnum te ) {
     switch ( te ) {
@@ -46,7 +52,9 @@ CcLosingTagEnum cc_tag_to_losing( CcTagEnum te ) {
         case CC_TE_CanRush : return CC_LTE_CanRush;
         case CC_TE_CanCastle : return CC_LTE_CanCastle;
 
-        default : return CC_LTE_None; } }
+        default : return CC_LTE_None;
+    }
+}
 
 CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte ) {
     switch ( lte ) {
@@ -54,4 +62,6 @@ CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte ) {
         case CC_LTE_CanRush : return CC_TE_CanRush;
         case CC_LTE_CanCastle : return CC_TE_CanCastle;
 
-        default : return CC_TE_None; } }
+        default : return CC_TE_None;
+    }
+}
