@@ -157,14 +157,15 @@ bool cc_parse_plies( char const * restrict move_an,
 
         // TODO :: DEBUG :: DELETE
         //
-        // {
-        //     char * plies_str__a = cc_ply_all_to_short_string__new( ply__t );
+        {
+            char * plies_str__a = cc_ply_all_to_short_string__new( ply__t );
 
-        //     // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
-        //     printf( "Ply: '%s'.\n", plies_str__a );
+            // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
+            printf( "Ply: '%s'.\n", plies_str__a );
+            printf( "...\n" );
 
-        //     CC_FREE( plies_str__a );
-        // }
+            CC_FREE( plies_str__a );
+        }
         //
         // TODO :: DEBUG :: DELETE
 
@@ -185,13 +186,14 @@ bool cc_parse_plies( char const * restrict move_an,
 
     // TODO :: DEBUG :: DELETE
     //
-    // {
-    //     char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
+    {
+        char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
 
-    //     cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+        cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+        printf( "---\n" );
 
-    //     CC_FREE( plies_str__a );
-    // }
+        CC_FREE( plies_str__a );
+    }
     //
     // TODO :: DEBUG :: DELETE
 
