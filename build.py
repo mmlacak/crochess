@@ -51,6 +51,8 @@ def main():
     is_silence =  True if RS.any_item_in( ['-S', '--silence'], script_argv) else False
     is_consts =  True if RS.any_item_in( ['-C', '--consts'], script_argv) else False
 
+    with_line_noise = True if RS.any_item_in( ['-LN', '--line-noise'], script_argv) else False
+
     is_gcc = True if RS.any_item_in( ['-gcc', '--gcc'], script_argv) else False
     is_clang = True if RS.any_item_in( ['-clang', '--clang'], script_argv) else False
     compiler =  BE.COMPILER_GCC if is_gcc else \
@@ -124,11 +126,34 @@ def main():
 
             remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
 
+        if with_line_noise:
+            cwd_lib_ln, compile_lib_ln_cmd_lst = BE.get_compile_lib_ln_cmd(PROJECT_ROOT_PATH,
+                                                                           compiler=compiler,
+                                                                           is_release_or_debug=is_release_or_debug,
+                                                                           is_extra_warnings=is_extra_warnings,
+                                                                           is_silence=is_silence,
+                                                                           adx_options_list=compile_lib_argv)
+
+            if is_debug:
+                print( "Compiling in: %s." % str( cwd_lib_ln ) )
+                print( "Compiling with: %s." % " ".join( compile_lib_ln_cmd_lst ) )
+
+            if not is_dry_run:
+                print( "." * 72 )
+                # os.chdir(cwd_app)
+                result = RS.run_process( compile_lib_ln_cmd_lst, cwd=cwd_lib_ln )
+                print( result )
+                print( "-" * 72 )
+
+                remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+
         cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH,
                                                               compiler=compiler,
                                                               is_release_or_debug=is_release_or_debug,
                                                               is_extra_warnings=is_extra_warnings,
                                                               is_silence=is_silence,
+                                                              is_consts=is_consts,
+                                                              with_line_noise=with_line_noise,
                                                               adx_options_list=compile_app_argv)
 
         if is_debug:
@@ -148,6 +173,8 @@ def main():
                                                                     is_release_or_debug=is_release_or_debug,
                                                                     is_extra_warnings=is_extra_warnings,
                                                                     is_silence=is_silence,
+                                                                    is_consts=is_consts,
+                                                                    with_line_noise=with_line_noise,
                                                                     adx_options_list=compile_app_argv)
 
         if is_debug:

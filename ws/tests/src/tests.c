@@ -6,6 +6,10 @@
 #include <stdio.h>
 #include <string.h>
 
+#ifdef __WITH_LINE_NOISE__
+#include "linenoise.h"
+#endif // __WITH_LINE_NOISE__
+
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_math.h"
