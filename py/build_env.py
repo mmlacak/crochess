@@ -44,7 +44,7 @@ BUILD_BIN_FOLDER = 'bin'
 OPTIONS_GCC_DEBUG = [ '-Wall', '-pedantic', '-O0', '-ggdb', ]
 OPTIONS_GCC_RELEASE = [ '-Wall', '-pedantic', '-O3', ]
 OPTIONS_GCC_EXTRA_WARNINGS = [ '-Wextra', ] # '-fdiagnostics-show-option'
-OPTIONS_GCC_SILENCE = [ '-Wno-return-type', '-Wno-comment' ]
+OPTIONS_GCC_SILENCE = [ '-Wno-return-type', '-Wno-comment', ]
 OPTIONS_GCC_DEBUG_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 OPTIONS_GCC_RELEASE_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 

@@ -34,7 +34,6 @@ static bool cc_check_standalone_status( char const char_an,
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
 
         va_end( args );
-
         return false;
     }
 }
@@ -56,41 +55,26 @@ bool cc_parse_move( char const * restrict move_an,
             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
                                             : "Game is finished.\n";
 
-        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                    CC_PMTE_Error,
-                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                    msg );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg );
         return false;
     }
 
-    char const * m_an = move_an;
     CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
     if ( !move__t ) return false;
 
+    char const * m_an = move_an;
     if ( *m_an == '#' ) {
         if ( *++m_an == '#' ) {
             // "##" resign
-            return cc_check_standalone_status( *++m_an,
-                                               &move__t,
-                                               move__o,
-                                               parse_msgs__iod,
-                                               CC_MSE_Resign,
-                                               CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after resign.\n" );
+            return cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_Resign, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after resign.\n" );
         } else {
             // "#" self-checkmate
 
-// TODO :: Do check if opponent is really (self-)checkmated.
-//         Self- is optional, since both players could overlook checkmate,
-//         this is option to rectify such a situation.
+            // TODO :: Do check if opponent is really (self-)checkmated.
+            //         Self- is optional, since both players could overlook checkmate,
+            //         this is option to rectify such a situation.
 
-            return cc_check_standalone_status( *m_an,
-                                               &move__t,
-                                               move__o,
-                                               parse_msgs__iod,
-                                               CC_MSE_SelfCheckmate,
-                                               CC_MAX_LEN_ZERO_TERMINATED,
-                                               "Invalid char(s) after self-checkmate.\n" );
+            return cc_check_standalone_status( *m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_SelfCheckmate, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after self-checkmate.\n" );
         }
     }
 
@@ -101,18 +85,9 @@ bool cc_parse_move( char const * restrict move_an,
                     // "(==)" draw offer accepted
 
                     if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) ) {
-                        return cc_check_standalone_status( *++m_an,
-                                                           &move__t,
-                                                           move__o,
-                                                           parse_msgs__iod,
-                                                           CC_MSE_DrawAccepted,
-                                                           CC_MAX_LEN_ZERO_TERMINATED,
-                                                           "Invalid char(s) after accepted draw.\n" );
+                        return cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_DrawAccepted, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after accepted draw.\n" );
                     } else {
-                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                    CC_PMTE_Error,
-                                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                                    "No valid opponent's draw offer found.\n" );
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "No valid opponent's draw offer found.\n" );
                         return false;
                     }
                 }
@@ -137,10 +112,7 @@ bool cc_parse_move( char const * restrict move_an,
             }
         }
 
-        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                    CC_PMTE_Error,
-                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                    "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
         return false;
     }
 
@@ -153,24 +125,24 @@ bool cc_parse_move( char const * restrict move_an,
     }
 
 
-// // TODO :: DEBUG :: DELETE
-// //
-//     {
-//         char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
+    // TODO :: DEBUG :: DELETE
+    //
+    // {
+    //     char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
 
-//         cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+    //     cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
 
-//         CC_FREE( plies_str__a );
-//     }
-// //
-// // TODO :: DEBUG :: DELETE
-
-
+    //     CC_FREE( plies_str__a );
+    // }
+    //
+    // TODO :: DEBUG :: DELETE
 
 
 
 
-// TODO :: post-plies status
+
+
+    // TODO :: post-plies status
 
 
 

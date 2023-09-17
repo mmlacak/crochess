@@ -25,6 +25,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
                           CcChessboard ** restrict cb__io,
                           CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !before_ply_start__io ) return false;
+    if ( *ply__o ) return false;
 
     //
     // Ply link.
@@ -32,12 +33,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
     if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                    CC_PMTE_Error,
-                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                    "Invalid ply link in ply '%s'.\n",
-                                    ply_str__a );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply link in ply '%s'.\n", ply_str__a );
 
         CC_FREE( ply_str__a );
         return false;
@@ -53,20 +49,15 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     char piece_symbol = ' ';
 
     if ( !cc_fetch_piece_symbol( c_str, &piece_symbol, true, true ) ) {
-        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                    CC_PMTE_Error,
-                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                    "Invalid piece symbol '%c'.\n",
-                                    piece_symbol );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid piece symbol '%c'.\n", piece_symbol );
         return false;
     }
 
     *before_ply_start__io = CC_POS_PIECE_TAG_CAST_INVALID;
+    bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
+    CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light );
 
     if ( is_first_ply ) {
-        bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
-        CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light );
-
         before_ply_start__io->piece = piece;
 
         // Position, and tag are generaly not known at this time.
@@ -75,12 +66,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
             if ( !cc_iter_piece_pos( *cb__io, CC_POS_CAST_ORIGIN_FIELD, piece, false, &pos ) ) {
                 char * color = is_light ? "Light" : "Dark";
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "%s King not found.\n",
-                                            color );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s King not found.\n", color );
                 return false;
             }
 
@@ -103,9 +89,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( c_str, ply_end_an, game, *before_ply_start__io,
-                          &steps__t,
-                          cb__io,
+    if ( !cc_parse_steps( c_str, ply_end_an, game, *before_ply_start__io, &steps__t, cb__io,
                           parse_msgs__iod ) ) {
         cc_step_free_all( &steps__t );
         return false;
@@ -127,22 +111,12 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     before_ply_start__io->pos = pos;
     before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
 
+    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, piece, lte, &steps__t );
+    if ( !*ply__o ) return false;
 
-// TODO :: update cb__io
 
+    // TODO :: update cb__io
 
-    //
-    // Append a ply.
-
-    // if ( !cc_ply_append_if( plies__o,
-    //                         ply_start_an,
-    //                         ply_end_an,
-    //                         CC_MAX_LEN_ZERO_TERMINATED,
-    //                         ple,
-    //                         /* piece */,
-    //                         lte,
-    //                         &steps__t ) )
-    //     return false;
 
     return true;
 }
@@ -170,36 +144,37 @@ bool cc_parse_plies( char const * restrict move_an,
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {
         CcPly * ply__t = NULL;
 
-        if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply_start,
-                            is_first_ply,
-                            &ply__t,
-                            &cb__a,
+        if ( !cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply_start, is_first_ply, &ply__t, &cb__a,
                             parse_msgs__iod ) ) {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
-printf( "!cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
+
+            printf( "!cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
+
             return false;
         }
 
-// TODO :: DEBUG :: DELETE
-//
-    // {
-    //     char * plies_str__a = cc_ply_all_to_short_string__new( ply__t );
+        // TODO :: DEBUG :: DELETE
+        //
+        // {
+        //     char * plies_str__a = cc_ply_all_to_short_string__new( ply__t );
 
-    //     // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
-    //     printf( "Ply: '%s'.\n", plies_str__a );
+        //     // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
+        //     printf( "Ply: '%s'.\n", plies_str__a );
 
-    //     CC_FREE( plies_str__a );
-    // }
-//
-// TODO :: DEBUG :: DELETE
+        //     CC_FREE( plies_str__a );
+        // }
+        //
+        // TODO :: DEBUG :: DELETE
 
         if ( !cc_ply_extend_if( &plies__t, &ply__t ) ) {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
-printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
+
+            printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
+
             return false;
         }
 
@@ -208,8 +183,8 @@ printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
 
 
 
-// TODO :: DEBUG :: DELETE
-//
+    // TODO :: DEBUG :: DELETE
+    //
     // {
     //     char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
 
@@ -217,8 +192,8 @@ printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
 
     //     CC_FREE( plies_str__a );
     // }
-//
-// TODO :: DEBUG :: DELETE
+    //
+    // TODO :: DEBUG :: DELETE
 
 
 
