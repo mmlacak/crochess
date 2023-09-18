@@ -11,6 +11,11 @@
 
 extern char const CROCHESS_TESTS_VERSION[];
 
+#ifdef __WITH_LINE_NOISE__
+extern char const CROCHESS_TESTS_HISTORY_FILE_NAME[];
+#define CROCHESS_TESTS_HISTORY_LENGTH (1000)
+#endif // __WITH_LINE_NOISE__
+
 
 int get_integer_from_cli_arg( char const * restrict str,
                               int default_num,

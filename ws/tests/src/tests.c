@@ -34,7 +34,11 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.302:734+20230917.191642"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.303:735+20230918.193333"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+
+#ifdef __WITH_LINE_NOISE__
+char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "tests.txt";
+#endif // __WITH_LINE_NOISE__
 
 
 int get_integer_from_cli_arg( char const * restrict str,
@@ -123,13 +127,26 @@ int main( void ) {
 //     printf("8: %f.\n", CC_MIN( 11.7, 5.8 ));
 // // DEBUG
 
+    char * line = NULL;
 
+#ifdef __WITH_LINE_NOISE__
+    char * ln_line__a = NULL;
+
+    linenoiseHistoryLoad( CROCHESS_TESTS_HISTORY_FILE_NAME );
+    linenoiseHistorySetMaxLen( CROCHESS_TESTS_HISTORY_LENGTH );
+#else
     char * ret = NULL;
     char buffer[ BUFSIZ ];
+#endif // __WITH_LINE_NOISE__
 
     CcGame * game__a = cc_game__new( CC_GSE_Turn_Light, CC_VE_One, true );
 
     while ( true ) {
+#ifdef __WITH_LINE_NOISE__
+        line = ln_line__a = linenoise( "> " );
+        linenoiseHistoryAdd( line );
+        linenoiseHistorySave( CROCHESS_TESTS_HISTORY_FILE_NAME );
+#else
         memset( buffer, 0, BUFSIZ );
 
         printf( "> " );
@@ -141,9 +158,12 @@ int main( void ) {
             continue;
         }
 
+        line = buffer;
+#endif // __WITH_LINE_NOISE__
+
         char const * token_start = NULL;
         char const * token_end = NULL;
-        if ( !cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
+        if ( !cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             continue;
 
         if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
@@ -166,7 +186,7 @@ int main( void ) {
             print_all_moves( game__a->moves );
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
-            if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
+            if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
                 char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
                 if ( !an_str ) continue;
 
@@ -199,7 +219,7 @@ int main( void ) {
             bool is_code = false;
             cc_char_8 code = CC_CHAR_8_EMPTY;
 
-            if ( cc_iter_token( buffer, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
+            if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
                 size_t len = cc_str_copy( token_start, token_end, CC_MAX_LEN_VARIANT_SYMBOL + 1,
                                           code,
                                           NULL,
@@ -254,19 +274,29 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tm", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_move", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( buffer, 0, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, 0, &token_start, &token_end );
             tests_move( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tx", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( buffer, 0, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, 0, &token_start, &token_end );
             tests_misc( test_number );
+#ifdef __WITH_LINE_NOISE__
+        } else if ( cc_str_is_equal( token_start, token_end, "kc", NULL, BUFSIZ ) ||
+                    cc_str_is_equal( token_start, token_end, "key_codes", NULL, BUFSIZ ) ) {
+            linenoisePrintKeyCodes();
+            break;
+#endif // __WITH_LINE_NOISE__
         } else {
-            printf( "Unknown: '%s'.\n", buffer );
+            printf( "Unknown: '%s'.\n", line );
             // fflush( stdout );
         }
     }
 
     cc_game_free_all( &game__a );
+
+#ifdef __WITH_LINE_NOISE__
+    linenoiseFree( ln_line__a );
+#endif // __WITH_LINE_NOISE__
 
     printf( "Bye, have a nice day!\n" );
     // fflush( stdout );
