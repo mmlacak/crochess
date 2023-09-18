@@ -8,6 +8,12 @@ void print_license_intro( void );
 void print_version_info( char const * restrict lib_ver, char const * restrict app_ver );
 void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver );
 void print_licence_text( void );
+
+#ifdef __WITH_LINE_NOISE__
+void print_linenoise_intro_text( void );
+void print_linenoise_licence_text( void );
+#endif // __WITH_LINE_NOISE__
+
 void print_about_info( void );
 
 void print_help( void );

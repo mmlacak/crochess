@@ -10,7 +10,8 @@
 
 void print_license_intro( void ) {
     printf( "Croatian chess - chess variants tests application\n"
-            "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n" );
+            "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n"
+            "Repository: https://github.com/mmlacak/crochess.\n" );
     // fflush( stdout );
 }
 
@@ -51,9 +52,58 @@ void print_licence_text( void ) {
     // fflush( stdout );
 }
 
+#ifdef __WITH_LINE_NOISE__
+void print_linenoise_intro_text( void ) {
+    printf( "\n"
+            "-----------------------------------------------------------------\n"
+            "\n"
+            "Optional dependency is used: linenoise, obtained from:\n"
+            "https://github.com/antirez/linenoise.\n"
+            "\n"
+            "Linenoise - A minimal, zero-config, BSD licensed, readline replacement used in\n"
+            "Redis, MongoDB, Android and many other projects.\n" );
+    // fflush( stdout );
+}
+
+void print_linenoise_licence_text( void ) {
+    printf( "\n"
+            "Copyright (c) 2010-2014, Salvatore Sanfilippo <antirez at gmail dot com>\n"
+            "Copyright (c) 2010-2013, Pieter Noordhuis <pcnoordhuis at gmail dot com>\n"
+            "\n"
+            "All rights reserved.\n"
+            "\n"
+            "Redistribution and use in source and binary forms, with or without\n"
+            "modification, are permitted provided that the following conditions are met:\n"
+            "\n"
+            "* Redistributions of source code must retain the above copyright notice,\n"
+            "  this list of conditions and the following disclaimer.\n"
+            "\n"
+            "* Redistributions in binary form must reproduce the above copyright notice,\n"
+            "  this list of conditions and the following disclaimer in the documentation\n"
+            "  and/or other materials provided with the distribution.\n"
+            "\n"
+            "THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND\n"
+            "ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED\n"
+            "WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE\n"
+            "DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR\n"
+            "ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES\n"
+            "(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;\n"
+            "LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON\n"
+            "ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n"
+            "(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS\n"
+            "SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\n" );
+    // fflush( stdout );
+}
+#endif // __WITH_LINE_NOISE__
+
 void print_about_info( void ) {
     print_license_intro();
     print_licence_text();
+
+#ifdef __WITH_LINE_NOISE__
+    print_linenoise_intro_text();
+    print_linenoise_licence_text();
+#endif // __WITH_LINE_NOISE__
 }
 
 void print_help_new_code( void ) {
