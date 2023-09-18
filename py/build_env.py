@@ -357,9 +357,11 @@ def get_ls_cmd():
     return cmd_lst
 
 def get_run_exe_file_cmd(root_path, exe_name=EXECUTABLE_FILE_NAME, options_list=None):
-    cmd_str = get_build_file_path(root_path, exe_name)
+    # cmd_str = get_build_file_path(root_path, exe_name)
+    # cmd_lst = [ cmd_str, ]
 
-    cmd_lst = [cmd_str, ]
+    # Not running with full path anymore, to simulate run from console, and use the same history file.
+    cmd_lst = [ exe_name, ]
 
     if options_list is not None:
         cmd_lst += options_list

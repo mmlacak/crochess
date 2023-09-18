@@ -214,7 +214,11 @@ def main():
         if not is_dry_run:
             try:
                 print( "." * 72 )
-                result = subprocess.run( run_cmd_lst, cwd=cmd_cwd ) # RS.run_process() --> subprocess.check_output() --> buffered output --> not good!
+
+                # Not running in cmd_cwd anymore, to simulate run from console, and use the same history file.
+                # RS.run_process() --> subprocess.check_output() --> buffered output --> not good!
+                result = subprocess.run( run_cmd_lst, cwd=os.getcwd() )
+
                 print( result )
                 print( "-" * 72 )
             except FileNotFoundError:
