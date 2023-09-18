@@ -34,3 +34,4 @@ obj/
 /ws/docs
 *.bak
 ws/linenoise/
+history*.*
