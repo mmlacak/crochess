@@ -7,6 +7,11 @@
 
 extern char const CROCHESS_VERSION[];
 
+#ifdef __WITH_LINE_NOISE__
+extern char const CROCHESS_HISTORY_FILE_NAME[];
+#define CROCHESS_HISTORY_LENGTH (1000)
+#endif // __WITH_LINE_NOISE__
+
 
 bool cc_move_print_all( CcMove * restrict moves );
 
