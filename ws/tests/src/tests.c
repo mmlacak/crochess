@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.306:738+20230918.224453"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.307:739+20230920.124222"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -144,8 +144,6 @@ int main( void ) {
     while ( true ) {
 #ifdef __WITH_LINE_NOISE__
         line = ln_line__a = linenoise( "> " );
-        linenoiseHistoryAdd( line );
-        linenoiseHistorySave( CROCHESS_TESTS_HISTORY_FILE_NAME );
 #else
         memset( buffer, 0, BUFSIZ );
 
@@ -289,7 +287,13 @@ int main( void ) {
         } else {
             printf( "Unknown: '%s'.\n", line );
             // fflush( stdout );
+            continue;
         }
+
+#ifdef __WITH_LINE_NOISE__
+        linenoiseHistoryAdd( line );
+        linenoiseHistorySave( CROCHESS_TESTS_HISTORY_FILE_NAME );
+#endif // __WITH_LINE_NOISE__
     }
 
     cc_game_free_all( &game__a );
