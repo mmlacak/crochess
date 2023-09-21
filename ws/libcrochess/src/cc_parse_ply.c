@@ -16,6 +16,21 @@
 #include "cc_parse_ply.h"
 
 
+static bool cc_check_ply_link_is_valid( CcPlyLinkEnum ple,
+                                        char const * restrict ply_start_an,
+                                        char const * restrict ply_end_an,
+                                        bool is_first_ply,
+                                        CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) ) {
+        char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply link in ply '%s'.\n", ply_str__a );
+        CC_FREE( ply_str__a );
+        return false;
+    }
+
+    return true;
+}
+
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
@@ -31,12 +46,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     // Ply link.
 
     CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
-    if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) ) {
-        char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply link in ply '%s'.\n", ply_str__a );
-        CC_FREE( ply_str__a );
+    if ( !cc_check_ply_link_is_valid( ple, ply_start_an, ply_end_an, is_first_ply, parse_msgs__iod ) )
         return false;
-    }
 
     char const * c_str = ply_start_an + cc_ply_link_len( ple );
 

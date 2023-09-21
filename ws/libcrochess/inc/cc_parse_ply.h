@@ -11,6 +11,12 @@
 #include "cc_parse_msg.h"
 
 
+// static bool cc_check_ply_link_is_valid( CcPlyLinkEnum ple,
+//                                         char const * restrict ply_start_an,
+//                                         char const * restrict ply_end_an,
+//                                         bool is_first_ply,
+//                                         CcParseMsg ** restrict parse_msgs__iod );
+
 // static bool cc_parse_ply( char const * restrict ply_start_an,
 //                           char const * restrict ply_end_an,
 //                           CcGame * restrict game,
@@ -18,7 +24,7 @@
 //                           bool is_first_ply,
 //                           CcPly ** restrict ply__o,
 //                           CcChessboard ** restrict cb__io,
-//                           CcParseMsg ** restrict parse_msgs__iod )
+//                           CcParseMsg ** restrict parse_msgs__iod );
 
 
 bool cc_parse_plies( char const * restrict move_an,
