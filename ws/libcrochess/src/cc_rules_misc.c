@@ -82,13 +82,6 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
     return false;
 }
 
-int cc_promoting_rank( CcChessboard * restrict cb, bool is_light ) {
-    if ( !is_light ) return 0;
-    if ( !cb ) return CC_INVALID_COORD;
-
-    return cb->size - 1;
-}
-
 // TODO :: DELETE
 //
 // bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag ) {
@@ -127,7 +120,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         // Movement (+ capture / activation) + promotion.
 
         bool is_light = cc_piece_is_light( pawn );
-        int rank = cc_promoting_rank( cb, is_light );
+        int rank = cc_chessboard_promoting_rank( cb, is_light );
         if ( !CC_IS_COORD_VALID( rank ) ) return false;
 
         if ( rank == destination.j ) return true;

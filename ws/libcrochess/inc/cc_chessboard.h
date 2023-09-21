@@ -57,6 +57,10 @@ bool cc_chessboard_init( CcChessboard * restrict cb__io,
 
     @param cb Chessboard to check.
 
+    @note
+    Actual board size cannot be tested, 2D array is allocated only once, at the size of the largest variant.
+    Chessboard size just limits which portion of board is used for a particular variant.
+
     @return `true` if chessboard size is valid, `false` otherwise.
 */
 bool cc_chessboard_is_size_valid( CcChessboard * restrict cb );
@@ -178,6 +182,26 @@ bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j );
     @return `true` if position is on a dark side, `false` otherwise.
 */
 bool cc_chessboard_is_field_on_dark_side( CcChessboard * restrict cb, int j );
+
+/**
+    Function returns rank of a promoting row.
+
+    @param cb Chessboard.
+    @param is_light Flag, whether it is for light or dark player.
+
+    @return Rank of a promoting row if successful, `CC_INVALID_COORD` otherwise.
+*/
+int cc_chessboard_promoting_rank( CcChessboard * restrict cb, bool is_light );
+
+/**
+    Function returns rank of a figure row.
+
+    @param cb Chessboard.
+    @param is_light Flag, whether it is for light or dark player.
+
+    @return Rank of a figure row if successful, `CC_INVALID_COORD` otherwise.
+*/
+int cc_chessboard_figure_rank( CcChessboard * restrict cb, bool is_light );
 
 /**
     Function returning piece on a given position.

@@ -51,7 +51,6 @@ bool cc_chessboard_is_size_valid( CcChessboard * restrict cb ) {
     if ( !cb ) return false;
 
     unsigned int size = cc_variant_board_size( cb->type );
-
     return ( size == cb->size );
 }
 
@@ -69,8 +68,7 @@ bool cc_chessboard_clear( CcChessboard * restrict cb__io ) {
 }
 
 bool cc_chessboard_setup( CcChessboard * restrict cb__io ) {
-    if ( !cb__io ) return false;
-
+    if ( !cc_chessboard_is_size_valid( cb__io ) ) return false;
     if ( !cc_chessboard_clear( cb__io ) ) return false;
 
     CcPieceEnum const * su = cc_setup_board_get( cb__io->type );
@@ -96,8 +94,8 @@ bool cc_chessboard_setup( CcChessboard * restrict cb__io ) {
 
 bool cc_chessboard_copy( CcChessboard * restrict into__io,
                          CcChessboard * restrict from ) {
-    if ( !into__io ) return false;
-    if ( !from ) return false;
+    if ( !cc_chessboard_is_size_valid( into__io ) ) return false;
+    if ( !cc_chessboard_is_size_valid( from ) ) return false;
 
     if ( !cc_chessboard_init( into__io, from->type, false ) )
         return false;
@@ -137,17 +135,17 @@ bool cc_chessboard_free_all( CcChessboard ** restrict cb__f ) {
 }
 
 bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord ) {
-    if ( !cb ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
     return CC_IS_COORD_ON_BOARD( cb->size, coord );
 }
 
 bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j ) {
-    if ( !cb ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
     return CC_IS_COORD_2_ON_BOARD( cb->size, i, j );
 }
 
 bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord ) {
-    if ( !cb ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
 
     size_t diag = cc_diagonal( cb->size );
 
@@ -155,7 +153,7 @@ bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coor
 }
 
 bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int j ) {
-    if ( !cb ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
 
     size_t diag = cc_diagonal( cb->size );
 
@@ -164,13 +162,27 @@ bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int
 }
 
 bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j ) {
-    if ( !cb ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
     return CC_IS_FIELD_ON_LIGHT_SIDE( cb->size, j );
 }
 
 bool cc_chessboard_is_field_on_dark_side( CcChessboard * restrict cb, int j ) {
-    if ( !cb ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
     return CC_IS_FIELD_ON_DARK_SIDE( cb->size, j );
+}
+
+int cc_chessboard_promoting_rank( CcChessboard * restrict cb, bool is_light ) {
+    if ( !cc_chessboard_is_size_valid( cb ) ) return CC_INVALID_COORD;
+
+    if ( !is_light ) return 0;
+    return (int)( cb->size - 1 );
+}
+
+int cc_chessboard_figure_rank( CcChessboard * restrict cb, bool is_light ) {
+    if ( !cc_chessboard_is_size_valid( cb ) ) return CC_INVALID_COORD;
+
+    if ( is_light ) return 0;
+    return (int)( cb->size - 1 );
 }
 
 CcPieceEnum cc_chessboard_get_piece( CcChessboard * restrict cb, int i, int j ) {
@@ -230,8 +242,8 @@ bool cc_chessboard_set_tag( CcChessboard * restrict cb__io,
 }
 
 bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict cb_2 ) {
-    if ( !cb ) return false;
-    if ( !cb_2 ) return false;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
+    if ( !cc_chessboard_is_size_valid( cb_2 ) ) return false;
 
     if ( cb->type != cb_2->type ) return false;
     if ( cb->size != cb_2->size ) return false;
@@ -248,7 +260,7 @@ bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict
 
 
 static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb ) {
-    if ( !cb ) return NULL;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return NULL;
 
     size_t len = 3 + 2 * cb->size + 3 + 1;
     char * divider__a = calloc( 1, len );
@@ -267,7 +279,7 @@ static char * cc_chessboard_get_divider__new( CcChessboard * restrict cb ) {
 }
 
 static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * restrict cb ) {
-    if ( !cb ) return NULL;
+    if ( !cc_chessboard_is_size_valid( cb ) ) return NULL;
 
     size_t len = 3 + 2 * cb->size + 3 + 1;
     char * hr__a = calloc( 1, len );

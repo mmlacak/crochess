@@ -10,7 +10,7 @@
 #include "cc_move.h"
 #include "cc_game.h"
 
-#include "cc_parse_defs.h"
+// #include "cc_parse_defs.h"
 
 
 // static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
@@ -20,8 +20,6 @@
 
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
                                        CcGameStatusEnum gse );
-
-int cc_promoting_rank( CcChessboard * restrict cb, bool is_light );
 
 // TODO :: DELETE
 // bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag );
