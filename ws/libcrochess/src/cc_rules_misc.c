@@ -121,7 +121,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
 
         bool is_light = cc_piece_is_light( pawn );
         int rank = cc_chessboard_promoting_rank( cb, is_light );
-        if ( !CC_IS_COORD_VALID( rank ) ) return false;
+        if ( !cc_chessboard_is_coord_on_board( cb, rank ) ) return false;
 
         if ( rank == destination.j ) return true;
     } else {
