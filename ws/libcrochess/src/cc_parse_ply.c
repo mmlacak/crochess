@@ -34,7 +34,6 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply link in ply '%s'.\n", ply_str__a );
-
         CC_FREE( ply_str__a );
         return false;
     }
@@ -59,8 +58,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( is_first_ply ) {
         before_ply_start__io->piece = piece;
-
         // Position, and tag are generaly not known at this time.
+
         if ( CC_PIECE_IS_KING( piece ) ) {
             CcPos pos = CC_POS_CAST_INVALID;
 
@@ -72,6 +71,17 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
             before_ply_start__io->pos = pos;
             before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+        }
+    } else {
+        if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
+            char const * piece_str = cc_piece_label( piece );
+            if ( cc_piece_has_prefix( piece ) ) {
+                char const * prefix = cc_piece_prefix( piece, true );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s %s cannot be activated.\n", prefix, piece_str );
+            } else {
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated.\n", piece_str );
+            }
+            return false;
         }
     }
 

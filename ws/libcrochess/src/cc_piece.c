@@ -334,6 +334,66 @@ bool cc_piece_is_light( CcPieceEnum pe ) {
     }
 }
 
+bool cc_piece_has_color( CcPieceEnum pe ) {
+    return cc_piece_is_light( pe ) || cc_piece_is_dark( pe );
+}
+
+bool cc_piece_has_shade( CcPieceEnum pe ) {
+    return CC_PIECE_IS_STAR( pe );
+}
+
+bool cc_piece_has_prefix( CcPieceEnum pe ) {
+    return cc_piece_has_color( pe ) || cc_piece_has_shade( pe );
+}
+
+char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize ) {
+    switch ( pe ) {
+        case CC_PE_DimStar : return capitalize ? "Dim" : "dim";
+
+        case CC_PE_DarkStarchild :
+        case CC_PE_DarkShaman :
+        case CC_PE_DarkSerpent :
+        case CC_PE_DarkGrenadier :
+        case CC_PE_DarkScout :
+        case CC_PE_DarkCentaur :
+        case CC_PE_DarkWave :
+        case CC_PE_DarkUnicorn :
+        case CC_PE_DarkPyramid :
+        case CC_PE_DarkPegasus :
+        case CC_PE_DarkKing :
+        case CC_PE_DarkQueen :
+        case CC_PE_DarkRook :
+        case CC_PE_DarkBishop :
+        case CC_PE_DarkKnight :
+        case CC_PE_DarkPawn : return capitalize ? "Dark" : "dark";
+
+        case CC_PE_None : return "";
+
+        case CC_PE_LightPawn :
+        case CC_PE_LightKnight :
+        case CC_PE_LightBishop :
+        case CC_PE_LightRook :
+        case CC_PE_LightQueen :
+        case CC_PE_LightKing :
+        case CC_PE_LightPegasus :
+        case CC_PE_LightPyramid :
+        case CC_PE_LightUnicorn :
+        case CC_PE_LightWave :
+        case CC_PE_LightCentaur :
+        case CC_PE_LightScout :
+        case CC_PE_LightGrenadier :
+        case CC_PE_LightSerpent :
+        case CC_PE_LightShaman :
+        case CC_PE_LightStarchild : return capitalize ? "Light" : "light";
+
+        case CC_PE_BrightStar : return capitalize ? "Bright" : "bright";
+
+        case CC_PE_Monolith : return "";
+
+        default : return "(default)";
+    }
+}
+
 bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe ) {
     char ps = cc_piece_symbol( pe );
     return ( symbol == ps );

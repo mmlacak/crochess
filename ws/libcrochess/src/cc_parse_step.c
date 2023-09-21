@@ -28,7 +28,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( sle == CC_SLE_None ) {
         char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step link in step '%s'.\n", step_str__a );
-
         CC_FREE( step_str__a );
         return false;
     }
@@ -41,7 +40,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cc_parse_pos( s_an, &pos, &pos_end_an ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing step '%s'.\n", step_an__a );
-
         CC_FREE( step_an__a );
         return false;
     }
@@ -56,7 +54,6 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                 parse_msgs__iod ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing side-effect, in step '%s'.\n", step_an__a );
-
         CC_FREE( step_an__a );
         return false;
     }

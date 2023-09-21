@@ -61,16 +61,16 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     switch ( see ) {
         case CC_SEE_None : {
 
-// TODO :: default interactions
-//
-//      -- if King is moving horizontally, for 2+ fields, it's castling
-//      -- if Pawn, Scout, or Grenadier is moving diagonally, onto empty field, it's en passant
-//      -- if Pyramid is moving onto own Pawn, on a field on opponent's side
-//         of a chessboard, it's tagging for promotion
-//      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
-//      -- otherwise, it's capture
-//      -- if it's a capture made by Pawn, check if it's also a tag for promotion;
-//         it can't be promotion, if promote-to piece is missing
+            // TODO :: default interactions
+            //
+            //      -- if King is moving horizontally, for 2+ fields, it's castling
+            //      -- if Pawn, Scout, or Grenadier is moving diagonally, onto empty field, it's en passant
+            //      -- if Pyramid is moving onto own Pawn, on a field on opponent's side
+            //         of a chessboard, it's tagging for promotion
+            //      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
+            //      -- otherwise, it's capture
+            //      -- if it's a capture made by Pawn, check if it's also a tag for promotion;
+            //         it can't be promotion, if promote-to piece is missing
 
             if ( CC_PIECE_IS_NONE( step_piece ) ) {
                 *side_effect__o = cc_side_effect_none();
@@ -79,69 +79,57 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 if ( sle == CC_SLE_Start ) {
                     // Starting position, piece is the one found in destination of last ply, or the one starting a move.
 
-// TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
-//
-//                     if ( step_piece != before_ply_start.piece ) // TODO :: piece starting a move
-//                     {
-//                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-//                         char sp = cc_piece_as_char( step_piece );
-//                         char lpdp = cc_piece_as_char( before_ply_start.piece );
+                    // TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
+                    //
+                    // if ( step_piece != before_ply_start.piece ) // TODO :: piece starting a move
+                    // {
+                    //     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+                    //     char sp = cc_piece_as_char( step_piece );
+                    //     char lpdp = cc_piece_as_char( before_ply_start.piece );
 
-//                         cc_parse_msg_append_fmt_if( parse_msgs__iod,
-//                                                     CC_PMTE_Error,
-//                                                     CC_MAX_LEN_ZERO_TERMINATED,
-//                                                     "Piece '%c' found at step-field, in step '%s'; expected '%c'.\n",
-//                                                     sp,
-//                                                     step_an__a,
-//                                                     lpdp );
-//                         CC_FREE( step_an__a );
-//                         return false;
-//                     }
-//
-// TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
+                    //     cc_parse_msg_append_fmt_if( parse_msgs__iod,
+                    //                                 CC_PMTE_Error,
+                    //                                 CC_MAX_LEN_ZERO_TERMINATED,
+                    //                                 "Piece '%c' found at step-field, in step '%s'; expected '%c'.\n",
+                    //                                 sp,
+                    //                                 step_an__a,
+                    //                                 lpdp );
+                    //     CC_FREE( step_an__a );
+                    //     return false;
+                    // }
+                    //
+                    // TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
 
                     *side_effect__o = cc_side_effect_none();
                     return true;
                 } else {
-// TODO :: silent capture ::
-//      -- if piece found on step-field has other owner
-//      -- if ply piece (the one currently moving) can capture
-//      -- if piece found on step-field can be captured
-//      --> then it's silent capture (!)
+                    // TODO :: silent capture ::
+                    //      -- if piece found on step-field has other owner
+                    //      -- if ply piece (the one currently moving) can capture
+                    //      -- if piece found on step-field can be captured
+                    //      --> then it's silent capture (!)
 
-// TODO
+                    // TODO ::  >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                     char sp = cc_piece_as_char( step_piece );
-
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                " >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n",
-                                                sp,
-                                                step_an__a );
+                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, " >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n", sp, step_an__a );
                     CC_FREE( step_an__a );
                     return false;
                 }
             }
-// TODO
+            // TODO
         } case CC_SEE_Capture : {
-// TODO
-//
-//      -- moving promotion
-//      -- if it's a capture made by Pawn, check if it's also a promotion
+            // TODO
+            //
+            // -- moving promotion
+            // -- if it's a capture made by Pawn, check if it's also a promotion
 
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
                 if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Piece '%c' not found at step-field, in step '%s'.\n",
-                                                piece_symbol,
-                                                step_an__a );
+                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
                     CC_FREE( step_an__a );
                     return false;
                 }
@@ -152,13 +140,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Piece '%c' at step-field cannot be captured, in step '%s'.\n",
-                                            sp,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' at step-field cannot be captured, in step '%s'.\n", sp, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -183,13 +165,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
                     if ( !cc_piece_symbol_is_valid( promote_to_symbol ) ) {
                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                    CC_PMTE_Error,
-                                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                                    "Character '%c' is not valid piece symbol, in step '%s'.\n",
-                                                    promote_to_symbol,
-                                                    step_an__a );
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Character '%c' is not valid piece symbol, in step '%s'.\n", promote_to_symbol, step_an__a );
                         CC_FREE( step_an__a );
                         return false;
                     }
@@ -199,13 +175,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
                     if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                    CC_PMTE_Error,
-                                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                                    "Pawn cannot be promoted to '%c', in step '%s'.\n",
-                                                    promote_to_symbol,
-                                                    step_an__a );
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to '%c', in step '%s'.\n", promote_to_symbol, step_an__a );
                         CC_FREE( step_an__a );
                         return false;
                     }
@@ -213,7 +183,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
                     return true;
                 } else if ( promo == CC_SEE_TagForPromotion ) {
-// TODO :: add flag
+                    // TODO :: add flag
                 }
             }
 
@@ -225,13 +195,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
                 if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Piece '%c' not found at step-field, in step '%s'.\n",
-                                                piece_symbol,
-                                                step_an__a );
+                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
                     CC_FREE( step_an__a );
                     return false;
                 }
@@ -242,13 +206,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Piece '%c' at step-field cannot be displaced, in step '%s'.\n",
-                                            sp,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' at step-field cannot be displaced, in step '%s'.\n", sp, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -261,51 +219,36 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             if ( !cc_parse_pos( pos_an, &pos, &pos_end_an ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Error parsing displacement destination, in step '%s'.\n",
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing displacement destination, in step '%s'.\n", step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
 
             if ( !cc_pos_is_valid( pos ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n",
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
 
             *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
             return true;
-        } case CC_SEE_EnPassant :
-// TODO :: en passant
+        } case CC_SEE_EnPassant : {
+            // TODO :: en passant
             return false;
+        } case CC_SEE_Castle : {
+            if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) return false;
 
-        case CC_SEE_Castle :
-// TODO :: castling
+            // TODO :: castling
             return false;
-
-        case CC_SEE_Promotion : {
-// TODO -- static promotion
-//      -- moving promotion
-//      -- silent capture before promotion
+        } case CC_SEE_Promotion : {
+            // TODO -- static promotion
+            //      -- moving promotion
+            //      -- silent capture before promotion
 
             if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Only Pawn can be promoted, in step '%s'.\n",
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, in step '%s'.\n", step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -317,13 +260,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             if ( !cc_piece_symbol_is_valid( piece_symbol ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Character '%c' is not valid piece symbol, in step '%s'.\n",
-                                            piece_symbol,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Character '%c' is not valid piece symbol, in step '%s'.\n", piece_symbol, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -333,13 +270,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Pawn cannot be promoted to '%c', in step '%s'.\n",
-                                            piece_symbol,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to '%c', in step '%s'.\n", piece_symbol, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -347,16 +278,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_None, step_piece );
             return true;
         } case CC_SEE_TagForPromotion : {
-// TODO -- silent capture before promotion
+            // TODO -- silent capture before promotion
 
             if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Only Pawn can be promoted, in step '%s'.\n",
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, in step '%s'.\n", step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -369,13 +295,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
                 if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Piece '%c' not found at step-field, in step '%s'.\n",
-                                                piece_symbol,
-                                                step_an__a );
+                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
                     CC_FREE( step_an__a );
                     return false;
                 }
@@ -385,13 +305,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             if ( !CC_PIECE_CAN_BE_CONVERTED( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Piece '%c' can't be converted, in step '%s'.\n",
-                                            piece_symbol,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' can't be converted, in step '%s'.\n", piece_symbol, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -405,33 +319,21 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_IS_STARCHILD( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Only Starchild can't be converted, in step '%s'.\n",
-                                            sp,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Starchild can't be converted, in step '%s'.\n", sp, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
 
             *side_effect__o = cc_side_effect_failed_conversion();
             return true;
-        } case CC_SEE_Transparency : // Intentional fall-through ...
-        case CC_SEE_Divergence : {
+        } case CC_SEE_Transparency : { // Intentional fall-through ...
+        } case CC_SEE_Divergence : {
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
                 if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
                     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                CC_PMTE_Error,
-                                                CC_MAX_LEN_ZERO_TERMINATED,
-                                                "Piece '%c' not found at step-field, in step '%s'.\n",
-                                                piece_symbol,
-                                                step_an__a );
+                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
                     CC_FREE( step_an__a );
                     return false;
                 }
@@ -447,20 +349,14 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false; // In case some other, unexpected side-effect gets here.
 
             return true;
-        } case CC_SEE_DemoteToPawn :
-// TODO :: demote to Pawn
+        } case CC_SEE_DemoteToPawn : {
+            // TODO :: demote to Pawn
             return false;
-
-        case CC_SEE_Resurrection : // Intentional fall-through ...
-        case CC_SEE_ResurrectingOpponent : {
+        } case CC_SEE_Resurrection : { // Intentional fall-through ...
+        } case CC_SEE_ResurrectingOpponent : {
             if ( !CC_PIECE_IS_NONE( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Resurrection can be initiated only on an empty field, in step '%s'.\n",
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection can be initiated only on an empty field, in step '%s'.\n", step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -472,13 +368,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             if ( !cc_piece_symbol_is_valid( piece_symbol ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Character '%c' is not valid piece symbol, in step '%s'.\n",
-                                            piece_symbol,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Character '%c' is not valid piece symbol, in step '%s'.\n", piece_symbol, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -497,13 +387,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_CAN_BE_RESURRECTED( resurrecting ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char pt = cc_piece_as_char( resurrecting );
-
-                cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                            CC_PMTE_Error,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            "Piece '%c' cannot be resurrected, in step '%s'.\n",
-                                            pt,
-                                            step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' cannot be resurrected, in step '%s'.\n", pt, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
@@ -517,12 +401,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 if ( cc_parse_pos( pos_an, &pos, &pos_end_an ) ) {
                     if ( !cc_pos_is_valid( pos ) ) {
                         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-                        cc_parse_msg_append_fmt_if( parse_msgs__iod,
-                                                    CC_PMTE_Error,
-                                                    CC_MAX_LEN_ZERO_TERMINATED,
-                                                    "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n",
-                                                    step_an__a );
+                        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n", step_an__a );
                         CC_FREE( step_an__a );
                         return false;
                     }

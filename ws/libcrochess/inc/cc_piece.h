@@ -681,6 +681,9 @@ CcPieceEnum cc_piece_from_char( char piece );
     Piece label is capitalized name of a piece. Piece label is the same for
     dark (dim) and light (bright) pieces. For None piece, label is empty string.
 
+    @warning
+    Returned string is not allocated, so do not try to `free()` it.
+
     @return Pointer to string if successful, `NULL` otherwise.
 */
 char const * cc_piece_label( CcPieceEnum pe );
@@ -728,6 +731,58 @@ bool cc_piece_is_dark( CcPieceEnum pe );
     @return `true` if piece is light, `false` otherwise.
 */
 bool cc_piece_is_light( CcPieceEnum pe );
+
+/**
+    Function returning whether piece has color, i.e. if it's either light, or dark.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece has color, `false` otherwise.
+*/
+bool cc_piece_has_color( CcPieceEnum pe );
+
+/**
+    Function returning whether piece has shade, i.e. if it's either bright, or dim.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece has shade, `false` otherwise.
+*/
+bool cc_piece_has_shade( CcPieceEnum pe );
+
+/**
+    Function returning whether piece has prefix, i.e. if it has either a color, or a shade.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece has prefix, `false` otherwise.
+*/
+bool cc_piece_has_prefix( CcPieceEnum pe );
+
+/**
+    Function returning piece prefix.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+    @param capitalize Flag, whether to return capitalized prefix.
+
+    @see CcPieceEnum
+
+    @note
+    Piece prefix is either a color, or a shade of a given piece, depending what it has.
+    For pieces without neither color, nor shade (None, and Monolith), prefix is empty string.
+
+    @warning
+    Returned string is not allocated, so do not try to `free()` it.
+
+    @return Pointer to string if successful, `NULL` otherwise.
+*/
+char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize );
 
 /**
     Function checks if given piece has the same type as a piece symbol.
