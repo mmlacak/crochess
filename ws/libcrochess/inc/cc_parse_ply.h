@@ -22,6 +22,11 @@
 //                                CcPos * restrict pos__o,
 //                                CcParseMsg ** restrict parse_msgs__iod );
 
+// static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
+//                                              char const * restrict ply_start_an,
+//                                              char const * restrict ply_end_an,
+//                                              CcParseMsg ** restrict parse_msgs__iod );
+
 // static bool cc_parse_ply( char const * restrict ply_start_an,
 //                           char const * restrict ply_end_an,
 //                           CcGame * restrict game,

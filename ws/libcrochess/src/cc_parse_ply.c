@@ -54,6 +54,28 @@ static bool cc_check_king_ply( CcChessboard * restrict cb,
     return true;
 }
 
+static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
+                                             char const * restrict ply_start_an,
+                                             char const * restrict ply_end_an,
+                                             CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
+        char const * piece_str = cc_piece_label( piece );
+        char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+
+        if ( cc_piece_has_prefix( piece ) ) {
+            char const * prefix = cc_piece_prefix( piece, true );
+            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s %s cannot be activated, in ply '%s'.\n", prefix, piece_str, ply_str__a );
+        } else {
+            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated, in ply '%s'.\n", piece_str, ply_str__a );
+        }
+
+        CC_FREE( ply_str__a );
+        return false;
+    }
+
+    return true;
+}
+
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
@@ -104,16 +126,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
             before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
         }
     } else {
-        if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
-            char const * piece_str = cc_piece_label( piece );
-            if ( cc_piece_has_prefix( piece ) ) {
-                char const * prefix = cc_piece_prefix( piece, true );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s %s cannot be activated.\n", prefix, piece_str );
-            } else {
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated.\n", piece_str );
-            }
+        if ( !cc_check_piece_can_be_activated( piece, ply_start_an, ply_end_an, parse_msgs__iod ) )
             return false;
-        }
     }
 
     if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
