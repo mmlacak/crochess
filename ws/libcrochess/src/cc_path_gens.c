@@ -11,7 +11,7 @@
 
 
 bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
-                        CcPos starting,
+                        CcPos expected,
                         CcPieceEnum piece,
                         bool include_opponent,
                         CcPos * restrict pos__io ) {
@@ -23,14 +23,14 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
 
     // Next position to check.
     if ( !cc_chessboard_is_pos_on_board( cb_before_activation, pos.i, pos.j ) )
-        pos = cc_pos( 0, 0 );
+        pos = CC_POS_CAST_ORIGIN_FIELD;
     else if ( pos.j < size - 1 )
         pos = cc_pos( pos.i, pos.j + 1 );
     else
         pos = cc_pos( pos.i + 1, 0 );
 
-    bool is_comparable = cc_pos_is_valid( starting ) ||
-                         cc_pos_is_disambiguation( starting );
+    bool is_comparable = cc_pos_is_valid( expected ) ||
+                         cc_pos_is_disambiguation( expected );
 
     for ( int i = pos.i; i < size; ++i ) {
         for ( int j = pos.j; j < size; ++j ) {
@@ -41,7 +41,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                 CcPos current = cc_pos( i, j );
 
                 if ( ( !is_comparable ) ||
-                       cc_pos_is_congruent( starting, current ) ) {
+                       cc_pos_is_congruent( expected, current ) ) {
                     *pos__io = current;
                     return true;
                 }

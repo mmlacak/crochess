@@ -31,6 +31,29 @@ static bool cc_check_ply_link_is_valid( CcPlyLinkEnum ple,
     return true;
 }
 
+static bool cc_check_king_ply( CcChessboard * restrict cb,
+                               CcPieceEnum piece,
+                               CcPos * restrict pos__o,
+                               CcParseMsg ** restrict parse_msgs__iod ) {
+    bool is_light = cc_piece_is_light( piece );
+
+    if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, piece, false, pos__o ) ) {
+        char * color = is_light ? "Light" : "Dark";
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s King not found.\n", color );
+        return false;
+    }
+
+    CcPos pos = *pos__o;
+
+    if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, piece, false, &pos ) ) {
+        char * color = is_light ? "light" : "dark";
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "More than one %s King was found.\n", color );
+        return false;
+    }
+
+    return true;
+}
+
 static bool cc_parse_ply( char const * restrict ply_start_an,
                           char const * restrict ply_end_an,
                           CcGame * restrict game,
@@ -74,11 +97,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
         if ( CC_PIECE_IS_KING( piece ) ) {
             CcPos pos = CC_POS_CAST_INVALID;
 
-            if ( !cc_iter_piece_pos( *cb__io, CC_POS_CAST_ORIGIN_FIELD, piece, false, &pos ) ) {
-                char * color = is_light ? "Light" : "Dark";
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s King not found.\n", color );
+            if ( !cc_check_king_ply( *cb__io, piece, &pos, parse_msgs__iod ) )
                 return false;
-            }
 
             before_ply_start__io->pos = pos;
             before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );

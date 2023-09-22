@@ -17,6 +17,11 @@
 //                                         bool is_first_ply,
 //                                         CcParseMsg ** restrict parse_msgs__iod );
 
+// static bool cc_check_king_ply( CcChessboard * restrict cb,
+//                                CcPieceEnum piece,
+//                                CcPos * restrict pos__o,
+//                                CcParseMsg ** restrict parse_msgs__iod );
+
 // static bool cc_parse_ply( char const * restrict ply_start_an,
 //                           char const * restrict ply_end_an,
 //                           CcGame * restrict game,
