@@ -42,6 +42,21 @@ static bool cc_check_piece_has_congruent_type( char piece_symbol,
     return true;
 }
 
+static bool cc_check_piece_can_be_captured( CcPieceEnum step_piece,
+                                            char const * restrict step_start_an,
+                                            char const * restrict step_end_an,
+                                            CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char sp = cc_piece_as_char( step_piece );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' at step-field cannot be captured, in step '%s'.\n", sp, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -143,13 +158,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 ++se_an;
             }
 
-            if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char sp = cc_piece_as_char( step_piece );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' at step-field cannot be captured, in step '%s'.\n", sp, step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_piece_can_be_captured( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
 
