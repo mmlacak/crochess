@@ -15,6 +15,13 @@
 //                                 char const * restrict step_end_an,
 //                                 CcParseMsg ** restrict parse_msgs__iod );
 
+// static bool cc_check_parsed_pos( char const * restrict step_start_an,
+//                                  char const * restrict step_end_an,
+//                                  CcStepLinkEnum sle,
+//                                  CcPos * restrict pos__o,
+//                                  char const ** restrict pos_end_an__o,
+//                                  CcParseMsg ** restrict parse_msgs__iod );
+
 // static bool cc_parse_step( char const * restrict step_start_an,
 //                            char const * restrict step_end_an,
 //                            CcGame * restrict game,

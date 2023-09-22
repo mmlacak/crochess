@@ -23,7 +23,7 @@ static bool cc_check_ply_link_is_valid( CcPlyLinkEnum ple,
                                         CcParseMsg ** restrict parse_msgs__iod ) {
     if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply link in ply '%s'.\n", ply_str__a );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
         CC_FREE( ply_str__a );
         return false;
     }
