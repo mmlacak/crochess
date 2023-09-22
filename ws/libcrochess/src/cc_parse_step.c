@@ -10,6 +10,20 @@
 #include "cc_parse_step.h"
 
 
+static bool cc_check_step_link( CcStepLinkEnum sle,
+                                char const * restrict step_start_an,
+                                char const * restrict step_end_an,
+                                CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( sle == CC_SLE_None ) {
+        char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step link in step '%s'.\n", step_str__a );
+        CC_FREE( step_str__a );
+        return false;
+    }
+
+    return true;
+}
+
 static bool cc_parse_step( char const * restrict step_start_an,
                            char const * restrict step_end_an,
                            CcGame * restrict game,
@@ -25,12 +39,8 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !parse_msgs__iod ) return false;
 
     CcStepLinkEnum sle = cc_parse_step_link( step_start_an );
-    if ( sle == CC_SLE_None ) {
-        char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step link in step '%s'.\n", step_str__a );
-        CC_FREE( step_str__a );
+    if ( !cc_check_step_link( sle, step_start_an, step_end_an, parse_msgs__iod ) )
         return false;
-    }
 
     char const * s_an = step_start_an + cc_step_link_len( sle );
 
