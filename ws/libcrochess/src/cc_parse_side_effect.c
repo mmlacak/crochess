@@ -27,6 +27,21 @@
 //     return false;
 // }
 
+static bool cc_check_piece_has_congruent_type( char piece_symbol,
+                                               CcPieceEnum step_piece,
+                                               char const * restrict step_start_an,
+                                               char const * restrict step_end_an,
+                                               CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return true;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -46,17 +61,12 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     if ( !side_effect__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    if ( sle == CC_SLE_None ) return false;
+    if ( sle == CC_SLE_None ) return false; // Just sanity check; error msg is produced when parsing step, in cc_check_step_link().
 
     CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos.i, step_pos.j );
-
     bool has_promotion_sign = false;
-
-    CcSideEffectEnum see =
-        cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
-
-    char const * se_an =
-        side_effect_an + cc_side_effect_type_len( see, has_promotion_sign );
+    CcSideEffectEnum see = cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
+    char const * se_an = side_effect_an + cc_side_effect_type_len( see, has_promotion_sign );
 
     switch ( see ) {
         case CC_SEE_None : {
@@ -127,12 +137,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
-                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
-                    char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
-                    CC_FREE( step_an__a );
+                if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
-                }
 
                 ++se_an;
             }

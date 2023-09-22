@@ -10,6 +10,11 @@
 
 #include "cc_parse_msg.h"
 
+// static bool cc_check_piece_has_congruent_type( char piece_symbol,
+//                                                CcPieceEnum step_piece,
+//                                                char const * restrict step_start_an,
+//                                                char const * restrict step_end_an,
+//                                                CcParseMsg ** restrict parse_msgs__iod );
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,

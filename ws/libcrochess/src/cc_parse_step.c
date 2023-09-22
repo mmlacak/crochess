@@ -60,17 +60,9 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cc_check_step_link( sle, step_start_an, step_end_an, parse_msgs__iod ) )
         return false;
 
-    // char const * s_an = step_start_an + cc_step_link_len( sle );
-
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;
 
-    // if ( !cc_parse_pos( s_an, &pos, &pos_end_an ) ) {
-    //     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    //     cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing step '%s'.\n", step_an__a );
-    //     CC_FREE( step_an__a );
-    //     return false;
-    // }
     if ( !cc_check_parsed_pos( step_start_an, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) )
         return false;
 
@@ -81,12 +73,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
                                 sle,
                                 pos,
                                 &se,
-                                parse_msgs__iod ) ) {
-        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing side-effect, in step '%s'.\n", step_an__a );
-        CC_FREE( step_an__a );
-        return false;
-    }
+                                parse_msgs__iod ) ) return false;
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
@@ -131,9 +118,6 @@ bool cc_parse_steps( char const * restrict steps_start_an,
         }
 
         if ( !cc_step_extend_if( steps__o, &step__t ) ) {
-
-            printf( "!cc_step_extend_if\n" );  // TODO :: DEBUG :: DELETE
-
             cc_step_free_all( &step__t );
             return false;
         }
