@@ -110,6 +110,22 @@ static bool cc_check_piece_can_be_displaced( CcPieceEnum step_piece,
     return true;
 }
 
+static bool cc_check_parsed_position( char const * pos_an,
+                                      CcPos * pos__o,
+                                      char const ** pos_end_an__o,
+                                      char const * restrict step_start_an,
+                                      char const * restrict step_end_an,
+                                      CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !cc_parse_pos( pos_an, pos__o, pos_end_an__o ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing displacement destination, in step '%s'.\n", step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return true;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -268,12 +284,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_pos( pos_an, &pos, &pos_end_an ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing displacement destination, in step '%s'.\n", step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_parsed_position( pos_an, &pos, &pos_end_an, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             if ( !cc_pos_is_valid( pos ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );

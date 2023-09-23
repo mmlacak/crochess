@@ -59,7 +59,6 @@ static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
                                              char const * restrict ply_end_an,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
-        char const * piece_str = cc_piece_label( piece );
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char * piece_str__a = cc_piece_as_string__new( piece, true );
 
