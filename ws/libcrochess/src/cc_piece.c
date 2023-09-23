@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <ctype.h>
 
+#include "cc_str_utils.h"
 #include "cc_piece.h"
 
 /**
@@ -458,4 +459,17 @@ bool cc_piece_is_figure( CcPieceEnum pe ) {
     if ( CC_PIECE_IS_MONOLITH( pe ) ) return true;
 
     return cc_piece_is_owned_figure( pe );
+}
+
+char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize_prefix ) {
+    char const * piece_prefix = cc_piece_prefix( pe, capitalize_prefix );
+    char const * piece_label = cc_piece_label( pe );
+    char * pas__a = NULL;
+
+    if ( cc_piece_has_prefix( pe ) )
+        pas__a = cc_str_fmt__new( CC_MAX_LEN_ZERO_TERMINATED, "%s %s", piece_prefix, piece_label );
+    else
+        pas__a = cc_str_fmt__new( CC_MAX_LEN_ZERO_TERMINATED, "%s", piece_label );
+
+    return pas__a;
 }

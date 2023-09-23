@@ -920,5 +920,7 @@ bool cc_piece_is_owned_figure( CcPieceEnum pe );
 */
 bool cc_piece_is_figure( CcPieceEnum pe );
 
+char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize_prefix );
+
 
 #endif /* __CC_PIECE_H__ */

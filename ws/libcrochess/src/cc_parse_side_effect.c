@@ -48,8 +48,11 @@ static bool cc_check_piece_can_be_captured( CcPieceEnum step_piece,
                                             CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char sp = cc_piece_as_char( step_piece );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' at step-field cannot be captured, in step '%s'.\n", sp, step_an__a );
+        char * piece_str__a = cc_piece_as_string__new( step_piece, true );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be captured, in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -77,15 +80,11 @@ static bool cc_check_promote_to_piece_is_valid( CcPieceEnum promote_to_piece,
                                                 CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to_piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char * piece_str__a = cc_piece_as_string__new( promote_to_piece, false );
 
-        char const * piece_prefix = cc_piece_prefix( promote_to_piece, false );
-        char const * piece_label = cc_piece_label( promote_to_piece );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s, in step '%s'.\n", piece_str__a, step_an__a );
 
-        if ( cc_piece_has_prefix( promote_to_piece ) )
-            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s %s, in step '%s'.\n", piece_prefix, piece_label, step_an__a );
-        else
-            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s, in step '%s'.\n", piece_label, step_an__a );
-
+        CC_FREE( piece_str__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -99,8 +98,11 @@ static bool cc_check_piece_can_be_displaced( CcPieceEnum step_piece,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char sp = cc_piece_as_char( step_piece );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' at step-field cannot be displaced, in step '%s'.\n", sp, step_an__a );
+        char * piece_str__a = cc_piece_as_string__new( step_piece, true );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be displaced, in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
         CC_FREE( step_an__a );
         return false;
     }
