@@ -21,7 +21,7 @@
 //                                             char const * restrict step_end_an,
 //                                             CcParseMsg ** restrict parse_msgs__iod );
 
-// static bool cc_check_piece_symbol_is_valid( char promote_to_symbol,
+// static bool cc_check_piece_symbol_is_valid( char piece_symbol,
 //                                             char const * restrict step_start_an,
 //                                             char const * restrict step_end_an,
 //                                             CcParseMsg ** restrict parse_msgs__iod );
@@ -30,6 +30,11 @@
 //                                                 char const * restrict step_start_an,
 //                                                 char const * restrict step_end_an,
 //                                                 CcParseMsg ** restrict parse_msgs__iod );
+
+// static bool cc_check_piece_can_be_displaced( CcPieceEnum step_piece,
+//                                              char const * restrict step_start_an,
+//                                              char const * restrict step_end_an,
+//                                              CcParseMsg ** restrict parse_msgs__iod );
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
