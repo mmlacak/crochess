@@ -43,6 +43,13 @@
 //                                       char const * restrict step_end_an,
 //                                       CcParseMsg ** restrict parse_msgs__iod );
 
+// static bool cc_check_position_is_on_board( CcPos pos,
+//                                            CcChessboard * restrict cb,
+//                                            char const * msg_fmt,
+//                                            char const * restrict step_start_an,
+//                                            char const * restrict step_end_an,
+//                                            CcParseMsg ** restrict parse_msgs__iod );
+
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
                            char const * restrict step_end_an,

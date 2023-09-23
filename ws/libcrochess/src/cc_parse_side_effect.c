@@ -126,6 +126,22 @@ static bool cc_check_parsed_position( char const * pos_an,
     return true;
 }
 
+static bool cc_check_position_is_on_board( CcPos pos,
+                                           CcChessboard * restrict cb,
+                                           char const * msg_fmt,
+                                           char const * restrict step_start_an,
+                                           char const * restrict step_end_an,
+                                           CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -287,12 +303,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !cc_check_parsed_position( pos_an, &pos, &pos_end_an, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            if ( !cc_pos_is_valid( pos ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_position_is_on_board( pos, cb, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
             return true;
