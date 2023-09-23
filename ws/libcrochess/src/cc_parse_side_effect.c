@@ -57,6 +57,20 @@ static bool cc_check_piece_can_be_captured( CcPieceEnum step_piece,
     return false;
 }
 
+static bool cc_check_piece_symbol_is_valid( char promote_to_symbol,
+                                            char const * restrict step_start_an,
+                                            char const * restrict step_end_an,
+                                            CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !cc_piece_symbol_is_valid( promote_to_symbol ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Character '%c' is not valid piece symbol, in step '%s'.\n", promote_to_symbol, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -179,12 +193,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     if ( !cc_fetch_piece_symbol( promo_an, &promote_to_symbol, true, false ) )
                         return false;
 
-                    if ( !cc_piece_symbol_is_valid( promote_to_symbol ) ) {
-                        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Character '%c' is not valid piece symbol, in step '%s'.\n", promote_to_symbol, step_an__a );
-                        CC_FREE( step_an__a );
+                    if ( cc_check_piece_symbol_is_valid( promote_to_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
-                    }
 
                     bool is_light = cc_piece_is_light( step_piece );
                     CcPieceEnum promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
