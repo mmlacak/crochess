@@ -71,6 +71,28 @@ static bool cc_check_piece_symbol_is_valid( char promote_to_symbol,
     return false;
 }
 
+static bool cc_check_promote_to_piece_is_valid( CcPieceEnum promote_to,
+                                                char const * restrict step_start_an,
+                                                char const * restrict step_end_an,
+                                                CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+
+        char const * piece_prefix = cc_piece_prefix( promote_to, false );
+        char const * piece_label = cc_piece_label( promote_to );
+
+        if ( cc_piece_has_prefix( promote_to ) )
+            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s %s, in step '%s'.\n", piece_prefix, piece_label, step_an__a );
+        else
+            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s, in step '%s'.\n", piece_label, step_an__a );
+
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -160,8 +182,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         } case CC_SEE_Capture : {
             // TODO
             //
-            // -- moving promotion
-            // -- if it's a capture made by Pawn, check if it's also a promotion
+            // -- moving promotion :: if it's a capture made by Pawn, check if it's also a promotion
 
             char piece_symbol = ' ';
 
@@ -176,14 +197,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false;
 
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
-
             char const * promo_an = se_an + cc_losing_tag_len( lte );
 
             if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) ) {
                 bool has_promo_sign = false;
-
-                CcSideEffectEnum promo =
-                    cc_parse_side_effect_type( promo_an, &has_promo_sign );
+                CcSideEffectEnum promo = cc_parse_side_effect_type( promo_an, &has_promo_sign );
 
                 if ( promo == CC_SEE_Promotion ) {
                     promo_an += cc_side_effect_type_len( promo, has_promo_sign );
@@ -193,18 +211,14 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     if ( !cc_fetch_piece_symbol( promo_an, &promote_to_symbol, true, false ) )
                         return false;
 
-                    if ( cc_check_piece_symbol_is_valid( promote_to_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
+                    if ( !cc_check_piece_symbol_is_valid( promote_to_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
 
                     bool is_light = cc_piece_is_light( step_piece );
                     CcPieceEnum promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
 
-                    if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
-                        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to '%c', in step '%s'.\n", promote_to_symbol, step_an__a );
-                        CC_FREE( step_an__a );
+                    if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
-                    }
 
                     *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
                     return true;
