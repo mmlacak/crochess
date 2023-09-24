@@ -353,12 +353,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             bool is_light = cc_piece_is_light( step_piece );
             CcPieceEnum promote_to = cc_piece_from_symbol( piece_symbol, is_light );
 
-            if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to '%c', in step '%s'.\n", piece_symbol, step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_None, step_piece );
             return true;
