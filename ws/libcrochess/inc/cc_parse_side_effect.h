@@ -11,12 +11,12 @@
 #include "cc_parse_msg.h"
 
 // static bool cc_check_piece_has_congruent_type( char piece_symbol,
-//                                                CcPieceEnum step_piece,
+//                                                CcPieceEnum piece,
 //                                                char const * restrict step_start_an,
 //                                                char const * restrict step_end_an,
 //                                                CcParseMsg ** restrict parse_msgs__iod );
 
-// static bool cc_check_piece_can_be_captured( CcPieceEnum step_piece,
+// static bool cc_check_piece_can_be_captured( CcPieceEnum piece,
 //                                             char const * restrict step_start_an,
 //                                             char const * restrict step_end_an,
 //                                             CcParseMsg ** restrict parse_msgs__iod );
@@ -31,7 +31,7 @@
 //                                                 char const * restrict step_end_an,
 //                                                 CcParseMsg ** restrict parse_msgs__iod );
 
-// static bool cc_check_piece_can_be_displaced( CcPieceEnum step_piece,
+// static bool cc_check_piece_can_be_displaced( CcPieceEnum piece,
 //                                              char const * restrict step_start_an,
 //                                              char const * restrict step_end_an,
 //                                              CcParseMsg ** restrict parse_msgs__iod );
@@ -49,6 +49,11 @@
 //                                            char const * restrict step_start_an,
 //                                            char const * restrict step_end_an,
 //                                            CcParseMsg ** restrict parse_msgs__iod );
+
+// static bool cc_check_piece_is_pawn( CcPieceEnum piece,
+//                                     char const * restrict step_start_an,
+//                                     char const * restrict step_end_an,
+//                                     CcParseMsg ** restrict parse_msgs__iod );
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,

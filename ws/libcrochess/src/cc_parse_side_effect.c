@@ -28,11 +28,11 @@
 // }
 
 static bool cc_check_piece_has_congruent_type( char piece_symbol,
-                                               CcPieceEnum step_piece,
+                                               CcPieceEnum piece,
                                                char const * restrict step_start_an,
                                                char const * restrict step_end_an,
                                                CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
+    if ( !cc_piece_has_congruent_type( piece_symbol, piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
         CC_FREE( step_an__a );
@@ -42,13 +42,13 @@ static bool cc_check_piece_has_congruent_type( char piece_symbol,
     return true;
 }
 
-static bool cc_check_piece_can_be_captured( CcPieceEnum step_piece,
+static bool cc_check_piece_can_be_captured( CcPieceEnum piece,
                                             char const * restrict step_start_an,
                                             char const * restrict step_end_an,
                                             CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( !CC_PIECE_CAN_BE_CAPTURED( step_piece ) ) {
+    if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( step_piece, true );
+        char * piece_str__a = cc_piece_as_string__new( piece, true );
 
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be captured, in step '%s'.\n", piece_str__a, step_an__a );
 
@@ -92,13 +92,13 @@ static bool cc_check_promote_to_piece_is_valid( CcPieceEnum promote_to_piece,
     return false;
 }
 
-static bool cc_check_piece_can_be_displaced( CcPieceEnum step_piece,
+static bool cc_check_piece_can_be_displaced( CcPieceEnum piece,
                                              char const * restrict step_start_an,
                                              char const * restrict step_end_an,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( !CC_PIECE_CAN_BE_DISPLACED( step_piece ) ) {
+    if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( step_piece, true );
+        char * piece_str__a = cc_piece_as_string__new( piece, true );
 
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be displaced, in step '%s'.\n", piece_str__a, step_an__a );
 
@@ -135,6 +135,24 @@ static bool cc_check_position_is_on_board( CcPos pos,
     if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
+static bool cc_check_piece_is_pawn( CcPieceEnum piece,
+                                    char const * restrict step_start_an,
+                                    char const * restrict step_end_an,
+                                    CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_PAWN( piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char * piece_str__a = cc_piece_as_string__new( piece, false );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, encountered %s in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -321,12 +339,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             //      -- moving promotion
             //      -- silent capture before promotion
 
-            if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, in step '%s'.\n", step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_piece_is_pawn( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             char piece_symbol = ' ';
 
@@ -394,7 +408,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !CC_PIECE_IS_STARCHILD( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 char sp = cc_piece_as_char( step_piece );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Starchild can't be converted, in step '%s'.\n", sp, step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Starchild can't be converted, in step '%s'.\n", sp, step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
