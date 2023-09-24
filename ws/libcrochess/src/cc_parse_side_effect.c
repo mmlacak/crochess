@@ -142,15 +142,16 @@ static bool cc_check_position_is_on_board( CcPos pos,
     return false;
 }
 
-static bool cc_check_piece_is_pawn( CcPieceEnum piece,
-                                    char const * restrict step_start_an,
-                                    char const * restrict step_end_an,
-                                    CcParseMsg ** restrict parse_msgs__iod ) {
+static bool cc_check_promoting_piece_is_pawn( CcPieceEnum piece,
+                                              char const * restrict msg_fmt,
+                                              char const * restrict step_start_an,
+                                              char const * restrict step_end_an,
+                                              CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_IS_PAWN( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char * piece_str__a = cc_piece_as_string__new( piece, false );
 
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, encountered %s in step '%s'.\n", piece_str__a, step_an__a );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, piece_str__a, step_an__a );
 
         CC_FREE( piece_str__a );
         CC_FREE( step_an__a );
@@ -339,7 +340,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             //      -- moving promotion
             //      -- silent capture before promotion
 
-            if ( !cc_check_piece_is_pawn( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be promoted, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
@@ -361,12 +362,14 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         } case CC_SEE_TagForPromotion : {
             // TODO -- silent capture before promotion
 
-            if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, in step '%s'.\n", step_an__a );
-                CC_FREE( step_an__a );
+            // if ( !CC_PIECE_IS_PAWN( step_piece ) ) {
+            //     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+            //     cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawn can be promoted, in step '%s'.\n", step_an__a );
+            //     CC_FREE( step_an__a );
+            //     return false;
+            // }
+            if ( !cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be tagged for promotion, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             *side_effect__o = cc_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_None );
             return true;

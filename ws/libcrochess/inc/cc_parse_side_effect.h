@@ -50,10 +50,11 @@
 //                                            char const * restrict step_end_an,
 //                                            CcParseMsg ** restrict parse_msgs__iod );
 
-// static bool cc_check_piece_is_pawn( CcPieceEnum piece,
-//                                     char const * restrict step_start_an,
-//                                     char const * restrict step_end_an,
-//                                     CcParseMsg ** restrict parse_msgs__iod );
+// static bool cc_check_promoting_piece_is_pawn( CcPieceEnum piece,
+//                                               char const * restrict msg_fmt,
+//                                               char const * restrict step_start_an,
+//                                               char const * restrict step_end_an,
+//                                               CcParseMsg ** restrict parse_msgs__iod ;
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,

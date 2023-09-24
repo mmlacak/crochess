@@ -5,6 +5,7 @@
 #include <stddef.h>
 #include <ctype.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_piece.h"
 
@@ -271,7 +272,7 @@ char const * cc_piece_label( CcPieceEnum pe ) {
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return "(default)";
+        default : return CC_DEFAULT_ENTITY_STRING;
     }
 }
 
@@ -391,7 +392,7 @@ char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize ) {
 
         case CC_PE_Monolith : return "";
 
-        default : return "(default)";
+        default : return CC_DEFAULT_ENTITY_STRING;
     }
 }
 
@@ -461,10 +462,14 @@ bool cc_piece_is_figure( CcPieceEnum pe ) {
     return cc_piece_is_owned_figure( pe );
 }
 
-char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize_prefix ) {
-    char const * piece_prefix = cc_piece_prefix( pe, capitalize_prefix );
-    char const * piece_label = cc_piece_label( pe );
+char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize ) {
+    char const * piece_prefix = cc_piece_prefix( pe, capitalize );
     char * pas__a = NULL;
+
+    char const * piece_label =
+        ( pe != CC_PE_None ) ? cc_piece_label( pe )
+                             : ( capitalize ) ? "Empty field"
+                                              : "empty field";
 
     if ( cc_piece_has_prefix( pe ) )
         pas__a = cc_str_fmt__new( CC_MAX_LEN_ZERO_TERMINATED, "%s %s", piece_prefix, piece_label );

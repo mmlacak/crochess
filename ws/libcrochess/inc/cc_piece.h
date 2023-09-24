@@ -920,7 +920,17 @@ bool cc_piece_is_owned_figure( CcPieceEnum pe );
 */
 bool cc_piece_is_figure( CcPieceEnum pe );
 
-char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize_prefix );
+/**
+    Function returns newly allocated string, containing piece prefix and label.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+    @param capitalize Flag, whether to return capitalized string.
+
+    @see CcPieceEnum, cc_piece_prefix(), cc_piece_label(),
+
+    @return Pointer to newly allocated string if successful, `NULL` otherwise.
+*/
+char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize );
 
 
 #endif /* __CC_PIECE_H__ */

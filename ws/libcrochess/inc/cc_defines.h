@@ -282,6 +282,8 @@
     *(ptr_ptr) = NULL;                  \
 }
 
+#define CC_DEFAULT_ENTITY_STRING "<default>"
+
 /**
     Macro to call `printf()`, depending on a compile-time constant.
 
