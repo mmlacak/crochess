@@ -183,6 +183,24 @@ static bool cc_check_piece_can_be_converted( CcPieceEnum piece,
     return false;
 }
 
+static bool cc_check_failed_conversion( CcPieceEnum piece,
+                                        char const * restrict step_start_an,
+                                        char const * restrict step_end_an,
+                                        CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_STARCHILD( piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char * piece_str__a = cc_piece_as_string__new( piece, false );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Conversion can fail only againt Starchild, encountered %s in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -408,12 +426,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             *side_effect__o = cc_side_effect_convert( convert_to, lte );
             return true;
         } case CC_SEE_FailedConversion : {
-            if ( CC_PIECE_IS_STARCHILD( step_piece ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Starchild can't be converted, in step '%s'.\n", step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_failed_conversion( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             *side_effect__o = cc_side_effect_failed_conversion();
             return true;
