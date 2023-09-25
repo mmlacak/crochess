@@ -201,6 +201,24 @@ static bool cc_check_failed_conversion( CcPieceEnum piece,
     return false;
 }
 
+static bool cc_check_field_is_empty( CcPieceEnum piece,
+                                     char const * restrict step_start_an,
+                                     char const * restrict step_end_an,
+                                     CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_NONE( piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char * piece_str__a = cc_piece_as_string__new( piece, false );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -455,12 +473,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return false;
         } case CC_SEE_Resurrection : { // Intentional fall-through ...
         } case CC_SEE_ResurrectingOpponent : {
-            if ( !CC_PIECE_IS_NONE( step_piece ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection can be initiated only on an empty field, in step '%s'.\n", step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_field_is_empty( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             char piece_symbol = ' ';
 
