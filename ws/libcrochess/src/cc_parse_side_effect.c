@@ -436,12 +436,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
-                if ( !cc_piece_has_congruent_type( piece_symbol, step_piece ) ) {
-                    char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                    cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, in step '%s'.\n", piece_symbol, step_an__a );
-                    CC_FREE( step_an__a );
+                if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
-                }
 
                 ++se_an;
             }
