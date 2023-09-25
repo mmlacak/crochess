@@ -39,6 +39,7 @@
 // static bool cc_parse_and_check_position( char const * pos_an,
 //                                          CcPos pos,
 //                                          char const * pos_end_an,
+//                                          char const * restrict msg_fmt,
 //                                          char const * restrict step_start_an,
 //                                          char const * restrict step_end_an,
 //                                          CcParseMsg ** restrict parse_msgs__iod );

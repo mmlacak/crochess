@@ -117,12 +117,13 @@ static bool cc_check_piece_can_be_displaced( CcPieceEnum piece,
 static bool cc_parse_and_check_position( char const * pos_an,
                                          CcPos * pos__o,
                                          char const ** pos_end_an__o,
+                                         char const * restrict msg_fmt,
                                          char const * restrict step_start_an,
                                          char const * restrict step_end_an,
                                          CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !cc_parse_pos( pos_an, pos__o, pos_end_an__o ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Error parsing displacement destination, in step '%s'.\n", step_an__a );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -395,7 +396,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_and_check_position( pos_an, &pos, &pos_end_an, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing displacement destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             if ( !cc_check_position_is_on_board( pos, cb, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
@@ -522,10 +523,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 char const * pos_an = se_an + 1;
                 char const * pos_end_an = NULL;
 
-                if ( cc_parse_pos( pos_an, &pos, &pos_end_an ) ) {
-                    if ( !cc_check_position_is_on_board( pos, cb, "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-                        return false;
-                }
+                if ( !cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing resurrection destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                    return false;
+
+                if ( !cc_check_position_is_on_board( pos, cb, "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                    return false;
             }
 
             *side_effect__o = cc_side_effect_resurrect( step_piece, pos );
