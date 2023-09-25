@@ -165,6 +165,24 @@ static bool cc_check_promoting_piece_is_pawn( CcPieceEnum piece,
     return false;
 }
 
+static bool cc_check_piece_can_be_converted( CcPieceEnum piece,
+                                             char const * restrict step_start_an,
+                                             char const * restrict step_end_an,
+                                             CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char * piece_str__a = cc_piece_as_string__new( piece, true );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can't be converted, in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -381,12 +399,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 ++se_an;
             }
 
-            if ( !CC_PIECE_CAN_BE_CONVERTED( step_piece ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' can't be converted, in step '%s'.\n", piece_symbol, step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_piece_can_be_converted( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             CcPieceEnum convert_to = cc_piece_opposite( step_piece );
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
@@ -394,10 +408,9 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             *side_effect__o = cc_side_effect_convert( convert_to, lte );
             return true;
         } case CC_SEE_FailedConversion : {
-            if ( !CC_PIECE_IS_STARCHILD( step_piece ) ) {
+            if ( CC_PIECE_IS_STARCHILD( step_piece ) ) {
                 char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char sp = cc_piece_as_char( step_piece );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Starchild can't be converted, in step '%s'.\n", sp, step_an__a );
+                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Starchild can't be converted, in step '%s'.\n", step_an__a );
                 CC_FREE( step_an__a );
                 return false;
             }
