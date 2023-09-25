@@ -219,6 +219,24 @@ static bool cc_check_field_is_empty( CcPieceEnum piece,
     return false;
 }
 
+static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
+                                               char const * restrict step_start_an,
+                                               char const * restrict step_end_an,
+                                               CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char * piece_str__a = cc_piece_as_string__new( piece, true );
+
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be resurrected, in step '%s'.\n", piece_str__a, step_an__a );
+
+        CC_FREE( piece_str__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -495,13 +513,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             CcPieceEnum resurrecting = cc_piece_from_symbol( piece_symbol, is_light );
 
-            if ( !CC_PIECE_CAN_BE_RESURRECTED( resurrecting ) ) {
-                char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                char pt = cc_piece_as_char( resurrecting );
-                cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' cannot be resurrected, in step '%s'.\n", pt, step_an__a );
-                CC_FREE( step_an__a );
+            if ( !cc_check_piece_can_be_resurrected( resurrecting, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
-            }
 
             CcPos pos = CC_POS_CAST_INVALID;
 
