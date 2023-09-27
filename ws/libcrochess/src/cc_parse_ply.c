@@ -60,11 +60,8 @@ static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, true );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated, in ply '%s'.\n", piece_str__a, ply_str__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated, in ply '%s'.\n", piece_str, ply_str__a );
         CC_FREE( ply_str__a );
         return false;
     }

@@ -684,7 +684,7 @@ CcPieceEnum cc_piece_from_char( char piece );
     @warning
     Returned string is not allocated, so do not try to `free()` it.
 
-    @return Pointer to string if successful, `NULL` otherwise.
+    @return Pointer to string if successful, `CC_DEFAULT_ENTITY_STRING` otherwise.
 */
 char const * cc_piece_label( CcPieceEnum pe );
 
@@ -780,7 +780,7 @@ bool cc_piece_has_prefix( CcPieceEnum pe );
     @warning
     Returned string is not allocated, so do not try to `free()` it.
 
-    @return Pointer to string if successful, `NULL` otherwise.
+    @return Pointer to string if successful, `CC_DEFAULT_ENTITY_STRING` otherwise.
 */
 char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize );
 
@@ -921,16 +921,20 @@ bool cc_piece_is_owned_figure( CcPieceEnum pe );
 bool cc_piece_is_figure( CcPieceEnum pe );
 
 /**
-    Function returns newly allocated string, containing piece prefix and label.
+    Function returns string, containing piece prefix and label.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
     @param capitalize Flag, whether to return capitalized string.
+    @param empty_field Flag, whether to return "empty field", or empty string.
 
-    @see CcPieceEnum, cc_piece_prefix(), cc_piece_label(),
+    @see CcPieceEnum, cc_piece_prefix(), cc_piece_label(), CC_DEFAULT_ENTITY_STRING
 
-    @return Pointer to newly allocated string if successful, `NULL` otherwise.
+    @warning
+    Returned string is not allocated, so do not try to `free()` it.
+
+    @return Pointer to string if successful, `CC_DEFAULT_ENTITY_STRING` otherwise.
 */
-char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize );
+char const * cc_piece_as_string( CcPieceEnum pe, bool capitalize, bool empty_field );
 
 
 #endif /* __CC_PIECE_H__ */

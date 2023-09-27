@@ -34,11 +34,8 @@ static bool cc_check_piece_has_congruent_type( char piece_symbol,
                                                CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !cc_piece_has_congruent_type( piece_symbol, piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, false );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, encountered %s, in step '%s'.\n", piece_symbol, piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece '%c' not found at step-field, encountered %s, in step '%s'.\n", piece_symbol, piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -52,11 +49,8 @@ static bool cc_check_piece_can_be_captured( CcPieceEnum piece,
                                             CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, true );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be captured, in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be captured, in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -84,11 +78,8 @@ static bool cc_check_promote_to_piece_is_valid( CcPieceEnum promote_to_piece,
                                                 CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to_piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( promote_to_piece, false );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s, in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( promote_to_piece, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawn cannot be promoted to %s, in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -102,11 +93,8 @@ static bool cc_check_piece_can_be_displaced( CcPieceEnum piece,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, true );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be displaced, in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at step-field cannot be displaced, in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -154,11 +142,8 @@ static bool cc_check_promoting_piece_is_pawn( CcPieceEnum piece,
                                               CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_IS_PAWN( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, false );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -172,11 +157,8 @@ static bool cc_check_piece_can_be_converted( CcPieceEnum piece,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, true );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can't be converted, in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can't be converted, in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -190,11 +172,8 @@ static bool cc_check_failed_conversion( CcPieceEnum piece,
                                         CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_IS_STARCHILD( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, false );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Conversion can fail only againt Starchild, encountered %s in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Conversion can fail only againt Starchild, encountered %s in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -208,11 +187,8 @@ static bool cc_check_field_is_empty( CcPieceEnum piece,
                                      CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_IS_NONE( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, false );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -226,11 +202,8 @@ static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
                                                CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char * piece_str__a = cc_piece_as_string__new( piece, true );
-
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be resurrected, in step '%s'.\n", piece_str__a, step_an__a );
-
-        CC_FREE( piece_str__a );
+        char const * piece_str = cc_piece_as_string( piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be resurrected, in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }

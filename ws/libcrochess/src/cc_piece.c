@@ -462,19 +462,66 @@ bool cc_piece_is_figure( CcPieceEnum pe ) {
     return cc_piece_is_owned_figure( pe );
 }
 
-char * cc_piece_as_string__new( CcPieceEnum pe, bool capitalize ) {
-    char const * piece_prefix = cc_piece_prefix( pe, capitalize );
-    char * pas__a = NULL;
+char const * cc_piece_as_string( CcPieceEnum pe, bool capitalize, bool empty_field ) {
+    switch ( pe ) {
+        case CC_PE_DimStar : return capitalize ? "Dim Star" : "dim Star";
+        case CC_PE_BrightStar : return capitalize ? "Bright Star" : "bright Star";
 
-    char const * piece_label =
-        ( pe != CC_PE_None ) ? cc_piece_label( pe )
-                             : ( capitalize ) ? "Empty field"
-                                              : "empty field";
+        case CC_PE_DarkStarchild : return capitalize ? "Dark Starchild" : "dark Starchild";
+        case CC_PE_LightStarchild : return capitalize ? "Light Starchild" : "light Starchild";
 
-    if ( cc_piece_has_prefix( pe ) )
-        pas__a = cc_str_fmt__new( CC_MAX_LEN_ZERO_TERMINATED, "%s %s", piece_prefix, piece_label );
-    else
-        pas__a = cc_str_fmt__new( CC_MAX_LEN_ZERO_TERMINATED, "%s", piece_label );
+        case CC_PE_DarkShaman : return capitalize ? "Dark Shaman" : "dark Shaman";
+        case CC_PE_LightShaman : return capitalize ? "Light Shaman" : "light Shaman";
 
-    return pas__a;
+        case CC_PE_DarkSerpent : return capitalize ? "Dark Serpent" : "dark Serpent";
+        case CC_PE_LightSerpent : return capitalize ? "Light Serpent" : "light Serpent";
+
+        case CC_PE_DarkGrenadier : return capitalize ? "Dark Grenadier" : "dark Grenadier";
+        case CC_PE_LightGrenadier : return capitalize ? "Light Grenadier" : "light Grenadier";
+
+        case CC_PE_DarkScout : return capitalize ? "Dark Scout" : "dark Scout";
+        case CC_PE_LightScout : return capitalize ? "Light Scout" : "light Scout";
+
+        case CC_PE_DarkCentaur : return capitalize ? "Dark Centaur" : "dark Centaur";
+        case CC_PE_LightCentaur : return capitalize ? "Light Centaur" : "light Centaur";
+
+        case CC_PE_DarkWave : return capitalize ? "Dark Wave" : "dark Wave";
+        case CC_PE_LightWave : return capitalize ? "Light Wave" : "light Wave";
+
+        case CC_PE_DarkUnicorn : return capitalize ? "Dark Unicorn" : "dark Unicorn";
+        case CC_PE_LightUnicorn : return capitalize ? "Light Unicorn" : "light Unicorn";
+
+        case CC_PE_DarkPyramid : return capitalize ? "Dark Pyramid" : "dark Pyramid";
+        case CC_PE_LightPyramid : return capitalize ? "Light Pyramid" : "light Pyramid";
+
+        case CC_PE_DarkPegasus : return capitalize ? "Dark Pegasus" : "dark Pegasus";
+        case CC_PE_LightPegasus : return capitalize ? "Light Pegasus" : "light Pegasus";
+
+        case CC_PE_DarkKing : return capitalize ? "Dark King" : "dark King";
+        case CC_PE_LightKing : return capitalize ? "Light King" : "light King";
+
+        case CC_PE_DarkQueen : return capitalize ? "Dark Queen" : "dark Queen";
+        case CC_PE_LightQueen : return capitalize ? "Light Queen" : "light Queen";
+
+        case CC_PE_DarkRook : return capitalize ? "Dark Rook" : "dark Rook";
+        case CC_PE_LightRook : return capitalize ? "Light Rook" : "light Rook";
+
+        case CC_PE_DarkBishop : return capitalize ? "Dark Bishop" : "dark Bishop";
+        case CC_PE_LightBishop : return capitalize ? "Light Bishop" : "light Bishop";
+
+        case CC_PE_DarkKnight : return capitalize ? "Dark Knight" : "dark Knight";
+        case CC_PE_LightKnight : return capitalize ? "Light Knight" : "light Knight";
+
+        case CC_PE_DarkPawn : return capitalize ? "Dark Pawn" : "dark Pawn";
+        case CC_PE_LightPawn : return capitalize ? "Light Pawn" : "light Pawn";
+
+        case CC_PE_None :
+            return empty_field ? ( capitalize ? "Empty field"
+                                              : "empty field" )
+                               : "";
+
+        case CC_PE_Monolith : return "Monolith";
+
+        default : return CC_DEFAULT_ENTITY_STRING;
+    }
 }
