@@ -951,6 +951,57 @@ minimalistic notation with slightly more verbose version:
 
 \clearpage % ..........................................................
 
+\subsubsection*{Side-effects on pieces}
+\addcontentsline{toc}{subsubsection}{Side-effects on pieces}
+\label{sec:Appendix/Summary/Side-effects/Side-effects on pieces}
+
+\vspace*{-0.3\baselineskip}
+\begin{table}[!h]
+\centering
+\begin{tabular}{ lcc }
+\toprule % =====================================================
+\textbf{Piece} & \textbf{Disposable?} & \textbf{Diverging?}   \\
+\midrule % -----------------------------------------------------
+Pawn           & +                    & +                     \\
+Knight         & +                    & +                     \\
+Bishop         & +                    & +                     \\
+Rook           & +                    & +                     \\
+Queen          & +                    & +                     \\
+King           & -                    & -                     \\
+\cmidrule{1-3} % ...............................................
+Pegasus        & +                    & +                     \\
+Pyramid        & +                    & +                     \\
+Unicorn        & +                    & *                     \\
+Wave           & +                    & +                     \\
+Star           & -                    & -                     \\
+Centaur        & +                    & -                     \\
+Serpent        & +                    & -                     \\
+Shaman         & +                    & +                     \\
+Monolith       & -                    & -                     \\
+Starchild      & *                    & -                     \\
+\bottomrule % ==================================================
+\end{tabular}
+\vspace*{-0.1\baselineskip}
+\caption{Side-effects on pieces}
+\label{tbl:Appendix/Summary/Side-effects/Side-effects on pieces}
+\end{table}
+
+% \vspace*{-0.1\baselineskip}
+Disposable pieces are all that can be captured, that is all but Kings, Stars and
+Monoliths. Disposable pieces can be also displaced, oblationed, and resurrected.
+Pawn can be promoted to any other disposable piece. \newline
+\indent
+All disposable pieces, except Starchild, can be also teleported, and converted.
+Most disposable pieces, except Centaur, Serpent, and Starchild, can be also
+diverted. Waves activated by disposable pieces can be diverted, except if
+activated by Unicorn, Centaur, Serpent, or Starchild. \newline
+\indent
+Non-disposable pieces (Kings, Stars and Monoliths) cannot be captured, displaced,
+teleported, converted, oblationed, resurrected, or diverted. Pawn cannot be
+promoted to any non-disposable piece.
+
+\clearpage % ..........................................................
+
 \subsection*{Accompanying losing tags}
 \addcontentsline{toc}{subsection}{Accompanying losing tags}
 \label{sec:Appendix/Summary/Accompanying-losing-tags}
@@ -1010,49 +1061,6 @@ cannot be promoted again), so using a tag is not written as tag loss in \algfmt{
 instance, a Rook having castling tag can castle, as found under \emph{castling} column,
 and \emph{castle} row. Another instance is a Pawn holding promoting tag which it can use,
 found in \emph{promoting} column and \emph{promotion} row.
-
-\clearpage % ..........................................................
-
-\subsubsection*{Side-effects on pieces}
-\addcontentsline{toc}{subsubsection}{Side-effects on pieces}
-\label{sec:Appendix/Summary/Side-effects/Side-effects on pieces}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ lcc }
-\toprule % =====================================================
-\textbf{Piece} & \textbf{Disposable?} & \textbf{Promote-to?}  \\
-\midrule % -----------------------------------------------------
-Pawn           & +                    & -                     \\
-Knight         & +                    & +                     \\
-Bishop         & +                    & +                     \\
-Rook           & +                    & +                     \\
-Queen          & +                    & +                     \\
-King           & -                    & -                     \\
-\cmidrule{1-3} % ...............................................
-Pegasus        & +                    & +                     \\
-Pyramid        & +                    & +                     \\
-Unicorn        & +                    & +                     \\
-Wave           & +                    & +                     \\
-Star           & -                    & -                     \\
-Centaur        & +                    & +                     \\
-Serpent        & +                    & +                     \\
-Shaman         & +                    & +                     \\
-Monolith       & -                    & -                     \\
-Starchild      & +                    & +                     \\
-\bottomrule % ==================================================
-\end{tabular}
-\caption{Side-effects on pieces}
-\label{tbl:Appendix/Summary/Side-effects/Side-effects on pieces}
-\end{table}
-
-Disposable pieces are all that can be captured, that is all but Kings, Stars and Monoliths.
-Disposable pieces can be also displaced, teleported, converted, oblationed, or resurrected.
-Pawn can be promoted to any other disposable piece.
-
-Non-disposable pieces (Kings, Stars and Monoliths) cannot be captured, displaced,
-teleported, converted, oblationed, or resurrected. Pawn cannot be promoted to
-any non-disposable piece.
 
 \clearpage % ..........................................................
 
