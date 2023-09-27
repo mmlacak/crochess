@@ -970,8 +970,8 @@ King           & -                    & -                     \\
 \cmidrule{1-3} % ...............................................
 Pegasus        & +                    & +                     \\
 Pyramid        & +                    & +                     \\
-Unicorn        & +                    & *                     \\
-Wave           & +                    & +                     \\
+Unicorn        & +                    & *\footnotemark[2]     \\
+Wave           & +                    & *\footnotemark[3]     \\
 Star           & -                    & -                     \\
 Centaur        & +                    & -                     \\
 Scout          & +                    & +                     \\
@@ -979,7 +979,7 @@ Grenadier      & +                    & +                     \\
 Serpent        & +                    & -                     \\
 Shaman         & +                    & +                     \\
 Monolith       & -                    & -                     \\
-Starchild      & *                    & -                     \\
+Starchild      & *\footnotemark[1]    & -                     \\
 \bottomrule % ==================================================
 \end{tabular}
 \caption{Side-effects on pieces}
@@ -987,17 +987,25 @@ Starchild      & *                    & -                     \\
 \end{table}
 
 Disposable pieces are all that can be captured, that is all but Kings, Stars and
-Monoliths. Disposable pieces can be also displaced, oblationed, and resurrected.
+Monoliths. Disposable pieces can also be displaced, oblationed, and resurrected.
 Pawn can be promoted to any other disposable piece.
 
-All disposable pieces, except Starchild, can be also teleported, and converted.
-Most disposable pieces, except Centaur, Serpent, and Starchild, can be also
+All disposable pieces, except Starchild, can also be teleported, and converted.
+Most disposable pieces, except Centaur, Serpent, and Starchild, can also be
 diverted. Waves activated by disposable pieces can be diverted, except if
 activated by Unicorn, Centaur, Serpent, or Starchild.
 
 Non-disposable pieces (Kings, Stars and Monoliths) cannot be captured, displaced,
 teleported, converted, oblationed, resurrected, or diverted. Pawn cannot be
 promoted to any non-disposable piece.
+
+\footnotetext[1]{Unlike other disposable pieces, Starchild cannot be teleported,
+nor converted.}
+\footnotetext[2]{While Unicorn can be diverted, Wave activated by Unicorn cannot
+be diverted.}
+\footnotetext[3]{Wave activated by another Wave can be diverted, if activating Wave
+could be diverted; that is, if last active piece preceeding those Waves in a cascade
+could be diverted.}
 
 \clearpage % ..........................................................
 
