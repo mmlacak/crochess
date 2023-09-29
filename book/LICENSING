@@ -4,9 +4,10 @@ Repository: https://github.com/mmlacak/crochess.
 
 https://en.wikipedia.org/wiki/Public_domain
 
-The book and all related materials is in public domain: you can
+The book and all related materials is in Public Domain: you can
 redistribute it and/or modify it under the terms of the CC0 1.0
-Universal License as published by the Creative Commons Corporation.
+Universal License as published by the Creative Commons Corporation,
+where Public Domain is not applicable.
 
 The book and all related materials are distributed in the hope that
 it will be useful, but WITHOUT ANY WARRANTY; without even the implied
@@ -17,7 +18,7 @@ The book, in this legal agreement, refers to a PDF file.
 All related materials refers to all texts (TEX files), accompanying
 picture (NEF, JPG files), and all generated images (PNG files).
 
-Source code (PY, SH, H, C files) is not in public domain, it's
+Source code (PY, SH, H, C files) is not in Public Domain, it's
 released under GNU General Public License as published by the Free
 Software Foundation. See LICENSING, COPYING files in the parent folder
 for details.
