@@ -36,7 +36,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20230929.054422 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20230929.135401 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -137,13 +137,13 @@ For non-monetary contributions, please contact me via email first.
 
 This project is licensed under the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
-option) any later version, see the
+option) any later version, see
 [LICENSING](https://raw.githubusercontent.com/mmlacak/crochess/master/LICENSING),
 [COPYING](https://raw.githubusercontent.com/mmlacak/crochess/master/COPYING)
 files in root folder for details.
 
-The book is published as Public Domain work, under Creative Commons Zero license
-(where Public Domain is not applicable), see
+The book is published as Public Domain work, under Creative Commons Zero license,
+see
 [LICENSING](https://raw.githubusercontent.com/mmlacak/crochess/master/book/LICENSING),
 [COPYING](https://raw.githubusercontent.com/mmlacak/crochess/master/book/COPYING)
 files in `book` folder for details.
