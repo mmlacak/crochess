@@ -138,13 +138,15 @@ For non-monetary contributions, please contact me via email first.
 This project is licensed under the GNU General Public License as published by
 the Free Software Foundation, either version 3 of the License, or (at your
 option) any later version, see the
-[LICENSING](https://github.com/mmlacak/crochess/raw/master/LICENSING),
-[COPYING](https://github.com/mmlacak/crochess/raw/master/COPYING)
-files for details.
+[LICENSING](https://raw.githubusercontent.com/mmlacak/crochess/master/LICENSING),
+[COPYING](https://raw.githubusercontent.com/mmlacak/crochess/master/COPYING)
+files in root folder for details.
 
-The book is published as Public Domain work, see
-[Wikipedia on public domain](https://en.wikipedia.org/wiki/Public_domain)
-for details.
+The book is published as Public Domain work, under Creative Commons Zero license
+(where Public Domain is not applicable), see
+[LICENSING](https://raw.githubusercontent.com/mmlacak/crochess/master/book/LICENSING),
+[COPYING](https://raw.githubusercontent.com/mmlacak/crochess/master/book/COPYING)
+files in `book` folder for details.
 
 ## Acknowledgments
 
