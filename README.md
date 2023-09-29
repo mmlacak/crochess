@@ -129,7 +129,7 @@ For non-monetary contributions, please contact me via email first.
 
 ## Socials
 
-[Discord](https://discord.gg/PJ2dtRa5AU)
+<!-- [Discord](https://discord.gg/PJ2dtRa5AU) -->
 
 [Croatian Chess Blog](https://croatian-chess.blogspot.com)
 
