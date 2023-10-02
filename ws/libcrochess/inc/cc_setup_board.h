@@ -98,8 +98,8 @@ bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe );
 
     @note
     Function returns valid results only for figures in first (or last) row in an
-    initial setup of chessboard. Pawns and Monoliths are not covered, they'll
-    always return invalid value (`CC_INVALID_COORD`).
+    initial setup of chessboard. Pawns, Scouts, Grenadiers, and Monoliths are not
+    covered, they'll always return invalid value (`CC_INVALID_COORD`).
 
     @return File if figure is found in a first/last row of initial setup,
             `CC_INVALID_COORD` otherwise.
@@ -107,6 +107,27 @@ bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe );
 int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
                                                 CcPieceEnum pe,
                                                 bool search_left_first );
+
+/**
+    Function returns file of Kings in an initial setup of a chessboard.
+
+    @param ve A variant.
+
+    @return Kng's file in initial setup if valid variant is given,
+            `CC_INVALID_COORD` otherwise.
+*/
+int cc_setup_board_get_kings_initial_file( CcVariantEnum ve );
+
+/**
+    Function returns rank of figures in an initial setup of a chessboard.
+
+    @param ve A variant.
+    @param is_light Flag, whether to return light, or dark figure's rank.
+
+    @return Rank of figures in initial setup if valid variant is given,
+            `CC_INVALID_COORD` otherwise.
+*/
+int cc_setup_board_get_initial_figure_rank( CcVariantEnum ve, bool is_light );
 
 
 #endif /* __CC_SETUP_BOARD_H__ */

@@ -353,3 +353,28 @@ int cc_setup_board_get_figure_row_initial_file( CcVariantEnum ve,
 
     return CC_INVALID_COORD;
 }
+
+int cc_setup_board_get_kings_initial_file( CcVariantEnum ve ) {
+    switch ( ve ) {
+        case CC_VE_ClassicalChess : return 4;
+        case CC_VE_CroatianTies : return 5;
+        case CC_VE_MayanAscendancy : return 6;
+        case CC_VE_AgeOfAquarius : return 7;
+        case CC_VE_MirandasVeil : return 8;
+        case CC_VE_Nineteen : return 9;
+        case CC_VE_HemerasDawn : return 10;
+        case CC_VE_TamoanchanRevisited : return 11;
+        case CC_VE_ConquestOfTlalocan : return 12;
+        case CC_VE_Discovery : return 12;
+        case CC_VE_One : return 13;
+
+        default : return CC_INVALID_COORD;
+    }
+}
+
+int cc_setup_board_get_initial_figure_rank( CcVariantEnum ve, bool is_light ) {
+    if ( is_light ) return 0;
+
+    size_t size = cc_variant_board_size( ve );
+    return (int)(size - 1);
+}
