@@ -232,6 +232,21 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
     return true;
 }
 
+static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
+                                              char const * restrict step_start_an,
+                                              char const * restrict step_end_an,
+                                              CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_ROOK( piece ) ) {
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Rooks can castle with King, encountered %s in step '%s'.\n", piece_str, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return true;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -404,6 +419,27 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
         } case CC_SEE_Castle : {
             if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
+
+            char piece_symbol = ' ';
+
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
+                // if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+                //     return false;
+
+                bool is_light = cc_piece_is_light( before_ply_start.piece );
+                CcPieceEnum maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
+
+                if ( !cc_check_piece_is_rook_to_castle( maybe_rook, step_start_an, step_end_an, parse_msgs__iod ) )
+                    return false;
+
+                // TODO :: find Rook
+
+                // TODO :: check Rook's tag
+
+                ++se_an;
+            }
+
+            // TODO :: parse <file>, or <field>
 
             // TODO :: castling
             return false;

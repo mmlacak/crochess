@@ -77,6 +77,16 @@
 //                                                char const * restrict step_end_an,
 //                                                CcParseMsg ** restrict parse_msgs__iod );
 
+// static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
+//                                              char const * restrict step_start_an,
+//                                              char const * restrict step_end_an,
+//                                              CcParseMsg ** restrict parse_msgs__iod );
+
+// static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
+//                                               char const * restrict step_start_an,
+//                                               char const * restrict step_end_an,
+//                                               CcParseMsg ** restrict parse_msgs__iod );
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,

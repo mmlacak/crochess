@@ -101,23 +101,23 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     *before_ply_start__io = CC_POS_PIECE_TAG_CAST_INVALID;
     bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
-    CcPieceEnum piece = cc_piece_from_symbol( piece_symbol, is_light );
+    CcPieceEnum maybe_piece = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type is correct, but color (owner) might not be, if not on first ply.
 
     if ( is_first_ply ) {
-        before_ply_start__io->piece = piece;
+        before_ply_start__io->piece = maybe_piece; // This is correct, on the first ply.
         // Position, and tag are generaly not known at this time.
 
-        if ( CC_PIECE_IS_KING( piece ) ) {
+        if ( CC_PIECE_IS_KING( maybe_piece ) ) {
             CcPos pos = CC_POS_CAST_INVALID;
 
-            if ( !cc_check_king_ply( *cb__io, piece, &pos, parse_msgs__iod ) )
+            if ( !cc_check_king_ply( *cb__io, maybe_piece, &pos, parse_msgs__iod ) )
                 return false;
 
             before_ply_start__io->pos = pos;
             before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
         }
     } else {
-        if ( !cc_check_piece_can_be_activated( piece, ply_start_an, ply_end_an, parse_msgs__iod ) )
+        if ( !cc_check_piece_can_be_activated( maybe_piece, ply_start_an, ply_end_an, parse_msgs__iod ) ) // This is fine, color (owner) does not matter.
             return false;
     }
 
@@ -157,7 +157,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     before_ply_start__io->pos = pos;
     before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
 
-    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, piece, lte, &steps__t );
+    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, before_ply_start__io->piece, lte, &steps__t );
     if ( !*ply__o ) return false;
 
 
