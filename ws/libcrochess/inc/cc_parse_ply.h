@@ -18,7 +18,7 @@
 //                                         CcParseMsg ** restrict parse_msgs__iod );
 
 // static bool cc_check_king_ply( CcChessboard * restrict cb,
-//                                CcPieceEnum piece,
+//                                CcPieceEnum king,
 //                                CcPos * restrict pos__o,
 //                                CcParseMsg ** restrict parse_msgs__iod );
 

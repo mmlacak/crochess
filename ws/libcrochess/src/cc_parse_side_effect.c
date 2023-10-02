@@ -211,6 +211,27 @@ static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
     return false;
 }
 
+static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
+                                             char const * restrict step_start_an,
+                                             char const * restrict step_end_an,
+                                             CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Kings can initiate castling, encountered %s in step '%s'.\n", piece_str, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    if ( !CC_TAG_CAN_CASTLE( before_ply_start.tag ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle anymore (has lost its castling tag).\n", piece_str );
+        return false;
+    }
+
+    return true;
+}
+
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,
                            char const * restrict step_start_an,
@@ -381,7 +402,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             // TODO :: en passant
             return false;
         } case CC_SEE_Castle : {
-            if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) return false;
+            if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
+                return false;
 
             // TODO :: castling
             return false;
