@@ -1,6 +1,8 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include "cc_setup_misc.h"
+
 #include "cc_parse_utils.h"
 #include "cc_parse_side_effect.h"
 
@@ -212,6 +214,8 @@ static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
 }
 
 static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
+                                             CcChessboard * restrict cb,
+                                             CcPos step_pos,
                                              char const * restrict step_start_an,
                                              char const * restrict step_end_an,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
@@ -228,6 +232,45 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle anymore (has lost its castling tag).\n", piece_str );
         return false;
     }
+
+    bool is_light = cc_piece_is_light( before_ply_start.piece );
+    int init_i = cc_get_kings_initial_file( cb->type );
+    int init_j = cc_get_initial_figure_rank( cb->type, is_light );
+
+    if ( before_ply_start.pos.i != init_i || before_ply_start.pos.j != init_j ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle anymore (was moved out of its initial position).\n", piece_str );
+        return false;
+    }
+
+    if ( step_pos.j != init_j ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its inital rank, not rank %d in step '%s'.\n", piece_str, step_pos.j+1, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    if ( !cc_check_pos_is_king_castling_step( cb->type, is_light, step_pos.i, step_pos.j ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
+
+        cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+        if ( !cc_pos_to_short_string( step_pos, &pos_c8 ) )
+            return false;
+
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle onto field %s (out of bounds), in step '%s'.\n", piece_str, pos_c8, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+
+    // TODO :: check all King's step-fields are empty
+    // int rel_i = step_pos.i < init_i ? -1 : 1;
+
+
+    // MAYBE TODO :: for variants < Nineteen, check all King's step-fields are not under attack
+
 
     return true;
 }
@@ -417,7 +460,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             // TODO :: en passant
             return false;
         } case CC_SEE_Castle : {
-            if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_check_piece_is_castling_king( before_ply_start, cb, step_pos, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';

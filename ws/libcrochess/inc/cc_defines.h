@@ -54,6 +54,13 @@
 #define CC_MAX_BOARD_COORD (25)
 
 /**
+    The smallest valid board size.
+
+    This is the smallest valid board size for the smallest board, used by Classic Chess variant.
+*/
+#define CC_MIN_BOARD_SIZE (8)
+
+/**
     The largest valid board size.
 
     This is the largest valid board size for the largest board, used by One variant.
@@ -142,10 +149,27 @@
 #define CC_IS_FIELD_DARK(i,j) ( ((i) + (j)) % 2 == 0 )
 
 /**
+    Macro to check if a given board size is valid, i.e. between board size minimum and maximum values.
+
+    @param board_size A chessboard size, integer.
+
+    @warning
+    All arguments are cast to `int`.
+
+    @return `1` if valid board size, `0` otherwise.
+*/
+#define CC_IS_BOARD_SIZE_VALID(board_size)                  \
+    ( ( CC_MIN_BOARD_SIZE <= (int)(board_size) ) &&         \
+      ( (int)(board_size) <= CC_MAX_BOARD_SIZE ) )
+
+/**
     Macro to check if a given coordinate is on board.
 
     @param board_size A chessboard size, integer.
     @param coord A coordinate, integer.
+
+    @note
+    Does not check if board size is valid.
 
     @warning
     All arguments are cast to `int`.
@@ -154,6 +178,25 @@
 */
 #define CC_IS_COORD_ON_BOARD(board_size,coord)              \
     ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) &&             \
+      ( (int)(coord) < (int)(board_size) ) )
+
+/**
+    Macro to check if a given coordinate is on board.
+
+    @param board_size A chessboard size, integer.
+    @param coord A coordinate, integer.
+
+    @note
+    Does check if board size is valid.
+
+    @warning
+    All arguments are cast to `int`.
+
+    @return `1` if on board, `0` otherwise.
+*/
+#define CC_IS_COORD_ON_VALID_BOARD(board_size,coord)        \
+    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
+      ( CC_MIN_BOARD_COORD <= (int)(coord) ) &&             \
       ( (int)(coord) < (int)(board_size) ) )
 
 /**
@@ -168,8 +211,9 @@
 
     @return `1` if on board, `0` otherwise.
 */
-#define CC_IS_COORD_2_ON_BOARD(board_size,i,j)              \
-    ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) &&      \
+#define CC_IS_POS_ON_BOARD(board_size,i,j)                  \
+    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
+      ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) &&      \
       ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
 // ( ( CC_MIN_BOARD_COORD <= (int)(i) ) && ( (int)(i) < (int)(board_size) ) && ( CC_MIN_BOARD_COORD <= (int)(j) ) && ( (int)(j) < (int)(board_size) ) )
 
@@ -186,8 +230,9 @@
     @return `1` if on board, `0` otherwise.
 */
 #define CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)            \
-    ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) ||      \
-      ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
+    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
+      ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) ||    \
+        ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) ) )
 
 /**
     Macro to check if a given position is on a light side of a chessboard.
@@ -201,7 +246,8 @@
     @return `1` if on a light side, `0` otherwise.
 */
 #define CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank)          \
-    ( ( 0 <= (int)(rank) ) &&                               \
+    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
+      ( 0 <= (int)(rank) ) &&                               \
       ( (int)(rank) < ( (int)(board_size) / 2 ) ) )
 
 /**
@@ -216,7 +262,8 @@
     @return `1` if on a dark side, `0` otherwise.
 */
 #define CC_IS_FIELD_ON_DARK_SIDE(board_size,rank)           \
-    ( ( ( (int)(board_size) / 2 ) <= (int)(rank) ) &&       \
+    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
+      ( ( (int)(board_size) / 2 ) <= (int)(rank) ) &&       \
       ( (int)(rank) < (int)(board_size) ) )
 
 

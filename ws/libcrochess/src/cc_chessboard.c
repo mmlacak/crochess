@@ -141,7 +141,7 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord ) {
 
 bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j ) {
     if ( !cc_chessboard_is_size_valid( cb ) ) return false;
-    return CC_IS_COORD_2_ON_BOARD( cb->size, i, j );
+    return CC_IS_POS_ON_BOARD( cb->size, i, j );
 }
 
 bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord ) {
