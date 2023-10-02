@@ -6,6 +6,11 @@
 #include "cc_variant.h"
 #include "cc_setup_misc.h"
 
+/**
+    @file cc_setup_misc.c
+    @brief Misc functions related to setup, or dependant on a variant being played, size of board, etc.
+*/
+
 
 int cc_get_figure_initial_file( CcVariantEnum ve,
                                             CcPieceEnum pe,
