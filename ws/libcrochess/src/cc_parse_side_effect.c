@@ -423,9 +423,6 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
-                // if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
-                //     return false;
-
                 bool is_light = cc_piece_is_light( before_ply_start.piece );
                 CcPieceEnum maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
 

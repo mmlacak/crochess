@@ -21,9 +21,6 @@
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
                                        CcGameStatusEnum gse );
 
-// TODO :: DELETE
-// bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag );
-
 bool cc_check_promote_or_tag( CcChessboard * restrict cb,
                               CcPieceEnum pawn,
                               CcPos start,

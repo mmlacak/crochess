@@ -82,20 +82,6 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
     return false;
 }
 
-// TODO :: DELETE
-//
-// bool cc_check_tag_is_lost( CcTagEnum lost, CcTagEnum tag ) {
-//     switch ( lost ) {
-//         case CC_TE_DelayedPromotion :
-//         case CC_TE_CanRush :
-//         case CC_TE_CanCastle :
-//             return ( lost == tag );
-
-//         default :
-//             return false; } }
-//
-// TODO :: DELETE
-
 bool cc_check_promote_or_tag( CcChessboard * restrict cb,
                               CcPieceEnum pawn,
                               CcPos start,
