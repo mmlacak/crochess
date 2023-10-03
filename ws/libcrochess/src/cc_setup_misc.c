@@ -51,24 +51,6 @@ int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light ) {
     return (int)(size - 1);
 }
 
-int cc_get_kings_initial_file( CcVariantEnum ve ) {
-    switch ( ve ) {
-        case CC_VE_ClassicalChess : return 4;
-        case CC_VE_CroatianTies : return 5;
-        case CC_VE_MayanAscendancy : return 6;
-        case CC_VE_AgeOfAquarius : return 7;
-        case CC_VE_MirandasVeil : return 8;
-        case CC_VE_Nineteen : return 9;
-        case CC_VE_HemerasDawn : return 10;
-        case CC_VE_TamoanchanRevisited : return 11;
-        case CC_VE_ConquestOfTlalocan : return 12;
-        case CC_VE_Discovery : return 12;
-        case CC_VE_One : return 13;
-
-        default : return CC_INVALID_COORD;
-    }
-}
-
 int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return 2;
@@ -88,41 +70,44 @@ int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
 }
 
 bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
-                                         bool is_light,
-                                         int i,
-                                         int j,
+                                         CcPieceEnum king,
+                                         int pos_i,
+                                         int pos_j,
+                                         bool * restrict is_queen_side__o,
                                          int * restrict min_i__o,
                                          int * restrict max_i__o ) {
+    if ( !CC_PIECE_IS_KING( king ) ) return false;
+    if ( !is_queen_side__o ) return false;
     if ( !min_i__o ) return false;
     if ( !max_i__o ) return false;
 
     int size = cc_variant_board_size( ve );
     if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
-    int init_i = cc_get_kings_initial_file( ve );
+    int init_i = cc_get_figure_initial_file( ve, king, false );
     if ( !CC_IS_COORD_ON_BOARD( size, init_i ) ) return false;
 
-    if ( i == init_i ) return false;
+    if ( pos_i == init_i ) return false;
 
+    bool is_light = cc_piece_is_light( king );
     int init_j = cc_get_initial_figure_rank( ve, is_light );
     if ( !CC_IS_COORD_ON_BOARD( size, init_j ) ) return false;
 
-    if ( j != init_j ) return false;
+    if ( pos_j != init_j ) return false;
 
     int max_dist = cc_get_kings_max_castling_distance( ve );
     if ( !CC_IS_COORD_VALID( max_dist ) ) return false;
 
-    bool is_queen_side_castling = ( i < init_i );
+    bool is_queen_side = ( pos_i < init_i );
 
-    int min_i =
-        is_queen_side_castling ? init_i - max_dist
-                               : init_i + CC_KING_MIN_CASTLING_DISTANCE;
+    int min_i = is_queen_side ? init_i - max_dist
+                              : init_i + CC_KING_MIN_CASTLING_DISTANCE;
 
-    int max_i =
-        is_queen_side_castling ? init_i - CC_KING_MIN_CASTLING_DISTANCE
-                               : init_i + max_dist;
+    int max_i = is_queen_side ? init_i - CC_KING_MIN_CASTLING_DISTANCE
+                              : init_i + max_dist;
 
-    if ( min_i <= i && i <= max_i ) {
+    if ( min_i <= pos_i && pos_i <= max_i ) {
+        *is_queen_side__o = is_queen_side;
         *min_i__o = min_i;
         *max_i__o = max_i;
         return true;

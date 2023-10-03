@@ -78,6 +78,8 @@
 //                                                CcParseMsg ** restrict parse_msgs__iod );
 
 // static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
+//                                              CcChessboard * restrict cb,
+//                                              CcPos step_pos,
 //                                              char const * restrict step_start_an,
 //                                              char const * restrict step_end_an,
 //                                              CcParseMsg ** restrict parse_msgs__iod );

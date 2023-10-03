@@ -424,31 +424,3 @@ size_t cc_side_effect_type_len( CcSideEffectEnum see,
         default : return 0;
     }
 }
-
-// TODO :: DELETE
-//
-// char const * cc_find_side_effect_type( char const * restrict an_str,
-//                                        char const * restrict step_end,
-//                                        CcSideEffectEnum * restrict see__o ) {
-//     if ( !an_str ) return NULL;
-//     if ( !step_end ) return NULL;
-
-//     char const * c = an_str;
-//     CcSideEffectEnum see = CC_SEE_None;
-//     bool has_promotion_sign = true;
-
-//     while ( c < step_end ) {
-//         see = cc_parse_side_effect_type( c, has_promotion_sign );
-
-//         if ( see != CC_SEE_None ) {
-//             *see__o = see;
-//             return c;
-//         }
-
-//         ++c;
-//     }
-
-//     return NULL;
-// }
-//
-// TODO :: DELETE

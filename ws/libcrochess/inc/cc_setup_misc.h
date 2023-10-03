@@ -53,16 +53,6 @@ int cc_get_figure_initial_file( CcVariantEnum ve,
 int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light );
 
 /**
-    Function returns file of Kings in an initial setup of a chessboard.
-
-    @param ve A variant.
-
-    @return Kng's file in initial setup if valid variant is given,
-            `CC_INVALID_COORD` otherwise.
-*/
-int cc_get_kings_initial_file( CcVariantEnum ve );
-
-/**
     Function returns maximum castling distance Kings can make.
 
     @param ve A variant.
@@ -76,25 +66,21 @@ int cc_get_kings_max_castling_distance( CcVariantEnum ve );
     Function checks if position is valid step-field for castling King.
 
     @param ve A variant.
-    @param is_light Flag, whether to check castling position for light, or dark King.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
+    @param king Piece, either light, or dark King.
+    @param pos_i File, position along horizontal axis.
+    @param pos_j Rank, position along vertical axis.
+    @param is_queen_side__o _Output_ flag, whether castling is on Queen-, or King-side.
     @param min_i__o _Output_, lower bound on King's castling file.
     @param max_i__o _Output_, upper bound on King's castling file.
-
-    @note
-    _Output_ parameters `min_i__o`, and `max_i__o` contain either Queen-, or King-side
-    castling bounds, depending to which a given position (`i`, and `j` parameters) belong,
-    i.e. if function returns `true`, it's guaranteed for     `min_i__o` <= `i` <= `max_i__o`
-    to hold true, as well.
 
     @return `true` if position is valid step-field for castling King,
             `false` otherwise.
 */
 bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
-                                         bool is_light,
-                                         int i,
-                                         int j,
+                                         CcPieceEnum king,
+                                         int pos_i,
+                                         int pos_j,
+                                         bool * restrict is_queen_side__o,
                                          int * restrict min_i__o,
                                          int * restrict max_i__o );
 

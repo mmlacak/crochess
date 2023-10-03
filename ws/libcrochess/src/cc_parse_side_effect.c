@@ -3,6 +3,7 @@
 
 #include "cc_setup_misc.h"
 
+#include "cc_checks.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_side_effect.h"
 
@@ -234,7 +235,7 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
     }
 
     bool is_light = cc_piece_is_light( before_ply_start.piece );
-    int init_i = cc_get_kings_initial_file( cb->type );
+    int init_i = cc_get_figure_initial_file( cb->type, before_ply_start.piece, false );
     int init_j = cc_get_initial_figure_rank( cb->type, is_light );
 
     if ( before_ply_start.pos.i != init_i || before_ply_start.pos.j != init_j ) {
@@ -251,10 +252,11 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
         return false;
     }
 
+    bool is_queen_side = false;
     int min_i = CC_INVALID_COORD;
     int max_i = CC_INVALID_COORD;
 
-    if ( !cc_check_pos_is_king_castling_step( cb->type, is_light, step_pos.i, step_pos.j, &min_i, &max_i ) ) {
+    if ( !cc_check_pos_is_king_castling_step( cb->type, before_ply_start.piece, step_pos.i, step_pos.j, &is_queen_side, &min_i, &max_i ) ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
 
         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
@@ -266,13 +268,21 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
         return false;
     }
 
+    CcPos step = is_queen_side ? cc_pos( -1, 0 ) : cc_pos( 1, 0 );
+    CcPieceEnum rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
+    int rook_i = cc_get_figure_initial_file( cb->type, rook, is_queen_side );
+    CcPos pos = cc_pos_add( before_ply_start.pos, step, 1 ); // First step from King's initial position.
+    int limit = is_queen_side ? pos.i - rook_i : rook_i - pos.i;
 
-    // TODO :: check all King's step-fields are empty
-    // int rel_i = step_pos.i < init_i ? -1 : 1;
+    if ( !cc_check_step_fields_are_empty( cb, pos, step, limit ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle, all step-fields between the King and a Rook has to be empty.\n", piece_str );
+        return false;
+    }
 
+    // TODO :: for variants < Nineteen, check all King's step-fields are not under attack, i.e. between min_i and max_i
 
-    // TODO :: for variants < Nineteen, check all King's step-fields are not under attack
-
+    // TODO :: for variants >= Nineteen, check King's destination field is not under attack, i.e. step_pos.i
 
     return true;
 }

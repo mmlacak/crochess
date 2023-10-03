@@ -15,7 +15,7 @@
 
 // static int cc_an_str_ends_with_draw_offer( char const * restrict an_start,
 //                                            char const * restrict an_end__d,
-//                                            size_t max_len__d )
+//                                            size_t max_len__d );
 
 
 bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,

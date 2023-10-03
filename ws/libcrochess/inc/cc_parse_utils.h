@@ -75,13 +75,5 @@ CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
 size_t cc_side_effect_type_len( CcSideEffectEnum see,
                                 bool has_promotion_sign );
 
-// TODO :: DELETE
-//
-// char const * cc_find_side_effect_type( char const * restrict an_str,
-//                                        char const * restrict step_end,
-//                                        CcSideEffectEnum * restrict see__o );
-//
-// TODO :: DELETE
-
 
 #endif /* __CC_PARSE_UTILS_H__ */
