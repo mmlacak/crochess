@@ -120,7 +120,7 @@ bool cc_pos_to_short_string( CcPos pos,
                              cc_char_8 * restrict pos_str__o ) {
     if ( !pos_str__o ) return false;
 
-    #define LOWER_BOUNT (-100)
+    #define LOWER_BOUND (-100)
     #define UPPER_BOUND (1000)
 
     if ( CC_IS_POS_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) ) {
@@ -132,7 +132,7 @@ bool cc_pos_to_short_string( CcPos pos,
     } else {
         int count = 0; // snprintf() doesn't count '\0'
 
-        if ( ( LOWER_BOUNT < pos.i ) && ( pos.i < UPPER_BOUND ) )
+        if ( ( LOWER_BOUND < pos.i ) && ( pos.i < UPPER_BOUND ) )
             count = snprintf( *pos_str__o,
                               CC_MAX_LEN_CHAR_8,
                               "%hd,",
@@ -145,7 +145,7 @@ bool cc_pos_to_short_string( CcPos pos,
         char * p = ( (char *)pos_str__o + count );
         size_t size = CC_MAX_LEN_CHAR_8 - count;
 
-        if ( ( LOWER_BOUNT < pos.j ) && ( pos.j < UPPER_BOUND ) )
+        if ( ( LOWER_BOUND < pos.j ) && ( pos.j < UPPER_BOUND ) )
             count = snprintf( p, size, "%hd", (signed short)pos.j );
         else
             count = snprintf( p, size, "*" );

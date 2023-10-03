@@ -251,12 +251,14 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    if ( !cc_check_pos_is_king_castling_step( cb->type, is_light, step_pos.i, step_pos.j ) ) {
+    int min_i = CC_INVALID_COORD;
+    int max_i = CC_INVALID_COORD;
+
+    if ( !cc_check_pos_is_king_castling_step( cb->type, is_light, step_pos.i, step_pos.j, &min_i, &max_i ) ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
 
         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-        if ( !cc_pos_to_short_string( step_pos, &pos_c8 ) )
-            return false;
+        if ( !cc_pos_to_short_string( step_pos, &pos_c8 ) ) return false;
 
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle onto field %s (out of bounds), in step '%s'.\n", piece_str, pos_c8, step_an__a );
@@ -269,7 +271,7 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
     // int rel_i = step_pos.i < init_i ? -1 : 1;
 
 
-    // MAYBE TODO :: for variants < Nineteen, check all King's step-fields are not under attack
+    // TODO :: for variants < Nineteen, check all King's step-fields are not under attack
 
 
     return true;

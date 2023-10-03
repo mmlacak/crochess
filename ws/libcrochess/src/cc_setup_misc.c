@@ -13,8 +13,8 @@
 
 
 int cc_get_figure_initial_file( CcVariantEnum ve,
-                                            CcPieceEnum pe,
-                                            bool search_queen_side_first ) {
+                                CcPieceEnum pe,
+                                bool search_queen_side_first ) {
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
             ( CC_PIECE_IS_PAWN( pe ) ) ||
@@ -87,12 +87,22 @@ int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
     }
 }
 
-bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, bool is_light, int i, int j ) {
+bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
+                                         bool is_light,
+                                         int i,
+                                         int j,
+                                         int * restrict min_i__o,
+                                         int * restrict max_i__o ) {
+    if ( !min_i__o ) return false;
+    if ( !max_i__o ) return false;
+
     int size = cc_variant_board_size( ve );
     if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     int init_i = cc_get_kings_initial_file( ve );
     if ( !CC_IS_COORD_ON_BOARD( size, init_i ) ) return false;
+
+    if ( i == init_i ) return false;
 
     int init_j = cc_get_initial_figure_rank( ve, is_light );
     if ( !CC_IS_COORD_ON_BOARD( size, init_j ) ) return false;
@@ -106,11 +116,17 @@ bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, bool is_light, int i,
 
     int min_i =
         is_queen_side_castling ? init_i - max_dist
-                               : init_i + CC_KINGS_MIN_CASTLING_DISTANCE;
+                               : init_i + CC_KING_MIN_CASTLING_DISTANCE;
 
     int max_i =
-        is_queen_side_castling ? init_i - CC_KINGS_MIN_CASTLING_DISTANCE
+        is_queen_side_castling ? init_i - CC_KING_MIN_CASTLING_DISTANCE
                                : init_i + max_dist;
 
-    return ( min_i <= i && i <= max_i );
+    if ( min_i <= i && i <= max_i ) {
+        *min_i__o = min_i;
+        *max_i__o = max_i;
+        return true;
+    }
+
+    return false;
 }

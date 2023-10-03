@@ -18,7 +18,7 @@
 
     Does not depend on variant being played.
 */
-#define CC_KINGS_MIN_CASTLING_DISTANCE (2)
+#define CC_KING_MIN_CASTLING_DISTANCE (2)
 
 
 /**
@@ -79,11 +79,24 @@ int cc_get_kings_max_castling_distance( CcVariantEnum ve );
     @param is_light Flag, whether to check castling position for light, or dark King.
     @param i File, position along horizontal axis.
     @param j Rank, position along vertical axis.
+    @param min_i__o _Output_, lower bound on King's castling file.
+    @param max_i__o _Output_, upper bound on King's castling file.
+
+    @note
+    _Output_ parameters `min_i__o`, and `max_i__o` contain either Queen-, or King-side
+    castling bounds, depending to which a given position (`i`, and `j` parameters) belong,
+    i.e. if function returns `true`, it's guaranteed for     `min_i__o` <= `i` <= `max_i__o`
+    to hold true, as well.
 
     @return `true` if position is valid step-field for castling King,
             `false` otherwise.
 */
-bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, bool is_light, int i, int j );
+bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
+                                         bool is_light,
+                                         int i,
+                                         int j,
+                                         int * restrict min_i__o,
+                                         int * restrict max_i__o );
 
 
 #endif /* __CC_SETUP_MISC_H__ */
