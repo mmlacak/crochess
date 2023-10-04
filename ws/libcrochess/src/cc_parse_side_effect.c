@@ -269,12 +269,14 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    if ( step_pos.j != init_j ) {
-        char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
-        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its inital rank, not rank %d in step '%s'.\n", piece_str, step_pos.j+1, step_an__a );
-        CC_FREE( step_an__a );
-        return false;
+    if ( CC_IS_COORD_VALID( step_pos.j ) ) { // King can also have just a file for castling destination; rank is the invalid.
+        if ( step_pos.j != init_j ) {
+            char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
+            char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its inital rank, not rank %d in step '%s'.\n", piece_str, step_pos.j+1, step_an__a );
+            CC_FREE( step_an__a );
+            return false;
+        }
     }
 
     bool is_queen_side = false;
@@ -314,7 +316,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    CcPieceEnum maybe_tag = cc_chessboard_get_piece( cb, rook_i, init_j );
+    CcTagEnum maybe_tag = cc_chessboard_get_tag( cb, rook_i, init_j );
 
     if ( !CC_TAG_CAN_CASTLE( maybe_tag ) ) {
         char const * piece_str = cc_piece_as_string( rook, true, true );
@@ -521,7 +523,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
 
             char piece_symbol = ' ';
 
-            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
                 bool is_light = cc_piece_is_light( before_ply_start.piece );
                 CcPieceEnum maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
 
