@@ -78,8 +78,6 @@
 //                                                CcParseMsg ** restrict parse_msgs__iod );
 
 // static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
-//                                              CcChessboard * restrict cb,
-//                                              CcPos step_pos,
 //                                              char const * restrict step_start_an,
 //                                              char const * restrict step_end_an,
 //                                              CcParseMsg ** restrict parse_msgs__iod );
@@ -88,6 +86,13 @@
 //                                               char const * restrict step_start_an,
 //                                               char const * restrict step_end_an,
 //                                               CcParseMsg ** restrict parse_msgs__iod );
+
+// static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
+//                                                CcChessboard * restrict cb,
+//                                                CcPos step_pos,
+//                                                char const * restrict step_start_an,
+//                                                char const * restrict step_end_an,
+//                                                CcParseMsg ** restrict parse_msgs__iod );
 
 
 bool cc_parse_side_effect( char const * restrict side_effect_an,

@@ -215,8 +215,6 @@ static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
 }
 
 static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
-                                             CcChessboard * restrict cb,
-                                             CcPos step_pos,
                                              char const * restrict step_start_an,
                                              char const * restrict step_end_an,
                                              CcParseMsg ** restrict parse_msgs__iod ) {
@@ -234,6 +232,30 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
         return false;
     }
 
+    return true;
+}
+
+static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
+                                              char const * restrict step_start_an,
+                                              char const * restrict step_end_an,
+                                              CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_ROOK( piece ) ) {
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Rooks can castle with King, encountered %s in step '%s'.\n", piece_str, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return true;
+}
+
+static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
+                                               CcChessboard * restrict cb,
+                                               CcPos step_pos,
+                                               char const * restrict step_start_an,
+                                               char const * restrict step_end_an,
+                                               CcParseMsg ** restrict parse_msgs__iod ) {
     bool is_light = cc_piece_is_light( before_ply_start.piece );
     int init_i = cc_get_figure_initial_file( cb->type, before_ply_start.piece, false );
     int init_j = cc_get_initial_figure_rank( cb->type, is_light );
@@ -280,26 +302,28 @@ static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    // TODO :: for variants < Nineteen, check all King's step-fields are not under attack, i.e. between min_i and max_i
+    CcPieceEnum maybe_rook = cc_chessboard_get_piece( cb, rook_i, init_j );
 
-    // TODO :: for variants >= Nineteen, check King's destination field is not under attack, i.e. step_pos.i
+    if ( maybe_rook != rook ) {
+        char const * rook_str = cc_piece_as_string( rook, true, true );
+        char const * piece_str = cc_piece_as_string( maybe_rook, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s not found on its initial position, encountered %s.\n", rook_str, piece_str );
+        return false;
+    }
 
-    return true;
-}
+    CcPieceEnum maybe_tag = cc_chessboard_get_piece( cb, rook_i, init_j );
 
-static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
-                                              char const * restrict step_start_an,
-                                              char const * restrict step_end_an,
-                                              CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( !CC_PIECE_IS_ROOK( piece ) ) {
-        char const * piece_str = cc_piece_as_string( piece, false, true );
-        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Rooks can castle with King, encountered %s in step '%s'.\n", piece_str, step_an__a );
-        CC_FREE( step_an__a );
+    if ( !CC_TAG_CAN_CASTLE( maybe_tag ) ) {
+        char const * piece_str = cc_piece_as_string( maybe_rook, false, true );
+        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle anymore (has lost its castling tag).\n", piece_str );
         return false;
     }
 
     return true;
+
+    // TODO :: for variants < Nineteen, check all King's step-fields are not under attack, i.e. between min_i and max_i
+
+    // TODO :: for variants >= Nineteen, check King's destination field is not under attack, i.e. step_pos.i
 }
 
 
@@ -472,10 +496,11 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             // TODO :: en passant
             return false;
         } case CC_SEE_Castle : {
-            if ( !cc_check_piece_is_castling_king( before_ply_start, cb, step_pos, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
+            CcPos rook_dest = CC_POS_CAST_INVALID;
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
                 bool is_light = cc_piece_is_light( before_ply_start.piece );
@@ -484,16 +509,15 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 if ( !cc_check_piece_is_rook_to_castle( maybe_rook, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
-                // TODO :: find Rook
-
-                // TODO :: check Rook's tag
-
                 ++se_an;
             }
 
-            // TODO :: parse <file>, or <field>
+            // TODO :: parse Rook destination, either <file>, or <field>
 
-            // TODO :: castling
+
+            if ( !cc_check_king_and_rook_can_castle( before_ply_start, bb, step_pos, step_start_an, step_end_an, parse_msgs__iod ) )
+                return false;
+
             return false;
         } case CC_SEE_Promotion : {
             // TODO -- static promotion
