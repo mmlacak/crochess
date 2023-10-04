@@ -71,7 +71,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
                                 *cb__io,
                                 sle,
-                                pos,
+                                &pos,
                                 &se,
                                 parse_msgs__iod ) ) return false;
 

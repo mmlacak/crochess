@@ -89,7 +89,7 @@
 
 // static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
 //                                                CcChessboard * restrict cb,
-//                                                CcPos step_pos,
+//                                                CcPos * restrict step_pos__io,
 //                                                CcPos * restrict rook_dest__io,
 //                                                CcPieceEnum * restrict rook__o,
 //                                                CcPos * restrict rook_init__o,
@@ -105,7 +105,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            CcPosPieceTag before_ply_start,
                            CcChessboard * restrict cb,
                            CcStepLinkEnum sle,
-                           CcPos step_pos,
+                           CcPos * restrict step_pos__io,
                            CcSideEffect * restrict side_effect__o,
                            CcParseMsg ** restrict parse_msgs__iod );
 

@@ -129,6 +129,16 @@ bool cc_pos_to_short_string( CcPos pos,
                   "%c%hhd",
                   CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ),
                   (signed char)(pos.j + 1) );
+    } else if ( CC_IS_COORD_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i ) ) {
+        snprintf( *pos_str__o,
+                  CC_MAX_LEN_CHAR_8,
+                  "%c",
+                  CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ) );
+    } else if ( CC_IS_COORD_ON_BOARD( CC_MAX_BOARD_SIZE, pos.j ) ) {
+        snprintf( *pos_str__o,
+                  CC_MAX_LEN_CHAR_8,
+                  "%hhd",
+                  (signed char)(pos.j + 1) );
     } else {
         int count = 0; // snprintf() doesn't count '\0'
 

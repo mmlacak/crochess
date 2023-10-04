@@ -252,7 +252,7 @@ static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
 
 static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
                                                CcChessboard * restrict cb,
-                                               CcPos step_pos,
+                                               CcPos * restrict step_pos__io,
                                                CcPos * restrict rook_dest__io,
                                                CcPieceEnum * restrict rook__o,
                                                CcPos * restrict rook_init__o,
@@ -269,25 +269,26 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    if ( CC_IS_COORD_VALID( step_pos.j ) ) { // King can also have just a file for castling destination; rank is the invalid.
-        if ( step_pos.j != init_j ) {
+    if ( CC_IS_COORD_VALID( step_pos__io->j ) ) {
+        if ( step_pos__io->j != init_j ) {
             char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
             char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its inital rank, not rank %d in step '%s'.\n", piece_str, step_pos.j+1, step_an__a );
+            cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its inital rank, not rank %d in step '%s'.\n", piece_str, step_pos__io->j+1, step_an__a );
             CC_FREE( step_an__a );
             return false;
         }
-    }
+    } else
+        step_pos__io->j = init_j; // King can also have just a file for castling destination; parsed rank is then invalid.
 
     bool is_queen_side = false;
     int min_i = CC_INVALID_COORD;
     int max_i = CC_INVALID_COORD;
 
-    if ( !cc_check_pos_is_king_castling_step( cb->type, before_ply_start.piece, step_pos.i, step_pos.j, &is_queen_side, &min_i, &max_i ) ) {
-        char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
+    if ( !cc_check_pos_is_king_castling_step( cb->type, before_ply_start.piece, step_pos__io->i, step_pos__io->j, &is_queen_side, &min_i, &max_i ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
 
         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-        if ( !cc_pos_to_short_string( step_pos, &pos_c8 ) ) return false;
+        if ( !cc_pos_to_short_string( *step_pos__io, &pos_c8 ) ) return false;
 
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle onto field %s (out of bounds), in step '%s'.\n", piece_str, pos_c8, step_an__a );
@@ -324,7 +325,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    int rook_end_i = is_queen_side ? step_pos.i + 1 : step_pos.i - 1;
+    int rook_end_i = is_queen_side ? step_pos__io->i + 1 : step_pos__io->i - 1;
     CcPos rook_end = cc_pos( rook_end_i, init_j );
 
     if ( cc_pos_is_disambiguation( *rook_dest__io ) ) {
@@ -345,7 +346,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
 
     // TODO :: for variants < Nineteen, check all King's step-fields are not under attack, i.e. between min_i and max_i
 
-    // TODO :: for variants >= Nineteen, check King's destination field is not under attack, i.e. step_pos.i
+    // TODO :: for variants >= Nineteen, check King's destination field is not under attack, i.e. step_pos__io->i
 }
 
 
@@ -356,7 +357,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                            CcPosPieceTag before_ply_start,
                            CcChessboard * restrict cb,
                            CcStepLinkEnum sle,
-                           CcPos step_pos,
+                           CcPos * restrict step_pos__io,
                            CcSideEffect * restrict side_effect__o,
                            CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !side_effect_an ) return false;
@@ -364,12 +365,13 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     if ( !step_end_an ) return false;
     if ( !game ) return false;
     if ( !cb ) return false;
+    if ( !step_pos__io ) return false;
     if ( !side_effect__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
     if ( sle == CC_SLE_None ) return false; // Just sanity check; error msg is produced when parsing step, in cc_check_step_link().
 
-    CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos.i, step_pos.j );
+    CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos__io->i, step_pos__io->j );
     bool has_promotion_sign = false;
     CcSideEffectEnum see = cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
     char const * se_an = side_effect_an + cc_side_effect_type_len( see, has_promotion_sign );
@@ -542,7 +544,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             CcPieceEnum rook = CC_PE_None;
             CcPos rook_start = CC_POS_CAST_INVALID;
 
-            if ( !cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos__io, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             *side_effect__o = cc_side_effect_castle( rook, rook_start, rook_dest );
