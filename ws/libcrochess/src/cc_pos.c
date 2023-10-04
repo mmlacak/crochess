@@ -116,8 +116,7 @@ int cc_pos_momentum( CcPos start, CcPos destination ) {
     return momentum;
 }
 
-bool cc_pos_to_short_string( CcPos pos,
-                             cc_char_8 * restrict pos_str__o ) {
+bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o ) {
     if ( !pos_str__o ) return false;
 
     #define LOWER_BOUND (-100)
@@ -129,12 +128,14 @@ bool cc_pos_to_short_string( CcPos pos,
                   "%c%hhd",
                   CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ),
                   (signed char)(pos.j + 1) );
-    } else if ( CC_IS_COORD_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i ) ) {
+    } else if ( CC_IS_COORD_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i )
+                && ( !CC_IS_COORD_VALID( pos.j ) ) ) {
         snprintf( *pos_str__o,
                   CC_MAX_LEN_CHAR_8,
                   "%c",
                   CC_CONVERT_BYTE_INTO_FILE_CHAR( pos.i ) );
-    } else if ( CC_IS_COORD_ON_BOARD( CC_MAX_BOARD_SIZE, pos.j ) ) {
+    } else if ( CC_IS_COORD_ON_BOARD( CC_MAX_BOARD_SIZE, pos.j )
+                && ( !CC_IS_COORD_VALID( pos.i ) ) ) {
         snprintf( *pos_str__o,
                   CC_MAX_LEN_CHAR_8,
                   "%hhd",

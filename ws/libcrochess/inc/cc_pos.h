@@ -234,8 +234,7 @@ int cc_pos_momentum( CcPos start, CcPos destination );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_pos_to_short_string( CcPos pos,
-                             cc_char_8 * restrict pos_str__o );
+bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 
 
 //
