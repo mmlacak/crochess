@@ -90,6 +90,7 @@
 // static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
 //                                                CcChessboard * restrict cb,
 //                                                CcPos step_pos,
+//                                                CcPos rook_dest,
 //                                                char const * restrict step_start_an,
 //                                                char const * restrict step_end_an,
 //                                                CcParseMsg ** restrict parse_msgs__iod );
