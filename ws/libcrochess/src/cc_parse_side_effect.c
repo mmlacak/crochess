@@ -253,7 +253,9 @@ static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
 static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
                                                CcChessboard * restrict cb,
                                                CcPos step_pos,
-                                               CcPos rook_dest,
+                                               CcPos * restrict rook_dest__io,
+                                               CcPieceEnum * restrict rook__o,
+                                               CcPos * restrict rook_init__o,
                                                char const * restrict step_start_an,
                                                char const * restrict step_end_an,
                                                CcParseMsg ** restrict parse_msgs__iod ) {
@@ -320,11 +322,11 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    if ( cc_pos_is_disambiguation( rook_dest ) ) {
-        int rook_end_i = is_queen_side ? step_pos.i + 1 : step_pos.i - 1;
-        CcPos rook_end = cc_pos( rook_end_i, init_j );
+    int rook_end_i = is_queen_side ? step_pos.i + 1 : step_pos.i - 1;
+    CcPos rook_end = cc_pos( rook_end_i, init_j );
 
-        if ( !cc_pos_is_congruent( rook_end, rook_dest ) ) {
+    if ( cc_pos_is_disambiguation( *rook_dest__io ) ) {
+        if ( !cc_pos_is_congruent( rook_end, *rook_dest__io ) ) {
             char const * piece_str = cc_piece_as_string( rook, false, true );
             char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
             cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Destination of %s is not valid (next to castling King, on the inner side), in step '%s'.\n", piece_str, step_an__a );
@@ -332,6 +334,10 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
             return false;
         }
     }
+
+    *rook_dest__io = rook_end;
+    *rook__o = rook;
+    *rook_init__o = cc_pos( rook_i, init_j );
 
     return true;
 
@@ -525,17 +531,20 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 ++se_an;
             }
 
-            // TODO :: parse Rook destination, either <file>, or <field>
             CcPos rook_dest = CC_POS_CAST_INVALID;
             char const * end = NULL;
 
             if ( cc_parse_pos( se_an, &rook_dest, &end ) )
                 se_an = end;
 
-            if ( !cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos, rook_dest, step_start_an, step_end_an, parse_msgs__iod ) )
+            CcPieceEnum rook = CC_PE_None;
+            CcPos rook_start = CC_POS_CAST_INVALID;
+
+            if ( !cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            return false; // TODO :: castling
+            *side_effect__o = cc_side_effect_castle( rook, rook_start, rook_dest );
+            return true;
         } case CC_SEE_Promotion : {
             // TODO -- static promotion
             //      -- moving promotion
