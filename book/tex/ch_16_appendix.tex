@@ -746,9 +746,9 @@ which would be interpreted very differently.
 
 In Classical Chess, all pieces have exactly one path from starting field to destination,
 so to specify unique path only destination is needed when writing movement of a piece.
-This is no longer so for newly added pieces. For instance, Serpent can have multiple paths
-leading to the same destination, even though those cannot overlap, they can still have
-different lengths.
+This is no longer so for newly added pieces. For instance, Serpent can have multiple
+paths leading to the same destination; even though a single path cannot contain loops
+different paths can overlap, and they can have different lengths.
 
 In \hyperref[fig:scn_tr_05_serpent_end]{this Serpent's movement example}, assuming that
 starting position is \alg{c3}, and destination \alg{g3}, depicted complete path is
@@ -2218,9 +2218,9 @@ more complex. Also, compatibility notation for capture, castling, and checkmate
 is valid only for Classical Chess, and nowhere else.
 
 Another example, Shaman stepping between divergences consists of ordinary steps
-interspersed with transparency, or it's all capture-steps. However, capture as
-side-effect is always optional to write down, and so the two sets of different
-steps can be indistinguishable.
+interspersed with transparency, or it's all capture-steps. However, all three
+side-effects (diverging, transparency, and capturing) are always optional to
+write down, and so the two sets of different steps can be indistinguishable.
 
 Additionaly, grammar does not have access to an external context. So, defining
 entity and values which are not optional, but might not be present is not really
