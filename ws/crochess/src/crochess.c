@@ -26,7 +26,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.352:784+20231004.065245"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.353:785+20231011.101252"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
@@ -105,14 +105,11 @@ int main( void ) {
         if ( !cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) )
             continue;
 
-        if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
-             cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) ) {
+        if ( cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) ) {
             break;
-        } else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
-                    cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) ) {
+        } else if ( cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) ) {
             print_version_info( CC_LIB_VERSION, CROCHESS_VERSION );
-        } else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
-                    cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) ) {
+        } else if ( cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) ) {
             print_about_info();
         } else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "display", NULL, BUFSIZ ) ) {
@@ -151,8 +148,7 @@ int main( void ) {
 
                 cc_parse_msg_free_all( &pm__a );
             }
-        } else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
-                  cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
+        } else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;
             cc_char_8 code = CC_CHAR_8_EMPTY;
 
@@ -186,8 +182,7 @@ int main( void ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
                 if ( token_start == token_end )
                     print_help();
-                else if ( cc_str_is_equal( token_start, token_end, "q", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "quit", NULL, BUFSIZ ) )
                     print_help_quit();
                 else if ( cc_str_is_equal( token_start, token_end, "d", NULL, BUFSIZ ) ||
                           cc_str_is_equal( token_start, token_end, "display", NULL, BUFSIZ ) )
@@ -195,14 +190,11 @@ int main( void ) {
                 else if ( cc_str_is_equal( token_start, token_end, "t", NULL, BUFSIZ ) ||
                           cc_str_is_equal( token_start, token_end, "tags", NULL, BUFSIZ ) )
                     print_help_tags();
-                else if ( cc_str_is_equal( token_start, token_end, "a", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "about", NULL, BUFSIZ ) )
                     print_help_about();
-                else if ( cc_str_is_equal( token_start, token_end, "v", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) )
                     print_help_version();
-                else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
-                          cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else
                     cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL ); }

@@ -16,7 +16,14 @@ void print_linenoise_licence_text( void );
 
 void print_about_info( void );
 
+void print_help( void );
+void print_help_quit( void );
+void print_help_display( void );
+void print_help_tags( void );
+void print_help_about( void );
+void print_help_version( void );
 void print_help_new_code( void );
+void print_help_new( void );
 void print_new_code_invalid( char const * restrict str,
                              size_t max_len__d );
 

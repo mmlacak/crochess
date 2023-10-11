@@ -112,14 +112,14 @@ void print_help( void ) {
     printf( "Commands:\n"
             "h, help       - prints this screen, `help <cmd>` for command details\n"
             "                e.g. `help tags` prints help about `tags` command\n"
-            "a, about      - prints about, license info\n"
-            "v, version    - prints version(s) info\n"
-            "q, quit       - quits program\n"
+            "about         - prints about, license info\n"
+            "version       - prints version(s) info\n"
+            "quit          - quits program\n"
             "d, display    - displays current position\n"
             "t, tags       - displays current tags\n"
             "* i, info     - displays list of all moves played, time\n"
             "* t, time     - (re)sets time counter(s)\n"
-            "n, new        - starts new game, keeps current variant\n"
+            "new           - starts new game, keeps current variant\n"
             "                to change variant specify code, e.g. `new aoa`\n"
             "                to see all suported codes type `help new`\n"
             "* p, players  - sets up players\n"
@@ -165,7 +165,7 @@ void print_help_version( void ) {
             "[-<prerelease>][+<meta>][~<breakage>] info; <meta> is used regularly.\n"
             "\n"
             "<meta> is compressed UTC <date>.<time> format, comparable to version found\n"
-            "in the book. For details, see Natural Versioning 1.0, at:\n"
+            "in the book. For details, see Natural Versioning 1.2, at:\n"
             "https://croatian-chess.blogspot.com/p/natver.html\n" );
 }
 
