@@ -312,8 +312,8 @@ int main( void ) {
                           cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) )
                     print_help_setup();
                 else
-                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL ); }
-            else
+                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL );
+            } else
                 print_help();
         } else {
             printf( "Unknown: '%s'.\n", line );
