@@ -23,7 +23,7 @@ static bool cc_check_ply_link_is_valid( CcPlyLinkEnum ple,
                                         CcParseMsg ** restrict parse_msgs__iod ) {
     if ( ( ple == CC_PLE_None ) || ( is_first_ply && ( ple != CC_PLE_StartingPly ) ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
         CC_FREE( ply_str__a );
         return false;
     }
@@ -37,7 +37,7 @@ static bool cc_check_king_ply( CcChessboard * restrict cb,
                                CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, pos__o ) ) {
         char const * piece_str = cc_piece_as_string( king, true, true );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s not found on chessboard.\n", piece_str );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s not found on chessboard.\n", piece_str );
         return false;
     }
 
@@ -45,7 +45,7 @@ static bool cc_check_king_ply( CcChessboard * restrict cb,
 
     if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, &pos ) ) {
         char const * piece_str = cc_piece_as_string( king, false, true );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "More than one %s was found on chessboard.\n", piece_str );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "More than one %s was found on chessboard.\n", piece_str );
         return false;
     }
 
@@ -59,7 +59,7 @@ static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
     if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, true, true );
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated, in ply '%s'.\n", piece_str, ply_str__a );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot be activated, in ply '%s'.\n", piece_str, ply_str__a );
         CC_FREE( ply_str__a );
         return false;
     }
@@ -95,7 +95,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     char piece_symbol = ' ';
 
     if ( !cc_fetch_piece_symbol( c_str, &piece_symbol, true, true ) ) {
-        cc_parse_msg_append_fmt_if( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid piece symbol '%c'.\n", piece_symbol );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid piece symbol '%c'.\n", piece_symbol );
         return false;
     }
 

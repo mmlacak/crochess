@@ -62,11 +62,11 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     return mv__t;
 }
 
-CcMove * cc_move_append_if( CcMove ** restrict moves__io,
-                            char const * restrict notation,
-                            size_t max_len__d,
-                            CcPly ** restrict plies__n,
-                            CcMoveStatusEnum status ) {
+CcMove * cc_move_expand( CcMove ** restrict moves__io,
+                         char const * restrict notation,
+                         size_t max_len__d,
+                         CcPly ** restrict plies__n,
+                         CcMoveStatusEnum status ) {
     if ( !moves__io ) return NULL;
 
     CcMove * move__w = NULL;
@@ -94,7 +94,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
             return NULL;
         }
 
-        CcMove * mv__w = cc_move_append_if( &mv__a,
+        CcMove * mv__w = cc_move_expand( &mv__a,
                                             from->notation,
                                             CC_MAX_LEN_ZERO_TERMINATED,
                                             &plies__t,

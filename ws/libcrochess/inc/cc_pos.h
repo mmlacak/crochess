@@ -397,10 +397,10 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_append_if()
+    @see cc_pos_link_expand()
 */
 #define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,pos,piece,tag) \
-    ( cc_pos_link_append_if( (ptr_ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
+    ( cc_pos_link_expand( (ptr_ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.
@@ -446,8 +446,8 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPosPieceTag ppt );
+CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+                                CcPosPieceTag ppt );
 
 /**
     Frees all positions in a linked list.

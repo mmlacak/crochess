@@ -98,8 +98,8 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
     @return
     Weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
-CcStep * cc_step_append_if( CcStep ** restrict steps__iod,
-                            CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
+CcStep * cc_step_expand( CcStep ** restrict steps__iod,
+                         CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
 
 /**
     Duplicates a given steps into a newly allocated linked list.
@@ -127,6 +127,7 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 CcStep * cc_step_extend( CcStep ** restrict steps__io,
                          CcStep ** restrict steps__n );
 
+// TODO :: rename
 /**
     Extends existing linked list with a newly allocated step(s), or initialize it, if it isn't.
 
@@ -146,6 +147,7 @@ CcStep * cc_step_extend( CcStep ** restrict steps__io,
 */
 CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
                             CcStep ** restrict steps__n );
+// TODO :: rename
 
 /**
     Function returning count of steps, based on usage.
@@ -212,12 +214,12 @@ char * cc_step_all_to_short_string__new( CcStep * restrict steps );
 
 /** @defgroup step_convenience The step conveniences
  *  The step convenience functions are meant to be used instead of `cc_step__new()`,
-    `cc_step_append()` and `cc_step_append_if()`.
+    `cc_step_append()` and `cc_step_expand()`.
 
     They have minimal set of arguments required by the type of a step (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_step__new(), cc_step_append(), cc_step_append_if()
+    @see cc_step__new(), cc_step_append(), cc_step_expand()
  *  @{
  */
 
@@ -327,58 +329,58 @@ CcStep * cc_step_failed_resurrection_append( CcStep * restrict steps__io,
 
 /** @defgroup step_convenience_append_or_init The append new or init step conveniences
  *  The append new or init step convenience functions are meant to be used instead of
-    `cc_step_append_if()`.
+    `cc_step_expand()`.
 
     They have minimal set of arguments required by the type of a step (its linkage),
     otherwise they behave exactly as their generic progenitor.
 
-    @see cc_step_append_if()
+    @see cc_step_expand()
  *  @{
  */
 
-CcStep * cc_step_none_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_none_expand( CcStep ** restrict steps__io,
                                  CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_capture_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_capture_expand( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_displacement_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_displacement_expand( CcStep ** restrict steps__io,
                                          CcStepLinkEnum link, CcPos field,
                                          CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 
-CcStep * cc_step_en_passant_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_en_passant_expand( CcStep ** restrict steps__io,
                                        CcStepLinkEnum link, CcPos field,
                                        CcPieceEnum pawn, CcPos distant );
 
-CcStep * cc_step_castle_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_castle_expand( CcStep ** restrict steps__io,
                                    CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum rook, CcPos start, CcPos destination );
 
-CcStep * cc_step_promote_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_promote_expand( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
-CcStep * cc_step_tag_for_promotion_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_tag_for_promotion_expand( CcStep ** restrict steps__io,
                                               CcStepLinkEnum link, CcPos field,
                                               CcPieceEnum captured, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_convert_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_convert_expand( CcStep ** restrict steps__io,
                                     CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_failed_conversion_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_failed_conversion_expand( CcStep ** restrict steps__io,
                                               CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_demote_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_demote_expand( CcStep ** restrict steps__io,
                                    CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 
-CcStep * cc_step_resurrect_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_resurrect_expand( CcStep ** restrict steps__io,
                                       CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcPos destination );
 
-CcStep * cc_step_failed_resurrection_append_if( CcStep ** restrict steps__io,
+CcStep * cc_step_failed_resurrection_expand( CcStep ** restrict steps__io,
                                                 CcStepLinkEnum link, CcPos field );
 
 /** @} */ // end of step_convenience_append_or_init

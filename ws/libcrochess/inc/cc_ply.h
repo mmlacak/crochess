@@ -195,14 +195,14 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     @return
     Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
-                          char const * restrict start_an__d,
-                          char const * restrict end_an__d,
-                          size_t max_len__d,
-                          CcPlyLinkEnum link,
-                          CcPieceEnum piece,
-                          CcLosingTagEnum lost_tag,
-                          CcStep ** restrict steps__n );
+CcPly * cc_ply_expand( CcPly ** restrict plies__io,
+                       char const * restrict start_an__d,
+                       char const * restrict end_an__d,
+                       size_t max_len__d,
+                       CcPlyLinkEnum link,
+                       CcPieceEnum piece,
+                       CcLosingTagEnum lost_tag,
+                       CcStep ** restrict steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.

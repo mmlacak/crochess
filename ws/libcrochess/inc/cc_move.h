@@ -113,11 +113,11 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     @return
     Weak pointer to a newly allocated move if successful, `NULL` otherwise.
 */
-CcMove * cc_move_append_if( CcMove ** restrict moves__io,
-                            char const * restrict notation,
-                            size_t max_len__d,
-                            CcPly ** restrict plies__n,
-                            CcMoveStatusEnum status );
+CcMove * cc_move_expand( CcMove ** restrict moves__io,
+                         char const * restrict notation,
+                         size_t max_len__d,
+                         CcPly ** restrict plies__n,
+                         CcMoveStatusEnum status );
 
 /**
     Duplicates a given moves into a newly allocated linked list.

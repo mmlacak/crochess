@@ -69,9 +69,9 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
-                                  char const * restrict str,
-                                  size_t max_len__d );
+CcStrings * cc_strings_expand( CcStrings ** restrict strings__io,
+                               char const * restrict str,
+                               size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list, which might not be allocated yet.
@@ -96,9 +96,9 @@ CcStrings * cc_strings_append_if( CcStrings ** restrict strings__io,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_fmt_if( CcStrings ** restrict strings__io,
-                                      size_t max_len__d,
-                                      char const * restrict fmt, ... );
+CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__io,
+                                   size_t max_len__d,
+                                   char const * restrict fmt, ... );
 
 /**
     Duplicates all strings in a linked list.

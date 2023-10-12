@@ -79,14 +79,14 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     return ply__t;
 }
 
-CcPly * cc_ply_append_if( CcPly ** restrict plies__io,
-                          char const * restrict start_an__d,
-                          char const * restrict end_an__d,
-                          size_t max_len__d,
-                          CcPlyLinkEnum link,
-                          CcPieceEnum piece,
-                          CcLosingTagEnum lost_tag,
-                          CcStep ** restrict steps__n ) {
+CcPly * cc_ply_expand( CcPly ** restrict plies__io,
+                       char const * restrict start_an__d,
+                       char const * restrict end_an__d,
+                       size_t max_len__d,
+                       CcPlyLinkEnum link,
+                       CcPieceEnum piece,
+                       CcLosingTagEnum lost_tag,
+                       CcStep ** restrict steps__n ) {
     if ( !plies__io ) return NULL;
 
     CcPly * ply__w = NULL;
@@ -125,7 +125,7 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
             return NULL;
         }
 
-        CcPly * ply__w = cc_ply_append_if( &ply__a,
+        CcPly * ply__w = cc_ply_expand( &ply__a,
                                            from->notation,
                                            NULL,
                                            CC_MAX_LEN_ZERO_TERMINATED,

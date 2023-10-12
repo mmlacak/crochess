@@ -248,8 +248,8 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
     return pl__t;
 }
 
-CcPosLink * cc_pos_link_append_if( CcPosLink ** restrict pos_link__io,
-                                   CcPosPieceTag ppt ) {
+CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+                                CcPosPieceTag ppt ) {
     if ( !pos_link__io ) return NULL;
 
     CcPosLink * pl__w = NULL;
