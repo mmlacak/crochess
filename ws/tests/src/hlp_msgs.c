@@ -118,16 +118,29 @@ void print_help( void ) {
             "* i, info     - displays list of all moves played, time\n"
             "* t, time     - (re)sets time counter(s)\n"
             "new           - starts new game, keeps current variant\n"
-            "                to change variant specify code, e.g. `new aoa`\n"
-            "                to see all suported codes type `help new`\n"
-            "* p, players  - sets up players\n"
-            "                takes two parameters, both are one of `bot`, `human`\n"
+            "                has optional parameter, variant code, e.g. `new aoa`\n"
+            "* p, player   - changes active player\n"
             "* m, move     - moves piece(s)\n"
             "                takes notation as argument, e.g. `move Nc3`\n"
             "* s, save     - saves current game into PGN file\n"
             "                takes <path> as argument, e.g. `save my_new_game.pgn`\n"
             "* l, load     - loads game/positions from PGN file\n"
             "                takes <path> as argument, e.g. `load my_new_game.pgn`\n"
+            "* c, clear    - clears all pieces, tags from current chessboard\n"
+            "                TODO: add optional string parameter \"{<field>,}\"\n"
+            "u, update     - updates current chessboard with given pieces, tags\n"
+            "                parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "s, setup      - sets uo current chessboard with given pieces, tags\n"
+            "                parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "\n"
+            "* tb, test_book  - test examples from the book\n"
+            "* tp, test_parse - various parser tests\n"
+            "tm, test_move    - various setups, moves tests\n"
+            "tx, test_misc    - test various functions\n"
+#ifdef __WITH_LINE_NOISE__
+            "\n"
+            "kc, key_codes - linenoise key codes mode\n"
+#endif // __WITH_LINE_NOISE__
             "\n"
             "Commands marked with * are currently not implemented.\n" );
 }
@@ -206,4 +219,25 @@ void print_new_code_invalid( char const * restrict str,
     printf( "\nUse following code for new variant game:\n" );
     print_help_new_code();
     printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" );
+}
+
+void print_help_clear( void ) {
+    printf( "Clears all pieces, tags from current chessboard.\n"
+            "\n"
+            "TODO: add optional string parameter \"{<field>,}\",\n"
+            "      to cleart specific fields.\n" );
+}
+
+void print_help_update( void ) {
+    printf( "Updates pieces, tags on current chessboard,\n"
+            "parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "e.g. u \"Qg3,Pa1R\".\n"
+            "Light pieces are upper-case, dark are lower-case.\n" );
+}
+
+void print_help_setup( void ) {
+    printf( "Clears, then sets up new pieces, tags onto current chessboard,\n"
+            "parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "e.g. s \"Qg3,Pa1R\".\n"
+            "Light pieces are upper-case, dark are lower-case.\n" );
 }

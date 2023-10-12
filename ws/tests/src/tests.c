@@ -302,6 +302,15 @@ int main( void ) {
                     print_help_version();
                 else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
+                else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "clear", NULL, BUFSIZ ) )
+                    print_help_clear();
+                else if ( cc_str_is_equal( token_start, token_end, "u", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "update", NULL, BUFSIZ ) )
+                    print_help_update();
+                else if ( cc_str_is_equal( token_start, token_end, "s", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) )
+                    print_help_setup();
                 else
                     cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL ); }
             else

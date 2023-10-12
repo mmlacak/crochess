@@ -27,4 +27,8 @@ void print_help_new( void );
 void print_new_code_invalid( char const * restrict str,
                              size_t max_len__d );
 
+void print_help_clear( void );
+void print_help_update( void );
+void print_help_setup( void );
+
 #endif /* __HLP_MSGS_H__ */
