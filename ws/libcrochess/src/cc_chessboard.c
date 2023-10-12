@@ -5,9 +5,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <ctype.h>
 
 #include "cc_defines.h"
 #include "cc_math.h"
+#include "cc_str_utils.h"
+#include "cc_token.h"
+
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_variant.h"
@@ -19,6 +23,8 @@
     @file cc_chessboard.c
     @brief Chessboard functions.
 */
+
+char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[] = ",";
 
 
 CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup ) {
@@ -407,3 +413,36 @@ bool cc_chessboard_print( CcChessboard * restrict cb,
 }
 //
 // TODO :: move out
+
+CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * restrict cb,
+                                                     char const * restrict setup ) {
+    if ( !cb ) return NULL;
+
+    CcChessboard * cb__a = cc_chessboard_duplicate__new( cb );
+    if ( !cb__a ) return NULL;
+
+    char const * s = setup
+                   + ( ( *setup == '\"' ) ? 1 : 0 );
+    char const * start = NULL;
+    char const * end = NULL;
+
+    while ( cc_iter_token( s, CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING, &start, &end ) ) {
+        char const * c = start;
+
+        char file_chr = *c++;
+        int file = CC_CONVERT_FILE_CHAR_INTO_NUM( file_chr );
+
+        cc_char_8 rank_c8 = CC_CHAR_8_EMPTY;
+        rank_c8[ 0 ] = *c++;
+        if ( isdigit( *c ) )
+            rank_c8[ 1 ] = *c++;
+        int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
+
+        if ( !cc_chessboard_set_piece_tag( cb__a, file, rank, CC_PE_None, CC_TE_None ) ) {
+            cc_chessboard_free_all( &cb__a );
+            return NULL;
+        }
+    }
+
+    return cb__a;
+}

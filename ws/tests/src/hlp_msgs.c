@@ -129,9 +129,9 @@ void print_help( void ) {
             "* c, clear    - clears all pieces, tags from current chessboard\n"
             "                TODO: add optional string parameter \"{<field>,}\"\n"
             "u, update     - updates current chessboard with given pieces, tags\n"
-            "                parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "                parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
             "s, setup      - sets uo current chessboard with given pieces, tags\n"
-            "                parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "                parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
             "\n"
             "* tb, test_book  - test examples from the book\n"
             "* tp, test_parse - various parser tests\n"
@@ -230,14 +230,18 @@ void print_help_clear( void ) {
 
 void print_help_update( void ) {
     printf( "Updates pieces, tags on current chessboard,\n"
-            "parameter is string \"{<piece><field>[<tag>],}\"\n"
-            "e.g. u \"Qg3,Pa1R\".\n"
-            "Light pieces are upper-case, dark are lower-case.\n" );
+            "parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
+            "e.g. u \"aoa Qg3,Pa1R\".\n"
+            "\n"
+            "Light pieces are upper-case, dark are lower-case.\n"
+            "Light player is on turn if variant is upper-case, otherwise dark.\n" );
 }
 
 void print_help_setup( void ) {
     printf( "Clears, then sets up new pieces, tags onto current chessboard,\n"
-            "parameter is string \"{<piece><field>[<tag>],}\"\n"
-            "e.g. s \"Qg3,Pa1R\".\n"
-            "Light pieces are upper-case, dark are lower-case.\n" );
+            "parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
+            "e.g. s \"aoa Qg3,Pa1R\".\n"
+            "\n"
+            "Light pieces are upper-case, dark are lower-case.\n"
+            "Light player is on turn if variant is upper-case, otherwise dark.\n" );
 }

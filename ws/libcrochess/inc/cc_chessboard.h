@@ -13,6 +13,11 @@
     @brief Storage for pieces, tags on board.
 */
 
+/**
+    Separators constant, used to toknize string setup.
+*/
+extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
+
 
 /**
     Chessboard structure, used for all variants.
@@ -317,6 +322,9 @@ bool cc_chessboard_print( CcChessboard * restrict cb,
                           bool is_board_or_tag );
 //
 // TODO :: move out
+
+CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * restrict cb,
+                                                     char const * restrict setup );
 
 
 #endif /* __CC_CHESS_BOARD_H__ */

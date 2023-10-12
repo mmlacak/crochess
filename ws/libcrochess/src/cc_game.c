@@ -125,8 +125,11 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
 
         game__a = cc_game__new( gse, ve, false );
 
-        // +1 == next char, after separator (space) following variant symbol string
-        s += len + 1;
+        // +1 == next char, after separator (space) following variant symbol string,
+        //       or after \" (double quotes) == start of a string, if no variant symbol string
+        s += len
+           + ( ( *setup == ' ' ) ? 1 : 0 )
+           + ( ( *setup == '\"' ) ? 1 : 0 );
     }
 
     if ( !game__a ) return NULL;

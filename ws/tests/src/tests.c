@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.353:785+20231011.101252"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.354:786+20231012.225607"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -242,7 +242,17 @@ int main( void ) {
             }
         } else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "clear", NULL, BUFSIZ ) ) {
-            cc_chessboard_clear( game__a->chessboard );
+            // TODO :: if no setup, do clear all of chessboard
+            // cc_chessboard_clear( game__a->chessboard );
+
+            CcChessboard * cb__t = cc_chessboard_clear_from_string__new( game__a->chessboard, token_end + 1 );
+
+            if ( !cb__t )
+                printf( "Not valid chessboard setup.\n" );
+            else {
+                cc_chessboard_free_all( &game__a->chessboard );
+                game__a->chessboard = cb__t;
+            }
         } else if ( cc_str_is_equal( token_start, token_end, "u", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "update", NULL, BUFSIZ ) ) {
             CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, game__a );
