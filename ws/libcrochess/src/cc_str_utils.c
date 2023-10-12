@@ -34,9 +34,22 @@ bool cc_str_clear( char * restrict str__io,
     return true;
 }
 
-bool cc_str_is_empty( char const * restrict str ) {
+bool cc_str_is_empty( char const * restrict str, bool ignore_spaces ) {
     if ( !str ) return true;
-    return ( *str == '\0' );
+
+    char const * s = str;
+
+    while ( *s != '\0' ) {
+        if ( ignore_spaces && isspace( *s ) ) {
+            ++s;
+            continue;
+        }
+
+        if ( isprint( *s ) ) return false;
+        ++s;
+    }
+
+    return true; // ( *s == '\0' );
 }
 
 bool cc_str_count_chars( char const * restrict str,

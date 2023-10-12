@@ -233,7 +233,7 @@ int main( void ) {
                     print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
             }
 
-            bool is_empty = cc_str_is_empty( code );
+            bool is_empty = cc_str_is_empty( code, true );
             if ( is_empty || ( !is_empty && is_code ) ) {
                 cc_chessboard_setup( game__a->chessboard );
                 game__a->status = CC_GSE_Turn_Light;
@@ -242,16 +242,18 @@ int main( void ) {
             }
         } else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "clear", NULL, BUFSIZ ) ) {
-            // TODO :: if no setup, do clear all of chessboard
-            // cc_chessboard_clear( game__a->chessboard );
+            bool is_empty = cc_str_is_empty( token_end, true );
+            if ( is_empty ) {
+                cc_chessboard_clear( game__a->chessboard );
+            } else {
+                CcChessboard * cb__t = cc_chessboard_clear_from_string__new( game__a->chessboard, token_end + 1 );
 
-            CcChessboard * cb__t = cc_chessboard_clear_from_string__new( game__a->chessboard, token_end + 1 );
-
-            if ( !cb__t )
-                printf( "Not valid chessboard setup.\n" );
-            else {
-                cc_chessboard_free_all( &game__a->chessboard );
-                game__a->chessboard = cb__t;
+                if ( !cb__t )
+                    printf( "Not valid chessboard setup.\n" );
+                else {
+                    cc_chessboard_free_all( &game__a->chessboard );
+                    game__a->chessboard = cb__t;
+                }
             }
         } else if ( cc_str_is_equal( token_start, token_end, "u", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "update", NULL, BUFSIZ ) ) {

@@ -333,13 +333,14 @@ bool cc_str_clear( char * restrict str__io,
                    size_t max_len__d );
 
 /**
-    Function checks if string is empty, i.e. start with ``'\0'`` char.
+    Function checks if string is empty, i.e. does not contain printable characters.
 
     @param str A string to check.
+    @param ignore_spaces Flag, whether to disregard spaces, or not.
 
     @return `true` if empty, `false` otherwise.
 */
-bool cc_str_is_empty( char const * restrict str );
+bool cc_str_is_empty( char const * restrict str, bool ignore_spaces );
 
 /**
     Function counts characters in a string, based on a given filtering function.

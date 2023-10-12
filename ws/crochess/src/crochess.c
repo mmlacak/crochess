@@ -169,7 +169,7 @@ int main( void ) {
                     print_new_code_invalid( code, CC_MAX_LEN_VARIANT_SYMBOL + 1 );
             }
 
-            bool is_empty = cc_str_is_empty( code );
+            bool is_empty = cc_str_is_empty( code, true );
             if ( is_empty || ( !is_empty && is_code ) ) {
                 cc_chessboard_setup( game__a->chessboard );
                 game__a->status = CC_GSE_Turn_Light;
