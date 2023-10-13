@@ -126,12 +126,12 @@ void print_help( void ) {
             "                takes <path> as argument, e.g. `save my_new_game.pgn`\n"
             "* l, load     - loads game/positions from PGN file\n"
             "                takes <path> as argument, e.g. `load my_new_game.pgn`\n"
-            "* c, clear    - clears all pieces, tags from current chessboard\n"
-            "                TODO: add optional string parameter \"{<field>,}\"\n"
+            "* c, clear    - clears (all) pieces, tags from current chessboard\n"
+            "                optional string parameter is \"{<field>,}\"\n"
             "u, update     - updates current chessboard with given pieces, tags\n"
-            "                parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
-            "s, setup      - sets uo current chessboard with given pieces, tags\n"
-            "                parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
+            "                parameter is string \"{<piece><field>[<tag>],}\"\n"
+            "s, setup      - sets up chessboard with given pieces, tags; string\n"
+            "                parameter is \"[<variant> ]{<piece><field>[<tag>],}\"\n"
             "\n"
             "* tb, test_book  - test examples from the book\n"
             "* tp, test_parse - various parser tests\n"
@@ -172,11 +172,12 @@ void print_help_about( void ) {
 
 void print_help_version( void ) {
     printf( "Displays versions of application, library; currently they are the same.\n"
-            "Version has <major>.<minor>[.<feature>[.<commit>]] numbers, optionally with\n"
-            "[-<prerelease>][+<meta>][~<breakage>] info; <meta> is used regularly.\n"
+            "Version has <major>.<minor>[.<feature>[.<commit>]] numbers, optionally\n"
+            "with [-<prerelease>][+<meta>][~<breakage>] info; <meta> is used\n"
+            "regularly.\n"
             "\n"
-            "<meta> is compressed UTC <date>.<time> format, comparable to version found\n"
-            "in the book. For details, see Natural Versioning 1.2, at:\n"
+            "<meta> is compressed UTC <date>.<time> format, comparable to version\n"
+            " found in the book. For details, see Natural Versioning 1.2, at:\n"
             "https://croatian-chess.blogspot.com/p/natver.html\n" );
 }
 
@@ -222,25 +223,25 @@ void print_new_code_invalid( char const * restrict str,
 }
 
 void print_help_clear( void ) {
-    printf( "Clears all pieces, tags from current chessboard.\n"
+    printf( "Clears all pieces, tags from current chessboard if no parameter\n"
+            "is given, otherwise only fields specified in a given list.\n"
             "\n"
-            "TODO: add optional string parameter \"{<field>,}\",\n"
-            "      to cleart specific fields.\n" );
+            "Optional string parameter is \"{<field>,}\", e.g. `clear \"c3,b7\"`.\n" );
 }
 
 void print_help_update( void ) {
-    printf( "Updates pieces, tags on current chessboard,\n"
-            "parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
-            "e.g. u \"aoa Qg3,Pa1R\".\n"
+    printf( "Updates pieces, tags on current chessboard, parameter is\n"
+            "string \"{<piece><field>[<tag>],}\", e.g. `update \"Qg3,Pa1R\"`.\n"
             "\n"
             "Light pieces are upper-case, dark are lower-case.\n"
             "Light player is on turn if variant is upper-case, otherwise dark.\n" );
 }
 
 void print_help_setup( void ) {
-    printf( "Clears, then sets up new pieces, tags onto current chessboard,\n"
-            "parameter is string \"<variant> {<piece><field>[<tag>],}\"\n"
-            "e.g. s \"aoa Qg3,Pa1R\".\n"
+    printf( "Sets up new pieces, tags onto chessboard, parameter is string\n"
+            "\"[<variant> ]{<piece><field>[<tag>],}\",\n"
+            "e.g. `setup \"Kc3,ra26R,kh26R\"`, `setup \"aoa Qg3,Pa1R\"`.\n"
+            "Current chessboard is cleared before setup, if no variant is given.\n"
             "\n"
             "Light pieces are upper-case, dark are lower-case.\n"
             "Light player is on turn if variant is upper-case, otherwise dark.\n" );
