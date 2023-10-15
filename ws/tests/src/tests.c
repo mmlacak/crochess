@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.355:787+20231015.152527"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.356:788+20231015.220854"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -245,9 +245,11 @@ int main( void ) {
                     case 'b' :
                     case 'B' : gse = CC_GSE_Win_Dark; is_turn = true; break;
 
-                    case '=' : gse = CC_GSE_Draw; is_turn = true; break;
+                    case '=' :
+                    case '*' : gse = CC_GSE_Draw; is_turn = true; break;
 
-                    case '-' : gse = CC_GSE_None; is_turn = true; break;
+                    case '-' :
+                    case '?' : gse = CC_GSE_None; is_turn = true; break;
 
                     default : break;
                 }

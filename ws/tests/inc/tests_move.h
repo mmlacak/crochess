@@ -4,6 +4,8 @@
 #ifndef __TESTS_MOVE_H__
 #define __TESTS_MOVE_H__
 
+#include "cc_game.h"
+
 
 bool test_move( char const * restrict an_str,
                 char const * restrict setup__d,

@@ -227,8 +227,8 @@ void print_help_new_player( void ) {
             "l, L -> light player is on turn\n"
             "d, D -> dark player is on turn\n"
             "b, B -> dark player has won\n"
-            "=    -> draw\n"
-            "-    -> none\n" );
+            "=, * -> draw\n"
+            "-, ? -> none\n" );
 }
 
 void print_help_player( void ) {

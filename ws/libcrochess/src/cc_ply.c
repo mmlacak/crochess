@@ -279,14 +279,8 @@ char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
                        + ( count_steps * step_size )
                        + 1; // +1, for '\0'
 
-    char * plies_str__a = malloc( unused_size );
+    char * plies_str__a = calloc( unused_size, sizeof( char ) );
     if ( !plies_str__a ) return NULL;
-
-    // **Must** be zero-terminated!
-    if ( !cc_str_clear( plies_str__a, unused_size ) ) /* Using size (instead of length) here is ok! */ {
-        CC_FREE( plies_str__a );
-        return NULL;
-    }
 
     //
     // Collect ply string, append to result.
