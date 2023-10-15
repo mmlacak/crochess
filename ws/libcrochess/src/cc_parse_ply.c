@@ -101,9 +101,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
     CcPieceEnum piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type is correct, but color (owner) might not be, if it's not first ply.
+    CcPieceEnum piece = CC_PE_None;
 
     if ( is_first_ply ) {
-        before_ply_start__io->piece = piece_an; // Piece type and owner are correct, on the first ply.
+        before_ply_start__io->piece = piece = piece_an; // Piece type and owner are correct, on the first ply.
         // Position, and tag are generaly not known at this time.
 
         if ( CC_PIECE_IS_KING( piece_an ) ) {
@@ -116,25 +117,21 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
             before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
         }
     } else {
-        CcPos start = before_ply_start__io->pos;
-        CcPieceEnum piece_cb = cc_chessboard_get_piece( *cb__io, start.i, start.j );
-
-        if ( !cc_piece_has_same_type( piece_an, piece_cb ) ) {
-            cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-            if ( !cc_pos_to_short_string( start, &pos_c8 ) ) return false;
-
-            char const * piece_str = cc_piece_as_string( piece_cb, false, true );
+        if ( !cc_piece_has_same_type( piece_an, before_ply_start__io->piece ) ) {
+            char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, false, true );
             char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Unexpected %s found at %s, expected from notation '%c'.\n", piece_str, pos_c8, piece_symbol );
-
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found '%c' in notation, expected %s.\n", piece_symbol, piece_str );
             CC_FREE( ply_an__a );
             return false;
         }
 
         if ( !cc_check_piece_can_be_activated( piece_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // This is fine, color (owner) does not matter.
             return false;
+
+        piece = before_ply_start__io->piece;
     }
+
+    if ( CC_PIECE_IS_NONE( piece ) ) return false;
 
     if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
@@ -175,7 +172,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     before_ply_start__io->pos = pos;
     before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
 
-    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, before_ply_start__io->piece, lte, &steps__t );
+    //
+    // Create a new ply, and take ownership of steps (steps__t).
+
+    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, piece, lte, &steps__t );
     if ( !*ply__o ) return false;
 
     //
