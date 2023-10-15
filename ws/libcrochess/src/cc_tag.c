@@ -43,6 +43,8 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum te ) {
         case CC_LTE_CanRush : return "::";
         case CC_LTE_CanCastle : return "&&";
 
+        case CC_LTE_None : return "";
+
         default : return CC_DEFAULT_ENTITY_STRING;
     }
 }
