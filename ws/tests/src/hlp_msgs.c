@@ -222,6 +222,28 @@ void print_new_code_invalid( char const * restrict str,
     printf( "\ne.g. use `new aoa` to play \"Age Of Aquarius\" variant.\n" );
 }
 
+void print_help_new_player( void ) {
+    printf( "w, W -> light player has won\n"
+            "l, L -> light player is on turn\n"
+            "d, D -> dark player is on turn\n"
+            "b, B -> dark player has won\n"
+            "=    -> draw\n"
+            "-    -> none\n" );
+}
+
+void print_help_player( void ) {
+    printf( "Prints game status, e.g. which player is on turn, if it's draw, etc.\n"
+            "To change game status, use code below as argument, e.g. `player W`:\n\n" );
+
+    print_help_new_player();
+}
+
+void print_new_player_invalid( char c ) {
+    printf( "Unrecognized player code '%c', use following for new game status:\n", c );
+    print_help_new_player();
+    printf( "\ne.g. use `player D` to set dark player on turn.\n" );
+}
+
 void print_help_clear( void ) {
     printf( "Clears all pieces, tags from current chessboard if no parameter\n"
             "is given, otherwise only fields specified in a given list.\n"

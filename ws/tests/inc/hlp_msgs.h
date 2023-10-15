@@ -22,10 +22,15 @@ void print_help_display( void );
 void print_help_tags( void );
 void print_help_about( void );
 void print_help_version( void );
+
 void print_help_new_code( void );
 void print_help_new( void );
 void print_new_code_invalid( char const * restrict str,
                              size_t max_len__d );
+
+void print_help_new_player( void );
+void print_help_player( void );
+void print_new_player_invalid( char c );
 
 void print_help_clear( void );
 void print_help_update( void );

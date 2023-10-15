@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.354:786+20231012.225607"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.355:787+20231015.152527"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -90,6 +90,20 @@ bool print_all_moves( CcMove * restrict moves ) {
     }
 
     return true;
+}
+
+char const * get_game_status_label( CcGameStatusEnum gse ) {
+    switch ( gse ) {
+        case CC_GSE_Turn_Light : return "Light player is on turn.";
+        case CC_GSE_Turn_Dark : return "Dark player is on turn.";
+        case CC_GSE_Win_Light : return "Light player has won.";
+        case CC_GSE_Win_Dark : return "Dark player has won.";
+        case CC_GSE_Draw : return "Draw.";
+
+        case CC_GSE_None : return "Undetermined game status.";
+
+        default : return "Unknown game status.";
+    }
 }
 
 
@@ -210,6 +224,43 @@ int main( void ) {
 
                 cc_parse_msg_free_all( &pm__a );
             }
+        } else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
+                    cc_str_is_equal( token_start, token_end, "player", NULL, BUFSIZ ) ) {
+            CcGameStatusEnum gse = CC_GSE_None;
+
+            if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
+                bool is_turn = false;
+                char turn = *token_start;
+
+                switch ( turn ) {
+                    case 'l' :
+                    case 'L' : gse = CC_GSE_Turn_Light; is_turn = true; break;
+
+                    case 'w' :
+                    case 'W' : gse = CC_GSE_Win_Light; is_turn = true; break;
+
+                    case 'd' :
+                    case 'D' : gse = CC_GSE_Turn_Dark; is_turn = true; break;
+
+                    case 'b' :
+                    case 'B' : gse = CC_GSE_Win_Dark; is_turn = true; break;
+
+                    case '=' : gse = CC_GSE_Draw; is_turn = true; break;
+
+                    case '-' : gse = CC_GSE_None; is_turn = true; break;
+
+                    default : break;
+                }
+
+                if ( is_turn ) {
+                    game__a->status = gse;
+                    printf( "%s\n", get_game_status_label( game__a->status ) );
+                } else {
+                    print_new_player_invalid( turn );
+                }
+            } else {
+                printf( "%s\n", get_game_status_label( game__a->status ) );
+            }
         } else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;
             cc_char_8 code = CC_CHAR_8_EMPTY;
@@ -312,6 +363,9 @@ int main( void ) {
                     print_help_about();
                 else if ( cc_str_is_equal( token_start, token_end, "version", NULL, BUFSIZ ) )
                     print_help_version();
+                else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "player", NULL, BUFSIZ ) )
+                    print_help_new_player();
                 else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||

@@ -13,7 +13,7 @@ extern char const CROCHESS_HISTORY_FILE_NAME[];
 #endif // __WITH_LINE_NOISE__
 
 
-bool cc_move_print_all( CcMove * restrict moves );
+bool print_all_moves( CcMove * restrict moves );
 
 
 int main(void);
