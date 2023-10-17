@@ -156,10 +156,26 @@ CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
 */
 size_t cc_step_count( CcStep * restrict steps );
 
-// TODO :: DOCS
+/**
+    Function finds starting step.
+
+    @param steps A linked list of steps.
+
+    @return Starting step if successful, `NULL` otherwise
+*/
 CcStep * cc_step_find_start( CcStep * restrict steps );
 
-// TODO :: DOCS
+/**
+    Function finds destination step.
+
+    @param steps A linked list of steps.
+
+    @note
+    Destination step is one preceeded by destination separator, i.e. `-` (dash),
+    or is the last, non-starting step in sequence.
+
+    @return Destination step if successful, `NULL` otherwise
+*/
 CcStep * cc_step_find_destination( CcStep * restrict steps );
 
 // /**
@@ -195,7 +211,7 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
 /**
     Function returns new string, containing user-readable representation of a steps.
 
-    @param steps A queue of steps.
+    @param steps A linked list of steps.
 
     @note
     Each step is preceeded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
