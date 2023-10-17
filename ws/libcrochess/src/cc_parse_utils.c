@@ -254,8 +254,28 @@ bool cc_parse_pos( char const * restrict an_str,
     return true;
 }
 
+bool cc_has_steps_in_ply( char const * restrict an_str,
+                          char const * restrict ply_end,
+                          bool check_only_destination_step ) {
+    if ( !an_str ) return false;
+    if ( !ply_end ) return false;
 
-CcStepLinkEnum cc_parse_step_link( char const * restrict an_str ) {
+    char const * c = an_str;
+
+    while ( *c != '\0' && c < ply_end ) {
+        if ( !check_only_destination_step )
+            if ( *c == '.' ) return true;
+
+        if ( *c == '-' ) return true;
+
+        ++c;
+    }
+
+    return false;
+}
+
+CcStepLinkEnum cc_parse_step_link( char const * restrict an_str,
+                                   char const * restrict ply_end ) {
     if ( !an_str ) return CC_SLE_None;
 
     char const * c = an_str;
@@ -270,7 +290,10 @@ CcStepLinkEnum cc_parse_step_link( char const * restrict an_str ) {
     } else if ( *c == ',' ) {
         return CC_SLE_Reposition;
     } else if ( isgraph( *c ) ) {
-        return CC_SLE_Start;
+        if ( cc_has_steps_in_ply( an_str, ply_end, false ) )
+            return CC_SLE_Start;
+        else
+            return CC_SLE_Destination;
     }
 
     return CC_SLE_None;
@@ -296,11 +319,14 @@ char const * cc_next_step_link( char const * restrict an_str,
     if ( !ply_end ) return NULL;
     if ( an_str >= ply_end ) return NULL;
 
-    CcStepLinkEnum sle = cc_parse_step_link( an_str );
-    char const * str__w = an_str + cc_step_link_len( sle );
+    CcStepLinkEnum sle = cc_parse_step_link( an_str, ply_end );
+    char const * str__w = an_str;
+
+    if ( sle != CC_SLE_Destination || cc_has_steps_in_ply( an_str, ply_end, false ) )
+        str__w += cc_step_link_len( sle );
 
     // Skip over everything before step link.
-    while ( ( cc_parse_step_link( str__w ) == CC_SLE_Start ) &&
+    while ( ( cc_parse_step_link( str__w, ply_end ) == CC_SLE_Start ) &&
             ( str__w < ply_end ) )
         ++str__w;
 
@@ -345,7 +371,7 @@ bool cc_ply_an_contains_steps( char const * restrict an_str,
     // Usually, step links are expected somewhere in the middle of AN string ...
     if ( ( an ) && ( an < ply_end ) ) return true;
 
-    CcStepLinkEnum sle = cc_parse_step_link( an_str );
+    CcStepLinkEnum sle = cc_parse_step_link( an_str, ply_end );
 
     // ... but string might start with step link.
     // If it's start of a ply AN, this is an error, but that needs handling somwhere else.

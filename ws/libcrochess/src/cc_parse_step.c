@@ -56,7 +56,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    CcStepLinkEnum sle = cc_parse_step_link( step_start_an );
+    CcStepLinkEnum sle = cc_parse_step_link( step_start_an, step_end_an ); // This is fine, step ends where ply does, or before.
     if ( !cc_check_step_link( sle, step_start_an, step_end_an, parse_msgs__iod ) )
         return false;
 
