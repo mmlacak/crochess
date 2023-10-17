@@ -114,7 +114,7 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
     CcVariantEnum ve = CC_VE_One;
     CcGameStatusEnum gse = CC_GSE_Turn_Light;
 
-    char const * s = setup;
+    char const * s = setup + ( ( *setup == '\"' ) ? 1 : 0 );
     CcGame * game__a = NULL;
 
     if ( before_setup__d ) {
@@ -127,9 +127,8 @@ CcGame * cc_game_setup_from_string__new( char const * restrict setup,
 
         // +1 == next char, after separator (space) following variant symbol string,
         //       or after \" (double quotes) == start of a string, if no variant symbol string
-        s += len
-           + ( ( *setup == ' ' ) ? 1 : 0 )
-           + ( ( *setup == '\"' ) ? 1 : 0 );
+        s += len;
+        s += ( *s == ' ' ) ? 1 : 0;
     }
 
     if ( !game__a ) return NULL;
