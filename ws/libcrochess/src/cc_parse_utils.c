@@ -256,17 +256,17 @@ bool cc_parse_pos( char const * restrict an_str,
 
 bool cc_has_steps_in_ply( char const * restrict an_str,
                           char const * restrict ply_end,
-                          bool check_only_destination_step ) {
+                          bool check_intermediate_steps,
+                          bool check_destination_step ) {
     if ( !an_str ) return false;
     if ( !ply_end ) return false;
+    if ( !check_intermediate_steps && !check_destination_step ) return false;
 
     char const * c = an_str;
 
     while ( *c != '\0' && c < ply_end ) {
-        if ( !check_only_destination_step )
-            if ( *c == '.' ) return true;
-
-        if ( *c == '-' ) return true;
+        if ( check_intermediate_steps && *c == '.' ) return true;
+        if ( check_destination_step && *c == '-' ) return true;
 
         ++c;
     }
@@ -290,7 +290,7 @@ CcStepLinkEnum cc_parse_step_link( char const * restrict an_str,
     } else if ( *c == ',' ) {
         return CC_SLE_Reposition;
     } else if ( isgraph( *c ) ) {
-        if ( cc_has_steps_in_ply( an_str, ply_end, false ) )
+        if ( cc_has_steps_in_ply( an_str, ply_end, true, true ) )
             return CC_SLE_Start;
         else
             return CC_SLE_Destination;
@@ -322,7 +322,7 @@ char const * cc_next_step_link( char const * restrict an_str,
     CcStepLinkEnum sle = cc_parse_step_link( an_str, ply_end );
     char const * str__w = an_str;
 
-    if ( sle != CC_SLE_Destination || cc_has_steps_in_ply( an_str, ply_end, false ) )
+    if ( sle != CC_SLE_Destination || cc_has_steps_in_ply( an_str, ply_end, true, true ) )
         str__w += cc_step_link_len( sle );
 
     // Skip over everything before step link.
