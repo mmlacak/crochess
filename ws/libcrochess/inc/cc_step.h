@@ -127,7 +127,6 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 CcStep * cc_step_extend( CcStep ** restrict steps__io,
                          CcStep ** restrict steps__n );
 
-// TODO :: rename
 /**
     Extends existing linked list with a newly allocated step(s), or initialize it, if it isn't.
 
@@ -145,9 +144,8 @@ CcStep * cc_step_extend( CcStep ** restrict steps__io,
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
-                            CcStep ** restrict steps__n );
-// TODO :: rename
+CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
+                          CcStep ** restrict steps__n );
 
 /**
     Function returning count of steps, based on usage.
@@ -158,7 +156,8 @@ CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
 */
 size_t cc_step_count( CcStep * restrict steps );
 
-// TODO :: cc_step_find_start
+// TODO :: DOCS
+CcStep * cc_step_find_start( CcStep * restrict steps );
 
 // TODO :: DOCS
 CcStep * cc_step_find_destination( CcStep * restrict steps );

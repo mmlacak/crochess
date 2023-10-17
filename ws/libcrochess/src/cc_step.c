@@ -114,8 +114,8 @@ CcStep * cc_step_extend( CcStep ** restrict steps__io,
 }
 
 // TODO :: rename
-CcStep * cc_step_extend_if( CcStep ** restrict steps__iod,
-                            CcStep ** restrict steps__n ) {
+CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
+                          CcStep ** restrict steps__n ) {
     if ( !steps__iod ) return NULL;
     if ( !steps__n ) return NULL;
 
@@ -147,7 +147,14 @@ size_t cc_step_count( CcStep * restrict steps ) {
     return count;
 }
 
-// TODO :: cc_step_find_start
+CcStep * cc_step_find_start( CcStep * restrict steps ) {
+    if ( !steps ) return NULL;
+
+    if ( steps->link == CC_SLE_Start )
+        return steps;
+
+    return NULL;
+}
 
 CcStep * cc_step_find_destination( CcStep * restrict steps ) {
     if ( !steps ) return NULL;

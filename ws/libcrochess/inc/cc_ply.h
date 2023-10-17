@@ -247,8 +247,8 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__io,
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
-                          CcPly ** restrict plies__n );
+CcPly * cc_ply_enlarge( CcPly ** restrict plies__iod,
+                        CcPly ** restrict plies__n );
 
 /**
     Frees all plies in a linked list, and all associated entities.

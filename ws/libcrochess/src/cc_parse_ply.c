@@ -41,9 +41,9 @@ static bool cc_check_king_ply( CcChessboard * restrict cb,
         return false;
     }
 
-    CcPos pos = *pos__o;
+    CcPos pos = *pos__o; // Next iter will start from found position, but we don't want to change what was found.
 
-    if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, &pos ) ) {
+    if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, &pos ) ) { // Check if it's only one King of the same color on chessboard.
         char const * piece_str = cc_piece_as_string( king, false, true );
         cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "More than one %s was found on chessboard.\n", piece_str );
         return false;
@@ -100,11 +100,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     }
 
     bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
-    CcPieceEnum piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type is correct, but color (owner) might not be, if it's not first ply.
-    CcPieceEnum piece = CC_PE_None;
+    CcPieceEnum piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
 
     if ( is_first_ply ) {
-        before_ply_start__io->piece = piece = piece_an; // Piece type and owner are correct, on the first ply.
+        before_ply_start__io->piece = piece_an; // Piece type and owner should be correct, on the first ply.
         // Position, and tag are generaly not known at this time.
 
         if ( CC_PIECE_IS_KING( piece_an ) ) {
@@ -120,18 +119,28 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
         if ( !cc_piece_has_same_type( piece_an, before_ply_start__io->piece ) ) {
             char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, false, true );
             char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found '%c' in notation, expected %s.\n", piece_symbol, piece_str );
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found '%c' in notation, expected %s, in ply '%s'.\n", piece_symbol, piece_str, ply_an__a );
+            CC_FREE( ply_an__a );
+            return false;
+        }
+
+        CcPos pos = before_ply_start__io->pos;
+        CcPieceEnum pe = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
+
+        if ( pe != before_ply_start__io->piece ) {
+            cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+            if ( !cc_pos_to_short_string( pos, &pos_c8 ) )  return false;
+
+            char const * piece_str = cc_piece_as_string( pe, false, true );
+            char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation, in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
             CC_FREE( ply_an__a );
             return false;
         }
 
         if ( !cc_check_piece_can_be_activated( piece_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // This is fine, color (owner) does not matter.
             return false;
-
-        piece = before_ply_start__io->piece;
     }
-
-    if ( CC_PIECE_IS_NONE( piece ) ) return false;
 
     if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
 
@@ -154,7 +163,39 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     }
 
     //
-    // TODO :: if first ply, find starting position, tag for all other pieces
+    // Finding starting position, tag, if first ply.
+
+    CcStep * start = NULL;
+
+    if ( is_first_ply ) {
+        start = cc_step_find_start( steps__t );
+        CcPos start_pos = start->field;
+
+        if ( start ) {
+            CcPieceEnum pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.i );
+
+            if ( pe == before_ply_start__io->piece ) {
+                before_ply_start__io->pos = start_pos;
+                before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, start_pos.i, start_pos.j );
+            } else {
+                cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+                if ( !cc_pos_to_short_string( start_pos, &pos_c8 ) ) {
+                    cc_step_free_all( &steps__t );
+                    return false;
+                }
+
+                char const * piece_str = cc_piece_as_string( pe, false, true );
+                char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+                cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation, in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
+                CC_FREE( ply_an__a );
+
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+        } else {
+            // TODO :: find starting position, tag by reversing pathing on chessboard
+        }
+    }
 
     //
     // Updating last destination, before change.
@@ -166,21 +207,23 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
         return false;
     }
 
-    CcPos pos = destination->field;
+    CcPos dest = destination->field;
+    CcPosPieceTag new_ply_start = CC_POS_PIECE_TAG_CAST_INVALID;
 
-    before_ply_start__io->piece = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
-    before_ply_start__io->pos = pos;
-    before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
-
-    //
-    // Create a new ply, and take ownership of steps (steps__t).
-
-    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, piece, lte, &steps__t );
-    if ( !*ply__o ) return false;
+    new_ply_start.piece = cc_chessboard_get_piece( *cb__io, dest.i, dest.j );
+    new_ply_start.pos = dest;
+    new_ply_start.tag = cc_chessboard_get_tag( *cb__io, dest.i, dest.j );
 
     //
     // TODO :: update cb__io
 
+    //
+    // Create a new ply, which takes ownership of steps (steps__t).
+
+    *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, before_ply_start__io->piece, lte, &steps__t );
+    if ( !*ply__o ) return false;
+
+    *before_ply_start__io = new_ply_start;
 
     return true;
 }
@@ -233,12 +276,12 @@ bool cc_parse_plies( char const * restrict move_an,
         //
         // TODO :: DEBUG :: DELETE
 
-        if ( !cc_ply_extend_if( &plies__t, &ply__t ) ) {
+        if ( !cc_ply_enlarge( &plies__t, &ply__t ) ) {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
 
-            printf( "!cc_ply_extend_if( ... )\n" ); // TODO :: DEBUG :: DELETE
+            printf( "!cc_ply_enlarge( ... )\n" ); // TODO :: DEBUG :: DELETE
 
             return false;
         }

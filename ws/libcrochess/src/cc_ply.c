@@ -164,8 +164,8 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__io,
     return last->next;
 }
 
-CcPly * cc_ply_extend_if( CcPly ** restrict plies__iod,
-                          CcPly ** restrict plies__n ) {
+CcPly * cc_ply_enlarge( CcPly ** restrict plies__iod,
+                        CcPly ** restrict plies__n ) {
     if ( !plies__iod ) return NULL;
     if ( !plies__n ) return NULL;
 

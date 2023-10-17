@@ -117,7 +117,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
             return false;
         }
 
-        if ( !cc_step_extend_if( steps__o, &step__t ) ) {
+        if ( !cc_step_enlarge( steps__o, &step__t ) ) {
             cc_step_free_all( &step__t );
             return false;
         }
