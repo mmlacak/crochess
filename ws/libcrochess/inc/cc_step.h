@@ -171,8 +171,8 @@ CcStep * cc_step_find_start( CcStep * restrict steps );
     @param steps A linked list of steps.
 
     @note
-    Destination step is one preceeded by destination separator, i.e. `-` (dash),
-    or is the last, non-starting step in sequence.
+    Destination step is one preceeded by destination separator, i.e. `-` (hyphen),
+    or is the last, non-starting step in a given list.
 
     @return Destination step if successful, `NULL` otherwise
 */
