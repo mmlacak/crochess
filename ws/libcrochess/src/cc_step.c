@@ -20,6 +20,7 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle ) {
         case CC_SLE_Next : return ".";
         case CC_SLE_Distant : return "..";
         case CC_SLE_Destination : return "-";
+        case CC_SLE_JustDestination : return "";
 
         default : return NULL;
     }
@@ -167,7 +168,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps ) {
         if ( s->link == CC_SLE_None ) return NULL;
 
         if ( s->next ) {
-            if ( s->link == CC_SLE_Destination ) return NULL; // An intermediate destination?
+            if ( CC_IS_STEP_LINK_DESTINATION( s->link ) ) return NULL; // An intermediate destination?
 
             if ( s->link == CC_SLE_Reposition ) {
                 // Reposition is legal only on 1st, or 2nd step.

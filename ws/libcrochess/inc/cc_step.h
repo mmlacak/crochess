@@ -14,6 +14,27 @@
     @brief Steps linked list, storage for link type, field, side-effect.
 */
 
+/**
+    Macro to check if a given step link is valid.
+
+    @param sle Step link, enumerated value.
+
+    @see CcStepLinkEnum
+
+    @return `1` if valid, `0` otherwise.
+*/
+#define CC_IS_STEP_LINK_VALID(sle) ( (sle) != CC_SLE_None )
+
+/**
+    Macro to check if a given step link is destination.
+
+    @param sle Step link, enumerated value.
+
+    @see CcStepLinkEnum
+
+    @return `1` if valid, `0` otherwise.
+*/
+#define CC_IS_STEP_LINK_DESTINATION(sle) ( ( (sle) == CC_SLE_Destination ) || ( (sle) == CC_SLE_JustDestination ) )
 
 /**
     Step link enumeration.
@@ -25,6 +46,7 @@ typedef enum CcStepLinkEnum {
     CC_SLE_Next, /**< Step immediately following previous, separated by . (dot). */
     CC_SLE_Distant, /**< Step not immediately following previous, separated by .. (double-dot). */
     CC_SLE_Destination, /**< Step to destination field, separated by - (hyphen). */
+    CC_SLE_JustDestination, /**< Just destination field, no separators, no other steps. */
 } CcStepLinkEnum;
 
 /**
