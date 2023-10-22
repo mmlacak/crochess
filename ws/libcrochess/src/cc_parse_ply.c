@@ -41,7 +41,7 @@ static bool cc_check_king_ply( CcChessboard * restrict cb,
         return false;
     }
 
-    CcPos pos = *pos__o; // Next iter will start from found position, but we don't want to change what was found.
+    CcPos pos = *pos__o; // Temp var, as next iter will start from found position, but we don't want to change what was already found.
 
     if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, &pos ) ) { // Check if it's only one King of the same color on chessboard.
         char const * piece_str = cc_piece_as_string( king, false, true );

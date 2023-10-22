@@ -43,7 +43,7 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
             return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
 
     if ( *c == '"' ) return CC_PLE_SenseJourney; // "\"" sense-journey
-    if ( *c == '\'' ) return CC_PLE_CascadingPly; // "'" failed sense-journey, oblation
+    if ( *c == '\'' ) return CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
 
     if ( isgraph( *c ) ) return CC_PLE_StartingPly;
 
