@@ -52,7 +52,7 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
     switch ( ple ) {
-        case CC_PLE_None : return 0; /**< Ply link not found, uninitialized, or error happened. */
+        case CC_PLE_None : return 0; /* Ply link not found, uninitialized, or error happened. */
         case CC_PLE_StartingPly : return 0; /* Just first ply, standalone or starting a cascade. */
         case CC_PLE_CascadingPly : return 1; /* Just one ply, continuing cascade. Corresponds to `~`. */
         case CC_PLE_Teleportation : return 1; /* Teleportation of piece. Corresponds to `|`. */
@@ -62,8 +62,8 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
         case CC_PLE_DualTranceJourney : return 2; /* Double trance-journey, corresponds to `@@`. */
         case CC_PLE_FailedTranceJourney : return 3; /* Failed trance-journey, corresponds to `@@@`. */
         case CC_PLE_PawnSacrifice : return 2; /* Pawn sacrifice, corresponds to `;;`. */
-        case CC_PLE_SenseJourney : return 1; /**< Sense-journey, corresponds to `"`. */
-        case CC_PLE_FailedSenseJourney : return 1; /**< Failed sense-journey, corresponds to `'`. */
+        case CC_PLE_SenseJourney : return 1; /* Sense-journey, corresponds to `"`. */
+        case CC_PLE_FailedSenseJourney : return 1; /* Failed sense-journey, corresponds to `'`. */
 
         default : return 0;
     }
@@ -301,7 +301,7 @@ CcStepLinkEnum cc_parse_step_link( char const * restrict an_str,
 
 size_t cc_step_link_len( CcStepLinkEnum sle ) {
     switch ( sle ) {
-        case CC_SLE_None : return 0; /**< Step link not found, uninitialized, or error happened. */
+        case CC_SLE_None : return 0; /* Step link not found, uninitialized, or error happened. */
         case CC_SLE_Start : return 0; /* Position from which a piece started moving. */
         case CC_SLE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
         case CC_SLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
