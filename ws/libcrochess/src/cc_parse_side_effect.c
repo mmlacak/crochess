@@ -139,14 +139,19 @@ static bool cc_check_position_is_on_board( CcPos pos,
     return true;
 }
 
-static bool cc_check_piece_can_capture_en_passant( CcPieceEnum piece,
-                                                   char const * restrict step_start_an,
-                                                   char const * restrict step_end_an,
-                                                   CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece ) ) {
+static bool cc_check_piece_en_passant( CcPieceEnum piece,
+                                       bool is_capturing,
+                                       char const * restrict msg_fmt,
+                                       char const * restrict step_start_an,
+                                       char const * restrict step_end_an,
+                                       CcParseMsg ** restrict parse_msgs__iod ) {
+    bool is_en_passant = is_capturing ? CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece )
+                                      : CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( piece );
+
+    if ( !is_en_passant ) {
         char const * piece_str = cc_piece_as_string( piece, false, true );
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", piece_str, step_an__a );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -534,8 +539,24 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
             return true;
         } case CC_SEE_EnPassant : {
-            if ( !cc_check_piece_can_capture_en_passant( before_ply_start.piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_check_piece_en_passant( before_ply_start.piece, true, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
+
+            if ( !cc_check_field_is_empty( step_piece, "Capturing by en passant can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                return false;
+
+            char piece_symbol = ' ';
+
+            if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
+                bool is_light = !cc_piece_is_light( before_ply_start.piece ); // !light because capturing opponent's piece.
+                CcPieceEnum maybe_private = cc_piece_from_symbol( piece_symbol, is_light );
+
+                if ( !cc_check_piece_en_passant( maybe_private, false, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                    return false;
+
+                ++se_an;
+            }
+
 
             return false; // TODO :: en passant
         } case CC_SEE_Castle : {

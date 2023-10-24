@@ -318,12 +318,37 @@
                                 && ( (pe) != CC_PE_LightStarchild )     \
                                 && ( (pe) != CC_PE_Monolith ) )
 
+/**
+    Macro expression to evaluate whether piece can capture other piece en passant.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece can capture, `false` otherwise.
+*/
 #define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
                                            || ( (pe) == CC_PE_DarkScout )           \
                                            || ( (pe) == CC_PE_DarkPawn )            \
                                            || ( (pe) == CC_PE_LightPawn )           \
                                            || ( (pe) == CC_PE_LightScout )          \
                                            || ( (pe) == CC_PE_LightGrenadier ) )
+
+/**
+    Macro expression to evaluate whether piece can be captured en passant.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece can capture, `false` otherwise.
+*/
+#define CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
+                                               || ( (pe) == CC_PE_DarkScout )           \
+                                               || ( (pe) == CC_PE_DarkPawn )            \
+                                               || ( (pe) == CC_PE_LightPawn )           \
+                                               || ( (pe) == CC_PE_LightScout )          \
+                                               || ( (pe) == CC_PE_LightGrenadier ) )
 
 /**
     Macro expression to evaluate whether piece is passive.
