@@ -176,7 +176,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
 /**
     Allocates a new ply, appends it to a linked list.
 
-    @param plies__io _Input/output_ parameter, linked list of plies, to which a newly allocated ply is appended, can be `NULL`.
+    @param plies__iod _Input/output_ parameter, linked list of plies, to which a newly allocated ply is appended, can be `NULL`.
     @param start_an__d _Optional_, start of a ply notation substring. Can be `NULL`, if so `notation` member is initialized to `NULL`.
     @param end_an__d _Optional_, end of a ply notation substring. Can be `NULL` if so whole zero-terminated string is copied.
     @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
@@ -186,16 +186,16 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     @param steps__n Steps, linked list, can be `NULL`.
 
     @note
-    Linked list `*plies__io` can be `NULL`, a ply will still be allocated, and returned.
+    Linked list `*plies__iod` can be `NULL`, a ply will still be allocated, and returned.
 
     @note
-    If linked list `*plies__io` is `NULL`, it will be initialized,
+    If linked list `*plies__iod` is `NULL`, it will be initialized,
     with a newly allocated ply as its first element.
 
     @return
     Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_expand( CcPly ** restrict plies__io,
+CcPly * cc_ply_expand( CcPly ** restrict plies__iod,
                        char const * restrict start_an__d,
                        char const * restrict end_an__d,
                        size_t max_len__d,

@@ -26,7 +26,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
                               CcPos start,
                               CcPos destination );
 
-bool cc_delete_en_passant_tag( CcChessboard * restrict cb );
+bool cc_delete_all_en_passant_tags( CcChessboard * restrict cb );
 
 
 #endif /* __CC_RULES_MISC_H__ */

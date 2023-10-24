@@ -79,7 +79,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     return ply__t;
 }
 
-CcPly * cc_ply_expand( CcPly ** restrict plies__io,
+CcPly * cc_ply_expand( CcPly ** restrict plies__iod,
                        char const * restrict start_an__d,
                        char const * restrict end_an__d,
                        size_t max_len__d,
@@ -87,20 +87,20 @@ CcPly * cc_ply_expand( CcPly ** restrict plies__io,
                        CcPieceEnum piece,
                        CcLosingTagEnum lost_tag,
                        CcStep ** restrict steps__n ) {
-    if ( !plies__io ) return NULL;
+    if ( !plies__iod ) return NULL;
 
     CcPly * ply__w = NULL;
 
-    if ( !*plies__io )
-        *plies__io = ply__w = cc_ply__new( start_an__d,
-                                           end_an__d,
-                                           max_len__d,
-                                           link,
-                                           piece,
-                                           lost_tag,
-                                           steps__n );
+    if ( !*plies__iod )
+        *plies__iod = ply__w = cc_ply__new( start_an__d,
+                                            end_an__d,
+                                            max_len__d,
+                                            link,
+                                            piece,
+                                            lost_tag,
+                                            steps__n );
     else
-        ply__w = cc_ply_append( *plies__io,
+        ply__w = cc_ply_append( *plies__iod,
                                 start_an__d,
                                 end_an__d,
                                 max_len__d,

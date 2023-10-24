@@ -123,10 +123,8 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
     return false;
 }
 
-bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
+bool cc_delete_all_en_passant_tags( CcChessboard * restrict cb ) {
     if ( !cb ) return false;
-
-    unsigned int count = 0;
 
     for ( int i = 0; i < (int)cb->size; ++i ) {
         for ( int j = 0; j < (int)cb->size; ++j ) {
@@ -135,11 +133,9 @@ bool cc_delete_en_passant_tag( CcChessboard * restrict cb ) {
             if ( te == CC_TE_EnPassant ) {
                 if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )
                     return false;
-
-                ++count;
             }
         }
     }
 
-    return ( count <= 1 );
+    return true;
 }
