@@ -27,7 +27,7 @@
 
 //     CC_FREE( step_an__a );
 
-//     return false;
+//     return true;
 // }
 
 static bool cc_check_piece_has_congruent_type( char piece_symbol,
@@ -58,7 +58,7 @@ static bool cc_check_piece_can_be_captured( CcPieceEnum piece,
         return false;
     }
 
-    return false;
+    return true;
 }
 
 static bool cc_check_piece_symbol_is_valid( char piece_symbol,
@@ -72,7 +72,7 @@ static bool cc_check_piece_symbol_is_valid( char piece_symbol,
         return false;
     }
 
-    return false;
+    return true;
 }
 
 static bool cc_check_promote_to_piece_is_valid( CcPieceEnum promote_to_piece,
@@ -87,7 +87,7 @@ static bool cc_check_promote_to_piece_is_valid( CcPieceEnum promote_to_piece,
         return false;
     }
 
-    return false;
+    return true;
 }
 
 static bool cc_check_piece_can_be_displaced( CcPieceEnum piece,
@@ -135,7 +135,23 @@ static bool cc_check_position_is_on_board( CcPos pos,
         return false;
     }
 
-    return false;
+    return true;
+}
+
+static bool cc_check_field_is_empty( CcPieceEnum piece,
+                                     char const * restrict msg_fmt,
+                                     char const * restrict step_start_an,
+                                     char const * restrict step_end_an,
+                                     CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_NONE( piece ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        char const * piece_str = cc_piece_as_string( piece, false, true );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, piece_str, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return true;
 }
 
 static bool cc_check_promoting_piece_is_pawn( CcPieceEnum piece,
@@ -151,7 +167,7 @@ static bool cc_check_promoting_piece_is_pawn( CcPieceEnum piece,
         return false;
     }
 
-    return false;
+    return true;
 }
 
 static bool cc_check_piece_can_be_converted( CcPieceEnum piece,
@@ -166,7 +182,7 @@ static bool cc_check_piece_can_be_converted( CcPieceEnum piece,
         return false;
     }
 
-    return false;
+    return true;
 }
 
 static bool cc_check_failed_conversion( CcPieceEnum piece,
@@ -181,22 +197,7 @@ static bool cc_check_failed_conversion( CcPieceEnum piece,
         return false;
     }
 
-    return false;
-}
-
-static bool cc_check_field_is_empty( CcPieceEnum piece,
-                                     char const * restrict step_start_an,
-                                     char const * restrict step_end_an,
-                                     CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( !CC_PIECE_IS_NONE( piece ) ) {
-        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        char const * piece_str = cc_piece_as_string( piece, false, true );
-        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", piece_str, step_an__a );
-        CC_FREE( step_an__a );
-        return false;
-    }
-
-    return false;
+    return true;
 }
 
 static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
@@ -211,7 +212,7 @@ static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
         return false;
     }
 
-    return false;
+    return true;
 }
 
 static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
@@ -517,8 +518,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
             return true;
         } case CC_SEE_EnPassant : {
-            // TODO :: en passant
-            return false;
+
+            return false; // TODO :: en passant
         } case CC_SEE_Castle : {
             if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
@@ -629,7 +630,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             return false;
         } case CC_SEE_Resurrection : { // Intentional fall-through ...
         } case CC_SEE_ResurrectingOpponent : {
-            if ( !cc_check_field_is_empty( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !cc_check_field_is_empty( step_piece, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
