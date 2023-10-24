@@ -318,6 +318,13 @@
                                 && ( (pe) != CC_PE_LightStarchild )     \
                                 && ( (pe) != CC_PE_Monolith ) )
 
+#define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
+                                           || ( (pe) == CC_PE_DarkScout )           \
+                                           || ( (pe) == CC_PE_DarkPawn )            \
+                                           || ( (pe) == CC_PE_LightPawn )           \
+                                           || ( (pe) == CC_PE_LightScout )          \
+                                           || ( (pe) == CC_PE_LightGrenadier ) )
+
 /**
     Macro expression to evaluate whether piece is passive.
 
