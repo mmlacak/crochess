@@ -433,7 +433,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         return false;
     }
 
-    CcPos step = is_queen_side ? cc_pos( -1, 0 ) : cc_pos( 1, 0 );
+    CcPos step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
     CcPieceEnum rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
     int rook_i = cc_get_figure_initial_file( cb->type, rook, is_queen_side );
     CcPos pos = cc_pos_add( before_ply_start.pos, step, 1 ); // First step from King's initial position.
@@ -463,7 +463,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
     }
 
     int rook_end_i = is_queen_side ? step_pos__io->i + 1 : step_pos__io->i - 1;
-    CcPos rook_end = cc_pos( rook_end_i, init_j );
+    CcPos rook_end = CC_POS_CAST( rook_end_i, init_j );
 
     if ( cc_pos_is_disambiguation( *rook_dest__io ) ) {
         if ( !cc_pos_is_congruent( rook_end, *rook_dest__io ) ) {
@@ -477,7 +477,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
 
     *rook_dest__io = rook_end;
     *rook__o = rook;
-    *rook_init__o = cc_pos( rook_i, init_j );
+    *rook_init__o = CC_POS_CAST( rook_i, init_j );
 
     return true;
 
@@ -699,7 +699,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false;
 
             *side_effect__o = cc_side_effect_en_passant( step_piece, captured_at );
-            return false; // TODO :: en passant
+            return true;
         } case CC_SEE_Castle : {
             if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;

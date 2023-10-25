@@ -32,7 +32,7 @@ void test_gcd( int x, int y ) {
 }
 
 void test_pos_step( int i1, int j1, int i2, int j2 ) {
-    CcPos step = cc_pos_step( cc_pos( i1, j1 ), cc_pos( i2, j2 ) );
+    CcPos step = cc_pos_step( CC_POS_CAST( i1, j1 ), CC_POS_CAST( i2, j2 ) );
     printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
 }
 

@@ -65,7 +65,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count ) {
     if ( CC_IS_COORD_VALID( pos.j ) && CC_IS_COORD_VALID( step.j ) )
         j = pos.j + count * step.j;
 
-    return cc_pos( i, j );
+    return CC_POS_CAST( i, j );
 }
 
 CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count ) {
@@ -78,7 +78,7 @@ CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count ) {
     if ( CC_IS_COORD_VALID( pos.j ) && CC_IS_COORD_VALID( step.j ) )
         j = pos.j - count * step.j;
 
-    return cc_pos( i, j );
+    return CC_POS_CAST( i, j );
 }
 
 CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 ) {
@@ -91,7 +91,7 @@ CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 ) {
     if ( CC_IS_COORD_VALID( pos_1.j ) && CC_IS_COORD_VALID( pos_2.j ) )
         j = pos_1.j - pos_2.j;
 
-    return cc_pos( i, j );
+    return CC_POS_CAST( i, j );
 }
 
 CcPos cc_pos_step( CcPos start, CcPos destination ) {
@@ -104,7 +104,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination ) {
     diff_i /= gcd;
     diff_j /= gcd;
 
-    return cc_pos( diff_i, diff_j );
+    return CC_POS_CAST( diff_i, diff_j );
 }
 
 int cc_pos_momentum( CcPos start, CcPos destination ) {

@@ -25,9 +25,9 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
     if ( !cc_chessboard_is_pos_on_board( cb_before_activation, pos.i, pos.j ) )
         pos = CC_POS_CAST_ORIGIN_FIELD;
     else if ( pos.j < size - 1 )
-        pos = cc_pos( pos.i, pos.j + 1 );
+        pos = CC_POS_CAST( pos.i, pos.j + 1 );
     else
-        pos = cc_pos( pos.i + 1, 0 );
+        pos = CC_POS_CAST( pos.i + 1, 0 );
 
     bool is_comparable = cc_pos_is_valid( expected ) ||
                          cc_pos_is_disambiguation( expected );
@@ -38,7 +38,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
 
             if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {
-                CcPos current = cc_pos( i, j );
+                CcPos current = CC_POS_CAST( i, j );
 
                 if ( ( !is_comparable ) ||
                        cc_pos_is_congruent( expected, current ) ) {
