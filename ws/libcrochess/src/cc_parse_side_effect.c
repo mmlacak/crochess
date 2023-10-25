@@ -159,6 +159,121 @@ static bool cc_check_piece_en_passant( CcPieceEnum piece,
     return true;
 }
 
+static bool cc_check_en_passant_file( CcPos en_passant_location,
+                                      CcChessboard * restrict cb,
+                                      char const * restrict step_start_an,
+                                      char const * restrict step_end_an,
+                                      CcParseMsg ** restrict parse_msgs__iod ) {
+    if ( ( !cc_chessboard_is_coord_on_board( cb, en_passant_location.j ) )
+         || ( CC_IS_COORD_VALID( en_passant_location.i )
+              && ( !cc_chessboard_is_coord_on_board( cb, en_passant_location.i ) ) ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "En passant location, if given, has to be on chessboard, in step '%s'.\n", step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    return true;
+}
+
+static bool cc_check_captured_en_passant( CcPieceEnum capturing,
+                                          CcPos step,
+                                          CcPos en_passant_location,
+                                          CcPieceEnum maybe_captured,
+                                          CcPos * restrict captured_at__o,
+                                          CcChessboard * restrict cb,
+                                          char const * restrict step_start_an,
+                                          char const * restrict step_end_an,
+                                          CcParseMsg ** restrict parse_msgs__iod ) {
+    int stepping = cc_piece_is_light( capturing ) ? -1 : 1; // Rank direction, where to search for captured private.
+    int max_rank = cb->size / 2;
+
+    CcPos captured_at = CC_POS_CAST_INVALID;
+    CcPieceEnum captured = CC_PE_None;
+
+    for ( int rank = step.j; rank <= max_rank; rank += stepping ) {
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, step.i, rank );
+
+        if ( CC_PIECE_IS_NONE( pe ) ) continue;
+
+        if ( rank == step.j ) { // Step destination must be empty.
+            char const * piece_str = cc_piece_as_string( pe, false, true );
+            char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "En passant destination must be empty, encountered %s in step '%s'.\n", piece_str, step_an__a );
+            CC_FREE( step_an__a );
+            return false;
+        }
+
+        if ( !CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( pe ) ) {
+            char const * piece_str = cc_piece_as_string( pe, false, true );
+            char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", piece_str, step_an__a );
+            CC_FREE( step_an__a );
+            return false;
+        }
+
+        CcTagEnum te = cc_chessboard_get_tag( cb, step.i, rank );
+
+        if ( !CC_TAG_CAN_EN_PASSANT( te ) ) {
+            char const * piece_str = cc_piece_as_string( pe, false, true );
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Private %s has not been rushed in the very previous move.\n", piece_str );
+            return false;
+        }
+
+        captured_at = CC_POS_CAST( step.i, rank );
+        captured = pe;
+        break;
+    }
+
+    if ( CC_PIECE_IS_NONE( captured ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Could not find piece captured en passant, in step '%s'.\n", step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    if ( !cc_chessboard_is_pos_on_board( cb, captured_at.i, captured_at.j ) ) {
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Could not find location where piece was captured en passant, in step '%s'.\n", step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    if ( !CC_PIECE_IS_NONE( maybe_captured ) ) {
+        if ( !CC_PIECE_IS_THE_SAME( maybe_captured, captured ) ) {
+            char const * maybe_str = cc_piece_as_string( maybe_captured, false, true );
+            char const * captured_str = cc_piece_as_string( captured, true, true );
+
+            char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+            cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s should have been captured en passant, encountered %s, in step '%s'.\n", maybe_str, captured_str, step_an__a );
+            CC_FREE( step_an__a );
+            return false;
+        }
+    }
+
+    if ( ( captured_at.j != en_passant_location.j )
+         || ( CC_IS_COORD_VALID( en_passant_location.i )
+              && ( captured_at.i != en_passant_location.i ) ) ) {
+        cc_char_8 step_c8 = CC_CHAR_8_EMPTY;
+        if ( !cc_pos_to_short_string( step, &step_c8 ) ) return false;
+
+        cc_char_8 epl_c8 = CC_CHAR_8_EMPTY;
+        if ( !cc_pos_to_short_string( en_passant_location, &epl_c8 ) ) return false;
+
+        char const * capturing_str = cc_piece_as_string( capturing, false, true );
+        char const * captured_str = cc_piece_as_string( captured, true, true );
+
+        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_expand_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s at '%s' to be captured en passant has to be on the same file (or field, if given) as ply destination '%s' of capturing %s, in step '%s'.\n", captured_str, epl_c8, step_c8, capturing_str, step_an__a );
+        CC_FREE( step_an__a );
+        return false;
+    }
+
+    *captured_at__o = captured_at;
+    return true;
+}
+
+
 static bool cc_check_field_is_empty( CcPieceEnum piece,
                                      char const * restrict msg_fmt,
                                      char const * restrict step_start_an,
@@ -391,7 +506,15 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
     if ( !side_effect__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    if ( sle == CC_SLE_None ) return false; // Just sanity check; error msg is produced when parsing step, in cc_check_step_link().
+    // Just sanity checks.
+    if ( sle == CC_SLE_None ) return false;
+
+    if ( !game->chessboard ) return false;
+    if ( cb->type != game->chessboard->type ) return false;
+    if ( cb->size != game->chessboard->size ) return false;
+
+    if ( !cc_chessboard_is_pos_on_board( cb, step_pos__io->i, step_pos__io->j ) )
+        return false;
 
     CcPieceEnum step_piece = cc_chessboard_get_piece( cb, step_pos__io->i, step_pos__io->j );
     bool has_promotion_sign = false;
@@ -546,6 +669,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 return false;
 
             char piece_symbol = ' ';
+            CcPieceEnum maybe_captured = CC_PE_None;
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
                 bool is_light = !cc_piece_is_light( before_ply_start.piece ); // !light because capturing opponent's piece.
@@ -554,10 +678,27 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                 if ( !cc_check_piece_en_passant( maybe_private, false, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
+                maybe_captured = maybe_private;
                 ++se_an;
             }
 
+            CcPos maybe_en_passant_location = CC_POS_CAST_INVALID;
+            char const * pos_end_an = NULL;
 
+            if ( !cc_parse_and_check_position( se_an, &maybe_en_passant_location, &pos_end_an, "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                return false;
+
+            if ( CC_IS_COORD_VALID( maybe_en_passant_location.j ) ) { // If location is given, at least rank must be valid.
+                if ( !cc_check_en_passant_file( maybe_en_passant_location, cb, step_start_an, step_end_an, parse_msgs__iod ) )
+                    return false;
+            }
+
+            CcPos captured_at = CC_POS_CAST_INVALID;
+
+            if ( !cc_check_captured_en_passant( before_ply_start.piece, *step_pos__io, maybe_en_passant_location, maybe_captured, &captured_at, cb, step_start_an, step_end_an, parse_msgs__iod ) )
+                return false;
+
+            *side_effect__o = cc_side_effect_en_passant( step_piece, captured_at );
             return false; // TODO :: en passant
         } case CC_SEE_Castle : {
             if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
