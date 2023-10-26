@@ -291,19 +291,34 @@ typedef struct CcPosPieceTag {
 #define CC_POS_PIECE_TAG_CAST_STATIC_STEP ( (CcPosPieceTag)CC_POS_PIECE_TAG_STATIC_STEP )
 
 /**
-    Convenience macro which returns position + piece struct.
+    Macro which constructs position + piece + tag struct.
 
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
-    @param piece A piece.
-    @param tag A tag.
-
-    @return Position + piece + tag value.
+    @param piece_enum A piece.
+    @param tag_enum A tag.
 
     @see cc_pos_piece_tag(), cc_pos()
+
+    @return Position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG(int_i,int_j,piece,tag) \
-    ( cc_pos_piece_tag( CC_POS_CAST( (int_i), (int_j) ), (piece), (tag) ) )
+#define CC_POS_PIECE_TAG(int_i,int_j,piece_enum,tag_enum) \
+    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum) }
+
+/**
+    Macro which constructs casted position + piece + tag struct.
+
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+    @param piece_enum A piece.
+    @param tag_enum A tag.
+
+    @see cc_pos_piece_tag(), cc_pos()
+
+    @return Casted position + piece + tag value.
+*/
+#define CC_POS_PIECE_TAG_CAST(int_i,int_j,piece_enum,tag_enum) \
+    ( (CcPosPieceTag)CC_POS_PIECE_TAG( int_i, int_j, piece_enum, tag_enum ) )
 
 
 /**
@@ -419,7 +434,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_pos_link_expand()
 */
-#define CC_POS_LINK_APPEND_IF(ptr_ptr__pos_link__io,pos,piece,tag) \
+#define CC_POS_LINK_EXPAND(ptr_ptr__pos_link__io,pos,piece,tag) \
     ( cc_pos_link_expand( (ptr_ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
 
 /**
