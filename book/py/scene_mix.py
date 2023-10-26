@@ -34,10 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_o_17_starchild_divergence_end', \
-                    # 'scn_o_18_starchild_cannot_be_activated', \
-                    # 'scn_o_19_activating_piece_no_momentum', \
-                    # 'scn_o_20_diverging_piece_no_momentum', \
-                    'scn_o_21_activating_piece_surplus_momentum', \
-                    'scn_o_22_diverging_piece_surplus_momentum', \
+                    'scn_mv_57_wave_block_castling_king', \
                 ]
