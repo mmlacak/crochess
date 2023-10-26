@@ -2753,3 +2753,34 @@ class SceneMirandasVeilMixin:
         scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
+
+    def scn_mv_58_wave_block_castling_rook(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_58_wave_block_castling_rook', bt, height=1)
+
+        prev_K = (8, 0)
+        start_K = (5, 0)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_R_A = (0, 0)
+        scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
+
+        start_R_B = (15, 0)
+        scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+
+        start_W = (3, 0)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # R -->|
+        coords = GS.gen_steps( start=start_R_A, rels=[(1, 0), ], include_prev=True, count=6 )
+        for i, step in enumerate( coords() ):
+            mark_type = MarkType.Illegal if i >= 2 else \
+                        MarkType.Legal
+
+            scene.append_arrow( *step, mark_type=mark_type )
+
+        scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
