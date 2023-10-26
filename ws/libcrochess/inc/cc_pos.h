@@ -63,22 +63,22 @@ typedef struct CcPos {
 /**
     Macro definition for a position.
 
-    @param ii File, horizontal coordinate.
-    @param jj Rank, vertical coordinate.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return Position with a given coordinates.
 */
-#define CC_POS(ii,jj) { .i = (int)(ii), .j = (int)(jj) }
+#define CC_POS(int_i,int_j) { .i = (int)(int_i), .j = (int)(int_j) }
 
 /**
     Macro definition for a casted position.
 
-    @param ii File, horizontal coordinate.
-    @param jj Rank, vertical coordinate.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return Casted position with a given coordinates.
 */
-#define CC_POS_CAST(ii,jj) ( (CcPos)CC_POS( ii, jj ) )
+#define CC_POS_CAST(int_i,int_j) ( (CcPos)CC_POS( int_i, int_j ) )
 
 
 /**
@@ -302,7 +302,7 @@ typedef struct CcPosPieceTag {
 
     @see cc_pos_piece_tag(), cc_pos()
 */
-#define CC_POS_PIECE(int_i,int_j,piece,tag) \
+#define CC_POS_PIECE_TAG(int_i,int_j,piece,tag) \
     ( cc_pos_piece_tag( CC_POS_CAST( (int_i), (int_j) ), (piece), (tag) ) )
 
 
