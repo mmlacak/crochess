@@ -227,6 +227,34 @@ and light King wouldn't be in check.
 % ................................................. Wave is transparent
 \clearpage % ..........................................................
 
+\subsubsection*{Wave is blocking castling}
+\addcontentsline{toc}{subsubsection}{Wave is blocking castling}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Wave is blocking castling}
+
+Note, even though Wave is transparent, all step-fields of both King and Rook
+must be empty, before they can castle.
+
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_block_castling_king.png}
+\caption{Castling King blocked}
+\label{fig:scn_mv_09_wave_block_castling_king}
+\end{figure}
+
+Above, Wave is blocking light King from castling fully to the left.
+
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_block_castling_rook.png}
+\caption{Castling Rook blocked}
+\label{fig:scn_mv_10_wave_block_castling_rook}
+\end{figure}
+
+Even if King tries to castle short, now Rook A is blocked by the same Wave;
+and so this Queen-side castling is illegal.
+
+\clearpage % ..........................................................
+
 \subsubsection*{Piece blocked}
 \addcontentsline{toc}{subsubsection}{Piece blocked}
 \label{sec:Miranda's veil/Wave/Activation/Piece blocked}
@@ -234,9 +262,9 @@ and light King wouldn't be in check.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_no_activating_blocked_piece.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_no_activating_blocked_piece.png}
 \caption{Piece blocked}
-\label{fig:scn_mv_09_wave_no_activating_blocked_piece}
+\label{fig:scn_mv_11_wave_no_activating_blocked_piece}
 \end{figure}
 
 Wave cannot activate blocked pieces, even if it has momentum. Here, Pawn is blocked
@@ -255,9 +283,9 @@ momentum received from Knight.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_bishop_activating_wave.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_bishop_activating_wave.png}
 \caption{Bishop activating Wave}
-\label{fig:scn_mv_10_bishop_activating_wave}
+\label{fig:scn_mv_12_bishop_activating_wave}
 \end{figure}
 
 Generally, activated Wave inherits way of movement from activating piece. Wave activated
@@ -271,10 +299,10 @@ past any piece as if it's not there.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_activated_by_bishop.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_13_wave_activated_by_bishop.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Wave activated by Bishop}
-\label{fig:scn_mv_11_wave_activated_by_bishop}
+\label{fig:scn_mv_13_wave_activated_by_bishop}
 \end{figure}
 
 Here, Wave (now "in the air") activated by Bishop moves like one, i.e. along one chosen
@@ -292,9 +320,9 @@ limited by 4 received momentum, and can reach edge of chessboard.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_12_knight_activating_wave.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_14_knight_activating_wave.png}
 \caption{Knight activating Wave}
-\label{fig:scn_mv_12_knight_activating_wave}
+\label{fig:scn_mv_14_knight_activating_wave}
 \end{figure}
 
 Wave can make multiple steps in a ply, even if activated by a piece which can make only
@@ -307,9 +335,9 @@ Here, Knight is about to activate Wave, and transfer to it one momentum.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_13_wave_activated_by_knight.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_wave_activated_by_knight.png}
 \caption{Wave activated by Knight}
-\label{fig:scn_mv_13_wave_activated_by_knight}
+\label{fig:scn_mv_15_wave_activated_by_knight}
 \end{figure}
 
 Here, Wave (now "in the air") activated by light Knight can choose one semi-diagonal
@@ -327,9 +355,9 @@ to the edge of chessboard. So, Wave activated by Knight moves like a Pegasus.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_14_king_activating_wave.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_16_king_activating_wave.png}
 \caption{King activating Wave}
-\label{fig:scn_mv_14_king_activating_wave}
+\label{fig:scn_mv_16_king_activating_wave}
 \end{figure}
 
 Similarly, Wave activated by King can choose one direction along diagonals, horizontal
@@ -340,10 +368,10 @@ or vertical lines (corresponding to steps King can make).
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_wave_activated_by_king.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_17_wave_activated_by_king.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Wave activated by King}
-\label{fig:scn_mv_15_wave_activated_by_king}
+\label{fig:scn_mv_17_wave_activated_by_king}
 \end{figure}
 
 Then, Wave (now "in the air") activated by King can move over multiple step-fields,
@@ -361,10 +389,10 @@ for duration of a ply. So, Wave activated by King moves like a Queen.
 \vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_16_wave_activation_by_step_pawn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_18_wave_activation_by_step_pawn.png}
 \vspace*{-1.3\baselineskip}
 \caption{Pawn activates Wave on step-field}
-\label{fig:scn_mv_16_wave_activation_by_step_pawn}
+\label{fig:scn_mv_18_wave_activation_by_step_pawn}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -381,9 +409,9 @@ and can continue rushing further.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_17_wave_activated_by_step_pawn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_19_wave_activated_by_step_pawn.png}
 \caption{Wave activated on Pawn's step-field}
-\label{fig:scn_mv_17_wave_activated_by_step_pawn}
+\label{fig:scn_mv_19_wave_activated_by_step_pawn}
 \end{figure}
 
 In all cases, Wave activated on Pawn's step-fields can move only forward, until the end
@@ -397,9 +425,9 @@ opponent's piece (dark Wave), nor own (Pawn 3).
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_18_wave_activation_by_capture_pawn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_20_wave_activation_by_capture_pawn.png}
 \caption{Pawn activates Wave on capture-field}
-\label{fig:scn_mv_18_wave_activation_by_capture_pawn}
+\label{fig:scn_mv_20_wave_activation_by_capture_pawn}
 \end{figure}
 
 In this example, Wave can be activated by Pawn on its capture-field, receiving 1 momentum.
@@ -414,9 +442,9 @@ present.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_19_wave_activated_by_capture_pawn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_21_wave_activated_by_capture_pawn.png}
 \caption{Wave activated on Pawn's capture-field}
-\label{fig:scn_mv_19_wave_activated_by_capture_pawn}
+\label{fig:scn_mv_21_wave_activated_by_capture_pawn}
 \end{figure}
 
 Wave could also activate either light Bishop or light Knight, giving it received 1 momentum.
@@ -436,10 +464,10 @@ Wave can't activate neither light Pegasus, nor dark Wave.
 \noindent
 \begin{wrapfigure}[10]{l}{0.45\textwidth}
 \centering
-\includegraphics[width=0.4375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_20_wave_same_color.png}
+\includegraphics[width=0.4375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_22_wave_same_color.png}
 \vspace*{-0.3\baselineskip}
 \caption{Wave short jump}
-\label{fig:scn_mv_20_wave_same_color}
+\label{fig:scn_mv_22_wave_same_color}
 \end{wrapfigure}
 Wave, activated by Unicorn on a field with the same color as Wave, has the same step-fields
 as Knight has.
@@ -451,10 +479,10 @@ as Unicorn has. For comparison, short steps are also numbered (grey).
 \noindent
 \begin{wrapfigure}[18]{l}{0.7\textwidth}
 \centering
-\includegraphics[width=0.6875\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_21_wave_opposite_color.png}
+\includegraphics[width=0.6875\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_23_wave_opposite_color.png}
 \vspace*{-0.3\baselineskip}
 \caption{Wave long jump}
-\label{fig:scn_mv_21_wave_opposite_color}
+\label{fig:scn_mv_23_wave_opposite_color}
 \end{wrapfigure}
 On two initial steps, Wave can freely choose any marked fields, regardless if it's long or short step.
 If Wave was positioned on a same-color field, first step would be short, and second one long; vice versa
@@ -466,10 +494,10 @@ the two initially chosen steps, for the remainder of a ply.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_22_wave_activation_by_unicorn_first_step.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_wave_activation_by_unicorn_first_step.png}
 \vspace*{-1.3\baselineskip}
 \caption{Unicorn activates Wave}
-\label{fig:scn_mv_22_wave_activation_by_unicorn_first_step}
+\label{fig:scn_mv_24_wave_activation_by_unicorn_first_step}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -485,9 +513,9 @@ step, only it has to move past light Pawn on it.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_23_wave_activation_by_unicorn_second_step.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_wave_activation_by_unicorn_second_step.png}
 \caption{Wave activated by Unicorn, step 1}
-\label{fig:scn_mv_23_wave_activation_by_unicorn_second_step}
+\label{fig:scn_mv_25_wave_activation_by_unicorn_second_step}
 \end{figure}
 
 Here, after first step, light Wave is located on an opposite-color (dark) field, so all available
@@ -501,9 +529,9 @@ on it, and continue moving further.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_wave_activation_by_unicorn_complete.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_wave_activation_by_unicorn_complete.png}
 \caption{Wave activated by Unicorn, complete ply}
-\label{fig:scn_mv_24_wave_activation_by_unicorn_complete}
+\label{fig:scn_mv_26_wave_activation_by_unicorn_complete}
 \end{figure}
 
 After second step is chosen, complete movement of Wave consists of alternating between the two initially
@@ -521,9 +549,9 @@ ply on dark Wave's field, and dark Wave would move away. Pieces on all other non
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_25_wave_off_board.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_wave_off_board.png}
 \caption{Wave off-board steps}
-\label{fig:scn_mv_25_wave_off_board}
+\label{fig:scn_mv_27_wave_off_board}
 \end{figure}
 
 Here, light grey fields are virtual fields extending existing chessboard.
@@ -545,9 +573,9 @@ of a board.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_26_wave_cascading_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_28_wave_cascading_init.png}
 \caption{Cascade start}
-\label{fig:scn_mv_26_wave_cascading_init}
+\label{fig:scn_mv_28_wave_cascading_init}
 \end{figure}
 
 A Wave can also activate other Wave; movement of an activated Wave is the same as
@@ -562,10 +590,10 @@ since it was activated by one.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_27_wave_cascading_steps.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_cascading_steps.png}
 \vspace*{-1.4\baselineskip}
 \caption{Active piece cascaded}
-\label{fig:scn_mv_27_wave_cascading_steps}
+\label{fig:scn_mv_29_wave_cascading_steps}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -582,10 +610,10 @@ activator is Bishop, while for Waves C, and D activator is Knight.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_28_wave_cascading_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_wave_cascading_end.png}
 \vspace*{-1.3\baselineskip}
 \caption{Cascade end}
-\label{fig:scn_mv_28_wave_cascading_end}
+\label{fig:scn_mv_30_wave_cascading_end}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -605,9 +633,9 @@ Here, numbers in lower, left corner are received momentum. Bishop gathered 3 mom
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_29_wave_no_momentum_no_activating.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_31_wave_no_momentum_no_activating.png}
 \caption{No momentum}
-\label{fig:scn_mv_29_wave_no_momentum_no_activating}
+\label{fig:scn_mv_31_wave_no_momentum_no_activating}
 \end{figure}
 
 Wave can be activated with no momentum, if so it can activate only other Waves, but
@@ -624,10 +652,10 @@ activate Pawn. Wave B can pass-by Pawn, and activate dark Wave, also with no mom
 \vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_30_single_step_piece_momentum.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_32_single_step_piece_momentum.png}
 \vspace*{-1.4\baselineskip}
 \caption{Single-step piece and momentum}
-\label{fig:scn_mv_30_single_step_piece_momentum}
+\label{fig:scn_mv_32_single_step_piece_momentum}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -649,10 +677,10 @@ step in a ply.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_31_activating_rush_pawn_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_33_activating_rush_pawn_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Activating Pawns}
-\label{fig:scn_mv_31_activating_rush_pawn_init}
+\label{fig:scn_mv_33_activating_rush_pawn_init}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -669,9 +697,9 @@ up to (and including) 6 fields.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_32_activating_rush_pawn_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activating_rush_pawn_end.png}
 \caption{Pawns activated}
-\label{fig:scn_mv_32_activating_rush_pawn_end}
+\label{fig:scn_mv_34_activating_rush_pawn_end}
 \end{figure}
 
 Pawn 1 received 4 momentum, and so when rushing it the furthest 2 fields are out
@@ -689,10 +717,10 @@ longest rush movement available in this variant.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_33_activating_pyramid_by_pawn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activating_pyramid_by_pawn.png}
 \vspace*{-1.3\baselineskip}
 \caption{Activating Pyramid by Pawn}
-\label{fig:scn_mv_33_activating_pyramid_by_pawn}
+\label{fig:scn_mv_35_activating_pyramid_by_pawn}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -710,10 +738,10 @@ both in \hyperref[fig:scn_ma_01_pyramid_activation_init]{a direct activation}, o
 \vspace*{-2.5\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_34_activating_pyramid_cascade_pawn.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_activating_pyramid_cascade_pawn.png}
 \vspace*{-1.5\baselineskip}
 \caption{Activating Pyramid by cascading Pawn}
-\label{fig:scn_mv_34_activating_pyramid_cascade_pawn}
+\label{fig:scn_mv_36_activating_pyramid_cascade_pawn}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -736,10 +764,10 @@ it in a cascade could activate, with addition of opponent's Wave.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_35_activated_by_pyramid.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_activated_by_pyramid.png}
 \vspace*{-1.3\baselineskip}
 \caption{Activated by Pyramid}
-\label{fig:scn_mv_35_activated_by_pyramid}
+\label{fig:scn_mv_37_activated_by_pyramid}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -762,10 +790,10 @@ piece in a cascade (here, light Bishop).
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_36_reactivating_piece_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_reactivating_piece_init.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Start reactivating piece}
-\label{fig:scn_mv_36_reactivating_piece_init}
+\label{fig:scn_mv_38_reactivating_piece_init}
 \end{figure}
 
 % \vspace*{-0.3\baselineskip}
@@ -779,10 +807,10 @@ any previous choice.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_37_reactivating_piece_steps.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_reactivating_piece_steps.png}
 \vspace*{-1.3\baselineskip}
 \caption{Reactivating piece steps}
-\label{fig:scn_mv_37_reactivating_piece_steps}
+\label{fig:scn_mv_39_reactivating_piece_steps}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -805,10 +833,10 @@ the beginning of reactivating ply.
 \vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_38_pinned_piece_cascaded_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_pinned_piece_cascaded_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Light Queen is hard-pinned}
-\label{fig:scn_mv_38_pinned_piece_cascaded_init}
+\label{fig:scn_mv_40_pinned_piece_cascaded_init}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -825,10 +853,10 @@ Here, light Queen is hard-pinned.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_39_pinned_piece_cascaded_1.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_pinned_piece_cascaded_1.png}
 \vspace*{-1.3\baselineskip}
 \caption{Cascading pinned piece}
-\label{fig:scn_mv_39_pinned_piece_cascaded_1}
+\label{fig:scn_mv_41_pinned_piece_cascaded_1}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -845,10 +873,10 @@ Queen; this is fine, Knight will be pinned after light player's move has been fi
 \vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_pinned_piece_cascaded_2.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_43_pinned_piece_cascaded_2.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Pinned piece starts a cascade}
-\label{fig:scn_mv_41_pinned_piece_cascaded_2}
+\label{fig:scn_mv_43_pinned_piece_cascaded_2}
 \end{figure}
 
 % \vspace*{-0.5\baselineskip}
@@ -867,9 +895,9 @@ material piece is pinned after that same cascade has been finished.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_42_activated_piece_check_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_44_activated_piece_check_init.png}
 \caption{Activating Queen}
-\label{fig:scn_mv_42_activated_piece_check_init}
+\label{fig:scn_mv_44_activated_piece_check_init}
 \end{figure}
 
 Again, King is checked (or checkmated) only after cascade has finished; just like
@@ -884,10 +912,10 @@ temporary location, King is not affected, and game continues.
 \vspace*{-2.3\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_43_activated_piece_check_cascade.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_45_activated_piece_check_cascade.png}
 \vspace*{-1.3\baselineskip}
 \caption{Reactivating Queen}
-\label{fig:scn_mv_43_activated_piece_check_cascade}
+\label{fig:scn_mv_45_activated_piece_check_cascade}
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
@@ -912,10 +940,10 @@ settling onto e.g. field 2, or 4, for that Queen to check dark King.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_44_static_move_is_illegal_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_46_static_move_is_illegal_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Static move start}
-\label{fig:scn_mv_44_static_move_is_illegal_init}
+\label{fig:scn_mv_46_static_move_is_illegal_init}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -938,10 +966,10 @@ Here, light Queen is about to activate Wave A, which can then activate Wave B.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_45_static_move_is_illegal_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_47_static_move_is_illegal_end.png}
 \vspace*{-1.3\baselineskip}
 \caption{Static move is illegal}
-\label{fig:scn_mv_45_static_move_is_illegal_end}
+\label{fig:scn_mv_47_static_move_is_illegal_end}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -966,10 +994,10 @@ restriction does not apply to any other piece activated in a cascade.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_46_static_piece_is_legal_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_48_static_piece_is_legal_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Static piece start}
-\label{fig:scn_mv_46_static_piece_is_legal_init}
+\label{fig:scn_mv_48_static_piece_is_legal_init}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -980,17 +1008,17 @@ Here, first half of a cascade started by Queen A is shown. Note that light Bisho
 is \href{https://en.wikipedia.org/wiki/Pin_(chess)#Absolute_pin}{hard-pinned}, so
 it should return to its starting position, or one of Queens has to be used as a
 substitue for a pin, as
-\hyperref[fig:scn_mv_38_pinned_piece_cascaded_init]{Waves can't do that}.
+\hyperref[fig:scn_mv_40_pinned_piece_cascaded_init]{Waves can't do that}.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_47_static_piece_is_legal_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_49_static_piece_is_legal_end.png}
 \vspace*{-1.3\baselineskip}
 \caption{Static piece is legal}
-\label{fig:scn_mv_47_static_piece_is_legal_end}
+\label{fig:scn_mv_49_static_piece_is_legal_end}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
@@ -1013,22 +1041,22 @@ starting position (field Q), when this move ends.
 % \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_48_delayed_promotion_is_legal_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_50_delayed_promotion_is_legal_init.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Pawn is tagged for promotion}
-\label{fig:scn_mv_48_delayed_promotion_is_legal_init}
+\label{fig:scn_mv_50_delayed_promotion_is_legal_init}
 \end{figure}
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_49_delayed_promotion_is_legal_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_51_delayed_promotion_is_legal_end.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Pawn was promoted to Queen}
-\label{fig:scn_mv_49_delayed_promotion_is_legal_end}
+\label{fig:scn_mv_51_delayed_promotion_is_legal_end}
 \end{figure}
 
 % \vspace*{-0.4\baselineskip}
-While \hyperref[fig:scn_mv_44_static_move_is_illegal_init]{static move is illegal},
+While \hyperref[fig:scn_mv_46_static_move_is_illegal_init]{static move is illegal},
 \hyperref[sec:Age of Aquarius/Promotion]{delayed promotion} is legal, even though
 starting and destination fields are the same. This is so because piece after
 promotion is different than the one at the beginning.
@@ -1045,10 +1073,10 @@ promotion is different than the one at the beginning.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_50_wave_cascading_opponent.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_52_wave_cascading_opponent.png}
 % \vspace*{-1.3\baselineskip}
 \caption{Cascading opponent}
-\label{fig:scn_mv_50_wave_cascading_opponent}
+\label{fig:scn_mv_52_wave_cascading_opponent}
 \end{figure}
 
 % \vspace*{-0.3\baselineskip}
@@ -1058,16 +1086,16 @@ Opponent's Wave can also activate any other opponent's piece, except King. Note,
 color of the first piece in a cascade matches color of a player who started that
 cascade, thus determines which pieces are own and which are opponent's.
 
-% \hyperref[fig:scn_mv_28_wave_cascading_end]{cascade with all own pieces}
+% \hyperref[fig:scn_mv_30_wave_cascading_end]{cascade with all own pieces}
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_51_cascaded_opponent_capturing.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_53_cascaded_opponent_capturing.png}
 \caption{Cascaded opponent capturing piece}
-\label{fig:scn_mv_51_cascaded_opponent_capturing}
+\label{fig:scn_mv_53_cascaded_opponent_capturing}
 \end{figure}
 
 Opponent's pieces, activated in own cascade, keep all of their behavior as if in a
@@ -1082,9 +1110,9 @@ activating light Wave, it's just capturing it.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_52_cascaded_opponent_promoting.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_54_cascaded_opponent_promoting.png}
 \caption{Cascaded opponent promoting Pawn}
-\label{fig:scn_mv_52_cascaded_opponent_promoting}
+\label{fig:scn_mv_54_cascaded_opponent_promoting}
 \end{figure}
 
 Opponent's Pawn in own cascade can be promoted only to other opponent's pieces,
@@ -1103,17 +1131,17 @@ promoted to light piece, it's being promoted to dark piece, e.g. dark Queen.
 \vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_53_cascade_self_checkmate_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_55_cascade_self_checkmate_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Cascading opponent's Rook}
-\label{fig:scn_mv_53_cascade_self_checkmate_init}
+\label{fig:scn_mv_55_cascade_self_checkmate_init}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
 Opponent's piece, activated in own cascade, can be positioned on a field where
 it would check own King if cascade has finished; this is fine as long as that piece
 is reactivated and
-\hyperref[fig:scn_mv_42_activated_piece_check_init]{moved away from its temporary position}.
+\hyperref[fig:scn_mv_44_activated_piece_check_init]{moved away from its temporary position}.
 Opponent's piece left in a position from where it does check own King after own cascade
 is finished leads to immediate self-induced checkmate, since now it's opponent's turn,
 and own King can't be removed from check.
@@ -1123,9 +1151,9 @@ and own King can't be removed from check.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_54_cascade_self_checkmate_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_56_cascade_self_checkmate_end.png}
 \caption{Cascaded self-checkmate}
-\label{fig:scn_mv_54_cascade_self_checkmate_end}
+\label{fig:scn_mv_56_cascade_self_checkmate_end}
 \end{figure}
 
 Here, light player's cascade has finished; notice, first piece in a cascade is light
@@ -1144,9 +1172,9 @@ light King can't be moved out of a check, this is immediate self-checkmate.
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_55_wave_blocked_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_57_wave_blocked_init.png}
 \caption{Activating Wave}
-\label{fig:scn_mv_55_wave_blocked_init}
+\label{fig:scn_mv_57_wave_blocked_init}
 \end{figure}
 
 Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
@@ -1160,9 +1188,9 @@ Here, dark Wave B is about to be activated with one momentum.
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_56_wave_blocked_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_58_wave_blocked_end.png}
 \caption{Activated Wave blocked}
-\label{fig:scn_mv_56_wave_blocked_end}
+\label{fig:scn_mv_58_wave_blocked_end}
 \end{figure}
 
 Here, dark Wave B is activated without committing its movement yet (it's "in-the-air").
@@ -1208,7 +1236,6 @@ Promotion is non enforced, delayed variety, i.e. it's the same as in
 \addcontentsline{toc}{section}{Castling}
 \label{sec:Miranda's veil/Castling}
 
-\vspace*{-0.7\baselineskip}
 Castling is the same as in Classical Chess, only difference is that King can move between 2 and 6 fields across.
 All other constraints from Classical Chess still applies.
 
@@ -1216,53 +1243,27 @@ All other constraints from Classical Chess still applies.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/10_mv/miranda_s_veil_castling.png}
-\vspace*{-1.4\baselineskip}
 \caption{Castling}
 \label{fig:miranda_s_veil_castling}
 \end{figure}
 
-\vspace*{-0.7\baselineskip}
 Above, all valid King's castling moves are numbered.
 
 \vspace*{-0.7\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/10_mv/miranda_s_veil_castling_right_05.png}
-\vspace*{-1.4\baselineskip}
 \caption{Castling long right}
 \label{fig:miranda_s_veil_castling_right_05}
 \end{figure}
 
-\vspace*{-0.7\baselineskip}
 In this example King was castling long to the right. Initial King's position is marked with "K".
 After castling is finished, right Rook ends up at field immediately left to the King.
 
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_57_wave_block_castling_king.png}
-\vspace*{-1.4\baselineskip}
-\caption{Castling King blocked}
-\label{fig:scn_mv_57_wave_block_castling_king}
-\end{figure}
-
-\vspace*{-0.7\baselineskip}
-Note, even though \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent},
-all step-fields of both King and Rook must be empty, before they can castle.
-Above, Wave is blocking light King from castling fully to the left.
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_58_wave_block_castling_rook.png}
-\vspace*{-1.4\baselineskip}
-\caption{Castling Rook blocked}
-\label{fig:scn_mv_58_wave_block_castling_rook}
-\end{figure}
-
-\vspace*{-0.7\baselineskip}
-In continuation of previous example, even if King tries to castle short, now
-Rook is blocked by the same Wave; and so this Queen-side castling is illegal.
+Again, even though \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent},
+all step-fields of both King and Rook
+\hyperref[sec:Miranda's veil/Wave/Cascading Waves/Wave is blocking castling]{must be empty},
+before they can castle.
 
 \clearpage % ..........................................................
 
