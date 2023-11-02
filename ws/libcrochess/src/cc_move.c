@@ -95,10 +95,10 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
         }
 
         CcMove * mv__w = cc_move_expand( &mv__a,
-                                            from->notation,
-                                            CC_MAX_LEN_ZERO_TERMINATED,
-                                            &plies__t,
-                                            from->status );
+                                         from->notation,
+                                         CC_MAX_LEN_ZERO_TERMINATED,
+                                         &plies__t,
+                                         from->status );
         if ( !mv__w ) {
             cc_ply_free_all( &plies__t ); // Failed append --> no ownership transfer ...
             cc_move_free_all( &mv__a );

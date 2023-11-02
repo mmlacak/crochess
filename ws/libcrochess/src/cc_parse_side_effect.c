@@ -698,6 +698,8 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             if ( !cc_check_captured_en_passant( before_ply_start.piece, *step_pos__io, maybe_en_passant_location, maybe_captured, &captured_at, cb, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
+            // TODO :: check path of capturing piece
+
             *side_effect__o = cc_side_effect_en_passant( step_piece, captured_at );
             return true;
         } case CC_SEE_Castle : {

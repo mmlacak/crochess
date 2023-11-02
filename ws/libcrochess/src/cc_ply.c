@@ -126,13 +126,13 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
         }
 
         CcPly * ply__w = cc_ply_expand( &ply__a,
-                                           from->notation,
-                                           NULL,
-                                           CC_MAX_LEN_ZERO_TERMINATED,
-                                           from->link,
-                                           from->piece,
-                                           from->lost_tag,
-                                           &steps__t );
+                                        from->notation,
+                                        NULL,
+                                        CC_MAX_LEN_ZERO_TERMINATED,
+                                        from->link,
+                                        from->piece,
+                                        from->lost_tag,
+                                        &steps__t );
         if ( !ply__w ) {
             cc_step_free_all( &steps__t ); // Failed append --> ownership not transferred ...
             cc_ply_free_all( &ply__a );

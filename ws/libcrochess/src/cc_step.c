@@ -68,23 +68,18 @@ CcStep * cc_step_expand( CcStep ** restrict steps__iod,
     return step__w;
 }
 
-// TODO :: REWRITE :: using cc_step_expand
 CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io ) {
     if ( !steps__io ) return NULL;
 
-    CcStep * steps__a = cc_step__new( steps__io->link,
-                                      steps__io->field,
-                                      steps__io->side_effect );
-    if ( !steps__a ) return NULL;
-
-    CcStep * from = steps__io->next;
+    CcStep * steps__a = NULL;
+    CcStep * from = steps__io;
 
     while ( from ) {
-        CcStep * step__w = cc_step_append( steps__a,
+        CcStep * step__w = cc_step_expand( &steps__a,
                                            from->link,
                                            from->field,
                                            from->side_effect );
-        if ( !step__w ) {
+        if ( !step__w ) { // Failed append --> ownership not transferred ...
             cc_step_free_all( &steps__a );
             return NULL;
         }
@@ -94,7 +89,6 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io ) {
 
     return steps__a;
 }
-// TODO :: REWRITE :: using cc_step_expand
 
 CcStep * cc_step_extend( CcStep ** restrict steps__io,
                          CcStep ** restrict steps__n ) {
@@ -114,7 +108,6 @@ CcStep * cc_step_extend( CcStep ** restrict steps__io,
     return last->next;
 }
 
-// TODO :: rename
 CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
                           CcStep ** restrict steps__n ) {
     if ( !steps__iod ) return NULL;
@@ -132,7 +125,6 @@ CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
 
     return cc_step_extend( steps__iod, steps__n );
 }
-// TODO :: rename
 
 size_t cc_step_count( CcStep * restrict steps ) {
     if ( !steps ) return 0;
