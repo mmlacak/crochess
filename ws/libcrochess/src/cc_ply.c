@@ -73,7 +73,7 @@ CcPly * cc_ply_append( CcPly * restrict plies__io,
     if ( !ply__t ) return NULL;
 
     CcPly * p = plies__io;
-    while ( p->next ) p = p->next; // rewind
+    CC_FASTFORWARD( p );
     p->next = ply__t; // append // Ownership transfer --> ply__t is now weak pointer.
 
     return ply__t;
@@ -155,7 +155,7 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__io,
     if ( !*plies__n ) return NULL;
 
     CcPly * last = *plies__io;
-    while ( last->next ) last = last->next;
+    CC_FASTFORWARD( last );
 
     // Ownership transfer.
     last->next = *plies__n;

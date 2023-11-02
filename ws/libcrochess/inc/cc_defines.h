@@ -332,6 +332,61 @@
 #define CC_DEFAULT_ENTITY_STRING "<default>"
 
 /**
+    Macro to rewind queue pointer to its first item.
+
+    @param ptr_queue Pointer, queue.
+
+    @warning
+    Pointer to queue `ptr_queue` must be valid (non-`NULL` pointer).
+
+    @warning
+    Pointer to queue `ptr_queue` must be valid variable, not expression.
+
+    @warning
+    Queue struct must have `prev` member, which points to previous item in that queue.
+
+    @return Nothing.
+*/
+#define CC_REWIND(ptr_queue) { while ( (ptr_queue)->prev ) (ptr_queue) = (ptr_queue)->prev; }
+
+/**
+    Macro to rewind list pointer to its first item.
+
+    @param ptr_lst Pointer, list.
+
+    @warning
+    Pointer to list `ptr_lst` must be valid (non-`NULL` pointer).
+
+    @warning
+    Pointer to list `ptr_lst` must be valid variable, not expression.
+
+    @warning
+    List struct must have `next` member, which points to previous item in that list.
+
+    @return Nothing.
+*/
+#define CC_FASTFORWARD(ptr_lst) { while ( (ptr_lst)->next ) (ptr_lst) = (ptr_lst)->next; }
+
+/**
+    Macro to rewind sequence pointer by name of its item.
+
+    @param ptr_seq Pointer, sequence.
+    @param ptr_item Pointer, name of item to iterate over.
+
+    @warning
+    Pointer to sequence `ptr_seq` must be valid (non-`NULL` pointer).
+
+    @warning
+    Pointer to sequence `ptr_seq` must be valid variable, not expression.
+
+    @warning
+    Sequence struct must have `ptr_item` member, which points to item in that sequence.
+
+    @return Nothing.
+*/
+#define CC_REWIND_BY(ptr_seq,ptr_item) { while ( ((ptr_seq)->(ptr_item)) ) (ptr_seq) = ((ptr_seq)->(ptr_item)); }
+
+/**
     Macro to call `printf()`, depending on a compile-time constant.
 
     @param fmt Formatting string.

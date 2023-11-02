@@ -48,7 +48,7 @@ CcStep * cc_step_append( CcStep * restrict steps__io,
     if ( !step__t ) return NULL;
 
     CcStep * s = steps__io;
-    while ( s->next ) s = s->next; // rewind
+    CC_FASTFORWARD( s );
     s->next = step__t; // append // Ownership transfer --> step__t is now weak pointer.
 
     return step__t;
@@ -99,7 +99,7 @@ CcStep * cc_step_extend( CcStep ** restrict steps__io,
     if ( !*steps__n ) return NULL;
 
     CcStep * last = *steps__io;
-    while ( last->next ) last = last->next;
+    CC_FASTFORWARD( last );
 
     // Ownership transfer.
     last->next = *steps__n;
@@ -197,7 +197,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps ) {
 //     CcSteps * prev_s = NULL;
 //     CcSteps * s = steps;
 
-//     while ( s->prev ) s = s->prev; // rewind
+//     CC_REWIND( s );
 
 //     while ( s )
 //     {
@@ -267,7 +267,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps ) {
 //             {
 //                 if ( s->next ) return false; // Not the last one?
 
-//                 while ( p && p->next ) p = p->next; // rewind
+//                 CC_FASTFORWARD( p );
 
 //                 if ( !cc_pos_is_equal( s->pos, p->pos ) )
 //                     return false;

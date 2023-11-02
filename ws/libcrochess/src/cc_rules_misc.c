@@ -60,7 +60,7 @@ bool cc_check_valid_draw_offer_exists( CcMove * restrict moves,
 
     int draw_offer = CC_DRAW_OFFER_NOT_FOUND;
     CcMove * m = moves;
-    while ( m->next ) m = m->next; // rewind to last
+    CC_FASTFORWARD( m );
 
     while ( m ) {
         draw_offer = cc_an_str_ends_with_draw_offer( m->notation,

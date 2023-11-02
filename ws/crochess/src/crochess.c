@@ -26,7 +26,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.374:806+20231102.171209"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.375:807+20231102.211519"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
@@ -43,7 +43,7 @@ bool print_all_moves( CcMove * restrict moves ) {
     size_t i = 0;
     size_t index = 0;
 
-    while ( m->prev ) m = m->prev; // rewind
+    CC_REWIND( m );
 
     while ( m ) {
         if ( i++ % 2 == 0 ) {

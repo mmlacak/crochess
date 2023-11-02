@@ -37,7 +37,7 @@ CcStrings * cc_strings_append( CcStrings * restrict strings__io,
     if ( !str__t ) return NULL;
 
     CcStrings * s = strings__io;
-    while ( s->next ) s = s->next; // rewind
+    CC_FASTFORWARD( s );
     s->next = str__t; // append // Ownership transfer --> str__t is now weak pointer.
 
     return str__t;

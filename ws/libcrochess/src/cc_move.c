@@ -54,7 +54,7 @@ CcMove * cc_move_append( CcMove * restrict moves__io,
     if ( !mv__t ) return NULL;
 
     CcMove * m = moves__io;
-    while ( m->next ) m = m->next; // rewind
+    CC_FASTFORWARD( m );
 
     m->next = mv__t; // append // Ownership transfer --> mv__t is now weak pointer.
     mv__t->prev = m;
@@ -85,7 +85,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
     CcMove * mv__a = NULL;
     CcMove * from = moves;
 
-    while ( from->prev ) from = from->prev; // rewind
+    CC_REWIND( from );
 
     do {
         CcPly * plies__t = cc_ply_duplicate_all__new( from->plies );
@@ -119,7 +119,7 @@ bool cc_move_free_all( CcMove ** restrict moves__f ) {
     bool result = true;
     CcMove * mv = *moves__f;
 
-    while ( mv->prev ) mv = mv->prev; // rewind
+    CC_REWIND( mv );
 
     while ( mv ) {
         CC_FREE( mv->notation );

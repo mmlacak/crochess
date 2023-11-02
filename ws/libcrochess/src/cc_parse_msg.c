@@ -38,7 +38,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
     if ( !pm__t ) return NULL;
 
     CcParseMsg * pm = parse_msgs__iod;
-    while ( pm->next ) pm = pm->next; // rewind
+    CC_FASTFORWARD( pm );
     pm->next = pm__t; // append // Ownership transfer --> pm__t is now weak pointer.
 
     return pm__t;

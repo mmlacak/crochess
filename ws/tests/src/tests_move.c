@@ -90,7 +90,7 @@ bool test_move( char const * restrict an_str,
 
     if ( game__a->moves ) {
         CcMove * m = game__a->moves;
-        while ( m->next ) m = m->next;
+        CC_FASTFORWARD( m );
 
         result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
         if ( !result ) result_at |= 0x8;

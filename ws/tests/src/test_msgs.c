@@ -71,7 +71,7 @@ TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
     if ( !new ) return NULL;
 
     TestMsgs * tm = test_msgs;
-    while ( tm->next ) tm = tm->next; // rewind
+    CC_FASTFORWARD( tm );
     tm->next = new; // append
 
     return new;
