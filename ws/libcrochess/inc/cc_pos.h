@@ -226,6 +226,8 @@ CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 );
 */
 CcPos cc_pos_step( CcPos start, CcPos destination );
 
+// TODO :: DELETE !!!
+//
 /**
     Function returns momentum from start to destination field.
 
@@ -239,6 +241,8 @@ CcPos cc_pos_step( CcPos start, CcPos destination );
     @return Momentum, i.e. count of steps from starting to destination field.
 */
 int cc_pos_momentum( CcPos start, CcPos destination );
+//
+// TODO :: DELETE !!!
 
 /**
     Function converts position into a user-readable `<file char><rank number>` notation.
@@ -293,32 +297,30 @@ typedef struct CcPosPieceTag {
 /**
     Macro which constructs position + piece + tag struct.
 
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
+    @param pos_struct A position.
     @param piece_enum A piece.
     @param tag_enum A tag.
 
-    @see cc_pos_piece_tag(), cc_pos()
+    @see CcPosPieceTag
 
     @return Position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG(int_i,int_j,piece_enum,tag_enum) \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum) }
+#define CC_POS_PIECE_TAG(pos_struct,piece_enum,tag_enum) \
+    { .pos = pos_struct, .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum) }
 
 /**
     Macro which constructs casted position + piece + tag struct.
 
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
+    @param pos_struct A position.
     @param piece_enum A piece.
     @param tag_enum A tag.
 
-    @see cc_pos_piece_tag(), cc_pos()
+    @see CcPosPieceTag
 
     @return Casted position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG_CAST(int_i,int_j,piece_enum,tag_enum) \
-    ( (CcPosPieceTag)CC_POS_PIECE_TAG( int_i, int_j, piece_enum, tag_enum ) )
+#define CC_POS_PIECE_TAG_CAST(pos_struct,piece_enum,tag_enum) \
+    ( (CcPosPieceTag)CC_POS_PIECE_TAG( pos_struct, piece_enum, tag_enum ) )
 
 
 /**
@@ -405,7 +407,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     @see cc_pos_link__new()
 */
 #define CC_POS_LINK__NEW(pos,piece,tag) \
-    ( cc_pos_link__new( cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
+    ( cc_pos_link__new( CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     Macro to append a newly allocated position + piece + tag value to position link.
@@ -420,7 +422,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     @see cc_pos_link_append()
 */
 #define CC_POS_LINK_APPEND(ptr__pos_link__io,pos,piece,tag) \
-    ( cc_pos_link_append( (ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
+    ( cc_pos_link_append( (ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     Macro to initialize or append a position linked list, with position + piece + tag value.
@@ -435,7 +437,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     @see cc_pos_link_expand()
 */
 #define CC_POS_LINK_EXPAND(ptr_ptr__pos_link__io,pos,piece,tag) \
-    ( cc_pos_link_expand( (ptr_ptr__pos_link__io), cc_pos_piece_tag( (pos), (piece), (tag) ) ) )
+    ( cc_pos_link_expand( (ptr_ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.

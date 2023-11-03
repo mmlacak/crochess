@@ -350,7 +350,7 @@
 #define CC_REWIND(ptr_queue) { while ( (ptr_queue)->prev ) (ptr_queue) = (ptr_queue)->prev; }
 
 /**
-    Macro to rewind list pointer to its first item.
+    Macro to fast-forward list pointer to its first item.
 
     @param ptr_lst Pointer, list.
 

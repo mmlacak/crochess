@@ -258,7 +258,7 @@ CcPosLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
                                   ( cc_pos_is_valid( step_2 ) ) );
     bool is_even_step = true;
 
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+    CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
     CcPos last_pos = CC_POS_CAST_INVALID;
@@ -433,7 +433,7 @@ CcPosLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
         if ( !cc_pos_is_equal( pos_1, destination ) ) return NULL;
         if ( momentum != 1 ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+        CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
         if ( !path__a ) return NULL;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
@@ -506,7 +506,7 @@ CcPosLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+        CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
         if ( !path__a ) return NULL;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
@@ -625,7 +625,7 @@ CcPosLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+    CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
@@ -716,7 +716,7 @@ CcPosLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
 
         if ( !cc_pos_is_equal( end, destination ) ) return NULL;
 
-        CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+        CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
         if ( !path__a ) return NULL;
 
         CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation,
@@ -771,7 +771,7 @@ CcPosLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+    CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
     CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
@@ -854,7 +854,7 @@ CcPosLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb_before_activation, start.i, start.j );
     CcTagEnum tag = cc_chessboard_get_tag( cb_before_activation, start.i, start.j );
-    CcPosLink * path__a = cc_pos_link__new( cc_pos_piece_tag( start, piece, tag ) );
+    CcPosLink * path__a = cc_pos_link__new( CC_POS_PIECE_TAG_CAST( start, piece, tag ) );
     if ( !path__a ) return NULL;
 
     CcTagEnum te = cc_chessboard_get_tag( cb_before_activation,
