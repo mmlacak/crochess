@@ -188,12 +188,12 @@ CcStep * cc_step_find_destination( CcStep * restrict steps ) {
 }
 
 // bool cc_steps_are_congruent( CcSteps * restrict steps,
-//                              CcPosLink * restrict positions )
+//                              CcPptLink * restrict positions )
 // {
 //     if ( !steps ) return false;
 //     if ( !positions ) return false;
 
-//     CcPosLink * p = positions;
+//     CcPptLink * p = positions;
 //     CcSteps * prev_s = NULL;
 //     CcSteps * s = steps;
 

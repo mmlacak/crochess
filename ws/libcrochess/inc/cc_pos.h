@@ -226,7 +226,7 @@ CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 );
 */
 CcPos cc_pos_step( CcPos start, CcPos destination );
 
-// TODO :: DELETE !!!
+// TODO :: MOVE !!!
 //
 /**
     Function returns momentum from start to destination field.
@@ -242,7 +242,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination );
 */
 int cc_pos_momentum( CcPos start, CcPos destination );
 //
-// TODO :: DELETE !!!
+// TODO :: MOVE !!!
 
 /**
     Function converts position into a user-readable `<file char><rank number>` notation.
@@ -404,10 +404,10 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link__new()
+    @see cc_ppt_link__new()
 */
-#define CC_POS_LINK__NEW(pos,piece,tag) \
-    ( cc_pos_link__new( CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK__NEW(pos,piece,tag) \
+    ( cc_ppt_link__new( CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     Macro to append a newly allocated position + piece + tag value to position link.
@@ -419,10 +419,10 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_append()
+    @see cc_ppt_link_append()
 */
-#define CC_POS_LINK_APPEND(ptr__pos_link__io,pos,piece,tag) \
-    ( cc_pos_link_append( (ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK_APPEND(ptr__pos_link__io,pos,piece,tag) \
+    ( cc_ppt_link_append( (ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     Macro to initialize or append a position linked list, with position + piece + tag value.
@@ -434,18 +434,18 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_pos_link_expand()
+    @see cc_ppt_link_expand()
 */
-#define CC_POS_LINK_EXPAND(ptr_ptr__pos_link__io,pos,piece,tag) \
-    ( cc_pos_link_expand( (ptr_ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK_EXPAND(ptr_ptr__pos_link__io,pos,piece,tag) \
+    ( cc_ppt_link_expand( (ptr_ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.
 */
-typedef struct CcPosLink {
+typedef struct CcPptLink {
     CcPosPieceTag ppt; /**< A position + piece + tag. */
-    struct CcPosLink * next; /**< Link to a next position. */
-} CcPosLink;
+    struct CcPptLink * next; /**< Link to a next position. */
+} CcPptLink;
 
 /**
     Function allocates a new linked position.
@@ -454,7 +454,7 @@ typedef struct CcPosLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPosPieceTag ppt );
+CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
@@ -464,7 +464,7 @@ CcPosLink * cc_pos_link__new( CcPosPieceTag ppt );
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+CcPptLink * cc_ppt_link_append( CcPptLink * restrict pos_link__io,
                                 CcPosPieceTag ppt );
 
 /**
@@ -483,7 +483,7 @@ CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+CcPptLink * cc_ppt_link_expand( CcPptLink ** restrict pos_link__io,
                                 CcPosPieceTag ppt );
 
 /**
@@ -493,7 +493,7 @@ CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
+bool cc_ppt_link_free_all( CcPptLink ** restrict pos_link__f );
 
 /**
     Function returns length of a linked list.
@@ -502,7 +502,7 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
 
     @return Length of a linked list if successful, `0` otherwise.
 */
-size_t cc_pos_link_len( CcPosLink * restrict pos_link );
+size_t cc_ppt_link_len( CcPptLink * restrict pos_link );
 
 /**
     Function returns string containing user-readable representation of a linked positions.
@@ -513,7 +513,7 @@ size_t cc_pos_link_len( CcPosLink * restrict pos_link );
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
-char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
+char * cc_ppt_link_to_short_string__new( CcPptLink * restrict pos_link );
 
 
 #endif /* __CC_POS_H__ */

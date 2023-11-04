@@ -219,7 +219,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps );
 //     @return `true` if positions are congruent with steps, `false` otherwise.
 // */
 // bool cc_steps_are_congruent( CcSteps * restrict steps,
-//                              CcPosLink * restrict positions );
+//                              CcPptLink * restrict positions );
 
 /**
     Frees all steps in a linked list.
