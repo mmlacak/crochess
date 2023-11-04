@@ -262,6 +262,124 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 
 
 //
+// Linked positions.
+
+/**
+    Convenience macro to allocate new position value to position link.
+
+    @param pos A position.
+
+    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_pos_link__new()
+*/
+#define CC_POS_LINK__NEW(pos) \
+    ( cc_pos_link__new( CC_POS_CAST( (pos) ) ) )
+
+/**
+    Macro to append a newly allocated position value to position link.
+
+    @param ptr__pos_link__io A position linked list, to be appended.
+    @param pos A position.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_ppt_link_append()
+*/
+#define CC_POS_LINK_APPEND(ptr__pos_link__io,pos) \
+    ( cc_pos_link_append( (ptr__pos_link__io), CC_POS_CAST( (pos) ) ) )
+
+/**
+    Macro to initialize or append a position linked list, with position value.
+
+    @param ptr_ptr__pos_link__io A position linked list, to be appended.
+    @param pos A position.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+
+    @see cc_ppt_link_expand()
+*/
+#define CC_POS_LINK_EXPAND(ptr_ptr__pos_link__io,pos) \
+    ( cc_pos_link_expand( (ptr_ptr__pos_link__io), CC_POS_CAST( (pos) ) ) )
+
+/**
+    A linked list of positions.
+*/
+typedef struct CcPosLink {
+    CcPos pos; /**< A position. */
+    struct CcPosLink * next; /**< Link to a next position. */
+} CcPosLink;
+
+/**
+    Function allocates a new linked position.
+
+    @param pos A position.
+
+    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
+*/
+CcPosLink * cc_pos_link__new( CcPos pos );
+
+/**
+    Function appends a newly allocated linked position to a given linked list.
+
+    @param pos_link__io _Input/output_ parameter, linked list.
+    @param pos A position.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+*/
+CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+                                CcPos pos );
+
+/**
+    Allocates a new linked position, appends it to a linked list.
+
+    @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
+    @param pos A position.
+
+    @note
+    Linked list `*pos_link__io` can be `NULL`, a linked position will still be
+    allocated, and returned.
+
+    @note
+    If linked list `*pos_link__io` is `NULL`, it will be initialized,
+    with a newly allocated linked position as its first element.
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+*/
+CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+                                CcPos pos );
+
+/**
+    Frees all positions in a linked list.
+
+    @param pos_link__f Linked list of positions.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
+
+/**
+    Function returns length of a linked list.
+
+    @param pos_link A linked list of positions.
+
+    @return Length of a linked list if successful, `0` otherwise.
+*/
+size_t cc_pos_link_len( CcPosLink * restrict pos_link );
+
+/**
+    Function returns string containing user-readable representation of a linked positions.
+
+    @param pos_link A linked list of positions.
+
+    @see cc_pos_to_short_string()
+
+    @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
+*/
+char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
+
+
+//
 // Position + piece + tag.
 
 /**
@@ -393,7 +511,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
 
 //
-// Linked positions.
+// Linked list of positions + pieces + tags.
 
 /**
     Convenience macro to allocate new position + piece + tag value to position link.
@@ -412,7 +530,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 /**
     Macro to append a newly allocated position + piece + tag value to position link.
 
-    @param ptr__pos_link__io A position linked list, to be appended.
+    @param ptr__ppt_link__io A position linked list, to be appended.
     @param pos A position.
     @param piece A piece.
     @param tag A tag.
@@ -421,13 +539,13 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_ppt_link_append()
 */
-#define CC_PPT_LINK_APPEND(ptr__pos_link__io,pos,piece,tag) \
-    ( cc_ppt_link_append( (ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK_APPEND(ptr__ppt_link__io,pos,piece,tag) \
+    ( cc_ppt_link_append( (ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     Macro to initialize or append a position linked list, with position + piece + tag value.
 
-    @param ptr_ptr__pos_link__io A position linked list, to be appended.
+    @param ptr_ptr__ppt_link__io A position linked list, to be appended.
     @param pos A position.
     @param piece A piece.
     @param tag A tag.
@@ -436,8 +554,8 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_ppt_link_expand()
 */
-#define CC_PPT_LINK_EXPAND(ptr_ptr__pos_link__io,pos,piece,tag) \
-    ( cc_ppt_link_expand( (ptr_ptr__pos_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK_EXPAND(ptr_ptr__ppt_link__io,pos,piece,tag) \
+    ( cc_ppt_link_expand( (ptr_ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.
@@ -459,61 +577,61 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt );
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param pos_link__io _Input/output_ parameter, linked list.
+    @param ppt_link__io _Input/output_ parameter, linked list.
     @param ppt A position + piece + tag value.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_append( CcPptLink * restrict pos_link__io,
+CcPptLink * cc_ppt_link_append( CcPptLink * restrict ppt_link__io,
                                 CcPosPieceTag ppt );
 
 /**
     Allocates a new linked position, appends it to a linked list.
 
-    @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
+    @param ppt_link__io _Input/output_ parameter, linked list, can be `NULL`.
     @param ppt A position + piece + tag value.
 
     @note
-    Linked list `*pos_link__io` can be `NULL`, a linked position will still be
+    Linked list `*ppt_link__io` can be `NULL`, a linked position will still be
     allocated, and returned.
 
     @note
-    If linked list `*pos_link__io` is `NULL`, it will be initialized,
+    If linked list `*ppt_link__io` is `NULL`, it will be initialized,
     with a newly allocated linked position as its first element.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_expand( CcPptLink ** restrict pos_link__io,
+CcPptLink * cc_ppt_link_expand( CcPptLink ** restrict ppt_link__io,
                                 CcPosPieceTag ppt );
 
 /**
     Frees all positions in a linked list.
 
-    @param pos_link__f Linked list of positions.
+    @param ppt_link__f Linked list of positions.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ppt_link_free_all( CcPptLink ** restrict pos_link__f );
+bool cc_ppt_link_free_all( CcPptLink ** restrict ppt_link__f );
 
 /**
     Function returns length of a linked list.
 
-    @param pos_link A linked list of positions.
+    @param ppt_link A linked list of positions.
 
     @return Length of a linked list if successful, `0` otherwise.
 */
-size_t cc_ppt_link_len( CcPptLink * restrict pos_link );
+size_t cc_ppt_link_len( CcPptLink * restrict ppt_link );
 
 /**
     Function returns string containing user-readable representation of a linked positions.
 
-    @param pos_link A linked list of positions.
+    @param ppt_link A linked list of positions.
 
     @see cc_pos_to_short_string()
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
-char * cc_ppt_link_to_short_string__new( CcPptLink * restrict pos_link );
+char * cc_ppt_link_to_short_string__new( CcPptLink * restrict ppt_link );
 
 
 #endif /* __CC_POS_H__ */
