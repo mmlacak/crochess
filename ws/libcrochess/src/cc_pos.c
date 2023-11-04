@@ -416,6 +416,45 @@ size_t cc_ppt_link_len( CcPptLink * restrict ppt_link ) {
     return len;
 }
 
+CcPptLink * cc_ppt_link_from_pos__new( CcPosLink * restrict pos_link )
+{
+    if ( !pos_link ) return NULL;
+
+    CcPptLink * ppt_link__a = NULL;
+    CcPosLink * p = pos_link;
+
+    while ( p ) {
+        CcPosPieceTag ppt = CC_POS_PIECE_TAG_CAST( p->pos, CC_PE_None, CC_TE_None );
+
+        if ( !cc_ppt_link_expand( &ppt_link__a, ppt ) ) {
+            cc_ppt_link_free_all( &ppt_link__a );
+            return NULL;
+        }
+
+        p = p->next;
+    }
+
+    return ppt_link__a;
+}
+
+CcPosLink * cc_ppt_link_to_pos__new( CcPptLink * restrict ppt_link ) {
+    if ( !ppt_link ) return NULL;
+
+    CcPosLink * pos_link__a = NULL;
+    CcPptLink * p = ppt_link;
+
+    while ( p ) {
+        if ( !cc_pos_link_expand( &pos_link__a, p->ppt.pos ) ) {
+            cc_pos_link_free_all( &pos_link__a );
+            return NULL;
+        }
+
+        p = p->next;
+    }
+
+    return pos_link__a;
+}
+
 char * cc_ppt_link_to_short_string__new( CcPptLink * restrict ppt_link ) {
     if ( !ppt_link ) return NULL;
 

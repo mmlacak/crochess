@@ -623,6 +623,27 @@ bool cc_ppt_link_free_all( CcPptLink ** restrict ppt_link__f );
 size_t cc_ppt_link_len( CcPptLink * restrict ppt_link );
 
 /**
+    Function returns a new linked list of positions + pieces + tags.
+
+    @param pos_link A linked list of positions.
+
+    @note
+    Pieces are set to `CC_PE_None`, and tags to `CC_TE_None`, for all positions in a linked list.
+
+    @return Newly allocated linked list if successful, `NULL` otherwise.
+*/
+CcPptLink * cc_ppt_link_from_pos__new( CcPosLink * restrict pos_link );
+
+/**
+    Function returns a new linked list of positions.
+
+    @param ppt_link A linked list of positions + pieces + tags.
+
+    @return Newly allocated linked list if successful, `NULL` otherwise.
+*/
+CcPosLink * cc_ppt_link_to_pos__new( CcPptLink * restrict ppt_link );
+
+/**
     Function returns string containing user-readable representation of a linked positions.
 
     @param ppt_link A linked list of positions.
