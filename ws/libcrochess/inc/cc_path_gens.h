@@ -10,7 +10,7 @@
 
 /**
     @file cc_path_gens.h
-    @brief Path generators, utils.
+    @brief Path generators.
 */
 
 
@@ -22,10 +22,6 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                         CcPos * restrict pos__io );
 
 
-bool cc_check_path_args( CcChessboard * restrict cb_before_activation,
-                         CcPos start,
-                         CcPos destination );
-
 bool cc_is_step_capture( CcPieceEnum activator,
                          CcPieceEnum piece,
                          CcPos step,
@@ -35,88 +31,7 @@ bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
 
 bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step );
 
-bool cc_is_ply_valid( CcChessboard * restrict cb_before_activation,
-                      CcPieceEnum activator,
-                      CcPos start,
-                      CcPos destination,
-                      CcPos step,
-                      CcPos step_2 );
-
-CcPptLink * cc_link_positions( CcChessboard * restrict cb_before_activation,
-                               CcPos start,
-                               CcPos destination,
-                               CcPos step,
-                               CcPos step_2 );
-
-bool cc_is_activation_valid( CcChessboard * restrict cb_before_activation,
-                             CcPieceEnum activator,
-                             CcPos start,
-                             CcPos destination,
-                             CcPieceEnum expected_type );
-
 bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
-
-
-CcPptLink * cc_path_pawn__new( CcChessboard * restrict cb_before_activation,
-                               CcPieceEnum activator,
-                               CcPos start,
-                               CcPos destination );
-
-CcPptLink * cc_path_knight__new( CcChessboard * restrict cb_before_activation,
-                                 CcPieceEnum activator,
-                                 CcPos start,
-                                 CcPos destination );
-
-CcPptLink * cc_path_bishop__new( CcChessboard * restrict cb_before_activation,
-                                 CcPieceEnum activator,
-                                 CcPos start,
-                                 CcPos destination );
-
-CcPptLink * cc_path_rook__new( CcChessboard * restrict cb_before_activation,
-                               CcPieceEnum activator,
-                               CcPos start,
-                               CcPos destination );
-
-CcPptLink * cc_path_queen__new( CcChessboard * restrict cb_before_activation,
-                                CcPieceEnum activator,
-                                CcPos start,
-                                CcPos destination );
-
-CcPptLink * cc_path_king__new( CcChessboard * restrict cb_before_activation,
-                               CcPieceEnum activator,
-                               CcPos start,
-                               CcPos destination );
-
-CcPptLink * cc_path_pegasus__new( CcChessboard * restrict cb_before_activation,
-                                  CcPieceEnum activator,
-                                  CcPos start,
-                                  CcPos destination );
-
-CcPptLink * cc_path_unicorn__new( CcChessboard * restrict cb_before_activation,
-                                  CcPieceEnum activator,
-                                  CcPos start,
-                                  CcPos destination );
-
-CcPptLink * cc_path_star__new( CcChessboard * restrict cb_before_activation,
-                               CcPieceEnum activator,
-                               CcPos start,
-                               CcPos destination );
-
-CcPptLink * cc_path_starchild__new( CcChessboard * restrict cb_before_activation,
-                                    CcPieceEnum activator,
-                                    CcPos start,
-                                    CcPos destination );
-
-
-CcPptLink * cc_shortest_path__new( CcChessboard * restrict cb_before_activation,
-                                   CcPieceEnum activator,
-                                   CcPos start,
-                                   CcPos destination );
-
-CcPptLink * cc_longest_path__new( CcChessboard * restrict cb_before_activation,
-                                  CcPieceEnum activator,
-                                  CcPos start,
-                                  CcPos destination );
 
 
 #endif /* __CC_PATH_GENS_H__ */
