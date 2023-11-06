@@ -9,6 +9,7 @@
 #include "cc_tag.h"
 
 #include "cc_path_defs.h"
+#include "cc_path_utils.h"
 #include "cc_path_gens.h"
 
 #include "cc_parse_utils.h"

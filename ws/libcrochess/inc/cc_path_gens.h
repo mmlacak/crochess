@@ -14,24 +14,5 @@
 */
 
 
-// DOCS
-bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
-                        CcPos expected,
-                        CcPieceEnum piece,
-                        bool include_opponent,
-                        CcPos * restrict pos__io );
-
-
-bool cc_is_step_capture( CcPieceEnum activator,
-                         CcPieceEnum piece,
-                         CcPos step,
-                         CcPos step_2 );
-
-bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
-
-bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step );
-
-bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
-
 
 #endif /* __CC_PATH_GENS_H__ */

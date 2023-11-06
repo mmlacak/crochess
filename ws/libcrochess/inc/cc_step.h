@@ -200,27 +200,6 @@ CcStep * cc_step_find_start( CcStep * restrict steps );
 */
 CcStep * cc_step_find_destination( CcStep * restrict steps );
 
-// /**
-//     Function checks if positions are the congruent with a given steps.
-
-//     @param steps Queue of steps.
-//     @param positions Linked list of positions.
-
-//     @note
-//     Positions are assumed to be complete path over all step- (or capture-) fields.
-
-//     @note
-//     Each step is then expected to be found within positions, in the same order,
-//     and with appropriate distance. For instance, if step is linked as a distant,
-//     it shouldn't immediately follow previous step in `positions`.
-
-//     @see cc_pos_is_congruent()
-
-//     @return `true` if positions are congruent with steps, `false` otherwise.
-// */
-// bool cc_steps_are_congruent( CcSteps * restrict steps,
-//                              CcPptLink * restrict positions );
-
 /**
     Frees all steps in a linked list.
 
