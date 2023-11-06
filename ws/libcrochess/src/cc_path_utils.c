@@ -10,6 +10,32 @@
 */
 
 
+CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
+                                                  CcPosLink * restrict pos_link )
+{
+    if ( !cb ) return NULL;
+    if ( !pos_link ) return NULL;
+
+    CcPptLink * ppt_link__a = NULL;
+    CcPosLink * p = pos_link;
+
+    while ( p ) {
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, p->pos.i, p->pos.j );
+        CcTagEnum te = cc_chessboard_get_tag( cb, p->pos.i, p->pos.j );
+        CcPosPieceTag ppt = CC_POS_PIECE_TAG_CAST( p->pos, pe, te );
+
+        if ( !cc_ppt_link_expand( &ppt_link__a, ppt ) ) {
+            cc_ppt_link_free_all( &ppt_link__a );
+            return NULL;
+        }
+
+        p = p->next;
+    }
+
+    return ppt_link__a;
+}
+
+
 bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                         CcPos expected,
                         CcPieceEnum piece,

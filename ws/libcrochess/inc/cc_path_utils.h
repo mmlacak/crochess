@@ -14,6 +14,18 @@
 */
 
 
+/**
+    Function returns a new linked list of positions + pieces + tags.
+
+    @param cb A chessboard.
+    @param pos_link A linked list of positions.
+
+    @return Newly allocated linked list if successful, `NULL` otherwise.
+*/
+CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
+                                                  CcPosLink * restrict pos_link );
+
+
 // DOCS
 bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
                         CcPos expected,
