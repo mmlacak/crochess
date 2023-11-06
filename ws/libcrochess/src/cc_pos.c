@@ -107,19 +107,6 @@ CcPos cc_pos_step( CcPos start, CcPos destination ) {
     return CC_POS_CAST( diff_i, diff_j );
 }
 
-// TODO :: MOVE !!!
-//
-int cc_pos_momentum( CcPos start, CcPos destination ) {
-    int diff_i = destination.i - start.i;
-    int diff_j = destination.j - start.j;
-
-    int momentum = cc_gcd( diff_i, diff_j );
-
-    return momentum;
-}
-//
-// TODO :: MOVE !!!
-
 bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o ) {
     if ( !pos_str__o ) return false;
 

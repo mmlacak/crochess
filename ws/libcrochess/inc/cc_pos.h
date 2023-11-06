@@ -226,24 +226,6 @@ CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 );
 */
 CcPos cc_pos_step( CcPos start, CcPos destination );
 
-// TODO :: MOVE !!!
-//
-/**
-    Function returns momentum from start to destination field.
-
-    @param start Starting from.
-    @param destination Destination field.
-
-    @note
-    Step used to count momentum might not be legal step for any given piece,
-    it's just a calculated value.
-
-    @return Momentum, i.e. count of steps from starting to destination field.
-*/
-int cc_pos_momentum( CcPos start, CcPos destination );
-//
-// TODO :: MOVE !!!
-
 /**
     Function converts position into a user-readable `<file char><rank number>` notation.
 
