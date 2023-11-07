@@ -16,10 +16,10 @@
 
 
 //
-// Linked list of linked list of positions.
+// Linked list of paths.
 
 /**
-    A linked list of linked list of positions.
+    Linked list of paths (each path is linked list of positions).
 */
 typedef struct CcPathLink {
     CcPosLink * pos_ll; /**< A linked list of positions. */
@@ -42,31 +42,20 @@ CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n );
 /**
     Function appends a newly allocated linked path to a given linked list.
 
-    @param path_link__io _Input/output_ parameter, linked list of paths.
-    @param pos__n A linked list of positions; ownership will be taken, and pointer `NULL`-ed.
-
-    @return A weak pointer to a newly allocated linked path if successful, `NULL` otherwise.
-*/
-CcPathLink * cc_path_link_append( CcPathLink * restrict path_link__io,
-                                  CcPosLink ** restrict pos__n );
-
-/**
-    Allocates a new linked path, appends it to a linked list.
-
-    @param path_link__io _Input/output_ parameter, linked list of paths.
+    @param path_link__iod _Optional_, _input/output_ parameter, linked list of paths.
     @param pos__n A linked list of positions; ownership will be taken, and pointer `NULL`-ed.
 
     @note
-    Linked list `*path_link__io` can be `NULL`, a linked path will still be
-    allocated, and returned.
+    Linked list `*path_link__iod` can be `NULL`, a linked path will still be allocated,
+    and weak pointer to it returned.
 
     @note
-    If linked list `*path_link__io` is `NULL`, it will be initialized,
-    with a newly allocated linked path as its first element.
+    If linked list `*path_link__iod` is `NULL`, it will be initialized,
+    with a newly allocated linked path as its only element.
 
     @return A weak pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link_expand( CcPathLink ** restrict path_link__io,
+CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
                                   CcPosLink ** restrict pos__n );
 
 /**

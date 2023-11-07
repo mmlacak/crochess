@@ -10,7 +10,7 @@
 
 
 //
-// Linked list of linked list of positions.
+// Linked list of paths.
 
 CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n ) {
     if ( !pos__n ) return NULL;
@@ -27,34 +27,22 @@ CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n ) {
     return pl__a;
 }
 
-CcPathLink * cc_path_link_append( CcPathLink * restrict path_link__io,
+CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
                                   CcPosLink ** restrict pos__n ) {
-    if ( !path_link__io ) return NULL;
+    if ( !path_link__iod ) return NULL;
 
     CcPathLink * pl__t = cc_path_link__new( pos__n );
     if ( !pl__t ) return NULL;
 
-    CcPathLink * pl = path_link__io;
+    if ( !*path_link__iod ) {
+        *path_link__iod = pl__t; // Ownership transfer.
+    } else {
+        CcPathLink * pl = *path_link__iod;
+        CC_FASTFORWARD( pl );
+        pl->next = pl__t; // Append + ownership transfer.
+    }
 
-    CC_FASTFORWARD( pl );
-    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
-
-    return pl__t;
-}
-
-CcPathLink * cc_path_link_expand( CcPathLink ** restrict path_link__io,
-                                  CcPosLink ** restrict pos__n ) {
-
-    if ( !path_link__io ) return NULL;
-
-    CcPathLink * pl__w = NULL;
-
-    if ( !*path_link__io )
-        *path_link__io = pl__w = cc_path_link__new( pos__n );
-    else
-        pl__w = cc_path_link_append( *path_link__io, pos__n );
-
-    return pl__w;
+    return pl__t; // Weak pointer.
 }
 
 bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {

@@ -10,6 +10,17 @@
 */
 
 
+// TODO :: create new pos link, extended with another
+//         check merge point is the same (last pos in 1st list, first pos in 2nd list)
+
+// TODO :: in a ppt list, check piece, tag for all pos on-board
+
+// TODO :: in a ppt list, fill-in piece, tag for all pos on-board
+
+// TODO :: create new ppt link, extended with another
+//         check merge point is the same (last ppt in 1st list, first ppt in 2nd list)
+//         check piece, tag for all pos on-board
+
 CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
                                                   CcPosLink * restrict pos_link )
 {
