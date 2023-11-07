@@ -28,41 +28,30 @@ CcStrings * cc_strings__new( char const * restrict str,
     return str__a;
 }
 
-CcStrings * cc_strings_append( CcStrings * restrict strings__io,
+CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
                                char const * restrict str,
                                size_t max_len__d ) {
-    if ( !strings__io ) return NULL;
+    if ( !strings__iod ) return NULL;
 
     CcStrings * str__t = cc_strings__new( str, max_len__d );
     if ( !str__t ) return NULL;
 
-    CcStrings * s = strings__io;
-    CC_FASTFORWARD( s );
-    s->next = str__t; // append // Ownership transfer --> str__t is now weak pointer.
+    if ( !*strings__iod ) {
+        *strings__iod = str__t; // Ownership transfer.
+    } else {
+        CcStrings * s = *strings__iod;
+        CC_FASTFORWARD( s );
+        s->next = str__t; // Append + ownership transfer.
+    }
 
-    return str__t;
+    return str__t; // Weak pointer.
 }
 
-CcStrings * cc_strings_expand( CcStrings ** restrict strings__io,
-                               char const * restrict str,
-                               size_t max_len__d ) {
-    if ( !strings__io ) return NULL;
-
-    CcStrings * str__w = NULL;
-
-    if ( !*strings__io )
-        *strings__io = str__w = cc_strings__new( str, max_len__d );
-    else
-        str__w = cc_strings_append( *strings__io, str, max_len__d );
-
-    return str__w;
-}
-
-CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__io,
+CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__iod,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... ) {
-    if ( !strings__io ) return NULL;    // To avoid alloc() + free() of str__a;
-                                        // even though this is never referenced.
+    if ( !strings__iod ) return NULL;    // To avoid alloc() + free() of str__a;
+                                         // even though this is never referenced.
 
     va_list args;
     va_start( args, fmt );
@@ -73,7 +62,7 @@ CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__io,
 
     if ( !str__a ) return NULL;
 
-    CcStrings * pm__w = cc_strings_expand( strings__io, str__a, max_len__d );
+    CcStrings * pm__w = cc_strings_append( strings__iod, str__a, max_len__d );
 
     CC_FREE( str__a );
 
@@ -89,7 +78,7 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {
     CcStrings * s = strings->next;
 
     while ( s ) {
-        if ( !cc_strings_append( new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) ) {
+        if ( !cc_strings_append( &new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) ) {
             cc_strings_free_all( &new__a );
             return NULL; }
 

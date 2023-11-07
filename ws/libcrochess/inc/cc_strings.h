@@ -36,67 +36,39 @@ CcStrings * cc_strings__new( char const * restrict str,
 /**
     Appends a newly allocated string to a linked list.
 
-    @param strings__io Linked list of strings.
+    @param strings__iod _Optional_, _input/ouptut_ parameter; linked list of strings.
     @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
-    @return
-    Weak pointer to a newly allocated string if successful, `NULL` otherwise.
-*/
-CcStrings * cc_strings_append( CcStrings * restrict strings__io,
-                               char const * restrict str,
-                               size_t max_len__d );
-
-/**
-    Allocates a new string, appends it to a linked list, which might not be allocated yet.
-
-    @param strings__io Linked list of strings.
-    @param str String.
-    @param max_len__d _Optional_, maximum length to copy.
-
-    @note
-    Parameter `*strings__io` is a linked list of strings to which a newly allocated
-    string is appended.
-
     @note
     Linked list `*strings__io` can be `NULL`, a newly allocated string will
-    still be allocated, and returned.
+    still be allocated, and weak pointer to it returned.
 
     @note
     If linked list `*strings__io` is `NULL`, it will be initialized,
-    with a newly allocated string as its first element.
+    with a newly allocated string as its only element.
 
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_expand( CcStrings ** restrict strings__io,
+CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
                                char const * restrict str,
                                size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list, which might not be allocated yet.
 
-    @param strings__io Linked list of strings.
+    @param strings__iod _Optional_, _input/ouptut_ parameter; linked list of strings.
     @param max_len__d _Optional_, maximum length to copy.
     @param fmt Formatting string, as defined for `printf`.
     @param ... Variadic format arguments, as used for `printf`.
 
-    @note
-    Parameter `*strings__io` is a linked list of strings to which a newly allocated
-    string is appended.
-
-    @note
-    Linked list `*strings__io` can be `NULL`, a string will still be allocated,
-    and returned.
-
-    @note
-    If linked list `*strings__io` is `NULL`, it will be initialized,
-    with a newly allocated string as its first element.
+    @see cc_strings_append()
 
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__io,
+CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__iod,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... );
 
