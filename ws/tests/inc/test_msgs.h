@@ -40,19 +40,12 @@ TestMsgs * test_msgs__new( TestMsgEnum type,
                            size_t line,
                            char const * restrict func );
 
-TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
+TestMsgs * test_msgs_append( TestMsgs ** restrict test_msgs__iod,
                              TestMsgEnum type,
                              char const * restrict msg,
                              char const * restrict file,
                              size_t line,
                              char const * restrict func );
-
-TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
-                                     TestMsgEnum type,
-                                     char const * restrict msg,
-                                     char const * restrict file,
-                                     size_t line,
-                                     char const * restrict func );
 
 bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f );
 

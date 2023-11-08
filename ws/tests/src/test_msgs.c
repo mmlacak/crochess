@@ -59,37 +59,26 @@ TestMsgs * test_msgs__new( TestMsgEnum type,
     return new;
 }
 
-TestMsgs * test_msgs_append( TestMsgs * restrict test_msgs,
+TestMsgs * test_msgs_append( TestMsgs ** restrict test_msgs__iod,
                              TestMsgEnum type,
                              char const * restrict msg,
                              char const * restrict file,
                              size_t line,
                              char const * restrict func ) {
-    if ( !test_msgs ) return NULL;
+    if ( !test_msgs__iod ) return NULL;
 
-    TestMsgs * new = test_msgs__new( type, msg, file, line, func );
-    if ( !new ) return NULL;
+    TestMsgs * tm__t = test_msgs__new( type, msg, file, line, func );
+    if ( !tm__t ) return NULL;
 
-    TestMsgs * tm = test_msgs;
-    CC_FASTFORWARD( tm );
-    tm->next = new; // append
+    if ( !*test_msgs__iod ) {
+        *test_msgs__iod = tm__t; // Ownership transfer.
+    } else {
+        TestMsgs * tm = *test_msgs__iod;
+        CC_FASTFORWARD( tm );
+        tm->next = tm__t; // Append + ownership transfer.
+    }
 
-    return new;
-}
-
-TestMsgs * test_msgs_init_or_append( TestMsgs ** restrict test_msgs,
-                                     TestMsgEnum type,
-                                     char const * restrict msg,
-                                     char const * restrict file,
-                                     size_t line,
-                                     char const * restrict func ) {
-    if ( !test_msgs ) return NULL;
-
-    TestMsgs * new = test_msgs_append( *test_msgs, type, msg, file, line, func );
-
-    if ( !*test_msgs ) *test_msgs = new;
-
-    return new;
+    return tm__t; // Weak pointer.
 }
 
 bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f ) {
