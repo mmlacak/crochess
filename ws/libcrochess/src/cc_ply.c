@@ -117,26 +117,8 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
     return ply__a;
 }
 
-CcPly * cc_ply_extend( CcPly ** restrict plies__io,
+CcPly * cc_ply_extend( CcPly ** restrict plies__iod,
                        CcPly ** restrict plies__n ) {
-    if ( !plies__io ) return NULL;
-    if ( !*plies__io ) return NULL;
-
-    if ( !plies__n ) return NULL;
-    if ( !*plies__n ) return NULL;
-
-    CcPly * last = *plies__io;
-    CC_FASTFORWARD( last );
-
-    // Ownership transfer.
-    last->next = *plies__n;
-    *plies__n = NULL;
-
-    return last->next;
-}
-
-CcPly * cc_ply_enlarge( CcPly ** restrict plies__iod,
-                        CcPly ** restrict plies__n ) {
     if ( !plies__iod ) return NULL;
     if ( !plies__n ) return NULL;
 
@@ -150,7 +132,14 @@ CcPly * cc_ply_enlarge( CcPly ** restrict plies__iod,
         return *plies__iod;
     }
 
-    return cc_ply_extend( plies__iod, plies__n );
+    CcPly * last = *plies__iod;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *plies__n;
+    *plies__n = NULL;
+
+    return last->next;
 }
 
 bool cc_ply_free_all( CcPly ** restrict plies__f ) {

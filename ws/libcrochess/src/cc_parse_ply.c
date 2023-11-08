@@ -277,12 +277,12 @@ bool cc_parse_plies( char const * restrict move_an,
         //
         // TODO :: DEBUG :: DELETE
 
-        if ( !cc_ply_enlarge( &plies__t, &ply__t ) ) {
+        if ( !cc_ply_extend( &plies__t, &ply__t ) ) {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
 
-            printf( "!cc_ply_enlarge( ... )\n" ); // TODO :: DEBUG :: DELETE
+            printf( "!cc_ply_extend( ... )\n" ); // TODO :: DEBUG :: DELETE
 
             return false;
         }

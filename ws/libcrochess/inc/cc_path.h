@@ -42,7 +42,7 @@ CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n );
 /**
     Function appends a newly allocated linked path to a given linked list.
 
-    @param path_link__iod _Optional_, _input/output_ parameter, linked list of paths.
+    @param path_link__iod _Optional_, _input/output_ parameter; linked list of paths.
     @param pos__n A linked list of positions; ownership will be taken, and pointer `NULL`-ed.
 
     @note

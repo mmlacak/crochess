@@ -194,8 +194,12 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
 /**
     Extends existing linked list with a newly allocated plies.
 
-    @param plies__io Linked list to extend.
+    @param plies__iod _Optional_, _input/output_ parameter; linked list to extend.
     @param plies__n Linked list with which to extend existing plies.
+
+    @note
+    If linked list to extend (`plies__iod`) hasn't been allocated yet, this will initialize it
+    with content of an extending linked list, i.e. `plies__n`.
 
     @note
     Extending linked list `plies__n` has its ownership transferred to extended linked list `plies__io`;
@@ -204,28 +208,8 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_extend( CcPly ** restrict plies__io,
+CcPly * cc_ply_extend( CcPly ** restrict plies__iod,
                        CcPly ** restrict plies__n );
-
-/**
-    Extends existing linked list with a newly allocated plies, or initialize it, if it isn't.
-
-    @param plies__iod Linked list to extend, inner pointer can be `NULL`.
-    @param plies__n Linked list with which to extend existing plies.
-
-    @note
-    If linked list to extend (`plies__iod`) hasn't been allocated yet, this will initialize it
-    with content of an extending linked list, i.e. `plies__n`.
-
-    @note
-    Extending linked list `plies__n` has its ownership transferred to extended linked list `plies__iod`;
-    as a result, inner pointer of `plies__n` is `NULL`-ed.
-
-    @return
-    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
-*/
-CcPly * cc_ply_enlarge( CcPly ** restrict plies__iod,
-                        CcPly ** restrict plies__n );
 
 /**
     Frees all plies in a linked list, and all associated entities.
