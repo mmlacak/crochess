@@ -75,45 +75,26 @@ CcMove * cc_move__new( char const * restrict notation,
 /**
     Appends a newly allocated move to a linked list.
 
-    @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
-    @param notation Original notation, as received from a user.
-    @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
-    @param plies__n Plies, should be valid pointer.
-    @param status Move status.
-
-    @see cc_move__new()
-
-    @return
-    Weak pointer to a newly allocated move if successful, `NULL` otherwise.
-*/
-CcMove * cc_move_append( CcMove * restrict moves__io,
-                         char const * restrict notation,
-                         size_t max_len__d,
-                         CcPly ** restrict plies__n,
-                         CcMoveStatusEnum status );
-
-/**
-    Allocates a new move, appends it to a linked list.
-
-    @param moves__io _Input/output_ parameter, linked list of moves, to which a new move is appended.
+    @param moves__iod _Optional_, _input/output_ parameter, linked list of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param plies__n Plies, should be valid pointer.
     @param status Move status.
 
     @note
-    Linked list `*moves__io` can be `NULL`, a move will still be allocated, and returned.
+    Linked list `*moves__iod` can be `NULL`, a move will still be allocated,
+    and weak pointer to it returned.
 
     @note
-    If linked list `*moves__io` is `NULL`, it will be initialized,
-    with a newly allocated move as its first element.
+    If linked list `*moves__iod` is `NULL`, it will be initialized
+    with a newly allocated move as its only element.
 
     @see cc_move__new()
 
     @return
     Weak pointer to a newly allocated move if successful, `NULL` otherwise.
 */
-CcMove * cc_move_expand( CcMove ** restrict moves__io,
+CcMove * cc_move_append( CcMove ** restrict moves__iod,
                          char const * restrict notation,
                          size_t max_len__d,
                          CcPly ** restrict plies__n,

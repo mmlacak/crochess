@@ -43,40 +43,27 @@ CcMove * cc_move__new( char const * restrict notation,
     return mv__a;
 }
 
-CcMove * cc_move_append( CcMove * restrict moves__io,
+CcMove * cc_move_append( CcMove ** restrict moves__iod,
                          char const * restrict notation,
                          size_t max_len__d,
                          CcPly ** restrict plies__n,
                          CcMoveStatusEnum status ) {
-    if ( !moves__io ) return NULL;
+    if ( !moves__iod ) return NULL;
 
     CcMove * mv__t = cc_move__new( notation, max_len__d, plies__n, status );
     if ( !mv__t ) return NULL;
 
-    CcMove * m = moves__io;
-    CC_FASTFORWARD( m );
+    if ( !*moves__iod ) {
+        *moves__iod = mv__t; // Ownership transfer.
+    } else {
+        CcMove * m = *moves__iod;
+        CC_FASTFORWARD( m );
 
-    m->next = mv__t; // append // Ownership transfer --> mv__t is now weak pointer.
-    mv__t->prev = m;
+        m->next = mv__t; // Append + ownership transfer.
+        mv__t->prev = m;
+    }
 
-    return mv__t;
-}
-
-CcMove * cc_move_expand( CcMove ** restrict moves__io,
-                         char const * restrict notation,
-                         size_t max_len__d,
-                         CcPly ** restrict plies__n,
-                         CcMoveStatusEnum status ) {
-    if ( !moves__io ) return NULL;
-
-    CcMove * move__w = NULL;
-
-    if ( !*moves__io )
-        *moves__io = move__w = cc_move__new( notation, max_len__d, plies__n, status );
-    else
-        move__w = cc_move_append( *moves__io, notation, max_len__d, plies__n, status );
-
-    return move__w;
+    return mv__t; // Weak pointer.
 }
 
 CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
@@ -94,7 +81,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
             return NULL;
         }
 
-        CcMove * mv__w = cc_move_expand( &mv__a,
+        CcMove * mv__w = cc_move_append( &mv__a,
                                          from->notation,
                                          CC_MAX_LEN_ZERO_TERMINATED,
                                          &plies__t,
