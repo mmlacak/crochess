@@ -28,7 +28,7 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     return pm__a;
 }
 
-CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
+CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod,
                                   CcParseMsgTypeEnum type,
                                   char const * restrict msg,
                                   size_t max_len__d ) {
@@ -37,30 +37,18 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg * restrict parse_msgs__iod,
     CcParseMsg * pm__t = cc_parse_msg__new( type, msg, max_len__d );
     if ( !pm__t ) return NULL;
 
-    CcParseMsg * pm = parse_msgs__iod;
-    CC_FASTFORWARD( pm );
-    pm->next = pm__t; // append // Ownership transfer --> pm__t is now weak pointer.
+    if ( !*parse_msgs__iod ) {
+        *parse_msgs__iod = pm__t; // Ownership transfer.
+    } else {
+        CcParseMsg * pm = *parse_msgs__iod;
+        CC_FASTFORWARD( pm );
+        pm->next = pm__t; // Append + ownership transfer.
+    }
 
-    return pm__t;
+    return pm__t; // Weak pointer.
 }
 
-CcParseMsg * cc_parse_msg_expand( CcParseMsg ** restrict parse_msgs__iod,
-                                  CcParseMsgTypeEnum type,
-                                  char const * restrict msg,
-                                  size_t max_len__d ) {
-    if ( !parse_msgs__iod ) return NULL;
-
-    CcParseMsg * pm__w = NULL;
-
-    if ( !*parse_msgs__iod )
-        *parse_msgs__iod = pm__w = cc_parse_msg__new( type, msg, max_len__d );
-    else
-        pm__w = cc_parse_msg_append( *parse_msgs__iod, type, msg, max_len__d );
-
-    return pm__w;
-}
-
-CcParseMsg * cc_parse_msg_expand_fmt_va( CcParseMsg ** restrict parse_msgs__iod,
+CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod,
                                          CcParseMsgTypeEnum type,
                                          size_t max_len__d,
                                          char const * restrict fmt,
@@ -75,14 +63,14 @@ CcParseMsg * cc_parse_msg_expand_fmt_va( CcParseMsg ** restrict parse_msgs__iod,
 
     if ( !msg__a ) return NULL;
 
-    CcParseMsg * pm__w = cc_parse_msg_expand( parse_msgs__iod, type, msg__a, max_len__d );
+    CcParseMsg * pm__w = cc_parse_msg_append( parse_msgs__iod, type, msg__a, max_len__d );
 
     CC_FREE( msg__a );
 
     return pm__w;
 }
 
-CcParseMsg * cc_parse_msg_expand_fmt( CcParseMsg ** restrict parse_msgs__iod,
+CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** restrict parse_msgs__iod,
                                       CcParseMsgTypeEnum type,
                                       size_t max_len__d,
                                       char const * restrict fmt, ... ) {
@@ -91,7 +79,7 @@ CcParseMsg * cc_parse_msg_expand_fmt( CcParseMsg ** restrict parse_msgs__iod,
     va_list args;
     va_start( args, fmt );
 
-    CcParseMsg * pm__w = cc_parse_msg_expand_fmt_va( parse_msgs__iod, type, max_len__d, fmt, args );
+    CcParseMsg * pm__w = cc_parse_msg_append_fmt_va( parse_msgs__iod, type, max_len__d, fmt, args );
 
     va_end( args );
 
