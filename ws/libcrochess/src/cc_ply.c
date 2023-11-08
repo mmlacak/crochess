@@ -59,27 +59,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     return ply__a;
 }
 
-CcPly * cc_ply_append( CcPly * restrict plies__io,
-                       char const * restrict start_an__d,
-                       char const * restrict end_an__d,
-                       size_t max_len__d,
-                       CcPlyLinkEnum link,
-                       CcPieceEnum piece,
-                       CcLosingTagEnum lost_tag,
-                       CcStep ** restrict steps__n ) {
-    if ( !plies__io ) return NULL;
-
-    CcPly * ply__t = cc_ply__new( start_an__d, end_an__d, max_len__d, link, piece, lost_tag, steps__n );
-    if ( !ply__t ) return NULL;
-
-    CcPly * p = plies__io;
-    CC_FASTFORWARD( p );
-    p->next = ply__t; // append // Ownership transfer --> ply__t is now weak pointer.
-
-    return ply__t;
-}
-
-CcPly * cc_ply_expand( CcPly ** restrict plies__iod,
+CcPly * cc_ply_append( CcPly ** restrict plies__iod,
                        char const * restrict start_an__d,
                        char const * restrict end_an__d,
                        size_t max_len__d,
@@ -89,27 +69,18 @@ CcPly * cc_ply_expand( CcPly ** restrict plies__iod,
                        CcStep ** restrict steps__n ) {
     if ( !plies__iod ) return NULL;
 
-    CcPly * ply__w = NULL;
+    CcPly * ply__t = cc_ply__new( start_an__d, end_an__d, max_len__d, link, piece, lost_tag, steps__n );
+    if ( !ply__t ) return NULL;
 
-    if ( !*plies__iod )
-        *plies__iod = ply__w = cc_ply__new( start_an__d,
-                                            end_an__d,
-                                            max_len__d,
-                                            link,
-                                            piece,
-                                            lost_tag,
-                                            steps__n );
-    else
-        ply__w = cc_ply_append( *plies__iod,
-                                start_an__d,
-                                end_an__d,
-                                max_len__d,
-                                link,
-                                piece,
-                                lost_tag,
-                                steps__n );
+    if ( !*plies__iod ) {
+        *plies__iod = ply__t; // Ownership transfer.
+    } else {
+        CcPly * p = *plies__iod;
+        CC_FASTFORWARD( p );
+        p->next = ply__t; // Append + ownership transfer.
+    }
 
-    return ply__w;
+    return ply__t; // Weak pointer.
 }
 
 CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
@@ -125,7 +96,7 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
             return NULL;
         }
 
-        CcPly * ply__w = cc_ply_expand( &ply__a,
+        CcPly * ply__w = cc_ply_append( &ply__a,
                                         from->notation,
                                         NULL,
                                         CC_MAX_LEN_ZERO_TERMINATED,
