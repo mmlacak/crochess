@@ -80,26 +80,8 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io ) {
     return steps__a;
 }
 
-CcStep * cc_step_extend( CcStep ** restrict steps__io,
+CcStep * cc_step_extend( CcStep ** restrict steps__iod,
                          CcStep ** restrict steps__n ) {
-    if ( !steps__io ) return NULL;
-    if ( !*steps__io ) return NULL;
-
-    if ( !steps__n ) return NULL;
-    if ( !*steps__n ) return NULL;
-
-    CcStep * last = *steps__io;
-    CC_FASTFORWARD( last );
-
-    // Ownership transfer.
-    last->next = *steps__n;
-    *steps__n = NULL;
-
-    return last->next;
-}
-
-CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
-                          CcStep ** restrict steps__n ) {
     if ( !steps__iod ) return NULL;
     if ( !steps__n ) return NULL;
 
@@ -113,7 +95,14 @@ CcStep * cc_step_enlarge( CcStep ** restrict steps__iod,
         return *steps__iod;
     }
 
-    return cc_step_extend( steps__iod, steps__n );
+    CcStep * last = *steps__iod;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *steps__n;
+    *steps__n = NULL;
+
+    return last->next;
 }
 
 size_t cc_step_count( CcStep * restrict steps ) {
