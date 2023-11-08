@@ -267,7 +267,7 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_ppt_link_append()
+    @see cc_pos_link_append()
 */
 #define CC_POS_LINK_APPEND(ptr_ptr__pos_link__iod,int_i,int_j) \
     ( cc_pos_link_append( (ptr_ptr__pos_link__iod), CC_POS_CAST( (int_i), (int_j) ) ) )
@@ -494,7 +494,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 /**
     Macro to append a newly allocated position + piece + tag value to position link.
 
-    @param ptr__ppt_link__io A position linked list, to be appended.
+    @param ptr_ptr__ppt_link__iod _Optional_, _input/output_ parameter; a position linked list.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
     @param piece A piece.
@@ -504,24 +504,8 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_ppt_link_append()
 */
-#define CC_PPT_LINK_APPEND(ptr__ppt_link__io,int_i,int_j,piece,tag) \
-    ( cc_ppt_link_append( (ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
-
-/**
-    Macro to initialize or append a position linked list, with position + piece + tag value.
-
-    @param ptr_ptr__ppt_link__io A position linked list, to be appended.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-    @param piece A piece.
-    @param tag A tag.
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_ppt_link_expand()
-*/
-#define CC_PPT_LINK_EXPAND(ptr_ptr__ppt_link__io,int_i,int_j,piece,tag) \
-    ( cc_ppt_link_expand( (ptr_ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
+#define CC_PPT_LINK_APPEND(ptr_ptr__ppt_link__iod,int_i,int_j,piece,tag) \
+    ( cc_ppt_link_append( (ptr_ptr__ppt_link__iod), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.
@@ -543,31 +527,22 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt );
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param ppt_link__io _Input/output_ parameter, linked list.
-    @param ppt A position + piece + tag value.
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-*/
-CcPptLink * cc_ppt_link_append( CcPptLink * restrict ppt_link__io,
-                                CcPosPieceTag ppt );
-
-/**
-    Allocates a new linked position, appends it to a linked list.
-
-    @param ppt_link__io _Input/output_ parameter, linked list, can be `NULL`.
+    @param ppt_link__iod _Optional_, _input/output_ parameter, linked list.
     @param ppt A position + piece + tag value.
 
     @note
-    Linked list `*ppt_link__io` can be `NULL`, a linked position will still be
-    allocated, and returned.
+    Linked list `*ppt_link__iod` can be `NULL`, a linked position will still be
+    allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*ppt_link__io` is `NULL`, it will be initialized,
-    with a newly allocated linked position as its first element.
+    If linked list `*ppt_link__iod` is `NULL`, it will be initialized
+    with a newly allocated linked position as its only element.
 
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+    @return
+    A weak pointer to a newly allocated linked position if successful,
+    `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_expand( CcPptLink ** restrict ppt_link__io,
+CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod,
                                 CcPosPieceTag ppt );
 
 /**

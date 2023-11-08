@@ -332,33 +332,22 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt ) {
     return pl__t;
 }
 
-CcPptLink * cc_ppt_link_append( CcPptLink * restrict ppt_link__io,
+CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod,
                                 CcPosPieceTag ppt ) {
-    if ( !ppt_link__io ) return NULL;
+    if ( !ppt_link__iod ) return NULL;
 
     CcPptLink * pl__t = cc_ppt_link__new( ppt );
     if ( !pl__t ) return NULL;
 
-    CcPptLink * pl = ppt_link__io;
+    if ( !*ppt_link__iod ) {
+        *ppt_link__iod = pl__t; // Ownership transfer.
+    } else {
+        CcPptLink * pl = *ppt_link__iod;
+        CC_FASTFORWARD( pl );
+        pl->next = pl__t; // Append + ownership transfer.
+    }
 
-    CC_FASTFORWARD( pl );
-    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
-
-    return pl__t;
-}
-
-CcPptLink * cc_ppt_link_expand( CcPptLink ** restrict ppt_link__io,
-                                CcPosPieceTag ppt ) {
-    if ( !ppt_link__io ) return NULL;
-
-    CcPptLink * pl__w = NULL;
-
-    if ( !*ppt_link__io )
-        *ppt_link__io = pl__w = cc_ppt_link__new( ppt );
-    else
-        pl__w = cc_ppt_link_append( *ppt_link__io, ppt );
-
-    return pl__w;
+    return pl__t; // Weak pointer.
 }
 
 bool cc_ppt_link_free_all( CcPptLink ** restrict ppt_link__f ) {
