@@ -33,7 +33,7 @@ CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
     while ( p ) {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, p->pos.i, p->pos.j );
         CcTagEnum te = cc_chessboard_get_tag( cb, p->pos.i, p->pos.j );
-        CcPosPieceTag ppt = CC_POS_PIECE_TAG_CAST( p->pos, pe, te );
+        CcPosPieceTag ppt = cc_pos_piece_tag( p->pos, pe, te );
 
         if ( !cc_ppt_link_expand( &ppt_link__a, ppt ) ) {
             cc_ppt_link_free_all( &ppt_link__a );

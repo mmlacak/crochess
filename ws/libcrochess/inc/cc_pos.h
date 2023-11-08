@@ -376,7 +376,8 @@ typedef struct CcPosPieceTag {
 /**
     Macro which constructs position + piece + tag struct.
 
-    @param pos_struct A position.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
     @param piece_enum A piece.
     @param tag_enum A tag.
 
@@ -384,13 +385,14 @@ typedef struct CcPosPieceTag {
 
     @return Position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG(pos_struct,piece_enum,tag_enum) \
-    { .pos = pos_struct, .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum) }
+#define CC_POS_PIECE_TAG(int_i,int_j,piece_enum,tag_enum) \
+    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum) }
 
 /**
     Macro which constructs casted position + piece + tag struct.
 
-    @param pos_struct A position.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
     @param piece_enum A piece.
     @param tag_enum A tag.
 
@@ -398,8 +400,8 @@ typedef struct CcPosPieceTag {
 
     @return Casted position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG_CAST(pos_struct,piece_enum,tag_enum) \
-    ( (CcPosPieceTag)CC_POS_PIECE_TAG( pos_struct, piece_enum, tag_enum ) )
+#define CC_POS_PIECE_TAG_CAST(int_i,int_j,piece_enum,tag_enum) \
+    ( (CcPosPieceTag)CC_POS_PIECE_TAG( (int_i), (int_j), (piece_enum), (tag_enum) ) )
 
 
 /**
@@ -477,7 +479,8 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 /**
     Convenience macro to allocate new position + piece + tag value to position link.
 
-    @param pos A position.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
     @param piece A piece.
     @param tag A tag.
 
@@ -485,14 +488,15 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_ppt_link__new()
 */
-#define CC_PPT_LINK__NEW(pos,piece,tag) \
-    ( cc_ppt_link__new( CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK__NEW(int_i,int_j,piece,tag) \
+    ( cc_ppt_link__new( CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
 
 /**
     Macro to append a newly allocated position + piece + tag value to position link.
 
     @param ptr__ppt_link__io A position linked list, to be appended.
-    @param pos A position.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
     @param piece A piece.
     @param tag A tag.
 
@@ -500,14 +504,15 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_ppt_link_append()
 */
-#define CC_PPT_LINK_APPEND(ptr__ppt_link__io,pos,piece,tag) \
-    ( cc_ppt_link_append( (ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK_APPEND(ptr__ppt_link__io,int_i,int_j,piece,tag) \
+    ( cc_ppt_link_append( (ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
 
 /**
     Macro to initialize or append a position linked list, with position + piece + tag value.
 
     @param ptr_ptr__ppt_link__io A position linked list, to be appended.
-    @param pos A position.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
     @param piece A piece.
     @param tag A tag.
 
@@ -515,8 +520,8 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     @see cc_ppt_link_expand()
 */
-#define CC_PPT_LINK_EXPAND(ptr_ptr__ppt_link__io,pos,piece,tag) \
-    ( cc_ppt_link_expand( (ptr_ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (pos), (piece), (tag) ) ) )
+#define CC_PPT_LINK_EXPAND(ptr_ptr__ppt_link__io,int_i,int_j,piece,tag) \
+    ( cc_ppt_link_expand( (ptr_ptr__ppt_link__io), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.
