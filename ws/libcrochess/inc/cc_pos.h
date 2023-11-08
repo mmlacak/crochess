@@ -248,19 +248,20 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 /**
     Convenience macro to allocate new position value to position link.
 
-    @param pos A position.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_pos_link__new()
 */
-#define CC_POS_LINK__NEW(pos) \
-    ( cc_pos_link__new( CC_POS_CAST( (pos) ) ) )
+#define CC_POS_LINK__NEW(int_i,int_j) \
+    ( cc_pos_link__new( CC_POS_CAST( (int_i), (int_j) ) ) )
 
 /**
     Macro to append a newly allocated position value to position link.
 
-    @param ptr_ptr__pos_link__iod A position linked list, to be appended.
+    @param ptr_ptr__pos_link__iod _Optional_, _input/output_ parameter, linked list.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
@@ -308,17 +309,6 @@ CcPosLink * cc_pos_link__new( CcPos pos );
 */
 CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
                                 CcPos pos );
-
-// /**
-//     Allocates a new linked position, appends it to a linked list.
-
-//     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
-//     @param pos A position.
-
-//     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-// */
-// CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
-//                                 CcPos pos );
 
 /**
     Frees all positions in a linked list.
