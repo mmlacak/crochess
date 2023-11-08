@@ -68,7 +68,7 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__iod,
+CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... );
 

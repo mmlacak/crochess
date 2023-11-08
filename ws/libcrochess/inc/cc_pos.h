@@ -260,28 +260,16 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 /**
     Macro to append a newly allocated position value to position link.
 
-    @param ptr__pos_link__io A position linked list, to be appended.
-    @param pos A position.
+    @param ptr_ptr__pos_link__iod A position linked list, to be appended.
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
     @see cc_ppt_link_append()
 */
-#define CC_POS_LINK_APPEND(ptr__pos_link__io,pos) \
-    ( cc_pos_link_append( (ptr__pos_link__io), CC_POS_CAST( (pos) ) ) )
-
-/**
-    Macro to initialize or append a position linked list, with position value.
-
-    @param ptr_ptr__pos_link__io A position linked list, to be appended.
-    @param pos A position.
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_ppt_link_expand()
-*/
-#define CC_POS_LINK_EXPAND(ptr_ptr__pos_link__io,pos) \
-    ( cc_pos_link_expand( (ptr_ptr__pos_link__io), CC_POS_CAST( (pos) ) ) )
+#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__iod,int_i,int_j) \
+    ( cc_pos_link_append( (ptr_ptr__pos_link__iod), CC_POS_CAST( (int_i), (int_j) ) ) )
 
 /**
     A linked list of positions.
@@ -303,32 +291,34 @@ CcPosLink * cc_pos_link__new( CcPos pos );
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param pos_link__io _Input/output_ parameter, linked list.
-    @param pos A position.
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-*/
-CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
-                                CcPos pos );
-
-/**
-    Allocates a new linked position, appends it to a linked list.
-
-    @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
+    @param pos_link__iod _Optional_, _input/output_ parameter, linked list.
     @param pos A position.
 
     @note
-    Linked list `*pos_link__io` can be `NULL`, a linked position will still be
-    allocated, and returned.
+    Linked list `*pos_link__iod` can be `NULL`, a linked position will still be
+    allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*pos_link__io` is `NULL`, it will be initialized,
-    with a newly allocated linked position as its first element.
+    If linked list `*pos_link__iod` is `NULL`, it will be initialized
+    with a newly allocated linked position as its only element.
 
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+    @return
+    A weak pointer to a newly allocated linked position if successful,
+    `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
                                 CcPos pos );
+
+// /**
+//     Allocates a new linked position, appends it to a linked list.
+
+//     @param pos_link__io _Input/output_ parameter, linked list, can be `NULL`.
+//     @param pos A position.
+
+//     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
+// */
+// CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+//                                 CcPos pos );
 
 /**
     Frees all positions in a linked list.

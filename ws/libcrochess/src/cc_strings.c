@@ -47,7 +47,7 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
     return str__t; // Weak pointer.
 }
 
-CcStrings * cc_strings_expand_fmt( CcStrings ** restrict strings__iod,
+CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... ) {
     if ( !strings__iod ) return NULL;    // To avoid alloc() + free() of str__a;

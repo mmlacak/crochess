@@ -173,33 +173,22 @@ CcPosLink * cc_pos_link__new( CcPos pos ) {
     return pl__t;
 }
 
-CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
                                 CcPos pos ) {
-    if ( !pos_link__io ) return NULL;
+    if ( !pos_link__iod ) return NULL;
 
     CcPosLink * pl__t = cc_pos_link__new( pos );
     if ( !pl__t ) return NULL;
 
-    CcPosLink * pl = pos_link__io;
+    if ( !*pos_link__iod ) {
+        *pos_link__iod = pl__t; // Ownership transfer.
+    } else {
+        CcPosLink * pl = *pos_link__iod;
+        CC_FASTFORWARD( pl );
+        pl->next = pl__t; // Append + ownership transfer.
+    }
 
-    CC_FASTFORWARD( pl );
-    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
-
-    return pl__t;
-}
-
-CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
-                                CcPos pos ) {
-    if ( !pos_link__io ) return NULL;
-
-    CcPosLink * pl__w = NULL;
-
-    if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( pos );
-    else
-        pl__w = cc_pos_link_append( *pos_link__io, pos );
-
-    return pl__w;
+    return pl__t; // Weak pointer.
 }
 
 bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
@@ -410,7 +399,7 @@ CcPosLink * cc_ppt_link_to_pos_link__new( CcPptLink * restrict ppt_link ) {
     CcPptLink * p = ppt_link;
 
     while ( p ) {
-        if ( !cc_pos_link_expand( &pos_link__a, p->ppt.pos ) ) {
+        if ( !cc_pos_link_append( &pos_link__a, p->ppt.pos ) ) {
             cc_pos_link_free_all( &pos_link__a );
             return NULL;
         }
