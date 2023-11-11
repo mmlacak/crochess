@@ -328,6 +328,8 @@ char const * cc_next_step_link( char const * restrict an_str,
         sle = cc_parse_step_link( str__w, ply_end );
         if ( ( sle == CC_SLE_Start ) || ( sle == CC_SLE_JustDestination ) )
             ++str__w;
+        else
+            break;
     } while ( str__w < ply_end );
 
     return str__w;
