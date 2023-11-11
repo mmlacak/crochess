@@ -173,7 +173,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
         if ( start ) {
             CcPos start_pos = start->field;
-            CcPieceEnum pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.i );
+            CcPieceEnum pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
 
             if ( pe == before_ply_start__io->piece ) {
                 before_ply_start__io->pos = start_pos;
