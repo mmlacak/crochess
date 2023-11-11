@@ -44,6 +44,7 @@ static bool cc_check_parsed_pos( char const * restrict step_start_an,
 
 static bool cc_parse_step( char const * restrict step_start_an,
                            char const * restrict step_end_an,
+                           char const * restrict steps_end_an,
                            CcGame * restrict game,
                            CcPosPieceTag before_ply_start,
                            CcStep ** restrict step__o,
@@ -51,12 +52,13 @@ static bool cc_parse_step( char const * restrict step_start_an,
                            CcParseMsg ** restrict parse_msgs__iod ) {
     if ( !step_start_an ) return false;
     if ( !step_end_an ) return false;
+    if ( !steps_end_an ) return false;
     if ( !game ) return false;
     if ( !step__o || *step__o ) return false;
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    CcStepLinkEnum sle = cc_parse_step_link( step_start_an, step_end_an ); // This is fine, step ends where ply does, or before.
+    CcStepLinkEnum sle = cc_parse_step_link( step_start_an, steps_end_an );
     if ( !cc_check_step_link( sle, step_start_an, step_end_an, parse_msgs__iod ) )
         return false;
 
@@ -107,10 +109,10 @@ bool cc_parse_steps( char const * restrict steps_start_an,
 
         cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
-        if ( !cc_parse_step( step_start_an, step_end_an, game, before_ply_start, &step__t,
+        if ( !cc_parse_step( step_start_an, step_end_an, steps_end_an, game, before_ply_start,
+                             &step__t,
                              cb__io,
                              parse_msgs__iod ) ) {
-
             printf( "!cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
 
             cc_step_free_all( &step__t );

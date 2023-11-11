@@ -24,8 +24,9 @@
 
 // static bool cc_parse_step( char const * restrict step_start_an,
 //                            char const * restrict step_end_an,
+//                            char const * restrict steps_end_an,
 //                            CcGame * restrict game,
-//                            CcPosPieceTag last_ply_destination,
+//                            CcPosPieceTag before_ply_start,
 //                            CcStep ** restrict step__o,
 //                            CcChessboard ** restrict cb__io,
 //                            CcParseMsg ** restrict parse_msgs__iod );

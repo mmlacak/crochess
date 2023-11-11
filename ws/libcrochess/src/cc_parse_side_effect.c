@@ -573,11 +573,16 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
                     //      --> then it's silent capture (!)
 
                     // TODO ::  >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n
-                    char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                    char sp = cc_piece_as_char( step_piece );
-                    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, " >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n", sp, step_an__a );
-                    CC_FREE( step_an__a );
-                    return false;
+                    if ( sle != CC_SLE_Start ) {
+                        char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+                        char sp = cc_piece_as_char( step_piece );
+                        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, " >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n", sp, step_an__a );
+                        CC_FREE( step_an__a );
+                        return false;
+                    }
+
+                    *side_effect__o = cc_side_effect_none();
+                    return true;
                 }
             }
             // TODO
