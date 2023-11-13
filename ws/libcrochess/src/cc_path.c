@@ -12,15 +12,15 @@
 //
 // Linked list of paths.
 
-CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n ) {
-    if ( !pos__n ) return NULL;
-    if ( !*pos__n ) return NULL;
+CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
+    if ( !ppt__n ) return NULL;
+    if ( !*ppt__n ) return NULL;
 
     CcPathLink * pl__a = malloc( sizeof( CcPathLink ) );
     if ( !pl__a ) return NULL;
 
-    pl__a->pos_ll = *pos__n; // Transfering ownership.
-    *pos__n = NULL; // Preventing usage from old pointer holding ownership.
+    pl__a->path = *ppt__n; // Transfering ownership.
+    *ppt__n = NULL; // Preventing usage from old pointer holding ownership.
 
     pl__a->next = NULL;
 
@@ -28,10 +28,10 @@ CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-                                  CcPosLink ** restrict pos__n ) {
+                                  CcPptLink ** restrict ppt__n ) {
     if ( !path_link__iod ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( pos__n );
+    CcPathLink * pl__t = cc_path_link__new( ppt__n );
     if ( !pl__t ) return NULL;
 
     if ( !*path_link__iod ) {
@@ -56,7 +56,7 @@ bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
     while ( pl ) {
         tmp = pl->next;
 
-        result = cc_pos_link_free_all( &(pl->pos_ll) ) && result;
+        result = cc_ppt_link_free_all( &(pl->path) ) && result;
 
         CC_FREE( pl );
         pl = tmp;

@@ -22,28 +22,28 @@
     Linked list of paths (each path is linked list of positions).
 */
 typedef struct CcPathLink {
-    CcPosLink * pos_ll; /**< A linked list of positions. */
-    struct CcPathLink * next; /**< Link to a next linke list. */
+    CcPptLink * path; /**< A linked list of positions, with pieces and tags on them. */
+    struct CcPathLink * next; /**< Link to a next list. */
 } CcPathLink;
 
 /**
     Function allocates a new linked path.
 
-    @param pos__n A linked list of positions.
+    @param ppt__n A linked list of positions.
 
     @note
-    Argument `pos__n` will have its ownership taken, positions assigned to newly allocated linked path item,
+    Argument `ppt__n` will have its ownership taken, positions assigned to newly allocated linked path item,
     pointer itself will be `NULL`-ed, to prevent any future use.
 
     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n );
+CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
 
 /**
     Function appends a newly allocated linked path to a given linked list.
 
     @param path_link__iod _Optional_, _input/output_ parameter; linked list of paths.
-    @param pos__n A linked list of positions; ownership will be taken, and pointer `NULL`-ed.
+    @param ppt__n A linked list of positions + pieces + tags; ownership will be taken, and pointer `NULL`-ed.
 
     @note
     Linked list `*path_link__iod` can be `NULL`, a linked path will still be allocated,
@@ -56,7 +56,7 @@ CcPathLink * cc_path_link__new( CcPosLink ** restrict pos__n );
     @return A weak pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
 CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-                                  CcPosLink ** restrict pos__n );
+                                  CcPptLink ** restrict ppt__n );
 
 /**
     Frees all paths in a linked list.
