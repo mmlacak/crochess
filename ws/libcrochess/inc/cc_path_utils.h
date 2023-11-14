@@ -41,9 +41,12 @@ CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
 CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
                                                   CcPosLink * restrict pos_link );
 
+bool cc_validate_ppt_link( CcChessboard * restrict cb,
+                           CcPptLink * restrict ppt_link );
+
 
 // DOCS
-bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
+bool cc_iter_piece_pos( CcChessboard * restrict cb,
                         CcPos expected,
                         CcPieceEnum piece,
                         bool include_opponent,

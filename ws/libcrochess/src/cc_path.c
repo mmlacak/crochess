@@ -10,7 +10,7 @@
 
 
 //
-// Linked list of paths.
+// Tree of paths.
 
 CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
     if ( !ppt__n ) return NULL;

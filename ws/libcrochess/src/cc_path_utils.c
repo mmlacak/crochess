@@ -10,17 +10,6 @@
 */
 
 
-// TODO :: create new pos link, extended with another
-//         check merge point is the same (last pos in 1st list, first pos in 2nd list)
-
-// TODO :: in a ppt list, check piece, tag for all pos on-board
-
-// TODO :: in a ppt list, fill-in piece, tag for all pos on-board
-
-// TODO :: create new ppt link, extended with another
-//         check merge point is the same (last ppt in 1st list, first ppt in 2nd list)
-//         check piece, tag for all pos on-board
-
 CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
                                      CcPos pos ) {
     CcPosPieceTag ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
@@ -34,8 +23,7 @@ CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
 }
 
 CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
-                                                  CcPosLink * restrict pos_link )
-{
+                                                  CcPosLink * restrict pos_link ) {
     if ( !cb ) return NULL;
     if ( !pos_link ) return NULL;
 
@@ -57,19 +45,51 @@ CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
 }
 
 
-bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
+// TODO :: create new pos link, extended with another
+//         check merge point is the same (last pos in 1st list, first pos in 2nd list)
+
+bool cc_validate_ppt_link( CcChessboard * restrict cb,
+                           CcPptLink * restrict ppt_link ) {
+    if ( !cb ) return false;
+    if ( !ppt_link ) return false;
+
+    CcPptLink * pl = ppt_link;
+
+    while ( pl ) {
+        CcPos pos = pl->ppt.pos;
+
+        CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        if ( piece != pl->ppt.piece ) return false;
+
+        CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        if ( tag != pl->ppt.tag ) return false;
+
+        pl = pl->next;
+    }
+
+    return true;
+}
+
+// TODO :: in a ppt list, fill-in piece, tag for all pos on-board
+
+// TODO :: create new ppt link, extended with another
+//         check merge point is the same (last ppt in 1st list, first ppt in 2nd list)
+//         check piece, tag for all pos on-board
+
+
+bool cc_iter_piece_pos( CcChessboard * restrict cb,
                         CcPos expected,
                         CcPieceEnum piece,
                         bool include_opponent,
                         CcPos * restrict pos__io ) {
-    if ( !cb_before_activation ) return false;
+    if ( !cb ) return false;
     if ( !pos__io ) return false;
 
-    int size = (int)cb_before_activation->size;
+    int size = (int)cb->size;
     CcPos pos = *pos__io;
 
     // Next position to check.
-    if ( !cc_chessboard_is_pos_on_board( cb_before_activation, pos.i, pos.j ) )
+    if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) )
         pos = CC_POS_CAST_ORIGIN_FIELD;
     else if ( pos.j < size - 1 )
         pos = CC_POS_CAST( pos.i, pos.j + 1 );
@@ -81,7 +101,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb_before_activation,
 
     for ( int i = pos.i; i < size; ++i ) {
         for ( int j = pos.j; j < size; ++j ) {
-            CcPieceEnum pe = cc_chessboard_get_piece( cb_before_activation, i, j );
+            CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {

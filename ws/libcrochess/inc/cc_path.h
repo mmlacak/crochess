@@ -16,7 +16,7 @@
 
 
 //
-// Linked list of paths.
+// Tree of paths.
 
 /**
     Tree of routes. Each route follows paths from start to destination.
