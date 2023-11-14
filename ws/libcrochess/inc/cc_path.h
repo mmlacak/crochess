@@ -45,41 +45,63 @@ typedef struct CcPathLink {
 CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
 
 /**
-    Function appends a newly allocated linked path to a given linked list.
+    Function appends a newly allocated path as an alternative to a given path segment.
 
-    @param path_link__iod _Optional_, _input/output_ parameter; linked list of paths.
-    @param ppt__n A linked list of positions + pieces + tags; ownership will be taken, and pointer `NULL`-ed.
+    @param path_link__iod _Optional_, _input/output_ parameter; path segment.
+    @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
 
     @note
-    Linked list `*path_link__iod` can be `NULL`, a linked path will still be allocated,
+    Tree `*path_link__iod` can be `NULL`, a path will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If linked list `*path_link__iod` is `NULL`, it will be initialized,
-    with a newly allocated linked path as its only element.
+    If tree `*path_link__iod` is `NULL`, it will be initialized,
+    with a newly allocated path as its only element.
 
-    @return A weak pointer to a newly allocated linked path if successful, `NULL` otherwise.
+    @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-                                  CcPptLink ** restrict ppt__n );
+CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__iod,
+                                              CcPptLink ** restrict ppt__n );
 
 /**
-    Frees all paths in a linked list.
+    Function appends a newly allocated path as an divergence to a given path segment.
 
-    @param path_link__f Linked list of paths.
+    @param path_link__io _Input/output_ parameter; path segment.
+    @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
+
+    @note
+    Tree `path_link__io->divergence` can be `NULL`, a path will still be allocated,
+    and weak pointer to it returned.
+
+    @note
+    If tree `path_link__io->divergence` is `NULL`, it will be initialized,
+    with a newly allocated path as its only element.
+
+    @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
+*/
+CcPathLink * cc_path_link_append_divergent( CcPathLink * restrict path_link__io,
+                                            CcPptLink ** restrict ppt__n );
+
+/**
+    Frees all paths in a tree.
+
+    @param path_link__f A tree of paths.
 
     @return `true` if successful, `false` otherwise.
 */
 bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
 
-// /**
-//     Function returns length of a linked list.
+/**
+    Function returns count of alternative paths to a given path segment.
 
-//     @param path_link A linked list of paths.
+    @param path_link A path segment.
 
-//     @return Length of a linked list if successful, `0` otherwise.
-// */
-// size_t cc_path_link_len( CcPathLink * restrict path_link );
+    @note
+    Given path segment is included in a count.
+
+    @return Count of a alternative paths if successful, `0` otherwise.
+*/
+size_t cc_path_link_count_alt( CcPathLink * restrict path_link );
 
 
 

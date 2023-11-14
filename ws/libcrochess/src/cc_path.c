@@ -28,8 +28,8 @@ CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
     return pl__a;
 }
 
-CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-                                  CcPptLink ** restrict ppt__n ) {
+CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__iod,
+                                              CcPptLink ** restrict ppt__n ) {
     if ( !path_link__iod ) return NULL;
 
     CcPathLink * pl__t = cc_path_link__new( ppt__n );
@@ -44,6 +44,17 @@ CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
     }
 
     return pl__t; // Weak pointer.
+}
+
+CcPathLink * cc_path_link_append_divergent( CcPathLink * restrict path_link__io,
+                                            CcPptLink ** restrict ppt__n ) {
+    if ( !path_link__io ) return NULL;
+
+    CcPathLink * div = path_link__io->divergence;
+
+    CcPathLink * pl__w = cc_path_link_append_alternative( &div, ppt__n );
+
+    return pl__w;
 }
 
 bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
@@ -72,16 +83,16 @@ bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
     return result;
 }
 
-// size_t cc_path_link_len( CcPathLink * restrict path_link ) {
-//     if ( !path_link ) return 0;
+size_t cc_path_link_count_alt( CcPathLink * restrict path_link ) {
+    if ( !path_link ) return 0;
 
-//     size_t len = 0;
-//     CcPathLink * pl = path_link;
+    size_t len = 0;
+    CcPathLink * pl = path_link;
 
-//     while ( pl ) {
-//         ++len;
-//         pl = pl->next;
-//     }
+    while ( pl ) {
+        ++len;
+        pl = pl->alt_path;
+    }
 
-//     return len;
-// }
+    return len;
+}
