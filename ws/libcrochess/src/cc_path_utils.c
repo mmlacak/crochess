@@ -21,6 +21,18 @@
 //         check merge point is the same (last ppt in 1st list, first ppt in 2nd list)
 //         check piece, tag for all pos on-board
 
+CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
+                                     CcPos pos ) {
+    CcPosPieceTag ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
+
+    if ( cb ) {
+        ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        ppt.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+    }
+
+    return ppt;
+}
+
 CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
                                                   CcPosLink * restrict pos_link )
 {
@@ -31,9 +43,7 @@ CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
     CcPosLink * p = pos_link;
 
     while ( p ) {
-        CcPieceEnum pe = cc_chessboard_get_piece( cb, p->pos.i, p->pos.j );
-        CcTagEnum te = cc_chessboard_get_tag( cb, p->pos.i, p->pos.j );
-        CcPosPieceTag ppt = cc_pos_piece_tag( p->pos, pe, te );
+        CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, p->pos );
 
         if ( !cc_ppt_link_append( &ppt_link__a, ppt ) ) {
             cc_ppt_link_free_all( &ppt_link__a );

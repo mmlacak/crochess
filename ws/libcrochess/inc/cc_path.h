@@ -70,11 +70,11 @@ CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__
     @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
 
     @note
-    Tree `path_link__io->divergence` can be `NULL`, a path will still be allocated,
+    Sub-tree `path_link__io->divergence` can be `NULL`, a path will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If tree `path_link__io->divergence` is `NULL`, it will be initialized,
+    If sub-tree `path_link__io->divergence` is `NULL`, it will be initialized,
     with a newly allocated path as its only element.
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.

@@ -15,6 +15,22 @@
 
 
 /**
+    Function converts position to one containing piece,
+    and tag at that location on a chessboard.
+
+    @param cb A chessboard.
+    @param pos A position.
+
+    @note
+    If chessboard is not given, piece and tag members are not updated,
+    returned value still contains a given position.
+
+    @return Position containing piece, and tag.
+*/
+CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
+                                     CcPos pos );
+
+/**
     Function returns a new linked list of positions + pieces + tags.
 
     @param cb A chessboard.

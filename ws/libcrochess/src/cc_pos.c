@@ -381,7 +381,7 @@ size_t cc_ppt_link_len( CcPptLink * restrict ppt_link ) {
     return len;
 }
 
-CcPosLink * cc_ppt_link_to_pos_link__new( CcPptLink * restrict ppt_link ) {
+CcPosLink * cc_ppt_link_convert_to_pos_link__new( CcPptLink * restrict ppt_link ) {
     if ( !ppt_link ) return NULL;
 
     CcPosLink * pos_link__a = NULL;

@@ -570,7 +570,7 @@ size_t cc_ppt_link_len( CcPptLink * restrict ppt_link );
 
     @return Newly allocated linked list if successful, `NULL` otherwise.
 */
-CcPosLink * cc_ppt_link_to_pos_link__new( CcPptLink * restrict ppt_link );
+CcPosLink * cc_ppt_link_convert_to_pos_link__new( CcPptLink * restrict ppt_link );
 
 /**
     Function returns string containing user-readable representation of a linked positions.
