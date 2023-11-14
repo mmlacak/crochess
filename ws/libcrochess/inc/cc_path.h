@@ -19,11 +19,16 @@
 // Linked list of paths.
 
 /**
-    Linked list of paths (each path is linked list of positions).
+    Tree of routes. Each route follows paths from start to destination.
 */
 typedef struct CcPathLink {
+    struct CcPathLink * alt_path; /**< Link to an alternative path.
+                                       All paths start from the same location.
+                                       After divergence, all paths continue from the same location (but does not contain it). */
+
     CcPptLink * path; /**< A linked list of positions, with pieces and tags on them. */
-    struct CcPathLink * next; /**< Link to a next list. */
+
+    struct CcPathLink * divergence; /**< Link to a set of paths, all continuing this route. */
 } CcPathLink;
 
 /**
@@ -67,14 +72,14 @@ CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
 */
 bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
 
-/**
-    Function returns length of a linked list.
+// /**
+//     Function returns length of a linked list.
 
-    @param path_link A linked list of paths.
+//     @param path_link A linked list of paths.
 
-    @return Length of a linked list if successful, `0` otherwise.
-*/
-size_t cc_path_link_len( CcPathLink * restrict path_link );
+//     @return Length of a linked list if successful, `0` otherwise.
+// */
+// size_t cc_path_link_len( CcPathLink * restrict path_link );
 
 
 

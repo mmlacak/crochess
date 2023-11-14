@@ -384,7 +384,7 @@
 
     @return Nothing.
 */
-#define CC_REWIND_BY(ptr_seq,ptr_item) { while ( ((ptr_seq)->(ptr_item)) ) (ptr_seq) = ((ptr_seq)->(ptr_item)); }
+#define CC_REWIND_BY(ptr_seq,ptr_item) { while ( (ptr_item) ) (ptr_seq) = (ptr_item); }
 
 /**
     Macro to call `printf()`, depending on a compile-time constant.

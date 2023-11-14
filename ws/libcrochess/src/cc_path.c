@@ -22,7 +22,8 @@ CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
     pl__a->path = *ppt__n; // Transfering ownership.
     *ppt__n = NULL; // Preventing usage from old pointer holding ownership.
 
-    pl__a->next = NULL;
+    pl__a->alt_path = NULL;
+    pl__a->divergence = NULL;
 
     return pl__a;
 }
@@ -38,8 +39,8 @@ CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
         *path_link__iod = pl__t; // Ownership transfer.
     } else {
         CcPathLink * pl = *path_link__iod;
-        CC_FASTFORWARD( pl );
-        pl->next = pl__t; // Append + ownership transfer.
+        CC_REWIND_BY( pl, pl->alt_path );
+        pl->alt_path = pl__t; // Append + ownership transfer.
     }
 
     return pl__t; // Weak pointer.
@@ -51,31 +52,36 @@ bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
 
     bool result = true;
     CcPathLink * pl = *path_link__f;
-    CcPathLink * tmp = NULL;
+    CcPathLink * ap = NULL;
+    CcPathLink * div = NULL;
 
     while ( pl ) {
-        tmp = pl->next;
+        ap = pl->alt_path;
+        div = pl->divergence;
 
         result = cc_ppt_link_free_all( &(pl->path) ) && result;
 
+        if ( div )
+            result = cc_path_link_free_all( &div ) && result;
+
         CC_FREE( pl );
-        pl = tmp;
+        pl = ap;
     }
 
     *path_link__f = NULL;
     return result;
 }
 
-size_t cc_path_link_len( CcPathLink * restrict path_link ) {
-    if ( !path_link ) return 0;
+// size_t cc_path_link_len( CcPathLink * restrict path_link ) {
+//     if ( !path_link ) return 0;
 
-    size_t len = 0;
-    CcPathLink * pl = path_link;
+//     size_t len = 0;
+//     CcPathLink * pl = path_link;
 
-    while ( pl ) {
-        ++len;
-        pl = pl->next;
-    }
+//     while ( pl ) {
+//         ++len;
+//         pl = pl->next;
+//     }
 
-    return len;
-}
+//     return len;
+// }
