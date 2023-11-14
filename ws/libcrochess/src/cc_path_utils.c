@@ -70,7 +70,23 @@ bool cc_validate_ppt_link( CcChessboard * restrict cb,
     return true;
 }
 
-// TODO :: in a ppt list, fill-in piece, tag for all pos on-board
+bool cc_update_ppt_link( CcChessboard * restrict cb,
+                         CcPptLink * restrict ppt_link__io ) {
+    if ( !cb ) return false;
+    if ( !ppt_link__io ) return false;
+
+    CcPptLink * p = ppt_link__io;
+
+    while ( p ) {
+        CcPos pos = p->ppt.pos;
+        p->ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        p->ppt.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+
+        p = p->next;
+    }
+
+    return true;
+}
 
 // TODO :: create new ppt link, extended with another
 //         check merge point is the same (last ppt in 1st list, first ppt in 2nd list)

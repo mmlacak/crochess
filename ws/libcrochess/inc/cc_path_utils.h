@@ -44,6 +44,9 @@ CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
 bool cc_validate_ppt_link( CcChessboard * restrict cb,
                            CcPptLink * restrict ppt_link );
 
+bool cc_update_ppt_link( CcChessboard * restrict cb,
+                         CcPptLink * restrict ppt_link__io );
+
 
 // DOCS
 bool cc_iter_piece_pos( CcChessboard * restrict cb,
