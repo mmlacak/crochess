@@ -78,9 +78,7 @@ bool cc_update_ppt_link( CcChessboard * restrict cb,
     CcPptLink * p = ppt_link__io;
 
     while ( p ) {
-        CcPos pos = p->ppt.pos;
-        p->ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        p->ppt.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        p->ppt = cc_convert_pos_to_ppt( cb, p->ppt.pos );
 
         p = p->next;
     }
