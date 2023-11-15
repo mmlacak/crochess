@@ -106,7 +106,7 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
 
     CcPptLink * first = *ppt_link__n;
 
-    if ( !CC_POS_IS_EQUAL( last->ppt.pos, first->ppt.pos ) ) {
+    if ( CC_POS_IS_EQUAL( last->ppt.pos, first->ppt.pos ) ) {
         if ( !CC_PIECE_IS_EQUAL( last->ppt.piece, first->ppt.piece ) )
             return NULL;
 
