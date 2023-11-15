@@ -20,13 +20,6 @@
 */
 
 /**
-    Macro definition for valid tag value.
-
-    @see CcTagEnum
-*/
-#define CC_TAG_INVALID (-1)
-
-/**
     Macro expression to evaluate whether given tag is a valid.
 
     @param te Tag enum, one of `CcTagEnum` values.
@@ -179,6 +172,13 @@ typedef enum CcTagEnum {
 
     CC_TE_PawnSacrifice = 5, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */
 } CcTagEnum;
+
+/**
+    Macro definition for invalid tag value.
+
+    @see CcTagEnum
+*/
+#define CC_TAG_INVALID (CC_TE_None-1) // Keep in-sync with CcTagEnum!
 
 
 /**
