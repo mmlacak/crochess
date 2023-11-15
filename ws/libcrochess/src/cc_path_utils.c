@@ -45,7 +45,7 @@ CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
 }
 
 
-// TODO :: create new pos link, extended with another
+// TODO :: extended pos link with another
 //         check merge point is the same (last pos in 1st list, first pos in 2nd list)
 
 bool cc_validate_ppt_link( CcChessboard * restrict cb,
@@ -86,10 +86,47 @@ bool cc_update_ppt_link( CcChessboard * restrict cb,
     return true;
 }
 
-// TODO :: create new ppt link, extended with another
-//         check merge point is the same (last ppt in 1st list, first ppt in 2nd list)
-//         check piece, tag for all pos on-board
+CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
+                               CcPptLink ** restrict ppt_link__n ) {
+    if ( !ppt_link__iod ) return NULL;
+    if ( !ppt_link__n ) return NULL;
 
+    if ( !*ppt_link__n ) return *ppt_link__iod;
+
+    if ( !*ppt_link__iod ) {
+        // Ownership transfer.
+        *ppt_link__iod = *ppt_link__n;
+        *ppt_link__n = NULL;
+
+        return *ppt_link__iod;
+    }
+
+    CcPptLink * last = *ppt_link__iod;
+    CC_FASTFORWARD( last );
+
+    CcPptLink * first = *ppt_link__n;
+
+    if ( !CC_POS_IS_EQUAL( last->ppt.pos, first->ppt.pos ) ) {
+        if ( !CC_PIECE_IS_EQUAL( last->ppt.piece, first->ppt.piece ) )
+            return NULL;
+
+        if ( !CC_TAG_IS_EQUAL( last->ppt.tag, first->ppt.tag ) )
+            return NULL;
+
+        // Position, piece, and tag are all the same,
+        // so we drop extra location, not needed anymore.
+        CcPptLink * to_free = first;
+        first = first->next;
+
+        CC_FREE( to_free );
+    }
+
+    // Ownership transfer.
+    last->next = first;
+    *ppt_link__n = NULL;
+
+    return last->next;
+}
 
 bool cc_iter_piece_pos( CcChessboard * restrict cb,
                         CcPos expected,
@@ -117,7 +154,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb,
         for ( int j = pos.j; j < size; ++j ) {
             CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
-            if ( CC_PIECE_IS_THE_SAME( pe, piece ) ||
+            if ( CC_PIECE_IS_EQUAL( pe, piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {
                 CcPos current = CC_POS_CAST( i, j );
 

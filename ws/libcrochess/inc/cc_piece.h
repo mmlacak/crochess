@@ -24,7 +24,7 @@
 
 
 /**
-    Macro expression to evaluate whether given piece is a valid chess piece, and not None.
+    Macro expression to evaluate whether given piece is a valid chess piece.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
 
@@ -32,9 +32,7 @@
 
     @return `true` if valid chess piece, `false` otherwise.
 */
-#define CC_PIECE_IS_VALID(pe) ( ( CC_PE_DimStar <= (pe) ) &&    \
-                                ( (pe) <= CC_PE_Monolith ) &&   \
-                                ( (pe) != CC_PE_None ) )
+#define CC_PIECE_IS_VALID(pe) ( ( CC_PE_DimStar <= (pe) ) && ( (pe) <= CC_PE_Monolith ) )
 
 /**
     Macro expression to evaluate whether given pieces are the same.
@@ -44,7 +42,7 @@
 
     @return `true` if pieces are the same, `false` otherwise.
 */
-#define CC_PIECE_IS_THE_SAME(pe1,pe2) ( (pe1) == (pe2) )
+#define CC_PIECE_IS_EQUAL(pe1,pe2) ( (pe1) == (pe2) )
 
 /**
     Macro expression to evaluate whether piece is None.

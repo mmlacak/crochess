@@ -112,7 +112,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         if ( rank == destination.j ) return true;
     } else {
         CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
-        if ( !CC_PIECE_IS_THE_SAME( pe, pawn ) ) return false;
+        if ( !CC_PIECE_IS_EQUAL( pe, pawn ) ) return false;
 
         // Static promotion.
 

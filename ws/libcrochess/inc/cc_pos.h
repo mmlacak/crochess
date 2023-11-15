@@ -80,6 +80,51 @@ typedef struct CcPos {
 */
 #define CC_POS_CAST(int_i,int_j) ( (CcPos)CC_POS( int_i, int_j ) )
 
+/**
+    Macro expression to evaluate whether given position is valid.
+
+    @param pos A position.
+
+    @see CcPos
+
+    @return `true` if valid position, `false` otherwise.
+*/
+#define CC_POS_IS_VALID(pos) ( CC_IS_COORD_2_VALID( (pos).i, (pos).j ) )
+
+/**
+    Macro expression to evaluate whether given position is static step.
+
+    @param pos A position.
+
+    @see CcPos
+
+    @return `true` if static step, `false` otherwise.
+*/
+#define CC_POS_IS_STATIC_STEP(pos) ( ( (pos).i == 0 ) && ( (pos).j == 0 ) )
+
+/**
+    Macro expression to evaluate whether given position is disambiguation.
+
+    @param pos A position.
+
+    @see CcPos
+
+    @return `true` if disambiguation, `false` otherwise.
+*/
+#define CC_POS_IS_DISAMBIGUATION(pos) ( CC_IS_COORD_VALID( (pos).i ) || CC_IS_COORD_VALID( (pos).j ) )
+
+/**
+    Macro expression to evaluate whether given positions are equal.
+
+    @param pos_1 A position.
+    @param pos_2 Other position.
+
+    @see CcPos
+
+    @return `true` if equal, `false` otherwise.
+*/
+#define CC_POS_IS_EQUAL(pos_1,pos_2) ( ( (pos_1).i == (pos_2).i ) && ( (pos_1).j == (pos_2).j ) )
+
 
 /**
     Function returns a position.
@@ -403,6 +448,30 @@ typedef struct CcPosPieceTag {
 #define CC_POS_PIECE_TAG_CAST(int_i,int_j,piece_enum,tag_enum) \
     ( (CcPosPieceTag)CC_POS_PIECE_TAG( (int_i), (int_j), (piece_enum), (tag_enum) ) )
 
+/**
+    Macro expression to evaluate whether given position + piece + tag is valid.
+
+    @param ppt A position + piece + tag.
+
+    @see CcPosPieceTag
+
+    @return `true` if valid position + piece + tag, `false` otherwise.
+*/
+#define CC_POS_PIECE_TAG_IS_VALID(ppt) \
+    ( CC_POS_IS_VALID( (ppt).pos ) && CC_PIECE_IS_VALID( (ppt).piece ) && ( CC_TAG_IS_VALID( (ppt).tag ) ) )
+
+/**
+    Macro expression to evaluate whether given position + piece + tag is equal to another.
+
+    @param ppt_1 A position + piece + tag.
+    @param ppt_2 Other position + piece + tag.
+
+    @see CcPosPieceTag
+
+    @return `true` if equal, `false` otherwise.
+*/
+#define CC_POS_PIECE_TAG_IS_EQUAL(ppt_1,ppt_2) \
+    ( CC_POS_IS_EQUAL( (ppt_1).pos, (ppt_2).pos ) && ( (ppt_1).piece == (ppt_2).piece ) && ( (ppt_1).tag == (ppt_2).tag ) )
 
 /**
     Function returns position + piece + tag value.

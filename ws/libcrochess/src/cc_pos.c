@@ -24,19 +24,19 @@ CcPos cc_pos( int i, int j ) {
 }
 
 bool cc_pos_is_valid( CcPos pos ) {
-    return ( CC_IS_COORD_2_VALID( pos.i, pos.j ) );
+    return CC_POS_IS_VALID(pos);
 }
 
 bool cc_pos_is_static_step( CcPos pos ) {
-    return ( ( pos.i == 0 ) && ( pos.j == 0 ) );
+    return CC_POS_IS_STATIC_STEP(pos);
 }
 
 bool cc_pos_is_disambiguation( CcPos pos ) {
-    return ( CC_IS_COORD_VALID( pos.i ) || CC_IS_COORD_VALID( pos.j ) );
+    return CC_POS_IS_DISAMBIGUATION(pos);
 }
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 ) {
-    return ( ( pos_1.i == pos_2.i ) && ( pos_1.j == pos_2.j ) );
+    return CC_POS_IS_EQUAL( pos_1, pos_2 );
 }
 
 bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 ) {
@@ -277,15 +277,11 @@ CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag ) {
 }
 
 bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt ) {
-    if ( !cc_pos_is_valid( ppt.pos ) ) return false;
-    if ( !CC_PIECE_IS_VALID( ppt.piece ) ) return false;
-    return true;
+    return CC_POS_PIECE_TAG_IS_VALID( ppt );
 }
 
 bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
-    if ( !cc_pos_is_equal( ppt_1.pos, ppt_2.pos ) ) return false;
-    if ( !CC_PIECE_IS_THE_SAME( ppt_1.piece, ppt_2.piece ) ) return false;
-    return true;
+    return CC_POS_PIECE_TAG_IS_EQUAL( ppt_1, ppt_2 );
 }
 
 bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {

@@ -407,7 +407,7 @@ bool cc_piece_is_equal( char symbol, bool is_light, CcPieceEnum pe ) {
 }
 
 bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 ) {
-    if ( CC_PIECE_IS_THE_SAME( pe_1, pe_2 ) ) return true;
+    if ( CC_PIECE_IS_EQUAL( pe_1, pe_2 ) ) return true;
     if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
     return false;
 }

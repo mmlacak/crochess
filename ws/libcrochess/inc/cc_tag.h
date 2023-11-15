@@ -20,6 +20,27 @@
 */
 
 /**
+    Macro expression to evaluate whether given tag is a valid.
+
+    @param te Tag enum, one of `CcTagEnum` values.
+
+    @see CcTagEnum
+
+    @return `true` if valid tag, `false` otherwise.
+*/
+#define CC_TAG_IS_VALID(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_PawnSacrifice ) )
+
+/**
+    Macro expression to evaluate whether given tags are the same.
+
+    @param te1 A tag.
+    @param te2 Other tag.
+
+    @return `true` if tags are the same, `false` otherwise.
+*/
+#define CC_TAG_IS_EQUAL(te1,te2) ( (te1) == (te2) )
+
+/**
     Macro expression to evaluate whether given tag is valid (i.e. not None).
 
     @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.

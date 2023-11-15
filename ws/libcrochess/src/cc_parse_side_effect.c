@@ -240,7 +240,7 @@ static bool cc_check_captured_en_passant( CcPieceEnum capturing,
     }
 
     if ( !CC_PIECE_IS_NONE( maybe_captured ) ) {
-        if ( !CC_PIECE_IS_THE_SAME( maybe_captured, captured ) ) {
+        if ( !CC_PIECE_IS_EQUAL( maybe_captured, captured ) ) {
             char const * maybe_str = cc_piece_as_string( maybe_captured, false, true );
             char const * captured_str = cc_piece_as_string( captured, true, true );
 
