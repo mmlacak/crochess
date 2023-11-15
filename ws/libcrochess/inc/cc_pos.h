@@ -391,12 +391,12 @@ char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
 /**
     Invalid position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None }
+#define CC_POS_PIECE_TAG_INVALID { .pos = CC_POS_INVALID, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID }
 
 /**
     Static position + piece + tag value, i.e. no-movement step.
 */
-#define CC_POS_PIECE_TAG_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None }
+#define CC_POS_PIECE_TAG_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID }
 
 /**
     Structure holding a position, usually absolute, i.e. a location.

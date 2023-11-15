@@ -24,6 +24,13 @@
 
 
 /**
+    Macro definition for valid piece value.
+
+    @see CcPieceEnum
+*/
+#define CC_PIECE_INVALID (-18)
+
+/**
     Macro expression to evaluate whether given piece is a valid chess piece.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

@@ -20,6 +20,13 @@
 */
 
 /**
+    Macro definition for valid tag value.
+
+    @see CcTagEnum
+*/
+#define CC_TAG_INVALID (-1)
+
+/**
     Macro expression to evaluate whether given tag is a valid.
 
     @param te Tag enum, one of `CcTagEnum` values.
@@ -162,7 +169,7 @@
     Tag `CC_TE_None` is used for e.g. empty on-board fields, any off-board field.
 */
 typedef enum CcTagEnum {
-    CC_TE_None, /**< No tag applies. */
+    CC_TE_None = 0, /**< No tag applies. */
 
     CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
     CC_TE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
@@ -170,7 +177,7 @@ typedef enum CcTagEnum {
 
     CC_TE_EnPassant, /**< En passant tag, semi-persistant. Gained in a move, used or lost in the very next one. */
 
-    CC_TE_PawnSacrifice, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */
+    CC_TE_PawnSacrifice = 5, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */
 } CcTagEnum;
 
 
