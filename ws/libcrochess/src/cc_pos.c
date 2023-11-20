@@ -164,13 +164,13 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o ) {
 // Linked positions.
 
 CcPosLink * cc_pos_link__new( CcPos pos ) {
-    CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
-    if ( !pl__t ) return NULL;
+    CcPosLink * pl__a = malloc( sizeof( CcPosLink ) );
+    if ( !pl__a ) return NULL;
 
-    pl__t->pos = pos;
-    pl__t->next = NULL;
+    pl__a->pos = pos;
+    pl__a->next = NULL;
 
-    return pl__t;
+    return pl__a;
 }
 
 CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
