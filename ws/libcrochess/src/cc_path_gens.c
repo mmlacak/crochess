@@ -16,6 +16,9 @@ static CcPathLink * cc_find_paths_from__new( CcChessboard * restrict cb,
                                              CcPieceEnum activator,
                                              bool can_activate_pyramid,
                                              CcPos start ) {
+
+    // start can be either position, or disambiguation
+
     return NULL; // TODO
 }
 
@@ -33,6 +36,9 @@ static CcPathLink * cc_find_paths_from_to__new( CcChessboard * restrict cb,
                                                 bool can_activate_pyramid,
                                                 CcPos start,
                                                 CcPos end ) {
+
+    // start can be either position, or disambiguation
+
     return NULL; // TODO
 }
 
@@ -53,16 +59,19 @@ CcPathLink * cc_find_paths_all_pieces__new( CcChessboard * restrict cb,
 
     if ( !is_start_on_board && !is_end_on_board ) return NULL; // <1>
 
+    if ( cc_chessboard_is_pos_on_board( cb, start__d.i, start__d.j ) ) {
+        CcPieceEnum pe = cc_chessboard_get_piece( cb, start__d.i, start__d.j );
+
+        // TODO :: check Shaman/Starchild initiating trance-/sense-journey fits
+        if ( !CC_PIECE_IS_EQUAL( pe, piece ) && // before activation
+             !CC_PIECE_IS_EQUAL( pe, activator ) && // after activation
+             !CC_PIECE_IS_WAVE( pe ) ) // after activation
+                return NULL;
+    }
+
     CcPathLink * paths__a = NULL;
 
     if ( is_start_on_board ) {
-        CcPieceEnum pe = cc_chessboard_get_piece( cb, start__d.i, start__d.j );
-
-        if ( !CC_PIECE_IS_EQUAL( pe, piece ) &&
-             !CC_PIECE_IS_EQUAL( pe, activator ) &&
-             !CC_PIECE_IS_WAVE( pe ) ) // TODO :: check Shaman/Starchild initiating trance-/sense-journey fits
-                return NULL;
-
         if ( is_end_on_board ) {
             paths__a = cc_find_paths_from_to__new( cb,
                                                    piece,
