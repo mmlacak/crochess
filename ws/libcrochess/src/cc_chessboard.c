@@ -150,6 +150,11 @@ bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j ) {
     return CC_IS_POS_ON_BOARD( cb->size, i, j );
 }
 
+bool cc_chessboard_is_disambiguation_on_board( CcChessboard * restrict cb, int i, int j ) {
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
+    return CC_IS_COORD_ON_BOARD( cb->size, i ) || CC_IS_COORD_ON_BOARD( cb->size, j );
+}
+
 bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coord ) {
     if ( !cc_chessboard_is_size_valid( cb ) ) return false;
 
@@ -165,6 +170,15 @@ bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int
 
     return ( ( (int)(-diag) <= i ) && ( i <= (int)( cb->size + diag ) ) && \
              ( (int)(-diag) <= j ) && ( j <= (int)( cb->size + diag ) ) );
+}
+
+bool cc_chessboard_is_disambiguation_safe_off_board( CcChessboard * restrict cb, int i, int j ) {
+    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
+
+    size_t diag = cc_diagonal( cb->size );
+
+    return ( ( ( (int)(-diag) <= i ) && ( i <= (int)( cb->size + diag ) ) ) || \
+             ( ( (int)(-diag) <= j ) && ( j <= (int)( cb->size + diag ) ) ) );
 }
 
 bool cc_chessboard_is_field_on_light_side( CcChessboard * restrict cb, int j ) {

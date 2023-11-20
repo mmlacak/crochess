@@ -140,6 +140,17 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * restrict cb, int coord );
 bool cc_chessboard_is_pos_on_board( CcChessboard * restrict cb, int i, int j );
 
 /**
+    Function returning if at least one coordinate of given disambiguation belongs to a board.
+
+    @param cb Chessboard.
+    @param i File, position along horizontal axis.
+    @param j Rank, position along vertical axis.
+
+    @return `true` if disambiguation is on-board, `false` otherwise.
+*/
+bool cc_chessboard_is_disambiguation_on_board( CcChessboard * restrict cb, int i, int j );
+
+/**
     Function checks if given coordinate is within safe off-board boundaries.
 
     @param cb Chessboard.
@@ -167,6 +178,21 @@ bool cc_chessboard_is_coord_safe_off_board( CcChessboard * restrict cb, int coor
     @return `true` if position is safe off-board, `false` otherwise.
 */
 bool cc_chessboard_is_pos_safe_off_board( CcChessboard * restrict cb, int i, int j );
+
+/**
+    Function returning if at least one coordinate of given disambiguation is within safe off-board boundaries.
+
+    @param cb Chessboard.
+    @param i File, position along horizontal axis.
+    @param j Rank, position along vertical axis.
+
+    @note
+    Coordinate is safely off-board if there could be a movement (e.g. trance-journey),
+    which would place piece back on-board.
+
+    @return `true` if disambiguation is safe off-board, `false` otherwise.
+*/
+bool cc_chessboard_is_disambiguation_safe_off_board( CcChessboard * restrict cb, int i, int j );
 
 /**
     Function returning if given position is on a light side of board.

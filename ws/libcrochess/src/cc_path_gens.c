@@ -48,7 +48,7 @@ CcPathLink * cc_find_paths_all_pieces__new( CcChessboard * restrict cb,
     if ( CC_PIECE_IS_NONE( piece ) ) return NULL;
     if ( CC_PIECE_IS_WAVE( piece ) && CC_PIECE_IS_NONE( activator ) ) return NULL;
 
-    bool is_start_on_board = cc_chessboard_is_pos_on_board( cb, start__d.i, start__d.j );
+    bool is_start_on_board = cc_chessboard_is_disambiguation_on_board( cb, start__d.i, start__d.j );
     bool is_end_on_board = cc_chessboard_is_pos_on_board( cb, end__d.i, end__d.j );
 
     if ( !is_start_on_board && !is_end_on_board ) return NULL; // <1>
