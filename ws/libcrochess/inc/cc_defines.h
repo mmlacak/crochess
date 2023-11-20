@@ -350,7 +350,7 @@
 #define CC_REWIND(ptr_queue) { while ( (ptr_queue)->prev ) (ptr_queue) = (ptr_queue)->prev; }
 
 /**
-    Macro to fast-forward list pointer to its first item.
+    Macro to fast-forward list pointer to its last item.
 
     @param ptr_lst Pointer, list.
 
@@ -368,19 +368,16 @@
 #define CC_FASTFORWARD(ptr_lst) { while ( (ptr_lst)->next ) (ptr_lst) = (ptr_lst)->next; }
 
 /**
-    Macro to rewind sequence pointer by name of its item.
+    Macro to rewind sequence pointer by one of its members.
 
     @param ptr_seq Pointer, sequence.
-    @param ptr_item Pointer, name of item to iterate over.
+    @param ptr_item Pointer, member to iterate over.
 
     @warning
     Pointer to sequence `ptr_seq` must be valid (non-`NULL` pointer).
 
     @warning
     Pointer to sequence `ptr_seq` must be valid variable, not expression.
-
-    @warning
-    Sequence struct must have `ptr_item` member, which points to item in that sequence.
 
     @return Nothing.
 */
