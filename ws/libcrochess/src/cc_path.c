@@ -12,11 +12,11 @@
 //
 // Tree of paths.
 
-CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
+CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n ) {
     if ( !ppt__n ) return NULL;
     if ( !*ppt__n ) return NULL;
 
-    CcPathLink * pl__a = malloc( sizeof( CcPathLink ) );
+    CcPathNode * pl__a = malloc( sizeof( CcPathNode ) );
     if ( !pl__a ) return NULL;
 
     pl__a->path = *ppt__n; // Transfering ownership.
@@ -28,17 +28,17 @@ CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
     return pl__a;
 }
 
-CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__iod,
+CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_link__iod,
                                               CcPptLink ** restrict ppt__n ) {
     if ( !path_link__iod ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( ppt__n );
+    CcPathNode * pl__t = cc_path_node__new( ppt__n );
     if ( !pl__t ) return NULL;
 
     if ( !*path_link__iod ) {
         *path_link__iod = pl__t; // Ownership transfer.
     } else {
-        CcPathLink * pl = *path_link__iod;
+        CcPathNode * pl = *path_link__iod;
         CC_REWIND_BY( pl, pl->alt_path );
         pl->alt_path = pl__t; // Append + ownership transfer.
     }
@@ -46,25 +46,25 @@ CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__
     return pl__t; // Weak pointer.
 }
 
-CcPathLink * cc_path_link_append_divergent( CcPathLink * restrict path_link__io,
+CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_link__io,
                                             CcPptLink ** restrict ppt__n ) {
     if ( !path_link__io ) return NULL;
 
-    CcPathLink * div = path_link__io->divergence;
+    CcPathNode * div = path_link__io->divergence;
 
-    CcPathLink * pl__w = cc_path_link_append_alternative( &div, ppt__n );
+    CcPathNode * pl__w = cc_path_node_append_alternative( &div, ppt__n );
 
     return pl__w;
 }
 
-bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
+bool cc_path_node_free_all( CcPathNode ** restrict path_link__f ) {
     if ( !path_link__f ) return false;
     if ( !*path_link__f ) return true;
 
     bool result = true;
-    CcPathLink * pl = *path_link__f;
-    CcPathLink * ap = NULL;
-    CcPathLink * div = NULL;
+    CcPathNode * pl = *path_link__f;
+    CcPathNode * ap = NULL;
+    CcPathNode * div = NULL;
 
     while ( pl ) {
         ap = pl->alt_path;
@@ -73,7 +73,7 @@ bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
         result = cc_ppt_link_free_all( &(pl->path) ) && result;
 
         if ( div )
-            result = cc_path_link_free_all( &div ) && result;
+            result = cc_path_node_free_all( &div ) && result;
 
         CC_FREE( pl );
         pl = ap;
@@ -83,11 +83,11 @@ bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
     return result;
 }
 
-size_t cc_path_link_count_alt( CcPathLink * restrict path_link ) {
+size_t cc_path_node_count_alt( CcPathNode * restrict path_link ) {
     if ( !path_link ) return 0;
 
     size_t len = 0;
-    CcPathLink * pl = path_link;
+    CcPathNode * pl = path_link;
 
     while ( pl ) {
         ++len;

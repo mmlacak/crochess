@@ -21,15 +21,15 @@
 /**
     Tree of routes. Each route follows paths from start to destination.
 */
-typedef struct CcPathLink {
-    struct CcPathLink * alt_path; /**< Link to an alternative path.
+typedef struct CcPathNode {
+    struct CcPathNode * alt_path; /**< Link to an alternative path.
                                        All paths start from the same location.
                                        After divergence, all paths continue from the same location (but does not contain it). */
 
     CcPptLink * path; /**< A linked list of positions, with pieces and tags on them. */
 
-    struct CcPathLink * divergence; /**< Link to a set of paths, all continuing this route. */
-} CcPathLink;
+    struct CcPathNode * divergence; /**< Link to a set of paths, all continuing this route. */
+} CcPathNode;
 
 /**
     Function allocates a new linked path.
@@ -42,7 +42,7 @@ typedef struct CcPathLink {
 
     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
+CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n );
 
 /**
     Function appends a newly allocated path as an alternative to a given path segment.
@@ -60,7 +60,7 @@ CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__iod,
+CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_link__iod,
                                               CcPptLink ** restrict ppt__n );
 
 /**
@@ -79,7 +79,7 @@ CcPathLink * cc_path_link_append_alternative( CcPathLink ** restrict path_link__
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link_append_divergent( CcPathLink * restrict path_link__io,
+CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_link__io,
                                             CcPptLink ** restrict ppt__n );
 
 /**
@@ -89,7 +89,7 @@ CcPathLink * cc_path_link_append_divergent( CcPathLink * restrict path_link__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
+bool cc_path_node_free_all( CcPathNode ** restrict path_link__f );
 
 /**
     Function returns count of alternative paths to a given path segment.
@@ -101,7 +101,7 @@ bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
 
     @return Count of a alternative paths if successful, `0` otherwise.
 */
-size_t cc_path_link_count_alt( CcPathLink * restrict path_link );
+size_t cc_path_node_count_alt( CcPathNode * restrict path_link );
 
 
 

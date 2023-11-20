@@ -11,7 +11,7 @@
 */
 
 
-static CcPathLink * cc_find_paths_from__new( CcChessboard * restrict cb,
+static CcPathNode * cc_find_paths_from__new( CcChessboard * restrict cb,
                                              CcPieceEnum piece,
                                              CcPieceEnum activator,
                                              bool can_activate_pyramid,
@@ -22,7 +22,7 @@ static CcPathLink * cc_find_paths_from__new( CcChessboard * restrict cb,
     return NULL; // TODO
 }
 
-static CcPathLink * cc_find_paths_to__new( CcChessboard * restrict cb,
+static CcPathNode * cc_find_paths_to__new( CcChessboard * restrict cb,
                                            CcPieceEnum piece,
                                            CcPieceEnum activator,
                                            bool can_activate_pyramid,
@@ -30,7 +30,7 @@ static CcPathLink * cc_find_paths_to__new( CcChessboard * restrict cb,
     return NULL; // TODO
 }
 
-static CcPathLink * cc_find_paths_from_to__new( CcChessboard * restrict cb,
+static CcPathNode * cc_find_paths_from_to__new( CcChessboard * restrict cb,
                                                 CcPieceEnum piece,
                                                 CcPieceEnum activator,
                                                 bool can_activate_pyramid,
@@ -43,7 +43,7 @@ static CcPathLink * cc_find_paths_from_to__new( CcChessboard * restrict cb,
 }
 
 
-CcPathLink * cc_find_paths_all_pieces__new( CcChessboard * restrict cb,
+CcPathNode * cc_find_paths_all_pieces__new( CcChessboard * restrict cb,
                                             CcPieceEnum piece,
                                             CcPieceEnum activator,
                                             bool can_activate_pyramid,
@@ -69,7 +69,7 @@ CcPathLink * cc_find_paths_all_pieces__new( CcChessboard * restrict cb,
                 return NULL;
     }
 
-    CcPathLink * paths__a = NULL;
+    CcPathNode * paths__a = NULL;
 
     if ( is_start_on_board ) {
         if ( is_end_on_board ) {
@@ -97,13 +97,13 @@ CcPathLink * cc_find_paths_all_pieces__new( CcChessboard * restrict cb,
     return paths__a;
 }
 
-CcPathLink * cc_find_paths_unique_piece__new( CcChessboard * restrict cb,
+CcPathNode * cc_find_paths_unique_piece__new( CcChessboard * restrict cb,
                                               CcPieceEnum piece,
                                               CcPieceEnum activator,
                                               bool can_activate_pyramid,
                                               CcPos start__d,
                                               CcPos end__d ) {
-    CcPathLink * paths__a = cc_find_paths_all_pieces__new( cb,
+    CcPathNode * paths__a = cc_find_paths_all_pieces__new( cb,
                                                            piece,
                                                            activator,
                                                            can_activate_pyramid,
@@ -114,12 +114,12 @@ CcPathLink * cc_find_paths_unique_piece__new( CcChessboard * restrict cb,
     if ( cc_chessboard_is_pos_on_board( cb, start__d.i, start__d.j ) )
         return paths__a; // Start and piece specified --> already unique.
 
-    CcPathLink * pl = paths__a;
+    CcPathNode * pl = paths__a;
     CcPos pos_1st = pl->path->ppt.pos; // Grab 1st position of 1st path.
 
     while ( pl ) {
         if ( !CC_POS_IS_EQUAL( pos_1st, pl->path->ppt.pos ) ) { // Start pos differs from 1st --> not unique!
-            cc_path_link_free_all( &paths__a );
+            cc_path_node_free_all( &paths__a );
             return NULL;
         }
 
@@ -129,13 +129,13 @@ CcPathLink * cc_find_paths_unique_piece__new( CcChessboard * restrict cb,
     return paths__a;
 }
 
-CcPathLink * cc_find_shortest_paths__new( CcChessboard * restrict cb,
+CcPathNode * cc_find_shortest_paths__new( CcChessboard * restrict cb,
                                           CcPieceEnum piece,
                                           CcPieceEnum activator,
                                           bool can_activate_pyramid,
                                           CcPos start__d,
                                           CcPos end__d ) {
-    CcPathLink * paths__a = cc_find_paths_unique_piece__new( cb,
+    CcPathNode * paths__a = cc_find_paths_unique_piece__new( cb,
                                                              piece,
                                                              activator,
                                                              can_activate_pyramid,
@@ -148,13 +148,13 @@ CcPathLink * cc_find_shortest_paths__new( CcChessboard * restrict cb,
     return NULL; // TODO
 }
 
-CcPathLink * cc_find_longest_paths__new( CcChessboard * restrict cb,
+CcPathNode * cc_find_longest_paths__new( CcChessboard * restrict cb,
                                          CcPieceEnum piece,
                                          CcPieceEnum activator,
                                          bool can_activate_pyramid,
                                          CcPos start__d,
                                          CcPos end__d ) {
-    CcPathLink * paths__a = cc_find_paths_unique_piece__new( cb,
+    CcPathNode * paths__a = cc_find_paths_unique_piece__new( cb,
                                                              piece,
                                                              activator,
                                                              can_activate_pyramid,
