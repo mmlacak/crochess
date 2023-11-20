@@ -16,7 +16,7 @@
 static const int n = CC_TE_None;
 static const int R = CC_TE_CanRush;
 static const int C = CC_TE_CanCastle;
-static const int P = CC_TE_DelayedPromotion;
+// static const int P = CC_TE_DelayedPromotion; // Not used, so to silence [-Wunused-const-variable] ...
 
 
 CcTagEnum const CC_SETUP_TAGS_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] = {
