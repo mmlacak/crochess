@@ -175,6 +175,8 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 
 typedef struct CcPathWeak {
     CcPathNode * node__w;
+
+    struct CcPathWeak * prev;
     struct CcPathWeak * next;
 } CcPathWeak;
 
@@ -185,6 +187,7 @@ static CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
     if ( !pw__a ) return NULL;
 
     pw__a->node__w = node;
+    pw__a->prev = NULL;
     pw__a->next = NULL;
 
     return pw__a;
@@ -202,7 +205,10 @@ static CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
     } else {
         CcPathWeak * pw = *path_weak__iod;
         CC_FASTFORWARD( pw );
-        pw->next = pw__t; // Append + ownership transfer.
+
+        // Append + ownership transfer.
+        pw->next = pw__t;
+        pw__t->prev = pw;
     }
 
     return pw__t; // Weak pointer.
@@ -214,6 +220,8 @@ static bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
 
     CcPathWeak * pw = *path_weak__f;
     CcPathWeak * tmp = NULL;
+
+    CC_REWIND( pw );
 
     while ( pw ) {
         tmp = pw->next;
@@ -231,6 +239,8 @@ static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
     size_t len = 0;
     CcPathWeak * pw = path_weak;
 
+    CC_REWIND( pw );
+
     while ( pw ) {
         ++len;
         pw = pw->next;
@@ -239,23 +249,80 @@ static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
     return len;
 }
 
-static CcPathWeak * cc_path_weak_initialize_route( CcPathNode * restrict path_node ) {
-    if ( !path_node ) return NULL;
+static bool cc_path_weak_check_if_valid( CcPathWeak * restrict path_weak ) {
+    if ( !path_weak ) return false;
+
+    CcPathWeak * pw = path_weak;
+
+    CC_REWIND( pw );
+
+    while ( pw ) {
+        if ( !pw->node__w ) return false;
+
+        CcPathNode * d = pw->node__w->divergence;
+        pw = pw->next;
+
+        if ( pw->node__w != d ) return false; // Not next node in divergent sequence.
+    }
+
+    if ( pw->node__w->divergence )
+        return false; // Not terminal node.
+
+    return true;
+}
+
+static bool cc_path_weak_append_route( CcPathNode * restrict path_node,
+                                       CcPathWeak ** restrict path_weak__iod ) {
+    if ( !path_node ) return false;
+    if ( !path_weak__iod ) return false;
 
     CcPathNode * pn = path_node;
-    CcPathWeak * pw__a = NULL;
 
     while ( pn ) {
-        CcPathWeak * pw__w = cc_path_weak_append( &pw__a, pn );
+        CcPathWeak * pw__w = cc_path_weak_append( path_weak__iod, pn );
         if ( !pw__w ) { // Append failed ...
-            cc_path_weak_free_all( &pw__a );
-            return NULL;
+            cc_path_weak_free_all( path_weak__iod );
+            return false;
         }
 
         pn = pn->divergence;
     }
 
-    return pw__a;
+    return true;
+}
+
+static bool cc_path_weak_get_next_route( CcPathNode * restrict path_node,
+                                         CcPathWeak ** restrict path_weak__iod ) {
+    if ( !path_node ) return false;
+    if ( !path_weak__iod ) return false;
+
+    if ( !*path_weak__iod )
+        return cc_path_weak_append_route( path_node, path_weak__iod );
+    else if ( !cc_path_weak_check_if_valid( *path_weak__iod ) ) {
+        cc_path_weak_free_all( path_weak__iod );
+        return false;
+    }
+
+    CcPathWeak * pw = *path_weak__iod;
+    CC_FASTFORWARD( pw );
+
+    while ( pw ) {
+        if ( pw->node__w->alt_path ) {
+            pw->node__w = pw->node__w->alt_path;
+
+            CcPathNode * d = pw->node__w->alt_path->divergence;
+            if ( d )
+                return cc_path_weak_append_route( d, path_weak__iod );
+            else
+                return true;
+        }
+
+        pw = pw->prev;
+    }
+
+    // Traversed all nodes, reached past tree root, lets reset this.
+    cc_path_weak_free_all( path_weak__iod );
+    return false;
 }
 
 
