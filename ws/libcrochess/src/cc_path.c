@@ -171,7 +171,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 
 
 //
-// Linked list of nodes.
+// Linked list of weak pointers to path node.
 
 typedef struct CcPathWeak {
     CcPathNode * node__w;
@@ -200,9 +200,9 @@ static CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
     if ( !*path_weak__iod ) {
         *path_weak__iod = pw__t; // Ownership transfer.
     } else {
-        CcPathWeak * pl = *path_weak__iod;
-        CC_FASTFORWARD( pl );
-        pl->next = pw__t; // Append + ownership transfer.
+        CcPathWeak * pw = *path_weak__iod;
+        CC_FASTFORWARD( pw );
+        pw->next = pw__t; // Append + ownership transfer.
     }
 
     return pw__t; // Weak pointer.
@@ -212,7 +212,6 @@ static bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
     if ( !path_weak__f ) return false;
     if ( !*path_weak__f ) return true;
 
-    bool result = true;
     CcPathWeak * pw = *path_weak__f;
     CcPathWeak * tmp = NULL;
 
@@ -223,7 +222,7 @@ static bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
     }
 
     *path_weak__f = NULL;
-    return result;
+    return true;
 }
 
 static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
@@ -238,6 +237,25 @@ static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
     }
 
     return len;
+}
+
+static CcPathWeak * cc_path_weak_initialize_route( CcPathNode * restrict path_node ) {
+    if ( !path_node ) return NULL;
+
+    CcPathNode * pn = path_node;
+    CcPathWeak * pw__a = NULL;
+
+    while ( pn ) {
+        CcPathWeak * pw__w = cc_path_weak_append( &pw__a, pn );
+        if ( !pw__w ) { // Append failed ...
+            cc_path_weak_free_all( &pw__a );
+            return NULL;
+        }
+
+        pn = pn->divergence;
+    }
+
+    return pw__a;
 }
 
 

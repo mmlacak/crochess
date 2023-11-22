@@ -165,9 +165,11 @@ bool cc_path_node_free_all( CcPathNode ** restrict path_node__f );
 */
 size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
+// TODO :: DELETE after cc_path_find_shortest_route(), cc_path_find_longest_route() are done
+//
 
 //
-// Linked list of nodes.
+// Linked list of weak pointers to path node.
 
 // /**
 //     Linked list of weak pointers to nodes, comprising one route. A route follows paths from starting field to destination.
@@ -222,6 +224,9 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 //     @return Length of a linked list if successful, `0` otherwise.
 // */
 // size_t cc_path_weak_len( CcPathWeak * restrict path_weak );
+
+//
+// TODO :: DELETE after cc_path_find_shortest_route(), cc_path_find_longest_route() are done
 
 
 //
