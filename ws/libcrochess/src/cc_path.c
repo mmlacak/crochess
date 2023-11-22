@@ -129,14 +129,6 @@ CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
     return pl__w;
 }
 
-// TODO :: get longest route
-CcPptLink * cc_path_link_find_longest_route( CcPathNode * restrict path_node ) {
-}
-
-// TODO :: get shortest route
-CcPptLink * cc_path_link_find_shortest_route( CcPathNode * restrict path_node ) {
-}
-
 bool cc_path_node_free_all( CcPathNode ** restrict path_node__f ) {
     if ( !path_node__f ) return false;
     if ( !*path_node__f ) return true;
@@ -181,7 +173,12 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 //
 // Linked list of nodes.
 
-CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
+typedef struct CcPathWeak {
+    CcPathNode * node__w;
+    struct CcPathWeak * next;
+} CcPathWeak;
+
+static CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
     if ( !node ) return NULL;
 
     CcPathWeak * pw__a = malloc( sizeof( CcPathWeak ) );
@@ -193,8 +190,8 @@ CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
     return pw__a;
 }
 
-CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
-                                  CcPathNode * restrict node ) {
+static CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
+                                         CcPathNode * restrict node ) {
     if ( !path_weak__iod ) return NULL;
 
     CcPathWeak * pw__t = cc_path_weak__new( node );
@@ -211,7 +208,7 @@ CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
     return pw__t; // Weak pointer.
 }
 
-bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
+static bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
     if ( !path_weak__f ) return false;
     if ( !*path_weak__f ) return true;
 
@@ -229,7 +226,7 @@ bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
     return result;
 }
 
-size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
+static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
     if ( !path_weak ) return 0;
 
     size_t len = 0;
@@ -241,4 +238,18 @@ size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
     }
 
     return len;
+}
+
+
+//
+// Auxilary functions.
+
+// TODO :: find shortest route
+CcPptLink * cc_path_find_shortest_route( CcPathNode * restrict path_node ) {
+    return NULL; // TODO
+}
+
+// TODO :: find longest route
+CcPptLink * cc_path_find_longest_route( CcPathNode * restrict path_node ) {
+    return NULL; // TODO
 }

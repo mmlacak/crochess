@@ -144,12 +144,6 @@ CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__
 CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
                                             CcPptLink ** restrict ppt__n );
 
-// TODO :: get longest route
-CcPptLink * cc_path_link_find_longest_route( CcPathNode * restrict path_node );
-
-// TODO :: get shortest route
-CcPptLink * cc_path_link_find_shortest_route( CcPathNode * restrict path_node );
-
 /**
     Frees all paths in a tree.
 
@@ -175,60 +169,69 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 //
 // Linked list of nodes.
 
-/**
-    Linked list of weak pointers to nodes, comprising one route. A route follows paths from starting field to destination.
-*/
-typedef struct CcPathWeak {
-    CcPathNode * node__w; /**< A weak pointer to node. */
-    struct CcPathWeak * next; /**< Link to a next item. */
-} CcPathWeak;
+// /**
+//     Linked list of weak pointers to nodes, comprising one route. A route follows paths from starting field to destination.
+// */
+// typedef struct CcPathWeak {
+//     CcPathNode * node__w; /**< A weak pointer to node. */
+//     struct CcPathWeak * next; /**< Link to a next item. */
+// } CcPathWeak;
 
-/**
-    Function allocates a new linked node.
+// /**
+//     Function allocates a new linked node.
 
-    @param node A node in path tree.
+//     @param node A node in path tree.
 
-    @return Pointer to a newly allocated linked node if successful, `NULL` otherwise.
-*/
-CcPathWeak * cc_path_weak__new( CcPathNode * restrict node );
+//     @return Pointer to a newly allocated linked node if successful, `NULL` otherwise.
+// */
+// CcPathWeak * cc_path_weak__new( CcPathNode * restrict node );
 
-/**
-    Function appends a newly allocated node to a given linked list.
+// /**
+//     Function appends a newly allocated node to a given linked list.
 
-    @param path_weak__iod _Optional_, _input/output_ parameter; linked list of path nodes.
-    @param node A node in path tree.
+//     @param path_weak__iod _Optional_, _input/output_ parameter; linked list of path nodes.
+//     @param node A node in path tree.
 
-    @note
-    Linked list `*path_weak__iod` can be `NULL`, a path will still be allocated,
-    and weak pointer to it returned.
+//     @note
+//     Linked list `*path_weak__iod` can be `NULL`, a path will still be allocated,
+//     and weak pointer to it returned.
 
-    @note
-    If linked list `*path_weak__iod` is `NULL`, it will be initialized,
-    with a newly allocated path as its only element.
+//     @note
+//     If linked list `*path_weak__iod` is `NULL`, it will be initialized,
+//     with a newly allocated path as its only element.
 
-    @return A weak pointer to a newly allocated node if successful, `NULL` otherwise.
-*/
-CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
-                                  CcPathNode * restrict node );
+//     @return A weak pointer to a newly allocated node if successful, `NULL` otherwise.
+// */
+// CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
+//                                   CcPathNode * restrict node );
 
-/**
-    Frees all nodes in a given linked list.
+// /**
+//     Frees all nodes in a given linked list.
 
-    @param path_weak__f A linked list of nodes.
+//     @param path_weak__f A linked list of nodes.
 
-    @return `true` if successful, `false` otherwise.
-*/
-bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f );
+//     @return `true` if successful, `false` otherwise.
+// */
+// bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f );
 
-/**
-    Function returns length of a linked list.
+// /**
+//     Function returns length of a linked list.
 
-    @param path_weak A linked list of paths.
+//     @param path_weak A linked list of paths.
 
-    @return Length of a linked list if successful, `0` otherwise.
-*/
-size_t cc_path_weak_len( CcPathWeak * restrict path_weak );
+//     @return Length of a linked list if successful, `0` otherwise.
+// */
+// size_t cc_path_weak_len( CcPathWeak * restrict path_weak );
 
+
+//
+// Auxilary functions.
+
+// TODO :: find shortest route
+CcPptLink * cc_path_find_shortest_route( CcPathNode * restrict path_node );
+
+// TODO :: find longest route
+CcPptLink * cc_path_find_longest_route( CcPathNode * restrict path_node );
 
 
 #endif /* __CC_PATH_H__ */
