@@ -129,6 +129,14 @@ CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
     return pl__w;
 }
 
+// TODO :: get longest route
+CcPptLink * cc_path_link_find_longest_route( CcPathNode * restrict path_node ) {
+}
+
+// TODO :: get shortest route
+CcPptLink * cc_path_link_find_shortest_route( CcPathNode * restrict path_node ) {
+}
+
 bool cc_path_node_free_all( CcPathNode ** restrict path_node__f ) {
     if ( !path_node__f ) return false;
     if ( !*path_node__f ) return true;
@@ -164,6 +172,72 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
     while ( pn ) {
         ++len;
         pn = pn->alt_path;
+    }
+
+    return len;
+}
+
+
+//
+// Linked list of nodes.
+
+CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
+    if ( !node ) return NULL;
+
+    CcPathWeak * pw__a = malloc( sizeof( CcPathWeak ) );
+    if ( !pw__a ) return NULL;
+
+    pw__a->node__w = node;
+    pw__a->next = NULL;
+
+    return pw__a;
+}
+
+CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
+                                  CcPathNode * restrict node ) {
+    if ( !path_weak__iod ) return NULL;
+
+    CcPathWeak * pw__t = cc_path_weak__new( node );
+    if ( !pw__t ) return NULL;
+
+    if ( !*path_weak__iod ) {
+        *path_weak__iod = pw__t; // Ownership transfer.
+    } else {
+        CcPathWeak * pl = *path_weak__iod;
+        CC_FASTFORWARD( pl );
+        pl->next = pw__t; // Append + ownership transfer.
+    }
+
+    return pw__t; // Weak pointer.
+}
+
+bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
+    if ( !path_weak__f ) return false;
+    if ( !*path_weak__f ) return true;
+
+    bool result = true;
+    CcPathWeak * pw = *path_weak__f;
+    CcPathWeak * tmp = NULL;
+
+    while ( pw ) {
+        tmp = pw->next;
+        CC_FREE( pw );
+        pw = tmp;
+    }
+
+    *path_weak__f = NULL;
+    return result;
+}
+
+size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
+    if ( !path_weak ) return 0;
+
+    size_t len = 0;
+    CcPathWeak * pw = path_weak;
+
+    while ( pw ) {
+        ++len;
+        pw = pw->next;
     }
 
     return len;
