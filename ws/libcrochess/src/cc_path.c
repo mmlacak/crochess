@@ -28,7 +28,7 @@ CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-                                 CcPptLink ** restrict ppt__n ) {
+                                  CcPptLink ** restrict ppt__n ) {
     if ( !path_link__iod ) return NULL;
 
     CcPathLink * pl__t = cc_path_link__new( ppt__n );

@@ -615,6 +615,30 @@ CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod,
                                 CcPosPieceTag ppt );
 
 /**
+    Extends existing linked list with a another linked list.
+
+    @param ppt_link__iod _Optional_, _input/output_ parameter; linked list to extend.
+    @param ppt_link__n Linked list with which to extend existing steps.
+
+    @note
+    If linked list to extend (`ppt_link__iod`) hasn't been allocated yet,
+    this will initialize it     with content of an extending linked list,
+    i.e. `ppt_link__n`.
+
+    @note
+    Extending linked list `ppt_link__n` has its ownership transferred to
+    extended linked list `ppt_link__iod`; as a result, inner pointer of
+    `ppt_link__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
+*/
+CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod,
+                                CcPptLink ** restrict ppt_link__n );
+
+// TODO :: duplicate
+
+/**
     Frees all positions in a linked list.
 
     @param ppt_link__f Linked list of positions.

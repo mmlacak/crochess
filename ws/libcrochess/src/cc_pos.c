@@ -191,6 +191,31 @@ CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
     return pl__t; // Weak pointer.
 }
 
+CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod,
+                                CcPptLink ** restrict ppt_link__n ) {
+    if ( !ppt_link__iod ) return NULL;
+    if ( !ppt_link__n ) return NULL;
+
+    if ( !*ppt_link__n ) return *ppt_link__iod;
+
+    if ( !*ppt_link__iod ) {
+        // Ownership transfer.
+        *ppt_link__iod = *ppt_link__n;
+        *ppt_link__n = NULL;
+
+        return *ppt_link__iod;
+    }
+
+    CcPptLink * last = *ppt_link__iod;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *ppt_link__n;
+    *ppt_link__n = NULL;
+
+    return last->next;
+}
+
 bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
     if ( !pos_link__f ) return false;
     if ( !*pos_link__f ) return true;
