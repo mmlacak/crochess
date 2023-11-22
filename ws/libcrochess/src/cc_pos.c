@@ -191,6 +191,26 @@ CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
     return pl__t; // Weak pointer.
 }
 
+CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io ) {
+    if ( !ppt_link__io ) return NULL;
+
+    CcPptLink * ppt_link__a = NULL;
+    CcPptLink * from = ppt_link__io;
+
+    while ( from ) {
+        CcPptLink * ppt__w = cc_ppt_link_append( &ppt_link__a, from->ppt );
+
+        if ( !ppt__w ) { // Failed append --> ownership not transferred ...
+            cc_ppt_link_free_all( &ppt_link__a );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return ppt_link__a;
+}
+
 CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod,
                                 CcPptLink ** restrict ppt_link__n ) {
     if ( !ppt_link__iod ) return NULL;

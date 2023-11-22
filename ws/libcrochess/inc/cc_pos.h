@@ -615,6 +615,16 @@ CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod,
                                 CcPosPieceTag ppt );
 
 /**
+    Duplicates a given position + piece + tag linked list into a newly allocated.
+
+    @param ppt_link__io Linked list to duplicate.
+
+    @return
+    A pointer to newly allocated linked list if successful, `NULL` otherwise.
+*/
+CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io );
+
+/**
     Extends existing linked list with a another linked list.
 
     @param ppt_link__iod _Optional_, _input/output_ parameter; linked list to extend.
@@ -635,8 +645,6 @@ CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod,
 */
 CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod,
                                 CcPptLink ** restrict ppt_link__n );
-
-// TODO :: duplicate
 
 /**
     Frees all positions in a linked list.
