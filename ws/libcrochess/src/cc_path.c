@@ -329,6 +329,23 @@ static bool cc_path_weak_get_next_route( CcPathNode * restrict path_node,
     return false;
 }
 
+static size_t cc_path_weak_count_of_steps( CcPathWeak * restrict path_weak ) {
+    if ( !path_weak ) return 0;
+    if ( !cc_path_weak_check_if_valid( path_weak ) ) return 0;
+
+    size_t count = 0;
+    CcPathWeak * pw = path_weak;
+
+    CC_REWIND( pw );
+
+    while ( pw ) {
+        count += cc_ppt_link_len( pw->node__w->path );
+        pw = pw->next;
+    }
+
+    return count;
+}
+
 
 //
 // Auxilary functions.
