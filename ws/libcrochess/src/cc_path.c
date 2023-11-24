@@ -234,6 +234,26 @@ static bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
     return true;
 }
 
+static CcPathWeak * cc_path_weak_copy_shallow__new( CcPathWeak * restrict path_weak ) {
+    if ( !path_weak ) return NULL;
+
+    CcPathWeak * pw = path_weak;
+    CcPathWeak * pw__a = NULL;
+
+    CC_REWIND( pw );
+
+    while ( pw ) {
+        if ( !cc_path_weak_append( &pw__a, pw->node__w ) ) {
+            cc_path_weak_free_all( &pw__a );
+            return NULL;
+        }
+
+        pw = pw->next;
+    }
+
+    return pw__a;
+}
+
 static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
     if ( !path_weak ) return 0;
 
@@ -331,7 +351,6 @@ static bool cc_path_weak_get_next_route( CcPathNode * restrict path_node,
 
 static size_t cc_path_weak_count_of_steps( CcPathWeak * restrict path_weak ) {
     if ( !path_weak ) return 0;
-    if ( !cc_path_weak_check_if_valid( path_weak ) ) return 0;
 
     size_t count = 0;
     CcPathWeak * pw = path_weak;
@@ -339,7 +358,9 @@ static size_t cc_path_weak_count_of_steps( CcPathWeak * restrict path_weak ) {
     CC_REWIND( pw );
 
     while ( pw ) {
-        count += cc_ppt_link_len( pw->node__w->path );
+        if ( pw->node__w && pw->node__w->path )
+            count += cc_ppt_link_len( pw->node__w->path );
+
         pw = pw->next;
     }
 
@@ -351,11 +372,71 @@ static size_t cc_path_weak_count_of_steps( CcPathWeak * restrict path_weak ) {
 // Auxilary functions.
 
 // TODO :: find shortest route
-CcPptLink * cc_path_find_shortest_route( CcPathNode * restrict path_node ) {
-    return NULL; // TODO
+CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node ) {
+    if ( !path_node ) return NULL;
+
+    size_t count = 0;
+    CcPathWeak * shortest__a = NULL;
+    CcPathWeak * pw__a = NULL;
+
+    while ( cc_path_weak_get_next_route( path_node, &pw__a ) ) {
+        if ( !shortest__a ) { // Not initialized search yet.
+            count = cc_path_weak_count_of_steps( pw__a );
+
+            shortest__a = cc_path_weak_copy_shallow__new( pw__a );
+            if ( !shortest__a ) {
+                cc_path_weak_free_all( &pw__a );
+                return NULL;
+            }
+        } else {
+            size_t c = cc_path_weak_count_of_steps( pw__a );
+
+            if ( c < count ) {
+                cc_path_weak_free_all( &shortest__a );
+
+                shortest__a = cc_path_weak_copy_shallow__new( pw__a );
+                if ( !shortest__a ) {
+                    cc_path_weak_free_all( &pw__a );
+                    return NULL;
+                }
+
+                count = c;
+            }
+        }
+    }
+
+    cc_path_weak_free_all( &pw__a );
+
+    if ( !shortest__a ) return NULL;
+
+    CcPathWeak * pw = shortest__a;
+    CcPptLink * pl__a = NULL;
+
+    CC_REWIND( pw );
+
+    while ( pw ) {
+        if ( pw->node__w && pw->node__w->path ) {
+            CcPosPieceTag ppt = pw->node__w->path->ppt;
+
+            if ( !cc_ppt_link_append( &pl__a, ppt ) ) {
+                cc_path_weak_free_all( &shortest__a );
+                cc_ppt_link_free_all( &pl__a );
+                return NULL;
+            }
+        } else {
+            cc_path_weak_free_all( &shortest__a );
+            cc_ppt_link_free_all( &pl__a );
+            return NULL;
+        }
+
+        pw = pw->next;
+    }
+
+    cc_path_weak_free_all( &shortest__a );
+    return pl__a;
 }
 
 // TODO :: find longest route
-CcPptLink * cc_path_find_longest_route( CcPathNode * restrict path_node ) {
+CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node ) {
     return NULL; // TODO
 }

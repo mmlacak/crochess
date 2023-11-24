@@ -165,7 +165,7 @@ bool cc_path_node_free_all( CcPathNode ** restrict path_node__f );
 */
 size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
-// TODO :: DELETE after cc_path_find_shortest_route(), cc_path_find_longest_route() are done
+// TODO :: DELETE after cc_path_find_shortest_route__new(), cc_path_find_longest_route__new() are done
 //
 
 //
@@ -226,17 +226,17 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 // size_t cc_path_weak_len( CcPathWeak * restrict path_weak );
 
 //
-// TODO :: DELETE after cc_path_find_shortest_route(), cc_path_find_longest_route() are done
+// TODO :: DELETE after cc_path_find_shortest_route__new(), cc_path_find_longest_route__new() are done
 
 
 //
 // Auxilary functions.
 
 // TODO :: find shortest route
-CcPptLink * cc_path_find_shortest_route( CcPathNode * restrict path_node );
+CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
 
 // TODO :: find longest route
-CcPptLink * cc_path_find_longest_route( CcPathNode * restrict path_node );
+CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node );
 
 
 #endif /* __CC_PATH_H__ */
