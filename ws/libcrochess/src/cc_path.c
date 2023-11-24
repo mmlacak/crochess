@@ -196,6 +196,7 @@ static CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
 static CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
                                          CcPathNode * restrict node ) {
     if ( !path_weak__iod ) return NULL;
+    if ( !node ) return NULL;
 
     CcPathWeak * pw__t = cc_path_weak__new( node );
     if ( !pw__t ) return NULL;
@@ -298,21 +299,24 @@ static bool cc_path_weak_get_next_route( CcPathNode * restrict path_node,
 
     if ( !*path_weak__iod )
         return cc_path_weak_append_route( path_node, path_weak__iod );
-    else if ( !cc_path_weak_check_if_valid( *path_weak__iod ) ) {
-        cc_path_weak_free_all( path_weak__iod );
-        return false;
+    else {
+        if ( !cc_path_weak_check_if_valid( *path_weak__iod ) ) {
+            cc_path_weak_free_all( path_weak__iod );
+            return false;
+        }
     }
 
     CcPathWeak * pw = *path_weak__iod;
     CC_FASTFORWARD( pw );
 
     while ( pw ) {
+        // cc_path_weak_check_if_valid() ensured that ->node__w is valid for all nodes.
         if ( pw->node__w->alt_path ) {
             pw->node__w = pw->node__w->alt_path;
 
-            CcPathNode * d = pw->node__w->alt_path->divergence;
+            CcPathNode * d = pw->node__w->divergence;
             if ( d )
-                return cc_path_weak_append_route( d, path_weak__iod );
+                return cc_path_weak_append_route( d, &pw );
             else
                 return true;
         }

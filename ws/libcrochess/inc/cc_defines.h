@@ -361,7 +361,7 @@
     Pointer to list `ptr_lst` must be valid variable, not expression.
 
     @warning
-    List struct must have `next` member, which points to previous item in that list.
+    List struct must have `next` member, which points to next item in that list.
 
     @return Nothing.
 */
