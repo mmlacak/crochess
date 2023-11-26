@@ -174,7 +174,12 @@ Ownership transfer parameters are indicated by:
 - appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** restrict plies__n`
 - appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** restrict str__f`
 - appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** const restrict str_io__r`
-- appending `__a` if inner pointer is going to transfer ownership out of a function, e.g. `char ** const restrict str__a`
+- appending `__a` if inner pointer is going to transfer ownership in, or out of a function, e.g. `char ** const restrict str__a`
+
+Note, actual meaning of appending `__a` to the parameter depends on its direction:
+- if parameter is input, ownership is given to the function
+- if parameter is output, ownership is taken (from the function)
+- if parameter is input/output, ownership is retained (throughout the call to the function)
 
 Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__a`) tells what will happen
 to inner pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type parameter), if
@@ -235,18 +240,18 @@ separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 
 ### Ownership transfer parameters
 
-| Indicator |              `arg` |                  `*arg` |         `**arg` |
-| --------: | -----------------: | ----------------------: | --------------: |
-|           |            `!NULL` |                   input |            read |
-|     `__s` |            `!NULL` |           input, `NULL` |  read, _static_ |
-|     `__o` |            `!NULL` |                  output |           write |
-|    `__io` |            `!NULL` |          input + output |    read + write |
-|     `__d` |                [1] |     input, discretional |            read |
-|     `__D` |                [1] |        input, mandatory |            read |
-|     `__n` |            `!NULL` |         `*args = NULL;` | ownership taken |
-|     `__f` |            `!NULL` | `free(); *args = NULL;` |           freed |
-|     `__r` |            `!NULL` |    `*args = realloc();` |     reallocated |
-|     `__a` |            `!NULL` |        (input +) output | ownership given |
+| Indicator |              `arg` |                  `*arg` |            `**arg` |
+| --------: | -----------------: | ----------------------: | -----------------: |
+|           |            `!NULL` |                   input |               read |
+|     `__s` |            `!NULL` |           input, `NULL` |     read, _static_ |
+|     `__o` |            `!NULL` |                  output |              write |
+|    `__io` |            `!NULL` |          input + output |       read + write |
+|     `__d` |                [1] |     input, discretional |               read |
+|     `__D` |                [1] |        input, mandatory |               read |
+|     `__n` |            `!NULL` |         `*args = NULL;` |    ownership taken |
+|     `__f` |            `!NULL` | `free(); *args = NULL;` |              freed |
+|     `__r` |            `!NULL` |    `*args = realloc();` |        reallocated |
+|     `__a` |            `!NULL` | input <br> output <br> input + output | ownership given <br> ownership taken <br> ownership retained |
 
 [1] Depends on a level of indirection, i.e. to which pointer `d`, `D` indicator corresponds.
 
