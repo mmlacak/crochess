@@ -100,17 +100,17 @@ CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n ) {
     return pl__a;
 }
 
-CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__iod,
+CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__iod_a,
                                               CcPptLink ** restrict ppt__n ) {
-    if ( !path_node__iod ) return NULL;
+    if ( !path_node__iod_a ) return NULL;
 
     CcPathNode * pl__t = cc_path_node__new( ppt__n );
     if ( !pl__t ) return NULL;
 
-    if ( !*path_node__iod ) {
-        *path_node__iod = pl__t; // Ownership transfer.
+    if ( !*path_node__iod_a ) {
+        *path_node__iod_a = pl__t; // Ownership transfer.
     } else {
-        CcPathNode * pn = *path_node__iod;
+        CcPathNode * pn = *path_node__iod_a;
         CC_REWIND_BY( pn, pn->alt_path );
         pn->alt_path = pl__t; // Append + ownership transfer.
     }

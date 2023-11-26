@@ -42,20 +42,24 @@ CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
 /**
     Function appends a newly allocated path to a given path segment.
 
-    @param path_link__iod _Optional_, _input/output_ parameter; path segment.
+    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter; path segment.
     @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
 
     @note
-    Linked list `*path_link__iod` can be `NULL`, a path will still be allocated,
+    Linked list `*path_link__iod_a` can be `NULL`, a path will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If linked list `*path_link__iod` is `NULL`, it will be initialized,
+    If linked list `*path_link__iod_a` is `NULL`, it will be initialized,
     with a newly allocated path as its only element.
+
+    @note
+    Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated path, and retains ownership after function returns.
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
+CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod_a,
                                   CcPptLink ** restrict ppt__n );
 
 /**
@@ -109,20 +113,24 @@ CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n );
 /**
     Function appends a newly allocated path as an alternative to a given path segment.
 
-    @param path_node__iod _Optional_, _input/output_ parameter; path segment.
+    @param path_node__iod_a _Optional_, _input/output_ parameter; path segment.
     @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
 
     @note
-    Tree `*path_node__iod` can be `NULL`, a path will still be allocated,
+    Tree `*path_node__iod_a` can be `NULL`, a path will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If tree `*path_node__iod` is `NULL`, it will be initialized,
+    If tree `*path_node__iod_a` is `NULL`, it will be initialized,
     with a newly allocated path as its only element.
+
+    @note
+    Pointer `path_node__iod_a` has ownership over given path segment, takes ownership
+    over newly allocated path, and retains ownership after function returns.
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__iod,
+CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__iod_a,
                                               CcPptLink ** restrict ppt__n );
 
 /**
