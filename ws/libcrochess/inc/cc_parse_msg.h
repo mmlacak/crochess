@@ -49,23 +49,27 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
 /**
     Appends a newly allocated parser message to a linked list, which might not be allocated yet.
 
-    @param parse_msgs__iod _Optional_, _input/output_ parameter; linked list of parser messages.
+    @param parse_msgs__iod_a **Ownership**, _optional_ _input/output_ parameter; linked list of parser messages.
     @param type Type of a parser message.
     @param msg Parser message to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
     @note
-    Linked list `*parse_msgs__iod` can be `NULL`, a parser message will still be allocated,
+    Linked list `*parse_msgs__iod_a` can be `NULL`, a parser message will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If linked list `*parse_msgs__iod` is `NULL`, it will be initialized,
+    If linked list `*parse_msgs__iod_a` is `NULL`, it will be initialized,
     with a newly allocated parser message as its only element.
+
+    @note
+    Pointer `parse_msgs__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated message, and retains ownership after function returns.
 
     @return
     Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod,
+CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod_a,
                                   CcParseMsgTypeEnum type,
                                   char const * restrict msg,
                                   size_t max_len__d );
@@ -73,7 +77,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod,
 /**
     Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
 
-    @param parse_msgs__iod _Optional_, _input/output_ parameter; linked list of parser messages.
+    @param parse_msgs__iod_a **Ownership**, _optional_ _input/output_ parameter; linked list of parser messages.
     @param type Type of a parser message.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param fmt Formatting string, as defined for `printf`.
@@ -84,7 +88,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod,
     @return
     Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod,
+CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod_a,
                                          CcParseMsgTypeEnum type,
                                          size_t max_len__d,
                                          char const * restrict fmt,
@@ -93,7 +97,7 @@ CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod,
 /**
     Allocates a new parser message, appends it to a linked list, which might not be allocated yet.
 
-    @param parse_msgs__iod _Optional_, _input/output_ parameter; linked list of parser messages.
+    @param parse_msgs__iod_a **Ownership**, _optional_ _input/output_ parameter; linked list of parser messages.
     @param type Type of a parser message.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param fmt Formatting string, as defined for `printf`.
@@ -104,7 +108,7 @@ CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod,
     @return
     Weak pointer to a newly allocated parser message if successful, `NULL` otherwise.
 */
-CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** restrict parse_msgs__iod,
+CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** restrict parse_msgs__iod_a,
                                       CcParseMsgTypeEnum type,
                                       size_t max_len__d,
                                       char const * restrict fmt, ... );
