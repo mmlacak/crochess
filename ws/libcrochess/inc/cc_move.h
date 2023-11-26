@@ -8,7 +8,7 @@
 
 /**
     @file cc_move.h
-    @brief Move linked list; storage for plies, status, user algebraic notation.
+    @brief Move queue; storage for plies, status, user algebraic notation.
 */
 
 
@@ -34,7 +34,7 @@ typedef enum CcMoveStatusEnum {
 
 
 /**
-    Move structure, linked list.
+    Move structure, queue.
 */
 typedef struct CcMove {
     char * notation; /**< Original notation, before parsing. Usually, from user input. */
@@ -73,37 +73,41 @@ CcMove * cc_move__new( char const * restrict notation,
                        CcMoveStatusEnum status );
 
 /**
-    Appends a newly allocated move to a linked list.
+    Appends a newly allocated move to a queue.
 
-    @param moves__iod _Optional_, _input/output_ parameter, linked list of moves, to which a new move is appended.
+    @param moves__iod_a **Ownership**, _optional_ _input/output_ parameter, queue of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
-    @param plies__n Plies, should be valid pointer.
+    @param plies__n Plies; linked list.
     @param status Move status.
 
     @note
-    Linked list `*moves__iod` can be `NULL`, a move will still be allocated,
+    Queue `*moves__iod_a` can be `NULL`, a move will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If linked list `*moves__iod` is `NULL`, it will be initialized
+    If queue `*moves__iod_a` is `NULL`, it will be initialized
     with a newly allocated move as its only element.
+
+    @note
+    Pointer `moves__iod_a` has ownership over given queue, takes ownership
+    over newly allocated move, and retains ownership after function returns.
 
     @see cc_move__new()
 
     @return
     Weak pointer to a newly allocated move if successful, `NULL` otherwise.
 */
-CcMove * cc_move_append( CcMove ** restrict moves__iod,
+CcMove * cc_move_append( CcMove ** restrict moves__iod_a,
                          char const * restrict notation,
                          size_t max_len__d,
                          CcPly ** restrict plies__n,
                          CcMoveStatusEnum status );
 
 /**
-    Duplicates a given moves into a newly allocated linked list.
+    Duplicates a given moves into a newly allocated queue.
 
-    @param moves Linked list to duplicate.
+    @param moves Queue to duplicate.
 
     @return
     A newly allocated moves if successful, `NULL` otherwise.
@@ -111,9 +115,9 @@ CcMove * cc_move_append( CcMove ** restrict moves__iod,
 CcMove * cc_move_duplicate_all__new( CcMove * restrict moves );
 
 /**
-    Frees all moves in a linked list, and all associated entities.
+    Frees all moves in a queue, and all associated entities.
 
-    @param moves__f Linked list of moves.
+    @param moves__f Queue of moves.
 
     @warning
     In case of an error, function will continue to free accessible resources,

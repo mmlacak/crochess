@@ -43,20 +43,20 @@ CcMove * cc_move__new( char const * restrict notation,
     return mv__a;
 }
 
-CcMove * cc_move_append( CcMove ** restrict moves__iod,
+CcMove * cc_move_append( CcMove ** restrict moves__iod_a,
                          char const * restrict notation,
                          size_t max_len__d,
                          CcPly ** restrict plies__n,
                          CcMoveStatusEnum status ) {
-    if ( !moves__iod ) return NULL;
+    if ( !moves__iod_a ) return NULL;
 
     CcMove * mv__t = cc_move__new( notation, max_len__d, plies__n, status );
     if ( !mv__t ) return NULL;
 
-    if ( !*moves__iod ) {
-        *moves__iod = mv__t; // Ownership transfer.
+    if ( !*moves__iod_a ) {
+        *moves__iod_a = mv__t; // Ownership transfer.
     } else {
-        CcMove * m = *moves__iod;
+        CcMove * m = *moves__iod_a;
         CC_FASTFORWARD( m );
 
         m->next = mv__t; // Append + ownership transfer.
