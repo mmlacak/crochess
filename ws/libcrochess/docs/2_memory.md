@@ -8,34 +8,36 @@ Memory management                         {#memory_management}
 
 Entity in this text refers to any
 [**plain-old-data**](https://en.wikipedia.org/wiki/Passive_data_structure "plain-old-data")
-structure, which can be `alloc()`-ated on the heap. Here, these are mostly linked `struct`s,
-usually containing `union`s.
+structure, which can be `alloc()`-ated on the heap. <br />
+Here, these are mostly linked `struct`s, usually containing `union`s.
 
 Ownership
 ---------
 
-Ownership defines who (which pointer) gets to `free()` allocated memory. It refers
-to the one pointer variable, which is the reference from which all other usages are
-borrowed.
+Ownership defines who (which pointer) gets to `free()` allocated memory. <br />
+It refers to the one pointer variable, which is the reference from which all other
+usages are borrowed.
 
 ### Variables
 
-If a pointer, as a standalone variable, has ownership over any entity, `__a` is appended
-to its name, e.g. `CcChessboard * cb__a`. If ownership is transferred to a function (its
-parameter), some entity, or to another variable, `__t` is appended.
+If a pointer, as a standalone variable, has ownership over any entity, `__a` is
+appended to its name, e.g. `CcChessboard * cb__a`. <br />
+If ownership is transferred to a function (its parameter), some entity, or to another
+variable, `__t` is appended.
 
 So, `__a` is appended to a pointer name if that pointer has entity ownership during
 its whole scope, this includes a case of a function which returns that pointer, since
-it also returns ownership. Trailing `__a` is also appended if pointer is the last one
-in a chain of ownership transfers, since that pointer needs to be `free()`-ed always,
-unconditionally.
+it also returns ownership. <br />
+Trailing `__a` is also appended if pointer is the last one in a chain of ownership
+transfers, since that pointer needs to be `free()`-ed always, unconditionally.
 
 If pointer has temporary ownership of an entity, `__t` is appended to its name, i.e.
-if pointer has to be `free()`-ed sometimes, only under some conditions. Transfer of
-ownership `__t` indicates what would happen if main line of execution is followed, i.e.
-if all data is valid. It is possible that some condition fails, and ownership was not
-transferred, in which case just before bail-out, beside any valid ownership variables,
-all transfer variables must be cleaned as well.
+if pointer has to be `free()`-ed sometimes, only under some conditions. <br />
+Transfer of ownership `__t` indicates what would happen if main line of execution is
+followed, i.e. if all data is valid. <br />
+It is possible that some condition fails, and ownership was not transferred, in which
+case just before bail-out, beside any valid ownership variables, all transfer variables
+must be cleaned as well.
 
 For instance, lets say that up to certain point in code we have instantiated variables,
 but we haven't yet transferred ownership of plies and steps to a larger entity:
@@ -54,10 +56,11 @@ variables, before it can bail-out:
         return cc_game_move_data_free_all( NULL, &cb__a, NULL, &plies_0__t, &steps_2__t, false );
 @endcode
 
-If a variable is a borrow, nothing needs to be appended to its name. For variables holding
-weak pointers returned from a function, append `__w` to variable name, for instance:
+If a variable is a borrow, nothing needs to be appended to its name. <br />
+For variables holding weak pointers returned from a function, append `__w` to variable
+name, for instance:
 @code{.c}
-    CcMoves * moves__w = cc_moves_append_or_init( moves__io, restrict an, max_len__d );
+    CcMoves * moves__w = cc_moves_append_or_init( moves__io, an, max_len__d );
 @endcode
 
 Do the same (i.e. append `__w` to its name) for weak pointer variables that will be
@@ -84,12 +87,14 @@ the tail of that linked list; only the first entity has the complete ownership o
 entire linked list.
 
 If a pointer in an entity does not have ownership over linked entity, `__w` is appended
-to its name, e.g. `CcPly * related_ply__w`. Function(s) `free()`-ing containing entity
-does not `free()` weak pointers.
+to its name, e.g. `CcPly * related_ply__w`. <br />
+Function(s) `free()`-ing containing entity does not `free()` weak pointers.
 
 For instance, `CcMove` contains `CcPly *`, so it owns all `CcPly` items in that linked
-list. Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that
-linked list. So, `CcMove` indirectly owns every `CcStep` in the whole structure.
+list. <br />
+Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that linked
+list. <br />
+So, `CcMove` indirectly owns every `CcStep` in the whole structure.
 
 This is evidenced when `free()`-ing hierarchially complete structure from a single
 `CcMove` pointer.
@@ -101,106 +106,114 @@ which `free()`-s all linked `CcStep`s in each `CcPly` (by calling `cc_step_free_
 ### Transfer of ownership
 
 Transfer of ownership from a functions which allocates new memory is indicated by
-function name ending in `__new`, e.g. `cc_ply_teleport__new()`. If function name does
-not end in `__new`, then returned pointer is borrowed, e.g. `cc_ply_get_steps()`.
+function name ending in `__new`, e.g. `cc_ply_teleport__new()`. <br />
+If function name does not end in `__new`, then returned pointer is borrowed, e.g.
+`cc_ply_get_steps()`.
 
 ### Borrows
 
 Whether borrow is mutable or not can be seen in a function return type, if returned
-pointer points to `const` entity, that is imutable borrow. Borrows are usually mutable
-(e.g. `CcStep * cc_ply_get_steps()`), although there are also read-only borrows (e.g.
-`char const * cc_variant_label()`).
+pointer points to `const` entity, that is imutable borrow. <br />
+Borrows are usually mutable (e.g. `CcStep * cc_ply_get_steps()`), although there are
+also read-only borrows (e.g. `char * cc_variant_label()`).
 
 Parameters
 ----------
 
-Pointers as function parameters are usually input, read-only borrows. Strings (i.e.
-`char *`) have their underlying type `const`-ed (i.e. `char const *`), most other
-types do not have `const`. For instance, `char const * restrict str`,
-`CcMove * restrict moves`.
+Pointers as function parameters are usually input, read-only borrows. <br />
+Strings (i.e. `char *`) have their underlying type `const`-ed (i.e. `char *`),
+most other types do not have `const`. <br />
+For instance, `char * str`, `CcMove * moves`.
 
 ### _Static_ parameters
 
 _Static_ parameters are mostly input, read-only borrows, that initialize local static
-variables inside a function body. For a first call in a series such a parameters have
-to be valid pointers, afterwards they can be `NULL`s.
+variables inside a function body. <br />
+For a first call in a series such a parameters have to be valid pointers, afterwards
+they can be `NULL`s.
 
 Those _static_ parameters are usually used to initialize a kind of an iterator (or
 generator), after which said iterator (or generator) continues to return valid values
 until it runs out of them, or is initialized again.
 
 _Static_ parameters are indicated by appending `__s` to parameter name, e.g.
-`char const * const restrict str__s`.
+`char * str__s`.
 
 ### Optional parameters
 
 Discretional parameters are indicated by appending `__d` to their name, e.g.
-`int const disamb_i__d`. For pointers, `NULL` is used if optional parameter is not
-given. For other types check which value(s) are used to convey absence of a valid
-value. In a given example, disambiguation coordinate is optional, with
-`CC_INVALID_COORD` used as an absence value.
+`int disamb_i__d`. <br />
+For pointers, `NULL` is used if optional parameter is not given. <br />
+For other types check which value(s) are used to convey absence of a valid value. <br />
+In a given example, disambiguation coordinate is optional, with `CC_INVALID_COORD`
+used as an absence value.
 
 Multi-pointer parameters can be optional not just on data (more precisely, inner-most
-pointer), but also on any other pointer level. For each optional pointer an additional
-`d` is appended to existing `__d` indicator. If pointer is not optional, an `D` is
-appended, to keep track of indirection. Each `d` or `D` corresponds to one pointer,
-starting from inner-most pointer outwards, i.e. in reverse order to pointers declaration.
+pointer), but also on any other pointer level. <br />
+For each optional pointer an additional `d` is appended to existing `__d` indicator. <br />
+If pointer is not optional, an `D` is appended, to keep track of indirection. <br />
+Each `d` or `D` corresponds to one pointer, starting from inner-most pointer outwards,
+i.e. in reverse order to pointers declaration.
 
 For instance, `CcParseMsg ** parse_msgs__dd` means both data (inner pointer), and
-outer pointer are optional. Another example, `CcParseMsg ** parse_msgs__Dd` means
-outer pointer is optional, but inner pointer (data) is mandatory, i.e. if outer pointer
-is provided, inner pointer must be valid (non-`NULL`), and must point to valid chunk of
-memory.
+outer pointer are optional. <br />
+Another example, `CcParseMsg ** parse_msgs__Dd` means outer pointer is optional, but
+inner pointer (data) is mandatory, <br />
+i.e. if outer pointer is provided, inner pointer must also be valid (non-`NULL`).
 
-All indicators for the outmost pointers that are mandatory can be omitted. For instance,
-`CcParseMsg ** parse_msgs__d` is treated the same as `CcParseMsg ** parse_msgs__dD`.
+All indicators for the outmost pointers that are mandatory can be omitted. <br />
+For instance, `CcParseMsg ** parse_msgs__d` is treated the same as
+`CcParseMsg ** parse_msgs__dD`.
 
 ### Output parameters
 
 Output parameters (mutable borrows) are indicated by appending either `__o`, or `__io`
-to their name, depending if they are pure output parameter, or input + output one, e.g.
-`char const * restrict str__io`.
+to their name, depending if they are just output parameter, or input + output one, e.g.
+`char * str__io`.
 
-Pure output parameter, i.e. one named with `__o`, is also implicitly optional, so
-`char const * restrict str__o` is treated the same as `char const * restrict str__od`.
+Output parameter, i.e. one named with `__o`, is is also implicitly optional, so
+`char * str__o` is treated the same as `char * str__od`. <br />
 Input / ouput parameter is implicitly mandatory, and has to have `__d` appended to its
-name if its optional, like so `char const * restrict str__iod`.
+name if its optional, like so `char * str__iod`.
 
 ### Ownership transfer parameters
 
 Ownership transfer parameters are indicated by:
 - their type (pointer to pointer to type), e.g. `CcParseMsg ** parse_msgs`
 - appending direction indicator (`__o`, `__io`) to parameter name if they are output, or input + output parameter
-- appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** restrict plies__n`
-- appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** restrict str__f`
-- appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** const restrict str_io__r`
-- appending `__t` if inner pointer is going to transfer ownership into function, e.g. `char ** const restrict str__t`
-- appending `__a` if inner pointer is going to transfer ownership out of a function, e.g. `char ** const restrict str__a`
+- appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** plies__n`
+- appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** str__f`
+- appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** str_io__r`
+- appending `__t` if inner pointer is going to transfer ownership into function, e.g. `char ** str__t`
+- appending `__a` if inner pointer is going to transfer ownership out of a function, e.g. `char ** str__a`
 
 If parameter is input only, use `__t` to specify that ownership is given into that
 function, and remaining pointer is weak after function returns.
 
+Indicator `__a` is used for output parameters, when data can be allocated within
+function. <br />
+For instance, in all append functions linked list can be given just as an address
+of a `NULL`-initialized pointer variable, which can then be initialized with newly
+allocated item as its first, and only element. <br />
+Another example, if optional output string `char ** str__iod` can also be allocated
+from within function, it has to have `__a` appended, like so `char ** str__iod_a`.
+
 If parameter is output only, appending `__a` to the parameter specifies that ownership
-is taken out from the function. If parameter is input + output, ownership is retained
-throughout, and after the call to the function.
+is taken out from the function. <br />
+If parameter is input + output, ownership is retained throughout, and after the call
+to the function.
 
-Note, output (and input + output) parameters implicitly assume ownership. <br>
-Indicator `__a` is used in instances when data (usualy linked list, or a queue) can be
-initialized with newly allocated item. <br>
-For instance, in all append functions given linked list can be passed uninitialized,
-and will be initialized with newly allocated item as its first, and only element.
-
-Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__a`) tells what will happen
-to inner pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type parameter), if
-main line is executed; that is to say, if all parameters were valid, and all sanity
-checks passed.
+Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__a`) tells what will
+happen to inner pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type
+parameter), if main line is executed; that is to say, if all parameters were valid,
+and all sanity checks passed.
 
 ### Weak parameters
 
-Weak parameters are indicated by appending `__w` to their name, e.g. `ply_start__w`.
+Weak parameters are indicated by appending `__w` to their name, e.g. `ply_start__w`. <br />
 They are the same as input, read-only boorows, only they are stored in some structure,
-as opposed to just being used within called function.
-For example, `char const * restrict ply_start__w`.
+as opposed to just being used within called function. <br />
+For example, `char * ply_start__w`.
 
 Since lifetime of a data pointed to by weak pointer depends on external owner, it's
 best to be used within hierarhical structure, where weak pointers from children points
@@ -214,7 +227,7 @@ name first, followed by direction indicator (one of `__o`, `__io`), followed by
 discretion indicator (`__d`), finally followed by ownership transfer indicator (one
 of `__w`, `__t`, `__a`, `__n`, `__f`, `__r`).
 
-_Static_, direction and discretion indicators can be combined, e.g. `move__siod`.
+_Static_, direction and discretion indicators can be combined, e.g. `move__siod`. <br />
 Ownership transfer indicator is always kept separated, i.e. if any of direction or
 discretion indicators are combined with ownership transfer indicator, they are
 separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
@@ -249,19 +262,19 @@ separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 
 ### Ownership transfer parameters
 
-| Indicator |              `arg` |                     `*arg` |                                 `**arg` |
-| --------: | -----------------: | -------------------------: | --------------------------------------: |
-|           |            `!NULL` |                      input |                                    read |
-|     `__s` |            `!NULL` |              input, `NULL` |                          read, _static_ |
-|     `__o` |            `!NULL` |                     output |                                   write |
-|    `__io` |            `!NULL` |             input + output |                            read + write |
-|     `__d` |                [1] |        input, discretional |                                    read |
-|     `__D` |                [1] |           input, mandatory |                                    read |
-|     `__n` |            `!NULL` |            `*args = NULL;` |                         ownership taken |
-|     `__f` |            `!NULL` |    `free(); *args = NULL;` |                                   freed |
-|     `__r` |            `!NULL` |       `*args = realloc();` |                             reallocated |
-|     `__t` |            `!NULL` |                      input |                         ownership given |
-|     `__a` |            `!NULL` | output <br> input + output | ownership taken <br> ownership retained |
+| Indicator |              `arg` |                       `*arg` |                                   `**arg` |
+| --------: | -----------------: | ---------------------------: | ----------------------------------------: |
+|           |            `!NULL` |                        input |                                      read |
+|     `__s` |            `!NULL` |                input, `NULL` |                            read, _static_ |
+|     `__o` |            `!NULL` |                       output |                                     write |
+|    `__io` |            `!NULL` |               input + output |                              read + write |
+|     `__d` |                [1] |          input, discretional |                                      read |
+|     `__D` |                [1] |             input, mandatory |                                      read |
+|     `__n` |            `!NULL` |              `*args = NULL;` |                           ownership taken |
+|     `__f` |            `!NULL` |      `free(); *args = NULL;` |                                     freed |
+|     `__r` |            `!NULL` |         `*args = realloc();` |                               reallocated |
+|     `__t` |            `!NULL` |                        input |                           ownership given |
+|     `__a` |            `!NULL` | output <br /> input + output | ownership taken <br /> ownership retained |
 
 [1] Depends on a level of indirection, i.e. to which pointer `d`, `D` indicator corresponds.
 
