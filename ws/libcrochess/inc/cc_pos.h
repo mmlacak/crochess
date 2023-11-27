@@ -306,16 +306,16 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 /**
     Macro to append a newly allocated position value to position link.
 
-    @param ptr_ptr__pos_link__iod _Optional_, _input/output_ parameter, linked list.
+    @param ptr_ptr__pos_link__iod_a _Optional_, _input/output_ parameter, linked list.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
     @see cc_pos_link_append()
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__iod,int_i,int_j) \
-    ( cc_pos_link_append( (ptr_ptr__pos_link__iod), CC_POS_CAST( (int_i), (int_j) ) ) )
+#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__iod_a,int_i,int_j) \
+    ( cc_pos_link_append( (ptr_ptr__pos_link__iod_a), CC_POS_CAST( (int_i), (int_j) ) ) )
 
 /**
     A linked list of positions.
@@ -337,22 +337,26 @@ CcPosLink * cc_pos_link__new( CcPos pos );
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param pos_link__iod _Optional_, _input/output_ parameter, linked list.
+    @param pos_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
     @param pos A position.
 
     @note
-    Linked list `*pos_link__iod` can be `NULL`, a linked position will still be
+    Linked list `*pos_link__iod_a` can be `NULL`, a linked position will still be
     allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*pos_link__iod` is `NULL`, it will be initialized
+    If linked list `*pos_link__iod_a` is `NULL`, it will be initialized
     with a newly allocated linked position as its only element.
+
+    @note
+    Pointer `pos_link__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated position, and retains ownership after function returns.
 
     @return
     A weak pointer to a newly allocated linked position if successful,
     `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
+CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod_a,
                                 CcPos pos );
 
 /**
@@ -569,9 +573,9 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     @param piece A piece.
     @param tag A tag.
 
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
     @see cc_ppt_link_append()
+
+    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 #define CC_PPT_LINK_APPEND(ptr_ptr__ppt_link__iod,int_i,int_j,piece,tag) \
     ( cc_ppt_link_append( (ptr_ptr__ppt_link__iod), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
@@ -596,22 +600,26 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt );
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param ppt_link__iod _Optional_, _input/output_ parameter, linked list.
+    @param ppt_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
     @param ppt A position + piece + tag value.
 
     @note
-    Linked list `*ppt_link__iod` can be `NULL`, a linked position will still be
+    Linked list `*ppt_link__iod_a` can be `NULL`, a linked position will still be
     allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*ppt_link__iod` is `NULL`, it will be initialized
+    If linked list `*ppt_link__iod_a` is `NULL`, it will be initialized
     with a newly allocated linked position as its only element.
+
+    @note
+    Pointer `ppt_link__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated position item, and retains ownership after function returns.
 
     @return
     A weak pointer to a newly allocated linked position if successful,
     `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod,
+CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod_a,
                                 CcPosPieceTag ppt );
 
 /**
@@ -627,23 +635,23 @@ CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io );
 /**
     Extends existing linked list with a another linked list.
 
-    @param ppt_link__iod _Optional_, _input/output_ parameter; linked list to extend.
+    @param ppt_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
     @param ppt_link__n Linked list with which to extend existing steps.
 
     @note
-    If linked list to extend (`ppt_link__iod`) hasn't been allocated yet,
-    this will initialize it     with content of an extending linked list,
-    i.e. `ppt_link__n`.
+    If linked list to extend (`ppt_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    `ppt_link__n`.
 
     @note
     Extending linked list `ppt_link__n` has its ownership transferred to
-    extended linked list `ppt_link__iod`; as a result, inner pointer of
+    extended linked list `ppt_link__iod_a`; as a result, inner pointer of
     `ppt_link__n` is `NULL`-ed.
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod,
+CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod_a,
                                 CcPptLink ** restrict ppt_link__n );
 
 /**

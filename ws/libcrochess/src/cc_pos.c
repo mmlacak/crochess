@@ -173,17 +173,17 @@ CcPosLink * cc_pos_link__new( CcPos pos ) {
     return pl__a;
 }
 
-CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod,
+CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod_a,
                                 CcPos pos ) {
-    if ( !pos_link__iod ) return NULL;
+    if ( !pos_link__iod_a ) return NULL;
 
     CcPosLink * pl__t = cc_pos_link__new( pos );
     if ( !pl__t ) return NULL;
 
-    if ( !*pos_link__iod ) {
-        *pos_link__iod = pl__t; // Ownership transfer.
+    if ( !*pos_link__iod_a ) {
+        *pos_link__iod_a = pl__t; // Ownership transfer.
     } else {
-        CcPosLink * pl = *pos_link__iod;
+        CcPosLink * pl = *pos_link__iod_a;
         CC_FASTFORWARD( pl );
         pl->next = pl__t; // Append + ownership transfer.
     }
