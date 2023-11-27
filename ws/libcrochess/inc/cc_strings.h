@@ -36,29 +36,33 @@ CcStrings * cc_strings__new( char const * restrict str,
 /**
     Appends a newly allocated string to a linked list.
 
-    @param strings__iod _Optional_, _input/ouptut_ parameter; linked list of strings.
+    @param strings__iod_a _Optional_, _input/ouptut_ parameter; linked list of strings.
     @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
     @note
-    Linked list `*strings__io` can be `NULL`, a newly allocated string will
+    Linked list `*strings__iod_a` can be `NULL`, a newly allocated string will
     still be allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*strings__io` is `NULL`, it will be initialized,
+    If linked list `*strings__iod_a` is `NULL`, it will be initialized,
     with a newly allocated string as its only element.
+
+    @note
+    Pointer `strings__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated string, and retains ownership after function returns.
 
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
+CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
                                char const * restrict str,
                                size_t max_len__d );
 
 /**
     Allocates a new string, appends it to a linked list, which might not be allocated yet.
 
-    @param strings__iod _Optional_, _input/ouptut_ parameter; linked list of strings.
+    @param strings__iod_a _Optional_, _input/ouptut_ parameter; linked list of strings.
     @param max_len__d _Optional_, maximum length to copy.
     @param fmt Formatting string, as defined for `printf`.
     @param ... Variadic format arguments, as used for `printf`.
@@ -68,7 +72,7 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod,
+CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... );
 

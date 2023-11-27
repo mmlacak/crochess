@@ -28,18 +28,18 @@ CcStrings * cc_strings__new( char const * restrict str,
     return str__a;
 }
 
-CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
+CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
                                char const * restrict str,
                                size_t max_len__d ) {
-    if ( !strings__iod ) return NULL;
+    if ( !strings__iod_a ) return NULL;
 
     CcStrings * str__t = cc_strings__new( str, max_len__d );
     if ( !str__t ) return NULL;
 
-    if ( !*strings__iod ) {
-        *strings__iod = str__t; // Ownership transfer.
+    if ( !*strings__iod_a ) {
+        *strings__iod_a = str__t; // Ownership transfer.
     } else {
-        CcStrings * s = *strings__iod;
+        CcStrings * s = *strings__iod_a;
         CC_FASTFORWARD( s );
         s->next = str__t; // Append + ownership transfer.
     }
@@ -47,10 +47,10 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod,
     return str__t; // Weak pointer.
 }
 
-CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod,
+CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... ) {
-    if ( !strings__iod ) return NULL;    // To avoid alloc() + free() of str__a;
+    if ( !strings__iod_a ) return NULL;    // To avoid alloc() + free() of str__a;
                                          // even though this is never referenced.
 
     va_list args;
@@ -62,7 +62,7 @@ CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod,
 
     if ( !str__a ) return NULL;
 
-    CcStrings * pm__w = cc_strings_append( strings__iod, str__a, max_len__d );
+    CcStrings * pm__w = cc_strings_append( strings__iod_a, str__a, max_len__d );
 
     CC_FREE( str__a );
 
