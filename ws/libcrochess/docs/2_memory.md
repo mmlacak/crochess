@@ -240,18 +240,19 @@ separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 
 ### Ownership transfer parameters
 
-| Indicator |              `arg` |                  `*arg` |            `**arg` |
-| --------: | -----------------: | ----------------------: | -----------------: |
-|           |            `!NULL` |                   input |               read |
-|     `__s` |            `!NULL` |           input, `NULL` |     read, _static_ |
-|     `__o` |            `!NULL` |                  output |              write |
-|    `__io` |            `!NULL` |          input + output |       read + write |
-|     `__d` |                [1] |     input, discretional |               read |
-|     `__D` |                [1] |        input, mandatory |               read |
-|     `__n` |            `!NULL` |         `*args = NULL;` |    ownership taken |
-|     `__f` |            `!NULL` | `free(); *args = NULL;` |              freed |
-|     `__r` |            `!NULL` |    `*args = realloc();` |        reallocated |
-|     `__a` |            `!NULL` | input <br> output <br> input + output | ownership given <br> ownership taken <br> ownership retained |
+| Indicator |              `arg` |                     `*arg` |                                 `**arg` |
+| --------: | -----------------: | -------------------------: | --------------------------------------: |
+|           |            `!NULL` |                      input |                                    read |
+|     `__s` |            `!NULL` |              input, `NULL` |                          read, _static_ |
+|     `__o` |            `!NULL` |                     output |                                   write |
+|    `__io` |            `!NULL` |             input + output |                            read + write |
+|     `__d` |                [1] |        input, discretional |                                    read |
+|     `__D` |                [1] |           input, mandatory |                                    read |
+|     `__n` |            `!NULL` |            `*args = NULL;` |                         ownership taken |
+|     `__f` |            `!NULL` |    `free(); *args = NULL;` |                                   freed |
+|     `__r` |            `!NULL` |       `*args = realloc();` |                             reallocated |
+|     `__t` |            `!NULL` |                      input |                         ownership given |
+|     `__a` |            `!NULL` | output <br> input + output | ownership taken <br> ownership retained |
 
 [1] Depends on a level of indirection, i.e. to which pointer `d`, `D` indicator corresponds.
 
