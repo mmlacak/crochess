@@ -150,7 +150,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
 /**
     Appends a newly allocated ply to a given linked list.
 
-    @param plies__iod _Optional_, _input/ouput_ parameter; plies linked list.
+    @param plies__iod_a **Ownership**, _optional_ _input/ouput_ parameter; plies linked list.
     @param start_an__d _Optional_, start of a ply notation substring. Can be `NULL` if so `notation` member is initialized to `NULL`.
     @param end_an__d _Optional_, end of a ply notation substring. Can be `NULL`, if so whole zero-terminated string is copied.
     @param max_len__d _Optional_ parameter, maximum length of a string to copy. Can be `0`, if so whole zero-terminated string is copied.
@@ -160,19 +160,23 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     @param steps__n Steps, linked list, can be `NULL`.
 
     @note
-    Linked list `*plies__iod` can be `NULL`, a ply will still be allocated,
+    Linked list `*plies__iod_a` can be `NULL`, a ply will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If linked list `*plies__iod` is `NULL`, it will be initialized,
+    If linked list `*plies__iod_a` is `NULL`, it will be initialized,
     with a newly allocated ply as its only element.
+
+    @note
+    Pointer `plies__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated ply, and retains ownership after function returns.
 
     @see cc_ply__new()
 
     @return
     Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append( CcPly ** restrict plies__iod,
+CcPly * cc_ply_append( CcPly ** restrict plies__iod_a,
                        char const * restrict start_an__d,
                        char const * restrict end_an__d,
                        size_t max_len__d,
@@ -194,21 +198,15 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
 /**
     Extends existing linked list with a newly allocated plies.
 
-    @param plies__iod _Optional_, _input/output_ parameter; linked list to extend.
+    @param plies__iod_a **Ownership**, _optional_ _input/ouput_ parameter; plies linked list.
     @param plies__n Linked list with which to extend existing plies.
 
-    @note
-    If linked list to extend (`plies__iod`) hasn't been allocated yet, this will initialize it
-    with content of an extending linked list, i.e. `plies__n`.
-
-    @note
-    Extending linked list `plies__n` has its ownership transferred to extended linked list `plies__io`;
-    as a result, inner pointer of `plies__n` is `NULL`-ed.
+    @see cc_ply_append(), cc_ply__new()
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_extend( CcPly ** restrict plies__iod,
+CcPly * cc_ply_extend( CcPly ** restrict plies__iod_a,
                        CcPly ** restrict plies__n );
 
 /**

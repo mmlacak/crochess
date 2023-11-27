@@ -59,7 +59,7 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     return ply__a;
 }
 
-CcPly * cc_ply_append( CcPly ** restrict plies__iod,
+CcPly * cc_ply_append( CcPly ** restrict plies__iod_a,
                        char const * restrict start_an__d,
                        char const * restrict end_an__d,
                        size_t max_len__d,
@@ -67,15 +67,15 @@ CcPly * cc_ply_append( CcPly ** restrict plies__iod,
                        CcPieceEnum piece,
                        CcLosingTagEnum lost_tag,
                        CcStep ** restrict steps__n ) {
-    if ( !plies__iod ) return NULL;
+    if ( !plies__iod_a ) return NULL;
 
     CcPly * ply__t = cc_ply__new( start_an__d, end_an__d, max_len__d, link, piece, lost_tag, steps__n );
     if ( !ply__t ) return NULL;
 
-    if ( !*plies__iod ) {
-        *plies__iod = ply__t; // Ownership transfer.
+    if ( !*plies__iod_a ) {
+        *plies__iod_a = ply__t; // Ownership transfer.
     } else {
-        CcPly * p = *plies__iod;
+        CcPly * p = *plies__iod_a;
         CC_FASTFORWARD( p );
         p->next = ply__t; // Append + ownership transfer.
     }
@@ -117,22 +117,22 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
     return ply__a;
 }
 
-CcPly * cc_ply_extend( CcPly ** restrict plies__iod,
+CcPly * cc_ply_extend( CcPly ** restrict plies__iod_a,
                        CcPly ** restrict plies__n ) {
-    if ( !plies__iod ) return NULL;
+    if ( !plies__iod_a ) return NULL;
     if ( !plies__n ) return NULL;
 
-    if ( !*plies__n ) return *plies__iod;
+    if ( !*plies__n ) return *plies__iod_a;
 
-    if ( !*plies__iod ) {
+    if ( !*plies__iod_a ) {
         // Ownership transfer.
-        *plies__iod = *plies__n;
+        *plies__iod_a = *plies__n;
         *plies__n = NULL;
 
-        return *plies__iod;
+        return *plies__iod_a;
     }
 
-    CcPly * last = *plies__iod;
+    CcPly * last = *plies__iod_a;
     CC_FASTFORWARD( last );
 
     // Ownership transfer.
