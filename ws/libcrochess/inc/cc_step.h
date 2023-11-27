@@ -91,23 +91,27 @@ CcStep * cc_step__new( CcStepLinkEnum link,
 /**
     Appends a newly allocated step to a given linked list.
 
-    @param steps__iod _Optional_, _input/output_ parameter; linked list to which a new step is appended.
+    @param steps__iod_a **Ownership**, _optional_ _input/output_ parameter; linked list to which a new step is appended.
     @param link Type of a link to previous step.
     @param field Field.
     @param side_effect Side-effect structure.
 
     @note
-    Linked list `*steps__iod` can be `NULL`, a step will still be allocated,
+    Linked list `*steps__iod_a` can be `NULL`, a step will still be allocated,
     and weak pointer to it returned.
 
     @note
-    If linked list `*steps__iod` is `NULL`, it will be initialized,
+    If linked list `*steps__iod_a` is `NULL`, it will be initialized,
     with a newly allocated step as its only element.
+
+    @note
+    Pointer `steps__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated step, and retains ownership after function returns.
 
     @return
     Weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
-CcStep * cc_step_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_append( CcStep ** restrict steps__iod_a,
                          CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
 
 /**
@@ -123,23 +127,23 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
 /**
     Extends existing linked list with step(s).
 
-    @param steps__iod _Optional_, _input/output_ parameter; linked list to extend.
+    @param steps__iod_a **Ownership**, _optional_ _input/output_ parameter; linked list to extend.
     @param steps__n Linked list with which to extend existing steps.
 
     @note
-    If linked list to extend (`steps__iod`) hasn't been allocated yet,
+    If linked list to extend (`steps__iod_a`) hasn't been allocated yet,
     this will initialize it     with content of an extending linked list,
     i.e. `steps__n`.
 
     @note
     Extending linked list `steps__n` has its ownership transferred to
-    extended linked list `steps__iod`; as a result, inner pointer of
+    extended linked list `steps__iod_a`; as a result, inner pointer of
     `steps__n` is `NULL`-ed.
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcStep * cc_step_extend( CcStep ** restrict steps__iod,
+CcStep * cc_step_extend( CcStep ** restrict steps__iod_a,
                          CcStep ** restrict steps__n );
 
 /**
@@ -268,49 +272,49 @@ CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, CcPos field );
  *  @{
  */
 
-CcStep * cc_step_none_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_none_append( CcStep ** restrict steps__iod_a,
                               CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_capture_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_capture_append( CcStep ** restrict steps__iod_a,
                                  CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_displacement_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_displacement_append( CcStep ** restrict steps__iod_a,
                                       CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 
-CcStep * cc_step_en_passant_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_en_passant_append( CcStep ** restrict steps__iod_a,
                                     CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum pawn, CcPos distant );
 
-CcStep * cc_step_castle_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_castle_append( CcStep ** restrict steps__iod_a,
                                 CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum rook, CcPos start, CcPos destination );
 
-CcStep * cc_step_promote_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_promote_append( CcStep ** restrict steps__iod_a,
                                  CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
-CcStep * cc_step_tag_for_promotion_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_tag_for_promotion_append( CcStep ** restrict steps__iod_a,
                                            CcStepLinkEnum link, CcPos field,
                                            CcPieceEnum captured, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_convert_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_convert_append( CcStep ** restrict steps__iod_a,
                                  CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_failed_conversion_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_failed_conversion_append( CcStep ** restrict steps__iod_a,
                                            CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_demote_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_demote_append( CcStep ** restrict steps__iod_a,
                                 CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 
-CcStep * cc_step_resurrect_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_resurrect_append( CcStep ** restrict steps__iod_a,
                                    CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcPos destination );
 
-CcStep * cc_step_failed_resurrection_append( CcStep ** restrict steps__iod,
+CcStep * cc_step_failed_resurrection_append( CcStep ** restrict steps__iod_a,
                                              CcStepLinkEnum link, CcPos field );
 
 /** @} */ // end of step_convenience_append
