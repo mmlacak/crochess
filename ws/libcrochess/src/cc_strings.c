@@ -47,26 +47,40 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
     return str__t; // Weak pointer.
 }
 
+CcStrings * cc_strings_append_fmt_va( CcStrings ** restrict strings__iod_a,
+                                      size_t max_len__d,
+                                      char const * restrict fmt,
+                                      va_list args ) {
+    if ( !strings__iod_a ) return NULL; // To avoid alloc() + free() of str__a needlessly.
+
+    va_list tmp;
+    va_copy( tmp, args );
+
+    char * str__a = cc_str_fmt_va__new( max_len__d, fmt, tmp );
+    va_end( tmp );
+
+    if ( !str__a ) return NULL;
+
+    CcStrings * str__w = cc_strings_append( strings__iod_a, str__a, max_len__d );
+
+    CC_FREE( str__a );
+
+    return str__w;
+}
+
 CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
                                    size_t max_len__d,
                                    char const * restrict fmt, ... ) {
-    if ( !strings__iod_a ) return NULL;    // To avoid alloc() + free() of str__a;
-                                         // even though this is never referenced.
+    if ( !strings__iod_a ) return NULL; // To avoid constructing va_list needlessly.
 
     va_list args;
     va_start( args, fmt );
 
-    char * str__a = cc_str_fmt_va__new( max_len__d, fmt, args );
+    CcStrings * str__w = cc_strings_append_fmt_va( strings__iod_a, max_len__d, fmt, args );
 
     va_end( args );
 
-    if ( !str__a ) return NULL;
-
-    CcStrings * pm__w = cc_strings_append( strings__iod_a, str__a, max_len__d );
-
-    CC_FREE( str__a );
-
-    return pm__w;
+    return str__w;
 }
 
 CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {

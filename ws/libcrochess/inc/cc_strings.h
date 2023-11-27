@@ -36,7 +36,7 @@ CcStrings * cc_strings__new( char const * restrict str,
 /**
     Appends a newly allocated string to a linked list.
 
-    @param strings__iod_a _Optional_, _input/ouptut_ parameter; linked list of strings.
+    @param strings__iod_a **Ownership**, _optional_ _input/ouptut_ parameter; linked list of strings.
     @param str String to copy.
     @param max_len__d _Optional_, maximum length to copy.
 
@@ -62,12 +62,30 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
 /**
     Allocates a new string, appends it to a linked list, which might not be allocated yet.
 
-    @param strings__iod_a _Optional_, _input/ouptut_ parameter; linked list of strings.
+    @param strings__iod_a **Ownership**, _optional_ _input/ouptut_ parameter; linked list of strings.
+    @param max_len__d _Optional_, maximum length to copy.
+    @param fmt Formatting string, as defined for `printf`.
+    @param args Variadic format arguments, as used for `printf`.
+
+    @see cc_strings_append()
+
+    @return
+    Weak pointer to a newly allocated string if successful, `NULL` otherwise.
+*/
+CcStrings * cc_strings_append_fmt_va( CcStrings ** restrict strings__iod_a,
+                                      size_t max_len__d,
+                                      char const * restrict fmt,
+                                      va_list args );
+
+/**
+    Allocates a new string, appends it to a linked list, which might not be allocated yet.
+
+    @param strings__iod_a **Ownership**, _optional_ _input/ouptut_ parameter; linked list of strings.
     @param max_len__d _Optional_, maximum length to copy.
     @param fmt Formatting string, as defined for `printf`.
     @param ... Variadic format arguments, as used for `printf`.
 
-    @see cc_strings_append()
+    @see cc_strings_append(), cc_strings_append_fmt_va()
 
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
