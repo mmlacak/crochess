@@ -16,11 +16,11 @@
 */
 
 
-bool cc_str_clear( char * restrict str__io_a,
+bool cc_str_clear( char * restrict str__io,
                    size_t max_len__d ) {
-    if ( !str__io_a ) return false;
+    if ( !str__io ) return false;
 
-    char * s = str__io_a;
+    char * s = str__io;
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
         while ( *s ) *s++ = '\0';
@@ -131,12 +131,12 @@ char const * cc_str_traverse_chars( char const * restrict str,
 }
 
 
-bool cc_str_to_case( char * restrict str__io_a,
+bool cc_str_to_case( char * restrict str__io,
                      bool to_upper_or_lower,
                      size_t max_len__d ) {
-    if ( !str__io_a ) return false;
+    if ( !str__io ) return false;
 
-    char * s = str__io_a;
+    char * s = str__io;
 
     if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
         while ( *s ) {
@@ -397,18 +397,18 @@ char * cc_str_duplicate__new( char const * restrict str,
     return str__a;
 }
 
-char * cc_str_append_into( char * restrict str__io_a,
+char * cc_str_append_into( char * restrict str__io,
                            size_t size_dest__d,
                            char const * restrict str,
                            size_t max_len__d ) {
-    if ( !str__io_a ) return NULL;
+    if ( !str__io ) return NULL;
     if ( !str ) return NULL;
 
     bool if_ignore_size = ( size_dest__d == CC_SIZE_IGNORE );
     bool if_zero_terminated = ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED );
 
     size_t count = 0;
-    char * io = str__io_a;
+    char * io = str__io;
 
     while ( *io != '\0' ) {
         if ( if_ignore_size || ( count < size_dest__d ) ) {

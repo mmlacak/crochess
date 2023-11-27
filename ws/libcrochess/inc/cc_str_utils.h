@@ -324,12 +324,12 @@ typedef char cc_char_512 [ CC_SIZE_CHAR_512 ];
 /**
     Function to clear string, or char array, by writing ``'\0'`` into every char.
 
-    @param str__io_a **Ownership**, _input/output_ parameter; a string to overwrite with zeros.
+    @param str__io _Input/output_ parameter; a string to overwrite with zeros.
     @param max_len__d _Optional_, maximum length to overwrite.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_clear( char * restrict str__io_a,
+bool cc_str_clear( char * restrict str__io,
                    size_t max_len__d );
 
 /**
@@ -405,13 +405,13 @@ char const * cc_str_traverse_chars( char const * restrict str,
 /**
     Function converting a string in-place, to uppercase or lowercase.
 
-    @param str__io_a **Ownership**, _input/output_ parameter; string to convert.
+    @param str__io _Input/output_ parameter; string to convert.
     @param to_upper_or_lower Flag, convert to uppercase (`true`), or lowercase (`false`) string.
     @param max_len__d _Optional_, maximum length to convert.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_to_case( char * restrict str__io_a,
+bool cc_str_to_case( char * restrict str__io,
                      bool to_upper_or_lower,
                      size_t max_len__d );
 
@@ -602,21 +602,21 @@ char * cc_str_duplicate__new( char const * restrict str,
 /**
     Function appends second string into a first one.
 
-    @param str__io_a **Ownership**, _input/output_ parameter; a string into which to append.
+    @param str__io _Input/output_ parameter; a string into which to append.
     @param size_dest__d _Optional_, size of a destination.
     @param str A string to append.
     @param max_len__d _Optional_, maximum length to append, if a given string is longer than that.
 
     @note
-    An _input/output_ `str__io_a` buffer must always be zero-terminated.
+    An _input/output_ `str__io` buffer must always be zero-terminated.
 
     @note
     If size is given (i.e. `size_dest__d` is not `0`), zero-terminating char
-    must be within sized buffer, i.e. before `str__io_a + size_dest__d` is reached.
+    must be within sized buffer, i.e. before `str__io + size_dest__d` is reached.
 
     @note
     _Optional_ `size_dest__d` can be `0` (use `CC_SIZE_IGNORE`),
-    if so destination string array/allocation (i.e. `str__io_a`) is assumed
+    if so destination string array/allocation (i.e. `str__io`) is assumed
     to be large enough to accomodate complete appending string `str`.
 
     @note
@@ -624,12 +624,12 @@ char * cc_str_duplicate__new( char const * restrict str,
     if so string `str` must be zero-terminated, and is appended in its entirety.
 
     @note
-    _Output_ string `str__io_a` after appending string is always zero-terminated.
+    _Output_ string `str__io` after appending string is always zero-terminated.
     Function returns weak pointer to that zero-terminating char.
 
     Walking pointer over destination buffer can be used in succession, or in a loop.
     This is so because function seeks terminating char from a given destination
-    (i.e. `str__io_a`), and returns a weak pointer to a new zero-terminating char
+    (i.e. `str__io`), and returns a weak pointer to a new zero-terminating char
     after appending in that same destination buffer.
 
     For instance:
@@ -648,7 +648,7 @@ char * cc_str_duplicate__new( char const * restrict str,
 
     @return A weak pointer to zero-terminating char if successful, `NULL` otherwise.
 */
-char * cc_str_append_into( char * restrict str__io_a,
+char * cc_str_append_into( char * restrict str__io,
                            size_t size_dest__d,
                            char const * restrict str,
                            size_t max_len__d );
