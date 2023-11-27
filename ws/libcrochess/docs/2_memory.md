@@ -158,28 +158,37 @@ All indicators for the outmost pointers that are mandatory can be omitted. For i
 ### Output parameters
 
 Output parameters (mutable borrows) are indicated by appending either `__o`, or `__io`
-to their name, depending if they are pure output parameter, or input+output one, e.g.
+to their name, depending if they are pure output parameter, or input + output one, e.g.
 `char const * restrict str__io`.
 
 Pure output parameter, i.e. one named with `__o`, is also implicitly optional, so
 `char const * restrict str__o` is treated the same as `char const * restrict str__od`.
-Input/ouput parameter is implicitly mandatory, and has to have `__d` appended to its
+Input / ouput parameter is implicitly mandatory, and has to have `__d` appended to its
 name if its optional, like so `char const * restrict str__iod`.
 
 ### Ownership transfer parameters
 
 Ownership transfer parameters are indicated by:
 - their type (pointer to pointer to type), e.g. `CcParseMsg ** parse_msgs`
-- appending direction indicator (`__o`, `__io`) to parameter name if they are output, or input+output parameter
+- appending direction indicator (`__o`, `__io`) to parameter name if they are output, or input + output parameter
 - appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** restrict plies__n`
 - appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** restrict str__f`
 - appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** const restrict str_io__r`
-- appending `__a` if inner pointer is going to transfer ownership in, or out of a function, e.g. `char ** const restrict str__a`
+- appending `__t` if inner pointer is going to transfer ownership into function, e.g. `char ** const restrict str__t`
+- appending `__a` if inner pointer is going to transfer ownership out of a function, e.g. `char ** const restrict str__a`
 
-Note, actual meaning of appending `__a` to the parameter depends on its direction:
-- if parameter is input, ownership is given to the function
-- if parameter is output, ownership is taken (from the function)
-- if parameter is input/output, ownership is retained (throughout the call to the function)
+If parameter is input only, use `__t` to specify that ownership is given into that
+function, and remaining pointer is weak after function returns.
+
+If parameter is output only, appending `__a` to the parameter specifies that ownership
+is taken out from the function. If parameter is input + output, ownership is retained
+throughout, and after the call to the function.
+
+Note, output (and input + output) parameters implicitly assume ownership. <br>
+Indicator `__a` is used in instances when data (usualy linked list, or a queue) can be
+initialized with newly allocated item. <br>
+For instance, in all append functions given linked list can be passed uninitialized,
+and will be initialized with newly allocated item as its first, and only element.
 
 Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__a`) tells what will happen
 to inner pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type parameter), if
