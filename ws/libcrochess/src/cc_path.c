@@ -171,7 +171,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 
 
 //
-// Linked list of weak pointers to path node.
+// Queue of weak pointers to path node.
 
 typedef struct CcPathWeak {
     CcPathNode * node__w;

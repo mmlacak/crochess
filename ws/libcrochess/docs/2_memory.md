@@ -190,8 +190,8 @@ Ownership transfer parameters are indicated by:
 If parameter is input only, use `__t` to specify that ownership is given into that
 function, and remaining pointer is weak after function returns.
 
-Indicator `__a` is used for output parameters, when data can be allocated within
-function. <br />
+Indicator `__a` is used when data can be allocated within function, and passed via
+output parameters. <br />
 For instance, in all append functions linked list can be given just as an address
 of a `NULL`-initialized pointer variable, which can then be initialized with newly
 allocated item as its first, and only element. <br />

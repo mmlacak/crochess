@@ -113,7 +113,7 @@ CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n );
 /**
     Function appends a newly allocated path as an alternative to a given path segment.
 
-    @param path_node__iod_a _Optional_, _input/output_ parameter; path segment.
+    @param path_node__iod_a **Ownership**, _optional_ _input/output_ parameter; path segment.
     @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
 
     @note

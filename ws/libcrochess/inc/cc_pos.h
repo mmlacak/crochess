@@ -306,7 +306,7 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o );
 /**
     Macro to append a newly allocated position value to position link.
 
-    @param ptr_ptr__pos_link__iod_a _Optional_, _input/output_ parameter, linked list.
+    @param ptr_ptr__pos_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
 
