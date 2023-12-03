@@ -262,18 +262,21 @@ size_t cc_route_pin_len( CcRoutePin * restrict route_pin );
 /**
     Function checks if pinned route is valid.
 
+    @param path_node Path segment, a node in path tree.
     @param route_pin Pinned route, a queue.
 
     @note
     Function checks that route is exhaustive, i.e. valid from starting to
     destination field; this is done by checking that:
+    - first pinned route node points to root path segment (or one of its alternatives)
     - all `node__w` pin members are valid (not `NULL`)
     - next pinned segment is divergence from previous path segment
     - `divergence` member of last pointed to path segment is `NULL`.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin );
+bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
+                                  CcRoutePin * restrict route_pin );
 
 /**
     Function appends a newly allocated path segments to a given pinned route.
@@ -297,8 +300,8 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
                                 CcRoutePin ** restrict route_pin__iod_a );
 
 // TODO :: DOCS
-bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
-                                  CcRoutePin ** restrict route_pin__iod_a_n );
+bool cc_route_pin_iter( CcPathNode * restrict path_node,
+                        CcRoutePin ** restrict route_pin__io_a_n );
 
 /**
     Function returns count of steps in all path segments in a given pinned route.

@@ -269,12 +269,29 @@ size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
     return len;
 }
 
-bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin ) {
+bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
+                                  CcRoutePin * restrict route_pin ) {
+    if ( !path_node ) return false;
     if ( !route_pin ) return false;
 
     CcRoutePin * rp = route_pin;
+    CcPathNode * pn = path_node;
+    bool found_just_1 = false;
 
     CC_REWIND( rp );
+
+    while ( pn ) {
+        if ( rp->node__w == pn ) {
+            if ( !found_just_1 ) // Found first path segment pointed at ...
+                found_just_1 = true;
+            else // Just sanity check, should not happen.
+                found_just_1 = false;
+        }
+
+        pn = pn->alt_path; // Check all "root" path segments ...
+    }
+
+    if ( !found_just_1 ) return false;
 
     while ( rp ) {
         if ( !rp->node__w ) return false;
@@ -311,21 +328,22 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     return true;
 }
 
-bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
-                                  CcRoutePin ** restrict route_pin__iod_a_n ) {
+bool cc_route_pin_iter( CcPathNode * restrict path_node,
+                        CcRoutePin ** restrict route_pin__io_a_n ) {
     if ( !path_node ) return false;
-    if ( !route_pin__iod_a_n ) return false;
+    if ( !route_pin__io_a_n ) return false;
 
-    if ( !*route_pin__iod_a_n )
-        return cc_route_pin_append_route( path_node, route_pin__iod_a_n );
+    if ( !*route_pin__io_a_n )
+        return cc_route_pin_append_route( path_node, route_pin__io_a_n );
     else {
-        if ( !cc_route_pin_check_if_valid( *route_pin__iod_a_n ) ) {
-            cc_route_pin_free_all( route_pin__iod_a_n );
+        if ( !cc_route_pin_check_if_valid( path_node, *route_pin__io_a_n ) ) {
+            cc_route_pin_free_all( route_pin__io_a_n );
             return false;
         }
     }
 
-    CcRoutePin * rp = *route_pin__iod_a_n;
+    CcRoutePin * rp = *route_pin__io_a_n;
+
     CC_FASTFORWARD( rp );
 
     while ( rp ) {
@@ -344,7 +362,7 @@ bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
     }
 
     // Traversed all nodes, reached past tree root, lets reset this.
-    cc_route_pin_free_all( route_pin__iod_a_n );
+    cc_route_pin_free_all( route_pin__io_a_n );
     return false;
 }
 
@@ -378,7 +396,7 @@ CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
     CcRoutePin * route__a = NULL;
     CcRoutePin * pw__t = NULL;
 
-    while ( cc_route_pin_get_next_route( path_node, &pw__t ) ) {
+    while ( cc_route_pin_iter( path_node, &pw__t ) ) {
         if ( !route__a ) { // Not initialized search yet.
             count = cc_route_pin_count_of_steps( pw__t );
 
