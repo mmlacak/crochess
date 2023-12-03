@@ -182,10 +182,10 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 // /**
 //     Linked list of weak pointers to nodes, comprising one route. A route follows paths from starting field to destination.
 // */
-// typedef struct CcPathWeak {
+// typedef struct CcRoutePin {
 //     CcPathNode * node__w; /**< A weak pointer to node. */
-//     struct CcPathWeak * next; /**< Link to a next item. */
-// } CcPathWeak;
+//     struct CcRoutePin * next; /**< Link to a next item. */
+// } CcRoutePin;
 
 // /**
 //     Function allocates a new linked node.
@@ -194,7 +194,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
 //     @return Pointer to a newly allocated linked node if successful, `NULL` otherwise.
 // */
-// CcPathWeak * cc_path_weak__new( CcPathNode * restrict node );
+// CcRoutePin * cc_route_pin__new( CcPathNode * restrict node );
 
 // /**
 //     Function appends a newly allocated node to a given linked list.
@@ -212,7 +212,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
 //     @return A weak pointer to a newly allocated node if successful, `NULL` otherwise.
 // */
-// CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
+// CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict path_weak__iod,
 //                                   CcPathNode * restrict node );
 
 // /**
@@ -222,7 +222,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
 //     @return `true` if successful, `false` otherwise.
 // */
-// bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f );
+// bool cc_route_pin_free_all( CcRoutePin ** restrict path_weak__f );
 
 // /**
 //     Function returns length of a linked list.
@@ -231,7 +231,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
 //     @return Length of a linked list if successful, `0` otherwise.
 // */
-// size_t cc_path_weak_len( CcPathWeak * restrict path_weak );
+// size_t cc_route_pin_len( CcRoutePin * restrict path_weak );
 
 //
 // TODO :: DELETE after cc_path_find_shortest_route__new(), cc_path_find_longest_route__new() are done

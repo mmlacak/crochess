@@ -173,136 +173,136 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 //
 // Queue of weak pointers to path node.
 
-typedef struct CcPathWeak {
+typedef struct CcRoutePin {
     CcPathNode * node__w;
 
-    struct CcPathWeak * prev;
-    struct CcPathWeak * next;
-} CcPathWeak;
+    struct CcRoutePin * prev;
+    struct CcRoutePin * next;
+} CcRoutePin;
 
-static CcPathWeak * cc_path_weak__new( CcPathNode * restrict node ) {
+static CcRoutePin * cc_route_pin__new( CcPathNode * restrict node ) {
     if ( !node ) return NULL;
 
-    CcPathWeak * pw__a = malloc( sizeof( CcPathWeak ) );
-    if ( !pw__a ) return NULL;
+    CcRoutePin * rp__a = malloc( sizeof( CcRoutePin ) );
+    if ( !rp__a ) return NULL;
 
-    pw__a->node__w = node;
-    pw__a->prev = NULL;
-    pw__a->next = NULL;
+    rp__a->node__w = node;
+    rp__a->prev = NULL;
+    rp__a->next = NULL;
 
-    return pw__a;
+    return rp__a;
 }
 
-static CcPathWeak * cc_path_weak_append( CcPathWeak ** restrict path_weak__iod,
+static CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod,
                                          CcPathNode * restrict node ) {
-    if ( !path_weak__iod ) return NULL;
+    if ( !route_pin__iod ) return NULL;
     if ( !node ) return NULL;
 
-    CcPathWeak * pw__t = cc_path_weak__new( node );
+    CcRoutePin * pw__t = cc_route_pin__new( node );
     if ( !pw__t ) return NULL;
 
-    if ( !*path_weak__iod ) {
-        *path_weak__iod = pw__t; // Ownership transfer.
+    if ( !*route_pin__iod ) {
+        *route_pin__iod = pw__t; // Ownership transfer.
     } else {
-        CcPathWeak * pw = *path_weak__iod;
-        CC_FASTFORWARD( pw );
+        CcRoutePin * rp = *route_pin__iod;
+        CC_FASTFORWARD( rp );
 
         // Append + ownership transfer.
-        pw->next = pw__t;
-        pw__t->prev = pw;
+        rp->next = pw__t;
+        pw__t->prev = rp;
     }
 
     return pw__t; // Weak pointer.
 }
 
-static bool cc_path_weak_free_all( CcPathWeak ** restrict path_weak__f ) {
-    if ( !path_weak__f ) return false;
-    if ( !*path_weak__f ) return true;
+static bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
+    if ( !route_pin__f ) return false;
+    if ( !*route_pin__f ) return true;
 
-    CcPathWeak * pw = *path_weak__f;
-    CcPathWeak * tmp = NULL;
+    CcRoutePin * rp = *route_pin__f;
+    CcRoutePin * tmp = NULL;
 
-    CC_REWIND( pw );
+    CC_REWIND( rp );
 
-    while ( pw ) {
-        tmp = pw->next;
-        CC_FREE( pw );
-        pw = tmp;
+    while ( rp ) {
+        tmp = rp->next;
+        CC_FREE( rp );
+        rp = tmp;
     }
 
-    *path_weak__f = NULL;
+    *route_pin__f = NULL;
     return true;
 }
 
-static CcPathWeak * cc_path_weak_copy_shallow__new( CcPathWeak * restrict path_weak ) {
-    if ( !path_weak ) return NULL;
+static CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin ) {
+    if ( !route_pin ) return NULL;
 
-    CcPathWeak * pw = path_weak;
-    CcPathWeak * pw__a = NULL;
+    CcRoutePin * rp = route_pin;
+    CcRoutePin * rp__a = NULL;
 
-    CC_REWIND( pw );
+    CC_REWIND( rp );
 
-    while ( pw ) {
-        if ( !cc_path_weak_append( &pw__a, pw->node__w ) ) {
-            cc_path_weak_free_all( &pw__a );
+    while ( rp ) {
+        if ( !cc_route_pin_append( &rp__a, rp->node__w ) ) {
+            cc_route_pin_free_all( &rp__a );
             return NULL;
         }
 
-        pw = pw->next;
+        rp = rp->next;
     }
 
-    return pw__a;
+    return rp__a;
 }
 
-static size_t cc_path_weak_len( CcPathWeak * restrict path_weak ) {
-    if ( !path_weak ) return 0;
+static size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
+    if ( !route_pin ) return 0;
 
     size_t len = 0;
-    CcPathWeak * pw = path_weak;
+    CcRoutePin * rp = route_pin;
 
-    CC_REWIND( pw );
+    CC_REWIND( rp );
 
-    while ( pw ) {
+    while ( rp ) {
         ++len;
-        pw = pw->next;
+        rp = rp->next;
     }
 
     return len;
 }
 
-static bool cc_path_weak_check_if_valid( CcPathWeak * restrict path_weak ) {
-    if ( !path_weak ) return false;
+static bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin ) {
+    if ( !route_pin ) return false;
 
-    CcPathWeak * pw = path_weak;
+    CcRoutePin * rp = route_pin;
 
-    CC_REWIND( pw );
+    CC_REWIND( rp );
 
-    while ( pw ) {
-        if ( !pw->node__w ) return false;
+    while ( rp ) {
+        if ( !rp->node__w ) return false;
 
-        CcPathNode * d = pw->node__w->divergence;
-        pw = pw->next;
+        CcPathNode * d = rp->node__w->divergence;
+        rp = rp->next;
 
-        if ( pw->node__w != d ) return false; // Not next node in divergent sequence.
+        if ( rp->node__w != d ) return false; // Not next node in divergent sequence.
     }
 
-    if ( pw->node__w->divergence )
+    if ( rp->node__w->divergence )
         return false; // Not terminal node.
 
     return true;
 }
 
-static bool cc_path_weak_append_route( CcPathNode * restrict path_node,
-                                       CcPathWeak ** restrict path_weak__iod ) {
+static bool cc_route_pin_append_route( CcPathNode * restrict path_node,
+                                       CcRoutePin ** restrict route_pin__iod ) {
     if ( !path_node ) return false;
-    if ( !path_weak__iod ) return false;
+    if ( !route_pin__iod ) return false;
 
     CcPathNode * pn = path_node;
 
     while ( pn ) {
-        CcPathWeak * pw__w = cc_path_weak_append( path_weak__iod, pn );
+        CcRoutePin * pw__w = cc_route_pin_append( route_pin__iod, pn );
         if ( !pw__w ) { // Append failed ...
-            cc_path_weak_free_all( path_weak__iod );
+            cc_route_pin_free_all( route_pin__iod );
             return false;
         }
 
@@ -312,56 +312,56 @@ static bool cc_path_weak_append_route( CcPathNode * restrict path_node,
     return true;
 }
 
-static bool cc_path_weak_get_next_route( CcPathNode * restrict path_node,
-                                         CcPathWeak ** restrict path_weak__iod ) {
+static bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
+                                         CcRoutePin ** restrict route_pin__iod ) {
     if ( !path_node ) return false;
-    if ( !path_weak__iod ) return false;
+    if ( !route_pin__iod ) return false;
 
-    if ( !*path_weak__iod )
-        return cc_path_weak_append_route( path_node, path_weak__iod );
+    if ( !*route_pin__iod )
+        return cc_route_pin_append_route( path_node, route_pin__iod );
     else {
-        if ( !cc_path_weak_check_if_valid( *path_weak__iod ) ) {
-            cc_path_weak_free_all( path_weak__iod );
+        if ( !cc_route_pin_check_if_valid( *route_pin__iod ) ) {
+            cc_route_pin_free_all( route_pin__iod );
             return false;
         }
     }
 
-    CcPathWeak * pw = *path_weak__iod;
-    CC_FASTFORWARD( pw );
+    CcRoutePin * rp = *route_pin__iod;
+    CC_FASTFORWARD( rp );
 
-    while ( pw ) {
-        // cc_path_weak_check_if_valid() ensured that ->node__w is valid for all nodes.
-        if ( pw->node__w->alt_path ) {
-            pw->node__w = pw->node__w->alt_path;
+    while ( rp ) {
+        // cc_route_pin_check_if_valid() ensured that ->node__w is valid for all nodes.
+        if ( rp->node__w->alt_path ) {
+            rp->node__w = rp->node__w->alt_path;
 
-            CcPathNode * d = pw->node__w->divergence;
+            CcPathNode * d = rp->node__w->divergence;
             if ( d )
-                return cc_path_weak_append_route( d, &pw );
+                return cc_route_pin_append_route( d, &rp );
             else
                 return true;
         }
 
-        pw = pw->prev;
+        rp = rp->prev;
     }
 
     // Traversed all nodes, reached past tree root, lets reset this.
-    cc_path_weak_free_all( path_weak__iod );
+    cc_route_pin_free_all( route_pin__iod );
     return false;
 }
 
-static size_t cc_path_weak_count_of_steps( CcPathWeak * restrict path_weak ) {
-    if ( !path_weak ) return 0;
+static size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
+    if ( !route_pin ) return 0;
 
     size_t count = 0;
-    CcPathWeak * pw = path_weak;
+    CcRoutePin * rp = route_pin;
 
-    CC_REWIND( pw );
+    CC_REWIND( rp );
 
-    while ( pw ) {
-        if ( pw->node__w && pw->node__w->path )
-            count += cc_ppt_link_len( pw->node__w->path );
+    while ( rp ) {
+        if ( rp->node__w && rp->node__w->path )
+            count += cc_ppt_link_len( rp->node__w->path );
 
-        pw = pw->next;
+        rp = rp->next;
     }
 
     return count;
@@ -371,33 +371,33 @@ static size_t cc_path_weak_count_of_steps( CcPathWeak * restrict path_weak ) {
 //
 // Auxilary functions.
 
-static CcPathWeak * cc_path_find_route__new( CcPathNode * restrict path_node,
+static CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
                                              bool is_shortest ) {
     if ( !path_node ) return NULL;
 
     size_t count = 0;
-    CcPathWeak * route__a = NULL;
-    CcPathWeak * pw__t = NULL;
+    CcRoutePin * route__a = NULL;
+    CcRoutePin * pw__t = NULL;
 
-    while ( cc_path_weak_get_next_route( path_node, &pw__t ) ) {
+    while ( cc_route_pin_get_next_route( path_node, &pw__t ) ) {
         if ( !route__a ) { // Not initialized search yet.
-            count = cc_path_weak_count_of_steps( pw__t );
+            count = cc_route_pin_count_of_steps( pw__t );
 
-            route__a = cc_path_weak_copy_shallow__new( pw__t );
+            route__a = cc_route_pin_copy_shallow__new( pw__t );
             if ( !route__a ) {
-                cc_path_weak_free_all( &pw__t );
+                cc_route_pin_free_all( &pw__t );
                 return NULL;
             }
         } else {
-            size_t c = cc_path_weak_count_of_steps( pw__t );
+            size_t c = cc_route_pin_count_of_steps( pw__t );
             bool found = is_shortest ? ( c < count ) : ( c > count );
 
             if ( found ) {
-                cc_path_weak_free_all( &route__a );
+                cc_route_pin_free_all( &route__a );
 
-                route__a = cc_path_weak_copy_shallow__new( pw__t );
+                route__a = cc_route_pin_copy_shallow__new( pw__t );
                 if ( !route__a ) {
-                    cc_path_weak_free_all( &pw__t );
+                    cc_route_pin_free_all( &pw__t );
                     return NULL;
                 }
 
@@ -406,22 +406,22 @@ static CcPathWeak * cc_path_find_route__new( CcPathNode * restrict path_node,
         }
     }
 
-    cc_path_weak_free_all( &pw__t );
+    cc_route_pin_free_all( &pw__t );
 
     return route__a;
 }
 
-static CcPptLink * cc_path_assemble_route__new( CcPathWeak * restrict route ) {
+static CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route ) {
     if ( !route ) return NULL;
 
-    CcPathWeak * pw = route;
+    CcRoutePin * rp = route;
     CcPptLink * pl__a = NULL;
 
-    CC_REWIND( pw );
+    CC_REWIND( rp );
 
-    while ( pw ) {
-        if ( pw->node__w && pw->node__w->path ) {
-            CcPptLink * ppt__t = cc_ppt_link_duplicate_all__new( pw->node__w->path );
+    while ( rp ) {
+        if ( rp->node__w && rp->node__w->path ) {
+            CcPptLink * ppt__t = cc_ppt_link_duplicate_all__new( rp->node__w->path );
             if ( !ppt__t ) {
                 cc_ppt_link_free_all( &pl__a );
                 return NULL;
@@ -437,7 +437,7 @@ static CcPptLink * cc_path_assemble_route__new( CcPathWeak * restrict route ) {
             return NULL;
         }
 
-        pw = pw->next;
+        rp = rp->next;
     }
 
     return pl__a;
@@ -446,11 +446,11 @@ static CcPptLink * cc_path_assemble_route__new( CcPathWeak * restrict route ) {
 CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node ) {
     if ( !path_node ) return NULL;
 
-    CcPathWeak * shortest__a = cc_path_find_route__new( path_node, true );
+    CcRoutePin * shortest__a = cc_path_find_route__new( path_node, true );
 
     CcPptLink * pl__a = cc_path_assemble_route__new( shortest__a );
 
-    cc_path_weak_free_all( &shortest__a );
+    cc_route_pin_free_all( &shortest__a );
 
     return pl__a;
 }
@@ -458,11 +458,11 @@ CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node ) 
 CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node ) {
     if ( !path_node ) return NULL;
 
-    CcPathWeak * longest__a = cc_path_find_route__new( path_node, false );
+    CcRoutePin * longest__a = cc_path_find_route__new( path_node, false );
 
     CcPptLink * pl__a = cc_path_assemble_route__new( longest__a );
 
-    cc_path_weak_free_all( &longest__a );
+    cc_route_pin_free_all( &longest__a );
 
     return pl__a;
 }
