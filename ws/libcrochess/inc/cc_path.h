@@ -91,7 +91,7 @@
 // Tree of paths.
 
 /**
-    Tree of routes. Each route follows paths from start to destination.
+    Tree of path segments. Each route follows path segments from starting field to destination.
 */
 typedef struct CcPathNode {
     struct CcPathNode * alt_path; /**< Link to an alternative path.
@@ -184,14 +184,14 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 // Pinned route, i.e. queue of weak pointers to path node.
 
 /**
-    Pinned route, i.e. queue of weak pointers to path node.
+    Pinned route, i.e. queue of weak pointers to path segments.
     A route follows paths from starting field to destination.
 */
 typedef struct CcRoutePin {
-    CcPathNode * node__w;
+    CcPathNode * node__w; /**< Path segment, a weak pointer. */
 
-    struct CcRoutePin * prev;
-    struct CcRoutePin * next;
+    struct CcRoutePin * prev; /**< Previous node in a queue. */
+    struct CcRoutePin * next; /**< Next node in a queue. */
 } CcRoutePin;
 
 /**
@@ -286,8 +286,8 @@ bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin );
     to a given pinned route.
 
     @note
-    This function follows all first items for both alternative paths, and divergences,
-    until it appends all path segments down to a leaf node.
+    This function follows through all divergences, until it appends all path
+    segments down to a leaf node.
 
     @see cc_route_pin_append()
 
@@ -300,7 +300,21 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
 bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
                                   CcRoutePin ** restrict route_pin__iod_a_n );
 
-// TODO :: DOCS
+/**
+    Function returns count of steps in all path segments in a given pinned route.
+
+    @param route_pin Pinned route, a queue.
+
+    @note
+    Similar function `cc_route_pin_len()` returns simple count of nodes in a given queue.
+
+    @note
+    This function counts steps in all path segments (pointed by `node__w` member).
+
+    @see cc_route_pin_len()
+
+    @return Count of steps if successful, `0` otherwise.
+*/
 size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
 
 
