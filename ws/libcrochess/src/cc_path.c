@@ -286,7 +286,7 @@ bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin ) {
     }
 
     if ( rp->node__w->divergence )
-        return false; // Not terminal node.
+        return false; // Not leaf node.
 
     return true;
 }
@@ -312,20 +312,20 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
 }
 
 bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
-                                  CcRoutePin ** restrict route_pin__iod_a_f ) {
+                                  CcRoutePin ** restrict route_pin__iod_a_n ) {
     if ( !path_node ) return false;
-    if ( !route_pin__iod_a_f ) return false;
+    if ( !route_pin__iod_a_n ) return false;
 
-    if ( !*route_pin__iod_a_f )
-        return cc_route_pin_append_route( path_node, route_pin__iod_a_f );
+    if ( !*route_pin__iod_a_n )
+        return cc_route_pin_append_route( path_node, route_pin__iod_a_n );
     else {
-        if ( !cc_route_pin_check_if_valid( *route_pin__iod_a_f ) ) {
-            cc_route_pin_free_all( route_pin__iod_a_f );
+        if ( !cc_route_pin_check_if_valid( *route_pin__iod_a_n ) ) {
+            cc_route_pin_free_all( route_pin__iod_a_n );
             return false;
         }
     }
 
-    CcRoutePin * rp = *route_pin__iod_a_f;
+    CcRoutePin * rp = *route_pin__iod_a_n;
     CC_FASTFORWARD( rp );
 
     while ( rp ) {
@@ -344,7 +344,7 @@ bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
     }
 
     // Traversed all nodes, reached past tree root, lets reset this.
-    cc_route_pin_free_all( route_pin__iod_a_f );
+    cc_route_pin_free_all( route_pin__iod_a_n );
     return false;
 }
 

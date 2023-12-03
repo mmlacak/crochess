@@ -237,7 +237,17 @@ CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
 */
 bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f );
 
-// TODO :: DOCS
+/**
+    Creates a new, shallow copy of a given route.
+
+    @param route_pin Pinned route, a queue.
+
+    @note
+    Shallow copy means that in each pin `node__w` member points to the same
+    path segment as in originating node.
+
+    @return Pointer to newly allocated queue if successful, `NULL` otherwise.
+*/
 CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin );
 
 /**
@@ -249,16 +259,46 @@ CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin );
 */
 size_t cc_route_pin_len( CcRoutePin * restrict route_pin );
 
-// TODO :: DOCS
+/**
+    Function checks if pinned route is valid.
+
+    @param route_pin Pinned route, a queue.
+
+    @note
+    Function checks that route is exhaustive, i.e. valid from starting to
+    destination field; this is done by checking that:
+    - all `node__w` pin members are valid (not `NULL`)
+    - next pinned segment is divergence from previous path segment
+    - `divergence` member of last pointed to path segment is `NULL`.
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin );
 
-// TODO :: DOCS
+/**
+    Function appends a newly allocated path segments to a given pinned route.
+
+    @param path_node Path segment, a node in path tree.
+    @param route_pin__iod_a **Ownership**, _optional_ _input/output_ parameter; pinned route.
+
+    @note
+    Similar function `cc_route_pin_append()` appends only a given path segment
+    to a given pinned route.
+
+    @note
+    This function follows all first items for both alternative paths, and divergences,
+    until it appends all path segments down to a leaf node.
+
+    @see cc_route_pin_append()
+
+    @return `true` if successful, `false` otherwise.
+*/
 bool cc_route_pin_append_route( CcPathNode * restrict path_node,
                                 CcRoutePin ** restrict route_pin__iod_a );
 
 // TODO :: DOCS
 bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
-                                  CcRoutePin ** restrict route_pin__iod_a_f );
+                                  CcRoutePin ** restrict route_pin__iod_a_n );
 
 // TODO :: DOCS
 size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
