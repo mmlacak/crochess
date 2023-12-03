@@ -9,76 +9,82 @@
 */
 
 
+// TODO :: DELETE ::
+//
+
 //
 // Linked list of paths.
 
-CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
-    if ( !ppt__n ) return NULL;
-    if ( !*ppt__n ) return NULL;
+// CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
+//     if ( !ppt__n ) return NULL;
+//     if ( !*ppt__n ) return NULL;
 
-    CcPathLink * pl__a = malloc( sizeof( CcPathLink ) );
-    if ( !pl__a ) return NULL;
+//     CcPathLink * pl__a = malloc( sizeof( CcPathLink ) );
+//     if ( !pl__a ) return NULL;
 
-    pl__a->path = *ppt__n; // Transfering ownership.
-    *ppt__n = NULL; // Preventing usage from old pointer holding ownership.
+//     pl__a->path = *ppt__n; // Transfering ownership.
+//     *ppt__n = NULL; // Preventing usage from old pointer holding ownership.
 
-    pl__a->next = NULL;
+//     pl__a->next = NULL;
 
-    return pl__a;
-}
+//     return pl__a;
+// }
 
-CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-                                  CcPptLink ** restrict ppt__n ) {
-    if ( !path_link__iod ) return NULL;
+// CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
+//                                   CcPptLink ** restrict ppt__n ) {
+//     if ( !path_link__iod ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( ppt__n );
-    if ( !pl__t ) return NULL;
+//     CcPathLink * pl__t = cc_path_link__new( ppt__n );
+//     if ( !pl__t ) return NULL;
 
-    if ( !*path_link__iod ) {
-        *path_link__iod = pl__t; // Ownership transfer.
-    } else {
-        CcPathLink * pl = *path_link__iod;
-        CC_FASTFORWARD( pl );
-        pl->next = pl__t; // Append + ownership transfer.
-    }
+//     if ( !*path_link__iod ) {
+//         *path_link__iod = pl__t; // Ownership transfer.
+//     } else {
+//         CcPathLink * pl = *path_link__iod;
+//         CC_FASTFORWARD( pl );
+//         pl->next = pl__t; // Append + ownership transfer.
+//     }
 
-    return pl__t; // Weak pointer.
-}
+//     return pl__t; // Weak pointer.
+// }
 
-bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
-    if ( !path_link__f ) return false;
-    if ( !*path_link__f ) return true;
+// bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
+//     if ( !path_link__f ) return false;
+//     if ( !*path_link__f ) return true;
 
-    bool result = true;
-    CcPathLink * pl = *path_link__f;
-    CcPathLink * tmp = NULL;
+//     bool result = true;
+//     CcPathLink * pl = *path_link__f;
+//     CcPathLink * tmp = NULL;
 
-    while ( pl ) {
-        tmp = pl->next;
+//     while ( pl ) {
+//         tmp = pl->next;
 
-        result = cc_ppt_link_free_all( &(pl->path) ) && result;
+//         result = cc_ppt_link_free_all( &(pl->path) ) && result;
 
-        CC_FREE( pl );
-        pl = tmp;
-    }
+//         CC_FREE( pl );
+//         pl = tmp;
+//     }
 
-    *path_link__f = NULL;
-    return result;
-}
+//     *path_link__f = NULL;
+//     return result;
+// }
 
-size_t cc_path_link_len( CcPathLink * restrict path_link ) {
-    if ( !path_link ) return 0;
+// size_t cc_path_link_len( CcPathLink * restrict path_link ) {
+//     if ( !path_link ) return 0;
 
-    size_t len = 0;
-    CcPathLink * pl = path_link;
+//     size_t len = 0;
+//     CcPathLink * pl = path_link;
 
-    while ( pl ) {
-        ++len;
-        pl = pl->next;
-    }
+//     while ( pl ) {
+//         ++len;
+//         pl = pl->next;
+//     }
 
-    return len;
-}
+//     return len;
+// }
+
+//
+// TODO :: DELETE ::
 
 
 //
@@ -171,16 +177,9 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 
 
 //
-// Queue of weak pointers to path node.
+// Pinned route, i.e. queue of weak pointers to path node.
 
-typedef struct CcRoutePin {
-    CcPathNode * node__w;
-
-    struct CcRoutePin * prev;
-    struct CcRoutePin * next;
-} CcRoutePin;
-
-static CcRoutePin * cc_route_pin__new( CcPathNode * restrict node ) {
+CcRoutePin * cc_route_pin__new( CcPathNode * restrict node ) {
     if ( !node ) return NULL;
 
     CcRoutePin * rp__a = malloc( sizeof( CcRoutePin ) );
@@ -193,18 +192,18 @@ static CcRoutePin * cc_route_pin__new( CcPathNode * restrict node ) {
     return rp__a;
 }
 
-static CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod,
-                                         CcPathNode * restrict node ) {
-    if ( !route_pin__iod ) return NULL;
+CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
+                                  CcPathNode * restrict node ) {
+    if ( !route_pin__iod_a ) return NULL;
     if ( !node ) return NULL;
 
     CcRoutePin * pw__t = cc_route_pin__new( node );
     if ( !pw__t ) return NULL;
 
-    if ( !*route_pin__iod ) {
-        *route_pin__iod = pw__t; // Ownership transfer.
+    if ( !*route_pin__iod_a ) {
+        *route_pin__iod_a = pw__t; // Ownership transfer.
     } else {
-        CcRoutePin * rp = *route_pin__iod;
+        CcRoutePin * rp = *route_pin__iod_a;
         CC_FASTFORWARD( rp );
 
         // Append + ownership transfer.
@@ -215,7 +214,7 @@ static CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod,
     return pw__t; // Weak pointer.
 }
 
-static bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
+bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
     if ( !route_pin__f ) return false;
     if ( !*route_pin__f ) return true;
 
@@ -234,7 +233,7 @@ static bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
     return true;
 }
 
-static CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin ) {
+CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin ) {
     if ( !route_pin ) return NULL;
 
     CcRoutePin * rp = route_pin;
@@ -254,7 +253,7 @@ static CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_
     return rp__a;
 }
 
-static size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
+size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
     if ( !route_pin ) return 0;
 
     size_t len = 0;
@@ -270,7 +269,7 @@ static size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
     return len;
 }
 
-static bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin ) {
+bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin ) {
     if ( !route_pin ) return false;
 
     CcRoutePin * rp = route_pin;
@@ -292,17 +291,17 @@ static bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin ) {
     return true;
 }
 
-static bool cc_route_pin_append_route( CcPathNode * restrict path_node,
-                                       CcRoutePin ** restrict route_pin__iod ) {
+bool cc_route_pin_append_route( CcPathNode * restrict path_node,
+                                CcRoutePin ** restrict route_pin__iod_a ) {
     if ( !path_node ) return false;
-    if ( !route_pin__iod ) return false;
+    if ( !route_pin__iod_a ) return false;
 
     CcPathNode * pn = path_node;
 
     while ( pn ) {
-        CcRoutePin * pw__w = cc_route_pin_append( route_pin__iod, pn );
+        CcRoutePin * pw__w = cc_route_pin_append( route_pin__iod_a, pn );
         if ( !pw__w ) { // Append failed ...
-            cc_route_pin_free_all( route_pin__iod );
+            cc_route_pin_free_all( route_pin__iod_a );
             return false;
         }
 
@@ -312,21 +311,21 @@ static bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     return true;
 }
 
-static bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
-                                         CcRoutePin ** restrict route_pin__iod ) {
+bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
+                                  CcRoutePin ** restrict route_pin__iod_a_f ) {
     if ( !path_node ) return false;
-    if ( !route_pin__iod ) return false;
+    if ( !route_pin__iod_a_f ) return false;
 
-    if ( !*route_pin__iod )
-        return cc_route_pin_append_route( path_node, route_pin__iod );
+    if ( !*route_pin__iod_a_f )
+        return cc_route_pin_append_route( path_node, route_pin__iod_a_f );
     else {
-        if ( !cc_route_pin_check_if_valid( *route_pin__iod ) ) {
-            cc_route_pin_free_all( route_pin__iod );
+        if ( !cc_route_pin_check_if_valid( *route_pin__iod_a_f ) ) {
+            cc_route_pin_free_all( route_pin__iod_a_f );
             return false;
         }
     }
 
-    CcRoutePin * rp = *route_pin__iod;
+    CcRoutePin * rp = *route_pin__iod_a_f;
     CC_FASTFORWARD( rp );
 
     while ( rp ) {
@@ -345,11 +344,11 @@ static bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
     }
 
     // Traversed all nodes, reached past tree root, lets reset this.
-    cc_route_pin_free_all( route_pin__iod );
+    cc_route_pin_free_all( route_pin__iod_a_f );
     return false;
 }
 
-static size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
+size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
     if ( !route_pin ) return 0;
 
     size_t count = 0;
@@ -371,8 +370,8 @@ static size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
 //
 // Auxilary functions.
 
-static CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
-                                             bool is_shortest ) {
+CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
+                                      bool is_shortest ) {
     if ( !path_node ) return NULL;
 
     size_t count = 0;
@@ -411,7 +410,7 @@ static CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
     return route__a;
 }
 
-static CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route ) {
+CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route ) {
     if ( !route ) return NULL;
 
     CcRoutePin * rp = route;

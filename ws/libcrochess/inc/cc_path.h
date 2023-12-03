@@ -15,70 +15,76 @@
 */
 
 
+// TODO :: DELETE ::
+//
+
 //
 // Linked list of paths.
 
-/**
-    Linked list of paths, comprising one route. A route follows paths from starting field to destination.
-*/
-typedef struct CcPathLink {
-    CcPptLink * path; /**< A linked list of positions + pieces + tags, with pieces and tags on them. */
-    struct CcPathLink * next; /**< Link to a next path. */
-} CcPathLink;
+// /**
+//     Linked list of paths, comprising one route. A route follows paths from starting field to destination.
+// */
+// typedef struct CcPathLink {
+//     CcPptLink * path; /**< A linked list of positions + pieces + tags, with pieces and tags on them. */
+//     struct CcPathLink * next; /**< Link to a next path. */
+// } CcPathLink;
 
-/**
-    Function allocates a new linked path.
+// /**
+//     Function allocates a new linked path.
 
-    @param ppt__n A linked list of positions + pieces + tags.
+//     @param ppt__n A linked list of positions + pieces + tags.
 
-    @note
-    Argument `ppt__n` will have its ownership taken, positions + pieces + tags assigned to newly allocated linked path item,
-    pointer itself will be `NULL`-ed, to prevent any future use.
+//     @note
+//     Argument `ppt__n` will have its ownership taken, positions + pieces + tags assigned to newly allocated linked path item,
+//     pointer itself will be `NULL`-ed, to prevent any future use.
 
-    @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
-*/
-CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
+//     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
+// */
+// CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
 
-/**
-    Function appends a newly allocated path to a given path segment.
+// /**
+//     Function appends a newly allocated path to a given path segment.
 
-    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter; path segment.
-    @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
+//     @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter; path segment.
+//     @param ppt__n A path; linked list of positions + pieces + tags. Ownership will be taken, and pointer `NULL`-ed.
 
-    @note
-    Linked list `*path_link__iod_a` can be `NULL`, a path will still be allocated,
-    and weak pointer to it returned.
+//     @note
+//     Linked list `*path_link__iod_a` can be `NULL`, a path will still be allocated,
+//     and weak pointer to it returned.
 
-    @note
-    If linked list `*path_link__iod_a` is `NULL`, it will be initialized,
-    with a newly allocated path as its only element.
+//     @note
+//     If linked list `*path_link__iod_a` is `NULL`, it will be initialized,
+//     with a newly allocated path as its only element.
 
-    @note
-    Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
-    over newly allocated path, and retains ownership after function returns.
+//     @note
+//     Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
+//     over newly allocated path, and retains ownership after function returns.
 
-    @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
-*/
-CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod_a,
-                                  CcPptLink ** restrict ppt__n );
+//     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
+// */
+// CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod_a,
+//                                   CcPptLink ** restrict ppt__n );
 
-/**
-    Frees all paths in a given linked list.
+// /**
+//     Frees all paths in a given linked list.
 
-    @param path_link__f A linked list of paths.
+//     @param path_link__f A linked list of paths.
 
-    @return `true` if successful, `false` otherwise.
-*/
-bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
+//     @return `true` if successful, `false` otherwise.
+// */
+// bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
 
-/**
-    Function returns length of a linked list.
+// /**
+//     Function returns length of a linked list.
 
-    @param path_link A linked list of paths.
+//     @param path_link A linked list of paths.
 
-    @return Length of a linked list if successful, `0` otherwise.
-*/
-size_t cc_path_link_len( CcPathLink * restrict path_link );
+//     @return Length of a linked list if successful, `0` otherwise.
+// */
+// size_t cc_path_link_len( CcPathLink * restrict path_link );
+
+//
+// TODO :: DELETE ::
 
 
 //
@@ -173,72 +179,100 @@ bool cc_path_node_free_all( CcPathNode ** restrict path_node__f );
 */
 size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
 
-// TODO :: DELETE after cc_path_find_shortest_route__new(), cc_path_find_longest_route__new() are done
-//
 
 //
-// Linked list of weak pointers to path node.
+// Pinned route, i.e. queue of weak pointers to path node.
 
-// /**
-//     Linked list of weak pointers to nodes, comprising one route. A route follows paths from starting field to destination.
-// */
-// typedef struct CcRoutePin {
-//     CcPathNode * node__w; /**< A weak pointer to node. */
-//     struct CcRoutePin * next; /**< Link to a next item. */
-// } CcRoutePin;
+/**
+    Pinned route, i.e. queue of weak pointers to path node.
+    A route follows paths from starting field to destination.
+*/
+typedef struct CcRoutePin {
+    CcPathNode * node__w;
 
-// /**
-//     Function allocates a new linked node.
+    struct CcRoutePin * prev;
+    struct CcRoutePin * next;
+} CcRoutePin;
 
-//     @param node A node in path tree.
+/**
+    Function allocates a new route pin.
 
-//     @return Pointer to a newly allocated linked node if successful, `NULL` otherwise.
-// */
-// CcRoutePin * cc_route_pin__new( CcPathNode * restrict node );
+    @param node A node in path tree.
 
-// /**
-//     Function appends a newly allocated node to a given linked list.
+    @return Pointer to a newly allocated route pin if successful, `NULL` otherwise.
+*/
+CcRoutePin * cc_route_pin__new( CcPathNode * restrict node );
 
-//     @param path_weak__iod _Optional_, _input/output_ parameter; linked list of path nodes.
-//     @param node A node in path tree.
+/**
+    Function appends a newly allocated node to a given queue.
 
-//     @note
-//     Linked list `*path_weak__iod` can be `NULL`, a path will still be allocated,
-//     and weak pointer to it returned.
+    @param route_pin__iod_a **Ownership**, _optional_ _input/output_ parameter; pinned route.
+    @param node A node in path tree.
 
-//     @note
-//     If linked list `*path_weak__iod` is `NULL`, it will be initialized,
-//     with a newly allocated path as its only element.
+    @note
+    Linked list `*route_pin__iod_a` can be `NULL`, a path will still be allocated,
+    and weak pointer to it returned.
 
-//     @return A weak pointer to a newly allocated node if successful, `NULL` otherwise.
-// */
-// CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict path_weak__iod,
-//                                   CcPathNode * restrict node );
+    @note
+    If queue `*route_pin__iod_a` is `NULL`, it will be initialized,
+    with a newly allocated path as its only element.
 
-// /**
-//     Frees all nodes in a given linked list.
+    @note
+    Pointer `route_pin__iod_a` has ownership over given queue, takes ownership
+    over newly allocated ply, and retains ownership after function returns.
 
-//     @param path_weak__f A linked list of nodes.
+    @see cc_route_pin__new()
 
-//     @return `true` if successful, `false` otherwise.
-// */
-// bool cc_route_pin_free_all( CcRoutePin ** restrict path_weak__f );
+    @return A weak pointer to a newly allocated node if successful, `NULL` otherwise.
+*/
+CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
+                                  CcPathNode * restrict node );
 
-// /**
-//     Function returns length of a linked list.
+/**
+    Frees all pins in a given route.
 
-//     @param path_weak A linked list of paths.
+    @param route_pin__f A queue of route pins.
 
-//     @return Length of a linked list if successful, `0` otherwise.
-// */
-// size_t cc_route_pin_len( CcRoutePin * restrict path_weak );
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f );
 
-//
-// TODO :: DELETE after cc_path_find_shortest_route__new(), cc_path_find_longest_route__new() are done
+// TODO :: DOCS
+CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin );
+
+/**
+    Function returns length of a queue.
+
+    @param route_pin Pinned route, a queue.
+
+    @return Length of a queue if successful, `0` otherwise.
+*/
+size_t cc_route_pin_len( CcRoutePin * restrict route_pin );
+
+// TODO :: DOCS
+bool cc_route_pin_check_if_valid( CcRoutePin * restrict route_pin );
+
+// TODO :: DOCS
+bool cc_route_pin_append_route( CcPathNode * restrict path_node,
+                                CcRoutePin ** restrict route_pin__iod_a );
+
+// TODO :: DOCS
+bool cc_route_pin_get_next_route( CcPathNode * restrict path_node,
+                                  CcRoutePin ** restrict route_pin__iod_a_f );
+
+// TODO :: DOCS
+size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
 
 
 //
 // Auxilary functions.
+
+// TODO :: DOCS
+CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
+                                      bool is_shortest );
+
+// TODO :: DOCS
+CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route );
 
 // TODO :: find shortest route
 CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
