@@ -335,14 +335,14 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
     if ( !path_node ) return false;
     if ( !route_pin__io_a_n ) return false;
 
-    if ( !*route_pin__io_a_n )
+    if ( !*route_pin__io_a_n ) {
         if ( cc_route_pin_append_route( path_node, route_pin__io_a_n ) ) {
             return true;
         } else {
             cc_route_pin_free_all( route_pin__io_a_n );
             return false;
         }
-    else {
+    } else {
         if ( !cc_route_pin_check_if_valid( path_node, *route_pin__io_a_n ) ) {
             cc_route_pin_free_all( route_pin__io_a_n );
             return false;
@@ -359,9 +359,14 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
             rp->node__w = rp->node__w->alt_path;
 
             CcPathNode * d = rp->node__w->divergence;
-            if ( d )
-                return cc_route_pin_append_route( d, &rp );
-            else
+            if ( d ) {
+                if ( cc_route_pin_append_route( d, &rp ) ) {
+                    return true;
+                } else {
+                    cc_route_pin_free_all( route_pin__io_a_n );
+                    return false;
+                }
+            } else
                 return true;
         }
 
