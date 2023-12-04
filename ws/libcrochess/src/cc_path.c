@@ -274,6 +274,8 @@ bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
     if ( !path_node ) return false;
     if ( !route_pin ) return false;
 
+    // TODO :: REWORK :: check whole route against given path tree
+
     CcRoutePin * rp = route_pin;
     CcPathNode * pn = path_node;
     bool found_just_1 = false;
@@ -334,7 +336,12 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
     if ( !route_pin__io_a_n ) return false;
 
     if ( !*route_pin__io_a_n )
-        return cc_route_pin_append_route( path_node, route_pin__io_a_n );
+        if ( cc_route_pin_append_route( path_node, route_pin__io_a_n ) ) {
+            return true;
+        } else {
+            cc_route_pin_free_all( route_pin__io_a_n );
+            return false;
+        }
     else {
         if ( !cc_route_pin_check_if_valid( path_node, *route_pin__io_a_n ) ) {
             cc_route_pin_free_all( route_pin__io_a_n );
