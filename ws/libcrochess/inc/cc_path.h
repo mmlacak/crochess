@@ -303,7 +303,7 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     Function iterates over path tree, returning next route via _input/output_ argument.
 
     @param path_node A path tree to traverse.
-    @param route_pin__io_a_F **Ownership**, **conditionally** _freed_, _input / output_ parameter; pinned route.
+    @param route_pin__io_a_F **Ownership**, _conditionally freed_, _input / output_ parameter; pinned route.
 
     @note
     Argument `*route_pin__io_a_F` contains currently pinned route when iterator is called. <br />
@@ -322,6 +322,11 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     Path tree **must** always be the same with which route was initialized. <br />
     To change path tree before it's traversed completely, one has to free route, reset its pointer to `NULL`, <br />
     then first call to iterator with new path tree will initialize route with it.
+
+    @note
+    Argument `route_pin__io_a_F` retains ownership of pinned route between iterator calls; <br />
+    if loop is exited prematurely (or iterator is called outside of loop), one has to free
+    pinned route.
 
     Usage example:
     @code{.c}
@@ -360,6 +365,11 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     if ( cc_route_pin_iter( pn_2, &rp__a ) ) {
         // Do someting to first route found in the other tree here ...
     }
+
+    // Pinned route pointer is owner of allocated data; if it's not free()-ed
+    // (if loop hasn't finished, or iterator was called outside of loop),
+    // one has to free pinned route explicitly.
+    cc_route_pin_free_all( &rp__a );
     @endcode
 
     @see
