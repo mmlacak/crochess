@@ -299,9 +299,79 @@ bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
 bool cc_route_pin_append_route( CcPathNode * restrict path_node,
                                 CcRoutePin ** restrict route_pin__iod_a );
 
-// TODO :: DOCS
+/**
+    Function iterates over path tree, returning next route via _input/output_ argument.
+
+    @param path_node A path tree to traverse.
+    @param route_pin__io_n _Input / output_ parameter; pinned route.
+
+    @note
+    Argument `*route_pin__io_n` contains currently pinned route when iterator is called. <br />
+    If function returns `true`, it contains next route found in a given path tree.
+
+    @note
+    Argument `*route_pin__io_n` can be `NULL` at the beginning of iteration, <br />
+    it will be initialized with first route found in a given path tree.
+
+    @warning
+    When iterator founds no more routes to traverse, it will **free** last pinned route, <br />
+    and set `*route_pin__io_n` pointer to `NULL`, to prepare for next iterations. <br />
+    The same will happen in case of any error, to prevent infinite loops.
+
+    @warning
+    Path tree **must** always be the same with which route was initialized. <br />
+    To change path tree before it's traversed completely, one has to free route, reset its pointer to `NULL`, <br />
+    then first call to iterator with new path tree will initialize route with it.
+
+    Usage example:
+    @code{.c}
+    CcPathNode pn; // Path tree to traverse; just a (forward) declaration.
+    CcRoutePin * rp__a = NULL; // Pinned route; must be set to NULL before start iterating.
+
+    while ( cc_route_pin_iter( pn, &rp__a ) ) {
+        // Do some stuff here ...
+    }
+    // After loop is done (or if some error happens), route is free-ed,
+    // and pointer to it set to NULL.
+
+    // After first loop, one can immediately roll another one,
+    // no free + NULL necessary, as it's already done.
+    while ( cc_route_pin_iter( pn, &rp__a ) ) {
+        // Do other stuff here ...
+    }
+
+    // Iterator can be initialized outside a loop, and then called as needed.
+    if ( cc_route_pin_iter( pn, &rp__a ) ) {
+        // Do someting to first route found here ...
+    }
+
+    // All calls to iterator must be done with the same path tree which was used to initialize route.
+    if ( cc_route_pin_iter( pn, &rp__a ) ) {
+        // ... and to second
+    }
+
+    CcPathNode pn_2; // The other path tree; just a (forward) declaration.
+
+    // When changing path tree before it was exhausted in iterator,
+    // route must be free-ed, and pointer NULL-ed.
+    cc_route_pin_free_all( &rp__a );
+
+    // Next call initializes route with a new path tree ...
+    if ( cc_route_pin_iter( pn_2, &rp__a ) ) {
+        // Do someting to first route found in the other tree here ...
+    }
+    @endcode
+
+    @see
+    cc_route_pin_check_if_valid(), cc_route_pin_append_route(), cc_route_pin_free_all()
+
+    @return `true` if successful, `false` otherwise. <br />
+
+    @return
+    Next route is returned via `route_pin__io_n` argument.
+*/
 bool cc_route_pin_iter( CcPathNode * restrict path_node,
-                        CcRoutePin ** restrict route_pin__io_a_n );
+                        CcRoutePin ** restrict route_pin__io_n );
 
 /**
     Function returns count of steps in all path segments in a given pinned route.
