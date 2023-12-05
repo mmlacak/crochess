@@ -326,7 +326,7 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     @note
     Argument `route_pin__io_a_F` retains ownership of pinned route between iterator calls; <br />
     if loop is exited prematurely (or iterator is called outside of loop), one has to free
-    pinned route.
+    pinned route explicitly.
 
     Usage example:
     @code{.c}
@@ -378,7 +378,9 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     @return `true` if successful, `false` otherwise. <br />
 
     @return
-    Next route is returned via `route_pin__io_a_F` argument.
+    Next route is returned via `route_pin__io_a_F` argument, if iterator returned `true`. <br />
+    If iterator returned `false` and both arguments were supplied, pinned route was `free()`-ed,
+    and argument `*route_pin__io_a_F` was reset to `NULL`.
 */
 bool cc_route_pin_iter( CcPathNode * restrict path_node,
                         CcRoutePin ** restrict route_pin__io_a_F );
