@@ -331,25 +331,25 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
 }
 
 bool cc_route_pin_iter( CcPathNode * restrict path_node,
-                        CcRoutePin ** restrict route_pin__io_n ) {
+                        CcRoutePin ** restrict route_pin__io_a_F ) {
     if ( !path_node ) return false;
-    if ( !route_pin__io_n ) return false;
+    if ( !route_pin__io_a_F ) return false;
 
-    if ( !*route_pin__io_n ) {
-        if ( cc_route_pin_append_route( path_node, route_pin__io_n ) ) {
+    if ( !*route_pin__io_a_F ) {
+        if ( cc_route_pin_append_route( path_node, route_pin__io_a_F ) ) {
             return true;
         } else {
-            cc_route_pin_free_all( route_pin__io_n );
+            cc_route_pin_free_all( route_pin__io_a_F );
             return false;
         }
     } else {
-        if ( !cc_route_pin_check_if_valid( path_node, *route_pin__io_n ) ) {
-            cc_route_pin_free_all( route_pin__io_n );
+        if ( !cc_route_pin_check_if_valid( path_node, *route_pin__io_a_F ) ) {
+            cc_route_pin_free_all( route_pin__io_a_F );
             return false;
         }
     }
 
-    CcRoutePin * rp = *route_pin__io_n;
+    CcRoutePin * rp = *route_pin__io_a_F;
 
     CC_FASTFORWARD( rp );
 
@@ -363,7 +363,7 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
                 if ( cc_route_pin_append_route( d, &rp ) ) {
                     return true;
                 } else {
-                    cc_route_pin_free_all( route_pin__io_n );
+                    cc_route_pin_free_all( route_pin__io_a_F );
                     return false;
                 }
             } else
@@ -375,7 +375,7 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
     }
 
     // Traversed all nodes, reached past tree root, lets reset this.
-    cc_route_pin_free_all( route_pin__io_n );
+    cc_route_pin_free_all( route_pin__io_a_F );
     return false;
 }
 

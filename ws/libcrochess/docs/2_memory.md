@@ -151,13 +151,13 @@ used as an absence value.
 Multi-pointer parameters can be optional not just on data (more precisely, inner-most
 pointer), but also on any other pointer level. <br />
 For each optional pointer an additional `d` is appended to existing `__d` indicator. <br />
-If pointer is not optional, an `D` is appended, to keep track of indirection. <br />
-Each `d` or `D` corresponds to one pointer, starting from inner-most pointer outwards,
+If pointer is not optional, an `m` is appended, to keep track of indirection. <br />
+Each `d` or `m` corresponds to one pointer, starting from inner-most pointer outwards,
 i.e. in reverse order to pointers declaration.
 
 For instance, `CcParseMsg ** parse_msgs__dd` means both data (inner pointer), and
 outer pointer are optional. <br />
-Another example, `CcParseMsg ** parse_msgs__Dd` means outer pointer is optional, but
+Another example, `CcParseMsg ** parse_msgs__md` means outer pointer is optional, but
 inner pointer (data) is mandatory, <br />
 i.e. if outer pointer is provided, inner pointer must also be valid (non-`NULL`).
 
@@ -186,6 +186,7 @@ Ownership transfer parameters are indicated by:
 - appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** str_io__r`
 - appending `__t` if inner pointer is going to transfer ownership into function, e.g. `char ** str__t`
 - appending `__a` if inner pointer is going to transfer ownership out of a function, e.g. `char ** str__a`
+- appending `__F` if inner pointer is going to be _conditionally_ `free()`-ed then `NULL`-ed, e.g. `CcRoutePin ** route_pin__io_a_F`
 
 If parameter is input only, use `__t` to specify that ownership is given into that
 function, and remaining pointer is weak after function returns.
@@ -207,6 +208,21 @@ Ownership transfer indicator (one of `__n`, `__f`, `__r`, `__a`) tells what will
 happen to inner pointer (i.e. to `*arg` if `arg` is passed into `Foo **` type
 parameter), if main line is executed; that is to say, if all parameters were valid,
 and all sanity checks passed.
+
+Input + output arguments can be allocated within function, and used in multiple
+consequtive calls as an external variable. <br />
+Function can also deallocate its argument after multiple consequtive calls when
+it's done with such an argument, after some conditions are met, or after an error.  <br />
+In such a case `__F` is appended to parameter name, to specify that data can be
+freed within function (and (inner) pointer set to `NULL`) _conditionally_.
+
+For example, iterator `cc_route_pin_iter()` traverses over given path tree. <br />
+For the first call over a new path tree (i.e. if `*route_pin__io_a_F` is `NULL`), it
+allocates a new route, and initializes it with a first one found in a given path tree. <br />
+On each consequtive call, it returns next route from starting to destination field via
+input / output parameter `route_pin__io_a_F`. <br />
+When it runs out of routes in a given path tree, it frees allocated route, and sets its
+pointer back to `NULL`, so it's ready to start over again.
 
 ### Weak parameters
 
@@ -262,19 +278,20 @@ separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 
 ### Ownership transfer parameters
 
-| Indicator |              `arg` |                       `*arg` |                                   `**arg` |
-| --------: | -----------------: | ---------------------------: | ----------------------------------------: |
-|           |            `!NULL` |                        input |                                      read |
-|     `__s` |            `!NULL` |                input, `NULL` |                            read, _static_ |
-|     `__o` |            `!NULL` |                       output |                                     write |
-|    `__io` |            `!NULL` |               input + output |                              read + write |
-|     `__d` |                [1] |          input, discretional |                                      read |
-|     `__D` |                [1] |             input, mandatory |                                      read |
-|     `__n` |            `!NULL` |              `*args = NULL;` |                           ownership taken |
-|     `__f` |            `!NULL` |      `free(); *args = NULL;` |                                     freed |
-|     `__r` |            `!NULL` |         `*args = realloc();` |                               reallocated |
-|     `__t` |            `!NULL` |                        input |                           ownership given |
-|     `__a` |            `!NULL` | output <br /> input + output | ownership taken <br /> ownership retained |
+| Indicator |              `arg` |                                `*arg` |                                   `**arg` |
+| --------: | -----------------: | ------------------------------------: | ----------------------------------------: |
+|           |            `!NULL` |                                 input |                                      read |
+|     `__s` |            `!NULL` |                         input, `NULL` |                            read, _static_ |
+|     `__o` |            `!NULL` |                                output |                                     write |
+|    `__io` |            `!NULL` |                        input + output |                              read + write |
+|     `__d` |                [1] |                   input, discretional |                                      read |
+|     `__m` |                [1] |                      input, mandatory |                                      read |
+|     `__n` |            `!NULL` |                       `*args = NULL;` |                           ownership taken |
+|     `__f` |            `!NULL` |               `free(); *args = NULL;` |                                     freed |
+|     `__r` |            `!NULL` |                  `*args = realloc();` |                               reallocated |
+|     `__t` |            `!NULL` |                                 input |                           ownership given |
+|     `__a` |            `!NULL` |          output <br /> input + output | ownership taken <br /> ownership retained |
+|     `__F` |            `!NULL` | _conditional_ `free(); *args = NULL;` |                     _conditionally_ freed |
 
 [1] Depends on a level of indirection, i.e. to which pointer `d`, `D` indicator corresponds.
 

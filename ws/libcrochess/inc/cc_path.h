@@ -303,19 +303,19 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     Function iterates over path tree, returning next route via _input/output_ argument.
 
     @param path_node A path tree to traverse.
-    @param route_pin__io_n _Input / output_ parameter; pinned route.
+    @param route_pin__io_a_F **Ownership**, **conditionally** _freed_, _input / output_ parameter; pinned route.
 
     @note
-    Argument `*route_pin__io_n` contains currently pinned route when iterator is called. <br />
+    Argument `*route_pin__io_a_F` contains currently pinned route when iterator is called. <br />
     If function returns `true`, it contains next route found in a given path tree.
 
     @note
-    Argument `*route_pin__io_n` can be `NULL` at the beginning of iteration, <br />
+    Argument `*route_pin__io_a_F` can be `NULL` at the beginning of iteration, <br />
     it will be initialized with first route found in a given path tree.
 
     @warning
     When iterator founds no more routes to traverse, it will **free** last pinned route, <br />
-    and set `*route_pin__io_n` pointer to `NULL`, to prepare for next iterations. <br />
+    and set `*route_pin__io_a_F` pointer to `NULL`, to prepare for next iterations. <br />
     The same will happen in case of any error, to prevent infinite loops.
 
     @warning
@@ -368,10 +368,10 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     @return `true` if successful, `false` otherwise. <br />
 
     @return
-    Next route is returned via `route_pin__io_n` argument.
+    Next route is returned via `route_pin__io_a_F` argument.
 */
 bool cc_route_pin_iter( CcPathNode * restrict path_node,
-                        CcRoutePin ** restrict route_pin__io_n );
+                        CcRoutePin ** restrict route_pin__io_a_F );
 
 /**
     Function returns count of steps in all path segments in a given pinned route.
