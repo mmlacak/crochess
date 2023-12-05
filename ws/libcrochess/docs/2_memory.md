@@ -239,14 +239,14 @@ Summary
 -------
 
 If multiple indicators are needed, _static_ indicator (`__s`) is apended to parameter
-name first, followed by direction indicator (one of `__o`, `__io`), followed by
-discretion indicator (`__d`), finally followed by ownership transfer indicator (one
-of `__w`, `__t`, `__a`, `__n`, `__f`, `__r`).
+name first, followed by direction indicator (one of `__o`, `__io`), <br />
+followed by discretion indicator (one of `__d`, `__m`), finally followed by ownership
+transfer indicator (one of `__w`, `__t`, `__a`, `__n`, `__f`, `__r`).
 
-_Static_, direction and discretion indicators can be combined, e.g. `move__siod`. <br />
-Ownership transfer indicator is always kept separated, i.e. if any of direction or
-discretion indicators are combined with ownership transfer indicator, they are
-separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
+_Static_, direction and discretion indicators can be combined, e.g. `move__siod`.
+Ownership transfer indicator is always kept separated, i.e. <br />
+if any of direction or discretion indicators are combined with ownership transfer
+indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 
 ### Functions
 
@@ -293,6 +293,6 @@ separated by one underscore (`_`), e.g. `str__d_f`. `move__siod_r`.
 |     `__a` |            `!NULL` |          output <br /> input + output | ownership taken <br /> ownership retained |
 |     `__F` |            `!NULL` | _conditional_ `free(); *args = NULL;` |                     _conditionally_ freed |
 
-[1] Depends on a level of indirection, i.e. to which pointer `d`, `D` indicator corresponds.
+[1] Depends on a level of indirection, i.e. to which pointer `d`, `m` indicator corresponds.
 
 [<<< prev](1_organization.md "<<< prev") ||
