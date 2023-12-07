@@ -273,18 +273,11 @@ CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin );
 size_t cc_route_pin_len( CcRoutePin * restrict route_pin );
 
 /**
-    Function checks if pinned route is valid.
+    Function checks if pinned route is exhaustive; that is, valid
+    from starting to destination field.
 
     @param path_node Path segment, a node in path tree.
     @param route_pin Pinned route, a queue.
-
-    @note
-    Function checks that route is exhaustive, i.e. valid from starting to
-    destination field; this is done by checking that:
-    - first pinned route node points to root path segment (or one of its alternatives)
-    - all `node__w` pin members are valid (not `NULL`)
-    - next pinned segment is divergence from previous path segment
-    - `divergence` member of last pointed to path segment is `NULL`.
 
     @return `true` if successful, `false` otherwise.
 */
