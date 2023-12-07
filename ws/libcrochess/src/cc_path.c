@@ -233,6 +233,24 @@ bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
     return true;
 }
 
+CcRoutePin * cc_route_pin_free_node( CcRoutePin * restrict route_pin__f ) {
+    if ( !route_pin__f ) return NULL;
+
+    CcRoutePin * prev = route_pin__f->prev;
+    CcRoutePin * rp = route_pin__f;
+    CcRoutePin * next = route_pin__f->next;
+
+    CC_FREE( rp );
+
+    if ( prev )
+        prev->next = next;
+
+    if ( next )
+        next->prev = prev;
+
+    return prev ? prev : next;
+}
+
 CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin ) {
     if ( !route_pin ) return NULL;
 
@@ -370,8 +388,15 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
                 return true;
         }
 
-        // TODO :: FREE :: last pin
-        rp = rp->prev;
+        if ( rp->next ) { // Should always be at leaf node.
+            cc_route_pin_free_all( route_pin__io_a_F );
+            return false;
+        }
+
+        // cc_route_pin_free_node() returns previous node, if valid;
+        // otherwise next one which, we checked earlier, does not exists.
+        // So, this essentially frees rp, then assigns previous node to rp.
+        rp = cc_route_pin_free_node( rp );
     }
 
     // Traversed all nodes, reached past tree root, lets reset this.

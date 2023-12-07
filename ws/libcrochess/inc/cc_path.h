@@ -229,13 +229,26 @@ CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
                                   CcPathNode * restrict node );
 
 /**
-    Frees all pins in a given route.
+    Frees all nodes in a given route.
 
     @param route_pin__f A queue of route pins.
 
     @return `true` if successful, `false` otherwise.
 */
 bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f );
+
+/**
+    Frees a given node in a route.
+
+    @param route_pin__f A node to free.
+
+    @return Pointer to node in a route if successful, `NULL` otherwise.
+
+    @return
+    Function will return node previous to the one freed, if it exists;
+    otherwise, it will return next node in a given sequence.
+*/
+CcRoutePin * cc_route_pin_free_node( CcRoutePin * restrict route_pin__f );
 
 /**
     Creates a new, shallow copy of a given route.
