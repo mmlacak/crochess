@@ -121,9 +121,9 @@ Parameters
 ----------
 
 Pointers as function parameters are usually input, read-only borrows. <br />
-Strings (i.e. `char *`) have their underlying type `const`-ed (i.e. `char *`),
+Strings (i.e. `char *`) have their underlying type `const`-ed (i.e. `char const *`),
 most other types do not have `const`. <br />
-For instance, `char * str`, `CcMove * moves`.
+For instance, `char const * str`, `CcMove * moves`.
 
 ### _Static_ parameters
 
@@ -224,6 +224,19 @@ input / output parameter `route_pin__io_a_F`. <br />
 When it runs out of routes in a given path tree, it frees allocated route, and sets its
 pointer back to `NULL`, so it's ready to start over again.
 
+### Free parameters
+
+Free parameters are input parameters which point to an element in a container
+(e.g. linked list) that needs to be `free()`-ed, <br />
+either just pointed-to element, or a larger sub-container, but not the whole
+container itself. <br />
+These are indicated by appending `__f` to parameter name, e.g.
+`CcRoutePin * restrict route_pin__f`.
+
+Unlike corresponding ownership transfer parameter with the same `__f` indicator,
+free parameter pointer is single, <br />
+since container continues to live, and thus given pointer to it is not `NULL`-ed.
+
 ### Weak parameters
 
 Weak parameters are indicated by appending `__w` to their name, e.g. `ply_start__w`. <br />
@@ -275,6 +288,7 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |    `__io` |      input + output |      read + write |
 |     `__d` | input, discretional |              read |
 |     `__w` |         input, weak |              read |
+|     `__f` |            `free()` |               [1] |
 
 ### Ownership transfer parameters
 
@@ -284,8 +298,8 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |     `__s` |            `!NULL` |                         input, `NULL` |                            read, _static_ |
 |     `__o` |            `!NULL` |                                output |                                     write |
 |    `__io` |            `!NULL` |                        input + output |                              read + write |
-|     `__d` |                [1] |                   input, discretional |                                      read |
-|     `__m` |                [1] |                      input, mandatory |                                      read |
+|     `__d` |                [2] |                   input, discretional |                                      read |
+|     `__m` |                [2] |                      input, mandatory |                                      read |
 |     `__n` |            `!NULL` |                       `*args = NULL;` |                           ownership taken |
 |     `__f` |            `!NULL` |               `free(); *args = NULL;` |                                     freed |
 |     `__r` |            `!NULL` |                  `*args = realloc();` |                               reallocated |
@@ -293,6 +307,8 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |     `__a` |            `!NULL` |          output <br /> input + output | ownership taken <br /> ownership retained |
 |     `__F` |            `!NULL` | _conditional_ `free(); *args = NULL;` |                     _conditionally_ freed |
 
-[1] Depends on a level of indirection, i.e. to which pointer `d`, `m` indicator corresponds.
+[1] Frees one or more elements, but not the whole container.
+
+[2] Depends on a level of indirection, i.e. to which pointer `d`, `m` indicator corresponds.
 
 [<<< prev](1_organization.md "<<< prev") ||
