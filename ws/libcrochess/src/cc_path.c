@@ -287,43 +287,49 @@ size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
     return len;
 }
 
+static CcPathNode * cc_route_pin_check_if_node_valid( CcPathNode * restrict path_node,
+                                                      CcRoutePin * restrict route_pin ) {
+    if ( !path_node ) return NULL;
+    if ( !route_pin ) return NULL;
+    if ( !route_pin->node__w ) return NULL;
+
+    CcPathNode * pn = path_node;
+    CcPathNode * found = NULL;
+
+    while ( pn ) {
+        if ( route_pin->node__w == pn ) {
+            if ( !found )
+                found = route_pin->node__w;
+            else
+                return NULL; // Just sanity fail, should not happen.
+        }
+
+        pn = pn->alt_path;
+    }
+
+    return found;
+}
+
 bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
                                   CcRoutePin * restrict route_pin ) {
     if ( !path_node ) return false;
     if ( !route_pin ) return false;
 
-    // TODO :: REWORK :: check whole route against given path tree
-
     CcRoutePin * rp = route_pin;
     CcPathNode * pn = path_node;
-    bool found_just_1 = false;
 
     CC_REWIND( rp );
 
-    while ( pn ) {
-        if ( rp->node__w == pn ) {
-            if ( !found_just_1 ) // Found first path segment pointed at ...
-                found_just_1 = true;
-            else // Just sanity check, should not happen.
-                found_just_1 = false;
-        }
-
-        pn = pn->alt_path; // Check all "root" path segments ...
-    }
-
-    if ( !found_just_1 ) return false;
-
     while ( rp ) {
-        if ( !rp->node__w ) return false;
+        if ( !( pn = cc_route_pin_check_if_node_valid( pn, rp ) ) )
+            return false;
 
-        CcPathNode * d = rp->node__w->divergence;
         rp = rp->next;
-
-        if ( rp->node__w != d ) return false; // Not next node in divergent sequence.
+        pn = pn->divergence;
     }
 
-    if ( rp->node__w->divergence )
-        return false; // Not leaf node.
+    if ( rp->node__w->divergence || pn->divergence )
+        return false; // Not leaf node, didn't follow complete route.
 
     return true;
 }
