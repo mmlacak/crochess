@@ -16,6 +16,23 @@
 */
 
 
+//
+// Auxilary functions.
+
+// TODO :: DOCS
+CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
+                                      bool is_shortest );
+
+// TODO :: DOCS
+CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route );
+
+// TODO :: find shortest route
+CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
+
+// TODO :: find longest route
+CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node );
+
+
 // static CcPathNode * cc_find_paths_from__new( CcChessboard * restrict cb,
 //                                              CcPieceEnum piece,
 //                                              CcPieceEnum activator,

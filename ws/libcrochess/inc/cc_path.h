@@ -409,21 +409,4 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
 size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
 
 
-//
-// Auxilary functions.
-
-// TODO :: DOCS
-CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
-                                      bool is_shortest );
-
-// TODO :: DOCS
-CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route );
-
-// TODO :: find shortest route
-CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
-
-// TODO :: find longest route
-CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node );
-
-
 #endif /* __CC_PATH_H__ */
