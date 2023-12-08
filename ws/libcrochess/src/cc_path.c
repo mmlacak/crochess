@@ -378,7 +378,11 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
     CC_FASTFORWARD( rp );
 
     while ( rp ) {
-        // cc_route_pin_check_if_valid() ensured that ->node__w is valid for all nodes.
+        if ( !rp->node__w ) {
+            cc_route_pin_free_all( route_pin__io_a_F );
+            return false;
+        }
+
         if ( rp->node__w->alt_path ) {
             rp->node__w = rp->node__w->alt_path;
 
