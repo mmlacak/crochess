@@ -431,3 +431,35 @@ size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
 
     return count;
 }
+
+CcPptLink * cc_route_pin_assemble__new( CcRoutePin * restrict route ) {
+    if ( !route ) return NULL;
+
+    CcRoutePin * rp = route;
+    CcPptLink * pl__a = NULL;
+
+    CC_REWIND( rp );
+
+    while ( rp ) {
+        if ( rp->node__w && rp->node__w->path ) {
+            CcPptLink * ppt__t = cc_ppt_link_duplicate_all__new( rp->node__w->path );
+            if ( !ppt__t ) {
+                cc_ppt_link_free_all( &pl__a );
+                return NULL;
+            }
+
+            if ( !cc_ppt_link_extend( &pl__a, &ppt__t ) ) {
+                cc_ppt_link_free_all( &pl__a );
+                cc_ppt_link_free_all( &ppt__t );
+                return NULL;
+            }
+        } else {
+            cc_ppt_link_free_all( &pl__a );
+            return NULL;
+        }
+
+        rp = rp->next;
+    }
+
+    return pl__a;
+}

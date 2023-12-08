@@ -23,9 +23,6 @@
 CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
                                       bool is_shortest );
 
-// TODO :: DOCS
-CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route );
-
 // TODO :: find shortest route
 CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
 

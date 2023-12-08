@@ -54,44 +54,12 @@ CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
     return route__a;
 }
 
-CcPptLink * cc_path_assemble_route__new( CcRoutePin * restrict route ) {
-    if ( !route ) return NULL;
-
-    CcRoutePin * rp = route;
-    CcPptLink * pl__a = NULL;
-
-    CC_REWIND( rp );
-
-    while ( rp ) {
-        if ( rp->node__w && rp->node__w->path ) {
-            CcPptLink * ppt__t = cc_ppt_link_duplicate_all__new( rp->node__w->path );
-            if ( !ppt__t ) {
-                cc_ppt_link_free_all( &pl__a );
-                return NULL;
-            }
-
-            if ( !cc_ppt_link_extend( &pl__a, &ppt__t ) ) {
-                cc_ppt_link_free_all( &pl__a );
-                cc_ppt_link_free_all( &ppt__t );
-                return NULL;
-            }
-        } else {
-            cc_ppt_link_free_all( &pl__a );
-            return NULL;
-        }
-
-        rp = rp->next;
-    }
-
-    return pl__a;
-}
-
 CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node ) {
     if ( !path_node ) return NULL;
 
     CcRoutePin * shortest__a = cc_path_find_route__new( path_node, true );
 
-    CcPptLink * pl__a = cc_path_assemble_route__new( shortest__a );
+    CcPptLink * pl__a = cc_route_pin_assemble__new( shortest__a );
 
     cc_route_pin_free_all( &shortest__a );
 
@@ -103,7 +71,7 @@ CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node ) {
 
     CcRoutePin * longest__a = cc_path_find_route__new( path_node, false );
 
-    CcPptLink * pl__a = cc_path_assemble_route__new( longest__a );
+    CcPptLink * pl__a = cc_route_pin_assemble__new( longest__a );
 
     cc_route_pin_free_all( &longest__a );
 
