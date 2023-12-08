@@ -408,7 +408,13 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
 */
 size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
 
-// TODO :: DOCS
+/**
+    Function assembles complete route from given pinned route.
+
+    @param route Pinned route, a queue.
+
+    @return A valid pointer to newly allocated route if successful, `NULL` otherwise.
+*/
 CcPptLink * cc_route_pin_assemble__new( CcRoutePin * restrict route );
 
 
