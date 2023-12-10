@@ -54,29 +54,33 @@ CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
     return route__a;
 }
 
-CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node ) {
-    if ( !path_node ) return NULL;
+// TODO :: DELETE
+//
+// CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node ) {
+//     if ( !path_node ) return NULL;
 
-    CcRoutePin * shortest__a = cc_path_find_route__new( path_node, true );
+//     CcRoutePin * shortest__a = cc_path_find_route__new( path_node, true );
 
-    CcPptLink * pl__a = cc_route_pin_assemble__new( shortest__a );
+//     CcPptLink * pl__a = cc_route_pin_assemble__new( shortest__a );
 
-    cc_route_pin_free_all( &shortest__a );
+//     cc_route_pin_free_all( &shortest__a );
 
-    return pl__a;
-}
+//     return pl__a;
+// }
 
-CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node ) {
-    if ( !path_node ) return NULL;
+// CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node ) {
+//     if ( !path_node ) return NULL;
 
-    CcRoutePin * longest__a = cc_path_find_route__new( path_node, false );
+//     CcRoutePin * longest__a = cc_path_find_route__new( path_node, false );
 
-    CcPptLink * pl__a = cc_route_pin_assemble__new( longest__a );
+//     CcPptLink * pl__a = cc_route_pin_assemble__new( longest__a );
 
-    cc_route_pin_free_all( &longest__a );
+//     cc_route_pin_free_all( &longest__a );
 
-    return pl__a;
-}
+//     return pl__a;
+// }
+//
+// TODO :: DELETE
 
 
 static CcPathNode * cc_find_paths_from__new( CcChessboard * restrict cb,

@@ -23,11 +23,15 @@
 CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
                                       bool is_shortest );
 
-// TODO :: find shortest route
-CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
+// TODO :: DELETE
+//
+// // TODO :: find shortest route
+// CcPptLink * cc_path_find_shortest_route__new( CcPathNode * restrict path_node );
 
-// TODO :: find longest route
-CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node );
+// // TODO :: find longest route
+// CcPptLink * cc_path_find_longest_route__new( CcPathNode * restrict path_node );
+//
+// TODO :: DELETE
 
 
 // static CcPathNode * cc_find_paths_from__new( CcChessboard * restrict cb,
