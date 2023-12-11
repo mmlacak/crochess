@@ -34,6 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_o_23_starchild_is_transparent', \
-                    'scn_o_24_starchild_is_completely_transparent', \
+                    'scn_o_15_starchild_is_transparent', \
+                    'scn_o_16_starchild_is_completely_transparent', \
                 ]

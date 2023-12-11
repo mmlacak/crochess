@@ -477,9 +477,9 @@ class SceneOneMixin:
     #
     # Starchild is completely transparent
 
-    def scn_o_23_starchild_is_transparent(self, bt=BoardType.One):
+    def scn_o_15_starchild_is_transparent(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_23_starchild_is_transparent', bt, height=9.3)
+        scene = Scene('scn_o_15_starchild_is_transparent', bt, height=9.3)
 
         start_Q = (14, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -509,9 +509,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_24_starchild_is_completely_transparent(self, bt=BoardType.One):
+    def scn_o_16_starchild_is_completely_transparent(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_24_starchild_is_completely_transparent', bt, height=9.3)
+        scene = Scene('scn_o_16_starchild_is_completely_transparent', bt, height=9.3)
 
         start_I = (10, 5)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -531,9 +531,9 @@ class SceneOneMixin:
     #
     # Conversion immunity
 
-    def scn_o_15_starchild_conversion_immunity_init(self, bt=BoardType.One):
+    def scn_o_17_starchild_conversion_immunity_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_15_starchild_conversion_immunity_init', bt)
+        scene = Scene('scn_o_17_starchild_conversion_immunity_init', bt)
 
         start_I = (7, 22)
         scene.board.set_piece(*start_I, piece=PieceType.Starchild)
@@ -552,9 +552,9 @@ class SceneOneMixin:
     #
     # Divergence
 
-    def scn_o_16_starchild_divergence_init(self, bt=BoardType.One):
+    def scn_o_18_starchild_divergence_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_16_starchild_divergence_init', bt, height=9.3)
+        scene = Scene('scn_o_18_starchild_divergence_init', bt, height=9.3)
 
         start_Q = (14, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -584,9 +584,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_17_starchild_divergence_end(self, bt=BoardType.One):
+    def scn_o_19_starchild_divergence_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_17_starchild_divergence_end', bt, height=11.3)
+        scene = Scene('scn_o_19_starchild_divergence_end', bt, height=11.3)
 
         start_Q = (14, 1)
         # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -633,9 +633,9 @@ class SceneOneMixin:
     #
     # Starchild cannot be activated
 
-    def scn_o_18_starchild_cannot_be_activated(self, bt=BoardType.One):
+    def scn_o_20_starchild_cannot_be_activated(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_18_starchild_cannot_be_activated', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_20_starchild_cannot_be_activated', bt, width=9, height=8 )
 
         start_Q = (2, 6)
         scene.board.set_piece(*start_Q, piece=PieceType.Queen)
@@ -675,9 +675,9 @@ class SceneOneMixin:
     #
     # Diverging with no momentum
 
-    def scn_o_19_activating_piece_no_momentum(self, bt=BoardType.One):
+    def scn_o_21_activating_piece_no_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_19_activating_piece_no_momentum', bt, width=9, height=4 )
+        scene = Scene( 'scn_o_21_activating_piece_no_momentum', bt, width=9, height=4 )
 
         start_R = (7, 2)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
@@ -704,9 +704,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_20_diverging_piece_no_momentum(self, bt=BoardType.One):
+    def scn_o_22_diverging_piece_no_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_20_diverging_piece_no_momentum', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_22_diverging_piece_no_momentum', bt, width=9, height=8 )
 
         prev_R = (7, 2)
         prev_W = (7, 1)
@@ -738,9 +738,9 @@ class SceneOneMixin:
     #
     # Diverging with surplus momentum
 
-    def scn_o_21_activating_piece_surplus_momentum(self, bt=BoardType.One):
+    def scn_o_23_activating_piece_surplus_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_21_activating_piece_surplus_momentum', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_23_activating_piece_surplus_momentum', bt, width=9, height=8 )
 
         start_R = (7, 6)
         scene.board.set_piece(*start_R, piece=PieceType.Rook)
@@ -772,9 +772,9 @@ class SceneOneMixin:
 
         return scene
 
-    def scn_o_22_diverging_piece_surplus_momentum(self, bt=BoardType.One):
+    def scn_o_24_diverging_piece_surplus_momentum(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_22_diverging_piece_surplus_momentum', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_24_diverging_piece_surplus_momentum', bt, width=9, height=8 )
 
         prev_R = (7, 6)
         prev_W = (7, 1)
