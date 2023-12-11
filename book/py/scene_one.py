@@ -750,11 +750,11 @@ class SceneOneMixin:
         return scene
 
     #
-    # Starchild is not transparent
+    # Starchild is completely transparent
 
-    def scn_o_23_starchild_is_not_transparent(self, bt=BoardType.One):
+    def scn_o_23_starchild_is_transparent(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_23_starchild_is_not_transparent', bt, height=9.3)
+        scene = Scene('scn_o_23_starchild_is_transparent', bt, height=9.3)
 
         start_Q = (14, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -775,12 +775,31 @@ class SceneOneMixin:
         coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_Q_w_W() ):
-            mark_type = MarkType.Illegal if i == 1 else \
-                        MarkType.Legal if i < 1 else \
-                        MarkType.Blocked
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_o_24_starchild_is_completely_transparent(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_24_starchild_is_completely_transparent', bt, height=9.3)
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_M = (1, 1)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        adr = GS.adder( start_M, include_prev=True )
+        scene.append_arrow( *adr(1, 2), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(4, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(4, 3), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adr(5, -4), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(5, 6), mark_type=MarkType.Legal )
 
         return scene
 
