@@ -475,6 +475,60 @@ class SceneOneMixin:
         return scene
 
     #
+    # Starchild is completely transparent
+
+    def scn_o_23_starchild_is_transparent(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_23_starchild_is_transparent', bt, height=9.3)
+
+        start_Q = (14, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_i = (12, 3)
+        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
+
+        start_H = (10, 5)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_e = (12, 7)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+
+        start_p = (7, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # Q --> w --> W
+        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_Q_w_W() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_o_24_starchild_is_completely_transparent(self, bt=BoardType.One):
+
+        scene = Scene('scn_o_24_starchild_is_completely_transparent', bt, height=9.3)
+
+        start_I = (10, 5)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_M = (1, 1)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        adr = GS.adder( start_M, include_prev=True )
+        scene.append_arrow( *adr(1, 2), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(4, -1), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(4, 3), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adr(5, -4), mark_type=MarkType.Legal )
+        scene.append_arrow( *adr(5, 6), mark_type=MarkType.Legal )
+
+        return scene
+
+    #
     # Conversion immunity
 
     def scn_o_15_starchild_conversion_immunity_init(self, bt=BoardType.One):
@@ -746,60 +800,6 @@ class SceneOneMixin:
                         MarkType.Legal
             if scene.board.is_on_board( *GS.get_end( arrow ) ):
                 scene.append_arrow( *arrow, mark_type=mark_type )
-
-        return scene
-
-    #
-    # Starchild is completely transparent
-
-    def scn_o_23_starchild_is_transparent(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_23_starchild_is_transparent', bt, height=9.3)
-
-        start_Q = (14, 1)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
-
-        start_i = (12, 3)
-        scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
-
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
-
-        start_e = (12, 7)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
-
-        start_p = (7, 2)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        # Q --> w --> W
-        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_Q_w_W() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Illegal if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-    def scn_o_24_starchild_is_completely_transparent(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_24_starchild_is_completely_transparent', bt, height=9.3)
-
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
-
-        start_M = (1, 1)
-        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
-
-        adr = GS.adder( start_M, include_prev=True )
-        scene.append_arrow( *adr(1, 2), mark_type=MarkType.Legal )
-        scene.append_arrow( *adr(4, -1), mark_type=MarkType.Legal )
-        scene.append_arrow( *adr(4, 3), mark_type=MarkType.Illegal )
-        scene.append_arrow( *adr(5, -4), mark_type=MarkType.Legal )
-        scene.append_arrow( *adr(5, 6), mark_type=MarkType.Legal )
 
         return scene
 
