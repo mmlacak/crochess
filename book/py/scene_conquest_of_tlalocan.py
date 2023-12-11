@@ -585,6 +585,47 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # Shaman is semi-transparent
+
+    def scn_cot_07_shaman_is_semi_transparent(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_07_shaman_is_semi_transparent', bt)
+
+        # light Bishop + light Shaman
+
+        start_H_A = (19, 5)
+        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
+
+        start_B = (15, 1)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        coords = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Blocked if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        # dark Bishop + light Shaman
+
+        start_H_B = (3, 16)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
+
+        start_b = (7, 20)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        coords = GS.gen_steps( start=start_b, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Legal if i < 3 else \
+                        MarkType.Action if i == 3 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        scene.append_text( "A", *start_H_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_H_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
     # Teleporting Shaman
 
     def scn_cot_07_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
