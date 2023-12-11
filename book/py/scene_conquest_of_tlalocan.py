@@ -607,10 +607,10 @@ class SceneConquestOfTlalocanMixin:
 
         # dark Bishop + light Shaman
 
-        start_H_B = (3, 16)
+        start_H_B = (3, 18)
         scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
-        start_b = (7, 20)
+        start_b = (7, 22)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         coords = GS.gen_steps( start=start_b, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
@@ -620,8 +620,23 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Blocked
             scene.append_arrow( *arr, mark_type=mark_type )
 
+        # dark Shaman + light Shaman
+
+        start_H_C = (17, 19)
+        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
+
+        start_h = (11, 15)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        coords = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
+
         scene.append_text( "A", *start_H_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_H_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_H_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
