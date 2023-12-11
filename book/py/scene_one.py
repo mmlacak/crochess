@@ -806,9 +806,9 @@ class SceneOneMixin:
     #
     # Starchild cannot diverge
 
-    def scn_o_24_starchild_cannot_diverge(self, bt=BoardType.One):
+    def scn_o_25_starchild_cannot_diverge(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_24_starchild_cannot_diverge', bt, height=9.3)
+        scene = Scene('scn_o_25_starchild_cannot_diverge', bt, height=9.3)
 
         # step-field
 
