@@ -554,16 +554,16 @@ class SceneOneMixin:
 
     def scn_o_18_starchild_divergence_init(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_18_starchild_divergence_init', bt, height=9.3)
+        scene = Scene('scn_o_18_starchild_divergence_init', bt, height=8.3)
 
         start_Q = (14, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_w = (12, 3)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+        start_i_1 = (12, 3)
+        scene.board.set_piece( *start_i_1, piece=-PieceType.Starchild )
 
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+        start_i_2 = (10, 5)
+        scene.board.set_piece( *start_i_2, piece=-PieceType.Starchild )
 
         start_e = (12, 7)
         scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
@@ -571,12 +571,12 @@ class SceneOneMixin:
         start_p = (7, 2)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        # Q --> w --> W
-        coords_Q_w_W = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+        # Q --> i(1) --> i(2)
+        coords_Q_i1_i2 = GS.gen_steps( start=start_Q, rels=[(-1, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
 
-        for i, arrow in enumerate( coords_Q_w_W() ):
+        for i, arrow in enumerate( coords_Q_i1_i2() ):
             mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Illegal if i == 1 else \
+                        MarkType.Action if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -586,16 +586,16 @@ class SceneOneMixin:
 
     def scn_o_19_starchild_divergence_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_19_starchild_divergence_end', bt, height=11.3)
+        scene = Scene('scn_o_19_starchild_divergence_end', bt, height=10.3)
 
         start_Q = (14, 1)
         # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_w = (12, 3)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+        start_i_1 = (12, 3)
+        scene.board.set_piece( *start_i_1, piece=-PieceType.Starchild )
 
-        start_I = (10, 5)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+        start_i_2 = (10, 5)
+        scene.board.set_piece( *start_i_2, piece=-PieceType.Starchild )
 
         start_e = (12, 7)
         scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
@@ -606,7 +606,7 @@ class SceneOneMixin:
         # <-- Q --> @ W
 
         for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_W__Q = GS.gen_steps( start=start_I, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
+            coords_W__Q = GS.gen_steps( start=start_i_2, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
 
             for i, arrow in enumerate( coords_W__Q() ):
                 if rel == (-1, -1):
@@ -619,10 +619,10 @@ class SceneOneMixin:
                                 MarkType.Blocked
                 elif rel == (1, -1):
                     mark_type = MarkType.Illegal if i == 3 else \
-                                MarkType.Legal if i < 5 else \
+                                MarkType.Legal if i < 4 else \
                                 MarkType.Blocked
                 else:
-                    mark_type = MarkType.Legal if i < 5 else \
+                    mark_type = MarkType.Legal if i < 4 else \
                                 MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
