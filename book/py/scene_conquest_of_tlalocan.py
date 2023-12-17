@@ -2084,6 +2084,71 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # Diverging to start
+    # ... illegal, if first in cascade
+
+    def scn_cot_36_diverging_first_piece(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_36_diverging_first_piece', bt, width=8, height=8 )
+
+        start_Q = (1, 1)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_H = (3, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        # Q --> H
+        coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_Q_H() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_cot_37_diverged_first_piece_illegal(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene( 'scn_cot_37_diverged_first_piece_illegal', bt, width=8, height=8 )
+
+        prev_Q = (1, 1)
+        prev_H = (3, 3)
+
+        # start_Q = prev_H
+        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_H = prev_H
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        # Q @ H --> Q
+        # coords_Q_H__Q = GS.gen_steps( start=start_Q, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        # for i, arrow in enumerate( coords_Q_H__Q() ):
+        #     mark_type = MarkType.Illegal if i == 1 else \
+        #                 MarkType.Legal
+        #     scene.append_arrow( *arrow, mark_type=mark_type )
+
+        for rel in GS.DEFAULT_KING_REL_MOVES:
+            coords_Q_H__Q = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, count=2 ) # bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
+
+            for i, arrow in enumerate( coords_Q_H__Q() ):
+                if rel == (-1, -1):
+                    mark_type = MarkType.Illegal if i == 1 else \
+                                MarkType.Legal if i < 2 else \
+                                MarkType.Blocked
+                else:
+                    mark_type = MarkType.Legal if i < 2 else \
+                                MarkType.Blocked
+                scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "Q", *prev_Q, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+
+        return scene
+
+    # ... legal, if reactivated
+
+
+    #
     # Trance-journey
 
     def scn_cot_40_trance_fields(self, bt=BoardType.ConquestOfTlalocan):
