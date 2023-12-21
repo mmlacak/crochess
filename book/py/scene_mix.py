@@ -34,9 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_36_diverging_first_piece', \
-                    # 'scn_cot_37_diverged_first_piece_illegal', \
-                    # 'scn_cot_38_diverging_activated_piece', \
-                    # 'scn_cot_39_diverged_activated_piece_legal', \
-                    'scn_o_25_starchild_cannot_diverge', \
+                    'scn_o_01_starchild_movement', \
                 ]
