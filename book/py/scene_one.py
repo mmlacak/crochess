@@ -23,12 +23,12 @@ class SceneOneMixin:
 
     def scn_o_01_starchild_movement(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_01_starchild_movement', bt, width=9, height=9 )
+        scene = Scene( 'scn_o_01_starchild_movement', bt, width=9, height=6 )
 
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        end_I = (6, 5)
+        end_I = (7, 4)
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Legal )
 
         return scene
@@ -36,91 +36,31 @@ class SceneOneMixin:
     #
     # Activating on step-fields
 
-    def scn_o_02_starchild_activating_own_piece_init(self, bt=BoardType.One):
+    def scn_o_02_starchild_activating_own_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_02_starchild_activating_own_piece_init', bt) # , width=9, height=9)
+        scene = Scene( 'scn_o_02_starchild_activating_own_starchild', bt, width=9, height=4 )
 
-        start_I = (8, 3)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        start_I = (1, 1)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_W_A = (23, 21)
-        scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
+        start_W = (7, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Starchild )
 
-        start_W_B = (17, 7)
-        scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
-
-        start_w = (2, 17)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_n = (6, 13)
-        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
-
-        start_e = (9, 9)
-        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
-
-        start_I_2 = (22, 2)
-        scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
-
-        start_A = (19, 4)
-        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
-
-        scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked )
-
-        scene.append_arrow( *(start_I + start_W_A), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I + start_W_B), mark_type=MarkType.Legal )
-
-        scene.append_arrow( *(start_I + start_I_2), mark_type=MarkType.Legal )
-        scene.append_arrow( *(start_I + start_A), mark_type=MarkType.Illegal )
-
-        scene.append_arrow( *(start_I + start_w), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_I + start_n), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_I + start_e), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
 
         return scene
 
-    def scn_o_03_starchild_activating_own_piece_end(self, bt=BoardType.One):
+    def scn_o_03_starchild_activating_own_wave(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_03_starchild_activating_own_piece_end', bt) # , width=9, height=9)
+        scene = Scene( 'scn_o_03_starchild_activating_own_wave', bt, width=9, height=6 )
 
-        start_I = (8, 3)
-        end_I = (23, 21)
-        scene.board.set_piece(*end_I, piece=PieceType.Starchild)
+        start_I = (1, 1)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_W_A = (23, 21)
-        # scene.board.set_piece(*start_W_A, piece=PieceType.Wave)
+        start_W = (7, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_W_B = (17, 7)
-        scene.board.set_piece(*start_W_B, piece=PieceType.Wave)
-
-        start_w = (2, 17)
-        scene.board.set_piece(*start_w, piece=-PieceType.Wave)
-
-        start_n = (6, 13)
-        scene.board.set_piece(*start_n, piece=-PieceType.Knight)
-
-        start_e = (9, 9)
-        scene.board.set_piece(*start_e, piece=-PieceType.Pegasus)
-
-        start_I_2 = (22, 2)
-        scene.board.set_piece(*start_I_2, piece=PieceType.Starchild)
-
-        start_A = (19, 4)
-        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
-
-        # scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked )
-
-        scene.append_arrow( *(start_I + start_W_A), mark_type=MarkType.Blocked )
-
-        scene.append_arrow( *(start_W_A + start_W_B), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_W_A + start_w), mark_type=MarkType.Action )
-
-        scene.append_arrow( *(start_W_A + start_I_2), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_W_A + start_A), mark_type=MarkType.Illegal )
-
-        scene.append_arrow( *(start_W_A + start_n), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_W_A + start_e), mark_type=MarkType.Illegal )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
 
         return scene
 
