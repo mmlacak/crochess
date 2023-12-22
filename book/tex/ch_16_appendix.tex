@@ -927,7 +927,7 @@ field. Resurrection syzygy must have a piece which has been resurrected, if
 initiating Starchild was not oblationed then destination field as well.
 
 Other mandatory side-effects are designated as such, because otherwise it could
-be assumed that targeted piece has been captured. Conversion, and failed conversion
+be assumed that targeted piece has been captured. Conversion and failed conversion
 are such side-effects.
 
 It is recommended to also write optional side-effects and their data, for not much
@@ -990,7 +990,7 @@ Disposable pieces are all that can be captured, that is all but Kings, Stars and
 Monoliths. Disposable pieces can also be displaced, oblationed, and resurrected.
 Pawn can be promoted to any other disposable piece.
 
-All disposable pieces, except Starchild, can also be teleported, and converted.
+All disposable pieces, except Starchild, can also be teleported and converted.
 Most disposable pieces, except Centaur, Serpent, and Starchild, can also be
 diverted. Waves activated by disposable pieces can be diverted, except if
 activated by Unicorn, Centaur, Serpent, or Starchild.
@@ -1441,8 +1441,8 @@ are different, and can be found in columns \emph{hor.}, and \emph{vert.},
 respectively.
 
 When there are opponent's pieces on its grenadier-fields, Grenadier can make 1
-step up, or down. In close quarters, Grenadier can make 1 step more then the count
-of opponent's pieces on its grenadier-fields to the left, or to the right. After
+step up or down. In close quarters, Grenadier can make 1 step more then the count
+of opponent's pieces on its grenadier-fields to the left or to the right. After
 each step, Grenadier can end its ply with forking capture-step. \newline
 \indent
 So, in close quarters, Grenadier's movement limits are 2 steps when starting
@@ -1563,7 +1563,7 @@ all of received momentum to activated piece.
 \cmidrule{1-2} % .........................................................................................
 \emph{Piece}                            & \emph{At field}               &                               \\
 \midrule % -----------------------------------------------------------------------------------------------
-\multirow{2}{*}{any}                    & capture, or                   & \multirow{2}{*}{own Pyramid}  \\
+\multirow{2}{*}{any}                    & capture or                    & \multirow{2}{*}{own Pyramid}  \\
                                         & miracle                       &                               \\
 \cmidrule{1-3} % .........................................................................................
 any                                     & any                           & own Wave                      \\
@@ -1572,7 +1572,7 @@ any                                     & any                           & own Wa
                                         &                               & except King,                  \\
                                         &                               & Pyramid                       \\
 \cmidrule{1-3} % .........................................................................................
-\multirow{2}{*}{Wave\footnotemark[1]}   & capture, or                   & any own,                      \\
+\multirow{2}{*}{Wave\footnotemark[1]}   & capture or                    & any own,                      \\
                                         & miracle                       & except King                   \\
 \cmidrule{1-3} % .........................................................................................
 \multirow{2}{*}{Wave}                   & \multirow{2}{*}{any}          & opponent's                    \\
@@ -1595,7 +1595,7 @@ Starchild                               & miracle                       & any St
 
 \footnotetext[1]{If activated on capture-fields, or Starchild's miracle-fields.}
 
-Here, activated own piece means it's in the same (dark, or light) color as
+Here, activated own piece means it's in the same (dark or light) color as
 activating piece, activated opponent's piece means it's in the opposite color
 to activating piece.
 
@@ -1664,7 +1664,7 @@ are not covered, as they are short-hand for non-standardized commentary.
 Verbatim values (e.g. \alg{x}) are as they appear in \algfmt{AN}, compatibility
 values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value is
 represented just with an empty group, i.e. \algfmt{()}; it's used to denote when
-there is no special move status, like check, or checkmate.
+there is no special move status, like check or checkmate.
 
 Value separator \algfmt{|} is used to present choice between 2 values, e.g.
 \alg{a} \algfmt{|} \alg{b}. Choices can be chained, as in
