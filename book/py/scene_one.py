@@ -1597,6 +1597,91 @@ class SceneOneMixin:
 
         return scene
 
+    #
+    # Starchild and castling
+    # Castling is not blocked
+
+    def scn_o_60_castling_not_blocked(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_60_castling_not_blocked', bt, height=1.7 )
+
+        start_K = (13, 0)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_R_A = (1, 0)
+        scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
+
+        start_R_B = (24, 0)
+        scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+
+        start_I = (8, 0)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        # |<-- K
+        coords = GS.gen_steps( start=start_K, rels=[(-1, 0), ], include_prev=True, count=10 )
+        for i, step in enumerate( coords() ):
+            if i == 0:
+                continue
+
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Legal
+
+            scene.append_arrow( *step, mark_type=mark_type )
+
+        # <<- <-- K
+        coords = GS.gen_steps( start=start_K, rels=[(-1, 0), ], include_prev=False, count=10 )
+        for i, pos in enumerate( coords() ):
+            if i == 0:
+                continue
+
+            mark_type = MarkType.Illegal if i == 4 else \
+                        MarkType.Legal
+
+            scene.append_text( str( i ), *pos, corner=Corner.UpperLeft, mark_type=mark_type )
+
+        scene.append_text( "K", *start_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+    # Castling is blocked
+
+    def scn_o_61_castling_blocked(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_61_castling_blocked', bt, height=1.7 )
+
+        prev_K = (13, 0)
+        prev_R_A = (1, 0)
+        prev_R_B = (24, 0)
+        prev_I = (8, 0)
+
+        start_K = (7, 0)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_R_A = prev_R_A
+        scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
+
+        start_R_B = prev_R_B
+        scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+
+        start_I = prev_I
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        # R -->|
+        coords = GS.gen_steps( start=start_R_A, rels=[(1, 0), ], include_prev=True, count=7 )
+        for i, step in enumerate( coords() ):
+            mark_type = MarkType.Blocked if i == 5 else \
+                        MarkType.Illegal if i == 6 else \
+                        MarkType.Legal
+
+            scene.append_arrow( *step, mark_type=mark_type )
+
+        scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *prev_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *prev_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
 
 
     #
