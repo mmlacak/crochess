@@ -224,31 +224,38 @@ and light King wouldn't be in check.
 % ................................................. Wave is transparent
 \clearpage % ..........................................................
 
-\subsubsection*{Wave is blocking castling}
-\addcontentsline{toc}{subsubsection}{Wave is blocking castling}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Wave is blocking castling}
-
-Note, even though Wave is transparent, all step-fields of both King and Rook
-must be empty, before they can castle.
+\subsubsection*{Castling is not blocked by Wave}
+\addcontentsline{toc}{subsubsection}{Castling is not blocked by Wave}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Castling is not blocked by Wave}
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_block_castling_king.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_no_block_castling_king.png}
 \caption{Castling King blocked}
-\label{fig:scn_mv_09_wave_block_castling_king}
+\label{fig:scn_mv_09_wave_no_block_castling_king}
 \end{figure}
 
-Above, Wave is blocking light King from castling fully to the left.
+Wave is transparent, so it can occupy a field between King and Rook, without
+blocking their castling. Wave can also be activated by castling piece, if it
+occupies destination field of either King or Rook.
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_block_castling_rook.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_no_block_castling_rook.png}
 \caption{Castling Rook blocked}
-\label{fig:scn_mv_10_wave_block_castling_rook}
+\label{fig:scn_mv_10_wave_no_block_castling_rook}
 \end{figure}
 
-Even if King tries to castle short, now Rook A is blocked by the same Wave;
-and so this Queen-side castling is illegal.
+In previous example King initiated castling by moving onto a field just past Wave;
+Rook now has to finish castling onto field occupied by Wave, in the process Wave
+would be activated with 5 momentum. % \newline \indent
+
+Momentum accumulated (or spent) is always count of travelled step-fields, regardless
+if special move has a step crossing two fields at once. When castling, King's first
+step is always across 2 fields; still, both fields are counted towards momentum. \newline
+\indent
+Here, if King had started castling onto field occupied by Wave, it would have been
+activated with 3 momentum.
 
 \clearpage % ..........................................................
 
@@ -1259,7 +1266,7 @@ After castling is finished, right Rook ends up at field immediately left to the 
 
 Again, even though \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent},
 all step-fields of both King and Rook
-\hyperref[sec:Miranda's veil/Wave/Cascading Waves/Wave is blocking castling]{must be empty},
+\hyperref[sec:Miranda's veil/Wave/Cascading Waves/Castling is not blocked by Wave]{must be empty},
 before they can castle.
 
 \clearpage % ..........................................................
