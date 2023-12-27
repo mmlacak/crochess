@@ -1027,11 +1027,17 @@ class SceneOneMixin:
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_N = (5, 3)
+        start_N = (7, 3)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_W = (4, 1)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        start_W_A = (6, 1)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_E = (5, 3)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+
+        start_W_B = (4, 1)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -1039,11 +1045,17 @@ class SceneOneMixin:
         start_i = (3, 3)
         scene.board.set_piece( *start_i, piece=-PieceType.Starchild )
 
-        # N --> W
-        scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
+        # N --> W(A)
+        scene.append_arrow( *(start_N + start_W_A), mark_type=MarkType.Legal )
+
+        # W(A) --> E
+        scene.append_arrow( *(start_W_A + start_E), mark_type=MarkType.Legal )
+
+        # E --> W(B)
+        scene.append_arrow( *(start_E + start_W_B), mark_type=MarkType.Legal )
 
         # W --> I
-        scene.append_arrow( *(start_W + start_I), mark_type=MarkType.Action )
+        scene.append_arrow( *(start_W_B + start_I), mark_type=MarkType.Action )
 
         # I --> i
         scene.append_arrow( *(start_I + start_i), mark_type=MarkType.Legal )
