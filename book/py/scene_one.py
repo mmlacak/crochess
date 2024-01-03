@@ -1601,9 +1601,9 @@ class SceneOneMixin:
     # Starchild and castling
     # Castling is not blocked
 
-    def scn_o_60_castling_not_blocked(self, bt=BoardType.One):
+    def scn_o_60_king_castling_not_blocked(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_60_castling_not_blocked', bt, height=1.7 )
+        scene = Scene( 'scn_o_60_king_castling_not_blocked', bt, height=1.7 )
 
         start_K = (13, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -1645,11 +1645,46 @@ class SceneOneMixin:
 
         return scene
 
+    def scn_o_61_rook_castling_not_blocked(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_61_rook_castling_not_blocked', bt, height=1.7 )
+
+        prev_K = (13, 0)
+        prev_R_A = (1, 0)
+        prev_R_B = (24, 0)
+        prev_I = (8, 0)
+
+        start_K = (6, 0)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_R_A = prev_R_A
+        scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
+
+        start_R_B = prev_R_B
+        scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+
+        start_I = prev_I
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        # R -->|
+        coords = GS.gen_steps( start=start_R_A, rels=[(1, 0), ], include_prev=True, count=6 )
+        for i, step in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 5 else \
+                        MarkType.Legal
+
+            scene.append_arrow( *step, mark_type=mark_type )
+
+        scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
     # Castling is blocked
 
-    def scn_o_61_castling_blocked(self, bt=BoardType.One):
+    def scn_o_62_castling_blocked(self, bt=BoardType.One):
 
-        scene = Scene( 'scn_o_61_castling_blocked', bt, height=1.7 )
+        scene = Scene( 'scn_o_62_castling_blocked', bt, height=1.7 )
 
         prev_K = (13, 0)
         prev_R_A = (1, 0)

@@ -36,6 +36,7 @@ class SceneMix(SceneMixin, \
         return  [
                     # 'scn_mv_09_wave_no_block_castling_king', \
                     # 'scn_mv_10_wave_no_block_castling_rook', \
-                    'scn_o_60_castling_not_blocked', \
-                    'scn_o_61_castling_blocked', \
+                    'scn_o_60_king_castling_not_blocked', \
+                    'scn_o_61_rook_castling_not_blocked', \
+                    'scn_o_62_castling_blocked', \
                 ]
