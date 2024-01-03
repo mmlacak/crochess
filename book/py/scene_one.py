@@ -1315,8 +1315,8 @@ class SceneOneMixin:
         start_N = (1, 2)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
 
-        start_Ir = (20, 7)
-        scene.board.set_piece(*start_Ir, piece=PieceType.Starchild)
+        start_W_r = (20, 7)
+        scene.board.set_piece(*start_W_r, piece=PieceType.Wave)
 
         start_T_1 = (7, 4) # (0, 0)
         start_T_2 = (25, 25)
@@ -1328,26 +1328,13 @@ class SceneOneMixin:
         scene.board.set_piece(*start_T_3, piece=-PieceType.Star)
         scene.board.set_piece(*start_T_4, piece=-PieceType.Star)
 
-        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            scene.append_arrow( *coords, end_pointer=False, mark_type=MarkType.Legal )
+        arrows = GS.gen_steps( [(3, 1), ], start_N, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, arr in enumerate( arrows() ):
+            scene.append_arrow( *arr, end_pointer=False, mark_type=MarkType.Legal )
 
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_I, count=1 )
-        for index, coords in enumerate( gen() ):
-            scene.append_text( "1", *coords, mark_type=MarkType.Legal )
-
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_T_1, count=1 )
-        for index, coords in enumerate( gen() ):
-            scene.append_text( "2", *coords, mark_type=MarkType.Legal )
-
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_M, count=1 )
-        for index, coords in enumerate( gen() ):
-            scene.append_text( "2", *coords, mark_type=MarkType.Legal )
-
-        gen = GS.gen_steps( [(3, 1), ], start_N, include_prev=False, bounds=scene.board_view.get_position_limits() )
-        for index, coords in enumerate( gen() ):
-            if scene.board.get_piece( *coords ) == PieceType.none:
-                scene.append_text( "3", *coords, mark_type=MarkType.Legal )
+        pos = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start_I, count=1 )
+        for index, coords in enumerate( pos() ):
+            scene.append_text( str( index+1 ), *coords, mark_type=MarkType.Action )
 
         return scene
 
