@@ -1304,6 +1304,57 @@ class SceneDiscoveryMixin:
         return scene
 
     #
+    # Existing syzygy
+
+    def scn_d_26_syzygy_existing(self, bt=BoardType.Discovery):
+
+        scene = Scene( 'scn_d_26_syzygy_existing', bt )
+
+        start_T = (0, 0)
+        scene.board.set_piece( *start_T, piece=PieceType.Star )
+        scene.board.set_piece( 0, 23, piece=-PieceType.Star )
+        scene.board.set_piece( 23, 0, piece=-PieceType.Star )
+        scene.board.set_piece( 23, 23, piece=PieceType.Star )
+
+        start_M = (11, 14)
+        end_M = (12, 12)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        scene.board.set_piece( 5, 5, piece=PieceType.Monolith )
+        scene.board.set_piece( 16, 16, piece=PieceType.Bishop )
+        scene.board.set_piece( 3, 3, piece=-PieceType.Rook )
+
+        start_P = (19, 19)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        # entering existing syzygy
+        scene.append_arrow( *( start_M + end_M ), mark_type=MarkType.Action )
+
+        #
+        # diagonal arrows, existing syzygy
+        gen_abs_pos = GS.gen_steps( [ (1, 1), ], start=start_T, include_prev=True, bounds=scene.board.get_position_limits() )
+
+        for i, pos in enumerate( gen_abs_pos() ):
+            scene.append_arrow( *pos, mark_type=MarkType.Legal, start_pointer=False, end_pointer=False )
+
+        #
+        # texts, field markers
+        gen_abs_pos_1 = GS.gen_steps( [ (1, 1), ], start=start_T, include_prev=False, include_start=True, bounds=scene.board.get_position_limits() )
+
+        for i, pos in enumerate( gen_abs_pos_1() ):
+            mark_type = None
+            if i in [ 0, 5, 23, ]:
+                mark_type = MarkType.Illegal
+
+            if mark_type is not None:
+                scene.append_field_marker( *pos, mark_type=mark_type )
+
+        scene.append_text( "P", *start_P, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_field_marker( *start_P, mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
     # Reentering syzygy
 
     def scn_d_26_syzygy_reentering_same_move(self, bt=BoardType.Discovery):
