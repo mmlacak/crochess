@@ -1357,9 +1357,9 @@ class SceneDiscoveryMixin:
     #
     # Reentering syzygy
 
-    def scn_d_26_syzygy_reentering_same_move(self, bt=BoardType.Discovery):
+    def scn_d_27_syzygy_reentering_same_move(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_26_syzygy_reentering_same_move', bt)
+        scene = Scene('scn_d_27_syzygy_reentering_same_move', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -1385,9 +1385,9 @@ class SceneDiscoveryMixin:
 
         return scene
 
-    def scn_d_27_syzygy_reentering_independent(self, bt=BoardType.Discovery):
+    def scn_d_28_syzygy_reentering_independent(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_27_syzygy_reentering_independent', bt)
+        scene = Scene('scn_d_28_syzygy_reentering_independent', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
@@ -1424,9 +1424,9 @@ class SceneDiscoveryMixin:
     #
     # In opponent's figure row
 
-    def scn_d_28_syzygy_in_opponents_figure_row(self, bt=BoardType.Discovery):
+    def scn_d_29_syzygy_in_opponents_figure_row(self, bt=BoardType.Discovery):
 
-        scene = Scene('scn_d_28_syzygy_in_opponents_figure_row', bt)
+        scene = Scene('scn_d_29_syzygy_in_opponents_figure_row', bt)
 
         start_T = (0, 0)
         scene.board.set_piece(*start_T, piece=PieceType.Star)
