@@ -1309,6 +1309,7 @@ class SceneDiscoveryMixin:
     def scn_d_26_syzygy_existing(self, bt=BoardType.Discovery):
 
         scene = Scene( 'scn_d_26_syzygy_existing', bt )
+        rect_mark = ( 0.14, 0.79, 0.65, 0.05 ) # left, top, right, bottom
 
         start_T = (0, 0)
         scene.board.set_piece( *start_T, piece=PieceType.Star )
@@ -1316,19 +1317,21 @@ class SceneDiscoveryMixin:
         scene.board.set_piece( 23, 0, piece=-PieceType.Star )
         scene.board.set_piece( 23, 23, piece=PieceType.Star )
 
-        start_M = (11, 14)
-        end_M = (12, 12)
-        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+        start_M_A = (5, 5)
+        scene.board.set_piece( *start_M_A, piece=PieceType.Monolith )
 
-        scene.board.set_piece( 5, 5, piece=PieceType.Monolith )
         scene.board.set_piece( 16, 16, piece=PieceType.Bishop )
         scene.board.set_piece( 3, 3, piece=-PieceType.Rook )
+
+        start_M_B = (11, 14)
+        end_M_B = (12, 12)
+        scene.board.set_piece( *start_M_B, piece=PieceType.Monolith )
 
         start_P = (19, 19)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         # entering existing syzygy
-        scene.append_arrow( *( start_M + end_M ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_M_B + end_M_B ), mark_type=MarkType.Action )
 
         #
         # diagonal arrows, existing syzygy
@@ -1348,6 +1351,9 @@ class SceneDiscoveryMixin:
 
             if mark_type is not None:
                 scene.append_field_marker( *pos, mark_type=mark_type )
+
+        scene.append_text( "A", *start_M_A, mark_type=MarkType.Illegal, corner=Corner.UpperLeft, rect=rect_mark )
+        scene.append_text( "B", *start_M_B, mark_type=MarkType.Action, corner=Corner.UpperLeft, rect=rect_mark )
 
         scene.append_text( "P", *start_P, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
         scene.append_field_marker( *start_P, mark_type=MarkType.Blocked )
