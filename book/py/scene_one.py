@@ -1339,6 +1339,52 @@ class SceneOneMixin:
         return scene
 
     #
+    # Existing syzygy
+
+    def scn_o_54_syzygy_existing( self, bt=BoardType.One ):
+
+        scene = Scene( 'scn_o_54_syzygy_existing', bt )
+
+        start_M = (13, 6)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        start_I_r = (19, 8)
+        scene.board.set_piece( *start_I_r, piece=PieceType.Starchild )
+
+        start_W_r = (20, 7)
+        scene.board.set_piece( *start_W_r, piece=PieceType.Wave )
+
+        start_T_1 = (7, 4) # (0, 0)
+        start_T_2 = (25, 25)
+        start_T_3 = (25, 0)
+        start_T_4 = (0, 25)
+
+        scene.board.set_piece( *start_T_1, piece=PieceType.Star )
+        scene.board.set_piece( *start_T_2, piece=PieceType.Star )
+        scene.board.set_piece( *start_T_3, piece=-PieceType.Star )
+        scene.board.set_piece( *start_T_4, piece=-PieceType.Star )
+
+        start_I = (7, 15)
+        end_I = (1, 2)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        scene.append_arrow( *( start_I + end_I ), mark_type=MarkType.Action )
+
+        arrows = GS.gen_steps( [(3, 1), ], end_I, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for index, arr in enumerate( arrows() ):
+            scene.append_arrow( *arr, end_pointer=False, mark_type=MarkType.Legal )
+
+        pos = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, end_I, count=1 )
+        for index, coords in enumerate( pos() ):
+            scene.append_text( str( index+1 ), *coords, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+
+        scene.append_text( "W", *start_W_r, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_field_marker( *start_W_r, mark_type=MarkType.Blocked )
+
+
+        return scene
+
+    #
     # Reentering syzygy
 
     def scn_o_54_reentering_syzygies(self, bt=BoardType.One):
