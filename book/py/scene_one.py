@@ -1375,13 +1375,6 @@ class SceneOneMixin:
         for index, arr in enumerate( arrows() ):
             scene.append_arrow( *arr, end_pointer=False, mark_type=MarkType.Legal )
 
-        # pos = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, end_I_B, count=1 )
-        # for index, coords in enumerate( pos() ):
-        #     scene.append_text( str( index+1 ), *coords, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
-
-        # scene.append_text( "W", *start_W_r, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        # scene.append_field_marker( *start_W_r, mark_type=MarkType.Blocked )
-
         scene.append_text( "A", *start_I_A, mark_type=MarkType.Illegal, corner=Corner.UpperLeft ) #, rect=rect_mark )
         scene.append_text( "B", *start_I_B, mark_type=MarkType.Action, corner=Corner.UpperLeft ) #, rect=rect_mark )
 
@@ -1390,9 +1383,9 @@ class SceneOneMixin:
     #
     # Reentering syzygy
 
-    def scn_o_54_reentering_syzygies(self, bt=BoardType.One):
+    def scn_o_55_reentering_syzygies(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_54_reentering_syzygies', bt)
+        scene = Scene('scn_o_55_reentering_syzygies', bt)
 
         start_M = (9, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1438,9 +1431,9 @@ class SceneOneMixin:
     #
     # Cascading syzygy
 
-    def scn_o_55_syzygy_starchild_cascading(self, bt=BoardType.One):
+    def scn_o_56_syzygy_starchild_cascading(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_55_syzygy_starchild_cascading', bt)
+        scene = Scene('scn_o_56_syzygy_starchild_cascading', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1490,9 +1483,9 @@ class SceneOneMixin:
     #
     # Double syzygy
 
-    def scn_o_56_two_syzygies_shared_celestial_piece(self, bt=BoardType.One):
+    def scn_o_57_two_syzygies_shared_celestial_piece(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_56_two_syzygies_shared_celestial_piece', bt)
+        scene = Scene('scn_o_57_two_syzygies_shared_celestial_piece', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1546,9 +1539,9 @@ class SceneOneMixin:
     #
     # Opponent's Starchild
 
-    def scn_o_57_syzygy_opponents_starchild(self, bt=BoardType.One):
+    def scn_o_58_syzygy_opponents_starchild(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_57_syzygy_opponents_starchild', bt)
+        scene = Scene('scn_o_58_syzygy_opponents_starchild', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
@@ -1595,9 +1588,9 @@ class SceneOneMixin:
     #
     # Star-initiated syzygy
 
-    def scn_o_58_syzygy_star(self, bt=BoardType.One):
+    def scn_o_59_syzygy_star(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_58_syzygy_star', bt)
+        scene = Scene('scn_o_59_syzygy_star', bt)
 
         start_M = (13, 6)
         scene.board.set_piece(*start_M, piece=PieceType.Monolith)
