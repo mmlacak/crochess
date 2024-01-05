@@ -1348,8 +1348,8 @@ class SceneOneMixin:
         start_M = (13, 6)
         scene.board.set_piece( *start_M, piece=PieceType.Monolith )
 
-        start_I_r = (19, 8)
-        scene.board.set_piece( *start_I_r, piece=PieceType.Starchild )
+        start_I_A = (19, 8)
+        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
 
         start_W_r = (20, 7)
         scene.board.set_piece( *start_W_r, piece=PieceType.Wave )
@@ -1364,23 +1364,26 @@ class SceneOneMixin:
         scene.board.set_piece( *start_T_3, piece=-PieceType.Star )
         scene.board.set_piece( *start_T_4, piece=-PieceType.Star )
 
-        start_I = (7, 15)
-        end_I = (1, 2)
-        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+        start_I_B = (7, 15)
+        end_I_B = (4, 3)
+        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
 
-        scene.append_arrow( *( start_I + end_I ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_I_B + end_I_B ), mark_type=MarkType.Action )
 
-        arrows = GS.gen_steps( [(3, 1), ], end_I, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        start = (1, 2)
+        arrows = GS.gen_steps( [(3, 1), ], start, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for index, arr in enumerate( arrows() ):
             scene.append_arrow( *arr, end_pointer=False, mark_type=MarkType.Legal )
 
-        pos = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, end_I, count=1 )
-        for index, coords in enumerate( pos() ):
-            scene.append_text( str( index+1 ), *coords, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
+        # pos = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, end_I_B, count=1 )
+        # for index, coords in enumerate( pos() ):
+        #     scene.append_text( str( index+1 ), *coords, mark_type=MarkType.Action, corner=Corner.UpperLeftFieldMarker )
 
-        scene.append_text( "W", *start_W_r, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        scene.append_field_marker( *start_W_r, mark_type=MarkType.Blocked )
+        # scene.append_text( "W", *start_W_r, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        # scene.append_field_marker( *start_W_r, mark_type=MarkType.Blocked )
 
+        scene.append_text( "A", *start_I_A, mark_type=MarkType.Illegal, corner=Corner.UpperLeft ) #, rect=rect_mark )
+        scene.append_text( "B", *start_I_B, mark_type=MarkType.Action, corner=Corner.UpperLeft ) #, rect=rect_mark )
 
         return scene
 
