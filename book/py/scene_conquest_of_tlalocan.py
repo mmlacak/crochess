@@ -132,7 +132,7 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece( 19, 10, piece=PieceType.Pyramid )
         scene.board.set_piece( 10, 9, piece=-PieceType.Knight )
 
-        gen_arr = GS.gen_steps([(2, 1), ], start=start, include_prev=True, bounds=scene.board_view.get_position_limits())
+        gen_arr = GS.gen_steps( [ (2, 1), ], start=start, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( gen_arr() ):
             mark_type = MarkType.Action if i == 3 else \
                         MarkType.Blocked if i > 7 else \
@@ -150,9 +150,25 @@ class SceneConquestOfTlalocanMixin:
         #
         # No changing direction, capture-fields.
 
-        gen_arr_3 = GS.gen_multi_steps(GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=(13, 7), include_prev=True, count=1)
+        gen_arr_3 = GS.gen_multi_steps( GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=(13, 7), include_prev=True, count=1 )
         for arr_3 in gen_arr_3():
             scene.append_arrow( *arr_3, mark_type=MarkType.Illegal )
+
+        return scene
+
+    def scn_cot_03_light_shaman_step_ply_no_capture( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_03_light_shaman_step_ply_no_capture', bt, width=9.0, height=6.0 )
+
+        start = (1, 1)
+        scene.board.set_piece( *start, piece=PieceType.Shaman )
+        scene.board.set_piece( 5, 3, piece=-PieceType.Knight )
+
+        gen_arr = GS.gen_steps( [(2, 1), ], start=start, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_arr() ):
+            mark_type = MarkType.Blocked if i >= 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         return scene
 
