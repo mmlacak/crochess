@@ -34,6 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_d_26_syzygy_existing', \
-                    'scn_o_54_syzygy_existing', \
+                    'scn_cot_02_light_shaman_step_ply', \
                 ]
