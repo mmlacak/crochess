@@ -56,7 +56,7 @@ pieces. Shaman can't change direction once started moving.
 Shaman is divergent; any own piece (and opponent's Shaman) can change direction
 when they encounter Shaman, after which they use remaining momentum to move.
 
-Shaman can also take on a trance-journey, when it can displace or capture multiple
+Shaman can also take on a trance-journey, and displace or capture multiple
 pieces.
 
 \noindent
@@ -102,23 +102,21 @@ depend on color of field on which it stands, only on color of the piece itself.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-
+Light Shaman can choose any step-field for its initial direction; once chosen, Shaman
+has to follow it for the remainder of a ply. Direction of a ply cannot be changed,
+neither in other step- nor capture-direction, even if opponent's piece is present
+on a capture-field.
 
 \noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_03_light_shaman_step_ply_no_capture.png}
 \vspace*{-1.4\baselineskip}
 \caption{No capture}
 \label{fig:scn_cot_03_light_shaman_step_ply_no_capture}
 \end{wrapfigure}
-Once initial step-direction is chosen, light Shaman has to follow it,
-and so moves similar to Pegasus. Unlike Pegasus, Shaman can't capture
-opponent's pieces on step-fields, nor activate Pyramid. Wave on step-field
-can be activated, and would continue to move as Shaman (and Pegasus)
-would. Again, once direction is chosen, it cannot be changed, neither
-in other step- nor capture-direction, even if opponent's piece is present
-on a capture-field.
+Shaman can't capture opponent's piece on a step-field, nor activate Pyramid. Wave
+on a step-field can be activated, and would move as Shaman does.
 
 \clearpage % ..........................................................
 
