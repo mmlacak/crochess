@@ -14,11 +14,32 @@ rm -rfv *.pdf
 rm -rfv *.toc
 echo
 
-pdflatex -halt-on-error -draftmode -jobname crochess crochess.tex
+echo
+echo "0 --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---"
 echo
 echo
 
 pdflatex -halt-on-error -draftmode -jobname crochess crochess.tex
+echo
+echo
+
+echo "1 --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---"
+echo
+echo
+
+pdflatex -halt-on-error -draftmode -jobname crochess crochess.tex
+echo
+echo
+
+# echo "2 --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---"
+# echo
+# echo
+
+# pdflatex -halt-on-error -draftmode -jobname crochess crochess.tex
+# echo
+# echo
+
+echo "z --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---"
 echo
 echo
 

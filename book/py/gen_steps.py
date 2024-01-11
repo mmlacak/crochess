@@ -373,14 +373,9 @@ def adder(pos, include_prev=False):
 def remove(coords, to_remove=[]):
     return [ pos for pos in coords if pos not in to_remove ] # preserves order
 
-def negate(coords):
+def linear_all(coords, factor, offset):
     t = type(coords)
-    c = [ (-x) for x in coords ]
-    return t(c)
-
-def add_to_all(coords, offset):
-    t = type(coords)
-    c = [ x + offset for x in coords ]
+    c = [ factor * x + offset for x in coords ]
     return t(c)
 
 def multiply_all(coords, factor):
@@ -388,9 +383,14 @@ def multiply_all(coords, factor):
     c = [ factor * x for x in coords ]
     return t(c)
 
-def linear_all(coords, factor, offset):
+def add_to_all(coords, offset):
     t = type(coords)
-    c = [ factor * x + offset for x in coords ]
+    c = [ x + offset for x in coords ]
+    return t(c)
+
+def negate(coords):
+    t = type(coords)
+    c = [ (-x) for x in coords ]
     return t(c)
 
 

@@ -35,5 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_cot_02_light_shaman_step_ply', \
-                    'scn_cot_03_light_shaman_step_ply_no_capture', \
+                    # 'scn_cot_03_light_shaman_step_ply_no_capture', \
+                    'scn_cot_04_light_shaman_capture_ply', \
                 ]
