@@ -139,24 +139,27 @@ encountered on its step-fields, Shaman is prevented from moving any further.
 
 \vspace*{-0.4\baselineskip}
 Shaman can capture opponent's pieces only on its capture-fields. After initial capture,
-Shaman can continue capturing in the same ply, as long as there are opponent's pieces
-to capture. Once capturing, Shaman cannot change direction of a ply into any step- or
-other capture-field, even if opponent's piece is placed there. Empty capture-fields
-cannot be oversteped, any piece at a distant capture-field is out of reach.
+Shaman can continue capturing in the same ply, and in the same direction, as long as
+there are opponent's pieces to capture. Once capturing, Shaman cannot change direction
+of a ply into any step- or other capture-field, even if opponent's piece is placed
+there. Empty capture-fields cannot be overstepped, any piece at a distant capture-field
+is out of reach.
 
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[6]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.391666667\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_05_light_shaman_capture_ply_passives.png}
 \vspace*{-1.4\baselineskip}
 \caption{Activation}
 \label{fig:scn_cot_05_light_shaman_capture_ply_passives}
 \end{wrapfigure}
-Last (or, the only) action in a capture-ply can be e.g. activation, or teleportation.
-% Again, once started capturing, Shaman cannot
-% change its heading, neither in other step- nor capture-direction. Shaman
-% can also activate Pyramid or Wave on a capture-field, even on a first step,
-% thus ending its ply.
+Capture-ply can end with Shaman activating either Wave or Pyramid on its capture-field.
+Activation can be done as a first action in a ply, without any opponent's pieces being
+captured.
+
+Note in the previous example, even though Wave is transparent to Shaman, Pyramid is
+out of reach because transparency is lack of interaction, so it's similar to an empty
+capture-field, and so Wave cannot be overstepped.
 
 \clearpage % ..........................................................
 
