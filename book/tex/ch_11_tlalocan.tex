@@ -138,10 +138,11 @@ encountered on its step-fields, Shaman is prevented from moving any further.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-Capture-ply can only be started with immediate capture, after which Shaman
-can continue its movement as long as it keeps capturing opponent's pieces,
-in the same direction. Empty capture-fields cannot be oversteped, any piece
-at a distance is out of reach.
+Shaman can capture opponent's pieces only on its capture-fields. After initial capture,
+Shaman can continue capturing in the same ply, as long as there are opponent's pieces
+to capture. Once capturing, Shaman cannot change direction of a ply into any step- or
+other capture-field, even if opponent's piece is placed there. Empty capture-fields
+cannot be oversteped, any piece at a distant capture-field is out of reach.
 
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
