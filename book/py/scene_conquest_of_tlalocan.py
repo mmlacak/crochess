@@ -329,12 +329,23 @@ class SceneConquestOfTlalocanMixin:
         for arr_3 in gen_arr_3():
             scene.append_arrow( *arr_3, mark_type=MarkType.Illegal )
 
-
         return scene
 
-    def scn_cot_05_light_shaman_capture_ply_passives(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_05_light_shaman_capture_ply_passives( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene('scn_cot_05_light_shaman_capture_ply_passives', bt)
+        scene = Scene( 'scn_cot_05_light_shaman_capture_ply_passives', bt, width=9.4, height=3.4 )
+
+        start_H = (0, 0)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_W = (4, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A = (8, 2)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_W + start_A ), mark_type=MarkType.Blocked )
 
         return scene
 
