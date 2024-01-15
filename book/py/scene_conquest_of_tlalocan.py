@@ -326,7 +326,7 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece( *start, piece=-PieceType.Shaman )
 
         scene.board.set_piece( 9, 3, piece=PieceType.Wave )
-        scene.board.set_piece( 17, 5, piece=PieceType.Bishop )
+        scene.board.set_piece( 17, 5, piece=PieceType.Pyramid )
         scene.board.set_piece( *GS.add_step( start, (10, 6) ), piece=PieceType.Knight )
 
         coords = GS.gen_steps( [ direction, ], start=start, include_prev=True, bounds=scene.board_view.get_position_limits() )
@@ -355,7 +355,17 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_07_dark_shaman_step_ply_no_capture( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_07_dark_shaman_step_ply_no_capture', bt )
+        scene = Scene( 'scn_cot_07_dark_shaman_step_ply_no_capture', bt, width=7.4, height=10.4 )
+
+        start = (0, 0)
+        scene.board.set_piece( *start, piece=-PieceType.Shaman )
+        scene.board.set_piece( 4, 6, piece=PieceType.Knight )
+
+        gen_arr = GS.gen_steps( [(2, 3), ], start=start, include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_arr() ):
+            mark_type = MarkType.Blocked if i >= 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         return scene
 

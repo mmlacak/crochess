@@ -38,5 +38,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_03_light_shaman_step_ply_no_capture', \
                     # 'scn_cot_04_light_shaman_capture_ply', \
                     # 'scn_cot_05_light_shaman_capture_ply_passives', \
-                    'scn_cot_06_dark_shaman_step_ply', \
+                    # 'scn_cot_06_dark_shaman_step_ply', \
+                    'scn_cot_07_dark_shaman_step_ply_no_capture', \
                 ]
