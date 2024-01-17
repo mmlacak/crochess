@@ -247,7 +247,7 @@ class SceneConquestOfTlalocanMixin:
 
         scene.board.set_piece( 9, 3, piece=PieceType.Wave )
         scene.board.set_piece( 17, 5, piece=PieceType.Pyramid )
-        scene.board.set_piece( *GS.add_step( start, (10, 6) ), piece=PieceType.Knight )
+        # scene.board.set_piece( *GS.add_step( start, (10, 6) ), piece=PieceType.Knight )
 
         coords = GS.gen_steps( [ direction, ], start=start, include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( coords() ):
@@ -259,17 +259,17 @@ class SceneConquestOfTlalocanMixin:
         #
         # No changing direction, step-fields.
 
-        gen_arr_2 = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=(5, 2), include_prev=True, count=1 )
-        for arr_2 in gen_arr_2():
-            scene.append_arrow( *arr_2, mark_type=MarkType.Illegal )
+        # gen_arr_2 = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=(5, 2), include_prev=True, count=1 )
+        # for arr_2 in gen_arr_2():
+        #     scene.append_arrow( *arr_2, mark_type=MarkType.Illegal )
 
         #
         # No changing direction, capture-fields.
 
-        multi_rels_3 = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [ direction, opposite_dir, ] ) )
-        gen_arr_3 = GS.gen_multi_steps( multi_rels_3, start=(13, 4), include_prev=True, count=1 )
-        for arr_3 in gen_arr_3():
-            scene.append_arrow( *arr_3, mark_type=MarkType.Illegal )
+        # multi_rels_3 = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [ direction, opposite_dir, ] ) )
+        # gen_arr_3 = GS.gen_multi_steps( multi_rels_3, start=(13, 4), include_prev=True, count=1 )
+        # for arr_3 in gen_arr_3():
+        #     scene.append_arrow( *arr_3, mark_type=MarkType.Illegal )
 
         return scene
 
@@ -316,23 +316,23 @@ class SceneConquestOfTlalocanMixin:
         #
         # No changing direction, step-fields.
 
-        multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, [ opposite_dir, direction ] ) )
-        rel_steps = GS.multiply_all( direction, 2 )
-        start_illegal_steps = GS.add_step( start, rel_steps )
-        gen_pos = GS.gen_multi_steps( multi_rels, start=start_illegal_steps, include_prev=True, count=1 )
-        for pos in gen_pos():
-            scene.append_arrow( *pos, mark_type=MarkType.Illegal )
+        # multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_KNIGHT_REL_MOVES, [ opposite_dir, direction ] ) )
+        # rel_steps = GS.multiply_all( direction, 2 )
+        # start_illegal_steps = GS.add_step( start, rel_steps )
+        # gen_pos = GS.gen_multi_steps( multi_rels, start=start_illegal_steps, include_prev=True, count=1 )
+        # for pos in gen_pos():
+        #     scene.append_arrow( *pos, mark_type=MarkType.Illegal )
 
         #
         # No changing direction, capture-fields.
 
-        rel_captures = GS.multiply_all( direction, 6 )
-        start_illegal_captures = GS.add_step( start, rel_captures )
-        scene.board.set_piece( *GS.add_step( start_illegal_captures, (-3, 2) ), piece=PieceType.Knight )
+        # rel_captures = GS.multiply_all( direction, 6 )
+        # start_illegal_captures = GS.add_step( start, rel_captures )
+        # scene.board.set_piece( *GS.add_step( start_illegal_captures, (-3, 2) ), piece=PieceType.Knight )
 
-        gen_pos = GS.gen_multi_steps( GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_illegal_captures, include_prev=True, count=1 )
-        for pos in gen_pos():
-            scene.append_arrow( *pos, mark_type=MarkType.Illegal )
+        # gen_pos = GS.gen_multi_steps( GS.DEFAULT_UNICORN_MULTI_REL_LONG_MOVES, start=start_illegal_captures, include_prev=True, count=1 )
+        # for pos in gen_pos():
+        #     scene.append_arrow( *pos, mark_type=MarkType.Illegal )
 
         return scene
 
