@@ -360,84 +360,6 @@ class SceneConquestOfTlalocanMixin:
     #
     # Activating Wave
 
-    # TODO :: DELETE
-    #
-    # def scn_cot_010_wave_activated(self, bt=BoardType.ConquestOfTlalocan):
-
-    #     scene = Scene('scn_cot_010_wave_activated', bt)
-
-    #     start = (3, 9)
-
-    #     start_W1 = (2, 5)
-    #     scene.board.set_piece(*start_W1, piece=PieceType.Wave)
-    #     scene.append_text("1", *start_W1, corner=Corner.UpperRight, mark_type=MarkType.Action)
-
-    #     start_A1 = (4, 5)
-    #     scene.board.set_piece(*start_A1, piece=PieceType.Pyramid)
-    #     scene.append_text("1", *start_A1, corner=Corner.UpperRight, mark_type=MarkType.Action)
-
-    #     start_W2 = (7, 3)
-    #     scene.board.set_piece(*start_W2, piece=PieceType.Wave)
-    #     scene.append_text("2", *start_W2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
-
-    #     start_A2 = (9, 5)
-    #     scene.board.set_piece(*start_A2, piece=PieceType.Pyramid)
-    #     scene.append_text("2", *start_A2, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
-
-    #     # (4, 1) -----------------------------------------------------------------------------------------------------------------
-
-    #     coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start, include_prev=False) )
-    #     scene.append_text("1", *coords(), mark_type=MarkType.Blocked) # (4, 10), captured Pawn
-    #     scene.append_text("2", *coords(), mark_type=MarkType.Blocked) # captured Pawn
-    #     scene.board.set_piece(*coords(), piece=PieceType.Shaman) # (15, 12)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=PieceType.Pawn)
-
-    #     start_W = (15, 12)
-    #     multi_rels = GS.convert_single_step_into_multi_rels( GS.remove( GS.DEFAULT_UNICORN_REL_LONG_MOVES, [(4, 1), (2, 3)] ) ) # (-4, -1),
-    #     gen_pos = GS.gen_multi_steps(multi_rels, start=start_W, include_prev=True, bounds=scene.board_view.get_position_limits())
-
-    #     for pos in gen_pos():
-    #         scene.append_arrow( *pos )
-
-    #     coords = GS.gen_next( GS.gen_steps([(4, 1), ], start=start_W, include_prev=True) )
-    #     scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-    #     scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-    #     coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start_W, include_prev=True) )
-    #     scene.append_arrow( *coords() )
-    #     scene.append_arrow( *coords() )
-    #     scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-    #     # (3, 2) ------------------------------------------------------------------------------------------------------------------
-
-    #     coords = GS.gen_next( GS.gen_steps([(3, 2), ], start=start, include_prev=False) )
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-
-    #     scene.board.set_piece(*GS.add_step(start, (13, 13)), piece=-PieceType.Knight)
-
-    #     # (2, 3) ------------------------------------------------------------------------------------------------------------------
-
-    #     coords = GS.gen_next( GS.gen_steps([(2, 3), ], start=start, include_prev=False) )
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-    #     coords() # leave empty
-    #     scene.board.set_piece(*coords(), piece=-PieceType.Pawn)
-
-    #     # empty -------------------------------------------------------------------------------------------------------------------
-
-    #     scene.board.set_piece(*GS.add_step(start, (8, -2)), piece=-PieceType.Pawn)
-    #     scene.board.set_piece(*GS.add_step(start, (12, -3)), piece=-PieceType.Pawn)
-
-    #     return scene
-    #
-    # TODO :: DELETE
-
     def scn_cot_010_activating_wave_step_field( self, bt=BoardType.ConquestOfTlalocan ):
 
         scene = Scene( 'scn_cot_010_activating_wave_step_field', bt, width=9.4, height=5.4 )
@@ -454,11 +376,6 @@ class SceneConquestOfTlalocanMixin:
         start_N = (1, 4)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        # gen_arr = GS.gen_steps( [ (2, 1), ], start=start_H, include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
-        # for i, arr in enumerate( gen_arr() ):
-        #     mark_type = MarkType.Action if i == 1 else \
-        #                 MarkType.Legal
-        #     scene.append_arrow( *arr, mark_type=mark_type )
         scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
 
         gen_arr_2 = GS.gen_steps( [ (-2, 1), ], start=start_W, include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
@@ -470,13 +387,38 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_011_activating_wave_capture_field( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_011_activating_wave_capture_field', bt, width=9.4, height=10.4 )
+
+        start_H = (5, 1)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_W = (1, 0)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A = (3, 3)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_N = (7, 9)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
+
+        gen_arr_2 = GS.gen_steps( [ (2, 3), ], start=start_W, include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_arr_2() ):
+            mark_type = MarkType.Action if i in [ 0, 2 ] else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        return scene
 
     #
     # Shaman is semi-transparent
 
-    def scn_cot_011_shaman_is_semi_transparent(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_012_shaman_is_semi_transparent(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_011_shaman_is_semi_transparent', bt)
+        scene = Scene('scn_cot_012_shaman_is_semi_transparent', bt)
 
         # light Bishop + light Shaman
 
@@ -530,9 +472,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Unicorn is transparent to Shamans
 
-    def scn_cot_012_unicorn_is_transparent_to_shamans(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_013_unicorn_is_transparent_to_shamans(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_012_unicorn_is_transparent_to_shamans', bt)
+        scene = Scene('scn_cot_013_unicorn_is_transparent_to_shamans', bt)
 
         # light Bishop + light Unicorn
 
@@ -602,9 +544,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Teleporting Shaman
 
-    def scn_cot_013_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_014_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_013_teleport_shaman_all', bt)
+        scene = Scene('scn_cot_014_teleport_shaman_all', bt)
 
         start_H_A = (9, 17)
         start_T = (0, 23)
@@ -661,9 +603,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Teleporting Pawn
 
-    def scn_cot_014_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_015_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_014_teleport_pawn_init', bt)
+        scene = Scene('scn_cot_015_teleport_pawn_init', bt)
 
         start_T = (0, 23)
         start_P = (1, 22)
