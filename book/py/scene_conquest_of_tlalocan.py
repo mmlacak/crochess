@@ -487,6 +487,24 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_013_shaman_not_transparent_to_opponents_pieces( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', bt, width=9.4, height=6.4 )
+
+        start_H = (5, 4)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_b = (2, 1)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        coords = GS.gen_steps( start=start_b, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Legal if i < 2 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        return scene
+
 
 
     #
