@@ -505,7 +505,23 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_014_shaman_transparent_to_opponents_shaman( self, bt=BoardType.ConquestOfTlalocan ):
 
+        scene = Scene( 'scn_cot_014_shaman_transparent_to_opponents_shaman', bt, width=9.4, height=6.4 )
+
+        start_H = (4, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_h = (0, 1)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        coords = GS.gen_steps( start=start_h, rels=[ (2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        return scene
 
     #
     # Unicorn is transparent to Shamans
