@@ -43,5 +43,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_008_dark_shaman_capture_ply', \
                     # 'scn_cot_009_dark_shaman_capture_ply_passives', \
                     # 'scn_cot_010_activating_wave_step_field', \
-                    'scn_cot_011_activating_wave_capture_field', \
+                    # 'scn_cot_011_activating_wave_capture_field', \
+                    'scn_cot_012_shaman_transparent_to_own_pieces', \
                 ]
