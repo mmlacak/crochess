@@ -416,72 +416,19 @@ class SceneConquestOfTlalocanMixin:
     #
     # Shaman is semi-transparent
 
-    # def scn_cot_012_shaman_is_semi_transparent(self, bt=BoardType.ConquestOfTlalocan):
-
-    #     scene = Scene('scn_cot_012_shaman_is_semi_transparent', bt)
-
-    #     # light Bishop + light Shaman
-
-    #     start_H_A = (20, 5)
-    #     scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
-
-    #     start_B = (16, 1)
-    #     scene.board.set_piece( *start_B, piece=PieceType.Bishop )
-
-    #     coords = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
-    #     for i, arr in enumerate( coords() ):
-    #         mark_type = MarkType.Blocked if i == 3 else \
-    #                     MarkType.Legal
-    #         scene.append_arrow( *arr, mark_type=mark_type )
-
-    #     # dark Bishop + light Shaman
-
-    #     start_H_B = (3, 18)
-    #     scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
-
-    #     start_b = (7, 22)
-    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
-
-    #     coords = GS.gen_steps( start=start_b, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
-    #     for i, arr in enumerate( coords() ):
-    #         mark_type = MarkType.Legal if i < 3 else \
-    #                     MarkType.Action if i == 3 else \
-    #                     MarkType.Blocked
-    #         scene.append_arrow( *arr, mark_type=mark_type )
-
-    #     # dark Shaman + light Shaman
-
-    #     start_H_C = (17, 18)
-    #     scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
-
-    #     start_h = (11, 14)
-    #     scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
-
-    #     coords = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
-    #     for i, arr in enumerate( coords() ):
-    #         mark_type = MarkType.Action if i == 1 else \
-    #                     MarkType.Legal
-    #         scene.append_arrow( *arr, mark_type=mark_type )
-
-    #     scene.append_text( "A", *start_H_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-    #     scene.append_text( "B", *start_H_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-    #     scene.append_text( "C", *start_H_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-
-    #     return scene
-
     def scn_cot_012_shaman_transparent_to_own_pieces( self, bt=BoardType.ConquestOfTlalocan ):
 
         scene = Scene( 'scn_cot_012_shaman_transparent_to_own_pieces', bt, width=9.4, height=6.4 )
 
-        start_H = (5, 4)
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
-
         start_B = (2, 1)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
+        start_H = (4, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
         coords = GS.gen_steps( start=start_B, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
         for i, arr in enumerate( coords() ):
-            mark_type = MarkType.Blocked if i == 2 else \
+            mark_type = MarkType.Blocked if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arr, mark_type=mark_type )
 
@@ -491,16 +438,16 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene( 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', bt, width=9.4, height=6.4 )
 
-        start_H = (5, 4)
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
-
         start_b = (2, 1)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
+        start_H = (4, 3)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
         coords = GS.gen_steps( start=start_b, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
         for i, arr in enumerate( coords() ):
-            mark_type = MarkType.Legal if i < 2 else \
-                        MarkType.Action if i == 2 else \
+            mark_type = MarkType.Legal if i < 1 else \
+                        MarkType.Action if i == 1 else \
                         MarkType.Blocked
             scene.append_arrow( *arr, mark_type=mark_type )
 
