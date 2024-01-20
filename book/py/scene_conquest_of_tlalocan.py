@@ -474,81 +474,158 @@ class SceneConquestOfTlalocanMixin:
     #
     # Unicorn is transparent to Shamans
 
-    def scn_cot_013_unicorn_is_transparent_to_shamans(self, bt=BoardType.ConquestOfTlalocan):
+    # TODO :: DELETE
+    #
+    # def scn_cot_015_unicorn_is_transparent_to_own_shaman(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_013_unicorn_is_transparent_to_shamans', bt)
+    #     scene = Scene('scn_cot_015_unicorn_is_transparent_to_own_shaman', bt)
 
-        # light Bishop + light Unicorn
+    #     # light Bishop + light Unicorn
 
-        start_U_A = (20, 5)
-        scene.board.set_piece( *start_U_A, piece=PieceType.Unicorn )
+    #     start_U_A = (20, 5)
+    #     scene.board.set_piece( *start_U_A, piece=PieceType.Unicorn )
 
-        start_B = (16, 1)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+    #     start_B = (16, 1)
+    #     scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        coords = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
-        for i, arr in enumerate( coords() ):
-            mark_type = MarkType.Legal if i < 3 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arr, mark_type=mark_type )
+    #     coords = GS.gen_steps( start=start_B, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+    #     for i, arr in enumerate( coords() ):
+    #         mark_type = MarkType.Legal if i < 3 else \
+    #                     MarkType.Blocked
+    #         scene.append_arrow( *arr, mark_type=mark_type )
 
-        # dark Bishop + light Unicorn
+    #     # dark Bishop + light Unicorn
 
-        start_U_B = (3, 18)
-        scene.board.set_piece( *start_U_B, piece=PieceType.Unicorn )
+    #     start_U_B = (3, 18)
+    #     scene.board.set_piece( *start_U_B, piece=PieceType.Unicorn )
 
-        start_b = (7, 22)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+    #     start_b = (7, 22)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        coords = GS.gen_steps( start=start_b, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
-        for i, arr in enumerate( coords() ):
-            mark_type = MarkType.Legal if i < 3 else \
-                        MarkType.Action if i == 3 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arr, mark_type=mark_type )
+    #     coords = GS.gen_steps( start=start_b, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+    #     for i, arr in enumerate( coords() ):
+    #         mark_type = MarkType.Legal if i < 3 else \
+    #                     MarkType.Action if i == 3 else \
+    #                     MarkType.Blocked
+    #         scene.append_arrow( *arr, mark_type=mark_type )
 
-        # dark Shaman + light Unicorn
+    #     # dark Shaman + light Unicorn
 
-        start_U_C = (17, 18)
-        scene.board.set_piece( *start_U_C, piece=PieceType.Unicorn )
+    #     start_U_C = (17, 18)
+    #     scene.board.set_piece( *start_U_C, piece=PieceType.Unicorn )
 
-        start_h = (11, 14)
-        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+    #     start_h = (11, 14)
+    #     scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
 
-        coords = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
-        for i, arr in enumerate( coords() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mark_type )
+    #     coords = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+    #     for i, arr in enumerate( coords() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arr, mark_type=mark_type )
 
-        # light Shaman + light Unicorn
+    #     # light Shaman + light Unicorn
 
-        start_U_D = (5, 4)
-        scene.board.set_piece( *start_U_D, piece=PieceType.Unicorn )
+    #     start_U_D = (5, 4)
+    #     scene.board.set_piece( *start_U_D, piece=PieceType.Unicorn )
 
-        start_H = (9, 2)
+    #     start_H = (9, 2)
+    #     scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+    #     coords = GS.gen_steps( start=start_H, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+    #     for i, arr in enumerate( coords() ):
+    #         mark_type = MarkType.Legal if i < 1 else \
+    #                     MarkType.Blocked if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arr, mark_type=mark_type )
+
+    #     scene.append_text( "A", *start_U_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+    #     scene.append_text( "B", *start_U_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+    #     scene.append_text( "C", *start_U_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+    #     scene.append_text( "D", *start_U_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+    #     return scene
+    #
+    # TODO :: DELETE
+
+    def scn_cot_015_unicorn_is_transparent_to_own_shaman( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_015_unicorn_is_transparent_to_own_shaman', bt, width=9.4, height=3.4 )
+
+        start_H = (0, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        coords = GS.gen_steps( start=start_H, rels=[(-2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        start_U = (4, 1)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        coords = GS.gen_steps( start=start_H, rels=[ (4, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
         for i, arr in enumerate( coords() ):
-            mark_type = MarkType.Legal if i < 1 else \
-                        MarkType.Blocked if i == 1 else \
+            mark_type = MarkType.Blocked if i == 0 else \
                         MarkType.Legal
             scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_U_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_U_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_U_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "D", *start_U_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        return scene
+
+    def scn_cot_016_unicorn_is_transparent_to_opponents_shaman( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_016_unicorn_is_transparent_to_opponents_shaman', bt, width=9.4, height=3.4 )
+
+        start_h = (1, 0)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_U = (3, 1)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        coords = GS.gen_steps( start=start_h, rels=[ (2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 0 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        return scene
+
+    def scn_cot_017_unicorn_is_opaque_to_own_pieces( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_017_unicorn_is_opaque_to_own_pieces', bt, width=9.4, height=4.4 )
+
+        start_E = (1, 0)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+
+        start_U = (5, 2)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        coords = GS.gen_steps( start=start_E, rels=[ (2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Legal if i < 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        return scene
+
+    def scn_cot_018_unicorn_is_opaque_to_opponents_pieces( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_018_unicorn_is_opaque_to_opponents_pieces', bt, width=9.4, height=4.4 )
+
+        start_e = (1, 0)
+        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+
+        start_U = (5, 2)
+        scene.board.set_piece( *start_U, piece=PieceType.Unicorn )
+
+        coords = GS.gen_steps( start=start_e, rels=[ (2, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Legal if i < 1 else \
+                        MarkType.Action if i == 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         return scene
 
     #
     # Teleporting Shaman
 
-    def scn_cot_014_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_019_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_014_teleport_shaman_all', bt)
+        scene = Scene('scn_cot_019_teleport_shaman_all', bt)
 
         start_H_A = (9, 17)
         start_T = (0, 23)
@@ -605,9 +682,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Teleporting Pawn
 
-    def scn_cot_015_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_020_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_015_teleport_pawn_init', bt)
+        scene = Scene('scn_cot_020_teleport_pawn_init', bt)
 
         start_T = (0, 23)
         start_P = (1, 22)
@@ -639,6 +716,8 @@ class SceneConquestOfTlalocanMixin:
 
     #
     # Divergence
+
+    # TODO :: reindex
 
     def scn_cot_020_own_shaman_is_divergent_init(self, bt=BoardType.ConquestOfTlalocan):
 
