@@ -45,6 +45,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_010_activating_wave_step_field', \
                     # 'scn_cot_011_activating_wave_capture_field', \
                     # 'scn_cot_012_shaman_transparent_to_own_pieces', \
-                    # 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
-                    'scn_cot_014_shaman_transparent_to_opponents_shaman', \
+                    'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
+                    # 'scn_cot_014_shaman_transparent_to_opponents_shaman', \
                 ]
