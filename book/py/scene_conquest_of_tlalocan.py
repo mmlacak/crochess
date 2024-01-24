@@ -1471,7 +1471,27 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_045_diverging_capturing_shaman( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_045_diverging_capturing_shaman', bt )
+        scene = Scene( 'scn_cot_045_diverging_capturing_shaman', bt, x=9, y=11, width=9, height=7 )
+
+        start_H_A_divergent = (10, 12)
+        scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
+
+        start_n = (13, 14)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_H_C = (16, 16)
+        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
+
+        # H(C) --> H(A) divergence
+        coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[ (-3, -2), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_HC_H1() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "C", *start_H_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
 
         return scene
 
