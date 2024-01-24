@@ -1388,57 +1388,90 @@ class SceneConquestOfTlalocanMixin:
     #
     #  Diverging Shaman
 
-    def scn_cot_044_diverging_shaman_init(self, bt=BoardType.ConquestOfTlalocan):
+    # TODO :: DELETE
+    #
+    # def scn_cot_044_diverging_stepping_shaman(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_044_diverging_shaman_init', bt)
+    #     scene = Scene('scn_cot_044_diverging_stepping_shaman', bt)
 
-        start_H_A = (4, 9)
-        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
+    #     start_H_A = (4, 9)
+    #     scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
 
-        start_H_B = (11, 10)
+    #     start_H_B = (11, 10)
+    #     scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
+
+    #     start_H_C = (22, 15)
+    #     scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
+
+    #     start_H_D = (7, 14)
+    #     scene.board.set_piece( *start_H_D, piece=PieceType.Shaman )
+
+    #     start_H_1 = (10, 12)
+    #     scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
+
+    #     start_p = (14, 13)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+    #     start_n = (18, 14)
+    #     scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+    #     # H(A) --> H(1)
+    #     coords_HA_H1 = GS.gen_steps( start=start_H_A, rels=[(2, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+    #     for i, arrow in enumerate( coords_HA_H1() ):
+    #         mark_type = MarkType.Action if i == 2 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
+
+    #     # H(B) --> H(1)
+    #     scene.append_arrow( *(start_H_B + start_H_1), mark_type=MarkType.Action )
+
+    #     # H(C) --> H(1)
+    #     coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[(-4, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+
+    #     for i, arrow in enumerate( coords_HC_H1() ):
+    #         mark_type = MarkType.Action if i == 2 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
+
+    #     # H(D) --> H(1)
+    #     scene.append_arrow( *(start_H_D + start_H_1), mark_type=MarkType.Action )
+
+    #     scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+    #     scene.append_text( "B", *start_H_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
+    #     scene.append_text( "C", *start_H_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
+    #     scene.append_text( "D", *start_H_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+    #     return scene
+    #
+    # TODO :: DELETE
+
+    def scn_cot_044_diverging_stepping_shaman( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_044_diverging_stepping_shaman', bt, x=3, y=8, width=9, height=6 )
+
+        start_H_A_divergent = (10, 12)
+        scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
+
+        start_H_B = (4, 9)
         scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
 
-        start_H_C = (22, 15)
-        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
+        # H(B) --> H(A) divergent
+        coords_HB_HA = GS.gen_steps( start=start_H_B, rels=[ (2, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
-        start_H_D = (7, 14)
-        scene.board.set_piece( *start_H_D, piece=PieceType.Shaman )
-
-        start_H_1 = (10, 12)
-        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
-
-        start_p = (14, 13)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        start_n = (18, 14)
-        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-        # H(A) --> H(1)
-        coords_HA_H1 = GS.gen_steps( start=start_H_A, rels=[(2, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_HA_H1() ):
+        for i, arrow in enumerate( coords_HB_HA() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # H(B) --> H(1)
-        scene.append_arrow( *(start_H_B + start_H_1), mark_type=MarkType.Action )
+        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
 
-        # H(C) --> H(1)
-        coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[(-4, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
+        return scene
 
-        for i, arrow in enumerate( coords_HC_H1() ):
-            mark_type = MarkType.Action if i == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    def scn_cot_045_diverging_capturing_shaman( self, bt=BoardType.ConquestOfTlalocan ):
 
-        # H(D) --> H(1)
-        scene.append_arrow( *(start_H_D + start_H_1), mark_type=MarkType.Action )
-
-        scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
-        scene.append_text( "B", *start_H_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
-        scene.append_text( "C", *start_H_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
-        scene.append_text( "D", *start_H_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene = Scene( 'scn_cot_045_diverging_capturing_shaman', bt )
 
         return scene
 
