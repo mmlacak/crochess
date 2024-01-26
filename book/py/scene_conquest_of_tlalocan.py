@@ -1471,22 +1471,25 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_045_diverging_capturing_shaman( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_045_diverging_capturing_shaman', bt, x=9, y=11, width=9, height=7 )
+        scene = Scene( 'scn_cot_045_diverging_capturing_shaman', bt, x=9, y=11, width=9, height=12 )
 
         start_H_A_divergent = (10, 12)
         scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
 
-        start_n = (13, 14)
+        start_n = (12, 15)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_H_C = (16, 16)
+        start_b = (14, 18)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_H_C = (16, 21)
         scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
 
         # H(C) --> H(A) divergence
-        coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[ (-3, -2), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
+        coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[ (-2, -3), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_HC_H1() ):
-            mark_type = MarkType.Action if i == 1 else \
+            mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -1499,32 +1502,40 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_046_diverged_shaman_steps', bt)
 
-        start_H_1 = (10, 12)
-        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
+        start_H_A_divergent = (10, 12)
+        scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
+
+        start_n = (14, 10)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
         start_A = (6, 14)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        start_W_B = (11, 10)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_W = (12, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         # | <-- H @ W --> |
         for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
-            coords_H_ = GS.gen_steps( start=start_H_1, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_H_ = GS.gen_steps( start=start_H_A_divergent, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_H_() ):
                 if diverge == 3:
-                    mark_type = MarkType.Action if i == 0 else \
+                    mark_type = MarkType.Legal if i < 1 else \
+                                MarkType.Blocked
+                elif diverge == 6:
+                    mark_type = MarkType.Action if i == 1 else \
+                                MarkType.Legal if i < 3 else \
+                                MarkType.Blocked
+                elif diverge == 7:
+                    mark_type = MarkType.Legal if i < 1 else \
                                 MarkType.Illegal if i == 1 else \
                                 MarkType.Blocked
                 else:
-                    mark_type = MarkType.Action if i == 0 else \
-                                MarkType.Legal if i < 3 else \
+                    mark_type = MarkType.Legal if i < 3 else \
                                 MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 

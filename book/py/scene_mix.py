@@ -34,24 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_002_light_shaman_step_ply', \
-                    # 'scn_cot_003_light_shaman_step_ply_no_capture', \
-                    # 'scn_cot_004_light_shaman_capture_ply', \
-                    # 'scn_cot_005_light_shaman_capture_ply_passives', \
-                    # 'scn_cot_006_dark_shaman_step_ply', \
-                    # 'scn_cot_007_dark_shaman_step_ply_no_capture', \
-                    # 'scn_cot_008_dark_shaman_capture_ply', \
-                    # 'scn_cot_009_dark_shaman_capture_ply_passives', \
-                    # 'scn_cot_010_activating_wave_step_field', \
-                    # 'scn_cot_011_activating_wave_capture_field', \
-                    # 'scn_cot_012_shaman_transparent_to_own_pieces', \
-                    # 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
-                    # 'scn_cot_014_shaman_transparent_to_opponents_shaman', \
-                    # 'scn_cot_015_unicorn_is_transparent_to_own_shaman', \
-                    # 'scn_cot_016_unicorn_is_transparent_to_opponents_shaman', \
-                    # 'scn_cot_017_unicorn_is_opaque_to_own_pieces', \
-                    # 'scn_cot_018_unicorn_is_opaque_to_opponents_pieces', \
-
                     # 'scn_cot_044_diverging_stepping_shaman', \
                     'scn_cot_045_diverging_capturing_shaman', \
+                    'scn_cot_046_diverged_shaman_steps', \
                 ]
