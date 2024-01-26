@@ -35,6 +35,6 @@ class SceneMix(SceneMixin, \
     def _get_recent_scene_method_names(self):
         return  [
                     # 'scn_cot_044_diverging_stepping_shaman', \
-                    'scn_cot_045_diverging_capturing_shaman', \
+                    # 'scn_cot_045_diverging_capturing_shaman', \
                     'scn_cot_046_diverged_shaman_steps', \
                 ]

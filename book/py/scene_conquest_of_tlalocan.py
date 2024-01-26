@@ -1388,64 +1388,6 @@ class SceneConquestOfTlalocanMixin:
     #
     #  Diverging Shaman
 
-    # TODO :: DELETE
-    #
-    # def scn_cot_044_diverging_stepping_shaman(self, bt=BoardType.ConquestOfTlalocan):
-
-    #     scene = Scene('scn_cot_044_diverging_stepping_shaman', bt)
-
-    #     start_H_A = (4, 9)
-    #     scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
-
-    #     start_H_B = (11, 10)
-    #     scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
-
-    #     start_H_C = (22, 15)
-    #     scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
-
-    #     start_H_D = (7, 14)
-    #     scene.board.set_piece( *start_H_D, piece=PieceType.Shaman )
-
-    #     start_H_1 = (10, 12)
-    #     scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
-
-    #     start_p = (14, 13)
-    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-    #     start_n = (18, 14)
-    #     scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-    #     # H(A) --> H(1)
-    #     coords_HA_H1 = GS.gen_steps( start=start_H_A, rels=[(2, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
-
-    #     for i, arrow in enumerate( coords_HA_H1() ):
-    #         mark_type = MarkType.Action if i == 2 else \
-    #                     MarkType.Legal
-    #         scene.append_arrow( *arrow, mark_type=mark_type )
-
-    #     # H(B) --> H(1)
-    #     scene.append_arrow( *(start_H_B + start_H_1), mark_type=MarkType.Action )
-
-    #     # H(C) --> H(1)
-    #     coords_HC_H1 = GS.gen_steps( start=start_H_C, rels=[(-4, -1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
-
-    #     for i, arrow in enumerate( coords_HC_H1() ):
-    #         mark_type = MarkType.Action if i == 2 else \
-    #                     MarkType.Legal
-    #         scene.append_arrow( *arrow, mark_type=mark_type )
-
-    #     # H(D) --> H(1)
-    #     scene.append_arrow( *(start_H_D + start_H_1), mark_type=MarkType.Action )
-
-    #     scene.append_text( "A", *start_H_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
-    #     scene.append_text( "B", *start_H_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
-    #     scene.append_text( "C", *start_H_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
-    #     scene.append_text( "D", *start_H_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
-
-    #     return scene
-    #
-    # TODO :: DELETE
-
     def scn_cot_044_diverging_stepping_shaman( self, bt=BoardType.ConquestOfTlalocan ):
 
         scene = Scene( 'scn_cot_044_diverging_stepping_shaman', bt, x=3, y=8, width=9, height=6 )
@@ -1498,21 +1440,68 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    # def scn_cot_046_diverged_shaman_steps(self, bt=BoardType.ConquestOfTlalocan):
+
+    #     scene = Scene('scn_cot_046_diverged_shaman_steps', bt)
+
+    #     start_H_A_divergent = (10, 12)
+    #     scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
+
+    #     start_n = (14, 10)
+    #     scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+    #     start_A = (6, 14)
+    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+    #     start_W = (12, 8)
+    #     scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+    #     # | <-- H @ W --> |
+    #     for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+    #         coords_H_ = GS.gen_steps( start=start_H_A_divergent, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+    #         for i, arrow in enumerate( coords_H_() ):
+    #             if diverge == 3:
+    #                 mark_type = MarkType.Legal if i < 1 else \
+    #                             MarkType.Blocked
+    #             elif diverge == 6:
+    #                 mark_type = MarkType.Action if i == 1 else \
+    #                             MarkType.Legal if i < 3 else \
+    #                             MarkType.Blocked
+    #             elif diverge == 7:
+    #                 mark_type = MarkType.Legal if i < 1 else \
+    #                             MarkType.Illegal if i == 1 else \
+    #                             MarkType.Blocked
+    #             else:
+    #                 mark_type = MarkType.Legal if i < 3 else \
+    #                             MarkType.Blocked
+    #             scene.append_arrow( *arrow, mark_type=mark_type )
+
+    #     scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+    #     return scene
+
     def scn_cot_046_diverged_shaman_steps(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_046_diverged_shaman_steps', bt)
 
-        start_H_A_divergent = (10, 12)
+        start_H_A_divergent = (9, 7)
         scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
 
-        start_n = (14, 10)
+        start_n = (11, 3) # (13, 5)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_A = (6, 14)
+        start_A = (5, 9)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        start_W = (12, 8)
+        start_W = (13, 5) # (11, 3)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # fixed set
+        scene.board.set_piece(0, 0, piece=PieceType.Star)
+        scene.board.set_piece(23, 23, piece=PieceType.Star)
+        scene.board.set_piece(23, 0, piece=-PieceType.Star)
+        scene.board.set_piece(0, 23, piece=-PieceType.Star)
 
         # | <-- H @ W --> |
         for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
@@ -1522,13 +1511,13 @@ class SceneConquestOfTlalocanMixin:
                 if diverge == 3:
                     mark_type = MarkType.Legal if i < 1 else \
                                 MarkType.Blocked
-                elif diverge == 6:
-                    mark_type = MarkType.Action if i == 1 else \
-                                MarkType.Legal if i < 3 else \
-                                MarkType.Blocked
-                elif diverge == 7:
+                elif diverge == 6: # 7
                     mark_type = MarkType.Legal if i < 1 else \
                                 MarkType.Illegal if i == 1 else \
+                                MarkType.Blocked
+                elif diverge == 7: # 6
+                    mark_type = MarkType.Action if i == 1 else \
+                                MarkType.Legal if i < 3 else \
                                 MarkType.Blocked
                 else:
                     mark_type = MarkType.Legal if i < 3 else \
