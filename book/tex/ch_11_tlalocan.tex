@@ -752,7 +752,7 @@ route to its destination field.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_044_diverging_stepping_shaman.png}
 \vspace*{-0.4\baselineskip}
@@ -763,20 +763,24 @@ Shaman can diverge from own Shaman, regardless if it has been moving over ordina
 or capture-steps; similar to
 \hyperref[fig:scn_cot_034_diverging_pawn_init]{diverging Pawns}. \newline
 \indent
-Shaman can choose any ordinary or capture-step as its new direction of movement,
-regardless how it moved prior to divergence.
+Kind of steps before and after divergence do not need to match; Shaman can choose
+any ordinary or capture-step as its new direction of movement, regardless how it
+moved prior to divergence.
 
 % \vspace*{-0.7\baselineskip}
 % \vspace*{7.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.375\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_045_diverging_capturing_shaman.png}
 \vspace*{-0.4\baselineskip}
 \caption{Capturing Shaman}
 \label{fig:scn_cot_045_diverging_capturing_shaman}
 \end{wrapfigure}
-. . .
+After divergence, Shaman is using momentum for movement, and so is limited by momentum
+it had when encountered diverging Shaman. \newline
+\indent
+Shaman without momentum cannot diverge.
 
 \vspace*{9.7\baselineskip}
 \TODO :: simplify
