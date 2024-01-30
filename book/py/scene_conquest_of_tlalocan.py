@@ -1503,7 +1503,7 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece(23, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 23, piece=-PieceType.Star)
 
-        # | <-- H @ W --> |
+        # | <-- H(B|C) @ H(A) --> |
         for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
             coords_H_ = GS.gen_steps( start=start_H_A_divergent, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
@@ -1532,50 +1532,53 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_047_diverged_shaman_captures', bt)
 
-        start_H_1 = (10, 12)
-        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
+        start_H_A_divergent = (9, 7)
+        scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
 
         # dark Pawns @ H(1) ---> (3, 2)
-        coords_p_ = GS.gen_steps( start=start_H_1, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
-
+        coords_p_ = GS.gen_steps( start=start_H_A_divergent, rels=[ (-2, 3), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
         for i, coord in enumerate( coords_p_() ):
             scene.board.set_piece( *coord, piece=-PieceType.Pawn )
-            scene.append_text( str( i+1 ), *coord, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+            # scene.append_text( str( i+1 ), *coord, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
-        start_n = (7, 14)
+        start_n = (12, 5)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_A = (4, 16)
+        start_A = (15, 3)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        start_W_B = (11, 8)
+        start_W_B = (10, 3)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_W_C = (8, 4)
+        start_W_C = (3, 11)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        # | <-- H @ W --> |
+        # | <-- H(B|C) @ H(A) --> |
         for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
-            coords_H_ = GS.gen_steps( start=start_H_1, rels=[rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+            coords_H_ = GS.gen_steps( start=start_H_A_divergent, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
             for i, arrow in enumerate( coords_H_() ):
-                if diverge == 1:
-                    mark_type = MarkType.Action if i == 0 else \
-                                MarkType.Legal if i < 3 else \
+                if diverge == 5:
+                    mark_type = MarkType.Legal if i < 3 else \
                                 MarkType.Blocked
-                elif diverge == 6:
-                    mark_type = MarkType.Action if i == 0 else \
-                                MarkType.Legal if i < 2 else \
-                                MarkType.Blocked
+                # elif diverge == 6:
+                #     mark_type = MarkType.Action if i == 0 else \
+                #                 MarkType.Legal if i < 2 else \
+                #                 MarkType.Blocked
                 elif diverge == 12:
                     mark_type = MarkType.Action if i == 0 else \
+                                MarkType.Blocked
+                elif diverge == 14:
+                    mark_type = MarkType.Action if i == 1 else \
+                                MarkType.Legal if i < 2 else \
                                 MarkType.Blocked
                 else:
                     mark_type = MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
+        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
-        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
