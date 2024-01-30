@@ -1440,46 +1440,8 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    # def scn_cot_046_diverged_shaman_steps(self, bt=BoardType.ConquestOfTlalocan):
-
-    #     scene = Scene('scn_cot_046_diverged_shaman_steps', bt)
-
-    #     start_H_A_divergent = (10, 12)
-    #     scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
-
-    #     start_n = (14, 10)
-    #     scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-    #     start_A = (6, 14)
-    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
-
-    #     start_W = (12, 8)
-    #     scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-    #     # | <-- H @ W --> |
-    #     for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
-    #         coords_H_ = GS.gen_steps( start=start_H_A_divergent, rels=[ rel, ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-
-    #         for i, arrow in enumerate( coords_H_() ):
-    #             if diverge == 3:
-    #                 mark_type = MarkType.Legal if i < 1 else \
-    #                             MarkType.Blocked
-    #             elif diverge == 6:
-    #                 mark_type = MarkType.Action if i == 1 else \
-    #                             MarkType.Legal if i < 3 else \
-    #                             MarkType.Blocked
-    #             elif diverge == 7:
-    #                 mark_type = MarkType.Legal if i < 1 else \
-    #                             MarkType.Illegal if i == 1 else \
-    #                             MarkType.Blocked
-    #             else:
-    #                 mark_type = MarkType.Legal if i < 3 else \
-    #                             MarkType.Blocked
-    #             scene.append_arrow( *arrow, mark_type=mark_type )
-
-    #     scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-
-    #     return scene
+    #
+    # ... into stepping divergence
 
     def scn_cot_046_diverged_shaman_steps(self, bt=BoardType.ConquestOfTlalocan):
 
@@ -1498,10 +1460,10 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         # fixed set
-        scene.board.set_piece(0, 0, piece=PieceType.Star)
-        scene.board.set_piece(23, 23, piece=PieceType.Star)
-        scene.board.set_piece(23, 0, piece=-PieceType.Star)
-        scene.board.set_piece(0, 23, piece=-PieceType.Star)
+        scene.board.set_piece( 0, 0, piece=PieceType.Star )
+        scene.board.set_piece( 23, 23, piece=PieceType.Star )
+        scene.board.set_piece( 23, 0, piece=-PieceType.Star )
+        scene.board.set_piece( 0, 23, piece=-PieceType.Star )
 
         # | <-- H(B|C) @ H(A) --> |
         for diverge, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
@@ -1528,6 +1490,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    #
+    # ... into capturing divergence
+
     def scn_cot_047_diverged_shaman_captures(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_047_diverged_shaman_captures', bt)
@@ -1552,6 +1517,12 @@ class SceneConquestOfTlalocanMixin:
 
         start_W_C = (3, 11)
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # fixed set
+        scene.board.set_piece( 0, 0, piece=PieceType.Star )
+        scene.board.set_piece( 23, 23, piece=PieceType.Star )
+        scene.board.set_piece( 23, 0, piece=-PieceType.Star )
+        scene.board.set_piece( 0, 23, piece=-PieceType.Star )
 
         # | <-- H(B|C) @ H(A) --> |
         for diverge, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
@@ -1583,11 +1554,20 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # ... if activated
+
+    def scn_cot_048_diverging_activated_shaman( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_048_diverging_activated_shaman', bt )
+
+        return scene
+
+    #
     # ... from opponent's Shaman
 
-    def scn_cot_048_diverging_shaman_from_opponents(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_048_diverging_shaman_from_opponents( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene('scn_cot_048_diverging_shaman_from_opponents', bt)
+        scene = Scene( 'scn_cot_048_diverging_shaman_from_opponents', bt )
 
         start_H = (2, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
@@ -1596,7 +1576,7 @@ class SceneConquestOfTlalocanMixin:
         scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
 
         # dark Pawns @ h ---> (3, 2)
-        coords_p_ = GS.gen_steps( start=start_h, rels=[(3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
+        coords_p_ = GS.gen_steps( start=start_h, rels=[ (3, 2), ], include_prev=False, bounds=scene.board_view.get_position_limits() )
 
         index = 1
         for i, coord in enumerate( coords_p_() ):
