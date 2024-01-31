@@ -1509,14 +1509,14 @@ class SceneConquestOfTlalocanMixin:
         start_n = (12, 5)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_A = (15, 3)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+        start_A_D = (15, 3)
+        scene.board.set_piece( *start_A_D, piece=PieceType.Pyramid )
 
-        start_W_B = (10, 3)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+        start_A_E = (10, 3)
+        scene.board.set_piece( *start_A_E, piece=PieceType.Pyramid )
 
-        start_W_C = (3, 11)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+        start_W = (3, 11)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         # fixed set
         scene.board.set_piece( 0, 0, piece=PieceType.Star )
@@ -1548,8 +1548,8 @@ class SceneConquestOfTlalocanMixin:
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
         scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
-        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_A_D, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "E", *start_A_E, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         return scene
 
