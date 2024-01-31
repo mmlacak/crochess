@@ -37,5 +37,6 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_044_diverging_stepping_shaman', \
                     # 'scn_cot_045_diverging_capturing_shaman', \
                     # 'scn_cot_046_diverged_shaman_steps', \
-                    'scn_cot_047_diverged_shaman_captures', \
+                    # 'scn_cot_047_diverged_shaman_captures', \
+                    'scn_cot_048_diverging_activated_shaman', \
                 ]
