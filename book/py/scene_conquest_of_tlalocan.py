@@ -1625,12 +1625,6 @@ class SceneConquestOfTlalocanMixin:
         start_H_A_divergent = (5, 3)
         scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
 
-        # start_n = (3, 6)
-        # scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-        # start_b = (1, 9)
-        # scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
-
         # R --> W
         coords_R_W = GS.gen_steps( start=start_R, rels=[ (0, -1), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_R_W() ):
@@ -1651,11 +1645,6 @@ class SceneConquestOfTlalocanMixin:
             mark_type = MarkType.Illegal if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # H(B) @ H(A) divergent --> ->|
-        # coords_HB_HA = GS.gen_steps( start=start_H_A_divergent, rels=[ (-2, 3), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
-        # for i, arrow in enumerate( coords_HB_HA() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Illegal )
         scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
