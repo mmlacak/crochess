@@ -1609,6 +1609,59 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_049_cannot_diverge_activated_shaman( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_049_cannot_diverge_activated_shaman', bt, width=9, height=5 ) # , x=9, y=11
+
+        start_R = (7, 3)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_W = (7, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_H_B = (1, 1)
+        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
+
+        start_H_A_divergent = (5, 3)
+        scene.board.set_piece( *start_H_A_divergent, piece=PieceType.Shaman )
+
+        # start_n = (3, 6)
+        # scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        # start_b = (1, 9)
+        # scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        # R --> W
+        coords_R_W = GS.gen_steps( start=start_R, rels=[ (0, -1), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
+        for i, arrow in enumerate( coords_R_W() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> H(B)
+        coords_W_HB = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
+        for i, arrow in enumerate( coords_W_HB() ):
+            mark_type = MarkType.Action if i == 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # H(B) --> H(A) divergent
+        coords_HB_HA = GS.gen_steps( start=start_H_B, rels=[ (2, 1), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
+        for i, arrow in enumerate( coords_HB_HA() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # H(B) @ H(A) divergent --> ->|
+        # coords_HB_HA = GS.gen_steps( start=start_H_A_divergent, rels=[ (-2, 3), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
+        # for i, arrow in enumerate( coords_HB_HA() ):
+        #     scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Illegal )
+        scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
+
+        return scene
+
     #
     # ... from opponent's Shaman
 
