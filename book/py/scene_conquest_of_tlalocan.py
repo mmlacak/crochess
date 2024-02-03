@@ -471,9 +471,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_015_shaman_transparency_invalid( self, bt=BoardType.ConquestOfTlalocan ):
+    def scn_cot_015_shaman_transparency_not_heeded_while_capturing( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_015_shaman_transparency_invalid', bt, y=1.0, width=9.4, height=5.4 )
+        scene = Scene( 'scn_cot_015_shaman_transparency_not_heeded_while_capturing', bt, y=1.0, width=9.4, height=5.4 )
 
         start_B = (6, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )

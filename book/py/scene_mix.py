@@ -37,5 +37,5 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_012_shaman_transparent_to_own_pieces', \
                     # 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
                     'scn_cot_014_shaman_transparent_to_opponents_shaman', \
-                    'scn_cot_015_shaman_transparency_invalid', \
+                    'scn_cot_015_shaman_transparency_not_heeded_while_capturing', \
                 ]
