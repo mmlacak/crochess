@@ -1642,11 +1642,11 @@ class SceneConquestOfTlalocanMixin:
         # H(B) --> H(A) divergent
         coords_HB_HA = GS.gen_steps( start=start_H_B, rels=[ (2, 1), ], include_prev=True, count=2 ) # bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_HB_HA() ):
-            mark_type = MarkType.Illegal if i == 1 else \
+            mark_type = MarkType.Blocked if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Illegal )
+        scene.append_text( "A", *start_H_A_divergent, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Legal )
 
         return scene
