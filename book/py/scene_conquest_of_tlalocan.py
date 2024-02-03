@@ -418,12 +418,12 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_012_shaman_transparent_to_own_pieces( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_012_shaman_transparent_to_own_pieces', bt, width=9.4, height=6.4 )
+        scene = Scene( 'scn_cot_012_shaman_transparent_to_own_pieces', bt, width=9.4, height=4.4 )
 
-        start_B = (2, 1)
+        start_B = (1, 0)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_H = (4, 3)
+        start_H = (3, 2)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         coords = GS.gen_steps( start=start_B, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )
@@ -436,12 +436,12 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_013_shaman_not_transparent_to_opponents_pieces( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', bt, width=9.4, height=6.4 )
+        scene = Scene( 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', bt, width=9.4, height=4.4 )
 
-        start_b = (2, 1)
+        start_b = (1, 0)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
-        start_H = (4, 3)
+        start_H = (3, 2)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         coords = GS.gen_steps( start=start_b, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # count=4 )

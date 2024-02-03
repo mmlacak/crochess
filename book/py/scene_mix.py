@@ -34,11 +34,7 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_cot_014_shaman_transparent_to_opponents_shaman', \
-                    # 'scn_cot_044_diverging_stepping_shaman', \
-                    # 'scn_cot_045_diverging_capturing_shaman', \
-                    # 'scn_cot_046_diverged_shaman_steps', \
-                    # 'scn_cot_047_diverged_shaman_captures', \
-                    # 'scn_cot_048_diverging_activated_shaman', \
-                    # 'scn_cot_049_cannot_diverge_activated_shaman', \
+                    'scn_cot_012_shaman_transparent_to_own_pieces', \
+                    'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
+                    # 'scn_cot_014_shaman_transparent_to_opponents_shaman', \
                 ]
