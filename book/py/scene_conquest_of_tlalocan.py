@@ -1654,9 +1654,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # ... from opponent's Shaman
 
-    def scn_cot_048_diverging_shaman_from_opponents( self, bt=BoardType.ConquestOfTlalocan ):
+    def scn_cot_050_diverging_shaman_from_opponents( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_048_diverging_shaman_from_opponents', bt )
+        scene = Scene( 'scn_cot_050_diverging_shaman_from_opponents', bt )
 
         start_H = (2, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
@@ -1715,9 +1715,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Diverging Wave
 
-    def scn_cot_049_wave_divergence_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_051_wave_divergence_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_049_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_cot_051_wave_divergence_init', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -1758,9 +1758,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_050_wave_divergence_1(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_052_wave_divergence_1(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_050_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_cot_052_wave_divergence_1', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (3, 11)
@@ -1811,9 +1811,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Wave cannot diverge, if activated by Unicorn
 
-    def scn_cot_051_wave_cannot_diverge_if_activated_by_unicorn(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_053_wave_cannot_diverge_if_activated_by_unicorn(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_051_wave_cannot_diverge_if_activated_by_unicorn', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_cot_053_wave_cannot_diverge_if_activated_by_unicorn', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_U = (2, 3)
@@ -1851,9 +1851,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Wave cannot diverge, if activated by Centaur
 
-    def scn_cot_052_wave_cannot_diverge_if_activated_by_centaur(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_054_wave_cannot_diverge_if_activated_by_centaur(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_052_wave_cannot_diverge_if_activated_by_centaur', bt)
+        scene = Scene('scn_cot_054_wave_cannot_diverge_if_activated_by_centaur', bt)
 
         start_C = (4, 4)
         scene.board.set_piece( *start_C, piece=PieceType.Centaur )
@@ -1889,9 +1889,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Wave cannot diverge, if activated by Serpent
 
-    def scn_cot_053_wave_cannot_diverge_if_activated_by_serpent(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_055_wave_cannot_diverge_if_activated_by_serpent(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_053_wave_cannot_diverge_if_activated_by_serpent', bt)
+        scene = Scene('scn_cot_055_wave_cannot_diverge_if_activated_by_serpent', bt)
 
         start_S = (3, 5)
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
@@ -1931,9 +1931,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Multiple divergences
 
-    def scn_cot_054_multiple_divergences(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_056_multiple_divergences(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_054_multiple_divergences', bt)
+        scene = Scene('scn_cot_056_multiple_divergences', bt)
 
         start_Q = (3, 17)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -1986,9 +1986,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Diverging opponent's pieces
 
-    def scn_cot_055_diverging_opponents_pieces(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_057_diverging_opponents_pieces(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_055_diverging_opponents_pieces', bt)
+        scene = Scene('scn_cot_057_diverging_opponents_pieces', bt)
 
         start_Q = (3, 17)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -2049,9 +2049,9 @@ class SceneConquestOfTlalocanMixin:
     # Diverging to start
     # ... illegal, if first in cascade
 
-    def scn_cot_056_diverging_first_piece(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_058_diverging_first_piece(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_056_diverging_first_piece', bt, width=8, height=8 )
+        scene = Scene( 'scn_cot_058_diverging_first_piece', bt, width=8, height=8 )
 
         start_Q = (1, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -2070,9 +2070,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_057_diverged_first_piece_illegal(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_059_diverged_first_piece_illegal(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_057_diverged_first_piece_illegal', bt, width=8, height=8 )
+        scene = Scene( 'scn_cot_059_diverged_first_piece_illegal', bt, width=8, height=8 )
 
         prev_Q = (1, 1)
         prev_H = (3, 3)
@@ -2103,9 +2103,9 @@ class SceneConquestOfTlalocanMixin:
 
     # ... legal, if activated
 
-    def scn_cot_058_diverging_activated_piece(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_060_diverging_activated_piece(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_058_diverging_activated_piece', bt, width=8, height=8 )
+        scene = Scene( 'scn_cot_060_diverging_activated_piece', bt, width=8, height=8 )
 
         start_R = (6, 6)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
@@ -2144,9 +2144,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_059_diverged_activated_piece_legal(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_061_diverged_activated_piece_legal(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_059_diverged_activated_piece_legal', bt, width=8, height=8 )
+        scene = Scene( 'scn_cot_061_diverged_activated_piece_legal', bt, width=8, height=8 )
 
         prev_R = (6, 6)
         prev_W = (6, 1)
