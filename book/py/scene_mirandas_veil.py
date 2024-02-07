@@ -279,8 +279,8 @@ class SceneMirandasVeilMixin:
         start_R_A = (0, 0)
         scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
 
-        start_R_B = (15, 0)
-        scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+        # start_R_B = (15, 0)
+        # scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
 
         start_W = (5, 0)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -308,8 +308,8 @@ class SceneMirandasVeilMixin:
             scene.append_text( str( i ), *pos, corner=Corner.UpperLeft, mark_type=mark_type )
 
         scene.append_text( "K", *start_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -318,14 +318,46 @@ class SceneMirandasVeilMixin:
         scene = Scene( 'scn_mv_10_wave_no_block_castling_rook', bt, height=1.7 )
 
         prev_K = (8, 0)
+        start_K = (3, 0)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        start_R_A = (0, 0)
+        scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
+
+        # start_R_B = (15, 0)
+        # scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+
+        start_W = (5, 0)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # R -->|
+        coords = GS.gen_steps( start=start_R_A, rels=[(1, 0), ], include_prev=True, count=4 )
+        for i, step in enumerate( coords() ):
+            mark_type = MarkType.Blocked if i == 2 else \
+                        MarkType.Action if i == 3 else \
+                        MarkType.Legal
+
+            scene.append_arrow( *step, mark_type=mark_type )
+
+        scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_mv_11_wave_block_castling_rook(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene( 'scn_mv_11_wave_block_castling_rook', bt, height=1.7 )
+
+        prev_K = (8, 0)
         start_K = (4, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
 
         start_R_A = (0, 0)
         scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
 
-        start_R_B = (15, 0)
-        scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
+        # start_R_B = (15, 0)
+        # scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
 
         start_W = (5, 0)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -334,14 +366,14 @@ class SceneMirandasVeilMixin:
         coords = GS.gen_steps( start=start_R_A, rels=[(1, 0), ], include_prev=True, count=5 )
         for i, step in enumerate( coords() ):
             mark_type = MarkType.Blocked if i == 3 else \
-                        MarkType.Action if i == 4 else \
+                        MarkType.Illegal if i == 4 else \
                         MarkType.Legal
 
             scene.append_arrow( *step, mark_type=mark_type )
 
         scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_R_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 

@@ -224,44 +224,62 @@ and light King wouldn't be in check.
 % ................................................. Wave is transparent
 \clearpage % ..........................................................
 
-\subsubsection*{Castling is not blocked by Wave}
-\addcontentsline{toc}{subsubsection}{Castling is not blocked by Wave}
-\label{sec:Miranda's veil/Wave/Cascading Waves/Castling is not blocked by Wave}
+\subsubsection*{Wave and castling}
+\addcontentsline{toc}{subsubsection}{Wave and castling}
+\label{sec:Miranda's veil/Wave/Cascading Waves/Wave and castling}
 
-\vspace*{-0.7\baselineskip}
+\vspace*{-0.4\baselineskip}
+Wave is transparent, so it doesn't block castling if positioned between castling
+pieces and their destination field. Wave cannot be activated by castling piece,
+so it blocks any castling which uses its field as a destination.
+
+\vspace*{-0.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_09_wave_no_block_castling_king.png}
+\vspace*{-1.4\baselineskip}
 \caption{Castling King}
 \label{fig:scn_mv_09_wave_no_block_castling_king}
 \end{figure}
 
-\vspace*{-0.4\baselineskip}
-Wave is transparent, so it can occupy a field between King and Rook, without
-blocking their castling. Wave can also be activated by castling piece, if it
-occupies destination field of either King or Rook.
-
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_10_wave_no_block_castling_rook.png}
+\vspace*{-1.4\baselineskip}
 \caption{Castling Rook}
 \label{fig:scn_mv_10_wave_no_block_castling_rook}
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-In previous example King initiated castling by moving onto a field just past Wave;
-Rook now has to finish castling onto field occupied by Wave, in the process Wave
-would be activated with 5 momentum.
+In previous example King initiated castling by moving onto a field past Wave, Rook
+can now finish castling onto empty field between the two, so the whole castling move
+is legal.
 
-Momentum accumulated (or spent) is always count of travelled step-fields, regardless
-if special move has a step crossing two fields at once. When castling, King's first
-step is always across 2 fields; still, both fields are counted towards momentum. \newline
-\indent
-Here, if King had started castling onto field occupied by Wave, it would have been
-activated with 3 momentum.
+\vspace*{-0.4\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_11_wave_block_castling_rook.png}
+\vspace*{-1.4\baselineskip}
+\caption{Castling Rook blocked}
+\label{fig:scn_mv_11_wave_block_castling_rook}
+\end{figure}
+
+\vspace*{-0.4\baselineskip}
+If in previous example King initiated castling by moving onto a field just past Wave,
+Rook cannot castle onto field occupied by Wave, so the whole castling move is illegal.
+
+\clearpage % ..........................................................
 
 \TODO :: Wave cannot be activated by castling pieces
 (can't handle if castling King and Rook each activate their own Wave)
+
+
+\TODO :: move this section to rushing Pawn activating pieces
+
+Momentum accumulated (or spent) is always count of travelled step-fields, regardless
+if special move has a step crossing two fields at once. When castling, King's first
+step is always across 2 fields; still, both fields are counted towards momentum.
 
 \clearpage % ..........................................................
 

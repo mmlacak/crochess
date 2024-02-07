@@ -38,4 +38,7 @@ class SceneMix(SceneMixin, \
                     # 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
                     # 'scn_cot_014_shaman_transparent_to_opponents_shaman', \
                     # 'scn_cot_015_shaman_transparency_not_heeded_while_capturing', \
+                    'scn_mv_09_wave_no_block_castling_king', \
+                    'scn_mv_10_wave_no_block_castling_rook', \
+                    'scn_mv_11_wave_block_castling_rook', \
                 ]
