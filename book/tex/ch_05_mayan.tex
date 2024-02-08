@@ -47,9 +47,9 @@ for at most as momentum received.
 
 Momentum is count of fields traveled over by a piece. Pyramid receives
 momentum from piece which activates it. Momentum is spent by Pyramid when
-moving, one for each field travelled. So Pyramid can't move for more
+moving, one for each field traveled. So Pyramid can't move for more
 fields than received momentum, i.e. for more than activating piece has
-travelled. Momentum can't be saved for later, it is wasted when Pyramid
+traveled. Momentum can't be saved for later, it is wasted when Pyramid
 moves for less than received momentum.
 
 Piece has momentum if it's equal to or greater than 1. Piece has no momentum
@@ -57,6 +57,11 @@ if it's 0. In all cases, momentum cannot become negative, it's not possible
 to "borrow" momentum from activating piece to activated piece (Pyramid).
 
 \clearpage % ..........................................................
+
+Momentum accumulated (or spent) is always count of traveled fields, regardless
+if special move has a step crossing two fields at once. When rushing, Pawn's
+first step is always across 2 fields; still, both fields are counted towards
+momentum, since rushing Pawn can be blocked by a piece on both fields.
 
 \subsection*{Pyramid (cont.)}
 \addcontentsline{toc}{subsection}{Pyramid (cont.)}

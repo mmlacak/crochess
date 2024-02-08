@@ -271,14 +271,6 @@ Rook cannot castle onto field occupied by Wave, so the whole castling move is il
 
 \clearpage % ..........................................................
 
-\TODO :: move this section to rushing Pawn activating pieces
-
-Momentum accumulated (or spent) is always count of travelled step-fields, regardless
-if special move has a step crossing two fields at once. When castling, King's first
-step is always across 2 fields; still, both fields are counted towards momentum.
-
-\clearpage % ..........................................................
-
 \subsubsection*{Piece blocked}
 \addcontentsline{toc}{subsubsection}{Piece blocked}
 \label{sec:Miranda's veil/Wave/Activation/Piece blocked}
@@ -424,7 +416,7 @@ Image above and the next one both have two examples presented in parallel; on th
 left, and to the right.
 
 Pawn can activate Wave on its step-fields. Ordinary step would give 1 momentum to
-Wave (Pawn 1), while rushed Pawn would give count of travelled-over step-fields as
+Wave (Pawn 1), while rushed Pawn would give count of traveled-over step-fields as
 momentum, in this case 3 (Pawn 2). Note, rushed Pawn does not have to activate Wave,
 and can continue rushing further.
 
@@ -649,7 +641,7 @@ activator is Bishop, while for Waves C, and D activator is Knight.
 \end{figure}
 
 \vspace*{-0.3\baselineskip}
-First piece in a cascade gathers momentum over step-fields travelled. All pieces
+First piece in a cascade gathers momentum over step-fields traveled. All pieces
 transfer all of momentum remaining after movement to the next piece in a cascade.
 Wave doesn't spend received momentum for movement, but all other pieces do.
 
@@ -781,7 +773,7 @@ All pieces can activate Pyramid on their capture-fields, even if a Pawn in casca
 used step-fields to continue (or start) said cascade (right example, above).
 
 So, if Pyramid can be activated depends solely if last active piece (preceeding that
-Pyramid in a cascade) travelled over its step- or capture-fields. This is so for all
+Pyramid in a cascade) traveled over its step- or capture-fields. This is so for all
 subsequent activations, what Wave can activate is what last active piece preceeding
 it in a cascade could activate, with addition of opponent's Wave.
 
@@ -954,7 +946,7 @@ temporary location, King is not affected, and game continues.
 Here, light Queen after being positioned on a temporary field does not attack dark
 King, because all of its momentum has been transferred to Wave B, then C and finally
 D. Wave D is now "in-the-air", about to reactivate light Queen with remaining 5
-momentum; grey arrows show path travelled over by piece they point to. After
+momentum; grey arrows show path traveled over by piece they point to. After
 reactivation, light Queen still won't attack dark King, even though it's located on
 light Queen's capture-field, and within range. This is so because being checked (or
 checkmated) is a status of a position, after all pieces had settled down, and move
@@ -1007,7 +999,7 @@ Here, light Queen is about to activate Wave A, which can then activate Wave B.
 \vspace*{-0.4\baselineskip}
 Here, Wave B (now "in-the-air") is about to reactivate light Queen, which would be
 able to return to its starting position; because Waves do not use momentum, and
-distance travelled by light Queen would be the same as it was while accumulating
+distance traveled by light Queen would be the same as it was while accumulating
 momentum.
 
 However, this is illegal. Position after such a move would be virtually the same
@@ -1190,7 +1182,7 @@ and own King can't be removed from check.
 
 Here, light player's cascade has finished; notice, first piece in a cascade is light
 Bishop. Light player has left dark Rook in a position to check light King; grey arrows
-show path travelled over by a piece they point to. Now is dark player's turn; since
+show path traveled over by a piece they point to. Now is dark player's turn; since
 light King can't be moved out of a check, this is immediate self-checkmate.
 
 % .............................................. Cascade self-checkmate
