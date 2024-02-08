@@ -539,9 +539,9 @@ class SceneNineteenMixin:
     #
     # Sideways Pawns
 
-    def scn_n_15_sideways_pawn_init(self, bt=BoardType.Nineteen):
+    def scn_n_16_sideways_pawn_init(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_15_sideways_pawn_init', bt)
+        scene = Scene('scn_n_16_sideways_pawn_init', bt)
 
         start_P = (5, 7)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -554,9 +554,9 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_16_sideways_pawn_activated_wave(self, bt=BoardType.Nineteen):
+    def scn_n_17_sideways_pawn_activated_wave(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_16_sideways_pawn_activated_wave', bt)
+        scene = Scene('scn_n_17_sideways_pawn_activated_wave', bt)
 
         start_P = (6, 7)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -578,9 +578,9 @@ class SceneNineteenMixin:
     #
     # Activating Pyramid
 
-    def scn_n_17_sideways_pawn_does_not_activate_pyramid(self, bt=BoardType.Nineteen):
+    def scn_n_18_sideways_pawn_does_not_activate_pyramid(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_17_sideways_pawn_does_not_activate_pyramid', bt)
+        scene = Scene('scn_n_18_sideways_pawn_does_not_activate_pyramid', bt)
 
         # top, dark pieces
 
@@ -622,9 +622,9 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_18_sideways_pawns_cascade_pyramids(self, bt=BoardType.Nineteen):
+    def scn_n_19_sideways_pawns_cascade_pyramids(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_18_sideways_pawns_cascade_pyramids', bt)
+        scene = Scene('scn_n_19_sideways_pawns_cascade_pyramids', bt)
 
         # top, dark pieces
 
