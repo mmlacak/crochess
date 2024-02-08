@@ -762,9 +762,9 @@ class SceneNineteenMixin:
     #
     # Castling
 
-    def scn_n_23_new_castling_init(self, bt=BoardType.Nineteen):
+    def scn_n_23_new_castling_init( self, bt=BoardType.Nineteen ):
 
-        scene = Scene('scn_n_23_new_castling_init', bt, height=4.3)
+        scene = Scene( 'scn_n_23_new_castling_init', bt, height=2.3 )
 
         start_K = (9, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -772,23 +772,22 @@ class SceneNineteenMixin:
         start_R = (1, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_r = (9, 3)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+        start_n = (7, 1)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_b = (2, 3)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+        for i in range( 7, 2, -1 ):
+            mark_type = MarkType.Illegal if i == 5 else \
+                        MarkType.Legal
+            scene.append_text( str(8 - i), i, 0, corner=Corner.UpperLeft, mark_type=mark_type )
 
-        for i in range(7, 2, -1):
-            scene.append_text(str(8 - i), i, 0, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
-
-        scene.append_text("R", 9, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
-        scene.append_text("B", 5, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
+        scene.append_text( "K", 9, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
+        # scene.append_text( "B", 5, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
 
         return scene
 
-    def scn_n_24_new_castling_end(self, bt=BoardType.Nineteen):
+    def scn_n_24_new_castling_end( self, bt=BoardType.Nineteen ):
 
-        scene = Scene('scn_n_24_new_castling_end', bt, height=4.3)
+        scene = Scene( 'scn_n_24_new_castling_end', bt, height=2.3 )
 
         start_K = (4, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -796,16 +795,15 @@ class SceneNineteenMixin:
         start_R = (5, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_r = (9, 3)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+        start_n = (7, 1)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_b = (2, 3)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+        for i in range( 7, 2, -1 ):
+            mark_type = MarkType.Illegal if i == 5 else \
+                        MarkType.Legal
+            scene.append_text( str(8 - i), i, 0, corner=Corner.UpperLeft, mark_type=mark_type )
 
-        for i in range(7, 2, -1):
-            scene.append_text(str(8 - i), i, 0, corner=Corner.UpperLeft, mark_type=MarkType.Legal)
-
-        scene.append_text("R", 9, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
-        scene.append_text("B", 5, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal)
+        scene.append_text( "K", 9, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
+        # scene.append_text( "B", 5, 0, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
 
         return scene
