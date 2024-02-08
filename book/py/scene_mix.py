@@ -34,13 +34,5 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    # 'scn_cot_012_shaman_transparent_to_own_pieces', \
-                    # 'scn_cot_013_shaman_not_transparent_to_opponents_pieces', \
-                    # 'scn_cot_014_shaman_transparent_to_opponents_shaman', \
-                    # 'scn_cot_015_shaman_transparency_not_heeded_while_capturing', \
-                    # 'scn_mv_09_wave_no_block_castling_king', \
-                    # 'scn_mv_10_wave_no_block_castling_rook', \
-                    # 'scn_mv_11_wave_block_castling_rook', \
-                    'scn_n_23_new_castling_init', \
-                    'scn_n_24_new_castling_end', \
+                    'scn_n_15_king_cannot_teleport', \
                 ]

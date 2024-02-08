@@ -516,6 +516,27 @@ class SceneNineteenMixin:
         return scene
 
     #
+    # King cannot teleport
+
+    def scn_n_15_king_cannot_teleport( self, bt=BoardType.Nineteen ):
+
+        scene = Scene( 'scn_n_15_king_cannot_teleport', bt )
+
+        start_K = (1, 1)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # fixed set
+        start_T_A = (0, 0)
+        scene.board.set_piece( *start_T_A, piece=PieceType.Star )
+        scene.board.set_piece( 17, 17, piece=PieceType.Star )
+        scene.board.set_piece( 17, 0, piece=-PieceType.Star )
+        scene.board.set_piece( 0, 17, piece=-PieceType.Star )
+
+        scene.append_arrow( *( start_K + start_T_A ), mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     # Sideways Pawns
 
     def scn_n_15_sideways_pawn_init(self, bt=BoardType.Nineteen):
