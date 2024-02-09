@@ -34,5 +34,6 @@ class SceneMix(SceneMixin, \
     # overrides
     def _get_recent_scene_method_names(self):
         return  [
-                    'scn_n_15_king_cannot_teleport', \
+                    # 'scn_n_15_king_cannot_teleport', \
+                    'scn_o_01_starchild_movement', \
                 ]

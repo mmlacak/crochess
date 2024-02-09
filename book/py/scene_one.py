@@ -28,6 +28,12 @@ class SceneOneMixin:
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
+        start_M = (3, 2)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
+
+        start_q = (5, 3)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
         end_I = (7, 4)
         scene.append_arrow( *(start_I + end_I), mark_type=MarkType.Legal )
 
