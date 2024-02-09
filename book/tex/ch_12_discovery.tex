@@ -53,12 +53,8 @@ color.
 
 Monolith cannot interact with (capture, activate, ...) any piece on its own;
 all of its step-fields must be empty. Each step of a Monolith is longer
-Knight-like jump than in a previous step. Monolith can make limited number of
-steps, depending how many Pawns are owned by a player moving that Monolith.
-
-\TODO \newline
-1. be xplicit: number of steps == number of Pawns \newline
-2. rethink: maybe == 1 + number of Pawns % \newline
+Knight-like jump than in a previous step. Monolith can make one step more than
+the number of Pawns owned by a player moving that Monolith.
 
 Alternative move for Monolith is syzygy, which optionally can demote one own
 figure (or trooper, either Scout or Grenadier) to a Pawn.
@@ -187,12 +183,9 @@ Here, step-fields of a Monolith's fourth step are marked; step-fields of a third
 are enumerated. Again, new pattern is larger than previous by two fields on each side.
 Each consecutive step has larger pattern, pattern growth is not limited. \newline
 \indent
-
-\TODO :: number of steps == ??? :: be xplct
-
-Number of steps Monolith can make is limited by how many Pawns are owned by a player
-moving that Monolith. Here, Monolith moved by light player can take fourth step;
-should it be moved by dark player only first two steps would be allowed.
+Number of steps Monolith can make is one more than count of Pawns owned by a player
+moving that Monolith. Here, Monolith moved by light player could take fifth step;
+should it be moved by dark player only three steps would be allowed.
 
 \clearpage % ..........................................................
 
