@@ -230,7 +230,7 @@ and light King wouldn't be in check.
 
 \vspace*{-0.4\baselineskip}
 Wave is transparent, so it doesn't block castling if positioned between castling
-pieces and their destination field. Wave cannot be activated by castling piece,
+pieces and their destination fields. Wave cannot be activated by castling piece,
 so it blocks any castling which uses its field as a destination.
 
 \vspace*{-0.4\baselineskip}
@@ -413,12 +413,13 @@ for duration of a ply. So, Wave activated by King moves like a Queen.
 
 \vspace*{-0.5\baselineskip}
 Image above and the next one both have two examples presented in parallel; on the
-left, and to the right.
-
+left, and to the right. \newline
+\indent
 Pawn can activate Wave on its step-fields. Ordinary step would give 1 momentum to
-Wave (Pawn 1), while rushed Pawn would give count of traveled-over step-fields as
-momentum, in this case 3 (Pawn 2). Note, rushed Pawn does not have to activate Wave,
-and can continue rushing further.
+Wave (Pawn 1), while rushed Pawn would give
+\hyperref[sec:Mayan Ascendancy/Pyramid/Momentum/Fields counting]{count of traveled-over step-fields}
+as momentum, in this case 3 (Pawn 2). Since Wave is transparent, rushed Pawn does
+not have to activate Wave, and can continue rushing further instead.
 
 \clearpage % ..........................................................
 
@@ -430,11 +431,12 @@ and can continue rushing further.
 \label{fig:scn_mv_20_wave_activated_by_step_pawn}
 \end{figure}
 
-In all cases, Wave activated on Pawn's step-fields can move only forward, until the end
-of the board. Either Wave could also activate light Knight or light Bishop, transferring
-to them received momentum (1 and 3, respectively). Wave cannot change its direction to
-Pawn's capture-fields, even if pieces are present on them. So, Wave cannot activate neither
-opponent's piece (dark Wave), nor own (Pawn 3).
+In all cases, Wave activated on Pawn's step-fields can move only forward, towards
+opponent's initial positions, until the end of a chessboard. Either Wave could also
+activate light Knight or light Bishop, transferring to them received momentum (1 and
+3, respectively). Wave cannot change its direction to Pawn's capture-fields, even
+if pieces are present on them. So, Wave cannot activate neither opponent's piece
+(dark Wave), nor own (Pawn 3).
 
 \clearpage % ..........................................................
 
@@ -463,12 +465,13 @@ present.
 \label{fig:scn_mv_22_wave_activated_by_capture_pawn}
 \end{figure}
 
-Wave could also activate either light Bishop or light Knight, giving it received 1 momentum.
-Once in motion, Wave cannot change initially chosen direction. Here, upon reaching field A,
-Wave cannot change direction to Pawn's step-fields, or to Pawn's other capture diagonal. So,
-Wave can't activate neither light Pegasus, nor dark Wave.
+Wave (now "in the air") could also activate either light Bishop or light Knight,
+giving it received 1 momentum. Once in motion, Wave cannot change initially chosen
+direction. Here, upon reaching field A, Wave cannot change direction to Pawn's
+step-fields, or to Pawn's other capture diagonal. So, Wave can't activate neither
+light Pegasus, nor dark Wave.
 
-\TODO :: simplify
+% \TODO :: simplify
 
 \TODO :: Wave activated on step-fields (by Pawn) cannot activate Pyramid
 
