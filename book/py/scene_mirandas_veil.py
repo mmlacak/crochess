@@ -642,7 +642,7 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece(*start_P, piece=PieceType.Pawn)
         scene.board.set_piece(4, 7, piece=PieceType.Wave)
 
-        scene.board.set_piece(1, 10, piece=PieceType.Bishop)
+        scene.board.set_piece(1, 10, piece=PieceType.Pyramid)
         scene.board.set_piece(3, 8, piece=-PieceType.Rook)
         scene.board.set_piece(2, 13, piece=-PieceType.Wave)
 
@@ -652,9 +652,6 @@ class SceneMirandasVeilMixin:
 
         coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(-1, 1), ], include_prev=True) )
         scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Illegal )
 
         return scene
 
@@ -669,7 +666,7 @@ class SceneMirandasVeilMixin:
 
         start = (6, 9)
 
-        scene.board.set_piece(1, 10, piece=PieceType.Bishop)
+        scene.board.set_piece(1, 10, piece=PieceType.Pyramid)
         scene.board.set_piece(3, 8, piece=-PieceType.Rook)
         scene.board.set_piece(2, 13, piece=-PieceType.Wave)
 
