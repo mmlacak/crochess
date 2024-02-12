@@ -7,6 +7,7 @@
 
 # from scene import Scene
 from scene_mixin import SceneMixin
+from scene_classical_chess import SceneClassicalChessMixin
 from scene_croatian_ties import SceneCroatianTiesMixin
 from scene_mayan_ascendancy import SceneMayanAscendancyMixin
 from scene_age_of_aquarius import SceneAgeOfAquariusMixin
@@ -19,25 +20,27 @@ from scene_discovery import SceneDiscoveryMixin
 from scene_one import SceneOneMixin
 
 
-class SceneMix(SceneMixin, \
-               SceneCroatianTiesMixin, \
-               SceneMayanAscendancyMixin, \
-               SceneAgeOfAquariusMixin, \
-               SceneMirandasVeilMixin, \
-               SceneNineteenMixin, \
-               SceneHemerasDawnMixin, \
-               SceneTamoanchanRevisitedMixin, \
-               SceneConquestOfTlalocanMixin, \
-               SceneDiscoveryMixin, \
-               SceneOneMixin):
+class SceneMix( SceneMixin, \
+                SceneClassicalChessMixin, \
+                SceneCroatianTiesMixin, \
+                SceneMayanAscendancyMixin, \
+                SceneAgeOfAquariusMixin, \
+                SceneMirandasVeilMixin, \
+                SceneNineteenMixin, \
+                SceneHemerasDawnMixin, \
+                SceneTamoanchanRevisitedMixin, \
+                SceneConquestOfTlalocanMixin, \
+                SceneDiscoveryMixin, \
+                SceneOneMixin ):
 
     # overrides
-    def _get_recent_scene_method_names(self):
+    def _get_recent_scene_method_names( self ):
         return  [
                     # 'scn_n_15_king_cannot_teleport', \
                     # 'scn_o_01_starchild_movement', \
                     # 'scn_mv_19_wave_activation_by_step_pawn', \
                     # 'scn_mv_20_wave_activated_by_step_pawn', \
-                    'scn_mv_21_wave_activation_by_capture_pawn', \
-                    'scn_mv_22_wave_activated_by_capture_pawn', \
+                    # 'scn_mv_21_wave_activation_by_capture_pawn', \
+                    # 'scn_mv_22_wave_activated_by_capture_pawn', \
+                    'scn_cc_01_init', \
                 ]
