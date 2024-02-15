@@ -36,7 +36,9 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_cc_01_bishop_not_blocked', \
-                    # 'scn_cc_02_bishop_blocked', \
-                    'scn_o_16_starchild_is_completely_transparent', \
+                    # 'scn_cc_01_rook_not_blocked', \
+                    # 'scn_cc_02_rook_blocked', \
+                    # 'scn_cc_03_rook_capturing', \
+                    'scn_cc_04_rook_diagonal', \
+                    # 'scn_o_16_starchild_is_completely_transparent', \
                 ]

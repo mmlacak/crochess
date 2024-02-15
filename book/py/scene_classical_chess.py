@@ -19,34 +19,70 @@ from scene import Scene
 
 class SceneClassicalChessMixin:
 
-    def scn_cc_01_bishop_not_blocked( self, bt=BoardType.Classical ):
+    def scn_cc_01_rook_not_blocked( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_01_bishop_not_blocked', bt )
+        scene = Scene( 'scn_cc_01_rook_not_blocked', bt, width=3.2, height=4.2 )
 
-        start_B = (1, 2)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+        start_R = (1, 0)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        end_B = (6, 7)
-        scene.append_arrow( *( start_B + end_B ), mark_type=MarkType.Legal )
+        end_R = (1, 3)
+        scene.append_arrow( *( start_R + end_R ), mark_type=MarkType.Legal )
 
         return scene
 
-    def scn_cc_02_bishop_blocked( self, bt=BoardType.Classical ):
+    def scn_cc_02_rook_blocked( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_02_bishop_blocked', bt )
+        scene = Scene( 'scn_cc_02_rook_blocked', bt, width=3.2, height=4.2 )
 
-        start_B = (1, 2)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+        start_R = (1, 0)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_N = (4, 5)
+        start_N = (1, 2)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # B -->|
-        coords_B_ = GS.gen_steps( start=start_B, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        coords_B_ = GS.gen_steps( start=start_R, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_B_() ):
-            mark_type = MarkType.Legal if i < 2 else \
+            mark_type = MarkType.Legal if i < 1 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    def scn_cc_03_rook_capturing( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_03_rook_capturing', bt, width=3.2, height=4.2 )
+
+        start_R = (1, 0)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_n = (1, 2)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        # B -->|
+        coords_B_ = GS.gen_steps( start=start_R, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+
+        for i, arrow in enumerate( coords_B_() ):
+            mark_type = MarkType.Legal if i < 1 else \
+                        MarkType.Action if i == 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    def scn_cc_04_rook_diagonal( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_04_rook_diagonal', bt, width=3.2, height=4.2 )
+
+        start_R = (1, 0)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_n = (1, 2)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        end_R = (2, 1)
+        scene.append_arrow( *( start_R + end_R ), mark_type=MarkType.Illegal )
 
         return scene
