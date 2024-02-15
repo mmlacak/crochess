@@ -36,11 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_n_15_king_cannot_teleport', \
-                    # 'scn_o_01_starchild_movement', \
-                    # 'scn_mv_19_wave_activation_by_step_pawn', \
-                    # 'scn_mv_20_wave_activated_by_step_pawn', \
-                    # 'scn_mv_21_wave_activation_by_capture_pawn', \
-                    # 'scn_mv_22_wave_activated_by_capture_pawn', \
-                    'scn_cc_01_init', \
+                    'scn_cc_01_bishop_not_blocked', \
+                    'scn_cc_02_bishop_blocked', \
                 ]
