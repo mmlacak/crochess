@@ -1084,9 +1084,16 @@ promotion is different than the one at the beginning.
 
 \noindent
 \TODO \newline
+0. Wave is transparent --\textgreater Pawn can rush to full extent, even if its
+   path contains multiple Waves ... \newline
 1. en-passant blocked, by cascaded opponent's piece in previous move \newline
-2. capture preceeding en-passant (in the same ply), due to cascaded own piece in previous move \newline
+2. capture preceeding en-passant (by Pawn capturing en-passant, in the same ply),
+   due to cascaded own piece in previous move \newline
 3. fix grammar for case (2.) \newline
+4. Wave is transparent --\textgreater cascaded rushing Pawn can continue cascade,
+   and fill rushing path with 1+ pieces --\textgreater now when checking rushing
+   Pawn path it might not be empty --\textgreater check just en-passant tag \&
+   content of en-passant destination field --\textgreater add TODO in parser/lexer \newline
 
 % .......................................... Delayed promotion is legal
 % ----------------------------------------------------- Cascading Waves
