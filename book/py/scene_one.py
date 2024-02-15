@@ -464,7 +464,7 @@ class SceneOneMixin:
         adr = GS.adder( start_M, include_prev=True )
         scene.append_arrow( *adr(1, 2), mark_type=MarkType.Legal )
         scene.append_arrow( *adr(4, -1), mark_type=MarkType.Legal )
-        scene.append_arrow( *adr(4, 3), mark_type=MarkType.Illegal )
+        scene.append_arrow( *adr(4, 3), mark_type=MarkType.Blocked )
         scene.append_arrow( *adr(5, -4), mark_type=MarkType.Legal )
         scene.append_arrow( *adr(5, 6), mark_type=MarkType.Legal )
 
