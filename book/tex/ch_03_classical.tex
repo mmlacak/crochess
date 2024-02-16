@@ -108,7 +108,7 @@ about it.
 
 \vspace*{2.7\baselineskip}
 \noindent
-\begin{wrapfigure}[15]{l}{0.4\textwidth}
+\begin{wrapfigure}[14]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/02_c/scn_cc_02_rook_blocked.png}
 \vspace*{-1.4\baselineskip}
@@ -123,32 +123,44 @@ In this book all examples shows individual steps as arrows, as movement can be
 blocked at any field which a piece visits. All fields that can be visited are
 called step-fields. \newline
 \indent
-Grey arrows are used when move is legal, but blocked by e.g. own other piece.
+Grey arrows are used when movement is otherwise legal, but a piece cannot move
+since it's e.g. blocked by own other piece.
 
 \clearpage % ..........................................................
 
 \vspace*{-1.4\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/02_c/scn_cc_03_rook_capturing.png}
 \vspace*{-1.4\baselineskip}
 \caption{Rook capturing}
 \label{fig:scn_cc_03_rook_capturing}
 \end{wrapfigure}
-. . .
+Fields where a piece can capture opponent's piece are called capture-fields;
+these are often the same as step-fields. \newline
+\indent
+Blue arrows are used mostly when some action is performed by a piece beside just
+moving, like e.g. capturing opponent's piece.
 
-\vspace*{13.7\baselineskip}
+\vspace*{6.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/02_c/scn_cc_04_rook_diagonal.png}
 \vspace*{-1.4\baselineskip}
-\caption{Rook diagonal}
+\caption{Rook going diagonally}
 \label{fig:scn_cc_04_rook_diagonal}
 \end{wrapfigure}
-. . .
+Red arrows are used for movement that is illegal depending on context, either
+in all cases, or just in a current example. \newline
+\indent
+Here, light Rook cannot make step to the right after it has already taken step
+upwards.
 
+Colors of arrows are not tied to a singular purpose, there are occasions when
+colors are used just to draw attention to a particular step, or (rarely) just
+to differentiate between each other.
 
 % ============================================================ Examples
 % ********************************************************** Chessboard
