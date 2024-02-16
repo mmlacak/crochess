@@ -51,7 +51,7 @@ class SceneCommon:
         diff_min, diff_max = Board.get_castling_limits(bt)
         assert (move_king == 0) or in_range(abs(move_king), diff_min, diff_max)
 
-        scene = Scene('intro_castling', bt, width=bt.get_size(), height=1)
+        scene = Scene('intro_castling', bt, width=bt.get_size(), height=1.3)
 
         king_moved = (move_king != 0)
         king_moved_left = (move_king < 0)
