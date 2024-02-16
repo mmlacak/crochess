@@ -206,7 +206,7 @@ class SceneCommon:
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
-        scene = Scene('intro_rush', bt, width=3, height=size)
+        scene = Scene('intro_rush', bt, width=3.3, height=size + 0.3)
 
         scene.board.set_piece(1, 0, PieceType(PieceType.Knight))
         scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
