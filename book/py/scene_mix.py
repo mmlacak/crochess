@@ -39,6 +39,6 @@ class SceneMix( SceneMixin, \
                     # 'scn_cc_01_rook_not_blocked', \
                     # 'scn_cc_02_rook_blocked', \
                     # 'scn_cc_03_rook_capturing', \
-                    'scn_cc_04_rook_diagonal', \
+                    'scn_cc_04_rook_illegal', \
                     # 'scn_o_16_starchild_is_completely_transparent', \
                 ]

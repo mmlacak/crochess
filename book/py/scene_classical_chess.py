@@ -72,9 +72,9 @@ class SceneClassicalChessMixin:
 
         return scene
 
-    def scn_cc_04_rook_diagonal( self, bt=BoardType.Classical ):
+    def scn_cc_04_rook_illegal( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_04_rook_diagonal', bt, width=3.2, height=4.2 )
+        scene = Scene( 'scn_cc_04_rook_illegal', bt, width=3.2, height=4.2 )
 
         start_R = (1, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
