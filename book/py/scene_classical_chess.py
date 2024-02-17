@@ -96,3 +96,31 @@ class SceneClassicalChessMixin:
         scene.append_arrow( *( start_R_1 + end_R_2 ), mark_type=MarkType.Illegal )
 
         return scene
+
+    def scn_cc_05_pawns_labeled( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_05_pawns_labeled', bt, width=3.2, height=3.2 )
+
+        start_N = (0, 0)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_p_A = (1, 1)
+        scene.board.set_piece( *start_p_A, piece=-PieceType.Pawn )
+
+        start_p_B = (1, 2)
+        scene.board.set_piece( *start_p_B, piece=-PieceType.Pawn )
+
+        scene.append_text( "A", *start_p_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_p_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        legal_p_A = (1, 0)
+        blocked_p_A = (2, 0)
+        scene.append_text( "1", *start_N, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "2", *legal_p_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "3", *blocked_p_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *( start_p_A + start_N ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_p_A + legal_p_A ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_p_A + blocked_p_A ), mark_type=MarkType.Blocked )
+
+        return scene
