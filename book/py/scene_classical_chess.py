@@ -124,3 +124,25 @@ class SceneClassicalChessMixin:
         scene.append_arrow( *( start_p_A + blocked_p_A ), mark_type=MarkType.Blocked )
 
         return scene
+
+    def scn_cc_06_knight_marked( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_06_knight_marked', bt, width=3.2, height=3.2 )
+
+        start_N = (0, 0)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_p_A = (1, 1)
+        scene.board.set_piece( *start_p_A, piece=-PieceType.Pawn )
+
+        start_p_B = (1, 2)
+        scene.board.set_piece( *start_p_B, piece=-PieceType.Pawn )
+
+        legal_N = (2, 1)
+        scene.append_field_marker( *legal_N, mark_type=MarkType.Legal )
+        scene.append_field_marker( *start_p_B, mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_p_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_p_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        return scene
