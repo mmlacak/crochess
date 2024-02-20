@@ -2441,14 +2441,6 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # # A -->
-        # start_A_ = GS.gen_steps( start=start_A, rels=[ (1, 0), ], include_prev=True, count=2 )
-        # for i, arrow in enumerate( start_A_() ):
-        #     mark_type = MarkType.Action if i == 1 else \
-        #                 MarkType.Legal
-        #     scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
         scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
@@ -2497,10 +2489,6 @@ class SceneMirandasVeilMixin:
         for i, arrow in enumerate( start_A_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        # # p --> [P]
-        # scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
-
-        # scene.append_text( "A", *prev_W_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
         scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
@@ -2531,28 +2519,9 @@ class SceneMirandasVeilMixin:
         start_A = (3, 4)
         scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        # # P --> W(A)
-        # start_P_WA = GS.gen_steps( end=start_P, rels=[ (0, 1), ], include_prev=True, count=4 ) # 6 )
-        # for i, arrow in enumerate( start_P_WA() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
-
-        # # W(A) --> B
-        # scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
-
-        # # B --> A
-        # start_B_A = GS.gen_steps( end=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
-        # for i, arrow in enumerate( start_B_A() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
-
-        # # A -->
-        # start_A_ = GS.gen_steps( end=start_A, rels=[ (1, 0), ], include_prev=True, count=2 )
-        # for i, arrow in enumerate( start_A_() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
-
         # p --> [P]
         scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
 
-        # scene.append_text( "A", *prev_W_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
         scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
@@ -2579,43 +2548,16 @@ class SceneMirandasVeilMixin:
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        # start_A = (3, 4)
-        # scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
-
-        # # P --> W(A)
-        # start_P_WA = GS.gen_steps( end=start_P, rels=[ (0, 1), ], include_prev=True, count=4 ) # 6 )
-        # for i, arrow in enumerate( start_P_WA() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
-
-        # # W(A) --> B
-        # scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
-
-        # # B --> A
-        # start_B_A = GS.gen_steps( end=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
-        # for i, arrow in enumerate( start_B_A() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
-
-        # # A -->
-        # start_A_ = GS.gen_steps( end=start_A, rels=[ (1, 0), ], include_prev=True, count=2 )
-        # for i, arrow in enumerate( start_A_() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
-
-        # # p --> [P]
-        # scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
-
-        # scene.append_text( "A", *prev_W_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
         scene.append_text( "P", *start_p, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
-
-
     #
     # Cascading opponent
 
-    def scn_mv_53_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
+    def scn_mv_57_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_53_wave_cascading_opponent', bt)
+        scene = Scene('scn_mv_57_wave_cascading_opponent', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2694,9 +2636,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_54_cascaded_opponent_capturing(self, bt=BoardType.MirandasVeil):
+    def scn_mv_58_cascaded_opponent_capturing(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_54_cascaded_opponent_capturing', bt)
+        scene = Scene('scn_mv_58_cascaded_opponent_capturing', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2749,9 +2691,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_55_cascaded_opponent_promoting(self, bt=BoardType.MirandasVeil):
+    def scn_mv_59_cascaded_opponent_promoting(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_55_cascaded_opponent_promoting', bt)
+        scene = Scene('scn_mv_59_cascaded_opponent_promoting', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2796,9 +2738,9 @@ class SceneMirandasVeilMixin:
     #
     # Cascade self-checkmate
 
-    def scn_mv_56_cascade_self_checkmate_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_60_cascade_self_checkmate_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_56_cascade_self_checkmate_init', bt)
+        scene = Scene('scn_mv_60_cascade_self_checkmate_init', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -2844,9 +2786,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_57_cascade_self_checkmate_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_61_cascade_self_checkmate_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_57_cascade_self_checkmate_end', bt)
+        scene = Scene('scn_mv_61_cascade_self_checkmate_end', bt)
 
         end_B = (4, 1)
         scene.board.set_piece( *end_B, piece=PieceType.Bishop )
@@ -2902,9 +2844,9 @@ class SceneMirandasVeilMixin:
     #
     # Wave blocked
 
-    def scn_mv_58_wave_blocked_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_62_wave_blocked_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_58_wave_blocked_init', bt)
+        scene = Scene('scn_mv_62_wave_blocked_init', bt)
 
         start_r = (9, 9)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
@@ -2979,9 +2921,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_59_wave_blocked_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_63_wave_blocked_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_59_wave_blocked_end', bt)
+        scene = Scene('scn_mv_63_wave_blocked_end', bt)
 
         scene.board.set_piece(9, 4, piece=-PieceType.Rook)
         scene.board.set_piece(11, 4, piece=-PieceType.Wave)
