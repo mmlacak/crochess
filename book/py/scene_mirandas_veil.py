@@ -2412,6 +2412,7 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         start_p = (4, 5) # 7)
+        end_p = (3, 4)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_W_A = (3, 5) # 7)
@@ -2448,6 +2449,59 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_mv_54_en_passant_turned_capture( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_54_en_passant_turned_capture', bt, height=7.3, width=6.3 )
+
+        prev_P = (3, 1)
+        prev_p = (4, 5)
+        prev_W_A = (3, 5)
+        prev_B = (3, 6)
+        prev_A = (1, 4)
+
+        start_P = (3, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (4, 5)
+        end_p = (3, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = (3, 6)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_A = (3, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # P --> W(A)
+        start_P_WA = GS.gen_steps( end=start_P, rels=[ (0, 1), ], include_prev=True, count=4 ) # 6 )
+        for i, arrow in enumerate( start_P_WA() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(A) --> B
+        scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
+
+        # B --> A
+        start_B_A = GS.gen_steps( end=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_B_A() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # A -->
+        start_A_ = GS.gen_steps( end=start_A, rels=[ (1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_A_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # p --> [P]
+        scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
+
+        # scene.append_text( "A", *prev_W_A, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
 

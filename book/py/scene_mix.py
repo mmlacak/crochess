@@ -37,4 +37,5 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     'scn_mv_53_en_passant_turning_capture', \
+                    'scn_mv_54_en_passant_turned_capture', \
                 ]
