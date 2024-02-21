@@ -2972,3 +2972,62 @@ class SceneMirandasVeilMixin:
         scene.append_text( "2", 15, 1, corner=Corner.LowerLeft, mark_type=MarkType.Blocked )
 
         return scene
+
+    #
+    # En passant blocked
+
+    def scn_mv_64_rushing_cascade_opponent( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_64_rushing_cascade_opponent', bt, height=7.3, width=6.3 )
+
+        start_P = (3, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (4, 3)
+        end_p = (3, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = (3, 5)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = (3, 6)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_B = (1, 4)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_w = (2, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_r = (1, 2)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        # P --> W(A)
+        start_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_P_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> B
+        scene.append_arrow( *( start_W_A + start_B ), mark_type=MarkType.Action )
+
+        # B --> W(B)
+        start_B_WB = GS.gen_steps( start=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_B_WB() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(B) --> w
+        scene.append_arrow( *( start_W_B + start_w ), mark_type=MarkType.Action )
+
+        # w --> r
+        scene.append_arrow( *( start_w + start_r ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        return scene
