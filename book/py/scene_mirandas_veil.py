@@ -2441,7 +2441,7 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
         return scene
 
@@ -2489,7 +2489,7 @@ class SceneMirandasVeilMixin:
         for i, arrow in enumerate( start_A_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
         return scene
 
@@ -2522,7 +2522,7 @@ class SceneMirandasVeilMixin:
         # p --> [P]
         scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
 
-        scene.append_text( "P", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
 
@@ -2530,28 +2530,30 @@ class SceneMirandasVeilMixin:
 
         scene = Scene( 'scn_mv_56_en_passant_wave_captured', bt, height=7.3, width=6.3 )
 
-        field_P = (3, 4)
+        field_E = (3, 4)
 
         start_P = (3, 1)
-        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+        end_P = (3, 6)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
 
         start_p = (4, 5)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_W_A = field_P
+        start_W_A = field_E
         scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
         # P --> W(A) -->
         start_P_WA_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=5 ) # 6 )
         for i, arrow in enumerate( start_P_WA_() ):
-            mark_type = MarkType.Blocked if i == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+            # mark_type = MarkType.Blocked if i == 2 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
 
         # p --> [P]
-        scene.append_arrow( *( start_p + field_P ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Action )
 
-        scene.append_text( "P", *field_P, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
