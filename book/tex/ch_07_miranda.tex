@@ -1126,7 +1126,7 @@ field E.
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_55_en_passant_turned_capture.png}
 \vspace*{-1.4\baselineskip}
@@ -1137,9 +1137,10 @@ On the left, since activated Pyramid has settled onto field E, rushing light Paw
 cascade has finished, and now it's dark player's turn. \newline
 \indent
 Even though it rushed over field E on the very previous turn, light Pawn cannot
-be captured en passant, since dark Pawn is capturing light Pyramid instead.
+be captured en passant, because dark Pawn is capturing light Pyramid instead,
+since that is positioned on its capture-field.
 
-\vspace*{3.7\baselineskip}
+\vspace*{1.7\baselineskip}
 \noindent
 \begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
@@ -1149,32 +1150,17 @@ be captured en passant, since dark Pawn is capturing light Pyramid instead.
 \label{fig:scn_mv_56_en_passant_wave_captured}
 \end{wrapfigure}
 Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent}, rushing
-Pawn can pass over it, and continue rushing to its full extent. Any piece captured
-by a Pawn granted en passant opportunity prevents capturing rushed Pawn.
+Pawn can pass over it, and can continue rushing further. Any piece captured instead
+of a rushed Pawn prevents that Pawn being captured en passant.
 
-In example on the left similar to previous one, grey arrows show path traveled over
-by rushing light Pawn, from its starting field P. Now on dark player's turn, dark
-Pawn cannot realize en passant opportunity, and can only capture light Wave instead,
-since Wave is positioned on its capture-field E.
+In example on the left similar to previous one, grey arrows show path traveled
+over by rushing light Pawn, from its starting field P. Now on dark player's turn,
+dark Pawn cannot realize en passant opportunity, and can only capture light Wave
+instead, since Wave is positioned on its capture-field E.
 
-The same capturing prevents en passant also applies to rushing Pawns which has been
-activated, only difference is that momentum gathered has to be enough to also drive
-rushing Pawn.
-
-\clearpage % \TODO
-
-\noindent
-\TODO \newline
-0. Wave is transparent --\textgreater Pawn can rush to full extent, even if its
-   path contains multiple Waves ... \newline
-1. en-passant blocked, by cascaded opponent's piece in previous move \newline
-2. capture preceeding en-passant (by Pawn capturing en-passant, in the same ply),
-   due to cascaded own piece in previous move \newline
-3. fix grammar for case (2.) \newline
-4. Wave is transparent --\textgreater cascaded rushing Pawn can continue cascade,
-   and fill rushing path with 1+ pieces --\textgreater now when checking rushing
-   Pawn path it might not be empty --\textgreater check just en-passant tag \&
-   content of en-passant destination field --\textgreater add TODO in parser/lexer \newline
+The same capturing prevents en passant also applies to rushing Pawns which has
+been activated; the only difference from examples here is that momentum gathered
+has to be enough to also drive rushing Pawn.
 
 % ........................................... En passant turned capture
 % ----------------------------------------------------- Cascading Waves
@@ -1316,6 +1302,28 @@ it cannot stay and re-activate piece that has activated it (here, light Wave 2).
 Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 
 % ........................................................ Wave blocked
+\clearpage % ..........................................................
+% En passant blocked ..................................................
+
+\subsubsection*{En passant blocked}
+\addcontentsline{toc}{subsubsection}{En passant blocked}
+\label{sec:Miranda's veil/Wave/Cascading opponent/En passant blocked}
+
+. . .
+
+\clearpage % \TODO
+
+\noindent
+\TODO \newline
+0. Wave is transparent --\textgreater Pawn can rush to full extent, even if its
+   path contains multiple Waves ... \newline
+1. en-passant blocked, by cascaded opponent's piece in previous move \newline
+4. Wave is transparent --\textgreater cascaded rushing Pawn can continue cascade,
+   and fill rushing path with 1+ pieces --\textgreater now when checking rushing
+   Pawn path it might not be empty --\textgreater check just en-passant tag \&
+   content of en-passant destination field --\textgreater add TODO in parser/lexer \newline
+
+% .................................................. En passant blocked
 % -------------------------------------------------- Cascading opponent
 % **************************************************************** Wave
 \clearpage % ..........................................................
