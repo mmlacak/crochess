@@ -2978,34 +2978,34 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_64_rushing_cascade_opponent( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_64_rushing_cascade_opponent', bt, height=7.3, width=6.3 )
+        scene = Scene( 'scn_mv_64_rushing_cascade_opponent', bt, height=8.3, width=6.3 )
 
-        start_P = (3, 1)
+        start_P = (4, 1)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        start_p = (4, 3)
-        end_p = (3, 2)
+        start_p = (5, 4)
+        end_p = (4, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        start_W_A = (3, 5)
+        start_W_A = (4, 6)
         scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_B = (3, 6)
+        start_B = (4, 7)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_W_B = (1, 4)
+        start_W_B = (0, 3)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_w = (2, 3)
+        start_w = (1, 2)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        start_r = (1, 2)
+        start_r = (2, 3)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
         # P --> W(A)
-        start_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        start_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=5 )
         for i, arrow in enumerate( start_P_WA() ):
-            mark_type = MarkType.Action if i == 3 else \
+            mark_type = MarkType.Action if i == 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -3013,9 +3013,9 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *( start_W_A + start_B ), mark_type=MarkType.Action )
 
         # B --> W(B)
-        start_B_WB = GS.gen_steps( start=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        start_B_WB = GS.gen_steps( start=start_B, rels=[ (-1, -1), ], include_prev=True, count=4 )
         for i, arrow in enumerate( start_B_WB() ):
-            mark_type = MarkType.Action if i == 1 else \
+            mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
