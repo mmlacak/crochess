@@ -1090,7 +1090,7 @@ promotion is different than the one at the beginning.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[14]{l}{0.4\textwidth}
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_53_rushing_cascade.png}
 \vspace*{-1.4\baselineskip}
@@ -1098,15 +1098,16 @@ promotion is different than the one at the beginning.
 \label{fig:scn_mv_53_rushing_cascade}
 \end{wrapfigure}
 Rushing Pawn can start a cascade in which other own piece is placed onto opponent's
-en passant destination field.
-Opponent's Pawn then can capture a piece, but cannot capture rushing Pawn anymore. % \newline % \indent
+en passant capture-field.
+Opponent's Pawn can then capture a piece, but cannot capture rushing Pawn en passant
+anymore.
 
 On the left, dark Pawn is positioned so that it would gain en passant opportunity,
 should light Pawn rush over field E. Rushing Pawn is about to start a cascade by
-activating Wave, which can then activate Bishop, which can then activate light
+activating light Wave, which can then activate Bishop, which can then activate
 Pyramid.
 
-% \vspace*{-0.7\baselineskip}
+% \vspace*{-3.7\baselineskip}
 \noindent
 \begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
@@ -1133,21 +1134,32 @@ field E.
 \label{fig:scn_mv_55_en_passant_turned_capture}
 \end{wrapfigure}
 On the left, since activated Pyramid has settled onto field E, rushing light Pawn
-cascade has finished, and now it's dark player's turn. % \newline % \indent
-
+cascade has finished, and now it's dark player's turn. \newline
+\indent
 Even though it rushed over field E on the very previous turn, light Pawn cannot
 be captured en passant, since dark Pawn is capturing light Pyramid instead.
 
-\vspace*{2.7\baselineskip}
+\vspace*{3.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_56_en_passant_wave_captured.png}
 \vspace*{-1.4\baselineskip}
 \caption{Capturing Wave instead}
 \label{fig:scn_mv_56_en_passant_wave_captured}
 \end{wrapfigure}
-. . .
+Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent}, rushing
+Pawn can pass over it, and continue rushing to its full extent. Any piece captured
+by a Pawn granted en passant opportunity prevents capturing rushed Pawn.
+
+In example on the left similar to previous one, grey arrows show path traveled over
+by rushing light Pawn, from its starting field P. Now on dark player's turn, dark
+Pawn cannot realize en passant opportunity, and can only capture light Wave instead,
+since Wave is positioned on its capture-field E.
+
+The same capturing prevents en passant also applies to rushing Pawns which has been
+activated, only difference is that momentum gathered has to be enough to also drive
+rushing Pawn.
 
 \clearpage % \TODO
 
