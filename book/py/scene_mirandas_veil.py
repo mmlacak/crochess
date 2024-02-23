@@ -3143,3 +3143,34 @@ class SceneMirandasVeilMixin:
         scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
 
         return scene
+
+    def scn_mv_67_en_passant_blocked_by_wave( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_67_en_passant_blocked_by_wave', bt, height=7.3, width=6.3 )
+
+        field_E = (3, 4)
+
+        start_P = (3, 1)
+        end_P = (3, 6)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_p = (4, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w = field_E
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # P --> W(A) -->
+        start_P_WA_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=5 ) # 6 )
+        for i, arrow in enumerate( start_P_WA_() ):
+            # mark_type = MarkType.Blocked if i == 2 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # p --> [P]
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+        scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene

@@ -40,7 +40,8 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_54_en_passant_turning_capture', \
                     # 'scn_mv_55_en_passant_turned_capture', \
                     # 'scn_mv_56_en_passant_wave_captured', \
-                    'scn_mv_64_rushing_cascade_opponent', \
-                    'scn_mv_65_blocking_en_passant', \
-                    'scn_mv_66_blocked_en_passant', \
+                    # 'scn_mv_64_rushing_cascade_opponent', \
+                    # 'scn_mv_65_blocking_en_passant', \
+                    # 'scn_mv_66_blocked_en_passant', \
+                    'scn_mv_67_en_passant_blocked_by_wave', \
                 ]

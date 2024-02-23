@@ -1153,7 +1153,7 @@ Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent}, rushing
 Pawn can pass over it, and can continue rushing further. Any piece captured instead
 of a rushed Pawn prevents that Pawn being captured en passant.
 
-In example on the left similar to previous one, grey arrows show path traveled
+In a new example on the left similar to previous one, grey arrows show path traveled
 over by rushing light Pawn, from its starting field P. Now on dark player's turn,
 dark Pawn cannot realize en passant opportunity, and can only capture light Wave
 instead, since Wave is positioned on its capture-field E.
@@ -1361,18 +1361,32 @@ Even though it rushed over field E on the very previous turn, light Pawn cannot
 be captured en passant, because dark Pawn is blocked by its own dark Rook, and
 so it cannot move to its capture-field.
 
-\vspace*{4.3\baselineskip}
+\vspace*{3.7\baselineskip}
+\noindent
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_67_en_passant_blocked_by_wave.png}
+\vspace*{-1.4\baselineskip}
+\caption{Blocked by Wave}
+\label{fig:scn_mv_67_en_passant_blocked_by_wave}
+\end{wrapfigure}
+Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent} to all pieces,
+own or opponent's; rushing Pawn can pass over opponent's Wave, and can continue rushing
+further. Any piece blocking opponent's Pawn capture-field also prevents rushing Pawn to
+be captured en passant.
+
+In a new example on the left similar to previous one, grey arrows show path traveled
+over by rushing light Pawn, from its starting field P. Now on dark player's turn,
+dark Pawn cannot capture rushing Pawn, since dark Wave is blocking its capture-field E.
+
 The same blocking prevents en passant also applies to rushing Pawns which has
-been activated; the only difference from examples here is that momentum gathered
-has to be enough to also drive rushing Pawn.
+been activated; only momentum gathered has to be enough to also drive rushing
+Pawn.
 
 \clearpage % \TODO
 
 \noindent
 \TODO \newline
-0. Wave is transparent --\textgreater Pawn can rush to full extent, even if its
-   path contains multiple Waves ... \newline
-1. en-passant blocked, by cascaded opponent's piece in previous move \newline
 4. Wave is transparent --\textgreater cascaded rushing Pawn can continue cascade,
    and fill rushing path with 1+ pieces --\textgreater now when checking rushing
    Pawn path it might not be empty --\textgreater check just en-passant tag \&
