@@ -1311,38 +1311,60 @@ Thus, dark Wave B is oblationed, i.e. removed from chessboard.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_64_rushing_cascade_opponent.png}
 \vspace*{-1.4\baselineskip}
 \caption{Rushing cascade}
 \label{fig:scn_mv_64_rushing_cascade_opponent}
 \end{wrapfigure}
-. . .
+Rushing Pawn can start a cascade in which opponent's piece is placed onto opponent's
+Pawn capture-field.
+Opponent's Pawn is then blocked by its own piece, and cannot capture rushing Pawn en
+passant anymore.
 
-\vspace*{13.7\baselineskip}
+On the left, dark Pawn is positioned so that it would gain en passant opportunity,
+should light Pawn rush over field E. Rushing Pawn is about to start a cascade by
+activating light Wave A, continuing to Bishop, light Wave B, dark Wave, ending
+with dark Rook.
+
+% \vspace*{13.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_65_blocking_en_passant.png}
 \vspace*{-1.4\baselineskip}
 \caption{Blocking en passant}
 \label{fig:scn_mv_65_blocking_en_passant}
 \end{wrapfigure}
-. . .
+Grey arrows show path traveled over by a piece they point to; taken together they
+show first part of the cascade, which is already done. \newline
+\indent
+Here, activated dark Rook (now "in the air") is about to move to its destination
+field E.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_66_blocked_en_passant.png}
 \vspace*{-1.4\baselineskip}
 \caption{Blocked en passant}
 \label{fig:scn_mv_66_blocked_en_passant}
 \end{wrapfigure}
-. . .
+On the left, since activated Rook has settled onto field E, rushing light Pawn
+cascade has finished, and now it's dark player's turn. \newline
+\indent
+Even though it rushed over field E on the very previous turn, light Pawn cannot
+be captured en passant, because dark Pawn is blocked by its own dark Rook, and
+so it cannot move to its capture-field.
+
+\vspace*{4.3\baselineskip}
+The same blocking prevents en passant also applies to rushing Pawns which has
+been activated; the only difference from examples here is that momentum gathered
+has to be enough to also drive rushing Pawn.
 
 \clearpage % \TODO
 
