@@ -3098,3 +3098,48 @@ class SceneMirandasVeilMixin:
         scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
         return scene
+
+    def scn_mv_66_blocked_en_passant( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_66_blocked_en_passant', bt, height=8.3, width=6.3 )
+
+        prev_P = (4, 1)
+        prev_p = (5, 4)
+        prev_W_A = (4, 6)
+        prev_B = (4, 7)
+        prev_W_B = (0, 3)
+        prev_w = (1, 2)
+        prev_r = (2, 3)
+
+        start_P = prev_W_A
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (5, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = prev_B
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = prev_W_B
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_B = prev_w
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_w = prev_r
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        field_E = (4, 3)
+
+        start_r = field_E
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        # p --> [E]
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+
+        return scene
