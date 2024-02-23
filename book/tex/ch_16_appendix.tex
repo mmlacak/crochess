@@ -1636,6 +1636,33 @@ an option to activate own Pyramid.
 \addcontentsline{toc}{subsection}{Transparency of pieces}
 \label{sec:Appendix/Summary/Transparency of pieces}
 
+\begin{table}[!h]
+\centering
+\begin{tabular}{ lll }
+\toprule % ===================================================================================
+\textbf{Stationary piece}   & \textbf{is ... to}            & \textbf{Moving piece}         \\
+\midrule % -----------------------------------------------------------------------------------
+material, except            & \multirow{2}{*}{opaque}       & material, except              \\
+Starchild                   &                               & Starchild                     \\
+\cmidrule{1-3} % .............................................................................
+Wave                        & transparent                   & all, except Monolith          \\
+all, except Monolith        & transparent                   & Wave                          \\
+Monolith                    & opaque                        & all                           \\
+all, except Starchild       & opaque                        & Monolith                      \\
+Starchild                   & transparent                   & all                           \\
+% all, except Monolith        & transparent                   & Starchild                     \\ % \TODO :: explain it makes no sense due to how Starchild moves
+\bottomrule % ================================================================================
+\end{tabular}
+\caption{Transparency of pieces}
+\label{tbl:Appendix/Summary/Transparency of pieces}
+\end{table}
+
+%                        &                               &                       \\
+% \cmidrule{1-3} % .........................................................................
+%                &                               &                       \\
+
+% \clearpage % \TODO
+
 \TODO :: add table for transparency of pieces \& explanation
       --\textgreater which piece is transparent to whom
 
