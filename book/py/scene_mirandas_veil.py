@@ -2992,10 +2992,10 @@ class SceneMirandasVeilMixin:
         start_B = (4, 7)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_W_B = (0, 3)
+        start_W_B = (2, 5)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_w = (1, 2)
+        start_w = (3, 4)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         start_r = (2, 3)
@@ -3014,9 +3014,9 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *( start_W_A + start_B ), mark_type=MarkType.Action )
 
         # B --> W(B)
-        start_B_WB = GS.gen_steps( start=start_B, rels=[ (-1, -1), ], include_prev=True, count=4 )
+        start_B_WB = GS.gen_steps( start=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
         for i, arrow in enumerate( start_B_WB() ):
-            mark_type = MarkType.Action if i == 3 else \
+            mark_type = MarkType.Action if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -3041,8 +3041,8 @@ class SceneMirandasVeilMixin:
         prev_p = (5, 4)
         prev_W_A = (4, 6)
         prev_B = (4, 7)
-        prev_W_B = (0, 3)
-        prev_w = (1, 2)
+        prev_W_B = (2, 5)
+        prev_w = (3, 4)
         prev_r = (2, 3)
 
         start_P = prev_W_A
@@ -3077,7 +3077,7 @@ class SceneMirandasVeilMixin:
         scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
 
         # B --> W(B)
-        start_B_WB = GS.gen_steps( start=prev_B, rels=[ (-1, -1), ], include_prev=True, count=4 )
+        start_B_WB = GS.gen_steps( start=prev_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
         for i, arrow in enumerate( start_B_WB() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
 
@@ -3107,8 +3107,8 @@ class SceneMirandasVeilMixin:
         prev_p = (5, 4)
         prev_W_A = (4, 6)
         prev_B = (4, 7)
-        prev_W_B = (0, 3)
-        prev_w = (1, 2)
+        prev_W_B = (2, 5)
+        prev_w = (3, 4)
         prev_r = (2, 3)
 
         start_P = prev_W_A
