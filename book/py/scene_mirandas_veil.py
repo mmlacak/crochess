@@ -2984,7 +2984,6 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         start_p = (5, 4)
-        end_p = (4, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_W_A = (4, 6)
@@ -3001,6 +3000,8 @@ class SceneMirandasVeilMixin:
 
         start_r = (2, 3)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        field_E = (4, 3)
 
         # P --> W(A)
         start_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=5 )
@@ -3028,6 +3029,72 @@ class SceneMirandasVeilMixin:
         scene.append_text( "A", *start_W_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
         scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
-        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_mv_65_blocking_en_passant( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_65_blocking_en_passant', bt, height=8.3, width=6.3 )
+
+        prev_P = (4, 1)
+        prev_p = (5, 4)
+        prev_W_A = (4, 6)
+        prev_B = (4, 7)
+        prev_W_B = (0, 3)
+        prev_w = (1, 2)
+        prev_r = (2, 3)
+
+        start_P = prev_W_A
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (5, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = prev_B
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = prev_W_B
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W_B = prev_w
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_w = prev_r
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # start_r = (2, 3)
+        # scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        field_E = (4, 3)
+
+        # P --> W(A)
+        start_P_WA = GS.gen_steps( start=prev_P, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( start_P_WA() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(A) --> B
+        scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
+
+        # B --> W(B)
+        start_B_WB = GS.gen_steps( start=prev_B, rels=[ (-1, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_B_WB() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(B) --> w
+        scene.append_arrow( *( prev_W_B + prev_w ), mark_type=MarkType.Blocked )
+
+        # w --> r
+        scene.append_arrow( *( prev_w + prev_r ), mark_type=MarkType.Blocked )
+
+        # r --> [E]
+        start_e_E = GS.gen_steps( start=prev_r, rels=[ (1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_e_E() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
         return scene
