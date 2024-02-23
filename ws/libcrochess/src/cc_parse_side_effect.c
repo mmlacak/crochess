@@ -527,7 +527,7 @@ bool cc_parse_side_effect( char const * restrict side_effect_an,
             // TODO :: default interactions
             //
             //      -- if King is moving horizontally, for 2+ fields, it's castling
-            //      -- if Pawn, Scout, or Grenadier is moving diagonally, onto empty field, it's en passant
+            //      -- if Pawn, Scout, or Grenadier is moving diagonally, onto empty field, check its tag, if CC_TE_EnPassant then it's en passant
             //      -- if Pyramid is moving onto own Pawn, on a field on opponent's side
             //         of a chessboard, it's tagging for promotion
             //      -- Starchild moving onto empty field, in a syzygy, it's failed resurrection --> ignore (?)
