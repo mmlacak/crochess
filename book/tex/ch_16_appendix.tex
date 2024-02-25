@@ -1647,24 +1647,26 @@ Starchild                   &                               & Starchild         
 \cmidrule{1-3} % .............................................................................
 Wave                        & transparent                   & all, except Monolith          \\
 all, except Monolith        & transparent                   & Wave                          \\
-Monolith                    & opaque                        & all                           \\
+Monolith                    & opaque                        & all, except Starchild         \\
 all, except Starchild       & opaque                        & Monolith                      \\
 Starchild                   & transparent                   & all                           \\
-% all, except Monolith        & transparent                   & Starchild                     \\ % \TODO :: explain it makes no sense due to how Starchild moves
 \bottomrule % ================================================================================
 \end{tabular}
 \caption{Transparency of pieces}
 \label{tbl:Appendix/Summary/Transparency of pieces}
 \end{table}
 
-%                        &                               &                       \\
-% \cmidrule{1-3} % .........................................................................
-%                &                               &                       \\
+A stationary \hyperref[fig:scn_mv_07_wave_is_transparent]{piece is transparent}
+if moving piece is not blocked by it, and can continue movement past it; otherwise,
+it's opaque. Transparency does not define if a moving piece can interact in any
+other way with stationary piece, or not.
 
-% \clearpage % \TODO
-
-\TODO :: add table for transparency of pieces \& explanation
-      --\textgreater which piece is transparent to whom
+To utilize transparency, moving piece has to be able to make at least two steps;
+one towards stationary piece, and one away. So, a single-step piece (e.g. Knight,
+King, ...) cannot use transparency, even if it encounters transparent piece (e.g.
+Wave). The same applies to activated pieces which don't have at least two momentum.
+This is also the reason why in the table above Starchild is not listed under
+\emph{moving piece} column.
 
 \clearpage % ..........................................................
 
