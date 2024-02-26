@@ -1639,22 +1639,24 @@ an option to activate own Pyramid.
 \begin{table}[!h]
 \centering
 \begin{tabular}{ lll }
-\toprule % ===================================================================================
-\textbf{Stationary piece}   & \textbf{is ... to}            & \textbf{Moving piece}         \\
-\midrule % -----------------------------------------------------------------------------------
-material, except            & \multirow{2}{*}{opaque}       & material, except              \\
-Starchild                   &                               & Starchild                     \\
-\cmidrule{1-3} % .............................................................................
-Wave                        & transparent                   & all, except Monolith          \\
-all, except Monolith        & transparent                   & Wave                          \\
-Monolith                    & opaque                        & all, except Starchild         \\
-all, except Starchild       & opaque                        & Monolith                      \\
-Starchild                   & transparent                   & all                           \\
-\bottomrule % ================================================================================
+\toprule % ===========================================================================================
+\textbf{Stationary piece}           & \textbf{is ... to}            & \textbf{Moving piece}         \\
+\midrule % -------------------------------------------------------------------------------------------
+material\footnotemark[1],           & \multirow{2}{*}{opaque}       & material\footnotemark[1],     \\
+except Starchild                    &                               & except Starchild              \\
+\cmidrule{1-3} % .....................................................................................
+Wave                                & transparent                   & all, except Monolith          \\
+all, except Monolith                & transparent                   & Wave                          \\
+Monolith                            & opaque                        & all, except Starchild         \\
+all, except Starchild               & opaque                        & Monolith                      \\
+Starchild                           & transparent                   & all                           \\
+\bottomrule % ========================================================================================
 \end{tabular}
 \caption{Transparency of pieces}
 \label{tbl:Appendix/Summary/Transparency of pieces}
 \end{table}
+
+\footnotetext[1]{Material is any piece, except Wave.}
 
 A stationary \hyperref[fig:scn_mv_07_wave_is_transparent]{piece is transparent}
 if moving piece is not blocked by it, and can continue movement past it; otherwise,
@@ -1673,6 +1675,88 @@ under \emph{moving piece} column.
 \subsection*{Piece actions}
 \addcontentsline{toc}{subsection}{Piece actions}
 \label{sec:Appendix/Summary/Piece actions}
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ llll }
+% \toprule % ===========================================================================================================
+% \textbf{Piece}              & \textbf{Step}             & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
+%                                                         \cmidrule{3-4} % .............................................
+%                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
+% \midrule % -----------------------------------------------------------------------------------------------------------
+% \multirow{3}{*}{materiel\footnotemark[2]}
+%                             & \multirow{3}{*}{ordinary} & step,                         & teleport,                 \\
+%                             &                           & transparency,                 & activate Wave             \\
+%                             &                           & divergence                    &                           \\
+% \cmidrule{1-4} % .....................................................................................................
+% materiel\footnotemark[2],   & \multirow{3}{*}{capture}  & step,                         & teleport, capture,        \\
+% except                      &                           & transparency,                 & activate Wave,            \\
+% Shaman                      &                           & divergence                    & Pyramid                   \\
+% \cmidrule{1-4} % .....................................................................................................
+% % \cmidrule{1-4} % .....................................................................................................
+% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{ordinary} & step,                         & teleport,                 \\
+%                             &                           & transparency,                 & activate                  \\
+%                             &                           & divergence                    & Wave                      \\
+% \cmidrule{1-4} % .....................................................................................................
+% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture}  & step,                         & teleport, capture,        \\
+%                             &                           & capture,                      & activate Wave,            \\
+%                             &                           & divergence                    & Pyramid                   \\
+% \cmidrule{1-4} % .....................................................................................................
+% Monolith                    & ordinary                  & step                          & ---                       \\
+% \bottomrule % ========================================================================================================
+% \end{tabular}
+% \caption{Piece actions in a single ply}
+% \label{tbl:Appendix/Summary/Piece actions}
+% \end{table}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ llll }
+\toprule % ===========================================================================================================
+\textbf{Piece}              & \textbf{Fields}           & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
+                                                        \cmidrule{3-4} % .............................................
+                            &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
+\midrule % -----------------------------------------------------------------------------------------------------------
+materiel\footnotemark[2],   & \multirow{3}{*}{---}      & step,                         & teleport, capture,        \\
+except privates\footnotemark[3],            &                           & transparency,                 & activate Wave,            \\
+Shaman                      &                           & divergence                    & Pyramid                   \\
+\cmidrule{1-4} % .....................................................................................................
+% \cmidrule{1-4} % .....................................................................................................
+\parbox[b][1pt][s]{1pt}{Shaman,\\privates\footnotemark[3]}
+                            & \multirow{3}{*}{step-}    & step,                         & teleport,                 \\
+                            &                           & transparency,                 & activate                  \\
+                            &                           & divergence                    & Wave                      \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & step,                         & teleport, capture,        \\
+                            &                           & capture,                      & activate Wave,            \\
+                            &                           & divergence                    & Pyramid                   \\
+\cmidrule{1-4} % .....................................................................................................
+Monolith                    & step-                     & step                          & ---                       \\
+\bottomrule % ========================================================================================================
+\end{tabular}
+\caption{Piece actions in a single ply}
+\label{tbl:Appendix/Summary/Piece actions}
+\end{table}
+
+\footnotetext[1]{Any step, except the last one.}
+
+\footnotetext[2]{Materiel is any piece which can capture opponent's piece; that is, any piece except Wave, Star, Monolith, Starchild.}
+
+\footnotetext[3]{Private is one of Pawn, Scout, or Grenadier.}
+
+% \multirow{2}{*}{}
+
+% \parbox[b][1pt][s]{1pt}{ordinary,\\capture}
+
+% materiel\footnotemark[1],   & \multirow{3}{*}{ordinary} & step,                 & teleport,                 \\
+% except Pawn,                &                           & transparency,         & activate                  \\
+% Shaman                      &                           & divergence            & Wave                      \\
+
+% materiel\footnotemark[1],   & \parbox[b][1pt][s]{1pt}{ordinary,\\capture}
+%                                                         & step,                 & teleport,                 \\
+% except Pawn,                &                           & transparency,         & activate                  \\
+% Shaman                      &                           & divergence            & Wave                      \\
+
 
 \TODO :: add table for piece/*-field/*-ply actions \& explanation
       --\textgreater e.g. what Shaman is allowed to perform at the end of its capture-ply ?
