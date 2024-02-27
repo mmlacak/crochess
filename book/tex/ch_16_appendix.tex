@@ -1691,16 +1691,21 @@ under \emph{moving piece} column.
 % Shaman                      &                           &                               & Wave, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
 % \multirow{5}{*}{Wave\footnotemark[2]}
-%                             & \multirow{5}{*}{step-}    & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
-%                                                                                         & step, teleport,           \\
-%                             &                           &                               & activate any              \\
-%                             &                           &                               & Wave, own                 \\
-%                             &                           &                               & pieces except             \\
+%                             & \multirow{5}{*}{step-}    &                               & step, teleport,           \\
+%                             &                           & step,                         & activate any              \\
+%                             &                           & transparency,                 & Wave, own                 \\
+%                             &                           & divergence                    & pieces except             \\
 %                             &                           &                               & King, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
 % \multirow{5}{*}{Wave\footnotemark[3]}
-%                             & \multirow{5}{*}{capture-} & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
-%                                                                                         & step, teleport,           \\
+%                             & \multirow{5}{*}{capture-} &                               & step, teleport,           \\
+%                             &                           & step,                         & activate any              \\
+%                             &                           & transparency,                 & Wave, own                 \\
+%                             &                           & divergence                    & pieces except             \\
+%                             &                           &                               & King                      \\
+% \cmidrule{1-4} % .....................................................................................................
+% \multirow{5}{*}{Wave\footnotemark[4]}
+%                             & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & step, teleport,           \\
 %                             &                           &                               & activate any              \\
 %                             &                           &                               & Wave, own                 \\
 %                             &                           &                               & pieces except             \\
@@ -1724,30 +1729,33 @@ under \emph{moving piece} column.
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
-materiel,                   & \multirow{4}{*}{any}      & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
+materiel                    & \multirow{4}{*}{any\footnotemark[2]}
+                                                        & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
                                                                                         & step, capture,            \\
 except                      &                           &                               & teleport,                 \\
 privates,                   &                           &                               & activate own              \\
 Shaman                      &                           &                               & Wave, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Wave\footnotemark[2]}
+\multirow{5}{*}{Wave\footnotemark[3]}
                             & \multirow{5}{*}{step-}    &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
                             &                           & transparency,                 & Wave, own                 \\
                             &                           & divergence                    & pieces except             \\
                             &                           &                               & King, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Wave\footnotemark[3]}
-                            & \parbox[b][1pt][s]{9ex}{\vspace*{1.0\baselineskip}capture-,\\miracle-} % \multirow{5}{*}{capture-}
-                                                        &                               & step, teleport,           \\
+\multirow{5}{*}{Wave\footnotemark[4]}
+                            & \multirow{5}{*}{capture-} &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
                             &                           & transparency,                 & Wave, own                 \\
                             &                           & divergence                    & pieces except             \\
                             &                           &                               & King                      \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{3}{*}{privates}   & \multirow{3}{*}{capture-} & \multirow{3}{*}{---}          & capture, teleport,        \\
-                            &                           &                               & activate own              \\
-                            &                           &                               & Wave, Pyramid             \\
+\multirow{5}{*}{Wave\footnotemark[5]}
+                            & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & step, teleport,           \\
+                            &                           &                               & activate any              \\
+                            &                           &                               & Wave, own                 \\
+                            &                           &                               & pieces except             \\
+                            &                           &                               & King                      \\
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
@@ -1756,13 +1764,17 @@ Shaman                      &                           &                       
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
-\footnotetext[2]{Wave activated on a step-field.}
-\footnotetext[3]{Wave activated on a capture-, or miracle-field.}
+\footnotetext[2]{Here, any field means either step- or capture-field.}
+\footnotetext[3]{Wave activated on a step-field.}
+\footnotetext[4]{Wave activated on a capture--field.}
+\footnotetext[5]{Wave activated on a miracle-field.}
 
 
 % \multirow{2}{*}{}
 
 % \parbox[b][1pt][s]{1pt}{x,\\y}
+
+% \parbox[b][1pt][s]{9ex}{\vspace*{1.0\baselineskip}capture-,\\miracle-}
 
 %                            &                           &                               &                           \\
 
@@ -1794,6 +1806,10 @@ Shaman                      &                           &                       
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
+\multirow{3}{*}{privates}   & \multirow{3}{*}{capture-} & \multirow{3}{*}{---}          & capture, teleport,        \\
+                            &                           &                               & activate own              \\
+                            &                           &                               & Wave, Pyramid             \\
+\cmidrule{1-4} % .....................................................................................................
 \parbox[b][1pt][s]{1pt}{privates,\\Shaman}
                             & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
                             &                           & transparency,                 & activate own              \\
