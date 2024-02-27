@@ -1696,26 +1696,24 @@ under \emph{moving piece} column.
 % privates,                   &                           &                               & activate own              \\
 % Shaman                      &                           &                               & Wave, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
-% \multirow{5}{*}{Wave\footnotemark[2]}
-%                             & \multirow{5}{*}{step-}    &                               & step, teleport,           \\
-%                             &                           & step,                         & activate any              \\
-%                             &                           & transparency,                 & Wave, own                 \\
-%                             &                           & divergence                    & pieces except             \\
-%                             &                           &                               & King, Pyramid             \\
+% \multirow{3}{*}{privates}   & \multirow{3}{*}{capture-} & \multirow{3}{*}{---}          & capture, teleport,        \\
+%                             &                           &                               & activate own              \\
+%                             &                           &                               & Wave, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
-% \multirow{5}{*}{Wave\footnotemark[3]}
-%                             & \multirow{5}{*}{capture-} &                               & step, teleport,           \\
-%                             &                           & step,                         & activate any              \\
-%                             &                           & transparency,                 & Wave, own                 \\
-%                             &                           & divergence                    & pieces except             \\
-%                             &                           &                               & King                      \\
+% \parbox[b][1pt][s]{1pt}{privates,\\Shaman}
+%                             & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
+%                             &                           & transparency,                 & activate own              \\
+%                             &                           & divergence                    & Wave                      \\
 % \cmidrule{1-4} % .....................................................................................................
-% \multirow{5}{*}{Wave\footnotemark[4]}
-%                             & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & step, teleport,           \\
-%                             &                           &                               & activate any              \\
-%                             &                           &                               & Wave, own                 \\
-%                             &                           &                               & pieces except             \\
-%                             &                           &                               & King                      \\
+% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & \parbox[b][1pt][s]{10ex}{capture,\\divergence}
+%                                                                                         & capture, teleport,        \\
+%                             &                           &                               & activate own              \\
+%                             &                           &                               & Wave, Pyramid             \\
+% \cmidrule{1-4} % .....................................................................................................
+% Shaman                      & trance-                   & ---                           & trance-journey            \\
+% \cmidrule{1-4} % .....................................................................................................
+% \multirow{2}{*}{Monolith}   & \multirow{2}{*}{step-}    & \multirow{2}{*}{step}         & step, demoting            \\
+%                             &                           &                               & to Pawn                   \\
 % % \cmidrule{1-4} % .....................................................................................................
 % \bottomrule % ========================================================================================================
 % \end{tabular}
@@ -1758,9 +1756,6 @@ Shaman                      &                           &                       
                             &                           &                               & Wave, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
 Shaman                      & trance-                   & ---                           & trance-journey            \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{2}{*}{Monolith}   & \multirow{2}{*}{step-}    & \multirow{2}{*}{step}         & step, demoting            \\
-                            &                           &                               & to Pawn                   \\
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
@@ -1809,18 +1804,7 @@ Shaman                      & trance-                   & ---                   
                             &                           &                               & Wave, own                 \\
                             &                           &                               & pieces except             \\
                             &                           &                               & King                      \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{3}{*}{Starchild}  & \multirow{3}{*}{step-}    & \multirow{3}{*}{---}          & step, resurrection,       \\
-                            &                           &                               & activate own              \\
-                            &                           &                               & Wave, Starchild           \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Starchild}  & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & activate own              \\
-                            &                           &                               & pieces except             \\
-                            &                           &                               & King, Star,               \\
-                            &                           &                               & opponent's                \\
-                            &                           &                               & Starchild                 \\
-\cmidrule{1-4} % .....................................................................................................
-Starchild                   & uplifting-                & ---                           & sense-journey             \\
+% \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
 \caption{Piece actions in a single ply, part 2}
@@ -1840,24 +1824,26 @@ Starchild                   & uplifting-                & ---                   
 %                                                         \cmidrule{3-4} % .............................................
 %                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 % \midrule % -----------------------------------------------------------------------------------------------------------
-% \multirow{3}{*}{privates}   & \multirow{3}{*}{capture-} & \multirow{3}{*}{---}          & capture, teleport,        \\
-%                             &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
+% \multirow{5}{*}{Wave\footnotemark[2]}
+%                             & \multirow{5}{*}{step-}    &                               & step, teleport,           \\
+%                             &                           & step,                         & activate any              \\
+%                             &                           & transparency,                 & Wave, own                 \\
+%                             &                           & divergence                    & pieces except             \\
+%                             &                           &                               & King, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
-% \parbox[b][1pt][s]{1pt}{privates,\\Shaman}
-%                             & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
-%                             &                           & transparency,                 & activate own              \\
-%                             &                           & divergence                    & Wave                      \\
+% \multirow{5}{*}{Wave\footnotemark[3]}
+%                             & \multirow{5}{*}{capture-} &                               & step, teleport,           \\
+%                             &                           & step,                         & activate any              \\
+%                             &                           & transparency,                 & Wave, own                 \\
+%                             &                           & divergence                    & pieces except             \\
+%                             &                           &                               & King                      \\
 % \cmidrule{1-4} % .....................................................................................................
-% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & \parbox[b][1pt][s]{10ex}{capture,\\divergence}
-%                                                                                         & capture, teleport,        \\
-%                             &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
-% \cmidrule{1-4} % .....................................................................................................
-% Shaman                      & trance-                   & ---                           & trance-journey            \\
-% \cmidrule{1-4} % .....................................................................................................
-% \multirow{2}{*}{Monolith}   & \multirow{2}{*}{step-}    & \multirow{2}{*}{step}         & step, demoting            \\
-%                             &                           &                               & to Pawn                   \\
+% \multirow{5}{*}{Wave\footnotemark[4]}
+%                             & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & step, teleport,           \\
+%                             &                           &                               & activate any              \\
+%                             &                           &                               & Wave, own                 \\
+%                             &                           &                               & pieces except             \\
+%                             &                           &                               & King                      \\
 % \cmidrule{1-4} % .....................................................................................................
 % \multirow{3}{*}{Starchild}  & \multirow{3}{*}{step-}    & \multirow{3}{*}{---}          & step, resurrection,       \\
 %                             &                           &                               & activate own              \\
@@ -1875,6 +1861,45 @@ Starchild                   & uplifting-                & ---                   
 % \caption{Piece actions in a single ply, part 2}
 % \label{tbl:Appendix/Summary/Piece actions, part 2}
 % \end{table}
+
+\clearpage % ..........................................................
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ llll }
+\toprule % ===========================================================================================================
+\textbf{Piece}              & \textbf{Fields}           & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
+                                                        \cmidrule{3-4} % .............................................
+                            &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
+\midrule % -----------------------------------------------------------------------------------------------------------
+\multirow{2}{*}{Monolith}   & \multirow{2}{*}{step-}    & \multirow{2}{*}{step}         & step, demoting            \\
+                            &                           &                               & to Pawn                   \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{3}{*}{Starchild}  & \multirow{3}{*}{step-}    & \multirow{3}{*}{---}          & step, resurrection,       \\
+                            &                           &                               & activate own              \\
+                            &                           &                               & Wave, Starchild           \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{5}{*}{Starchild}  & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & activate Star,            \\
+                            &                           &                               & opponent's                \\
+                            &                           &                               & Starchild,                \\
+                            &                           &                               & own pieces                \\
+                            &                           &                               & except King               \\
+\cmidrule{1-4} % .....................................................................................................
+Starchild                   & uplifting-                & ---                           & sense-journey             \\
+% \cmidrule{1-4} % .....................................................................................................
+\bottomrule % ========================================================================================================
+\end{tabular}
+\caption{Piece actions in a single ply, part 3}
+\label{tbl:Appendix/Summary/Piece actions, part 3}
+\end{table}
+
+\footnotetext[1]{Any step, except the last one.}
+
+% \multirow{5}{*}{Starchild}  & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & activate own              \\
+%                             &                           &                               & pieces except             \\
+%                             &                           &                               & King, Star,               \\
+%                             &                           &                               & opponent's                \\
+%                             &                           &                               & Starchild                 \\
 
 \clearpage % \TODO
 
