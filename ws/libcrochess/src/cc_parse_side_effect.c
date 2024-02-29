@@ -328,7 +328,7 @@ static bool cc_check_failed_conversion( CcPieceEnum piece,
     if ( !CC_PIECE_IS_STARCHILD( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, false, true );
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Conversion can fail only againt Starchild, encountered %s in step '%s'.\n", piece_str, step_an__a );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Conversion can fail only against Starchild, encountered %s in step '%s'.\n", piece_str, step_an__a );
         CC_FREE( step_an__a );
         return false;
     }
@@ -410,7 +410,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
         if ( step_pos__io->j != init_j ) {
             char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
             char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its inital rank, not rank %d in step '%s'.\n", piece_str, step_pos__io->j+1, step_an__a );
+            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s can castle only on its initial rank, not rank %d in step '%s'.\n", piece_str, step_pos__io->j+1, step_an__a );
             CC_FREE( step_an__a );
             return false;
         }

@@ -96,7 +96,7 @@ Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that lin
 list. <br />
 So, `CcMove` indirectly owns every `CcStep` in the whole structure.
 
-This is evidenced when `free()`-ing hierarchially complete structure from a single
+This is evidenced when `free()`-ing hierarchically complete structure from a single
 `CcMove` pointer.
 
 All `CcMove`s in a linked list are `free()`-ed by calling `cc_move_free_all_moves()`,
@@ -113,7 +113,7 @@ If function name does not end in `__new`, then returned pointer is borrowed, e.g
 ### Borrows
 
 Whether borrow is mutable or not can be seen in a function return type, if returned
-pointer points to `const` entity, that is imutable borrow. <br />
+pointer points to `const` entity, that is immutable borrow. <br />
 Borrows are usually mutable (e.g. `CcStep * cc_ply_get_steps()`), although there are
 also read-only borrows (e.g. `char * cc_variant_label()`).
 
@@ -171,9 +171,9 @@ Output parameters (mutable borrows) are indicated by appending either `__o`, or 
 to their name, depending if they are just output parameter, or input + output one, e.g.
 `char * str__io`.
 
-Output parameter, i.e. one named with `__o`, is is also implicitly optional, so
+Output parameter, i.e. one named with `__o`, is also implicitly optional, so
 `char * str__o` is treated the same as `char * str__od`. <br />
-Input / ouput parameter is implicitly mandatory, and has to have `__d` appended to its
+Input / output parameter is implicitly mandatory, and has to have `__d` appended to its
 name if its optional, like so `char * str__iod`.
 
 ### Ownership transfer parameters
@@ -210,8 +210,8 @@ parameter), if main line is executed; that is to say, if all parameters were val
 and all sanity checks passed.
 
 Input + output arguments can be allocated within function, and used in multiple
-consequtive calls as an external variable. <br />
-Function can also deallocate its argument after multiple consequtive calls when
+consecutive calls as an external variable. <br />
+Function can also deallocate its argument after multiple consecutive calls when
 it's done with such an argument, after some conditions are met, or after an error.  <br />
 In such a case `__F` is appended to parameter name, to specify that data can be
 freed within function (and (inner) pointer set to `NULL`) _conditionally_.
@@ -219,7 +219,7 @@ freed within function (and (inner) pointer set to `NULL`) _conditionally_.
 For example, iterator `cc_route_pin_iter()` traverses over given path tree. <br />
 For the first call over a new path tree (i.e. if `*route_pin__io_a_F` is `NULL`), it
 allocates a new route, and initializes it with a first one found in a given path tree. <br />
-On each consequtive call, it returns next route from starting to destination field via
+On each consecutive call, it returns next route from starting to destination field via
 input / output parameter `route_pin__io_a_F`. <br />
 When it runs out of routes in a given path tree, it frees allocated route, and sets its
 pointer back to `NULL`, so it's ready to start over again.
@@ -240,18 +240,18 @@ since container continues to live, and thus given pointer to it is not `NULL`-ed
 ### Weak parameters
 
 Weak parameters are indicated by appending `__w` to their name, e.g. `ply_start__w`. <br />
-They are the same as input, read-only boorows, only they are stored in some structure,
+They are the same as input, read-only borrows, only they are stored in some structure,
 as opposed to just being used within called function. <br />
 For example, `char * ply_start__w`.
 
 Since lifetime of a data pointed to by weak pointer depends on external owner, it's
-best to be used within hierarhical structure, where weak pointers from children points
+best to be used within hierarchical structure, where weak pointers from children points
 to their parents.
 
 Summary
 -------
 
-If multiple indicators are needed, _static_ indicator (`__s`) is apended to parameter
+If multiple indicators are needed, _static_ indicator (`__s`) is appended to parameter
 name first, followed by direction indicator (one of `__o`, `__io`), <br />
 followed by discretion indicator (one of `__d`, `__m`), finally followed by ownership
 transfer indicator (one of `__w`, `__t`, `__a`, `__n`, `__f`, `__r`).

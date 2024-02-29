@@ -58,7 +58,7 @@
 #define CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN (24)
 
 /**
-    Dicsovery board size.
+    Discovery board size.
 */
 #define CC_VARIANT_BOARD_SIZE_DISCOVERY (24)
 
@@ -97,7 +97,7 @@ typedef enum CcVariantEnum {
 #define CC_MAX_LEN_VARIANT_SYMBOL (3)
 
 /**
-    Length of a invalid symbol string (char array).
+    Length of an invalid symbol string (char array).
 */
 #define CC_LEN_VARIANT_SYMBOL_INVALID (0)
 
@@ -174,7 +174,7 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     @note
     If `max_len__d` is given (i.e. > `0`), then it must also be > `CC_MAX_LEN_VARIANT_SYMBOL`.
 
-    @return `true` if succesful, `false` otherwise.
+    @return `true` if successful, `false` otherwise.
 
 */
 size_t cc_variant_from_symbol( char const * restrict str,

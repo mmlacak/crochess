@@ -16,7 +16,7 @@ char const * cc_side_effect_symbol( CcSideEffectEnum see ) {
     switch ( see ) {
         case CC_SEE_None : return ""; /* Side-effect not found, uninitialized, or error happened. */
         case CC_SEE_Capture : return "*"; /* Capturing, corresponds to * (asterisk). */
-        case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, correspondes to < (less-than). */
+        case CC_SEE_Displacement : return "<"; /* Trance-journey displacement, corresponds to < (less-than). */
         case CC_SEE_EnPassant : return ":"; /* En passant, corresponds to : (colon). */
         case CC_SEE_Castle : return "&"; /* Castling, corresponds to & (ampersand). */
         case CC_SEE_Promotion : return "="; /* Promotion, corresponds to = (equal sign), sign is optional. */
@@ -137,7 +137,7 @@ CcPos cc_side_effect_destination( CcSideEffect se ) {
 }
 
 //
-// conveniances
+// conveniences
 
 CcSideEffect cc_side_effect_none( void ) {
     return cc_side_effect( CC_SEE_None, CC_PE_None, CC_LTE_None,

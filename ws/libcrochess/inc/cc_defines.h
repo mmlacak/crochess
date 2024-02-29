@@ -28,7 +28,7 @@
     No valid trance-journey starting from any chessboard field could get to this coordinate,
     and still make it back to any on-board field.
 
-    Used for e.g. missing coordinates, for which invalid value ascertains no useage.
+    Used for e.g. missing coordinates, for which invalid value ascertains no usage.
 */
 // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
 #define CC_INVALID_COORD (INT_MIN + 3583)

@@ -466,7 +466,7 @@
 
     @see CcPieceEnum
 
-    @return `true` if piece is convertable, `false` otherwise.
+    @return `true` if piece is convertible, `false` otherwise.
 */
 #define CC_PIECE_CAN_BE_CONVERTED(pe) ( ( (pe) != CC_PE_DimStar )       \
                                      && ( (pe) != CC_PE_DarkKing )      \
@@ -907,7 +907,7 @@ bool cc_piece_is_opposite( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function checks whether two pieces has the same owner, i.e.
-    if pieces are of the same color (dark, light), not neccessarily the same type.
+    if pieces are of the same color (dark, light), not necessarily the same type.
 
     @param pe_1 A piece.
     @param pe_2 Another piece.
@@ -922,7 +922,7 @@ bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
 
 /**
     Function checks whether two pieces belongs to different players, i.e.
-    if pieces are of opposite color (dark, light), not neccessarily the same type.
+    if pieces are of opposite color (dark, light), not necessarily the same type.
 
     @param pe_1 A piece.
     @param pe_2 Another piece.

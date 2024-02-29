@@ -105,7 +105,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     if ( is_first_ply ) {
         before_ply_start__io->piece = piece_an; // Piece type and owner should be correct, on the first ply.
-        // Position, and tag are generaly not known at this time.
+        // Position, and tag are generally not known at this time.
 
         if ( CC_PIECE_IS_KING( piece_an ) ) {
             CcPos pos = CC_POS_CAST_INVALID;

@@ -12,7 +12,7 @@
 
 
 //
-// Auxilary functions.
+// Auxiliary functions.
 
 CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,
                                       bool is_shortest ) {

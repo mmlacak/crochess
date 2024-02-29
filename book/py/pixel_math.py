@@ -42,7 +42,7 @@ def q_same_rounded_floats(num0, num1, digits=6):
     return n0 == n1
 
 def assert_floor(ij):
-    # assert isinstance(ij, (int, float)) # Not neccessary, floor() will raise exception.
+    # assert isinstance(ij, (int, float)) # Not necessary, floor() will raise exception.
     return math.floor(ij)
 
 def assert_floor_2(i, j):

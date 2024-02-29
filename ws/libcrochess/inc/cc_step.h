@@ -170,7 +170,7 @@ CcStep * cc_step_find_start( CcStep * restrict steps );
     @param steps A linked list of steps.
 
     @note
-    Destination step is one preceeded by destination separator, i.e. `-` (hyphen),
+    Destination step is one preceded by destination separator, i.e. `-` (hyphen),
     or is the last, non-starting step in a given list.
 
     @return Destination step if successful, `NULL` otherwise
@@ -192,15 +192,15 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
     @param steps A linked list of steps.
 
     @note
-    Each step is preceeded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
+    Each step is preceded by the same separator as used in AN, e.g. `..` (double dot) is used for a distant step.
 
     @note
-    Steps with unknown linkage are preceeded by `?`.
+    Steps with unknown linkage are preceded by `?`.
 
     @note
-    Starting step is preceeded by ` (back-tick).
+    Starting step is preceded by ` (back-tick).
 
-    @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
+    @return A newly allocated, zero-terminated string if successful, `NULL` otherwise
 */
 char * cc_step_all_to_short_string__new( CcStep * restrict steps );
 

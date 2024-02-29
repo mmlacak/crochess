@@ -22,7 +22,7 @@
 //     CcPathLink * pl__a = malloc( sizeof( CcPathLink ) );
 //     if ( !pl__a ) return NULL;
 
-//     pl__a->path = *ppt__n; // Transfering ownership.
+//     pl__a->path = *ppt__n; // Transferring ownership.
 //     *ppt__n = NULL; // Preventing usage from old pointer holding ownership.
 
 //     pl__a->next = NULL;
@@ -97,7 +97,7 @@ CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n ) {
     CcPathNode * pl__a = malloc( sizeof( CcPathNode ) );
     if ( !pl__a ) return NULL;
 
-    pl__a->path = *ppt__n; // Transfering ownership.
+    pl__a->path = *ppt__n; // Transferring ownership.
     *ppt__n = NULL; // Preventing usage from old pointer holding ownership.
 
     pl__a->alt_path = NULL;

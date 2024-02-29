@@ -16,7 +16,7 @@
 
 
 /**
-    Separators constant, used to toknize string setup.
+    Separators constant, used to tokenize string setup.
 */
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
 
@@ -101,7 +101,7 @@ typedef struct CcGame {
     @param do_setup Flag, if start from initial setup (`true`), or from manually set-up position (`false`).
 
     @note
-    Linked list of performed moves will be empty. If neccessary, it can be populated once newly allocated game is returned.
+    Linked list of performed moves will be empty. If necessary, it can be populated once newly allocated game is returned.
 
     @return
     A newly allocated game if successful, `NULL` otherwise.
@@ -156,7 +156,7 @@ bool cc_game_free_all( CcGame ** restrict game__f );
     `<tag>` is optional, if given it can be one of `P`, `R`, `E`, `C`; representing delayed promotion, rushing, en passant and castling tags.
 
     @note
-    If optional, initial game setup is not given, setup string has to be preceeded by variant abbreviation, i.e. use one of:
+    If optional, initial game setup is not given, setup string has to be preceded by variant abbreviation, i.e. use one of:
     - cc  --> Classical Chess
     - ct  --> Croatian Ties
     - ma  --> Mayan Ascendancy
