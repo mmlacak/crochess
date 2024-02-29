@@ -384,10 +384,11 @@ if Serpent was activated.
 \end{minipage}
 
 \clearpage % ..........................................................
+% Displacing Pawns ....................................................
 
-\subsubsection*{Displacements while moving}
-\addcontentsline{toc}{subsubsection}{Displacements while moving}
-\label{sec:Tamoanchan Revisited/Serpent/Movement/Displacements while moving}
+\subsubsection*{Displacing Pawns}
+\addcontentsline{toc}{subsubsection}{Displacing Pawns}
+\label{sec:Tamoanchan Revisited/Serpent/Movement/Displacing Pawns}
 
 % \vspace*{-1.2\baselineskip}
 \noindent
@@ -412,11 +413,11 @@ Displacement fields are the same as color-changing fields, and also has to be em
 \caption{Displacement step}
 \label{fig:scn_tr_20_displacement_step_1}
 \end{wrapfigure}
-A Pawn can be displaced for one field to the left, right, up, or bottom from
-its position, if that displacing field is empty. This is so, regardless how displaced
-Pawn moves otherwise. \newline
+A Pawn can be displaced onto a field immediately to the left, right, up, or bottom
+from its standing position, if that displacing field is empty, regardless if light
+or dark Pawn is being displaced. \newline
 \indent
-Here, dark Pawn A (now "in the air") can be displaced onto any of 3 empty neighboring
+Here, dark Pawn (now "in the air") can be displaced onto any of 3 empty neighboring
 fields; left field is illegal for displacement, since it's not empty.
 
 \vspace*{-0.8\baselineskip}
@@ -437,7 +438,7 @@ first Pawn displaced prevents others from being displaced onto the same field.
 \caption{Displacement step}
 \label{fig:scn_tr_21_displacement_step_2}
 \end{wrapfigure}
-Here, dark Pawn A has been displaced onto field shared with Pawn B (now "in the air"),
+Here, dark Pawn has been displaced onto field shared with light Pawn (now "in the air"),
 which cannot be dsplaced onto up-field, as it's not empty any more.
 
 \vspace*{5.1\baselineskip}
@@ -456,7 +457,7 @@ There is no limit to number of displacements Serpent can do in a ply. If there i
 empty displacement field, Serpent must capture encountered Pawn (thus ending its ply),
 or find another path. \newline
 \indent
-Here, dark Pawns A and B has been displaced in a single ply from their initial positions
+Here, dark and light Pawns has been displaced in a single ply from their initial positions
 1 and 2, respectively; arrows show complete Serpent's path in a single ply.
 
 % \vspace*{-0.8\baselineskip}
@@ -471,9 +472,10 @@ Here, dark Pawns A and B has been displaced in a single ply from their initial p
 Displacement does not use momentum, and can be performed even if Serpent has none. \newline
 \indent
 Here, Serpent activated with four momentum would not spend one to displace dark
-Pawn A. So, dark Pawn B is within reach, and so it can be displaced, even if
-Serpent would have no momentum left when it's reached.
+Pawn. So, light Pawn is within reach, and can be displaced, even if Serpent would
+have no momentum left when it's reached.
 
+% .................................................... Displacing Pawns
 \clearpage % ..........................................................
 
 \subsubsection*{Out-of-board steps}
