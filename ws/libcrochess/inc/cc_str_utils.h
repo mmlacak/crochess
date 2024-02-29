@@ -384,7 +384,7 @@ char const * cc_str_contains_char( char c,
 
 /**
     Function returns a string pointer, by traversing a given string,
-    and either skyping over filtered characters, or stopping at first of those.
+    and either skipping over filtered characters, or stopping at first of those.
 
     @param str A string.
     @param fp_is_char A function pointer, used to filter characters.
