@@ -1752,36 +1752,27 @@ under \emph{moving piece} column.
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
-materiel                    & \multirow{4}{*}{any\footnotemark[2]}
+                            & \multirow{4}{*}{any\footnotemark[3]}
                                                         & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
                                                                                         & step, capture,            \\
-except                      &                           &                               & teleport,                 \\
-privates,                   &                           &                               & activate own              \\
-Shaman                      &                           &                               & Wave, Pyramid             \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Serpent}    & \multirow{5}{*}{any\footnotemark[2]}
-                                                        & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence,\\displacement\footnotemark[3]}
-                                                                                        & step, capture,            \\
-                            &                           &                               & teleport,                 \\
-                            &                           &                               & displacement\footnotemark[3], \\
-                            &                           &                               & activate own              \\
+most                        &                           &                               & teleport,                 \\
+materiel\footnotemark[2]    &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{5}{*}{Serpent}    & \multirow{5}{*}{any\footnotemark[3]}
+                                                        &                               & step, capture,            \\
+                            &                           & step,                         & teleport,                 \\
+                            &                           & transparency,                 & displacement\footnotemark[4], \\
+                            &                           & displacement\footnotemark[4]  & activate own              \\
+                            &                           &                               & Wave, Pyramid             \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{3}{*}{privates}   & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
+                            &                           & transparency,                 & activate own              \\
+                            &                           & divergence                    & Wave                      \\
 \cmidrule{1-4} % .....................................................................................................
 \multirow{3}{*}{privates}   & \multirow{3}{*}{capture-} & \multirow{3}{*}{---}          & capture, teleport,        \\
                             &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
-\cmidrule{1-4} % .....................................................................................................
-\parbox[b][1pt][s]{1pt}{privates,\\Shaman}
-                            & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
-                            &                           & transparency,                 & activate own              \\
-                            &                           & divergence                    & Wave                      \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & \parbox[b][1pt][s]{10ex}{capture,\\divergence}
-                                                                                        & capture, teleport,        \\
-                            &                           &                               & activate own              \\
-                            &                           &                               & Wave, Pyramid             \\
-\cmidrule{1-4} % .....................................................................................................
-Shaman                      & trance-                   & ---                           & trance-journey            \\
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
@@ -1789,9 +1780,10 @@ Shaman                      & trance-                   & ---                   
 \label{tbl:Appendix/Summary/Piece actions, part 1}
 \end{table}
 
-\footnotetext[1]{Any step, except the last one.}
-\footnotetext[2]{For materiel pieces capture-fields are the same as step-fields, except for privates, Shaman.}
-\footnotetext[3]{Serpent can only displace Pawns.}
+\footnotetext[1]{Any step except the last one.}
+\footnotetext[2]{Any materiel piece except Serpent, privates, and Shaman.}
+\footnotetext[3]{For materiel pieces step- and capture-fields are the same, except for privates, Shaman.}
+\footnotetext[4]{Serpent can only displace Pawns.}
 
 
 % \multirow{2}{*}{}
@@ -1934,6 +1926,44 @@ Shaman                      & trance-                   & ---                   
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
+\multirow{3}{*}{Shaman}     & \multirow{3}{*}{step-\footnotemark[2]}
+                                                        & step,                         & step, teleport,           \\
+                            &                           & transparency,                 & activate own              \\
+                            &                           & divergence                    & Wave                      \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & \parbox[b][1pt][s]{10ex}{capture,\\divergence}
+                                                                                        & capture, teleport,        \\
+                            &                           &                               & activate own              \\
+                            &                           &                               & Wave, Pyramid             \\
+\cmidrule{1-4} % .....................................................................................................
+Shaman                      & trance-                   & ---                           & trance-journey            \\
+\cmidrule{1-4} % .....................................................................................................
+\parbox[b][1pt][s]{9ex}{entranced\\Shaman}
+                            & \multirow{3}{*}{step-\footnotemark[3]}
+                                                        & step,                         & step,                     \\
+                            &                           & displacement,                 & displacement,             \\
+                            &                           & capture                       & capture                   \\
+% \cmidrule{1-4} % .....................................................................................................
+\bottomrule % ========================================================================================================
+\end{tabular}
+\caption{Piece actions in a single ply, part 3}
+\label{tbl:Appendix/Summary/Piece actions, part 3}
+\end{table}
+
+\footnotetext[1]{Any step, except the last one.}
+\footnotetext[2]{Ordinary step, i.e. not during trance-journey.}
+\footnotetext[3]{Only during trance-journey.}
+
+\clearpage % ..........................................................
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ llll }
+\toprule % ===========================================================================================================
+\textbf{Piece}              & \textbf{Fields}           & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
+                                                        \cmidrule{3-4} % .............................................
+                            &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
+\midrule % -----------------------------------------------------------------------------------------------------------
 \multirow{2}{*}{Monolith}   & \multirow{2}{*}{step-}    & \multirow{2}{*}{step}         & step, demoting            \\
                             &                           &                               & to Pawn                   \\
 \cmidrule{1-4} % .....................................................................................................
@@ -1951,8 +1981,8 @@ Starchild                   & uplifting-                & ---                   
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
-\caption{Piece actions in a single ply, part 3}
-\label{tbl:Appendix/Summary/Piece actions, part 3}
+\caption{Piece actions in a single ply, part 4}
+\label{tbl:Appendix/Summary/Piece actions, part 4}
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
@@ -1974,40 +2004,23 @@ Private is one of Pawn, Scout, or Grenadier.
 %                                                         \cmidrule{3-4} % .............................................
 %                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 % \midrule % -----------------------------------------------------------------------------------------------------------
-% materiel,                   & \multirow{4}{*}{any}      & \parbox[b][1pt][s]{1pt}{step,\\transparency,\\divergence}
-%                                                                                         & step, capture,            \\
-% except                      &                           &                               & teleport,                 \\
-% privates,                   &                           &                               & activate own              \\
-% Shaman                      &                           &                               & Wave, Pyramid             \\
-% \cmidrule{1-4} % .....................................................................................................
-% \multirow{3}{*}{Wave\footnotemark[2]}
-%                             & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
-%                             &                           & transparency,                 & activate any              \\
-%                             &                           & divergence                    & Wave, own                 \\
-%                             &                           &                               & pieces\footnotemark[4]    \\
-% \cmidrule{1-4} % .....................................................................................................
-% \multirow{4}{*}{Wave\footnotemark[3]}
-%                             & \multirow{4}{*}{capture-} & \parbox[b][1pt][s]{1pt}{step,\\transparency,\\divergence}
-%                                                                                         & step, teleport,           \\
-%                             &                           &                               & activate any              \\
-%                             &                           &                               & Wave, own                 \\
-%                             &                           &                               & pieces\footnotemark[4]    \\
-% \cmidrule{1-4} % .....................................................................................................
-% \multirow{3}{*}{privates}   & \multirow{3}{*}{capture-} & \multirow{3}{*}{---}          & capture, teleport,        \\
-%                             &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
-% \cmidrule{1-4} % .....................................................................................................
-% \parbox[b][1pt][s]{1pt}{privates,\\Shaman}
-%                             & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
+% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{step-\footnotemark[2]}
+%                                                         & step,                         & step, teleport,           \\
 %                             &                           & transparency,                 & activate own              \\
 %                             &                           & divergence                    & Wave                      \\
 % \cmidrule{1-4} % .....................................................................................................
-% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & \parbox[b][1pt][s]{1pt}{capture,\\divergence}
+% \multirow{3}{*}{Shaman}     & \multirow{3}{*}{capture-} & \parbox[b][1pt][s]{10ex}{capture,\\divergence}
 %                                                                                         & capture, teleport,        \\
 %                             &                           &                               & activate own              \\
 %                             &                           &                               & Wave, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
 % Shaman                      & trance-                   & ---                           & trance-journey            \\
+% \cmidrule{1-4} % .....................................................................................................
+% \parbox[b][1pt][s]{9ex}{entranced\\Shaman} % \multirow{3}{*}{Shaman}
+%                             & \multirow{3}{*}{step-\footnotemark[3]}
+%                                                         & step,                         & step,                     \\
+%                             &                           & displacement,                 & displacement,             \\
+%                             &                           & capture,                      & capture,                  \\
 % \cmidrule{1-4} % .....................................................................................................
 % \multirow{2}{*}{Monolith}   & \multirow{2}{*}{step-}    & \multirow{2}{*}{step}         & step, demoting            \\
 %                             &                           &                               & to Pawn                   \\
@@ -2016,18 +2029,24 @@ Private is one of Pawn, Scout, or Grenadier.
 %                             &                           &                               & activate own              \\
 %                             &                           &                               & Wave, Starchild           \\
 % \cmidrule{1-4} % .....................................................................................................
-% \multirow{5}{*}{Starchild}  & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & trance-journey,           \\
-%                             &                           &                               & activate own              \\
-%                             &                           &                               & pieces\footnotemark[4],   \\
-%                             &                           &                               & Star, opponent's          \\
-%                             &                           &                               & Starchild                 \\
+% \multirow{5}{*}{Starchild}  & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & activate any Star,        \\
+%                             &                           &                               & opponent's                \\
+%                             &                           &                               & Starchild,                \\
+%                             &                           &                               & own pieces                \\
+%                             &                           &                               & except King               \\
 % \cmidrule{1-4} % .....................................................................................................
 % Starchild                   & uplifting-                & ---                           & sense-journey             \\
+% % \cmidrule{1-4} % .....................................................................................................
 % \bottomrule % ========================================================================================================
 % \end{tabular}
-% \caption{Piece actions in a single ply}
-% \label{tbl:Appendix/Summary/Piece actions, pt. 2}
+% \caption{Piece actions in a single ply, part 3}
+% \label{tbl:Appendix/Summary/Piece actions, part 3}
 % \end{table}
+
+% \footnotetext[1]{Any step, except the last one.}
+% \footnotetext[2]{Ordinary step, i.e. not during trance-journey.}
+% \footnotetext[3]{Only during trance-journey.}
+
 
 \clearpage % ..........................................................
 
