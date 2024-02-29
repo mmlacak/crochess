@@ -353,7 +353,7 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
 
     // Iterator can be initialized outside a loop, and then called as needed.
     if ( cc_route_pin_iter( pn, &rp__a ) ) {
-        // Do someting to first route found here ...
+        // Do something to first route found here ...
     }
 
     // All calls to iterator must be done with the same path tree which was used to initialize route.
@@ -369,7 +369,7 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
 
     // Next call initializes route with a new path tree ...
     if ( cc_route_pin_iter( pn_2, &rp__a ) ) {
-        // Do someting to first route found in the other tree here ...
+        // Do something to first route found in the other tree here ...
     }
 
     // Pinned route pointer is owner of allocated data; if it's not free()-ed

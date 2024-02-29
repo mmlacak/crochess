@@ -14,7 +14,7 @@
 */
 
 /**
-    Separators constant, used to toknize string setup.
+    Separators constant, used to tokenize string setup.
 */
 extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
 
@@ -36,7 +36,7 @@ typedef struct CcChessboard
     Function allocating a new chessboard, initialized for a given variant.
 
     @param ve Variant to play.
-    @param do_setup Wheather to set-up pieces to their initial positions.
+    @param do_setup Whether to set-up pieces to their initial positions.
                     If `false`, chessboard returned is empty.
 
     @return A newly allocated chessboard if successful, `NULL` otherwise.
@@ -48,10 +48,10 @@ CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup );
 
     @param cb__io Chessboard to (re-)initialize.
     @param ve New variant to play, can be different to the one found in `cb__io->type`.
-    @param do_setup Wheather to set-up pieces to their initial positions.
+    @param do_setup Whether to set-up pieces to their initial positions.
                     If `false`, chessboard is cleared of all pieces.
 
-    @return `true` if chessboard is succesfully (re-)initialized, `false` otherwise.
+    @return `true` if chessboard is successfully (re-)initialized, `false` otherwise.
 */
 bool cc_chessboard_init( CcChessboard * restrict cb__io,
                          CcVariantEnum ve,
@@ -75,7 +75,7 @@ bool cc_chessboard_is_size_valid( CcChessboard * restrict cb );
 
     @param cb__io Chessboard to clear.
 
-    @return `true` if chessboard is succesfully cleared, `false` otherwise.
+    @return `true` if chessboard is successfully cleared, `false` otherwise.
 */
 bool cc_chessboard_clear( CcChessboard * restrict cb__io );
 
@@ -84,7 +84,7 @@ bool cc_chessboard_clear( CcChessboard * restrict cb__io );
 
     @param cb__io Chessboard to set-up.
 
-    @return `true` if chessboard is succesfully set up, `false` otherwise.
+    @return `true` if chessboard is successfully set up, `false` otherwise.
 */
 bool cc_chessboard_setup( CcChessboard * restrict cb__io );
 
@@ -95,7 +95,7 @@ bool cc_chessboard_setup( CcChessboard * restrict cb__io );
     @param into__io Chessboard to copy into.
     @param from Chessboard to copy from.
 
-    @return `true` if chessboard is succesfully copied, `false` otherwise.
+    @return `true` if chessboard is successfully copied, `false` otherwise.
 */
 bool cc_chessboard_copy( CcChessboard * restrict into__io,
                          CcChessboard * restrict from );
@@ -105,7 +105,7 @@ bool cc_chessboard_copy( CcChessboard * restrict into__io,
 
     @param from Chessboard to copy from.
 
-    @return A newly allocated chessboard if succesfully duplicated, `NULL` otherwise.
+    @return A newly allocated chessboard if successfully duplicated, `NULL` otherwise.
 */
 CcChessboard * cc_chessboard_duplicate__new( CcChessboard * restrict from );
 
@@ -157,7 +157,7 @@ bool cc_chessboard_is_disambiguation_on_board( CcChessboard * restrict cb, int i
     @param coord A coordinate.
 
     @note
-    Coordiante is safely off-board if there could be a movement (e.g. trance-journey),
+    Coordinate is safely off-board if there could be a movement (e.g. trance-journey),
     which would place piece back on-board.
 
     @return `true` if coordinate is safe off-board, `false` otherwise.
@@ -327,7 +327,7 @@ bool cc_chessboard_is_equal( CcChessboard * restrict cb, CcChessboard * restrict
     Formats a newly allocated string to represent piece, tag positions on a given chessboard.
 
     @param cb Chessboard to display.
-    @param is_board_or_tag Wheather pieces are displayed (if `true`), or tags (if `false`).
+    @param is_board_or_tag Whether pieces are displayed (if `true`), or tags (if `false`).
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
@@ -340,7 +340,7 @@ char * cc_chessboard_as_string__new( CcChessboard * restrict cb,
     Prints string representing piece, tag positions on a given chessboard.
 
     @param cb Chessboard to display.
-    @param is_board_or_tag Wheather pieces are displayed (if `true`), or tags (if `false`).
+    @param is_board_or_tag Whether pieces are displayed (if `true`), or tags (if `false`).
 
     @return `true` if successful, `false` otherwise.
 */

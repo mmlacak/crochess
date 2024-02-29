@@ -17,7 +17,7 @@
 
 
 //
-// Auxilary functions.
+// Auxiliary functions.
 
 // TODO :: DOCS
 CcRoutePin * cc_path_find_route__new( CcPathNode * restrict path_node,

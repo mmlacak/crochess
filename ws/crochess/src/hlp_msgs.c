@@ -121,7 +121,7 @@ void print_help( void ) {
             "* t, time     - (re)sets time counter(s)\n"
             "new           - starts new game, keeps current variant\n"
             "                to change variant specify code, e.g. `new aoa`\n"
-            "                to see all suported codes type `help new`\n"
+            "                to see all supported codes type `help new`\n"
             "* p, players  - sets up players\n"
             "                takes two parameters, both are one of `bot`, `human`\n"
             "* m, move     - moves piece(s)\n"

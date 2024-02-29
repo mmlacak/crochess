@@ -126,7 +126,7 @@ bool cc_fetch_piece_symbol( char const * restrict an_str,
 
     char const * p = an_str;
 
-    if ( isupper( *p ) ) // <!> Useage of cc_piece_symbol_is_valid() here is bug,
+    if ( isupper( *p ) ) // <!> Usage of cc_piece_symbol_is_valid() here is bug,
                          //     all other upper chars would end as Pawns.
         *piece_symbol__o = *p;
     else
@@ -376,7 +376,7 @@ bool cc_ply_an_contains_steps( char const * restrict an_str,
     CcStepLinkEnum sle = cc_parse_step_link( an_str, ply_end );
 
     // ... but string might start with step link.
-    // If it's start of a ply AN, this is an error, but that needs handling somwhere else.
+    // If it's start of a ply AN, this is an error, but that needs handling somewhere else.
     return ( ( sle != CC_SLE_None ) && ( sle != CC_SLE_Start ) );
 }
 

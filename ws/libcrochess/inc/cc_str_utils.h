@@ -384,7 +384,7 @@ char const * cc_str_contains_char( char c,
 
 /**
     Function returns a string pointer, by traversing a given string,
-    and either skiping over filtered characters, or stoping at first of those.
+    and either skyping over filtered characters, or stopping at first of those.
 
     @param str A string.
     @param fp_is_char A function pointer, used to filter characters.
@@ -531,7 +531,7 @@ bool cc_str_is_equal( char const * restrict start_1,
     @param max_len__d _Optional_, maximum length to copy, if length of string is greater than given argument. Can be `0`, if so entirety of given string is copied.
     @param dest__o Pointer to destination.
     @param dest_end__d _Optional_, pointer to an end of destination; can be `NULL`.
-    @param size_dest__d _Optional_, size of a destination, if it's char array, or if it's allocated for less then size of a (sub-)string to copy.
+    @param size_dest__d _Optional_, size of a destination, if it's char array, or if it's allocated for less than size of a (sub-)string to copy.
 
     @note
     Function will zero-terminate copied string, if there is enough space.
@@ -617,7 +617,7 @@ char * cc_str_duplicate__new( char const * restrict str,
     @note
     _Optional_ `size_dest__d` can be `0` (use `CC_SIZE_IGNORE`),
     if so destination string array/allocation (i.e. `str__io`) is assumed
-    to be large enough to accomodate complete appending string `str`.
+    to be large enough to accommodate complete appending string `str`.
 
     @note
     _Optional_ `max_len__d` can be `0` (use `CC_MAX_LEN_ZERO_TERMINATED`),
@@ -634,7 +634,7 @@ char * cc_str_duplicate__new( char const * restrict str,
 
     For instance:
     @code{.c}
-    buffer__a[ 0 ] = '\0'; // Must always contain zero-terminated string, inintialize to '\0' if it doesn't (e.g. just allocated).
+    buffer__a[ 0 ] = '\0'; // Must always contain zero-terminated string, initialize to '\0' if it doesn't (e.g. just allocated).
 
     char * walking = buffer__a;
 

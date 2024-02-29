@@ -256,7 +256,7 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
 
     @param plies A queue of plies.
 
-    @return A newly allocated, zero-termianted string if successful, `NULL` otherwise
+    @return A newly allocated, zero-terminated string if successful, `NULL` otherwise
 */
 char * cc_ply_all_to_short_string__new( CcPly * restrict plies );
 

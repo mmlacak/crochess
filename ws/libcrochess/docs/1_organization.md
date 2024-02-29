@@ -49,7 +49,7 @@ Parser messages are located in `cc_parse_msg` files. Move parsing module (`cc_pa
 is not finished yet.
 
 House-keeping utilities are comprised of the rest of modules:
-- `cc_define.h` contains `#define`s used accross modules
+- `cc_define.h` contains `#define`s used across modules
 - `cc_str_utils` files, various string related functions
 - `cc_tokenizer` files, primitive tokenizer for CLI commands issued by user
 - `cc_version` files, library version

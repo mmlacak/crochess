@@ -11,7 +11,7 @@
     Tag is a link between a piece and field at which it stands.
     Every piece can have only one tag applied at any given time.
 
-    Persistant tags are valid until used or lost, e.g. until piece
+    Persistent tags are valid until used or lost, e.g. until piece
     is moved, activated, converted, captured, displaced, teleported,
     demoted (if figure), promoted (if Pawn).
 
@@ -164,13 +164,13 @@
 typedef enum CcTagEnum {
     CC_TE_None = 0, /**< No tag applies. */
 
-    CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
-    CC_TE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
-    CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
+    CC_TE_CanRush, /**< Pawn can rush, persistent tag. */
+    CC_TE_CanCastle, /**< Rooks, Kings can castle, persistent tag. */
+    CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistent tag. */
 
-    CC_TE_EnPassant, /**< En passant tag, semi-persistant. Gained in a move, used or lost in the very next one. */
+    CC_TE_EnPassant, /**< En passant tag, semi-persistent. Gained in a move, used or lost in the very next one. */
 
-    CC_TE_PawnSacrifice = 5, /**< Pawn sacrifice tag, non-persistant. Gained in a move, used or lost in the very same move. */
+    CC_TE_PawnSacrifice = 5, /**< Pawn sacrifice tag, non-persistent. Gained in a move, used or lost in the very same move. */
 } CcTagEnum;
 
 /**
@@ -211,9 +211,9 @@ CcTagEnum cc_tag_from_char( char c );
 typedef enum CcLosingTagEnum {
     CC_LTE_None = (int)CC_TE_None, /**< No tag applies. */
 
-    CC_LTE_CanRush = (int)CC_TE_CanRush, /**< Pawn can rush, persistant tag. */
-    CC_LTE_CanCastle = (int)CC_TE_CanCastle, /**< Rooks, Kings can castle, persistant tag. */
-    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistant tag. */
+    CC_LTE_CanRush = (int)CC_TE_CanRush, /**< Pawn can rush, persistent tag. */
+    CC_LTE_CanCastle = (int)CC_TE_CanCastle, /**< Rooks, Kings can castle, persistent tag. */
+    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /**< Pawn delayed promotion, persistent tag. */
 } CcLosingTagEnum;
 
 /**

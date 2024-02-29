@@ -12,7 +12,7 @@ Appendix contains description of algebraic notation, extended from the base desc
 This description mostly covers short notation, and is written in monospace font, e.g. \alg{Nc3}.
 
 Parts of classic notation clashes with new developments, and so had to be covered with
-exceptions made specificaly for Classical Chess, so that algebraic notation retains
+exceptions made specifically for Classical Chess, so that algebraic notation retains
 compatibility with its classic form. These exceptions are written in monospace italics,
 e.g. \algcty{Nxb3}.
 
@@ -209,9 +209,9 @@ written as \alg{h5}. Long notation would be \alg{h2-h5}.
 \addcontentsline{toc}{subsection}{Disambiguation}
 \label{sec:Appendix/Notation/Disambiguation}
 
-Disambiguation is position notation, shortened to minimum neccessary to distinguish from
+Disambiguation is position notation, shortened to minimum necessary to distinguish from
 another position(s). It contains one of: just file, just rank, rank + file, in that order
-of preferance. This is the same as in \algfmt{CAN}, described in: \newline
+of preference. This is the same as in \algfmt{CAN}, described in: \newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\newline
 \#Disambiguating\_moves}, see also \algfmt{FIDE~C.10}.
 Disambiguation is used in a ply, to distinguish starting position of a piece from others
@@ -293,7 +293,7 @@ Similarly, \hyperref[fig:scn_ma_05_promo_init]{Pawn promoted by own Pyramid} jus
 chosen piece to promote to, after writing movement of a Pyramid, like so \alg{Ed8\~{}Ah8Q},
 or in \algfmt{XAN} as \alg{[El4-d8]\~{}[Ad8-h8=Q]}.
 
-Pawn capturing opponent's piece can also be promoted, if capture happend on opponent's
+Pawn capturing opponent's piece can also be promoted, if capture happened on opponent's
 figure row. For instance, if in first, Classic Chess example light Pawn captured dark
 Rook before promotion, it would be written as \alg{e8*RQ}, or better yet \alg{e8*R=Q}
 to avoid possible confusion. In \algfmt{CAN}, promotion after capture would be written
@@ -361,7 +361,7 @@ otherwise noted path might inadvertently also denote another. For instance, in a
 to original path, \alg{C..j9..p15} might also denote \alg{C.b4.f5..p15}, which happens
 to cross \alg{j9} as well.
 
-In \algfmt{XAN}, example would be best writen as \alg{Cd3.c5.g6-p15}. Depending on a
+In \algfmt{XAN}, example would be best written as \alg{Cd3.c5.g6-p15}. Depending on a
 situation, it's might be possible to drop either starting field, or one of initial steps,
 like so \alg{Cd3.c5-p15}, while keeping path unique.
 
@@ -557,7 +557,7 @@ is fine, it just doesn't note failed intention.
 
 Teleportation is noted by separating plies with \alg{|} (vertical bar) instead of
 usual \alg{\~{}} (tilde), followed by field at which piece emerged. Optionally,
-teleporting piece can be writen before emerging field. If Wave teleported, vertical
+teleporting piece can be written before emerging field. If Wave teleported, vertical
 bar is followed by Wave and its destination field, or movement, optionally followed
 by activated pieces' plies, if there were any.
 
@@ -621,7 +621,7 @@ In \algfmt{XAN}, with plies gathering, it would be \newline
 
 If there aren't enough Pawns captured to isolate only one path an additional, non-capturing
 steps needs to be written as well. In previous example, if Serpent stopped at \alg{n17}, at
-least 2 differrent paths are possible. Previous example started with
+least 2 different paths are possible. Previous example started with
 \alg{Sn15\~{}An11;;S.m16.n17*} path, other possible path is \alg{Sn15\~{}An11;;S.o16.n17*}.
 Again, for longer paths care must be taken to write step(s) which really differentiate paths,
 otherwise written path might inadvertently also denote others.
@@ -639,7 +639,7 @@ previous paragraph (i.e. \alg{Sn15\~{}An11;;S.m16.n17*}) might also be confused 
 \label{sec:Appendix/Notation/Off-board traversal}
 
 Steps onto virtual, off-board fields are not written. For trance-journey, each possible
-destination field designates unique path on its own, so additional fields are neccessary
+destination field designates unique path on its own, so additional fields are necessary
 only if there is some kind of interactions between entranced Shaman and pieces on its
 step-fields.
 
@@ -685,7 +685,7 @@ Losing ability to castle is denoted with \alg{\&\&} (double ampersand).
 \hyperref[sec:Appendix/Notation/Castling]{Using previous castling examples}, if
 Rooks moved to their destination fields without castling, it would be written as
 \alg{R\&\&e1}, and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{R\&\&a1-e1},
-and \alg{R\&\&y1-q1}. Using just disambiguation, it could be writen as e.g.
+and \alg{R\&\&y1-q1}. Using just disambiguation, it could be written as e.g.
 \alg{R\&\&a..e1}, and \alg{R\&\&y..q1}. \newline
 \indent
 If, in the first example, there were opponent's Bishop on light Rook's neighboring-field
@@ -699,7 +699,7 @@ noted as \alg{P==e11-e12}.
 
 If the same example contained e.g. dark Bishop at \alg{f12}, Pawn tagged for promotion
 could capture it, which would be written as \alg{==f12*B}, and in \algfmt{XAN} as
-\alg{P==e11-f12*B}. When just disambiguation is needed, it could be writen as
+\alg{P==e11-f12*B}. When just disambiguation is needed, it could be written as
 \alg{==ef12*B}, or e.g. as \alg{P==e.f12*B}.
 
 If, in the same situation, light Pawn instead of moving was captured by dark Unicorn
@@ -722,12 +722,12 @@ be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
 \label{sec:Appendix/Notation/Combining side-effects}
 
 It's possible to have two side-effects accompanying the same step, those can be
-writen in any order, but are usually noted in the order of appearance; so, e.g.
-capture would be writen before promotion, that is action before status.
+written in any order, but are usually noted in the order of appearance; so, e.g.
+capture would be written before promotion, that is action before status.
 
 As an example, light Pawn on a second to last rank could capture dark Rook, and
 then promote after the same step. In One variant, if light Pawn and dark Rook
-occupy \alg{d} and \alg{e} files, respectively, this could be writen as
+occupy \alg{d} and \alg{e} files, respectively, this could be written as
 \alg{e26*R=Q} or, in \algfmt{XAN} it would be \alg{Pd25-e26*R=Q}. Equally valid
 notation would be in reverse order, i.e. \alg{e26=Q*R}, and in \algfmt{XAN} it
 would be \alg{Pd25-e26=Q*R}.
@@ -1002,7 +1002,7 @@ teleported, nor converted.}
 \footnotetext[2]{While Unicorn can be diverted, Wave activated by Unicorn cannot
 be diverted.}
 \footnotetext[3]{Wave activated by another Wave can be diverted, if activating Wave
-could be diverted; that depends on which last material (non-Wave) piece was preceeding
+could be diverted; that depends on which last material (non-Wave) piece was preceding
 those Waves in a cascade.}
 
 \clearpage % ..........................................................
@@ -1439,7 +1439,7 @@ are different, and can be found in columns \emph{hor.}, and \emph{vert.},
 respectively.
 
 When there are opponent's pieces on its grenadier-fields, Grenadier can make 1
-step up or down. In close quarters, Grenadier can make 1 step more then the count
+step up or down. In close quarters, Grenadier can make 1 step more than the count
 of opponent's pieces on its grenadier-fields to the left or to the right. After
 each step, Grenadier can end its ply with forking capture-step. \newline
 \indent
@@ -1527,7 +1527,7 @@ Wave activated on a step-field can now move either straight forward as before, o
 sideways.
 
 Wave activated by Unicorn moves similar to Centaur, it has to keep alternating
-between two initially chosen steps, but it's not restricted in chosing second step
+between two initially chosen steps, but it's not restricted in choosing second step
 based on a choice of the first one. Wave can choose any two steps Unicorn could
 make from its starting field and first step-field.
 
@@ -2170,7 +2170,7 @@ like so
 \end{alltt}
 which gives \alg{df}, \alg{def}, \alg{deef}, \alg{deeef}, ... for \algfmt{<abc>}.
 
-Line comments are writen using \algfmti{\$}, everything from \algfmti{\$} up to the
+Line comments are written using \algfmti{\$}, everything from \algfmti{\$} up to the
 end of line is disregarded. For instance, this example
 \begin{alltt}
 \algfmti{\$ Entity <abc> ...}
@@ -2640,7 +2640,7 @@ interspersed with transparency, or it's all capture-steps. However, all three
 side-effects (diverging, transparency, and capturing) are always optional to
 write down, and so the two sets of different steps can be indistinguishable.
 
-Additionaly, grammar does not have access to an external context. So, defining
+Additionally, grammar does not have access to an external context. So, defining
 entity and values which are not optional, but might not be present is not really
 possible. Move status is one such example; except for checks, all other values
 are mandatory to write, but most of the time there is no status to report. So,
