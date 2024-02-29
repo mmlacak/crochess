@@ -721,7 +721,7 @@ class SceneTamoanchanRevisitedMixin:
         return scene
 
     #
-    # Displacements while moving
+    # Displacing Pawns
 
     def scn_tr_19_displacement_init(self, bt=BoardType.TamoanchanRevisited):
 
@@ -730,14 +730,14 @@ class SceneTamoanchanRevisitedMixin:
         start_S = (1, 3)
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        start_p_a = (4, 4)
-        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+        start_p = (4, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_w = (3, 4)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        start_p_b = (5, 3)
-        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+        start_P = (5, 3)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         gen_S_ = GS.gen_steps( start=start_S, rels=[ (1, 1), (1, -1), ], include_prev=True, count=3 )
         for index, coords in enumerate( gen_S_() ):
@@ -745,42 +745,36 @@ class SceneTamoanchanRevisitedMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        scene.append_text( "A", *start_p_a, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-
         return scene
 
     def scn_tr_20_displacement_step_1(self, bt=BoardType.TamoanchanRevisited):
 
         scene = Scene('scn_tr_20_displacement_step_1', bt, width=8, height=8)
 
-        prev_p_a = (4, 4)
+        prev_p = (4, 4)
         prev_S = (1, 3)
 
-        start_S = prev_p_a
+        start_S = prev_p
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        # start_p_a = (4, 4)
-        # scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+        # start_p = (4, 4)
+        # scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_w = (3, 4)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        start_p_b = (5, 3)
-        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+        start_P = (5, 3)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        scene.append_arrow( *GS.append_pos_rel( prev_p_a, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_pos_rel( prev_p_a, 0, 1 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_pos_rel( prev_p_a, -1, 0 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_pos_rel( prev_p_a, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p, -1, 0 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( prev_p, 0, -1 ), mark_type=MarkType.Legal )
 
-        # scene.append_text( "A", *prev_p_a, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-
-        scene.append_field_marker( *GS.add_rel( prev_p_a, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_rel( prev_p_a, 0, 1 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_rel( prev_p_a, -1, 0 ), mark_type=MarkType.Illegal )
-        scene.append_field_marker( *GS.add_rel( prev_p_a, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p, 0, 1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_p, -1, 0 ), mark_type=MarkType.Illegal )
+        scene.append_field_marker( *GS.add_rel( prev_p, 0, -1 ), mark_type=MarkType.Legal )
 
         return scene
 
@@ -788,36 +782,30 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_21_displacement_step_2', bt, width=8, height=8)
 
-        prev_p_a = (4, 4)
-        prev_p_b = (5, 3)
+        prev_p = (4, 4)
+        prev_P = (5, 3)
         prev_S = (1, 3)
 
-        start_p_a = (5, 4)
-        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+        start_p = (5, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_w = (3, 4)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        start_S = prev_p_b
+        start_S = prev_P
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        # start_p_b = (5, 3)
-        # scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+        scene.append_arrow( *( prev_p + start_S ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *( prev_p_a + start_S ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( prev_P, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_P, 0, 1 ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( prev_P, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *GS.append_pos_rel( prev_P, 0, -1 ), mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_pos_rel( prev_p_b, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_pos_rel( prev_p_b, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_pos_rel( prev_p_b, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *GS.append_pos_rel( prev_p_b, 0, -1 ), mark_type=MarkType.Legal )
-
-        scene.append_text( "A", *start_p_a, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        # scene.append_text( "B", *prev_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-
-        scene.append_field_marker( *GS.add_rel( prev_p_b, 1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_rel( prev_p_b, 0, 1 ), mark_type=MarkType.Illegal )
-        scene.append_field_marker( *GS.add_rel( prev_p_b, -1, 0 ), mark_type=MarkType.Legal )
-        scene.append_field_marker( *GS.add_rel( prev_p_b, 0, -1 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_P, 1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_P, 0, 1 ), mark_type=MarkType.Illegal )
+        scene.append_field_marker( *GS.add_rel( prev_P, -1, 0 ), mark_type=MarkType.Legal )
+        scene.append_field_marker( *GS.add_rel( prev_P, 0, -1 ), mark_type=MarkType.Legal )
 
         return scene
 
@@ -825,12 +813,12 @@ class SceneTamoanchanRevisitedMixin:
 
         scene = Scene('scn_tr_22_displacement_end', bt, width=8, height=8)
 
-        prev_p_a = (4, 4)
-        prev_p_b = (5, 3)
+        prev_p = (4, 4)
+        prev_P = (5, 3)
         prev_S = (1, 3)
 
-        start_p_a = (5, 4)
-        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+        start_p = (5, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_w = (3, 4)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
@@ -838,18 +826,15 @@ class SceneTamoanchanRevisitedMixin:
         start_S = (7, 3)
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        start_p_b = (5, 2)
-        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+        start_P = (5, 2)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         gen_S_ = GS.gen_steps( end=start_S, rels=[ (1, -1), (1, 1), ], include_prev=True, count=6 )
         for index, coords in enumerate( gen_S_() ):
             scene.append_arrow( *coords, mark_type=MarkType.Blocked )
 
-        scene.append_text( "1", *prev_p_a, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "2", *prev_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-
-        scene.append_text( "A", *start_p_a, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "1", *prev_p, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker )
+        scene.append_text( "2", *prev_P, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 
@@ -866,14 +851,14 @@ class SceneTamoanchanRevisitedMixin:
         start_S = (1, 3)
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        start_p_a = (4, 4)
-        scene.board.set_piece( *start_p_a, piece=-PieceType.Pawn )
+        start_p = (4, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         start_w = (3, 4)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        start_p_b = (5, 3)
-        scene.board.set_piece( *start_p_b, piece=-PieceType.Pawn )
+        start_P = (5, 3)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         gen_R_W = GS.gen_steps( start=start_R, rels=[ (-1, 0), ], include_prev=True, count=4 )
         for index, coords in enumerate( gen_R_W() ):
@@ -892,9 +877,6 @@ class SceneTamoanchanRevisitedMixin:
             mark_type = MarkType.Action if index == 3 else \
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
-
-        scene.append_text( "A", *start_p_a, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
-        scene.append_text( "B", *start_p_b, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker )
 
         return scene
 

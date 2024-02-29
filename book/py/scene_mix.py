@@ -43,5 +43,10 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_64_rushing_cascade_opponent', \
                     # 'scn_mv_65_blocking_en_passant', \
                     # 'scn_mv_66_blocked_en_passant', \
-                    'scn_mv_67_en_passant_blocked_by_wave', \
+                    # 'scn_mv_67_en_passant_blocked_by_wave', \
+                    'scn_tr_19_displacement_init', \
+                    'scn_tr_20_displacement_step_1', \
+                    'scn_tr_21_displacement_step_2', \
+                    'scn_tr_22_displacement_end', \
+                    'scn_tr_23_displacement_activated', \
                 ]
