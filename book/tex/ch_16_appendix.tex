@@ -1676,56 +1676,6 @@ under \emph{moving piece} column.
 \addcontentsline{toc}{subsection}{Piece actions}
 \label{sec:Appendix/Summary/Piece actions}
 
-% \begin{table}[!h]
-% \centering
-% \begin{tabular}{ llll }
-% \toprule % ===========================================================================================================
-% \textbf{Piece}              & \textbf{Fields}           & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
-%                                                         \cmidrule{3-4} % .............................................
-%                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
-% \midrule % -----------------------------------------------------------------------------------------------------------
-%                             & \multirow{3}{*}{any\footnotemark[3]}
-%                                                         & \multirow{3}{*}{---}          & step, capture,            \\
-% King                        &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
-% \cmidrule{1-4} % .....................................................................................................
-%                             & \multirow{4}{*}{any\footnotemark[3]}
-%                                                         & \multirow{4}{*}{---}          & step, capture,            \\
-% Knight,                     &                           &                               & teleport,                 \\
-% Unicorn                     &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
-% \cmidrule{1-4} % .....................................................................................................
-%                             & \multirow{4}{*}{any\footnotemark[3]}
-%                                                         & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
-%                                                                                         & step, capture,            \\
-% most                        &                           &                               & teleport,                 \\
-% materiel\footnotemark[2]    &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
-% \cmidrule{1-4} % .....................................................................................................
-% \multirow{4}{*}{Pawn}       & \multirow{4}{*}{step-}    & \parbox[b][1pt][s]{12ex}{step\footnotemark[4],\\transparency\footnotemark[4],\\divergence\footnotemark[4]}
-%                                                                                         & step, teleport,           \\
-%                             &                           &                               & promotion,                \\
-%                             &                           &                               & activate own              \\
-%                             &                           &                               & Wave                      \\
-% \cmidrule{1-4} % .....................................................................................................
-% \multirow{5}{*}{Pawn}       & \multirow{5}{*}{capture-} & \multirow{5}{*}{---}          & capture,                  \\
-%                             &                           &                               & promotion\footnotemark[5],\\
-%                             &                           &                               & en passant,               \\
-%                             &                           &                               & activate own              \\
-%                             &                           &                               & Wave, Pyramid             \\
-% % \cmidrule{1-4} % .....................................................................................................
-% \bottomrule % ========================================================================================================
-% \end{tabular}
-% \caption{Piece actions in a single ply, part 1}
-% \label{tbl:Appendix/Summary/Piece actions, part 1}
-% \end{table}
-
-% \footnotetext[1]{Any step except the last one.}
-% \footnotetext[2]{Classical figures, Pegasus, Unicorn.}
-% \footnotetext[3]{Step- and capture-fields are the same; except for privates, Shaman.}
-% \footnotetext[4]{Only when rushing.}
-% \footnotetext[5]{Including capture + promotion.}
-
 \begin{table}[!h]
 \centering
 \begin{tabular}{ llll }
@@ -1762,14 +1712,16 @@ Pegasus                     &                           &                       
 \footnotetext[1]{Any step except the last one.}
 \footnotetext[2]{Step- and capture-fields are the same.}
 
+Table on this and next few pages shows what actions a piece can do, and on what
+fields. Actions are usually side-effects to a step (e.g. a capture), and sometimes
+ply separators if more than just a simple cascade (e.g. teleportation). Steps without
+side-effect are written just as \emph{step} in \emph{action} columns.
 
-% \multirow{2}{*}{}
-
-% \parbox[b][1pt][s]{1pt}{x,\\y}
-
-% \parbox[b][1pt][s]{9ex}{\vspace*{1.0\baselineskip}capture-,\\miracle-}
-
-%                            &                           &                               &                           \\
+Usually, actions on the last step in a ply are different than those on preceding
+steps. For instance, most pieces can capture opponent's piece only on the last step.
+Some pieces can make only one step in a ply, if so available actions are listed in
+the last step, and preceding steps are left empty, i.e. containing just \emph{---}
+(long dash).
 
 \clearpage % ..........................................................
 
@@ -1787,7 +1739,7 @@ Pegasus                     &                           &                       
                             &                           &                               & activate own              \\
                             &                           &                               & Wave                      \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Pawn}       & \multirow{5}{*}{capture-} & \multirow{5}{*}{---}          & capture,                  \\
+\multirow{5}{*}{Pawn}       & \multirow{5}{*}{capture-} & \multirow{5}{*}{---}          & capture, teleport,        \\
                             &                           &                               & promotion\footnotemark[4],\\
                             &                           &                               & en passant,               \\
                             &                           &                               & activate own              \\
@@ -1813,6 +1765,8 @@ Pegasus                     &                           &                       
 \footnotetext[3]{Only when rushing.}
 \footnotetext[4]{Including capture + promotion.}
 \footnotetext[5]{Including tagging for promotion.}
+
+Some actions ...
 
 \clearpage % ..........................................................
 
@@ -1879,7 +1833,7 @@ Star                        & step-                     & ---                   
                             &                           & transparency,                 & activate own              \\
                             &                           & divergence                    & Wave                      \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{4}{*}{troopers}   & \multirow{4}{*}{capture-} & \multirow{4}{*}{---}          & capture,                  \\
+\multirow{4}{*}{troopers}   & \multirow{4}{*}{capture-} & \multirow{4}{*}{---}          & capture, teleport,        \\
                             &                           &                               & en passant,               \\
                             &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
