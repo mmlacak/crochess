@@ -1733,14 +1733,13 @@ the last step, and preceding steps are left empty, i.e. containing just \emph{--
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
-\multirow{4}{*}{Pawn}       & \multirow{4}{*}{step-}    & \parbox[b][1pt][s]{12ex}{step\footnotemark[3],\\transparency\footnotemark[3],\\divergence\footnotemark[3]}
-                                                                                        & step, teleport,           \\
-                            &                           &                               & promotion,                \\
-                            &                           &                               & activate own              \\
-                            &                           &                               & Wave                      \\
+\multirow{4}{*}{Pawn}       & \multirow{4}{*}{step-}    & ---\footnotemark[3],          & step, teleport,           \\
+                            &                           & step\footnotemark[4],         & promotion,                \\
+                            &                           & transparency\footnotemark[4], & activate own              \\
+                            &                           & divergence\footnotemark[4]    & Wave                      \\
 \cmidrule{1-4} % .....................................................................................................
 \multirow{5}{*}{Pawn}       & \multirow{5}{*}{capture-} & \multirow{5}{*}{---}          & capture, teleport,        \\
-                            &                           &                               & promotion\footnotemark[4],\\
+                            &                           &                               & promotion\footnotemark[5],\\
                             &                           &                               & en passant,               \\
                             &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
@@ -1749,7 +1748,7 @@ the last step, and preceding steps are left empty, i.e. containing just \emph{--
                                                         &                               & step, capture,            \\
                             &                           &                               & teleport,                 \\
                             &                           & step,                         & Pawn-sacrifice,           \\
-                            &                           & transparency,                 & promoting\footnotemark[5], \\
+                            &                           & transparency,                 & promoting\footnotemark[6], \\
                             &                           & divergence                    & conversion,               \\
                             &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
@@ -1762,9 +1761,10 @@ the last step, and preceding steps are left empty, i.e. containing just \emph{--
 
 \footnotetext[1]{Any step except the last one.}
 \footnotetext[2]{Step- and capture-fields are the same.}
-\footnotetext[3]{Only when rushing.}
-\footnotetext[4]{Including capture + promotion.}
-\footnotetext[5]{Including tagging for promotion.}
+\footnotetext[3]{When not rushing.}
+\footnotetext[4]{Only when rushing.}
+\footnotetext[5]{Including capture + promotion.}
+\footnotetext[6]{Including tagging for promotion.}
 
 Some actions ...
 
@@ -1781,14 +1781,14 @@ Some actions ...
 \multirow{5}{*}{Wave\footnotemark[2]}
                             & \multirow{5}{*}{step-}    &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
-                            &                           & transparency\footnotemark[5], & Wave, own                 \\
+                            &                           & transparency,                 & Wave, own                 \\
                             &                           & divergence\footnotemark[5]    & pieces except             \\
                             &                           &                               & King, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
 \multirow{5}{*}{Wave\footnotemark[3]}
                             & \multirow{5}{*}{capture-} &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
-                            &                           & transparency\footnotemark[5], & Wave, own                 \\
+                            &                           & transparency,                 & Wave, own                 \\
                             &                           & divergence\footnotemark[5]    & pieces except             \\
                             &                           &                               & King                      \\
 \cmidrule{1-4} % .....................................................................................................
@@ -1811,7 +1811,7 @@ Star                        & step-                     & ---                   
 \footnotetext[2]{Activated on a step-field.}
 \footnotetext[3]{Activated on a capture--field.}
 \footnotetext[4]{Activated on a miracle-field.}
-\footnotetext[5]{Depends on activator.}
+\footnotetext[5]{Cannot diverge if activated by Unicorn or Centaur.}
 
 \clearpage % ..........................................................
 
@@ -1839,8 +1839,8 @@ Star                        & step-                     & ---                   
                             &                           &                               & Wave, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
 \multirow{5}{*}{Serpent}    & \multirow{5}{*}{any\footnotemark[2]}
-                                                        & \parbox[b][1pt][s]{13ex}{step,\\transparency,\\displacement\footnotemark[3],\\capture\footnotemark[4]}
-                                                                                        & step, capture,            \\
+                                                        & \parbox[b][1pt][s]{13ex}{step,\\transparency,\\displacement\footnotemark[3],\\capture\footnotemark[4]\footnotemark[5]}
+                                                                                        & step, capture\footnotemark[5], \\
                             &                           &                               & teleport,                 \\
                             &                           &                               & displacement\footnotemark[3], \\
                             &                           &                               & activate own              \\
@@ -1854,8 +1854,9 @@ Star                        & step-                     & ---                   
 
 \footnotetext[1]{Any step, except the last one.}
 \footnotetext[2]{Step- and capture-fields are the same.}
-\footnotetext[3]{Serpent can only displace Pawns.}
-\footnotetext[4]{After Pawn-sacrifice, Serpent can only capture Pawns.}
+\footnotetext[3]{Serpent can displace only Pawns.}
+\footnotetext[4]{Only after Pawn-sacrifice.}
+\footnotetext[5]{After Pawn-sacrifice, Serpent can capture only Pawns.}
 
 \clearpage % ..........................................................
 
