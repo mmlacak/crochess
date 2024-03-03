@@ -1763,10 +1763,13 @@ the last step, and preceding steps are left empty, i.e. containing just \emph{--
 \footnotetext[2]{Step- and capture-fields are the same.}
 \footnotetext[3]{When not rushing.}
 \footnotetext[4]{Only when rushing.}
-\footnotetext[5]{Including capture + promotion.}
-\footnotetext[6]{Including tagging Pawn for promotion.}
+\footnotetext[5]{Including capture + promotion as side-effects of a single step.}
+\footnotetext[6]{Includes tagging Pawn for promotion.}
 
-Some actions ...
+Some actions are not available to pieces which can make only one step in a single
+ply, these include transparency and divergence. Pawn is one such a piece; however,
+when rushing, Pawn can make more than one step, and then it can diverge and use
+transparency.
 
 \clearpage % ..........................................................
 
