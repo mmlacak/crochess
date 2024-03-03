@@ -1781,22 +1781,22 @@ transparency.
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
-\multirow{5}{*}{Wave\footnotemark[2]}
-                            & \multirow{5}{*}{step-}    &                               & step, teleport,           \\
+\multirow{5}{*}{Wave}       & \multirow{5}{*}{step\footnotemark[2]-}
+                                                        &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
                             &                           & transparency,                 & Wave, own                 \\
                             &                           & divergence\footnotemark[5]    & pieces except             \\
                             &                           &                               & King, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Wave\footnotemark[3]}
-                            & \multirow{5}{*}{capture-} &                               & step, teleport,           \\
+\multirow{5}{*}{Wave}       & \multirow{5}{*}{capture\footnotemark[3]-}
+                                                        &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
                             &                           & transparency,                 & Wave, own                 \\
                             &                           & divergence\footnotemark[5]    & pieces except             \\
                             &                           &                               & King                      \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Wave\footnotemark[4]}
-                            & \multirow{5}{*}{miracle-} & \multirow{5}{*}{---}          & step, teleport,           \\
+\multirow{5}{*}{Wave}       & \multirow{5}{*}{miracle\footnotemark[4]-}
+                                                        & \multirow{5}{*}{---}          & step, teleport,           \\
                             &                           &                               & activate any              \\
                             &                           &                               & Wave, own                 \\
                             &                           &                               & pieces except             \\
@@ -1815,6 +1815,12 @@ Star                        & step-                     & ---                   
 \footnotetext[3]{Activated on a capture--field.}
 \footnotetext[4]{Activated on a miracle-field.}
 \footnotetext[5]{Cannot diverge if activated by Unicorn or Centaur.}
+
+Wave cannot capture, and so all fields it's traversing are actually step-fields.
+In the table above, \emph{fields} column for Wave notes over which kind of fields
+activating piece was traveling. For instance, if activated by rushing Pawn, Wave
+cannot activate Pyramid, because rushing Pawn moves over its own step-fields, and
+so first row applies.
 
 \clearpage % ..........................................................
 
