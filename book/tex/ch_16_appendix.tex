@@ -1867,6 +1867,8 @@ so first row applies.
 \footnotetext[4]{Only after Pawn-sacrifice.}
 \footnotetext[5]{After Pawn-sacrifice, Serpent can capture only Pawns.}
 
+. . .
+
 \clearpage % ..........................................................
 
 \begin{table}[!h]
@@ -1889,9 +1891,11 @@ so first row applies.
 \cmidrule{1-4} % .....................................................................................................
 Shaman                      & trance-                   & ---                           & trance-journey            \\
 \cmidrule{1-4} % .....................................................................................................
-entranced                   & \multirow{2}{*}{step-\footnotemark[3]}
+\parbox[b][1pt][s]{9ex}{entranced\\Shaman}
+                            & \multirow{3}{*}{step-\footnotemark[3]}
                                                         & step, capture,                & step, capture,            \\
-Shaman                      &                           & displacement                  & displacement              \\
+                            &                           & transparency\footnotemark[4], & transparency\footnotemark[4], \\
+                            &                           & displacement                  & displacement              \\
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
@@ -1902,13 +1906,15 @@ Shaman                      &                           & displacement          
 \footnotetext[1]{Any step, except the last one.}
 \footnotetext[2]{Ordinary step, i.e. not during trance-journey.}
 \footnotetext[3]{Only during trance-journey.}
+\footnotetext[4]{Displacements are optional, so effectively all pieces are transparent
+if entrancing Shaman is light. Otherwise, Kings, Stars, and Monoliths are protected from
+mandatory capture, i.e. also transparent.}
 
-% \cmidrule{1-4} % .....................................................................................................
-% \parbox[b][1pt][s]{9ex}{entranced\\Shaman}
-%                             & \multirow{3}{*}{step-\footnotemark[3]}
-%                                                         & step,                         & step,                     \\
-%                             &                           & displacement,                 & displacement,             \\
-%                             &                           & capture                       & capture                   \\
+\TODO Displacements are optional, so effectively all pieces are transparent
+if entrancing Shaman is light (including Monolith!).
+Otherwise, Kings, Stars, and Monoliths are protected from mandatory capture,
+i.e. also transparent. \newline
+--\textgreater Monolith in trance-journey --\textgreater entranced Shaman is oblationed
 
 \clearpage % ..........................................................
 
