@@ -37,4 +37,5 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     'scn_tr_27_pawn_sacrifice_init', \
+                    'scn_tr_28_pawn_sacrifice_steps_1', \
                 ]

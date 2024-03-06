@@ -1838,13 +1838,14 @@ so first row applies.
                             &                           & transparency                  & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{3}{*}{troopers}   & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
+\parbox[b][1pt][s]{9ex}{Scout,\\Grenadier} % \multirow{3}{*}{troopers}
+                            & \multirow{3}{*}{step-}    & step,                         & step, teleport,           \\
                             &                           & transparency,                 & activate own              \\
                             &                           & divergence                    & Wave                      \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{4}{*}{troopers}   & \multirow{4}{*}{capture-} & \multirow{4}{*}{---}          & capture, teleport,        \\
-                            &                           &                               & en passant,               \\
-                            &                           &                               & activate own              \\
+                            & \multirow{4}{*}{capture-} & \multirow{4}{*}{---}          & capture, teleport,        \\
+Scout,                      &                           &                               & en passant,               \\
+Grenadier                   &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
 \multirow{5}{*}{Serpent}    & \multirow{5}{*}{any\footnotemark[2]}
@@ -1867,10 +1868,10 @@ so first row applies.
 \footnotetext[4]{Only after Pawn-sacrifice.}
 \footnotetext[5]{After Pawn-sacrifice, Serpent can capture only Pawns.}
 
-Note that Serpent can capture at any step, but only after Pawn-sacrifice, and only
-Pawns. Otherwise, Serpent (without Pawn-sacrifice tag) can capture any opponent's
-piece, but only at the very last step in its ply, just like all the other
-\hyperref[sec:Terms/Materiel]{materiel pieces} except Shaman. \newline
+Only after Pawn-sacrifice Serpent can capture at any step; only Pawns can be
+captured, regardless if opponent's or own. Otherwise, Serpent (without Pawn-sacrifice
+tag) can capture any opponent's piece, but only at the very last step in its ply,
+just like all the other \hyperref[sec:Terms/Materiel]{materiel pieces} except Shaman. \newline
 \indent
 Unlike other \hyperref[sec:Terms/Material]{material pieces}, Centaur and Serpent
 cannot diverge.
