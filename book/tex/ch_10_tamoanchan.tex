@@ -566,24 +566,18 @@ of chessboard, own or opponent's.
 \end{wrapfigure}
 . . .
 
-\clearpage % \TODO
-
-\TODO :: Serpent tagged with Pawn-sacrifice cannot displace Pawns.
-
 \clearpage % ..........................................................
 
 % \vspace*{-2.1\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_28_pawn_sacrifice_end.png}
-% \vspace*{-1.4\baselineskip}
-% \caption{Pawn-sacrifice end}
-% \label{fig:scn_tr_28_pawn_sacrifice_end}
-% \end{figure}
-
-\label{fig:scn_tr_28_pawn_sacrifice_end} % \TODO :: used reference !!!
-
-\vspace*{-0.5\baselineskip}
+\noindent
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_29_pawn_sacrifice_end.png}
+\vspace*{-0.4\baselineskip}
+\caption{Pawn-sacrifice end}
+\label{fig:scn_tr_29_pawn_sacrifice_end}
+\end{wrapfigure}
+% \vspace*{-0.5\baselineskip}
 In a new ply, Serpent can capture all opponent's Pawns in its path, or move over
 empty fields. Serpent can't capture any other opponent's piece (here, dark Bishop,
 Scout, Grenadier). Pawn-sacrifice tag lasts until normal limit of Serpent's ply is
@@ -591,6 +585,10 @@ reached (in this variant, 14 fields inclusively), or by any action other then
 capturing Pawns and traversing empty fields, e.g. teleporting, activating Wave, ...
 Momentum Serpent accumulates is counted from field at which it got Pawn-sacrifice
 tag (here, field marked red).
+
+\clearpage % \TODO
+
+\TODO :: Serpent tagged with Pawn-sacrifice can displace Pawns.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
