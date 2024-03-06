@@ -978,50 +978,43 @@ class SceneTamoanchanRevisitedMixin:
     #
     # ... Pawn-sacrifice move
 
-    def scn_tr_27_pawn_sacrifice_init(self, bt=BoardType.TamoanchanRevisited):
+    def scn_tr_27_pawn_sacrifice_init( self, bt=BoardType.TamoanchanRevisited ):
 
-        scene = Scene('scn_tr_27_pawn_sacrifice_init', bt)
+        scene = Scene( 'scn_tr_27_pawn_sacrifice_init', bt, width=8.3, height=12.3 )
 
-        start_S = (18, 13)
-        start_A = (13, 14)
-        start_P = (13, 10)
+        start_S = (6, 2)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-        scene.board.set_piece(*start_S, piece=PieceType.Serpent)
-        scene.board.set_piece(*start_A, piece=PieceType.Pyramid)
-        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
+        start_A = (1, 3)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
-        adder = GS.adder(start_A, include_prev=False)
-        adder(1, 1) # empty field
-        scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
-        scene.board.set_piece(*adder(1, 1), piece=-PieceType.Bishop)
-        scene.board.set_piece(*adder(-1, 1), piece=-PieceType.Pawn)
-        scene.board.set_piece(*adder(-2, 0), piece=-PieceType.Scout)
+        start_P = (1, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        scene.board.set_piece(15, 18, piece=-PieceType.Grenadier)
+        adder = GS.adder( start_A, include_prev=False )
+        adder( 1, 1 ) # empty field
+        scene.board.set_piece( *adder( -1,  1 ), piece=PieceType.Pawn )
+        adder( 1, 1 ) # empty field
+        scene.board.set_piece( *adder( -1,  1 ), piece=-PieceType.Pawn )
+        scene.board.set_piece( *adder(  1,  1 ), piece=-PieceType.Pawn )
+        scene.board.set_piece( *adder( -1,  1, do_advance=False ), piece=-PieceType.Bishop )
+        adder( 1,  1 ) # empty field
+        scene.board.set_piece( *adder( 1, -1 ), piece=-PieceType.Wave )
+        adder( 1,  1 ) # empty field
+        scene.board.set_piece( *adder(  1, -1 ), piece=-PieceType.Pawn )
+        scene.board.set_piece( *adder(  1, -1 ), piece=PieceType.Pawn )
 
-        for i in range(8, 22):
-            if i > 8:
-                if i in [9, 12, 14]:
-                    scene.board.set_piece(i, 20, piece=-PieceType.Grenadier)
-                else:
-                    scene.board.set_piece(i, 20, piece=-PieceType.Pawn)
+        coords_S_A = GS.gen_steps( start=start_S, rels=[ (-1, 1), (-1, -1), ], include_prev=True, count=5 )
+        for i, arr in enumerate( coords_S_A() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
-            if i in [10, 11]:
-                scene.board.set_piece(i, 19, piece=-PieceType.Grenadier)
-            elif i in [15]:
-                pass # empty field
-            else:
-                scene.board.set_piece(i, 19, piece=-PieceType.Pawn)
-
-        coords = GS.gen_steps(start=start_S, rels=[(-1, 1), (-1, -1), ], include_prev=True, count=5)
-        for index, coord in enumerate( coords() ):
-            mark_type = MarkType.Action if index == 4 else MarkType.Legal
-            scene.append_arrow( *coord, mark_type=mark_type )
-
-        coords2 = GS.gen_steps(start=start_A, rels=[(0, -1), ], include_prev=True, count=4)
-        for index, coord in enumerate( coords2() ):
-            mark_type = MarkType.Action if index == 3 else MarkType.Legal
-            scene.append_arrow( *coord, mark_type=mark_type )
+        coords_A_P = GS.gen_steps( start=start_A, rels=[ (0, -1), ], include_prev=True, count=2 )
+        for i, arr in enumerate( coords_A_P() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         return scene
 
