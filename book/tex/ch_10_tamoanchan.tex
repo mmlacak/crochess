@@ -540,7 +540,7 @@ compared to previous example.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[15]{l}{0.4\textwidth}
+\begin{wrapfigure}[14]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_27_pawn_sacrifice_init.png}
 \vspace*{-0.4\baselineskip}
@@ -555,18 +555,38 @@ tag. Any received momentum (if Serpent was activated) is lost. Any of pieces
 involved can be on any side of chessboard, own or opponent's. \newline
 \indent
 Here, light Serpent is about to activate Pyramid, which will then oblation
-own Pawn, thus granting initiating Serpent a Pawn-sacrifice tag.
+own Pawn, thus granting Pawn-sacrifice tag to Serpent.
 
-\vspace*{-0.4\baselineskip}
+\vspace*{0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[2]{l}{0.4\textwidth}
+\begin{wrapfigure}[17]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_28_pawn_sacrifice_steps_1.png}
 \vspace*{-0.4\baselineskip}
 \caption{Pawn-sacrifice steps}
 \label{fig:scn_tr_28_pawn_sacrifice_steps_1}
 \end{wrapfigure}
-. . . and, in the same move, starts a new ply.
+Initiating Serpent receives its tag on a field at which it activated Pyramid.
+From there, Serpent can start a new ply in the same move in which tag was obtained;
+otherwise, tag is lost after move finishes. New ply is limited by
+\hyperref[fig:scn_tr_15_serpent_step_limit]{Serpent's step limit}, in this variant
+Serpent can make at most 14 steps in a single ply. \newline
+\indent
+In a new ply, Serpent can interact only with Pawns, either capture or
+\hyperref[fig:scn_tr_20_displacement_step_1]{displace them}, regardless if own or
+opponent's Pawns. In the same ply, Serpent can move over empty fields, or pieces
+which are transparent to Serpent. % \newline
+% \indent
+
+% Here, tagged light Serpent can interact only with Pawns, and cannot capture dark
+% Bishop or Wave.
+
+% Here, tagged light Serpent can interact only with Pawns, both light and dark ones.
+% Tagged Serpent cannot capture neither dark Bishop nor dark Wave. Dark Wave is
+% transparent to a Serpent, so tagged Serpent here can move over it, just like it
+% can move over empty field.
+
+% . . . and, in the same move, starts a new ply.
 
 \clearpage % ..........................................................
 
