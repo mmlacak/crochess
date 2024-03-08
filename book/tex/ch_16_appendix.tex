@@ -591,48 +591,52 @@ gathering, it would be \newline
 \alg{[Br4-t6]}.
 
 Starchild and Wave activated by it cannot teleport, which is written with \alg{||}
-(double vertical bar), followed by destination field at which piece emerged. Destination
-field can be optionally preceded by emerging piece. So,
+(double vertical bar), followed by destination field at which piece emerged.
+Destination field can be optionally preceded by emerging piece. So,
 \hyperref[fig:scn_o_07_starchild_not_moving_monolith_init]{this example} would be
 written as \alg{Ic3||b3}. In \algfmt{XAN}, with ply gathering and emerging piece
 it would be \alg{[If5-c3]||Ib3}.
 
-Note, if there is no empty portal-field around Monolith (or a Star), piece is oblationed,
-and is written as failed teleportation, i.e. with \alg{|||}, optionally followed by
-oblationed piece. So, if Starchild would be oblationed in previous example, it would
-be written as \alg{Ic3|||}, or, in \algfmt{XAN} as \alg{[If5-c3]|||I}.
+Note, if there is no empty portal-field around Monolith (or a Star), piece is
+oblationed, and is written as failed teleportation, i.e. with \alg{|||}, optionally
+followed by oblationed piece. So, if Starchild would be oblationed in previous
+example, it would be written as \alg{Ic3|||}, or, in \algfmt{XAN} as
+\alg{[If5-c3]|||I}.
 
 \subsection*{Pawn-sacrifice}
 \addcontentsline{toc}{subsection}{Pawn-sacrifice}
 \label{sec:Appendix/Notation/Pawn-sacrifice}
 
-Pawn-sacrifice is written by separating plies with \alg{;;} (double semicolon) instead of
-usual \alg{\~{}} (tilde), followed by capturing steps. All Pawn-capturing steps made by
-Serpent must be written, captured pieces are not needed, as they can only be opponent's
-Pawns.
+Pawn-sacrifice is written by separating plies with \alg{;;} (double semicolon)
+instead of usual \alg{\~{}} (tilde), followed by capturing and displacing steps.
+All displacing steps must be written; capturing steps can be omitted if only a
+single path exists; captured and displaced pieces are not needed, as they can
+only be Pawns.
 
 This \hyperref[fig:scn_tr_27_pawn_sacrifice_init]{Pawn-sacrifice} followed by
-\hyperref[fig:scn_tr_29_pawn_sacrifice_end]{capturing of opponent's Pawns} is written as
-\alg{Sn15\~{}An11;;} \newline
-\alg{S..n17*..n19*.m20*.n21*.o20*.p21*.q20*}. \newline
+\hyperref[fig:scn_tr_29_pawn_sacrifice_end]{tagged light Serpent's ply} is
+written as \alg{Sb4\~{}Ab2;;} \newline
+\alg{S..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9}. \newline
 In \algfmt{XAN}, with plies gathering, it would be \newline
-\alg{[Ss14-n15]\~{}[An15-n11];;} \newline
-\alg{[Sn15..n17*..n19*.m20*.n21*.o20*.p21*.q20*]}.
+\alg{[Sg3-b4]\~{}[Ab4-b2];;} \newline
+\alg{[Sb4..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9]}.
 
-If there aren't enough Pawns captured to isolate only one path an additional, non-capturing
-steps needs to be written as well. In previous example, if Serpent stopped at \alg{n17}, at
-least 2 different paths are possible. Previous example started with
-\alg{Sn15\~{}An11;;S.m16.n17*} path, other possible path is \alg{Sn15\~{}An11;;S.o16.n17*}.
-Again, for longer paths care must be taken to write step(s) which really differentiate paths,
-otherwise written path might inadvertently also denote others.
+If there aren't enough Pawns captured or displaced to isolate only one path an
+additional, movement-only steps needs to be written as well. In previous example,
+if Serpent stopped at \alg{b8}, at least two different paths are possible. Previous
+example started with \alg{Sb4\~{}Ab2;;Sb4.c5.b6*.c7.b8*} path, other possible path
+is \alg{Sb4\~{}Ab2;;Sb4.a5.b6*.a7.b8*}. Again, for longer paths care must be taken
+to write step(s) which really differentiate paths, otherwise written path might
+inadvertently also denote others.
 
-Care must also be taken to properly use step separator \alg{.} (dot), and multiple step
-separator \alg{..} (two dots). Step separator \alg{.} is for separating 2 steps, where one
-step immediately follows the other. Multi-step separator \alg{..} is for separating 2 steps
-which have at least one unwritten step in-between. For instance, first, short path in
-previous paragraph (i.e. \alg{Sn15\~{}An11;;S.m16.n17*}) might also be confused with
-\alg{Sn15\~{}An11;;S..m16..n17*}, which is a shorthand for
-\alg{Sn15\~{}An11;;S.m14.l15.m16.l17.m18.n17*}, a very different path.
+Care must also be taken to properly use step separator \alg{.} (dot), and multiple
+step separator \alg{..} (two dots). Step separator \alg{.} is for separating two
+steps, where one step immediately follows the other. Multi-step separator \alg{..}
+is for separating two steps which have at least one unwritten step in-between.
+For instance, first, short path in previous paragraph (i.e.
+\alg{Sb4\~{}Ab2;;Sb4.c5.b6*.c7.b8*}) shouldn't be shortened to
+\alg{Sb4\~{}Ab2;;S..b6*..b8*}, as it would also denote
+\alg{Sb4\~{}Ab2;;Sb4.c3.d4.c5.d6.c7.b6*.a7.b8*}, a very different path indeed.
 
 \subsection*{Off-board traversal}
 \addcontentsline{toc}{subsection}{Off-board traversal}
