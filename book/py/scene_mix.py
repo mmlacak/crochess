@@ -38,5 +38,6 @@ class SceneMix( SceneMixin, \
         return  [
                     # 'scn_tr_27_pawn_sacrifice_init', \
                     # 'scn_tr_28_pawn_sacrifice_steps_1', \
-                    'scn_tr_29_pawn_sacrifice_end', \
+                    # 'scn_tr_29_pawn_sacrifice_end', \
+                    'scn_tr_30_pawn_sacrifice_alt_end', \
                 ]
