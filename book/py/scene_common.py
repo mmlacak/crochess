@@ -87,17 +87,21 @@ class SceneCommon:
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
-        width = None if bt > BoardType.Nineteen else \
+        is_classic = BoardType.is_classical( bt, include_old=True, include_new=True )
+
+        width = 3.3 if is_classic else \
+                None if bt > BoardType.Nineteen else \
                 7.2 if bt > BoardType.MirandasVeil else \
                 3.3
         rect = (0.15, 0.55, 0.5, 0.05)
 
         size = (bt.get_size() + 1) // 2
-        height = None if bt > BoardType.Nineteen else \
+        height = size + 0.3 if is_classic else \
+                 None if bt > BoardType.Nineteen else \
                  size + 0.3
         scene = Scene('intro_en_passant', bt, width=width, height=height)
 
-        if bt > BoardType.MirandasVeil:
+        if bt > BoardType.MirandasVeil and not is_classic:
             scene.board.set_piece(1, 0, PieceType(PieceType.Rook))
             scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
             scene.board.set_piece(1, 2, PieceType(PieceType.Pawn))

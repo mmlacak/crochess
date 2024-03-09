@@ -37,7 +37,7 @@ class BoardType( int ):
     @staticmethod
     def iter( include_none=False,
               include_even=True,
-              include_new_classical=False,
+              include_new_classical=True,
               do_construct=True ):
         l_even =  [ BoardType.Classical, \
                     BoardType.CroatianTies, \
