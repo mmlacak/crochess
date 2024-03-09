@@ -2382,11 +2382,15 @@ teleporting piece (Star) is introduced.
 
 <pawn-sacrifice-steps> =
   \alg{S}[<disambiguation>]
-    \{<step>[\alg{*}[<losing-pawn-tag>]]\}
+    \{<step>[\alg{*}[<losing-pawn-tag>]
+            | \alg{<}[<losing-pawn-tag>]
+                <disambiguation>
+            | <transparency-side-effect>]\}
 | \alg{S}<stepping-no-side-effects>
 
 <pawn-sacrifice-ply> =
-  <pawn-sacrifice-init><pawn-sacrifice-steps>
+  <pawn-sacrifice-init>
+  [<pawn-sacrifice-steps>]
 
 <starting-ply> =
   <active-piece-losing-tag><stepping>
