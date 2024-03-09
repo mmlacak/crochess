@@ -64,7 +64,7 @@ Arguments -x and -I expect at least one of the following options:
 
 all  - all variants will be rendered
 
-c    - Classical chess
+c    - Classical Chess
 ct   - Croatian Ties
 ma   - Mayan Ascendancy
 aoa  - Age Of Aquarius
@@ -75,6 +75,9 @@ tr   - Tamoanchan Revisited
 cot  - Conquest Of Tlalocan
 d    - Discovery
 o    - One
+c14  - Classical 14 Chess
+c20  - Classical 20 Chess
+c26  - Classical 26 Chess
 
 Any combination will work, multiple options separate by space, like so:
 $ python3 main.py -d -x ct ma

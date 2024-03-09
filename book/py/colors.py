@@ -9,86 +9,86 @@ from board import BoardType
 
 
 class ColorsPair:
-    def __init__(self, interior, outline):
-        assert isinstance(interior, str)
-        assert isinstance(outline, str)
+    def __init__( self, interior, outline ):
+        assert isinstance( interior, str )
+        assert isinstance( outline, str )
 
         self.interior = interior
         self.outline = outline
 
-    def as_tuple(self):
-        return (self.interior, self.outline)
+    def as_tuple( self ):
+        return ( self.interior, self.outline )
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return ColorsPair( *tpl[ 0 : 2 ] )
 
-    def __str__(self):
+    def __str__( self ):
         fmt = "<ColorsPair" + " %s" * 2 + ">"
         return fmt % self.as_tuple()
 
 
 class ColorsShade:
-    def __init__(self, light, dark):
-        assert isinstance(light, ColorsPair)
-        assert isinstance(dark, ColorsPair)
+    def __init__( self, light, dark ):
+        assert isinstance( light, ColorsPair )
+        assert isinstance( dark, ColorsPair )
 
         self.light = light
         self.dark = dark
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return self.light.as_tuple() + self.dark.as_tuple()
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return ColorsShade( light=ColorsPair.from_tuple( tpl[ 0 : 2 ] ), \
                             dark=ColorsPair.from_tuple( tpl[ 2 : 4 ] ) )
 
-    def to_piece(self, is_piece_light):
+    def to_piece( self, is_piece_light ):
         tpl = self.light.as_tuple() + self.dark.as_tuple() \
               if is_piece_light else \
               self.dark.as_tuple() + self.light.as_tuple()
         return ColorsPiece.from_tuple( tpl )
 
-    def __str__(self):
+    def __str__( self ):
         fmt = "<ColorsShade" + " %s" * 4 + ">"
         return fmt % self.as_tuple()
 
 
 class ColorsPiece:
-    def __init__(self, own, opposite):
-        assert isinstance(own, ColorsPair)
-        assert isinstance(opposite, ColorsPair)
+    def __init__( self, own, opposite ):
+        assert isinstance( own, ColorsPair )
+        assert isinstance( opposite, ColorsPair )
 
         self.own = own
         self.opposite = opposite
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return self.own.as_tuple() + self.opposite.as_tuple()
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return ColorsPiece( own=ColorsPair.from_tuple( tpl[ 0 : 2 ] ), \
                             opposite=ColorsPair.from_tuple( tpl[ 2 : 4 ] ) )
 
-    def to_shade(self, is_piece_light):
+    def to_shade( self, is_piece_light ):
         tpl = self.own.as_tuple() + self.opposite.as_tuple() \
               if is_piece_light else \
               self.opposite.as_tuple() + self.own.as_tuple()
         return ColorsShade.from_tuple( tpl )
 
-    def __str__(self):
+    def __str__( self ):
         fmt = "<ColorsPiece" + " %s" * 4 + ">"
         return fmt % self.as_tuple()
 
 
 class ColorsMark:
-    def __init__(self, legal, illegal, action, blocked):
+    def __init__( self, legal, illegal, action, blocked ):
 
-        assert isinstance(legal, ColorsShade)
-        assert isinstance(illegal, ColorsShade)
-        assert isinstance(action, ColorsShade)
-        assert isinstance(blocked, ColorsShade)
+        assert isinstance( legal, ColorsShade )
+        assert isinstance( illegal, ColorsShade )
+        assert isinstance( action, ColorsShade )
+        assert isinstance( blocked, ColorsShade )
 
         self.legal = legal
         self.illegal = illegal
@@ -102,24 +102,24 @@ class ColorsMark:
                self.blocked.as_tuple()
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return ColorsMark( legal=ColorsShade.from_tuple( tpl[ 0 : 4 ] ), \
                            illegal=ColorsShade.from_tuple( tpl[ 4 : 8 ] ), \
                            action=ColorsShade.from_tuple( tpl[ 8 : 12 ] ), \
                            blocked=ColorsShade.from_tuple( tpl[ 12 : 16 ] ) )
 
-    def __str__(self):
+    def __str__( self ):
         fmt = "<ColorsMark" + " %s" * 16 + ">"
         return fmt % self.as_tuple()
 
 
 class ColorsMarkSimple:
-    def __init__(self, legal, illegal, action, blocked):
+    def __init__( self, legal, illegal, action, blocked ):
 
-        assert isinstance(legal, ColorsPair)
-        assert isinstance(illegal, ColorsPair)
-        assert isinstance(action, ColorsPair)
-        assert isinstance(blocked, ColorsPair)
+        assert isinstance( legal, ColorsPair )
+        assert isinstance( illegal, ColorsPair )
+        assert isinstance( action, ColorsPair )
+        assert isinstance( blocked, ColorsPair )
 
         self.legal = legal
         self.illegal = illegal
@@ -133,27 +133,27 @@ class ColorsMarkSimple:
                self.blocked.as_tuple()
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return ColorsMarkSimple( legal=ColorsPair.from_tuple( tpl[ 0 : 2 ] ), \
                                  illegal=ColorsPair.from_tuple( tpl[ 2 : 4 ] ), \
                                  action=ColorsPair.from_tuple( tpl[ 4 : 6 ] ), \
                                  blocked=ColorsPair.from_tuple( tpl[ 6 : 8 ] ) )
 
-    def __str__(self):
+    def __str__( self ):
         fmt = "<ColorsMarkSimple" + " %s" * 8 + ">"
         return fmt % self.as_tuple()
 
 
 class ColorsItem:
-    def __init__(self, piece, star, monolith, aura, field, arrow, text, marker):
-        assert isinstance(piece, ColorsShade)
-        assert isinstance(star, ColorsShade)
-        assert isinstance(monolith, ColorsPair)
-        assert isinstance(aura, ColorsPair)
-        assert isinstance(field, ColorsShade)
-        assert isinstance(arrow, ColorsMarkSimple)
-        assert isinstance(text, ColorsMark)
-        assert isinstance(marker, ColorsMark)
+    def __init__( self, piece, star, monolith, aura, field, arrow, text, marker ):
+        assert isinstance( piece, ColorsShade )
+        assert isinstance( star, ColorsShade )
+        assert isinstance( monolith, ColorsPair )
+        assert isinstance( aura, ColorsPair )
+        assert isinstance( field, ColorsShade )
+        assert isinstance( arrow, ColorsMarkSimple )
+        assert isinstance( text, ColorsMark )
+        assert isinstance( marker, ColorsMark )
 
         self.piece = piece
         self.star = star
@@ -164,7 +164,7 @@ class ColorsItem:
         self.text = text
         self.marker = marker
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return  self.piece.as_tuple() + \
                 self.star.as_tuple() + \
                 self.monolith.as_tuple() + \
@@ -175,7 +175,7 @@ class ColorsItem:
                 self.marker.as_tuple()
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return  ColorsItem( piece=ColorsShade.from_tuple( tpl[ 0 : 4 ] ), \
                             star=ColorsShade.from_tuple( tpl[ 4 : 8 ] ), \
                             monolith=ColorsPair.from_tuple( tpl[ 8 : 10 ] ), \
@@ -185,13 +185,13 @@ class ColorsItem:
                             text=ColorsMark.from_tuple( tpl[ 24 : 40 ] ), \
                             marker=ColorsMark.from_tuple( tpl[ 40 : 56 ] ) )
 
-    def __str__(self):
+    def __str__( self ):
         fmt = "<ColorsItem" + " %s" * 56 + ">"
         return fmt % self.as_tuple()
 
 
-class Colors(dict):
-    def __init__(self, cot_in_bw=False, all_in_bw=False):
+class Colors( dict ):
+    def __init__( self, cot_in_bw=False, all_in_bw=False ):
         self.cot_in_bw = cot_in_bw # Conquest of Tlalocan
         self.all_in_bw = all_in_bw
 
@@ -404,6 +404,12 @@ class Colors(dict):
                                                   '#0000FF', '#000000', '#0000FF', '#000000', \
                                                   '#333333', '#000000', '#333333', '#000000') ) )
 
+        self[ BoardType.Classic_14 ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Classic_20 ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Classic_26 ] = self[ BoardType.Classical ]
+
         # CP = ColorsPair.from_tuple # (<interior>, <outline>)
         # CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
         # CM = ColorsMark.from_tuple # ( <legal light interior>, <legal light outline>, <legal dark interior>, <legal dark outline>, \
@@ -424,7 +430,7 @@ class Colors(dict):
 
         return self[ bt ]
 
-Colors = Colors(cot_in_bw=False, all_in_bw=False)
+Colors = Colors( cot_in_bw=False, all_in_bw=False )
 
 
 def test_1():
