@@ -2282,7 +2282,7 @@ teleporting piece (Star) is introduced.
 | \alg{%%}
 
 <pawn-displacement-side-effect> =
-  \alg{<}<pawn><losing-pawn-tag><field>
+  \alg{<}<pawn><losing-pawn-tag><disambiguation>
 
 <displacement-side-effect> =
   \alg{<}[<disposable-piece-losing-tag>]<field>
@@ -2383,8 +2383,7 @@ teleporting piece (Star) is introduced.
 <pawn-sacrifice-steps> =
   \alg{S}[<disambiguation>]
     \{<step>[\alg{*}[<losing-pawn-tag>]
-            | \alg{<}[<losing-pawn-tag>]
-                <disambiguation>
+            | <pawn-displacement-side-effect>
             | <transparency-side-effect>]\}
 | \alg{S}<stepping-no-side-effects>
 
