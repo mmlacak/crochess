@@ -37,7 +37,7 @@ class BoardType( int ):
     @staticmethod
     def iter( include_none=False,
               include_even=True,
-              include_new_classical=True,
+              include_new_classical=False,
               do_construct=True ):
         l_even =  [ BoardType.Classical, \
                     BoardType.CroatianTies, \
@@ -69,7 +69,7 @@ class BoardType( int ):
     def _is_valid( board_type ):
         return board_type in BoardType.iter( include_none=True,
                                              include_even=True,
-                                             include_new_classical=True,
+                                             include_new_classical=False,
                                              do_construct=False )
 
     def is_variant( self, bt ):
@@ -155,14 +155,14 @@ class BoardType( int ):
     def get_list( do_construct=True ):
         return list( BoardType.iter( include_none=False,
                                      include_even=True,
-                                     include_new_classical=True,
+                                     include_new_classical=False,
                                      do_construct=do_construct ) )
 
     @staticmethod
     def get_all_list( do_construct=True, include_none=False ):
         return list( BoardType.iter( include_none=include_none,
                                      include_even=True,
-                                     include_new_classical=True,
+                                     include_new_classical=False,
                                      do_construct=do_construct ) )
 
     def get_size( self ):
@@ -959,7 +959,7 @@ def test_2():
 def test_3():
     print()
 
-    for bt in BoardType.iter( include_none=True, include_even=True, include_new_classical=True ):
+    for bt in BoardType.iter( include_none=True, include_even=True, include_new_classical=False ):
         print( bt.get_name() )
 
     print()
@@ -967,7 +967,7 @@ def test_3():
 def test_4():
     print()
 
-    for bt in BoardType.iter( include_none=True, include_even=True, include_new_classical=True ):
+    for bt in BoardType.iter( include_none=True, include_even=True, include_new_classical=False ):
         b = Board( bt )
         b.setup()
 

@@ -20,8 +20,8 @@ def get_board_type_choices():
     # bts = BoardType.get_all_list(include_none=False)
     bts = BoardType.get_list()
     lbls = [ bt.get_label() for bt in bts ]
-    # lbls.extend( ['all', 'even', 'odd'] )
-    lbls.extend( ['all', ] )
+    # lbls.extend( [ 'all', 'even', 'odd' ] )
+    lbls.extend( [ 'all', ] )
     return lbls
 
 def get_board_types(labels):
