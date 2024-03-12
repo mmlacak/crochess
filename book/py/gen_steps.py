@@ -351,6 +351,10 @@ def sub_end_rel(arrow, rel_x, rel_y):
     x0, y0, x1, y1 = arrow
     return (x1, y1, x1 - rel_x, y1 - rel_y)
 
+def add_arrow_rel(arrow, rel_x, rel_y):
+    x0, y0, x1, y1 = arrow
+    return (x0 + rel_x, y0 + rel_y, x1 + rel_x, y1 + rel_y)
+
 
 def adder(pos, include_prev=False):
     _current = pos

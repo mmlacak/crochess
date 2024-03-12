@@ -59,3 +59,15 @@ class Corner(int):
 
     def is_lower(self):
         return self in [Corner.LowerLeft, Corner.LowerRight, Corner.LowerLeftFieldMarker, Corner.LowerRightFieldMarker]
+
+    def is_upper_left(self):
+        return self in [Corner.UpperLeft, Corner.UpperLeftFieldMarker]
+
+    def is_upper_right(self):
+        return self in [Corner.UpperRight, Corner.UpperRightFieldMarker]
+
+    def is_lower_left(self):
+        return self in [Corner.LowerLeft, Corner.LowerLeftFieldMarker]
+
+    def is_lower_right(self):
+        return self in [Corner.LowerRight, Corner.LowerRightFieldMarker]

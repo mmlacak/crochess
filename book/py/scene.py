@@ -241,25 +241,25 @@ class Scene:
 
         return arw_mark
 
-    def new_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+    def new_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
         # assert isinstance(mark_type, MarkType)
 
-        fld_mark = FieldMarker(field_i, field_j, mark_type=mark_type)
+        fld_mark = FieldMarker(field_i, field_j, corner=corner, mark_type=mark_type)
 
         return fld_mark
 
-    def append_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+    def append_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
         # assert isinstance(mark_type, MarkType)
 
-        fld_mark = self.new_field_marker(field_i, field_j, mark_type=mark_type)
+        fld_mark = self.new_field_marker(field_i, field_j, corner=corner, mark_type=mark_type)
 
         self.field_markers.append(fld_mark)
 
         return fld_mark
 
-    def replace_field_marker(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+    def replace_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
 
-        fld_mark = self.new_field_marker(field_i, field_j, mark_type=mark_type)
+        fld_mark = self.new_field_marker(field_i, field_j, corner=corner, mark_type=mark_type)
 
         for i, fm in enumerate( self.field_markers ):
             if fm.same_position( fld_mark ):

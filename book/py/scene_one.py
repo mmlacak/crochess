@@ -1757,6 +1757,158 @@ class SceneOneMixin:
     #
     # test methods
 
+    def test_o_97_quad_field_markers_full(self, bt=BoardType.One):
+
+        scene = Scene('test_o_97_quad_field_markers_full', bt, x=-50, y=-50, width=128, height=128)
+
+        start = (12, 12) # (11, 11)
+
+        scene.append_text( "X", *start, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=( 0.35, 0.35, 0.65, 0.65 ) )
+
+        is_all_corners = True
+        _ur = None if is_all_corners else Corner.UpperRight
+        _ul = None if is_all_corners else Corner.UpperLeft
+        _ll = None if is_all_corners else Corner.LowerLeft
+        _lr = None if is_all_corners else Corner.LowerRight
+
+        #
+        # light Shaman
+
+        rel = (2, 1)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rels(rel)
+        coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
+
+        for i in range(44):
+            scene.append_field_marker( *coords(), corner=_ur, mark_type=MarkType.Legal )
+
+
+        rel = (-2, -1)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rels(rel)
+        coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
+
+        for i in range(44):
+            scene.append_field_marker( *coords(), corner=_ul, mark_type=MarkType.Blocked )
+
+        #
+        # dark Shaman
+
+        rel = (1, 2)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rels(rel)
+        coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
+
+        for i in range(44):
+            scene.append_field_marker( *coords(), corner=_ll, mark_type=MarkType.Action )
+
+
+        rel = (-1, -2)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rels(rel)
+        coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
+
+        for i in range(44):
+            scene.append_field_marker( *coords(), corner=_lr, mark_type=MarkType.Illegal )
+
+        return scene
+
+    def test_o_98_quad_stop_sign_pattern_full(self, bt=BoardType.One):
+
+        scene = Scene('test_o_98_quad_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
+
+        start = (12, 12) # (11, 11)
+
+        #
+        # light Shaman
+
+        rel = (2, 1)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rel_legs(rel)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
+
+        for i in range(11):
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal ) # right-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal ) # left-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal ) # left-down
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.7, 0.6 ), mark_type=MarkType.Legal ) # right-down
+
+
+        rel = (-2, -1)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rel_legs(rel)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
+
+        for i in range(11):
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked ) # right-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked ) # left-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked ) # left-down
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.3, 0.4 ), mark_type=MarkType.Blocked ) # right-down
+
+        #
+        # dark Shaman
+
+        rel = (1, 2)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rel_legs(rel)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
+
+        for i in range(11):
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action ) # right-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action ) # left-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action ) # left-down
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.5, 0.7 ), mark_type=MarkType.Action ) # right-down
+
+
+        rel = (-1, -2)
+        # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
+
+        rels = GS.gen_shaman_rel_legs(rel)
+        coords = GS.gen_next( GS.gen_steps(rels, start=start, include_prev=True) ) # , bounds=bounds
+
+        for i in range(11):
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # right
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal ) # right-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # up
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal ) # left-up
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # left
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal ) # left-down
+
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal, end_pointer=False ) # down
+            scene.append_arrow( *GS.add_arrow_rel( coords(), 0.4, 0.5 ), mark_type=MarkType.Illegal ) # right-down
+
+        return scene
+
     def test_o_99_stop_sign_pattern_full(self, bt=BoardType.One):
 
         scene = Scene('test_o_99_stop_sign_pattern_full', bt, x=-50, y=-50, width=128, height=128)
@@ -1814,8 +1966,13 @@ def test_big_pattern():
 
     scene = SceneMix()
     ss = SaveScene( RenderingSizeEnum.Draft )
+    # ss.render_example( scene,
+    #                    scene.test_o_99_stop_sign_pattern_full,
+    #                    board_types=[ BoardType.One, ],
+    #                    path_prefix='temp/')
+    #                    # , enforce_cot_in_bw=True)
     ss.render_example( scene,
-                       scene.test_o_99_stop_sign_pattern_full,
+                       scene.test_o_97_quad_field_markers_full, # scene.test_o_98_quad_stop_sign_pattern_full,
                        board_types=[ BoardType.One, ],
                        path_prefix='temp/')
                        # , enforce_cot_in_bw=True)

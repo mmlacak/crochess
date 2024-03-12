@@ -6,6 +6,8 @@
 
 from pixel_math import is_any, q_same_rounded_floats
 
+from corner import Corner
+
 
 class MarkType(int):
     none = 0
@@ -112,14 +114,17 @@ class Text(object):
 
 class FieldMarker(object):
 
-    def __init__(self, field_i, field_j, mark_type=MarkType(MarkType.Legal)):
+    def __init__(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
         assert isinstance(field_i, int)
         assert isinstance(field_j, int)
+        # assert isinstance(corner, (Corner, type(None)))
         # assert isinstance(mark_type, MarkType)
 
+        crnr = Corner(corner) if corner is not None else None
         mt = MarkType(mark_type)
 
         self.field = (field_i, field_j)
+        self.corner = crnr
         self.mark_type = mt
 
     def same_position(self, other):

@@ -154,19 +154,27 @@ class DrawMark(DrawBoard):
         # inv_width_ratio - compared to field size
         inv_width_ratio = _fmdef.inv_width_ratio # if _fmdef is not None else dm.DEFAULT_FIELD_MARKER_INVERSE_WIDTH_RATIO
 
+        is_upper_left = field_marker.corner is None or field_marker.corner.is_upper_left()
+        is_upper_right = field_marker.corner is None or field_marker.corner.is_upper_right()
+        is_lower_right = field_marker.corner is None or field_marker.corner.is_lower_right()
+        is_lower_left = field_marker.corner is None or field_marker.corner.is_lower_left()
         width = 1.0 / inv_width_ratio
 
         i, j = self.get_field_start( *field_marker.field )
-        upper_left_triangle = [ (i, j), (i + width, j), (i, j + width) ]
+        upper_left_triangle = [ (i, j), (i + width, j), (i, j + width) ] if is_upper_left else \
+                              None
 
         x, y = i + 1.0, j
-        upper_right_triangle = [ (x, y), (x - width, y), (x, y + width) ]
+        upper_right_triangle = [ (x, y), (x - width, y), (x, y + width) ] if is_upper_right else \
+                               None
 
         x, y = i + 1.0, j + 1.0
-        lower_right_triangle = [ (x, y), (x - width, y), (x, y - width) ]
+        lower_right_triangle = [ (x, y), (x - width, y), (x, y - width) ] if is_lower_right else \
+                               None
 
         x, y = i, j + 1.0
-        lower_left_triangle = [ (x, y), (x + width, y), (x, y - width) ]
+        lower_left_triangle = [ (x, y), (x + width, y), (x, y - width) ] if is_lower_left else \
+                              None
 
         return [ upper_left_triangle, upper_right_triangle, lower_right_triangle, lower_left_triangle ]
 
@@ -179,7 +187,8 @@ class DrawMark(DrawBoard):
         markers = self.calc_field_marker(field_marker, fmdef=fmdef)
 
         for points in markers:
-            self.draw_polygon(points, interior_str=cpair.interior) # outline_str=cpair.outline
+            if points is not None:
+                self.draw_polygon(points, interior_str=cpair.interior) # outline_str=cpair.outline
 
     def draw_all_field_markers(self, field_markers, fmdef=None, cmark=None):
         assert isinstance(cmark, (ColorsMark, type(None)))
