@@ -1781,7 +1781,9 @@ class SceneOneMixin:
         coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
 
         for i in range(44):
-            scene.append_field_marker( *coords(), corner=_ur, mark_type=MarkType.Legal )
+            scene.append_field_marker( *coords(), corner=_ur, mark_type=MarkType.Legal, force_unique=True )
+
+        # scene.append_field_marker( 1, 10, corner=None, mark_type=MarkType.Legal, force_unique=True ) # \TODO :: just debug :: DELETE
 
 
         rel = (-2, -1)
@@ -1791,7 +1793,7 @@ class SceneOneMixin:
         coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
 
         for i in range(44):
-            scene.append_field_marker( *coords(), corner=_ul, mark_type=MarkType.Blocked )
+            scene.append_field_marker( *coords(), corner=_ul, mark_type=MarkType.Blocked, force_unique=True )
 
         #
         # dark Shaman
@@ -1803,7 +1805,7 @@ class SceneOneMixin:
         coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
 
         for i in range(44):
-            scene.append_field_marker( *coords(), corner=_ll, mark_type=MarkType.Action )
+            scene.append_field_marker( *coords(), corner=_ll, mark_type=MarkType.Action, force_unique=True )
 
 
         rel = (-1, -2)
@@ -1813,7 +1815,7 @@ class SceneOneMixin:
         coords = GS.gen_next( GS.gen_steps( rels, start=start, include_prev=False ) ) # , bounds=bounds
 
         for i in range(44):
-            scene.append_field_marker( *coords(), corner=_lr, mark_type=MarkType.Illegal )
+            scene.append_field_marker( *coords(), corner=_lr, mark_type=MarkType.Illegal, force_unique=True )
 
         return scene
 
@@ -1972,10 +1974,10 @@ def test_big_pattern():
     #                    path_prefix='temp/')
     #                    # , enforce_cot_in_bw=True)
     ss.render_example( scene,
-                       scene.test_o_97_quad_field_markers_full, # scene.test_o_98_quad_stop_sign_pattern_full,
+                       scene.test_o_97_quad_field_markers_full, # scene.test_o_98_quad_stop_sign_pattern_full, # scene.test_o_99_stop_sign_pattern_full,
                        board_types=[ BoardType.One, ],
-                       path_prefix='temp/')
-                       # , enforce_cot_in_bw=True)
+                       path_prefix='temp/',
+                       enforce_in_bw=[ BoardType.One, ] )
 
 
 if __name__ == '__main__':

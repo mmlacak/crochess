@@ -20,13 +20,15 @@ def get_board_type_choices():
     # bts = BoardType.get_all_list(include_none=False)
     bts = BoardType.get_list()
     lbls = [ bt.get_label() for bt in bts ]
-    # lbls.extend( [ 'all', 'even', 'odd' ] )
-    lbls.extend( [ 'all', ] )
+    lbls.extend( [ 'all', 'none', ] )
     return lbls
 
 def get_board_types(labels):
     if labels is None:
         return None
+
+    if 'none' in labels:
+        return []
 
     bts = []
 
@@ -34,14 +36,11 @@ def get_board_types(labels):
         # bts.extend( BoardType.get_all_list(include_none=False) )
         bts.extend( BoardType.get_list() )
 
-    # if 'even' in labels:
-    #     bts.extend( BoardType.get_list() )
-
     if not labels:
         # bts.extend( BoardType.get_all_list(include_none=False) )
         bts.extend( BoardType.get_list() )
     else:
-        btx = [ BoardType.get(lbl) for lbl in labels if lbl not in ['all', 'even', 'odd'] ]
+        btx = [ BoardType.get(lbl) for lbl in labels if lbl not in [ 'all', 'even', 'odd' ] ]
         bts.extend( btx )
 
     bts = [ bt for bt in bts if bt != BoardType.none ]
@@ -60,9 +59,10 @@ def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter, \
                                      description='Generates images used in the book.', \
                                      epilog='''
-Arguments -x and -I expect at least one of the following options:
+Arguments -x, -bw and -I expect at least one of the following options:
 
 all  - all variants will be rendered
+none - use with -bw to get rid of default, i.e. Conquest Of Tlalocan
 
 c    - Classical Chess
 ct   - Croatian Ties
@@ -110,6 +110,8 @@ Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.'''
     collections.add_argument('-T', '--tests', action='store_true', default=False, help='render all tests')
     collections.add_argument('-t', '--recent_tests', action='store_true', default=False, help='render recent tests')
 
+    parser.add_argument( '-bw', '--black_and_white', action='extend', choices=get_board_type_choices(), nargs='+', help='which scenes, examples to render in B&W' )
+
     args = parser.parse_args() # :: argparse.Namespace
 
     rendering_size = RenderingSizeEnum.none
@@ -136,17 +138,20 @@ Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.'''
 
     render = SaveScene(rendering_size)
 
+    bw = get_board_types( args.black_and_white ) if args.black_and_white is not None else \
+         [ BoardType.ConquestOfTlalocan, ] # By default, if nothing is specified, only CoT gets rendered in B&W.
+
     if args.all or args.boards:
         render.render_all_boards()
 
     if args.all or args.pieces:
         render.render_all_pieces()
-        render.render_all_pieces(piece_type=PieceType.Bishop)
-        render.render_all_pieces(piece_type=PieceType.Star)
+        render.render_all_pieces( piece_type=PieceType.Bishop )
+        render.render_all_pieces( piece_type=PieceType.Star )
 
     if args.all or args.examples or args.recent:
-        bts = BoardType.get_all_list() if args.all else get_board_types(args.examples)
-        render.render_examples(do_all_examples=(args.all or (not args.recent)), board_types=bts, enforce_cot_in_bw=True)
+        bts = BoardType.get_all_list() if args.all else get_board_types( args.examples )
+        render.render_examples( do_all_examples=(args.all or (not args.recent)), board_types=bts, enforce_in_bw=bw )
 
     if args.all or args.castlings:
         render.render_all_castling_scenes()
@@ -159,10 +164,10 @@ Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.'''
 
     if args.isa: # Intentionally skipped on args.all.
         bts = get_board_types(args.isa)
-        render.render_ISAs(do_centaur=args.isa_centaur, do_patterns=args.isa_patterns, board_types=bts, enforce_cot_in_bw=True)
+        render.render_ISAs( do_centaur=args.isa_centaur, do_patterns=args.isa_patterns, board_types=bts, enforce_in_bw=bw )
 
     if args.tests or args.recent_tests:
-        render.render_tests(do_all_tests=args.tests)
+        render.render_tests( do_all_tests=args.tests )
 
     print
     print( "Finished all renderings." )

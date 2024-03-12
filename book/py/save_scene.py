@@ -270,10 +270,10 @@ class SaveScene:
         else:
             return '%s/examples/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
-    def render_example(self, scene, func, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
+    def render_example(self, scene, func, board_types=None, path_prefix=None, enforce_in_bw=[]):
         assert isinstance(scene, SceneMix)
         assert callable(func)
-        assert isinstance(enforce_cot_in_bw, bool)
+        assert isinstance(enforce_in_bw, list)
 
         scene = func()
         if scene.board.type in board_types:
@@ -282,10 +282,10 @@ class SaveScene:
             print( file_path )
 
             if self.rendering_size.needs_rendering():
-                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variant( BoardType.ConquestOfTlalocan )
-                self.save_scene(scene, file_path, enforce_bw=enforce_bw)
+                _enforce_bw = scene.board.type.in_variants( enforce_in_bw )
+                self.save_scene(scene, file_path, enforce_bw=_enforce_bw)
 
-    def render_examples(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
+    def render_examples(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_in_bw=[]):
         _str = "all" if do_all_examples else "recent"
         print()
         print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
@@ -298,7 +298,7 @@ class SaveScene:
         bts = board_types if board_types is not None else BoardType.get_all_list()
 
         for func in scene_funcs:
-            self.render_example(sm, func, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+            self.render_example(sm, func, board_types=bts, path_prefix=path_prefix, enforce_in_bw=enforce_in_bw)
 
         print( "Finished." )
 
@@ -315,10 +315,10 @@ class SaveScene:
         else:
             return '%s/isa/%s/isa_%02d_%s%s' % (path_prefix, subfolder_name, bt, file_name, file_ext)
 
-    def render_isa(self, scene, func, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
+    def render_isa(self, scene, func, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_in_bw=[]):
         assert isinstance(scene, SceneIsa)
         assert callable(func)
-        assert isinstance(enforce_cot_in_bw, bool)
+        assert isinstance(enforce_in_bw, list)
 
         for index, scene in enumerate( func(do_centaur=do_centaur, do_patterns=do_patterns, board_types=board_types) ):
             board_type = scene.board.type
@@ -327,10 +327,10 @@ class SaveScene:
             print( file_path )
 
             if self.rendering_size.needs_rendering():
-                enforce_bw = enforce_cot_in_bw and scene.board.type.is_variant( BoardType.ConquestOfTlalocan )
-                self.save_scene(scene, file_path, enforce_bw=enforce_bw)
+                _enforce_bw = scene.board.type.in_variants( enforce_in_bw )
+                self.save_scene(scene, file_path, enforce_bw=_enforce_bw)
 
-    def render_ISAs(self, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_cot_in_bw=True):
+    def render_ISAs(self, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_in_bw=[]):
         # _str = "all" if do_all_examples else "default"
         print()
         # print( "Rendering %s ISAs." % _str if self.rendering_size.needs_rendering() else "Info %s ISAs." % _str )
@@ -345,7 +345,7 @@ class SaveScene:
         bts = board_types if board_types is not None else BoardType.get_all_list()
 
         for func in scene_funcs:
-            self.render_isa(si, func, do_centaur=do_centaur, do_patterns=do_patterns, board_types=bts, path_prefix=path_prefix, enforce_cot_in_bw=enforce_cot_in_bw)
+            self.render_isa(si, func, do_centaur=do_centaur, do_patterns=do_patterns, board_types=bts, path_prefix=path_prefix, enforce_in_bw=enforce_in_bw)
 
         print( "Finished." )
 

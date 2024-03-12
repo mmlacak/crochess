@@ -248,10 +248,15 @@ class Scene:
 
         return fld_mark
 
-    def append_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
+    def append_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal), force_unique=False):
         # assert isinstance(mark_type, MarkType)
 
         fld_mark = self.new_field_marker(field_i, field_j, corner=corner, mark_type=mark_type)
+
+        if force_unique:
+            for i, fm in enumerate( self.field_markers ):
+                if fm.same_position( fld_mark ):
+                    raise ValueError( "Field marker not unique, at position (%d, %d)." % (fm.field[0], fm.field[1]) )
 
         self.field_markers.append(fld_mark)
 

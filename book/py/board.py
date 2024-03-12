@@ -54,10 +54,10 @@ class BoardType( int ):
         lst = [ ]
 
         if include_even:
-            lst.extend(l_even)
+            lst.extend( l_even )
 
         if include_none:
-            lst.insert(0, BoardType.none)
+            lst.insert( 0, BoardType.none )
 
         if include_new_classical:
             lst.extend( [ BoardType.Classic_14, BoardType.Classic_20, BoardType.Classic_26 ] )
@@ -74,6 +74,10 @@ class BoardType( int ):
 
     def is_variant( self, bt ):
         return self == BoardType( bt )
+
+    def in_variants( self, bts ):
+        bts = [ BoardType( bt ) for bt in bts ]
+        return self in bts
 
     @staticmethod
     def is_classical( board_type, include_old=True, include_new=True ):
