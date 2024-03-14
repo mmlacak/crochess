@@ -51,9 +51,27 @@ class SceneClassicalChessMixin:
 
         return scene
 
-    def scn_cc_03_rook_capturing( self, bt=BoardType.Classical ):
+    def scn_cc_03_knight_stepping( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_03_rook_capturing', bt, width=3.2, height=4.2 )
+        scene = Scene( 'scn_cc_03_knight_stepping', bt, width=3.2, height=4.2 )
+
+        start_N = (0, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_P = (1, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (1, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        end_N = (2, 2)
+        scene.append_arrow( *( start_N + end_N ), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_cc_04_rook_capturing( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_04_rook_capturing', bt, width=3.2, height=4.2 )
 
         start_R = (1, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
@@ -72,9 +90,9 @@ class SceneClassicalChessMixin:
 
         return scene
 
-    def scn_cc_04_rook_illegal( self, bt=BoardType.Classical ):
+    def scn_cc_05_rook_illegal( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_04_rook_illegal', bt, width=3.2, height=4.2 )
+        scene = Scene( 'scn_cc_05_rook_illegal', bt, width=3.2, height=4.2 )
 
         start_R = (1, 0)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
@@ -97,9 +115,9 @@ class SceneClassicalChessMixin:
 
         return scene
 
-    def scn_cc_05_pawns_labeled( self, bt=BoardType.Classical ):
+    def scn_cc_06_pawns_labeled( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_05_pawns_labeled', bt, width=3.2, height=3.2 )
+        scene = Scene( 'scn_cc_06_pawns_labeled', bt, width=3.2, height=3.2 )
 
         start_N = (0, 0)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
@@ -125,9 +143,9 @@ class SceneClassicalChessMixin:
 
         return scene
 
-    def scn_cc_06_knight_marked( self, bt=BoardType.Classical ):
+    def scn_cc_07_knight_marked( self, bt=BoardType.Classical ):
 
-        scene = Scene( 'scn_cc_06_knight_marked', bt, width=3.2, height=3.2 )
+        scene = Scene( 'scn_cc_07_knight_marked', bt, width=3.2, height=3.2 )
 
         start_N = (0, 0)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
