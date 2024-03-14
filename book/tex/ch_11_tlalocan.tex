@@ -1279,29 +1279,34 @@ trance-journey on a starting field.
 \label{sec:Conquest of Tlalocan/Trance-journey/Interactions}
 
 Again, entranced Shaman is the one undertaking trance-journey, entrancing Shaman
-is the one preceding entranced Shaman in a cascade. Interaction with other pieces
-found on a step-fields depends on a color of entrancing Shaman.
+is the one preceding entranced Shaman in a cascade. Interactions with other pieces
+found on step-fields depends on a color of entrancing Shaman. During trance-journey,
+all pieces are transparent to entranced Shaman, regardless if Shaman is light or
+dark, so all displacements, captures are optional.
 
-If entrancing Shaman is light, pieces found on affected step-fields can be moved
-(but don't have to) to an empty displacement-field. If there is no empty
-displacement-field, piece is not moved.
-
+If entrancing Shaman is light, pieces found on affected step-fields can optionally
+be displaced (i.e. moved to an empty displacement-field). If there is no empty
+displacement-field, piece is not moved. \newline
+\indent
 If entrancing Shaman is dark, all pieces, own or opponent's, found on affected
-step-fields are captured.
+step-fields can optionally be captured.
 
 Pieces on step-fields not reached by entranced Shaman are not affected. In all
 cases, Kings and Stars on a step-fields are ignored, they cannot be displaced
-nor captured. Entranced Shaman can continue its trance-journey past Kings and Stars.
+nor captured. Entranced Shaman can continue its trance-journey past all Kings
+and Stars, regardless of colors of pieces. \newline
+\indent
+In all cases, entranced Shaman cannot activate neither Pyramid nor Wave. Just
+like any other piece when reached upon, they can be displaced or captured.
 
-In all cases, entranced Shaman cannot activate neither Pyramid nor Wave. Just like
-any other piece when reached upon, they can be displaced or has to be captured.
+As a special case, if both Shamans are dark, entranced Shaman can optionally
+undertake double trance-journey, capturing all pieces, own and opponent's
+(except Kings and Stars), on all step-fields of both up- and down-hand patterns.
+All captures in double trance-journey are mandatory, not optional; after which
+entranced Shaman is oblationed (i.e. removed from chessboard as if captured
+by the opponent).
 
-As a special case, if both Shamans are dark, entranced Shaman can undertake double
-trance-journey, traveling full lengths on both up- and down-hand patterns, capturing
-all pieces on all step-fields (except Kings and Stars), after which entranced Shaman
-is oblationed (i.e. removed from chessboard as if captured by the opponent).
-
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 % Displacement-fields .................................................
 
 \subsubsection*{Displacement-fields}
@@ -1332,8 +1337,8 @@ piece, but before Shaman continues its trance-journey. Thus, displacement of pie
 follows order of trance-journey steps.
 
 Multiple pieces, if not too far away, can share displacement fields. So, a piece
-displaced earlier can block one later on from being displaced onto the very same
-field.
+displaced earlier in trance-journey can block one later on from being displaced
+onto the very same field.
 
 % ................................................. Displacement-fields
 \clearpage % ..........................................................
