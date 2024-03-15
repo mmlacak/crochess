@@ -146,7 +146,7 @@ moving, like e.g. capturing opponent's piece.
 % \vspace*{13.7\baselineskip}
 \vspace*{6.7\baselineskip}
 \noindent
-\begin{wrapfigure}[16]{l}{0.4\textwidth}
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/02_c/scn_cc_04_knight_stepping.png}
 \vspace*{-1.4\baselineskip}
@@ -155,8 +155,7 @@ moving, like e.g. capturing opponent's piece.
 \end{wrapfigure}
 Most pieces, most of the time, can capture or be blocked only at their step- or
 capture-fields. One common counter-example is en passant, where capturing Pawn is
-stepping onto empty capture-field, and captured Pawn is located on a different
-field. \newline
+stepping onto empty capture-field, and captured Pawn is somewhere else. \newline
 \indent
 Most newly introduced pieces have their step-fields distant to each other. Having
 arrows in examples represent an individual steps helps distinguish at which fields
@@ -227,14 +226,36 @@ Markers are used to emphasize a fields, without cluttering an image with arrows.
 \indent
 Marker colors are the same as colors of arrows, and have the same intent.
 
-% \TODO :: ownership (?)
+\vspace*{4.7\baselineskip}
+\subsubsection*{Ownership}
+\addcontentsline{toc}{subsubsection}{Ownership}
+\label{sec:Classical Chess/Chessboard/Examples/Ownership}
+
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/02_c/scn_cc_08_ownership.png}
+\vspace*{-1.4\baselineskip}
+% \vspace*{-0.3\baselineskip}
+\caption{Ownership}
+\label{fig:scn_cc_08_ownership}
+\end{wrapfigure}
+Ownership is just a shortcut for color. In this book it's mostly used relative
+to color of a piece which is about to move, or is already moving. \newline
+\indent
+For instance, instead of writing "light Knight is blocked by light Pawn, but can
+capture dark Bishop", it would say "Knight is blocked by own Pawn, but can capture
+opponent's Bishop". While both statements are true, the latter still works even
+when colors are reversed. This becomes more important as players in later variants
+get an option to also move opponent's pieces.
 
 % ------------------------------------------------------------ Examples
 % ********************************************************** Chessboard
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 % Variants ************************************************************
 
-\vspace*{\fill}
+% \vspace*{\fill}
 \section*{Variants}
 \addcontentsline{toc}{section}{Variants}
 \label{sec:Classical Chess/Variants}

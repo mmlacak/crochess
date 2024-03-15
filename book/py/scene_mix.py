@@ -36,5 +36,5 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_cc_04_knight_stepping', \
+                    'scn_cc_08_ownership', \
                 ]

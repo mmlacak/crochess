@@ -167,3 +167,24 @@ class SceneClassicalChessMixin:
         scene.append_text( "B", *start_p_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
+
+    def scn_cc_08_ownership( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_08_ownership', bt, width=3.2, height=4.2 )
+
+        start_N = (0, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_P_A = (0, 2)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_P_B = (1, 3)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_b = (2, 2)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        scene.append_arrow( *( start_N + start_P_B ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *( start_N + start_b ), mark_type=MarkType.Action )
+
+        return scene
