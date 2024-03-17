@@ -38,9 +38,10 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
         return CC_PLE_TranceJourney; // "@" trance-journey
     }
 
-    if ( *c == ';' )
-        if ( *++c == ';' )
-            return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
+    if ( *c == ';' ) {
+        if ( *++c == ';' ) return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
+        return CC_PLE_None;
+    }
 
     if ( *c == '"' ) return CC_PLE_SenseJourney; // "\"" sense-journey
     if ( *c == '\'' ) return CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
