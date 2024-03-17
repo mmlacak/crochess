@@ -46,25 +46,26 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
     if ( *c == '"' ) return CC_PLE_SenseJourney; // "\"" sense-journey
     if ( *c == '\'' ) return CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
 
-    if ( isgraph( *c ) ) return CC_PLE_StartingPly;
+    if ( ( *c == '.' ) || ( *c == '[' ) || isalnum( *c ) )
+        return CC_PLE_StartingPly;
 
     return CC_PLE_None;
 }
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
     switch ( ple ) {
-        case CC_PLE_None : return 0; /* Ply link not found, uninitialized, or error happened. */
-        case CC_PLE_StartingPly : return 0; /* Just first ply, standalone or starting a cascade. */
-        case CC_PLE_CascadingPly : return 1; /* Just one ply, continuing cascade. Corresponds to `~`. */
-        case CC_PLE_Teleportation : return 1; /* Teleportation of piece. Corresponds to `|`. */
-        case CC_PLE_TeleportationReemergence : return 2; /* Failed teleportation, re-emergence, corresponds to `||`. */
-        case CC_PLE_TeleportationOblation : return 3; /* Failed teleportation, oblation, corresponds to `|||`. */
-        case CC_PLE_TranceJourney : return 1; /* Trance-journey, corresponds to `@`. */
-        case CC_PLE_DualTranceJourney : return 2; /* Double trance-journey, corresponds to `@@`. */
-        case CC_PLE_FailedTranceJourney : return 3; /* Failed trance-journey, corresponds to `@@@`. */
-        case CC_PLE_PawnSacrifice : return 2; /* Pawn sacrifice, corresponds to `;;`. */
-        case CC_PLE_SenseJourney : return 1; /* Sense-journey, corresponds to `"`. */
-        case CC_PLE_FailedSenseJourney : return 1; /* Failed sense-journey, corresponds to `'`. */
+        case CC_PLE_None : return 0; // Ply link not found, uninitialized, or error happened.
+        case CC_PLE_StartingPly : return 0; // Just first ply, standalone or starting a cascade.
+        case CC_PLE_CascadingPly : return 1; // Just one ply, continuing cascade. Corresponds to `~`.
+        case CC_PLE_Teleportation : return 1; // Teleportation of piece. Corresponds to `|`.
+        case CC_PLE_TeleportationReemergence : return 2; // Failed teleportation, re-emergence, corresponds to `||`.
+        case CC_PLE_TeleportationOblation : return 3; // Failed teleportation, oblation, corresponds to `|||`.
+        case CC_PLE_TranceJourney : return 1; // Trance-journey, corresponds to `@`.
+        case CC_PLE_DualTranceJourney : return 2; // Double trance-journey, corresponds to `@@`.
+        case CC_PLE_FailedTranceJourney : return 3; // Failed trance-journey, corresponds to `@@@`.
+        case CC_PLE_PawnSacrifice : return 2; // Pawn sacrifice, corresponds to `;;`.
+        case CC_PLE_SenseJourney : return 1; // Sense-journey, corresponds to `"`.
+        case CC_PLE_FailedSenseJourney : return 1; // Failed sense-journey, corresponds to `'`.
 
         default : return 0;
     }
