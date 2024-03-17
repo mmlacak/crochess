@@ -188,3 +188,23 @@ class SceneClassicalChessMixin:
         scene.append_arrow( *( start_N + start_b ), mark_type=MarkType.Action )
 
         return scene
+
+    def scn_cc_09_tags_rushing( self, bt=BoardType.Classical ):
+
+        scene = Scene( 'scn_cc_09_tags_rushing', bt, width=3.2, height=4.2 )
+
+        start_P = (1, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (2, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P -->
+        coords_P_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=2 )
+
+        for i, arrow in enumerate( coords_P_() ):
+            mark_type = MarkType.Action if i == 0 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
