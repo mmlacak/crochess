@@ -953,6 +953,12 @@ class SceneConquestOfTlalocanMixin:
         start_H = (2, 7)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
+        start_W = (1, 7)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_n = (3, 8)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
         # P --> H
         coords_P_H = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=10 ) # bounds=scene.board_view.get_position_limits() )
 
@@ -961,6 +967,35 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Action if i == 5 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    def scn_cot_037_diverged_rushing_pawn( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_037_diverged_rushing_pawn', bt, width=5.3, height=12.3 ) # , y=0.7, height=12.5)
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_H = (2, 7)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_W = (1, 7)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_n = (3, 8)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        # prev_P = (2, 1)
+        start_P = start_H
+        end_1 = (2, 8)
+        end_2 = (3, 7)
+        end_3 = (1, 8)
+
+        scene.append_arrow( *( start_P + end_1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_P + end_2 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( start_P + end_3 ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_P + start_n ), mark_type=MarkType.Action )
 
         return scene
 

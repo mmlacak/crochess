@@ -37,4 +37,5 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     'scn_cot_036_rushing_pawn_to_diverge', \
+                    'scn_cot_037_diverged_rushing_pawn', \
                 ]
