@@ -942,80 +942,25 @@ class SceneConquestOfTlalocanMixin:
     #
     # Diverging rushing Pawn
 
-    def scn_cot_036_diverging_rushing_pawn(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_036_rushing_pawn_to_diverge( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene('scn_cot_036_diverging_rushing_pawn', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene( 'scn_cot_036_rushing_pawn_to_diverge', bt, width=5.3, height=12.3 ) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
-        # stop before
+        start_P = (2, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        start_P_A = (4, 1)
-        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+        start_H = (2, 7)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_H_A = (4, 3)
-        scene.board.set_piece( *start_H_A, piece=PieceType.Shaman )
+        # P --> H
+        coords_P_H = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=10 ) # bounds=scene.board_view.get_position_limits() )
 
-        # P(A) --> W
-        coords_PA_W = GS.gen_steps( start=start_P_A, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_PA_W() ):
-            mark_type = MarkType.Illegal if i == 1 else \
-                        MarkType.Legal if i < 1 else \
+        for i, arrow in enumerate( coords_P_H() ):
+            mark_type = MarkType.Legal if i < 5 else \
+                        MarkType.Action if i == 5 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "A", *start_P_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        # diverging short
-
-        start_P_B = (8, 1)
-        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
-
-        start_H_B = (8, 3)
-        scene.board.set_piece( *start_H_B, piece=PieceType.Shaman )
-
-        # P(B) --> W
-        coords_PB_W = GS.gen_steps( start=start_P_B, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_PB_W() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal if i < 4 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "B", *start_P_B, mark_type=MarkType.Action, corner=Corner.UpperRight )
-
-        # diverging long
-
-        start_P_C = (12, 1)
-        scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
-
-        start_H_C = (12, 5)
-        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
-
-        # P(C) --> W
-        coords_PC_W = GS.gen_steps( start=start_P_C, rels=[(0, 1), ], include_prev=True, count=14 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_PC_W() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal if i < 8 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "C", *start_P_C, mark_type=MarkType.Action, corner=Corner.UpperRight )
-
-        # just rushing
-
-        start_P_D = (16, 1)
-        scene.board.set_piece( *start_P_D, piece=PieceType.Pawn )
-
-        # P(D) -->
-        coords_PD_ = GS.gen_steps( start=start_P_D, rels=[(0, 1), ], include_prev=True, count=6 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_PD_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
-
-        scene.append_text( "D", *start_P_D, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
