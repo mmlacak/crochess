@@ -732,27 +732,6 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_text( "B", *start_P_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
-        # rushing Pawn
-
-        start_P_C = (11, 1)
-        scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
-
-        start_H_C = (11, 5)
-        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
-
-        start_n_C = (10, 6)
-        scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
-
-        # P(C) --> W
-        coords_PC_W = GS.gen_steps( start=start_P_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_PC_W() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "C", *start_P_C, corner=Corner.UpperRight, mark_type=MarkType.Action )
-
         # forward Pawn
 
         start_P_D = (15, 4)
@@ -851,30 +830,6 @@ class SceneConquestOfTlalocanMixin:
 
         scene.append_text( "B", *start_H_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
-        # rushing Pawn
-
-        start_H_C = (11, 5)
-        scene.board.set_piece( *start_H_C, piece=PieceType.Shaman )
-
-        start_n_C = (10, 6)
-        scene.board.set_piece( *start_n_C, piece=-PieceType.Knight )
-
-        scene.append_arrow( *GS.append_pos_rel( start_H_C, -1, 0 ), mark_type=MarkType.Legal )
-
-        scene.append_arrow( *GS.append_pos_rel( start_H_C, -1, 1 ), mark_type=MarkType.Action )
-
-        # P(C) @ H(C) -->
-        coords_PC_H = GS.gen_steps( start=start_H_C, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
-
-        for i, arrow in enumerate( coords_PC_H() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
-
-        scene.append_arrow( *GS.append_pos_rel( start_H_C, 1, 1 ), mark_type=MarkType.Illegal )
-
-        scene.append_arrow( *GS.append_pos_rel( start_H_C, 1, 0 ), mark_type=MarkType.Legal )
-
-        scene.append_text( "C", *start_H_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
-
         # forward Pawn
 
         # start_P_D = (15, 4)
@@ -924,7 +879,7 @@ class SceneConquestOfTlalocanMixin:
         # scene.append_arrow( *GS.append_pos_rel( start_H_E, 0, 1 ), mark_type=MarkType.Legal )
 
         # P(E) @ H(E) -->
-        coords_PE_H = GS.gen_steps( start=start_H_E, rels=[(0, 1), ], include_prev=True, count=4 ) # bounds=scene.board_view.get_position_limits() )
+        coords_PE_H = GS.gen_steps( start=start_H_E, rels=[(0, 1), ], include_prev=True, count=1 ) # bounds=scene.board_view.get_position_limits() )
 
         for i, arrow in enumerate( coords_PE_H() ):
             mark_type = MarkType.Legal if i == 0 else \
@@ -973,9 +928,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_037_diverged_rushing_pawn( self, bt=BoardType.ConquestOfTlalocan ):
+    def scn_cot_037_diverging_rushed_pawn( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_037_diverged_rushing_pawn', bt, width=5.3, height=12.3 ) # , y=0.7, height=12.5)
+        scene = Scene( 'scn_cot_037_diverging_rushed_pawn', bt, width=5.3, height=12.3 ) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_H = (2, 7)
