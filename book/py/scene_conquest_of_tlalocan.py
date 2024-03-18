@@ -956,6 +956,9 @@ class SceneConquestOfTlalocanMixin:
         start_W = (1, 7)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
+        start_A = (1, 8)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
         start_n = (3, 8)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
@@ -981,21 +984,25 @@ class SceneConquestOfTlalocanMixin:
         start_W = (1, 7)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
+        start_A = (1, 8)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
         start_n = (3, 8)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        # prev_P = (2, 1)
+        prev_P = (2, 1)
         start_P = start_H
         end_1 = (2, 8)
         end_2 = (3, 7)
-        end_3 = (1, 8)
 
         scene.append_arrow( *( start_P + end_1 ), mark_type=MarkType.Legal )
         scene.append_arrow( *( start_P + end_2 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *( start_P + end_3 ), mark_type=MarkType.Blocked )
 
         scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_P + start_A ), mark_type=MarkType.Action )
         scene.append_arrow( *( start_P + start_n ), mark_type=MarkType.Action )
+
+        scene.append_text( "P", *prev_P, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
