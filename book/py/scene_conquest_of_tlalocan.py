@@ -926,6 +926,8 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
+        scene.append_text( "P", *start_P, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+
         return scene
 
     def scn_cot_037_diverging_rushed_pawn( self, bt=BoardType.ConquestOfTlalocan ):
