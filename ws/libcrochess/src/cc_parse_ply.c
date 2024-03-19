@@ -8,6 +8,8 @@
 
 #include "cc_tag.h"
 
+#include "cc_pos_utils.h"
+
 #include "cc_path_defs.h"
 #include "cc_path_utils.h"
 #include "cc_path_gens.h"
