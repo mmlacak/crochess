@@ -106,11 +106,11 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
 
     CcPptLink * first = *ppt_link__n;
 
-    if ( CC_POS_IS_EQUAL( last->ppt.pos, first->ppt.pos ) ) {
-        if ( !CC_PIECE_IS_EQUAL( last->ppt.piece, first->ppt.piece ) )
+    if ( cc_pos_is_equal( last->ppt.pos, first->ppt.pos ) ) {
+        if ( last->ppt.piece != first->ppt.piece )
             return NULL;
 
-        if ( !CC_TAG_IS_EQUAL( last->ppt.tag, first->ppt.tag ) )
+        if ( last->ppt.tag != first->ppt.tag )
             return NULL;
 
         // Position, piece, and tag are all the same,
@@ -154,7 +154,7 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb,
         for ( int j = pos.j; j < size; ++j ) {
             CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
-            if ( CC_PIECE_IS_EQUAL( pe, piece ) ||
+            if ( ( pe == piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {
                 CcPos current = CC_POS_CAST( i, j );
 
