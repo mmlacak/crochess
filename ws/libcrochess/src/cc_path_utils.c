@@ -38,6 +38,8 @@ bool cc_is_step_capture( CcPieceEnum activator,
     else if ( CC_PIECE_IS_STARCHILD( piece ) )
         return false;
 
+    // TODO :: check validity of steps of all other pieces.
+
     return true;
 }
 

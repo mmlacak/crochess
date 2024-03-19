@@ -207,4 +207,6 @@ class SceneClassicalChessMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
+        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+
         return scene
