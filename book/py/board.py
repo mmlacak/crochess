@@ -186,9 +186,11 @@ class BoardType( int ):
                  BoardType.Classic_20: 20,
                  BoardType.Classic_26: 26, }[ self ]
 
-    def get_newly_introduced_pieces( self ):
+    def get_newly_introduced_pieces( self, include_classical=False ):
         pts = { BoardType.none: None,
-                BoardType.Classical: None,
+                BoardType.Classical: \
+                    [ PT.Pawn, PT.Bishop, PT.Knight, PT.Rook, PT.Queen, PT.King ] if include_classical else \
+                    None,
                 BoardType.CroatianTies: [ PT.Pegasus, ],
                 BoardType.MayanAscendancy: [ PT.Pyramid, ],
                 BoardType.AgeOfAquarius: [ PT.Unicorn, ],
@@ -236,7 +238,7 @@ class BoardType( int ):
         start = PT.Pawn
         end = PT.King
 
-        pts = self.get_newly_introduced_pieces()
+        pts = self.get_newly_introduced_pieces( include_classical=False )
         for pt in iterate( pts ):
             end = pt if pt > end else end
 

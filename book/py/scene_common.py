@@ -19,7 +19,7 @@ class SceneCommon:
         bt = BoardType(bt)
         scene = Scene('intro_piece', bt, width=2, height=2)
 
-        pts = piece_type or bt.get_newly_introduced_pieces()
+        pts = piece_type or bt.get_newly_introduced_pieces( include_classical=True )
 
         for pt in iterate( pts ):
             scene.board.set_pieces( [ ( 0, 0, PieceType(pt) ),

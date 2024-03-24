@@ -122,7 +122,7 @@ class SaveScene:
         sc = SceneCommon()
 
         for bt in BoardType.iter():
-            pts = piece_type or bt.get_newly_introduced_pieces()
+            pts = piece_type or bt.get_newly_introduced_pieces( include_classical=True )
 
             for pt in iterate( pts ):
                 pf = 'pieces'
