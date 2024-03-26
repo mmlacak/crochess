@@ -928,17 +928,21 @@ opponent's King, even if they have capture-fields. \newline
 Pieces which can be activated, but aren't moved yet into position do not check
 (or checkmate) opponent's King (light Rook in the example on the left).
 
-\vspace*{1.7\baselineskip}
+\vspace*{1.4\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_46_activating_piece_check_end.png}
 \vspace*{-1.4\baselineskip}
 \caption{King checked}
 \label{fig:scn_mv_46_activating_piece_check_end}
 \end{wrapfigure}
-. . .
-
+Only after all pieces in cascade has settled, and move has finished, can a piece
+check (or checkmate) opponent's King. \newline
+\indent
+On the left, grey arrows show path traveled over by a piece they point to.
+Light player's move has been finished, now is dark player's turn. Dark King
+is positioned on light Rook's capture-field, so now it's in check.
 
 % .............................. Activating piece, check, and checkmate
 \clearpage % ..........................................................

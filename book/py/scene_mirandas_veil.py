@@ -2059,9 +2059,9 @@ class SceneMirandasVeilMixin:
         # R --> k
         coords_R_k = GS.gen_steps( start=start_R, rels=[ (1, 0), ], include_prev=True, count=2 )
         for i, arrow in enumerate( coords_R_k() ):
-            mark_type = MarkType.Illegal if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+            # mark_type = MarkType.Illegal if i == 1 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
         return scene
 
