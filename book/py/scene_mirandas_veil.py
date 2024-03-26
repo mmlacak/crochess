@@ -2017,6 +2017,51 @@ class SceneMirandasVeilMixin:
         for i, arrow in enumerate( coords_R_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
+        return scene
+
+    def scn_mv_46_activating_piece_check_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_46_activating_piece_check_end', bt, width=6.3, height=8.3 )
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        prev_Q = (1, 1)
+        prev_W = (1, 6)
+        prev_R = (3, 4)
+        prev_k = (5, 0)
+
+        start_Q = prev_W
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = prev_R
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_R = (3, 0)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+
+        start_k = prev_k
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=prev_Q, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_W() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W --> R
+        coords_W_R = GS.gen_steps( start=prev_W, rels=[ (1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W_R() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # R -->|
+        coords_R_ = GS.gen_steps( start=prev_R, rels=[ (0, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_R_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # R --> k
+        coords_R_k = GS.gen_steps( start=start_R, rels=[ (1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_R_k() ):
+            mark_type = MarkType.Illegal if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
 
