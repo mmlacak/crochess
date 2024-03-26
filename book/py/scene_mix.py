@@ -36,6 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_mv_45_activating_piece_check_init', \
-                    'scn_mv_46_activating_piece_check_end', \
+                    'scn_cot_063_diverged_check_init', \
+                    'scn_cot_064_diverged_check_end', \
                 ]

@@ -1993,6 +1993,72 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    #
+    # Diverging check, checkmate
+
+    def scn_cot_063_diverged_check_init( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_063_diverged_check_init', bt, width=9.3, height=12.3 )
+
+        start_Q = (1, 10)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_H = (6, 5)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_k = (6, 1)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        # Q --> H
+        coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_H() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # Q @ H --> k
+        coords_Q_ = GS.gen_steps( start=start_H, rels=[ (0, -1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_Q_() ):
+            # mark_type = MarkType.Action if i == 3 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_cot_064_diverged_check_end( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_064_diverged_check_end', bt, width=9.3, height=12.3 )
+
+        prev_Q = (1, 10)
+        prev_H = (6, 5)
+        prev_k = (6, 1)
+
+        start_Q = (4, 3)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_H = prev_H
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_k = prev_k
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        # Q --> H
+        coords_Q_H = GS.gen_steps( start=prev_Q, rels=[ (1, -1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_Q_H() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # Q @ H --> .
+        coords_Q_ = GS.gen_steps( start=start_H, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_Q_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # Q --> k
+        coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_Q_H() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        return scene
+
 
     #
     # Trance-journey
