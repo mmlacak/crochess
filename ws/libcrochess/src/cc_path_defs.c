@@ -166,23 +166,88 @@ bool cc_is_step_valid( CcPos step, CcPos const array[  ], size_t array_len ) {
 }
 
 
+bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos ) {
+    if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
+        return true;
+
+    if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
+        return true;
+
+    return false;
+}
+
 bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step ) {
     if ( cc_variant_has_sideways_pawns( type ) ) {
-        if ( cc_piece_is_light( piece ) )
+        if ( piece == CC_PE_LightPawn )
             return CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-        else
+        else if ( piece == CC_PE_DarkPawn )
             return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-    } else {
-        if ( cc_piece_is_light( piece ) )
-            return CC_LIGHT_PAWN_STEP_IS_VALID( step );
         else
+            return false;
+    } else {
+        if ( piece == CC_PE_LightPawn )
+            return CC_LIGHT_PAWN_STEP_IS_VALID( step );
+        else if ( piece == CC_PE_DarkPawn )
             return CC_DARK_PAWN_STEP_IS_VALID( step );
+        else
+            return false;
     }
 }
 
+
 bool cc_is_pawn_capture_step( CcVariantEnum type, CcPieceEnum piece, CcPos step ) {
-    if ( cc_piece_is_light( piece ) )
+    if ( piece == CC_PE_LightPawn )
         return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
-    else
+    else if ( piece == CC_PE_DarkPawn )
         return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
+    else
+        return false;
+}
+
+bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step ) {
+    if ( piece == CC_PE_LightShaman ) {
+        return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
+    } else if ( piece == CC_PE_DarkShaman ) {
+        return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
+    } else
+        return false;
+}
+
+bool cc_is_capture_step( CcVariantEnum type,
+                         CcPieceEnum activator,
+                         CcPieceEnum piece,
+                         CcPos step,
+                         CcPos step_2 ) {
+    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
+
+    if ( !cc_pos_is_valid( step ) ) return false;
+    if ( cc_pos_is_static_step( step ) ) return false;
+
+    if ( CC_PIECE_IS_PAWN( piece ) )
+        return cc_is_pawn_capture_step( type, piece, step );
+    else if ( CC_PIECE_IS_SHAMAN( piece ) )
+        return cc_is_shaman_capture_step( piece, step );
+    else if ( CC_PIECE_IS_WAVE( piece ) ) {
+        if ( !CC_PIECE_CAN_ACTIVATE( activator ) )
+            return false;
+
+        return cc_is_capture_step( type, CC_PE_None, activator, step, step_2 );
+    } else if ( CC_PIECE_IS_MONOLITH( piece ) )
+        return false; // Monolith can't capture.
+    else if ( CC_PIECE_IS_STAR( piece ) )
+        return false; // Star can't capture.
+    else if ( CC_PIECE_IS_STARCHILD( piece ) )
+        return false; // Starchild can't capture.
+
+    // TODO :: check validity of steps of all other pieces.
+
+    return true;
+}
+
+
+bool cc_is_step_miracle( CcPieceEnum piece, CcPos step ) {
+    if ( CC_PIECE_IS_STARCHILD( piece ) )
+        return CC_STARCHILD_MIRACLE_STEP_IS_VALID( step );
+
+    return false;
 }

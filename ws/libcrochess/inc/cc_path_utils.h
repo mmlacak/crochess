@@ -14,17 +14,6 @@
 */
 
 
-bool cc_is_step_capture( CcPieceEnum activator,
-                         CcPieceEnum piece,
-                         CcPos step,
-                         CcPos step_2 );
-
-bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
-
-bool cc_is_step_shamans_capture( CcPieceEnum piece, CcPos step );
-
-bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
-
 
 // TODO ::
 //

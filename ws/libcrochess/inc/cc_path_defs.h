@@ -305,9 +305,23 @@ bool cc_is_step_valid( CcPos step, CcPos const array[  ], size_t array_len );
 /** @} */ // end of step_is_valid_macros
 
 
+bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
+
 bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 
+
 bool cc_is_pawn_capture_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
+
+bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step );
+
+bool cc_is_capture_step( CcVariantEnum type,
+                         CcPieceEnum activator,
+                         CcPieceEnum piece,
+                         CcPos step,
+                         CcPos step_2 );
+
+
+bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
 
 
 #endif /* __CC_PATH_DEFS_H__ */
