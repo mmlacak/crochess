@@ -584,6 +584,20 @@
                                          || ( (pe) == CC_PE_LightShaman )       \
                                          || ( (pe) == CC_PE_LightStarchild ) )
 
+/**
+    Macro expression to evaluate whether piece has two alternating steps.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+    @param activator Piece enum. Last material (i.e. non-Wave) piece which activates Wave in a cascade.
+
+    Two step pieces are Centaur, and Wave activated by either Unicorn or Centaur.
+    Unicorn itself is not two-step piece, because it makes only one step in a ply,
+    and so it can choose direction independently to any previous choice.
+
+    @see CcPieceEnum
+
+    @return `true` if piece has two alternating steps, `false` otherwise.
+*/
 #define CC_PIECE_IS_TWO_STEP(pe,activator) \
     ( ( ( (pe) == CC_PE_DarkCentaur ) || ( (pe) == CC_PE_LightCentaur ) )   \
    || ( ( ( (pe) == CC_PE_DarkWave ) || ( (pe) == CC_PE_LightWave ) )       \
