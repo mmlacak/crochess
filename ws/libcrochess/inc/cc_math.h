@@ -4,6 +4,8 @@
 #ifndef __CC_MATH_H__
 #define __CC_MATH_H__
 
+#include <stddef.h>
+
 /**
     @file cc_math.h
     @brief Various math functions.
