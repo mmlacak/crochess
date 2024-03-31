@@ -584,6 +584,12 @@
                                          || ( (pe) == CC_PE_LightShaman )       \
                                          || ( (pe) == CC_PE_LightStarchild ) )
 
+#define CC_PIECE_IS_TWO_STEP(pe,activator) \
+    ( ( ( (pe) == CC_PE_DarkCentaur ) || ( (pe) == CC_PE_LightCentaur ) )   \
+   || ( ( ( (pe) == CC_PE_DarkWave ) || ( (pe) == CC_PE_LightWave ) )       \
+        && ( ( ( (activator) == CC_PE_DarkUnicorn ) || ( (activator) == CC_PE_LightUnicorn ) ) \
+          || ( ( (activator) == CC_PE_DarkCentaur ) || ( (activator) == CC_PE_LightCentaur ) ) ) ) )
+
 /**
     Enumerates all pieces, used in all variants.
 
