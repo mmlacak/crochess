@@ -51,9 +51,8 @@ static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__d,
 
 static bool cc_convert_steps_to_pos_link( CcPos const steps[],
                                           size_t steps_len,
-                                          CcPosLink ** restrict steps__od ) {
-    if ( !steps__od ) return false;
-    if ( *steps__od ) return false;
+                                          CcPosLink ** restrict steps__iod_a ) {
+    if ( !steps__iod_a ) return false;
 
     CcPosLink * pl__t = NULL;
 
@@ -66,6 +65,69 @@ static bool cc_convert_steps_to_pos_link( CcPos const steps[],
             cc_pos_link_free_all( &pl__t );
             return false;
         }
+    }
+
+    // Ownership transfer.
+    if ( !cc_pos_link_extend( steps__iod_a, &pl__t ) ) {
+        cc_pos_link_free_all( &pl__t );
+        cc_pos_link_free_all( steps__iod_a );
+        return false;
+    }
+
+    return true;
+}
+
+static bool cc_pawn_steps( CcVariantEnum type,
+                           CcPieceEnum activator,
+                           CcPieceEnum piece,
+                           CcPosLink ** restrict steps__od ) {
+    if ( !steps__od ) return false;
+    if ( *steps__od ) return false;
+
+    CcPosLink * pl__t = NULL;
+    bool bail_out = false;
+
+    if ( ( piece == CC_PE_LightPawn ) ||
+         ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) ) {
+        CcPos const steps[ 4 ] = {
+            { .i =  0, .j =  1 },
+            { .i = -1, .j =  1 },
+            { .i =  1, .j =  1 },
+
+            CC_POS_INVALID,
+        };
+
+        if ( !cc_convert_steps_to_pos_link( steps, 3, &pl__t ) )
+            bail_out = true;
+    } else if ( piece == CC_PE_DarkPawn ||
+                ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_DarkPawn ) ) ) {
+        CcPos const steps[ 4 ] = {
+            { .i =  0, .j = -1 },
+            { .i = -1, .j = -1 },
+            { .i =  1, .j = -1 },
+
+            CC_POS_INVALID,
+        };
+
+        if ( !cc_convert_steps_to_pos_link( steps, 3, &pl__t ) )
+            bail_out = true;
+    }
+
+    if ( ( !bail_out ) && cc_variant_has_sideways_pawns( type ) ) {
+        CcPos const steps[ 3 ] = {
+            { .i = -1, .j =  0 },
+            { .i =  1, .j =  0 },
+
+            CC_POS_INVALID,
+        };
+
+        if ( !cc_convert_steps_to_pos_link( steps, 2, &pl__t ) )
+            bail_out = true;
+    }
+
+    if ( bail_out ) {
+        cc_pos_link_free_all( &pl__t );
+        return false;
     }
 
     // Ownership transfer.
@@ -148,6 +210,17 @@ bool cc_steps_gen( CcVariantEnum type,
     }
 
     if ( !pl__t ) {
+        if ( CC_PIECE_IS_PAWN( piece ) ||
+           ( CC_PIECE_IS_WAVE( piece ) && CC_PIECE_IS_PAWN( activator ) ) ) {
+            if ( !cc_pawn_steps( type, activator, piece, &pl__t ) ) {
+                return cc_steps_gen_bail_out( previous_step__iod,
+                                              last_step__iod,
+                                              previous_steps__iod_af,
+                                              possible_steps__iod_af,
+                                              &pl__t );
+            }
+        }
+
         // TODO :: generate new steps into pl__t
     }
 

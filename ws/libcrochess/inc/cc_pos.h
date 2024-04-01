@@ -360,6 +360,28 @@ CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod_a,
                                 CcPos pos );
 
 /**
+    Extends existing linked list with a another linked list.
+
+    @param pos_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param pos_link__n Linked list with which to extend existing steps.
+
+    @note
+    If linked list to extend (`pos_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    `pos_link__n`.
+
+    @note
+    Extending linked list `pos_link__n` has its ownership transferred to
+    extended linked list `pos_link__iod_a`; as a result, inner pointer of
+    `pos_link__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
+*/
+CcPosLink * cc_pos_link_extend( CcPosLink ** restrict pos_link__iod_a,
+                                CcPosLink ** restrict pos_link__n );
+
+/**
     Frees all positions in a linked list.
 
     @param pos_link__f Linked list of positions.
