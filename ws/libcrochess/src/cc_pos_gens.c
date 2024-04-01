@@ -28,23 +28,53 @@ static bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
     return false;
 }
 
-static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__iod,
-                                   CcPos * restrict last_step__iod,
-                                   CcPosLink ** restrict previous_steps__iod_af,
-                                   CcPosLink ** restrict possible_steps__iod_af ) {
+static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__d,
+                                   CcPos * restrict last_step__d,
+                                   CcPosLink ** restrict previous_steps__f,
+                                   CcPosLink ** restrict possible_steps__f,
+                                   CcPosLink ** restrict temp_steps__f ) {
 
-    if ( previous_step__iod )
-        *previous_step__iod = CC_POS_CAST_INVALID;
+    if ( previous_step__d )
+        *previous_step__d = CC_POS_CAST_INVALID;
 
-    if ( last_step__iod )
-        *last_step__iod = CC_POS_CAST_INVALID;
+    if ( last_step__d )
+        *last_step__d = CC_POS_CAST_INVALID;
 
-    cc_pos_link_free_all( previous_steps__iod_af );
+    cc_pos_link_free_all( previous_steps__f );
 
-    cc_pos_link_free_all( possible_steps__iod_af );
+    cc_pos_link_free_all( possible_steps__f );
+
+    cc_pos_link_free_all( temp_steps__f );
 
     return false;
 }
+
+static bool cc_convert_steps_to_pos_link( CcPos const steps[],
+                                          size_t steps_len,
+                                          CcPosLink ** restrict steps__od ) {
+    if ( !steps__od ) return false;
+    if ( *steps__od ) return false;
+
+    CcPosLink * pl__t = NULL;
+
+    for ( size_t k = 0; k < steps_len; ++k ) {
+        CcPos p = steps[ k ];
+
+        if ( !CC_POS_IS_VALID( p ) ) break;
+
+        if ( !cc_pos_link_append( &pl__t, p ) ) {
+            cc_pos_link_free_all( &pl__t );
+            return false;
+        }
+    }
+
+    // Ownership transfer.
+    *steps__od = pl__t;
+    // pl__t = NULL; // Not needed.
+
+    return true;
+}
+
 
 bool cc_steps_gen( CcVariantEnum type,
                    CcPieceEnum activator,
@@ -89,7 +119,8 @@ bool cc_steps_gen( CcVariantEnum type,
         return cc_steps_gen_bail_out( previous_step__iod,
                                       last_step__iod,
                                       previous_steps__iod_af,
-                                      possible_steps__iod_af );
+                                      possible_steps__iod_af,
+                                      NULL );
     }
 
     CcPosLink * pl__t = NULL;
@@ -100,7 +131,8 @@ bool cc_steps_gen( CcVariantEnum type,
                 return cc_steps_gen_bail_out( previous_step__iod,
                                               last_step__iod,
                                               previous_steps__iod_af,
-                                              possible_steps__iod_af );
+                                              possible_steps__iod_af,
+                                              &pl__t );
             }
         }
     } else if ( !CC_PIECE_HAS_NEW_STEP_AFTER_EACH( piece ) ) {
@@ -109,7 +141,8 @@ bool cc_steps_gen( CcVariantEnum type,
                 return cc_steps_gen_bail_out( previous_step__iod,
                                               last_step__iod,
                                               previous_steps__iod_af,
-                                              possible_steps__iod_af );
+                                              possible_steps__iod_af,
+                                              &pl__t );
             }
         }
     }

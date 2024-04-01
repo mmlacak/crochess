@@ -23,6 +23,11 @@
 //                                    CcPosLink ** restrict previous_steps__iod_af,
 //                                    CcPosLink ** restrict possible_steps__iod_af );
 
+// static bool cc_convert_steps_to_pos_link( CcPos const steps[],
+//                                           size_t steps_len,
+//                                           CcPosLink ** restrict steps__od );
+
+
 bool cc_steps_gen( CcVariantEnum type,
                    CcPieceEnum activator,
                    CcPieceEnum piece,
