@@ -590,7 +590,7 @@
     @param pe Piece enum, one of `CcPieceEnum` values.
     @param activator Piece enum. Last material (i.e. non-Wave) piece which activates Wave in a cascade.
 
-    Two step pieces are Centaur, and Wave activated by either Unicorn or Centaur.
+    Two step pieces are Centaur, and Wave activated by Unicorn, Centaur, or Serpent.
     Unicorn itself is not two-step piece, because it makes only one step in a ply,
     and so it can choose direction independently to any previous choice.
 
@@ -602,7 +602,21 @@
     ( ( ( (pe) == CC_PE_DarkCentaur ) || ( (pe) == CC_PE_LightCentaur ) )   \
    || ( ( ( (pe) == CC_PE_DarkWave ) || ( (pe) == CC_PE_LightWave ) )       \
         && ( ( ( (activator) == CC_PE_DarkUnicorn ) || ( (activator) == CC_PE_LightUnicorn ) ) \
-          || ( ( (activator) == CC_PE_DarkCentaur ) || ( (activator) == CC_PE_LightCentaur ) ) ) ) )
+          || ( ( (activator) == CC_PE_DarkCentaur ) || ( (activator) == CC_PE_LightCentaur ) ) \
+          || ( ( (activator) == CC_PE_DarkSerpent ) || ( (activator) == CC_PE_LightSerpent ) ) ) ) )
+
+/**
+    Macro expression to evaluate if piece changes its direction after each step.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece changes its direction after each step, `false` otherwise.
+*/
+#define CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pe)  ( ( (pe) == CC_PE_DarkSerpent )   \
+                                             || ( (pe) == CC_PE_LightSerpent )  \
+                                             || ( (pe) == CC_PE_Monolith ) )
 
 /**
     Enumerates all pieces, used in all variants.

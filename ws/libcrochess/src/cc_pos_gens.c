@@ -95,8 +95,17 @@ bool cc_steps_gen( CcVariantEnum type,
     CcPosLink * pl__t = NULL;
 
     if ( CC_PIECE_IS_TWO_STEP( piece, activator ) ) {
-        if ( previous_step__iod ) {
+        if ( previous_step__iod && CC_POS_IS_VALID( *previous_step__iod ) ) {
             if ( !cc_pos_link_append( &pl__t, *previous_step__iod ) ) {
+                return cc_steps_gen_bail_out( previous_step__iod,
+                                              last_step__iod,
+                                              previous_steps__iod_af,
+                                              possible_steps__iod_af );
+            }
+        }
+    } else if ( !CC_PIECE_HAS_NEW_STEP_AFTER_EACH( piece ) ) {
+        if ( last_step__iod && CC_POS_IS_VALID( *last_step__iod ) ) {
+            if ( !cc_pos_link_append( &pl__t, *last_step__iod ) ) {
                 return cc_steps_gen_bail_out( previous_step__iod,
                                               last_step__iod,
                                               previous_steps__iod_af,
@@ -105,9 +114,9 @@ bool cc_steps_gen( CcVariantEnum type,
         }
     }
 
-    // TODO :: generate new steps into pl__t
-
-
+    if ( !pl__t ) {
+        // TODO :: generate new steps into pl__t
+    }
 
     // Steps: last --> previous, NULL --> last
     *previous_step__iod = *last_step__iod;
