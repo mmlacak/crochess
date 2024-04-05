@@ -154,15 +154,15 @@ CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] = {
     CC_POS_INVALID,
 };
 
-bool cc_is_step_valid( CcPos step, CcPos const array[  ], size_t array_len__d ) {
+bool cc_is_step_valid( CcPos step, CcPos const steps[  ], size_t steps_len__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
     for ( size_t k = 0;
-          (array_len__d != CC_STEPS_SIZE_INVALID_POS_TERMINATED) && (k < array_len__d);
+          (steps_len__d != CC_STEPS_SIZE_INVALID_POS_TERMINATED) && (k < steps_len__d);
           ++k ) {
-        CcPos p = array[ k ];
+        CcPos p = steps[ k ];
 
-        if ( !CC_POS_IS_VALID( p ) ) return false;
+        if ( !CC_POS_IS_VALID( p ) ) return false; // break; // This is fine, as long as there is nothing after the loop.
 
         if ( cc_pos_is_equal( step, p ) ) return true;
     }
