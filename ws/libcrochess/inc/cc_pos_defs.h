@@ -18,6 +18,12 @@
 */
 
 
+/**
+    Value to ignore array size constraint on various functions,
+    and use invalid position as a guard to terminate loops.
+*/
+#define CC_STEPS_SIZE_INVALID_POS_TERMINATED (0)
+
 /** @defgroup step_generator_array The step generator array
  *  The step generator constants and arrays are meant to be used via `cc_gen_pos()`,
     and `cc_is_step_valid()`.
