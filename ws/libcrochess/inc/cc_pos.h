@@ -670,6 +670,11 @@ CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io );
     extended linked list `ppt_link__iod_a`; as a result, inner pointer of
     `ppt_link__n` is `NULL`-ed.
 
+    @warning
+    Function does *not* check if there is a common position in a given linked lists.
+    Use `cc_join_ppt_links()` function if `ppt_link__iod_a` might end with the same
+    position with which `ppt_link__n` is starting.
+
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
