@@ -86,48 +86,6 @@ bool cc_update_ppt_link( CcChessboard * restrict cb,
     return true;
 }
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
-                               CcPptLink ** restrict ppt_link__n ) {
-    if ( !ppt_link__iod ) return NULL;
-    if ( !ppt_link__n ) return NULL;
-
-    if ( !*ppt_link__n ) return *ppt_link__iod;
-
-    if ( !*ppt_link__iod ) {
-        // Ownership transfer.
-        *ppt_link__iod = *ppt_link__n;
-        *ppt_link__n = NULL;
-
-        return *ppt_link__iod;
-    }
-
-    CcPptLink * last = *ppt_link__iod;
-    CC_FASTFORWARD( last );
-
-    CcPptLink * first = *ppt_link__n;
-
-    if ( cc_pos_is_equal( last->ppt.pos, first->ppt.pos ) ) {
-        if ( last->ppt.piece != first->ppt.piece )
-            return NULL;
-
-        if ( last->ppt.tag != first->ppt.tag )
-            return NULL;
-
-        // Position, piece, and tag are all the same,
-        // so we drop extra location, not needed anymore.
-        CcPptLink * to_free = first;
-        first = first->next;
-
-        CC_FREE( to_free );
-    }
-
-    // Ownership transfer.
-    last->next = first;
-    *ppt_link__n = NULL;
-
-    return last->next;
-}
-
 bool cc_iter_piece_pos( CcChessboard * restrict cb,
                         CcPos expected,
                         CcPieceEnum piece,

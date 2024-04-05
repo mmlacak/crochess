@@ -350,6 +350,9 @@ bool cc_convert_steps_to_pos_link( CcPos const steps[],
                                    size_t steps_len,
                                    CcPosLink ** restrict steps__iod_a );
 
+CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
+                               CcPptLink ** restrict ppt_link__n );
+
 
 bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 

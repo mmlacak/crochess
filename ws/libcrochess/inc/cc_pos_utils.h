@@ -47,9 +47,6 @@ bool cc_validate_ppt_link( CcChessboard * restrict cb,
 bool cc_update_ppt_link( CcChessboard * restrict cb,
                          CcPptLink * restrict ppt_link__io );
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
-                               CcPptLink ** restrict ppt_link__n );
-
 // DOCS
 bool cc_iter_piece_pos( CcChessboard * restrict cb,
                         CcPos expected,
