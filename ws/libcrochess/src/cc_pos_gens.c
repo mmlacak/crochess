@@ -3,6 +3,7 @@
 
 #include "cc_defines.h"
 #include "cc_math.h"
+#include "cc_pos_defs.h"
 #include "cc_pos_gens.h"
 
 /**
@@ -10,23 +11,6 @@
     @brief Position generators.
 */
 
-
-static bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
-    if ( !steps ) return false;
-
-    if ( !CC_POS_IS_VALID( step ) ) return false;
-
-    CcPosLink * pl = steps;
-
-    while ( pl ) {
-        if ( CC_POS_IS_EQUAL( pl->pos, step ) )
-            return true;
-
-        pl = pl->next;
-    }
-
-    return false;
-}
 
 static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__d,
                                    CcPos * restrict last_step__d,
@@ -47,34 +31,6 @@ static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__d,
     cc_pos_link_free_all( temp_steps__f );
 
     return false;
-}
-
-static bool cc_convert_steps_to_pos_link( CcPos const steps[],
-                                          size_t steps_len,
-                                          CcPosLink ** restrict steps__iod_a ) {
-    if ( !steps__iod_a ) return false;
-
-    CcPosLink * pl__t = NULL;
-
-    for ( size_t k = 0; k < steps_len; ++k ) {
-        CcPos p = steps[ k ];
-
-        if ( !CC_POS_IS_VALID( p ) ) break;
-
-        if ( !cc_pos_link_append( &pl__t, p ) ) {
-            cc_pos_link_free_all( &pl__t );
-            return false;
-        }
-    }
-
-    // Ownership transfer.
-    if ( !cc_pos_link_extend( steps__iod_a, &pl__t ) ) {
-        cc_pos_link_free_all( &pl__t );
-        cc_pos_link_free_all( steps__iod_a );
-        return false;
-    }
-
-    return true;
 }
 
 static bool cc_pawn_steps( CcVariantEnum type,

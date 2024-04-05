@@ -307,8 +307,14 @@ bool cc_is_step_valid( CcPos step, CcPos const array[  ], size_t array_len );
 
 bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
 
-bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
+bool cc_is_step_found( CcPos step, CcPosLink * restrict steps );
 
+bool cc_convert_steps_to_pos_link( CcPos const steps[],
+                                   size_t steps_len,
+                                   CcPosLink ** restrict steps__iod_a );
+
+
+bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 
 bool cc_is_pawn_capture_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 
