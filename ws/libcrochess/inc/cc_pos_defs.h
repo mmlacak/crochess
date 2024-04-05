@@ -176,20 +176,19 @@ extern CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ];
 
 
 /**
-    Function checking if step is valid, by searching a
-    given array holding all valid steps for a piece.
+    Function checking if step is valid, by searching a given array holding all valid steps for a piece.
 
     @param step A step to check
     @param steps An array of all valid steps.
-    @param steps_len__d _Optional_, array length.
+    @param steps_size__d _Optional_, array size.
 
     @note
-    If `steps_len__d` is not used (i.e. it's `0` == `CC_STEPS_SIZE_INVALID_POS_TERMINATED`),
+    If `steps_size__d` is not used (i.e. it's `0` == `CC_STEPS_SIZE_INVALID_POS_TERMINATED`),
     `steps` array *must* be terminated with invalid position (i.e. `CC_POS_INVALID`) as a guard.
 
-    @return `true` if step is valid, `false` otherwise.
+    @return `true` if step is valid (i.e. found in a given `steps` array), `false` otherwise.
 */
-bool cc_is_step_valid( CcPos step, CcPos const steps[  ], size_t steps_len__d );
+bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
 
 
 /** @defgroup step_is_valid_macros The step validity macros

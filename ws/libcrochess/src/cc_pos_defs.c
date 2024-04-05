@@ -195,11 +195,11 @@ CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] = {
     CC_POS_INVALID,
 };
 
-bool cc_is_step_valid( CcPos step, CcPos const steps[  ], size_t steps_len__d ) {
+bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
     for ( size_t k = 0;
-          (steps_len__d != CC_STEPS_SIZE_INVALID_POS_TERMINATED) && (k < steps_len__d);
+          (steps_size__d != CC_STEPS_SIZE_INVALID_POS_TERMINATED) && (k < steps_size__d);
           ++k ) {
         CcPos p = steps[ k ];
 
