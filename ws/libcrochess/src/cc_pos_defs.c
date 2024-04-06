@@ -347,6 +347,15 @@ bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step ) {
         return false;
 }
 
+bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step ) {
+    if ( piece == CC_PE_LightScout )
+        return CC_LIGHT_SCOUT_CAPTURE_STEP_IS_VALID( step );
+    else if ( piece == CC_PE_DarkScout )
+        return CC_DARK_SCOUT_CAPTURE_STEP_IS_VALID( step );
+    else
+        return false;
+}
+
 bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step ) {
     if ( piece == CC_PE_LightShaman ) {
         return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
@@ -408,10 +417,10 @@ bool cc_is_capture_step( CcVariantEnum type,
                    && CC_CENTAUR_LONG_STEP_IS_VALID( step_2 ) )
                || ( CC_CENTAUR_LONG_STEP_IS_VALID( step )
                     && CC_CENTAUR_SHORT_STEP_IS_VALID( step_2 ) ) );
-    } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
-        return false; // TODO
-    } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
-        return false; // TODO
+    } else if ( CC_PIECE_IS_SCOUT( piece ) )
+        return cc_is_scout_capture_step( piece, step );
+    else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
+        return CC_GRENADIER_CAPTURE_STEP_IS_VALID( step );
     } else if ( CC_PIECE_IS_SERPENT( piece ) )
         return CC_SERPENT_STEP_IS_VALID( step );
 

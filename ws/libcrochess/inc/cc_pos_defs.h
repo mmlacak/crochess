@@ -306,7 +306,7 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
 
 
 /** @defgroup step_is_valid_derived_macros The step validity derived macros
- *  The step validity derived macros share definition with base macrose.
+ *  The step validity derived macros share definition with base macros.
  *  @{
  */
 
@@ -337,6 +337,29 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
 #define CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
 
+
+#define CC_LIGHT_SCOUT_STEP_IS_VALID(step) \
+    ( ( cc_is_step_valid( (step), CC_STEPS_LIGHT_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) ) || \
+      ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) ) )
+
+#define CC_DARK_SCOUT_STEP_IS_VALID(step) \
+    ( ( cc_is_step_valid( (step), CC_STEPS_DARK_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) ) || \
+      ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) ) )
+
+#define CC_LIGHT_SCOUT_CAPTURE_STEP_IS_VALID(step) \
+      ( cc_is_step_valid( (step), CC_STEPS_CAPTURE_DARK_PAWN, CC_STEPS_CAPTURE_PAWN_LEN ) ) // This is correct, light Scout has dark Pawn's capture-field.
+
+#define CC_DARK_SCOUT_CAPTURE_STEP_IS_VALID(step) \
+      ( cc_is_step_valid( (step), CC_STEPS_CAPTURE_LIGHT_PAWN, CC_STEPS_CAPTURE_PAWN_LEN ) )// This is correct, dark Scout has light Pawn's capture-field.
+
+
+#define CC_GRENADIER_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
+
+#define CC_GRENADIER_CAPTURE_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) )
+
+
 /** @} */ // end of step_is_valid_derived_macros
 
 /** @} */ // end of step_is_valid_macros
@@ -357,7 +380,7 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
 bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 
 bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step );
-
+bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step );
 bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step );
 
 bool cc_is_capture_step( CcVariantEnum type,
