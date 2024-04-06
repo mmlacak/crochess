@@ -199,7 +199,7 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
     for ( size_t k = 0;
-          (steps_size__d != CC_STEPS_SIZE_INVALID_POS_TERMINATED) && (k < steps_size__d);
+          (steps_size__d == CC_STEPS_SIZE_INVALID_POS_TERMINATED) || (k < steps_size__d);
           ++k ) {
         CcPos p = steps[ k ];
 
@@ -240,13 +240,15 @@ bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
 }
 
 bool cc_convert_steps_to_pos_link( CcPos const steps[],
-                                   size_t steps_len,
+                                   size_t steps_size__d,
                                    CcPosLink ** restrict steps__iod_a ) {
     if ( !steps__iod_a ) return false;
 
     CcPosLink * pl__t = NULL;
 
-    for ( size_t k = 0; k < steps_len; ++k ) {
+    for ( size_t k = 0;
+          (steps_size__d == CC_STEPS_SIZE_INVALID_POS_TERMINATED) || (k < steps_size__d);
+          ++k ) {
         CcPos p = steps[ k ];
 
         if ( !CC_POS_IS_VALID( p ) ) break;
