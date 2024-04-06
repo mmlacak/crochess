@@ -299,6 +299,18 @@
                                  && ( (pe) != CC_PE_Monolith ) )
 
 /**
+    Macro expression to evaluate whether piece can activate a Star.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece can activate Star, `false` otherwise.
+*/
+#define CC_PIECE_CAN_ACTIVATE_STAR(pe) ( ( (pe) == CC_PE_DarkStarchild )        \
+                                      || ( (pe) == CC_PE_LightStarchild ) )
+
+/**
     Macro expression to evaluate whether piece can capture other piece.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

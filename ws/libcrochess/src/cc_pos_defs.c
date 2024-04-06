@@ -382,9 +382,40 @@ bool cc_is_capture_step( CcVariantEnum type,
     else if ( CC_PIECE_IS_STARCHILD( piece ) )
         return false; // Starchild can't capture.
 
-    // TODO :: check validity of steps of all other pieces.
+    else if ( CC_PIECE_IS_KING( piece ) )
+        return CC_KING_STEP_IS_VALID( step );
+    else if ( CC_PIECE_IS_KNIGHT( piece ) )
+        return CC_KNIGHT_STEP_IS_VALID( step );
+    else if ( CC_PIECE_IS_BISHOP( piece ) )
+        return CC_BISHOP_STEP_IS_VALID( step );
+    else if ( CC_PIECE_IS_QUEEN( piece ) )
+        return CC_QUEEN_STEP_IS_VALID( step );
 
-    return true;
+    else if ( CC_PIECE_IS_PYRAMID( piece ) )
+        return CC_PYRAMID_STEP_IS_VALID( step );
+    else if ( CC_PIECE_IS_UNICORN( piece ) ) {
+        return ( ( CC_UNICORN_SHORT_STEP_IS_VALID( step )
+                   && CC_UNICORN_LONG_STEP_IS_VALID( step_2 ) )
+               || ( CC_UNICORN_LONG_STEP_IS_VALID( step )
+                    && CC_UNICORN_SHORT_STEP_IS_VALID( step_2 ) ) );
+    } else if ( CC_PIECE_IS_STAR( piece ) ) {
+        if ( !CC_PIECE_CAN_ACTIVATE_STAR( activator ) )
+            return false;
+
+        return CC_STAR_STEP_IS_VALID( step );
+    } else if ( CC_PIECE_IS_CENTAUR( piece ) ) {
+        return ( ( CC_CENTAUR_SHORT_STEP_IS_VALID( step )
+                   && CC_CENTAUR_LONG_STEP_IS_VALID( step_2 ) )
+               || ( CC_CENTAUR_LONG_STEP_IS_VALID( step )
+                    && CC_CENTAUR_SHORT_STEP_IS_VALID( step_2 ) ) );
+    } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
+        return false; // TODO
+    } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
+        return false; // TODO
+    } else if ( CC_PIECE_IS_SERPENT( piece ) )
+        return CC_SERPENT_STEP_IS_VALID( step );
+
+    return false;
 }
 
 
