@@ -356,7 +356,7 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
 
 bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
 
-bool cc_is_pawn_capture_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
+bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step );
 
 bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step );
 

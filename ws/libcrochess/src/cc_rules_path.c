@@ -24,7 +24,7 @@ bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
 
     CcPos step = cc_pos_difference( destination, start );
 
-    return cc_is_pawn_capture_step( cb->type, pawn, step );
+    return cc_is_pawn_capture_step( pawn, step );
 }
 
 bool cc_is_pawn_step_valid( CcChessboard * restrict cb,

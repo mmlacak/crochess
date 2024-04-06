@@ -338,7 +338,7 @@ bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step ) {
     }
 }
 
-bool cc_is_pawn_capture_step( CcVariantEnum type, CcPieceEnum piece, CcPos step ) {
+bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step ) {
     if ( piece == CC_PE_LightPawn )
         return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
     else if ( piece == CC_PE_DarkPawn )
@@ -367,7 +367,7 @@ bool cc_is_capture_step( CcVariantEnum type,
     if ( cc_pos_is_static_step( step ) ) return false;
 
     if ( CC_PIECE_IS_PAWN( piece ) )
-        return cc_is_pawn_capture_step( type, piece, step );
+        return cc_is_pawn_capture_step( piece, step );
     else if ( CC_PIECE_IS_SHAMAN( piece ) )
         return cc_is_shaman_capture_step( piece, step );
     else if ( CC_PIECE_IS_WAVE( piece ) ) {

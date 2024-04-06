@@ -98,7 +98,7 @@ bool cc_check_promote_or_tag( CcChessboard * restrict cb,
         if ( cc_is_pawn_step( cb->type, pawn, step ) ) {
             if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
                 return false;
-        } else if ( cc_is_pawn_capture_step( cb->type, pawn, step ) ) {
+        } else if ( cc_is_pawn_capture_step( pawn, step ) ) {
             if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
                 return false;
         } else
