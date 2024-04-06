@@ -36,8 +36,10 @@ CcPos const CC_STEPS_CAPTURE_DARK_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] = {
 };
 
 CcPos const CC_STEPS_ALL_LIGHT_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
+    // step
     { .i =  0, .j =  1 },
 
+    // capture-steps
     { .i = -1, .j =  1 },
     { .i =  1, .j =  1 },
 
@@ -45,8 +47,10 @@ CcPos const CC_STEPS_ALL_LIGHT_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
 };
 
 CcPos const CC_STEPS_ALL_DARK_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
+    // step
     { .i =  0, .j = -1 },
 
+    // capture-steps
     { .i = -1, .j = -1 },
     { .i =  1, .j = -1 },
 
@@ -70,10 +74,12 @@ CcPos const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] = {
 };
 
 CcPos const CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ] = {
+    // steps
     { .i =  0, .j =  1 },
     { .i = -1, .j =  0 },
     { .i =  1, .j =  0 },
 
+    // capture-steps
     { .i = -1, .j =  1 },
     { .i =  1, .j =  1 },
 
@@ -81,10 +87,12 @@ CcPos const CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ] 
 };
 
 CcPos const CC_STEPS_ALL_DARK_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ] = {
+    // steps
     { .i =  0, .j = -1 },
     { .i = -1, .j =  0 },
     { .i =  1, .j =  0 },
 
+    // capture-steps
     { .i = -1, .j = -1 },
     { .i =  1, .j = -1 },
 
