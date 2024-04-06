@@ -185,24 +185,6 @@ CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
     CC_POS_INVALID,
 };
 
-CcPos const CC_STEPS_MONOLITH_LEFT[ CC_STEPS_MONOLITH_SIZE ] = {
-    { .i =  2, .j =  1 },
-    { .i = -1, .j =  2 },
-    { .i = -2, .j = -1 },
-    { .i =  1, .j = -2 },
-
-    CC_POS_INVALID,
-};
-
-CcPos const CC_STEPS_MONOLITH_RIGHT[ CC_STEPS_MONOLITH_SIZE ] = {
-    { .i =  1, .j =  2 },
-    { .i = -2, .j =  1 },
-    { .i = -1, .j = -2 },
-    { .i =  2, .j = -1 },
-
-    CC_POS_INVALID,
-};
-
 bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
