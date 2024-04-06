@@ -310,27 +310,6 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
  *  @{
  */
 
-#define CC_PAWN_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_LIGHT_PAWN, CC_STEPS_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_DARK_PAWN, CC_STEPS_PAWN_LEN ) ) )
-
-#define CC_PAWN_CAPTURE_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_CAPTURE_LIGHT_PAWN, CC_STEPS_CAPTURE_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_CAPTURE_DARK_PAWN, CC_STEPS_CAPTURE_PAWN_LEN ) ) )
-
-#define CC_PAWN_ALL_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_ALL_LIGHT_PAWN, CC_STEPS_ALL_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_ALL_DARK_PAWN, CC_STEPS_ALL_PAWN_LEN ) ) )
-
-#define CC_SIDEWAYS_PAWN_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_LIGHT_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_DARK_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) ) )
-
-#define CC_SIDEWAYS_PAWN_ALL_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN, CC_STEPS_ALL_SIDEWAYS_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_ALL_DARK_SIDEWAYS_PAWN, CC_STEPS_ALL_SIDEWAYS_PAWN_LEN ) ) )
-
-
 #define CC_SERPENT_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) )
 

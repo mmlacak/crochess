@@ -45,9 +45,6 @@ CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
 }
 
 
-// TODO :: extended pos link with another
-//         check merge point is the same (last pos in 1st list, first pos in 2nd list)
-
 bool cc_validate_ppt_link( CcChessboard * restrict cb,
                            CcPptLink * restrict ppt_link ) {
     if ( !cb ) return false;
