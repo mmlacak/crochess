@@ -15,12 +15,20 @@
 /**
     Macro to evaluate logical XOR.
 
-    @param i A number, preferably integer.
-    @param j A number, preferably integer.
+    @param bool_1 A boolean expression, can be integer.
+    @param bool_2 Another boolean expression, can be integer.
+
+    @note
+    In case of integer(s), one has to be non-zero, while the other has to be zero, for `XOR` to return `true`.
+    Arguments are converted to `bool`s (so, non-zero integer is 1, otherwise it's 0), then compared.
+
+    @see
+    [https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents](https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents)
+    [https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/](https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/)
 
     @return Logical XOR between arguments.
 */
-#define CC_XOR(i,j) ( ( (!(!(i))) + (!(!(j))) ) == 1 )
+#define CC_XOR(bool_1,bool_2) ( ((bool)bool_1) != ((bool)bool_2) )
 
 /**
     Smallest, invalid off-board coordinate.
