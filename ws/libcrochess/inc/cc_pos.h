@@ -655,7 +655,7 @@ CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod_a,
 CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io );
 
 /**
-    Extends existing linked list with a another linked list.
+    Extends existing linked list with another linked list.
 
     @param ppt_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
     @param ppt_link__n Linked list with which to extend existing steps.
