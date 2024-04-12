@@ -16,24 +16,10 @@
 */
 
 
-// static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__iod,
-//                                    CcPos * restrict last_step__iod,
-//                                    CcPosLink ** restrict previous_steps__iod_af,
-//                                    CcPosLink ** restrict possible_steps__iod_af );
-
-// static bool cc_pawn_steps( CcVariantEnum type,
-//                            CcPieceEnum activator,
-//                            CcPieceEnum piece,
-//                            CcPosLink ** restrict steps__od );
-
-
-bool cc_steps_gen( CcVariantEnum type,
-                   CcPieceEnum activator,
-                   CcPieceEnum piece,
-                   CcPos * restrict previous_step__iod,
-                   CcPos * restrict last_step__iod,
-                   CcPosLink ** restrict previous_steps__iod_af,
-                   CcPosLink ** restrict possible_steps__iod_af );
+bool cc_pawn_all_steps( CcVariantEnum type,
+                        CcPieceEnum activator,
+                        CcPieceEnum piece,
+                        CcPosLink ** restrict all_steps__od );
 
 
 #endif /* __CC_POS_GENS_H__ */
