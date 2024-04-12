@@ -12,61 +12,57 @@
 */
 
 
-bool cc_pawn_all_steps( CcVariantEnum type,
-                        CcPieceEnum activator,
-                        CcPieceEnum piece,
-                        CcPosLink ** restrict all_steps__od ) {
-    if ( !all_steps__od ) return false;
-    if ( *all_steps__od ) return false;
+bool cc_pawn_steps( CcVariantEnum type,
+                    CcPieceEnum activator,
+                    CcPieceEnum piece,
+                    CcStepTypeEnum steps_type,
+                    CcPosLink ** restrict steps__od ) {
+    if ( !steps__od ) return false;
+    if ( *steps__od ) return false;
 
+    if ( !( CC_PIECE_IS_PAWN( piece ) || CC_PIECE_IS_WAVE( piece ) ) )
+        return false;
+
+    if ( CC_PIECE_IS_WAVE( piece ) && ( !CC_PIECE_IS_PAWN( activator ) ) )
+        return false;
+
+    CcPos const * steps = NULL;
+    size_t size = 0;
+    CcPos const * capture_steps = NULL;
+    size_t capture_size = 0;
     CcPosLink * pl__t = NULL;
 
-    if ( ( piece == CC_PE_LightPawn ) ||
-         ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) ) {
-        CcPos const steps[ 4 ] = {
-            { .i =  0, .j =  1 },
-            { .i = -1, .j =  1 },
-            { .i =  1, .j =  1 },
+    bool has_sideways_variant = cc_variant_has_sideways_pawns( type );
+    bool is_light = ( ( piece == CC_PE_LightPawn ) ||
+                      ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) );
 
-            CC_POS_INVALID,
-        };
-
-        if ( !cc_convert_steps_to_pos_link( steps, 3, &pl__t ) ) {
-            cc_pos_link_free_all( &pl__t );
-            return false;
-        }
-    } else if ( piece == CC_PE_DarkPawn ||
-                ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_DarkPawn ) ) ) {
-        CcPos const steps[ 4 ] = {
-            { .i =  0, .j = -1 },
-            { .i = -1, .j = -1 },
-            { .i =  1, .j = -1 },
-
-            CC_POS_INVALID,
-        };
-
-        if ( !cc_convert_steps_to_pos_link( steps, 3, &pl__t ) ) {
-            cc_pos_link_free_all( &pl__t );
-            return false;
+    if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
+        if ( has_sideways_variant ) {
+            steps = is_light ? CC_STEPS_LIGHT_SIDEWAYS_PAWN : CC_STEPS_DARK_SIDEWAYS_PAWN;
+            size = CC_STEPS_SIDEWAYS_PAWN_SIZE;
+        } else {
+            steps = is_light ? CC_STEPS_LIGHT_PAWN : CC_STEPS_DARK_PAWN;
+            size = CC_STEPS_PAWN_SIZE;
         }
     }
 
-    if ( cc_variant_has_sideways_pawns( type ) ) {
-        CcPos const steps[ 3 ] = {
-            { .i = -1, .j =  0 },
-            { .i =  1, .j =  0 },
+    if ( !cc_convert_steps_to_pos_link( steps, size, &pl__t ) ) {
+        cc_pos_link_free_all( &pl__t );
+        return false;
+    }
 
-            CC_POS_INVALID,
-        };
+    if ( CC_STEPS_HAS_CAPTURE( steps_type ) ) {
+        capture_steps = is_light ? CC_STEPS_CAPTURE_LIGHT_PAWN : CC_STEPS_CAPTURE_DARK_PAWN;
+        capture_size = CC_STEPS_CAPTURE_PAWN_SIZE;
+    }
 
-        if ( !cc_convert_steps_to_pos_link( steps, 2, &pl__t ) ) {
-            cc_pos_link_free_all( &pl__t );
-            return false;
-        }
+    if ( !cc_convert_steps_to_pos_link( capture_steps, capture_size, &pl__t ) ) {
+        cc_pos_link_free_all( &pl__t );
+        return false;
     }
 
     // Ownership transfer.
-    *all_steps__od = pl__t;
+    *steps__od = pl__t;
     // pl__t = NULL; // Not needed.
 
     return true;

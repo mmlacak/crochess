@@ -16,10 +16,30 @@
 */
 
 
-bool cc_pawn_all_steps( CcVariantEnum type,
-                        CcPieceEnum activator,
-                        CcPieceEnum piece,
-                        CcPosLink ** restrict all_steps__od );
+#define CC_STEPS_HAS_MOVEMENT(ste) ( ( (ste) == CC_STE_All )        \
+                                  || ( (ste) == CC_STE_Movement ) )
+
+#define CC_STEPS_HAS_CAPTURE(ste) ( ( (ste) == CC_STE_All )        \
+                                 || ( (ste) == CC_STE_Capture ) )
+
+#define CC_STEPS_HAS_ALTERNATIVE(ste) ( ( (ste) == CC_STE_All )        \
+                                     || ( (ste) == CC_STE_Alternative ) )
+
+
+typedef enum CcStepTypeEnum {
+    CC_STE_None = 0,
+    CC_STE_All,
+    CC_STE_Movement,
+    CC_STE_Capture,
+    CC_STE_Alternative, // Alternative movement, one of entrancement-, uplifting-, miracle-steps.
+} CcStepTypeEnum;
+
+
+bool cc_pawn_steps( CcVariantEnum type,
+                    CcPieceEnum activator,
+                    CcPieceEnum piece,
+                    CcStepTypeEnum steps_type,
+                    CcPosLink ** restrict steps__od );
 
 
 #endif /* __CC_POS_GENS_H__ */
