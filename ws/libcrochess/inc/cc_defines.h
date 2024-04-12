@@ -23,7 +23,7 @@
     Arguments are converted to `bool`s (so, non-zero integer is 1, otherwise it's 0), then compared.
 
     @see
-    [https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents](https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents)
+    [https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents](https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents),
     [https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/](https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/)
 
     @return Logical XOR between arguments.
