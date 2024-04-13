@@ -12,188 +12,73 @@
 */
 
 
-static bool cc_steps_gen_bail_out( CcPos * restrict previous_step__d,
-                                   CcPos * restrict last_step__d,
-                                   CcPosLink ** restrict previous_steps__f,
-                                   CcPosLink ** restrict possible_steps__f,
-                                   CcPosLink ** restrict temp_steps__f ) {
-
-    if ( previous_step__d )
-        *previous_step__d = CC_POS_CAST_INVALID;
-
-    if ( last_step__d )
-        *last_step__d = CC_POS_CAST_INVALID;
-
-    cc_pos_link_free_all( previous_steps__f );
-
-    cc_pos_link_free_all( possible_steps__f );
-
-    cc_pos_link_free_all( temp_steps__f );
-
-    return false;
-}
-
-static bool cc_pawn_steps( CcVariantEnum type,
-                           CcPieceEnum activator,
-                           CcPieceEnum piece,
-                           CcPosLink ** restrict steps__od ) {
+bool cc_pawn_steps( CcChessboard * restrict cb,
+                    CcPieceEnum activator,
+                    CcPieceEnum piece,
+                    CcPos current_pos,
+                    CcStepTypeEnum steps_type,
+                    CcPosLink ** restrict steps__od ) {
     if ( !steps__od ) return false;
     if ( *steps__od ) return false;
 
-    CcPosLink * pl__t = NULL;
-    bool bail_out = false;
-
-    if ( ( piece == CC_PE_LightPawn ) ||
-         ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) ) {
-        CcPos const steps[ 4 ] = {
-            { .i =  0, .j =  1 },
-            { .i = -1, .j =  1 },
-            { .i =  1, .j =  1 },
-
-            CC_POS_INVALID,
-        };
-
-        if ( !cc_convert_steps_to_pos_link( steps, 3, &pl__t ) )
-            bail_out = true;
-    } else if ( piece == CC_PE_DarkPawn ||
-                ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_DarkPawn ) ) ) {
-        CcPos const steps[ 4 ] = {
-            { .i =  0, .j = -1 },
-            { .i = -1, .j = -1 },
-            { .i =  1, .j = -1 },
-
-            CC_POS_INVALID,
-        };
-
-        if ( !cc_convert_steps_to_pos_link( steps, 3, &pl__t ) )
-            bail_out = true;
-    }
-
-    if ( ( !bail_out ) && cc_variant_has_sideways_pawns( type ) ) {
-        CcPos const steps[ 3 ] = {
-            { .i = -1, .j =  0 },
-            { .i =  1, .j =  0 },
-
-            CC_POS_INVALID,
-        };
-
-        if ( !cc_convert_steps_to_pos_link( steps, 2, &pl__t ) )
-            bail_out = true;
-    }
-
-    if ( bail_out ) {
-        cc_pos_link_free_all( &pl__t );
+    if ( !( CC_PIECE_IS_PAWN( piece ) || CC_PIECE_IS_WAVE( piece ) ) )
         return false;
+
+    if ( CC_PIECE_IS_WAVE( piece ) && ( !CC_PIECE_IS_PAWN( activator ) ) )
+        return false;
+
+    int i = current_pos.i;
+    int j = current_pos.j;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+    if ( piece != pe ) return false;
+
+    CcPosLink * pl__t = NULL;
+
+    if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
     }
+
+    // TODO :: DELETE !!
+    //
+    // CcPos const * steps = NULL;
+    // size_t size = 0;
+    // CcPos const * capture_steps = NULL;
+    // size_t capture_size = 0;
+
+    // bool has_sideways_variant = cc_variant_has_sideways_pawns( cb->type );
+    // bool is_light = ( ( piece == CC_PE_LightPawn ) ||
+    //                   ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) );
+
+    // if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
+    //     if ( has_sideways_variant ) {
+    //         steps = is_light ? CC_STEPS_LIGHT_SIDEWAYS_PAWN : CC_STEPS_DARK_SIDEWAYS_PAWN;
+    //         size = CC_STEPS_SIDEWAYS_PAWN_SIZE;
+    //     } else {
+    //         steps = is_light ? CC_STEPS_LIGHT_PAWN : CC_STEPS_DARK_PAWN;
+    //         size = CC_STEPS_PAWN_SIZE;
+    //     }
+    // }
+
+    // if ( !cc_convert_steps_to_pos_link( steps, size, &pl__t ) ) {
+    //     cc_pos_link_free_all( &pl__t );
+    //     return false;
+    // }
+
+    // if ( CC_STEPS_HAS_CAPTURE( steps_type ) ) {
+    //     capture_steps = is_light ? CC_STEPS_CAPTURE_LIGHT_PAWN : CC_STEPS_CAPTURE_DARK_PAWN;
+    //     capture_size = CC_STEPS_CAPTURE_PAWN_SIZE;
+    // }
+
+    // if ( !cc_convert_steps_to_pos_link( capture_steps, capture_size, &pl__t ) ) {
+    //     cc_pos_link_free_all( &pl__t );
+    //     return false;
+    // }
+    //
+    // TODO :: DELETE !!
 
     // Ownership transfer.
     *steps__od = pl__t;
     // pl__t = NULL; // Not needed.
 
     return true;
-}
-
-
-bool cc_steps_gen( CcVariantEnum type,
-                   CcPieceEnum activator,
-                   CcPieceEnum piece,
-                   CcPos * restrict previous_step__iod,
-                   CcPos * restrict last_step__iod,
-                   CcPosLink ** restrict previous_steps__iod_af,
-                   CcPosLink ** restrict possible_steps__iod_af ) {
-    if ( !possible_steps__iod_af ) return false;
-    if ( !last_step__iod ) return false;
-    if ( !previous_steps__iod_af ) return false;
-
-    bool bail_out = false;
-
-    if ( CC_POS_IS_VALID( *last_step__iod ) ) {
-        if ( *possible_steps__iod_af ) {
-            if ( !cc_is_step_found( *last_step__iod, *possible_steps__iod_af ) )
-                bail_out = true;
-        } else
-            bail_out = true;
-    } else {
-        if ( *possible_steps__iod_af )
-            bail_out = true;
-    }
-
-    if ( ( !bail_out ) && CC_PIECE_IS_TWO_STEP( piece, activator ) ) {
-        if ( !previous_step__iod ) return false;
-
-        if ( CC_POS_IS_VALID( *previous_step__iod ) ) {
-            if ( *previous_steps__iod_af ) {
-                if ( !cc_is_step_found( *previous_step__iod, *previous_steps__iod_af ) )
-                    bail_out = true;
-            } else
-                bail_out = true;
-        } else {
-            if ( *previous_steps__iod_af )
-                bail_out = true;
-        }
-    }
-
-    if ( bail_out ) {
-        return cc_steps_gen_bail_out( previous_step__iod,
-                                      last_step__iod,
-                                      previous_steps__iod_af,
-                                      possible_steps__iod_af,
-                                      NULL );
-    }
-
-    CcPosLink * pl__t = NULL;
-
-    if ( CC_PIECE_IS_TWO_STEP( piece, activator ) ) {
-        if ( previous_step__iod && CC_POS_IS_VALID( *previous_step__iod ) ) {
-            if ( !cc_pos_link_append( &pl__t, *previous_step__iod ) ) {
-                return cc_steps_gen_bail_out( previous_step__iod,
-                                              last_step__iod,
-                                              previous_steps__iod_af,
-                                              possible_steps__iod_af,
-                                              &pl__t );
-            }
-        }
-    } else if ( !CC_PIECE_HAS_NEW_STEP_AFTER_EACH( piece ) ) {
-        if ( last_step__iod && CC_POS_IS_VALID( *last_step__iod ) ) {
-            if ( !cc_pos_link_append( &pl__t, *last_step__iod ) ) {
-                return cc_steps_gen_bail_out( previous_step__iod,
-                                              last_step__iod,
-                                              previous_steps__iod_af,
-                                              possible_steps__iod_af,
-                                              &pl__t );
-            }
-        }
-    }
-
-    if ( !pl__t ) {
-        if ( CC_PIECE_IS_PAWN( piece ) ||
-           ( CC_PIECE_IS_WAVE( piece ) && CC_PIECE_IS_PAWN( activator ) ) ) {
-            if ( !cc_pawn_steps( type, activator, piece, &pl__t ) ) {
-                return cc_steps_gen_bail_out( previous_step__iod,
-                                              last_step__iod,
-                                              previous_steps__iod_af,
-                                              possible_steps__iod_af,
-                                              &pl__t );
-            }
-        }
-
-        // TODO :: generate new steps into pl__t
-    }
-
-    // Steps: last --> previous, NULL --> last
-    *previous_step__iod = *last_step__iod;
-    *last_step__iod = CC_POS_CAST_INVALID;
-
-    cc_pos_link_free_all( previous_steps__iod_af );
-    *previous_steps__iod_af = *possible_steps__iod_af;
-    *possible_steps__iod_af = NULL;
-
-    if ( pl__t ) {
-        // Ownership transfer.
-        *possible_steps__iod_af = pl__t;
-        // pl__t = NULL; // Not needed.
-
-        return true;
-    } else
-        return false;
 }
