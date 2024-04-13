@@ -7,7 +7,8 @@
 #include <stdbool.h>
 
 #include "cc_piece.h"
-#include "cc_variant.h"
+// #include "cc_variant.h"
+#include "cc_chessboard.h"
 #include "cc_pos.h"
 
 /**
@@ -31,13 +32,14 @@ typedef enum CcStepTypeEnum {
     CC_STE_All,
     CC_STE_Movement,
     CC_STE_Capture,
-    CC_STE_Alternative, // Alternative movement, one of entrancement-, uplifting-, miracle-steps.
+    CC_STE_Alternative, // Alternative movement, one of color-change-, entrancement-, uplifting-, miracle-steps.
 } CcStepTypeEnum;
 
 
-bool cc_pawn_steps( CcVariantEnum type,
+bool cc_pawn_steps( CcChessboard * restrict cb,
                     CcPieceEnum activator,
                     CcPieceEnum piece,
+                    CcPos current_pos,
                     CcStepTypeEnum steps_type,
                     CcPosLink ** restrict steps__od );
 

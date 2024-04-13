@@ -12,9 +12,10 @@
 */
 
 
-bool cc_pawn_steps( CcVariantEnum type,
+bool cc_pawn_steps( CcChessboard * restrict cb,
                     CcPieceEnum activator,
                     CcPieceEnum piece,
+                    CcPos current_pos,
                     CcStepTypeEnum steps_type,
                     CcPosLink ** restrict steps__od ) {
     if ( !steps__od ) return false;
@@ -26,40 +27,54 @@ bool cc_pawn_steps( CcVariantEnum type,
     if ( CC_PIECE_IS_WAVE( piece ) && ( !CC_PIECE_IS_PAWN( activator ) ) )
         return false;
 
-    CcPos const * steps = NULL;
-    size_t size = 0;
-    CcPos const * capture_steps = NULL;
-    size_t capture_size = 0;
+    int i = current_pos.i;
+    int j = current_pos.j;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+    if ( piece != pe ) return false;
+
     CcPosLink * pl__t = NULL;
 
-    bool has_sideways_variant = cc_variant_has_sideways_pawns( type );
-    bool is_light = ( ( piece == CC_PE_LightPawn ) ||
-                      ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) );
-
     if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
-        if ( has_sideways_variant ) {
-            steps = is_light ? CC_STEPS_LIGHT_SIDEWAYS_PAWN : CC_STEPS_DARK_SIDEWAYS_PAWN;
-            size = CC_STEPS_SIDEWAYS_PAWN_SIZE;
-        } else {
-            steps = is_light ? CC_STEPS_LIGHT_PAWN : CC_STEPS_DARK_PAWN;
-            size = CC_STEPS_PAWN_SIZE;
-        }
     }
 
-    if ( !cc_convert_steps_to_pos_link( steps, size, &pl__t ) ) {
-        cc_pos_link_free_all( &pl__t );
-        return false;
-    }
+    // TODO :: DELETE !!
+    //
+    // CcPos const * steps = NULL;
+    // size_t size = 0;
+    // CcPos const * capture_steps = NULL;
+    // size_t capture_size = 0;
 
-    if ( CC_STEPS_HAS_CAPTURE( steps_type ) ) {
-        capture_steps = is_light ? CC_STEPS_CAPTURE_LIGHT_PAWN : CC_STEPS_CAPTURE_DARK_PAWN;
-        capture_size = CC_STEPS_CAPTURE_PAWN_SIZE;
-    }
+    // bool has_sideways_variant = cc_variant_has_sideways_pawns( cb->type );
+    // bool is_light = ( ( piece == CC_PE_LightPawn ) ||
+    //                   ( CC_PIECE_IS_WAVE( piece ) && ( activator == CC_PE_LightPawn ) ) );
 
-    if ( !cc_convert_steps_to_pos_link( capture_steps, capture_size, &pl__t ) ) {
-        cc_pos_link_free_all( &pl__t );
-        return false;
-    }
+    // if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
+    //     if ( has_sideways_variant ) {
+    //         steps = is_light ? CC_STEPS_LIGHT_SIDEWAYS_PAWN : CC_STEPS_DARK_SIDEWAYS_PAWN;
+    //         size = CC_STEPS_SIDEWAYS_PAWN_SIZE;
+    //     } else {
+    //         steps = is_light ? CC_STEPS_LIGHT_PAWN : CC_STEPS_DARK_PAWN;
+    //         size = CC_STEPS_PAWN_SIZE;
+    //     }
+    // }
+
+    // if ( !cc_convert_steps_to_pos_link( steps, size, &pl__t ) ) {
+    //     cc_pos_link_free_all( &pl__t );
+    //     return false;
+    // }
+
+    // if ( CC_STEPS_HAS_CAPTURE( steps_type ) ) {
+    //     capture_steps = is_light ? CC_STEPS_CAPTURE_LIGHT_PAWN : CC_STEPS_CAPTURE_DARK_PAWN;
+    //     capture_size = CC_STEPS_CAPTURE_PAWN_SIZE;
+    // }
+
+    // if ( !cc_convert_steps_to_pos_link( capture_steps, capture_size, &pl__t ) ) {
+    //     cc_pos_link_free_all( &pl__t );
+    //     return false;
+    // }
+    //
+    // TODO :: DELETE !!
 
     // Ownership transfer.
     *steps__od = pl__t;

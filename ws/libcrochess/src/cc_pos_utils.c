@@ -150,7 +150,7 @@ bool cc_get_starting_steps( CcChessboard * restrict cb,
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
 
-    if ( pe != piece ) return false;
+    if ( pe != piece ) return false; // TODO :: piece == own Shaman --> divergence
 
 
 
