@@ -58,8 +58,9 @@ bool cc_has_steps_in_ply( char const * restrict an_str,
                           bool check_intermediate_steps,
                           bool check_destination_step );
 
-CcStepLinkEnum cc_parse_step_link( char const * restrict an_str,
-                                   char const * restrict ply_end );
+bool cc_parse_step_link( char const * restrict an_str,
+                         char const * restrict ply_end,
+                         CcStepLinkEnum * restrict sle__o );
 
 size_t cc_step_link_len( CcStepLinkEnum sle );
 
