@@ -14,50 +14,50 @@
 
 
 bool cc_parse_ply_link( char const * restrict an_str,
-                        CcPlyLinkEnum * restrict ple__io ) {
+                        CcPlyLinkEnum * restrict ple__o ) {
     if ( !an_str ) return false;
-    if ( !ple__io ) return false;
+    if ( !ple__o ) return false;
 
     char const * c = an_str;
 
     if ( *c == '~' ) {
-        *ple__io = CC_PLE_CascadingPly; // "~" plies
+        *ple__o = CC_PLE_CascadingPly; // "~" plies
         return true;
     }
 
     if ( *c == '|' ) {
         if ( *++c == '|' ) {
             if ( *++c == '|' ) {
-                *ple__io = CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
+                *ple__o = CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
                 return true;
             }
 
-            *ple__io = CC_PLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
+            *ple__o = CC_PLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
             return true;
         }
 
-        *ple__io = CC_PLE_Teleportation; // "|" teleportation
+        *ple__o = CC_PLE_Teleportation; // "|" teleportation
         return true;
     }
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
             if ( *++c == '@' ) {
-                *ple__io = CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
+                *ple__o = CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
                 return true;
             }
 
-            *ple__io = CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+            *ple__o = CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
             return true;
         }
 
-        *ple__io = CC_PLE_TranceJourney; // "@" trance-journey
+        *ple__o = CC_PLE_TranceJourney; // "@" trance-journey
         return true;
     }
 
     if ( *c == ';' ) {
         if ( *++c == ';' ) {
-            *ple__io = CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
+            *ple__o = CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
             return true;
         }
 
@@ -65,17 +65,17 @@ bool cc_parse_ply_link( char const * restrict an_str,
     }
 
     if ( *c == '"' ) {
-        *ple__io = CC_PLE_SenseJourney; // "\"" sense-journey
+        *ple__o = CC_PLE_SenseJourney; // "\"" sense-journey
         return true;
     }
 
     if ( *c == '\'' ) {
-        *ple__io = CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
+        *ple__o = CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
         return true;
     }
 
     if ( isgraph( *c ) ) {
-        *ple__io = CC_PLE_None;
+        *ple__o = CC_PLE_None;
         return true;
     }
 
