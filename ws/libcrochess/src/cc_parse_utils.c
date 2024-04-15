@@ -46,7 +46,7 @@ CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
     if ( *c == '"' ) return CC_PLE_SenseJourney; // "\"" sense-journey
     if ( *c == '\'' ) return CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
 
-    if ( ( *c == '.' ) || ( *c == '[' ) || isalnum( *c ) )
+    if ( ( *c == '-' ) || ( *c == '.' ) || ( *c == '[' ) || isalnum( *c ) )
         return CC_PLE_StartingPly;
 
     return CC_PLE_None;
