@@ -21,7 +21,8 @@
 */
 
 
-CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str );
+bool cc_parse_ply_link( char const * restrict an_str,
+                        CcPlyLinkEnum * restrict ple__o );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
