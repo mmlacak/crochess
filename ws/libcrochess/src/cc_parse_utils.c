@@ -13,43 +13,73 @@
 */
 
 
-CcPlyLinkEnum cc_parse_ply_link( char const * restrict an_str ) {
-    if ( !an_str ) return CC_PLE_None;
+bool cc_parse_ply_link( char const * restrict an_str,
+                        CcPlyLinkEnum * restrict ple__io ) {
+    if ( !an_str ) return false;
+    if ( !ple__io ) return false;
 
     char const * c = an_str;
 
-    if ( *c == '~' ) return CC_PLE_CascadingPly; // "~" plies
+    if ( *c == '~' ) {
+        *ple__io = CC_PLE_CascadingPly; // "~" plies
+        return true;
+    }
 
     if ( *c == '|' ) {
         if ( *++c == '|' ) {
-            if ( *++c == '|' ) return CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
-            return CC_PLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
+            if ( *++c == '|' ) {
+                *ple__io = CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
+                return true;
+            }
+
+            *ple__io = CC_PLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
+            return true;
         }
 
-        return CC_PLE_Teleportation; // "|" teleportation
+        *ple__io = CC_PLE_Teleportation; // "|" teleportation
+        return true;
     }
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
-            if ( *++c == '@' ) return CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
-            return CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+            if ( *++c == '@' ) {
+                *ple__io = CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
+                return true;
+            }
+
+            *ple__io = CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+            return true;
         }
 
-        return CC_PLE_TranceJourney; // "@" trance-journey
+        *ple__io = CC_PLE_TranceJourney; // "@" trance-journey
+        return true;
     }
 
     if ( *c == ';' ) {
-        if ( *++c == ';' ) return CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
-        return CC_PLE_None;
+        if ( *++c == ';' ) {
+            *ple__io = CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
+            return true;
+        }
+
+        return false;
     }
 
-    if ( *c == '"' ) return CC_PLE_SenseJourney; // "\"" sense-journey
-    if ( *c == '\'' ) return CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
+    if ( *c == '"' ) {
+        *ple__io = CC_PLE_SenseJourney; // "\"" sense-journey
+        return true;
+    }
 
-    if ( ( *c == '-' ) || ( *c == '.' ) || ( *c == '[' ) || isalnum( *c ) )
-        return CC_PLE_StartingPly;
+    if ( *c == '\'' ) {
+        *ple__io = CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
+        return true;
+    }
 
-    return CC_PLE_None;
+    if ( isgraph( *c ) ) {
+        *ple__io = CC_PLE_None;
+        return true;
+    }
+
+    return false;
 }
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
@@ -76,11 +106,12 @@ char const * cc_next_ply_link( char const * restrict an_str ) {
     if ( *an_str == '\0' ) return NULL;
 
     // Skip over current ply link.
-    CcPlyLinkEnum ple = cc_parse_ply_link( an_str );
+    CcPlyLinkEnum ple = CC_PLE_None;
+    if ( !cc_parse_ply_link( an_str, &ple ) ) return NULL;
     char const * str__w = an_str + cc_ply_link_len( ple );
 
     // Skip over everything before next ply link.
-    while ( cc_parse_ply_link( str__w ) == CC_PLE_StartingPly )
+    while ( cc_parse_ply_link( str__w, &ple ) && ( ple == CC_PLE_None ) )
         ++str__w;
 
     return str__w;
