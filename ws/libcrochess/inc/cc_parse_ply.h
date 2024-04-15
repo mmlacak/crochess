@@ -11,9 +11,9 @@
 #include "cc_parse_msg.h"
 
 
-// static void cc_add_msg_ply_link_is_invalid( char const * restrict ply_start_an,
-//                                             char const * restrict ply_end_an,
-//                                             CcParseMsg ** restrict parse_msgs__iod );
+// static void cc_add_msg_invalid_ply_link( char const * restrict ply_start_an,
+//                                          char const * restrict ply_end_an,
+//                                          CcParseMsg ** restrict parse_msgs__iod );
 
 // static bool cc_check_king_ply( CcChessboard * restrict cb,
 //                                CcPieceEnum king,

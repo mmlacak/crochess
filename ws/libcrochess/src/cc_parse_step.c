@@ -10,7 +10,7 @@
 #include "cc_parse_step.h"
 
 
-static void cc_add_msg_step_link_invalid( char const * restrict step_start_an,
+static void cc_add_msg_invalid_step_link( char const * restrict step_start_an,
                                           char const * restrict step_end_an,
                                           CcParseMsg ** restrict parse_msgs__iod ) {
     char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -54,7 +54,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
 
     CcStepLinkEnum sle = CC_SLE_None;
     if ( !cc_parse_step_link( step_start_an, steps_end_an, &sle ) ) {
-        cc_add_msg_step_link_invalid( step_start_an, step_end_an, parse_msgs__iod );
+        cc_add_msg_invalid_step_link( step_start_an, step_end_an, parse_msgs__iod );
         return false;
     }
 

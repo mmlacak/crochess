@@ -398,7 +398,7 @@ bool cc_iter_step( char const * restrict an_str,
 
     if ( !( *start__io ) && !( *end__io ) )
         *start__io = an_str;
-    else if ( *start__io )
+    else if ( ( *start__io ) && ( *end__io ) )
         *start__io = *end__io;
     else
         return false;
