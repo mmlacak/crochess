@@ -10,18 +10,12 @@
 #include "cc_parse_step.h"
 
 
-static bool cc_check_step_link( CcStepLinkEnum sle,
-                                char const * restrict step_start_an,
-                                char const * restrict step_end_an,
-                                CcParseMsg ** restrict parse_msgs__iod ) {
-    if ( sle == CC_SLE_None ) {
-        char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step separator in step '%s'.\n", step_str__a );
-        CC_FREE( step_str__a );
-        return false;
-    }
-
-    return true;
+static void cc_add_msg_invalid_step_link( char const * restrict step_start_an,
+                                          char const * restrict step_end_an,
+                                          CcParseMsg ** restrict parse_msgs__iod ) {
+    char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step separator in step '%s'.\n", step_str__a );
+    CC_FREE( step_str__a );
 }
 
 static bool cc_check_parsed_pos( char const * restrict step_start_an,
@@ -58,9 +52,11 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    CcStepLinkEnum sle = cc_parse_step_link( step_start_an, steps_end_an );
-    if ( !cc_check_step_link( sle, step_start_an, step_end_an, parse_msgs__iod ) )
+    CcStepLinkEnum sle = CC_SLE_None;
+    if ( !cc_parse_step_link( step_start_an, steps_end_an, &sle ) ) {
+        cc_add_msg_invalid_step_link( step_start_an, step_end_an, parse_msgs__iod );
         return false;
+    }
 
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;

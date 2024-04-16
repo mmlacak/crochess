@@ -10,7 +10,7 @@
 #include "cc_parse_msg.h"
 
 
-// static bool cc_check_step_link( CcStepLinkEnum sle,
+// static bool cc_add_msg_invalid_step_link( CcStepLinkEnum sle,
 //                                 char const * restrict step_start_an,
 //                                 char const * restrict step_end_an,
 //                                 CcParseMsg ** restrict parse_msgs__iod );

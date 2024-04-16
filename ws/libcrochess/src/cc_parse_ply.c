@@ -20,9 +20,9 @@
 #include "cc_parse_ply.h"
 
 
-static void cc_add_msg_ply_link_is_invalid( char const * restrict ply_start_an,
-                                            char const * restrict ply_end_an,
-                                            CcParseMsg ** restrict parse_msgs__iod ) {
+static void cc_add_msg_invalid_ply_link( char const * restrict ply_start_an,
+                                         char const * restrict ply_end_an,
+                                         CcParseMsg ** restrict parse_msgs__iod ) {
     char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
     CC_FREE( ply_str__a );
@@ -80,7 +80,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 
     CcPlyLinkEnum ple = CC_PLE_None;
     if ( !cc_parse_ply_link( ply_start_an, &ple ) ) {
-        cc_add_msg_ply_link_is_invalid( ply_start_an, ply_end_an, parse_msgs__iod );
+        cc_add_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
         return false;
     }
 
