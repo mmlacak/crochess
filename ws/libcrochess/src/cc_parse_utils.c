@@ -287,12 +287,42 @@ bool cc_parse_pos( char const * restrict an_str,
     return true;
 }
 
+char const * cc_skip_disambiguation( char const * restrict an_str ) {
+    if ( !an_str ) return NULL;
+
+    char const * c = an_str;
+
+    if ( islower( *c ) ) {
+        ++c;
+
+        if ( isdigit( *c ) ) {
+            ++c;
+
+            if ( isdigit( *c ) ) ++c;
+
+            if ( islower( *c ) ) return c;
+        } else if ( islower( *c ) )
+            return c;
+    } else if ( isdigit( *c ) ) {
+        ++c;
+
+        if ( isdigit( *c ) ) ++c;
+
+        if ( islower( *c ) ) return c;
+    }
+
+    return NULL;
+}
+
 bool cc_has_steps_in_ply( char const * restrict an_str,
                           char const * restrict ply_end,
                           bool check_intermediate_steps,
                           bool check_destination_step ) {
     if ( !an_str ) return false;
     if ( !ply_end ) return false;
+
+    if ( cc_skip_disambiguation( an_str ) ) return true;
+
     if ( !check_intermediate_steps && !check_destination_step ) return false;
 
     char const * c = an_str;
@@ -331,6 +361,9 @@ bool cc_parse_step_link( char const * restrict an_str,
         return true;
     } else if ( isgraph( *c ) ) {
         if ( cc_has_steps_in_ply( an_str, ply_end, true, true ) ) {
+            *sle__o = CC_SLE_Start;
+            return true;
+        } else if ( cc_skip_disambiguation( an_str ) ) {
             *sle__o = CC_SLE_Start;
             return true;
         } else {
@@ -403,7 +436,10 @@ bool cc_iter_step( char const * restrict an_str,
     else
         return false;
 
-    *end__io = cc_next_step_link( *start__io, ply_end );
+    *end__io = cc_skip_disambiguation( *start__io );
+
+    if ( !*end__io )
+        *end__io = cc_next_step_link( *start__io, ply_end );
 
     if ( !*end__io ) {
         *start__io = *end__io = NULL;

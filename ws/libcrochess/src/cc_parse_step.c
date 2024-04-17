@@ -66,12 +66,15 @@ static bool cc_parse_step( char const * restrict step_start_an,
 
     CcSideEffect se = cc_side_effect_none();
 
-    if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
-                                *cb__io,
-                                sle,
-                                &pos,
-                                &se,
-                                parse_msgs__iod ) ) return false;
+    if ( cc_skip_disambiguation( step_start_an ) )
+        sle = CC_SLE_Start;
+    else
+        if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
+                                    *cb__io,
+                                    sle,
+                                    &pos,
+                                    &se,
+                                    parse_msgs__iod ) ) return false;
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
