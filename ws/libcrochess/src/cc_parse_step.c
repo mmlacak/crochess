@@ -41,6 +41,7 @@ static bool cc_parse_step( char const * restrict step_start_an,
                            char const * restrict steps_end_an,
                            CcGame * restrict game,
                            CcPosPieceTag before_ply_start,
+                           bool is_first_step,
                            CcStep ** restrict step__o,
                            CcChessboard ** restrict cb__io,
                            CcParseMsg ** restrict parse_msgs__iod ) {
@@ -58,31 +59,47 @@ static bool cc_parse_step( char const * restrict step_start_an,
         return false;
     }
 
+    char const * after_disambiguation = step_start_an;
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;
 
-    if ( !cc_check_parsed_pos( step_start_an, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) )
-        return false;
-
+    CcStep * step__t = NULL;
     CcSideEffect se = cc_side_effect_none();
 
-    if ( cc_skip_disambiguation( step_start_an ) )
-        sle = CC_SLE_Start;
-    else
-        if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
-                                    *cb__io,
-                                    sle,
-                                    &pos,
-                                    &se,
-                                    parse_msgs__iod ) ) return false;
+    if ( is_first_step ) {
+        if ( ( after_disambiguation = cc_skip_disambiguation( step_start_an ) ) ) {
+            // Parsing disambiguation.
+            if ( !cc_check_parsed_pos( step_start_an, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) ) // Using after_disambiguation instead of step_start_an here would be a bug.
+                return false;
 
-    CcStep * step__t = cc_step__new( sle, pos, se );
-    if ( !step__t ) return false;
+            step__t = cc_step__new( CC_SLE_Start, pos, se );
+            if ( !step__t ) return false;
+
+            if ( sle == CC_SLE_Start ) sle = CC_SLE_Destination;
+        }
+    }
+
+    if ( !after_disambiguation ) after_disambiguation = step_start_an;
+
+    if ( !cc_check_parsed_pos( after_disambiguation, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) )
+        return false;
+
+    if ( !cc_parse_side_effect( pos_end_an, after_disambiguation, step_end_an, game, before_ply_start,
+                                *cb__io,
+                                sle,
+                                &pos,
+                                &se,
+                                parse_msgs__iod ) ) return false;
+
+    if ( !cc_step_append( &step__t, sle, pos, se ) ) {
+        cc_step_free_all( &step__t );
+        return false;
+    }
 
     *step__o = step__t;
     // step__t = NULL; // Not needed, local var.
 
-    return true;
+    return (bool)( *step__o );
 }
 
 
@@ -102,6 +119,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
 
     char const * step_start_an = NULL;
     char const * step_end_an = NULL;
+    bool is_first_step = true;
 
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * step__t = NULL;
@@ -109,6 +127,7 @@ bool cc_parse_steps( char const * restrict steps_start_an,
         cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
         if ( !cc_parse_step( step_start_an, step_end_an, steps_end_an, game, before_ply_start,
+                             is_first_step,
                              &step__t,
                              cb__io,
                              parse_msgs__iod ) ) {
@@ -122,6 +141,8 @@ bool cc_parse_steps( char const * restrict steps_start_an,
             cc_step_free_all( &step__t );
             return false;
         }
+
+        is_first_step = false;
     }
 
     // TODO :: DEBUG :: DELETE

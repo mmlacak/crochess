@@ -27,6 +27,7 @@
 //                            char const * restrict steps_end_an,
 //                            CcGame * restrict game,
 //                            CcPosPieceTag before_ply_start,
+//                            bool is_first_step,
 //                            CcStep ** restrict step__o,
 //                            CcChessboard ** restrict cb__io,
 //                            CcParseMsg ** restrict parse_msgs__iod );
