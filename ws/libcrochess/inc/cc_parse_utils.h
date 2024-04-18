@@ -53,6 +53,8 @@ bool cc_parse_pos( char const * restrict an_str,
                    CcPos * restrict pos__o,
                    char const ** restrict pos_end__o );
 
+char const * cc_skip_disambiguation( char const * restrict an_str );
+
 bool cc_has_steps_in_ply( char const * restrict an_str,
                           char const * restrict ply_end,
                           bool check_intermediate_steps,
