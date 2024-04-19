@@ -171,7 +171,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     if ( is_first_ply ) {
         start = cc_step_find_start( steps__t );
 
-        if ( start ) {
+        if ( start && ( !cc_pos_is_disambiguation( start->field ) ) ) {
             CcPos start_pos = start->field;
             CcPieceEnum pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
 
@@ -195,6 +195,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
             }
         } else {
             // TODO :: find starting position, tag by reversing pathing on chessboard
+
+            // TODO :: handle disambiguation, check it's congruent with found starting position
         }
     }
 
