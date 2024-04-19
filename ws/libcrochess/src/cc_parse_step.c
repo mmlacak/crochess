@@ -55,16 +55,17 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
 
+    if ( is_first_step ) *had_disambiguation__io = false;
+
     CcStepLinkEnum sle = CC_SLE_None;
     if ( !cc_parse_step_link( step_start_an, steps_end_an, &sle ) ) {
         cc_add_msg_invalid_step_link( step_start_an, step_end_an, parse_msgs__iod );
         return false;
     }
 
-    if ( is_first_step ) *had_disambiguation__io = false;
-
     if ( *had_disambiguation__io ) {
         if ( sle == CC_SLE_Start ) sle = CC_SLE_JustDestination;
+        *had_disambiguation__io = false;
     }
 
     CcPos pos = CC_POS_CAST_INVALID;
@@ -73,26 +74,27 @@ static bool cc_parse_step( char const * restrict step_start_an,
     if ( !cc_check_parsed_pos( step_start_an, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) )
         return false;
 
+    if ( is_first_step ) {
+        if ( cc_skip_disambiguation( step_start_an ) ) {
+            *had_disambiguation__io = true;
+        }
+    }
+
     CcSideEffect se = cc_side_effect_none();
 
-    if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
-                                *cb__io,
-                                sle,
-                                &pos,
-                                &se,
-                                parse_msgs__iod ) ) return false;
+    if ( !*had_disambiguation__io )
+        if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
+                                    *cb__io,
+                                    sle,
+                                    &pos,
+                                    &se,
+                                    parse_msgs__iod ) ) return false;
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
 
     *step__o = step__t;
     // step__t = NULL; // Not needed, local var.
-
-    if ( is_first_step ) {
-        if ( ( cc_skip_disambiguation( step_start_an ) ) ) {
-            *had_disambiguation__io = true;
-        }
-    }
 
     return (bool)( *step__o );
 }
