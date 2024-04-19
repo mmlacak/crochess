@@ -383,7 +383,7 @@ size_t cc_step_link_len( CcStepLinkEnum sle ) {
         case CC_SLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
         case CC_SLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
         case CC_SLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
-        case CC_SLE_JustDestination : return 0; /* Just destination field, no separators, no other steps. */
+        case CC_SLE_JustDestination : return 0; /* Just destination field, no separators, no other steps, maybe disambiguation. */
 
         default : return 0;
     }
@@ -403,8 +403,7 @@ char const * cc_next_step_link( char const * restrict an_str,
 
     // Skip over everything before next step link.
     do {
-        if ( !cc_parse_step_link( str__w, ply_end, &sle ) )
-            return NULL;
+        if ( !cc_parse_step_link( str__w, ply_end, &sle ) ) return NULL;
 
         if ( ( sle == CC_SLE_Start ) || ( sle == CC_SLE_JustDestination ) )
             ++str__w;

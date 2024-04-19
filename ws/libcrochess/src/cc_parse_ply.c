@@ -171,7 +171,7 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     if ( is_first_ply ) {
         start = cc_step_find_start( steps__t );
 
-        if ( start ) {
+        if ( start && cc_pos_is_valid( start->field ) ) {
             CcPos start_pos = start->field;
             CcPieceEnum pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
 
@@ -195,6 +195,8 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
             }
         } else {
             // TODO :: find starting position, tag by reversing pathing on chessboard
+
+            // TODO :: handle disambiguation, check it's congruent with found starting position
         }
     }
 
@@ -222,7 +224,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
     // Create a new ply, which takes ownership of steps (steps__t).
 
     *ply__o = cc_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, before_ply_start__io->piece, lte, &steps__t );
-    if ( !*ply__o ) return false;
+    if ( !*ply__o ) {
+        cc_step_free_all( &steps__t );
+        return false;
+    }
 
     *before_ply_start__io = new_ply_start;
 

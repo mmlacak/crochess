@@ -85,6 +85,9 @@ typedef struct CcPos {
 
     @param pos A position.
 
+    @note
+    Position is valid if both coordinates are valid.
+
     @see CcPos
 
     @return `true` if valid position, `false` otherwise.
@@ -107,11 +110,28 @@ typedef struct CcPos {
 
     @param pos A position.
 
+    @note
+    Disambiguation is any position with at least one valid coordinate.
+
     @see CcPos
 
     @return `true` if disambiguation, `false` otherwise.
 */
 #define CC_POS_IS_DISAMBIGUATION(pos) ( CC_IS_COORD_VALID( (pos).i ) || CC_IS_COORD_VALID( (pos).j ) )
+
+/**
+    Macro expression to evaluate whether given position is partial.
+
+    @param pos A position.
+
+    @note
+    Partial position is any which have exactly one valid coordinate.
+
+    @see CcPos
+
+    @return `true` if partial, `false` otherwise.
+*/
+#define CC_POS_IS_PARTIAL(pos) ( CC_XOR( CC_IS_COORD_VALID( (pos).i ), CC_IS_COORD_VALID( (pos).j ) ) )
 
 /**
     Macro expression to evaluate whether given positions are equal.
@@ -159,7 +179,7 @@ bool cc_pos_is_valid( CcPos pos );
 bool cc_pos_is_static_step( CcPos pos );
 
 /**
-    Function checks if position is a disambiguation, i.e. a partial position.
+    Function checks if position is disambiguation.
 
     @param pos A position.
 
@@ -170,6 +190,19 @@ bool cc_pos_is_static_step( CcPos pos );
     @return `true` if position is a disambiguation, `false` otherwise.
 */
 bool cc_pos_is_disambiguation( CcPos pos );
+
+/**
+    Function checks if position is partial.
+
+    @param pos A position.
+
+    @note
+    Partial position has one known (valid) coordinate,
+    and the other is unknown (invalid).
+
+    @return `true` if position is partial, `false` otherwise.
+*/
+bool cc_pos_is_partial( CcPos pos );
 
 /**
     Function checks if two positions are the same.

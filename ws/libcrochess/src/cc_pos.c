@@ -24,15 +24,19 @@ CcPos cc_pos( int i, int j ) {
 }
 
 bool cc_pos_is_valid( CcPos pos ) {
-    return CC_POS_IS_VALID(pos);
+    return CC_POS_IS_VALID( pos );
 }
 
 bool cc_pos_is_static_step( CcPos pos ) {
-    return CC_POS_IS_STATIC_STEP(pos);
+    return CC_POS_IS_STATIC_STEP( pos );
 }
 
 bool cc_pos_is_disambiguation( CcPos pos ) {
     return CC_POS_IS_DISAMBIGUATION(pos);
+}
+
+bool cc_pos_is_partial( CcPos pos ) {
+    return CC_POS_IS_PARTIAL( pos );
 }
 
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 ) {
