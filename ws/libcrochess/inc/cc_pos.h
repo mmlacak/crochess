@@ -179,7 +179,7 @@ bool cc_pos_is_valid( CcPos pos );
 bool cc_pos_is_static_step( CcPos pos );
 
 /**
-    Function checks if position is a disambiguation, i.e. a partial position.
+    Function checks if position is disambiguation.
 
     @param pos A position.
 
@@ -190,6 +190,19 @@ bool cc_pos_is_static_step( CcPos pos );
     @return `true` if position is a disambiguation, `false` otherwise.
 */
 bool cc_pos_is_disambiguation( CcPos pos );
+
+/**
+    Function checks if position is partial.
+
+    @param pos A position.
+
+    @note
+    Partial position has one known (valid) coordinate,
+    and the other is unknown (invalid).
+
+    @return `true` if position is partial, `false` otherwise.
+*/
+bool cc_pos_is_partial( CcPos pos );
 
 /**
     Function checks if two positions are the same.

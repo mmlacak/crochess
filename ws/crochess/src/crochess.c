@@ -26,7 +26,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.492:924+20240419.150929"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.493:925+20240419.152224"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
