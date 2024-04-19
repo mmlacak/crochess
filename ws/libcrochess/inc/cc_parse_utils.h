@@ -55,10 +55,10 @@ bool cc_parse_pos( char const * restrict an_str,
 
 char const * cc_skip_disambiguation( char const * restrict an_str );
 
-bool cc_has_steps_in_ply( char const * restrict an_str,
-                          char const * restrict ply_end,
-                          bool check_intermediate_steps,
-                          bool check_destination_step );
+bool cc_has_separated_steps( char const * restrict an_str,
+                             char const * restrict ply_end,
+                             bool check_intermediate_steps,
+                             bool check_destination_step );
 
 bool cc_parse_step_link( char const * restrict an_str,
                          char const * restrict ply_end,
