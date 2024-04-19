@@ -85,6 +85,9 @@ typedef struct CcPos {
 
     @param pos A position.
 
+    @note
+    Position is valid if both coordinates are valid.
+
     @see CcPos
 
     @return `true` if valid position, `false` otherwise.
@@ -107,11 +110,28 @@ typedef struct CcPos {
 
     @param pos A position.
 
+    @note
+    Disambiguation is any position with at least one valid coordinate.
+
     @see CcPos
 
     @return `true` if disambiguation, `false` otherwise.
 */
 #define CC_POS_IS_DISAMBIGUATION(pos) ( CC_IS_COORD_VALID( (pos).i ) || CC_IS_COORD_VALID( (pos).j ) )
+
+/**
+    Macro expression to evaluate whether given position is partial.
+
+    @param pos A position.
+
+    @note
+    Partial position is any which have exactly one valid coordinate.
+
+    @see CcPos
+
+    @return `true` if partial, `false` otherwise.
+*/
+#define CC_POS_IS_PARTIAL(pos) ( CC_XOR( CC_IS_COORD_VALID( (pos).i ), CC_IS_COORD_VALID( (pos).j ) ) )
 
 /**
     Macro expression to evaluate whether given positions are equal.
