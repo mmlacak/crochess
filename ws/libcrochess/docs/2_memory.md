@@ -176,6 +176,12 @@ Output parameter, i.e. one named with `__o`, is also implicitly optional, so
 Input / output parameter is implicitly mandatory, and has to have `__d` appended to its
 name if its optional, like so `char * str__iod`.
 
+### Empty parameters
+
+Empty parameters are output parameters, which must always be empty when call is made (or invalid value). <br />
+They are similar to optional parameters, but they refer to data only, i.e. the innermost pointer must always be `NULL`, pointer to it may be optional or mandatory. <br />
+Empty parameters are indicated by appending `__e` to their name, e.g. `CcPos * pos__oe`.
+
 ### Ownership transfer parameters
 
 Ownership transfer parameters are indicated by:
@@ -231,10 +237,10 @@ Free parameters are input parameters which point to an element in a container
 either just pointed-to element, or a larger sub-container, but not the whole
 container itself. <br />
 These are indicated by appending `__f` to parameter name, e.g.
-`CcRoutePin * restrict route_pin__f`.
+`CcRoutePin * rp__f`.
 
 Unlike corresponding ownership transfer parameter with the same `__f` indicator,
-free parameter pointer is single, <br />
+free parameter pointer is single (i.e. `CcRoutePin * rp__f` and not `CcRoutePin ** rp__f`), <br />
 since container continues to live, and thus given pointer to it is not `NULL`-ed.
 
 ### Weak parameters
