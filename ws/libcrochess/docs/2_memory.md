@@ -163,7 +163,7 @@ i.e. if outer pointer is provided, inner pointer must also be valid (non-`NULL`)
 
 All indicators for the outmost pointers that are mandatory can be omitted. <br />
 For instance, `CcParseMsg ** parse_msgs__d` is treated the same as
-`CcParseMsg ** parse_msgs__dD`.
+`CcParseMsg ** parse_msgs__dm`.
 
 ### Output parameters
 
@@ -178,9 +178,12 @@ name if its optional, like so `char * str__iod`.
 
 ### Empty parameters
 
-Empty parameters are output parameters, which must always be empty when call is made (or invalid value). <br />
-They are similar to optional parameters, but they refer to data only, i.e. the innermost pointer must always be `NULL`, pointer to it may be optional or mandatory. <br />
-Empty parameters are indicated by appending `__e` to their name, e.g. `CcPos * pos__oe`.
+Empty parameters are output parameters (i.e. pointers), which must always be empty when calling a function. <br />
+They refer to data only, i.e. the innermost pointer must always be `NULL`, pointer to it may be optional or mandatory. <br />
+Empty parameters are indicated by appending `__e` to their name, e.g. `CcPos * pos__e`.
+
+When using multi-pointer parameters, empty output parameter indicator preceeds any optional/mandatory ones. <br />
+For instance, `CcPos ** pos__ed` declares output parameter, which is optional pointer (`__d`) to empty data pointer (`__e`).
 
 ### Ownership transfer parameters
 
@@ -293,6 +296,7 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |     `__o` |              output |             write |
 |    `__io` |      input + output |      read + write |
 |     `__d` | input, discretional |              read |
+|     `__e` |      output, `NULL` |             write |
 |     `__w` |         input, weak |              read |
 |     `__f` |            `free()` |               [1] |
 
@@ -306,6 +310,7 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |    `__io` |            `!NULL` |                        input + output |                              read + write |
 |     `__d` |                [2] |                   input, discretional |                                      read |
 |     `__m` |                [2] |                      input, mandatory |                                      read |
+|     `__e` |             `NULL` |                         output, empty |                                     write |
 |     `__n` |            `!NULL` |                       `*args = NULL;` |                           ownership taken |
 |     `__f` |            `!NULL` |               `free(); *args = NULL;` |                                     freed |
 |     `__r` |            `!NULL` |                  `*args = realloc();` |                               reallocated |
