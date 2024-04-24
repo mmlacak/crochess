@@ -54,11 +54,5 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb,
                         bool include_opponent,
                         CcPos * restrict pos__io );
 
-bool cc_get_starting_steps( CcChessboard * restrict cb,
-                            CcPieceEnum piece,
-                            CcPieceEnum activator,
-                            CcPos current_pos,
-                            CcPos ** restrict starting_steps__od );
-
 
 #endif /* __CC_POS_UTILS_H__ */

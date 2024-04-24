@@ -127,32 +127,3 @@ bool cc_iter_piece_pos( CcChessboard * restrict cb,
     *pos__io = CC_POS_CAST_INVALID;
     return false;
 }
-
-bool cc_get_starting_steps( CcChessboard * restrict cb,
-                            CcPieceEnum piece,
-                            CcPieceEnum activator,
-                            CcPos current_pos,
-                            CcPos ** restrict starting_steps__od ) {
-    if ( !cb ) return false;
-    if ( !starting_steps__od ) return false;
-    if ( *starting_steps__od ) return false;
-
-    if ( CC_PIECE_IS_VALID( piece ) ) return false;
-
-    if ( CC_PIECE_IS_VALID( activator ) ) {
-        // <!> Wave can activate, but is not activator; i.e. using CC_PIECE_CAN_ACTIVATE here would be a bug.
-        if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
-    }
-
-    int i = current_pos.i;
-    int j = current_pos.j;
-    if ( !cc_chessboard_is_pos_on_board( cb, i, j ) ) return false;
-
-    CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
-
-    if ( pe != piece ) return false; // TODO :: piece == own Shaman --> divergence
-
-
-
-    return false;
-}
