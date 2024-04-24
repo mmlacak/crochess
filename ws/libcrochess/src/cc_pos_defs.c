@@ -185,6 +185,49 @@ CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
     CC_POS_INVALID,
 };
 
+
+CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ] = {
+    //
+    // Knight steps
+
+    { .i =  2, .j =  1 },
+    { .i =  1, .j =  2 },
+
+    { .i = -1, .j =  2 },
+    { .i = -2, .j =  1 },
+
+    { .i = -2, .j = -1 },
+    { .i = -1, .j = -2 },
+
+    { .i =  1, .j = -2 },
+    { .i =  2, .j = -1 },
+
+    //
+    // long Unicorn steps
+
+    { .i =  4, .j =  1 },
+    { .i =  3, .j =  2 },
+    { .i =  2, .j =  3 },
+    { .i =  1, .j =  4 },
+
+    { .i = -1, .j =  4 },
+    { .i = -2, .j =  3 },
+    { .i = -3, .j =  2 },
+    { .i = -4, .j =  1 },
+
+    { .i = -4, .j = -1 },
+    { .i = -3, .j = -2 },
+    { .i = -2, .j = -3 },
+    { .i = -1, .j = -4 },
+
+    { .i =  1, .j = -4 },
+    { .i =  2, .j = -3 },
+    { .i =  3, .j = -2 },
+    { .i =  4, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
 bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
@@ -308,16 +351,14 @@ bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcPos step ) {
             return CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step );
         else if ( piece == CC_PE_DarkPawn )
             return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-        else
-            return false;
     } else {
         if ( piece == CC_PE_LightPawn )
             return CC_LIGHT_PAWN_STEP_IS_VALID( step );
         else if ( piece == CC_PE_DarkPawn )
             return CC_DARK_PAWN_STEP_IS_VALID( step );
-        else
-            return false;
     }
+
+    return false;
 }
 
 bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step ) {
@@ -325,8 +366,8 @@ bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step ) {
         return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
     else if ( piece == CC_PE_DarkPawn )
         return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
-    else
-        return false;
+
+    return false;
 }
 
 bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step ) {
@@ -334,17 +375,17 @@ bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step ) {
         return CC_LIGHT_SCOUT_CAPTURE_STEP_IS_VALID( step );
     else if ( piece == CC_PE_DarkScout )
         return CC_DARK_SCOUT_CAPTURE_STEP_IS_VALID( step );
-    else
-        return false;
+
+    return false;
 }
 
 bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step ) {
-    if ( piece == CC_PE_LightShaman ) {
+    if ( piece == CC_PE_LightShaman )
         return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
-    } else if ( piece == CC_PE_DarkShaman ) {
+    else if ( piece == CC_PE_DarkShaman )
         return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
-    } else
-        return false;
+
+    return false;
 }
 
 bool cc_is_capture_step( CcVariantEnum variant,
@@ -430,24 +471,24 @@ static bool cc_starting_steps_pawn( CcVariantEnum variant,
             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN,
                                                  CC_STEPS_ALL_SIDEWAYS_PAWN_LEN,
                                                  starting_steps__e_a );
-        else if ( piece == CC_PE_DarkPawn )
+
+        if ( piece == CC_PE_DarkPawn )
             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_SIDEWAYS_PAWN,
                                                  CC_STEPS_ALL_SIDEWAYS_PAWN_LEN,
                                                  starting_steps__e_a );
-        else
-            return false;
     } else {
         if ( piece == CC_PE_LightPawn )
             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_PAWN,
                                                  CC_STEPS_ALL_PAWN_LEN,
                                                  starting_steps__e_a );
-        else if ( piece == CC_PE_DarkPawn )
+
+        if ( piece == CC_PE_DarkPawn )
             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_PAWN,
                                                  CC_STEPS_ALL_PAWN_LEN,
                                                  starting_steps__e_a );
-        else
-            return false;
     }
+
+    return false;
 }
 
 static bool cc_starting_steps_unicorn( CcPieceEnum piece,
@@ -527,13 +568,15 @@ bool cc_starting_steps( CcVariantEnum variant,
     } else if ( CC_PIECE_IS_CENTAUR( piece ) ) {
         return cc_starting_steps_centaur( piece, pos, starting_steps__e_a );
     } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
-        // return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
-        // return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
 
-    } else
-        return false;
-
+    } else if ( CC_PIECE_IS_SERPENT( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN, starting_steps__e_a );
+    }
 
 
 // TODO
