@@ -239,7 +239,7 @@ CcSideEffect cc_side_effect_failed_resurrection( void ) {
 
 
 bool cc_side_effect_to_short_str( CcSideEffect se,
-                                  cc_char_16 * restrict se_str__o ) {
+                                  cc_char_16 * se_str__o ) {
     if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
         return false;
 

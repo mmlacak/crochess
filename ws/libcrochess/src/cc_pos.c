@@ -111,7 +111,7 @@ CcPos cc_pos_step( CcPos start, CcPos destination ) {
     return CC_POS_CAST( diff_i, diff_j );
 }
 
-bool cc_pos_to_short_string( CcPos pos, cc_char_8 * restrict pos_str__o ) {
+bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o ) {
     if ( !pos_str__o ) return false;
 
     #define LOWER_BOUND (-100)
@@ -177,7 +177,7 @@ CcPosLink * cc_pos_link__new( CcPos pos ) {
     return pl__a;
 }
 
-CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod_a,
+CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
                                 CcPos pos ) {
     if ( !pos_link__iod_a ) return NULL;
 
@@ -195,8 +195,8 @@ CcPosLink * cc_pos_link_append( CcPosLink ** restrict pos_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
-CcPosLink * cc_pos_link_extend( CcPosLink ** restrict pos_link__iod_a,
-                                CcPosLink ** restrict pos_link__n ) {
+CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,
+                                CcPosLink ** pos_link__n ) {
     if ( !pos_link__iod_a ) return NULL;
     if ( !pos_link__n ) return NULL;
 
@@ -220,7 +220,7 @@ CcPosLink * cc_pos_link_extend( CcPosLink ** restrict pos_link__iod_a,
     return last->next;
 }
 
-bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
+bool cc_pos_link_free_all( CcPosLink ** pos_link__f ) {
     if ( !pos_link__f ) return false;
     if ( !*pos_link__f ) return true;
 
@@ -237,7 +237,7 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
     return true;
 }
 
-size_t cc_pos_link_len( CcPosLink * restrict pos_link ) {
+size_t cc_pos_link_len( CcPosLink * pos_link ) {
     if ( !pos_link ) return 0;
 
     size_t len = 0;
@@ -251,7 +251,7 @@ size_t cc_pos_link_len( CcPosLink * restrict pos_link ) {
     return len;
 }
 
-char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link ) {
+char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
     if ( !pos_link ) return NULL;
 
     // unused len is certainly > 0, because pos_link != NULL
@@ -325,7 +325,7 @@ bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
 }
 
 bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
-                                       cc_char_16 * restrict ppt_str__o ) {
+                                       cc_char_16 * ppt_str__o ) {
     if ( !ppt_str__o ) return false;
 
     if ( !cc_pos_to_short_string( ppt.pos, (cc_char_8 *)ppt_str__o ) ) return false;
@@ -357,7 +357,7 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt ) {
     return pl__t;
 }
 
-CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod_a,
+CcPptLink * cc_ppt_link_append( CcPptLink ** ppt_link__iod_a,
                                 CcPosPieceTag ppt ) {
     if ( !ppt_link__iod_a ) return NULL;
 
@@ -375,7 +375,7 @@ CcPptLink * cc_ppt_link_append( CcPptLink ** restrict ppt_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
-CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io ) {
+CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * ppt_link__io ) {
     if ( !ppt_link__io ) return NULL;
 
     CcPptLink * ppt_link__a = NULL;
@@ -395,8 +395,8 @@ CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * restrict ppt_link__io ) 
     return ppt_link__a;
 }
 
-CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod_a,
-                                CcPptLink ** restrict ppt_link__n ) {
+CcPptLink * cc_ppt_link_extend( CcPptLink ** ppt_link__iod_a,
+                                CcPptLink ** ppt_link__n ) {
     if ( !ppt_link__iod_a ) return NULL;
     if ( !ppt_link__n ) return NULL;
 
@@ -420,7 +420,7 @@ CcPptLink * cc_ppt_link_extend( CcPptLink ** restrict ppt_link__iod_a,
     return last->next;
 }
 
-bool cc_ppt_link_free_all( CcPptLink ** restrict ppt_link__f ) {
+bool cc_ppt_link_free_all( CcPptLink ** ppt_link__f ) {
     if ( !ppt_link__f ) return false;
     if ( !*ppt_link__f ) return true;
 
@@ -437,7 +437,7 @@ bool cc_ppt_link_free_all( CcPptLink ** restrict ppt_link__f ) {
     return true;
 }
 
-size_t cc_ppt_link_len( CcPptLink * restrict ppt_link ) {
+size_t cc_ppt_link_len( CcPptLink * ppt_link ) {
     if ( !ppt_link ) return 0;
 
     size_t len = 0;
@@ -451,7 +451,7 @@ size_t cc_ppt_link_len( CcPptLink * restrict ppt_link ) {
     return len;
 }
 
-CcPosLink * cc_ppt_link_convert_to_pos_link__new( CcPptLink * restrict ppt_link ) {
+CcPosLink * cc_ppt_link_convert_to_pos_link__new( CcPptLink * ppt_link ) {
     if ( !ppt_link ) return NULL;
 
     CcPosLink * pos_link__a = NULL;
@@ -470,7 +470,7 @@ CcPosLink * cc_ppt_link_convert_to_pos_link__new( CcPptLink * restrict ppt_link 
 }
 
 
-char * cc_ppt_link_to_short_string__new( CcPptLink * restrict ppt_link ) {
+char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link ) {
     if ( !ppt_link ) return NULL;
 
     // unused len is certainly > 0, because ppt_link != NULL

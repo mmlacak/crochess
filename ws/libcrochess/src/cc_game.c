@@ -63,7 +63,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     return gm__a;
 }
 
-CcGame * cc_game_duplicate_all__new( CcGame * restrict game ) {
+CcGame * cc_game_duplicate_all__new( CcGame * game ) {
     if ( !game ) return NULL;
 
     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
@@ -90,7 +90,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game ) {
     return gm__a;
 }
 
-bool cc_game_free_all( CcGame ** restrict game__f ) {
+bool cc_game_free_all( CcGame ** game__f ) {
     if ( !game__f ) return false;
     if ( !*game__f ) return true;
 
@@ -107,8 +107,8 @@ bool cc_game_free_all( CcGame ** restrict game__f ) {
     return result;
 }
 
-CcGame * cc_game_setup_from_string__new( char const * restrict setup,
-                                         CcGame * restrict before_setup__d ) {
+CcGame * cc_game_setup_from_string__new( char const * setup,
+                                         CcGame * before_setup__d ) {
     if ( !setup ) return NULL;
 
     CcVariantEnum ve = CC_VE_One;

@@ -15,9 +15,9 @@
 */
 
 
-CcMove * cc_move__new( char const * restrict notation,
+CcMove * cc_move__new( char const * notation,
                        size_t max_len__d,
-                       CcPly ** restrict plies__n,
+                       CcPly ** plies__n,
                        CcMoveStatusEnum status ) {
     CcMove * mv__a = malloc( sizeof( CcMove ) );
     if ( !mv__a ) return NULL;
@@ -43,10 +43,10 @@ CcMove * cc_move__new( char const * restrict notation,
     return mv__a;
 }
 
-CcMove * cc_move_append( CcMove ** restrict moves__iod_a,
-                         char const * restrict notation,
+CcMove * cc_move_append( CcMove ** moves__iod_a,
+                         char const * notation,
                          size_t max_len__d,
-                         CcPly ** restrict plies__n,
+                         CcPly ** plies__n,
                          CcMoveStatusEnum status ) {
     if ( !moves__iod_a ) return NULL;
 
@@ -66,7 +66,7 @@ CcMove * cc_move_append( CcMove ** restrict moves__iod_a,
     return mv__t; // Weak pointer.
 }
 
-CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
+CcMove * cc_move_duplicate_all__new( CcMove * moves ) {
     if ( !moves ) return NULL;
 
     CcMove * mv__a = NULL;
@@ -99,7 +99,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves ) {
     return mv__a;
 }
 
-bool cc_move_free_all( CcMove ** restrict moves__f ) {
+bool cc_move_free_all( CcMove ** moves__f ) {
     if ( !moves__f ) return false;
     if ( !*moves__f ) return true;
 
@@ -124,7 +124,7 @@ bool cc_move_free_all( CcMove ** restrict moves__f ) {
 }
 
 
-size_t cc_move_plies_count( CcMove * restrict move ) {
+size_t cc_move_plies_count( CcMove * move ) {
     if ( !move ) return 0;
     if ( !move->plies ) return 0;
 

@@ -206,7 +206,7 @@ CcSideEffect cc_side_effect_failed_resurrection( void );
 
 /** TODO :: DOCS . */
 bool cc_side_effect_to_short_str( CcSideEffect se,
-                                  cc_char_16 * restrict see_str__o );
+                                  cc_char_16 * see_str__o );
 
 
 #endif /* __CC_SIDE_EFFECT_H__ */

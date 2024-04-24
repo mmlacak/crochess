@@ -17,7 +17,7 @@
 */
 
 
-CcStrings * cc_strings__new( char const * restrict str,
+CcStrings * cc_strings__new( char const * str,
                              size_t max_len__d ) {
     CcStrings * str__a = malloc( sizeof( CcStrings ) );
     if ( !str__a ) return NULL;
@@ -28,8 +28,8 @@ CcStrings * cc_strings__new( char const * restrict str,
     return str__a;
 }
 
-CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
-                               char const * restrict str,
+CcStrings * cc_strings_append( CcStrings ** strings__iod_a,
+                               char const * str,
                                size_t max_len__d ) {
     if ( !strings__iod_a ) return NULL;
 
@@ -47,9 +47,9 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
     return str__t; // Weak pointer.
 }
 
-CcStrings * cc_strings_append_fmt_va( CcStrings ** restrict strings__iod_a,
+CcStrings * cc_strings_append_fmt_va( CcStrings ** strings__iod_a,
                                       size_t max_len__d,
-                                      char const * restrict fmt,
+                                      char const * fmt,
                                       va_list args ) {
     if ( !strings__iod_a ) return NULL; // To avoid alloc() + free() of str__a needlessly.
 
@@ -68,9 +68,9 @@ CcStrings * cc_strings_append_fmt_va( CcStrings ** restrict strings__iod_a,
     return str__w;
 }
 
-CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
+CcStrings * cc_strings_append_fmt( CcStrings ** strings__iod_a,
                                    size_t max_len__d,
-                                   char const * restrict fmt, ... ) {
+                                   char const * fmt, ... ) {
     if ( !strings__iod_a ) return NULL; // To avoid constructing va_list needlessly.
 
     va_list args;
@@ -83,7 +83,7 @@ CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
     return str__w;
 }
 
-CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {
+CcStrings * cc_strings_duplicate_all__new( CcStrings * strings ) {
     if ( !strings ) return NULL;
 
     CcStrings * new__a = cc_strings__new( strings->str, CC_MAX_LEN_ZERO_TERMINATED );
@@ -102,7 +102,7 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings ) {
     return new__a;
 }
 
-bool cc_strings_free_all( CcStrings ** restrict strings__f ) {
+bool cc_strings_free_all( CcStrings ** strings__f ) {
     if ( !strings__f ) return false;
     if ( !*strings__f ) return true;
 

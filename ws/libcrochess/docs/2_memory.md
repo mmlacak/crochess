@@ -310,7 +310,7 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 |    `__io` |            `!NULL` |                        input + output |                              read + write |
 |     `__d` |                [2] |                   input, discretional |                                      read |
 |     `__m` |                [2] |                      input, mandatory |                                      read |
-|     `__e` |             `NULL` |                         output, empty |                                     write |
+|     `__e` |                [2] |                        output, `NULL` |                                     write |
 |     `__n` |            `!NULL` |                       `*args = NULL;` |                           ownership taken |
 |     `__f` |            `!NULL` |               `free(); *args = NULL;` |                                     freed |
 |     `__r` |            `!NULL` |                  `*args = realloc();` |                               reallocated |

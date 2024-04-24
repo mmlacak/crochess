@@ -32,13 +32,13 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple ) {
 }
 
 
-CcPly * cc_ply__new( char const * restrict start_an__d,
-                     char const * restrict end_an__d,
+CcPly * cc_ply__new( char const * start_an__d,
+                     char const * end_an__d,
                      size_t max_len__d,
                      CcPlyLinkEnum link,
                      CcPieceEnum piece,
                      CcLosingTagEnum lost_tag,
-                     CcStep ** restrict steps__n ) {
+                     CcStep ** steps__n ) {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;
 
@@ -59,14 +59,14 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     return ply__a;
 }
 
-CcPly * cc_ply_append( CcPly ** restrict plies__iod_a,
-                       char const * restrict start_an__d,
-                       char const * restrict end_an__d,
+CcPly * cc_ply_append( CcPly ** plies__iod_a,
+                       char const * start_an__d,
+                       char const * end_an__d,
                        size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
                        CcLosingTagEnum lost_tag,
-                       CcStep ** restrict steps__n ) {
+                       CcStep ** steps__n ) {
     if ( !plies__iod_a ) return NULL;
 
     CcPly * ply__t = cc_ply__new( start_an__d, end_an__d, max_len__d, link, piece, lost_tag, steps__n );
@@ -83,7 +83,7 @@ CcPly * cc_ply_append( CcPly ** restrict plies__iod_a,
     return ply__t; // Weak pointer.
 }
 
-CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
+CcPly * cc_ply_duplicate_all__new( CcPly * plies ) {
     if ( !plies ) return NULL;
 
     CcPly * ply__a = NULL;
@@ -117,8 +117,8 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies ) {
     return ply__a;
 }
 
-CcPly * cc_ply_extend( CcPly ** restrict plies__iod_a,
-                       CcPly ** restrict plies__n ) {
+CcPly * cc_ply_extend( CcPly ** plies__iod_a,
+                       CcPly ** plies__n ) {
     if ( !plies__iod_a ) return NULL;
     if ( !plies__n ) return NULL;
 
@@ -142,7 +142,7 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__iod_a,
     return last->next;
 }
 
-bool cc_ply_free_all( CcPly ** restrict plies__f ) {
+bool cc_ply_free_all( CcPly ** plies__f ) {
     if ( !plies__f ) return false;
     if ( !*plies__f ) return true;
 
@@ -165,7 +165,7 @@ bool cc_ply_free_all( CcPly ** restrict plies__f ) {
 }
 
 
-bool cc_ply_contains_side_effects( CcPly * restrict ply ) {
+bool cc_ply_contains_side_effects( CcPly * ply ) {
     if ( !ply ) return false;
     if ( !ply->steps ) return false;
 
@@ -178,8 +178,8 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply ) {
     return false;
 }
 
-CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
-                                      CcPly * restrict ply__d ) {
+CcPieceEnum cc_ply_last_active_piece( CcPly * plies,
+                                      CcPly * ply__d ) {
     if ( !plies ) return CC_PE_None;
 
     if ( plies == ply__d ) // First ply in a linked list.
@@ -210,7 +210,7 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
     return ply_encountered ? last_active_piece : CC_PE_None;
 }
 
-char * cc_ply_all_to_short_string__new( CcPly * restrict plies ) {
+char * cc_ply_all_to_short_string__new( CcPly * plies ) {
     if ( !plies ) return NULL;
 
     //

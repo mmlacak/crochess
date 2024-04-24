@@ -19,12 +19,12 @@ extern char const CROCHESS_TESTS_HISTORY_FILE_NAME[];
 #endif // __WITH_LINE_NOISE__
 
 
-int get_integer_from_cli_arg( char const * restrict str,
+int get_integer_from_cli_arg( char const * str,
                               int default_num,
-                              char const ** restrict first_io,
-                              char const ** restrict end_io );
+                              char const ** first_io,
+                              char const ** end_io );
 
-bool print_all_moves( CcMove * restrict moves );
+bool print_all_moves( CcMove * moves );
 
 char const * get_game_status_label( CcGameStatusEnum gse );
 

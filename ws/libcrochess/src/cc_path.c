@@ -15,7 +15,7 @@
 //
 // Linked list of paths.
 
-// CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n ) {
+// CcPathLink * cc_path_link__new( CcPptLink ** ppt__n ) {
 //     if ( !ppt__n ) return NULL;
 //     if ( !*ppt__n ) return NULL;
 
@@ -30,8 +30,8 @@
 //     return pl__a;
 // }
 
-// CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod,
-//                                   CcPptLink ** restrict ppt__n ) {
+// CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod,
+//                                   CcPptLink ** ppt__n ) {
 //     if ( !path_link__iod ) return NULL;
 
 //     CcPathLink * pl__t = cc_path_link__new( ppt__n );
@@ -48,7 +48,7 @@
 //     return pl__t; // Weak pointer.
 // }
 
-// bool cc_path_link_free_all( CcPathLink ** restrict path_link__f ) {
+// bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
 //     if ( !path_link__f ) return false;
 //     if ( !*path_link__f ) return true;
 
@@ -69,7 +69,7 @@
 //     return result;
 // }
 
-// size_t cc_path_link_len( CcPathLink * restrict path_link ) {
+// size_t cc_path_link_len( CcPathLink * path_link ) {
 //     if ( !path_link ) return 0;
 
 //     size_t len = 0;
@@ -90,7 +90,7 @@
 //
 // Tree of paths.
 
-CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n ) {
+CcPathNode * cc_path_node__new( CcPptLink ** ppt__n ) {
     if ( !ppt__n ) return NULL;
     if ( !*ppt__n ) return NULL;
 
@@ -106,8 +106,8 @@ CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n ) {
     return pl__a;
 }
 
-CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__iod_a,
-                                              CcPptLink ** restrict ppt__n ) {
+CcPathNode * cc_path_node_append_alternative( CcPathNode ** path_node__iod_a,
+                                              CcPptLink ** ppt__n ) {
     if ( !path_node__iod_a ) return NULL;
 
     CcPathNode * pl__t = cc_path_node__new( ppt__n );
@@ -124,8 +124,8 @@ CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__
     return pl__t; // Weak pointer.
 }
 
-CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
-                                            CcPptLink ** restrict ppt__n ) {
+CcPathNode * cc_path_node_append_divergent( CcPathNode * path_node__io,
+                                            CcPptLink ** ppt__n ) {
     if ( !path_node__io ) return NULL;
 
     CcPathNode * div = path_node__io->divergence;
@@ -135,7 +135,7 @@ CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
     return pl__w;
 }
 
-bool cc_path_node_free_all( CcPathNode ** restrict path_node__f ) {
+bool cc_path_node_free_all( CcPathNode ** path_node__f ) {
     if ( !path_node__f ) return false;
     if ( !*path_node__f ) return true;
 
@@ -161,7 +161,7 @@ bool cc_path_node_free_all( CcPathNode ** restrict path_node__f ) {
     return result;
 }
 
-size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
+size_t cc_path_node_count_alt( CcPathNode * path_node ) {
     if ( !path_node ) return 0;
 
     size_t len = 0;
@@ -179,7 +179,7 @@ size_t cc_path_node_count_alt( CcPathNode * restrict path_node ) {
 //
 // Pinned route, i.e. queue of weak pointers to path node.
 
-CcRoutePin * cc_route_pin__new( CcPathNode * restrict node ) {
+CcRoutePin * cc_route_pin__new( CcPathNode * node ) {
     if ( !node ) return NULL;
 
     CcRoutePin * rp__a = malloc( sizeof( CcRoutePin ) );
@@ -192,8 +192,8 @@ CcRoutePin * cc_route_pin__new( CcPathNode * restrict node ) {
     return rp__a;
 }
 
-CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
-                                  CcPathNode * restrict node ) {
+CcRoutePin * cc_route_pin_append( CcRoutePin ** route_pin__iod_a,
+                                  CcPathNode * node ) {
     if ( !route_pin__iod_a ) return NULL;
     if ( !node ) return NULL;
 
@@ -214,7 +214,7 @@ CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
     return pw__t; // Weak pointer.
 }
 
-bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
+bool cc_route_pin_free_all( CcRoutePin ** route_pin__f ) {
     if ( !route_pin__f ) return false;
     if ( !*route_pin__f ) return true;
 
@@ -233,7 +233,7 @@ bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f ) {
     return true;
 }
 
-CcRoutePin * cc_route_pin_free_node( CcRoutePin * restrict route_pin__f ) {
+CcRoutePin * cc_route_pin_free_node( CcRoutePin * route_pin__f ) {
     if ( !route_pin__f ) return NULL;
 
     CcRoutePin * prev = route_pin__f->prev;
@@ -251,7 +251,7 @@ CcRoutePin * cc_route_pin_free_node( CcRoutePin * restrict route_pin__f ) {
     return prev ? prev : next;
 }
 
-CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin ) {
+CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * route_pin ) {
     if ( !route_pin ) return NULL;
 
     CcRoutePin * rp = route_pin;
@@ -271,7 +271,7 @@ CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin ) {
     return rp__a;
 }
 
-size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
+size_t cc_route_pin_len( CcRoutePin * route_pin ) {
     if ( !route_pin ) return 0;
 
     size_t len = 0;
@@ -287,8 +287,8 @@ size_t cc_route_pin_len( CcRoutePin * restrict route_pin ) {
     return len;
 }
 
-static CcPathNode * cc_route_pin_check_if_node_valid( CcPathNode * restrict path_node,
-                                                      CcRoutePin * restrict route_pin ) {
+static CcPathNode * cc_route_pin_check_if_node_valid( CcPathNode * path_node,
+                                                      CcRoutePin * route_pin ) {
     if ( !path_node ) return NULL;
     if ( !route_pin ) return NULL;
     if ( !route_pin->node__w ) return NULL;
@@ -310,8 +310,8 @@ static CcPathNode * cc_route_pin_check_if_node_valid( CcPathNode * restrict path
     return found;
 }
 
-bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
-                                  CcRoutePin * restrict route_pin ) {
+bool cc_route_pin_check_if_valid( CcPathNode * path_node,
+                                  CcRoutePin * route_pin ) {
     if ( !path_node ) return false;
     if ( !route_pin ) return false;
 
@@ -334,8 +334,8 @@ bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
     return true;
 }
 
-bool cc_route_pin_append_route( CcPathNode * restrict path_node,
-                                CcRoutePin ** restrict route_pin__iod_a ) {
+bool cc_route_pin_append_route( CcPathNode * path_node,
+                                CcRoutePin ** route_pin__iod_a ) {
     if ( !path_node ) return false;
     if ( !route_pin__iod_a ) return false;
 
@@ -354,8 +354,8 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     return true;
 }
 
-bool cc_route_pin_iter( CcPathNode * restrict path_node,
-                        CcRoutePin ** restrict route_pin__io_a_F ) {
+bool cc_route_pin_iter( CcPathNode * path_node,
+                        CcRoutePin ** route_pin__io_a_F ) {
     if ( !path_node ) return false;
     if ( !route_pin__io_a_F ) return false;
 
@@ -414,7 +414,7 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
     return false;
 }
 
-size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
+size_t cc_route_pin_count_of_steps( CcRoutePin * route_pin ) {
     if ( !route_pin ) return 0;
 
     size_t count = 0;
@@ -432,7 +432,7 @@ size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin ) {
     return count;
 }
 
-CcPptLink * cc_route_pin_assemble__new( CcRoutePin * restrict route ) {
+CcPptLink * cc_route_pin_assemble__new( CcRoutePin * route ) {
     if ( !route ) return NULL;
 
     CcRoutePin * rp = route;

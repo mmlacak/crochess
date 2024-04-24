@@ -10,20 +10,20 @@
 #include "cc_parse_step.h"
 
 
-static void cc_add_msg_invalid_step_link( char const * restrict step_start_an,
-                                          char const * restrict step_end_an,
-                                          CcParseMsg ** restrict parse_msgs__iod ) {
+static void cc_add_msg_invalid_step_link( char const * step_start_an,
+                                          char const * step_end_an,
+                                          CcParseMsg ** parse_msgs__iod ) {
     char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step separator in step '%s'.\n", step_str__a );
     CC_FREE( step_str__a );
 }
 
-static bool cc_check_parsed_pos( char const * restrict step_start_an,
-                                 char const * restrict step_end_an,
+static bool cc_check_parsed_pos( char const * step_start_an,
+                                 char const * step_end_an,
                                  CcStepLinkEnum sle,
-                                 CcPos * restrict pos__o,
-                                 char const ** restrict pos_end_an__o,
-                                 CcParseMsg ** restrict parse_msgs__iod ) {
+                                 CcPos * pos__o,
+                                 char const ** pos_end_an__o,
+                                 CcParseMsg ** parse_msgs__iod ) {
     char const * step_after_link_an = step_start_an + cc_step_link_len( sle );
 
     if ( !cc_parse_pos( step_after_link_an, pos__o, pos_end_an__o ) ) {
@@ -36,16 +36,16 @@ static bool cc_check_parsed_pos( char const * restrict step_start_an,
     return true;
 }
 
-static bool cc_parse_step( char const * restrict step_start_an,
-                           char const * restrict step_end_an,
-                           char const * restrict steps_end_an,
-                           CcGame * restrict game,
+static bool cc_parse_step( char const * step_start_an,
+                           char const * step_end_an,
+                           char const * steps_end_an,
+                           CcGame * game,
                            CcPosPieceTag before_ply_start,
                            bool is_first_step,
-                           bool * restrict had_disambiguation__io,
-                           CcStep ** restrict step__o,
-                           CcChessboard ** restrict cb__io,
-                           CcParseMsg ** restrict parse_msgs__iod ) {
+                           bool * had_disambiguation__io,
+                           CcStep ** step__o,
+                           CcChessboard ** cb__io,
+                           CcParseMsg ** parse_msgs__iod ) {
     if ( !step_start_an ) return false;
     if ( !step_end_an ) return false;
     if ( !steps_end_an ) return false;
@@ -100,13 +100,13 @@ static bool cc_parse_step( char const * restrict step_start_an,
 }
 
 
-bool cc_parse_steps( char const * restrict steps_start_an,
-                     char const * restrict steps_end_an,
-                     CcGame * restrict game,
+bool cc_parse_steps( char const * steps_start_an,
+                     char const * steps_end_an,
+                     CcGame * game,
                      CcPosPieceTag before_ply_start,
-                     CcStep ** restrict steps__o,
-                     CcChessboard ** restrict cb__io,
-                     CcParseMsg ** restrict parse_msgs__iod ) {
+                     CcStep ** steps__o,
+                     CcChessboard ** cb__io,
+                     CcParseMsg ** parse_msgs__iod ) {
     if ( !steps_start_an ) return false;
     if ( !steps_end_an ) return false;
     if ( !game ) return false;

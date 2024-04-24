@@ -118,7 +118,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     @return
     A newly allocated game if successful, `NULL` otherwise.
 */
-CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
+CcGame * cc_game_duplicate_all__new( CcGame * game );
 
 /**
     Frees game, and all owned resources (chessboard, moves).
@@ -127,7 +127,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * restrict game );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_game_free_all( CcGame ** restrict game__f );
+bool cc_game_free_all( CcGame ** game__f );
 
 /**
     Functions returns a newly allocated `CcGame`, from a given string,
@@ -180,8 +180,8 @@ bool cc_game_free_all( CcGame ** restrict game__f );
 
     @return A newly allocated game if successful, `NULL` otherwise.
 */
-CcGame * cc_game_setup_from_string__new( char const * restrict setup,
-                                         CcGame * restrict before_setup__d );
+CcGame * cc_game_setup_from_string__new( char const * setup,
+                                         CcGame * before_setup__d );
 
 
 #endif /* __CC_GAME_H__ */

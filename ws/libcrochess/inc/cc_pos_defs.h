@@ -22,7 +22,7 @@
     Value to ignore array size constraint on various functions,
     and use invalid position as a guard to terminate loops.
 */
-#define CC_STEPS_SIZE_INVALID_POS_TERMINATED (0)
+#define CC_STEPS_LEN_INVALID_POS_TERMINATED (0)
 
 /** @defgroup step_generator_array The step generator array
  *  The step generator constants and arrays are meant to be used via `cc_gen_pos()`,
@@ -62,11 +62,13 @@
 #define CC_STEPS_SHORT_CENTAUR_LEN (CC_STEPS_SHORT_UNICORN_LEN)
 #define CC_STEPS_LONG_CENTAUR_LEN (CC_STEPS_LONG_UNICORN_LEN)
 #define CC_STEPS_SERPENT_LEN (2)
+#define CC_STEPS_ALL_SERPENT_LEN (CC_STEPS_BISHOP_LEN)
 
 #define CC_STEPS_LIGHT_SHAMAN_LEN (CC_STEPS_KNIGHT_LEN)
 #define CC_STEPS_CAPTURE_LIGHT_SHAMAN_LEN (CC_STEPS_LONG_UNICORN_LEN)
 #define CC_STEPS_DARK_SHAMAN_LEN (CC_STEPS_LONG_UNICORN_LEN)
 #define CC_STEPS_CAPTURE_DARK_SHAMAN_LEN (CC_STEPS_KNIGHT_LEN)
+#define CC_STEPS_ALL_SHAMAN_LEN (CC_STEPS_KNIGHT_LEN + CC_STEPS_LONG_UNICORN_LEN)
 
 #define CC_STEPS_MIRACLE_STARCHILD_LEN (CC_STEPS_QUEEN_LEN)
 
@@ -103,11 +105,13 @@
 #define CC_STEPS_SHORT_CENTAUR_SIZE (CC_STEPS_SHORT_UNICORN_SIZE)
 #define CC_STEPS_LONG_CENTAUR_SIZE (CC_STEPS_LONG_UNICORN_SIZE)
 #define CC_STEPS_SERPENT_SIZE (CC_STEPS_SERPENT_LEN + 1)
+#define CC_STEPS_ALL_SERPENT_SIZE (CC_STEPS_BISHOP_SIZE)
 
 #define CC_STEPS_LIGHT_SHAMAN_SIZE (CC_STEPS_KNIGHT_SIZE)
 #define CC_STEPS_CAPTURE_LIGHT_SHAMAN_SIZE (CC_STEPS_LONG_UNICORN_SIZE)
 #define CC_STEPS_DARK_SHAMAN_SIZE (CC_STEPS_LONG_UNICORN_SIZE)
 #define CC_STEPS_CAPTURE_DARK_SHAMAN_SIZE (CC_STEPS_KNIGHT_SIZE)
+#define CC_STEPS_ALL_SHAMAN_SIZE (CC_STEPS_ALL_SHAMAN_LEN + 1)
 
 #define CC_STEPS_MIRACLE_STARCHILD_SIZE (CC_STEPS_QUEEN_SIZE)
 
@@ -158,12 +162,14 @@ extern CcPos const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ];
 #define CC_STEPS_LONG_CENTAUR (CC_STEPS_LONG_UNICORN)
 extern CcPos const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ];
 extern CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
+#define CC_STEPS_ALL_SERPENT (CC_STEPS_BISHOP)
 
 #define CC_STEPS_LIGHT_SHAMAN (CC_STEPS_KNIGHT)
 #define CC_STEPS_CAPTURE_LIGHT_SHAMAN (CC_STEPS_LONG_UNICORN)
 #define CC_STEPS_DARK_SHAMAN (CC_STEPS_LONG_UNICORN)
 #define CC_STEPS_CAPTURE_DARK_SHAMAN (CC_STEPS_KNIGHT)
 #define CC_STEPS_MIRACLE_STARCHILD (CC_STEPS_QUEEN)
+extern CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ];
 
 /** @} */ // end of step_generator_arrays
 
@@ -175,15 +181,15 @@ extern CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 
     @param step A step to check
     @param steps An array of all valid steps.
-    @param steps_size__d _Optional_, array size.
+    @param steps_len__d _Optional_, array length.
 
     @note
-    If `steps_size__d` is not used (i.e. it's `0` == `CC_STEPS_SIZE_INVALID_POS_TERMINATED`),
+    If `steps_len__d` is not used (i.e. it's `0` == `CC_STEPS_LEN_INVALID_POS_TERMINATED`),
     `steps` array *must* be terminated with invalid position (i.e. `CC_POS_INVALID`) as a guard.
 
     @return `true` if step is valid (i.e. found in a given `steps` array), `false` otherwise.
 */
-bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
+bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d );
 
 
 /** @defgroup step_is_valid_macros The step validity macros
@@ -273,6 +279,9 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
 #define CC_SERPENT_RIGHT_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_SERPENT_RIGHT, CC_STEPS_SERPENT_LEN ) )
 
+#define CC_SERPENT_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN ) )
+
 
 #define CC_LIGHT_SHAMAN_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_LIGHT_SHAMAN, CC_STEPS_LIGHT_SHAMAN_LEN ) )
@@ -286,6 +295,9 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
 #define CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_CAPTURE_DARK_SHAMAN, CC_STEPS_CAPTURE_DARK_SHAMAN_LEN ) )
 
+#define CC_SHAMAN_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN ) )
+
 #define CC_STARCHILD_MIRACLE_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN ) )
 
@@ -297,9 +309,6 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
  *  The step validity derived macros share definition with base macros.
  *  @{
  */
-
-#define CC_SERPENT_STEP_IS_VALID(step) \
-    ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) )
 
 #define CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
@@ -332,25 +341,25 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d );
 /** @} */ // end of step_is_valid_macros
 
 
-bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos );
+bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
-bool cc_is_step_found( CcPos step, CcPosLink * restrict steps );
+bool cc_is_step_found( CcPos step, CcPosLink * steps );
 
 bool cc_convert_steps_to_pos_link( CcPos const steps[],
                                    size_t steps_len,
-                                   CcPosLink ** restrict steps__iod_a );
+                                   CcPosLink ** steps__iod_a );
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
-                               CcPptLink ** restrict ppt_link__n );
+CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+                               CcPptLink ** ppt_link__n );
 
 
-bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step );
+bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcPos step );
 
 bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step );
 bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step );
 bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step );
 
-bool cc_is_capture_step( CcVariantEnum type,
+bool cc_is_capture_step( CcVariantEnum variant,
                          CcPieceEnum activator,
                          CcPieceEnum piece,
                          CcPos step,
@@ -358,6 +367,25 @@ bool cc_is_capture_step( CcVariantEnum type,
 
 
 bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
+
+
+// static bool cc_starting_steps_pawn( CcVariantEnum variant,
+//                                     CcPieceEnum piece,
+//                                     CcPosLink ** starting_steps__e_a );
+
+// static bool cc_starting_steps_unicorn( CcPieceEnum piece,
+//                                        CcPos pos,
+//                                        CcPosLink ** starting_steps__e_a );
+
+// static bool cc_starting_steps_centaur( CcPieceEnum piece,
+//                                        CcPos pos,
+//                                        CcPosLink ** starting_steps__e_a );
+
+bool cc_starting_steps( CcVariantEnum variant,
+                        CcPieceEnum piece,
+                        CcPieceEnum activator,
+                        CcPos pos,
+                        CcPosLink ** starting_steps__e_a );
 
 
 #endif /* __CC_POS_DEFS_H__ */

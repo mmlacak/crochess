@@ -40,7 +40,7 @@
 
 //     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
 // */
-// CcPathLink * cc_path_link__new( CcPptLink ** restrict ppt__n );
+// CcPathLink * cc_path_link__new( CcPptLink ** ppt__n );
 
 // /**
 //     Function appends a newly allocated path to a given path segment.
@@ -62,8 +62,8 @@
 
 //     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 // */
-// CcPathLink * cc_path_link_append( CcPathLink ** restrict path_link__iod_a,
-//                                   CcPptLink ** restrict ppt__n );
+// CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
+//                                   CcPptLink ** ppt__n );
 
 // /**
 //     Frees all paths in a given linked list.
@@ -72,7 +72,7 @@
 
 //     @return `true` if successful, `false` otherwise.
 // */
-// bool cc_path_link_free_all( CcPathLink ** restrict path_link__f );
+// bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
 // /**
 //     Function returns length of a linked list.
@@ -81,7 +81,7 @@
 
 //     @return Length of a linked list if successful, `0` otherwise.
 // */
-// size_t cc_path_link_len( CcPathLink * restrict path_link );
+// size_t cc_path_link_len( CcPathLink * path_link );
 
 //
 // TODO :: DELETE ::
@@ -114,7 +114,7 @@ typedef struct CcPathNode {
 
     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
-CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n );
+CcPathNode * cc_path_node__new( CcPptLink ** ppt__n );
 
 /**
     Function appends a newly allocated path as an alternative to a given path segment.
@@ -136,8 +136,8 @@ CcPathNode * cc_path_node__new( CcPptLink ** restrict ppt__n );
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__iod_a,
-                                              CcPptLink ** restrict ppt__n );
+CcPathNode * cc_path_node_append_alternative( CcPathNode ** path_node__iod_a,
+                                              CcPptLink ** ppt__n );
 
 /**
     Function appends a newly allocated path as an divergence to a given path segment.
@@ -155,8 +155,8 @@ CcPathNode * cc_path_node_append_alternative( CcPathNode ** restrict path_node__
 
     @return A weak pointer to a newly allocated path if successful, `NULL` otherwise.
 */
-CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
-                                            CcPptLink ** restrict ppt__n );
+CcPathNode * cc_path_node_append_divergent( CcPathNode * path_node__io,
+                                            CcPptLink ** ppt__n );
 
 /**
     Frees all paths in a tree.
@@ -165,7 +165,7 @@ CcPathNode * cc_path_node_append_divergent( CcPathNode * restrict path_node__io,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_path_node_free_all( CcPathNode ** restrict path_node__f );
+bool cc_path_node_free_all( CcPathNode ** path_node__f );
 
 /**
     Function returns count of alternative paths to a given path segment.
@@ -177,7 +177,7 @@ bool cc_path_node_free_all( CcPathNode ** restrict path_node__f );
 
     @return Count of a alternative paths if successful, `0` otherwise.
 */
-size_t cc_path_node_count_alt( CcPathNode * restrict path_node );
+size_t cc_path_node_count_alt( CcPathNode * path_node );
 
 
 //
@@ -201,7 +201,7 @@ typedef struct CcRoutePin {
 
     @return Pointer to a newly allocated route pin if successful, `NULL` otherwise.
 */
-CcRoutePin * cc_route_pin__new( CcPathNode * restrict node );
+CcRoutePin * cc_route_pin__new( CcPathNode * node );
 
 /**
     Function appends a newly allocated node to a given queue.
@@ -225,8 +225,8 @@ CcRoutePin * cc_route_pin__new( CcPathNode * restrict node );
 
     @return A weak pointer to a newly allocated node if successful, `NULL` otherwise.
 */
-CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
-                                  CcPathNode * restrict node );
+CcRoutePin * cc_route_pin_append( CcRoutePin ** route_pin__iod_a,
+                                  CcPathNode * node );
 
 /**
     Frees all nodes in a given route.
@@ -235,7 +235,7 @@ CcRoutePin * cc_route_pin_append( CcRoutePin ** restrict route_pin__iod_a,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f );
+bool cc_route_pin_free_all( CcRoutePin ** route_pin__f );
 
 /**
     Frees a given node in a route.
@@ -248,7 +248,7 @@ bool cc_route_pin_free_all( CcRoutePin ** restrict route_pin__f );
     Function will return node previous to the one freed, if it exists;
     otherwise, it will return next node in a given sequence.
 */
-CcRoutePin * cc_route_pin_free_node( CcRoutePin * restrict route_pin__f );
+CcRoutePin * cc_route_pin_free_node( CcRoutePin * route_pin__f );
 
 /**
     Creates a new, shallow copy of a given route.
@@ -261,7 +261,7 @@ CcRoutePin * cc_route_pin_free_node( CcRoutePin * restrict route_pin__f );
 
     @return Pointer to newly allocated queue if successful, `NULL` otherwise.
 */
-CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin );
+CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * route_pin );
 
 /**
     Function returns length of a queue.
@@ -270,7 +270,7 @@ CcRoutePin * cc_route_pin_copy_shallow__new( CcRoutePin * restrict route_pin );
 
     @return Length of a queue if successful, `0` otherwise.
 */
-size_t cc_route_pin_len( CcRoutePin * restrict route_pin );
+size_t cc_route_pin_len( CcRoutePin * route_pin );
 
 /**
     Function checks if pinned route is exhaustive; that is, valid
@@ -281,8 +281,8 @@ size_t cc_route_pin_len( CcRoutePin * restrict route_pin );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
-                                  CcRoutePin * restrict route_pin );
+bool cc_route_pin_check_if_valid( CcPathNode * path_node,
+                                  CcRoutePin * route_pin );
 
 /**
     Function appends a newly allocated path segments to a given pinned route.
@@ -302,8 +302,8 @@ bool cc_route_pin_check_if_valid( CcPathNode * restrict path_node,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_route_pin_append_route( CcPathNode * restrict path_node,
-                                CcRoutePin ** restrict route_pin__iod_a );
+bool cc_route_pin_append_route( CcPathNode * path_node,
+                                CcRoutePin ** route_pin__iod_a );
 
 /**
     Function iterates over path tree, returning next route via _input/output_ argument.
@@ -388,8 +388,8 @@ bool cc_route_pin_append_route( CcPathNode * restrict path_node,
     If iterator returned `false` and both arguments were supplied, pinned route was `free()`-ed,
     and argument `*route_pin__io_a_F` was reset to `NULL`.
 */
-bool cc_route_pin_iter( CcPathNode * restrict path_node,
-                        CcRoutePin ** restrict route_pin__io_a_F );
+bool cc_route_pin_iter( CcPathNode * path_node,
+                        CcRoutePin ** route_pin__io_a_F );
 
 /**
     Function returns count of steps in all path segments in a given pinned route.
@@ -406,7 +406,7 @@ bool cc_route_pin_iter( CcPathNode * restrict path_node,
 
     @return Count of steps if successful, `0` otherwise.
 */
-size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
+size_t cc_route_pin_count_of_steps( CcRoutePin * route_pin );
 
 /**
     Function assembles complete route from given pinned route.
@@ -415,7 +415,7 @@ size_t cc_route_pin_count_of_steps( CcRoutePin * restrict route_pin );
 
     @return A valid pointer to newly allocated route if successful, `NULL` otherwise.
 */
-CcPptLink * cc_route_pin_assemble__new( CcRoutePin * restrict route );
+CcPptLink * cc_route_pin_assemble__new( CcRoutePin * route );
 
 
 #endif /* __CC_PATH_H__ */

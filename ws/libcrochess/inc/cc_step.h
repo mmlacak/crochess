@@ -111,7 +111,7 @@ CcStep * cc_step__new( CcStepLinkEnum link,
     @return
     Weak pointer to a newly allocated step if successful, `NULL` otherwise.
 */
-CcStep * cc_step_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_append( CcStep ** steps__iod_a,
                          CcStepLinkEnum link, CcPos field, CcSideEffect side_effect );
 
 /**
@@ -122,7 +122,7 @@ CcStep * cc_step_append( CcStep ** restrict steps__iod_a,
     @return
     A newly allocated steps if successful, `NULL` otherwise.
 */
-CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
+CcStep * cc_step_duplicate_all__new( CcStep * steps__io );
 
 /**
     Extends existing linked list with step(s).
@@ -143,8 +143,8 @@ CcStep * cc_step_duplicate_all__new( CcStep * restrict steps__io );
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcStep * cc_step_extend( CcStep ** restrict steps__iod_a,
-                         CcStep ** restrict steps__n );
+CcStep * cc_step_extend( CcStep ** steps__iod_a,
+                         CcStep ** steps__n );
 
 /**
     Function returning count of steps, based on usage.
@@ -153,7 +153,7 @@ CcStep * cc_step_extend( CcStep ** restrict steps__iod_a,
 
     @return Count of steps if successful, `0` otherwise.
 */
-size_t cc_step_count( CcStep * restrict steps );
+size_t cc_step_count( CcStep * steps );
 
 /**
     Function finds starting step.
@@ -162,7 +162,7 @@ size_t cc_step_count( CcStep * restrict steps );
 
     @return Starting step if successful, `NULL` otherwise
 */
-CcStep * cc_step_find_start( CcStep * restrict steps );
+CcStep * cc_step_find_start( CcStep * steps );
 
 /**
     Function finds destination step.
@@ -175,7 +175,7 @@ CcStep * cc_step_find_start( CcStep * restrict steps );
 
     @return Destination step if successful, `NULL` otherwise
 */
-CcStep * cc_step_find_destination( CcStep * restrict steps );
+CcStep * cc_step_find_destination( CcStep * steps );
 
 /**
     Frees all steps in a linked list.
@@ -184,7 +184,7 @@ CcStep * cc_step_find_destination( CcStep * restrict steps );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_step_free_all( CcStep ** restrict steps__f );
+bool cc_step_free_all( CcStep ** steps__f );
 
 /**
     Function returns new string, containing user-readable representation of a steps.
@@ -202,7 +202,7 @@ bool cc_step_free_all( CcStep ** restrict steps__f );
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise
 */
-char * cc_step_all_to_short_string__new( CcStep * restrict steps );
+char * cc_step_all_to_short_string__new( CcStep * steps );
 
 
 /** @defgroup step_convenience The step conveniences
@@ -272,49 +272,49 @@ CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, CcPos field );
  *  @{
  */
 
-CcStep * cc_step_none_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_none_append( CcStep ** steps__iod_a,
                               CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_capture_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_capture_append( CcStep ** steps__iod_a,
                                  CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_displacement_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_displacement_append( CcStep ** steps__iod_a,
                                       CcStepLinkEnum link, CcPos field,
                                       CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
 
-CcStep * cc_step_en_passant_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a,
                                     CcStepLinkEnum link, CcPos field,
                                     CcPieceEnum pawn, CcPos distant );
 
-CcStep * cc_step_castle_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_castle_append( CcStep ** steps__iod_a,
                                 CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum rook, CcPos start, CcPos destination );
 
-CcStep * cc_step_promote_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_promote_append( CcStep ** steps__iod_a,
                                  CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
 
-CcStep * cc_step_tag_for_promotion_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_tag_for_promotion_append( CcStep ** steps__iod_a,
                                            CcStepLinkEnum link, CcPos field,
                                            CcPieceEnum captured, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_convert_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_convert_append( CcStep ** steps__iod_a,
                                  CcStepLinkEnum link, CcPos field,
                                  CcPieceEnum piece, CcLosingTagEnum lost_tag );
 
-CcStep * cc_step_failed_conversion_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_failed_conversion_append( CcStep ** steps__iod_a,
                                            CcStepLinkEnum link, CcPos field );
 
-CcStep * cc_step_demote_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_demote_append( CcStep ** steps__iod_a,
                                 CcStepLinkEnum link, CcPos field,
                                 CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
 
-CcStep * cc_step_resurrect_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_resurrect_append( CcStep ** steps__iod_a,
                                    CcStepLinkEnum link, CcPos field,
                                    CcPieceEnum piece, CcPos destination );
 
-CcStep * cc_step_failed_resurrection_append( CcStep ** restrict steps__iod_a,
+CcStep * cc_step_failed_resurrection_append( CcStep ** steps__iod_a,
                                              CcStepLinkEnum link, CcPos field );
 
 /** @} */ // end of step_convenience_append

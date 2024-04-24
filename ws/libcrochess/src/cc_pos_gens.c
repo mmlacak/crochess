@@ -12,12 +12,12 @@
 */
 
 
-bool cc_pawn_steps( CcChessboard * restrict cb,
+bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum activator,
                     CcPieceEnum piece,
                     CcPos current_pos,
                     CcStepTypeEnum steps_type,
-                    CcPosLink ** restrict steps__od ) {
+                    CcPosLink ** steps__od ) {
     if ( !steps__od ) return false;
     if ( *steps__od ) return false;
 

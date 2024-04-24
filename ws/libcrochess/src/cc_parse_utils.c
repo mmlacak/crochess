@@ -13,8 +13,8 @@
 */
 
 
-bool cc_parse_ply_link( char const * restrict an_str,
-                        CcPlyLinkEnum * restrict ple__o ) {
+bool cc_parse_ply_link( char const * an_str,
+                        CcPlyLinkEnum * ple__o ) {
     if ( !an_str ) return false;
     if ( !ple__o ) return false;
 
@@ -101,7 +101,7 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
     }
 }
 
-char const * cc_next_ply_link( char const * restrict an_str ) {
+char const * cc_next_ply_link( char const * an_str ) {
     if ( !an_str ) return NULL;
     if ( *an_str == '\0' ) return NULL;
 
@@ -117,9 +117,9 @@ char const * cc_next_ply_link( char const * restrict an_str ) {
     return str__w;
 }
 
-bool cc_iter_ply( char const * restrict an_str,
-                  char const ** restrict start__io,
-                  char const ** restrict end__io ) {
+bool cc_iter_ply( char const * an_str,
+                  char const ** start__io,
+                  char const ** end__io ) {
     if ( !an_str ) return false;
     if ( !start__io ) return false;
     if ( !end__io ) return false;
@@ -150,8 +150,8 @@ bool cc_iter_ply( char const * restrict an_str,
 }
 
 
-bool cc_fetch_piece_symbol( char const * restrict an_str,
-                            char * restrict piece_symbol__o,
+bool cc_fetch_piece_symbol( char const * an_str,
+                            char * piece_symbol__o,
                             bool default_to_pawn,
                             bool return_validity ) {
     if ( !an_str ) return false;
@@ -170,7 +170,7 @@ bool cc_fetch_piece_symbol( char const * restrict an_str,
                            : true;
 }
 
-CcLosingTagEnum cc_parse_losing_tag( char const * restrict an_str ) {
+CcLosingTagEnum cc_parse_losing_tag( char const * an_str ) {
     if ( !an_str ) return CC_LTE_None;
 
     char const * c = an_str;
@@ -199,9 +199,9 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte ) {
     }
 }
 
-bool cc_convert_coords( char const * restrict pos,
-                        int * restrict file__o,
-                        int * restrict rank__o ) {
+bool cc_convert_coords( char const * pos,
+                        int * file__o,
+                        int * rank__o ) {
     if ( !pos ) return false;
 
     char const * p = pos;
@@ -228,14 +228,14 @@ bool cc_convert_coords( char const * restrict pos,
     return true;
 }
 
-bool cc_convert_pos( char const * restrict pos,
-                     CcPos * restrict pos__o ) {
+bool cc_convert_pos( char const * pos,
+                     CcPos * pos__o ) {
     return cc_convert_coords( pos, &pos__o->i, &pos__o->j );
 }
 
-bool cc_parse_pos( char const * restrict an_str,
-                   CcPos * restrict pos__o,
-                   char const ** restrict pos_end__o ) {
+bool cc_parse_pos( char const * an_str,
+                   CcPos * pos__o,
+                   char const ** pos_end__o ) {
     if ( !an_str ) return false;
     if ( !pos__o ) return false;
     if ( !pos_end__o ) return false;
@@ -287,7 +287,7 @@ bool cc_parse_pos( char const * restrict an_str,
     return true;
 }
 
-char const * cc_skip_disambiguation( char const * restrict an_str ) {
+char const * cc_skip_disambiguation( char const * an_str ) {
     if ( !an_str ) return NULL;
 
     char const * c = an_str;
@@ -314,8 +314,8 @@ char const * cc_skip_disambiguation( char const * restrict an_str ) {
     return NULL;
 }
 
-bool cc_has_separated_steps( char const * restrict an_str,
-                             char const * restrict ply_end,
+bool cc_has_separated_steps( char const * an_str,
+                             char const * ply_end,
                              bool check_intermediate_steps,
                              bool check_destination_step ) {
     if ( !an_str ) return false;
@@ -337,9 +337,9 @@ bool cc_has_separated_steps( char const * restrict an_str,
     return false;
 }
 
-bool cc_parse_step_link( char const * restrict an_str,
-                         char const * restrict ply_end,
-                         CcStepLinkEnum * restrict sle__o ) {
+bool cc_parse_step_link( char const * an_str,
+                         char const * ply_end,
+                         CcStepLinkEnum * sle__o ) {
     if ( !an_str ) return false;
     if ( !sle__o ) return false;
 
@@ -389,8 +389,8 @@ size_t cc_step_link_len( CcStepLinkEnum sle ) {
     }
 }
 
-char const * cc_next_step_link( char const * restrict an_str,
-                                char const * restrict ply_end ) {
+char const * cc_next_step_link( char const * an_str,
+                                char const * ply_end ) {
     if ( !an_str ) return NULL;
     if ( *an_str == '\0' ) return NULL;
     if ( !ply_end ) return NULL;
@@ -414,10 +414,10 @@ char const * cc_next_step_link( char const * restrict an_str,
     return str__w;
 }
 
-bool cc_iter_step( char const * restrict an_str,
-                   char const * restrict ply_end,
-                   char const ** restrict start__io,
-                   char const ** restrict end__io ) {
+bool cc_iter_step( char const * an_str,
+                   char const * ply_end,
+                   char const ** start__io,
+                   char const ** end__io ) {
     if ( !an_str ) return false;
     if ( !ply_end ) return false;
     if ( !start__io ) return false;
@@ -448,8 +448,8 @@ bool cc_iter_step( char const * restrict an_str,
     return true;
 }
 
-bool cc_ply_an_contains_steps( char const * restrict an_str,
-                               char const * restrict ply_end ) {
+bool cc_ply_an_contains_steps( char const * an_str,
+                               char const * ply_end ) {
     char const * an = cc_next_step_link( an_str, ply_end );
 
     // Usually, step links are expected somewhere in the middle of AN string ...
@@ -464,8 +464,8 @@ bool cc_ply_an_contains_steps( char const * restrict an_str,
 }
 
 
-CcSideEffectEnum cc_parse_side_effect_type( char const * restrict an_str,
-                                            bool * restrict has_promotion_sign__o ) {
+CcSideEffectEnum cc_parse_side_effect_type( char const * an_str,
+                                            bool * has_promotion_sign__o ) {
     if ( !an_str ) return CC_SEE_None;
     if ( !has_promotion_sign__o ) return CC_SEE_None;
 

@@ -185,11 +185,54 @@ CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
     CC_POS_INVALID,
 };
 
-bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d ) {
+
+CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ] = {
+    //
+    // Knight steps
+
+    { .i =  2, .j =  1 },
+    { .i =  1, .j =  2 },
+
+    { .i = -1, .j =  2 },
+    { .i = -2, .j =  1 },
+
+    { .i = -2, .j = -1 },
+    { .i = -1, .j = -2 },
+
+    { .i =  1, .j = -2 },
+    { .i =  2, .j = -1 },
+
+    //
+    // long Unicorn steps
+
+    { .i =  4, .j =  1 },
+    { .i =  3, .j =  2 },
+    { .i =  2, .j =  3 },
+    { .i =  1, .j =  4 },
+
+    { .i = -1, .j =  4 },
+    { .i = -2, .j =  3 },
+    { .i = -3, .j =  2 },
+    { .i = -4, .j =  1 },
+
+    { .i = -4, .j = -1 },
+    { .i = -3, .j = -2 },
+    { .i = -2, .j = -3 },
+    { .i = -1, .j = -4 },
+
+    { .i =  1, .j = -4 },
+    { .i =  2, .j = -3 },
+    { .i =  3, .j = -2 },
+    { .i =  4, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
     for ( size_t k = 0;
-          (steps_size__d == CC_STEPS_SIZE_INVALID_POS_TERMINATED) || (k < steps_size__d);
+          (steps_len__d == CC_STEPS_LEN_INVALID_POS_TERMINATED) || (k < steps_len__d);
           ++k ) {
         CcPos p = steps[ k ];
 
@@ -202,7 +245,7 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_size__d ) {
 }
 
 
-bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos ) {
+bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
     if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
         return true;
 
@@ -212,7 +255,7 @@ bool cc_is_the_same_color( CcPieceEnum piece, CcPos pos ) {
     return false;
 }
 
-bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
+bool cc_is_step_found( CcPos step, CcPosLink * steps ) {
     if ( !steps ) return false;
 
     if ( !CC_POS_IS_VALID( step ) ) return false;
@@ -230,14 +273,14 @@ bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
 }
 
 bool cc_convert_steps_to_pos_link( CcPos const steps[],
-                                   size_t steps_size__d,
-                                   CcPosLink ** restrict steps__iod_a ) {
+                                   size_t steps_len__d,
+                                   CcPosLink ** steps__iod_a ) {
     if ( !steps__iod_a ) return false;
 
     CcPosLink * pl__t = NULL;
 
     for ( size_t k = 0;
-          (steps_size__d == CC_STEPS_SIZE_INVALID_POS_TERMINATED) || (k < steps_size__d);
+          (steps_len__d == CC_STEPS_LEN_INVALID_POS_TERMINATED) || (k < steps_len__d);
           ++k ) {
         CcPos p = steps[ k ];
 
@@ -259,8 +302,8 @@ bool cc_convert_steps_to_pos_link( CcPos const steps[],
     return true;
 }
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
-                               CcPptLink ** restrict ppt_link__n ) {
+CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+                               CcPptLink ** ppt_link__n ) {
     if ( !ppt_link__iod ) return NULL;
     if ( !ppt_link__n ) return NULL;
 
@@ -302,22 +345,20 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
 }
 
 
-bool cc_is_pawn_step( CcVariantEnum type, CcPieceEnum piece, CcPos step ) {
-    if ( cc_variant_has_sideways_pawns( type ) ) {
+bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcPos step ) {
+    if ( cc_variant_has_sideways_pawns( variant ) ) {
         if ( piece == CC_PE_LightPawn )
             return CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID( step );
         else if ( piece == CC_PE_DarkPawn )
             return CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID( step );
-        else
-            return false;
     } else {
         if ( piece == CC_PE_LightPawn )
             return CC_LIGHT_PAWN_STEP_IS_VALID( step );
         else if ( piece == CC_PE_DarkPawn )
             return CC_DARK_PAWN_STEP_IS_VALID( step );
-        else
-            return false;
     }
+
+    return false;
 }
 
 bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step ) {
@@ -325,8 +366,8 @@ bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step ) {
         return CC_LIGHT_PAWN_CAPTURE_STEP_IS_VALID( step );
     else if ( piece == CC_PE_DarkPawn )
         return CC_DARK_PAWN_CAPTURE_STEP_IS_VALID( step );
-    else
-        return false;
+
+    return false;
 }
 
 bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step ) {
@@ -334,20 +375,20 @@ bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step ) {
         return CC_LIGHT_SCOUT_CAPTURE_STEP_IS_VALID( step );
     else if ( piece == CC_PE_DarkScout )
         return CC_DARK_SCOUT_CAPTURE_STEP_IS_VALID( step );
-    else
-        return false;
+
+    return false;
 }
 
 bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step ) {
-    if ( piece == CC_PE_LightShaman ) {
+    if ( piece == CC_PE_LightShaman )
         return CC_LIGHT_SHAMAN_CAPTURE_STEP_IS_VALID( step );
-    } else if ( piece == CC_PE_DarkShaman ) {
+    else if ( piece == CC_PE_DarkShaman )
         return CC_DARK_SHAMAN_CAPTURE_STEP_IS_VALID( step );
-    } else
-        return false;
+
+    return false;
 }
 
-bool cc_is_capture_step( CcVariantEnum type,
+bool cc_is_capture_step( CcVariantEnum variant,
                          CcPieceEnum activator,
                          CcPieceEnum piece,
                          CcPos step,
@@ -362,10 +403,9 @@ bool cc_is_capture_step( CcVariantEnum type,
     else if ( CC_PIECE_IS_SHAMAN( piece ) )
         return cc_is_shaman_capture_step( piece, step );
     else if ( CC_PIECE_IS_WAVE( piece ) ) {
-        if ( !CC_PIECE_CAN_ACTIVATE( activator ) )
-            return false;
+        if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
 
-        return cc_is_capture_step( type, CC_PE_None, activator, step, step_2 );
+        return cc_is_capture_step( variant, CC_PE_None, activator, step, step_2 );
     } else if ( CC_PIECE_IS_MONOLITH( piece ) )
         return false; // Monolith can't capture.
     else if ( CC_PIECE_IS_STAR( piece ) )
@@ -413,6 +453,133 @@ bool cc_is_capture_step( CcVariantEnum type,
 bool cc_is_step_miracle( CcPieceEnum piece, CcPos step ) {
     if ( CC_PIECE_IS_STARCHILD( piece ) )
         return CC_STARCHILD_MIRACLE_STEP_IS_VALID( step );
+
+    return false;
+}
+
+
+static bool cc_starting_steps_pawn( CcVariantEnum variant,
+                                    CcPieceEnum piece,
+                                    CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_PAWN( piece ) ) return false;
+
+    if ( cc_variant_has_sideways_pawns( variant ) ) {
+        if ( piece == CC_PE_LightPawn )
+            return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN,
+                                                 CC_STEPS_ALL_SIDEWAYS_PAWN_LEN,
+                                                 starting_steps__e_a );
+
+        if ( piece == CC_PE_DarkPawn )
+            return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_SIDEWAYS_PAWN,
+                                                 CC_STEPS_ALL_SIDEWAYS_PAWN_LEN,
+                                                 starting_steps__e_a );
+    } else {
+        if ( piece == CC_PE_LightPawn )
+            return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_PAWN,
+                                                 CC_STEPS_ALL_PAWN_LEN,
+                                                 starting_steps__e_a );
+
+        if ( piece == CC_PE_DarkPawn )
+            return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_PAWN,
+                                                 CC_STEPS_ALL_PAWN_LEN,
+                                                 starting_steps__e_a );
+    }
+
+    return false;
+}
+
+static bool cc_starting_steps_unicorn( CcPieceEnum piece,
+                                       CcPos pos,
+                                       CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_UNICORN( piece ) ) return false;
+
+    if ( cc_is_same_color( piece, pos ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_SHORT_UNICORN,
+                                             CC_STEPS_SHORT_UNICORN_LEN,
+                                             starting_steps__e_a );
+    } else {
+        return cc_convert_steps_to_pos_link( CC_STEPS_LONG_UNICORN,
+                                             CC_STEPS_LONG_UNICORN_LEN,
+                                             starting_steps__e_a );
+    }
+}
+
+static bool cc_starting_steps_centaur( CcPieceEnum piece,
+                                       CcPos pos,
+                                       CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_CENTAUR( piece ) ) return false;
+
+    if ( cc_is_same_color( piece, pos ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_SHORT_CENTAUR,
+                                             CC_STEPS_SHORT_CENTAUR_LEN,
+                                             starting_steps__e_a );
+    } else {
+        return cc_convert_steps_to_pos_link( CC_STEPS_LONG_CENTAUR,
+                                             CC_STEPS_LONG_CENTAUR_LEN,
+                                             starting_steps__e_a );
+    }
+}
+
+bool cc_starting_steps( CcVariantEnum variant,
+                        CcPieceEnum piece,
+                        CcPieceEnum activator,
+                        CcPos pos,
+                        CcPosLink ** starting_steps__e_a ) {
+    if ( !starting_steps__e_a ) return false;
+    if ( *starting_steps__e_a ) return false;
+
+    if ( CC_PIECE_IS_VALID( piece ) ) return false;
+
+    if ( CC_PIECE_IS_PAWN( piece ) ) {
+        return cc_starting_steps_pawn( variant, piece, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_KNIGHT( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_KNIGHT, CC_STEPS_KNIGHT_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_BISHOP( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_ROOK( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ROOK, CC_STEPS_ROOK_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_QUEEN( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_QUEEN, CC_STEPS_QUEEN_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_KING( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_KING, CC_STEPS_KING_LEN, starting_steps__e_a );
+
+    } else if ( CC_PIECE_IS_PEGASUS( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_PYRAMID( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_PYRAMID, CC_STEPS_PYRAMID_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_UNICORN( piece ) ) {
+        return cc_starting_steps_unicorn( piece, pos, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_WAVE( piece ) ) {
+        if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
+        return cc_starting_steps( variant, activator, CC_PE_None, pos, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_STAR( piece ) ) {
+        if ( !CC_PIECE_IS_STARCHILD( activator ) ) return false;
+        return cc_convert_steps_to_pos_link( CC_STEPS_STAR, CC_STEPS_STAR_LEN, starting_steps__e_a );
+
+    } else if ( CC_PIECE_IS_CENTAUR( piece ) ) {
+        return cc_starting_steps_centaur( piece, pos, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
+        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
+        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+
+    } else if ( CC_PIECE_IS_SERPENT( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN, starting_steps__e_a );
+    }
+
+
+// TODO
 
     return false;
 }

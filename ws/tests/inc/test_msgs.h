@@ -19,10 +19,10 @@ char * test_msgs_enum_label( TestMsgEnum tme );
 
 bool test_print_failure( bool expr,
                          TestMsgEnum type,
-                         char const * restrict msg,
-                         char const * restrict file,
+                         char const * msg,
+                         char const * file,
                          size_t line,
-                         char const * restrict func );
+                         char const * func );
 
 
 typedef struct TestMsgs {
@@ -35,21 +35,21 @@ typedef struct TestMsgs {
 } TestMsgs;
 
 TestMsgs * test_msgs__new( TestMsgEnum type,
-                           char const * restrict msg,
-                           char const * restrict file,
+                           char const * msg,
+                           char const * file,
                            size_t line,
-                           char const * restrict func );
+                           char const * func );
 
-TestMsgs * test_msgs_append( TestMsgs ** restrict test_msgs__iod,
+TestMsgs * test_msgs_append( TestMsgs ** test_msgs__iod,
                              TestMsgEnum type,
-                             char const * restrict msg,
-                             char const * restrict file,
+                             char const * msg,
+                             char const * file,
                              size_t line,
-                             char const * restrict func );
+                             char const * func );
 
-bool test_msgs_free_all( TestMsgs ** restrict test_msgs__f );
+bool test_msgs_free_all( TestMsgs ** test_msgs__f );
 
-bool test_msgs_print_all( TestMsgs * restrict test_msgs,
+bool test_msgs_print_all( TestMsgs * test_msgs,
                           TestMsgEnum level );
 
 
