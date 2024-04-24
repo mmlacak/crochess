@@ -20,18 +20,18 @@
 #include "cc_parse_ply.h"
 
 
-static void cc_add_msg_invalid_ply_link( char const * restrict ply_start_an,
-                                         char const * restrict ply_end_an,
-                                         CcParseMsg ** restrict parse_msgs__iod ) {
+static void cc_add_msg_invalid_ply_link( char const * ply_start_an,
+                                         char const * ply_end_an,
+                                         CcParseMsg ** parse_msgs__iod ) {
     char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
     CC_FREE( ply_str__a );
 }
 
-static bool cc_check_king_ply( CcChessboard * restrict cb,
+static bool cc_check_king_ply( CcChessboard * cb,
                                CcPieceEnum king,
-                               CcPos * restrict pos__o,
-                               CcParseMsg ** restrict parse_msgs__iod ) {
+                               CcPos * pos__o,
+                               CcParseMsg ** parse_msgs__iod ) {
     if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, pos__o ) ) {
         char const * piece_str = cc_piece_as_string( king, true, true );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s not found on chessboard.\n", piece_str );
@@ -50,9 +50,9 @@ static bool cc_check_king_ply( CcChessboard * restrict cb,
 }
 
 static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
-                                             char const * restrict ply_start_an,
-                                             char const * restrict ply_end_an,
-                                             CcParseMsg ** restrict parse_msgs__iod ) {
+                                             char const * ply_start_an,
+                                             char const * ply_end_an,
+                                             CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_ACTIVATED( piece ) ) {
         char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, true, true );
@@ -64,14 +64,14 @@ static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
     return true;
 }
 
-static bool cc_parse_ply( char const * restrict ply_start_an,
-                          char const * restrict ply_end_an,
-                          CcGame * restrict game,
-                          CcPosPieceTag * restrict before_ply_start__io,
+static bool cc_parse_ply( char const * ply_start_an,
+                          char const * ply_end_an,
+                          CcGame * game,
+                          CcPosPieceTag * before_ply_start__io,
                           bool is_first_ply,
-                          CcPly ** restrict ply__o,
-                          CcChessboard ** restrict cb__io,
-                          CcParseMsg ** restrict parse_msgs__iod ) {
+                          CcPly ** ply__o,
+                          CcChessboard ** cb__io,
+                          CcParseMsg ** parse_msgs__iod ) {
     if ( !before_ply_start__io ) return false;
     if ( *ply__o ) return false;
 
@@ -235,10 +235,10 @@ static bool cc_parse_ply( char const * restrict ply_start_an,
 }
 
 
-bool cc_parse_plies( char const * restrict move_an,
-                     CcGame * restrict game,
-                     CcPly ** restrict plies__o,
-                     CcParseMsg ** restrict parse_msgs__iod ) {
+bool cc_parse_plies( char const * move_an,
+                     CcGame * game,
+                     CcPly ** plies__o,
+                     CcParseMsg ** parse_msgs__iod ) {
     if ( !move_an ) return false;
     if ( !game ) return false;
     if ( !plies__o || *plies__o ) return false;

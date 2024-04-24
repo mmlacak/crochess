@@ -14,13 +14,13 @@ void print_license_intro( void ) {
     // fflush( stdout );
 }
 
-void print_version_info( char const * restrict lib_ver, char const * restrict app_ver ) {
+void print_version_info( char const * lib_ver, char const * app_ver ) {
     printf( "Library: %s\n", lib_ver );
     printf( "Application: %s\n", app_ver );
     // fflush( stdout );
 }
 
-void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver ) {
+void print_app_intro( char const * lib_ver, char const * app_ver ) {
     print_license_intro();
 
     printf( "Licensed under GNU GPL v3+ license. Use `about` for details.\n"
@@ -190,7 +190,7 @@ void print_help_new( void ) {
     print_help_new_code();
 }
 
-void print_new_code_invalid( char const * restrict str,
+void print_new_code_invalid( char const * str,
                              size_t max_len__d ) {
     if ( str ) {
         printf( "Unrecognized code: '" );

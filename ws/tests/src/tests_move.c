@@ -27,11 +27,11 @@
 #include "tests_move.h"
 
 
-bool test_move( char const * restrict an_str,
-                char const * restrict setup__d,
-                char const * restrict check_setup__d,
-                char const * restrict check_end__d,
-                CcGame ** restrict game__iodr ) {
+bool test_move( char const * an_str,
+                char const * setup__d,
+                char const * check_setup__d,
+                char const * check_end__d,
+                CcGame ** game__iodr ) {
     if ( !an_str ) return false;
     if ( !setup__d && ( !game__iodr || !*game__iodr ) ) return false;
     // if ( game__iodr && !*game__iodr ) return false;

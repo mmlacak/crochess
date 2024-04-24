@@ -33,7 +33,7 @@ extern char const CC_TOKEN_SEPARATORS_PUNCTUATION[];
 
     @return `true` if character is found in string, `false` otherwise.
 */
-bool cc_char_in( char c, char const * restrict seps );
+bool cc_char_in( char c, char const * seps );
 
 /**
     Function traversing over string, returning next position within it.
@@ -44,8 +44,8 @@ bool cc_char_in( char c, char const * restrict seps );
 
     @return Next position within `pos` string if successful, `NULL` otherwise.
 */
-char const * cc_traverse_chars( char const * restrict pos,
-                                char const * restrict seps,
+char const * cc_traverse_chars( char const * pos,
+                                char const * seps,
                                 bool skip_or_stop_at );
 
 /**
@@ -56,8 +56,8 @@ char const * cc_traverse_chars( char const * restrict pos,
 
     @return Next position within `pos` string if successful, `NULL` otherwise.
 */
-char const * cc_skip_chars( char const * restrict pos,
-                            char const * restrict seps );
+char const * cc_skip_chars( char const * pos,
+                            char const * seps );
 
 /**
     Function traversing over string, stopping at separators, returning next position within string.
@@ -67,8 +67,8 @@ char const * cc_skip_chars( char const * restrict pos,
 
     @return Next position within `pos` string if successful, `NULL` otherwise.
 */
-char const * cc_stop_at_chars( char const * restrict pos,
-                               char const * restrict seps );
+char const * cc_stop_at_chars( char const * pos,
+                               char const * seps );
 
 
 /**
@@ -104,10 +104,10 @@ char const * cc_stop_at_chars( char const * restrict pos,
     pointer to first `char` of a found token; argument `end__io` contains end
     of a token, i.e. first `char` that does not belong to a token.
 */
-bool cc_iter_token( char const * restrict str,
-                    char const * restrict seps,
-                    char const ** restrict start__io,
-                    char const ** restrict end__io );
+bool cc_iter_token( char const * str,
+                    char const * seps,
+                    char const ** start__io,
+                    char const ** end__io );
 
 /**
     Function returning newly allocated string, with `chars` trimmed from the beginning and the end.
@@ -117,8 +117,8 @@ bool cc_iter_token( char const * restrict str,
 
     @return Newly allocated, trimmed string if successful, `NULL` otherwise.
 */
-char * cc_trim_str__new( char const * restrict str,
-                         char const * restrict chars );
+char * cc_trim_str__new( char const * str,
+                         char const * chars );
 
 // size_t cc_flush_stdin( void );
 

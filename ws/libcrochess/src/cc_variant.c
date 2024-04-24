@@ -42,7 +42,7 @@ char const * const CC_VARIANT_SYMBOLS[] = {
 };
 
 
-size_t cc_variant_from_symbol( char const * restrict str,
+size_t cc_variant_from_symbol( char const * str,
                                CcVariantEnum * ve__o ) {
     if ( !str ) return false;
     if ( !ve__o ) return false;

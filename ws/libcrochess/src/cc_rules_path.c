@@ -7,7 +7,7 @@
 // #include "cc_path_defs.h"
 
 
-bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
+bool cc_is_pawn_capture_valid( CcChessboard * cb,
                                CcPieceEnum pawn,
                                CcPos start,
                                CcPos destination ) {
@@ -27,7 +27,7 @@ bool cc_is_pawn_capture_valid( CcChessboard * restrict cb,
     return cc_is_pawn_capture_step( pawn, step );
 }
 
-bool cc_is_pawn_step_valid( CcChessboard * restrict cb,
+bool cc_is_pawn_step_valid( CcChessboard * cb,
                             CcPieceEnum pawn,
                             CcPos start,
                             CcPos destination ) {

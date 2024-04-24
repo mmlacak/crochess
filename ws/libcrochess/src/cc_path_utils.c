@@ -15,8 +15,8 @@
 
 // TODO ::
 //
-// bool cc_steps_are_congruent( CcSteps * restrict steps,
-//                              CcPptLink * restrict positions )
+// bool cc_steps_are_congruent( CcSteps * steps,
+//                              CcPptLink * positions )
 // {
 //     if ( !steps ) return false;
 //     if ( !positions ) return false;

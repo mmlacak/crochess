@@ -5,8 +5,8 @@
 #define __HLP_MSGS_H__
 
 void print_license_intro( void );
-void print_version_info( char const * restrict lib_ver, char const * restrict app_ver );
-void print_app_intro( char const * restrict lib_ver, char const * restrict app_ver );
+void print_version_info( char const * lib_ver, char const * app_ver );
+void print_app_intro( char const * lib_ver, char const * app_ver );
 void print_licence_text( void );
 
 #ifdef __WITH_LINE_NOISE__
@@ -25,7 +25,7 @@ void print_help_version( void );
 
 void print_help_new_code( void );
 void print_help_new( void );
-void print_new_code_invalid( char const * restrict str,
+void print_new_code_invalid( char const * str,
                              size_t max_len__d );
 
 void print_help_new_player( void );

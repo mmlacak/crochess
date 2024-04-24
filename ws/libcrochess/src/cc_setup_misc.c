@@ -73,9 +73,9 @@ bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
                                          CcPieceEnum king,
                                          int pos_i,
                                          int pos_j,
-                                         bool * restrict is_queen_side__o,
-                                         int * restrict min_i__o,
-                                         int * restrict max_i__o ) {
+                                         bool * is_queen_side__o,
+                                         int * min_i__o,
+                                         int * max_i__o ) {
     if ( !CC_PIECE_IS_KING( king ) ) return false;
     if ( !is_queen_side__o ) return false;
     if ( !min_i__o ) return false;

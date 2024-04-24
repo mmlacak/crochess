@@ -67,9 +67,9 @@ typedef struct CcMove {
     @return
     A newly allocated move if successful, `NULL` otherwise.
 */
-CcMove * cc_move__new( char const * restrict notation,
+CcMove * cc_move__new( char const * notation,
                        size_t max_len__d,
-                       CcPly ** restrict plies__n,
+                       CcPly ** plies__n,
                        CcMoveStatusEnum status );
 
 /**
@@ -98,10 +98,10 @@ CcMove * cc_move__new( char const * restrict notation,
     @return
     Weak pointer to a newly allocated move if successful, `NULL` otherwise.
 */
-CcMove * cc_move_append( CcMove ** restrict moves__iod_a,
-                         char const * restrict notation,
+CcMove * cc_move_append( CcMove ** moves__iod_a,
+                         char const * notation,
                          size_t max_len__d,
-                         CcPly ** restrict plies__n,
+                         CcPly ** plies__n,
                          CcMoveStatusEnum status );
 
 /**
@@ -112,7 +112,7 @@ CcMove * cc_move_append( CcMove ** restrict moves__iod_a,
     @return
     A newly allocated moves if successful, `NULL` otherwise.
 */
-CcMove * cc_move_duplicate_all__new( CcMove * restrict moves );
+CcMove * cc_move_duplicate_all__new( CcMove * moves );
 
 /**
     Frees all moves in a queue, and all associated entities.
@@ -125,7 +125,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * restrict moves );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_move_free_all( CcMove ** restrict moves__f );
+bool cc_move_free_all( CcMove ** moves__f );
 
 
 /**
@@ -135,7 +135,7 @@ bool cc_move_free_all( CcMove ** restrict moves__f );
 
     @return Count of plies if successful, `0` otherwise.
 */
-size_t cc_move_plies_count( CcMove * restrict move );
+size_t cc_move_plies_count( CcMove * move );
 
 
 #endif /* __CC_MOVE_H__ */

@@ -11,7 +11,7 @@
 #include "cc_chessboard.h"
 
 
-bool cc_check_step_fields_are_empty( CcChessboard * restrict cb, CcPos pos, CcPos step, int limit );
+bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit );
 
 
 #endif /* __CC_CHECKS_H__ */

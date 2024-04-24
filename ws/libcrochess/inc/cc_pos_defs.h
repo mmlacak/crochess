@@ -334,14 +334,14 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d );
 
 bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
-bool cc_is_step_found( CcPos step, CcPosLink * restrict steps );
+bool cc_is_step_found( CcPos step, CcPosLink * steps );
 
 bool cc_convert_steps_to_pos_link( CcPos const steps[],
                                    size_t steps_len,
-                                   CcPosLink ** restrict steps__iod_a );
+                                   CcPosLink ** steps__iod_a );
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
-                               CcPptLink ** restrict ppt_link__n );
+CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+                               CcPptLink ** ppt_link__n );
 
 
 bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcPos step );
@@ -362,21 +362,21 @@ bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
 
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
 //                                     CcPieceEnum piece,
-//                                     CcPosLink ** restrict starting_steps__e_a );
+//                                     CcPosLink ** starting_steps__e_a );
 
 // static bool cc_starting_steps_unicorn( CcPieceEnum piece,
 //                                        CcPos pos,
-//                                        CcPosLink ** restrict starting_steps__e_a );
+//                                        CcPosLink ** starting_steps__e_a );
 
 // static bool cc_starting_steps_centaur( CcPieceEnum piece,
 //                                        CcPos pos,
-//                                        CcPosLink ** restrict starting_steps__e_a );
+//                                        CcPosLink ** starting_steps__e_a );
 
 bool cc_starting_steps( CcVariantEnum variant,
                         CcPieceEnum piece,
                         CcPieceEnum activator,
                         CcPos pos,
-                        CcPosLink ** restrict starting_steps__e_a );
+                        CcPosLink ** starting_steps__e_a );
 
 
 #endif /* __CC_POS_DEFS_H__ */

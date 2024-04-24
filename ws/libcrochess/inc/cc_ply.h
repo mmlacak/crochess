@@ -139,13 +139,13 @@ typedef struct CcPly {
     @return
     A newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply__new( char const * restrict start_an__d,
-                     char const * restrict end_an__d,
+CcPly * cc_ply__new( char const * start_an__d,
+                     char const * end_an__d,
                      size_t max_len__d,
                      CcPlyLinkEnum link,
                      CcPieceEnum piece,
                      CcLosingTagEnum lost_tag,
-                     CcStep ** restrict steps__n );
+                     CcStep ** steps__n );
 
 /**
     Appends a newly allocated ply to a given linked list.
@@ -176,14 +176,14 @@ CcPly * cc_ply__new( char const * restrict start_an__d,
     @return
     Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append( CcPly ** restrict plies__iod_a,
-                       char const * restrict start_an__d,
-                       char const * restrict end_an__d,
+CcPly * cc_ply_append( CcPly ** plies__iod_a,
+                       char const * start_an__d,
+                       char const * end_an__d,
                        size_t max_len__d,
                        CcPlyLinkEnum link,
                        CcPieceEnum piece,
                        CcLosingTagEnum lost_tag,
-                       CcStep ** restrict steps__n );
+                       CcStep ** steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.
@@ -193,7 +193,7 @@ CcPly * cc_ply_append( CcPly ** restrict plies__iod_a,
     @return
     A newly allocated plies if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
+CcPly * cc_ply_duplicate_all__new( CcPly * plies );
 
 /**
     Extends existing linked list with a newly allocated plies.
@@ -206,8 +206,8 @@ CcPly * cc_ply_duplicate_all__new( CcPly * restrict plies );
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_extend( CcPly ** restrict plies__iod_a,
-                       CcPly ** restrict plies__n );
+CcPly * cc_ply_extend( CcPly ** plies__iod_a,
+                       CcPly ** plies__n );
 
 /**
     Frees all plies in a linked list, and all associated entities.
@@ -220,7 +220,7 @@ CcPly * cc_ply_extend( CcPly ** restrict plies__iod_a,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ply_free_all( CcPly ** restrict plies__f );
+bool cc_ply_free_all( CcPly ** plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.
@@ -229,7 +229,7 @@ bool cc_ply_free_all( CcPly ** restrict plies__f );
 
     @return `true` if any step has side-effects, `false` otherwise.
 */
-bool cc_ply_contains_side_effects( CcPly * restrict ply );
+bool cc_ply_contains_side_effects( CcPly * ply );
 
 /**
     Function returns last active piece for a ply, within a given linked list.
@@ -248,8 +248,8 @@ bool cc_ply_contains_side_effects( CcPly * restrict ply );
 
     @return Last active piece if successful, `CC_PE_None` otherwise.
 */
-CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
-                                      CcPly * restrict ply__d );
+CcPieceEnum cc_ply_last_active_piece( CcPly * plies,
+                                      CcPly * ply__d );
 
 /**
     Function returns new string, containing user-readable representation of a plies.
@@ -258,7 +258,7 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * restrict plies,
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise
 */
-char * cc_ply_all_to_short_string__new( CcPly * restrict plies );
+char * cc_ply_all_to_short_string__new( CcPly * plies );
 
 
 #endif /* __CC_PLY_H__ */

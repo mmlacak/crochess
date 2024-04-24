@@ -27,7 +27,7 @@
 
     @return Position containing piece, and tag.
 */
-CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
+CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
                                      CcPos pos );
 
 /**
@@ -38,21 +38,21 @@ CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * restrict cb,
 
     @return Newly allocated linked list if successful, `NULL` otherwise.
 */
-CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * restrict cb,
-                                                  CcPosLink * restrict pos_link );
+CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * cb,
+                                                  CcPosLink * pos_link );
 
-bool cc_validate_ppt_link( CcChessboard * restrict cb,
-                           CcPptLink * restrict ppt_link );
+bool cc_validate_ppt_link( CcChessboard * cb,
+                           CcPptLink * ppt_link );
 
-bool cc_update_ppt_link( CcChessboard * restrict cb,
-                         CcPptLink * restrict ppt_link__io );
+bool cc_update_ppt_link( CcChessboard * cb,
+                         CcPptLink * ppt_link__io );
 
 // DOCS
-bool cc_iter_piece_pos( CcChessboard * restrict cb,
+bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
                         CcPieceEnum piece,
                         bool include_opponent,
-                        CcPos * restrict pos__io );
+                        CcPos * pos__io );
 
 
 #endif /* __CC_POS_UTILS_H__ */

@@ -4,7 +4,7 @@
 #include "cc_checks.h"
 
 
-bool cc_check_step_fields_are_empty( CcChessboard * restrict cb, CcPos pos, CcPos step, int limit ) {
+bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit ) {
     if ( !cb ) return false;
     if ( limit <= 0 ) return false;
 

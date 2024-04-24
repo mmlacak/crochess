@@ -30,7 +30,7 @@ typedef struct CcStrings
 
     @return A newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings__new( char const * restrict str,
+CcStrings * cc_strings__new( char const * str,
                              size_t max_len__d );
 
 /**
@@ -55,8 +55,8 @@ CcStrings * cc_strings__new( char const * restrict str,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
-                               char const * restrict str,
+CcStrings * cc_strings_append( CcStrings ** strings__iod_a,
+                               char const * str,
                                size_t max_len__d );
 
 /**
@@ -72,9 +72,9 @@ CcStrings * cc_strings_append( CcStrings ** restrict strings__iod_a,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_fmt_va( CcStrings ** restrict strings__iod_a,
+CcStrings * cc_strings_append_fmt_va( CcStrings ** strings__iod_a,
                                       size_t max_len__d,
-                                      char const * restrict fmt,
+                                      char const * fmt,
                                       va_list args );
 
 /**
@@ -90,9 +90,9 @@ CcStrings * cc_strings_append_fmt_va( CcStrings ** restrict strings__iod_a,
     @return
     Weak pointer to a newly allocated string if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
+CcStrings * cc_strings_append_fmt( CcStrings ** strings__iod_a,
                                    size_t max_len__d,
-                                   char const * restrict fmt, ... );
+                                   char const * fmt, ... );
 
 /**
     Duplicates all strings in a linked list.
@@ -101,7 +101,7 @@ CcStrings * cc_strings_append_fmt( CcStrings ** restrict strings__iod_a,
 
     @return Pointer to a newly allocated linked list if successful, `NULL` otherwise.
 */
-CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings );
+CcStrings * cc_strings_duplicate_all__new( CcStrings * strings );
 
 /**
     Frees all strings, and associated resources, in a linked list.
@@ -110,7 +110,7 @@ CcStrings * cc_strings_duplicate_all__new( CcStrings * restrict strings );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_strings_free_all( CcStrings ** restrict strings__f );
+bool cc_strings_free_all( CcStrings ** strings__f );
 
 
 #endif /* __CC_STRING_H__ */

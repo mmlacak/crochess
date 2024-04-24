@@ -13,12 +13,12 @@
 
 
 static bool cc_check_standalone_status( char const char_an,
-                                        CcMove ** restrict temp__n,
-                                        CcMove ** restrict move__o,
-                                        CcParseMsg ** restrict parse_msgs__iod,
+                                        CcMove ** temp__n,
+                                        CcMove ** move__o,
+                                        CcParseMsg ** parse_msgs__iod,
                                         CcMoveStatusEnum mse,
                                         size_t max_len__d,
-                                        char const * restrict msg, ... ) {
+                                        char const * msg, ... ) {
     if ( iscntrl( char_an ) || isspace( char_an ) ) {
         ( *temp__n )->status = mse;
 
@@ -39,10 +39,10 @@ static bool cc_check_standalone_status( char const char_an,
 }
 
 
-bool cc_parse_move( char const * restrict move_an,
-                    CcGame * restrict game,
-                    CcMove ** restrict move__o,
-                    CcParseMsg ** restrict parse_msgs__iod ) {
+bool cc_parse_move( char const * move_an,
+                    CcGame * game,
+                    CcMove ** move__o,
+                    CcParseMsg ** parse_msgs__iod ) {
     if ( !move_an ) return false;
     if ( !game ) return false;
     if ( !move__o || *move__o ) return false;

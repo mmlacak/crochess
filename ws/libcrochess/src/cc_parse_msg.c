@@ -16,7 +16,7 @@
 
 
 CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
-                                char const * restrict msg,
+                                char const * msg,
                                 size_t max_len__d ) {
     CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
     if ( !pm__a ) return NULL;
@@ -28,9 +28,9 @@ CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
     return pm__a;
 }
 
-CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod_a,
+CcParseMsg * cc_parse_msg_append( CcParseMsg ** parse_msgs__iod_a,
                                   CcParseMsgTypeEnum type,
-                                  char const * restrict msg,
+                                  char const * msg,
                                   size_t max_len__d ) {
     if ( !parse_msgs__iod_a ) return NULL;
 
@@ -48,10 +48,10 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg ** restrict parse_msgs__iod_a,
     return pm__t; // Weak pointer.
 }
 
-CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod_a,
+CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** parse_msgs__iod_a,
                                          CcParseMsgTypeEnum type,
                                          size_t max_len__d,
-                                         char const * restrict fmt,
+                                         char const * fmt,
                                          va_list args ) {
     if ( !parse_msgs__iod_a ) return NULL; // To avoid alloc() + free() of msg__a needlessly.
 
@@ -70,10 +70,10 @@ CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** restrict parse_msgs__iod_
     return pm__w;
 }
 
-CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** restrict parse_msgs__iod_a,
+CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** parse_msgs__iod_a,
                                       CcParseMsgTypeEnum type,
                                       size_t max_len__d,
-                                      char const * restrict fmt, ... ) {
+                                      char const * fmt, ... ) {
     if ( !parse_msgs__iod_a ) return NULL; // To avoid constructing va_list needlessly.
 
     va_list args;
@@ -86,7 +86,7 @@ CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** restrict parse_msgs__iod_a,
     return pm__w;
 }
 
-bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f ) {
+bool cc_parse_msg_free_all( CcParseMsg ** parse_msgs__f ) {
     if ( !parse_msgs__f ) return false;
     if ( !*parse_msgs__f ) return true;
 
@@ -106,7 +106,7 @@ bool cc_parse_msg_free_all( CcParseMsg ** restrict parse_msgs__f ) {
 }
 
 
-CcParseMsg * cc_parse_msg_get_last( CcParseMsg * restrict parse_msgs ) {
+CcParseMsg * cc_parse_msg_get_last( CcParseMsg * parse_msgs ) {
     if ( !parse_msgs ) return NULL;
 
     CcParseMsg * pm__w = (CcParseMsg *)parse_msgs;

@@ -35,8 +35,8 @@
 
 //     @return `true` if positions are congruent with steps, `false` otherwise.
 // */
-// bool cc_steps_are_congruent( CcSteps * restrict steps,
-//                              CcPptLink * restrict positions );
+// bool cc_steps_are_congruent( CcSteps * steps,
+//                              CcPptLink * positions );
 //
 // TODO ::
 

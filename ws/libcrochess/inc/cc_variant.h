@@ -177,7 +177,7 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     @return `true` if successful, `false` otherwise.
 
 */
-size_t cc_variant_from_symbol( char const * restrict str,
+size_t cc_variant_from_symbol( char const * str,
                                CcVariantEnum * ve__o );
 
 /**

@@ -18,7 +18,7 @@ char const CC_TOKEN_SEPARATORS_WHITESPACE[] = " \t\v\f\r\n";
 char const CC_TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
 
 
-bool cc_char_in( char c, char const * restrict seps ) {
+bool cc_char_in( char c, char const * seps ) {
     if ( !seps ) return false;
 
     for ( char const * x = (char *)seps; *x != '\0'; ++x )
@@ -27,8 +27,8 @@ bool cc_char_in( char c, char const * restrict seps ) {
     return false;
 }
 
-char const * cc_traverse_chars( char const * restrict pos,
-                                char const * restrict seps,
+char const * cc_traverse_chars( char const * pos,
+                                char const * seps,
                                 bool skip_or_stop_at ) {
     if ( !pos ) return NULL;
     if ( !seps ) return pos;
@@ -44,21 +44,21 @@ char const * cc_traverse_chars( char const * restrict pos,
     return pos__w;
 }
 
-char const * cc_skip_chars( char const * restrict pos,
-                            char const * restrict seps ) {
+char const * cc_skip_chars( char const * pos,
+                            char const * seps ) {
     return cc_traverse_chars( pos, seps, true );
 }
 
-char const * cc_stop_at_chars( char const * restrict pos,
-                               char const * restrict seps ) {
+char const * cc_stop_at_chars( char const * pos,
+                               char const * seps ) {
     return cc_traverse_chars( pos, seps, false );
 }
 
 
-bool cc_iter_token( char const * restrict str,
-                    char const * restrict seps,
-                    char const ** restrict start__io,
-                    char const ** restrict end__io ) {
+bool cc_iter_token( char const * str,
+                    char const * seps,
+                    char const ** start__io,
+                    char const ** end__io ) {
     if ( !str ) return false;
     if ( !seps ) return false;
     if ( !start__io ) return false;
@@ -82,8 +82,8 @@ bool cc_iter_token( char const * restrict str,
     return true;
 }
 
-char * cc_trim_str__new( char const * restrict str,
-                         char const * restrict chars ) {
+char * cc_trim_str__new( char const * str,
+                         char const * chars ) {
     if ( !str ) return NULL;
     if ( !chars ) return NULL;
 

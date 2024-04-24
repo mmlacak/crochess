@@ -212,7 +212,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
     return false;
 }
 
-bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
+bool cc_is_step_found( CcPos step, CcPosLink * steps ) {
     if ( !steps ) return false;
 
     if ( !CC_POS_IS_VALID( step ) ) return false;
@@ -231,7 +231,7 @@ bool cc_is_step_found( CcPos step, CcPosLink * restrict steps ) {
 
 bool cc_convert_steps_to_pos_link( CcPos const steps[],
                                    size_t steps_len__d,
-                                   CcPosLink ** restrict steps__iod_a ) {
+                                   CcPosLink ** steps__iod_a ) {
     if ( !steps__iod_a ) return false;
 
     CcPosLink * pl__t = NULL;
@@ -259,8 +259,8 @@ bool cc_convert_steps_to_pos_link( CcPos const steps[],
     return true;
 }
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** restrict ppt_link__iod,
-                               CcPptLink ** restrict ppt_link__n ) {
+CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+                               CcPptLink ** ppt_link__n ) {
     if ( !ppt_link__iod ) return NULL;
     if ( !ppt_link__n ) return NULL;
 
@@ -419,7 +419,7 @@ bool cc_is_step_miracle( CcPieceEnum piece, CcPos step ) {
 
 static bool cc_starting_steps_pawn( CcVariantEnum variant,
                                     CcPieceEnum piece,
-                                    CcPosLink ** restrict starting_steps__e_a ) {
+                                    CcPosLink ** starting_steps__e_a ) {
     // if ( !starting_steps__e_a ) return false;
     // if ( *starting_steps__e_a ) return false;
 
@@ -452,7 +452,7 @@ static bool cc_starting_steps_pawn( CcVariantEnum variant,
 
 static bool cc_starting_steps_unicorn( CcPieceEnum piece,
                                        CcPos pos,
-                                       CcPosLink ** restrict starting_steps__e_a ) {
+                                       CcPosLink ** starting_steps__e_a ) {
     // if ( !starting_steps__e_a ) return false;
     // if ( *starting_steps__e_a ) return false;
 
@@ -471,7 +471,7 @@ static bool cc_starting_steps_unicorn( CcPieceEnum piece,
 
 static bool cc_starting_steps_centaur( CcPieceEnum piece,
                                        CcPos pos,
-                                       CcPosLink ** restrict starting_steps__e_a ) {
+                                       CcPosLink ** starting_steps__e_a ) {
     // if ( !starting_steps__e_a ) return false;
     // if ( *starting_steps__e_a ) return false;
 
@@ -492,7 +492,7 @@ bool cc_starting_steps( CcVariantEnum variant,
                         CcPieceEnum piece,
                         CcPieceEnum activator,
                         CcPos pos,
-                        CcPosLink ** restrict starting_steps__e_a ) {
+                        CcPosLink ** starting_steps__e_a ) {
     if ( !starting_steps__e_a ) return false;
     if ( *starting_steps__e_a ) return false;
 

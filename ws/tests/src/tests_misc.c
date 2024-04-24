@@ -36,10 +36,10 @@ void test_pos_step( int i1, int j1, int i2, int j2 ) {
     printf( "(%d, %d) ~ (%d, %d) --> (%d, %d)\n", i1, j1, i2, j2, step.i, step.j );
 }
 
-char * test_str_append_into( char const * restrict buffer,
-                             char * restrict str__io,
+char * test_str_append_into( char const * buffer,
+                             char * str__io,
                              size_t size_dest__d,
-                             char const * restrict str,
+                             char const * str,
                              size_t max_len__d ) {
     printf( "Before: %s\n", buffer );
     char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );

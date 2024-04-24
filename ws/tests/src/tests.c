@@ -34,17 +34,17 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.495:927+20240424.034450"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.496:928+20240424.040133"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
 #endif // __WITH_LINE_NOISE__
 
 
-int get_integer_from_cli_arg( char const * restrict str,
+int get_integer_from_cli_arg( char const * str,
                               int default_num,
-                              char const ** restrict first_io,
-                              char const ** restrict end_io ) {
+                              char const ** first_io,
+                              char const ** end_io ) {
     int number = default_num;
     cc_char_16 num = CC_CHAR_16_EMPTY;
 
@@ -61,7 +61,7 @@ int get_integer_from_cli_arg( char const * restrict str,
     return number;
 }
 
-bool print_all_moves( CcMove * restrict moves ) {
+bool print_all_moves( CcMove * moves ) {
     if ( !moves ) return false;
 
     CcMove * m = moves;

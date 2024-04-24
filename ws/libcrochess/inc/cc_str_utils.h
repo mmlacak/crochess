@@ -329,7 +329,7 @@ typedef char cc_char_512 [ CC_SIZE_CHAR_512 ];
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_clear( char * restrict str__io,
+bool cc_str_clear( char * str__io,
                    size_t max_len__d );
 
 /**
@@ -340,7 +340,7 @@ bool cc_str_clear( char * restrict str__io,
 
     @return `true` if empty, `false` otherwise.
 */
-bool cc_str_is_empty( char const * restrict str, bool ignore_spaces );
+bool cc_str_is_empty( char const * str, bool ignore_spaces );
 
 /**
     Function counts characters in a string, based on a given filtering function.
@@ -352,10 +352,10 @@ bool cc_str_is_empty( char const * restrict str, bool ignore_spaces );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_count_chars( char const * restrict str,
+bool cc_str_count_chars( char const * str,
                          cc_ctype_fp_ischar_t fp_is_char,
                          size_t max_len__d,
-                         size_t * restrict count__o );
+                         size_t * count__o );
 
 /**
     Function returns a pointer to character found in a (sub-)string.
@@ -378,8 +378,8 @@ bool cc_str_count_chars( char const * restrict str,
 */
 char const * cc_str_contains_char( char c,
                                    bool case_sensitive,
-                                   char const * restrict start,
-                                   char const * restrict end__d,
+                                   char const * start,
+                                   char const * end__d,
                                    size_t max_len__d );
 
 /**
@@ -396,7 +396,7 @@ char const * cc_str_contains_char( char c,
     If there is no searched-for characters in a string,
     function returns pointer to the terminating character (i.e. ``'\0'``) of a given string.
 */
-char const * cc_str_traverse_chars( char const * restrict str,
+char const * cc_str_traverse_chars( char const * str,
                                     cc_ctype_fp_ischar_t fp_is_char,
                                     bool skip_or_stop_at,
                                     size_t max_len__d );
@@ -411,7 +411,7 @@ char const * cc_str_traverse_chars( char const * restrict str,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_to_case( char * restrict str__io,
+bool cc_str_to_case( char * str__io,
                      bool to_upper_or_lower,
                      size_t max_len__d );
 
@@ -424,7 +424,7 @@ bool cc_str_to_case( char * restrict str__io,
 
     @return A newly allocated, converted string if successful, `NULL` otherwise.
 */
-char * cc_str_to_case__new( char const * restrict str,
+char * cc_str_to_case__new( char const * str,
                             bool to_upper_or_lower,
                             size_t max_len__d );
 
@@ -446,8 +446,8 @@ char * cc_str_to_case__new( char const * restrict str,
 
     @return Pointer to the end of a string if successful, `NULL` otherwise.
 */
-char const * cc_str_end( char const * restrict start,
-                         char const * restrict end__d,
+char const * cc_str_end( char const * start,
+                         char const * end__d,
                          size_t max_len__d );
 
 /**
@@ -467,8 +467,8 @@ char const * cc_str_end( char const * restrict start,
 
     @return Length of a string if successful, `0` otherwise.
 */
-size_t cc_str_len( char const * restrict start,
-                   char const * restrict end__d,
+size_t cc_str_len( char const * start,
+                   char const * end__d,
                    size_t max_len__d );
 
 /**
@@ -484,7 +484,7 @@ size_t cc_str_len( char const * restrict start,
     @return Length of a formatted variadic input if non-negative,
             error code if negative.
 */
-int cc_str_len_fmt_va( char const * restrict fmt, va_list args );
+int cc_str_len_fmt_va( char const * fmt, va_list args );
 
 /**
     Function returns length of a formatted variadic input.
@@ -499,7 +499,7 @@ int cc_str_len_fmt_va( char const * restrict fmt, va_list args );
     @return Length of a formatted variadic input if non-negative,
             error code if negative.
 */
-int cc_str_len_format( char const * restrict fmt, ... );
+int cc_str_len_format( char const * fmt, ... );
 
 /**
     Function checks if two (sub-)strings are equal, up to a given maximum length.
@@ -516,10 +516,10 @@ int cc_str_len_format( char const * restrict fmt, ... );
 
     @return `true` if two given (sub-)strings are equal up to a maximum length, `false` otherwise.
 */
-bool cc_str_is_equal( char const * restrict start_1,
-                      char const * restrict end_1__d,
-                      char const * restrict start_2,
-                      char const * restrict end_2__d,
+bool cc_str_is_equal( char const * start_1,
+                      char const * end_1__d,
+                      char const * start_2,
+                      char const * end_2__d,
                       size_t max_len__d );
 
 
@@ -538,11 +538,11 @@ bool cc_str_is_equal( char const * restrict start_1,
 
     @return Count of characters copied (not including ``'\0'``) if successful, `0` otherwise.
 */
-size_t cc_str_copy( char const * restrict start,
-                    char const * restrict end__d,
+size_t cc_str_copy( char const * start,
+                    char const * end__d,
                     size_t max_len__d,
-                    char * restrict dest__o,
-                    char const * restrict dest_end__d,
+                    char * dest__o,
+                    char const * dest_end__d,
                     size_t size_dest__d );
 
 /**
@@ -554,8 +554,8 @@ size_t cc_str_copy( char const * restrict start,
 
     @return Pointer to a newly allocated copy of a given string if successful, `NULL` otherwise.
 */
-char * cc_str_copy__new( char const * restrict start,
-                         char const * restrict end__d,
+char * cc_str_copy__new( char const * start,
+                         char const * end__d,
                          size_t max_len__d );
 
 /**
@@ -569,7 +569,7 @@ char * cc_str_copy__new( char const * restrict start,
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_str_fmt_va__new( size_t max_len__d,
-                           char const * restrict fmt,
+                           char const * fmt,
                            va_list args );
 
 /**
@@ -583,7 +583,7 @@ char * cc_str_fmt_va__new( size_t max_len__d,
     @return A newly allocated string if successful, `NULL` otherwise.
 */
 char * cc_str_fmt__new( size_t max_len__d,
-                        char const * restrict fmt, ... );
+                        char const * fmt, ... );
 
 /**
     Function duplicating a string, by returning a newly allocated string,
@@ -595,7 +595,7 @@ char * cc_str_fmt__new( size_t max_len__d,
 
     @return A newly allocated, duplicated string if successful, `NULL` otherwise.
 */
-char * cc_str_duplicate__new( char const * restrict str,
+char * cc_str_duplicate__new( char const * str,
                               bool do_reverse,
                               size_t max_len__d );
 
@@ -648,9 +648,9 @@ char * cc_str_duplicate__new( char const * restrict str,
 
     @return A weak pointer to zero-terminating char if successful, `NULL` otherwise.
 */
-char * cc_str_append_into( char * restrict str__io,
+char * cc_str_append_into( char * str__io,
                            size_t size_dest__d,
-                           char const * restrict str,
+                           char const * str,
                            size_t max_len__d );
 
 /**
@@ -663,8 +663,8 @@ char * cc_str_append_into( char * restrict str__io,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append__new( char const * restrict str_1__d,
-                           char const * restrict str_2__d,
+char * cc_str_append__new( char const * str_1__d,
+                           char const * str_2__d,
                            size_t max_len__d );
 
 /**
@@ -689,8 +689,8 @@ char * cc_str_append__new( char const * restrict str_1__d,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_free__new( char ** restrict str_1__f,
-                                char ** restrict str_2__f,
+char * cc_str_append_free__new( char ** str_1__f,
+                                char ** str_2__f,
                                 size_t max_len__d );
 
 /**
@@ -713,9 +713,9 @@ char * cc_str_append_free__new( char ** restrict str_1__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_fmt_va__new( char ** restrict str__f,
+char * cc_str_append_fmt_va__new( char ** str__f,
                                   size_t max_len__d,
-                                  char const * restrict fmt,
+                                  char const * fmt,
                                   va_list args );
 
 /**
@@ -738,9 +738,9 @@ char * cc_str_append_fmt_va__new( char ** restrict str__f,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_fmt__new( char ** restrict str__f,
+char * cc_str_append_fmt__new( char ** str__f,
                                size_t max_len__d,
-                               char const * restrict fmt, ... );
+                               char const * fmt, ... );
 
 // TODO :: (?) move / return newly allocated string (?)
 //
@@ -783,12 +783,12 @@ char * cc_str_append_fmt__new( char ** restrict str__f,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_str_print( char const * restrict start,
-                   char const * restrict end__d,
+bool cc_str_print( char const * start,
+                   char const * end__d,
                    size_t max_len__d,
-                   char const * restrict fmt_str,
+                   char const * fmt_str,
                    size_t fmt_len__d,
-                   char const * restrict fmt__d, ... );
+                   char const * fmt__d, ... );
 
 /**
     Macro to call `cc_str_print()`, depending on a compile-time constant.
