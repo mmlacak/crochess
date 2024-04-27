@@ -228,6 +228,32 @@ CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ] = {
     CC_POS_INVALID,
 };
 
+CcPos const CC_STEPS_ALL_LIGHT_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
+    // light Pawn steps
+    { .i =  0, .j =  1 },
+    { .i = -1, .j =  0 },
+    { .i =  1, .j =  0 },
+
+    // dark Pawn capture-steps
+    { .i = -1, .j = -1 },
+    { .i =  1, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_ALL_DARK_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
+    // dark Pawn steps
+    { .i =  0, .j = -1 },
+    { .i = -1, .j =  0 },
+    { .i =  1, .j =  0 },
+
+    // light Pawn capture-steps
+    { .i = -1, .j =  1 },
+    { .i =  1, .j =  1 },
+
+    CC_POS_INVALID,
+};
+
 bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
@@ -529,6 +555,26 @@ static bool cc_starting_steps_centaur( CcPieceEnum piece,
     }
 }
 
+static bool cc_starting_steps_scout( CcPieceEnum piece,
+                                     CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_SCOUT( piece ) ) return false;
+
+    if ( piece == CC_PE_LightScout ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_SCOUT,
+                                             CC_STEPS_ALL_SCOUT_SIZE,
+                                             starting_steps__e_a );
+    } else if ( piece == CC_PE_DarkScout ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_SCOUT,
+                                             CC_STEPS_ALL_SCOUT_SIZE,
+                                             starting_steps__e_a );
+    }
+
+    return false;
+}
+
 bool cc_starting_steps( CcVariantEnum variant,
                         CcPieceEnum piece,
                         CcPieceEnum activator,
@@ -570,7 +616,7 @@ bool cc_starting_steps( CcVariantEnum variant,
     } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_GRENADIER, CC_STEPS_ALL_GRENADIER_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
-        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+        return cc_starting_steps_scout( piece, starting_steps__e_a );
 
     } else if ( CC_PIECE_IS_SERPENT( piece ) ) {
         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
