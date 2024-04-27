@@ -623,7 +623,7 @@ bool cc_starting_steps( CcVariantEnum variant,
     } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_MONOLITH( piece ) ) {
-        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
+        return cc_convert_steps_to_pos_link( CC_STEPS_STARTING_MONOLITH, CC_STEPS_STARTING_MONOLITH_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_STARCHILD( piece ) ) {
         // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
     }
