@@ -76,6 +76,16 @@
 */
 #define CC_MAX_BOARD_SIZE (26)
 
+/**
+    Light field check constant.
+*/
+#define CC_FIELD_COLOR_LIGHT (1)
+
+/**
+    Dark field check constant.
+*/
+#define CC_FIELD_COLOR_DARK (0)
+
 
 /**
     Macro to convert numerical file value into char.
@@ -155,6 +165,26 @@
     @return `1` if dark, `0` otherwise.
 */
 #define CC_IS_FIELD_DARK(i,j) ( ((i) + (j)) % 2 == 0 )
+
+/**
+    Macro to check if a given position is light or dark.
+
+    @param i File, position along horizontal axis, integer.
+    @param j Rank, position along vertical axis, integer.
+    @param fc Field color.
+
+    @note
+    Parameter `fc` must be either `0` or `1`, which checks if field is dark or light color, respectively.
+
+    @note
+    Macros `CC_FIELD_COLOR_DARK` (== `0`) and `CC_FIELD_COLOR_LIGHT` (== `1`) can be used instead of hard-coded values.
+
+    @see
+    CC_FIELD_COLOR_DARK, CC_FIELD_COLOR_LIGHT
+
+    @return `1` if field is in given color, `0` otherwise.
+*/
+#define CC_IS_FIELD_COLOR(i,j,fc) ( ((i) + (j)) % 2 == (fc) )
 
 /**
     Macro to check if a given board size is valid, i.e. between board size minimum and maximum values.

@@ -575,6 +575,34 @@ static bool cc_starting_steps_scout( CcPieceEnum piece,
     return false;
 }
 
+static bool cc_starting_steps_starchild( CcVariantEnum variant,
+                                         /* CcPieceEnum piece, */
+                                         CcPos pos,
+                                         CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_STARCHILD( piece ) ) return false;
+
+    int field_color = // field_color is opposite color of currently occupied field.
+        CC_IS_FIELD_LIGHT( pos.i, pos.j ) ? CC_FIELD_COLOR_DARK
+                                          : CC_FIELD_COLOR_LIGHT;
+    size_t board_size = cc_variant_board_size( variant );
+
+    for ( int j = 0; (size_t)j < board_size; ++j ) {
+        for ( int i = 0; (size_t)i < board_size; ++i ) {
+            if ( CC_IS_FIELD_COLOR( i, j, field_color ) ) {
+                if ( !cc_pos_link_append( starting_steps__e_a, cc_pos( i, j ) ) ) {
+                    cc_pos_link_free_all( starting_steps__e_a );
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 bool cc_starting_steps( CcVariantEnum variant,
                         CcPieceEnum piece,
                         CcPieceEnum activator,
@@ -625,11 +653,8 @@ bool cc_starting_steps( CcVariantEnum variant,
     } else if ( CC_PIECE_IS_MONOLITH( piece ) ) {
         return cc_convert_steps_to_pos_link( CC_STEPS_STARTING_MONOLITH, CC_STEPS_STARTING_MONOLITH_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_STARCHILD( piece ) ) {
-        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
+        return cc_starting_steps_starchild( variant, pos, starting_steps__e_a );
     }
-
-
-// TODO
 
     return false;
 }
