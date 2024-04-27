@@ -54,33 +54,37 @@ CcRoutePin * cc_path_find_route__new( CcPathNode * path_node,
 //                                                 CcPos end );
 
 
-CcPathNode * cc_find_paths_all_pieces__new( CcChessboard * cb,
-                                            CcPieceEnum piece,
-                                            CcPieceEnum activator,
-                                            bool can_activate_pyramid,
-                                            CcPos start__d,
-                                            CcPos end__d );
+// TODO :: TODO
+//
+// CcPathNode * cc_find_paths_all_pieces__new( CcChessboard * cb,
+//                                             CcPieceEnum piece,
+//                                             CcPieceEnum activator,
+//                                             bool can_activate_pyramid,
+//                                             CcPos start__d,
+//                                             CcPos end__d );
 
-CcPathNode * cc_find_paths_unique_piece__new( CcChessboard * cb,
-                                              CcPieceEnum piece,
-                                              CcPieceEnum activator,
-                                              bool can_activate_pyramid,
-                                              CcPos start__d,
-                                              CcPos end__d );
+// CcPathNode * cc_find_paths_unique_piece__new( CcChessboard * cb,
+//                                               CcPieceEnum piece,
+//                                               CcPieceEnum activator,
+//                                               bool can_activate_pyramid,
+//                                               CcPos start__d,
+//                                               CcPos end__d );
 
-CcPathNode * cc_find_shortest_paths__new( CcChessboard * cb,
-                                          CcPieceEnum piece,
-                                          CcPieceEnum activator,
-                                          bool can_activate_pyramid,
-                                          CcPos start__d,
-                                          CcPos end__d );
+// CcPathNode * cc_find_shortest_paths__new( CcChessboard * cb,
+//                                           CcPieceEnum piece,
+//                                           CcPieceEnum activator,
+//                                           bool can_activate_pyramid,
+//                                           CcPos start__d,
+//                                           CcPos end__d );
 
-CcPathNode * cc_find_longest_paths__new( CcChessboard * cb,
-                                         CcPieceEnum piece,
-                                         CcPieceEnum activator,
-                                         bool can_activate_pyramid,
-                                         CcPos start__d,
-                                         CcPos end__d );
+// CcPathNode * cc_find_longest_paths__new( CcChessboard * cb,
+//                                          CcPieceEnum piece,
+//                                          CcPieceEnum activator,
+//                                          bool can_activate_pyramid,
+//                                          CcPos start__d,
+//                                          CcPos end__d );
+//
+// TODO :: TODO
 
 
 #endif /* __CC_PATH_GENS_H__ */

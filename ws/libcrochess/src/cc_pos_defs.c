@@ -228,6 +228,32 @@ CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ] = {
     CC_POS_INVALID,
 };
 
+CcPos const CC_STEPS_ALL_LIGHT_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
+    // light Pawn steps
+    { .i =  0, .j =  1 },
+    { .i = -1, .j =  0 },
+    { .i =  1, .j =  0 },
+
+    // dark Pawn capture-steps
+    { .i = -1, .j = -1 },
+    { .i =  1, .j = -1 },
+
+    CC_POS_INVALID,
+};
+
+CcPos const CC_STEPS_ALL_DARK_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
+    // dark Pawn steps
+    { .i =  0, .j = -1 },
+    { .i = -1, .j =  0 },
+    { .i =  1, .j =  0 },
+
+    // light Pawn capture-steps
+    { .i = -1, .j =  1 },
+    { .i =  1, .j =  1 },
+
+    CC_POS_INVALID,
+};
+
 bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d ) {
     if ( !CC_POS_IS_VALID( step ) ) return false;
 
@@ -529,6 +555,54 @@ static bool cc_starting_steps_centaur( CcPieceEnum piece,
     }
 }
 
+static bool cc_starting_steps_scout( CcPieceEnum piece,
+                                     CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_SCOUT( piece ) ) return false;
+
+    if ( piece == CC_PE_LightScout ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_SCOUT,
+                                             CC_STEPS_ALL_SCOUT_SIZE,
+                                             starting_steps__e_a );
+    } else if ( piece == CC_PE_DarkScout ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_SCOUT,
+                                             CC_STEPS_ALL_SCOUT_SIZE,
+                                             starting_steps__e_a );
+    }
+
+    return false;
+}
+
+static bool cc_starting_steps_starchild( CcVariantEnum variant,
+                                         /* CcPieceEnum piece, */
+                                         CcPos pos,
+                                         CcPosLink ** starting_steps__e_a ) {
+    // if ( !starting_steps__e_a ) return false;
+    // if ( *starting_steps__e_a ) return false;
+
+    // if ( CC_PIECE_IS_STARCHILD( piece ) ) return false;
+
+    int field_color = // field_color is opposite color of currently occupied field.
+        CC_IS_FIELD_LIGHT( pos.i, pos.j ) ? CC_FIELD_COLOR_DARK
+                                          : CC_FIELD_COLOR_LIGHT;
+    size_t board_size = cc_variant_board_size( variant );
+
+    for ( int j = 0; (size_t)j < board_size; ++j ) {
+        for ( int i = 0; (size_t)i < board_size; ++i ) {
+            if ( CC_IS_FIELD_COLOR( i, j, field_color ) ) {
+                if ( !cc_pos_link_append( starting_steps__e_a, cc_pos( i, j ) ) ) {
+                    cc_pos_link_free_all( starting_steps__e_a );
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 bool cc_starting_steps( CcVariantEnum variant,
                         CcPieceEnum piece,
                         CcPieceEnum activator,
@@ -568,18 +642,19 @@ bool cc_starting_steps( CcVariantEnum variant,
     } else if ( CC_PIECE_IS_CENTAUR( piece ) ) {
         return cc_starting_steps_centaur( piece, pos, starting_steps__e_a );
     } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
-        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+        return cc_convert_steps_to_pos_link( CC_STEPS_ALL_GRENADIER, CC_STEPS_ALL_GRENADIER_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
-        // TODO :: return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+        return cc_starting_steps_scout( piece, starting_steps__e_a );
 
     } else if ( CC_PIECE_IS_SERPENT( piece ) ) {
         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
     } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_MONOLITH( piece ) ) {
+        return cc_convert_steps_to_pos_link( CC_STEPS_STARTING_MONOLITH, CC_STEPS_STARTING_MONOLITH_LEN, starting_steps__e_a );
+    } else if ( CC_PIECE_IS_STARCHILD( piece ) ) {
+        return cc_starting_steps_starchild( variant, pos, starting_steps__e_a );
     }
-
-
-// TODO
 
     return false;
 }
