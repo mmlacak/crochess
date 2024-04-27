@@ -16,7 +16,7 @@ CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
 
-    if ( !cc_pos_is_valid( current_pos ) ) return false;
+    if ( !cc_pos_is_valid( current_pos ) ) return NULL;
 
     CcPptLink * ppt_link__a = NULL;
     CcPosLink * step = steps;
