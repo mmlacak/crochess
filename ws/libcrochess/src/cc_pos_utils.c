@@ -10,6 +10,36 @@
 */
 
 
+CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
+                                                   CcPos current_pos,
+                                                   CcPosLink * steps ) {
+    if ( !cb ) return NULL;
+    if ( !steps ) return NULL;
+
+    if ( !cc_pos_is_valid( current_pos ) ) return false;
+
+    CcPptLink * ppt_link__a = NULL;
+    CcPosLink * step = steps;
+    bool is_failed = false;
+
+    while ( !is_failed && step ) {
+        CcPos p = cc_pos_add( current_pos, step->pos, 1 );
+        if ( ( is_failed = cc_chessboard_is_pos_on_board( cb, p.i, p.j ) ) ) break;
+
+        CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, p );
+        if ( ( is_failed = cc_ppt_link_append( &ppt_link__a, ppt ) ) ) break;
+
+        step = step->next;
+    }
+
+    if ( is_failed ) {
+        cc_ppt_link_free_all( &ppt_link__a );
+        return NULL;
+    }
+
+    return ppt_link__a;
+}
+
 CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
                                      CcPos pos ) {
     CcPosPieceTag ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };

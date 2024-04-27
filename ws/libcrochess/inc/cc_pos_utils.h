@@ -14,6 +14,10 @@
 */
 
 
+CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
+                                                   CcPos current_pos,
+                                                   CcPosLink * steps );
+
 /**
     Function converts position to one containing piece,
     and tag at that location on a chessboard.
