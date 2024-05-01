@@ -1,7 +1,8 @@
 <!-- Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com -->
 <!-- Licensed as Public Domain work, see https://en.wikipedia.org/wiki/Public_domain. -->
 
-[<<< prev](main.md "<<< prev") || [next >>>](2_memory.md "next >>>")
+<!-- [<<< prev](main.md "<<< prev") || [next >>>](memory.md "next >>>") -->
+[<<< prev](design.md "<<< prev") || [^^^ top](main.md "^^^ top") ||
 
 Naming and organization                         {#organization}
 =======================
@@ -74,7 +75,7 @@ referencing static one(s) in `cc_setup_board.c`, `cc_setup_tags.c` files, e.g. i
 description of `cc_chessboard_as_string_new()`.
 Please, ignore.
 
-[<<< prev](main.md "<<< prev") || [next >>>](2_memory.md "next >>>")
+[<<< prev](design.md "<<< prev") || [^^^ top](main.md "^^^ top") ||
 
 
 [The Book]: https://github.com/mmlacak/crochess/raw/master/crochess.pdf "Croatian Chess and other variants"

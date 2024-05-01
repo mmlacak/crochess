@@ -1,7 +1,7 @@
 <!-- Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com -->
 <!-- Licensed as Public Domain work, see https://en.wikipedia.org/wiki/Public_domain. -->
 
-[<<< prev](1_organization.md "<<< prev") ||
+|| [^^^ top](main.md "^^^ top") || [next >>>](design.md "next >>>")
 
 Memory management                         {#memory_management}
 =================
@@ -322,4 +322,4 @@ indicator, they are separated by one underscore (`_`), e.g. `str__d_f`. `move__s
 
 [2] Depends on a level of indirection, i.e. to which pointer `d`, `m` indicator corresponds.
 
-[<<< prev](1_organization.md "<<< prev") ||
+|| [^^^ top](main.md "^^^ top") || [next >>>](design.md "next >>>")
