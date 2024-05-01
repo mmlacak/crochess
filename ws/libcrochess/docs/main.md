@@ -3,8 +3,8 @@
 
 || [next >>>](1_organization.md "next >>>")
 
-libcrochess developer documentation                         {#mainpage}
-===================================
+libcrochess                          {#mainpage}
+===========
 
 libcrochess is a main library facilitating everything needed to play any
 of Croatian Chess variants:
