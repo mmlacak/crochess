@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com -->
+<!-- Copyright (c) 2021, 2024 Mario Mlačak, mmlacak@gmail.com -->
 <!-- Licensed as Public Domain work, see https://en.wikipedia.org/wiki/Public_domain. -->
 
 || [^^^ top](main.md "^^^ top") || [next >>>](design.md "next >>>")
