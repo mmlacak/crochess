@@ -182,7 +182,7 @@ Empty parameters are output parameters (i.e. pointers), which must always be emp
 They refer to data only, i.e. the innermost pointer must always be `NULL`, pointer to it may be optional or mandatory. <br />
 Empty parameters are indicated by appending `__e` to their name, e.g. `CcPos * pos__e`.
 
-When using multi-pointer parameters, empty output parameter indicator preceeds any optional/mandatory ones. <br />
+When using multi-pointer parameters, empty output parameter indicator precedes any optional/mandatory ones. <br />
 For instance, `CcPos ** pos__ed` declares output parameter, which is optional pointer (`__d`) to empty data pointer (`__e`).
 
 ### Ownership transfer parameters
