@@ -474,16 +474,16 @@ CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n );
     @param pos_link__n Linked positions.
 
     @note
+    Linked positions `pos_link__n` will have its ownership transferred to newly allocated path,
+    and its inner pointer will be `NULL`-ed.
+
+    @note
     Linked list `*path_link__iod_a` can be `NULL`, a linked path will still be
     allocated, and weak pointer to it returned.
 
     @note
     If linked list `*path_link__iod_a` is `NULL`, it will be initialized
     with a newly allocated linked path as its only element.
-
-    @note
-    Linked positions `pos_link__n` will have its ownership transferred to newly allocated path,
-    and its inner pointer will be `NULL`-ed.
 
     @note
     Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
