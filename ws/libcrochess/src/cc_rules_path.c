@@ -4,7 +4,6 @@
 #include "cc_rules_path.h"
 
 #include "cc_pos_defs.h"
-// #include "cc_path_defs.h"
 
 
 bool cc_is_pawn_capture_valid( CcChessboard * cb,

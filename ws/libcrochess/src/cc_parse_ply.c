@@ -11,10 +11,6 @@
 #include "cc_pos_defs.h"
 #include "cc_pos_utils.h"
 
-// #include "cc_path_defs.h"
-#include "cc_path_utils.h"
-#include "cc_path_gens.h"
-
 #include "cc_parse_utils.h"
 #include "cc_parse_step.h"
 #include "cc_parse_ply.h"

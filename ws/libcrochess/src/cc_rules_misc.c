@@ -4,7 +4,6 @@
 #include "cc_str_utils.h"
 
 #include "cc_pos_defs.h"
-// #include "cc_path_defs.h"
 
 #include "cc_rules_misc.h"
 #include "cc_rules_path.h"
