@@ -113,6 +113,33 @@ bool cc_update_ppt_link( CcChessboard * cb,
     return true;
 }
 
+bool cc_apply_ppt_link( CcChessboard ** cb__io_a,
+                        CcPptLink * ppt_link ) {
+    if ( !cb__io_a ) return false;
+    if ( !*cb__io_a ) return false;
+    if ( !ppt_link ) return false;
+
+    CcPptLink * pl = ppt_link;
+    CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_a );
+
+    while ( pl ) {
+        CcPosPieceTag ppt = pl->ppt;
+        CcPos p = ppt.pos;
+
+        if ( !cc_chessboard_set_piece_tag( cb__t, p.i, p.j, ppt.piece, ppt.tag ) ) {
+            cc_chessboard_free_all( &cb__t );
+            return false;
+        }
+
+        pl = pl->next;
+    }
+
+    cc_chessboard_free_all( cb__io_a );
+    *cb__io_a = cb__t; // Ownership transfer.
+
+    return true;
+}
+
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
                         CcPieceEnum piece,

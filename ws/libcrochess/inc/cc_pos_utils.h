@@ -51,6 +51,9 @@ bool cc_validate_ppt_link( CcChessboard * cb,
 bool cc_update_ppt_link( CcChessboard * cb,
                          CcPptLink * ppt_link__io );
 
+bool cc_apply_ppt_link( CcChessboard ** cb__io_a,
+                        CcPptLink * ppt_link );
+
 // DOCS
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
