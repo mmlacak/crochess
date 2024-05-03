@@ -14,10 +14,6 @@
 */
 
 
-CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
-                                                   CcPos current_pos,
-                                                   CcPosLink * steps );
-
 /**
     Function converts position to one containing piece,
     and tag at that location on a chessboard.
@@ -34,6 +30,10 @@ CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
 CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
                                      CcPos pos );
 
+CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
+                                                   CcPos current_pos,
+                                                   CcPosLink * steps );
+
 /**
     Function returns a new linked list of positions + pieces + tags.
 
@@ -45,6 +45,7 @@ CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
 CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * cb,
                                                   CcPosLink * pos_link );
 
+
 bool cc_validate_ppt_link( CcChessboard * cb,
                            CcPptLink * ppt_link );
 
@@ -53,6 +54,7 @@ bool cc_update_ppt_link( CcChessboard * cb,
 
 bool cc_apply_ppt_link( CcChessboard ** cb__io_a,
                         CcPptLink * ppt_link );
+
 
 // DOCS
 bool cc_iter_piece_pos( CcChessboard * cb,

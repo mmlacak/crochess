@@ -10,6 +10,18 @@
 */
 
 
+CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
+                                     CcPos pos ) {
+    CcPosPieceTag ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
+
+    if ( cb ) {
+        ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        ppt.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+    }
+
+    return ppt;
+}
+
 CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
                                                    CcPos current_pos,
                                                    CcPosLink * steps ) {
@@ -38,18 +50,6 @@ CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
     }
 
     return ppt_link__a;
-}
-
-CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
-                                     CcPos pos ) {
-    CcPosPieceTag ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
-
-    if ( cb ) {
-        ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        ppt.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-    }
-
-    return ppt;
 }
 
 CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * cb,
