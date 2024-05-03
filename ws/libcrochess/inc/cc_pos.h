@@ -467,6 +467,35 @@ typedef struct CcPathLink {
 */
 CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n );
 
+/**
+    Function appends a newly allocated linked path to a given linked list.
+
+    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param pos_link__n Linked positions.
+
+    @note
+    Linked list `*path_link__iod_a` can be `NULL`, a linked path will still be
+    allocated, and weak pointer to it returned.
+
+    @note
+    If linked list `*path_link__iod_a` is `NULL`, it will be initialized
+    with a newly allocated linked path as its only element.
+
+    @note
+    Linked positions `pos_link__n` will have its ownership transferred to newly allocated path,
+    and its inner pointer will be `NULL`-ed.
+
+    @note
+    Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated path, and retains ownership after function returns.
+
+    @return
+    A weak pointer to a newly allocated linked path if successful,
+    `NULL` otherwise.
+*/
+CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
+                                  CcPosLink ** pos_link__n );
+
 
 //
 // Position + piece + tag.

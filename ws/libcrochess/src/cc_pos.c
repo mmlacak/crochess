@@ -306,13 +306,35 @@ CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n ) {
     CcPathLink * path_link__a = malloc( sizeof( CcPathLink ) );
     if ( !path_link__a ) return NULL;
 
-    path_link__a->path = *pos_link__n; // Ownership transfer.
+    path_link__a->path = *pos_link__n;
     *pos_link__n = NULL;
 
     path_link__a->next = NULL;
 
     return path_link__a;
 }
+
+CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
+                                  CcPosLink ** pos_link__n ) {
+    if ( !path_link__iod_a ) return NULL;
+    if ( !pos_link__n ) return NULL;
+
+    CcPathLink * path_link__t = cc_path_link__new( pos_link__n );
+    if ( !path_link__t ) return NULL;
+
+    if ( *path_link__iod_a ) {
+        CcPathLink * pl = *path_link__iod_a;
+
+        CC_FASTFORWARD( pl );
+
+        pl->next = path_link__t;
+    } else {
+        *path_link__iod_a = path_link__t;
+    }
+
+    return path_link__t;
+}
+
 
 
 //
