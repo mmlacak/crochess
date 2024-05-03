@@ -18,6 +18,9 @@
     @param x An integer.
     @param y Another integer.
 
+    @see
+    [https://en.wikipedia.org/wiki/Euclidean_algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
+
     @return Greatest common divisor.
 */
 int cc_gcd( int x, int y );
