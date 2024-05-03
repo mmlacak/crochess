@@ -518,6 +518,15 @@ CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
 CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
                                   CcPathLink ** path_link__n );
 
+/**
+    Frees all paths in a linked list.
+
+    @param path_link__f Linked list of paths.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_path_link_free_all( CcPathLink ** path_link__f );
+
 
 //
 // Position + piece + tag.

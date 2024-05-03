@@ -358,6 +358,26 @@ CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
     return last->next;
 }
 
+bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
+    if ( !path_link__f ) return false;
+    if ( !*path_link__f ) return true;
+
+    bool result = true;
+    CcPathLink * pl = *path_link__f;
+    CcPathLink * tmp = NULL;
+
+    while ( pl ) {
+        result = cc_pos_link_free_all( &( pl->path ) ) && result;
+
+        tmp = pl->next;
+        CC_FREE( pl );
+        pl = tmp;
+    }
+
+    *path_link__f = NULL;
+    return result;
+}
+
 
 //
 // Position + piece + tag.
