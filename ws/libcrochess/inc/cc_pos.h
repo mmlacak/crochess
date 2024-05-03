@@ -527,6 +527,15 @@ CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
 */
 bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
+/**
+    Function returns length of a linked list.
+
+    @param path_link A linked list of paths.
+
+    @return Length of a linked list if successful, `0` otherwise.
+*/
+size_t cc_path_link_len( CcPathLink * path_link );
+
 
 //
 // Position + piece + tag.

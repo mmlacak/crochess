@@ -378,6 +378,20 @@ bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
     return result;
 }
 
+size_t cc_path_link_len( CcPathLink * path_link ) {
+    if ( !path_link ) return 0;
+
+    size_t len = 0;
+    CcPathLink * pl = path_link;
+
+    while ( pl ) {
+        ++len;
+        pl = pl->next;
+    }
+
+    return len;
+}
+
 
 //
 // Position + piece + tag.
