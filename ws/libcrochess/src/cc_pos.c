@@ -335,6 +335,28 @@ CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
     return path_link__t;
 }
 
+CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
+                                  CcPathLink ** path_link__n ) {
+    if ( !path_link__iod_a ) return NULL;
+    if ( !path_link__n ) return NULL;
+
+    if ( !*path_link__n ) return *path_link__iod_a;
+
+    if ( !*path_link__iod_a ) {
+        *path_link__iod_a = *path_link__n;
+        *path_link__n = NULL;
+
+        return *path_link__iod_a;
+    }
+
+    CcPathLink * last = *path_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    last->next = *path_link__n;
+    *path_link__n = NULL;
+
+    return last->next;
+}
 
 
 //

@@ -496,6 +496,28 @@ CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n );
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
                                   CcPosLink ** pos_link__n );
 
+/**
+    Extends existing linked list with a another linked list.
+
+    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param path_link__n Linked list with which to extend existing steps.
+
+    @note
+    If linked list to extend (`path_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    `path_link__n`.
+
+    @note
+    Extending linked list `path_link__n` has its ownership transferred to
+    extended linked list `path_link__iod_a`; as a result, inner pointer of
+    `path_link__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
+*/
+CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
+                                  CcPathLink ** path_link__n );
+
 
 //
 // Position + piece + tag.
