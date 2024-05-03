@@ -296,6 +296,24 @@ char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
     return pl_str__a;
 }
 
+//
+// Linked paths.
+
+CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n ) {
+    if ( !pos_link__n ) return NULL;
+    if ( !*pos_link__n ) return NULL;
+
+    CcPathLink * path_link__a = malloc( sizeof( CcPathLink ) );
+    if ( !path_link__a ) return NULL;
+
+    path_link__a->path = *pos_link__n; // Ownership transfer.
+    *pos_link__n = NULL;
+
+    path_link__a->next = NULL;
+
+    return path_link__a;
+}
+
 
 //
 // Position + piece + tag.

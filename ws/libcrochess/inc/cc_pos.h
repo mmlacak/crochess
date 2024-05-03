@@ -355,7 +355,7 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o );
 */
 typedef struct CcPosLink {
     CcPos pos; /**< A position. */
-    struct CcPosLink * next; /**< Link to a next position. */
+    struct CcPosLink * next; /**< Link to next position. */
 } CcPosLink;
 
 /**
@@ -442,6 +442,30 @@ size_t cc_pos_link_len( CcPosLink * pos_link );
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
 char * cc_pos_link_to_short_string__new( CcPosLink * pos_link );
+
+//
+// Linked paths.
+
+/**
+    A linked list of paths.
+*/
+typedef struct CcPathLink {
+    CcPosLink * path; /**< Link to a path. */
+    struct CcPathLink * next; /**< Link to next position. */
+} CcPathLink;
+
+/**
+    Function allocates a new linked path.
+
+    @param pos_link__n Linked positions.
+
+    @note
+    Linked positions `pos_link__n` will have its ownership transferred to newly allocated path,
+    and its inner pointer will be `NULL`-ed.
+
+    @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
+*/
+CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n );
 
 
 //
@@ -640,7 +664,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 */
 typedef struct CcPptLink {
     CcPosPieceTag ppt; /**< A position + piece + tag. */
-    struct CcPptLink * next; /**< Link to a next position. */
+    struct CcPptLink * next; /**< Link to next position. */
 } CcPptLink;
 
 /**
