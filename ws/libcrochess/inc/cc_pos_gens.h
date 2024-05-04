@@ -17,23 +17,14 @@
 */
 
 
-#define CC_STEPS_HAS_MOVEMENT(ste) ( ( (ste) == CC_STE_All )        \
-                                  || ( (ste) == CC_STE_Movement ) )
+// #define CC_STEPS_HAS_MOVEMENT(ste) ( ( (ste) == CC_STE_All )        \
+//                                   || ( (ste) == CC_STE_Movement ) )
 
-#define CC_STEPS_HAS_CAPTURE(ste) ( ( (ste) == CC_STE_All )        \
-                                 || ( (ste) == CC_STE_Capture ) )
+// #define CC_STEPS_HAS_CAPTURE(ste) ( ( (ste) == CC_STE_All )        \
+//                                  || ( (ste) == CC_STE_Capture ) )
 
-#define CC_STEPS_HAS_ALTERNATIVE(ste) ( ( (ste) == CC_STE_All )        \
-                                     || ( (ste) == CC_STE_Alternative ) )
-
-
-typedef enum CcStepTypeEnum {
-    CC_STE_None = 0,
-    CC_STE_All,
-    CC_STE_Movement,
-    CC_STE_Capture,
-    CC_STE_Alternative, // Alternative movement, one of color-change-, entrancement-, uplifting-, miracle-steps.
-} CcStepTypeEnum;
+// #define CC_STEPS_HAS_ALTERNATIVE(ste) ( ( (ste) == CC_STE_All )        \
+//                                      || ( (ste) == CC_STE_Alternative ) )
 
 
 bool cc_pawn_steps( CcChessboard * cb,

@@ -35,8 +35,8 @@ bool cc_pawn_steps( CcChessboard * cb,
 
     CcPosLink * pl__t = NULL;
 
-    if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
-    }
+    // if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
+    // }
 
     // TODO :: DELETE !!
     //

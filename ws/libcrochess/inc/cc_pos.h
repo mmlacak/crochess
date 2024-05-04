@@ -321,6 +321,83 @@ CcPos cc_pos_step( CcPos start, CcPos destination );
 bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o );
 
 //
+// Step + type
+
+/**
+    Step types enumeration.
+*/
+typedef enum CcStepTypeEnum {
+    CC_STE_None = 0, /**< Undefined step type. */
+    CC_STE_Movement, /**< Just a step. */
+    CC_STE_Capture,  /**< Capturing step. */
+    CC_STE_Alternative, /**< Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps. */
+} CcStepTypeEnum;
+// TODO :: CC_STE_All --> convert CcStepTypeEnum into bit-field (?)
+
+/**
+    Invalid step + type value.
+*/
+#define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
+
+/**
+    Static step + type value, i.e. no-movement step.
+*/
+#define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_Step }
+
+/**
+    Structure holding a step and its type.
+    Step is always relative to current position.
+*/
+typedef struct CcTypedStep {
+    CcPos step; /**< Step, relative position. */
+    CcStepTypeEnum type; /**< Type of a step. */
+} CcTypedStep;
+
+/**
+    Casted invalid position + piece + tag value.
+*/
+#define CC_TYPED_STEP_CAST_INVALID ( (CcTypedStep)CC_TYPED_STEP_INVALID )
+
+/**
+    Casted static position + piece + tag value, i.e. no-movement step.
+*/
+#define CC_TYPED_STEP_CAST_STATIC ( (CcTypedStep)CC_TYPED_STEP_STATIC )
+
+/**
+    Function returns a step + type.
+
+    @param step Step, relative position.
+    @param type Type of a step.
+
+    @return Step and its type.
+*/
+CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type );
+
+/**
+    Macro definition for a typed step.
+
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+    @param enum_type Type of a step, one of `CcStepTypeEnum` values.
+
+    @return Typed step with a given coordinates.
+*/
+#define CC_TYPED_STEP(int_i,int_j,enum_type) { .step = CC_POS_CAST( (int_i), (int_j) ), .type = (CcStepTypeEnum)(enum_type) }
+
+/**
+    Macro definition for a casted, typed step.
+
+    @param int_i File, horizontal coordinate.
+    @param int_j Rank, vertical coordinate.
+    @param enum_type Type of a step, one of `CcStepTypeEnum` values.
+
+    @return Casted, typed step with a given coordinates.
+*/
+#define CC_TYPED_STEP_CAST(int_i,int_j,enum_type) ( (CcTypedStep)CC_TYPED_STEP( (int_i), (int_j), (enum_type) ) )
+
+
+
+//
 // Linked positions.
 
 /**
@@ -442,6 +519,7 @@ size_t cc_pos_link_len( CcPosLink * pos_link );
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
 char * cc_pos_link_to_short_string__new( CcPosLink * pos_link );
+
 
 //
 // Linked paths.

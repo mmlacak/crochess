@@ -163,6 +163,15 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o ) {
     return true;
 }
 
+//
+// Step + type
+
+CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type ) {
+    CcTypedStep st = { .step = step, .type = type };
+    return st;
+}
+
+
 
 //
 // Linked positions.
@@ -295,6 +304,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
 
     return pl_str__a;
 }
+
 
 //
 // Linked paths.
