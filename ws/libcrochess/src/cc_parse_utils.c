@@ -464,73 +464,73 @@ bool cc_ply_an_contains_steps( char const * an_str,
 }
 
 
-CcSideEffectEnum cc_parse_side_effect_type( char const * an_str,
+CcParsedSideEffectEnum cc_parse_side_effect_type( char const * an_str,
                                             bool * has_promotion_sign__o ) {
-    if ( !an_str ) return CC_SEE_None;
-    if ( !has_promotion_sign__o ) return CC_SEE_None;
+    if ( !an_str ) return CC_PSEE_None;
+    if ( !has_promotion_sign__o ) return CC_PSEE_None;
 
     char const * c = an_str;
 
     if ( *c == '*' ) {
-        return CC_SEE_Capture;
+        return CC_PSEE_Capture;
     } else if ( *c == '<' ) {
-        return CC_SEE_Displacement;
+        return CC_PSEE_Displacement;
     } else if ( *c == ':' ) {
-        return CC_SEE_EnPassant;
+        return CC_PSEE_EnPassant;
     } else if ( *c == '&' ) {
-        return CC_SEE_Castle;
+        return CC_PSEE_Castle;
     } else if ( *c == '=' ) {
         if ( isupper( *++c ) ) {
             *has_promotion_sign__o = true;
-            return CC_SEE_Promotion;
+            return CC_PSEE_Promotion;
         } else
-            return CC_SEE_TagForPromotion;
+            return CC_PSEE_TagForPromotion;
     } else if ( *c == '%' ) {
         if ( *++c == '%' )
-            return CC_SEE_FailedConversion;
+            return CC_PSEE_FailedConversion;
 
-        return CC_SEE_Conversion;
+        return CC_PSEE_Conversion;
     } else if ( *c == '^' ) {
-        return CC_SEE_Transparency;
+        return CC_PSEE_Transparency;
     } else if ( *c == '/' ) {
-        return CC_SEE_Divergence;
+        return CC_PSEE_Divergence;
     } else if ( *c == '>' ) {
-        return CC_SEE_DemoteToPawn;
+        return CC_PSEE_DemoteToPawn;
     } else if ( *c == '$' ) {
         if ( *++c == '$' ) {
             if ( *++c == '$' )
-                return CC_SEE_FailedResurrection;
+                return CC_PSEE_FailedResurrection;
 
-            return CC_SEE_ResurrectingOpponent;
+            return CC_PSEE_ResurrectingOpponent;
         }
 
-        return CC_SEE_Resurrection;
+        return CC_PSEE_Resurrection;
     } else if ( isupper( *c ) ) {
         *has_promotion_sign__o = false;
-        return CC_SEE_Promotion; // Promotion without `=`.
+        return CC_PSEE_Promotion; // Promotion without `=`.
     }
 
-    return CC_SEE_None;
+    return CC_PSEE_None;
 }
 
-size_t cc_side_effect_type_len( CcSideEffectEnum see,
+size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
                                 bool has_promotion_sign ) {
     switch ( see ) {
-        // case CC_SEE_None :
-        case CC_SEE_Capture : return 1;
-        case CC_SEE_Displacement : return 1;
-        case CC_SEE_EnPassant : return 1;
-        case CC_SEE_Castle : return 1;
-        case CC_SEE_Promotion : return has_promotion_sign ? 1 : 0;
-        case CC_SEE_TagForPromotion : return 1;
-        case CC_SEE_Conversion : return 1;
-        case CC_SEE_FailedConversion : return 2;
-        case CC_SEE_Transparency : return 1;
-        case CC_SEE_Divergence : return 1;
-        case CC_SEE_DemoteToPawn : return 1;
-        case CC_SEE_Resurrection : return 1;
-        case CC_SEE_ResurrectingOpponent : return 2;
-        case CC_SEE_FailedResurrection : return 3;
+        // case CC_PSEE_None :
+        case CC_PSEE_Capture : return 1;
+        case CC_PSEE_Displacement : return 1;
+        case CC_PSEE_EnPassant : return 1;
+        case CC_PSEE_Castle : return 1;
+        case CC_PSEE_Promotion : return has_promotion_sign ? 1 : 0;
+        case CC_PSEE_TagForPromotion : return 1;
+        case CC_PSEE_Conversion : return 1;
+        case CC_PSEE_FailedConversion : return 2;
+        case CC_PSEE_Transparency : return 1;
+        case CC_PSEE_Divergence : return 1;
+        case CC_PSEE_DemoteToPawn : return 1;
+        case CC_PSEE_Resurrection : return 1;
+        case CC_PSEE_ResurrectingOpponent : return 2;
+        case CC_PSEE_FailedResurrection : return 3;
 
         default : return 0;
     }

@@ -80,7 +80,7 @@ static bool cc_parse_step( char const * step_start_an,
         }
     }
 
-    CcSideEffect se = cc_side_effect_none();
+    CcParsedSideEffect se = cc_parsed_side_effect_none();
 
     if ( !*had_disambiguation__io )
         if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,

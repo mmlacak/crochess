@@ -112,7 +112,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                            CcChessboard * cb,
                            CcParsedStepLinkEnum sle,
                            CcPos * step_pos__io,
-                           CcSideEffect * side_effect__o,
+                           CcParsedSideEffect * side_effect__o,
                            CcParseMsg ** parse_msgs__iod );
 
 

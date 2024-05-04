@@ -78,10 +78,10 @@ bool cc_ply_an_contains_steps( char const * an_str,
                                char const * ply_end );
 
 
-CcSideEffectEnum cc_parse_side_effect_type( char const * an_str,
+CcParsedSideEffectEnum cc_parse_side_effect_type( char const * an_str,
                                             bool * has_promotion_sign__o );
 
-size_t cc_side_effect_type_len( CcSideEffectEnum see,
+size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
                                 bool has_promotion_sign );
 
 

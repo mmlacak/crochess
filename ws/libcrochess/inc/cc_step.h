@@ -70,7 +70,7 @@ char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle );
 typedef struct CcParsedStep {
     CcParsedStepLinkEnum link; /**< Type of a link to previous step. */
     CcPos field; /**< Field of a step. */
-    CcSideEffect side_effect; /**< Side-effect structure. */
+    CcParsedSideEffect side_effect; /**< Side-effect structure. */
 
     struct CcParsedStep * next; /**< Next step in a linked list. */
 } CcParsedStep;
@@ -87,7 +87,7 @@ typedef struct CcParsedStep {
 */
 CcParsedStep * cc_parsed_step__new( CcParsedStepLinkEnum link,
                                     CcPos field,
-                                    CcSideEffect side_effect );
+                                    CcParsedSideEffect side_effect );
 
 /**
     Appends a newly allocated step to a given linked list.
@@ -115,7 +115,7 @@ CcParsedStep * cc_parsed_step__new( CcParsedStepLinkEnum link,
 CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a,
                                       CcParsedStepLinkEnum link,
                                       CcPos field,
-                                      CcSideEffect side_effect );
+                                      CcParsedSideEffect side_effect );
 
 /**
     Duplicates a given steps into a newly allocated linked list.
