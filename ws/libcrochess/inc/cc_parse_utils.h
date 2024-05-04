@@ -11,9 +11,9 @@
 #include "cc_pos.h"
 
 #include "cc_parse_defs.h"
-#include "cc_side_effect.h"
-#include "cc_step.h"
-#include "cc_ply.h"
+#include "cc_parsed_side_effect.h"
+#include "cc_parsed_step.h"
+#include "cc_parsed_ply.h"
 
 /**
     @file cc_parse_utils.h

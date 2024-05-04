@@ -1,17 +1,17 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_STEP_H__
-#define __CC_STEP_H__
+#ifndef __CC_PARSED_STEP_H__
+#define __CC_PARSED_STEP_H__
 
 #include <stddef.h>
 
 #include "cc_pos.h"
-#include "cc_side_effect.h"
+#include "cc_parsed_side_effect.h"
 
 /**
-    @file cc_step.h
-    @brief Steps linked list, storage for link type, field, side-effect.
+    @file cc_parsed_step.h
+    @brief Parsed step, linked list definitions.
 */
 
 /**
@@ -364,4 +364,4 @@ CcParsedStep * cc_parsed_step_failed_resurrection_append( CcParsedStep ** steps_
 /** @} */ // end of step_convenience
 
 
-#endif /* __CC_STEP_H__ */
+#endif /* __CC_PARSED_STEP_H__ */

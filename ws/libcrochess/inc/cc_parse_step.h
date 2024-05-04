@@ -4,7 +4,7 @@
 #ifndef __CC_PARSE_STEP_H__
 #define __CC_PARSE_STEP_H__
 
-#include "cc_step.h"
+#include "cc_parsed_step.h"
 #include "cc_game.h"
 
 #include "cc_parse_msg.h"

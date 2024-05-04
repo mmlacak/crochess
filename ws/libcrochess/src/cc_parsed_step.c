@@ -1,14 +1,14 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_step.h"
+#include "cc_parsed_step.h"
 
 /**
-    @file cc_step.c
-    @brief Step related functions.
+    @file cc_parsed_step.c
+    @brief Parsed step, linked list functions.
 */
 
 

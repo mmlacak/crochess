@@ -1,8 +1,8 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_SIDE_EFFECT_H__
-#define __CC_SIDE_EFFECT_H__
+#ifndef __CC_PARSED_SIDE_EFFECT_H__
+#define __CC_PARSED_SIDE_EFFECT_H__
 
 #include <stddef.h>
 
@@ -13,8 +13,8 @@
 #include "cc_pos.h"
 
 /**
-    @file cc_side_effect.h
-    @brief Side-effects enum, functions.
+    @file cc_parsed_side_effect.h
+    @brief Parsed side-effects definitions.
 */
 
 
@@ -209,4 +209,4 @@ bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
                                          cc_char_16 * see_str__o );
 
 
-#endif /* __CC_SIDE_EFFECT_H__ */
+#endif /* __CC_PARSED_SIDE_EFFECT_H__ */

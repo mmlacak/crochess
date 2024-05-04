@@ -1,17 +1,17 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_PLY_H__
-#define __CC_PLY_H__
+#ifndef __CC_PARSED_PLY_H__
+#define __CC_PARSED_PLY_H__
 
 #include <stdbool.h>
 
 #include "cc_piece.h"
-#include "cc_step.h"
+#include "cc_parsed_step.h"
 
 /**
-    @file cc_ply.h
-    @brief Ply definition. Plies linked list.
+    @file cc_parsed_ply.h
+    @brief Parsed ply, linked list definitions.
 */
 
 /**
@@ -261,4 +261,4 @@ CcPieceEnum cc_parsed_ply_last_active_piece( CcParsedPly * plies,
 char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies );
 
 
-#endif /* __CC_PLY_H__ */
+#endif /* __CC_PARSED_PLY_H__ */

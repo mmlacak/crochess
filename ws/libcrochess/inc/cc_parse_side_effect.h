@@ -5,7 +5,7 @@
 #define __CC_PARSE_SIDE_EFFECT_H__
 
 #include "cc_piece.h"
-#include "cc_side_effect.h"
+#include "cc_parsed_side_effect.h"
 #include "cc_game.h"
 
 #include "cc_parse_msg.h"

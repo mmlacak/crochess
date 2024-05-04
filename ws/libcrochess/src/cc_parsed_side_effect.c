@@ -1,14 +1,14 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_side_effect.h"
+#include "cc_parsed_side_effect.h"
 
 /**
-    @file cc_side_effect.c
-    @brief Side-effects related functions.
+    @file cc_parsed_side_effect.c
+    @brief Parsed side-effects functions.
 */
 
 

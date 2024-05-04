@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #include "cc_tag.h"
-#include "cc_move.h"
+#include "cc_parsed_move.h"
 #include "cc_game.h"
 
 // #include "cc_parse_defs.h"

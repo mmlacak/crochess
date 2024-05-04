@@ -1,14 +1,14 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_MOVE_H__
-#define __CC_MOVE_H__
+#ifndef __CC_PARSED_MOVE_H__
+#define __CC_PARSED_MOVE_H__
 
-#include "cc_ply.h"
+#include "cc_parsed_ply.h"
 
 /**
-    @file cc_move.h
-    @brief Move queue; storage for plies, status, user algebraic notation.
+    @file cc_parsed_move.h
+    @brief Parsed move storage, linked list definitions.
 */
 
 
@@ -138,4 +138,4 @@ bool cc_parsed_move_free_all( CcParsedMove ** moves__f );
 size_t cc_parsed_move_plies_count( CcParsedMove * move );
 
 
-#endif /* __CC_MOVE_H__ */
+#endif /* __CC_PARSED_MOVE_H__ */

@@ -1,14 +1,14 @@
-// Copyright (c) 2021, 2022 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_ply.h"
+#include "cc_parsed_ply.h"
 
 /**
-    @file cc_ply.c
-    @brief Ply, plies linked list functions.
+    @file cc_parsed_ply.c
+    @brief Parsed ply, plies linked list functions.
 */
 
 

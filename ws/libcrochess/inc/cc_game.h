@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-#include "cc_move.h"
+#include "cc_parsed_move.h"
 #include "cc_chessboard.h"
 
 /**
