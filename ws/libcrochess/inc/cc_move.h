@@ -38,7 +38,7 @@ typedef enum CcParsedMoveStatusEnum {
 */
 typedef struct CcParsedMove {
     char * notation; /**< Original notation, before parsing. Usually, from user input. */
-    CcPly * plies; /**< Plies. */
+    CcParsedPly * plies; /**< Plies. */
     // CcChessboard * cb; // TODO :: if adding, pieces and tags enums **should** be based on char, not int
     CcParsedMoveStatusEnum status; /**< Status. */
 
@@ -69,7 +69,7 @@ typedef struct CcParsedMove {
 */
 CcParsedMove * cc_parsed_move__new( char const * notation,
                                     size_t max_len__d,
-                                    CcPly ** plies__n,
+                                    CcParsedPly ** plies__n,
                                     CcParsedMoveStatusEnum status );
 
 /**
@@ -101,7 +101,7 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
 CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
                                       char const * notation,
                                       size_t max_len__d,
-                                      CcPly ** plies__n,
+                                      CcParsedPly ** plies__n,
                                       CcParsedMoveStatusEnum status );
 
 /**

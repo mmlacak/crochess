@@ -20,52 +20,52 @@
     This enumerates different ways plies can cascade,
     and directly corresponds to cascading plies separators and terminators.
 */
-typedef enum CcPlyLinkEnum {
-    CC_PLE_None, /**< Ply link not found, uninitialized, or error happened. */
-    CC_PLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
-    CC_PLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
-    CC_PLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
-    CC_PLE_TeleportationReemergence, /**< Failed teleportation, corresponds to `||`. */
-    CC_PLE_TeleportationOblation, /**< Failed teleportation, corresponds to `|||`. */
-    CC_PLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
-    CC_PLE_DualTranceJourney, /**< Double trance-journey, corresponds to `@@`. */
-    CC_PLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
-    CC_PLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
-    CC_PLE_SenseJourney, /**< Sense-journey, corresponds to `"`. */
-    CC_PLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */
-} CcPlyLinkEnum;
+typedef enum CcParsedPlyLinkEnum {
+    CC_PPLE_None, /**< Ply link not found, uninitialized, or error happened. */
+    CC_PPLE_StartingPly, /**< Just first ply, standalone or starting a cascade. */
+    CC_PPLE_CascadingPly, /**< Just one ply, continuing cascade. Corresponds to `~`. */
+    CC_PPLE_Teleportation, /**< Teleportation of piece. Corresponds to `|`. */
+    CC_PPLE_TeleportationReemergence, /**< Failed teleportation, corresponds to `||`. */
+    CC_PPLE_TeleportationOblation, /**< Failed teleportation, corresponds to `|||`. */
+    CC_PPLE_TranceJourney, /**< Trance-journey, corresponds to `@`. */
+    CC_PPLE_DualTranceJourney, /**< Double trance-journey, corresponds to `@@`. */
+    CC_PPLE_FailedTranceJourney, /**< Failed trance-journey, corresponds to `@@@`. */
+    CC_PPLE_PawnSacrifice, /**< Pawn sacrifice, corresponds to `;;`. */
+    CC_PPLE_SenseJourney, /**< Sense-journey, corresponds to `"`. */
+    CC_PPLE_FailedSenseJourney, /**< Failed sense-journey, corresponds to `'`. */
+} CcParsedPlyLinkEnum;
 
 
-#define CC_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PLE_None )
-#define CC_PLY_LINK_IS_STARTING(ple) ( (ple) == CC_PLE_StartingPly )
-#define CC_PLY_LINK_IS_CASCADING(ple) ( (ple) == CC_PLE_CascadingPly )
+#define CC_PARSED_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PPLE_None )
+#define CC_PARSED_PLY_LINK_IS_STARTING(ple) ( (ple) == CC_PPLE_StartingPly )
+#define CC_PARSED_PLY_LINK_IS_CASCADING(ple) ( (ple) == CC_PPLE_CascadingPly )
 
-#define CC_PLY_LINK_IS_TELEPORTATION(ple) ( (ple) == CC_PLE_Teleportation )
-#define CC_PLY_LINK_IS_TELEPORTATION_REEMERGENCE(ple) ( (ple) == CC_PLE_TeleportationReemergence )
-#define CC_PLY_LINK_IS_TELEPORTATION_OBLATION(ple) ( (ple) == CC_PLE_TeleportationOblation )
+#define CC_PARSED_PLY_LINK_IS_TELEPORTATION(ple) ( (ple) == CC_PPLE_Teleportation )
+#define CC_PARSED_PLY_LINK_IS_TELEPORTATION_REEMERGENCE(ple) ( (ple) == CC_PPLE_TeleportationReemergence )
+#define CC_PARSED_PLY_LINK_IS_TELEPORTATION_OBLATION(ple) ( (ple) == CC_PPLE_TeleportationOblation )
 
-#define CC_PLY_LINK_IS_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_TranceJourney )
-#define CC_PLY_LINK_IS_DUAL_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_DualTranceJourney )
-#define CC_PLY_LINK_IS_FAILED_TRANCE_JOURNEY(ple) ( (ple) == CC_PLE_FailedTranceJourney )
+#define CC_PARSED_PLY_LINK_IS_TRANCE_JOURNEY(ple) ( (ple) == CC_PPLE_TranceJourney )
+#define CC_PARSED_PLY_LINK_IS_DUAL_TRANCE_JOURNEY(ple) ( (ple) == CC_PPLE_DualTranceJourney )
+#define CC_PARSED_PLY_LINK_IS_FAILED_TRANCE_JOURNEY(ple) ( (ple) == CC_PPLE_FailedTranceJourney )
 
-#define CC_PLY_LINK_IS_PAWN_SACRIFICE(ple) ( (ple) == CC_PLE_PawnSacrifice )
+#define CC_PARSED_PLY_LINK_IS_PAWN_SACRIFICE(ple) ( (ple) == CC_PPLE_PawnSacrifice )
 
-#define CC_PLY_LINK_IS_SENSE_JOURNEY(ple) ( (ple) == CC_PLE_SenseJourney )
-#define CC_PLY_LINK_IS_FAILED_SENSE_JOURNEY(ple) ( (ple) == CC_PLE_FailedSenseJourney )
+#define CC_PARSED_PLY_LINK_IS_SENSE_JOURNEY(ple) ( (ple) == CC_PPLE_SenseJourney )
+#define CC_PARSED_PLY_LINK_IS_FAILED_SENSE_JOURNEY(ple) ( (ple) == CC_PPLE_FailedSenseJourney )
 
 
-#define CC_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PLE_None )
+#define CC_PARSED_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PPLE_None )
 
-#define CC_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )               \
-                                             || ( (ple) == CC_PLE_TeleportationReemergence )    \
-                                             || ( (ple) == CC_PLE_TeleportationOblation )
+#define CC_PARSED_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PPLE_Teleportation )               \
+                                                    || ( (ple) == CC_PPLE_TeleportationReemergence )    \
+                                                    || ( (ple) == CC_PPLE_TeleportationOblation )
 
-#define CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )          \
-                                              || ( (ple) == CC_PLE_DualTranceJourney )      \
-                                              || ( (ple) == CC_PLE_FailedTranceJourney ) )
+#define CC_PARSED_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PPLE_TranceJourney )          \
+                                                     || ( (ple) == CC_PPLE_DualTranceJourney )      \
+                                                     || ( (ple) == CC_PPLE_FailedTranceJourney ) )
 
-#define CC_PLY_LINK_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PLE_SenseJourney )        \
-                                             || ( (ple) == CC_PLE_FailedSenseJourney )
+#define CC_PARSED_PLY_LINK_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PPLE_SenseJourney )        \
+                                                    || ( (ple) == CC_PPLE_FailedSenseJourney )
 
 
 /**
@@ -78,9 +78,9 @@ typedef enum CcPlyLinkEnum {
 
     @return String symbol if link is valid, `NULL` otherwise.
 */
-char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
+char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple );
 
-#define CC_MAX_LEN_PLY_LINK_SYMBOL (3)
+#define CC_MAX_LEN_PARSED_PLY_LINK_SYMBOL (3)
 
 
 /**
@@ -93,27 +93,27 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 
     |                             `link` | `steps`                                                                                                  |
     | ---------------------------------: | :------------------------------------------------------------------------------------------------------- |
-    |                         CC_PLE_Ply | steps taken by a piece                                                                                   |
-    |               CC_PLE_Teleportation | steps taken if Wave, otherwise destination field                                                         |
-    |    CC_PLE_TeleportationReemergence | destination field                                                                                        |
-    |       CC_PLE_TeleportationOblation | steps are empty (`NULL`)                                                                                 |
-    |               CC_PLE_TranceJourney | steps taken by entranced Shaman                                                                          |
-    |           CC_PLE_DualTranceJourney | fields at which pieces are captured, `side_effect` contains captured, or displaced piece, and lost tag   |
-    |         CC_PLE_FailedTranceJourney | steps are empty (`NULL`)                                                                                 |
-    |               CC_PLE_PawnSacrifice | steps taken by a Serpent                                                                                 |
-    |                CC_PLE_SenseJourney | steps taken by uplifted piece                                                                            |
-    |          CC_PLE_FailedSenseJourney | steps are empty (`NULL`)                                                                                 |
+    |                         CC_PPLE_Ply | steps taken by a piece                                                                                   |
+    |               CC_PPLE_Teleportation | steps taken if Wave, otherwise destination field                                                         |
+    |    CC_PPLE_TeleportationReemergence | destination field                                                                                        |
+    |       CC_PPLE_TeleportationOblation | steps are empty (`NULL`)                                                                                 |
+    |               CC_PPLE_TranceJourney | steps taken by entranced Shaman                                                                          |
+    |           CC_PPLE_DualTranceJourney | fields at which pieces are captured, `side_effect` contains captured, or displaced piece, and lost tag   |
+    |         CC_PPLE_FailedTranceJourney | steps are empty (`NULL`)                                                                                 |
+    |               CC_PPLE_PawnSacrifice | steps taken by a Serpent                                                                                 |
+    |                CC_PPLE_SenseJourney | steps taken by uplifted piece                                                                            |
+    |          CC_PPLE_FailedSenseJourney | steps are empty (`NULL`)                                                                                 |
 */
-typedef struct CcPly {
+typedef struct CcParsedPly {
     char * notation; /**< Copy of move notation, originating this ply. */
 
-    CcPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
+    CcParsedPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< A piece being moved. */
     CcLosingTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
     CcStep * steps; /**< Steps taken by the piece. */
 
-    struct CcPly * next; /**< Next ply in a cascade. */
-} CcPly;
+    struct CcParsedPly * next; /**< Next ply in a cascade. */
+} CcParsedPly;
 
 /**
     Returns newly allocated ply.
@@ -139,13 +139,13 @@ typedef struct CcPly {
     @return
     A newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply__new( char const * start_an__d,
-                     char const * end_an__d,
-                     size_t max_len__d,
-                     CcPlyLinkEnum link,
-                     CcPieceEnum piece,
-                     CcLosingTagEnum lost_tag,
-                     CcStep ** steps__n );
+CcParsedPly * cc_parsed_ply__new( char const * start_an__d,
+                                  char const * end_an__d,
+                                  size_t max_len__d,
+                                  CcParsedPlyLinkEnum link,
+                                  CcPieceEnum piece,
+                                  CcLosingTagEnum lost_tag,
+                                  CcStep ** steps__n );
 
 /**
     Appends a newly allocated ply to a given linked list.
@@ -171,19 +171,19 @@ CcPly * cc_ply__new( char const * start_an__d,
     Pointer `plies__iod_a` has ownership over given linked list, takes ownership
     over newly allocated ply, and retains ownership after function returns.
 
-    @see cc_ply__new()
+    @see cc_parsed_ply__new()
 
     @return
     Weak pointer to a newly allocated ply if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_append( CcPly ** plies__iod_a,
-                       char const * start_an__d,
-                       char const * end_an__d,
-                       size_t max_len__d,
-                       CcPlyLinkEnum link,
-                       CcPieceEnum piece,
-                       CcLosingTagEnum lost_tag,
-                       CcStep ** steps__n );
+CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
+                                    char const * start_an__d,
+                                    char const * end_an__d,
+                                    size_t max_len__d,
+                                    CcParsedPlyLinkEnum link,
+                                    CcPieceEnum piece,
+                                    CcLosingTagEnum lost_tag,
+                                    CcStep ** steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.
@@ -193,7 +193,7 @@ CcPly * cc_ply_append( CcPly ** plies__iod_a,
     @return
     A newly allocated plies if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_duplicate_all__new( CcPly * plies );
+CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies );
 
 /**
     Extends existing linked list with a newly allocated plies.
@@ -201,13 +201,13 @@ CcPly * cc_ply_duplicate_all__new( CcPly * plies );
     @param plies__iod_a **Ownership**, _optional_ _input/ouput_ parameter; plies linked list.
     @param plies__n Linked list with which to extend existing plies.
 
-    @see cc_ply_append(), cc_ply__new()
+    @see cc_parsed_ply_append(), cc_parsed_ply__new()
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPly * cc_ply_extend( CcPly ** plies__iod_a,
-                       CcPly ** plies__n );
+CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
+                                    CcParsedPly ** plies__n );
 
 /**
     Frees all plies in a linked list, and all associated entities.
@@ -220,7 +220,7 @@ CcPly * cc_ply_extend( CcPly ** plies__iod_a,
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ply_free_all( CcPly ** plies__f );
+bool cc_parsed_ply_free_all( CcParsedPly ** plies__f );
 
 /**
     Checks whether any step in a ply has side-effects.
@@ -229,7 +229,7 @@ bool cc_ply_free_all( CcPly ** plies__f );
 
     @return `true` if any step has side-effects, `false` otherwise.
 */
-bool cc_ply_contains_side_effects( CcPly * ply );
+bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply );
 
 /**
     Function returns last active piece for a ply, within a given linked list.
@@ -248,8 +248,8 @@ bool cc_ply_contains_side_effects( CcPly * ply );
 
     @return Last active piece if successful, `CC_PE_None` otherwise.
 */
-CcPieceEnum cc_ply_last_active_piece( CcPly * plies,
-                                      CcPly * ply__d );
+CcPieceEnum cc_parsed_ply_last_active_piece( CcParsedPly * plies,
+                                             CcParsedPly * ply__d );
 
 /**
     Function returns new string, containing user-readable representation of a plies.
@@ -258,7 +258,7 @@ CcPieceEnum cc_ply_last_active_piece( CcPly * plies,
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise
 */
-char * cc_ply_all_to_short_string__new( CcPly * plies );
+char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies );
 
 
 #endif /* __CC_PLY_H__ */

@@ -22,9 +22,9 @@
 
 
 bool cc_parse_ply_link( char const * an_str,
-                        CcPlyLinkEnum * ple__o );
+                        CcParsedPlyLinkEnum * ple__o );
 
-size_t cc_ply_link_len( CcPlyLinkEnum ple );
+size_t cc_ply_link_len( CcParsedPlyLinkEnum ple );
 
 char const * cc_next_ply_link( char const * an_str );
 

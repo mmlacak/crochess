@@ -17,7 +17,7 @@
 
 CcParsedMove * cc_parsed_move__new( char const * notation,
                                     size_t max_len__d,
-                                    CcPly ** plies__n,
+                                    CcParsedPly ** plies__n,
                                     CcParsedMoveStatusEnum status ) {
     CcParsedMove * mv__a = malloc( sizeof( CcParsedMove ) );
     if ( !mv__a ) return NULL;
@@ -46,7 +46,7 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
 CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
                                       char const * notation,
                                       size_t max_len__d,
-                                      CcPly ** plies__n,
+                                      CcParsedPly ** plies__n,
                                       CcParsedMoveStatusEnum status ) {
     if ( !moves__iod_a ) return NULL;
 
@@ -75,7 +75,7 @@ CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves ) {
     CC_REWIND( from );
 
     do {
-        CcPly * plies__t = cc_ply_duplicate_all__new( from->plies );
+        CcParsedPly * plies__t = cc_parsed_ply_duplicate_all__new( from->plies );
         if ( !plies__t ) {
             cc_parsed_move_free_all( &mv__a );
             return NULL;
@@ -87,7 +87,7 @@ CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves ) {
                                          &plies__t,
                                          from->status );
         if ( !mv__w ) {
-            cc_ply_free_all( &plies__t ); // Failed append --> no ownership transfer ...
+            cc_parsed_ply_free_all( &plies__t ); // Failed append --> no ownership transfer ...
             cc_parsed_move_free_all( &mv__a );
             return NULL;
         }
@@ -111,8 +111,8 @@ bool cc_parsed_move_free_all( CcParsedMove ** moves__f ) {
     while ( mv ) {
         CC_FREE( mv->notation );
 
-        CcPly ** plies = &( mv->plies );
-        result = cc_ply_free_all( plies ) && result;
+        CcParsedPly ** plies = &( mv->plies );
+        result = cc_parsed_ply_free_all( plies ) && result;
 
         CcParsedMove * tmp = mv->next;
         CC_FREE( mv );
@@ -129,7 +129,7 @@ size_t cc_parsed_move_plies_count( CcParsedMove * move ) {
     if ( !move->plies ) return 0;
 
     size_t count = 1;
-    CcPly * p = move->plies;
+    CcParsedPly * p = move->plies;
 
     while ( p->next ) {
         ++count;

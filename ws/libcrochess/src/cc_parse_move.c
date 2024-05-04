@@ -116,10 +116,10 @@ bool cc_parse_move( char const * move_an,
         return false;
     }
 
-    CcPly * plies__t = NULL;
+    CcParsedPly * plies__t = NULL;
 
     if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) ) {
-        cc_ply_free_all( &plies__t );
+        cc_parsed_ply_free_all( &plies__t );
         cc_parsed_move_free_all( &move__t );
         return false;
     }
@@ -128,7 +128,7 @@ bool cc_parse_move( char const * move_an,
     // TODO :: DEBUG :: DELETE
     //
     // {
-    //     char * plies_str__a = cc_ply_all_to_short_string__new( plies__t );
+    //     char * plies_str__a = cc_parsed_ply_all_to_short_string__new( plies__t );
 
     //     cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
 

@@ -44,7 +44,7 @@ but we haven't yet transferred ownership of plies and steps to a larger entity:
 @code{.c}
     CcChessboard * cb__a = cc_chessboard__new( ... ); // ownership (asset)
     ...
-    CcPly * plies_0__t = cc_ply__new( ... ); // transfer
+    CcParsedPly * plies_0__t = cc_parsed_ply__new( ... ); // transfer
     ...
     CcStep * steps_2__t = cc_step_none__new( ... ); // ditto
 @endcode
@@ -87,12 +87,12 @@ the tail of that linked list; only the first entity has the complete ownership o
 entire linked list.
 
 If a pointer in an entity does not have ownership over linked entity, `__w` is appended
-to its name, e.g. `CcPly * related_ply__w`. <br />
+to its name, e.g. `CcParsedPly * related_ply__w`. <br />
 Function(s) `free()`-ing containing entity does not `free()` weak pointers.
 
-For instance, `CcParsedMove` contains `CcPly *`, so it owns all `CcPly` items in that linked
+For instance, `CcParsedMove` contains `CcParsedPly *`, so it owns all `CcParsedPly` items in that linked
 list. <br />
-Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that linked
+Now, each `CcParsedPly` contains `CcStep *`, so it owns all `CcStep` items in that linked
 list. <br />
 So, `CcParsedMove` indirectly owns every `CcStep` in the whole structure.
 
@@ -100,8 +100,8 @@ This is evidenced when `free()`-ing hierarchically complete structure from a sin
 `CcParsedMove` pointer.
 
 All `CcParsedMove`s in a linked list are `free()`-ed by calling `cc_move_free_all_moves()`,
-which `free()`-s all linked `CcPly`s in each `CcParsedMove` (by calling `cc_ply_free_all_plies()`),
-which `free()`-s all linked `CcStep`s in each `CcPly` (by calling `cc_step_free_all_steps()`).
+which `free()`-s all linked `CcParsedPly`s in each `CcParsedMove` (by calling `cc_ply_free_all_plies()`),
+which `free()`-s all linked `CcStep`s in each `CcParsedPly` (by calling `cc_step_free_all_steps()`).
 
 ### Transfer of ownership
 
@@ -190,7 +190,7 @@ For instance, `CcPos ** pos__ed` declares output parameter, which is optional po
 Ownership transfer parameters are indicated by:
 - their type (pointer to pointer to type), e.g. `CcParseMsg ** parse_msgs`
 - appending direction indicator (`__o`, `__io`) to parameter name if they are output, or input + output parameter
-- appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcPly ** plies__n`
+- appending `__n` if inner pointer is going to be `NULL`-ed, e.g. `CcParsedPly ** plies__n`
 - appending `__f` if inner pointer is going to be `free()`-ed then `NULL`-ed, e.g. `char ** str__f`
 - appending `__r` if inner pointer is going to be `realloc()`-ated, e.g. `char ** str_io__r`
 - appending `__t` if inner pointer is going to transfer ownership into function, e.g. `char ** str__t`

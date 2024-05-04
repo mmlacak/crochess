@@ -24,11 +24,11 @@ e.g. `CC_OFF_BOARD_COORD`, `CC_SETUP_BOARD_CLASSICAL_CHESS`.
 
 `enum`s and `struct`s names are capitalized words.
 `enum` names end in `Enum`, while there is no comparable name end for `struct`s.
-Examples, `CcPlyLinkEnum`, `CcPly`.
+Examples, `CcParsedPlyLinkEnum`, `CcParsedPly`.
 
 `enum` items have constant-like library prefix (i.e. `CC_`), combined with abbreviated `enum` name
 (e.g. `PLE_`) and capitalized words for item name.
-For instance, `CC_PLE_FailedTeleportationOblation` would be one of items in `CcPlyLinkEnum`.
+For instance, `CC_PPLE_FailedTeleportationOblation` would be one of items in `CcParsedPlyLinkEnum`.
 
 Organization
 ------------

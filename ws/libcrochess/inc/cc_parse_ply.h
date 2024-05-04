@@ -30,14 +30,14 @@
 //                           CcGame * game,
 //                           CcPosPieceTag * before_ply_start__io,
 //                           bool is_first_ply,
-//                           CcPly ** ply__o,
+//                           CcParsedPly ** ply__o,
 //                           CcChessboard ** cb__io,
 //                           CcParseMsg ** parse_msgs__iod );
 
 
 bool cc_parse_plies( char const * move_an,
                      CcGame * game,
-                     CcPly ** plies__o,
+                     CcParsedPly ** plies__o,
                      CcParseMsg ** parse_msgs__iod );
 
 
