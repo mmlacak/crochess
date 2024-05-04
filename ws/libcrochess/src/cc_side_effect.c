@@ -141,105 +141,105 @@ CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se ) {
 
 CcParsedSideEffect cc_parsed_side_effect_none( void ) {
     return cc_parsed_side_effect( CC_PSEE_None, CC_PE_None, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
     return cc_parsed_side_effect( CC_PSEE_Capture, piece, lost_tag,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination ) {
     return cc_parsed_side_effect( CC_PSEE_Displacement, piece, lost_tag,
-                           CC_POS_CAST_INVALID,
-                           destination,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  destination,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_en_passant( CcPieceEnum pawn, CcPos distant ) {
     return cc_parsed_side_effect( CC_PSEE_EnPassant, pawn, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           distant,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  distant,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination ) {
     return cc_parsed_side_effect( CC_PSEE_Castle, rook, CC_LTE_None,
-                           start,
-                           destination,
-                           CC_PE_None );
+                                  start,
+                                  destination,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to ) {
     return cc_parsed_side_effect( CC_PSEE_Promotion, captured, lost_tag,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           promoted_to );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  promoted_to );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_tag_for_promotion( CcPieceEnum captured, CcLosingTagEnum lost_tag ) {
     return cc_parsed_side_effect( CC_PSEE_TagForPromotion, captured, lost_tag,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
     return cc_parsed_side_effect( CC_PSEE_Conversion, piece, lost_tag,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_failed_conversion( void ) {
     return cc_parsed_side_effect( CC_PSEE_FailedConversion, CC_PE_None, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_transparency( CcPieceEnum piece ) {
     return cc_parsed_side_effect( CC_PSEE_Transparency, piece, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceEnum piece ) {
     return cc_parsed_side_effect( CC_PSEE_Divergence, piece, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant ) {
     return cc_parsed_side_effect( CC_PSEE_DemoteToPawn, piece, lost_tag,
-                           CC_POS_CAST_INVALID,
-                           distant,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  distant,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceEnum piece, CcPos destination ) {
     return cc_parsed_side_effect( CC_PSEE_Resurrection, piece, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           destination,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  destination,
+                                  CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void ) {
     return cc_parsed_side_effect( CC_PSEE_FailedResurrection, CC_PE_None, CC_LTE_None,
-                           CC_POS_CAST_INVALID,
-                           CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                                  CC_POS_CAST_INVALID,
+                                  CC_POS_CAST_INVALID,
+                                  CC_PE_None );
 }
 
 
 bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
-                                  cc_char_16 * se_str__o ) {
+                                         cc_char_16 * se_str__o ) {
     if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
         return false;
 
