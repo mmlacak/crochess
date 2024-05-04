@@ -396,7 +396,6 @@ CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type );
 #define CC_TYPED_STEP_CAST(int_i,int_j,enum_type) ( (CcTypedStep)CC_TYPED_STEP( (int_i), (int_j), (enum_type) ) )
 
 
-
 //
 // Linked positions.
 

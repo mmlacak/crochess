@@ -26,19 +26,19 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.513:945+20240504.005112"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.514:946+20240504.010714"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
 #endif // __WITH_LINE_NOISE__
 
 
-bool print_all_moves( CcMove * moves ) {
+bool print_all_moves( CcParsedMove * moves ) {
     if ( !moves ) return false;
 
-    CcMove * m = moves;
-    CcMove * l = NULL;
-    CcMove * d = NULL;
+    CcParsedMove * m = moves;
+    CcParsedMove * l = NULL;
+    CcParsedMove * d = NULL;
 
     size_t i = 0;
     size_t index = 0;

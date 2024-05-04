@@ -13,10 +13,10 @@
 
 
 static bool cc_check_standalone_status( char const char_an,
-                                        CcMove ** temp__n,
-                                        CcMove ** move__o,
+                                        CcParsedMove ** temp__n,
+                                        CcParsedMove ** move__o,
                                         CcParseMsg ** parse_msgs__iod,
-                                        CcMoveStatusEnum mse,
+                                        CcParsedMoveStatusEnum mse,
                                         size_t max_len__d,
                                         char const * msg, ... ) {
     if ( iscntrl( char_an ) || isspace( char_an ) ) {
@@ -41,7 +41,7 @@ static bool cc_check_standalone_status( char const char_an,
 
 bool cc_parse_move( char const * move_an,
                     CcGame * game,
-                    CcMove ** move__o,
+                    CcParsedMove ** move__o,
                     CcParseMsg ** parse_msgs__iod ) {
     if ( !move_an ) return false;
     if ( !game ) return false;
@@ -59,14 +59,14 @@ bool cc_parse_move( char const * move_an,
         return false;
     }
 
-    CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
+    CcParsedMove * move__t = cc_parsed_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
     if ( !move__t ) return false;
 
     char const * m_an = move_an;
     if ( *m_an == '#' ) {
         if ( *++m_an == '#' ) {
             // "##" resign
-            return cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_Resign, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after resign.\n" );
+            return cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_PMSE_Resign, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after resign.\n" );
         } else {
             // "#" self-checkmate
 
@@ -74,7 +74,7 @@ bool cc_parse_move( char const * move_an,
             //         Self- is optional, since both players could overlook checkmate,
             //         this is option to rectify such a situation.
 
-            return cc_check_standalone_status( *m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_SelfCheckmate, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after self-checkmate.\n" );
+            return cc_check_standalone_status( *m_an, &move__t, move__o, parse_msgs__iod, CC_PMSE_SelfCheckmate, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after self-checkmate.\n" );
         }
     }
 
@@ -85,7 +85,7 @@ bool cc_parse_move( char const * move_an,
                     // "(==)" draw offer accepted
 
                     if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) ) {
-                        return cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_DrawAccepted, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after accepted draw.\n" );
+                        return cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_PMSE_DrawAccepted, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after accepted draw.\n" );
                     } else {
                         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "No valid opponent's draw offer found.\n" );
                         return false;
@@ -104,7 +104,7 @@ bool cc_parse_move( char const * move_an,
                 //                                            &move__t,
                 //                                            move__o,
                 //                                            parse_msgs__iod,
-                //                                            CC_MSE_DrawByRules,
+                //                                            CC_PMSE_DrawByRules,
                 //                                            CC_MAX_LEN_ZERO_TERMINATED,
                 //                                            "Invalid char(s) after draw by rules.\n" );
                 //     }
@@ -120,7 +120,7 @@ bool cc_parse_move( char const * move_an,
 
     if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) ) {
         cc_ply_free_all( &plies__t );
-        cc_move_free_all( &move__t );
+        cc_parsed_move_free_all( &move__t );
         return false;
     }
 

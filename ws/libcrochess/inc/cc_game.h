@@ -90,7 +90,7 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse );
 typedef struct CcGame {
     CcGameStatusEnum status; /**< Current game status. */
     CcChessboard * chessboard; /**< Current position on a chessboard. */
-    CcMove * moves; /**< Queue of moves played so far. */
+    CcParsedMove * moves; /**< Queue of moves played so far. */
 } CcGame;
 
 /**

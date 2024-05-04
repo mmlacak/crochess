@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.513:945+20240504.005112"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.514:946+20240504.010714"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -61,12 +61,12 @@ int get_integer_from_cli_arg( char const * str,
     return number;
 }
 
-bool print_all_moves( CcMove * moves ) {
+bool print_all_moves( CcParsedMove * moves ) {
     if ( !moves ) return false;
 
-    CcMove * m = moves;
-    CcMove * l = NULL;
-    CcMove * d = NULL;
+    CcParsedMove * m = moves;
+    CcParsedMove * l = NULL;
+    CcParsedMove * d = NULL;
 
     size_t i = 0;
     size_t index = 0;
@@ -201,7 +201,7 @@ int main( void ) {
                 if ( !an_str ) continue;
 
                 CcParseMsg * pm__a = NULL;
-                CcMove * move__a = NULL;
+                CcParsedMove * move__a = NULL;
 
 // TODO :: parse --> do apply
 //

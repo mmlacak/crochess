@@ -53,13 +53,13 @@ static int cc_an_str_ends_with_draw_offer( char const * an_start,
 }
 
 
-bool cc_check_valid_draw_offer_exists( CcMove * moves,
+bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
                                        CcGameStatusEnum gse ) {
     if ( !moves ) return false;
     if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false;
 
     int draw_offer = CC_DRAW_OFFER_NOT_FOUND;
-    CcMove * m = moves;
+    CcParsedMove * m = moves;
     CC_FASTFORWARD( m );
 
     while ( m ) {

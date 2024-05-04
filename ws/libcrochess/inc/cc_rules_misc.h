@@ -18,7 +18,7 @@
 //                                            size_t max_len__d );
 
 
-bool cc_check_valid_draw_offer_exists( CcMove * moves,
+bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
                                        CcGameStatusEnum gse );
 
 bool cc_check_promote_or_tag( CcChessboard * cb,

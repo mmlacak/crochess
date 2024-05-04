@@ -90,17 +90,17 @@ If a pointer in an entity does not have ownership over linked entity, `__w` is a
 to its name, e.g. `CcPly * related_ply__w`. <br />
 Function(s) `free()`-ing containing entity does not `free()` weak pointers.
 
-For instance, `CcMove` contains `CcPly *`, so it owns all `CcPly` items in that linked
+For instance, `CcParsedMove` contains `CcPly *`, so it owns all `CcPly` items in that linked
 list. <br />
 Now, each `CcPly` contains `CcStep *`, so it owns all `CcStep` items in that linked
 list. <br />
-So, `CcMove` indirectly owns every `CcStep` in the whole structure.
+So, `CcParsedMove` indirectly owns every `CcStep` in the whole structure.
 
 This is evidenced when `free()`-ing hierarchically complete structure from a single
-`CcMove` pointer.
+`CcParsedMove` pointer.
 
-All `CcMove`s in a linked list are `free()`-ed by calling `cc_move_free_all_moves()`,
-which `free()`-s all linked `CcPly`s in each `CcMove` (by calling `cc_ply_free_all_plies()`),
+All `CcParsedMove`s in a linked list are `free()`-ed by calling `cc_move_free_all_moves()`,
+which `free()`-s all linked `CcPly`s in each `CcParsedMove` (by calling `cc_ply_free_all_plies()`),
 which `free()`-s all linked `CcStep`s in each `CcPly` (by calling `cc_step_free_all_steps()`).
 
 ### Transfer of ownership
@@ -123,7 +123,7 @@ Parameters
 Pointers as function parameters are usually input, read-only borrows. <br />
 Strings (i.e. `char *`) have their underlying type `const`-ed (i.e. `char const *`),
 most other types do not have `const`. <br />
-For instance, `char const * str`, `CcMove * moves`.
+For instance, `char const * str`, `CcParsedMove * moves`.
 
 ### _Static_ parameters
 

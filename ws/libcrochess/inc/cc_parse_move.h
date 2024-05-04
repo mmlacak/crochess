@@ -13,10 +13,10 @@
 
 
 // static bool cc_check_standalone_status( char const char_an,
-//                                         CcMove ** temp__n,
-//                                         CcMove ** move__o,
+//                                         CcParsedMove ** temp__n,
+//                                         CcParsedMove ** move__o,
 //                                         CcParseMsg ** parse_msgs__iod,
-//                                         CcMoveStatusEnum mse,
+//                                         CcParsedMoveStatusEnum mse,
 //                                         size_t max_len__d,
 //                                         char const * msg, ... )
 
@@ -24,7 +24,7 @@
 // DOCS
 bool cc_parse_move( char const * move_an,
                     CcGame * game,
-                    CcMove ** move__o,
+                    CcParsedMove ** move__o,
                     CcParseMsg ** parse_msgs__iod );
 
 
