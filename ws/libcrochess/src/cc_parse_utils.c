@@ -339,7 +339,7 @@ bool cc_has_separated_steps( char const * an_str,
 
 bool cc_parse_step_link( char const * an_str,
                          char const * ply_end,
-                         CcStepLinkEnum * sle__o ) {
+                         CcParsedStepLinkEnum * sle__o ) {
     if ( !an_str ) return false;
     if ( !sle__o ) return false;
 
@@ -347,27 +347,27 @@ bool cc_parse_step_link( char const * an_str,
 
     if ( *c == '.' ) {
         if ( *++c == '.' ) {
-            *sle__o = CC_SLE_Distant;
+            *sle__o = CC_PSLE_Distant;
             return true;
         }
 
-        *sle__o = CC_SLE_Next;
+        *sle__o = CC_PSLE_Next;
         return true;
     } else if ( *c == '-' ) {
-        *sle__o = CC_SLE_Destination;
+        *sle__o = CC_PSLE_Destination;
         return true;
     } else if ( *c == ',' ) {
-        *sle__o = CC_SLE_Reposition;
+        *sle__o = CC_PSLE_Reposition;
         return true;
     } else if ( isgraph( *c ) ) {
         if ( cc_has_separated_steps( an_str, ply_end, true, true ) ) {
-            *sle__o = CC_SLE_Start;
+            *sle__o = CC_PSLE_Start;
             return true;
         } else if ( cc_skip_disambiguation( an_str ) ) {
-            *sle__o = CC_SLE_Start;
+            *sle__o = CC_PSLE_Start;
             return true;
         } else {
-            *sle__o = CC_SLE_JustDestination;
+            *sle__o = CC_PSLE_JustDestination;
             return true;
         }
     }
@@ -375,15 +375,15 @@ bool cc_parse_step_link( char const * an_str,
     return false;
 }
 
-size_t cc_step_link_len( CcStepLinkEnum sle ) {
+size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle ) {
     switch ( sle ) {
-        case CC_SLE_None : return 0; /* Step link not found, uninitialized, or error happened. */
-        case CC_SLE_Start : return 0; /* Position from which a piece started moving. */
-        case CC_SLE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
-        case CC_SLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
-        case CC_SLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
-        case CC_SLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
-        case CC_SLE_JustDestination : return 0; /* Just destination field, no separators, no other steps, maybe disambiguation. */
+        case CC_PSLE_None : return 0; /* Step link not found, uninitialized, or error happened. */
+        case CC_PSLE_Start : return 0; /* Position from which a piece started moving. */
+        case CC_PSLE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
+        case CC_PSLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
+        case CC_PSLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
+        case CC_PSLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
+        case CC_PSLE_JustDestination : return 0; /* Just destination field, no separators, no other steps, maybe disambiguation. */
 
         default : return 0;
     }
@@ -396,16 +396,16 @@ char const * cc_next_step_link( char const * an_str,
     if ( !ply_end ) return NULL;
     if ( an_str >= ply_end ) return NULL;
 
-    CcStepLinkEnum sle = CC_SLE_None;
+    CcParsedStepLinkEnum sle = CC_PSLE_None;
     if ( !cc_parse_step_link( an_str, ply_end, &sle ) ) return NULL;
 
-    char const * str__w = an_str + cc_step_link_len( sle );
+    char const * str__w = an_str + cc_parsed_step_link_len( sle );
 
     // Skip over everything before next step link.
     do {
         if ( !cc_parse_step_link( str__w, ply_end, &sle ) ) return NULL;
 
-        if ( ( sle == CC_SLE_Start ) || ( sle == CC_SLE_JustDestination ) )
+        if ( ( sle == CC_PSLE_Start ) || ( sle == CC_PSLE_JustDestination ) )
             ++str__w;
         else
             break;
@@ -455,12 +455,12 @@ bool cc_ply_an_contains_steps( char const * an_str,
     // Usually, step links are expected somewhere in the middle of AN string ...
     if ( ( an ) && ( an < ply_end ) ) return true;
 
-    CcStepLinkEnum sle = CC_SLE_None;
+    CcParsedStepLinkEnum sle = CC_PSLE_None;
     if ( !cc_parse_step_link( an_str, ply_end, &sle ) ) return false;
 
     // ... but string might start with step link.
     // If it's start of a ply AN, this is an error, but that needs handling somewhere else.
-    return ( ( sle != CC_SLE_None ) && ( sle != CC_SLE_Start ) );
+    return ( ( sle != CC_PSLE_None ) && ( sle != CC_PSLE_Start ) );
 }
 
 

@@ -110,7 +110,7 @@ typedef struct CcParsedPly {
     CcParsedPlyLinkEnum link; /**< Type of link, of this ply, related to previous ply in a cascade.  */
     CcPieceEnum piece; /**< A piece being moved. */
     CcLosingTagEnum lost_tag; /**< Flag, whether moving piece has lost its tag. */
-    CcStep * steps; /**< Steps taken by the piece. */
+    CcParsedStep * steps; /**< Steps taken by the piece. */
 
     struct CcParsedPly * next; /**< Next ply in a cascade. */
 } CcParsedPly;
@@ -145,7 +145,7 @@ CcParsedPly * cc_parsed_ply__new( char const * start_an__d,
                                   CcParsedPlyLinkEnum link,
                                   CcPieceEnum piece,
                                   CcLosingTagEnum lost_tag,
-                                  CcStep ** steps__n );
+                                  CcParsedStep ** steps__n );
 
 /**
     Appends a newly allocated ply to a given linked list.
@@ -183,7 +183,7 @@ CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
                                     CcParsedPlyLinkEnum link,
                                     CcPieceEnum piece,
                                     CcLosingTagEnum lost_tag,
-                                    CcStep ** steps__n );
+                                    CcParsedStep ** steps__n );
 
 /**
     Duplicates a given plies into a newly allocated linked list.

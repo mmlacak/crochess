@@ -12,23 +12,24 @@
 */
 
 
-char const * cc_step_link_symbol( CcStepLinkEnum sle ) {
+char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle ) {
     switch ( sle ) {
-        case CC_SLE_None : return NULL;
-        case CC_SLE_Start : return "";
-        case CC_SLE_Reposition : return ",";
-        case CC_SLE_Next : return ".";
-        case CC_SLE_Distant : return "..";
-        case CC_SLE_Destination : return "-";
-        case CC_SLE_JustDestination : return "";
+        case CC_PSLE_None : return NULL;
+        case CC_PSLE_Start : return "";
+        case CC_PSLE_Reposition : return ",";
+        case CC_PSLE_Next : return ".";
+        case CC_PSLE_Distant : return "..";
+        case CC_PSLE_Destination : return "-";
+        case CC_PSLE_JustDestination : return "";
 
         default : return NULL;
     }
 }
 
-CcStep * cc_step__new( CcStepLinkEnum link,
-                       CcPos field, CcSideEffect side_effect ) {
-    CcStep * step__a = malloc( sizeof( CcStep ) );
+CcParsedStep * cc_parsed_step__new( CcParsedStepLinkEnum link,
+                                    CcPos field,
+                                    CcSideEffect side_effect ) {
+    CcParsedStep * step__a = malloc( sizeof( CcParsedStep ) );
     if ( !step__a ) return NULL;
 
     step__a->link = link;
@@ -40,17 +41,19 @@ CcStep * cc_step__new( CcStepLinkEnum link,
     return step__a;
 }
 
-CcStep * cc_step_append( CcStep ** steps__iod_a,
-                         CcStepLinkEnum link, CcPos field, CcSideEffect side_effect ) {
+CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a,
+                                      CcParsedStepLinkEnum link,
+                                      CcPos field,
+                                      CcSideEffect side_effect ) {
     if ( !steps__iod_a ) return NULL;
 
-    CcStep * step__t = cc_step__new( link, field, side_effect );
+    CcParsedStep * step__t = cc_parsed_step__new( link, field, side_effect );
     if ( !step__t ) return NULL;
 
     if ( !*steps__iod_a ) {
         *steps__iod_a = step__t; // Ownership transfer.
     } else {
-        CcStep * s = *steps__iod_a;
+        CcParsedStep * s = *steps__iod_a;
         CC_FASTFORWARD( s );
         s->next = step__t; // Append + ownership transfer.
     }
@@ -58,19 +61,19 @@ CcStep * cc_step_append( CcStep ** steps__iod_a,
     return step__t; // Weak pointer.
 }
 
-CcStep * cc_step_duplicate_all__new( CcStep * steps__io ) {
+CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps__io ) {
     if ( !steps__io ) return NULL;
 
-    CcStep * steps__a = NULL;
-    CcStep * from = steps__io;
+    CcParsedStep * steps__a = NULL;
+    CcParsedStep * from = steps__io;
 
     while ( from ) {
-        CcStep * step__w = cc_step_append( &steps__a,
+        CcParsedStep * step__w = cc_parsed_step_append( &steps__a,
                                            from->link,
                                            from->field,
                                            from->side_effect );
         if ( !step__w ) { // Failed append --> ownership not transferred ...
-            cc_step_free_all( &steps__a );
+            cc_parsed_step_free_all( &steps__a );
             return NULL;
         }
 
@@ -80,8 +83,8 @@ CcStep * cc_step_duplicate_all__new( CcStep * steps__io ) {
     return steps__a;
 }
 
-CcStep * cc_step_extend( CcStep ** steps__iod_a,
-                         CcStep ** steps__n ) {
+CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a,
+                                      CcParsedStep ** steps__n ) {
     if ( !steps__iod_a ) return NULL;
     if ( !steps__n ) return NULL;
 
@@ -95,7 +98,7 @@ CcStep * cc_step_extend( CcStep ** steps__iod_a,
         return *steps__iod_a;
     }
 
-    CcStep * last = *steps__iod_a;
+    CcParsedStep * last = *steps__iod_a;
     CC_FASTFORWARD( last );
 
     // Ownership transfer.
@@ -105,11 +108,11 @@ CcStep * cc_step_extend( CcStep ** steps__iod_a,
     return last->next;
 }
 
-size_t cc_step_count( CcStep * steps ) {
+size_t cc_parsed_step_count( CcParsedStep * steps ) {
     if ( !steps ) return 0;
 
     size_t count = 0;
-    CcStep * s = steps;
+    CcParsedStep * s = steps;
 
     while ( s ) {
         ++count;
@@ -119,34 +122,34 @@ size_t cc_step_count( CcStep * steps ) {
     return count;
 }
 
-CcStep * cc_step_find_start( CcStep * steps ) {
+CcParsedStep * cc_parsed_step_find_start( CcParsedStep * steps ) {
     if ( !steps ) return NULL;
 
-    if ( steps->link == CC_SLE_Start )
+    if ( steps->link == CC_PSLE_Start )
         return steps;
 
     return NULL;
 }
 
-CcStep * cc_step_find_destination( CcStep * steps ) {
+CcParsedStep * cc_parsed_step_find_destination( CcParsedStep * steps ) {
     if ( !steps ) return NULL;
 
-    CcStep * prev = NULL;
-    CcStep * s = steps;
+    CcParsedStep * prev = NULL;
+    CcParsedStep * s = steps;
     bool prev_step = false;
 
     while ( s ) {
-        if ( s->link == CC_SLE_None ) return NULL;
+        if ( s->link == CC_PSLE_None ) return NULL;
 
         if ( s->next ) {
             if ( CC_IS_STEP_LINK_DESTINATION( s->link ) ) return NULL; // An intermediate destination?
 
-            if ( s->link == CC_SLE_Reposition ) {
+            if ( s->link == CC_PSLE_Reposition ) {
                 // Reposition is legal only on 1st, or 2nd step.
                 if ( ( s != steps ) && ( prev != steps ) ) return NULL;
             }
 
-            if ( s->link == CC_SLE_Start ) {
+            if ( s->link == CC_PSLE_Start ) {
                 // Start is legal only on 1st step.
                 if ( s != steps ) return NULL;
             }
@@ -156,7 +159,7 @@ CcStep * cc_step_find_destination( CcStep * steps ) {
             prev = s;
             s = s->next;
         } else {
-            if ( prev_step && ( s->link == CC_SLE_Start ) )
+            if ( prev_step && ( s->link == CC_PSLE_Start ) )
                 return NULL;
             else
                 return s;
@@ -166,14 +169,14 @@ CcStep * cc_step_find_destination( CcStep * steps ) {
     return NULL; // Has to be here, clang complains otherwise.
 }
 
-bool cc_step_free_all( CcStep ** steps__f ) {
+bool cc_parsed_step_free_all( CcParsedStep ** steps__f ) {
     if ( !steps__f ) return false;
     if ( !*steps__f ) return true;
 
-    CcStep * s = *steps__f;
+    CcParsedStep * s = *steps__f;
 
     while ( s ) {
-        CcStep * tmp = s->next;
+        CcParsedStep * tmp = s->next;
         CC_FREE( s );
         s = tmp;
     }
@@ -182,11 +185,11 @@ bool cc_step_free_all( CcStep ** steps__f ) {
     return true;
 }
 
-char * cc_step_all_to_short_string__new( CcStep * steps ) {
+char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps ) {
     if ( !steps ) return NULL;
 
     // unused len is certainly > 0, because steps != NULL
-    signed int unused = cc_step_count( steps ) *
+    signed int unused = cc_parsed_step_count( steps ) *
                         ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) + 1; // +1, for '\0'
                         // CC_MAX_LEN_CHAR_8, for position
                         // + CC_MAX_LEN_CHAR_16, for side-effect
@@ -205,13 +208,13 @@ char * cc_step_all_to_short_string__new( CcStep * steps ) {
     char * steps_end = steps_str;
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
-    CcStep * s = steps;
+    CcParsedStep * s = steps;
 
     while ( s && ( unused > 1 ) ) { // 1, reserved for '\0'
-        char const * sle_str = cc_step_link_symbol( s->link );
+        char const * sle_str = cc_parsed_step_link_symbol( s->link );
 
         if ( sle_str ) {
-            char * sle_end = cc_str_append_into( steps_str, unused, sle_str, CC_MAX_LEN_STEP_LINK_SYMBOL );
+            char * sle_end = cc_str_append_into( steps_str, unused, sle_str, CC_MAX_LEN_PARSED_STEP_LINK_SYMBOL );
             if ( !sle_end ) {
                 CC_FREE( steps_str__a );
                 return NULL;
@@ -259,155 +262,193 @@ char * cc_step_all_to_short_string__new( CcStep * steps ) {
 //
 // new conveniences
 
-CcStep * cc_step_none__new( CcStepLinkEnum link, CcPos field ) {
+CcParsedStep * cc_parsed_step_none__new( CcParsedStepLinkEnum link, CcPos field ) {
     CcSideEffect se = cc_side_effect_none();
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_capture__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
+CcParsedStep * cc_parsed_step_capture__new( CcParsedStepLinkEnum link, CcPos field,
+                                            CcPieceEnum piece,
+                                            CcLosingTagEnum lost_tag ) {
     CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_displacement__new( CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination ) {
+CcParsedStep * cc_parsed_step_displacement__new( CcParsedStepLinkEnum link, CcPos field,
+                                                 CcPieceEnum piece,
+                                                 CcLosingTagEnum lost_tag,
+                                                 CcPos destination ) {
     CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_en_passant__new( CcStepLinkEnum link, CcPos field,
-                                  CcPieceEnum pawn, CcPos distant ) {
+CcParsedStep * cc_parsed_step_en_passant__new( CcParsedStepLinkEnum link, CcPos field,
+                                               CcPieceEnum pawn,
+                                               CcPos distant ) {
     CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_castle__new( CcStepLinkEnum link, CcPos field,
-                              CcPieceEnum rook, CcPos start, CcPos destination ) {
+CcParsedStep * cc_parsed_step_castle__new( CcParsedStepLinkEnum link, CcPos field,
+                                           CcPieceEnum rook,
+                                           CcPos start,
+                                           CcPos destination ) {
     CcSideEffect se = cc_side_effect_castle( rook, start, destination );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_promote__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to ) {
+CcParsedStep * cc_parsed_step_promote__new( CcParsedStepLinkEnum link, CcPos field,
+                                            CcPieceEnum captured,
+                                            CcLosingTagEnum lost_tag,
+                                            CcPieceEnum promoted_to ) {
     CcSideEffect se = cc_side_effect_promote( captured, lost_tag, promoted_to );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_tag_for_promotion__new( CcStepLinkEnum link, CcPos field,
-                                         CcPieceEnum captured, CcLosingTagEnum lost_tag ) {
+CcParsedStep * cc_parsed_step_tag_for_promotion__new( CcParsedStepLinkEnum link, CcPos field,
+                                                      CcPieceEnum captured,
+                                                      CcLosingTagEnum lost_tag ) {
     CcSideEffect se = cc_side_effect_tag_for_promotion( captured, lost_tag );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_convert__new( CcStepLinkEnum link, CcPos field,
-                               CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
+CcParsedStep * cc_parsed_step_convert__new( CcParsedStepLinkEnum link, CcPos field,
+                                            CcPieceEnum piece,
+                                            CcLosingTagEnum lost_tag ) {
     CcSideEffect se = cc_side_effect_convert( piece, lost_tag );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_failed_conversion__new( CcStepLinkEnum link, CcPos field ) {
+CcParsedStep * cc_parsed_step_failed_conversion__new( CcParsedStepLinkEnum link, CcPos field ) {
     CcSideEffect se = cc_side_effect_failed_conversion();
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_demote__new( CcStepLinkEnum link, CcPos field,
-                              CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant ) {
+CcParsedStep * cc_parsed_step_demote__new( CcParsedStepLinkEnum link, CcPos field,
+                                           CcPieceEnum piece,
+                                           CcLosingTagEnum lost_tag,
+                                           CcPos distant ) {
     CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_resurrect__new( CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcPos destination ) {
+CcParsedStep * cc_parsed_step_resurrect__new( CcParsedStepLinkEnum link, CcPos field,
+                                              CcPieceEnum piece,
+                                              CcPos destination ) {
     CcSideEffect se = cc_side_effect_resurrect( piece, destination );
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
-CcStep * cc_step_failed_resurrection__new( CcStepLinkEnum link, CcPos field ) {
+CcParsedStep * cc_parsed_step_failed_resurrection__new( CcParsedStepLinkEnum link, CcPos field ) {
     CcSideEffect se = cc_side_effect_failed_resurrection();
-    return cc_step__new( link, field, se );
+    return cc_parsed_step__new( link, field, se );
 }
 
 //
 // append conveniences
 
-CcStep * cc_step_none_append( CcStep ** steps__iod_a,
-                              CcStepLinkEnum link, CcPos field ) {
+CcParsedStep * cc_parsed_step_none_append( CcParsedStep ** steps__iod_a,
+                                           CcParsedStepLinkEnum link,
+                                           CcPos field ) {
     CcSideEffect se = cc_side_effect_none();
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_capture_append( CcStep ** steps__iod_a,
-                                 CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
+CcParsedStep * cc_parsed_step_capture_append( CcParsedStep ** steps__iod_a,
+                                              CcParsedStepLinkEnum link,
+                                              CcPos field,
+                                              CcPieceEnum piece,
+                                              CcLosingTagEnum lost_tag ) {
     CcSideEffect se = cc_side_effect_capture( piece, lost_tag );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_displacement_append( CcStep ** steps__iod_a,
-                                      CcStepLinkEnum link, CcPos field,
-                                      CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination ) {
+CcParsedStep * cc_parsed_step_displacement_append( CcParsedStep ** steps__iod_a,
+                                                   CcParsedStepLinkEnum link,
+                                                   CcPos field,
+                                                   CcPieceEnum piece,
+                                                   CcLosingTagEnum lost_tag,
+                                                   CcPos destination ) {
     CcSideEffect se = cc_side_effect_displacement( piece, lost_tag, destination );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a,
-                                    CcStepLinkEnum link, CcPos field,
-                                    CcPieceEnum pawn, CcPos distant ) {
+CcParsedStep * cc_parsed_step_en_passant_append( CcParsedStep ** steps__iod_a,
+                                                 CcParsedStepLinkEnum link,
+                                                 CcPos field,
+                                                 CcPieceEnum pawn,
+                                                 CcPos distant ) {
     CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_castle_append( CcStep ** steps__iod_a,
-                                CcStepLinkEnum link, CcPos field,
-                                CcPieceEnum rook, CcPos start, CcPos destination ) {
+CcParsedStep * cc_parsed_step_castle_append( CcParsedStep ** steps__iod_a,
+                                             CcParsedStepLinkEnum link,
+                                             CcPos field,
+                                             CcPieceEnum rook,
+                                             CcPos start,
+                                             CcPos destination ) {
     CcSideEffect se = cc_side_effect_castle( rook, start, destination );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_promote_append( CcStep ** steps__iod_a,
-                                 CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to ) {
+CcParsedStep * cc_parsed_step_promote_append( CcParsedStep ** steps__iod_a,
+                                              CcParsedStepLinkEnum link,
+                                              CcPos field,
+                                              CcPieceEnum captured,
+                                              CcLosingTagEnum lost_tag,
+                                              CcPieceEnum promoted_to ) {
     CcSideEffect se = cc_side_effect_promote( captured, lost_tag, promoted_to );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_tag_for_promotion_append( CcStep ** steps__iod_a,
-                                           CcStepLinkEnum link, CcPos field,
-                                           CcPieceEnum captured, CcLosingTagEnum lost_tag ) {
+CcParsedStep * cc_parsed_step_tag_for_promotion_append( CcParsedStep ** steps__iod_a,
+                                                        CcParsedStepLinkEnum link,
+                                                        CcPos field,
+                                                        CcPieceEnum captured,
+                                                        CcLosingTagEnum lost_tag ) {
     CcSideEffect se = cc_side_effect_tag_for_promotion( captured, lost_tag );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_convert_append( CcStep ** steps__iod_a,
-                                 CcStepLinkEnum link, CcPos field,
-                                 CcPieceEnum piece, CcLosingTagEnum lost_tag ) {
+CcParsedStep * cc_parsed_step_convert_append( CcParsedStep ** steps__iod_a,
+                                              CcParsedStepLinkEnum link,
+                                              CcPos field,
+                                              CcPieceEnum piece,
+                                              CcLosingTagEnum lost_tag ) {
     CcSideEffect se = cc_side_effect_convert( piece, lost_tag );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_failed_conversion_append( CcStep ** steps__iod_a,
-                                           CcStepLinkEnum link, CcPos field ) {
+CcParsedStep * cc_parsed_step_failed_conversion_append( CcParsedStep ** steps__iod_a,
+                                                        CcParsedStepLinkEnum link,
+                                                        CcPos field ) {
     CcSideEffect se = cc_side_effect_failed_conversion();
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_demote_append( CcStep ** steps__iod_a,
-                                CcStepLinkEnum link, CcPos field,
-                                CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant ) {
+CcParsedStep * cc_parsed_step_demote_append( CcParsedStep ** steps__iod_a,
+                                             CcParsedStepLinkEnum link,
+                                             CcPos field,
+                                             CcPieceEnum piece,
+                                             CcLosingTagEnum lost_tag,
+                                             CcPos distant ) {
     CcSideEffect se = cc_side_effect_demote( piece, lost_tag, distant );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_resurrect_append( CcStep ** steps__iod_a,
-                                   CcStepLinkEnum link, CcPos field,
-                                   CcPieceEnum piece, CcPos destination ) {
+CcParsedStep * cc_parsed_step_resurrect_append( CcParsedStep ** steps__iod_a,
+                                                CcParsedStepLinkEnum link,
+                                                CcPos field,
+                                                CcPieceEnum piece,
+                                                CcPos destination ) {
     CcSideEffect se = cc_side_effect_resurrect( piece, destination );
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
 
-CcStep * cc_step_failed_resurrection_append( CcStep ** steps__iod_a,
-                                             CcStepLinkEnum link, CcPos field ) {
+CcParsedStep * cc_parsed_step_failed_resurrection_append( CcParsedStep ** steps__iod_a,
+                                                          CcParsedStepLinkEnum link,
+                                                          CcPos field ) {
     CcSideEffect se = cc_side_effect_failed_resurrection();
-    return cc_step_append( steps__iod_a, link, field, se );
+    return cc_parsed_step_append( steps__iod_a, link, field, se );
 }
