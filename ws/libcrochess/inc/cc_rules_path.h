@@ -9,15 +9,15 @@
 #include "cc_pos.h"
 
 
-bool cc_is_pawn_capture_valid( CcChessboard * cb,
-                               CcPieceEnum pawn,
-                               CcPos start,
-                               CcPos destination );
+// bool cc_is_pawn_capture_valid( CcChessboard * cb,
+//                                CcPieceEnum pawn,
+//                                CcPos start,
+//                                CcPos destination );
 
-bool cc_is_pawn_step_valid( CcChessboard * cb,
-                            CcPieceEnum pawn,
-                            CcPos start,
-                            CcPos destination );
+// bool cc_is_pawn_step_valid( CcChessboard * cb,
+//                             CcPieceEnum pawn,
+//                             CcPos start,
+//                             CcPos destination );
 
 
 #endif /* __CC_RULES_PATH_H__ */

@@ -171,6 +171,9 @@ CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type ) {
     return st;
 }
 
+bool cc_typed_step_is_equal( CcTypedStep ts_1, CcTypedStep ts_2 ) {
+    return CC_TYPED_STEP_IS_EQUAL( ts_1, ts_2 );
+}
 
 
 //

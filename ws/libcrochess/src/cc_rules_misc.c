@@ -82,46 +82,46 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
     return false;
 }
 
-bool cc_check_promote_or_tag( CcChessboard * cb,
-                              CcPieceEnum pawn,
-                              CcPos start,
-                              CcPos destination ) {
-    if ( !cb ) return false;
-    if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
-    if ( !CC_IS_POS_ON_BOARD( cb->size, start.i, start.j ) ) return false;
-    if ( !CC_IS_POS_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
+// bool cc_check_promote_or_tag( CcChessboard * cb,
+//                               CcPieceEnum pawn,
+//                               CcPos start,
+//                               CcPos destination ) {
+//     if ( !cb ) return false;
+//     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
+//     if ( !CC_IS_POS_ON_BOARD( cb->size, start.i, start.j ) ) return false;
+//     if ( !CC_IS_POS_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
-    if ( !cc_pos_is_equal( start, destination ) ) {
-        CcPos step = cc_pos_difference( destination, start );
+//     if ( !cc_pos_is_equal( start, destination ) ) {
+//         CcPos step = cc_pos_difference( destination, start );
 
-        if ( cc_is_pawn_step( cb->type, pawn, step ) ) {
-            if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
-                return false;
-        } else if ( cc_is_pawn_capture_step( pawn, step ) ) {
-            if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
-                return false;
-        } else
-            return false;
+//         if ( cc_is_pawn_step( cb->type, pawn, step ) ) {
+//             if ( !cc_is_pawn_step_valid( cb, pawn, start, destination ) )
+//                 return false;
+//         } else if ( cc_is_pawn_capture_step( pawn, step ) ) {
+//             if ( !cc_is_pawn_capture_valid( cb, pawn, start, destination ) )
+//                 return false;
+//         } else
+//             return false;
 
-        // Movement (+ capture / activation) + promotion.
+//         // Movement (+ capture / activation) + promotion.
 
-        bool is_light = cc_piece_is_light( pawn );
-        int rank = cc_chessboard_promoting_rank( cb, is_light );
-        if ( !cc_chessboard_is_coord_on_board( cb, rank ) ) return false;
+//         bool is_light = cc_piece_is_light( pawn );
+//         int rank = cc_chessboard_promoting_rank( cb, is_light );
+//         if ( !cc_chessboard_is_coord_on_board( cb, rank ) ) return false;
 
-        if ( rank == destination.j ) return true;
-    } else {
-        CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
-        if ( !CC_PIECE_IS_EQUAL( pe, pawn ) ) return false;
+//         if ( rank == destination.j ) return true;
+//     } else {
+//         CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
+//         if ( !CC_PIECE_IS_EQUAL( pe, pawn ) ) return false;
 
-        // Static promotion.
+//         // Static promotion.
 
-        CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
-        if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
-    }
+//         CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
+//         if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
+//     }
 
-    return false;
-}
+//     return false;
+// }
 
 bool cc_delete_all_en_passant_tags( CcChessboard * cb ) {
     if ( !cb ) return false;

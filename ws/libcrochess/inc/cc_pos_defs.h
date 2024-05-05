@@ -22,7 +22,7 @@
     Value to ignore array size constraint on various functions,
     and use invalid position as a guard to terminate loops.
 */
-#define CC_STEPS_LEN_INVALID_POS_TERMINATED (0)
+#define CC_STEPS_LEN_INVALID_DATA_TERMINATED (0)
 
 /** @defgroup step_generator_array The step generator array
  *  The step generator constants and arrays are meant to be used via `cc_gen_pos()`,
@@ -145,41 +145,41 @@
     similar to zero-terminating strings.
 
     @note
-    Terminating position is a `CcPos` with coordinates past normal off-board
+    Terminating position is a `CcTypedStep` with coordinates past normal off-board
     calculation. Currently, it's defined as `CC_POS_INVALID`, which is
     `{ CC_INVALID_COORD, CC_INVALID_COORD }`.
 
-    @see CcPos, CC_POS_INVALID, CC_INVALID_COORD
+    @see CcTypedStep, CC_POS_INVALID, CC_INVALID_COORD
  *  @{
  */
 
-extern CcPos const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ];
-extern CcPos const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ];
-extern CcPos const CC_STEPS_CAPTURE_LIGHT_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ];
-extern CcPos const CC_STEPS_CAPTURE_DARK_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ];
-extern CcPos const CC_STEPS_ALL_LIGHT_PAWN[ CC_STEPS_ALL_PAWN_SIZE ];
-extern CcPos const CC_STEPS_ALL_DARK_PAWN[ CC_STEPS_ALL_PAWN_SIZE ];
-extern CcPos const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ];
-extern CcPos const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ];
-extern CcPos const CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ];
-extern CcPos const CC_STEPS_ALL_DARK_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_CAPTURE_LIGHT_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_CAPTURE_DARK_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_LIGHT_PAWN[ CC_STEPS_ALL_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_DARK_PAWN[ CC_STEPS_ALL_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_DARK_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ];
 
-extern CcPos const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ];
-extern CcPos const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ];
-extern CcPos const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]; // Also, Serpent's color-changing move.
-extern CcPos const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ];
+extern CcTypedStep const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ];
+extern CcTypedStep const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ];
+extern CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]; // Also, Serpent's color-changing move.
+extern CcTypedStep const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ];
 #define CC_STEPS_KING (CC_STEPS_QUEEN)
 
 #define CC_STEPS_PEGASUS (CC_STEPS_KNIGHT)
 #define CC_STEPS_PYRAMID (CC_STEPS_ROOK)
 #define CC_STEPS_SHORT_UNICORN (CC_STEPS_KNIGHT)
-extern CcPos const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ];
+extern CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ];
 
 #define CC_STEPS_STAR (CC_STEPS_QUEEN)
 #define CC_STEPS_SHORT_CENTAUR (CC_STEPS_SHORT_UNICORN)
 #define CC_STEPS_LONG_CENTAUR (CC_STEPS_LONG_UNICORN)
-extern CcPos const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ];
-extern CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
+extern CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ];
+extern CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 #define CC_STEPS_ALL_SERPENT (CC_STEPS_BISHOP)
 
 #define CC_STEPS_LIGHT_SHAMAN (CC_STEPS_KNIGHT)
@@ -187,7 +187,7 @@ extern CcPos const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 #define CC_STEPS_DARK_SHAMAN (CC_STEPS_LONG_UNICORN)
 #define CC_STEPS_CAPTURE_DARK_SHAMAN (CC_STEPS_KNIGHT)
 #define CC_STEPS_MIRACLE_STARCHILD (CC_STEPS_QUEEN)
-extern CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ];
 
 #define CC_STEPS_GRENADIER (CC_STEPS_BISHOP)
 #define CC_STEPS_CAPTURE_GRENADIER (CC_STEPS_ROOK)
@@ -197,8 +197,8 @@ extern CcPos const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ];
 #define CC_STEPS_DARK_SCOUT (CC_STEPS_DARK_SIDEWAYS_PAWN)
 #define CC_STEPS_CAPTURE_LIGHT_SCOUT (CC_STEPS_CAPTURE_DARK_PAWN) // This is fine, Scout's capture-steps
 #define CC_STEPS_CAPTURE_DARK_SCOUT (CC_STEPS_CAPTURE_LIGHT_PAWN) // are reversed, compared to Pawn's.
-extern CcPos const CC_STEPS_ALL_LIGHT_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ];
-extern CcPos const CC_STEPS_ALL_DARK_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_LIGHT_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ];
+extern CcTypedStep const CC_STEPS_ALL_DARK_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ];
 
 #define CC_STEPS_STARTING_MONOLITH (CC_STEPS_KNIGHT)
 
@@ -215,12 +215,12 @@ extern CcPos const CC_STEPS_ALL_DARK_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ];
     @param steps_len__d _Optional_, array length.
 
     @note
-    If `steps_len__d` is not used (i.e. it's `0` == `CC_STEPS_LEN_INVALID_POS_TERMINATED`),
+    If `steps_len__d` is not used (i.e. it's `0` == `CC_STEPS_LEN_INVALID_DATA_TERMINATED`),
     `steps` array *must* be terminated with invalid position (i.e. `CC_POS_INVALID`) as a guard.
 
     @return `true` if step is valid (i.e. found in a given `steps` array), `false` otherwise.
 */
-bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d );
+bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d );
 
 
 /** @defgroup step_is_valid_macros The step validity macros
@@ -372,32 +372,36 @@ bool cc_is_step_valid( CcPos step, CcPos const steps[], size_t steps_len__d );
 /** @} */ // end of step_is_valid_macros
 
 
-bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
+// TODO :: FIX
+//
+// bool cc_is_same_color( CcPieceEnum piece, CcTypedStep pos );
 
-bool cc_is_step_found( CcPos step, CcPosLink * steps );
+// bool cc_is_step_found( CcTypedStep step, CcPosLink * steps );
 
-bool cc_convert_steps_to_pos_link( CcPos const steps[],
-                                   size_t steps_len,
-                                   CcPosLink ** steps__iod_a );
+// bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
+//                                    size_t steps_len,
+//                                    CcPosLink ** steps__iod_a );
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
-                               CcPptLink ** ppt_link__n );
-
-
-bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcPos step );
-
-bool cc_is_pawn_capture_step( CcPieceEnum piece, CcPos step );
-bool cc_is_scout_capture_step( CcPieceEnum piece, CcPos step );
-bool cc_is_shaman_capture_step( CcPieceEnum piece, CcPos step );
-
-bool cc_is_capture_step( CcVariantEnum variant,
-                         CcPieceEnum activator,
-                         CcPieceEnum piece,
-                         CcPos step,
-                         CcPos step_2 );
+// CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+//                                CcPptLink ** ppt_link__n );
 
 
-bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
+// bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcTypedStep step );
+
+// bool cc_is_pawn_capture_step( CcPieceEnum piece, CcTypedStep step );
+// bool cc_is_scout_capture_step( CcPieceEnum piece, CcTypedStep step );
+// bool cc_is_shaman_capture_step( CcPieceEnum piece, CcTypedStep step );
+
+// bool cc_is_capture_step( CcVariantEnum variant,
+//                          CcPieceEnum activator,
+//                          CcPieceEnum piece,
+//                          CcTypedStep step,
+//                          CcTypedStep step_2 );
+
+
+// bool cc_is_step_miracle( CcPieceEnum piece, CcTypedStep step );
+//
+// TODO :: FIX
 
 
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
@@ -405,18 +409,22 @@ bool cc_is_step_miracle( CcPieceEnum piece, CcPos step );
 //                                     CcPosLink ** starting_steps__e_a );
 
 // static bool cc_starting_steps_unicorn( CcPieceEnum piece,
-//                                        CcPos pos,
+//                                        CcTypedStep pos,
 //                                        CcPosLink ** starting_steps__e_a );
 
 // static bool cc_starting_steps_centaur( CcPieceEnum piece,
-//                                        CcPos pos,
+//                                        CcTypedStep pos,
 //                                        CcPosLink ** starting_steps__e_a );
 
-bool cc_starting_steps( CcVariantEnum variant,
-                        CcPieceEnum piece,
-                        CcPieceEnum activator,
-                        CcPos pos,
-                        CcPosLink ** starting_steps__e_a );
+// TODO :: FIX
+//
+// bool cc_starting_steps( CcVariantEnum variant,
+//                         CcPieceEnum piece,
+//                         CcPieceEnum activator,
+//                         CcTypedStep pos,
+//                         CcPosLink ** starting_steps__e_a );
+//
+// TODO :: FIX
 
 
 #endif /* __CC_POS_DEFS_H__ */

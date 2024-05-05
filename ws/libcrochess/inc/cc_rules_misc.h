@@ -21,10 +21,10 @@
 bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
                                        CcGameStatusEnum gse );
 
-bool cc_check_promote_or_tag( CcChessboard * cb,
-                              CcPieceEnum pawn,
-                              CcPos start,
-                              CcPos destination );
+// bool cc_check_promote_or_tag( CcChessboard * cb,
+//                               CcPieceEnum pawn,
+//                               CcPos start,
+//                               CcPos destination );
 
 bool cc_delete_all_en_passant_tags( CcChessboard * cb );
 

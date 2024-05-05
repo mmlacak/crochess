@@ -342,7 +342,7 @@ typedef enum CcStepTypeEnum {
 /**
     Static step + type value, i.e. no-movement step.
 */
-#define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_Step }
+#define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_Movement }
 
 /**
     Structure holding a step and its type.
@@ -362,6 +362,33 @@ typedef struct CcTypedStep {
     Casted static position + piece + tag value, i.e. no-movement step.
 */
 #define CC_TYPED_STEP_CAST_STATIC ( (CcTypedStep)CC_TYPED_STEP_STATIC )
+
+/**
+    Macro expression to evaluate whether given typed step is valid.
+
+    @param ts A typed step.
+
+    @note
+    Typed step is valid if both coordinates of a `step` member are valid,
+    and `type` is not `CC_STE_None`.
+
+    @see CcTypedStep
+
+    @return `true` if valid typed step, `false` otherwise.
+*/
+#define CC_TYPED_STEP_IS_VALID(ts) ( CC_POS_IS_VALID( (ts).step ) && ( (ts).type != CC_STE_None ) )
+
+/**
+    Macro expression to evaluate whether given typed steps are equal.
+
+    @param ts_1 A typed step.
+    @param ts_2 An other typed step.
+
+    @see CcTypedStep
+
+    @return `true` if equal, `false` otherwise.
+*/
+#define CC_TYPED_STEP_IS_EQUAL(ts_1,ts_2) ( CC_POS_IS_EQUAL( (ts_1).step, (ts_2).step ) && ( (ts_1).type == (ts_2).type ) )
 
 /**
     Function returns a step + type.
@@ -394,6 +421,16 @@ CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type );
     @return Casted, typed step with a given coordinates.
 */
 #define CC_TYPED_STEP_CAST(int_i,int_j,enum_type) ( (CcTypedStep)CC_TYPED_STEP( (int_i), (int_j), (enum_type) ) )
+
+/**
+    Function checks if two typed steps are the same.
+
+    @param ts_1 A typed step.
+    @param ts_2 An other typed step.
+
+    @return `true` if typed steps are the same, `false` otherwise.
+*/
+bool cc_typed_step_is_equal( CcTypedStep ts_1, CcTypedStep ts_2 );
 
 
 //
