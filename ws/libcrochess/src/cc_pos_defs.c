@@ -143,49 +143,89 @@ CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
-// TODO :: split light & dark Shaman --> split steps & capture-steps
-//
-// CcTypedStep const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ] = {
-//     //
-//     // Knight steps
+CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ] = {
+    //
+    // Knight steps
 
-//     { .step = { .i =  2, .j =  1 }, .type = CC_STE_Capture },
-//     { .step = { .i =  1, .j =  2 }, .type = CC_STE_Capture },
+    { .step = { .i =  2, .j =  1 }, .type = CC_STE_Movement },
+    { .step = { .i =  1, .j =  2 }, .type = CC_STE_Movement },
 
-//     { .step = { .i = -1, .j =  2 }, .type = CC_STE_Capture },
-//     { .step = { .i = -2, .j =  1 }, .type = CC_STE_Capture },
+    { .step = { .i = -1, .j =  2 }, .type = CC_STE_Movement },
+    { .step = { .i = -2, .j =  1 }, .type = CC_STE_Movement },
 
-//     { .step = { .i = -2, .j = -1 }, .type = CC_STE_Capture },
-//     { .step = { .i = -1, .j = -2 }, .type = CC_STE_Capture },
+    { .step = { .i = -2, .j = -1 }, .type = CC_STE_Movement },
+    { .step = { .i = -1, .j = -2 }, .type = CC_STE_Movement },
 
-//     { .step = { .i =  1, .j = -2 }, .type = CC_STE_Capture },
-//     { .step = { .i =  2, .j = -1 }, .type = CC_STE_Capture },
+    { .step = { .i =  1, .j = -2 }, .type = CC_STE_Movement },
+    { .step = { .i =  2, .j = -1 }, .type = CC_STE_Movement },
 
-//     //
-//     // long Unicorn steps
+    //
+    // long Unicorn capture-steps
 
-//     { .step = { .i =  4, .j =  1 }, .type = CC_STE_Capture },
-//     { .step = { .i =  3, .j =  2 }, .type = CC_STE_Capture },
-//     { .step = { .i =  2, .j =  3 }, .type = CC_STE_Capture },
-//     { .step = { .i =  1, .j =  4 }, .type = CC_STE_Capture },
+    { .step = { .i =  4, .j =  1 }, .type = CC_STE_Capture },
+    { .step = { .i =  3, .j =  2 }, .type = CC_STE_Capture },
+    { .step = { .i =  2, .j =  3 }, .type = CC_STE_Capture },
+    { .step = { .i =  1, .j =  4 }, .type = CC_STE_Capture },
 
-//     { .step = { .i = -1, .j =  4 }, .type = CC_STE_Capture },
-//     { .step = { .i = -2, .j =  3 }, .type = CC_STE_Capture },
-//     { .step = { .i = -3, .j =  2 }, .type = CC_STE_Capture },
-//     { .step = { .i = -4, .j =  1 }, .type = CC_STE_Capture },
+    { .step = { .i = -1, .j =  4 }, .type = CC_STE_Capture },
+    { .step = { .i = -2, .j =  3 }, .type = CC_STE_Capture },
+    { .step = { .i = -3, .j =  2 }, .type = CC_STE_Capture },
+    { .step = { .i = -4, .j =  1 }, .type = CC_STE_Capture },
 
-//     { .step = { .i = -4, .j = -1 }, .type = CC_STE_Capture },
-//     { .step = { .i = -3, .j = -2 }, .type = CC_STE_Capture },
-//     { .step = { .i = -2, .j = -3 }, .type = CC_STE_Capture },
-//     { .step = { .i = -1, .j = -4 }, .type = CC_STE_Capture },
+    { .step = { .i = -4, .j = -1 }, .type = CC_STE_Capture },
+    { .step = { .i = -3, .j = -2 }, .type = CC_STE_Capture },
+    { .step = { .i = -2, .j = -3 }, .type = CC_STE_Capture },
+    { .step = { .i = -1, .j = -4 }, .type = CC_STE_Capture },
 
-//     { .step = { .i =  1, .j = -4 }, .type = CC_STE_Capture },
-//     { .step = { .i =  2, .j = -3 }, .type = CC_STE_Capture },
-//     { .step = { .i =  3, .j = -2 }, .type = CC_STE_Capture },
-//     { .step = { .i =  4, .j = -1 }, .type = CC_STE_Capture },
+    { .step = { .i =  1, .j = -4 }, .type = CC_STE_Capture },
+    { .step = { .i =  2, .j = -3 }, .type = CC_STE_Capture },
+    { .step = { .i =  3, .j = -2 }, .type = CC_STE_Capture },
+    { .step = { .i =  4, .j = -1 }, .type = CC_STE_Capture },
 
-//     CC_TYPED_STEP_INVALID,
-// };
+    CC_TYPED_STEP_INVALID,
+};
+
+CcTypedStep const CC_STEPS_DARK_SHAMAN[ CC_STEPS_DARK_SHAMAN_SIZE ] = {
+    //
+    // Knight capture-steps
+
+    { .step = { .i =  2, .j =  1 }, .type = CC_STE_Capture },
+    { .step = { .i =  1, .j =  2 }, .type = CC_STE_Capture },
+
+    { .step = { .i = -1, .j =  2 }, .type = CC_STE_Capture },
+    { .step = { .i = -2, .j =  1 }, .type = CC_STE_Capture },
+
+    { .step = { .i = -2, .j = -1 }, .type = CC_STE_Capture },
+    { .step = { .i = -1, .j = -2 }, .type = CC_STE_Capture },
+
+    { .step = { .i =  1, .j = -2 }, .type = CC_STE_Capture },
+    { .step = { .i =  2, .j = -1 }, .type = CC_STE_Capture },
+
+    //
+    // long Unicorn steps
+
+    { .step = { .i =  4, .j =  1 }, .type = CC_STE_Movement },
+    { .step = { .i =  3, .j =  2 }, .type = CC_STE_Movement },
+    { .step = { .i =  2, .j =  3 }, .type = CC_STE_Movement },
+    { .step = { .i =  1, .j =  4 }, .type = CC_STE_Movement },
+
+    { .step = { .i = -1, .j =  4 }, .type = CC_STE_Movement },
+    { .step = { .i = -2, .j =  3 }, .type = CC_STE_Movement },
+    { .step = { .i = -3, .j =  2 }, .type = CC_STE_Movement },
+    { .step = { .i = -4, .j =  1 }, .type = CC_STE_Movement },
+
+    { .step = { .i = -4, .j = -1 }, .type = CC_STE_Movement },
+    { .step = { .i = -3, .j = -2 }, .type = CC_STE_Movement },
+    { .step = { .i = -2, .j = -3 }, .type = CC_STE_Movement },
+    { .step = { .i = -1, .j = -4 }, .type = CC_STE_Movement },
+
+    { .step = { .i =  1, .j = -4 }, .type = CC_STE_Movement },
+    { .step = { .i =  2, .j = -3 }, .type = CC_STE_Movement },
+    { .step = { .i =  3, .j = -2 }, .type = CC_STE_Movement },
+    { .step = { .i =  4, .j = -1 }, .type = CC_STE_Movement },
+
+    CC_TYPED_STEP_INVALID,
+};
 
 CcTypedStep const CC_STEPS_LIGHT_SCOUT[ CC_STEPS_SCOUT_SIZE ] = {
     // light Pawn steps
