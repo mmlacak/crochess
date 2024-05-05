@@ -67,12 +67,8 @@
 #define CC_STEPS_CAPTURE_DARK_SHAMAN_LEN (CC_STEPS_KNIGHT_LEN)
 #define CC_STEPS_ALL_SHAMAN_LEN (CC_STEPS_KNIGHT_LEN + CC_STEPS_LONG_UNICORN_LEN)
 
-#define CC_STEPS_GRENADIER_LEN (CC_STEPS_BISHOP_LEN)
-#define CC_STEPS_CAPTURE_GRENADIER_LEN (CC_STEPS_ROOK_LEN)
-#define CC_STEPS_ALL_GRENADIER_LEN (CC_STEPS_QUEEN_LEN)
-
-#define CC_STEPS_SCOUT_LEN (CC_STEPS_SIDEWAYS_PAWN_LEN)
-#define CC_STEPS_CAPTURE_SCOUT_LEN (CC_STEPS_CAPTURE_PAWN_LEN)
+#define CC_STEPS_SCOUT_LEN (5)
+#define CC_STEPS_GRENADIER_LEN (CC_STEPS_ROOK_LEN + CC_STEPS_BISHOP_LEN) // Ordinary steps + capture-steps.
 
 #define CC_STEPS_MIRACLE_STARCHILD_LEN (CC_STEPS_QUEEN_LEN)
 #define CC_STEPS_STARTING_MONOLITH_LEN (CC_STEPS_KNIGHT_LEN)
@@ -115,13 +111,8 @@
 #define CC_STEPS_CAPTURE_DARK_SHAMAN_SIZE (CC_STEPS_KNIGHT_SIZE)
 #define CC_STEPS_ALL_SHAMAN_SIZE (CC_STEPS_ALL_SHAMAN_LEN + 1)
 
-#define CC_STEPS_GRENADIER_SIZE (CC_STEPS_GRENADIER_LEN + 1)
-#define CC_STEPS_CAPTURE_GRENADIER_SIZE (CC_STEPS_CAPTURE_GRENADIER_LEN + 1)
-#define CC_STEPS_ALL_GRENADIER_SIZE (CC_STEPS_ALL_GRENADIER_LEN + 1)
-
 #define CC_STEPS_SCOUT_SIZE (CC_STEPS_SCOUT_LEN + 1)
-#define CC_STEPS_CAPTURE_SCOUT_SIZE (CC_STEPS_CAPTURE_SCOUT_LEN + 1)
-#define CC_STEPS_ALL_SCOUT_SIZE (CC_STEPS_ALL_SCOUT_LEN + 1)
+#define CC_STEPS_GRENADIER_SIZE (CC_STEPS_GRENADIER_LEN + 1)
 
 #define CC_STEPS_MIRACLE_STARCHILD_SIZE (CC_STEPS_QUEEN_SIZE)
 #define CC_STEPS_STARTING_MONOLITH_SIZE (CC_STEPS_STARTING_MONOLITH_LEN + 1)
@@ -176,12 +167,9 @@ extern CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 #define CC_STEPS_MIRACLE_STARCHILD (CC_STEPS_QUEEN)
 extern CcTypedStep const CC_STEPS_ALL_SHAMAN[ CC_STEPS_ALL_SHAMAN_SIZE ];
 
-#define CC_STEPS_GRENADIER (CC_STEPS_BISHOP)
-#define CC_STEPS_CAPTURE_GRENADIER (CC_STEPS_ROOK)
-#define CC_STEPS_ALL_GRENADIER (CC_STEPS_QUEEN)
-
 extern CcTypedStep const CC_STEPS_LIGHT_SCOUT[ CC_STEPS_SCOUT_SIZE ];
 extern CcTypedStep const CC_STEPS_DARK_SCOUT[ CC_STEPS_SCOUT_SIZE ];
+extern CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ];
 
 #define CC_STEPS_STARTING_MONOLITH (CC_STEPS_KNIGHT)
 
@@ -279,6 +267,16 @@ bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps
     ( cc_is_step_valid( (step), CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN ) )
 
 
+#define CC_LIGHT_SCOUT_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_LIGHT_SCOUT, CC_STEPS_SCOUT_LEN ) )
+
+#define CC_DARK_SCOUT_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_DARK_SCOUT, CC_STEPS_SCOUT_LEN ) )
+
+#define CC_GRENADIER_STEP_IS_VALID(step) \
+    ( cc_is_step_valid( (step), CC_STEPS_GRENADIER, CC_STEPS_GRENADIER_LEN ) )
+
+
 #define CC_LIGHT_SHAMAN_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_LIGHT_SHAMAN, CC_STEPS_LIGHT_SHAMAN_LEN ) )
 
@@ -310,31 +308,15 @@ bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps
     ( cc_is_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
 
 
-#define CC_LIGHT_SCOUT_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_LIGHT_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) ) )
-
-#define CC_DARK_SCOUT_STEP_IS_VALID(step) \
-    ( ( cc_is_step_valid( (step), CC_STEPS_DARK_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN ) ) || \
-      ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) ) )
-
-
-#define CC_GRENADIER_STEP_IS_VALID(step) \
-    ( cc_is_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
-
-#define CC_GRENADIER_CAPTURE_STEP_IS_VALID(step) \
-    ( cc_is_step_valid( (step), CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN ) )
-
-
 /** @} */ // end of step_is_valid_derived_macros
 
 /** @} */ // end of step_is_valid_macros
 
 
+bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
+
 // TODO :: FIX
 //
-// bool cc_is_same_color( CcPieceEnum piece, CcTypedStep pos );
-
 // bool cc_is_step_found( CcTypedStep step, CcPosLink * steps );
 
 // bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],

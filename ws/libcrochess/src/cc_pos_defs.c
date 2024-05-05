@@ -213,6 +213,22 @@ CcTypedStep const CC_STEPS_DARK_SCOUT[ CC_STEPS_SCOUT_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
+CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ] = {
+    // Rook steps
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Movement },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Movement },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Movement },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Movement },
+
+    // Bishop capture-steps
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_Capture },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_Capture },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_Capture },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_Capture },
+
+    CC_TYPED_STEP_INVALID,
+};
+
 bool cc_is_step_valid( CcTypedStep ts, CcTypedStep const steps[], size_t steps_len__d ) {
     if ( !CC_TYPED_STEP_IS_VALID( ts ) ) return false;
 
@@ -229,18 +245,18 @@ bool cc_is_step_valid( CcTypedStep ts, CcTypedStep const steps[], size_t steps_l
     return false;
 }
 
+bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
+    if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
+        return true;
+
+    if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
+        return true;
+
+    return false;
+}
+
 // TODO :: FIX
 //
-// bool cc_is_same_color( CcPieceEnum piece, CcTypedStep pos ) {
-//     if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
-//         return true;
-
-//     if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
-//         return true;
-
-//     return false;
-// }
-
 // bool cc_is_step_found( CcTypedStep step, CcPosLink * steps ) {
 //     if ( !steps ) return false;
 
