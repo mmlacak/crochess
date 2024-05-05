@@ -10,32 +10,6 @@
 
 
 CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ] = {
-    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Movement },
-
-    CC_TYPED_STEP_INVALID,
-};
-
-CcTypedStep const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ] = {
-    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Movement },
-
-    CC_TYPED_STEP_INVALID,
-};
-
-CcTypedStep const CC_STEPS_CAPTURE_LIGHT_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] = {
-    { .step = { .i = -1, .j =  1 }, .type = CC_STE_Capture },
-    { .step = { .i =  1, .j =  1 }, .type = CC_STE_Capture },
-
-    CC_TYPED_STEP_INVALID,
-};
-
-CcTypedStep const CC_STEPS_CAPTURE_DARK_PAWN[ CC_STEPS_CAPTURE_PAWN_SIZE ] = {
-    { .step = { .i = -1, .j = -1 }, .type = CC_STE_Capture },
-    { .step = { .i =  1, .j = -1 }, .type = CC_STE_Capture },
-
-    CC_TYPED_STEP_INVALID,
-};
-
-CcTypedStep const CC_STEPS_ALL_LIGHT_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
     // step
     { .step = { .i =  0, .j =  1 }, .type = CC_STE_Movement },
 
@@ -46,7 +20,7 @@ CcTypedStep const CC_STEPS_ALL_LIGHT_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
-CcTypedStep const CC_STEPS_ALL_DARK_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
+CcTypedStep const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ] = {
     // step
     { .step = { .i =  0, .j = -1 }, .type = CC_STE_Movement },
 
@@ -58,22 +32,6 @@ CcTypedStep const CC_STEPS_ALL_DARK_PAWN[ CC_STEPS_ALL_PAWN_SIZE ] = {
 };
 
 CcTypedStep const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] = {
-    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Capture },
-    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Capture },
-    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Capture },
-
-    CC_TYPED_STEP_INVALID,
-};
-
-CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] = {
-    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Capture },
-    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Capture },
-    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Capture },
-
-    CC_TYPED_STEP_INVALID,
-};
-
-CcTypedStep const CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ] = {
     // steps
     { .step = { .i =  0, .j =  1 }, .type = CC_STE_Movement },
     { .step = { .i = -1, .j =  0 }, .type = CC_STE_Movement },
@@ -86,7 +44,7 @@ CcTypedStep const CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_S
     CC_TYPED_STEP_INVALID,
 };
 
-CcTypedStep const CC_STEPS_ALL_DARK_SIDEWAYS_PAWN[ CC_STEPS_ALL_SIDEWAYS_PAWN_SIZE ] = {
+CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] = {
     // steps
     { .step = { .i =  0, .j = -1 }, .type = CC_STE_Movement },
     { .step = { .i = -1, .j =  0 }, .type = CC_STE_Movement },
@@ -229,7 +187,7 @@ CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
 //     CC_TYPED_STEP_INVALID,
 // };
 
-CcTypedStep const CC_STEPS_ALL_LIGHT_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
+CcTypedStep const CC_STEPS_LIGHT_SCOUT[ CC_STEPS_SCOUT_SIZE ] = {
     // light Pawn steps
     { .step = { .i =  0, .j =  1 }, .type = CC_STE_Movement },
     { .step = { .i = -1, .j =  0 }, .type = CC_STE_Movement },
@@ -242,7 +200,7 @@ CcTypedStep const CC_STEPS_ALL_LIGHT_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
-CcTypedStep const CC_STEPS_ALL_DARK_SCOUT[ CC_STEPS_ALL_SCOUT_SIZE ] = {
+CcTypedStep const CC_STEPS_DARK_SCOUT[ CC_STEPS_SCOUT_SIZE ] = {
     // dark Pawn steps
     { .step = { .i =  0, .j = -1 }, .type = CC_STE_Movement },
     { .step = { .i = -1, .j =  0 }, .type = CC_STE_Movement },
