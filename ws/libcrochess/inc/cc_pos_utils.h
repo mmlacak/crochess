@@ -30,20 +30,9 @@
 CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
                                      CcPos pos );
 
-CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
-                                                   CcPos current_pos,
-                                                   CcPosLink * steps );
-
-/**
-    Function returns a new linked list of positions + pieces + tags.
-
-    @param cb A chessboard.
-    @param pos_link A linked list of positions.
-
-    @return Newly allocated linked list if successful, `NULL` otherwise.
-*/
-CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * cb,
-                                                  CcPosLink * pos_link );
+CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
+                                                CcPos current_pos,
+                                                CcTypedStepLink * steps );
 
 
 bool cc_validate_ppt_link( CcChessboard * cb,

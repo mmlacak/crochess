@@ -299,11 +299,11 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
 // TODO :: FIX
 //
-// bool cc_is_step_found( CcTypedStep step, CcPosLink * steps );
+bool cc_is_step_found( CcTypedStep step, CcTypedStepLink * steps );
 
 // bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //                                    size_t steps_len,
-//                                    CcPosLink ** steps__iod_a );
+//                                    CcTypedStepLink ** steps__iod_a );
 
 // CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
 //                                CcPptLink ** ppt_link__n );
@@ -329,15 +329,15 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
 //                                     CcPieceEnum piece,
-//                                     CcPosLink ** starting_steps__e_a );
+//                                     CcTypedStepLink ** starting_steps__e_a );
 
 // static bool cc_starting_steps_unicorn( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcPosLink ** starting_steps__e_a );
+//                                        CcTypedStepLink ** starting_steps__e_a );
 
 // static bool cc_starting_steps_centaur( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcPosLink ** starting_steps__e_a );
+//                                        CcTypedStepLink ** starting_steps__e_a );
 
 // TODO :: FIX
 //
@@ -345,7 +345,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 //                         CcPieceEnum piece,
 //                         CcPieceEnum activator,
 //                         CcTypedStep pos,
-//                         CcPosLink ** starting_steps__e_a );
+//                         CcTypedStepLink ** starting_steps__e_a );
 //
 // TODO :: FIX
 

@@ -32,7 +32,7 @@ bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum piece,
                     CcPos current_pos,
                     CcStepTypeEnum steps_type,
-                    CcPosLink ** steps__od );
+                    CcTypedStepLink ** steps__od );
 
 
 #endif /* __CC_POS_GENS_H__ */

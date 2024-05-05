@@ -21,53 +21,32 @@ CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb,
     return ppt;
 }
 
-CcPptLink * cc_convert_pos_steps_to_ppt_link__new( CcChessboard * cb,
-                                                   CcPos current_pos,
-                                                   CcPosLink * steps ) {
+CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
+                                                CcPos current_pos,
+                                                CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
 
     if ( !cc_pos_is_valid( current_pos ) ) return NULL;
 
     CcPptLink * ppt_link__a = NULL;
-    CcPosLink * step = steps;
-    bool is_failed = false;
+    CcPos pos = current_pos;
+    CcTypedStepLink * step = steps;
+    bool result = true;
 
-    while ( !is_failed && step ) {
-        CcPos p = cc_pos_add( current_pos, step->pos, 1 );
-        if ( ( is_failed = cc_chessboard_is_pos_on_board( cb, p.i, p.j ) ) ) break;
+    while ( result && step ) {
+        pos = cc_pos_add( pos, step->step.step, 1 );
+        if ( !( result = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) ) break;
 
-        CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, p );
-        if ( ( is_failed = cc_ppt_link_append( &ppt_link__a, ppt ) ) ) break;
+        CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, pos );
+        if ( !( result = cc_ppt_link_append( &ppt_link__a, ppt ) ) ) break;
 
         step = step->next;
     }
 
-    if ( is_failed ) {
+    if ( !result ) {
         cc_ppt_link_free_all( &ppt_link__a );
         return NULL;
-    }
-
-    return ppt_link__a;
-}
-
-CcPptLink * cc_convert_pos_link_to_ppt_link__new( CcChessboard * cb,
-                                                  CcPosLink * pos_link ) {
-    if ( !cb ) return NULL;
-    if ( !pos_link ) return NULL;
-
-    CcPptLink * ppt_link__a = NULL;
-    CcPosLink * p = pos_link;
-
-    while ( p ) {
-        CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, p->pos );
-
-        if ( !cc_ppt_link_append( &ppt_link__a, ppt ) ) {
-            cc_ppt_link_free_all( &ppt_link__a );
-            return NULL;
-        }
-
-        p = p->next;
     }
 
     return ppt_link__a;

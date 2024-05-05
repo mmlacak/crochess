@@ -17,7 +17,7 @@ bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum piece,
                     CcPos current_pos,
                     CcStepTypeEnum steps_type,
-                    CcPosLink ** steps__od ) {
+                    CcTypedStepLink ** steps__od ) {
     if ( !steps__od ) return false;
     if ( *steps__od ) return false;
 
@@ -33,7 +33,7 @@ bool cc_pawn_steps( CcChessboard * cb,
     CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
     if ( piece != pe ) return false;
 
-    CcPosLink * pl__t = NULL;
+    CcTypedStepLink * pl__t = NULL;
 
     // if ( CC_STEPS_HAS_MOVEMENT( steps_type ) ) {
     // }
@@ -60,7 +60,7 @@ bool cc_pawn_steps( CcChessboard * cb,
     // }
 
     // if ( !cc_convert_steps_to_pos_link( steps, size, &pl__t ) ) {
-    //     cc_pos_link_free_all( &pl__t );
+    //     cc_typed_step_link_free_all( &pl__t );
     //     return false;
     // }
 
@@ -70,7 +70,7 @@ bool cc_pawn_steps( CcChessboard * cb,
     // }
 
     // if ( !cc_convert_steps_to_pos_link( capture_steps, capture_size, &pl__t ) ) {
-    //     cc_pos_link_free_all( &pl__t );
+    //     cc_typed_step_link_free_all( &pl__t );
     //     return false;
     // }
     //

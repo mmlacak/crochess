@@ -310,12 +310,12 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 // TODO :: FIX
 //
-// bool cc_is_step_found( CcTypedStep step, CcPosLink * steps ) {
+// bool cc_is_step_found( CcTypedStep step, CcTypedStepLink * steps ) {
 //     if ( !steps ) return false;
 
 //     if ( !CC_POS_IS_VALID( step ) ) return false;
 
-//     CcPosLink * pl = steps;
+//     CcTypedStepLink * pl = steps;
 
 //     while ( pl ) {
 //         if ( CC_POS_IS_EQUAL( pl->pos, step ) )
@@ -329,10 +329,10 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 // bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //                                    size_t steps_len__d,
-//                                    CcPosLink ** steps__iod_a ) {
+//                                    CcTypedStepLink ** steps__iod_a ) {
 //     if ( !steps__iod_a ) return false;
 
-//     CcPosLink * pl__t = NULL;
+//     CcTypedStepLink * pl__t = NULL;
 
 //     for ( size_t k = 0;
 //           (steps_len__d == CC_STEPS_LEN_INVALID_DATA_TERMINATED) || (k < steps_len__d);
@@ -341,16 +341,16 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 //         if ( !CC_POS_IS_VALID( p ) ) break;
 
-//         if ( !cc_pos_link_append( &pl__t, p ) ) {
-//             cc_pos_link_free_all( &pl__t );
+//         if ( !cc_typed_step_link_append( &pl__t, p ) ) {
+//             cc_typed_step_link_free_all( &pl__t );
 //             return false;
 //         }
 //     }
 
 //     // Ownership transfer.
-//     if ( !cc_pos_link_extend( steps__iod_a, &pl__t ) ) {
-//         cc_pos_link_free_all( &pl__t );
-//         cc_pos_link_free_all( steps__iod_a );
+//     if ( !cc_typed_step_link_extend( steps__iod_a, &pl__t ) ) {
+//         cc_typed_step_link_free_all( &pl__t );
+//         cc_typed_step_link_free_all( steps__iod_a );
 //         return false;
 //     }
 
@@ -515,7 +515,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
 //                                     CcPieceEnum piece,
-//                                     CcPosLink ** starting_steps__e_a ) {
+//                                     CcTypedStepLink ** starting_steps__e_a ) {
 //     // if ( !starting_steps__e_a ) return false;
 //     // if ( *starting_steps__e_a ) return false;
 
@@ -548,7 +548,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 // static bool cc_starting_steps_unicorn( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcPosLink ** starting_steps__e_a ) {
+//                                        CcTypedStepLink ** starting_steps__e_a ) {
 //     // if ( !starting_steps__e_a ) return false;
 //     // if ( *starting_steps__e_a ) return false;
 
@@ -567,7 +567,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 // static bool cc_starting_steps_centaur( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcPosLink ** starting_steps__e_a ) {
+//                                        CcTypedStepLink ** starting_steps__e_a ) {
 //     // if ( !starting_steps__e_a ) return false;
 //     // if ( *starting_steps__e_a ) return false;
 
@@ -585,7 +585,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 // }
 
 // static bool cc_starting_steps_scout( CcPieceEnum piece,
-//                                      CcPosLink ** starting_steps__e_a ) {
+//                                      CcTypedStepLink ** starting_steps__e_a ) {
 //     // if ( !starting_steps__e_a ) return false;
 //     // if ( *starting_steps__e_a ) return false;
 
@@ -607,7 +607,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 // static bool cc_starting_steps_starchild( CcVariantEnum variant,
 //                                          /* CcPieceEnum piece, */
 //                                          CcTypedStep pos,
-//                                          CcPosLink ** starting_steps__e_a ) {
+//                                          CcTypedStepLink ** starting_steps__e_a ) {
 //     // if ( !starting_steps__e_a ) return false;
 //     // if ( *starting_steps__e_a ) return false;
 
@@ -621,8 +621,8 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 //     for ( int j = 0; (size_t)j < board_size; ++j ) {
 //         for ( int i = 0; (size_t)i < board_size; ++i ) {
 //             if ( CC_IS_FIELD_COLOR( i, j, field_color ) ) {
-//                 if ( !cc_pos_link_append( starting_steps__e_a, cc_pos( i, j ) ) ) {
-//                     cc_pos_link_free_all( starting_steps__e_a );
+//                 if ( !cc_typed_step_link_append( starting_steps__e_a, cc_pos( i, j ) ) ) {
+//                     cc_typed_step_link_free_all( starting_steps__e_a );
 //                     return false;
 //                 }
 //             }
@@ -636,7 +636,7 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 //                         CcPieceEnum piece,
 //                         CcPieceEnum activator,
 //                         CcTypedStep pos,
-//                         CcPosLink ** starting_steps__e_a ) {
+//                         CcTypedStepLink ** starting_steps__e_a ) {
 //     if ( !starting_steps__e_a ) return false;
 //     if ( *starting_steps__e_a ) return false;
 

@@ -434,127 +434,100 @@ bool cc_typed_step_is_equal( CcTypedStep ts_1, CcTypedStep ts_2 );
 
 
 //
-// Linked positions.
-
-/**
-    Convenience macro to allocate new position value to position link.
-
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_pos_link__new()
-*/
-#define CC_POS_LINK__NEW(int_i,int_j) \
-    ( cc_pos_link__new( CC_POS_CAST( (int_i), (int_j) ) ) )
-
-/**
-    Macro to append a newly allocated position value to position link.
-
-    @param ptr_ptr__pos_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-
-    @see cc_pos_link_append()
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-*/
-#define CC_POS_LINK_APPEND(ptr_ptr__pos_link__iod_a,int_i,int_j) \
-    ( cc_pos_link_append( (ptr_ptr__pos_link__iod_a), CC_POS_CAST( (int_i), (int_j) ) ) )
+// Linked typed steps.
 
 /**
     A linked list of positions.
 */
-typedef struct CcPosLink {
-    CcPos pos; /**< A position. */
-    struct CcPosLink * next; /**< Link to next position. */
-} CcPosLink;
+typedef struct CcTypedStepLink {
+    CcTypedStep step; /**< A step + type. */
+    struct CcTypedStepLink * next; /**< Link to next typed step. */
+} CcTypedStepLink;
 
 /**
-    Function allocates a new linked position.
+    Function allocates a new linked typed step.
 
-    @param pos A position.
+    @param step A typed step.
 
-    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
+    @return Pointer to a newly allocated linked typed step if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link__new( CcPos pos );
+CcTypedStepLink * cc_typed_step_link__new( CcTypedStep step );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param pos_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param pos A position.
+    @param ts_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param step A typed step.
 
     @note
-    Linked list `*pos_link__iod_a` can be `NULL`, a linked position will still be
+    Linked list `*ts_link__iod_a` can be `NULL`, a linked typed step will still be
     allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*pos_link__iod_a` is `NULL`, it will be initialized
-    with a newly allocated linked position as its only element.
+    If linked list `*ts_link__iod_a` is `NULL`, it will be initialized
+    with a newly allocated linked typed step as its only element.
 
     @note
-    Pointer `pos_link__iod_a` has ownership over given linked list, takes ownership
-    over newly allocated position, and retains ownership after function returns.
+    Pointer `ts_link__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated typed step, and retains ownership after function returns.
 
     @return
-    A weak pointer to a newly allocated linked position if successful,
+    A weak pointer to a newly allocated linked typed step if successful,
     `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
-                                CcPos pos );
+CcTypedStepLink * cc_typed_step_link_append( CcTypedStepLink ** ts_link__iod_a,
+                                             CcTypedStep step );
 
 /**
     Extends existing linked list with a another linked list.
 
-    @param pos_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param pos_link__n Linked list with which to extend existing steps.
+    @param ts_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param ts_link__n Linked list with which to extend existing steps.
 
     @note
-    If linked list to extend (`pos_link__iod_a`) hasn't been allocated yet,
+    If linked list to extend (`ts_link__iod_a`) hasn't been allocated yet,
     this will initialize it with content of an extending linked list, i.e.
-    `pos_link__n`.
+    `ts_link__n`.
 
     @note
-    Extending linked list `pos_link__n` has its ownership transferred to
-    extended linked list `pos_link__iod_a`; as a result, inner pointer of
-    `pos_link__n` is `NULL`-ed.
+    Extending linked list `ts_link__n` has its ownership transferred to
+    extended linked list `ts_link__iod_a`; as a result, inner pointer of
+    `ts_link__n` is `NULL`-ed.
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,
-                                CcPosLink ** pos_link__n );
+CcTypedStepLink * cc_typed_step_link_extend( CcTypedStepLink ** ts_link__iod_a,
+                                             CcTypedStepLink ** ts_link__n );
 
 /**
-    Frees all positions in a linked list.
+    Frees all typed steps in a linked list.
 
-    @param pos_link__f Linked list of positions.
+    @param ts_link__f Linked list of typed steps.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_pos_link_free_all( CcPosLink ** pos_link__f );
+bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f );
 
 /**
     Function returns length of a linked list.
 
-    @param pos_link A linked list of positions.
+    @param ts_link A linked list of typed steps.
 
     @return Length of a linked list if successful, `0` otherwise.
 */
-size_t cc_pos_link_len( CcPosLink * pos_link );
+size_t cc_typed_step_link_len( CcTypedStepLink * ts_link );
 
 /**
-    Function returns string containing user-readable representation of a linked positions.
+    Function returns string containing user-readable representation of a linked typed steps.
 
-    @param pos_link A linked list of positions.
+    @param ts_link A linked list of typed steps.
 
     @see cc_pos_to_short_string()
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
-char * cc_pos_link_to_short_string__new( CcPosLink * pos_link );
+char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
 
 
 //
@@ -564,31 +537,31 @@ char * cc_pos_link_to_short_string__new( CcPosLink * pos_link );
     A linked list of paths.
 */
 typedef struct CcPathLink {
-    CcPosLink * path; /**< Link to a path. */
+    CcTypedStepLink * path; /**< Link to a path. */
     struct CcPathLink * next; /**< Link to next position. */
 } CcPathLink;
 
 /**
     Function allocates a new linked path.
 
-    @param pos_link__n Linked positions.
+    @param ts_link__n A linked typed steps.
 
     @note
-    Linked positions `pos_link__n` will have its ownership transferred to newly allocated path,
+    Linked typed steps `ts_link__n` will have its ownership transferred to newly allocated path,
     and its inner pointer will be `NULL`-ed.
 
     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n );
+CcPathLink * cc_path_link__new( CcTypedStepLink ** ts_link__n );
 
 /**
     Function appends a newly allocated linked path to a given linked list.
 
     @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param pos_link__n Linked positions.
+    @param ts_link__n Linked typed steps.
 
     @note
-    Linked positions `pos_link__n` will have its ownership transferred to newly allocated path,
+    Linked typed steps `ts_link__n` will have its ownership transferred to newly allocated path,
     and its inner pointer will be `NULL`-ed.
 
     @note
@@ -608,7 +581,7 @@ CcPathLink * cc_path_link__new( CcPosLink ** pos_link__n );
     `NULL` otherwise.
 */
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
-                                  CcPosLink ** pos_link__n );
+                                  CcTypedStepLink ** ts_link__n );
 
 /**
     Extends existing linked list with a another linked list.
@@ -938,15 +911,6 @@ bool cc_ppt_link_free_all( CcPptLink ** ppt_link__f );
     @return Length of a linked list if successful, `0` otherwise.
 */
 size_t cc_ppt_link_len( CcPptLink * ppt_link );
-
-/**
-    Function returns a new linked list of positions.
-
-    @param ppt_link A linked list of positions + pieces + tags.
-
-    @return Newly allocated linked list if successful, `NULL` otherwise.
-*/
-CcPosLink * cc_ppt_link_convert_to_pos_link__new( CcPptLink * ppt_link );
 
 /**
     Function returns string containing user-readable representation of a linked positions.
