@@ -172,7 +172,7 @@ extern CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_
 /**
     Function checking if step is valid, by searching a given array holding all valid steps for a piece.
 
-    @param ts A step to check.
+    @param step A step to check.
     @param steps An array of all valid steps.
     @param steps_len__d _Optional_, array length.
 
@@ -182,7 +182,7 @@ extern CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_
 
     @return `true` if step is valid (i.e. found in a given `steps` array), `false` otherwise.
 */
-bool cc_is_step_valid( CcTypedStep ts, CcTypedStep const steps[], size_t steps_len__d );
+bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d );
 
 
 /** @defgroup step_is_valid_macros The step validity macros
