@@ -310,103 +310,6 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
 
 
 //
-// Linked paths.
-
-CcPathLink * cc_path_link__new( CcTypedStepLink ** ts_link__n ) {
-    if ( !ts_link__n ) return NULL;
-    if ( !*ts_link__n ) return NULL;
-
-    CcPathLink * path_link__a = malloc( sizeof( CcPathLink ) );
-    if ( !path_link__a ) return NULL;
-
-    path_link__a->path = *ts_link__n;
-    *ts_link__n = NULL;
-
-    path_link__a->next = NULL;
-
-    return path_link__a;
-}
-
-CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
-                                  CcTypedStepLink ** ts_link__n ) {
-    if ( !path_link__iod_a ) return NULL;
-    if ( !ts_link__n ) return NULL;
-
-    CcPathLink * path_link__t = cc_path_link__new( ts_link__n );
-    if ( !path_link__t ) return NULL;
-
-    if ( *path_link__iod_a ) {
-        CcPathLink * pl = *path_link__iod_a;
-
-        CC_FASTFORWARD( pl );
-
-        pl->next = path_link__t;
-    } else {
-        *path_link__iod_a = path_link__t;
-    }
-
-    return path_link__t;
-}
-
-CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
-                                  CcPathLink ** path_link__n ) {
-    if ( !path_link__iod_a ) return NULL;
-    if ( !path_link__n ) return NULL;
-
-    if ( !*path_link__n ) return *path_link__iod_a;
-
-    if ( !*path_link__iod_a ) {
-        *path_link__iod_a = *path_link__n;
-        *path_link__n = NULL;
-
-        return *path_link__iod_a;
-    }
-
-    CcPathLink * last = *path_link__iod_a;
-    CC_FASTFORWARD( last );
-
-    last->next = *path_link__n;
-    *path_link__n = NULL;
-
-    return last->next;
-}
-
-bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
-    if ( !path_link__f ) return false;
-    if ( !*path_link__f ) return true;
-
-    bool result = true;
-    CcPathLink * pl = *path_link__f;
-    CcPathLink * tmp = NULL;
-
-    while ( pl ) {
-        result = cc_typed_step_link_free_all( &( pl->path ) ) && result;
-
-        tmp = pl->next;
-        CC_FREE( pl );
-        pl = tmp;
-    }
-
-    *path_link__f = NULL;
-    return result;
-}
-
-size_t cc_path_link_len( CcPathLink * path_link ) {
-    if ( !path_link ) return 0;
-
-    size_t len = 0;
-    CcPathLink * pl = path_link;
-
-    while ( pl ) {
-        ++len;
-        pl = pl->next;
-    }
-
-    return len;
-}
-
-
-//
 // Position + piece + tag.
 
 CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag ) {
@@ -604,4 +507,101 @@ char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link ) {
     }
 
     return pl_str__a;
+}
+
+
+//
+// Linked paths.
+
+CcPathLink * cc_path_link__new( CcPptLink ** ppt_link__n ) {
+    if ( !ppt_link__n ) return NULL;
+    if ( !*ppt_link__n ) return NULL;
+
+    CcPathLink * path_link__a = malloc( sizeof( CcPathLink ) );
+    if ( !path_link__a ) return NULL;
+
+    path_link__a->path = *ppt_link__n;
+    *ppt_link__n = NULL;
+
+    path_link__a->next = NULL;
+
+    return path_link__a;
+}
+
+CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
+                                  CcPptLink ** ppt_link__n ) {
+    if ( !path_link__iod_a ) return NULL;
+    if ( !ppt_link__n ) return NULL;
+
+    CcPathLink * path_link__t = cc_path_link__new( ppt_link__n );
+    if ( !path_link__t ) return NULL;
+
+    if ( *path_link__iod_a ) {
+        CcPathLink * pl = *path_link__iod_a;
+
+        CC_FASTFORWARD( pl );
+
+        pl->next = path_link__t;
+    } else {
+        *path_link__iod_a = path_link__t;
+    }
+
+    return path_link__t;
+}
+
+CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
+                                  CcPathLink ** path_link__n ) {
+    if ( !path_link__iod_a ) return NULL;
+    if ( !path_link__n ) return NULL;
+
+    if ( !*path_link__n ) return *path_link__iod_a;
+
+    if ( !*path_link__iod_a ) {
+        *path_link__iod_a = *path_link__n;
+        *path_link__n = NULL;
+
+        return *path_link__iod_a;
+    }
+
+    CcPathLink * last = *path_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    last->next = *path_link__n;
+    *path_link__n = NULL;
+
+    return last->next;
+}
+
+bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
+    if ( !path_link__f ) return false;
+    if ( !*path_link__f ) return true;
+
+    bool result = true;
+    CcPathLink * pl = *path_link__f;
+    CcPathLink * tmp = NULL;
+
+    while ( pl ) {
+        result = cc_ppt_link_free_all( &( pl->path ) ) && result;
+
+        tmp = pl->next;
+        CC_FREE( pl );
+        pl = tmp;
+    }
+
+    *path_link__f = NULL;
+    return result;
+}
+
+size_t cc_path_link_len( CcPathLink * path_link ) {
+    if ( !path_link ) return 0;
+
+    size_t len = 0;
+    CcPathLink * pl = path_link;
+
+    while ( pl ) {
+        ++len;
+        pl = pl->next;
+    }
+
+    return len;
 }

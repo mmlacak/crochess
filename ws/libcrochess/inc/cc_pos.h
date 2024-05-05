@@ -531,100 +531,6 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
 
 
 //
-// Linked paths.
-
-/**
-    A linked list of paths.
-*/
-typedef struct CcPathLink {
-    CcTypedStepLink * path; /**< Link to a path. */
-    struct CcPathLink * next; /**< Link to next position. */
-} CcPathLink;
-
-/**
-    Function allocates a new linked path.
-
-    @param ts_link__n A linked typed steps.
-
-    @note
-    Linked typed steps `ts_link__n` will have its ownership transferred to newly allocated path,
-    and its inner pointer will be `NULL`-ed.
-
-    @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
-*/
-CcPathLink * cc_path_link__new( CcTypedStepLink ** ts_link__n );
-
-/**
-    Function appends a newly allocated linked path to a given linked list.
-
-    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param ts_link__n Linked typed steps.
-
-    @note
-    Linked typed steps `ts_link__n` will have its ownership transferred to newly allocated path,
-    and its inner pointer will be `NULL`-ed.
-
-    @note
-    Linked list `*path_link__iod_a` can be `NULL`, a linked path will still be
-    allocated, and weak pointer to it returned.
-
-    @note
-    If linked list `*path_link__iod_a` is `NULL`, it will be initialized
-    with a newly allocated linked path as its only element.
-
-    @note
-    Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
-    over newly allocated path, and retains ownership after function returns.
-
-    @return
-    A weak pointer to a newly allocated linked path if successful,
-    `NULL` otherwise.
-*/
-CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
-                                  CcTypedStepLink ** ts_link__n );
-
-/**
-    Extends existing linked list with a another linked list.
-
-    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param path_link__n Linked list with which to extend existing steps.
-
-    @note
-    If linked list to extend (`path_link__iod_a`) hasn't been allocated yet,
-    this will initialize it with content of an extending linked list, i.e.
-    `path_link__n`.
-
-    @note
-    Extending linked list `path_link__n` has its ownership transferred to
-    extended linked list `path_link__iod_a`; as a result, inner pointer of
-    `path_link__n` is `NULL`-ed.
-
-    @return
-    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
-*/
-CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
-                                  CcPathLink ** path_link__n );
-
-/**
-    Frees all paths in a linked list.
-
-    @param path_link__f Linked list of paths.
-
-    @return `true` if successful, `false` otherwise.
-*/
-bool cc_path_link_free_all( CcPathLink ** path_link__f );
-
-/**
-    Function returns length of a linked list.
-
-    @param path_link A linked list of paths.
-
-    @return Length of a linked list if successful, `0` otherwise.
-*/
-size_t cc_path_link_len( CcPathLink * path_link );
-
-
-//
 // Position + piece + tag.
 
 /**
@@ -922,6 +828,100 @@ size_t cc_ppt_link_len( CcPptLink * ppt_link );
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
 char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link );
+
+
+//
+// Linked paths.
+
+/**
+    A linked list of paths.
+*/
+typedef struct CcPathLink {
+    CcPptLink * path; /**< Link to a path. */
+    struct CcPathLink * next; /**< Link to next position. */
+} CcPathLink;
+
+/**
+    Function allocates a new linked path.
+
+    @param ppt_link__n A linked typed steps.
+
+    @note
+    Linked typed steps `ppt_link__n` will have its ownership transferred to newly allocated path,
+    and its inner pointer will be `NULL`-ed.
+
+    @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
+*/
+CcPathLink * cc_path_link__new( CcPptLink ** ppt_link__n );
+
+/**
+    Function appends a newly allocated linked path to a given linked list.
+
+    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param ppt_link__n Linked typed steps.
+
+    @note
+    Linked typed steps `ppt_link__n` will have its ownership transferred to newly allocated path,
+    and its inner pointer will be `NULL`-ed.
+
+    @note
+    Linked list `*path_link__iod_a` can be `NULL`, a linked path will still be
+    allocated, and weak pointer to it returned.
+
+    @note
+    If linked list `*path_link__iod_a` is `NULL`, it will be initialized
+    with a newly allocated linked path as its only element.
+
+    @note
+    Pointer `path_link__iod_a` has ownership over given linked list, takes ownership
+    over newly allocated path, and retains ownership after function returns.
+
+    @return
+    A weak pointer to a newly allocated linked path if successful,
+    `NULL` otherwise.
+*/
+CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
+                                  CcPptLink ** ppt_link__n );
+
+/**
+    Extends existing linked list with a another linked list.
+
+    @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param path_link__n Linked list with which to extend existing steps.
+
+    @note
+    If linked list to extend (`path_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    `path_link__n`.
+
+    @note
+    Extending linked list `path_link__n` has its ownership transferred to
+    extended linked list `path_link__iod_a`; as a result, inner pointer of
+    `path_link__n` is `NULL`-ed.
+
+    @return
+    Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
+*/
+CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
+                                  CcPathLink ** path_link__n );
+
+/**
+    Frees all paths in a linked list.
+
+    @param path_link__f Linked list of paths.
+
+    @return `true` if successful, `false` otherwise.
+*/
+bool cc_path_link_free_all( CcPathLink ** path_link__f );
+
+/**
+    Function returns length of a linked list.
+
+    @param path_link A linked list of paths.
+
+    @return Length of a linked list if successful, `0` otherwise.
+*/
+size_t cc_path_link_len( CcPathLink * path_link );
 
 
 #endif /* __CC_POS_H__ */
