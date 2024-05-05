@@ -269,8 +269,21 @@ CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
-bool cc_is_step_valid( CcTypedStep ts, CcTypedStep const steps[], size_t steps_len__d ) {
-    if ( !CC_TYPED_STEP_IS_VALID( ts ) ) return false;
+CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ] = {
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Alternative },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_Alternative },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Alternative },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_Alternative },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Alternative },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_Alternative },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Alternative },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_Alternative },
+
+    CC_TYPED_STEP_INVALID,
+};
+
+bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d ) {
+    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
 
     for ( size_t k = 0;
           (steps_len__d == CC_STEPS_LEN_INVALID_DATA_TERMINATED) || (k < steps_len__d);
@@ -279,7 +292,7 @@ bool cc_is_step_valid( CcTypedStep ts, CcTypedStep const steps[], size_t steps_l
 
         if ( !CC_TYPED_STEP_IS_VALID( p ) ) return false; // break; // This is fine, as long as there is nothing after the loop.
 
-        if ( cc_typed_step_is_equal( ts, p ) ) return true;
+        if ( cc_typed_step_is_equal( step, p ) ) return true;
     }
 
     return false;

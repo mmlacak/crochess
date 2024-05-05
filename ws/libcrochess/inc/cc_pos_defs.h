@@ -161,6 +161,7 @@ extern CcTypedStep const CC_STEPS_LIGHT_SCOUT[ CC_STEPS_SCOUT_SIZE ];
 extern CcTypedStep const CC_STEPS_DARK_SCOUT[ CC_STEPS_SCOUT_SIZE ];
 extern CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ];
 
+extern CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ];
 #define CC_STEPS_STARTING_MONOLITH (CC_STEPS_KNIGHT)
 
 /** @} */ // end of step_generator_arrays
@@ -171,7 +172,7 @@ extern CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ];
 /**
     Function checking if step is valid, by searching a given array holding all valid steps for a piece.
 
-    @param step A step to check
+    @param ts A step to check.
     @param steps An array of all valid steps.
     @param steps_len__d _Optional_, array length.
 
@@ -181,7 +182,7 @@ extern CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ];
 
     @return `true` if step is valid (i.e. found in a given `steps` array), `false` otherwise.
 */
-bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d );
+bool cc_is_step_valid( CcTypedStep ts, CcTypedStep const steps[], size_t steps_len__d );
 
 
 /** @defgroup step_is_valid_macros The step validity macros
