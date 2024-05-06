@@ -309,24 +309,6 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
 
 // TODO :: FIX
 //
-// bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcTypedStep step );
-
-// bool cc_is_pawn_capture_step( CcPieceEnum piece, CcTypedStep step );
-// bool cc_is_scout_capture_step( CcPieceEnum piece, CcTypedStep step );
-// bool cc_is_shaman_capture_step( CcPieceEnum piece, CcTypedStep step );
-
-// bool cc_is_capture_step( CcVariantEnum variant,
-//                          CcPieceEnum activator,
-//                          CcPieceEnum piece,
-//                          CcTypedStep step,
-//                          CcTypedStep step_2 );
-
-
-// bool cc_is_step_miracle( CcPieceEnum piece, CcTypedStep step );
-//
-// TODO :: FIX
-
-
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
 //                                     CcPieceEnum piece,
 //                                     CcTypedStepLink ** starting_steps__e_a );
@@ -339,8 +321,6 @@ CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
 //                                        CcTypedStep pos,
 //                                        CcTypedStepLink ** starting_steps__e_a );
 
-// TODO :: FIX
-//
 // bool cc_starting_steps( CcVariantEnum variant,
 //                         CcPieceEnum piece,
 //                         CcPieceEnum activator,
