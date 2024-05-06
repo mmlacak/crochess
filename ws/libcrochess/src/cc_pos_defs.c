@@ -308,98 +308,81 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
     return false;
 }
 
+bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
+                                   size_t steps_len__d,
+                                   CcTypedStepLink ** steps__iod_a ) {
+    if ( !steps__iod_a ) return false;
+
+    CcTypedStepLink * tsl__t = NULL;
+
+    for ( size_t k = 0;
+          (steps_len__d == CC_STEPS_LEN_INVALID_DATA_TERMINATED) || (k < steps_len__d);
+          ++k ) {
+        CcTypedStep ts = steps[ k ];
+
+        if ( !CC_TYPED_STEP_IS_VALID( ts ) ) break;
+
+        if ( !cc_typed_step_link_append( &tsl__t, ts ) ) {
+            cc_typed_step_link_free_all( &tsl__t );
+            return false;
+        }
+    }
+
+    // Ownership transfer.
+    if ( !cc_typed_step_link_extend( steps__iod_a, &tsl__t ) ) {
+        cc_typed_step_link_free_all( &tsl__t );
+        cc_typed_step_link_free_all( steps__iod_a );
+        return false;
+    }
+
+    return true;
+}
+
+CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+                               CcPptLink ** ppt_link__n ) {
+    if ( !ppt_link__iod ) return NULL;
+    if ( !ppt_link__n ) return NULL;
+
+    if ( !*ppt_link__n ) return *ppt_link__iod;
+
+    if ( !*ppt_link__iod ) {
+        // Ownership transfer.
+        *ppt_link__iod = *ppt_link__n;
+        *ppt_link__n = NULL;
+
+        return *ppt_link__iod;
+    }
+
+    CcPptLink * last = *ppt_link__iod;
+    CC_FASTFORWARD( last );
+
+    CcPptLink * first = *ppt_link__n;
+
+    if ( cc_pos_is_equal( last->ppt.pos, first->ppt.pos ) ) {
+        if ( last->ppt.piece != first->ppt.piece )
+            return NULL;
+
+        if ( last->ppt.tag != first->ppt.tag )
+            return NULL;
+
+        // Position, piece, and tag are all the same,
+        // so we drop extra location, not needed anymore.
+        CcPptLink * to_free = first;
+        first = first->next;
+
+        CC_FREE( to_free ); // This is fine, as long as CcPptLink doesn't have pointer(s) to other structs/unions that need to be free()-ed.
+    }
+
+    // Ownership transfer.
+    last->next = first;
+    *ppt_link__n = NULL;
+
+    return last->next;
+}
+
+
 // TODO :: FIX
 //
-// bool cc_is_step_found( CcTypedStep step, CcTypedStepLink * steps ) {
-//     if ( !steps ) return false;
-
-//     if ( !CC_POS_IS_VALID( step ) ) return false;
-
-//     CcTypedStepLink * pl = steps;
-
-//     while ( pl ) {
-//         if ( CC_POS_IS_EQUAL( pl->pos, step ) )
-//             return true;
-
-//         pl = pl->next;
-//     }
-
-//     return false;
-// }
-
-// bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
-//                                    size_t steps_len__d,
-//                                    CcTypedStepLink ** steps__iod_a ) {
-//     if ( !steps__iod_a ) return false;
-
-//     CcTypedStepLink * pl__t = NULL;
-
-//     for ( size_t k = 0;
-//           (steps_len__d == CC_STEPS_LEN_INVALID_DATA_TERMINATED) || (k < steps_len__d);
-//           ++k ) {
-//         CcTypedStep p = steps[ k ];
-
-//         if ( !CC_POS_IS_VALID( p ) ) break;
-
-//         if ( !cc_typed_step_link_append( &pl__t, p ) ) {
-//             cc_typed_step_link_free_all( &pl__t );
-//             return false;
-//         }
-//     }
-
-//     // Ownership transfer.
-//     if ( !cc_typed_step_link_extend( steps__iod_a, &pl__t ) ) {
-//         cc_typed_step_link_free_all( &pl__t );
-//         cc_typed_step_link_free_all( steps__iod_a );
-//         return false;
-//     }
-
-//     return true;
-// }
-
-// CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
-//                                CcPptLink ** ppt_link__n ) {
-//     if ( !ppt_link__iod ) return NULL;
-//     if ( !ppt_link__n ) return NULL;
-
-//     if ( !*ppt_link__n ) return *ppt_link__iod;
-
-//     if ( !*ppt_link__iod ) {
-//         // Ownership transfer.
-//         *ppt_link__iod = *ppt_link__n;
-//         *ppt_link__n = NULL;
-
-//         return *ppt_link__iod;
-//     }
-
-//     CcPptLink * last = *ppt_link__iod;
-//     CC_FASTFORWARD( last );
-
-//     CcPptLink * first = *ppt_link__n;
-
-//     if ( cc_pos_is_equal( last->ppt.pos, first->ppt.pos ) ) {
-//         if ( last->ppt.piece != first->ppt.piece )
-//             return NULL;
-
-//         if ( last->ppt.tag != first->ppt.tag )
-//             return NULL;
-
-//         // Position, piece, and tag are all the same,
-//         // so we drop extra location, not needed anymore.
-//         CcPptLink * to_free = first;
-//         first = first->next;
-
-//         CC_FREE( to_free ); // This is fine, as long as CcPptLink doesn't have pointer(s) to other structs/unions that need to be free()-ed.
-//     }
-
-//     // Ownership transfer.
-//     last->next = first;
-//     *ppt_link__n = NULL;
-
-//     return last->next;
-// }
-
-
 // bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcTypedStep step ) {
 //     if ( cc_variant_has_sideways_pawns( variant ) ) {
 //         if ( piece == CC_PE_LightPawn )

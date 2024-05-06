@@ -297,18 +297,18 @@ bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps
 
 bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
+bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
+                                   size_t steps_len,
+                                   CcTypedStepLink ** steps__iod_a );
+
+// TODO :: +++ join typed steps func
+
+CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
+                               CcPptLink ** ppt_link__n );
+
+
 // TODO :: FIX
 //
-bool cc_is_step_found( CcTypedStep step, CcTypedStepLink * steps );
-
-// bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
-//                                    size_t steps_len,
-//                                    CcTypedStepLink ** steps__iod_a );
-
-// CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
-//                                CcPptLink ** ppt_link__n );
-
-
 // bool cc_is_pawn_step( CcVariantEnum variant, CcPieceEnum piece, CcTypedStep step );
 
 // bool cc_is_pawn_capture_step( CcPieceEnum piece, CcTypedStep step );

@@ -328,8 +328,8 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o );
 */
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0, /**< Undefined step type. */
-    CC_STE_Movement, /**< Just a step. */
-    CC_STE_Capture,  /**< Capturing step. */
+    CC_STE_Movement, /**< Just a step, movement. It can still cause side-effects other than capture. */
+    CC_STE_Capture,  /**< Capturing step, i.e. movement + capture. */
     CC_STE_Alternative, /**< Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps. */
 } CcStepTypeEnum;
 // TODO :: CC_STE_All --> convert CcStepTypeEnum into bit-field (?)
