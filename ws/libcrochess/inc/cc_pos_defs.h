@@ -301,11 +301,6 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
                                    size_t steps_len,
                                    CcTypedStepLink ** steps__iod_a );
 
-// TODO :: +++ join typed steps func
-
-CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
-                               CcPptLink ** ppt_link__n );
-
 
 // TODO :: FIX
 //

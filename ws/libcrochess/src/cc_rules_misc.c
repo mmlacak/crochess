@@ -15,6 +15,7 @@
 #define CC_DRAW_OFFER_NOT_FOUND (0)
 #define CC_DRAW_OFFER_FOUND (1)
 
+
 static int cc_an_str_ends_with_draw_offer( char const * an_start,
                                            char const * an_end__d,
                                            size_t max_len__d ) {

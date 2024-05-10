@@ -338,48 +338,6 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
     return true;
 }
 
-CcPptLink * cc_join_ppt_links( CcPptLink ** ppt_link__iod,
-                               CcPptLink ** ppt_link__n ) {
-    if ( !ppt_link__iod ) return NULL;
-    if ( !ppt_link__n ) return NULL;
-
-    if ( !*ppt_link__n ) return *ppt_link__iod;
-
-    if ( !*ppt_link__iod ) {
-        // Ownership transfer.
-        *ppt_link__iod = *ppt_link__n;
-        *ppt_link__n = NULL;
-
-        return *ppt_link__iod;
-    }
-
-    CcPptLink * last = *ppt_link__iod;
-    CC_FASTFORWARD( last );
-
-    CcPptLink * first = *ppt_link__n;
-
-    if ( cc_pos_is_equal( last->ppt.pos, first->ppt.pos ) ) {
-        if ( last->ppt.piece != first->ppt.piece )
-            return NULL;
-
-        if ( last->ppt.tag != first->ppt.tag )
-            return NULL;
-
-        // Position, piece, and tag are all the same,
-        // so we drop extra location, not needed anymore.
-        CcPptLink * to_free = first;
-        first = first->next;
-
-        CC_FREE( to_free ); // This is fine, as long as CcPptLink doesn't have pointer(s) to other structs/unions that need to be free()-ed.
-    }
-
-    // Ownership transfer.
-    last->next = first;
-    *ppt_link__n = NULL;
-
-    return last->next;
-}
-
 
 // TODO :: FIX
 //
