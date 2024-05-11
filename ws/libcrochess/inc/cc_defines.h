@@ -12,6 +12,53 @@
 */
 
 
+
+/**
+    Enumerates `bool` values, with error state.
+*/
+typedef enum CcMaybeBoolEnum {
+    CC_MBE_Error = -1,
+    CC_MBE_False = 0,
+    CC_MBE_True = 1,
+} CcMaybeBoolEnum;
+
+/**
+    Macro to convert `bool` value into `CcMaybeBoolEnum`.
+
+    @param bool_val Boolean value.
+
+    @return `CcMaybeBoolEnum` value.
+*/
+#define CC_BOOL_TO_MAYBE(bool_val) ( (bool_val) ? CC_MBE_True : CC_MBE_False )
+
+/**
+    Macro to check if `CcMaybeBoolEnum` value is `CC_MBE_True`.
+
+    @param maybe_bool `CcMaybeBoolEnum` value.
+
+    @return `true` if check passes, `false` otherwise.
+*/
+#define CC_MAYBE_IS_TRUE(maybe_bool) ( ( (maybe_bool) == CC_MBE_True ) ? true : false )
+
+/**
+    Macro to check if `CcMaybeBoolEnum` value is `CC_MBE_False`.
+
+    @param maybe_bool `CcMaybeBoolEnum` value.
+
+    @return `true` if check passes, `false` otherwise.
+*/
+#define CC_MAYBE_IS_FALSE(maybe_bool) ( ( (maybe_bool) == CC_MBE_False ) ? true : false )
+
+/**
+    Macro to check if `CcMaybeBoolEnum` value is `CC_MBE_Error`.
+
+    @param maybe_bool `CcMaybeBoolEnum` value.
+
+    @return `true` if check passes, `false` otherwise.
+*/
+#define CC_MAYBE_IS_ERROR(maybe_bool) ( ( (maybe_bool) == CC_MBE_Error ) ? true : false )
+
+
 /**
     Macro to evaluate logical XOR.
 

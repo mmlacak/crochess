@@ -4,6 +4,7 @@
 #ifndef __CC_CHESS_BOARD_H__
 #define __CC_CHESS_BOARD_H__
 
+#include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_variant.h"
@@ -309,8 +310,26 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int j,
                             CcTagEnum tt );
 
-// static char * cc_chessboard_get_divider__new( CcChessboard * cb );
-// static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb );
+
+/**
+    Function checks if given position is occupied by opponent's piece.
+
+    @param cb Chessboard.
+    @param i File, position along horizontal axis.
+    @param j Rank, position along vertical axis.
+    @param piece Piece against which to compare.
+
+    @return
+    One of `CcMaybeBoolEnum` values:
+    - `CC_MBE_True` if opponent's piece is found at given position,
+    - `CC_MBE_False` if no opponent's piece is found,
+    - `CC_MBE_Error` in case of error (given chessboard was `NULL`).
+*/
+CcMaybeBoolEnum cc_chessboard_is_opponent_at( CcChessboard * cb,
+                                              int i,
+                                              int j,
+                                              CcPieceEnum piece );
+
 
 /**
     Compares two chessboards field-by-field.
@@ -322,6 +341,9 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
 */
 bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 );
 
+
+// static char * cc_chessboard_get_divider__new( CcChessboard * cb );
+// static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb );
 
 /**
     Formats a newly allocated string to represent piece, tag positions on a given chessboard.

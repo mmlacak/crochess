@@ -233,7 +233,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
         cb__io->tags[ i ][ j ] = tt;
 
         return  ( ( cb__io->board[ i ][ j ] == pe ) &&
-                  ( cb__io->tags[ i ][ j ] == tt ) ); // cb__io volatile ?
+                  ( cb__io->tags[ i ][ j ] == tt ) );
     }
 
     return false;
@@ -260,6 +260,19 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
 
     return false;
 }
+
+
+CcMaybeBoolEnum cc_chessboard_is_opponent_at( CcChessboard * cb,
+                                              int i,
+                                              int j,
+                                              CcPieceEnum piece ) {
+    if ( !cb ) return CC_MBE_Error;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+
+    return CC_BOOL_TO_MAYBE( cc_piece_has_same_color( piece, pe ) );
+}
+
 
 bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 ) {
     if ( !cc_chessboard_is_size_valid( cb ) ) return false;
