@@ -12,14 +12,15 @@
 */
 
 
-
 /**
-    Enumerates `bool` values, with error state.
+    Enumerates void and Boolean values.
+
+    Void value is used to represent undefined, uninitialized, or error state.
 */
 typedef enum CcMaybeBoolEnum {
-    CC_MBE_Error = -1,
-    CC_MBE_False = 0,
-    CC_MBE_True = 1,
+    CC_MBE_Void = -1, /**< Void (undefined, uninitialized, or error) value. */
+    CC_MBE_False = 0, /**< Boolean `false` value. */
+    CC_MBE_True = 1, /**< Boolean `true` value. */
 } CcMaybeBoolEnum;
 
 /**
@@ -50,13 +51,13 @@ typedef enum CcMaybeBoolEnum {
 #define CC_MAYBE_IS_FALSE(maybe_bool) ( ( (maybe_bool) == CC_MBE_False ) ? true : false )
 
 /**
-    Macro to check if `CcMaybeBoolEnum` value is `CC_MBE_Error`.
+    Macro to check if `CcMaybeBoolEnum` value is `CC_MBE_Void`.
 
     @param maybe_bool `CcMaybeBoolEnum` value.
 
     @return `true` if check passes, `false` otherwise.
 */
-#define CC_MAYBE_IS_ERROR(maybe_bool) ( ( (maybe_bool) == CC_MBE_Error ) ? true : false )
+#define CC_MAYBE_IS_VOID(maybe_bool) ( ( (maybe_bool) == CC_MBE_Void ) ? true : false )
 
 
 /**

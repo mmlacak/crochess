@@ -583,6 +583,18 @@
                                     || ( (pe) == CC_PE_LightWave ) )
 
 /**
+    Macro expression to evaluate whether piece is completely transparent to Monolith.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is completely transparent, `false` otherwise.
+*/
+#define CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkStarchild )       \
+                                               || ( (pe) == CC_PE_LightStarchild ) )
+
+/**
     Macro expression to evaluate whether piece is can be diverged from.
 
     @param pe Piece enum, one of `CcPieceEnum` values.

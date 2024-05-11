@@ -312,20 +312,43 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
 
 
 /**
-    Function checks if given position is occupied by opponent's piece.
+    Function checks if piece is blocked at given position.
 
     @param cb Chessboard.
     @param i File, position along horizontal axis.
     @param j Rank, position along vertical axis.
-    @param piece Piece against which to compare.
+    @param piece A piece.
+
+    @see CcMaybeBoolEnum
 
     @return
     One of `CcMaybeBoolEnum` values:
-    - `CC_MBE_True` if opponent's piece is found at given position,
-    - `CC_MBE_False` if no opponent's piece is found,
-    - `CC_MBE_Error` in case of error (given chessboard was `NULL`).
+    - `CC_MBE_True` if piece is blocked at given position,
+    - `CC_MBE_False` if piece is not blocked,
+    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
 */
-CcMaybeBoolEnum cc_chessboard_is_opponent_at( CcChessboard * cb,
+CcMaybeBoolEnum cc_chessboard_is_blocked_at( CcChessboard * cb,
+                                             int i,
+                                             int j,
+                                             CcPieceEnum piece );
+
+/**
+    Function checks if a piece can capture at given position.
+
+    @param cb Chessboard.
+    @param i File, position along horizontal axis.
+    @param j Rank, position along vertical axis.
+    @param piece Capturing piece.
+
+    @see CcMaybeBoolEnum
+
+    @return
+    One of `CcMaybeBoolEnum` values:
+    - `CC_MBE_True` if a piece can capture at given position,
+    - `CC_MBE_False` if no capture is possible,
+    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
+*/
+CcMaybeBoolEnum cc_chessboard_can_capture_at( CcChessboard * cb,
                                               int i,
                                               int j,
                                               CcPieceEnum piece );

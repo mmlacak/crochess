@@ -262,15 +262,27 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
 }
 
 
-CcMaybeBoolEnum cc_chessboard_is_opponent_at( CcChessboard * cb,
+CcMaybeBoolEnum cc_chessboard_is_blocked_at( CcChessboard * cb,
+                                             int i,
+                                             int j,
+                                             CcPieceEnum piece ) {
+    if ( !cb ) return CC_MBE_Void;
+
+    return CC_MBE_Void; // TODO
+}
+
+CcMaybeBoolEnum cc_chessboard_can_capture_at( CcChessboard * cb,
                                               int i,
                                               int j,
                                               CcPieceEnum piece ) {
-    if ( !cb ) return CC_MBE_Error;
+    if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return CC_MBE_False; // <i> This weeds out pieces without owner.
+
+    if ( !cb ) return CC_MBE_Void;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+    if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return CC_MBE_False; // <i> Also weeds out other pieces without owner.
 
-    return CC_BOOL_TO_MAYBE( cc_piece_has_same_color( piece, pe ) );
+    return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, pe ) );
 }
 
 
