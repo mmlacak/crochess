@@ -4,7 +4,6 @@
 #ifndef __CC_CHESS_BOARD_H__
 #define __CC_CHESS_BOARD_H__
 
-#include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_variant.h"
@@ -309,49 +308,6 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,
                             int j,
                             CcTagEnum tt );
-
-
-/**
-    Function checks if piece is blocked at given position.
-
-    @param cb Chessboard.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
-    @param piece A piece.
-
-    @see CcMaybeBoolEnum
-
-    @return
-    One of `CcMaybeBoolEnum` values:
-    - `CC_MBE_True` if piece is blocked at given position,
-    - `CC_MBE_False` if piece is not blocked,
-    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
-*/
-CcMaybeBoolEnum cc_chessboard_is_blocked_at( CcChessboard * cb,
-                                             int i,
-                                             int j,
-                                             CcPieceEnum piece );
-
-/**
-    Function checks if a piece can capture at given position.
-
-    @param cb Chessboard.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
-    @param piece Capturing piece.
-
-    @see CcMaybeBoolEnum
-
-    @return
-    One of `CcMaybeBoolEnum` values:
-    - `CC_MBE_True` if a piece can capture at given position,
-    - `CC_MBE_False` if no capture is possible,
-    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
-*/
-CcMaybeBoolEnum cc_chessboard_can_capture_at( CcChessboard * cb,
-                                              int i,
-                                              int j,
-                                              CcPieceEnum piece );
 
 
 /**
