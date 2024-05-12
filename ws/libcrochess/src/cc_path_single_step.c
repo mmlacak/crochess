@@ -48,7 +48,7 @@ static bool cc_path_pawn( CcChessboard * cb,
 
         if ( s->type == CC_STE_Capture ) {
             CcPos destination = cc_pos_add( pos, s->step, 1 );
-            if ( !CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, destination.i, destination.j, pawn ) ) ) continue;
+            if ( !CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn, destination ) ) ) continue;
 
             CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, destination );
             CcPptLink * pptl__t = cc_ppt_link__new( ppt );

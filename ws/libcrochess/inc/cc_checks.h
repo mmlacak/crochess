@@ -18,9 +18,8 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     Function checks if piece is blocked at given position.
 
     @param cb Chessboard.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
     @param piece A piece.
+    @param pos Position.
 
     @see CcMaybeBoolEnum
 
@@ -31,17 +30,15 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
 */
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              int i,
-                                              int j,
-                                              CcPieceEnum piece );
+                                              CcPieceEnum piece,
+                                              CcPos pos );
 
 /**
     Function checks if a piece can capture at given position.
 
     @param cb Chessboard.
-    @param i File, position along horizontal axis.
-    @param j Rank, position along vertical axis.
     @param piece Capturing piece.
+    @param pos Position.
 
     @see CcMaybeBoolEnum
 
@@ -52,9 +49,8 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
     - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
 */
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               int i,
-                                               int j,
-                                               CcPieceEnum piece );
+                                               CcPieceEnum piece,
+                                               CcPos pos );
 
 
 #endif /* __CC_CHECKS_H__ */
