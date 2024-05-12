@@ -1467,24 +1467,24 @@ Starchild can make only one step in a ply.
 
 \begin{table}[!h]
 \centering
-\begin{tabular}{ lrrcrr }
+\begin{tabular}{ lcrrcrr }
 \toprule % =================================================================================================
-\textbf{Variant}      & \multicolumn{2}{c}{ \textbf{Light} } & ~ & \multicolumn{2}{c}{ \textbf{Dark} }    \\
-                      \cmidrule{2-3}                             \cmidrule{5-6} % ..........................
-                      & \emph{min} & \emph{max}              &   & \emph{min} & \emph{max}                \\
+\emph{Ranks}          & & \multicolumn{2}{c}{ \textbf{Light} } & & \multicolumn{2}{c}{ \textbf{Dark} }    \\
+\cmidrule{1-1}          \cmidrule{3-4}                           \cmidrule{6-7} % ..........................
+\textbf{Variant}      & & \emph{min} & \emph{max}              & & \emph{min} & \emph{max}                \\
 \midrule % -------------------------------------------------------------------------------------------------
-Classical chess       & 4          & 4                       &   & 5          &  5                        \\
+Classical chess       & & 4          & 4                       & & 5          &  5                        \\
 % \cmidrule{1-6} % ...........................................................................................
-Croatian Ties         & 4          & 5                       &   & 6          &  7                        \\
-Mayan Ascendancy      & 4          & 6                       &   & 7          &  9                        \\
-Age of Aquarius       & 4          & 7                       &   & 8          & 11                        \\
-Miranda's Veil        & 4          & 8                       &   & 9          & 13                        \\
-Nineteen              & 4          & 9                       &   & 10         & 15                        \\
-Hemera's Dawn         & 4          & 10                      &   & 11         & 17                        \\
-Tamoanchan Revisited  & 4          & 11                      &   & 12         & 19                        \\
-Conquest of Tlalocan  & 4          & 12                      &   & 13         & 21                        \\
-Discovery             & 4          & 12                      &   & 13         & 21                        \\
-One                   & 4          & 13                      &   & 14         & 23                        \\
+Croatian Ties         & & 4          & 5                       & & 6          &  7                        \\
+Mayan Ascendancy      & & 4          & 6                       & & 7          &  9                        \\
+Age of Aquarius       & & 4          & 7                       & & 8          & 11                        \\
+Miranda's Veil        & & 4          & 8                       & & 9          & 13                        \\
+Nineteen              & & 4          & 9                       & & 10         & 15                        \\
+Hemera's Dawn         & & 4          & 10                      & & 11         & 17                        \\
+Tamoanchan Revisited  & & 4          & 11                      & & 12         & 19                        \\
+Conquest of Tlalocan  & & 4          & 12                      & & 13         & 21                        \\
+Discovery             & & 4          & 12                      & & 13         & 21                        \\
+One                   & & 4          & 13                      & & 14         & 23                        \\
 \bottomrule % ==============================================================================================
 \end{tabular}
 \caption{Rushing limits, ranks}
@@ -1498,6 +1498,32 @@ One                   & 4          & 13                      &   & 14         & 
 \subsection*{Castling limits}
 \addcontentsline{toc}{subsection}{Castling limits}
 \label{sec:Appendix/Summary/Castling limits}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ lcrrcrcrr }
+\toprule % ===============================================================================================================================
+\emph{Files}          & & \multicolumn{2}{c}{ \textbf{Queen-side} } & & \textbf{King}   & & \multicolumn{2}{c}{ \textbf{King-side} }    \\
+\cmidrule{1-1}          \cmidrule{3-4}                                \cmidrule{6-6}      \cmidrule{8-9} % ...............................
+\textbf{Variant}      & & \emph{min} & \emph{max}                   & & \emph{pos}      & & \emph{min} & \emph{max}                     \\
+\midrule % -------------------------------------------------------------------------------------------------------------------------------
+Classical chess       & & c          & c                            & & e               & & g          & g                              \\
+% \cmidrule{1-6} % .......................................................................................................................
+Croatian Ties         & & c          & d                            & & f               & & h          & i                              \\
+Mayan Ascendancy      & & c          & e                            & & g               & & i          & k                              \\
+Age of Aquarius       & & c          & f                            & & h               & & j          & m                              \\
+Miranda's Veil        & & c          & g                            & & i               & & k          & o                              \\
+Nineteen              & & d          & h                            & & j               & & l          & q                              \\
+Hemera's Dawn         & & d          & i                            & & k               & & m          & s                              \\
+Tamoanchan Revisited  & & d          & j                            & & l               & & n          & u                              \\
+Conquest of Tlalocan  & & d          & k                            & & m               & & o          & x                              \\
+Discovery             & & d          & k                            & & n               & & p          & x                              \\
+One                   & & d          & l                            & & o               & & q          & z                              \\
+\bottomrule % ============================================================================================================================
+\end{tabular}
+\caption{Castling limits, files}
+\label{tbl:Appendix/Summary/Castling limits}
+\end{table}
 
 \TODO
 
