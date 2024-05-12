@@ -12,65 +12,72 @@
     @brief Variants constants, symbols, enumeration, and related functions.
 */
 
-/**
-    Classical Chess board size.
-*/
+
+/** @defgroup variant_board_sizes The board sizes definitions
+ *  The board sizes defined for each variant.
+
+    @see cc_variant_board_size()
+ *  @{
+ */
+
 #define CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS (8)
-
-/**
-    Croatian Ties board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_CROATIAN_TIES (10)
-
-/**
-    Mayan Ascendancy board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY (12)
-
-/**
-    Age of Aquarius board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS (14)
-
-/**
-    Miranda's Veil board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL (16)
-
-/**
-    Nineteen board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_NINETEEN (18)
-
-/**
-    Hemera's Dawn board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN (20)
-
-/**
-    Tamoanchan Revisited board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED (22)
-
-/**
-    Conquest of Tlalocan board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN (24)
-
-/**
-    Discovery board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_DISCOVERY (24)
-
-/**
-    One board size.
-*/
 #define CC_VARIANT_BOARD_SIZE_ONE (26)
-
-/**
-    Maximum board size, used by any variant.
-*/
 #define CC_VARIANT_BOARD_SIZE_MAXIMUM (26)
+
+/** @} */ // end of variant_board_sizes
+
+
+/** @defgroup variant_rush_limits The rush limit definitions
+ *  The rush limits for each variant define maximum (and minimum) rank light
+    (and dark) privates can reach in a rush.
+
+    @see cc_variant_rush_rank_limit()
+ *  @{
+ */
+
+#define CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_LIGHT (3)
+#define CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_DARK (4)
+
+#define CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_LIGHT (4)
+#define CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_DARK (5)
+
+#define CC_VARIANT_MAX_RUSH_RANK_MAYAN_ASCENDANCY_LIGHT (5)
+#define CC_VARIANT_MIN_RUSH_RANK_MAYAN_ASCENDANCY_DARK (6)
+
+#define CC_VARIANT_MAX_RUSH_RANK_AGE_OF_AQUARIUS_LIGHT (6)
+#define CC_VARIANT_MIN_RUSH_RANK_AGE_OF_AQUARIUS_DARK (7)
+
+#define CC_VARIANT_MAX_RUSH_RANK_MIRANDAS_VEIL_LIGHT (7)
+#define CC_VARIANT_MIN_RUSH_RANK_MIRANDAS_VEIL_DARK (8)
+
+#define CC_VARIANT_MAX_RUSH_RANK_NINETEEN_LIGHT (8)
+#define CC_VARIANT_MIN_RUSH_RANK_NINETEEN_DARK (9)
+
+#define CC_VARIANT_MAX_RUSH_RANK_HEMERAS_DAWN_LIGHT (9)
+#define CC_VARIANT_MIN_RUSH_RANK_HEMERAS_DAWN_DARK (10)
+
+#define CC_VARIANT_MAX_RUSH_RANK_TAMOANCHAN_REVISITED_LIGHT (10)
+#define CC_VARIANT_MIN_RUSH_RANK_TAMOANCHAN_REVISITED_DARK (11)
+
+#define CC_VARIANT_MAX_RUSH_RANK_CONQUEST_OF_TLALOCAN_LIGHT (11)
+#define CC_VARIANT_MIN_RUSH_RANK_CONQUEST_OF_TLALOCAN_DARK (12)
+
+#define CC_VARIANT_MAX_RUSH_RANK_DISCOVERY_LIGHT (11)
+#define CC_VARIANT_MIN_RUSH_RANK_DISCOVERY_DARK (12)
+
+#define CC_VARIANT_MAX_RUSH_RANK_ONE_LIGHT (12)
+#define CC_VARIANT_MIN_RUSH_RANK_ONE_DARK (13)
+
+/** @} */ // end of variant_rush_limits
 
 
 /**
@@ -216,5 +223,15 @@ unsigned int cc_variant_board_size( CcVariantEnum ve );
 */
 bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
 
+/**
+    Function returns rush limit, either maximum rank for light privates,
+    or minimum rank for dark privates.
+
+    @param ve Variant enum.
+    @param is_piece_light Flag whether piece is light or dark.
+
+    @return Rush limit for known variants, `0` otherwise.
+*/
+unsigned int cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
 
 #endif /* __CC_VARIANT_H__ */

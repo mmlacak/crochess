@@ -193,3 +193,39 @@ bool cc_variant_has_sideways_pawns( CcVariantEnum ve ) {
             return false;
     }
 }
+
+unsigned int cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light ) {
+    if ( is_piece_light ) {
+        switch ( ve ) {
+            case CC_VE_ClassicalChess : return CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_LIGHT;
+            case CC_VE_CroatianTies : return CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_LIGHT;
+            case CC_VE_MayanAscendancy : return CC_VARIANT_MAX_RUSH_RANK_MAYAN_ASCENDANCY_LIGHT;
+            case CC_VE_AgeOfAquarius : return CC_VARIANT_MAX_RUSH_RANK_AGE_OF_AQUARIUS_LIGHT;
+            case CC_VE_MirandasVeil : return CC_VARIANT_MAX_RUSH_RANK_MIRANDAS_VEIL_LIGHT;
+            case CC_VE_Nineteen : return CC_VARIANT_MAX_RUSH_RANK_NINETEEN_LIGHT;
+            case CC_VE_HemerasDawn : return CC_VARIANT_MAX_RUSH_RANK_HEMERAS_DAWN_LIGHT;
+            case CC_VE_TamoanchanRevisited : return CC_VARIANT_MAX_RUSH_RANK_TAMOANCHAN_REVISITED_LIGHT;
+            case CC_VE_ConquestOfTlalocan : return CC_VARIANT_MAX_RUSH_RANK_CONQUEST_OF_TLALOCAN_LIGHT;
+            case CC_VE_Discovery : return CC_VARIANT_MAX_RUSH_RANK_DISCOVERY_LIGHT;
+            case CC_VE_One : return CC_VARIANT_MAX_RUSH_RANK_ONE_LIGHT;
+
+            default : return 0;
+        }
+    } else {
+        switch ( ve ) {
+            case CC_VE_ClassicalChess : return CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_DARK;
+            case CC_VE_CroatianTies : return CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_DARK;
+            case CC_VE_MayanAscendancy : return CC_VARIANT_MIN_RUSH_RANK_MAYAN_ASCENDANCY_DARK;
+            case CC_VE_AgeOfAquarius : return CC_VARIANT_MIN_RUSH_RANK_AGE_OF_AQUARIUS_DARK;
+            case CC_VE_MirandasVeil : return CC_VARIANT_MIN_RUSH_RANK_MIRANDAS_VEIL_DARK;
+            case CC_VE_Nineteen : return CC_VARIANT_MIN_RUSH_RANK_NINETEEN_DARK;
+            case CC_VE_HemerasDawn : return CC_VARIANT_MIN_RUSH_RANK_HEMERAS_DAWN_DARK;
+            case CC_VE_TamoanchanRevisited : return CC_VARIANT_MIN_RUSH_RANK_TAMOANCHAN_REVISITED_DARK;
+            case CC_VE_ConquestOfTlalocan : return CC_VARIANT_MIN_RUSH_RANK_CONQUEST_OF_TLALOCAN_DARK;
+            case CC_VE_Discovery : return CC_VARIANT_MIN_RUSH_RANK_DISCOVERY_DARK;
+            case CC_VE_One : return CC_VARIANT_MIN_RUSH_RANK_ONE_DARK;
+
+            default : return 0;
+        }
+    }
+}
