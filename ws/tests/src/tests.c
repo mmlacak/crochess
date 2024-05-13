@@ -263,7 +263,8 @@ int main( void ) {
             } else {
                 printf( "%s\n", get_game_status_label( game__a->status ) );
             }
-        } else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
+        } else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
+                    cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;
             cc_char_8 code = CC_CHAR_8_EMPTY;
 
@@ -368,7 +369,8 @@ int main( void ) {
                 else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
                           cc_str_is_equal( token_start, token_end, "player", NULL, BUFSIZ ) )
                     print_help_new_player();
-                else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
+                else if ( cc_str_is_equal( token_start, token_end, "n", NULL, BUFSIZ ) ||
+                          cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else if ( cc_str_is_equal( token_start, token_end, "c", NULL, BUFSIZ ) ||
                           cc_str_is_equal( token_start, token_end, "clear", NULL, BUFSIZ ) )

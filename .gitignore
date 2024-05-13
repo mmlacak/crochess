@@ -35,3 +35,5 @@ obj/
 *.bak
 ws/linenoise/
 history*.*
+_.*
+_.*.*
