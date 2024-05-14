@@ -27,7 +27,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     One of `CcMaybeBoolEnum` values:
     - `CC_MBE_True` if piece is blocked at given position,
     - `CC_MBE_False` if piece is not blocked,
-    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
+    - `CC_MBE_Void` in case of error (given chessboard was `NULL`, or given piece was `CC_PE_None`).
 */
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,

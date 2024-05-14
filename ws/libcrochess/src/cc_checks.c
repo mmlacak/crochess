@@ -25,6 +25,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
                                               CcPos pos ) {
+    if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
