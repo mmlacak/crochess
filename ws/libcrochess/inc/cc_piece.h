@@ -549,15 +549,29 @@
                                       && ( (pe) != CC_PE_Monolith ) )
 
 /**
-    Macro expression to evaluate whether piece is opaque.
+    Macro expression to evaluate whether piece is completely transparent to Monolith.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
 
     @see CcPieceEnum
 
-    @return `true` if piece is opaque, `false` otherwise.
+    @return `true` if piece is completely transparent, `false` otherwise.
 */
-#define CC_PIECE_IS_OPAQUE(pe) ( (pe) == CC_PE_Monolith )
+#define CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkStarchild )   \
+                                               || ( (pe) == CC_PE_LightStarchild ) )
+
+/**
+    Macro expression to evaluate whether given piece is transparent to any other semi-transparent piece.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if given piece is transparent, `false` otherwise.
+*/
+#define CC_PIECE_IS_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkWave )                   \
+                                    || ( (pe) == CC_PE_LightWave )                  \
+                                    || ( CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe) ) )
 
 /**
     Macro expression to evaluate whether piece is transparent to Wave.
@@ -571,28 +585,15 @@
 #define CC_PIECE_IS_SEMI_TRANSPARENT(pe) ( (pe) != CC_PE_Monolith )
 
 /**
-    Macro expression to evaluate whether piece is transparent to Wave.
+    Macro expression to evaluate whether piece is opaque.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
 
     @see CcPieceEnum
 
-    @return `true` if piece is transparent, `false` otherwise.
+    @return `true` if piece is opaque, `false` otherwise.
 */
-#define CC_PIECE_IS_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkWave )   \
-                                    || ( (pe) == CC_PE_LightWave ) )
-
-/**
-    Macro expression to evaluate whether piece is completely transparent to Monolith.
-
-    @param pe Piece enum, one of `CcPieceEnum` values.
-
-    @see CcPieceEnum
-
-    @return `true` if piece is completely transparent, `false` otherwise.
-*/
-#define CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkStarchild )       \
-                                               || ( (pe) == CC_PE_LightStarchild ) )
+#define CC_PIECE_IS_OPAQUE(pe) ( (pe) == CC_PE_Monolith )
 
 /**
     Macro expression to evaluate whether piece is can be diverged from.

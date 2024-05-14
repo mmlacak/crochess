@@ -27,7 +27,22 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPos pos ) {
     if ( !cb ) return CC_MBE_Void;
 
-    return CC_MBE_Void; // TODO
+    CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
+
+    if ( CC_PIECE_IS_OPAQUE( pe ) )
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( piece ) )
+            return CC_MBE_True;
+
+    if ( CC_PIECE_IS_OPAQUE( piece ) )
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( pe ) )
+            return CC_MBE_True;
+
+    if ( CC_PIECE_IS_SEMI_TRANSPARENT( piece ) )
+        if ( CC_PIECE_IS_SEMI_TRANSPARENT( pe ) )
+            return CC_MBE_True;
+
+    return CC_MBE_False;
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
