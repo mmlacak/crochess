@@ -569,9 +569,10 @@
 
     @return `true` if given piece is transparent, `false` otherwise.
 */
-#define CC_PIECE_IS_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkWave )                   \
-                                    || ( (pe) == CC_PE_LightWave )                  \
-                                    || ( CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe) ) )
+#define CC_PIECE_IS_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkWave )           \
+                                    || ( (pe) == CC_PE_LightWave )          \
+                                    || ( (pe) == CC_PE_DarkStarchild )      \
+                                    || ( (pe) == CC_PE_LightStarchild ) )
 
 /**
     Macro expression to evaluate whether piece is transparent to Wave.
@@ -582,7 +583,23 @@
 
     @return `true` if piece is semi-transparent, `false` otherwise.
 */
-#define CC_PIECE_IS_SEMI_TRANSPARENT(pe) ( (pe) != CC_PE_Monolith )
+#define CC_PIECE_IS_SEMI_TRANSPARENT(pe) ( ( (pe) != CC_PE_Monolith ) )
+
+/**
+    Macro expression to check if given piece is transparent to Wave,
+    but not transparent to other semi-transparent (non-Wave) pieces.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is just semi-transparent, `false` otherwise.
+*/
+#define CC_PIECE_IS_SEMI_OPAQUE(pe) ( ( (pe) != CC_PE_Monolith )          \
+                                   && ( (pe) != CC_PE_DarkWave )          \
+                                   && ( (pe) != CC_PE_LightWave )         \
+                                   && ( (pe) != CC_PE_DarkStarchild )     \
+                                   && ( (pe) != CC_PE_LightStarchild ) )
 
 /**
     Macro expression to evaluate whether piece is opaque.

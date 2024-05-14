@@ -39,8 +39,8 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
         if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( pe ) )
             return CC_MBE_True;
 
-    if ( CC_PIECE_IS_SEMI_TRANSPARENT( piece ) )
-        if ( CC_PIECE_IS_SEMI_TRANSPARENT( pe ) )
+    if ( CC_PIECE_IS_SEMI_OPAQUE( piece ) )
+        if ( CC_PIECE_IS_SEMI_OPAQUE( pe ) )
             return CC_MBE_True;
 
     return CC_MBE_False;
