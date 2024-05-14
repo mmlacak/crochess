@@ -415,27 +415,37 @@ or in \algfmt{XAN} as \newline
 \addcontentsline{toc}{subsection}{Trance-journey}
 \label{sec:Appendix/Notation/Trance-journey}
 
-Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator \alg{\~{}}
-(tilde), before \hyperref[fig:scn_cot_072_entrancement_step]{entranced piece} takes off. This
+Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator
+\alg{\~{}} (tilde), before
+\hyperref[fig:scn_cot_072_entrancement_step]{entranced piece} takes off. This
 \hyperref[fig:scn_cot_086_light_light_shaman_interaction_start]{trance-journey example},
-if without any interactions with pieces on entranced Shaman's step-fields, would be written
-as \alg{Hd12@Hg24}. In \algfmt{XAN}, it would be \alg{[Hd12-e13]@[He13-g24]}.
+if without any interactions with pieces on entranced Shaman's step-fields, would be
+written as \alg{Hd12@Hg24}. In \algfmt{XAN}, it would be \alg{[Hd12-e13]@[He13-g24]}.
 
-Displacements are noted by writing \alg{<} (less-than) immediately after step in which a
-piece was reached, followed by field of displacement. Optionally, displaced piece can be
-written before displacement-field. The same
+Displacements are noted by writing \alg{<} (less-than) immediately after step in
+which a piece was reached, followed by field of displacement. Optionally, displaced
+piece can be written before displacement-field. The same
 \hyperref[fig:scn_cot_087_light_light_shaman_interaction_end]{trance-journey example},
 now with all interactions taken into account, would be written as
 \alg{He13@H..e18<i14..m12<j17..g24}.
 In \algfmt{XAN}, with gathered plies and displaced pieces it would be \newline
 \alg{[Hd12-e13]@[He13..e18<Ni14..m12<Pj17..g24]}.
 
-Captures are noted by writing \alg{*} (asterisk) immediately after step in which a piece
-is reached, optionally followed by a captured piece. This
+Forward-displacement is written the same as ordinary trance-journey displacement,
+except entranced Shaman visits a field onto which a piece has been displaced in
+previous step, and so the same piece can be displaced again. This sharing of the
+same displacement- and step-field can be seen in
+\hyperref[fig:scn_cot_098_forward_displacement_start]{an example} which would be
+written as \alg{Hu8@H..o10<i12..i12<c14..c14<a16}, or in \algfmt{XAN} as \newline
+\alg{[Ht9-u8]@[Hu8..o10<Ri12..i12<Rc14..c14<Ra16]}, if final displacement of
+a Rook was chosen to be \alg{a16}.
+
+Captures are noted by writing \alg{*} (asterisk) immediately after step in which
+a piece is reached, optionally followed by a captured piece. This
 \hyperref[fig:scn_cot_089_dark_light_shaman_interaction_end]{trance-journey example with captures}
 would be written as \newline
-\alg{He13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and
-captured pieces it would be \newline
+\alg{He13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and captured
+pieces it would be \newline
 \alg{[Hf12-e13]@[He13..e18*N..m12*P..g24]}.
 
 One peculiarity of dark Shaman's trance-journey is that it starts from the far end
