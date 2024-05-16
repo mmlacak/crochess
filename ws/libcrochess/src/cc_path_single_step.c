@@ -54,52 +54,49 @@ static bool cc_path_pawn( CcChessboard * cb,
     // if ( !step || !guard ) return false; // <!> Not needed, as long as both vars are certainly initialized.
 
     CcTypedStep const * s = step;
+    CcPptLink * pptl__t = NULL;
     bool result = true;
 
     while ( s && ( s <= guard ) ) {
-        if ( !CC_TYPED_STEP_IS_VALID( *s ) ) break;
+        if ( CC_TYPED_STEP_IS_VALID( *s ) ) {
+            CcPos destination = cc_pos_add( pos, s->step, 1 );
 
-        CcPos destination = cc_pos_add( pos, s->step, 1 );
-        CcPptLink * pptl__t = NULL;
+            if ( s->type == CC_STE_Capture ) {
+                if ( CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn.piece, destination ) ) ) {
+                    if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
+                    if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
+                }
+            } else if ( s->type == CC_STE_Movement ) {
+                if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) {
+                    if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
+                        unsigned int rush_rank_limit = cc_variant_rush_rank_limit( cb->type, is_pawn_light );
 
-        if ( s->type == CC_STE_Capture ) {
-            if ( !CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn.piece, destination ) ) ) continue;
-            if ( !cc_ppt_link_append_pos( cb, destination, &pptl__t ) ) break;
-            if ( !cc_path_link_append( path__e_a, &pptl__t ) ) break;
-        } else if ( s->type == CC_STE_Movement ) {
-            if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) continue;
+                        if ( cc_pos_is_equal( pawn.pos, pos ) ) {
+                            CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+                            if ( pe != pawn.piece ) return false;
 
-            if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
-                unsigned int rush_rank_limit = cc_variant_rush_rank_limit( cb->type, is_pawn_light );
+                            CcTagEnum te = cc_chessboard_get_tag( cb, pos.i, pos.j );
 
-                if ( cc_pos_is_equal( pawn.pos, pos ) ) {
-                    CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
-                    if ( pe != pawn.piece ) return false;
+                            if ( CC_TAG_CAN_RUSH( te ) ) {
+                            }
+                        }
 
-                    CcTagEnum te = cc_chessboard_get_tag( cb, pos.i, pos.j );
-
-                    if ( CC_TAG_CAN_RUSH( te ) ) {
+                    } else {
+                        if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
+                        if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
                     }
                 }
-
-            } else {
-                if ( !cc_ppt_link_append_pos( cb, destination, &pptl__t ) ) break;
-                if ( !cc_path_link_append( path__e_a, &pptl__t ) ) break;
             }
-
-
-
-        }
-
-        if ( pptl__t ) {
-            // <i> Ppt-link produced, but not transferred to paths.
-            cc_ppt_link_free_all( &pptl__t );
-            return false;
         }
 
         s += 1;
     }
 
+    if ( pptl__t ) {
+        // <i> Ppt-link produced, but not transferred to paths.
+        cc_ppt_link_free_all( &pptl__t );
+        result = false;
+    }
 
     if ( !result ) {
         cc_path_link_free_all( path__e_a );
