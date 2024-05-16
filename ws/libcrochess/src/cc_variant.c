@@ -236,7 +236,7 @@ bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
     if ( is_piece_light ) {
         if ( rank < (int)CC_VARIANT_MIN_RUSH_RANK_LIGHT ) return false;
     } else {
-        int max_rush_rank = (int)( cc_variant_board_size( ve ) - 3 );
+        int max_rush_rank = (int)( cc_variant_board_size( ve ) - CC_VARIANT_RUSH_RANK_OFFSET );
         if ( max_rush_rank < rank ) return false;
     }
 

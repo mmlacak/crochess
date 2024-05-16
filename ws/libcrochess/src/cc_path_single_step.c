@@ -69,7 +69,6 @@ static bool cc_path_pawn( CcChessboard * cb,
             } else if ( s->type == CC_STE_Movement ) {
                 if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) {
                     if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
-                        unsigned int rush_rank_limit = cc_variant_rush_rank_limit( cb->type, is_pawn_light );
                         bool is_rush = false;
 
                         if ( cc_pos_is_equal( pawn.pos, pos ) ) {
