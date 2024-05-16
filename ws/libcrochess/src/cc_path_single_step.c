@@ -80,14 +80,16 @@ static bool cc_path_pawn( CcChessboard * cb,
                         }
 
                         do {
-                            if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) )
-                                break;
-
+                            if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) break;
                             if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
-                            if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
 
                             destination = cc_pos_add( destination, s->step, 1 );
                         } while ( is_rush && cc_variant_is_rank_in_rush_limits( cb->type, is_pawn_light, destination.j ) );
+
+                        if ( result ) {
+                            if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
+                        } else
+                            break;
                     } else {
                         if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
                         if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
