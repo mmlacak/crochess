@@ -70,17 +70,25 @@ static bool cc_path_pawn( CcChessboard * cb,
                 if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) {
                     if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
                         unsigned int rush_rank_limit = cc_variant_rush_rank_limit( cb->type, is_pawn_light );
+                        bool is_rush = false;
 
                         if ( cc_pos_is_equal( pawn.pos, pos ) ) {
                             CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
                             if ( pe != pawn.piece ) return false;
 
                             CcTagEnum te = cc_chessboard_get_tag( cb, pos.i, pos.j );
-
-                            if ( CC_TAG_CAN_RUSH( te ) ) {
-                            }
+                            is_rush = CC_TAG_CAN_RUSH( te );
                         }
 
+                        do {
+                            if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) )
+                                break;
+
+                            if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
+                            if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
+
+                            destination = cc_pos_add( destination, s->step, 1 );
+                        } while ( is_rush && cc_variant_is_rank_in_rush_limits( cb->type, is_pawn_light, destination.j ) );
                     } else {
                         if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
                         if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;

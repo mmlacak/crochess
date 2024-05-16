@@ -77,6 +77,13 @@
 #define CC_VARIANT_MAX_RUSH_RANK_ONE_LIGHT (12)
 #define CC_VARIANT_MIN_RUSH_RANK_ONE_DARK (13)
 
+
+#define CC_VARIANT_MIN_RUSH_RANK_LIGHT (3)
+#define CC_VARIANT_MAX_RUSH_RANK_LIGHT (12)
+
+#define CC_VARIANT_MIN_RUSH_RANK_DARK (4)
+#define CC_VARIANT_MAX_RUSH_RANK_DARK (22)
+
 /** @} */ // end of variant_rush_limits
 
 
@@ -233,5 +240,19 @@ bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
     @return Rush limit for known variants, `0` otherwise.
 */
 unsigned int cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
+
+/**
+    Function checks if given rank is within rush limits;
+    both upper and lower rush limits are checked.
+
+    @param ve Variant enum.
+    @param is_piece_light Flag whether piece is light or dark.
+    @param rank Rank, position along vertical axis.
+
+    @return `true` if within rush limits, `false` otherwise.
+*/
+bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
+                                        bool is_piece_light,
+                                        int rank );
 
 #endif /* __CC_VARIANT_H__ */

@@ -229,3 +229,22 @@ unsigned int cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light )
         }
     }
 }
+
+bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
+                                        bool is_piece_light,
+                                        int rank ) {
+    if ( is_piece_light ) {
+        if ( rank < (int)CC_VARIANT_MIN_RUSH_RANK_LIGHT ) return false;
+    } else {
+        int max_rush_rank = (int)( cc_variant_board_size( ve ) - 3 );
+        if ( max_rush_rank < rank ) return false;
+    }
+
+    int rush_rank_limit = (int)cc_variant_rush_rank_limit( ve, is_piece_light );
+
+    if ( is_piece_light ) {
+        return ( rank <= rush_rank_limit );
+    } else {
+        return ( rush_rank_limit <= rank );
+    }
+}
