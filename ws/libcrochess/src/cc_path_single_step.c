@@ -12,21 +12,22 @@
 
 
 static bool cc_path_pawn( CcChessboard * cb,
-                          CcPieceEnum pawn,
+                          CcPosPieceTag pawn,
                           CcPos pos,
                           CcPathLink ** path__e_a ) {
     // <i> Not needed, already checked in the only caller, i.e. cc_path_single_step().
     // if ( !cb ) return false;
+    // if ( !cc_pos_piece_tag_is_valid( pawn ) ) return false;
     // if ( !path__e_a ) return false;
     // if ( *path__e_a ) return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) return false;
-    if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
+    if ( !CC_PIECE_IS_PAWN( pawn.piece ) ) return false;
 
     CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    bool is_pos_current = ( piece == pawn );
+    // CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
 
-    bool is_pawn_light = cc_piece_is_light( pawn );
+    bool is_pawn_light = cc_piece_is_light( pawn.piece );
     CcTypedStep const * step = NULL;
     CcTypedStep const * guard = NULL;
 
@@ -46,9 +47,10 @@ static bool cc_path_pawn( CcChessboard * cb,
     while ( s && ( s <= guard ) ) {
         if ( !CC_TYPED_STEP_IS_VALID( *s ) ) break;
 
+        CcPos destination = cc_pos_add( pos, s->step, 1 );
+
         if ( s->type == CC_STE_Capture ) {
-            CcPos destination = cc_pos_add( pos, s->step, 1 );
-            if ( !CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn, destination ) ) ) continue;
+            if ( !CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn.piece, destination ) ) ) continue;
 
             CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, destination );
             CcPptLink * pptl__t = cc_ppt_link__new( ppt );
@@ -75,24 +77,31 @@ static bool cc_path_pawn( CcChessboard * cb,
 
 
 bool cc_path_single_step( CcChessboard * cb,
-                          CcPieceEnum piece,
+                          CcPosPieceTag piece,
                           CcPieceEnum activator,
                           CcPos pos,
                           CcPathLink ** path__e_a ) {
     if ( !cb ) return false;
+    if ( !cc_pos_piece_tag_is_valid( piece ) ) return false;
     if ( !path__e_a ) return false;
     if ( *path__e_a ) return false;
 
     CcPathLink * path__t = NULL;
 
-    if ( CC_PIECE_IS_PAWN( piece ) ) {
+    if ( CC_PIECE_IS_PAWN( piece.piece ) ) {
         if ( !cc_path_pawn( cb, piece, pos, &path__t ) ) return false;
 
         *path__e_a = path__t;
         path__t = NULL;
         return true;
-    }
+    } else if ( CC_PIECE_IS_WAVE( piece.piece ) ) {
+        if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
 
+        // TODO
+    } else
+        return false;
+
+    // TODO
 
     return false;
 }
