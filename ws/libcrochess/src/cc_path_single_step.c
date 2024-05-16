@@ -11,6 +11,21 @@
 */
 
 
+static bool cc_ppt_link_append_pos( CcChessboard * cb,
+                                    CcPos destination,
+                                    CcPptLink ** pptl__iod_a ) {
+    // <i> Not needed, static + known caller.
+    // if ( !cb ) return false;
+    // if ( !pptl__iod_a ) return false;
+
+    CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, destination );
+
+    if ( !cc_ppt_link_append( pptl__iod_a, ppt ) ) return false;
+
+    return true;
+}
+
+
 static bool cc_path_pawn( CcChessboard * cb,
                           CcPosPieceTag pawn,
                           CcPos pos,
@@ -23,9 +38,6 @@ static bool cc_path_pawn( CcChessboard * cb,
 
     if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) return false;
     if ( !CC_PIECE_IS_PAWN( pawn.piece ) ) return false;
-
-    CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    // CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
 
     bool is_pawn_light = cc_piece_is_light( pawn.piece );
     CcTypedStep const * step = NULL;
@@ -48,21 +60,42 @@ static bool cc_path_pawn( CcChessboard * cb,
         if ( !CC_TYPED_STEP_IS_VALID( *s ) ) break;
 
         CcPos destination = cc_pos_add( pos, s->step, 1 );
+        CcPptLink * pptl__t = NULL;
 
         if ( s->type == CC_STE_Capture ) {
             if ( !CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn.piece, destination ) ) ) continue;
-
-            CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, destination );
-            CcPptLink * pptl__t = cc_ppt_link__new( ppt );
-            if ( !( result = pptl__t ) ) break;
-
-            if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) ) ) {
-                cc_ppt_link_free_all( &pptl__t );
-                break;
-            }
+            if ( !cc_ppt_link_append_pos( cb, destination, &pptl__t ) ) break;
+            if ( !cc_path_link_append( path__e_a, &pptl__t ) ) break;
         } else if ( s->type == CC_STE_Movement ) {
-        } else
+            if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) continue;
+
+            if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
+                unsigned int rush_rank_limit = cc_variant_rush_rank_limit( cb->type, is_pawn_light );
+
+                if ( cc_pos_is_equal( pawn.pos, pos ) ) {
+                    CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+                    if ( pe != pawn.piece ) return false;
+
+                    CcTagEnum te = cc_chessboard_get_tag( cb, pos.i, pos.j );
+
+                    if ( CC_TAG_CAN_RUSH( te ) ) {
+                    }
+                }
+
+            } else {
+                if ( !cc_ppt_link_append_pos( cb, destination, &pptl__t ) ) break;
+                if ( !cc_path_link_append( path__e_a, &pptl__t ) ) break;
+            }
+
+
+
+        }
+
+        if ( pptl__t ) {
+            // <i> Ppt-link produced, but not transferred to paths.
+            cc_ppt_link_free_all( &pptl__t );
             return false;
+        }
 
         s += 1;
     }
