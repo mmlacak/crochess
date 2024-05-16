@@ -95,6 +95,9 @@ static bool cc_path_pawn( CcChessboard * cb,
                         if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
                     }
                 }
+            } else { // <i> Neither a capture, nor a movement --> error.
+                result = false;
+                break;
             }
         }
 
