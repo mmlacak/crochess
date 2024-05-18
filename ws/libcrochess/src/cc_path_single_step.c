@@ -29,6 +29,7 @@ static bool cc_ppt_link_append_pos( CcChessboard * cb,
 static bool cc_path_pawn( CcChessboard * cb,
                           CcPosPieceTag pawn,
                           CcPos pos,
+                          CcPptLink * pptl__d,
                           CcPathLink ** path__e_a ) {
     // <i> Not needed, already checked in the only caller, i.e. cc_path_single_step().
     // if ( !cb ) return false;
@@ -58,6 +59,20 @@ static bool cc_path_pawn( CcChessboard * cb,
     bool result = true;
 
     while ( s && ( s <= guard ) ) {
+        if ( pptl__t ) { // Should be just initialized to NULL (1st run), or already transferred to path__e_a (all other runs).
+            result = false;
+            break;
+        }
+
+        if ( pptl__d ) {
+            pptl__t = cc_ppt_link_duplicate_all__new( pptl__d );
+
+            if ( !pptl__t ) {
+                result = false;
+                break;
+            }
+        }
+
         if ( CC_TYPED_STEP_IS_VALID( *s ) ) {
             CcPos destination = cc_pos_add( pos, s->step, 1 );
 
@@ -71,9 +86,12 @@ static bool cc_path_pawn( CcChessboard * cb,
                     if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
                         bool is_rush = false;
 
-                        if ( cc_pos_is_equal( pawn.pos, pos ) ) {
+                        if ( cc_pos_is_equal( pawn.pos, pos ) ) { // is_equal() --> likely not divergence, should find original Pawn.
                             CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
-                            if ( pe != pawn.piece ) return false;
+                            if ( pe != pawn.piece ) { // Pawn not found on expected position --> hard fail.
+                                result = false;
+                                break;
+                            }
 
                             CcTagEnum te = cc_chessboard_get_tag( cb, pos.i, pos.j );
                             is_rush = CC_TAG_CAN_RUSH( te );
@@ -131,7 +149,7 @@ bool cc_path_single_step( CcChessboard * cb,
     CcPathLink * path__t = NULL;
 
     if ( CC_PIECE_IS_PAWN( piece.piece ) ) {
-        if ( !cc_path_pawn( cb, piece, pos, &path__t ) ) return false;
+        if ( !cc_path_pawn( cb, piece, pos, NULL, &path__t ) ) return false;
 
         *path__e_a = path__t;
         path__t = NULL;
