@@ -551,6 +551,9 @@ typedef struct CcPosPieceTag {
     CcPos pos; /**< A position. */
     CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
     CcTagEnum tag; /**< Tag, e.g. the one found at position. */
+
+    // TODO :: add momentum
+
 } CcPosPieceTag;
 
 /**

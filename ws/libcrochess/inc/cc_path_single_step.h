@@ -22,15 +22,15 @@
 
 // static bool cc_path_pawn( CcChessboard * cb,
 //                           CcPosPieceTag pawn,
-//                           CcPos pos,
-//                           CcPptLink * pptl__d,
+//                           CcPos from_pos,
+//                           CcPptLink * already_traversed__d,
 //                           CcPathLink ** path__e_a );
 
 
 bool cc_path_single_step( CcChessboard * cb,
                           CcPosPieceTag piece,
                           CcPieceEnum activator,
-                          CcPos pos,
+                          CcPos from_pos,
                           CcPathLink ** path__e_a );
 
 

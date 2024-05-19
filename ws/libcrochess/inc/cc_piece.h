@@ -621,7 +621,7 @@
 
     @return `true` if piece is divergent, `false` otherwise.
 */
-#define CC_PIECE_CAN_BE_DIVERGED_FROM(pe) ( ( (pe) == CC_PE_DarkStarchild )     \
+#define CC_PIECE_IS_DIVERGENT(pe) ( ( (pe) == CC_PE_DarkStarchild )     \
                                          || ( (pe) == CC_PE_DarkShaman )        \
                                          || ( (pe) == CC_PE_LightShaman )       \
                                          || ( (pe) == CC_PE_LightStarchild ) )
