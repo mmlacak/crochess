@@ -61,6 +61,8 @@ static bool cc_path_pawn( CcChessboard * cb,
     CcTypedStep const * s = step;
     bool do_append = false;
 
+    // TODO :: static promotion
+
     while ( s && ( s <= guard ) ) {
         if ( !CC_TYPED_STEP_IS_VALID( *s ) ) break;
 
@@ -89,7 +91,6 @@ static bool cc_path_pawn( CcChessboard * cb,
                     || is_target_divergent ) {
                 if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
                 do_append = true;
-
             }
         } else if ( s->type == CC_STE_Movement ) {
             if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) )
@@ -111,6 +112,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                     do {
                         if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) break;
                         if ( !( result = cc_ppt_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
+                        do_append = true;
 
                         // TODO :: is_target_divergent
 
