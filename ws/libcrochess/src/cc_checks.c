@@ -58,3 +58,23 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
 
     return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, pe ) );
 }
+
+CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
+                                               CcPieceEnum piece,
+                                               CcPos pos ) {
+    if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return CC_MBE_False;
+
+    // TODO :: add activator, momentum
+
+    if ( !cb ) return CC_MBE_Void;
+
+    CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( CC_PIECE_IS_STARCHILD( pe ) ) return CC_MBE_True;
+
+    // TODO :: handle activator --> Wave
+
+    if ( CC_PIECE_IS_SHAMAN( pe ) )
+        return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, pe ) );
+    else
+        return CC_MBE_False;
+}

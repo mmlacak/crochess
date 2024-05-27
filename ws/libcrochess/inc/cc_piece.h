@@ -613,7 +613,7 @@
 #define CC_PIECE_IS_OPAQUE(pe) ( (pe) == CC_PE_Monolith )
 
 /**
-    Macro expression to evaluate whether piece is can be diverged from.
+    Macro expression to evaluate whether piece can be diverged from.
 
     @param pe Piece enum, one of `CcPieceEnum` values.
 
@@ -622,9 +622,40 @@
     @return `true` if piece is divergent, `false` otherwise.
 */
 #define CC_PIECE_IS_DIVERGENT(pe) ( ( (pe) == CC_PE_DarkStarchild )     \
-                                         || ( (pe) == CC_PE_DarkShaman )        \
-                                         || ( (pe) == CC_PE_LightShaman )       \
-                                         || ( (pe) == CC_PE_LightStarchild ) )
+                                 || ( (pe) == CC_PE_DarkShaman )        \
+                                 || ( (pe) == CC_PE_LightShaman )       \
+                                 || ( (pe) == CC_PE_LightStarchild ) )
+
+/**
+    Macro expression to evaluate whether piece can be diverged.
+
+    @param pe Piece enum, one of `CcPieceEnum` values.
+
+    @note
+    Some pieces can be diverged only sometimes. For instance, Wave can be
+    diverged if it's not activated by e.g. Centaur.
+
+    @note
+    All activated pieces when diverging are also restricted by momentum.
+    For instance, Rook normally can diverge, except if it has no momentum
+    when it encounters own Shaman.
+
+    @see CcPieceEnum
+
+    @return `true` if piece is can be diverged, `false` otherwise.
+*/
+#define CC_PIECE_CAN_BE_DIVERGED(pe) ( ( (pe) != CC_PE_DimStar )        \
+                                    && ( (pe) != CC_PE_DarkStarchild )  \
+                                    && ( (pe) != CC_PE_DarkCentaur )    \
+                                    && ( (pe) != CC_PE_DarkSerpent )    \
+                                    && ( (pe) != CC_PE_DarkKing )       \
+                                    && ( (pe) != CC_PE_None )           \
+                                    && ( (pe) != CC_PE_LightKing )      \
+                                    && ( (pe) != CC_PE_LightSerpent )   \
+                                    && ( (pe) != CC_PE_LightCentaur )   \
+                                    && ( (pe) != CC_PE_LightStarchild ) \
+                                    && ( (pe) != CC_PE_BrightStar )     \
+                                    && ( (pe) != CC_PE_Monolith ) )
 
 // TODO :: move into function, then fix
 //
