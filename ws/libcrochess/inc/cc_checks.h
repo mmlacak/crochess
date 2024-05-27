@@ -52,5 +52,11 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                CcPos pos );
 
+// TODO :: add activator, momentum
+// TODO :: handle activator --> Wave
+CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
+                                               CcPieceEnum piece,
+                                               CcPos pos );
+
 
 #endif /* __CC_CHECKS_H__ */
