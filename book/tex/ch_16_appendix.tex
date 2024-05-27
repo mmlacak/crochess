@@ -1908,8 +1908,8 @@ steps. For instance, most pieces can capture opponent's piece only on the last s
 
 Transparency and divergence are momentum restricted; activated piece has to have at
 least one momentum when transparent or divergent piece is encountered to perform
-action. \newline
-\indent
+action.
+
 The same applies when activating pieces other than Wave or Starchild; activating
 piece has to have at least one momentum to activate e.g. Pyramid.
 
@@ -1947,12 +1947,14 @@ piece has to have at least one momentum to activate e.g. Pyramid.
 \footnotetext[5]{Only when diverging.}
 \footnotetext[6]{Including capture + promotion as side-effects of a single step.}
 
-Some actions are not available to pieces which can make only one step in a single
-ply, these include transparency and divergence. Pawn is one such a piece; however,
-when rushing, Pawn can make more than one step, and then it can diverge and use
-transparency.
+Transparency is not available to pieces which can make only one step in a single
+ply, because moving piece has to make at least one step away from encountered,
+transparent piece. Similar to divergence, no piece can use transparency on its
+last step.
 
-\TODO :: fix
+Single-step pieces include Knight and Unicorn on previous page, and Pawn in the
+table above. Unlike Knight and Unicorn, Pawn can make more than one step when
+rushing, and then it can use transparency, e.g. pass over Wave as if not present.
 
 \clearpage % ..........................................................
 
