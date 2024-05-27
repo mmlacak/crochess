@@ -1792,6 +1792,39 @@ under \emph{moving piece} column.
 \addcontentsline{toc}{subsection}{Piece actions}
 \label{sec:Appendix/Summary/Piece actions}
 
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ llll }
+% \toprule % ===========================================================================================================
+% \textbf{Piece}              & \textbf{Fields}           & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
+%                                                         \cmidrule{3-4} % .............................................
+%                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
+% \midrule % -----------------------------------------------------------------------------------------------------------
+% \multirow{4}{*}{King}       & \multirow{4}{*}{any\footnotemark[2]}
+%                                                         & \multirow{4}{*}{---}          & step, capture,            \\
+%                             &                           &                               & castling,                 \\
+%                             &                           &                               & activate own              \\
+%                             &                           &                               & Wave, Pyramid             \\
+% \cmidrule{1-4} % .....................................................................................................
+%                             & \multirow{4}{*}{any\footnotemark[2]}
+%                                                         & \multirow{4}{*}{---}          & step, capture,            \\
+% Knight,                     &                           &                               & teleport,                 \\
+% Unicorn                     &                           &                               & activate own              \\
+%                             &                           &                               & Wave, Pyramid             \\
+% \cmidrule{1-4} % .....................................................................................................
+% Bishop,                     & \multirow{4}{*}{any\footnotemark[2]}
+%                                                         & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
+%                                                                                         & step, capture,            \\
+% Rook,                       &                           &                               & teleport,                 \\
+% Queen,                      &                           &                               & activate own              \\
+% Pegasus                     &                           &                               & Wave, Pyramid             \\
+% % \cmidrule{1-4} % .....................................................................................................
+% \bottomrule % ========================================================================================================
+% \end{tabular}
+% \caption{Piece actions in a single ply, part 1}
+% \label{tbl:Appendix/Summary/Piece actions, part 1}
+% \end{table}
+
 \begin{table}[!h]
 \centering
 \begin{tabular}{ llll }
@@ -1807,17 +1840,10 @@ under \emph{moving piece} column.
                             &                           &                               & Wave, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
                             & \multirow{4}{*}{any\footnotemark[2]}
-                                                        & \multirow{4}{*}{---}          & step, capture,            \\
-Knight,                     &                           &                               & teleport,                 \\
-Unicorn                     &                           &                               & activate own              \\
+                                                        &                               & step, capture,            \\
+Knight,                     &                           & ---\footnotemark[3],          & teleport,                 \\
+Unicorn                     &                           & divergence\footnotemark[4]    & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
-\cmidrule{1-4} % .....................................................................................................
-Bishop,                     & \multirow{4}{*}{any\footnotemark[2]}
-                                                        & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
-                                                                                        & step, capture,            \\
-Rook,                       &                           &                               & teleport,                 \\
-Queen,                      &                           &                               & activate own              \\
-Pegasus                     &                           &                               & Wave, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
@@ -1827,17 +1853,60 @@ Pegasus                     &                           &                       
 
 \footnotetext[1]{Any step except the last one.}
 \footnotetext[2]{Step- and capture-fields are the same.}
+\footnotetext[3]{When not diverging.}
+\footnotetext[4]{Only when diverging.}
 
 Table on this and next few pages shows what actions a piece can do, and on what
 fields. Actions are usually side-effects to a step (e.g. a capture), and sometimes
 ply separators if more than just a simple cascade (e.g. teleportation). Steps without
 side-effect are written just as \emph{step} in \emph{action} columns.
 
+Single-step pieces have available actions listed in the \emph{last} step column,
+and preceding steps are left empty, i.e. containing just \emph{---} (long dash).
+
+Divergence is always listed in \emph{any} step column, because a piece continues
+its ply after diverging. As a result, no piece can diverge on its last step.
+
+\clearpage % ..........................................................
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ llll }
+\toprule % ===========================================================================================================
+\textbf{Piece}              & \textbf{Fields}           & \multicolumn{2}{c}{ \textbf{Action at ... step} }         \\
+                                                        \cmidrule{3-4} % .............................................
+                            &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
+\midrule % -----------------------------------------------------------------------------------------------------------
+Bishop,                     & \multirow{4}{*}{any\footnotemark[2]}
+                                                        & \parbox[b][1pt][s]{12ex}{step,\\transparency,\\divergence}
+                                                                                        & step, capture,            \\
+Rook,                       &                           &                               & teleport,                 \\
+Queen,                      &                           &                               & activate own              \\
+Pegasus                     &                           &                               & Wave, Pyramid             \\
+\cmidrule{1-4} % .....................................................................................................
+\multirow{7}{*}{Pyramid}    & \multirow{7}{*}{any\footnotemark[2]}
+                                                        &                               & step, capture,            \\
+                            &                           &                               & teleport,                 \\
+                            &                           & step,                         & Pawn-sacrifice,           \\
+                            &                           & transparency,                 & promoting\footnotemark[3] Pawn, \\
+                            &                           & divergence                    & conversion,               \\
+                            &                           &                               & activate own              \\
+                            &                           &                               & Wave, Pyramid             \\
+% \cmidrule{1-4} % .....................................................................................................
+\bottomrule % ========================================================================================================
+\end{tabular}
+\caption{Piece actions in a single ply, part 2}
+\label{tbl:Appendix/Summary/Piece actions, part 2}
+\end{table}
+
+\footnotetext[1]{Any step except the last one.}
+\footnotetext[2]{Step- and capture-fields are the same.}
+\footnotetext[3]{Includes tagging Pawn for promotion.}
+
 Usually, actions on the last step in a ply are different than those on preceding
 steps. For instance, most pieces can capture opponent's piece only on the last step.
-Some pieces can make only one step in a ply, if so available actions are listed in
-the last step, and preceding steps are left empty, i.e. containing just \emph{---}
-(long dash).
+
+\TODO
 
 \clearpage % ..........................................................
 
@@ -1852,40 +1921,33 @@ the last step, and preceding steps are left empty, i.e. containing just \emph{--
 \multirow{4}{*}{Pawn}       & \multirow{4}{*}{step-}    & ---\footnotemark[3],          & step, teleport,           \\
                             &                           & step\footnotemark[4],         & promotion,                \\
                             &                           & transparency\footnotemark[4], & activate own              \\
-                            &                           & divergence\footnotemark[4]    & Wave                      \\
+                            &                           & divergence\footnotemark[5]    & Wave                      \\
 \cmidrule{1-4} % .....................................................................................................
 \multirow{5}{*}{Pawn}       & \multirow{5}{*}{capture-} & \multirow{5}{*}{---}          & capture, teleport,        \\
-                            &                           &                               & promotion\footnotemark[5],\\
+                            &                           &                               & promotion\footnotemark[6],\\
                             &                           &                               & en passant,               \\
-                            &                           &                               & activate own              \\
-                            &                           &                               & Wave, Pyramid             \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{7}{*}{Pyramid}    & \multirow{7}{*}{any\footnotemark[2]}
-                                                        &                               & step, capture,            \\
-                            &                           &                               & teleport,                 \\
-                            &                           & step,                         & Pawn-sacrifice,           \\
-                            &                           & transparency,                 & promoting\footnotemark[6] Pawn, \\
-                            &                           & divergence                    & conversion,               \\
                             &                           &                               & activate own              \\
                             &                           &                               & Wave, Pyramid             \\
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
-\caption{Piece actions in a single ply, part 2}
-\label{tbl:Appendix/Summary/Piece actions, part 2}
+\caption{Piece actions in a single ply, part 3}
+\label{tbl:Appendix/Summary/Piece actions, part 3}
 \end{table}
 
 \footnotetext[1]{Any step except the last one.}
 \footnotetext[2]{Step- and capture-fields are the same.}
-\footnotetext[3]{When not rushing.}
+\footnotetext[3]{When not rushing, diverging.}
 \footnotetext[4]{Only when rushing.}
-\footnotetext[5]{Including capture + promotion as side-effects of a single step.}
-\footnotetext[6]{Includes tagging Pawn for promotion.}
+\footnotetext[5]{Only when diverging.}
+\footnotetext[6]{Including capture + promotion as side-effects of a single step.}
 
 Some actions are not available to pieces which can make only one step in a single
 ply, these include transparency and divergence. Pawn is one such a piece; however,
 when rushing, Pawn can make more than one step, and then it can diverge and use
 transparency.
+
+\TODO :: fix
 
 \clearpage % ..........................................................
 
@@ -1922,8 +1984,8 @@ Star                        & step-                     & ---                   
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
-\caption{Piece actions in a single ply, part 3}
-\label{tbl:Appendix/Summary/Piece actions, part 3}
+\caption{Piece actions in a single ply, part 4}
+\label{tbl:Appendix/Summary/Piece actions, part 4}
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
@@ -1974,8 +2036,8 @@ Grenadier                   &                           &                       
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
-\caption{Piece actions in a single ply, part 4}
-\label{tbl:Appendix/Summary/Piece actions, part 4}
+\caption{Piece actions in a single ply, part 5}
+\label{tbl:Appendix/Summary/Piece actions, part 5}
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
@@ -2022,8 +2084,8 @@ Shaman                      & trance-                   & ---                   
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
-\caption{Piece actions in a single ply, part 5}
-\label{tbl:Appendix/Summary/Piece actions, part 5}
+\caption{Piece actions in a single ply, part 6}
+\label{tbl:Appendix/Summary/Piece actions, part 6}
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
@@ -2063,8 +2125,8 @@ Starchild                   & uplifting-                & ---                   
 % \cmidrule{1-4} % .....................................................................................................
 \bottomrule % ========================================================================================================
 \end{tabular}
-\caption{Piece actions in a single ply, part 6}
-\label{tbl:Appendix/Summary/Piece actions, part 6}
+\caption{Piece actions in a single ply, part 7}
+\label{tbl:Appendix/Summary/Piece actions, part 7}
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
