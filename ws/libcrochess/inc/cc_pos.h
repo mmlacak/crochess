@@ -354,12 +354,12 @@ typedef struct CcTypedStep {
 } CcTypedStep;
 
 /**
-    Casted invalid position + piece + tag value.
+    Casted invalid position descriptor value.
 */
 #define CC_TYPED_STEP_CAST_INVALID ( (CcTypedStep)CC_TYPED_STEP_INVALID )
 
 /**
-    Casted static position + piece + tag value, i.e. no-movement step.
+    Casted static position descriptor value, i.e. no-movement step.
 */
 #define CC_TYPED_STEP_CAST_STATIC ( (CcTypedStep)CC_TYPED_STEP_STATIC )
 
@@ -531,15 +531,15 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
 
 
 //
-// Position + piece + tag.
+// Position descriptor.
 
 /**
-    Invalid position + piece + tag value.
+    Invalid position descriptor value.
 */
 #define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID, .momentum = 0 }
 
 /**
-    Static position + piece + tag value, i.e. no-movement step.
+    Static position descriptor value, i.e. no-movement step.
 */
 #define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID, .momentum = 0 }
 
@@ -558,17 +558,17 @@ typedef struct CcPosDesc {
 } CcPosDesc;
 
 /**
-    Casted invalid position + piece + tag value.
+    Casted invalid position descriptor value.
 */
 #define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
 
 /**
-    Casted static position + piece + tag value, i.e. no-movement step.
+    Casted static position descriptor value, i.e. no-movement step.
 */
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
 /**
-    Macro which constructs position + piece + tag struct.
+    Macro which constructs position descriptor struct.
 
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
@@ -578,13 +578,13 @@ typedef struct CcPosDesc {
 
     @see CcPosDesc
 
-    @return Position + piece + tag value.
+    @return Position descriptor value.
 */
 #define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
     { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum), .momentum = (uint)(uint_momentum) }
 
 /**
-    Macro which constructs casted position + piece + tag struct.
+    Macro which constructs casted position descriptor struct.
 
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
@@ -594,73 +594,73 @@ typedef struct CcPosDesc {
 
     @see CcPosDesc
 
-    @return Casted position + piece + tag value.
+    @return Casted position descriptor value.
 */
 #define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
     ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (uint_momentum) ) )
 
 /**
-    Macro expression to evaluate whether given position + piece + tag is valid.
+    Macro expression to evaluate whether given position descriptor is valid.
 
-    @param ppt A position + piece + tag.
+    @param pd A position descriptor.
 
     @see CcPosDesc
 
-    @return `true` if valid position + piece + tag, `false` otherwise.
+    @return `true` if valid position descriptor, `false` otherwise.
 */
-#define CC_POS_DESC_IS_VALID(ppt) \
-    ( CC_POS_IS_VALID( (ppt).pos ) && CC_PIECE_IS_VALID( (ppt).piece ) && ( CC_TAG_IS_VALID( (ppt).tag ) ) )
+#define CC_POS_DESC_IS_VALID(pd) \
+    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_VALID( (pd).piece ) && ( CC_TAG_IS_VALID( (pd).tag ) ) )
 
 /**
-    Macro expression to evaluate whether given position + piece + tag is equal to another.
+    Macro expression to evaluate whether given position descriptor is equal to another.
 
-    @param ppt_1 A position + piece + tag.
-    @param ppt_2 Other position + piece + tag.
+    @param pd_1 A position descriptor.
+    @param pd_2 Other position descriptor.
 
     @see CcPosDesc
 
     @return `true` if equal, `false` otherwise.
 */
-#define CC_POS_DESC_IS_EQUAL(ppt_1,ppt_2) \
-    ( CC_POS_IS_EQUAL( (ppt_1).pos, (ppt_2).pos ) && ( (ppt_1).piece == (ppt_2).piece ) && ( (ppt_1).tag == (ppt_2).tag ) && ( (ppt_1).momentum == (ppt_2).momentum ) )
+#define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
+    ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) && ( (pd_1).momentum == (pd_2).momentum ) )
 
 /**
-    Function returns position + piece + tag value.
+    Function returns position descriptor value.
 
     @param pos A position.
     @param piece A piece.
     @param tag A  tag.
 
-    @return Position + piece + tag value.
+    @return Position descriptor value.
 */
 CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
 
 /**
     Function checks if position + piece is valid.
 
-    @param ppt A position + piece.
+    @param pd A position + piece.
 
     @see CC_POS_INVALID
 
     @return `true` if position + piece is valid, `false` otherwise.
 */
-bool cc_pos_desc_is_valid( CcPosDesc ppt );
+bool cc_pos_desc_is_valid( CcPosDesc pd );
 
 /**
     Function checks if two position + piece values are the same.
 
-    @param ppt_1 A position + piece.
-    @param ppt_2 An other position + piece.
+    @param pd_1 A position + piece.
+    @param pd_2 An other position + piece.
 
     @return `true` if position + piece values are the same, `false` otherwise.
 */
-bool cc_pos_desc_is_equal( CcPosDesc ppt_1, CcPosDesc ppt_2 );
+bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 /**
     Function checks if two position + piece values are the congruent.
 
-    @param ppt_1 A position + piece.
-    @param ppt_2 An other position + piece.
+    @param pd_1 A position + piece.
+    @param pd_2 An other position + piece.
 
     @note
     For positions to be congruent, at least one set of coordinates (files,
@@ -672,14 +672,14 @@ bool cc_pos_desc_is_equal( CcPosDesc ppt_1, CcPosDesc ppt_2 );
 
     @return `true` if positions are congruent, `false` otherwise.
 */
-bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 );
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 /**
     Function converts position + piece value into a user-readable
     `<file char><rank number><piece>` notation.
 
-    @param ppt A position + piece.
-    @param ppt_str__o An _output_ parameter, short string array.
+    @param pd A position + piece.
+    @param pd_str__o An _output_ parameter, short string array.
 
     @note
     Coordinates outside chessboard are converted into short integers, if possible.
@@ -689,151 +689,153 @@ bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_pos_desc_to_short_string( CcPosDesc ppt,
-                                  cc_char_16 * ppt_str__o );
+bool cc_pos_desc_to_short_string( CcPosDesc pd,
+                                  cc_char_16 * pd_str__o );
 
 
 //
 // Linked list of positions + pieces + tags.
 
 /**
-    Convenience macro to allocate new position + piece + tag value to position link.
+    Convenience macro to allocate new position descriptor value to position link.
 
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
     @param piece A piece.
     @param tag A tag.
+    @param momentum A momentum.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 
-    @see cc_ppt_link__new()
+    @see cc_pos_desc_link__new()
 */
-#define CC_PPT_LINK__NEW(int_i,int_j,piece,tag) \
-    ( cc_ppt_link__new( CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag) ) ) )
+#define CC_POS_DESC_LINK__NEW(int_i,int_j,piece,tag,momentum) \
+    ( cc_pos_desc_link__new( CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag), (momentum) ) ) )
 
 /**
-    Macro to append a newly allocated position + piece + tag value to position link.
+    Macro to append a newly allocated position descriptor value to position link.
 
-    @param ptr_ptr__ppt_link__iod _Optional_, _input/output_ parameter; a position linked list.
+    @param ptr_ptr__pd_link__iod _Optional_, _input/output_ parameter; a position linked list.
     @param int_i File, horizontal coordinate.
     @param int_j Rank, vertical coordinate.
     @param piece A piece.
     @param tag A tag.
+    @param momentum A momentum.
 
-    @see cc_ppt_link_append()
+    @see cc_pos_desc_link_append()
 
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-#define CC_PPT_LINK_APPEND(ptr_ptr__ppt_link__iod,int_i,int_j,piece,tag) \
-    ( cc_ppt_link_append( (ptr_ptr__ppt_link__iod), CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag) ) ) )
+#define CC_POS_DESC_LINK_APPEND(ptr_ptr__pd_link__iod,int_i,int_j,piece,tag,momentum) \
+    ( cc_pos_desc_link_append( (ptr_ptr__pd_link__iod), CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag), (momentum) ) ) )
 
 /**
-    A linked list of positions, with pieces and tags on them.
+    A linked list of position descriptors.
 */
-typedef struct CcPptLink {
-    CcPosDesc ppt; /**< A position + piece + tag. */
-    struct CcPptLink * next; /**< Link to next position. */
-} CcPptLink;
+typedef struct CcPosDescLink {
+    CcPosDesc pd; /**< A position descriptor. */
+    struct CcPosDescLink * next; /**< Link to next position. */
+} CcPosDescLink;
 
 /**
     Function allocates a new linked position.
 
-    @param ppt A position + piece + tag value.
+    @param pd A position descriptor value.
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link__new( CcPosDesc ppt );
+CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
 
-    @param ppt_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param ppt A position + piece + tag value.
+    @param pd_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param pd A position descriptor value.
 
     @note
-    Linked list `*ppt_link__iod_a` can be `NULL`, a linked position will still be
+    Linked list `*pd_link__iod_a` can be `NULL`, a linked position will still be
     allocated, and weak pointer to it returned.
 
     @note
-    If linked list `*ppt_link__iod_a` is `NULL`, it will be initialized
+    If linked list `*pd_link__iod_a` is `NULL`, it will be initialized
     with a newly allocated linked position as its only element.
 
     @note
-    Pointer `ppt_link__iod_a` has ownership over given linked list, takes ownership
+    Pointer `pd_link__iod_a` has ownership over given linked list, takes ownership
     over newly allocated position item, and retains ownership after function returns.
 
     @return
     A weak pointer to a newly allocated linked position if successful,
     `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_append( CcPptLink ** ppt_link__iod_a,
-                                CcPosDesc ppt );
+CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDesc pd );
 
 /**
-    Duplicates a given position + piece + tag linked list into a newly allocated.
+    Duplicates a given position descriptor linked list into a newly allocated.
 
-    @param ppt_link__io Linked list to duplicate.
+    @param pd_link__io Linked list to duplicate.
 
     @return
     A pointer to newly allocated linked list if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * ppt_link__io );
+CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link__io );
 
 /**
     Extends existing linked list with another linked list.
 
-    @param ppt_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param ppt_link__n Linked list with which to extend existing steps.
+    @param pd_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
+    @param pd_link__n Linked list with which to extend existing steps.
 
     @note
-    If linked list to extend (`ppt_link__iod_a`) hasn't been allocated yet,
+    If linked list to extend (`pd_link__iod_a`) hasn't been allocated yet,
     this will initialize it with content of an extending linked list, i.e.
-    `ppt_link__n`.
+    `pd_link__n`.
 
     @note
-    Extending linked list `ppt_link__n` has its ownership transferred to
-    extended linked list `ppt_link__iod_a`; as a result, inner pointer of
-    `ppt_link__n` is `NULL`-ed.
+    Extending linked list `pd_link__n` has its ownership transferred to
+    extended linked list `pd_link__iod_a`; as a result, inner pointer of
+    `pd_link__n` is `NULL`-ed.
 
     @warning
     Function does *not* check if there is a common position in a given linked lists.
-    Use `cc_join_ppt_links()` function if `ppt_link__iod_a` might end with the same
-    position with which `ppt_link__n` is starting.
+    Use `cc_join_pd_links()` function if `pd_link__iod_a` might end with the same
+    position with which `pd_link__n` is starting.
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link_extend( CcPptLink ** ppt_link__iod_a,
-                                CcPptLink ** ppt_link__n );
+CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDescLink ** pd_link__n );
 
 /**
     Frees all positions in a linked list.
 
-    @param ppt_link__f Linked list of positions.
+    @param pd_link__f Linked list of positions.
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_ppt_link_free_all( CcPptLink ** ppt_link__f );
+bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f );
 
 /**
     Function returns length of a linked list.
 
-    @param ppt_link A linked list of positions.
+    @param pd_link A linked list of positions.
 
     @return Length of a linked list if successful, `0` otherwise.
 */
-size_t cc_ppt_link_len( CcPptLink * ppt_link );
+size_t cc_pos_desc_link_len( CcPosDescLink * pd_link );
 
 /**
     Function returns string containing user-readable representation of a linked positions.
 
-    @param ppt_link A linked list of positions.
+    @param pd_link A linked list of positions.
 
     @see cc_pos_to_short_string()
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise.
 */
-char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link );
+char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link );
 
 
 //
@@ -843,31 +845,31 @@ char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link );
     A linked list of paths.
 */
 typedef struct CcPathLink {
-    CcPptLink * path; /**< Link to a path. */
+    CcPosDescLink * path; /**< Link to a path. */
     struct CcPathLink * next; /**< Link to next position. */
 } CcPathLink;
 
 /**
     Function allocates a new linked path.
 
-    @param ppt_link__n A linked typed steps.
+    @param pd_link__n A linked typed steps.
 
     @note
-    Linked typed steps `ppt_link__n` will have its ownership transferred to newly allocated path,
+    Linked typed steps `pd_link__n` will have its ownership transferred to newly allocated path,
     and its inner pointer will be `NULL`-ed.
 
     @return Pointer to a newly allocated linked path if successful, `NULL` otherwise.
 */
-CcPathLink * cc_path_link__new( CcPptLink ** ppt_link__n );
+CcPathLink * cc_path_link__new( CcPosDescLink ** pd_link__n );
 
 /**
     Function appends a newly allocated linked path to a given linked list.
 
     @param path_link__iod_a **Ownership**, _optional_ _input/output_ parameter, linked list.
-    @param ppt_link__n Linked typed steps.
+    @param pd_link__n Linked typed steps.
 
     @note
-    Linked typed steps `ppt_link__n` will have its ownership transferred to newly allocated path,
+    Linked typed steps `pd_link__n` will have its ownership transferred to newly allocated path,
     and its inner pointer will be `NULL`-ed.
 
     @note
@@ -887,7 +889,7 @@ CcPathLink * cc_path_link__new( CcPptLink ** ppt_link__n );
     `NULL` otherwise.
 */
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
-                                  CcPptLink ** ppt_link__n );
+                                  CcPosDescLink ** pd_link__n );
 
 /**
     Extends existing linked list with a another linked list.

@@ -29,16 +29,16 @@
 */
 CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos );
 
-CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
+CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                 CcPos current_pos,
                                                 CcTypedStepLink * steps );
 
 
-bool cc_validate_ppt_link( CcChessboard * cb, CcPptLink * ppt_link );
+bool cc_validate_pd_link( CcChessboard * cb, CcPosDescLink * pd_link );
 
-bool cc_update_ppt_link( CcChessboard * cb, CcPptLink * ppt_link__io );
+bool cc_update_pd_link( CcChessboard * cb, CcPosDescLink * pd_link__io );
 
-bool cc_apply_ppt_link( CcChessboard ** cb__io_a, CcPptLink * ppt_link );
+bool cc_apply_pd_link( CcChessboard ** cb__io_a, CcPosDescLink * pd_link );
 
 
 // DOCS

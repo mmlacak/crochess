@@ -10,17 +10,17 @@
 
 
 CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos ) {
-    CcPosDesc ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
+    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
 
     if ( cb ) {
-        ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        ppt.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        pd.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        pd.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
     }
 
-    return ppt;
+    return pd;
 }
 
-CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
+CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                 CcPos current_pos,
                                                 CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
@@ -28,7 +28,7 @@ CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 
     if ( !cc_pos_is_valid( current_pos ) ) return NULL;
 
-    CcPptLink * ppt_link__a = NULL;
+    CcPosDescLink * pd_link__a = NULL;
     CcPos pos = current_pos;
     CcTypedStepLink * step = steps;
     bool result = true;
@@ -38,35 +38,35 @@ CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
         // <i> Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
         // if ( !( result = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) ) break;
 
-        CcPosDesc ppt = cc_convert_pos_to_ppt( cb, pos );
-        if ( !( result = cc_ppt_link_append( &ppt_link__a, ppt ) ) ) break;
+        CcPosDesc pd = cc_convert_pos_to_ppt( cb, pos );
+        if ( !( result = cc_pos_desc_link_append( &pd_link__a, pd ) ) ) break;
 
         step = step->next;
     }
 
     if ( !result ) {
-        cc_ppt_link_free_all( &ppt_link__a );
+        cc_pos_desc_link_free_all( &pd_link__a );
         return NULL;
     }
 
-    return ppt_link__a;
+    return pd_link__a;
 }
 
 
-bool cc_validate_ppt_link( CcChessboard * cb, CcPptLink * ppt_link ) {
+bool cc_validate_pd_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
     if ( !cb ) return false;
-    if ( !ppt_link ) return false;
+    if ( !pd_link ) return false;
 
-    CcPptLink * pl = ppt_link;
+    CcPosDescLink * pl = pd_link;
 
     while ( pl ) {
-        CcPos pos = pl->ppt.pos;
+        CcPos pos = pl->pd.pos;
 
         CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        if ( piece != pl->ppt.piece ) return false;
+        if ( piece != pl->pd.piece ) return false;
 
         CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-        if ( tag != pl->ppt.tag ) return false;
+        if ( tag != pl->pd.tag ) return false;
 
         pl = pl->next;
     }
@@ -74,14 +74,14 @@ bool cc_validate_ppt_link( CcChessboard * cb, CcPptLink * ppt_link ) {
     return true;
 }
 
-bool cc_update_ppt_link( CcChessboard * cb, CcPptLink * ppt_link__io ) {
+bool cc_update_pd_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     if ( !cb ) return false;
-    if ( !ppt_link__io ) return false;
+    if ( !pd_link__io ) return false;
 
-    CcPptLink * p = ppt_link__io;
+    CcPosDescLink * p = pd_link__io;
 
     while ( p ) {
-        p->ppt = cc_convert_pos_to_ppt( cb, p->ppt.pos );
+        p->pd = cc_convert_pos_to_ppt( cb, p->pd.pos );
 
         p = p->next;
     }
@@ -89,19 +89,19 @@ bool cc_update_ppt_link( CcChessboard * cb, CcPptLink * ppt_link__io ) {
     return true;
 }
 
-bool cc_apply_ppt_link( CcChessboard ** cb__io_a, CcPptLink * ppt_link ) {
+bool cc_apply_pd_link( CcChessboard ** cb__io_a, CcPosDescLink * pd_link ) {
     if ( !cb__io_a ) return false;
     if ( !*cb__io_a ) return false;
-    if ( !ppt_link ) return false;
+    if ( !pd_link ) return false;
 
-    CcPptLink * pl = ppt_link;
+    CcPosDescLink * pl = pd_link;
     CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_a );
 
     while ( pl ) {
-        CcPosDesc ppt = pl->ppt;
-        CcPos p = ppt.pos;
+        CcPosDesc pd = pl->pd;
+        CcPos p = pd.pos;
 
-        if ( !cc_chessboard_set_piece_tag( cb__t, p.i, p.j, ppt.piece, ppt.tag ) ) {
+        if ( !cc_chessboard_set_piece_tag( cb__t, p.i, p.j, pd.piece, pd.tag ) ) {
             cc_chessboard_free_all( &cb__t );
             return false;
         }

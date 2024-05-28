@@ -23,7 +23,7 @@
 // static bool cc_path_pawn( CcChessboard * cb,
 //                           CcPosDesc pawn,
 //                           CcPos from_pos,
-//                           CcPptLink * already_traversed__d,
+//                           CcPosDescLink * already_traversed__d,
 //                           CcPathLink ** path__e_a );
 
 

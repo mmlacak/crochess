@@ -313,43 +313,43 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
 // Position + piece + tag.
 
 CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag ) {
-    CcPosDesc ppt = { .pos = pos, .piece = piece, .tag = tag };
-    return ppt;
+    CcPosDesc pd = { .pos = pos, .piece = piece, .tag = tag };
+    return pd;
 }
 
-bool cc_pos_desc_is_valid( CcPosDesc ppt ) {
-    return CC_POS_DESC_IS_VALID( ppt );
+bool cc_pos_desc_is_valid( CcPosDesc pd ) {
+    return CC_POS_DESC_IS_VALID( pd );
 }
 
-bool cc_pos_desc_is_equal( CcPosDesc ppt_1, CcPosDesc ppt_2 ) {
-    return CC_POS_DESC_IS_EQUAL( ppt_1, ppt_2 );
+bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 ) {
+    return CC_POS_DESC_IS_EQUAL( pd_1, pd_2 );
 }
 
-bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 ) {
-    if ( !cc_pos_is_congruent( ppt_1.pos, ppt_2.pos ) ) return false;
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
+    if ( !cc_pos_is_congruent( pd_1.pos, pd_2.pos ) ) return false;
 
-    if ( CC_PIECE_IS_NONE( ppt_1.piece ) ||
-         CC_PIECE_IS_NONE( ppt_2.piece ) ) return false;
+    if ( CC_PIECE_IS_NONE( pd_1.piece ) ||
+         CC_PIECE_IS_NONE( pd_2.piece ) ) return false;
 
-    if ( !cc_piece_has_same_type( ppt_1.piece, ppt_2.piece ) ) return false;
+    if ( !cc_piece_has_same_type( pd_1.piece, pd_2.piece ) ) return false;
 
     return true;
 }
 
-bool cc_pos_desc_to_short_string( CcPosDesc ppt,
-                                  cc_char_16 * ppt_str__o ) {
-    if ( !ppt_str__o ) return false;
+bool cc_pos_desc_to_short_string( CcPosDesc pd,
+                                  cc_char_16 * pd_str__o ) {
+    if ( !pd_str__o ) return false;
 
-    if ( !cc_pos_to_short_string( ppt.pos, (cc_char_8 *)ppt_str__o ) ) return false;
+    if ( !cc_pos_to_short_string( pd.pos, (cc_char_8 *)pd_str__o ) ) return false;
 
-    char * p = (char *)ppt_str__o;
+    char * p = (char *)pd_str__o;
 
     uint count = 0;
     while ( *p++ != '\0' ) ++count; // fast-fwd
 
     if ( count >= CC_MAX_LEN_CHAR_8 ) return false;
 
-    *p++ = cc_piece_symbol( ppt.piece );
+    *p++ = cc_piece_symbol( pd.piece );
     *p = '\0';
 
     return true;
@@ -359,27 +359,27 @@ bool cc_pos_desc_to_short_string( CcPosDesc ppt,
 //
 // Linked list of positions + pieces + tags.
 
-CcPptLink * cc_ppt_link__new( CcPosDesc ppt ) {
-    CcPptLink * pl__t = malloc( sizeof( CcPptLink ) );
+CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
+    CcPosDescLink * pl__t = malloc( sizeof( CcPosDescLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->ppt = ppt;
+    pl__t->pd = pd;
     pl__t->next = NULL;
 
     return pl__t;
 }
 
-CcPptLink * cc_ppt_link_append( CcPptLink ** ppt_link__iod_a,
-                                CcPosDesc ppt ) {
-    if ( !ppt_link__iod_a ) return NULL;
+CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDesc pd ) {
+    if ( !pd_link__iod_a ) return NULL;
 
-    CcPptLink * pl__t = cc_ppt_link__new( ppt );
+    CcPosDescLink * pl__t = cc_pos_desc_link__new( pd );
     if ( !pl__t ) return NULL;
 
-    if ( !*ppt_link__iod_a ) {
-        *ppt_link__iod_a = pl__t; // Ownership transfer.
+    if ( !*pd_link__iod_a ) {
+        *pd_link__iod_a = pl__t; // Ownership transfer.
     } else {
-        CcPptLink * pl = *ppt_link__iod_a;
+        CcPosDescLink * pl = *pd_link__iod_a;
         CC_FASTFORWARD( pl );
         pl->next = pl__t; // Append + ownership transfer.
     }
@@ -387,57 +387,57 @@ CcPptLink * cc_ppt_link_append( CcPptLink ** ppt_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
-CcPptLink * cc_ppt_link_duplicate_all__new( CcPptLink * ppt_link__io ) {
-    if ( !ppt_link__io ) return NULL;
+CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link__io ) {
+    if ( !pd_link__io ) return NULL;
 
-    CcPptLink * ppt_link__a = NULL;
-    CcPptLink * from = ppt_link__io;
+    CcPosDescLink * pd_link__a = NULL;
+    CcPosDescLink * from = pd_link__io;
 
     while ( from ) {
-        CcPptLink * ppt__w = cc_ppt_link_append( &ppt_link__a, from->ppt );
+        CcPosDescLink * pd__w = cc_pos_desc_link_append( &pd_link__a, from->pd );
 
-        if ( !ppt__w ) { // Failed append --> ownership not transferred ...
-            cc_ppt_link_free_all( &ppt_link__a );
+        if ( !pd__w ) { // Failed append --> ownership not transferred ...
+            cc_pos_desc_link_free_all( &pd_link__a );
             return NULL;
         }
 
         from = from->next;
     }
 
-    return ppt_link__a;
+    return pd_link__a;
 }
 
-CcPptLink * cc_ppt_link_extend( CcPptLink ** ppt_link__iod_a,
-                                CcPptLink ** ppt_link__n ) {
-    if ( !ppt_link__iod_a ) return NULL;
-    if ( !ppt_link__n ) return NULL;
+CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDescLink ** pd_link__n ) {
+    if ( !pd_link__iod_a ) return NULL;
+    if ( !pd_link__n ) return NULL;
 
-    if ( !*ppt_link__n ) return *ppt_link__iod_a;
+    if ( !*pd_link__n ) return *pd_link__iod_a;
 
-    if ( !*ppt_link__iod_a ) {
+    if ( !*pd_link__iod_a ) {
         // Ownership transfer.
-        *ppt_link__iod_a = *ppt_link__n;
-        *ppt_link__n = NULL;
+        *pd_link__iod_a = *pd_link__n;
+        *pd_link__n = NULL;
 
-        return *ppt_link__iod_a;
+        return *pd_link__iod_a;
     }
 
-    CcPptLink * last = *ppt_link__iod_a;
+    CcPosDescLink * last = *pd_link__iod_a;
     CC_FASTFORWARD( last );
 
     // Ownership transfer.
-    last->next = *ppt_link__n;
-    *ppt_link__n = NULL;
+    last->next = *pd_link__n;
+    *pd_link__n = NULL;
 
     return last->next;
 }
 
-bool cc_ppt_link_free_all( CcPptLink ** ppt_link__f ) {
-    if ( !ppt_link__f ) return false;
-    if ( !*ppt_link__f ) return true;
+bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f ) {
+    if ( !pd_link__f ) return false;
+    if ( !*pd_link__f ) return true;
 
-    CcPptLink * pl = *ppt_link__f;
-    CcPptLink * tmp = NULL;
+    CcPosDescLink * pl = *pd_link__f;
+    CcPosDescLink * tmp = NULL;
 
     while ( pl ) {
         tmp = pl->next;
@@ -445,15 +445,15 @@ bool cc_ppt_link_free_all( CcPptLink ** ppt_link__f ) {
         pl = tmp;
     }
 
-    *ppt_link__f = NULL;
+    *pd_link__f = NULL;
     return true;
 }
 
-size_t cc_ppt_link_len( CcPptLink * ppt_link ) {
-    if ( !ppt_link ) return 0;
+size_t cc_pos_desc_link_len( CcPosDescLink * pd_link ) {
+    if ( !pd_link ) return 0;
 
     size_t len = 0;
-    CcPptLink * pl = ppt_link;
+    CcPosDescLink * pl = pd_link;
 
     while ( pl ) {
         ++len;
@@ -464,11 +464,11 @@ size_t cc_ppt_link_len( CcPptLink * ppt_link ) {
 }
 
 
-char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link ) {
-    if ( !ppt_link ) return NULL;
+char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link ) {
+    if ( !pd_link ) return NULL;
 
-    // unused len is certainly > 0, because ppt_link != NULL
-    signed int unused = cc_ppt_link_len( ppt_link ) *
+    // unused len is certainly > 0, because pd_link != NULL
+    signed int unused = cc_pos_desc_link_len( pd_link ) *
                         ( CC_MAX_LEN_CHAR_8 + 1 );
                         // CC_MAX_LEN_CHAR_16, for position + piece
                         // +1, for separator '.' between positions
@@ -480,21 +480,21 @@ char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link ) {
 
     char * pl_str = pl_str__a;
     char * pl_end = pl_str;
-    cc_char_16 ppt_c16 = CC_CHAR_16_EMPTY;
-    CcPptLink * pl = ppt_link;
+    cc_char_16 pd_c16 = CC_CHAR_16_EMPTY;
+    CcPosDescLink * pl = pd_link;
 
     while ( pl && ( unused > 0 ) ) {
-        if ( pl != ppt_link ) { // Not 1st pos ...
+        if ( pl != pd_link ) { // Not 1st pos ...
             *pl_str++ = '.';
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_desc_to_short_string( pl->ppt, &ppt_c16 ) ) {
+        if ( !cc_pos_desc_to_short_string( pl->pd, &pd_c16 ) ) {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, ppt_c16, CC_MAX_LEN_CHAR_16 );
+        pl_end = cc_str_append_into( pl_str, unused, pd_c16, CC_MAX_LEN_CHAR_16 );
         if ( !pl_end ) {
             CC_FREE( pl_str__a );
             return NULL;
@@ -513,15 +513,15 @@ char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link ) {
 //
 // Linked paths.
 
-CcPathLink * cc_path_link__new( CcPptLink ** ppt_link__n ) {
-    if ( !ppt_link__n ) return NULL;
-    if ( !*ppt_link__n ) return NULL;
+CcPathLink * cc_path_link__new( CcPosDescLink ** pd_link__n ) {
+    if ( !pd_link__n ) return NULL;
+    if ( !*pd_link__n ) return NULL;
 
     CcPathLink * path_link__a = malloc( sizeof( CcPathLink ) );
     if ( !path_link__a ) return NULL;
 
-    path_link__a->path = *ppt_link__n;
-    *ppt_link__n = NULL;
+    path_link__a->path = *pd_link__n;
+    *pd_link__n = NULL;
 
     path_link__a->next = NULL;
 
@@ -529,11 +529,11 @@ CcPathLink * cc_path_link__new( CcPptLink ** ppt_link__n ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
-                                  CcPptLink ** ppt_link__n ) {
+                                  CcPosDescLink ** pd_link__n ) {
     if ( !path_link__iod_a ) return NULL;
-    if ( !ppt_link__n ) return NULL;
+    if ( !pd_link__n ) return NULL;
 
-    CcPathLink * path_link__t = cc_path_link__new( ppt_link__n );
+    CcPathLink * path_link__t = cc_path_link__new( pd_link__n );
     if ( !path_link__t ) return NULL;
 
     if ( *path_link__iod_a ) {
@@ -581,7 +581,7 @@ bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
     CcPathLink * tmp = NULL;
 
     while ( pl ) {
-        result = cc_ppt_link_free_all( &( pl->path ) ) && result;
+        result = cc_pos_desc_link_free_all( &( pl->path ) ) && result;
 
         tmp = pl->next;
         CC_FREE( pl );
