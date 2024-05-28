@@ -620,7 +620,7 @@ typedef struct CcPosDesc {
     @return `true` if equal, `false` otherwise.
 */
 #define CC_POS_DESC_IS_EQUAL(ppt_1,ppt_2) \
-    ( CC_POS_IS_EQUAL( (ppt_1).pos, (ppt_2).pos ) && ( (ppt_1).piece == (ppt_2).piece ) && ( (ppt_1).tag == (ppt_2).tag ) )
+    ( CC_POS_IS_EQUAL( (ppt_1).pos, (ppt_2).pos ) && ( (ppt_1).piece == (ppt_2).piece ) && ( (ppt_1).tag == (ppt_2).tag ) && ( (ppt_1).momentum == (ppt_2).momentum ) )
 
 /**
     Function returns position + piece + tag value.
