@@ -247,7 +247,7 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
     @return A position with added step if successful, invalid position otherwise.
 */
-CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count );
+CcPos cc_pos_add( CcPos pos, CcPos step, uint count );
 
 /**
     Function subtracts step from position.
@@ -268,7 +268,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count );
 
     @return A position with subtracted step if successful, invalid position otherwise.
 */
-CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count );
+CcPos cc_pos_subtract( CcPos pos, CcPos step, uint count );
 
 /**
     Function returns difference between two given positions.

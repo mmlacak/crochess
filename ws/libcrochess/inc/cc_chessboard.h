@@ -4,6 +4,7 @@
 #ifndef __CC_CHESS_BOARD_H__
 #define __CC_CHESS_BOARD_H__
 
+#include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_variant.h"
@@ -25,7 +26,7 @@ extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
 typedef struct CcChessboard
 {
     CcVariantEnum type; /**< Chess variant to play. */
-    unsigned int size; /**< Actual size of a board used for a given variant. */
+    uint size; /**< Actual size of a board used for a given variant. */
 
     CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; /**< Holds pieces in place. */
     CcTagEnum tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; /**< Holds tags for pieces at their respective position. */

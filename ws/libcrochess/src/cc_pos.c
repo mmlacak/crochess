@@ -59,7 +59,7 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 ) {
     return is_file || is_rank;
 }
 
-CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count ) {
+CcPos cc_pos_add( CcPos pos, CcPos step, uint count ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 
@@ -72,7 +72,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step, unsigned int count ) {
     return CC_POS_CAST( i, j );
 }
 
-CcPos cc_pos_subtract( CcPos pos, CcPos step, unsigned int count ) {
+CcPos cc_pos_subtract( CcPos pos, CcPos step, uint count ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 
@@ -344,7 +344,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 
     char * p = (char *)ppt_str__o;
 
-    unsigned int count = 0;
+    uint count = 0;
     while ( *p++ != '\0' ) ++count; // fast-fwd
 
     if ( count >= CC_MAX_LEN_CHAR_8 ) return false;

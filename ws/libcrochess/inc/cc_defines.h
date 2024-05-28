@@ -13,6 +13,13 @@
 
 
 /**
+    Convenience shorthand for unsigned integer types.
+*/
+typedef unsigned char uchar;
+typedef unsigned short ushort;
+typedef unsigned int uint;
+
+/**
     Enumerates void and Boolean values.
 
     Void value is used to represent undefined, uninitialized, or error state.
@@ -76,7 +83,7 @@ typedef enum CcMaybeBoolEnum {
 
     @return Logical XOR between arguments.
 */
-#define CC_XOR(bool_1,bool_2) ( ((bool)bool_1) != ((bool)bool_2) )
+#define CC_XOR(bool_1,bool_2) ( ((bool)(bool_1)) != ((bool)(bool_2)) )
 
 /**
     Smallest, invalid off-board coordinate.

@@ -7,6 +7,9 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "cc_defines.h"
+
+
 /**
     @file cc_variant.h
     @brief Variants constants, symbols, enumeration, and related functions.
@@ -221,7 +224,7 @@ char const * cc_variant_label( CcVariantEnum ve );
 
     @return Size of a board used by given variant.
 */
-unsigned int cc_variant_board_size( CcVariantEnum ve );
+uint cc_variant_board_size( CcVariantEnum ve );
 
 /**
     Function returns if Pawns can move sideways for a given variant.
@@ -241,7 +244,7 @@ bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
 
     @return Rush limit for known variants, `0` otherwise.
 */
-unsigned int cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
+uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
 
 /**
     Function checks if given rank is within rush limits;

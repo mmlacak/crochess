@@ -7,7 +7,6 @@
 #include <stdio.h>
 #include <ctype.h>
 
-#include "cc_defines.h"
 #include "cc_math.h"
 #include "cc_str_utils.h"
 #include "cc_token.h"
@@ -56,7 +55,7 @@ bool cc_chessboard_init( CcChessboard * cb__io,
 bool cc_chessboard_is_size_valid( CcChessboard * cb ) {
     if ( !cb ) return false;
 
-    unsigned int size = cc_variant_board_size( cb->type );
+    uint size = cc_variant_board_size( cb->type );
     return ( size == cb->size );
 }
 
