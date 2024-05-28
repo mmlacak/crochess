@@ -337,7 +337,7 @@ bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 ) {
 }
 
 bool cc_pos_desc_to_short_string( CcPosDesc ppt,
-                                       cc_char_16 * ppt_str__o ) {
+                                  cc_char_16 * ppt_str__o ) {
     if ( !ppt_str__o ) return false;
 
     if ( !cc_pos_to_short_string( ppt.pos, (cc_char_8 *)ppt_str__o ) ) return false;

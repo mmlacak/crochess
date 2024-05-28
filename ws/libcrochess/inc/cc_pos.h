@@ -574,6 +574,7 @@ typedef struct CcPosDesc {
     @param int_j Rank, vertical coordinate.
     @param piece_enum A piece.
     @param tag_enum A tag.
+    @param uint_momentum Momentum.
 
     @see CcPosDesc
 
@@ -589,6 +590,7 @@ typedef struct CcPosDesc {
     @param int_j Rank, vertical coordinate.
     @param piece_enum A piece.
     @param tag_enum A tag.
+    @param uint_momentum Momentum.
 
     @see CcPosDesc
 
@@ -688,7 +690,7 @@ bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 );
     @return `true` if successful, `false` otherwise.
 */
 bool cc_pos_desc_to_short_string( CcPosDesc ppt,
-                                       cc_char_16 * ppt_str__o );
+                                  cc_char_16 * ppt_str__o );
 
 
 //
