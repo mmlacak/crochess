@@ -9,8 +9,8 @@
 */
 
 
-CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos ) {
-    CcPosPieceTag ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
+CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos ) {
+    CcPosDesc ppt = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
 
     if ( cb ) {
         ppt.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
@@ -38,7 +38,7 @@ CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
         // <i> Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
         // if ( !( result = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) ) break;
 
-        CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, pos );
+        CcPosDesc ppt = cc_convert_pos_to_ppt( cb, pos );
         if ( !( result = cc_ppt_link_append( &ppt_link__a, ppt ) ) ) break;
 
         step = step->next;
@@ -98,7 +98,7 @@ bool cc_apply_ppt_link( CcChessboard ** cb__io_a, CcPptLink * ppt_link ) {
     CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_a );
 
     while ( pl ) {
-        CcPosPieceTag ppt = pl->ppt;
+        CcPosDesc ppt = pl->ppt;
         CcPos p = ppt.pos;
 
         if ( !cc_chessboard_set_piece_tag( cb__t, p.i, p.j, ppt.piece, ppt.tag ) ) {

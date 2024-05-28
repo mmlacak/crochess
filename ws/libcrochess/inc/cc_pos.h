@@ -536,35 +536,36 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
 /**
     Invalid position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG_INVALID { .pos = CC_POS_INVALID, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID }
+#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID, .momentum = 0 }
 
 /**
     Static position + piece + tag value, i.e. no-movement step.
 */
-#define CC_POS_PIECE_TAG_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID }
+#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID, .momentum = 0 }
 
 /**
-    Structure holding a position, usually absolute, i.e. a location.
-    Piece and tag are the ones (usually) found at location.
+    Position descriptor; holding a position, and a piece and a tag found at it.
+    Structure also contains momentum a moving piece had when this position was reached.
+
+    @note
+    Moving piece is separate from static piece found at this position.
 */
-typedef struct CcPosPieceTag {
+typedef struct CcPosDesc {
     CcPos pos; /**< A position. */
-    CcPieceEnum piece; /**< Piece, e.g. the one found at position. */
-    CcTagEnum tag; /**< Tag, e.g. the one found at position. */
-
-    // TODO :: add momentum
-
-} CcPosPieceTag;
+    CcPieceEnum piece; /**< Piece found at position. */
+    CcTagEnum tag; /**< Tag found at position. */
+    uint momentum; /**< Momentum a moving piece (different from static piece found at this position!) had when this position was reached. */
+} CcPosDesc;
 
 /**
     Casted invalid position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG_CAST_INVALID ( (CcPosPieceTag)CC_POS_PIECE_TAG_INVALID )
+#define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
 
 /**
     Casted static position + piece + tag value, i.e. no-movement step.
 */
-#define CC_POS_PIECE_TAG_CAST_STATIC_STEP ( (CcPosPieceTag)CC_POS_PIECE_TAG_STATIC_STEP )
+#define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
 /**
     Macro which constructs position + piece + tag struct.
@@ -574,12 +575,12 @@ typedef struct CcPosPieceTag {
     @param piece_enum A piece.
     @param tag_enum A tag.
 
-    @see CcPosPieceTag
+    @see CcPosDesc
 
     @return Position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG(int_i,int_j,piece_enum,tag_enum) \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum) }
+#define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
+    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum), .momentum = (uint)(uint_momentum) }
 
 /**
     Macro which constructs casted position + piece + tag struct.
@@ -589,23 +590,23 @@ typedef struct CcPosPieceTag {
     @param piece_enum A piece.
     @param tag_enum A tag.
 
-    @see CcPosPieceTag
+    @see CcPosDesc
 
     @return Casted position + piece + tag value.
 */
-#define CC_POS_PIECE_TAG_CAST(int_i,int_j,piece_enum,tag_enum) \
-    ( (CcPosPieceTag)CC_POS_PIECE_TAG( (int_i), (int_j), (piece_enum), (tag_enum) ) )
+#define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
+    ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (uint_momentum) ) )
 
 /**
     Macro expression to evaluate whether given position + piece + tag is valid.
 
     @param ppt A position + piece + tag.
 
-    @see CcPosPieceTag
+    @see CcPosDesc
 
     @return `true` if valid position + piece + tag, `false` otherwise.
 */
-#define CC_POS_PIECE_TAG_IS_VALID(ppt) \
+#define CC_POS_DESC_IS_VALID(ppt) \
     ( CC_POS_IS_VALID( (ppt).pos ) && CC_PIECE_IS_VALID( (ppt).piece ) && ( CC_TAG_IS_VALID( (ppt).tag ) ) )
 
 /**
@@ -614,11 +615,11 @@ typedef struct CcPosPieceTag {
     @param ppt_1 A position + piece + tag.
     @param ppt_2 Other position + piece + tag.
 
-    @see CcPosPieceTag
+    @see CcPosDesc
 
     @return `true` if equal, `false` otherwise.
 */
-#define CC_POS_PIECE_TAG_IS_EQUAL(ppt_1,ppt_2) \
+#define CC_POS_DESC_IS_EQUAL(ppt_1,ppt_2) \
     ( CC_POS_IS_EQUAL( (ppt_1).pos, (ppt_2).pos ) && ( (ppt_1).piece == (ppt_2).piece ) && ( (ppt_1).tag == (ppt_2).tag ) )
 
 /**
@@ -630,7 +631,7 @@ typedef struct CcPosPieceTag {
 
     @return Position + piece + tag value.
 */
-CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
+CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
 
 /**
     Function checks if position + piece is valid.
@@ -641,7 +642,7 @@ CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
 
     @return `true` if position + piece is valid, `false` otherwise.
 */
-bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt );
+bool cc_pos_desc_is_valid( CcPosDesc ppt );
 
 /**
     Function checks if two position + piece values are the same.
@@ -651,7 +652,7 @@ bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt );
 
     @return `true` if position + piece values are the same, `false` otherwise.
 */
-bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 );
+bool cc_pos_desc_is_equal( CcPosDesc ppt_1, CcPosDesc ppt_2 );
 
 /**
     Function checks if two position + piece values are the congruent.
@@ -669,7 +670,7 @@ bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 );
 
     @return `true` if positions are congruent, `false` otherwise.
 */
-bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 );
+bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 );
 
 /**
     Function converts position + piece value into a user-readable
@@ -686,7 +687,7 @@ bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 );
 
     @return `true` if successful, `false` otherwise.
 */
-bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
+bool cc_pos_desc_to_short_string( CcPosDesc ppt,
                                        cc_char_16 * ppt_str__o );
 
 
@@ -706,7 +707,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     @see cc_ppt_link__new()
 */
 #define CC_PPT_LINK__NEW(int_i,int_j,piece,tag) \
-    ( cc_ppt_link__new( CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
+    ( cc_ppt_link__new( CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag) ) ) )
 
 /**
     Macro to append a newly allocated position + piece + tag value to position link.
@@ -722,13 +723,13 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
     @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
 #define CC_PPT_LINK_APPEND(ptr_ptr__ppt_link__iod,int_i,int_j,piece,tag) \
-    ( cc_ppt_link_append( (ptr_ptr__ppt_link__iod), CC_POS_PIECE_TAG_CAST( (int_i), (int_j), (piece), (tag) ) ) )
+    ( cc_ppt_link_append( (ptr_ptr__ppt_link__iod), CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag) ) ) )
 
 /**
     A linked list of positions, with pieces and tags on them.
 */
 typedef struct CcPptLink {
-    CcPosPieceTag ppt; /**< A position + piece + tag. */
+    CcPosDesc ppt; /**< A position + piece + tag. */
     struct CcPptLink * next; /**< Link to next position. */
 } CcPptLink;
 
@@ -739,7 +740,7 @@ typedef struct CcPptLink {
 
     @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
 */
-CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt );
+CcPptLink * cc_ppt_link__new( CcPosDesc ppt );
 
 /**
     Function appends a newly allocated linked position to a given linked list.
@@ -764,7 +765,7 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt );
     `NULL` otherwise.
 */
 CcPptLink * cc_ppt_link_append( CcPptLink ** ppt_link__iod_a,
-                                CcPosPieceTag ppt );
+                                CcPosDesc ppt );
 
 /**
     Duplicates a given position + piece + tag linked list into a newly allocated.

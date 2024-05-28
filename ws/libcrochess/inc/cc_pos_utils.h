@@ -27,7 +27,7 @@
 
     @return Position containing piece, and tag.
 */
-CcPosPieceTag cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos );
+CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos );
 
 CcPptLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                 CcPos current_pos,

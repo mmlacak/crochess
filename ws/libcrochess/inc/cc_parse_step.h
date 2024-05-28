@@ -26,7 +26,7 @@
 //                            char const * step_end_an,
 //                            char const * steps_end_an,
 //                            CcGame * game,
-//                            CcPosPieceTag before_ply_start,
+//                            CcPosDesc before_ply_start,
 //                            bool is_first_step,
 //                            bool * had_disambiguation__io,
 //                            CcParsedStep ** step__o,
@@ -37,7 +37,7 @@
 bool cc_parse_steps( char const * steps_start_an,
                      char const * ply_end_an,
                      CcGame * game,
-                     CcPosPieceTag last_ply_destination,
+                     CcPosDesc last_ply_destination,
                      CcParsedStep ** steps__o,
                      CcChessboard ** cb__io,
                      CcParseMsg ** parse_msgs__iod );

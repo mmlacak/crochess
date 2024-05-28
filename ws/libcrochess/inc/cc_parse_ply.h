@@ -28,7 +28,7 @@
 // static bool cc_parse_ply( char const * ply_start_an,
 //                           char const * ply_end_an,
 //                           CcGame * game,
-//                           CcPosPieceTag * before_ply_start__io,
+//                           CcPosDesc * before_ply_start__io,
 //                           bool is_first_ply,
 //                           CcParsedPly ** ply__o,
 //                           CcChessboard ** cb__io,

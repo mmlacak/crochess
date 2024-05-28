@@ -312,20 +312,20 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
 //
 // Position + piece + tag.
 
-CcPosPieceTag cc_pos_piece_tag( CcPos pos, CcPieceEnum piece, CcTagEnum tag ) {
-    CcPosPieceTag ppt = { .pos = pos, .piece = piece, .tag = tag };
+CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag ) {
+    CcPosDesc ppt = { .pos = pos, .piece = piece, .tag = tag };
     return ppt;
 }
 
-bool cc_pos_piece_tag_is_valid( CcPosPieceTag ppt ) {
-    return CC_POS_PIECE_TAG_IS_VALID( ppt );
+bool cc_pos_desc_is_valid( CcPosDesc ppt ) {
+    return CC_POS_DESC_IS_VALID( ppt );
 }
 
-bool cc_pos_piece_tag_is_equal( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
-    return CC_POS_PIECE_TAG_IS_EQUAL( ppt_1, ppt_2 );
+bool cc_pos_desc_is_equal( CcPosDesc ppt_1, CcPosDesc ppt_2 ) {
+    return CC_POS_DESC_IS_EQUAL( ppt_1, ppt_2 );
 }
 
-bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
+bool cc_pos_desc_is_congruent( CcPosDesc ppt_1, CcPosDesc ppt_2 ) {
     if ( !cc_pos_is_congruent( ppt_1.pos, ppt_2.pos ) ) return false;
 
     if ( CC_PIECE_IS_NONE( ppt_1.piece ) ||
@@ -336,7 +336,7 @@ bool cc_pos_piece_tag_is_congruent( CcPosPieceTag ppt_1, CcPosPieceTag ppt_2 ) {
     return true;
 }
 
-bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
+bool cc_pos_desc_to_short_string( CcPosDesc ppt,
                                        cc_char_16 * ppt_str__o ) {
     if ( !ppt_str__o ) return false;
 
@@ -359,7 +359,7 @@ bool cc_pos_piece_tag_to_short_string( CcPosPieceTag ppt,
 //
 // Linked list of positions + pieces + tags.
 
-CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt ) {
+CcPptLink * cc_ppt_link__new( CcPosDesc ppt ) {
     CcPptLink * pl__t = malloc( sizeof( CcPptLink ) );
     if ( !pl__t ) return NULL;
 
@@ -370,7 +370,7 @@ CcPptLink * cc_ppt_link__new( CcPosPieceTag ppt ) {
 }
 
 CcPptLink * cc_ppt_link_append( CcPptLink ** ppt_link__iod_a,
-                                CcPosPieceTag ppt ) {
+                                CcPosDesc ppt ) {
     if ( !ppt_link__iod_a ) return NULL;
 
     CcPptLink * pl__t = cc_ppt_link__new( ppt );
@@ -489,7 +489,7 @@ char * cc_ppt_link_to_short_string__new( CcPptLink * ppt_link ) {
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_piece_tag_to_short_string( pl->ppt, &ppt_c16 ) ) {
+        if ( !cc_pos_desc_to_short_string( pl->ppt, &ppt_c16 ) ) {
             CC_FREE( pl_str__a );
             return NULL;
         }

@@ -63,7 +63,7 @@ static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
 static bool cc_parse_ply( char const * ply_start_an,
                           char const * ply_end_an,
                           CcGame * game,
-                          CcPosPieceTag * before_ply_start__io,
+                          CcPosDesc * before_ply_start__io,
                           bool is_first_ply,
                           CcParsedPly ** ply__o,
                           CcChessboard ** cb__io,
@@ -207,7 +207,7 @@ static bool cc_parse_ply( char const * ply_start_an,
     }
 
     CcPos dest = destination->field;
-    CcPosPieceTag new_ply_start = CC_POS_PIECE_TAG_CAST_INVALID;
+    CcPosDesc new_ply_start = CC_POS_DESC_CAST_INVALID;
 
     new_ply_start.piece = cc_chessboard_get_piece( *cb__io, dest.i, dest.j );
     new_ply_start.pos = dest;
@@ -247,7 +247,7 @@ bool cc_parse_plies( char const * move_an,
 
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
-    CcPosPieceTag before_ply_start = CC_POS_PIECE_TAG_CAST_INVALID;
+    CcPosDesc before_ply_start = CC_POS_DESC_CAST_INVALID;
     bool is_first_ply = true;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {

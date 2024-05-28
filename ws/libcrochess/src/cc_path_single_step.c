@@ -18,7 +18,7 @@ static bool cc_ppt_link_append_pos( CcChessboard * cb,
     // if ( !cb ) return false;
     // if ( !pptl__iod_a ) return false;
 
-    CcPosPieceTag ppt = cc_convert_pos_to_ppt( cb, destination );
+    CcPosDesc ppt = cc_convert_pos_to_ppt( cb, destination );
 
     if ( !cc_ppt_link_append( pptl__iod_a, ppt ) ) return false;
 
@@ -27,13 +27,13 @@ static bool cc_ppt_link_append_pos( CcChessboard * cb,
 
 
 static bool cc_path_pawn( CcChessboard * cb,
-                          CcPosPieceTag pawn,
+                          CcPosDesc pawn,
                           CcPos from_pos,
                           CcPptLink * already_traversed__d,
                           CcPathLink ** path__e_a ) {
     // <i> Not needed, already checked in the only caller, i.e. cc_path_single_step().
     // if ( !cb ) return false;
-    // if ( !cc_pos_piece_tag_is_valid( pawn ) ) return false;
+    // if ( !cc_pos_desc_is_valid( pawn ) ) return false;
     // if ( !path__e_a ) return false;
     // if ( *path__e_a ) return false;
     // if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
@@ -156,12 +156,12 @@ static bool cc_path_pawn( CcChessboard * cb,
 
 
 bool cc_path_single_step( CcChessboard * cb,
-                          CcPosPieceTag piece,
+                          CcPosDesc piece,
                           CcPieceEnum activator,
                           CcPos from_pos,
                           CcPathLink ** path__e_a ) {
     if ( !cb ) return false;
-    if ( !cc_pos_piece_tag_is_valid( piece ) ) return false;
+    if ( !cc_pos_desc_is_valid( piece ) ) return false;
     if ( !path__e_a ) return false;
     if ( *path__e_a ) return false;
 

@@ -351,7 +351,7 @@ static bool cc_check_piece_can_be_resurrected( CcPieceEnum piece,
     return true;
 }
 
-static bool cc_check_piece_is_castling_king( CcPosPieceTag before_ply_start,
+static bool cc_check_piece_is_castling_king( CcPosDesc before_ply_start,
                                              char const * step_start_an,
                                              char const * step_end_an,
                                              CcParseMsg ** parse_msgs__iod ) {
@@ -387,7 +387,7 @@ static bool cc_check_piece_is_rook_to_castle( CcPieceEnum piece,
     return true;
 }
 
-static bool cc_check_king_and_rook_can_castle( CcPosPieceTag before_ply_start,
+static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
                                                CcChessboard * cb,
                                                CcPos * step_pos__io,
                                                CcPos * rook_dest__io,
@@ -491,7 +491,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                            char const * step_start_an,
                            char const * step_end_an,
                            CcGame * game,
-                           CcPosPieceTag before_ply_start,
+                           CcPosDesc before_ply_start,
                            CcChessboard * cb,
                            CcParsedStepLinkEnum sle,
                            CcPos * step_pos__io,
