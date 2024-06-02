@@ -9,8 +9,8 @@
 */
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
-    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0 };
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum ) {
+    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = momentum };
 
     if ( cb ) {
         pd.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
@@ -22,6 +22,8 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
 
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
+                                                    uint current_momentum,
+                                                    bool is_accumulating_momentum,
                                                     CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
@@ -31,20 +33,33 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
     CcPosDescLink * pd_link__a = NULL;
     CcPos pos = current_pos;
     CcTypedStepLink * step = steps;
+
     bool result = true;
+    bool is_on_board = true;
+    uint momentum = current_momentum;
 
     while ( result && step ) {
         pos = cc_pos_add( pos, step->step.step, 1 );
-        // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
-        // if ( !( result = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) ) break;
 
-        CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos );
+        if ( is_accumulating_momentum ) {
+            if ( !( result = ( momentum < UINT_MAX ) ) ) break;
+            ++momentum;
+        } else {
+            if ( !( result = ( momentum > 0 ) ) ) break;
+            --momentum;
+        }
+
+        // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
+        // Last position of any piece must be on-board.
+        is_on_board = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j );
+
+        CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos, momentum );
         if ( !( result = cc_pos_desc_link_append( &pd_link__a, pd ) ) ) break;
 
         step = step->next;
     }
 
-    if ( !result ) {
+    if ( !result || !is_on_board ) {
         cc_pos_desc_link_free_all( &pd_link__a );
         return NULL;
     }
@@ -52,6 +67,20 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
     return pd_link__a;
 }
 
+
+bool cc_append_pos_desc_link( CcChessboard * cb,
+                              CcPos destination,
+                              uint momentum,
+                              CcPosDescLink ** pptl__iod_a ) {
+    if ( !cb ) return false;
+    if ( !pptl__iod_a ) return false;
+
+    CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, destination, momentum );
+
+    if ( !cc_pos_desc_link_append( pptl__iod_a, pd ) ) return false;
+
+    return true;
+}
 
 bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
     if ( !cb ) return false;
