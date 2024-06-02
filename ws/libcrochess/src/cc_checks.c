@@ -49,12 +49,12 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                CcPos pos ) {
-    if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return CC_MBE_False; // <i> This weeds out pieces without owner.
+    if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return CC_MBE_False; // This weeds out pieces without owner.
 
     if ( !cb ) return CC_MBE_Void;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return CC_MBE_False; // <i> Also weeds out other pieces without owner.
+    if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return CC_MBE_False; // Also weeds out other pieces without owner.
 
     return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, pe ) );
 }

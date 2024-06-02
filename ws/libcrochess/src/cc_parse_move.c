@@ -91,7 +91,7 @@ bool cc_parse_move( char const * move_an,
                         return false;
                     }
                 }
-                // <i> Draw-by-rules should be issued by arbiter, not players;
+                // Draw-by-rules should be issued by arbiter, not players;
                 //     i.e. should be issued by server, not clients.
                 //
                 // else if ( *m_an == '=' )

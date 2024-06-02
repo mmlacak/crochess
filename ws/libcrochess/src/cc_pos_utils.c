@@ -35,7 +35,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 
     while ( result && step ) {
         pos = cc_pos_add( pos, step->step.step, 1 );
-        // <i> Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
+        // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
         // if ( !( result = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) ) break;
 
         CcPosDesc pd = cc_convert_pos_to_ppt( cb, pos );

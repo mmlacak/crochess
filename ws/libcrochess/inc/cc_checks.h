@@ -52,8 +52,26 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                CcPos pos );
 
-// TODO :: add activator, momentum
-// TODO :: handle activator --> Wave
+/**
+    Function checks if a piece can diverge from given position.
+
+    @param cb Chessboard.
+    @param piece Capturing piece.
+    @param momentum Momentum.
+    @param activator An activator.
+    @param pos Position.
+
+    @note
+    Activator is last material (i.e. non-Wave) piece preceding the Wave in a cascade.
+
+    @see CcMaybeBoolEnum
+
+    @return
+    One of `CcMaybeBoolEnum` values:
+    - `CC_MBE_True` if a piece can diverge from given position,
+    - `CC_MBE_False` if no divergence is possible,
+    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
+*/
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                uint momentum,

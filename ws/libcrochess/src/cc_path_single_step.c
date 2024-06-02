@@ -14,7 +14,7 @@
 static bool cc_pos_desc_link_append_pos( CcChessboard * cb,
                                     CcPos destination,
                                     CcPosDescLink ** pptl__iod_a ) {
-    // <i> Not needed, static + known caller.
+    // Not needed, static + known caller.
     // if ( !cb ) return false;
     // if ( !pptl__iod_a ) return false;
 
@@ -31,7 +31,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                           CcPos from_pos,
                           CcPosDescLink * already_traversed__d,
                           CcPathLink ** path__e_a ) {
-    // <i> Not needed, already checked in the only caller, i.e. cc_path_single_step().
+    // Not needed, already checked in the only caller, i.e. cc_path_single_step().
     // if ( !cb ) return false;
     // if ( !cc_pos_desc_is_valid( pawn ) ) return false;
     // if ( !path__e_a ) return false;
@@ -56,7 +56,7 @@ static bool cc_path_pawn( CcChessboard * cb,
         guard = step + CC_STEPS_PAWN_LEN;
     }
 
-    // if ( !step || !guard ) return false; // <!> Not needed, as long as both vars are certainly initialized.
+    // if ( !step || !guard ) return false; // <!> Not needed, as long as both vars are certainly initialized above.
 
     CcTypedStep const * s = step;
     bool do_append = false;
@@ -123,7 +123,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                     do_append = true;
                 }
             }
-        } else { // <i> Neither a capture, nor a movement --> error.
+        } else { // Neither a capture, nor a movement --> error.
             result = false;
             break;
         }
@@ -142,7 +142,7 @@ static bool cc_path_pawn( CcChessboard * cb,
     }
 
     if ( pptl__t ) {
-        // <i> Ppt-link produced, but not transferred to paths.
+        // Ppt-link produced, but not transferred to paths.
         cc_pos_desc_link_free_all( &pptl__t );
         result = false;
     }

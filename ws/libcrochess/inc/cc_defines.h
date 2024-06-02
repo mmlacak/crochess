@@ -4,6 +4,7 @@
 #ifndef __CC_DEFINES_H__
 #define __CC_DEFINES_H__
 
+#include "stdbool.h"
 #include "limits.h"
 
 /**
