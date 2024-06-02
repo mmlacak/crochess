@@ -12,13 +12,13 @@
 
 
 static bool cc_pos_desc_link_append_pos( CcChessboard * cb,
-                                    CcPos destination,
-                                    CcPosDescLink ** pptl__iod_a ) {
+                                         CcPos destination,
+                                         CcPosDescLink ** pptl__iod_a ) {
     // Not needed, static + known caller.
     // if ( !cb ) return false;
     // if ( !pptl__iod_a ) return false;
 
-    CcPosDesc pd = cc_convert_pos_to_ppt( cb, destination );
+    CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, destination );
 
     if ( !cc_pos_desc_link_append( pptl__iod_a, pd ) ) return false;
 

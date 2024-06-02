@@ -9,8 +9,8 @@
 */
 
 
-CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos ) {
-    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
+    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0 };
 
     if ( cb ) {
         pd.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
@@ -21,8 +21,8 @@ CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos ) {
 }
 
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
-                                                CcPos current_pos,
-                                                CcTypedStepLink * steps ) {
+                                                    CcPos current_pos,
+                                                    CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
 
@@ -38,7 +38,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
         // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
         // if ( !( result = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) ) break;
 
-        CcPosDesc pd = cc_convert_pos_to_ppt( cb, pos );
+        CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos );
         if ( !( result = cc_pos_desc_link_append( &pd_link__a, pd ) ) ) break;
 
         step = step->next;
@@ -53,7 +53,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 }
 
 
-bool cc_validate_pd_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
+bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
     if ( !cb ) return false;
     if ( !pd_link ) return false;
 
@@ -74,14 +74,20 @@ bool cc_validate_pd_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
     return true;
 }
 
-bool cc_update_pd_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
+bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     if ( !cb ) return false;
     if ( !pd_link__io ) return false;
 
     CcPosDescLink * p = pd_link__io;
 
     while ( p ) {
-        p->pd = cc_convert_pos_to_ppt( cb, p->pd.pos );
+        CcPos pos = p->pd.pos;
+
+        CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        p->pd.piece = piece;
+
+        CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        p->pd.tag = tag;
 
         p = p->next;
     }
@@ -89,13 +95,13 @@ bool cc_update_pd_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     return true;
 }
 
-bool cc_apply_pd_link( CcChessboard ** cb__io_a, CcPosDescLink * pd_link ) {
-    if ( !cb__io_a ) return false;
-    if ( !*cb__io_a ) return false;
+bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link ) {
+    if ( !cb__io_r ) return false;
+    if ( !*cb__io_r ) return false;
     if ( !pd_link ) return false;
 
     CcPosDescLink * pl = pd_link;
-    CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_a );
+    CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_r );
 
     while ( pl ) {
         CcPosDesc pd = pl->pd;
@@ -109,8 +115,9 @@ bool cc_apply_pd_link( CcChessboard ** cb__io_a, CcPosDescLink * pd_link ) {
         pl = pl->next;
     }
 
-    cc_chessboard_free_all( cb__io_a );
-    *cb__io_a = cb__t; // Ownership transfer.
+    // free() + ownership transfer ~= realloc().
+    cc_chessboard_free_all( cb__io_r );
+    *cb__io_r = cb__t;
 
     return true;
 }

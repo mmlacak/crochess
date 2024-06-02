@@ -27,18 +27,18 @@
 
     @return Position containing piece, and tag.
 */
-CcPosDesc cc_convert_pos_to_ppt( CcChessboard * cb, CcPos pos );
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos );
 
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
-                                                CcPos current_pos,
-                                                CcTypedStepLink * steps );
+                                                    CcPos current_pos,
+                                                    CcTypedStepLink * steps );
 
 
-bool cc_validate_pd_link( CcChessboard * cb, CcPosDescLink * pd_link );
+bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
 
-bool cc_update_pd_link( CcChessboard * cb, CcPosDescLink * pd_link__io );
+bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io );
 
-bool cc_apply_pd_link( CcChessboard ** cb__io_a, CcPosDescLink * pd_link );
+bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link );
 
 
 // DOCS

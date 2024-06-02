@@ -48,7 +48,6 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
         if ( CC_PIECE_IS_SEMI_OPAQUE( pe ) )
             return CC_MBE_True;
 
-    // return CC_MBE_False;
     return CC_BOOL_TO_MAYBE( momentum == 0 );
 }
 
