@@ -19,6 +19,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
 
     @param cb Chessboard.
     @param piece A piece.
+    @param momentum Momentum.
     @param pos Position.
 
     @see CcMaybeBoolEnum
@@ -31,6 +32,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
 */
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
+                                              uint momentum,
                                               CcPos pos );
 
 /**

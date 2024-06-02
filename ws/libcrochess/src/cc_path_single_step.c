@@ -93,7 +93,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                 do_append = true;
             }
         } else if ( s->type == CC_STE_Movement ) {
-            if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) )
+            if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, pawn.momentum, destination ) )
                     || is_target_divergent ) {
                 if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
                     bool is_rush = false;
@@ -110,7 +110,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                     }
 
                     do {
-                        if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, destination ) ) ) break;
+                        if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, pawn.momentum, destination ) ) ) break;
                         if ( !( result = cc_pos_desc_link_append_pos( cb, destination, &pptl__t ) && result ) ) break;
                         do_append = true;
 

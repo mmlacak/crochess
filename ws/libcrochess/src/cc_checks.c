@@ -24,12 +24,17 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
+                                              uint momentum,
                                               CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
+
+    if ( CC_PIECE_IS_WAVE( piece ) ) {
+        return CC_BOOL_TO_MAYBE( CC_PIECE_IS_OPAQUE( pe ) );
+    }
 
     if ( CC_PIECE_IS_OPAQUE( pe ) )
         if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( piece ) )
@@ -43,12 +48,15 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
         if ( CC_PIECE_IS_SEMI_OPAQUE( pe ) )
             return CC_MBE_True;
 
-    return CC_MBE_False;
+    // return CC_MBE_False;
+    return CC_BOOL_TO_MAYBE( momentum == 0 );
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                CcPos pos ) {
+    if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
+
     if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return CC_MBE_False; // This weeds out pieces without owner.
 
     if ( !cb ) return CC_MBE_Void;
@@ -64,6 +72,8 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                uint momentum,
                                                CcPieceEnum activator,
                                                CcPos pos ) {
+    if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
+
     if ( CC_PIECE_IS_WAVE( piece ) ) {
         // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED().
         // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return CC_MBE_False;
