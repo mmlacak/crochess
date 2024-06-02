@@ -38,10 +38,10 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcTypedStepLink * steps );
 
 
-bool cc_append_pos_desc_link( CcChessboard * cb,
-                              CcPos destination,
-                              uint momentum,
-                              CcPosDescLink ** pptl__iod_a );
+bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
+                                     CcPos destination,
+                                     uint momentum,
+                                     CcPosDescLink ** pptl__iod_a );
 
 bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
 

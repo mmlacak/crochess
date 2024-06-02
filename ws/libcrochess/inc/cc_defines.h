@@ -21,6 +21,12 @@ typedef unsigned short ushort;
 typedef unsigned int uint;
 
 /**
+    Minimum value, used for all unsigned integer types.
+*/
+#define CC_UNSIGNED_MIN (0)
+
+
+/**
     Enumerates void and Boolean values.
 
     Void value is used to represent undefined, uninitialized, or error state.

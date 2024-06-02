@@ -74,7 +74,7 @@ static bool cc_path_pawn( CcChessboard * cb,
         if ( s->type == CC_STE_Capture ) {
             if ( CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn.piece, destination ) )
                     || is_target_divergent ) {
-                // TODO :: momentum // if ( !( result = cc_append_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
+                // TODO :: momentum // if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
                 do_append = true;
             }
         } else if ( s->type == CC_STE_Movement ) {
@@ -96,7 +96,7 @@ static bool cc_path_pawn( CcChessboard * cb,
 
                     do {
                         if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, pawn.momentum, destination ) ) ) break;
-                        // TODO :: momentum // if ( !( result = cc_append_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
+                        // TODO :: momentum // if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
                         do_append = true;
 
                         // TODO :: is_target_divergent
@@ -104,7 +104,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                         destination = cc_pos_add( destination, s->step, 1 );
                     } while ( is_rush && cc_variant_is_rank_in_rush_limits( cb->type, is_pawn_light, destination.j ) );
                 } else {
-                    // TODO :: momentum // if ( !( result = cc_append_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
+                    // TODO :: momentum // if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
                     do_append = true;
                 }
             }
