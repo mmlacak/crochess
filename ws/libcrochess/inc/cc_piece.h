@@ -657,6 +657,30 @@
                                     && ( (pe) != CC_PE_BrightStar )     \
                                     && ( (pe) != CC_PE_Monolith ) )
 
+/**
+    Macro expression to evaluate whether Wave can be diverged.
+
+    @param activator Piece enum, one of `CcPieceEnum` values.
+
+    @note
+    Activator is last material (i.e. non-Wave) piece preceding the Wave in a cascade.
+
+    @note
+    Wave can be diverged only if it's not activated by Unicorn, Centaur, or Serpent.
+
+    @see CcPieceEnum, CC_PIECE_IS_ACTIVATOR
+
+    @return `true` if Wave is can be diverged, `false` otherwise.
+*/
+#define CC_WAVE_CAN_BE_DIVERGED(activator) ( ( (activator) != CC_PE_DarkCentaur )       \
+                                          && ( (activator) != CC_PE_DarkSerpent )       \
+                                          && ( (activator) != CC_PE_DarkUnicorn )       \
+                                          && ( (activator) != CC_PE_None )              \
+                                          && ( (activator) != CC_PE_LightUnicorn )      \
+                                          && ( (activator) != CC_PE_LightSerpent )      \
+                                          && ( (activator) != CC_PE_LightCentaur )      \
+                                          && ( CC_PIECE_IS_ACTIVATOR( (activator) ) ) )
+
 // TODO :: move into function, then fix
 //
 // /**

@@ -61,20 +61,29 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceEnum piece,
+                                               uint momentum,
+                                               CcPieceEnum activator,
                                                CcPos pos ) {
-    if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return CC_MBE_False;
+    if ( CC_PIECE_IS_WAVE( piece ) ) {
+        // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED().
+        // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return CC_MBE_False;
 
-    // TODO :: add activator, momentum
+        if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return CC_MBE_False;
+    } else {
+        if ( momentum < 1 ) return CC_MBE_False;
+        if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return CC_MBE_False;
+    }
 
     if ( !cb ) return CC_MBE_Void;
 
     CcPieceEnum pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_STARCHILD( pe ) ) return CC_MBE_True;
 
-    // TODO :: handle activator --> Wave
-
-    if ( CC_PIECE_IS_SHAMAN( pe ) )
-        return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, pe ) );
-    else
+    if ( CC_PIECE_IS_SHAMAN( pe ) ) {
+        if ( CC_PIECE_IS_SHAMAN( piece ) )
+            return CC_MBE_True;
+        else
+            return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, pe ) );
+    } else
         return CC_MBE_False;
 }
