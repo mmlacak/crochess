@@ -293,12 +293,6 @@ Similarly, \hyperref[fig:scn_ma_05_promo_init]{Pawn promoted by own Pyramid} jus
 chosen piece to promote to, after writing movement of a Pyramid, like so \alg{Ed8\~{}Ah8Q},
 or in \algfmt{XAN} as \alg{[El4-d8]\~{}[Ad8-h8=Q]}.
 
-Pawn capturing opponent's piece can also be promoted, if capture happened on opponent's
-figure row. For instance, if in first, Classic Chess example light Pawn captured dark
-Rook before promotion, it would be written as \alg{e8*RQ}, or better yet \alg{e8*R=Q}
-to avoid possible confusion. In \algfmt{CAN}, promotion after capture would be written
-as \algcty{xe8Q}, or as \algcty{xe8=Q}.
-
 \subsection*{En passant}
 \addcontentsline{toc}{subsection}{En passant}
 \label{sec:Appendix/Notation/En passant}
@@ -316,7 +310,7 @@ located at \alg{g4}, en passant would be written as \alg{ih3:}, or \alg{ih3:5}.
 In \algfmt{CAN}, both en passant and its disambiguation form are written as
 \algcty{ixh3 e.p.}, where \algcty{e.p.} stands for en passant; see \algfmt{FIDE~C.9.3}.
 
-\vfill
+% \vfill
 
 \subsection*{Conversion}
 \addcontentsline{toc}{subsection}{Conversion}
@@ -561,7 +555,7 @@ If all fields suitable for resurrection are occupied, it is written as \alg{It9\
 in \algfmt{XAN} it would be \alg{Ii23-t9\$\$\$}. Writing it as \alg{It9}, or \alg{Ii23-t9}
 is fine, it just doesn't note failed intention.
 
-% \vfill % Otherwise whole section is positioned at the bottom of a page (!?).
+\vfill % Otherwise whole section is positioned at the bottom of a page (!?).
 
 \subsection*{Teleportation}
 \addcontentsline{toc}{subsection}{Teleportation}
@@ -737,16 +731,15 @@ be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
 \addcontentsline{toc}{subsection}{Combining side-effects}
 \label{sec:Appendix/Notation/Combining side-effects}
 
-It's possible to have two side-effects accompanying the same step, those can be
-written in any order, but are usually noted in the order of appearance; so, e.g.
-capture would be written before promotion, that is action before status.
+Rarely, two side-effects can accompany the same step. For instance, Pawn capturing
+opponent's piece can also be promoted, if capture happened on opponent's figure row.
+Generally, notation follows order of actions on a chessboard, in this case a capture
+would be written before promotion.
 
 As an example, light Pawn on a second to last rank could capture dark Rook, and
-then promote after the same step. In One variant, if light Pawn and dark Rook
+then be promoted after the same step. In One variant, if light Pawn and dark Rook
 occupy \alg{d} and \alg{e} files, respectively, this could be written as
-\alg{e26*R=Q} or, in \algfmt{XAN} it would be \alg{Pd25-e26*R=Q}. Equally valid
-notation would be in reverse order, i.e. \alg{e26=Q*R}, and in \algfmt{XAN} it
-would be \alg{Pd25-e26=Q*R}.
+\alg{e26*R=Q} or, in \algfmt{XAN} it would be \alg{Pd25-e26*R=Q}.
 
 Care should be taken when omitting optional parts of notation. For instance,
 notation for capturing is optional, but it's also possible to omit just captured
