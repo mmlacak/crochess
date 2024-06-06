@@ -78,12 +78,14 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 }
 
 
-bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
-                                     CcPos destination,
-                                     uint momentum,
-                                     CcPosDescLink ** pptl__iod_a ) {
+bool cc_append_checked_pos_to_pos_desc_link( CcChessboard * cb,
+                                             CcPos destination,
+                                             uint momentum,
+                                             CcPosDescLink ** pptl__iod_a ) {
     if ( !cb ) return false;
     if ( !pptl__iod_a ) return false;
+
+    if ( momentum == CC_UNSIGNED_MIN ) return false;
 
     CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, destination, momentum );
 
