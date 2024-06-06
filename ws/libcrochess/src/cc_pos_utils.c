@@ -112,7 +112,7 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
 
         if ( pd.momentum == CC_UNSIGNED_MIN ) {
             if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) )
-                return ( !pdl->next );
+                return ( !pdl->next ); // No steps should follow if momentum is 0, and piece has weight (i.e. all, but Wave, Starchild).
         }
 
         pdl = pdl->next;
