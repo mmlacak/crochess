@@ -14,6 +14,7 @@
 static bool cc_path_pawn( CcChessboard * cb,
                           CcPosDesc pawn,
                           CcPos from_pos,
+                          bool is_accumulating_momentum,
                           CcPosDescLink * already_traversed__d,
                           CcPathLink ** path__e_a ) {
     // Not needed, already checked in the only caller, i.e. cc_path_single_step().
@@ -28,6 +29,8 @@ static bool cc_path_pawn( CcChessboard * cb,
     bool is_pawn_light = cc_piece_is_light( pawn.piece );
 
     CcPosDescLink * pptl__t = NULL;
+    uint momentum = pawn.momentum;
+    bool accumulating = is_accumulating_momentum;
     bool result = true;
 
     CcTypedStep const * step = NULL;
@@ -74,11 +77,13 @@ static bool cc_path_pawn( CcChessboard * cb,
         if ( s->type == CC_STE_Capture ) {
             if ( CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn.piece, destination ) )
                     || is_target_divergent ) {
-                // TODO :: momentum // if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
+                // TODO :: momentum == 0
+                if ( !( result = cc_calc_checked_momentum( &momentum, accumulating ) && result ) ) break;
+                if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, momentum, &pptl__t ) && result ) ) break;
                 do_append = true;
             }
         } else if ( s->type == CC_STE_Movement ) {
-            if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, pawn.momentum, destination ) )
+            if ( CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, momentum, destination ) )
                     || is_target_divergent ) {
                 if ( s->step.i == 0 ) { // Vertical movement only --> rush(?)
                     bool is_rush = false;
@@ -95,8 +100,10 @@ static bool cc_path_pawn( CcChessboard * cb,
                     }
 
                     do {
-                        if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, pawn.momentum, destination ) ) ) break;
-                        // TODO :: momentum // if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
+                        if ( !CC_MAYBE_IS_FALSE( cc_check_piece_is_blocked_at( cb, pawn.piece, momentum, destination ) ) ) break;
+                        // TODO :: momentum == 0
+                        if ( !( result = cc_calc_checked_momentum( &momentum, accumulating ) && result ) ) break;
+                        if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, momentum, &pptl__t ) && result ) ) break;
                         do_append = true;
 
                         // TODO :: is_target_divergent
@@ -104,7 +111,9 @@ static bool cc_path_pawn( CcChessboard * cb,
                         destination = cc_pos_add( destination, s->step, 1 );
                     } while ( is_rush && cc_variant_is_rank_in_rush_limits( cb->type, is_pawn_light, destination.j ) );
                 } else {
-                    // TODO :: momentum // if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, &pptl__t ) && result ) ) break;
+                    // TODO :: momentum == 0
+                    if ( !( result = cc_calc_checked_momentum( &momentum, accumulating ) && result ) ) break;
+                    if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, momentum, &pptl__t ) && result ) ) break;
                     do_append = true;
                 }
             }
@@ -116,7 +125,7 @@ static bool cc_path_pawn( CcChessboard * cb,
         // TODO :: recursive call to cc_path_pawn( ,,, pptl__t, ) if blocked by Shaman / Starchild then free pptl__t,
         //         otherwise just do standard cc_path_link_append()
         if ( is_target_divergent ) {
-            if ( !( result = cc_path_pawn( cb, pawn, from_pos, pptl__t, path__e_a ) && result ) ) break;
+            if ( !( result = cc_path_pawn( cb, pawn, from_pos, pptl__t, false, path__e_a ) && result ) ) break;
         }
 
         if ( do_append ) {
@@ -144,6 +153,7 @@ bool cc_path_single_step( CcChessboard * cb,
                           CcPosDesc piece,
                           CcPieceEnum activator,
                           CcPos from_pos,
+                          bool is_accumulating_momentum,
                           CcPathLink ** path__e_a ) {
     if ( !cb ) return false;
     if ( !cc_pos_desc_is_valid( piece ) ) return false;
@@ -159,7 +169,7 @@ bool cc_path_single_step( CcChessboard * cb,
         // TODO
     } else {
         if ( CC_PIECE_IS_PAWN( piece.piece ) ) {
-            if ( !cc_path_pawn( cb, piece, from_pos, NULL, &path__t ) ) return false;
+            if ( !cc_path_pawn( cb, piece, from_pos, is_accumulating_momentum, NULL, &path__t ) ) return false;
 
             *path__e_a = path__t;
             path__t = NULL;
