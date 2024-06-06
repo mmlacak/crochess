@@ -61,10 +61,13 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
+                                               uint momentum,
                                                CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
 
     if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return CC_MBE_False; // This weeds out pieces without owner.
+
+    if ( !cc_check_momentum_for_movement( piece, momentum ) ) return CC_MBE_False;
 
     if ( !cb ) return CC_MBE_Void;
 
