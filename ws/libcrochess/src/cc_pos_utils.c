@@ -20,6 +20,22 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentu
     return pd;
 }
 
+bool cc_calc_checked_momentum( uint * momentum__io, bool accumulating ) {
+    if ( !momentum__io ) return false;
+
+    uint m = *momentum__io;
+
+    if ( accumulating ) {
+        if ( m == UINT_MAX ) return false;
+        *momentum__io = m + 1;
+    } else {
+        if ( m == CC_UNSIGNED_MIN ) return false;
+        *momentum__io = m - 1;
+    }
+
+    return true;
+}
+
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
                                                     uint current_momentum,
@@ -41,13 +57,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
     while ( result && step ) {
         pos = cc_pos_add( pos, step->step.step, 1 );
 
-        if ( is_accumulating_momentum ) {
-            if ( !( result = ( momentum < UINT_MAX ) ) ) break;
-            ++momentum;
-        } else {
-            if ( !( result = ( momentum > CC_UNSIGNED_MIN ) ) ) break;
-            --momentum;
-        }
+        if ( !( result = cc_calc_checked_momentum( &momentum, is_accumulating_momentum ) ) ) break;
 
         // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
         // Last position of any piece must be on-board.

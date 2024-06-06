@@ -31,6 +31,8 @@
 */
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum );
 
+bool cc_calc_checked_momentum( uint * momentum__io, bool accumulating );
+
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
                                                     uint current_momentum,
