@@ -98,18 +98,24 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
     if ( !cb ) return false;
     if ( !pd_link ) return false;
 
-    CcPosDescLink * pl = pd_link;
+    CcPosDescLink * pdl = pd_link;
 
-    while ( pl ) {
-        CcPos pos = pl->pd.pos;
+    while ( pdl ) {
+        CcPosDesc pd = pdl->pd;
+        CcPos pos = pd.pos;
 
         CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        if ( piece != pl->pd.piece ) return false;
+        if ( piece != pd.piece ) return false;
 
         CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-        if ( tag != pl->pd.tag ) return false;
+        if ( tag != pd.tag ) return false;
 
-        pl = pl->next;
+        if ( pd.momentum == CC_UNSIGNED_MIN ) {
+            if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) )
+                return ( !pdl->next );
+        }
+
+        pdl = pdl->next;
     }
 
     return true;
@@ -141,11 +147,11 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
     if ( !*cb__io_r ) return false;
     if ( !pd_link ) return false;
 
-    CcPosDescLink * pl = pd_link;
+    CcPosDescLink * pdl = pd_link;
     CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_r );
 
-    while ( pl ) {
-        CcPosDesc pd = pl->pd;
+    while ( pdl ) {
+        CcPosDesc pd = pdl->pd;
         CcPos p = pd.pos;
 
         if ( !cc_chessboard_set_piece_tag( cb__t, p.i, p.j, pd.piece, pd.tag ) ) {
@@ -153,7 +159,7 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
             return false;
         }
 
-        pl = pl->next;
+        pdl = pdl->next;
     }
 
     // free() + ownership transfer ~= realloc().

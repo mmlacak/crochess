@@ -398,6 +398,9 @@
 
     @param pe Piece enum, one of `CcPieceEnum` values.
 
+    @note
+    Weightless piece does not use momentum for its movement.
+
     @see CcPieceEnum
 
     @return `true` if piece is weightless, `false` otherwise.
