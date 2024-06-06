@@ -14,6 +14,8 @@
 
 bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit );
 
+bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum );
+
 /**
     Function checks if piece is blocked at given position.
 

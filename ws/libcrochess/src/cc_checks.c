@@ -22,6 +22,14 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     return true;
 }
 
+bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum ) {
+    if ( CC_PIECE_IS_WEIGHTLESS( piece ) ) {
+        return true;
+    } else {
+        return ( momentum > CC_UNSIGNED_MIN );
+    }
+}
+
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
                                               uint momentum,
@@ -48,7 +56,7 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
         if ( CC_PIECE_IS_SEMI_OPAQUE( pe ) )
             return CC_MBE_True;
 
-    return CC_BOOL_TO_MAYBE( momentum == 0 );
+    return CC_BOOL_TO_MAYBE( cc_check_momentum_for_movement( piece, momentum ) );
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
