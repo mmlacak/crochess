@@ -42,6 +42,7 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
 
     @param cb Chessboard.
     @param piece Capturing piece.
+    @param momentum Momentum.
     @param pos Position.
 
     @see CcMaybeBoolEnum
