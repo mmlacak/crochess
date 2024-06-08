@@ -336,7 +336,6 @@ class SceneMirandasVeilMixin:
             mark_type = MarkType.Blocked if i == 2 else \
                         MarkType.Action if i == 3 else \
                         MarkType.Legal
-
             scene.append_arrow( *step, mark_type=mark_type )
 
         scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
@@ -368,7 +367,6 @@ class SceneMirandasVeilMixin:
             mark_type = MarkType.Blocked if i == 3 else \
                         MarkType.Illegal if i == 4 else \
                         MarkType.Legal
-
             scene.append_arrow( *step, mark_type=mark_type )
 
         scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
@@ -376,6 +374,57 @@ class SceneMirandasVeilMixin:
         # scene.append_text( "B", *start_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
+
+    #
+    # Single-step pieces and transparency
+
+    def scn_mv_12_pawn_blocked_by_opponents_wave(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene( 'scn_mv_12_pawn_blocked_by_opponents_wave', bt, width=6.3, height=8.3 )
+
+        #
+        # Pawn A
+
+        start_P_A = (0, 2)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_W_C = (0, 3)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_W_D = (1, 3)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        scene.append_arrow( *( start_P_A + start_W_C ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_W_C, 0, 1 ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *( start_P_A + start_W_D ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_W_D, 1, 1 ), mark_type=MarkType.Blocked )
+
+        #
+        # Pawn B
+
+        start_P_B = (5, 5)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_w_E = (5, 6)
+        scene.board.set_piece( *start_w_E, piece=-PieceType.Wave )
+
+        start_w_F = (4, 6)
+        scene.board.set_piece( *start_w_F, piece=-PieceType.Wave )
+
+        scene.append_arrow( *( start_P_B + start_w_E ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.append_pos_rel( start_w_E, 0, 1 ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *( start_P_B + start_w_F ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *GS.append_pos_rel( start_w_F, -1, 1 ), mark_type=MarkType.Blocked )
+
+
+        scene.append_text( "A", *start_P_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_P_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+
 
     #
     # Piece blocked

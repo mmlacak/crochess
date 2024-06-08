@@ -36,5 +36,5 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_hd_17_scout_forking_steps', \
+                    'scn_mv_12_pawn_blocked_by_opponents_wave', \
                 ]
