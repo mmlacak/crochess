@@ -424,6 +424,48 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_13_pawn_not_blocked_by_opponents_wave(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene( 'scn_mv_13_pawn_not_blocked_by_opponents_wave', bt, width=6.3, height=8.3 )
+
+        #
+        # Pawn A
+
+        start_P_A = (1, 1)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+
+        start_W_C = (1, 4)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        # P(A) -->
+        coords = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, step in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *step, mark_type=mark_type )
+
+        #
+        # Pawn B
+
+        start_P_B = (4, 1)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
+
+        start_w_E = (4, 4)
+        scene.board.set_piece( *start_w_E, piece=-PieceType.Wave )
+
+        # P(B) -->
+        coords = GS.gen_steps( start=start_P_B, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, step in enumerate( coords() ):
+            mark_type = MarkType.Blocked if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *step, mark_type=mark_type )
+
+
+        scene.append_text( "A", *start_P_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_P_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+
+        return scene
+
 
 
     #
