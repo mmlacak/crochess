@@ -24,7 +24,7 @@
 //                           CcPosDesc pawn,
 //                           CcTagEnum tag,
 //                           CcPos from_pos,
-//                           uint from_momentum,
+//                           uint momentum,
 //                           bool is_accumulating_momentum,
 //                           CcPosDescLink * already_traversed__d,
 //                           CcPathLink ** path__e_a );
@@ -35,7 +35,7 @@ bool cc_path_single_step( CcChessboard * cb,
                           CcTagEnum tag,
                           CcPieceEnum activator,
                           CcPos from_pos,
-                          uint from_momentum,
+                          uint momentum,
                           bool is_accumulating_momentum,
                           CcPathLink ** path__e_a );
 
