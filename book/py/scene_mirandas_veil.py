@@ -438,7 +438,7 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
         # P(A) -->
-        coords = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=5 )
+        coords = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=6 )
         for i, step in enumerate( coords() ):
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
@@ -454,7 +454,7 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_w_E, piece=-PieceType.Wave )
 
         # P(B) -->
-        coords = GS.gen_steps( start=start_P_B, rels=[ (0, 1), ], include_prev=True, count=5 )
+        coords = GS.gen_steps( start=start_P_B, rels=[ (0, 1), ], include_prev=True, count=6 )
         for i, step in enumerate( coords() ):
             mark_type = MarkType.Blocked if i == 2 else \
                         MarkType.Legal
