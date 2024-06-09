@@ -395,10 +395,10 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
 
         scene.append_arrow( *( start_P_A + start_W_C ), mark_type=MarkType.Action )
-        scene.append_arrow( *GS.append_pos_rel( start_W_C, 0, 1 ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.append_pos_rel( start_W_C, 0, 1 ), mark_type=MarkType.Illegal )
 
         scene.append_arrow( *( start_P_A + start_W_D ), mark_type=MarkType.Action )
-        scene.append_arrow( *GS.append_pos_rel( start_W_D, 1, 1 ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.append_pos_rel( start_W_D, 1, 1 ), mark_type=MarkType.Illegal )
 
         #
         # Pawn B
@@ -413,10 +413,10 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_w_F, piece=-PieceType.Wave )
 
         scene.append_arrow( *( start_P_B + start_w_E ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *GS.append_pos_rel( start_w_E, 0, 1 ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *GS.append_pos_rel( start_w_E, 0, 1 ), mark_type=MarkType.Illegal )
 
-        scene.append_arrow( *( start_P_B + start_w_F ), mark_type=MarkType.Illegal )
-        scene.append_arrow( *GS.append_pos_rel( start_w_F, -1, 1 ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *( start_P_B + start_w_F ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_w_F, -1, 1 ), mark_type=MarkType.Illegal )
 
 
         scene.append_text( "A", *start_P_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
