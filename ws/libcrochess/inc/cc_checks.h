@@ -84,5 +84,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceEnum activator,
                                                CcPos pos );
 
+bool cc_check_pawn_can_rush( CcPieceEnum pawn, CcTagEnum tag, CcTypedStep step );
+
 
 #endif /* __CC_CHECKS_H__ */

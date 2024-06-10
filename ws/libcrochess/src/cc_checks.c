@@ -87,12 +87,11 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
     if ( !cc_check_momentum_for_movement( piece, momentum ) ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_WAVE( piece ) ) {
-        // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED().
+        // [i] Not needed, checked within CC_WAVE_CAN_BE_DIVERGED().
         // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return CC_MBE_False;
 
         if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return CC_MBE_False;
     } else {
-        if ( momentum < 1 ) return CC_MBE_False;
         if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return CC_MBE_False;
     }
 
@@ -108,4 +107,16 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
             return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, pe ) );
     } else
         return CC_MBE_False;
+}
+
+bool cc_check_pawn_can_rush( CcPieceEnum pawn, CcTagEnum tag, CcTypedStep step ) {
+    if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
+
+    if ( !CC_TAG_CAN_RUSH( tag ) ) return false;
+
+    if ( step.type != CC_STE_Movement ) return false;
+
+    if ( step.step.i != 0 ) return false; // Rush --> vertical movement only!
+
+    return true;
 }
