@@ -68,16 +68,17 @@ static bool cc_path_pawn( CcChessboard * cb,
             }
         }
 
+        // TODO :: cc_pos_add() + cc_calc_checked_momentum() --> new func w/ checks
         CcPos destination = cc_pos_add( from_pos, s->step, 1 );
+
         // CcPieceEnum target = cc_chessboard_get_piece( cb, destination.i, destination.j );
         bool can_diverge_at = CC_MAYBE_IS_TRUE( cc_check_piece_can_diverge_at( cb, pawn, mm, CC_PE_None, destination ) );
         bool do_append = false;
 
         if ( s->type == CC_STE_Capture ) {
-            if ( !( result = cc_calc_checked_momentum( &mm, accumulating ) && result ) ) break;
-
             if ( CC_MAYBE_IS_TRUE( cc_check_piece_can_capture_at( cb, pawn, mm, destination ) )
                     || can_diverge_at ) {
+                if ( !( result = cc_calc_checked_momentum( &mm, accumulating ) && result ) ) break;
                 if ( !( result = cc_append_pos_to_pos_desc_link( cb, destination, mm, &pptl__t ) && result ) ) break;
                 do_append = true;
             }
@@ -96,6 +97,8 @@ static bool cc_path_pawn( CcChessboard * cb,
                         // TODO :: can_diverge_at
 
                         // TODO :: transparency
+
+                        // TODO :: if target == Starchild, Pawn can either diverge, or use transparency
 
                         destination = cc_pos_add( destination, s->step, 1 );
                         can_diverge_at = CC_MAYBE_IS_TRUE( cc_check_piece_can_diverge_at( cb, pawn, mm, CC_PE_None, destination ) );
