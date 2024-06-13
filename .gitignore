@@ -30,8 +30,8 @@ build/
 *.env
 bin/
 obj/
-/docs
 /ws/docs
+build/
 *.bak
 ws/linenoise/
 history*.*
