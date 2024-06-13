@@ -1,5 +1,5 @@
 # Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
-# Published as Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
+# Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
 
 # Configuration file for the Sphinx documentation builder.

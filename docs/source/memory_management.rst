@@ -1,5 +1,5 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
-   Published as Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
+   Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
 .. _lbl-memory-management:
 
@@ -44,8 +44,8 @@ Transfer of ownership ``__t`` indicates what would happen if main line of execut
 is followed, i.e. if all data is valid.
 
 It is possible that some condition fails, and ownership was not transferred, in
-which case just before bail-out, beside any valid ownership variables, all transfer
-variables must be cleaned as well.
+which case just before bail-out, beside any valid ownership variables, all live
+transfer variables must be cleaned as well.
 
 For instance, lets say that up to certain point in code we have instantiated
 variables, but we haven't yet transferred ownership of plies and steps to a

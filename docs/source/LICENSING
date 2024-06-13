@@ -1,0 +1,24 @@
+Croatian chess - chess variants book
+Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
+Repository: https://github.com/mmlacak/crochess.
+
+https://en.wikipedia.org/wiki/Public_domain
+
+Documentation and all related materials is in Public Domain: you can
+redistribute it and/or modify it under the terms of the CC0 1.0
+Universal Public Domain Dedication as published by Creative Commons.
+
+To the extent possible under law, the author(s) have dedicated all
+copyright and related and neighboring rights to this documentation to
+the public domain worldwide. This book is distributed without any
+warranty. See the CC0 1.0 Universal Public Domain Dedication for more
+details.
+
+Documentation, in this legal agreement, refers to all RST source files.
+All related materials refers to all other files that are distributed
+together with RST files, namely icons (ICO files), and Python scripts
+(PY files).
+
+You should have received a copy of the CC0 1.0 Universal Public Domain
+Dedication along with this book. If not, see
+<https://creativecommons.org/publicdomain/zero/1.0/legalcode.txt>.
