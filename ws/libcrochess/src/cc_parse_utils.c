@@ -228,8 +228,8 @@ bool cc_convert_coords( char const * pos,
     return true;
 }
 
-bool cc_convert_pos( char const * pos,
-                     CcPos * pos__o ) {
+bool cc_convert_pos( char const * pos, CcPos * pos__o ) {
+    if ( !pos__o ) return false;
     return cc_convert_coords( pos, &pos__o->i, &pos__o->j );
 }
 

@@ -17,9 +17,9 @@ bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum piece,
                     CcPos current_pos,
                     CcStepTypeEnum steps_type,
-                    CcTypedStepLink ** steps__od ) {
-    if ( !steps__od ) return false;
-    if ( *steps__od ) return false;
+                    CcTypedStepLink ** steps__o ) {
+    if ( !steps__o ) return false;
+    if ( *steps__o ) return false;
 
     if ( !( CC_PIECE_IS_PAWN( piece ) || CC_PIECE_IS_WAVE( piece ) ) )
         return false;
@@ -77,7 +77,7 @@ bool cc_pawn_steps( CcChessboard * cb,
     // TODO :: DELETE !!
 
     // Ownership transfer.
-    *steps__od = pl__t;
+    *steps__o = pl__t;
     // pl__t = NULL; // Not needed.
 
     return true;

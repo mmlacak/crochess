@@ -343,9 +343,9 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
 //                                     CcPieceEnum piece,
-//                                     CcTypedStepLink ** starting_steps__e_a ) {
-//     // if ( !starting_steps__e_a ) return false;
-//     // if ( *starting_steps__e_a ) return false;
+//                                     CcTypedStepLink ** starting_steps__o ) {
+//     // if ( !starting_steps__o ) return false;
+//     // if ( *starting_steps__o ) return false;
 
 //     // if ( CC_PIECE_IS_PAWN( piece ) ) return false;
 
@@ -353,22 +353,22 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //         if ( piece == CC_PE_LightPawn )
 //             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_SIDEWAYS_PAWN,
 //                                                  CC_STEPS_ALL_SIDEWAYS_PAWN_LEN,
-//                                                  starting_steps__e_a );
+//                                                  starting_steps__o );
 
 //         if ( piece == CC_PE_DarkPawn )
 //             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_SIDEWAYS_PAWN,
 //                                                  CC_STEPS_ALL_SIDEWAYS_PAWN_LEN,
-//                                                  starting_steps__e_a );
+//                                                  starting_steps__o );
 //     } else {
 //         if ( piece == CC_PE_LightPawn )
 //             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_PAWN,
 //                                                  CC_STEPS_ALL_PAWN_LEN,
-//                                                  starting_steps__e_a );
+//                                                  starting_steps__o );
 
 //         if ( piece == CC_PE_DarkPawn )
 //             return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_PAWN,
 //                                                  CC_STEPS_ALL_PAWN_LEN,
-//                                                  starting_steps__e_a );
+//                                                  starting_steps__o );
 //     }
 
 //     return false;
@@ -376,57 +376,57 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 
 // static bool cc_starting_steps_unicorn( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcTypedStepLink ** starting_steps__e_a ) {
-//     // if ( !starting_steps__e_a ) return false;
-//     // if ( *starting_steps__e_a ) return false;
+//                                        CcTypedStepLink ** starting_steps__o ) {
+//     // if ( !starting_steps__o ) return false;
+//     // if ( *starting_steps__o ) return false;
 
 //     // if ( CC_PIECE_IS_UNICORN( piece ) ) return false;
 
 //     if ( cc_is_same_color( piece, pos ) ) {
 //         return cc_convert_steps_to_pos_link( CC_STEPS_SHORT_UNICORN,
 //                                              CC_STEPS_SHORT_UNICORN_LEN,
-//                                              starting_steps__e_a );
+//                                              starting_steps__o );
 //     } else {
 //         return cc_convert_steps_to_pos_link( CC_STEPS_LONG_UNICORN,
 //                                              CC_STEPS_LONG_UNICORN_LEN,
-//                                              starting_steps__e_a );
+//                                              starting_steps__o );
 //     }
 // }
 
 // static bool cc_starting_steps_centaur( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcTypedStepLink ** starting_steps__e_a ) {
-//     // if ( !starting_steps__e_a ) return false;
-//     // if ( *starting_steps__e_a ) return false;
+//                                        CcTypedStepLink ** starting_steps__o ) {
+//     // if ( !starting_steps__o ) return false;
+//     // if ( *starting_steps__o ) return false;
 
 //     // if ( CC_PIECE_IS_CENTAUR( piece ) ) return false;
 
 //     if ( cc_is_same_color( piece, pos ) ) {
 //         return cc_convert_steps_to_pos_link( CC_STEPS_SHORT_CENTAUR,
 //                                              CC_STEPS_SHORT_CENTAUR_LEN,
-//                                              starting_steps__e_a );
+//                                              starting_steps__o );
 //     } else {
 //         return cc_convert_steps_to_pos_link( CC_STEPS_LONG_CENTAUR,
 //                                              CC_STEPS_LONG_CENTAUR_LEN,
-//                                              starting_steps__e_a );
+//                                              starting_steps__o );
 //     }
 // }
 
 // static bool cc_starting_steps_scout( CcPieceEnum piece,
-//                                      CcTypedStepLink ** starting_steps__e_a ) {
-//     // if ( !starting_steps__e_a ) return false;
-//     // if ( *starting_steps__e_a ) return false;
+//                                      CcTypedStepLink ** starting_steps__o ) {
+//     // if ( !starting_steps__o ) return false;
+//     // if ( *starting_steps__o ) return false;
 
 //     // if ( CC_PIECE_IS_SCOUT( piece ) ) return false;
 
 //     if ( piece == CC_PE_LightScout ) {
 //         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_LIGHT_SCOUT,
 //                                              CC_STEPS_ALL_SCOUT_SIZE,
-//                                              starting_steps__e_a );
+//                                              starting_steps__o );
 //     } else if ( piece == CC_PE_DarkScout ) {
 //         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_DARK_SCOUT,
 //                                              CC_STEPS_ALL_SCOUT_SIZE,
-//                                              starting_steps__e_a );
+//                                              starting_steps__o );
 //     }
 
 //     return false;
@@ -435,9 +435,9 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 // static bool cc_starting_steps_starchild( CcVariantEnum variant,
 //                                          /* CcPieceEnum piece, */
 //                                          CcTypedStep pos,
-//                                          CcTypedStepLink ** starting_steps__e_a ) {
-//     // if ( !starting_steps__e_a ) return false;
-//     // if ( *starting_steps__e_a ) return false;
+//                                          CcTypedStepLink ** starting_steps__o ) {
+//     // if ( !starting_steps__o ) return false;
+//     // if ( *starting_steps__o ) return false;
 
 //     // if ( CC_PIECE_IS_STARCHILD( piece ) ) return false;
 
@@ -449,8 +449,8 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //     for ( int j = 0; (size_t)j < board_size; ++j ) {
 //         for ( int i = 0; (size_t)i < board_size; ++i ) {
 //             if ( CC_IS_FIELD_COLOR( i, j, field_color ) ) {
-//                 if ( !cc_typed_step_link_append( starting_steps__e_a, cc_pos( i, j ) ) ) {
-//                     cc_typed_step_link_free_all( starting_steps__e_a );
+//                 if ( !cc_typed_step_link_append( starting_steps__o, cc_pos( i, j ) ) ) {
+//                     cc_typed_step_link_free_all( starting_steps__o );
 //                     return false;
 //                 }
 //             }
@@ -464,53 +464,53 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //                         CcPieceEnum piece,
 //                         CcPieceEnum activator,
 //                         CcTypedStep pos,
-//                         CcTypedStepLink ** starting_steps__e_a ) {
-//     if ( !starting_steps__e_a ) return false;
-//     if ( *starting_steps__e_a ) return false;
+//                         CcTypedStepLink ** starting_steps__o ) {
+//     if ( !starting_steps__o ) return false;
+//     if ( *starting_steps__o ) return false;
 
 //     if ( CC_PIECE_IS_VALID( piece ) ) return false;
 
 //     if ( CC_PIECE_IS_PAWN( piece ) ) {
-//         return cc_starting_steps_pawn( variant, piece, starting_steps__e_a );
+//         return cc_starting_steps_pawn( variant, piece, starting_steps__o );
 //     } else if ( CC_PIECE_IS_KNIGHT( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_KNIGHT, CC_STEPS_KNIGHT_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_KNIGHT, CC_STEPS_KNIGHT_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_BISHOP( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_ROOK( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_ROOK, CC_STEPS_ROOK_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_ROOK, CC_STEPS_ROOK_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_QUEEN( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_QUEEN, CC_STEPS_QUEEN_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_QUEEN, CC_STEPS_QUEEN_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_KING( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_KING, CC_STEPS_KING_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_KING, CC_STEPS_KING_LEN, starting_steps__o );
 
 //     } else if ( CC_PIECE_IS_PEGASUS( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_PYRAMID( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_PYRAMID, CC_STEPS_PYRAMID_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_PYRAMID, CC_STEPS_PYRAMID_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_UNICORN( piece ) ) {
-//         return cc_starting_steps_unicorn( piece, pos, starting_steps__e_a );
+//         return cc_starting_steps_unicorn( piece, pos, starting_steps__o );
 //     } else if ( CC_PIECE_IS_WAVE( piece ) ) {
 //         if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
-//         return cc_starting_steps( variant, activator, CC_PE_None, pos, starting_steps__e_a );
+//         return cc_starting_steps( variant, activator, CC_PE_None, pos, starting_steps__o );
 //     } else if ( CC_PIECE_IS_STAR( piece ) ) {
 //         if ( !CC_PIECE_IS_STARCHILD( activator ) ) return false;
-//         return cc_convert_steps_to_pos_link( CC_STEPS_STAR, CC_STEPS_STAR_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_STAR, CC_STEPS_STAR_LEN, starting_steps__o );
 
 //     } else if ( CC_PIECE_IS_CENTAUR( piece ) ) {
-//         return cc_starting_steps_centaur( piece, pos, starting_steps__e_a );
+//         return cc_starting_steps_centaur( piece, pos, starting_steps__o );
 //     } else if ( CC_PIECE_IS_GRENADIER( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_GRENADIER, CC_STEPS_ALL_GRENADIER_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_GRENADIER, CC_STEPS_ALL_GRENADIER_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_SCOUT( piece ) ) {
-//         return cc_starting_steps_scout( piece, starting_steps__e_a );
+//         return cc_starting_steps_scout( piece, starting_steps__o );
 
 //     } else if ( CC_PIECE_IS_SERPENT( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_SHAMAN( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_ALL_SHAMAN, CC_STEPS_ALL_SHAMAN_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_MONOLITH( piece ) ) {
-//         return cc_convert_steps_to_pos_link( CC_STEPS_STARTING_MONOLITH, CC_STEPS_STARTING_MONOLITH_LEN, starting_steps__e_a );
+//         return cc_convert_steps_to_pos_link( CC_STEPS_STARTING_MONOLITH, CC_STEPS_STARTING_MONOLITH_LEN, starting_steps__o );
 //     } else if ( CC_PIECE_IS_STARCHILD( piece ) ) {
-//         return cc_starting_steps_starchild( variant, pos, starting_steps__e_a );
+//         return cc_starting_steps_starchild( variant, pos, starting_steps__o );
 //     }
 
 //     return false;

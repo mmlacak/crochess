@@ -306,21 +306,21 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 //
 // static bool cc_starting_steps_pawn( CcVariantEnum variant,
 //                                     CcPieceEnum piece,
-//                                     CcTypedStepLink ** starting_steps__e_a );
+//                                     CcTypedStepLink ** starting_steps__o );
 
 // static bool cc_starting_steps_unicorn( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcTypedStepLink ** starting_steps__e_a );
+//                                        CcTypedStepLink ** starting_steps__o );
 
 // static bool cc_starting_steps_centaur( CcPieceEnum piece,
 //                                        CcTypedStep pos,
-//                                        CcTypedStepLink ** starting_steps__e_a );
+//                                        CcTypedStepLink ** starting_steps__o );
 
 // bool cc_starting_steps( CcVariantEnum variant,
 //                         CcPieceEnum piece,
 //                         CcPieceEnum activator,
 //                         CcTypedStep pos,
-//                         CcTypedStepLink ** starting_steps__e_a );
+//                         CcTypedStepLink ** starting_steps__o );
 //
 // TODO :: FIX
 

@@ -18,11 +18,11 @@ static bool cc_path_pawn( CcChessboard * cb,
                           uint momentum,
                           bool is_accumulating_momentum,
                           CcPosDescLink * already_traversed__d,
-                          CcPathLink ** path__e_a ) {
+                          CcPathLink ** path__o ) {
     // Not needed, already checked in the only caller, i.e. cc_path_single_step().
     // if ( !cb ) return false;
-    // if ( !path__e_a ) return false;
-    // if ( *path__e_a ) return false;
+    // if ( !path__o ) return false;
+    // if ( *path__o ) return false;
     // if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
 
     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
@@ -54,7 +54,7 @@ static bool cc_path_pawn( CcChessboard * cb,
     while ( s && ( s <= guard ) ) {
         if ( !CC_TYPED_STEP_IS_VALID( *s ) ) break;
 
-        if ( pptl__t ) { // Should be just initialized to NULL (1st run), or already transferred to path__e_a (all other runs).
+        if ( pptl__t ) { // Should be just initialized to NULL (1st run), or already transferred to path__o (all other runs).
             result = false;
             break;
         }
@@ -117,12 +117,12 @@ static bool cc_path_pawn( CcChessboard * cb,
         // TODO :: recursive call to cc_path_pawn( ,,, pptl__t, ) if blocked by Shaman / Starchild then free pptl__t,
         //         otherwise just do standard cc_path_link_append()
         if ( can_diverge_at ) {
-            if ( !( result = cc_path_pawn( cb, pawn, CC_TE_None, from_pos, mm, false, pptl__t, path__e_a ) && result ) ) break;
+            if ( !( result = cc_path_pawn( cb, pawn, CC_TE_None, from_pos, mm, false, pptl__t, path__o ) && result ) ) break;
             do_append = false;
         }
 
         if ( do_append ) {
-            if ( !( result = cc_path_link_append( path__e_a, &pptl__t ) && result ) ) break;
+            if ( !( result = cc_path_link_append( path__o, &pptl__t ) && result ) ) break;
         }
 
         s += 1;
@@ -135,7 +135,7 @@ static bool cc_path_pawn( CcChessboard * cb,
     }
 
     if ( !result ) {
-        cc_path_link_free_all( path__e_a );
+        cc_path_link_free_all( path__o );
         return false;
     } else
         return true;
@@ -149,10 +149,10 @@ bool cc_path_single_step( CcChessboard * cb,
                           CcPos from_pos,
                           uint momentum,
                           bool is_accumulating_momentum,
-                          CcPathLink ** path__e_a ) {
+                          CcPathLink ** path__o ) {
     if ( !cb ) return false;
-    if ( !path__e_a ) return false;
-    if ( *path__e_a ) return false;
+    if ( !path__o ) return false;
+    if ( *path__o ) return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
 
@@ -165,7 +165,7 @@ bool cc_path_single_step( CcChessboard * cb,
         if ( CC_PIECE_IS_PAWN( piece ) ) {
             if ( !cc_path_pawn( cb, piece, tag, from_pos, momentum, is_accumulating_momentum, NULL, &path__t ) ) return false;
 
-            *path__e_a = path__t;
+            *path__o = path__t;
             path__t = NULL;
             return true;
         } else if ( CC_PIECE_IS_WAVE( piece ) ) {

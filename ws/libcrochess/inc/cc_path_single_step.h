@@ -27,7 +27,7 @@
 //                           uint momentum,
 //                           bool is_accumulating_momentum,
 //                           CcPosDescLink * already_traversed__d,
-//                           CcPathLink ** path__e_a );
+//                           CcPathLink ** path__o );
 
 
 bool cc_path_single_step( CcChessboard * cb,
@@ -37,7 +37,7 @@ bool cc_path_single_step( CcChessboard * cb,
                           CcPos from_pos,
                           uint momentum,
                           bool is_accumulating_momentum,
-                          CcPathLink ** path__e_a );
+                          CcPathLink ** path__o );
 
 
 #endif /* __CC_PATH_SINGLE_STEP_H__ */
