@@ -7,7 +7,7 @@
     contain the root `toctree` directive.
 
 
-.. _lbl-croatian-chess-documentation:
+.. _lbl-index-documentation:
 
 ############################
 Croatian Chess documentation
@@ -17,7 +17,7 @@ Technical documentation for `Croatian Chess project <https://github.com/mmlacak/
 
 If you just want to read the book, you can use this link: `Croatian Chess and other variants <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_.
 
-.. _lbl-croatian-chess-toctree:
+.. _lbl-index-documentation-toctree:
 
 ********
 Contents
@@ -31,7 +31,7 @@ Contents
     test
 
 
-.. _lbl-indices-and-tables:
+.. _lbl-index-documentation-indices:
 
 ******************
 Indices and tables

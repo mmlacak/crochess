@@ -12,6 +12,8 @@ structure, which can be ``alloc()``-ated on the heap.
 
 Here, these are mostly linked ``struct``-s, usually containing ``union``-s.
 
+.. _lbl-memory-management-ownership:
+
 Ownership
 ---------
 
@@ -19,6 +21,8 @@ Ownership defines who (which pointer) gets to ``free()`` allocated memory.
 
 It refers to the one pointer variable, which is the reference from which all
 other usages are borrowed.
+
+.. _lbl-memory-management-ownership-variables:
 
 Variables
 ^^^^^^^^^
@@ -52,6 +56,7 @@ variables, but we haven't yet transferred ownership of plies and steps to a
 larger entity:
 
 .. code-block:: C
+    :force:
 
     CcChessboard * cb__a = cc_chessboard__new( ... ); // ownership (asset)
     ...
@@ -63,6 +68,7 @@ Now, if appending a new step fails, it also has to clean-up all owned and all
 alive transfer variables, before it can bail-out:
 
 .. code-block:: C
+    :force:
 
     if ( !cc_parsed_step_none_append( steps_2__t, ... ) ) {
         cc_parsed_step_free_all( &steps_2__t );
@@ -79,6 +85,7 @@ For variables holding weak pointers returned from a function, append ``__w`` to
 variable name, for instance:
 
 .. code-block:: C
+    :force:
 
     CcMoves * moves__w = cc_parsed_move_append( moves__io, an, max_len__d );
 
@@ -86,6 +93,7 @@ Do the same (i.e. append ``__w`` to its name) for weak pointer variables that
 will be returned from a function, for example:
 
 .. code-block:: C
+    :force:
 
     CcParsedStep * cc_parsed_step_duplicate_all__new( ... ) {
         // Function returns weak pointer, for read+write borrow, or for checking if append passed ok.
@@ -108,6 +116,7 @@ indicator, since it does *temporary* own allocated memory, even if will become
 weak before it gets returned.
 
 .. code-block:: C
+    :force:
 
     CcParseMsgs * cc_parse_msg_append( ... )
     {
@@ -119,6 +128,8 @@ weak before it gets returned.
 
         return pm__t; // Weak pointer is returned.
     }
+
+.. _lbl-memory-management-ownership-entities:
 
 Entities
 ^^^^^^^^
@@ -151,6 +162,8 @@ All ``CcParsedMove``s in a linked list are ``free()``-ed by calling ``cc_move_fr
 which ``free()``-s all linked ``CcParsedPly``s in each ``CcParsedMove`` (by calling ``cc_ply_free_all_plies()``),
 which ``free()``-s all linked ``CcParsedStep``s in each ``CcParsedPly`` (by calling ``cc_parsed_step_free_all_steps()``).
 
+.. _lbl-memory-management-ownership-transfer:
+
 Transfer of ownership
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -159,6 +172,8 @@ function name ending in ``__new``, e.g. ``cc_ply_teleport__new()``.
 
 If function name does not end in ``__new``, then returned pointer is borrowed, e.g.
 ``cc_ply_get_steps()``.
+
+.. _lbl-memory-management-ownership-borrows:
 
 Borrows
 ^^^^^^^
@@ -170,6 +185,8 @@ Pointers returned from a function usually are mutable borrows
 (e.g. ``CcParsedStep * cc_ply_get_steps()``), although there are also read-only
 borrows (e.g. ``char const * cc_variant_label()``).
 
+.. _lbl-memory-management-parameters:
+
 Parameters
 ----------
 
@@ -180,21 +197,7 @@ Strings (i.e. ``char *``) have their underlying type ``const``-ed
 
 For instance, ``char const * str``, ``CcParsedMove * moves``.
 
-*Static* parameters
-^^^^^^^^^^^^^^^^^^^
-
-*Static* parameters are mostly input, read-only borrows, that initialize local
-static variables inside a function body.
-
-For a first call in a series such a parameters have to be valid pointers,
-afterwards they can be ``NULL``-s.
-
-Those *static* parameters are usually used to initialize a kind of an iterator
-(or generator), after which said iterator (or generator) continues to return
-valid values until it runs out of them, or is initialized again.
-
-*Static* parameters are indicated by appending ``__s`` to parameter name,
-e.g. ``char * str__s``.
+.. _lbl-memory-management-parameters-optional:
 
 Optional parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -232,36 +235,30 @@ All indicators for the outmost pointers that are mandatory can be omitted.
 For instance, ``CcParseMsg ** parse_msgs__d`` is treated the same as
 ``CcParseMsg ** parse_msgs__dm``.
 
+.. _lbl-memory-management-parameters-output:
+
 Output parameters
 ^^^^^^^^^^^^^^^^^
 
-Output parameters (mutable borrows) are indicated by appending either ``__o``,
-or ``__io`` to their name, depending if they are just output parameter, or input +
-output one, e.g. ``char * str__io``.
+Output parameters are indicated by appending ``__o``, e.g. ``char * str__o``.
 
-Output parameter, i.e. one named with ``__o``, is also implicitly optional, so
-``char * str__o`` is treated the same as ``char * str__od``.
+Output parameter is implicitly void; that is, pointer *must* be ``NULL``, and
+then it's up to called function to allocate storage.
 
-Input / output parameter is implicitly mandatory, and has to have ``__d`` appended
-to its name if its optional, like so ``char * str__iod``.
+.. note::
 
-Empty parameters
-^^^^^^^^^^^^^^^^
+    If function through output parameter returns pointer to fixed, pre-allocated
+    storage (e.g. string constants), then output parameter can to be marked as
+    optional by also appending ``__d`` to its name, e.g. ``char * str__od``.
 
-Empty parameters are output parameters (i.e. pointers), which must always be empty
-when calling a function.
+Input / output parameters (mutable borrows) are indicated by appending
+``__io`` to their name, e.g. ``char * str__io``.
 
-They refer to data only, i.e. the innermost pointer must always be ``NULL``, pointer
-to it may be optional or mandatory.
+Input / output parameter is implicitly mandatory (that is, given pointer
+*must not* be ``NULL``). So, pointer has to have ``__d`` appended to its
+name if its optional, like so ``char * str__iod``.
 
-Empty parameters are indicated by appending ``__e`` to their name, e.g.
-``CcPos * pos__e``.
-
-When using multi-pointer parameters, empty output parameter indicator precedes any
-optional / mandatory ones.
-
-For instance, ``CcPos ** pos__ed`` declares output parameter, which is optional
-pointer (``__d``) to empty data pointer (``__e``).
+.. _lbl-memory-management-parameters-transfer:
 
 Ownership transfer parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -329,6 +326,8 @@ via input / output parameter ``route_pin__io_a_F``.
 When it runs out of routes in a given path tree, it frees allocated route, and sets
 its pointer back to ``NULL``, so it's ready to start over again.
 
+.. _lbl-memory-management-parameters-free:
+
 Free parameters
 ^^^^^^^^^^^^^^^
 
@@ -347,6 +346,8 @@ free parameter pointer is single (i.e. ``CcRoutePin * rp__f`` and not
 
 since container continues to live, and thus given pointer to it is not ``NULL``-ed.
 
+.. _lbl-memory-management-parameters-weak:
+
 Weak parameters
 ^^^^^^^^^^^^^^^
 
@@ -361,19 +362,22 @@ Since lifetime of a data pointed to by weak pointer depends on external owner,
 it's best to be used within hierarchical structure, where weak pointers from
 children points to their parents.
 
+.. _lbl-memory-management-summary:
+
 Summary
 -------
 
-If multiple indicators are needed, *static* indicator (``__s``) is appended to
-parameter name first, followed by direction indicator (one of ``__o``, ``__io``),
-followed by discretion indicator (one of ``__d``, ``__m``), finally followed by
-ownership transfer indicator (one of ``__w``, ``__t``, ``__a``, ``__n``, ``__f``,
-``__r``).
+If multiple indicators are needed, direction indicator (one of ``__o``, ``__io``)
+is applied first, followed by discretion indicator (one of ``__d``, ``__m``), finally
+followed by ownership transfer indicator (one of ``__w``, ``__t``, ``__a``, ``__n``,
+``__f``, ``__r``).
 
-*Static*, direction and discretion indicators can be combined, e.g. ``move__siod``.
+*Static*, direction and discretion indicators can be combined, e.g. ``move__iod``.
 Ownership transfer indicator is always kept separated, i.e. if any of direction or
 discretion indicators are combined with ownership transfer indicator, they are
-separated by one underscore (``_``), e.g. ``str__d_f``. ``move__siod_r``.
+separated by one underscore (``_``), e.g. ``str__d_f``. ``move__iod_r``.
+
+.. _lbl-memory-management-summary-functions:
 
 Functions table
 ^^^^^^^^^^^^^^^
@@ -398,6 +402,8 @@ Functions table
    * - ``__new``
      - ownership transfer
      - read + write + ``free()``
+
+.. _lbl-memory-management-summary-variables:
 
 Variables table
 ^^^^^^^^^^^^^^^
@@ -441,6 +447,8 @@ Variables table
      - weak
      - read + write
 
+.. _lbl-memory-management-summary-ioparams:
+
 Input, output parameters table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -467,9 +475,6 @@ Input, output parameters table
    * -
      - input
      - read
-   * - ``__s``
-     - input, ``NULL``
-     - read, *static*
    * - ``__o``
      - output, ``NULL``
      - write
@@ -489,6 +494,8 @@ Input, output parameters table
 ..   * - ``__e``
 ..     - output, ``NULL``
 ..     - write
+
+.. _lbl-memory-management-summary-transfer:
 
 Ownership transfer parameters table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -524,10 +531,6 @@ Ownership transfer parameters table
      - ``!NULL``
      - input
      - read
-   * - ``__s``
-     - ``!NULL``
-     - input, ``NULL``
-     - read, *static*
    * - ``__o``
      - ``!NULL``
      - output, ``NULL``
@@ -572,11 +575,6 @@ Ownership transfer parameters table
      - ``!NULL``
      - *conditional* ``free(); *args = NULL;``
      - *conditionally* freed
-
-..   * - ``__e``
-..     - [2]_
-..     - output, unlike ``__od``, **must** be ``NULL``
-..     - write
 
 .. rubric:: Footnotes
 

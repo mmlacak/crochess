@@ -1,7 +1,7 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
-.. _lbl-croatian-chess-library:
+.. _lbl-libcrochess-library:
 
 Croatian Chess library
 ======================
@@ -42,12 +42,12 @@ other application, or server can take over networking.
 .. * [Naming and organization](organization.md "Naming and organization")
 .. * `Croatian Chess and other variants <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_
 
-.. :doc:`Memory management <memory_management>`
+.. :doc:`Memory management <memory>`
 
 .. :ref:`lbl-memory-management`
 
 
-.. _lbl-croatian-chess-library-toctree:
+.. _lbl-libcrochess-library-toctree:
 
 .. toctree::
     :maxdepth: 9
@@ -55,9 +55,9 @@ other application, or server can take over networking.
     :name: croatian-chess-library-toctree
 
     terms
-    memory_management
+    memory
 
-.. _lbl-croatian-chess-library-footnotes:
+.. _lbl-libcrochess-library-footnotes:
 
 .. rubric:: Footnotes
 

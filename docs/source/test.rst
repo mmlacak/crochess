@@ -6,7 +6,7 @@ Test
 
 Repository: `Repository <https://github.com/mmlacak/crochess>`_
 
-.. _lbl-section-to-cross-reference:
+.. _lbl-test-xref:
 
 Section to cross-reference
 --------------------------
@@ -21,13 +21,13 @@ This is the text of the section.
 
     Don't panic.
 
-It refers to the section itself, see :ref:`lbl-section-to-cross-reference`.
+It refers to the section itself, see :ref:`lbl-test-xref`.
 
 .. todo::
 
     Okay, this is getting out of hand.
 
-External reference, see  :ref:`lbl-croatian-chess-terms-glossary`, and :ref:`lbl-croatian-chess-library-footnotes`.
+External reference, see  :ref:`lbl-terms-abbreviations-glossary`, and :ref:`lbl-libcrochess-library-footnotes`.
 
 .. todo::
 
