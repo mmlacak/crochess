@@ -30,7 +30,7 @@ Variables
 ^^^^^^^^^
 
 If a pointer, as a standalone variable, has ownership over any entity, ``__a``
-is appended to its name, e.g. :c:`CcChessboard * cb__a``.
+is appended to its name, e.g. :c:`CcChessboard * cb__a`.
 
 If ownership is transferred to a function (its parameter), some entity, or to
 another variable, ``__t`` is appended.

@@ -56,6 +56,7 @@ other application, or server can take over networking.
 
     terms
     memory
+    design
 
 .. _lbl-libcrochess-library-footnotes:
 
