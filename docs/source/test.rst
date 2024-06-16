@@ -73,3 +73,7 @@ In Python, :py:`1 + 2` is equal to :py:`3`.
 ..     :language: c
 
 In C, :c:`return 1 + 2;` returns :c:`3`.
+
+:doc:`Memory management <memory>`
+
+Algebraic notation, aka :term:`AN`.

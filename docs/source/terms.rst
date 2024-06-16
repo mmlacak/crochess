@@ -23,3 +23,14 @@ Glossary
 
     XAN
         The long variation of new, extended notation.
+
+    field
+        Field is any square on a chessboard.
+
+    position
+        Position is pair of coordinates, used to address individual
+        fields from chessboard origin.
+
+    step
+        Step is relative position, i.e. coordinate difference between
+        two fields.

@@ -34,18 +34,6 @@ C library. As such, there is no networking support. It is possible to redirect
 ``stdin``, ``stdout`` and ``stderr`` into and from crochess application so that
 other application, or server can take over networking.
 
-.. Here are recommended reads (the book and related pages), before diving into
-.. detailed reference:
-
-.. * [Memory management](memory.md "Memory management")
-.. * [Design concepts](design.md "Design concepts")
-.. * [Naming and organization](organization.md "Naming and organization")
-.. * `Croatian Chess and other variants <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_
-
-.. :doc:`Memory management <memory>`
-
-.. :ref:`lbl-memory-management`
-
 
 .. _lbl-libcrochess-library-toctree:
 

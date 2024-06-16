@@ -56,6 +56,24 @@ abbreviated :c:`enum` name (e.g. ``PPLE_``) and capitalized words for item name.
 For instance, :c:`CC_PPLE_FailedTeleportationOblation` would be one of items in
 :c:`CcParsedPlyLinkEnum`.
 
+.. _lbl-organization-naming-namingentities:
+
+Naming entities
+---------------
+
+.. todo::
+
+    Naming entities
+
+.. _lbl-organization-naming-linkedlists:
+
+Linked lists
+------------
+
+.. todo::
+
+    Linked lists
+
 .. _lbl-organization-naming-organization:
 
 Organization
@@ -69,11 +87,16 @@ similarly named (source and header) files, i.e. :c:`cc_piece`, :c:`cc_tag`,
 Each chessboard holds a board for pieces and the other one for tags.
 Initial setups for those are in :c:`cc_setup_board` and :c:`cc_setup_tags` files.
 
+
+
 Parsers for user notation are in :c:`cc_parse_move`, :c:`cc_parse_ply`, :c:`cc_parse_step`,
 :c:`cc_parse_side_effect`.
 Parsed notation is stored in :c:`cc_parsed_move`, :c:`cc_parsed_ply`, :c:`cc_parsed_step`,
 :c:`cc_parsed_side_effect`.
 Parser messages are located in :c:`cc_parse_msg` files.
+
+Game (i.e. its status, current chessboard, and list of moves played so far) can
+be found in :c:`game` files.
 
 House-keepers, conveniences are in:
 
