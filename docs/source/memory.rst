@@ -10,9 +10,9 @@ Memory management
 
 Entity in this text refers to any
 `plain-old-data <https://en.wikipedia.org/wiki/Passive_data_structure>`_
-structure, which can be :c:`alloc()`-ated on the heap.
+structure, which can be :c:`alloc()`\ated on the heap.
 
-Here, these are mostly linked :c:`struct`-s, usually containing :c:`union`-s.
+Here, these are mostly linked :c:`struct`\s, usually containing :c:`union`\s.
 
 .. _lbl-memory-management-ownership:
 
@@ -40,11 +40,11 @@ during its whole scope, this includes a case of a function which returns that
 pointer, since it also returns ownership.
 
 Trailing ``__a`` is also appended if pointer is the last one in a chain of
-ownership transfers, since that pointer needs to be :c:`free()`-ed always,
+ownership transfers, since that pointer needs to be :c:`free()`\ed always,
 unconditionally.
 
 If pointer has temporary ownership of an entity, ``__t`` is appended to its name,
-i.e. if pointer has to be :c:`free()`-ed sometimes, only under some conditions.
+i.e. if pointer has to be :c:`free()`\ed sometimes, only under some conditions.
 
 Transfer of ownership ``__t`` indicates what would happen if main line of execution
 is followed, i.e. if all data is valid.
@@ -78,8 +78,6 @@ alive transfer variables, before it can bail-out:
         cc_chessboard_free_all( &cb__a );
         return false;
     }
-
-..        return cc_game_move_data_free_all( NULL, &cb__a, NULL, &plies_0__t, &steps_2__t, false );
 
 If a variable is a borrow, nothing needs to be appended to its name.
 
@@ -136,8 +134,8 @@ weak before it gets returned.
 Entities
 ^^^^^^^^
 
-Every :c:`alloc()`-ated entity has implicit ownership over all links (pointers) to
-other :c:`alloc()`-ated entities, and, by extension, over all accessible entities
+Every :c:`alloc()`\ated entity has implicit ownership over all links (pointers) to
+other :c:`alloc()`\ated entities, and, by extension, over all accessible entities
 in a linked structure.
 
 Note that in a linked list, entity in the middle has ownership only over entities
@@ -147,7 +145,7 @@ of the entire linked list.
 If a pointer in an entity does not have ownership over linked entity, ``__w`` is
 appended to its name, e.g. :c:`CcParsedPly * related_ply__w`.
 
-Function(s) :c:`free()`-ing containing entity does not :c:`free()` weak pointers.
+Function(s) :c:`free()`\ing containing entity does not :c:`free()` weak pointers.
 
 For instance, :c:`CcParsedMove` contains :c:`CcParsedPly *`, so it owns all
 :c:`CcParsedPly` items in that linked list.
@@ -157,12 +155,12 @@ items in that linked list.
 
 So, :c:`CcParsedMove` indirectly owns every :c:`CcParsedStep` in the whole structure.
 
-This is evidenced when :c:`free()`-ing hierarchically complete structure from a single
+This is evidenced when :c:`free()`\ing hierarchically complete structure from a single
 :c:`CcParsedMove` pointer.
 
-All :c:`CcParsedMove`-s in a linked list are :c:`free()`-ed by calling :c:`cc_move_free_all_moves()`,
-which :c:`free()`-s all linked :c:`CcParsedPly`-s in each :c:`CcParsedMove` (by calling :c:`cc_ply_free_all_plies()`),
-which :c:`free()`-s all linked :c:`CcParsedStep`-s in each :c:`CcParsedPly` (by calling :c:`cc_parsed_step_free_all_steps()`).
+All :c:`CcParsedMove`\s in a linked list are :c:`free()`\ed by calling :c:`cc_move_free_all_moves()`,
+which :c:`free()`\s all linked :c:`CcParsedPly`\s in each :c:`CcParsedMove` (by calling :c:`cc_ply_free_all_plies()`),
+which :c:`free()`\s all linked :c:`CcParsedStep`\s in each :c:`CcParsedPly` (by calling :c:`cc_parsed_step_free_all_steps()`).
 
 .. _lbl-memory-management-ownership-transfer:
 
@@ -194,7 +192,7 @@ Parameters
 
 Pointers as function parameters are usually input, read-only borrows.
 
-Strings (i.e. :c:`char *`) have their underlying type :c:`const`-ed
+Strings (i.e. :c:`char *`) have their underlying type :c:`const`\ed
 (i.e. :c:`char const *`), most other types do not have :c:`const`.
 
 For instance, :c:`char const * str`, :c:`CcParsedMove * moves`.
@@ -228,9 +226,8 @@ For instance, :c:`CcParseMsg ** parse_msgs__dd` means both data (inner pointer),
 and outer pointer are optional.
 
 Another example, :c:`CcParseMsg ** parse_msgs__md` means outer pointer is optional,
-but inner pointer (data) is mandatory,
-
-i.e. if outer pointer is provided, inner pointer must also be valid (non-:c:`NULL`).
+but inner pointer (data) is mandatory, i.e. if outer pointer is provided, inner
+pointer must also be valid (non-:c:`NULL`).
 
 All indicators for the outmost pointers that are mandatory can be omitted.
 
@@ -244,21 +241,30 @@ Output parameters
 
 Output parameters are indicated by appending ``__o``, e.g. :c:`char * str__o`.
 
-Output parameter is implicitly void; that is, pointer *must* be :c:`NULL`, and
-then it's up to called function to allocate storage.
+.. note::
+
+    Output parameter is implicitly void; that is, pointer *must* be :c:`NULL`,
+    and then it's up to called function to allocate storage.
+
+If function through output parameter returns pointer to fixed, pre-allocated
+storage (e.g. string literals), then output parameter is also marked as weak
+by appending ``__w`` to its name, e.g. :c:`char const * str__o_w`.
+
+.. seealso::
+
+    :ref:`lbl-memory-management-parameters-weak`,
+    :ref:`lbl-memory-management-summary`
+
+Input / output parameters (mutable borrows) are indicated by appending ``__io`` to
+their name, e.g. :c:`char * str__io`.
 
 .. note::
 
-    If function through output parameter returns pointer to fixed, pre-allocated
-    storage (e.g. string constants), then output parameter can to be marked as
-    optional by also appending ``__d`` to its name, e.g. :c:`char * str__od`.
+    Input / output parameter is implicitly mandatory; that is, given pointer
+    *must not* be :c:`NULL`.
 
-Input / output parameters (mutable borrows) are indicated by appending
-``__io`` to their name, e.g. :c:`char * str__io`.
-
-Input / output parameter is implicitly mandatory (that is, given pointer
-*must not* be :c:`NULL`). So, pointer has to have ``__d`` appended to its
-name if its optional, like so :c:`char * str__iod`.
+So, input / output pointer has to have ``__d`` appended to its name if its optional
+(can be :c:`NULL`), like so :c:`char * str__iod`.
 
 .. _lbl-memory-management-parameters-transfer:
 
@@ -270,18 +276,18 @@ Ownership transfer parameters are indicated by:
 * their type (pointer to pointer to type), e.g. :c:`CcParseMsg ** parse_msgs`
 * appending direction indicator (``__o``, ``__io``) to parameter name if they are
   output, or input + output parameter
-* appending ``__n`` if inner pointer is going to be :c:`NULL`-ed, e.g.
+* appending ``__n`` if inner pointer is going to be :c:`NULL`\ed, e.g.
   :c:`CcParsedPly ** plies__n`
-* appending ``__f`` if inner pointer is going to be :c:`free()`-ed then :c:`NULL`-ed,
+* appending ``__f`` if inner pointer is going to be :c:`free()`\ed then :c:`NULL`\ed,
   e.g. :c:`char ** str__f`
-* appending ``__r`` if inner pointer is going to be :c:`realloc()`-ated, e.g.
+* appending ``__r`` if inner pointer is going to be :c:`realloc()`\ated, e.g.
   :c:`char ** str_io__r`
 * appending ``__t`` if inner pointer is going to transfer ownership into function,
-  e.g. :c:`char ** str__t``
+  e.g. :c:`char ** str__t`
 * appending ``__a`` if inner pointer is going to transfer ownership out of a function,
   e.g. :c:`char ** str__a`
-* appending ``__F`` if inner pointer is going to be *conditionally* :c:`free()`-ed
-  then :c:`NULL`-ed, e.g. :c:`CcRoutePin ** route_pin__io_a_F`
+* appending ``__F`` if inner pointer is going to be *conditionally* :c:`free()`\ed
+  then :c:`NULL`\ed, e.g. :c:`CcRoutePin ** route_pin__io_a_F`
 
 If parameter is input only, use ``__t`` to specify that ownership is given into that
 function, and remaining pointer is weak after function returns.
@@ -334,7 +340,7 @@ Free parameters
 ^^^^^^^^^^^^^^^
 
 Free parameters are input parameters which point to an element in a container
-(e.g. linked list) that needs to be :c:`free()`-ed,
+(e.g. linked list) that needs to be :c:`free()`\ed,
 
 either just pointed-to element, or a larger sub-container, but not the whole
 container itself.
@@ -346,7 +352,7 @@ Unlike corresponding ownership transfer parameter with the same ``__f`` indicato
 free parameter pointer is single (i.e. :c:`CcRoutePin * rp__f`` and not
 :c:`CcRoutePin ** rp__f``),
 
-since container continues to live, and thus given pointer to it is not :c:`NULL`-ed.
+since container continues to live, and thus given pointer to it is not :c:`NULL`\ed.
 
 .. _lbl-memory-management-parameters-weak:
 
@@ -384,16 +390,10 @@ separated by one underscore (``_``), e.g. :c:`str__d_f`. :c:`move__iod_r`.
 Functions table
 ^^^^^^^^^^^^^^^
 
-.. .. | Indicator |           ``return`` |                  ``*return`` |
-.. .. | --------: | -----------------: | -------------------------: |
-.. .. |           |             borrow | read (+ write, if mutable) |
-.. .. |   ``__new`` | ownership transfer |    read + write + :c:`free()` |
-
-..   :widths: 15 45 35
-
 .. list-table:: Functions table
    :header-rows: 1
    :align: left
+   :widths: 15 35 35
 
    * - Indicator
      - :c:`return`
@@ -410,19 +410,10 @@ Functions table
 Variables table
 ^^^^^^^^^^^^^^^
 
-.. .. | Indicator |     Variable |              ``var`` |                  ``*var`` |
-.. .. | --------: | -----------: | -----------------: | ----------------------: |
-.. .. |           |   standalone |             borrow |            read + write |
-.. .. |     ``__a`` |   standalone |  asset (ownership) | read + write + :c:`free()` |
-.. .. |     ``__t`` |   standalone | ownership transfer |            read + write |
-.. .. |           | in an entity |          ownership | read + write + :c:`free()` |
-.. .. |     ``__w`` |         both |               weak |            read + write |
-
-..   :widths: 15 20 35 55
-
 .. list-table:: Variables table
    :header-rows: 1
    :align: left
+   :widths: 15 20 35 40
 
    * - Indicator
      - Variable
@@ -454,22 +445,10 @@ Variables table
 Input, output parameters table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. .. | Indicator |               :c:`arg` |            :c:`*arg` |
-.. .. | --------: | ------------------: | ----------------: |
-.. .. |           |               input |              read |
-.. .. |     ``__s`` |       input, :c:`NULL` |    read, *static* |
-.. .. |     ``__o`` |              output |             write |
-.. .. |    ``__io`` |      input + output |      read + write |
-.. .. |     ``__d`` | input, discretional |              read |
-.. .. |     ``__e`` |      output, :c:`NULL` |             write |
-.. .. |     ``__w`` |         input, weak |              read |
-.. .. |     ``__f`` |            :c:`free()` |               [1] |
-
-   .. :widths: 15 35 35
-
 .. list-table:: Input, output parameters table
    :header-rows: 1
    :align: left
+   :widths: 15 35 25
 
    * - Indicator
      - :c:`arg`
@@ -493,37 +472,15 @@ Input, output parameters table
      - :c:`free()`
      - [1]_
 
-..   * - ``__e``
-..     - output, :c:`NULL`
-..     - write
-
 .. _lbl-memory-management-summary-transfer:
 
 Ownership transfer parameters table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. .. | Indicator |              :c:`arg` |                                :c:`*arg` |                                   ``**arg`` |
-.. .. | --------: | -----------------: | ------------------------------------: | ----------------------------------------: |
-.. .. |           |            ``!NULL`` |                                 input |                                      read |
-.. .. |     ``__s`` |            ``!NULL`` |                         input, :c:`NULL` |                            read, *static* |
-.. .. |     ``__o`` |            ``!NULL`` |                                output |                                     write |
-.. .. |    ``__io`` |            ``!NULL`` |                        input + output |                              read + write |
-.. .. |     ``__d`` |                [2] |                   input, discretional |                                      read |
-.. .. |     ``__m`` |                [2] |                      input, mandatory |                                      read |
-.. .. |     ``__e`` |                [2] |                        output, :c:`NULL` |                                     write |
-.. .. |     ``__n`` |            ``!NULL`` |                       ``*args = NULL;`` |                           ownership taken |
-.. .. |     ``__f`` |            ``!NULL`` |               :c:`free(); *args = NULL;`` |                                     freed |
-.. .. |     ``__r`` |            ``!NULL`` |                  ``*args = realloc();`` |                               reallocated |
-.. .. |     ``__t`` |            ``!NULL`` |                                 input |                           ownership given |
-
-.. .. |     ``__a`` |            ``!NULL`` |          output
- input + output | ownership taken
- ownership retained |
-.. .. |     ``__F`` |            ``!NULL`` | _conditional_ :c:`free(); *args = NULL;`` |                     _conditionally_ freed |
-
 .. list-table:: Ownership transfer parameters table
    :header-rows: 1
    :align: left
+   :widths: 15 10 45 35
 
    * - Indicator
      - :c:`arg`

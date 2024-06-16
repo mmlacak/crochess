@@ -1,6 +1,8 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
+.. include:: defines.rst
+
 Test
 ====
 
@@ -62,12 +64,12 @@ application, library takes over networking.
      - 1.99
      - On a stick!
 
-.. role:: python(code)
-    :language: python
+.. .. role:: py(code)
+..     :language: python
 
-In Python, :python:`1 + 2` is equal to :python:`3`.
+In Python, :py:`1 + 2` is equal to :py:`3`.
 
-.. role:: c(code)
-    :language: c
+.. .. role:: c(code)
+..     :language: c
 
-In C, :c:`printf("%d", 1 + 2);` prints :c:`3`.
+In C, :c:`return 1 + 2;` returns :c:`3`.
