@@ -62,15 +62,15 @@ Macros to convert from and into :c:`bool` value.
 .. list-table:: Maybe bool macros table
    :header-rows: 1
    :align: left
-   :widths: 15 85
+   :widths: 35 65
 
    * - Macro
      - Description
-   * - :c:`CC_BOOL_TO_MAYBE`
+   * - :c:`CC_BOOL_TO_MAYBE(bool_val)`
      - converts :c:`bool` into :c:`CcMaybeBoolEnum` value
-   * - :c:`CC_MAYBE_IS_TRUE`
+   * - :c:`CC_MAYBE_IS_TRUE(maybe_bool)`
      - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`
-   * - :c:`CC_MAYBE_IS_FALSE`
+   * - :c:`CC_MAYBE_IS_FALSE(maybe_bool)`
      - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`
-   * - :c:`CC_MAYBE_IS_VOID`
+   * - :c:`CC_MAYBE_IS_VOID(maybe_bool)`
      - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`
