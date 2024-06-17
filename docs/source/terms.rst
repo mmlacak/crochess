@@ -34,3 +34,14 @@ Glossary
     step
         Step is relative position, i.e. coordinate difference between
         two fields.
+
+    module
+        Collective name for a source file and its header file.
+
+    entity
+        Plain-old-data, either data type provided by C, or some user-defined
+        :c:`struct`, :c:`union`, :c:`enum`, etc.
+
+    method
+        Function which operates primarily on one entity, defined in the same
+        module as said entity.

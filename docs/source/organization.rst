@@ -15,7 +15,7 @@ Describes where to find, and what.
 Naming conventions
 ------------------
 
-To avoid name collisions with other code, libraries, all entities are prefixed with:
+To avoid name collisions with other code, libraries, every :term:`entity` is prefixed with:
 
 .. _lbl-organization-naming-conventions-prefixes:
 
@@ -99,13 +99,13 @@ Common functions linked lists have:
 
 .. note::
 
-    :c:`_extend()` transfers ownership of the second linked list to the first given.
+    :c:`_extend()` transfers ownership of the other linked list to the first given.
 
-In our :c:`CcPos` example, common definitions would as:
+In our :c:`CcPosLink` example, common definitions would as:
 
     - :c:`CcPosLink * cc_pos_link__new( CcPos pos );`
-    - :c:`CcPosLink * cc_pos_link_append( CcPosLink ** first__iod_a, CcPos pos );`
-    - :c:`CcPosLink * cc_pos_link_extend( CcPosLink ** first__iod_a, CcPosLink ** second__n );`
+    - :c:`CcPosLink * cc_pos_link_append( CcPosLink ** list__iod_a, CcPos pos );`
+    - :c:`CcPosLink * cc_pos_link_extend( CcPosLink ** list__iod_a, CcPosLink ** other__n );`
     - :c:`bool cc_pos_link_free_all( CcPosLink ** list__f );`
     - :c:`CcPosLink * cc_pos_link_duplicate_all__new( CcPosLink * list );`
     - :c:`size_t cc_pos_link_len( CcPosLink * list );`
@@ -121,41 +121,92 @@ Organization
 
 Pieces, tags, variants, chessboards introduced in
 `the book <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_ are in
-similarly named (source and header) files, i.e. :c:`cc_piece`, :c:`cc_tag`,
-:c:`cc_variant`, :c:`cc_chessboard`.
+similarly named :term:`module`\s, i.e. ``cc_piece``, ``cc_tag``, ``cc_variant``,
+``cc_chessboard``.
 
 Each chessboard holds a board for pieces and the other one for tags.
-Initial setups for those are in :c:`cc_setup_board` and :c:`cc_setup_tags` files.
+Initial setups for those are in ``cc_setup_board`` and ``cc_setup_tags``
+:term:`module`\s.
 
 Various :term:`position`\s, :term:`step`\s and linked lists based on those are in
-:c:`cc_pos` files.
+``cc_pos`` :term:`module`.
 
-Parsers for user notation are in :c:`cc_parse_move`, :c:`cc_parse_ply`, :c:`cc_parse_step`,
-:c:`cc_parse_side_effect`.
+Parsers for user notation are in ``cc_parse_move``, ``cc_parse_ply``, ``cc_parse_step``,
+``cc_parse_side_effect`` :term:`module`\s.
 
-Parsed notation is stored in :c:`cc_parsed_move`, :c:`cc_parsed_ply`, :c:`cc_parsed_step`,
-:c:`cc_parsed_side_effect`.
+Parsed notation is stored in ``cc_parsed_move``, ``cc_parsed_ply``, ``cc_parsed_step``,
+``cc_parsed_side_effect`` :term:`module`\s.
 
-Parser messages are located in :c:`cc_parse_msg` files.
+Parser messages are located in ``cc_parse_msg`` :term:`module`.
 
 Game (i.e. its status, current chessboard, and list of moves played so far) can
-be found in :c:`game` files.
+be found in ``game`` :term:`module`.
 
 House-keepers, conveniences are in:
 
-- ``cc_define.h`` contains :c:`#define`\s used across modules
+- ``cc_define.h`` contains :c:`#define`\s used across :term:`module`\s
 - ``cc_str_utils`` various string related functions
 - ``cc_tokenizer`` primitive tokenizer for CLI commands issued by user
 - ``cc_version`` library version
 
-.. _lbl-organization-naming-namingentities:
+.. _lbl-organization-naming-namingauxiliaries:
 
-Naming entities
----------------
+Naming auxiliaries
+------------------
 
-.. todo::
+:term:`Method` in this text is a function provided in the same :term:`module` as
+:c:`enum`, :c:`struct`, :c:`union`, or other user-defined data type on which it
+operates.
 
-    Naming entities
+:term:`Method`\s are named after their :term:`entity`, so that they look like
+:c:`cc_<entity>_<method_name>()`.
+
+For instance, some :c:`CcPos` methods are:
+
+- :c:`bool cc_pos_is_valid( CcPos pos );`
+- :c:`bool cc_pos_is_static_step( CcPos pos );`
+- :c:`bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );`
+- etc.
+
+The same applies to macros defined for an entity, only their name is in upper-case.
+
+In our :c:`CcPos` example, some macros are:
+
+- :c:`#define CC_POS_IS_VALID(pos) ...`
+- :c:`#define CC_POS_IS_STATIC_STEP(pos) ...`
+- :c:`#define CC_POS_IS_EQUAL(pos_1,pos_2) ...`
+- etc.
+
+.. note::
+
+    Functions which require additional dependencies (beside what was used to
+    define :term:`entity`) are not :term:`method`\s.
+
+For instance, in ``cc_pos`` :term:`module` there is :c:`struct CcPosDescLink;`
+linked list defined, which just chains :c:`struct CcPosDesc pd;`.
+
+One of :term:`method`\s linked list has is
+
+.. code-block:: C
+    :force:
+
+    CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
+                                             CcPosDesc pd );
+
+Note, that ``append()`` :term:`method` depends only on :term:`entity` used to
+define said linked list, i.e. :c:`CcPosDesc`.
+
+This is very different from similarly named function defined in ``cc_pos_utils``
+
+.. code-block:: C
+    :force:
+
+    bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
+                                         CcPos destination,
+                                         uint momentum,
+                                         CcPosDescLink ** pptl__iod_a );
+
+which depends on bunch of other stuff instead of linked list base :term:`entity`.
 
 .. _lbl-organization-naming-versioning:
 
