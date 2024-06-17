@@ -8,7 +8,7 @@
 Defines
 =======
 
-Constants and macros used throughout project.
+Documents ``cc_defines.h`` file, which contains constants and macros used throughout project.
 
 .. _lbl-libcc-ccdefines-shorthandtypes:
 
@@ -31,7 +31,7 @@ Types for the convenience of typing less.
    * - :c:`uint`
      - :c:`unsigned int`
 
-Constant :c:`CC_UNSIGNED_MIN` representing minimum :c:`unsigned` value, i.e. :c:`0`.
+Constant :c:`CC_UNSIGNED_MIN` representing minimum value for all :c:`unsigned` types, i.e. :c:`0`.
 
 .. _lbl-libcc-ccdefines-maybebool:
 
