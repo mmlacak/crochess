@@ -1,9 +1,9 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
-.. include:: defines.rst
+.. include:: ../defines.rst
 
-.. _lbl-memory-management:
+.. _lbl-libcc-memory-management:
 
 Memory management
 =================
@@ -14,7 +14,7 @@ structure, which can be :c:`alloc()`\ated on the heap.
 
 Here, these are mostly linked :c:`struct`\s, usually containing :c:`union`\s.
 
-.. _lbl-memory-management-ownership:
+.. _lbl-libcc-memory-management-ownership:
 
 Ownership
 ---------
@@ -24,7 +24,7 @@ Ownership defines who (which pointer) gets to :c:`free()` allocated memory.
 It refers to the one pointer variable, which is the reference from which all
 other usages are borrowed.
 
-.. _lbl-memory-management-ownership-variables:
+.. _lbl-libcc-memory-management-ownership-variables:
 
 Variables
 ^^^^^^^^^
@@ -129,7 +129,7 @@ weak before it gets returned.
         return pm__t; // Weak pointer is returned.
     }
 
-.. _lbl-memory-management-ownership-entities:
+.. _lbl-libcc-memory-management-ownership-entities:
 
 Entities
 ^^^^^^^^
@@ -162,7 +162,7 @@ All :c:`CcParsedMove`\s in a linked list are :c:`free()`\ed by calling :c:`cc_mo
 which :c:`free()`\s all linked :c:`CcParsedPly`\s in each :c:`CcParsedMove` (by calling :c:`cc_ply_free_all_plies()`),
 which :c:`free()`\s all linked :c:`CcParsedStep`\s in each :c:`CcParsedPly` (by calling :c:`cc_parsed_step_free_all_steps()`).
 
-.. _lbl-memory-management-ownership-transfer:
+.. _lbl-libcc-memory-management-ownership-transfer:
 
 Transfer of ownership
 ^^^^^^^^^^^^^^^^^^^^^
@@ -173,7 +173,7 @@ function name ending in ``__new``, e.g. :c:`cc_ply_teleport__new()`.
 If function name does not end in ``__new``, then returned pointer is borrowed, e.g.
 :c:`cc_ply_get_steps()`.
 
-.. _lbl-memory-management-ownership-borrows:
+.. _lbl-libcc-memory-management-ownership-borrows:
 
 Borrows
 ^^^^^^^
@@ -185,7 +185,7 @@ Pointers returned from a function usually are mutable borrows
 (e.g. :c:`CcParsedStep * cc_ply_get_steps()`), although there are also read-only
 borrows (e.g. :c:`char const * cc_variant_label()`).
 
-.. _lbl-memory-management-parameters:
+.. _lbl-libcc-memory-management-parameters:
 
 Parameters
 ----------
@@ -197,7 +197,7 @@ Strings (i.e. :c:`char *`) have their underlying type :c:`const`\ed
 
 For instance, :c:`char const * str`, :c:`CcParsedMove * moves`.
 
-.. _lbl-memory-management-parameters-optional:
+.. _lbl-libcc-memory-management-parameters-optional:
 
 Optional parameters
 ^^^^^^^^^^^^^^^^^^^
@@ -234,7 +234,7 @@ All indicators for the outmost pointers that are mandatory can be omitted.
 For instance, :c:`CcParseMsg ** parse_msgs__d` is treated the same as
 :c:`CcParseMsg ** parse_msgs__dm`.
 
-.. _lbl-memory-management-parameters-output:
+.. _lbl-libcc-memory-management-parameters-output:
 
 Output parameters
 ^^^^^^^^^^^^^^^^^
@@ -252,8 +252,8 @@ by appending ``__w`` to its name, e.g. :c:`char const * str__o_w`.
 
 .. seealso::
 
-    :ref:`lbl-memory-management-parameters-weak`,
-    :ref:`lbl-memory-management-summary`
+    :ref:`lbl-libcc-memory-management-parameters-weak`,
+    :ref:`lbl-libcc-memory-management-summary`
 
 Input / output parameters (mutable borrows) are indicated by appending ``__io`` to
 their name, e.g. :c:`char * str__io`.
@@ -266,7 +266,7 @@ their name, e.g. :c:`char * str__io`.
 So, input / output pointer has to have ``__d`` appended to its name if its optional
 (can be :c:`NULL`), like so :c:`char * str__iod`.
 
-.. _lbl-memory-management-parameters-transfer:
+.. _lbl-libcc-memory-management-parameters-transfer:
 
 Ownership transfer parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -334,7 +334,7 @@ via input / output parameter :c:`route_pin__io_a_F`.
 When it runs out of routes in a given path tree, it frees allocated route, and sets
 its pointer back to :c:`NULL`, so it's ready to start over again.
 
-.. _lbl-memory-management-parameters-free:
+.. _lbl-libcc-memory-management-parameters-free:
 
 Free parameters
 ^^^^^^^^^^^^^^^
@@ -354,7 +354,7 @@ free parameter pointer is single (i.e. :c:`CcRoutePin * rp__f`` and not
 
 since container continues to live, and thus given pointer to it is not :c:`NULL`\ed.
 
-.. _lbl-memory-management-parameters-weak:
+.. _lbl-libcc-memory-management-parameters-weak:
 
 Weak parameters
 ^^^^^^^^^^^^^^^
@@ -370,7 +370,7 @@ Since lifetime of a data pointed to by weak pointer depends on external owner,
 it's best to be used within hierarchical structure, where weak pointers from
 children points to their parents.
 
-.. _lbl-memory-management-summary:
+.. _lbl-libcc-memory-management-summary:
 
 Summary
 -------
@@ -385,7 +385,7 @@ Ownership transfer indicator is always kept separated, i.e. if any of direction 
 discretion indicators are combined with ownership transfer indicator, they are
 separated by one underscore (``_``), e.g. :c:`str__d_f`. :c:`move__iod_r`.
 
-.. _lbl-memory-management-summary-functions:
+.. _lbl-libcc-memory-management-summary-functions:
 
 Functions table
 ^^^^^^^^^^^^^^^
@@ -405,7 +405,7 @@ Functions table
      - ownership transfer
      - read + write + :c:`free()`
 
-.. _lbl-memory-management-summary-variables:
+.. _lbl-libcc-memory-management-summary-variables:
 
 Variables table
 ^^^^^^^^^^^^^^^
@@ -440,7 +440,7 @@ Variables table
      - weak
      - read + write
 
-.. _lbl-memory-management-summary-ioparams:
+.. _lbl-libcc-memory-management-summary-ioparams:
 
 Input, output parameters table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -472,7 +472,7 @@ Input, output parameters table
      - :c:`free()`
      - [1]_
 
-.. _lbl-memory-management-summary-transfer:
+.. _lbl-libcc-memory-management-summary-transfer:
 
 Ownership transfer parameters table
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

@@ -1,7 +1,7 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
-.. _lbl-libcrochess-library:
+.. _lbl-libcc-libcrochess-library:
 
 Croatian Chess library
 ======================
@@ -35,7 +35,7 @@ C library. As such, there is no networking support. It is possible to redirect
 other application, or server can take over networking.
 
 
-.. _lbl-libcrochess-library-toctree:
+.. _lbl-libcc-libcrochess-library-toctree:
 
 .. toctree::
     :maxdepth: 9
@@ -47,7 +47,7 @@ other application, or server can take over networking.
     design
     organization
 
-.. _lbl-libcrochess-library-footnotes:
+.. _lbl-libcc-libcrochess-library-footnotes:
 
 .. rubric:: Footnotes
 

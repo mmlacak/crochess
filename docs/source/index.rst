@@ -27,7 +27,8 @@ Contents
     :maxdepth: 9
     :name: croatian-chess-toctree
 
-    libcrochess
+    libcc/libcrochess
+    libcc/test2
     test
 
 

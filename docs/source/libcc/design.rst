@@ -1,14 +1,14 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
-.. _lbl-design-concepts:
+.. _lbl-libcc-design-concepts:
 
 Design concepts
 ===============
 
 Describes main design concepts, mostly related to parsing user :term:`AN`.
 
-.. _lbl-design-concepts-anchors:
+.. _lbl-libcc-design-concepts-anchors:
 
 Anchors
 -------
@@ -16,7 +16,7 @@ Anchors
 An anchor is a chessboard position, which then can serve as a starting
 point for parsing :term:`AN`.
 
-.. _lbl-design-concepts-anchors-hard:
+.. _lbl-libcc-design-concepts-anchors-hard:
 
 Hard anchors
 ^^^^^^^^^^^^
@@ -24,7 +24,7 @@ Hard anchors
 Hard anchor is a chessboard position with either initial setup, or after
 any legal move.
 
-.. _lbl-design-concepts-anchors-soft:
+.. _lbl-libcc-design-concepts-anchors-soft:
 
 Soft anchors
 ^^^^^^^^^^^^
@@ -32,7 +32,7 @@ Soft anchors
 Soft anchor is a chessboard position after a legal ply is applied to it,
 while parsing a (cascading) move :term:`AN`.
 
-.. _lbl-design-concepts-endpoints:
+.. _lbl-libcc-design-concepts-endpoints:
 
 End-points
 ----------
@@ -40,7 +40,7 @@ End-points
 End-point refers to generated paths, path segments, and other data necessary
 to parse next ply :term:`AN`.
 
-.. _lbl-design-concepts-endpoints-hard:
+.. _lbl-libcc-design-concepts-endpoints-hard:
 
 Hard end-points
 ^^^^^^^^^^^^^^^
@@ -53,7 +53,7 @@ It is comprised of list of paths, each path is a list of steps.
 It provides the same interface for all pieces, regardless if they choose
 one, or two initial steps, or each step independently.
 
-.. _lbl-design-concepts-endpoints-soft:
+.. _lbl-libcc-design-concepts-endpoints-soft:
 
 Soft end-points
 ^^^^^^^^^^^^^^^

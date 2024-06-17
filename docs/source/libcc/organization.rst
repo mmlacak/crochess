@@ -1,23 +1,23 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
-.. include:: defines.rst
+.. include:: ../defines.rst
 
-.. _lbl-organization-naming:
+.. _lbl-libcc-organization-naming:
 
 Naming and organization
 =======================
 
 Describes where to find, and what.
 
-.. _lbl-organization-naming-conventions:
+.. _lbl-libcc-organization-naming-conventions:
 
 Naming conventions
 ------------------
 
 To avoid name collisions with other code, libraries, every :term:`entity` is prefixed with:
 
-.. _lbl-organization-naming-conventions-prefixes:
+.. _lbl-libcc-organization-naming-conventions-prefixes:
 
 .. list-table:: Prefixes table
    :header-rows: 1
@@ -56,7 +56,7 @@ abbreviated :c:`enum` name (e.g. ``PPLE_``) and capitalized words for item name.
 For instance, :c:`CC_PPLE_FailedTeleportationOblation` would be one of items in
 :c:`CcParsedPlyLinkEnum`.
 
-.. _lbl-organization-naming-linkedlists:
+.. _lbl-libcc-organization-naming-linkedlists:
 
 Linked lists
 ------------
@@ -112,9 +112,9 @@ In our :c:`CcPosLink` example, common definitions would be:
 
 .. seealso::
 
-    :ref:`lbl-memory-management-parameters-transfer`
+    :ref:`lbl-libcc-memory-management-parameters-transfer`
 
-.. _lbl-organization-naming-organization:
+.. _lbl-libcc-organization-naming-organization:
 
 Organization
 ------------
@@ -159,7 +159,7 @@ Currently not used, or not finished:
 - ``cc_rules_path`` not finished
 - ``cc_rules_misc`` not finished
 
-.. _lbl-organization-naming-auxiliaries:
+.. _lbl-libcc-organization-naming-auxiliaries:
 
 Naming auxiliaries
 ------------------
@@ -206,7 +206,7 @@ One of :term:`method`\s linked list has is
 Note, that ``append()`` :term:`method` depends only on :term:`entity` used to
 define said linked list, i.e. :c:`CcPosDesc`.
 
-This is very different from similarly named function defined in ``cc_pos_utils``
+This is very different from similarly named function defined in ``cc_pos_utils``:
 
 .. code-block:: C
     :force:
@@ -218,7 +218,7 @@ This is very different from similarly named function defined in ``cc_pos_utils``
 
 which depends on bunch of other stuff instead of linked list base :term:`entity`.
 
-.. _lbl-organization-naming-versioning:
+.. _lbl-libcc-organization-naming-versioning:
 
 Versioning
 ----------

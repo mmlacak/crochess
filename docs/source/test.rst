@@ -29,7 +29,7 @@ It refers to the section itself, see :ref:`lbl-test-xref`.
 
     Okay, this is getting out of hand.
 
-External reference, see  :ref:`lbl-terms-abbreviations-glossary`, and :ref:`lbl-libcrochess-library-footnotes`.
+External reference, see  :ref:`lbl-libcc-terms-abbreviations-glossary`, and :ref:`lbl-libcc-libcrochess-library-footnotes`.
 
 .. todo::
 
@@ -74,6 +74,6 @@ In Python, :py:`1 + 2` is equal to :py:`3`.
 
 In C, :c:`return 1 + 2;` returns :c:`3`.
 
-:doc:`Memory management <memory>`
+:doc:`Memory management <libcc/memory>`
 
 Algebraic notation, aka :term:`AN`.
