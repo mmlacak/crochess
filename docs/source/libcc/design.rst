@@ -8,6 +8,10 @@ Design concepts
 
 Describes main design concepts, mostly related to parsing user :term:`AN`.
 
+.. todo::
+
+    This document is placeholder, to fulfill when implementation is done.
+
 .. _lbl-libcc-design-concepts-anchors:
 
 Anchors
