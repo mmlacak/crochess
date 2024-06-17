@@ -74,3 +74,22 @@ Macros to convert from and into :c:`bool` value.
      - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`
    * - :c:`CC_MAYBE_IS_VOID(maybe_bool)`
      - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`
+
+.. _lbl-libcc-ccdefines-xor:
+
+XOR
+---
+
+Macro :c:`CC_XOR(bool_1,bool_2)` to check if one or the other :c:`bool` value
+is :c:`true`, but not both.
+
+.. note::
+
+    In case of integer(s), one has to be non-zero, while the other has to be zero,
+    for :c:`XOR` to return :c:`true`. Arguments are converted to :c:`bool`\s (so,
+    non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
+
+.. seealso::
+
+    `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
+    `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
