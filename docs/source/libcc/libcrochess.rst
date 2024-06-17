@@ -47,6 +47,8 @@ other application, or server can take over networking.
     design
     organization
 
+    ccdefines
+
 .. _lbl-libcc-libcrochess-library-footnotes:
 
 .. rubric:: Footnotes
