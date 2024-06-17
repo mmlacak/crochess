@@ -43,9 +43,19 @@ has to differentiate error state from valid :c:`bool` value.
 
 It is defined as :c:`enum CcMaybeBoolEnum;`, with values:
 
-- :c:`CC_MBE_Void`
-- :c:`CC_MBE_False`
-- :c:`CC_MBE_True`
+.. list-table:: Maybe bool values table
+   :header-rows: 1
+   :align: left
+   :widths: 75 25
+
+   * - Enum
+     - Value
+   * - :c:`CC_MBE_Void`
+     - :c:`-1`
+   * - :c:`CC_MBE_False`
+     - :c:`0`
+   * - :c:`CC_MBE_True`
+     - :c:`1`
 
 Macros to convert from and into :c:`bool` value.
 
