@@ -101,7 +101,7 @@ Common functions linked lists have:
 
     :c:`_extend()` transfers ownership of the other linked list to the first given.
 
-In our :c:`CcPosLink` example, common definitions would as:
+In our :c:`CcPosLink` example, common definitions would be:
 
     - :c:`CcPosLink * cc_pos_link__new( CcPos pos );`
     - :c:`CcPosLink * cc_pos_link_append( CcPosLink ** list__iod_a, CcPos pos );`
@@ -125,14 +125,16 @@ similarly named :term:`module`\s, i.e. ``cc_piece``, ``cc_tag``, ``cc_variant``,
 ``cc_chessboard``.
 
 Each chessboard holds a board for pieces and the other one for tags.
-Initial setups for those are in ``cc_setup_board`` and ``cc_setup_tags``
-:term:`module`\s.
+Initial setups for those are in ``cc_setup_board`` and ``cc_setup_tags``,
+misc setup function are in ``cc_setup_misc`` :term:`module`.
 
 Various :term:`position`\s, :term:`step`\s and linked lists based on those are in
-``cc_pos`` :term:`module`.
+``cc_pos``, :term:`step` definitions are in ``cc_pos_defs``, position generators
+are in ``cc_pos_gens``, and position utilities are in ``cc_pos_utils`` :term:`module`.
 
 Parsers for user notation are in ``cc_parse_move``, ``cc_parse_ply``, ``cc_parse_step``,
-``cc_parse_side_effect`` :term:`module`\s.
+``cc_parse_side_effect``, and helpers are in ``cc_parse_defs``, ``cc_parse_utils``
+:term:`module`\s.
 
 Parsed notation is stored in ``cc_parsed_move``, ``cc_parsed_ply``, ``cc_parsed_step``,
 ``cc_parsed_side_effect`` :term:`module`\s.
@@ -146,10 +148,18 @@ House-keepers, conveniences are in:
 
 - ``cc_define.h`` contains :c:`#define`\s used across :term:`module`\s
 - ``cc_str_utils`` various string related functions
-- ``cc_tokenizer`` primitive tokenizer for CLI commands issued by user
+- ``cc_token`` primitive tokenizer for CLI commands issued by user
+- ``cc_math`` math functions
 - ``cc_version`` library version
 
-.. _lbl-organization-naming-namingauxiliaries:
+Currently not used, or not finished:
+
+- ``cc_strings`` linked list of strings, not used
+- ``cc_rules`` not finished
+- ``cc_rules_path`` not finished
+- ``cc_rules_misc`` not finished
+
+.. _lbl-organization-naming-auxiliaries:
 
 Naming auxiliaries
 ------------------
