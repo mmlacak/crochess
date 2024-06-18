@@ -258,6 +258,7 @@ typedef enum CcMaybeBoolEnum {
 
     @return `1` if valid board size, `0` otherwise.
 */
+// TODO :: check if board_size is even
 #define CC_IS_BOARD_SIZE_VALID(board_size)                  \
     ( ( CC_MIN_BOARD_SIZE <= (int)(board_size) ) &&         \
       ( (int)(board_size) <= CC_MAX_BOARD_SIZE ) )

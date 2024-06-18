@@ -17,71 +17,61 @@ Shorthand types
 
 Types for the convenience of typing less.
 
-.. list-table:: Shorthand types table
-   :header-rows: 1
-   :align: left
-   :widths: 25 75
+.. code-block:: C
+    :force:
 
-   * - Type
-     - Shorthand for
-   * - :c:`uchar`
-     - :c:`unsigned char`
-   * - :c:`ushort`
-     - :c:`unsigned short`
-   * - :c:`uint`
-     - :c:`unsigned int`
+    typedef unsigned char uchar;
+    typedef unsigned short ushort;
+    typedef unsigned int uint;
 
-Constant :c:`CC_UNSIGNED_MIN` representing minimum value for all :c:`unsigned` types, i.e. :c:`0`.
+Constant representing minimum value for all :c:`unsigned` types.
+
+.. code-block:: C
+    :force:
+
+    #define CC_UNSIGNED_MIN (0)
 
 .. _lbl-libcc-ccdefines-maybebool:
 
 Maybe bool
 ----------
 
-Maybe bool represents :c:`bool` value, which may undefined or uninitialized, or
-has to differentiate error state from valid :c:`bool` value.
+Maybe bool represents :c:`bool` values, which may undefined or uninitialized, or
+has to differentiate error state from valid :c:`true` and :c:`false` response.
 
 It is defined as :c:`enum CcMaybeBoolEnum;`, with values:
 
-.. list-table:: Maybe bool values table
-   :header-rows: 1
-   :align: left
-   :widths: 75 25
+.. code-block:: C
+    :force:
 
-   * - Enum
-     - Value
-   * - :c:`CC_MBE_Void`
-     - :c:`-1`
-   * - :c:`CC_MBE_False`
-     - :c:`0`
-   * - :c:`CC_MBE_True`
-     - :c:`1`
+    typedef enum CcMaybeBoolEnum {
+        CC_MBE_Void = -1, /* Void (undefined, uninitialized, or error) value. */
+        CC_MBE_False = 0, /* Boolean false value. */
+        CC_MBE_True = 1, /* Boolean true value. */
+    } CcMaybeBoolEnum;
 
 Macros to convert from and into :c:`bool` value.
 
-.. list-table:: Maybe bool macros table
-   :header-rows: 1
-   :align: left
-   :widths: 35 65
+.. code-block:: C
+    :force:
 
-   * - Macro
-     - Description
-   * - :c:`CC_BOOL_TO_MAYBE(bool_val)`
-     - converts :c:`bool` into :c:`CcMaybeBoolEnum` value
-   * - :c:`CC_MAYBE_IS_TRUE(maybe_bool)`
-     - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`
-   * - :c:`CC_MAYBE_IS_FALSE(maybe_bool)`
-     - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`
-   * - :c:`CC_MAYBE_IS_VOID(maybe_bool)`
-     - checks if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`
+    #define CC_BOOL_TO_MAYBE(bool_val) /* Converts bool value into CcMaybeBoolEnum. */
+    #define CC_MAYBE_IS_TRUE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_True. */
+    #define CC_MAYBE_IS_FALSE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_False. */
+    #define CC_MAYBE_IS_VOID(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_Void. */
 
 .. _lbl-libcc-ccdefines-xor:
 
 XOR
 ---
 
-Macro :c:`CC_XOR(bool_1,bool_2)` to check if one or the other :c:`bool` value
+Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool` value
 is :c:`true`, but not both.
+
+.. code-block:: C
+    :force:
+
+    #define CC_XOR(bool_1,bool_2) /* Both bool_1, bool_2 are converted to Boolean values. Returns either 1 (true) or 0 (false). */
 
 .. note::
 

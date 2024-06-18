@@ -7,3 +7,9 @@ Test libcc
 ==========
 
 Empty so far.
+
+
+.. :doc:`cc_defines.h <../../../ws/libcrochess/inc/cc_defines.h>`
+
+.. include:: ../../../ws/libcrochess/inc/cc_defines.h
+    :code: C
