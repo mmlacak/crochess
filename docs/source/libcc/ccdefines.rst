@@ -10,55 +10,38 @@ Defines
 
 Documents ``cc_defines.h`` file, which contains constants and macros used throughout project.
 
-.. _lbl-libcc-ccdefines-shorthandtypes:
+Convenience types.
 
-Shorthand types
----------------
+.. c:type:: unsigned char uchar
+.. c:type:: unsigned short ushort
+.. c:type:: unsigned int uint
 
-Types for the convenience of typing less.
+.. c:macro:: CC_UNSIGNED_MIN
 
-.. code-block:: C
-    :force:
+    Constant representing minimum value for all :c:`unsigned` types.
 
-    typedef unsigned char uchar;
-    typedef unsigned short ushort;
-    typedef unsigned int uint;
+.. c:enum:: CcMaybeBoolEnum
 
-Constant representing minimum value for all :c:`unsigned` types.
+    Maybe bool enum represents :c:`bool` values, which may undefined
+    or uninitialized, or has to differentiate error state from valid
+    :c:`true` and :c:`false` response.
 
-.. code-block:: C
-    :force:
-
-    #define CC_UNSIGNED_MIN (0)
-
-.. _lbl-libcc-ccdefines-maybebool:
-
-Maybe bool
-----------
-
-Maybe bool represents :c:`bool` values, which may undefined or uninitialized, or
-has to differentiate error state from valid :c:`true` and :c:`false` response.
-
-It is defined as :c:`enum CcMaybeBoolEnum;`, with values:
-
-.. code-block:: C
-    :force:
-
-    typedef enum CcMaybeBoolEnum {
-        CC_MBE_Void = -1, /* Void (undefined, uninitialized, or error) value. */
-        CC_MBE_False = 0, /* Boolean false value. */
-        CC_MBE_True = 1, /* Boolean true value. */
-    } CcMaybeBoolEnum;
+    .. c:enumerator::
+        CC_MBE_Void
+        CC_MBE_False
+        CC_MBE_True
 
 Macros to convert from and into :c:`bool` value.
 
-.. code-block:: C
-    :force:
+.. .. code-block:: C
+..     :force:
 
-    #define CC_BOOL_TO_MAYBE(bool_val) /* Converts bool value into CcMaybeBoolEnum. */
-    #define CC_MAYBE_IS_TRUE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_True. */
-    #define CC_MAYBE_IS_FALSE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_False. */
-    #define CC_MAYBE_IS_VOID(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_Void. */
+..     #define CC_BOOL_TO_MAYBE(bool_val) /* Converts bool value into CcMaybeBoolEnum. */
+..     #define CC_MAYBE_IS_TRUE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_True. */
+..     #define CC_MAYBE_IS_FALSE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_False. */
+..     #define CC_MAYBE_IS_VOID(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_Void. */
+
+ .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 
 .. _lbl-libcc-ccdefines-xor:
 
@@ -127,3 +110,33 @@ field are the same, or different.
 
     #define CC_FIELD_COLOR_LIGHT (1)
     #define CC_FIELD_COLOR_DARK (0)
+
+.. _lbl-libcc-ccdefines-coordinateconversion:
+
+Coordinate conversion
+---------------------
+
+Macro to convert numerical file value into char.
+
+@param byte_file Rank, position along vertical axis, numerical value.
+
+@warning
+Value of `byte_file` is expected to be in a range of [0, 25],
+undefined behavior if it's not.
+
+@return File character if argument within range, undefined behavior otherwise.
+
+.. code-block:: C
+    :force:
+
+    #define CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file)
+
+.. code-block:: C
+    :force:
+
+    #define CC_CONVERT_FILE_CHAR_INTO_NUM(char_file)
+
+.. code-block:: C
+    :force:
+
+    #define CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank)
