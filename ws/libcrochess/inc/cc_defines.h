@@ -100,15 +100,7 @@ typedef enum CcMaybeBoolEnum {
 
     Used for e.g. missing coordinates, for which invalid value ascertains no usage.
 */
-// + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
-#define CC_INVALID_COORD (INT_MIN + 3583)
-
-/**
-    Off-board coordinate.
-
-    Used for e.g. missing coordinates, if notation contains only destination field.
-*/
-#define CC_OFF_BOARD_COORD (-1)
+#define CC_INVALID_COORD (INT_MIN + 3583) // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
 
 /**
     The smallest valid on-board coordinate.

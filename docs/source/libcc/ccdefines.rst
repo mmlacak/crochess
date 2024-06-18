@@ -83,3 +83,47 @@ is :c:`true`, but not both.
 
     `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
     `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
+
+.. _lbl-libcc-ccdefines-coordinatesizeconstants:
+
+Coordinate, size constants
+--------------------------
+
+Invalid, off-board coordinate.
+
+No valid trance-journey starting from any chessboard field could get to this coordinate,
+and still make it back to any on-board field.
+
+Used for e.g. missing coordinates.
+
+.. code-block:: C
+    :force:
+
+    #define CC_INVALID_COORD (INT_MIN + 3583) // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
+
+The smallest and the largest valid on-board coordinate, and board sizes.
+
+The largest valid coordinate, board size is for the largest board, used by One
+variant. For other variants actual upper limit is smaller.
+
+.. TODO
+    .. sealso::
+        , see `cc_variant_board_size()`.
+
+.. code-block:: C
+    :force:
+
+    #define CC_MIN_BOARD_COORD (0)
+    #define CC_MAX_BOARD_COORD (25)
+
+    #define CC_MIN_BOARD_SIZE (8)
+    #define CC_MAX_BOARD_SIZE (26)
+
+Light and dark field check constant. Used when checking if colors of a piece and
+field are the same, or different.
+
+.. code-block:: C
+    :force:
+
+    #define CC_FIELD_COLOR_LIGHT (1)
+    #define CC_FIELD_COLOR_DARK (0)
