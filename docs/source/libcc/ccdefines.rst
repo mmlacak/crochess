@@ -23,8 +23,8 @@ Convenience types.
 .. c:enum:: CcMaybeBoolEnum
 
     Maybe bool enum represents :c:`bool` values, which may undefined
-    or uninitialized, or has to differentiate error state from valid
-    :c:`true` and :c:`false` response.
+    or uninitialized, or has to differentiate when both :c:`true` and
+    :c:`false` are valid data.
 
     .. c:enumerator::
         CC_MBE_Void
@@ -33,39 +33,54 @@ Convenience types.
 
 Macros to convert from and into :c:`bool` value.
 
-.. .. code-block:: C
-..     :force:
+.. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 
-..     #define CC_BOOL_TO_MAYBE(bool_val) /* Converts bool value into CcMaybeBoolEnum. */
-..     #define CC_MAYBE_IS_TRUE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_True. */
-..     #define CC_MAYBE_IS_FALSE(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_False. */
-..     #define CC_MAYBE_IS_VOID(maybe_bool) /* Checks if CcMaybeBoolEnum value is CC_MBE_Void. */
+    Macro to convert :c:`bool` value into :c:`CcMaybeBoolEnum`.
 
- .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
+    :param bool_val: Boolean value.
+    :returns: `CcMaybeBoolEnum` value.
 
-.. _lbl-libcc-ccdefines-xor:
+.. c:macro:: CC_MAYBE_IS_TRUE(maybe_bool)
 
-XOR
----
+    Macro to check if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`.
 
-Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool` value
-is :c:`true`, but not both.
+    :param maybe_bool: :c:`CcMaybeBoolEnum` value.
+    :returns: :c:`bool` value.
 
-.. code-block:: C
-    :force:
+.. c:macro:: CC_MAYBE_IS_FALSE(maybe_bool)
 
-    #define CC_XOR(bool_1,bool_2) /* Both bool_1, bool_2 are converted to Boolean values. Returns either 1 (true) or 0 (false). */
+    Macro to check if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`.
 
-.. note::
+    :param maybe_bool: :c:`CcMaybeBoolEnum` value.
+    :returns: :c:`bool` value.
 
-    In case of integer(s), one has to be non-zero, while the other has to be zero,
-    for :c:`XOR` to return :c:`true`. Arguments are converted to :c:`bool`\s (so,
-    non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
+.. c:macro:: CC_MAYBE_IS_VOID(maybe_bool)
 
-.. seealso::
+    Macro to check if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`.
 
-    `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
-    `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
+    :param maybe_bool: :c:`CcMaybeBoolEnum` value.
+    :returns: :c:`bool` value.
+
+.. c:macro:: CC_XOR(to_bool_1,to_bool_2)
+
+    Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool`
+    value is :c:`true`, but not both.
+
+    :param to_bool_1: Value coerced to :c:`bool`.
+    :param to_bool_2: Value coerced to :c:`bool`.
+    :returns: :c:`bool` value.
+
+    .. note::
+
+        In case of integer(s), one has to be non-zero, while the other has to be zero,
+        for :c:expr:`CC_XOR` to return :c:`true`. Arguments are converted to :c:`bool`\s
+        (so, non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
+
+    .. seealso::
+
+        `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
+        `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
+
 
 .. _lbl-libcc-ccdefines-coordinatesizeconstants:
 

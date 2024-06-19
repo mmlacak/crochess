@@ -77,8 +77,8 @@ typedef enum CcMaybeBoolEnum {
 /**
     Macro to evaluate logical XOR.
 
-    @param bool_1 A boolean expression, can be integer.
-    @param bool_2 Another boolean expression, can be integer.
+    @param to_bool_1 A boolean expression, can be integer.
+    @param to_bool_2 Another boolean expression, can be integer.
 
     @note
     In case of integer(s), one has to be non-zero, while the other has to be zero, for `XOR` to return `true`.
@@ -90,7 +90,7 @@ typedef enum CcMaybeBoolEnum {
 
     @return Logical XOR between arguments.
 */
-#define CC_XOR(bool_1,bool_2) ( ((bool)(bool_1)) != ((bool)(bool_2)) )
+#define CC_XOR(to_bool_1,to_bool_2) ( ((bool)(to_bool_1)) != ((bool)(to_bool_2)) )
 
 /**
     Smallest, invalid off-board coordinate.
