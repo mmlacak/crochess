@@ -293,3 +293,141 @@ One variant. For other variants actual upper limit is smaller.
     :param board_size: Chessboard size, cast to :c:`int`.
     :param rank: Rank, position along vertical axis; cast to :c:`int`.
     :returns: :c:`1` if on dark side, :c:`0` otherwise.
+
+.. c:macro:: CC_MIN(x,y)
+
+    Macro to inline comparing, producing smaller value of the two given.
+
+    .. note::
+        Given values are not cast. Depending on their type(s), this might
+        lead to undefined behavior (e.g. if not comparable pointers).
+
+    .. seealso::
+        `<https://en.cppreference.com/w/c/language/operator_comparison>`_
+
+    :param x: A number, value is not cast.
+    :param y: Other number, value is not cast.
+    :returns: Smaller value of the two given.
+
+.. c:macro:: CC_MAX(x,y)
+
+    Macro to inline comparing, producing larger value of the two given.
+
+    .. note::
+        Given values are not cast. Depending on their type(s), this might
+        lead to undefined behavior (e.g. if not comparable pointers).
+
+    .. seealso::
+        `<https://en.cppreference.com/w/c/language/operator_comparison>`_
+
+    :param x: A number, value is not cast.
+    :param y: Other number, value is not cast.
+    :returns: Larger value of the two given.
+
+.. c:macro:: CC_SIGN(i)
+
+    Macro to inline sign function.
+
+    Sign of a number is defined as :c:`1` for positive numbers,
+    :c:`-1` for negative numbers, :c:`0` otherwise.
+
+    :param i: A number, value is not cast.
+    :returns: Larger value of the two given.
+
+.. c:macro:: CC_FREE(ptr)
+
+    Macro to call :c:expr:`free()`, given pointer is casted to :c:`void *`.
+
+    :param ptr: Any pointer to allocated storage.
+    :returns: Nothing.
+
+.. c:macro:: CC_FREE_AND_NULL(ptr_ptr)
+
+    Macro to call :c:expr:`free()`, inner pointer is casted to :c:`void *`
+    before the call, then set to :c:`NULL`.
+
+    :param ptr_ptr: A pointer to pointer to allocated storage.
+    :returns: Nothing.
+
+.. c:macro:: CC_DEFAULT_ENTITY_STRING
+
+    Default entity string, equals to :c:`"<default>"`.
+
+    It is used as default value when function has to return string value,
+    usually based on some enum, e.g. a piece label.
+
+    .. seealso::
+        :c:`cc_piece_label() /* TODO .. x-ref back */`
+
+    .. TODO .. , see `cc_piece_label()`.
+        .. seealso::
+            , see `cc_piece_label()`.
+
+.. c:macro:: CC_REWIND(ptr_var_queue)
+
+    Macro to rewind queue pointer to its first item.
+
+    .. warning::
+
+        Pointer to queue :c:`ptr_var_queue` must be valid pointer, i.e. *must* not be :c:`NULL`.
+
+    .. warning::
+
+        Pointer to queue :c:`ptr_var_queue` must be valid variable, not expression.
+
+    .. warning::
+
+        Queue :c:`struct`` must have :c:`prev` member, which points to previous item in that queue.
+
+    :param ptr_var_queue: A queue pointer variable.
+    :returns: Nothing.
+
+.. c:macro:: CC_FASTFORWARD(ptr_var_lst)
+
+    Macro to fast-forward list pointer to its last item.
+
+    .. warning::
+
+        Pointer to list :c:`ptr_var_lst` must be valid pointer, i.e. *must* not be :c:`NULL`.
+
+    .. warning::
+
+        Pointer to list :c:`ptr_var_lst` must be valid variable, not expression.
+
+    .. warning::
+
+        List :c:`struct`` must have :c:`next` member, which points to next item in that list.
+
+    :param ptr_var_lst: A list pointer variable.
+    :returns: Nothing.
+
+.. c:macro:: CC_REWIND_BY(ptr_var_seq,ptr_item)
+
+    Macro to rewind sequence pointer by one of its members.
+
+    .. warning::
+
+        Pointer to sequence :c:`ptr_var_seq` must be valid pointer, i.e. *must* not be :c:`NULL`.
+
+    .. warning::
+
+        Pointer to sequence :c:`ptr_var_seq` must be valid variable, not expression.
+
+    :param ptr_var_seq: A sequence pointer variable.
+    :param ptr_item: Pointer, member to iterate over.
+    :returns: Nothing.
+
+.. c:macro:: CC_PRINTF_IF_INFO(fmt,...)
+
+    Macro to call :c:`printf()`, depending on a compile-time constant.
+
+    Compile-time constant which controls definition of this macro is :c:`__CC_STR_PRINT_INFO__`.
+
+    .. seealso::
+
+        `<https://en.cppreference.com/w/c/io/fprintf>`_
+
+    :param fmt: Formatting string.
+    :param ...: Variadic parameters, as used by :c:`printf()`.
+    :returns: The same as :c:`printf()`, i.e. an :c:`int` value.
+              Number of :c:`char`\s printed, an error code if negative.

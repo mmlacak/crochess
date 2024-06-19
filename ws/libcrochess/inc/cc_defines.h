@@ -427,54 +427,55 @@ typedef enum CcMaybeBoolEnum {
 /**
     Macro to rewind queue pointer to its first item.
 
-    @param ptr_queue Pointer, queue.
+    @param ptr_var_queue Pointer, queue.
 
     @warning
-    Pointer to queue `ptr_queue` must be valid (non-`NULL` pointer).
+    Pointer to queue `ptr_var_queue` must be valid (non-`NULL` pointer).
 
     @warning
-    Pointer to queue `ptr_queue` must be valid variable, not expression.
+    Pointer to queue `ptr_var_queue` must be valid variable, not expression.
 
     @warning
     Queue struct must have `prev` member, which points to previous item in that queue.
 
     @return Nothing.
 */
-#define CC_REWIND(ptr_queue) { while ( (ptr_queue)->prev ) (ptr_queue) = (ptr_queue)->prev; }
+// TODO :: RENAME ->prev into ->prev__w everywhere
+#define CC_REWIND(ptr_var_queue) { while ( (ptr_var_queue)->prev ) (ptr_var_queue) = (ptr_var_queue)->prev; }
 
 /**
     Macro to fast-forward list pointer to its last item.
 
-    @param ptr_lst Pointer, list.
+    @param ptr_var_lst Pointer, list.
 
     @warning
-    Pointer to list `ptr_lst` must be valid (non-`NULL` pointer).
+    Pointer to list `ptr_var_lst` must be valid (non-`NULL` pointer).
 
     @warning
-    Pointer to list `ptr_lst` must be valid variable, not expression.
+    Pointer to list `ptr_var_lst` must be valid variable, not expression.
 
     @warning
     List struct must have `next` member, which points to next item in that list.
 
     @return Nothing.
 */
-#define CC_FASTFORWARD(ptr_lst) { while ( (ptr_lst)->next ) (ptr_lst) = (ptr_lst)->next; }
+#define CC_FASTFORWARD(ptr_var_lst) { while ( (ptr_var_lst)->next ) (ptr_var_lst) = (ptr_var_lst)->next; }
 
 /**
     Macro to rewind sequence pointer by one of its members.
 
-    @param ptr_seq Pointer, sequence.
+    @param ptr_var_seq Pointer, sequence.
     @param ptr_item Pointer, member to iterate over.
 
     @warning
-    Pointer to sequence `ptr_seq` must be valid (non-`NULL` pointer).
+    Pointer to sequence `ptr_var_seq` must be valid (non-`NULL` pointer).
 
     @warning
-    Pointer to sequence `ptr_seq` must be valid variable, not expression.
+    Pointer to sequence `ptr_var_seq` must be valid variable, not expression.
 
     @return Nothing.
 */
-#define CC_REWIND_BY(ptr_seq,ptr_item) { while ( (ptr_item) ) (ptr_seq) = (ptr_item); }
+#define CC_REWIND_BY(ptr_var_seq,ptr_item) { while ( (ptr_item) ) (ptr_var_seq) = (ptr_item); }
 
 /**
     Macro to call `printf()`, depending on a compile-time constant.
