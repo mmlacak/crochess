@@ -26,10 +26,17 @@ Convenience types.
     or uninitialized, or has to differentiate when both :c:`true` and
     :c:`false` are valid data.
 
-    .. c:enumerator::
-        CC_MBE_Void
-        CC_MBE_False
-        CC_MBE_True
+    .. c:enumerator:: CC_MBE_Void
+
+        Void (undefined, uninitialized, or error) value; equals to :c:`-1`.
+
+    .. c:enumerator:: CC_MBE_False
+
+        Boolean :c:`false` value; equals to :c:`0`.
+
+    .. c:enumerator:: CC_MBE_True
+
+        Boolean :c:`true` value; equals to :c:`1`.
 
 Macros to convert from and into :c:`bool` value.
 
