@@ -151,17 +151,23 @@ One variant. For other variants actual upper limit is smaller.
     :param byte_file: Rank, position along vertical axis, numerical value.
     :returns: File character if argument within range, undefined behavior otherwise.
 
+.. c:macro:: CC_CONVERT_FILE_CHAR_INTO_NUM(char_file)
+
+    Macro to convert char into numerical file value.
+
+    .. warning::
+
+        Value of :c:`char_file` is expected to be in a range of [:c:`'a'`, :c:`'z'`],
+        undefined behavior if it's not.
+
+    :param char_file: Rank, position along vertical axis, char value.
+    :returns: File number if argument within range, undefined behavior otherwise.
 
 
 .. _lbl-libcc-ccdefines-coordinateconversion:
 
 Coordinate conversion
 ---------------------
-
-.. code-block:: C
-    :force:
-
-    #define CC_CONVERT_FILE_CHAR_INTO_NUM(char_file)
 
 .. code-block:: C
     :force:
