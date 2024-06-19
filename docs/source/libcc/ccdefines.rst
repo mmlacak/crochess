@@ -76,8 +76,8 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
     Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool`
     value is :c:`true`, but not both.
 
-    :param to_bool_1: Value coerced to :c:`bool`.
-    :param to_bool_2: Value coerced to :c:`bool`.
+    :param to_bool_1: Value cast to :c:`bool`.
+    :param to_bool_2: Value cast to :c:`bool`.
     :returns: :c:`bool` value.
 
     .. note::
@@ -219,3 +219,77 @@ One variant. For other variants actual upper limit is smaller.
     :param fc: Field color, either :c:expr:`CC_FIELD_COLOR_LIGHT`
         or :c:expr:`CC_FIELD_COLOR_DARK`.
     :returns: :c:`1` if field is in given color, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_BOARD_SIZE_VALID(board_size)
+
+    Macro to check if a given board size is valid,
+    i.e. between :c:expr:`CC_MIN_BOARD_SIZE` and :c:expr:`CC_MAX_BOARD_SIZE`.
+
+    :param board_size: Chessboard size, integer value; cast to :c:`int`.
+    :returns: :c:`1` if valid board size, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_COORD_ON_BOARD(board_size,coord)
+
+    Macro to check if a given coordinate is on board, i.e. larger than (or equal
+    to) :c:expr:`CC_MIN_BOARD_COORD` and smaller than :c:`board_size`.
+
+    .. note::
+
+        This macro does not check if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param coord: Coordinate, cast to :c:`int`.
+    :returns: :c:`1` if on board, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_COORD_ON_VALID_BOARD(board_size,coord)
+
+    Macro to check if a given coordinate is on board, i.e. larger than (or equal
+    to) :c:expr:`CC_MIN_BOARD_COORD` and smaller than :c:`board_size`.
+
+    This macro checks if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param coord: Coordinate, cast to :c:`int`.
+    :returns: :c:`1` if on board, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_POS_ON_BOARD(board_size,i,j)
+
+    Macro to check if a given position is on board.
+
+    This macro checks if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param i: File, position along horizontal axis; cast to :c:`int`.
+    :param j: Rank, position along vertical axis; cast to :c:`int`.
+    :returns: :c:`1` if on board, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)
+
+    Macro to check if a given disambiguation (i.e. partial position) is on board.
+
+    This macro checks if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param i: File, position along horizontal axis; cast to :c:`int`.
+    :param j: Rank, position along vertical axis; cast to :c:`int`.
+    :returns: :c:`1` if at least one coordinate is on board, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank)
+
+    Macro to check if a given position is on a light side of a chessboard.
+
+    This macro checks if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param rank: Rank, position along vertical axis; cast to :c:`int`.
+    :returns: :c:`1` if on light side, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_FIELD_ON_DARK_SIDE(board_size,rank)
+
+    Macro to check if a given position is on a dark side of a chessboard.
+
+    This macro checks if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param rank: Rank, position along vertical axis; cast to :c:`int`.
+    :returns: :c:`1` if on dark side, :c:`0` otherwise.
