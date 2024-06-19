@@ -489,10 +489,10 @@ char * cc_str_append_free__new( char ** str_1__f,
     if ( !str__a ) return NULL;
 
     if ( str_1__f )
-        CC_FREE_NULL( str_1__f );
+        CC_FREE_AND_NULL( str_1__f );
 
     if ( str_2__f )
-        CC_FREE_NULL( str_2__f );
+        CC_FREE_AND_NULL( str_2__f );
 
     return str__a;
 }

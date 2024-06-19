@@ -102,7 +102,7 @@ bool cc_game_free_all( CcGame ** game__f ) {
     CcParsedMove ** mv__a = &( ( *game__f )->moves );
     result = cc_parsed_move_free_all( mv__a ) && result;
 
-    CC_FREE_NULL( game__f );
+    CC_FREE_AND_NULL( game__f );
 
     return result;
 }

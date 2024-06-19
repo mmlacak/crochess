@@ -417,7 +417,7 @@ typedef enum CcMaybeBoolEnum {
 
     @return Nothing.
 */
-#define CC_FREE_NULL(ptr_ptr) {         \
+#define CC_FREE_AND_NULL(ptr_ptr) {     \
     free( (void *)( *(ptr_ptr) ) );     \
     *(ptr_ptr) = NULL;                  \
 }

@@ -135,7 +135,7 @@ bool cc_chessboard_free_all( CcChessboard ** cb__f ) {
     if ( !cb__f ) return false;
     if ( !*cb__f ) return true;
 
-    CC_FREE_NULL( cb__f );
+    CC_FREE_AND_NULL( cb__f );
     return true;
 }
 
