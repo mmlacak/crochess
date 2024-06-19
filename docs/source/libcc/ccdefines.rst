@@ -139,27 +139,24 @@ One variant. For other variants actual upper limit is smaller.
     Light and dark field check constants are used when checking if colors
     of a piece and field are the same, or different.
 
+.. c:macro:: CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file)
+
+    Macro to convert numerical file value into char.
+
+    .. warning::
+
+        Value of :c:`byte_file` is expected to be in a range of [:c:`0`, :c:`25`],
+        undefined behavior if it's not.
+
+    :param byte_file: Rank, position along vertical axis, numerical value.
+    :returns: File character if argument within range, undefined behavior otherwise.
+
 
 
 .. _lbl-libcc-ccdefines-coordinateconversion:
 
 Coordinate conversion
 ---------------------
-
-Macro to convert numerical file value into char.
-
-@param byte_file Rank, position along vertical axis, numerical value.
-
-@warning
-Value of `byte_file` is expected to be in a range of [0, 25],
-undefined behavior if it's not.
-
-@return File character if argument within range, undefined behavior otherwise.
-
-.. code-block:: C
-    :force:
-
-    #define CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file)
 
 .. code-block:: C
     :force:
