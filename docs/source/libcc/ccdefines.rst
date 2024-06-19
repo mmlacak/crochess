@@ -163,13 +163,17 @@ One variant. For other variants actual upper limit is smaller.
     :param char_file: Rank, position along vertical axis, char value.
     :returns: File number if argument within range, undefined behavior otherwise.
 
+.. c:macro:: CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank)
 
-.. _lbl-libcc-ccdefines-coordinateconversion:
+    Macro to convert string into numerical rank value, using :c:`atoi()` function.
 
-Coordinate conversion
----------------------
+    .. warning::
 
-.. code-block:: C
-    :force:
+        Given string must be zero-terminated, undefined behavior otherwise.
 
-    #define CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank)
+    .. seealso::
+
+        `<https://en.cppreference.com/w/c/string/byte/atoi>`_
+
+    :param char_ptr_rank: Rank, position along vertical axis, string pointer value, i.e. :c:expr:`char const *`.
+    :returns: Rank number if successful, undefined behavior otherwise.
