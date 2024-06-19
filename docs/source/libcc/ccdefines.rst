@@ -28,9 +28,8 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
 
 .. c:enum:: CcMaybeBoolEnum
 
-    Maybe bool enum represents :c:`bool` values, which may undefined
-    or uninitialized, or has to differentiate when both :c:`true` and
-    :c:`false` are valid data.
+    Maybe bool enum represents :c:`bool` values, which may be undefined,
+    uninitialized, or error value.
 
     .. c:enumerator:: CC_MBE_Void
 
@@ -177,3 +176,46 @@ One variant. For other variants actual upper limit is smaller.
 
     :param char_ptr_rank: Rank, position along vertical axis, string pointer value, i.e. :c:expr:`char const *`.
     :returns: Rank number if successful, undefined behavior otherwise.
+
+.. c:macro:: CC_IS_COORD_VALID(coord)
+
+    Macro to check if a given coordinate is valid, i.e. different than
+    :c:expr:`CC_INVALID_COORD`.
+
+    :param coord: Coordinate; integer value.
+    :returns: :c:`1` if valid, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_COORD_2_VALID(i,j)
+
+    Macro to check if a given position is valid, i.e. if given coordinates are
+    different than :c:expr:`CC_INVALID_COORD`.
+
+    :param i: File, position along horizontal axis; integer value.
+    :param j: Rank, position along vertical axis; integer value.
+    :returns: :c:`1` if valid, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_FIELD_LIGHT(i,j)
+
+    Macro to check if a given position is light.
+
+    :param i: File, position along horizontal axis; integer value.
+    :param j: Rank, position along vertical axis; integer value.
+    :returns: :c:`1` if light, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_FIELD_DARK(i,j)
+
+    Macro to check if a given position is dark.
+
+    :param i: File, position along horizontal axis; integer value.
+    :param j: Rank, position along vertical axis; integer value.
+    :returns: :c:`1` if dark, :c:`0` otherwise.
+
+.. c:macro:: CC_IS_FIELD_COLOR(i,j,fc)
+
+    Macro to check if a given field is light or dark.
+
+    :param i: File, position along horizontal axis; integer value.
+    :param j: Rank, position along vertical axis; integer value.
+    :param fc: Field color, either :c:expr:`CC_FIELD_COLOR_LIGHT`
+        or :c:expr:`CC_FIELD_COLOR_DARK`.
+    :returns: :c:`1` if field is in given color, :c:`0` otherwise.
