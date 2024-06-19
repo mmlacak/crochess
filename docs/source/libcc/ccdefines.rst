@@ -10,15 +10,21 @@ Defines
 
 Documents ``cc_defines.h`` file, which contains constants and macros used throughout project.
 
-Convenience types.
-
 .. c:type:: unsigned char uchar
+
+    Convenience type.
+
 .. c:type:: unsigned short ushort
+
+    Convenience type.
+
 .. c:type:: unsigned int uint
+
+    Convenience type.
 
 .. c:macro:: CC_UNSIGNED_MIN
 
-    Constant representing minimum value for all :c:`unsigned` types.
+    Constant, minimum value for all :c:`unsigned` types; equals to :c:`0`.
 
 .. c:enum:: CcMaybeBoolEnum
 
@@ -37,8 +43,6 @@ Convenience types.
     .. c:enumerator:: CC_MBE_True
 
         Boolean :c:`true` value; equals to :c:`1`.
-
-Macros to convert from and into :c:`bool` value.
 
 .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 
@@ -88,50 +92,54 @@ Macros to convert from and into :c:`bool` value.
         `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
         `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
 
+.. c:macro:: CC_INVALID_COORD
 
-.. _lbl-libcc-ccdefines-coordinatesizeconstants:
+    Constant, invalid off-board coordinate; equals to :c:expr:`INT_MIN + 3583`,
+    so that value can't be had by accident, e.g. by simply flipping bits.
 
-Coordinate, size constants
---------------------------
+    No valid trance- or any other journey off-board starting from any field could
+    get to this coordinate, and make it back to chessboard.
 
-Invalid, off-board coordinate.
+    Used for initializing variables, missing coordinates in disambiguations, etc.
 
-No valid trance-journey starting from any chessboard field could get to this coordinate,
-and still make it back to any on-board field.
+.. c:macro:: CC_MIN_BOARD_COORD
 
-Used for e.g. missing coordinates.
+    The smallest valid on-board coordinate; equals to :c:`0`.
 
-.. code-block:: C
-    :force:
+.. c:macro:: CC_MAX_BOARD_COORD
 
-    #define CC_INVALID_COORD (INT_MIN + 3583) // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
+    The largest valid on-board coordinate; equals to :c:`25`.
 
-The smallest and the largest valid on-board coordinate, and board sizes.
+.. c:macro:: CC_MIN_BOARD_SIZE
 
-The largest valid coordinate, board size is for the largest board, used by One
-variant. For other variants actual upper limit is smaller.
+    The smallest valid board size, used by Classic Chess; equals to :c:`8`.
 
-.. TODO
-    .. sealso::
+.. c:macro:: CC_MAX_BOARD_SIZE
+
+    The largest valid board size; equals to :c:`26`.
+
+The largest valid coordinate and board size are for the largest board, used by
+One variant. For other variants actual upper limit is smaller.
+
+.. seealso::
+    :c:`cc_variant_board_size() /* TODO .. x-ref back */`
+
+.. TODO .. , see `cc_variant_board_size()`.
+    .. seealso::
         , see `cc_variant_board_size()`.
 
-.. code-block:: C
-    :force:
+.. c:macro:: CC_FIELD_COLOR_LIGHT
 
-    #define CC_MIN_BOARD_COORD (0)
-    #define CC_MAX_BOARD_COORD (25)
+    Light field check constant; equals to :c:`1`.
 
-    #define CC_MIN_BOARD_SIZE (8)
-    #define CC_MAX_BOARD_SIZE (26)
+.. c:macro:: CC_FIELD_COLOR_DARK
 
-Light and dark field check constant. Used when checking if colors of a piece and
-field are the same, or different.
+    Dark field check constant; equals to :c:`0`.
 
-.. code-block:: C
-    :force:
+    Light and dark field check constants are used when checking if colors
+    of a piece and field are the same, or different.
 
-    #define CC_FIELD_COLOR_LIGHT (1)
-    #define CC_FIELD_COLOR_DARK (0)
+
 
 .. _lbl-libcc-ccdefines-coordinateconversion:
 
