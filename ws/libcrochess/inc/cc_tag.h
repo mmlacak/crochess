@@ -115,9 +115,9 @@
 
     @return `true` if lasting tag, `false` otherwise.
 */
-#define CC_TAG_IS_LASTING(te) ( ( (te) == (int)CC_TE_CanRush )               \
-                             || ( (te) == (int)CC_TE_CanCastle )             \
-                             || ( (te) == (int)CC_TE_DelayedPromotion ) )
+#define CC_TAG_IS_PERSISTENT(te) ( ( (te) == (int)CC_TE_CanRush )               \
+                                || ( (te) == (int)CC_TE_CanCastle )             \
+                                || ( (te) == (int)CC_TE_DelayedPromotion ) )
 
 /**
     Macro expression to evaluate whether given tag is temporarily,
@@ -129,20 +129,8 @@
 
     @return `true` if temporarily tag, `false` otherwise.
 */
-#define CC_TAG_IS_TEMPORARILY(te) ( ( (te) == (int)CC_TE_EnPassant )         \
-                                 || ( (te) == (int)CC_TE_PawnSacrifice ) )
-
-/**
-    Macro expression to check if given tag is none, or can be lost,
-    i.e. lasts at least a single move.
-
-    @param te Tag enum, i.e. one of `CcTagEnum`, `CcLosingTagEnum` values.
-
-    @see CcTagEnum, CcLosingTagEnum
-
-    @return `true` if tag can be lost, or is `CC_TE_None`; `false` otherwise.
-*/
-#define CC_TAG_CAN_BE_LOST(te) CC_TAG_IS_LASTING((te))
+#define CC_TAG_IS_TEMPORARY(te) ( ( (te) == (int)CC_TE_EnPassant )         \
+                               || ( (te) == (int)CC_TE_PawnSacrifice ) )
 
 
 #define CC_TAG_CHAR_NONE ' '
