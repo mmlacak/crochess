@@ -154,3 +154,44 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
 
         Pawn was sacrificed. Non-persistent :term:`tag`, equals to :c:`5`.
         Gained in a move, used or lost in the very same move.
+
+.. c:function:: char cc_tag_as_char( CcTagEnum ct )
+
+    Function returning :term:`tag` char, based on tag enum.
+
+    :param ct: :c:expr:`CcTagEnum` value.
+    :returns: Tag char, one of :c:`CC_TAG_CHAR_*` constants.
+
+.. c:function:: CcTagEnum cc_tag_from_char( char c )
+
+    Function returning :term:`tag` enum, based on :term:`tag` char.
+
+    :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
+    :returns: :c:expr:`CcTagEnum` value if valid :term:`tag` character was given,
+              :c:`CC_TE_None` otherwise.
+
+.. c:enum:: CcLosingTagEnum
+
+    Enumerates only :term:`tag`\s that can be lost, used in all variants.
+
+    Values enumerated in losing tag are the same as in ordinary tag.
+    So, conversion between tags changes just type, not value.
+
+    When converting from ordinary tag enum, `CC_LTE_None` is used for
+    all values not enumerated here.
+
+    .. c:enumerator:: CC_LTE_None
+
+        No :term:`tag` was lost, equals to :c:`0`.
+
+    .. c:enumerator:: CC_LTE_CanRush
+
+        Pawn lost ability to rush, equals to :c:`1`.
+
+    .. c:enumerator:: CC_LTE_CanCastle
+
+        Rook or King lost ability to castle, equals to :c:`2`.
+
+    .. c:enumerator:: CC_LTE_DelayedPromotion
+
+        Pawn lost delayed promotion :term:`tag`, equals to :c:`3`.
