@@ -45,30 +45,30 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
 
 .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 
-    Macro to convert :c:`bool` value into :c:`CcMaybeBoolEnum`.
+    Macro to convert :c:`bool` value into :c:expr:`CcMaybeBoolEnum`.
 
     :param bool_val: Boolean value.
     :returns: `CcMaybeBoolEnum` value.
 
 .. c:macro:: CC_MAYBE_IS_TRUE(maybe_bool)
 
-    Macro to check if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`.
+    Macro to check if :c:expr:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`.
 
-    :param maybe_bool: :c:`CcMaybeBoolEnum` value.
+    :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_MAYBE_IS_FALSE(maybe_bool)
 
-    Macro to check if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`.
+    Macro to check if :c:expr:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`.
 
-    :param maybe_bool: :c:`CcMaybeBoolEnum` value.
+    :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_MAYBE_IS_VOID(maybe_bool)
 
-    Macro to check if :c:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`.
+    Macro to check if :c:expr:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`.
 
-    :param maybe_bool: :c:`CcMaybeBoolEnum` value.
+    :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_XOR(to_bool_1,to_bool_2)
@@ -377,7 +377,7 @@ One variant. For other variants actual upper limit is smaller.
 
     .. warning::
 
-        Queue :c:`struct`` must have :c:`prev` member, which points to previous item in that queue.
+        Queue :c:`struct` must have :c:`prev` member, which points to previous item in that queue.
 
     :param ptr_var_queue: A queue pointer variable.
     :returns: Nothing.
@@ -396,7 +396,7 @@ One variant. For other variants actual upper limit is smaller.
 
     .. warning::
 
-        List :c:`struct`` must have :c:`next` member, which points to next item in that list.
+        List :c:`struct` must have :c:`next` member, which points to next item in that list.
 
     :param ptr_var_lst: A list pointer variable.
     :returns: Nothing.
