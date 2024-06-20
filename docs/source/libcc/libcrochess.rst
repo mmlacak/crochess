@@ -48,6 +48,7 @@ other application, or server can take over networking.
     organization
 
     ccdefines
+    cctags
 
 .. _lbl-libcc-libcrochess-library-footnotes:
 

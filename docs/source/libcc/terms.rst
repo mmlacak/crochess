@@ -1,6 +1,8 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
+.. include:: ../defines.rst
+
 .. _lbl-libcc-terms-abbreviations:
 
 Terms, abbreviations
@@ -45,3 +47,7 @@ Glossary
     method
         Function which operates primarily on one entity, defined in the same
         module as said entity.
+
+    tag
+        Tag is a (usually, delayed) opportunity link between a piece and a
+        field at which it stands.
