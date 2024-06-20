@@ -26,9 +26,16 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
     :param te2: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
+.. c:macro:: CC_TAG_IS_NONE(te)
+
+    Macro to check if given :term:`tag` is :c:expr:`CC_TE_None`.
+
+    :param te: :c:expr:`CcTagEnum` value.
+    :returns: :c:`bool` value.
+
 .. c:macro:: CC_TAG_EXISTS(te)
 
-    Macro to check if given :term:`tag` is valid, i.e. it's not :c:expr:`CC_TE_None`.
+    Macro to check if given :term:`tag` is valid, and not :c:expr:`CC_TE_None`.
 
     :param te: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
