@@ -84,10 +84,38 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
     :param te: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
+.. topic:: Tag character macro constants
 
+    All :c:`CC_TAG_CHAR_*` macro constants are used to render tag board
+    on a console.
 
+    .. c:macro:: CC_TAG_CHAR_NONE
 
+        Equals to :c:`' '`.
 
+    .. c:macro:: CC_TAG_CHAR_INVALID
+
+        Equals to :c:`'?'`.
+
+    .. c:macro:: CC_TAG_CHAR_CAN_RUSH
+
+        Equals to :c:`'R'`.
+
+    .. c:macro:: CC_TAG_CHAR_CAN_CASTLE
+
+        Equals to :c:`'C'`.
+
+    .. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
+
+        Equals to :c:`'P'`.
+
+    .. c:macro:: CC_TAG_CHAR_EN_PASSANT
+
+        Equals to :c:`'E'`.
+
+    .. c:macro:: CC_TAG_CHAR_PAWN_SACRIFICE
+
+        Equals to :c:`'S'`.
 
 .. c:enum:: CcTagEnum
 
