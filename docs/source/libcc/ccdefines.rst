@@ -336,14 +336,14 @@ One variant. For other variants actual upper limit is smaller.
 
 .. c:macro:: CC_FREE(ptr)
 
-    Macro to call :c:expr:`free()`, given pointer is casted to :c:`void *`.
+    Macro to call :c:`free()`, given pointer is casted to :c:`void *`.
 
     :param ptr: Any pointer to allocated storage.
     :returns: Nothing.
 
 .. c:macro:: CC_FREE_AND_NULL(ptr_ptr)
 
-    Macro to call :c:expr:`free()`, inner pointer is casted to :c:`void *`
+    Macro to call :c:`free()`, inner pointer is casted to :c:`void *`
     before the call, then set to :c:`NULL`.
 
     :param ptr_ptr: A pointer to pointer to allocated storage.
