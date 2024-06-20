@@ -536,12 +536,12 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
 /**
     Invalid position descriptor value.
 */
-#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID, .momentum = 0 }
+#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0 }
 
 /**
     Static position descriptor value, i.e. no-movement step.
 */
-#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PIECE_INVALID, .tag = CC_TAG_INVALID, .momentum = 0 }
+#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0 }
 
 /**
     Position descriptor; holding a position, and a piece and a tag found at it.

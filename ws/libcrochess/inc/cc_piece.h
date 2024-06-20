@@ -773,13 +773,6 @@ typedef enum CcPieceEnum {
 
 
 /**
-    Macro definition for invalid piece value.
-
-    @see CcPieceEnum
-*/
-#define CC_PIECE_INVALID (CC_PE_DimStar-1) // Keep in-sync with CcPieceEnum!
-
-/**
     Function interface, i.e. function pointer type.
 
     @param pe Piece enum item.

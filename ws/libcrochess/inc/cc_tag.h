@@ -40,6 +40,8 @@
 */
 #define CC_TAG_IS_EQUAL(te1,te2) ( (te1) == (te2) )
 
+#define CC_TAG_IS_NONE(te) ( (te) == (int)CC_TE_None )
+
 /**
     Macro expression to evaluate whether given tag is valid (i.e. not None).
 
@@ -49,7 +51,7 @@
 
     @return `true` if valid tag, `false` otherwise.
 */
-#define CC_TAG_EXISTS(te) ( (te) != (int)CC_TE_None )
+#define CC_TAG_EXISTS(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_PawnSacrifice ) )
 
 /**
     Macro expression to evaluate whether given tag is denoting "can rush" ability.
@@ -160,13 +162,6 @@ typedef enum CcTagEnum {
 
     CC_TE_PawnSacrifice = 5, /**< Pawn sacrifice tag, non-persistent. Gained in a move, used or lost in the very same move. */
 } CcTagEnum;
-
-/**
-    Macro definition for invalid tag value.
-
-    @see CcTagEnum
-*/
-#define CC_TAG_INVALID (CC_TE_None-1) // Keep in-sync with CcTagEnum!
 
 
 /**
