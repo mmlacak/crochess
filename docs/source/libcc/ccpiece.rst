@@ -382,3 +382,64 @@ Piece features
     :param pe: :c:expr:`CcPieceEnum` value.
     :returns: :c:`true` if piece changes its direction after each step,
               :c:`false` otherwise.
+
+Piece types
+-----------
+
+Light pieces belong to light player, dark pieces to dark player.
+
+Dim, bright, and pieces with no color designation (i.e. Stars,
+Monoliths) do not belong to any player.
+
+.. c:enum:: CcPieceEnum
+
+    Enumerates all pieces, used in all variants.
+
+    .. c:enumerator:: CC_PE_DimStar
+
+        Equals to :c:`-17`.
+
+    .. c:enumerator:: CC_PE_DarkStarchild
+    .. c:enumerator:: CC_PE_DarkShaman
+    .. c:enumerator:: CC_PE_DarkSerpent
+    .. c:enumerator:: CC_PE_DarkGrenadier
+    .. c:enumerator:: CC_PE_DarkScout
+    .. c:enumerator:: CC_PE_DarkCentaur
+    .. c:enumerator:: CC_PE_DarkWave
+    .. c:enumerator:: CC_PE_DarkUnicorn
+    .. c:enumerator:: CC_PE_DarkPyramid
+    .. c:enumerator:: CC_PE_DarkPegasus
+    .. c:enumerator:: CC_PE_DarkKing
+    .. c:enumerator:: CC_PE_DarkQueen
+    .. c:enumerator:: CC_PE_DarkRook
+    .. c:enumerator:: CC_PE_DarkBishop
+    .. c:enumerator:: CC_PE_DarkKnight
+    .. c:enumerator:: CC_PE_DarkPawn
+
+    .. c:enumerator:: CC_TE_None
+
+        No piece present, equals to :c:`0`.
+        Used for e.g. empty on-board fields, any off-board field.
+
+    .. c:enumerator:: CC_PE_LightPawn
+    .. c:enumerator:: CC_PE_LightKnight
+    .. c:enumerator:: CC_PE_LightBishop
+    .. c:enumerator:: CC_PE_LightRook
+    .. c:enumerator:: CC_PE_LightQueen
+    .. c:enumerator:: CC_PE_LightKing
+    .. c:enumerator:: CC_PE_LightPegasus
+    .. c:enumerator:: CC_PE_LightPyramid
+    .. c:enumerator:: CC_PE_LightUnicorn
+    .. c:enumerator:: CC_PE_LightWave
+    .. c:enumerator:: CC_PE_LightCentaur
+    .. c:enumerator:: CC_PE_LightScout
+    .. c:enumerator:: CC_PE_LightGrenadier
+    .. c:enumerator:: CC_PE_LightSerpent
+    .. c:enumerator:: CC_PE_LightShaman
+    .. c:enumerator:: CC_PE_LightStarchild
+
+    .. c:enumerator:: CC_PE_BrightStar
+
+        Equals to :c:`17`.
+
+    .. c:enumerator:: CC_PE_Monolith
