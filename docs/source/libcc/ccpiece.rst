@@ -512,3 +512,58 @@ Piece functions
 
     :param piece: A character.
     :returns: Piece enum if valid piece char passed, otherwise :c:`CC_PE_None`.
+
+.. c:function:: char const * cc_piece_label( CcPieceEnum pe )
+
+    Function returns a piece label.
+
+    Piece label is capitalized name of a piece.
+
+    Piece label is the same for dark (dim) and light (bright) pieces.
+
+    For :c:`CC_PE_None` piece, label is empty string.
+
+    All returned strings are zero-terminated.
+
+    .. warning::
+
+        Returned string is not allocated, do not :c:expr:`free()` it.
+
+    :param pe: A piece.
+    :returns: Pointer to string if successful, :c:`CC_DEFAULT_ENTITY_STRING` otherwise.
+
+.. c:function:: char cc_piece_symbol( CcPieceEnum pe )
+
+    Function returns a piece symbol, i.e. an uppercase :c:expr:`char` for chess pieces.
+
+    :param pe: A piece.
+    :returns: A piece symbol if chess piece, space otherwise.
+    :seealso: :c:expr:`cc_piece_as_char()`
+
+.. c:function:: CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe )
+
+    Function returns a Pawn to which given piece can be demoted to,
+    or :c:`CC_PE_None` if piece can't be demoted.
+
+    Dark pieces can be demoted to dark Pawn, similarly light pieces can be
+    demoted to light Pawn.
+
+    Stars, Monoliths (which don't have an owner) cannot be demoted to a Pawn,
+    so :c:`CC_PE_None` is returned instead.
+
+    :param pe: A piece.
+    :returns: Pawn to which given piece can be demoted to, otherwise :c:`CC_PE_None`.
+
+.. c:function:: bool cc_piece_is_dark( CcPieceEnum pe )
+
+    Function checks if given chess piece is dark.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece is dark, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_light( CcPieceEnum pe )
+
+    Function checks if given chess piece is light.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece is light, :c:`false` otherwise.

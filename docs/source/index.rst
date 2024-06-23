@@ -15,7 +15,8 @@ Croatian Chess documentation
 
 Technical documentation for `Croatian Chess project <https://github.com/mmlacak/crochess>`_.
 
-If you just want to read the book, you can use this link: `Croatian Chess and other variants <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_.
+It is recommended that you read the book before diving into documentation, code:
+`Croatian Chess and other variants <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_.
 
 .. _lbl-index-documentation-toctree:
 
