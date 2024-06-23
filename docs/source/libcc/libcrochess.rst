@@ -49,6 +49,7 @@ other application, or server can take over networking.
 
     ccdefines
     cctags
+    ccpiece
 
 .. _lbl-libcc-libcrochess-library-footnotes:
 
