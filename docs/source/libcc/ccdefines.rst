@@ -212,25 +212,25 @@ Conversions
 
     Macro to convert numerical file value into char.
 
-    .. warning::
+    .. note::
 
         Value of :c:`byte_file` is expected to be in a range of [:c:`0`, :c:`25`],
-        undefined behavior if it's not.
+        undefined result if it's not.
 
     :param byte_file: Rank, position along vertical axis, numerical value.
-    :returns: File character if argument within range, undefined behavior otherwise.
+    :returns: File character if argument within range, undefined result otherwise.
 
 .. c:macro:: CC_CONVERT_FILE_CHAR_INTO_NUM(char_file)
 
     Macro to convert char into numerical file value.
 
-    .. warning::
+    .. note::
 
         Value of :c:`char_file` is expected to be in a range of [:c:`'a'`, :c:`'z'`],
-        undefined behavior if it's not.
+        undefined result if it's not.
 
     :param char_file: Rank, position along vertical axis, char value.
-    :returns: File number if argument within range, undefined behavior otherwise.
+    :returns: File number if argument within range, undefined result otherwise.
 
 .. c:macro:: CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank)
 
