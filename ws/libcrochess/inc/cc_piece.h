@@ -291,7 +291,7 @@
 
     @see CcPieceEnum
 
-    @return `true` if piece is activator, `false` otherwise.
+    @return `true` if piece can activate other piece, `false` otherwise.
 */
 #define CC_PIECE_CAN_ACTIVATE(pe) ( ( (pe) != CC_PE_DimStar )           \
                                  && ( (pe) != CC_PE_None )              \
@@ -351,7 +351,7 @@
 
     @see CcPieceEnum
 
-    @return `true` if piece can capture, `false` otherwise.
+    @return `true` if piece can be captured, `false` otherwise.
 */
 #define CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
                                                || ( (pe) == CC_PE_DarkScout )           \
@@ -405,10 +405,10 @@
 
     @return `true` if piece is weightless, `false` otherwise.
 */
-#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_LightStarchild )   \
-                                  || ( (pe) == CC_PE_DarkStarchild )    \
+#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_DarkStarchild )   \
+                                  || ( (pe) == CC_PE_DarkWave )    \
                                   || ( (pe) == CC_PE_LightWave )        \
-                                  || ( (pe) == CC_PE_DarkWave ) )
+                                  || ( (pe) == CC_PE_LightStarchild ) )
 
 /**
     Macro expression to evaluate whether piece can be activated.
