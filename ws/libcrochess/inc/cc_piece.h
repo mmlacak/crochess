@@ -596,7 +596,7 @@
 
     @see CcPieceEnum
 
-    @return `true` if piece is just semi-transparent, `false` otherwise.
+    @return `true` if piece is semi-opaque, `false` otherwise.
 */
 #define CC_PIECE_IS_SEMI_OPAQUE(pe) ( ( (pe) != CC_PE_Monolith )          \
                                    && ( (pe) != CC_PE_DarkWave )          \
@@ -673,7 +673,7 @@
 
     @see CcPieceEnum, CC_PIECE_IS_ACTIVATOR
 
-    @return `true` if Wave is can be diverged, `false` otherwise.
+    @return `true` if Wave can be diverged, `false` otherwise.
 */
 #define CC_WAVE_CAN_BE_DIVERGED(activator) ( ( (activator) != CC_PE_DarkCentaur )       \
                                           && ( (activator) != CC_PE_DarkSerpent )       \

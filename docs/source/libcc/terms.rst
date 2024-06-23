@@ -51,3 +51,18 @@ Glossary
     tag
         Tag is a (usually, delayed) opportunity link between a piece and a
         field at which it stands.
+
+    cascade
+        Cascade is a move in which two or more pieces has been moved.
+
+    activator
+        Activator is any non-Wave piece in a cascade. Usually, it refers
+        to last such a piece preceding a Wave, from which that Wave
+        inherits movement rules.
+
+    private
+        Private is Pawn, Scout, or Grenadier.
+
+    weightless piece
+        Weightless piece does not spend momentum for its movement.
+        These are Wave and Starchild.
