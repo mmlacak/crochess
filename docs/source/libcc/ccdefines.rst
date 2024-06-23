@@ -378,11 +378,7 @@ Defaults
     usually based on some enum, e.g. a piece label.
 
     .. seealso::
-        :c:`cc_piece_label() /* TODO .. x-ref back */`
-
-    .. TODO .. , see `cc_piece_label()`.
-        .. seealso::
-            , see `cc_piece_label()`.
+        :c:expr:`cc_piece_label()`, :c:expr:`cc_piece_as_string()`
 
 Navigation
 ----------
