@@ -443,3 +443,24 @@ Monoliths) do not belong to any player.
         Equals to :c:`17`.
 
     .. c:enumerator:: CC_PE_Monolith
+
+Piece interfaces
+----------------
+
+.. c:type:: char (*cc_piece_fp_char_value_t)( CcPieceEnum pe )
+
+    Function interface, i.e. function pointer type.
+
+    :param pe: :c:expr:`CcPieceEnum` value.
+    :returns: Char, either a piece symbol, or a piece char.
+
+Piece functions
+---------------
+
+.. c:function:: CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light )
+
+    Function returning piece enum, based on a piece symbol, and a flag.
+
+    :param symbol: Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
+    :param is_light: Whether piece is light/bright (:c:`true`), or dark/dim (:c:`false`).
+    :returns: Piece enum if valid piece symbol passed, otherwise :c:`CC_PE_None`.
