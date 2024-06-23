@@ -8,7 +8,12 @@
 Pieces
 ======
 
-Documents ``cc_piece.h`` and ``cc_piece.c`` files, which contain piece enumeration, and related functions.
+Documents ``cc_piece.h`` and ``cc_piece.c`` files, which contain piece
+enumeration, and related functions.
+
+Type of a piece is what remains after it has been stripped of color (or
+shade). For instance, light and dark Rook are both Rooks. Similarly, dim
+and bright Star are both Stars.
 
 Piece validity
 --------------
@@ -530,7 +535,7 @@ Piece functions
         Returned string is not allocated, do not :c:expr:`free()` it.
 
     :param pe: A piece.
-    :returns: Pointer to string if successful, :c:`CC_DEFAULT_ENTITY_STRING` otherwise.
+    :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
 
 .. c:function:: char cc_piece_symbol( CcPieceEnum pe )
 
@@ -605,17 +610,11 @@ Piece functions
 
     :param pe: A piece.
     :param capitalize: Flag, whether to return capitalized prefix.
-    :returns: Pointer to string if successful, :c:`CC_DEFAULT_ENTITY_STRING` otherwise.
+    :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
 
 .. c:function:: bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe )
 
     Function checks if given piece has the same type as a piece symbol.
-
-    Type of a piece is what remains after it has been stripped of color (or shade).
-
-    For instance, light and dark Rook are both Rooks.
-
-    Similarly, dim and bright Star are both Stars.
 
     :param symbol: Piece symbol, uppercase :c:expr:`char`. It is taken verbatim, i.e. not converted to uppercase char.
     :param pe: A piece.
@@ -629,3 +628,105 @@ Piece functions
     :param is_light: Flag, if piece is light/bright (:c:`true`), or dark/dim (:c:`false`).
     :param pe: A piece.
     :returns: :c:`true` if the same, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 )
+
+    Function checks if two given pieces are the same type.
+
+    :param pe_1: A piece.
+    :param pe_2: The other piece.
+    :returns: :c:`true` if given pieces have the same type, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_same_color( CcPieceEnum pe_1, CcPieceEnum pe_2 )
+
+    Function checks if two given pieces are the same color, i.e. if
+    both are light or dark.
+
+    Stars have shade (bright, dim), not color; Monoliths don't have
+    neither color, nor shade; so, this function returns :c:`false`
+    if any given piece is a Star, or a Monolith.
+
+    :param pe_1: A piece.
+    :param pe_2: The other piece.
+    :returns: :c:`true` if given pieces have the same color, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_same_shade( CcPieceEnum pe_1, CcPieceEnum pe_2 )
+
+    Function checks if two given pieces are the same shade, i.e. if
+    both are bright or dim.
+
+    Stars have shade (bright, dim); if any given piece is not a Star
+    function returns :c:`false`.
+
+    :param pe_1: A piece.
+    :param pe_2: The other piece.
+    :returns: :c:`true` if given pieces have the same shade, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_opposite( CcPieceEnum pe_1, CcPieceEnum pe_2 )
+
+    Function checks if two given pieces of the same type are in opposite
+    color (dark, light), or shade (dim, bright) to each other.
+
+    Pieces with no color and no shade always return :c:`false`;
+    these are :c:`CC_PE_None`, Monolith pieces.
+
+    Shades and colors belong to different types of pieces, so will always
+    yield :c:`false`.
+
+    :param pe_1: A piece.
+    :param pe_2: The other piece.
+    :returns: :c:`true` if given pieces have the same type, but opposite color or shade, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
+
+    Function checks if two given pieces have the same owner, i.e.
+    if pieces are of the same color (dark, or light), not necessarily
+    the same type.
+
+    If any given piece is without owner (i.e. with no color) it'll always
+    return :c:`false`; these are :c:`CC_PE_None`, Monolith, and Stars.
+
+    :param pe_1: A piece.
+    :param pe_2: The other piece.
+    :returns: :c:`true` if given pieces are both dark or light, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 )
+
+    Function checks if two given pieces belongs to different players,
+    i.e. if pieces are in opposite colors (one is light, the other is dark),
+    not necessarily the same type.
+
+    If any given piece is without owner (i.e. with no color) it'll always
+    return :c:`false`; these are :c:`CC_PE_None`, Monolith, and Stars.
+
+    :param pe_1: A piece.
+    :param pe_2: The other piece.
+    :returns: :c:`true` if given pieces are in opposite color, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_owned_figure( CcPieceEnum pe )
+
+    Function checks if given piece is an owned :term:`figure`.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece is an owned :term:`figure`, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_figure( CcPieceEnum pe )
+
+    Function checks if given piece is a :term:`figure`.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece is a :term:`figure`, :c:`false` otherwise.
+
+.. c:function:: char const * cc_piece_as_string( CcPieceEnum pe, bool capitalize, bool empty_field )
+
+    Function returns string, containing piece prefix and label.
+
+    .. warning::
+
+        Returned string is not allocated, do not :c:expr:`free()` it.
+
+    :param pe: A piece.
+    :param capitalize: Flag, whether to return capitalized string.
+    :param empty_field: Flag, whether to return :c:`"empty field"`, or empty string.
+    :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
+    :seealso: :c:expr:`cc_piece_prefix()`, :c:expr:`cc_piece_label()`, :c:expr:`CC_DEFAULT_ENTITY_STRING`

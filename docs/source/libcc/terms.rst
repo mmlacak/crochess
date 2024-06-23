@@ -66,3 +66,6 @@ Glossary
     weightless piece
         Weightless piece does not spend momentum for its movement.
         These are Wave and Starchild.
+
+    figure
+        Figure is any piece, except Pawn.
