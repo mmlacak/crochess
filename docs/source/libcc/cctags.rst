@@ -10,6 +10,9 @@ Tags
 
 Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enumeration, and related functions.
 
+Tag validity
+------------
+
 .. c:macro:: CC_TAG_IS_VALID(te)
 
     Macro to check if given :term:`tag` is a valid,
@@ -39,6 +42,9 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
 
     :param te: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
+
+Tag values
+----------
 
 .. c:macro:: CC_TAG_CAN_RUSH(te)
 
@@ -91,38 +97,42 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
     :param te: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
-.. topic:: Tag character macro constants
+Tag characters
+--------------
 
-    All :c:`CC_TAG_CHAR_*` macro constants are used to render tag board
-    on a console.
+All :c:`CC_TAG_CHAR_*` macro constants are used to render tag board
+on a console.
 
-    .. c:macro:: CC_TAG_CHAR_NONE
+.. c:macro:: CC_TAG_CHAR_NONE
 
-        Equals to :c:`' '`.
+    Equals to :c:`' '`.
 
-    .. c:macro:: CC_TAG_CHAR_INVALID
+.. c:macro:: CC_TAG_CHAR_INVALID
 
-        Equals to :c:`'?'`.
+    Equals to :c:`'?'`.
 
-    .. c:macro:: CC_TAG_CHAR_CAN_RUSH
+.. c:macro:: CC_TAG_CHAR_CAN_RUSH
 
-        Equals to :c:`'R'`.
+    Equals to :c:`'R'`.
 
-    .. c:macro:: CC_TAG_CHAR_CAN_CASTLE
+.. c:macro:: CC_TAG_CHAR_CAN_CASTLE
 
-        Equals to :c:`'C'`.
+    Equals to :c:`'C'`.
 
-    .. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
+.. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
 
-        Equals to :c:`'P'`.
+    Equals to :c:`'P'`.
 
-    .. c:macro:: CC_TAG_CHAR_EN_PASSANT
+.. c:macro:: CC_TAG_CHAR_EN_PASSANT
 
-        Equals to :c:`'E'`.
+    Equals to :c:`'E'`.
 
-    .. c:macro:: CC_TAG_CHAR_PAWN_SACRIFICE
+.. c:macro:: CC_TAG_CHAR_PAWN_SACRIFICE
 
-        Equals to :c:`'S'`.
+    Equals to :c:`'S'`.
+
+Tag types
+---------
 
 .. c:enum:: CcTagEnum
 
@@ -155,6 +165,9 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
         Pawn was sacrificed. Non-persistent :term:`tag`, equals to :c:`5`.
         Gained in a move, used or lost in the very same move.
 
+Tag functions
+-------------
+
 .. c:function:: char cc_tag_as_char( CcTagEnum ct )
 
     Function returning :term:`tag` char, based on tag enum.
@@ -169,6 +182,9 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
     :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
     :returns: :c:expr:`CcTagEnum` value if valid :term:`tag` character was given,
               :c:`CC_TE_None` otherwise.
+
+Losing tag types
+----------------
 
 .. c:enum:: CcLosingTagEnum
 
@@ -199,6 +215,9 @@ Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enume
 .. c:macro:: CC_MAX_LEN_LOSING_TAG
 
     Maximum length of a losing-tag symbol, equals to :c:`2`.
+
+Losing tag functions
+--------------------
 
 .. c:function:: char const * cc_losing_tag_as_string( CcLosingTagEnum lte )
 

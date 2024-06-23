@@ -37,8 +37,8 @@ A type: :c:expr:`const Data*`
 (or as text :c:texpr:`const Data*`).
 
 
-Code as ultimate documentation
-------------------------------
+Ultimate documentation
+----------------------
 
 .. :doc:`cc_defines.h <../../../ws/libcrochess/inc/cc_defines.h>`
 
