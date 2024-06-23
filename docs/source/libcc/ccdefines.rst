@@ -10,6 +10,9 @@ Defines
 
 Documents ``cc_defines.h`` file, which contains constants and macros used throughout project.
 
+Common types
+------------
+
 .. c:type:: unsigned char uchar
 
     Convenience type.
@@ -25,6 +28,87 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
 .. c:macro:: CC_UNSIGNED_MIN
 
     Constant, minimum value for all :c:`unsigned` types; equals to :c:`0`.
+
+Common macros
+-------------
+
+.. c:macro:: CC_MIN(x,y)
+
+    Macro to inline comparing, producing smaller value of the two given.
+
+    .. note::
+        Given values are not cast. Depending on their type(s), this might
+        lead to undefined behavior (e.g. if not comparable pointers).
+
+    .. seealso::
+        `<https://en.cppreference.com/w/c/language/operator_comparison>`_
+
+    :param x: A number, value is not cast.
+    :param y: Other number, value is not cast.
+    :returns: Smaller value of the two given.
+
+.. c:macro:: CC_MAX(x,y)
+
+    Macro to inline comparing, producing larger value of the two given.
+
+    .. note::
+        Given values are not cast. Depending on their type(s), this might
+        lead to undefined behavior (e.g. if not comparable pointers).
+
+    .. seealso::
+        `<https://en.cppreference.com/w/c/language/operator_comparison>`_
+
+    :param x: A number, value is not cast.
+    :param y: Other number, value is not cast.
+    :returns: Larger value of the two given.
+
+.. c:macro:: CC_SIGN(i)
+
+    Macro to inline sign function.
+
+    Sign of a number is defined as :c:`1` for positive numbers,
+    :c:`-1` for negative numbers, :c:`0` otherwise.
+
+    :param i: A number, value is not cast.
+    :returns: Larger value of the two given.
+
+.. c:macro:: CC_XOR(to_bool_1,to_bool_2)
+
+    Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool`
+    value is :c:`true`, but not both.
+
+    :param to_bool_1: Value cast to :c:`bool`.
+    :param to_bool_2: Value cast to :c:`bool`.
+    :returns: :c:`bool` value.
+
+    .. note::
+
+        In case of integer(s), one has to be non-zero, while the other has to be zero,
+        for :c:expr:`CC_XOR` to return :c:`true`. Arguments are converted to :c:`bool`\s
+        (so, non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
+
+    .. seealso::
+
+        `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
+        `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
+
+.. c:macro:: CC_FREE(ptr)
+
+    Macro to call :c:`free()`, given pointer is casted to :c:`void *`.
+
+    :param ptr: Any pointer to allocated storage.
+    :returns: Nothing.
+
+.. c:macro:: CC_FREE_AND_NULL(ptr_ptr)
+
+    Macro to call :c:`free()`, inner pointer is casted to :c:`void *`
+    before the call, then set to :c:`NULL`.
+
+    :param ptr_ptr: A pointer to pointer to allocated storage.
+    :returns: Nothing.
+
+Maybe bool
+----------
 
 .. c:enum:: CcMaybeBoolEnum
 
@@ -71,25 +155,8 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
     :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
-.. c:macro:: CC_XOR(to_bool_1,to_bool_2)
-
-    Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool`
-    value is :c:`true`, but not both.
-
-    :param to_bool_1: Value cast to :c:`bool`.
-    :param to_bool_2: Value cast to :c:`bool`.
-    :returns: :c:`bool` value.
-
-    .. note::
-
-        In case of integer(s), one has to be non-zero, while the other has to be zero,
-        for :c:expr:`CC_XOR` to return :c:`true`. Arguments are converted to :c:`bool`\s
-        (so, non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
-
-    .. seealso::
-
-        `<https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents>`_,
-        `<https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/>`_
+Coordinates
+-----------
 
 .. c:macro:: CC_INVALID_COORD
 
@@ -138,6 +205,9 @@ One variant. For other variants actual upper limit is smaller.
     Light and dark field check constants are used when checking if colors
     of a piece and field are the same, or different.
 
+Conversions
+-----------
+
 .. c:macro:: CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file)
 
     Macro to convert numerical file value into char.
@@ -176,6 +246,9 @@ One variant. For other variants actual upper limit is smaller.
 
     :param char_ptr_rank: Rank, position along vertical axis, string pointer value, i.e. :c:expr:`char const *`.
     :returns: Rank number if successful, undefined behavior otherwise.
+
+Coordinates, fields, positions
+------------------------------
 
 .. c:macro:: CC_IS_COORD_VALID(coord)
 
@@ -294,60 +367,8 @@ One variant. For other variants actual upper limit is smaller.
     :param rank: Rank, position along vertical axis; cast to :c:`int`.
     :returns: :c:`1` if on dark side, :c:`0` otherwise.
 
-.. c:macro:: CC_MIN(x,y)
-
-    Macro to inline comparing, producing smaller value of the two given.
-
-    .. note::
-        Given values are not cast. Depending on their type(s), this might
-        lead to undefined behavior (e.g. if not comparable pointers).
-
-    .. seealso::
-        `<https://en.cppreference.com/w/c/language/operator_comparison>`_
-
-    :param x: A number, value is not cast.
-    :param y: Other number, value is not cast.
-    :returns: Smaller value of the two given.
-
-.. c:macro:: CC_MAX(x,y)
-
-    Macro to inline comparing, producing larger value of the two given.
-
-    .. note::
-        Given values are not cast. Depending on their type(s), this might
-        lead to undefined behavior (e.g. if not comparable pointers).
-
-    .. seealso::
-        `<https://en.cppreference.com/w/c/language/operator_comparison>`_
-
-    :param x: A number, value is not cast.
-    :param y: Other number, value is not cast.
-    :returns: Larger value of the two given.
-
-.. c:macro:: CC_SIGN(i)
-
-    Macro to inline sign function.
-
-    Sign of a number is defined as :c:`1` for positive numbers,
-    :c:`-1` for negative numbers, :c:`0` otherwise.
-
-    :param i: A number, value is not cast.
-    :returns: Larger value of the two given.
-
-.. c:macro:: CC_FREE(ptr)
-
-    Macro to call :c:`free()`, given pointer is casted to :c:`void *`.
-
-    :param ptr: Any pointer to allocated storage.
-    :returns: Nothing.
-
-.. c:macro:: CC_FREE_AND_NULL(ptr_ptr)
-
-    Macro to call :c:`free()`, inner pointer is casted to :c:`void *`
-    before the call, then set to :c:`NULL`.
-
-    :param ptr_ptr: A pointer to pointer to allocated storage.
-    :returns: Nothing.
+Defaults
+--------
 
 .. c:macro:: CC_DEFAULT_ENTITY_STRING
 
@@ -362,6 +383,9 @@ One variant. For other variants actual upper limit is smaller.
     .. TODO .. , see `cc_piece_label()`.
         .. seealso::
             , see `cc_piece_label()`.
+
+Navigation
+----------
 
 .. c:macro:: CC_REWIND(ptr_var_queue)
 
@@ -416,6 +440,9 @@ One variant. For other variants actual upper limit is smaller.
     :param ptr_var_seq: A sequence pointer variable.
     :param ptr_item: Pointer, member to iterate over.
     :returns: Nothing.
+
+Debug
+-----
 
 .. c:macro:: CC_PRINTF_IF_INFO(fmt,...)
 

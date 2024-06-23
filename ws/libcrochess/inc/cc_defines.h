@@ -25,6 +25,85 @@ typedef unsigned int uint;
 */
 #define CC_UNSIGNED_MIN (0)
 
+/**
+    Macro to inline comparing, producing smaller value.
+
+    @param x A number.
+    @param y An other number
+
+    @return Smaller number of the two given.
+*/
+#define CC_MIN(x,y) ( ( (y) > (x) ) ? (x) : (y) )
+
+/**
+    Macro to inline comparing, producing larger value.
+
+    @param x A number.
+    @param y An other number
+
+    @return Larger number of the two given.
+*/
+#define CC_MAX(x,y) ( ( (x) > (y) ) ? (x) : (y) )
+
+/**
+    Macro to inline sign function.
+
+    @param i A number.
+
+    @note
+    Sign of a number is defined as `1` for positive numbers,
+    `-1` for negative numbers, `0` otherwise.
+
+    @return Sign of a given number.
+*/
+#define CC_SIGN(i) ( ( (i) > 0 ) ? (1) : ( ( (i) < 0 ) ? (-1) : (0) ) )
+
+/**
+    Macro to evaluate logical XOR.
+
+    @param to_bool_1 A boolean expression, can be integer.
+    @param to_bool_2 Another boolean expression, can be integer.
+
+    @note
+    In case of integer(s), one has to be non-zero, while the other has to be zero, for `XOR` to return `true`.
+    Arguments are converted to `bool`s (so, non-zero integer is 1, otherwise it's 0), then compared.
+
+    @see
+    [https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents](https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents),
+    [https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/](https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/)
+
+    @return Logical XOR between arguments.
+*/
+#define CC_XOR(to_bool_1,to_bool_2) ( ((bool)(to_bool_1)) != ((bool)(to_bool_2)) )
+
+/**
+    Macro to free() with cast.
+
+    @param ptr A pointer.
+
+    @note
+    Pointer is just cast to `void *`, before being handled over to `free()`.
+
+    @return Nothing.
+*/
+#define CC_FREE(ptr) free( (void *)(ptr) )
+
+/**
+    Macro to free() with cast, and setting inner pointer to NULL.
+
+    @param ptr_ptr A pointer to pointer.
+
+    @note
+    Inner pointer is just cast to `void *`, before being handled over to `free()`,
+    then set to `NULL`.
+
+    @return Nothing.
+*/
+#define CC_FREE_AND_NULL(ptr_ptr) {     \
+    free( (void *)( *(ptr_ptr) ) );     \
+    *(ptr_ptr) = NULL;                  \
+}
+
 
 /**
     Enumerates void and Boolean values.
@@ -73,24 +152,6 @@ typedef enum CcMaybeBoolEnum {
 */
 #define CC_MAYBE_IS_VOID(maybe_bool) ( ( (maybe_bool) == CC_MBE_Void ) ? true : false )
 
-
-/**
-    Macro to evaluate logical XOR.
-
-    @param to_bool_1 A boolean expression, can be integer.
-    @param to_bool_2 Another boolean expression, can be integer.
-
-    @note
-    In case of integer(s), one has to be non-zero, while the other has to be zero, for `XOR` to return `true`.
-    Arguments are converted to `bool`s (so, non-zero integer is 1, otherwise it's 0), then compared.
-
-    @see
-    [https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents](https://en.wikipedia.org/wiki/Bitwise_operations_in_C#Logical_equivalents),
-    [https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/](https://www.reddit.com/r/C_Programming/comments/2cruz3/comment/cjih6wt/)
-
-    @return Logical XOR between arguments.
-*/
-#define CC_XOR(to_bool_1,to_bool_2) ( ((bool)(to_bool_1)) != ((bool)(to_bool_2)) )
 
 /**
     Smallest, invalid off-board coordinate.
@@ -359,68 +420,6 @@ typedef enum CcMaybeBoolEnum {
       ( ( (int)(board_size) / 2 ) <= (int)(rank) ) &&       \
       ( (int)(rank) < (int)(board_size) ) )
 
-
-/**
-    Macro to inline comparing, producing smaller value.
-
-    @param x A number.
-    @param y An other number
-
-    @return Smaller number of the two given.
-*/
-#define CC_MIN(x,y) ( ( (y) > (x) ) ? (x) : (y) )
-
-/**
-    Macro to inline comparing, producing larger value.
-
-    @param x A number.
-    @param y An other number
-
-    @return Larger number of the two given.
-*/
-#define CC_MAX(x,y) ( ( (x) > (y) ) ? (x) : (y) )
-
-/**
-    Macro to inline sign function.
-
-    @param i A number.
-
-    @note
-    Sign of a number is defined as `1` for positive numbers,
-    `-1` for negative numbers, `0` otherwise.
-
-    @return Sign of a given number.
-*/
-#define CC_SIGN(i) ( ( (i) > 0 ) ? (1) : ( ( (i) < 0 ) ? (-1) : (0) ) )
-
-
-/**
-    Macro to free() with cast.
-
-    @param ptr A pointer.
-
-    @note
-    Pointer is just cast to `void *`, before being handled over to `free()`.
-
-    @return Nothing.
-*/
-#define CC_FREE(ptr) free( (void *)(ptr) )
-
-/**
-    Macro to free() with cast, and setting inner pointer to NULL.
-
-    @param ptr_ptr A pointer to pointer.
-
-    @note
-    Inner pointer is just cast to `void *`, before being handled over to `free()`,
-    then set to `NULL`.
-
-    @return Nothing.
-*/
-#define CC_FREE_AND_NULL(ptr_ptr) {     \
-    free( (void *)( *(ptr_ptr) ) );     \
-    *(ptr_ptr) = NULL;                  \
-}
 
 #define CC_DEFAULT_ENTITY_STRING "<default>"
 
