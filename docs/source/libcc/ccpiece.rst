@@ -459,8 +459,56 @@ Piece functions
 
 .. c:function:: CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light )
 
-    Function returning piece enum, based on a piece symbol, and a flag.
+    Function returning chess piece, based on a piece symbol, and a flag.
 
     :param symbol: Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
     :param is_light: Whether piece is light/bright (:c:`true`), or dark/dim (:c:`false`).
     :returns: Piece enum if valid piece symbol passed, otherwise :c:`CC_PE_None`.
+
+.. c:function:: bool cc_piece_symbol_is_valid( char c )
+
+    Function checks if given character is a valid chess piece symbol.
+
+    :param c: A character.
+    :returns: :c:`true` if given character is a valid chess piece symbol, :c:`false` otherwise.
+
+.. c:function:: CcPieceEnum cc_piece_opposite( CcPieceEnum pe )
+
+    Function returning piece in opposite color (owner) to given piece.
+
+    Dark pieces are converted to light ones, and vice versa.
+    The same applies to dim, bright pieces, i.e. Stars.
+
+    If piece has no owner, function returns given piece back unmodified.
+
+    :param pe: A piece.
+    :returns: A given piece converted to its opposite color.
+
+.. c:function:: char cc_piece_as_char( CcPieceEnum pe )
+
+    Function returning piece char, based on piece enum.
+
+    Character returned is lowercase if piece is dark (dim), uppercase if piece
+    is light (bright).
+
+    Monoliths are always returned uppercase.
+
+    If there is no piece (i.e. :c:`CC_PE_None` was given) space is returned.
+
+    In case no valid piece enum was given, question mark (:c:`'?'`) is returned.
+
+    :param pe: A piece.
+    :returns: A piece character.
+
+.. c:function:: CcPieceEnum cc_piece_from_char( char piece )
+
+    Function returning chess piece, based on a piece character.
+
+    For lowercase :c:expr:`char` dark/dim piece is returned, otherwise light/bright one.
+
+    Monolith is returned only for uppercase :c:`'M'` :c:expr:`char`.
+
+    Space, unrecognized characters all yield :c:`CC_PE_None`.
+
+    :param piece: A character.
+    :returns: Piece enum if valid piece char passed, otherwise :c:`CC_PE_None`.
