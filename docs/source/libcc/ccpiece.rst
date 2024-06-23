@@ -567,3 +567,65 @@ Piece functions
 
     :param pe: A piece.
     :returns: :c:`true` if given piece is light, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_color( CcPieceEnum pe )
+
+    Function checks if given chess piece has color, i.e. if it's either light, or dark.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece has color, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_shade( CcPieceEnum pe )
+
+    Function checks if given chess piece has shade, i.e. if it's either bright, or dim.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece has shade, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_has_prefix( CcPieceEnum pe )
+
+    Function checks if given chess piece has prefix, i.e. if it has either a color, or a shade.
+
+    :param pe: A piece.
+    :returns: :c:`true` if given piece has prefix, :c:`false` otherwise.
+
+.. c:function:: char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize )
+
+    Function returns prefix of a given chess piece.
+
+    Piece prefix is either a color, or a shade of a given piece,
+    depending what it has.
+
+    For pieces without neither color nor shade (:c:`CC_PE_None`, and Monolith),
+    prefix is empty string.
+
+    .. warning::
+
+        Returned string is not allocated, do not :c:expr:`free()` it.
+
+    :param pe: A piece.
+    :param capitalize: Flag, whether to return capitalized prefix.
+    :returns: Pointer to string if successful, :c:`CC_DEFAULT_ENTITY_STRING` otherwise.
+
+.. c:function:: bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe )
+
+    Function checks if given piece has the same type as a piece symbol.
+
+    Type of a piece is what remains after it has been stripped of color (or shade).
+
+    For instance, light and dark Rook are both Rooks.
+
+    Similarly, dim and bright Star are both Stars.
+
+    :param symbol: Piece symbol, uppercase :c:expr:`char`. It is taken verbatim, i.e. not converted to uppercase char.
+    :param pe: A piece.
+    :returns: :c:`true` if the same type, :c:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_equal( char symbol, bool is_light, CcPieceEnum pe )
+
+    Function checks if given piece is equal to one produced by a piece symbol, and a flag.
+
+    :param symbol: Piece symbol, uppercase :c:expr:`char`. It is taken verbatim, i.e. not converted to uppercase char.
+    :param is_light: Flag, if piece is light/bright (:c:`true`), or dark/dim (:c:`false`).
+    :param pe: A piece.
+    :returns: :c:`true` if the same, :c:`false` otherwise.
