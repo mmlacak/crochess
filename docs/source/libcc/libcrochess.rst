@@ -51,6 +51,8 @@ other application, or server can take over networking.
     cctags
     ccpiece
 
+    ccversion
+
 .. _lbl-libcc-libcrochess-library-footnotes:
 
 .. rubric:: Footnotes

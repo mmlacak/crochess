@@ -3,7 +3,7 @@
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccpieces:
+.. _lbl-libcc-ccpiece:
 
 Pieces
 ======
