@@ -51,6 +51,7 @@ other application, or server can take over networking.
     cctags
     ccpiece
 
+    cctoken
     ccversion
 
 .. _lbl-libcc-libcrochess-library-footnotes:
