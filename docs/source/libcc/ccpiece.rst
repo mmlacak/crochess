@@ -15,6 +15,8 @@ Type of a piece is what remains after it has been stripped of color (or
 shade). For instance, light and dark Rook are both Rooks. Similarly, dim
 and bright Star are both Stars.
 
+.. _lbl-libcc-ccpiece-validity:
+
 Piece validity
 --------------
 
@@ -40,6 +42,8 @@ Piece validity
 
     :param pe: :c:expr:`CcPieceEnum` value.
     :returns: :c:`true` if piece is :c:`CC_PE_None`, :c:`false` otherwise.
+
+.. _lbl-libcc-ccpiece-values:
 
 Piece values
 ------------
@@ -169,6 +173,8 @@ Piece values
 
     :param pe: :c:expr:`CcPieceEnum` value.
     :returns: :c:`true` if piece is a Starchild, :c:`false` otherwise.
+
+.. _lbl-libcc-ccpiece-features:
 
 Piece features
 --------------
@@ -388,6 +394,8 @@ Piece features
     :returns: :c:`true` if piece changes its direction after each step,
               :c:`false` otherwise.
 
+.. _lbl-libcc-ccpiece-types:
+
 Piece types
 -----------
 
@@ -449,6 +457,8 @@ Monoliths) do not belong to any player.
 
     .. c:enumerator:: CC_PE_Monolith
 
+.. _lbl-libcc-ccpiece-interfaces:
+
 Piece interfaces
 ----------------
 
@@ -458,6 +468,8 @@ Piece interfaces
 
     :param pe: :c:expr:`CcPieceEnum` value.
     :returns: Char, either a piece symbol, or a piece char.
+
+.. _lbl-libcc-ccpiece-functions:
 
 Piece functions
 ---------------

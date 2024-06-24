@@ -10,6 +10,8 @@ Defines
 
 Documents ``cc_defines.h`` file, which contains constants and macros used throughout project.
 
+.. _lbl-libcc-ccdefines-types:
+
 Common types
 ------------
 
@@ -28,6 +30,8 @@ Common types
 .. c:macro:: CC_UNSIGNED_MIN
 
     Constant, minimum value for all :c:`unsigned` types; equals to :c:`0`.
+
+.. _lbl-libcc-ccdefines-macros:
 
 Common macros
 -------------
@@ -107,6 +111,8 @@ Common macros
     :param ptr_ptr: A pointer to pointer to allocated storage.
     :returns: Nothing.
 
+.. _lbl-libcc-ccdefines-maybebool:
+
 Maybe bool
 ----------
 
@@ -154,6 +160,8 @@ Maybe bool
 
     :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
+
+.. _lbl-libcc-ccdefines-coordinates:
 
 Coordinates
 -----------
@@ -205,6 +213,8 @@ One variant. For other variants actual upper limit is smaller.
     Light and dark field check constants are used when checking if colors
     of a piece and field are the same, or different.
 
+.. _lbl-libcc-ccdefines-conversions:
+
 Conversions
 -----------
 
@@ -246,6 +256,8 @@ Conversions
 
     :param char_ptr_rank: Rank, position along vertical axis, string pointer value, i.e. :c:expr:`char const *`.
     :returns: Rank number if successful, undefined behavior otherwise.
+
+.. _lbl-libcc-ccdefines-coordinatesfieldspositions:
 
 Coordinates, fields, positions
 ------------------------------
@@ -367,6 +379,8 @@ Coordinates, fields, positions
     :param rank: Rank, position along vertical axis; cast to :c:`int`.
     :returns: :c:`1` if on dark side, :c:`0` otherwise.
 
+.. _lbl-libcc-ccdefines-defaults:
+
 Defaults
 --------
 
@@ -379,6 +393,8 @@ Defaults
 
     .. seealso::
         :c:expr:`cc_piece_label()`, :c:expr:`cc_piece_as_string()`
+
+.. _lbl-libcc-ccdefines-navigation:
 
 Navigation
 ----------
@@ -436,6 +452,8 @@ Navigation
     :param ptr_var_seq: A sequence pointer variable.
     :param ptr_item: Pointer, member to iterate over.
     :returns: Nothing.
+
+.. _lbl-libcc-ccdefines-debug:
 
 Debug
 -----

@@ -10,6 +10,8 @@ Tags
 
 Documents ``cc_tags.h`` and ``cc_tags.c`` files, which contain :term:`tag` enumeration, and related functions.
 
+.. _lbl-libcc-cctags-validity:
+
 Tag validity
 ------------
 
@@ -42,6 +44,8 @@ Tag validity
 
     :param te: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
+
+.. _lbl-libcc-cctags-values:
 
 Tag values
 ----------
@@ -97,6 +101,8 @@ Tag values
     :param te: :c:expr:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
+.. _lbl-libcc-cctags-characters:
+
 Tag characters
 --------------
 
@@ -130,6 +136,8 @@ on a console.
 .. c:macro:: CC_TAG_CHAR_PAWN_SACRIFICE
 
     Equals to :c:`'S'`.
+
+.. _lbl-libcc-cctags-types:
 
 Tag types
 ---------
@@ -165,6 +173,8 @@ Tag types
         Pawn was sacrificed. Non-persistent :term:`tag`, equals to :c:`5`.
         Gained in a move, used or lost in the very same move.
 
+.. _lbl-libcc-cctags-functions:
+
 Tag functions
 -------------
 
@@ -182,6 +192,8 @@ Tag functions
     :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
     :returns: :c:expr:`CcTagEnum` value if valid :term:`tag` character was given,
               :c:`CC_TE_None` otherwise.
+
+.. _lbl-libcc-cctags-losing-tag-types:
 
 Losing tag types
 ----------------
@@ -215,6 +227,8 @@ Losing tag types
 .. c:macro:: CC_MAX_LEN_LOSING_TAG
 
     Maximum length of a losing-tag symbol, equals to :c:`2`.
+
+.. _lbl-libcc-cctags-losing-tag-functions:
 
 Losing tag functions
 --------------------
