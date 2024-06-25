@@ -67,3 +67,9 @@ paths.
 
 For instance, path segment can be part of a complete path leading a piece
 to divergence.
+
+..
+    Strings
+    -------
+
+    TODO :: about strings

@@ -190,8 +190,8 @@ String utility functions
 
     Function to clear string, or char array, by writing :c:`'\0'` into every char.
 
-    :param str__io: A string to overwrite with zeros.
-    :param max_len__d: Maximum length to overwrite.
+    :param str__io: *Input/output*, string to overwrite with zeros.
+    :param max_len__d: *Optional*, maximum length to overwrite.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
 .. c:function:: bool cc_str_is_empty( char const * str, bool ignore_spaces )
@@ -201,3 +201,69 @@ String utility functions
     :param str: A string to check.
     :param ignore_spaces: Flag, whether to disregard spaces, or not.
     :returns: :c:`true` if empty, :c:`false` otherwise.
+
+.. c:function:: bool cc_str_count_chars( char const * str, cc_ctype_fp_ischar_t fp_is_char, size_t max_len__d, size_t * count__o )
+
+    Function counts characters in a string, based on a given filtering function.
+
+    :param str: A string.
+    :param fp_is_char: Function pointer, used to filter characters.
+    :param max_len__d: *Optional*, maximum length to count over.
+    :param count__o: *Output*, result.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
+.. c:function:: char const * cc_str_contains_char( char c, bool case_sensitive, char const * start, char const * end__d, size_t max_len__d )
+
+    Function returns a pointer to character found in a (sub-)string.
+
+    If both optional arguments (:c:`end__d`, :c:`max_len__d`) are given, together
+    they limit search to first condition met (end of (sub-)string, or maximum legth,
+    respectively).
+
+    .. note::
+
+        If no optional arguments (:c:`end__d`, :c:`max_len__d`) were given, string
+        to search (:c:`start`) has to be zero-terminated.
+
+    :param c: Character to be found.
+    :param case_sensitive: Flag, whether search is case-sensitive, or not.
+    :param start: Pointer to a start of a (sub-)string.
+    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:`NULL`.
+    :param max_len__d: *Optional*, maximum length of a string to check; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: Pointer to a character if successful, :c:`NULL` otherwise.
+
+.. c:function:: char const * cc_str_traverse_chars( char const * str, cc_ctype_fp_ischar_t fp_is_char, bool skip_or_stop_at, size_t max_len__d )
+
+    Function traverses given string, by either skipping over filtered characters,
+    or stopping at first of those encountered.
+
+    If there are no filtered characters in a string, function returns pointer to:
+
+        - the terminating character (i.e. :c:`'\0'`) of a given string,
+        - :c:expr:`char` at maximum length, if :c:`max_len__d` was given
+
+    whichever comes first.
+
+    :param str: A string.
+    :param fp_is_char: A function pointer, used to filter characters.
+    :param skip_or_stop_at: A flag, whether to skip (if :c:`true`) or stop at (if :c:`false`) filtered character.
+    :param max_len__d: *Optional*, maximum length to count over; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A string pointer within a given string if successful, :c:`NULL` otherwise.
+
+.. c:function:: bool cc_str_to_case( char * str__io, bool to_upper_or_lower, size_t max_len__d )
+
+    Function converting a string in-place, to uppercase or lowercase.
+
+    :param str__io: *Input/output*, string to convert.
+    :param to_upper_or_lower: Flag, convert to uppercase (:c:`true`), or lowercase (:c:`false`) string.
+    :param max_len__d: *Optional*, maximum length to convert; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
+.. c:function:: char * cc_str_to_case__new( char const * str, bool to_upper_or_lower, size_t max_len__d )
+
+    Function returns a newly allocated string, converted to uppercase or lowercase.
+
+    :param str: String to convert.
+    :param to_upper_or_lower: Flag, convert to uppercase (:c:`true`), or lowercase (:c:`false`).
+    :param max_len__d: *Optional*, maximum length to convert; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A newly allocated, converted string if successful, :c:`NULL` otherwise.
