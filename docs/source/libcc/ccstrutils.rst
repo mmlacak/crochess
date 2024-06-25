@@ -267,3 +267,65 @@ String utility functions
     :param to_upper_or_lower: Flag, convert to uppercase (:c:`true`), or lowercase (:c:`false`).
     :param max_len__d: *Optional*, maximum length to convert; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated, converted string if successful, :c:`NULL` otherwise.
+
+.. c:function:: char const * cc_str_end( char const * start, char const * end__d, size_t max_len__d )
+
+    Function returns pointer to the end of a string, optionally capped at maximum
+    length and/or delimited by optional (sub-)string end.
+
+    If both optional arguments (:c:`end__d`, :c:`max_len__d`) are given, together
+    they limit traversing to first condition met (end of (sub-)string, or maximum
+    legth, respectively).
+
+    .. note::
+
+        If no optional arguments (:c:`end__d`, :c:`max_len__d`) were given, string
+        to traverse (:c:`start`) has to be zero-terminated.
+
+    :param start: Pointer to a start of a (sub-)string.
+    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:`NULL`.
+    :param max_len__d: *Optional*, maximum length of a string to traverse; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: Pointer to the end of a string if successful, :c:`NULL` otherwise.
+
+.. c:function:: size_t cc_str_len( char const * start, char const * end__d, size_t max_len__d )
+
+    Function returning length of a string, optionally capped at maximum length
+    and/or delimited by optional (sub-)string end.
+
+    If both optional arguments (:c:`end__d`, :c:`max_len__d`) are given, together
+    they limit traversing to first condition met (end of (sub-)string, or maximum
+    legth, respectively).
+
+    .. note::
+
+        If no optional arguments (:c:`end__d`, :c:`max_len__d`) were given, string
+        to traverse (:c:`start`) has to be zero-terminated.
+
+    :param start: Pointer to a start of a (sub-)string.
+    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:`NULL`.
+    :param max_len__d: *Optional*, maximum length of a string to check; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: Length of a string if successful, :c:`0` otherwise.
+
+.. c:function:: int cc_str_len_fmt_va( char const * fmt, va_list args )
+
+    Function returns length of a formatted string.
+
+    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param args: Variadic list, input for a string format.
+    :returns: Length of a formatted string if non-negative, error code
+              if negative.
+    :returns: Output returned is direct result of a :c:`vsnprintf()`
+              found in ``<stdio.h>``.
+    :seealso: https://en.cppreference.com/w/c/io/vfprintf
+
+.. c:function:: int cc_str_len_format( char const * fmt, ... )
+
+    Function returns length of a formatted string.
+
+    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param ...: ariadic input for a string format.
+    :returns: Length of a formatted string if non-negative, error code
+              if negative.
+    :returns: Output returned is direct result of a :c:`vsnprintf()`
+              found in ``<stdio.h>``.
+    :seealso: https://en.cppreference.com/w/c/io/vfprintf

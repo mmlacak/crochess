@@ -89,8 +89,8 @@ Token functions
 
     :param str: String to traverse.
     :param seps: Separators between tokens.
-    :param start__io: First :c:`char` of found token.
-    :param end__io: End of a token, i.e. first :c:`char` which does not belong to found token.
+    :param start__io: *Input/output*, first :c:`char` of found token.
+    :param end__io: *Input/output*, end of a token, i.e. first :c:`char` which does not belong to found token.
     :returns: :c:`true` if next token was found, :c:`false` otherwise.
 
 .. c:function:: char * cc_trim_str__new( char const * str, char const * chars )
