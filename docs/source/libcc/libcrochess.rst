@@ -51,6 +51,7 @@ other application, or server can take over networking.
     cctags
     ccpiece
 
+    ccstrutils
     cctoken
     ccversion
 
