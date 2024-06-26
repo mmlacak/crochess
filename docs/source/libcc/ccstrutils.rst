@@ -344,6 +344,21 @@ String utility functions
     :param end_1__d: *Optional*, end of a first (sub-)string.
     :param start_2: A starting character of a second (sub-)string.
     :param end_2__d: *Input/output*, end of a second (sub-)string.
-    :param max_len__d: *Optional*, maximum length to overwrite.
+    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: :c:`true` if two given (sub-)strings are equal, :c:`false` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncmp
+
+.. c:function:: size_t cc_str_copy( char const * start, char const * end__d, size_t max_len__d, char * dest__o, char const * dest_end__d, size_t size_dest__d )
+
+    Function copies (sub-)string into a char array, or already allocated string.
+
+    Function will zero-terminate copied string, if there is enough space.
+
+    :param start: A (sub-)string to copy.
+    :param end__d: *Optional*, pointer to the end of a (sub-)string.
+    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param dest__o: Pointer to destination.
+    :param dest_end__d: *Optional*, pointer to the end of destination; can be :c:`NULL`.
+    :param size_dest__d: A starting character of a first (sub-)string.
+    :returns: Count of characters copied (not including :c:`'\0'`) if successful, :c:`0` otherwise.
+    :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
