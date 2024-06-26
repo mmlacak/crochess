@@ -457,3 +457,13 @@ String utility functions
     :param str: A string to append.
     :param max_len__d: *Optional*, maximum length to append; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A weak pointer to zero-terminating char if successful, :c:`NULL` otherwise.
+
+.. c:function:: char * cc_str_append__new( char const * str_1__d, char const * str_2__d, size_t max_len__d )
+
+    Function appends strings into newly allocated string, optionally
+    capped at a given maximum length.
+
+    :param str_1__d: *Optional* string to copy first, can be :c:`NULL`.
+    :param str_2__d: *Optional* string to concatenate, can be :c:`NULL`.
+    :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A newly allocated, appended string if successful, :c:`NULL` otherwise.
