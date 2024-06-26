@@ -385,3 +385,14 @@ String utility functions
     :returns: Output returned is direct result of a :c:`vsnprintf()`
               found in ``<stdio.h>``.
     :seealso: https://en.cppreference.com/w/c/io/vfprintf
+
+.. c:function:: char * cc_str_fmt__new( size_t max_len__d, char const * fmt, ... )
+
+    Function returns a newly allocated string containing formatted variadic input,
+    capped at given maximum length.
+
+    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param ...: Variadic input for a string format.
+    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :seealso: :c:expr:`cc_str_fmt_va__new()`
