@@ -376,7 +376,7 @@ String utility functions
 .. c:function:: char * cc_str_fmt_va__new( size_t max_len__d, char const * fmt, va_list args )
 
     Function returns a newly allocated string containing formatted variadic input,
-    capped at given maximum length.
+    optionally capped at given maximum length.
 
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt: A string format, as used by :c:`printf()` and friends.
@@ -389,10 +389,20 @@ String utility functions
 .. c:function:: char * cc_str_fmt__new( size_t max_len__d, char const * fmt, ... )
 
     Function returns a newly allocated string containing formatted variadic input,
-    capped at given maximum length.
+    optionally capped at given maximum length.
 
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt: A string format, as used by :c:`printf()` and friends.
     :param ...: Variadic input for a string format.
     :returns: A newly allocated string if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_fmt_va__new()`
+
+.. c:function:: char * cc_str_duplicate__new( char const * str, bool do_reverse, size_t max_len__d )
+
+    Function returns a newly allocated duplicate of a given string,
+    optionally capped at given maximum length.
+
+    :param str: A string to duplicate.
+    :param do_reverse: Flag, whether returned string should be reversed.
+    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A newly allocated, duplicated string if successful, :c:`NULL` otherwise.
