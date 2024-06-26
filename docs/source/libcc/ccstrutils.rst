@@ -247,7 +247,7 @@ String utility functions
     :param str: A string.
     :param fp_is_char: A function pointer, used to filter characters.
     :param skip_or_stop_at: A flag, whether to skip (if :c:`true`) or stop at (if :c:`false`) filtered character.
-    :param max_len__d: *Optional*, maximum length to count over; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length to traverse; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A string pointer within a given string if successful, :c:`NULL` otherwise.
 
 .. c:function:: bool cc_str_to_case( char * str__io, bool to_upper_or_lower, size_t max_len__d )
@@ -344,7 +344,7 @@ String utility functions
     :param end_1__d: *Optional*, end of a first (sub-)string; can be :c:`NULL`.
     :param start_2: A starting character of a second (sub-)string.
     :param end_2__d: *Input/output*, end of a second (sub-)string.
-    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length to compare; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: :c:`true` if two given (sub-)strings are equal, :c:`false` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncmp
 
@@ -356,7 +356,7 @@ String utility functions
 
     :param start: A (sub-)string to copy.
     :param end__d: *Optional*, pointer to the end of a (sub-)string; can be :c:`NULL`.
-    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length to copy; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param dest__o: Pointer to destination.
     :param dest_end__d: *Optional*, pointer to the end of destination; can be :c:`NULL`.
     :param size_dest__d: A starting character of a first (sub-)string.
@@ -369,7 +369,7 @@ String utility functions
 
     :param start: A (sub-)string to copy.
     :param end__d: *Optional*, pointer to the end of a (sub-)string.
-    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length to copy; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: Pointer to a newly allocated copy of a given string if successful, :c:`NULL` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
 
@@ -404,5 +404,56 @@ String utility functions
 
     :param str: A string to duplicate.
     :param do_reverse: Flag, whether returned string should be reversed.
-    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated, duplicated string if successful, :c:`NULL` otherwise.
+
+.. c:function:: char * cc_str_append_into( char * str__io, size_t size_dest__d, char const * str, size_t max_len__d )
+
+    Function appends second string into a first one, in-place.
+
+    .. warning::
+
+        Destination buffer :c:`str__io` must always be zero-terminated (:c:`'\0'`),
+        so that function can determine from where to start appending given string
+        :c:`str`.
+
+    .. warning::
+
+        Rest of a destination buffer :c:`str__io`, behind that zero-terminating
+        :c:expr:`char` found earlier, must be large enough to store appending
+        string :c:`str`; taking into account :c:`size_dest__d` and :c:`max_len__d`,
+        if given.
+
+    *Optional* :c:`max_len__d` can be  :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`,
+    if so string :c:`str` must be zero-terminated, and is appended in its entirety.
+
+    Destination :c:`str__io` after appending string is always zero-terminated.
+    Function returns weak pointer to that zero-terminating :c:expr:`char`.
+
+    Walking pointer over destination buffer can be used in succession, or in a
+    loop. This is so because function seeks zero-terminating :c:expr:`char` in
+    a given destination :c:`str__io`, and returns a weak pointer to the new
+    zero-terminating :c:expr:`char` after appending in that same destination
+    buffer.
+
+    For instance:
+
+    .. code-block:: C
+        :force:
+
+        // Must always contain zero-terminated string,
+        // initialize to '\0' if it doesn't (e.g. just allocated).
+        buffer__a[ 0 ] = '\0';
+
+        char * walking = buffer__a;
+
+        while ( iter( ... ) ) {
+            walking = cc_str_append_into( walking, ... );
+            if ( !walking ) break;
+        }
+
+    :param str__io: *Input/output*, a string into which to append.
+    :param size_dest__d: *Optional*, size of a destination; can be :c:expr:`CC_SIZE_IGNORE`.
+    :param str: A string to append.
+    :param max_len__d: *Optional*, maximum length to append; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A weak pointer to zero-terminating char if successful, :c:`NULL` otherwise.
