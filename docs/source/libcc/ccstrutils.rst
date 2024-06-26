@@ -329,3 +329,21 @@ String utility functions
     :returns: Output returned is direct result of a :c:`vsnprintf()`
               found in ``<stdio.h>``.
     :seealso: https://en.cppreference.com/w/c/io/vfprintf
+
+.. c:function:: bool cc_str_is_equal( char const * start_1, char const * end_1__d, char const * start_2, char const * end_2__d, size_t max_len__d )
+
+    Function checks if two (sub-)strings are equal, up to a given maximum length.
+
+    .. note::
+
+        Strings to traverse (:c:`start_1`, :c:`start_2`) missing their corresponding
+        end pointer (:c:`end_1__d`, :c:`end_2__d`) and their length (:c:`max_len__d`)
+        has to be zero-terminated.
+
+    :param start_1: A starting character of a first (sub-)string.
+    :param end_1__d: *Optional*, end of a first (sub-)string.
+    :param start_2: A starting character of a second (sub-)string.
+    :param end_2__d: *Input/output*, end of a second (sub-)string.
+    :param max_len__d: *Optional*, maximum length to overwrite.
+    :returns: :c:`true` if two given (sub-)strings are equal, :c:`false` otherwise.
+    :seealso: https://en.cppreference.com/w/c/string/byte/strncmp
