@@ -323,7 +323,7 @@ String utility functions
     Function returns length of a formatted string.
 
     :param fmt: A string format, as used by :c:`printf()` and friends.
-    :param ...: ariadic input for a string format.
+    :param ...: variadic input for a string format.
     :returns: Length of a formatted string if non-negative, error code
               if negative.
     :returns: Output returned is direct result of a :c:`vsnprintf()`
@@ -341,7 +341,7 @@ String utility functions
         has to be zero-terminated.
 
     :param start_1: A starting character of a first (sub-)string.
-    :param end_1__d: *Optional*, end of a first (sub-)string.
+    :param end_1__d: *Optional*, end of a first (sub-)string; can be :c:`NULL`.
     :param start_2: A starting character of a second (sub-)string.
     :param end_2__d: *Input/output*, end of a second (sub-)string.
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
@@ -355,10 +355,20 @@ String utility functions
     Function will zero-terminate copied string, if there is enough space.
 
     :param start: A (sub-)string to copy.
-    :param end__d: *Optional*, pointer to the end of a (sub-)string.
+    :param end__d: *Optional*, pointer to the end of a (sub-)string; can be :c:`NULL`.
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param dest__o: Pointer to destination.
     :param dest_end__d: *Optional*, pointer to the end of destination; can be :c:`NULL`.
     :param size_dest__d: A starting character of a first (sub-)string.
     :returns: Count of characters copied (not including :c:`'\0'`) if successful, :c:`0` otherwise.
+    :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
+
+.. c:function:: char * cc_str_copy__new( char const * start, char const * end__d, size_t max_len__d )
+
+    Function copies (sub-)string into a newly allocated string.
+
+    :param start: A (sub-)string to copy.
+    :param end__d: *Optional*, pointer to the end of a (sub-)string.
+    :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: Pointer to a newly allocated copy of a given string if successful, :c:`NULL` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
