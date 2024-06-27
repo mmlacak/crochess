@@ -229,6 +229,8 @@ size_t cc_str_len( char const * start,
 }
 
 int cc_str_len_fmt_va( char const * fmt, va_list args ) {
+    if ( !fmt ) return 0;
+
     va_list tmp;
     va_copy( tmp, args );
 
@@ -501,6 +503,8 @@ char * cc_str_append_fmt_va__new( char ** str__f,
                                   size_t max_len__d,
                                   char const * fmt,
                                   va_list args ) {
+    if ( !str__f && !fmt ) return NULL;
+
     va_list tmp;
     va_copy( tmp, args );
 
@@ -514,13 +518,13 @@ char * cc_str_append_fmt_va__new( char ** str__f,
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
                                                      : (size_t)len;
 
-    char * str__t = (char *)malloc( len_min + 1 );
+    char * str__t = (char *)malloc( len_min + 1 ); // +1 for '\0'
     if ( !str__t ) {
         va_end( tmp );
         return NULL;
     }
 
-    int len_2 = vsnprintf( str__t, len_min + 1, fmt, tmp );
+    int len_2 = vsnprintf( str__t, len_min + 1, fmt, tmp ); // +1 for '\0'
     if ( len_2 < 0 ) { // error?
         CC_FREE( str__t );
         va_end( tmp );
@@ -541,6 +545,8 @@ char * cc_str_append_fmt_va__new( char ** str__f,
 char * cc_str_append_fmt__new( char ** str__f,
                                size_t max_len__d,
                                char const * fmt, ... ) {
+    if ( !str__f && !fmt ) return NULL;
+
     va_list args;
     va_start( args, fmt );
 
