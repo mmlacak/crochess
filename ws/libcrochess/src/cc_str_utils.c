@@ -449,7 +449,7 @@ char * cc_str_append__new( char const * str_1__d,
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( len_1 + len_2, max_len__d )
                                                      : len_1 + len_2;
 
-    char * str__a = (char *)malloc( len + 1 );
+    char * str__a = (char *)malloc( len + 1 ); // +1 for '\0'
     if ( !str__a ) return NULL;
 
     if ( len > 0 ) {

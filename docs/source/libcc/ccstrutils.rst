@@ -455,7 +455,7 @@ String utility functions
     :param str__io: *Input/output*, a string into which to append.
     :param size_dest__d: *Optional*, size of a destination; can be :c:expr:`CC_SIZE_IGNORE`.
     :param str: A string to append.
-    :param max_len__d: *Optional*, maximum length to append; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A weak pointer to zero-terminating char if successful, :c:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append__new( char const * str_1__d, char const * str_2__d, size_t max_len__d )
@@ -470,10 +470,26 @@ String utility functions
 
 .. c:function:: char * cc_str_append_free__new( char ** str_1__d_f, char ** str_2__d_f, size_t max_len__d )
 
-    Function appends strings into newly allocated string, optionally
-    capped at a given maximum length.
+    Function appends strings into newly allocated, zero-terminated string,
+    optionally capped at a given maximum length.
 
-    :param str_1__d_f: *Optional*, a string to append to. It is :c:`free()`-ed, if given.
-    :param str_2__d_f: *Optional*, a string to append. It is :c:`free()`-ed, if given.
+    Given string are :c:`free()`\d, and their inner pointer set to
+    :c:`NULL` only if valid result is produced.
+
+    :param str_1__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
+    :param str_2__d_f: *Optional*, a string to append. It is :c:`free()`\ed, if given.
     :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated, appended string if successful, :c:`NULL` otherwise.
+
+.. c:function:: char * cc_str_append_fmt_va__new( char ** str__d_f, size_t max_len__d, char const * fmt, va_list args )
+
+    Function appends formatted variadic input to a given string, into
+    newly allocated, zero-terminated string, optionally capped at given
+    maximum length.
+
+    :param str__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
+    :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param args: Variadic input list for a string format.
+    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :seealso: :c:expr:`cc_str_append_free__new()`
