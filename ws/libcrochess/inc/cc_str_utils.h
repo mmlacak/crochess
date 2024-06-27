@@ -671,8 +671,8 @@ char * cc_str_append__new( char const * str_1__d,
     Function appending strings, by returning a newly allocated string,
     capped at given maximum length.
 
-    @param str_1__f A string, can be unallocated.
-    @param str_2__f A string to append, can be unallocated.
+    @param str_1__d_f _Optional_, a string to append to, can be `free()`-ed.
+    @param str_2__d_f _Optional_, a string to append, can be `free()`-ed.
     @param max_len__d _Optional_, maximum length to concatenate, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
 
     @note
@@ -689,8 +689,8 @@ char * cc_str_append__new( char const * str_1__d,
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_free__new( char ** str_1__f,
-                                char ** str_2__f,
+char * cc_str_append_free__new( char ** str_1__d_f,
+                                char ** str_2__d_f,
                                 size_t max_len__d );
 
 /**

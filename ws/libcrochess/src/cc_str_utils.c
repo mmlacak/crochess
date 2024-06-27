@@ -472,27 +472,27 @@ char * cc_str_append__new( char const * str_1__d,
     return str__a;
 }
 
-char * cc_str_append_free__new( char ** str_1__f,
-                                char ** str_2__f,
+char * cc_str_append_free__new( char ** str_1__d_f,
+                                char ** str_2__d_f,
                                 size_t max_len__d ) {
-    if ( ( !str_1__f ) && ( !str_2__f ) ) return NULL;
+    if ( ( !str_1__d_f ) && ( !str_2__d_f ) ) return NULL;
 
     char * str__a = NULL;
 
-    if ( str_1__f && str_2__f )
-        str__a = cc_str_append__new( *str_1__f, *str_2__f, max_len__d );
-    else if ( str_1__f )
-        str__a = cc_str_duplicate__new( *str_1__f, false, max_len__d );
-    else if ( str_2__f )
-        str__a = cc_str_duplicate__new( *str_2__f, false, max_len__d );
+    if ( str_1__d_f && str_2__d_f )
+        str__a = cc_str_append__new( *str_1__d_f, *str_2__d_f, max_len__d );
+    else if ( str_1__d_f )
+        str__a = cc_str_duplicate__new( *str_1__d_f, false, max_len__d );
+    else if ( str_2__d_f )
+        str__a = cc_str_duplicate__new( *str_2__d_f, false, max_len__d );
 
     if ( !str__a ) return NULL;
 
-    if ( str_1__f )
-        CC_FREE_AND_NULL( str_1__f );
+    if ( str_1__d_f )
+        CC_FREE_AND_NULL( str_1__d_f );
 
-    if ( str_2__f )
-        CC_FREE_AND_NULL( str_2__f );
+    if ( str_2__d_f )
+        CC_FREE_AND_NULL( str_2__d_f );
 
     return str__a;
 }
