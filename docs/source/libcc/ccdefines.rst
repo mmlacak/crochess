@@ -462,7 +462,8 @@ Debug
 
     Macro to call :c:`printf()`, depending on a compile-time constant.
 
-    Compile-time constant which controls definition of this macro is :c:`__CC_STR_PRINT_INFO__`.
+    Compile-time constant which controls definition of this macro is
+    :c:expr:`__CC_STR_PRINT_INFO__`.
 
     .. seealso::
 

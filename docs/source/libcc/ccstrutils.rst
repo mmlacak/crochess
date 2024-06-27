@@ -473,7 +473,7 @@ String utility functions
     Function appends strings into newly allocated, zero-terminated string,
     optionally capped at a given maximum length.
 
-    Given string are :c:`free()`\d, and their inner pointer set to
+    Given string are :c:`free()`\ed, and their inner pointer set to
     :c:`NULL` only if valid result is produced.
 
     :param str_1__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
@@ -506,3 +506,37 @@ String utility functions
     :param ...: Variadic input for a string format.
     :returns: A newly allocated string if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_append_fmt_va__new()`
+
+.. c:function:: bool cc_str_print( char const * start, char const * end__d, size_t max_len__d, char const * fmt_str, size_t fmt_len__d, char const * fmt__d, ... )
+
+    .. todo::
+
+        (?) move / return newly allocated string (?)
+
+    Function prints given (sub-)string, optionally followed by formatted
+    variadic input.
+
+    Compile-time constant which controls definition of this function is
+    :c:expr:`__CC_STR_PRINT_INFO__`.
+
+    .. note::
+
+        Format string :c:`fmt_str` has to have exactly one :c:`"%s"` string
+        specifier, which is used to print given string :c:`start`.
+
+        For instance:
+
+        .. code-block:: C
+            :force:
+
+            cc_str_printf( , , , "No help entry: '%s'.\n", , );
+
+    :param start: A string to print first.
+    :param end__d: *Optional*, pointer to the end of a (sub-)string.
+    :param max_len__d: *Optional*, maximum length of printed string :c:`start`; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt_str: A :c:`printf()`\-format string, used to format :c:`start` string.
+    :param fmt_len__d: *Optional*, maximum length of variadic string to print; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt__d: *Optional*, a string format, as used by :c:`printf()` and friends.
+    :param ...: Variadic input for a string format.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :seealso: :c:expr:`cc_str_fmt_va__new()`
