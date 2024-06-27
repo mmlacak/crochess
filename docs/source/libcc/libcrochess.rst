@@ -1,6 +1,8 @@
 .. Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
    Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
 
+.. include:: ../defines.rst
+
 .. _lbl-libcc-libcrochess-library:
 
 Croatian Chess library
@@ -34,6 +36,34 @@ C library. As such, there is no networking support. It is possible to redirect
 ``stdin``, ``stdout`` and ``stderr`` into and from crochess application so that
 other application, or server can take over networking.
 
+.. _lbl-libcc-libcrochess-library-conditionalcompilation:
+
+Conditional compilation
+-----------------------
+
+.. c:macro:: __CC_STR_PRINT_INFO__
+
+    .. todo::
+
+        Move out of library / return newly allocated, formatted string.
+        Remove library dependecy on ``<stdio.h>``.
+
+    Controls presence of various debug :c:`printf()`\s and the like in
+    the library.
+
+    It's enough if that constant is defined in a command line while
+    compiling library, like so:
+
+    .. code-block:: sh
+        :force:
+
+        gcc ... -D__CC_STR_PRINT_INFO__ ...
+
+
+.. _lbl-libcc-libcrochess-library-librarycontents:
+
+Library contents
+----------------
 
 .. _lbl-libcc-libcrochess-library-toctree:
 

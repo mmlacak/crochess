@@ -460,6 +460,11 @@ Debug
 
 .. c:macro:: CC_PRINTF_IF_INFO(fmt,...)
 
+    .. todo::
+
+        Move out of library / return newly allocated, formatted string.
+        Remove library dependecy on ``<stdio.h>``.
+
     Macro to call :c:`printf()`, depending on a compile-time constant.
 
     Compile-time constant which controls definition of this macro is

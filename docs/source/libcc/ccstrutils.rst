@@ -507,11 +507,17 @@ String utility functions
     :returns: A newly allocated string if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_append_fmt_va__new()`
 
+.. _lbl-libcc-ccstrutils-debug:
+
+String utility debug
+--------------------
+
 .. c:function:: bool cc_str_print( char const * start, char const * end__d, size_t max_len__d, char const * fmt_str, size_t fmt_len__d, char const * fmt__d, ... )
 
     .. todo::
 
-        (?) move / return newly allocated string (?)
+        Move out of library / return newly allocated, formatted string.
+        Remove library dependecy on ``<stdio.h>``.
 
     Function prints given (sub-)string, optionally followed by formatted
     variadic input.
@@ -540,3 +546,26 @@ String utility functions
     :param ...: Variadic input for a string format.
     :returns: :c:`true` if successful, :c:`false` otherwise.
     :seealso: :c:expr:`cc_str_fmt_va__new()`
+
+.. c:macro:: CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)
+
+    .. todo::
+
+        Move out of library / return newly allocated, formatted string.
+        Remove library dependecy on ``<stdio.h>``.
+
+    Macro to call :c:expr:`cc_str_print()`, depending on a compile-time
+    constant.
+
+    Compile-time constant which controls definition of this macro is
+    :c:expr:`__CC_STR_PRINT_INFO__`.
+
+    :param start: A string to print first.
+    :param end__d: *Optional*, pointer to the end of a (sub-)string.
+    :param max_len__d: *Optional*, maximum length of printed string :c:`start`; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt_str: A :c:`printf()`\-format string, used to format :c:`start` string.
+    :param fmt_len__d: *Optional*, maximum length of variadic string to print; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt__d: *Optional*, a string format, as used by :c:`printf()` and friends.
+    :param ...: Variadic input for a string format.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :seealso: :c:expr:`cc_str_print()`
