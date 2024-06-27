@@ -467,3 +467,13 @@ String utility functions
     :param str_2__d: *Optional* string to concatenate, can be :c:`NULL`.
     :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated, appended string if successful, :c:`NULL` otherwise.
+
+.. c:function:: char * cc_str_append_free__new( char ** str_1__d_f, char ** str_2__d_f, size_t max_len__d )
+
+    Function appends strings into newly allocated string, optionally
+    capped at a given maximum length.
+
+    :param str_1__d_f: *Optional*, a string to append to. It is :c:`free()`-ed, if given.
+    :param str_2__d_f: *Optional*, a string to append. It is :c:`free()`-ed, if given.
+    :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A newly allocated, appended string if successful, :c:`NULL` otherwise.

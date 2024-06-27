@@ -671,8 +671,8 @@ char * cc_str_append__new( char const * str_1__d,
     Function appending strings, by returning a newly allocated string,
     capped at given maximum length.
 
-    @param str_1__d_f _Optional_, a string to append to, can be `free()`-ed.
-    @param str_2__d_f _Optional_, a string to append, can be `free()`-ed.
+    @param str_1__d_f _Optional_, a string to append to. It is `free()`-ed, if given.
+    @param str_2__d_f _Optional_, a string to append. It is `free()`-ed, if given.
     @param max_len__d _Optional_, maximum length to concatenate, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
 
     @note
