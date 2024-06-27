@@ -493,3 +493,16 @@ String utility functions
     :param args: Variadic input list for a string format.
     :returns: A newly allocated string if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_append_free__new()`
+
+.. c:function:: char * cc_str_append_fmt__new( char ** str__d_f, size_t max_len__d, char const * fmt, ... )
+
+    Function appends formatted variadic input to a given string, into
+    newly allocated, zero-terminated string, optionally capped at given
+    maximum length.
+
+    :param str__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
+    :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param ...: Variadic input for a string format.
+    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :seealso: :c:expr:`cc_str_append_fmt_va__new()`

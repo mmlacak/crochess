@@ -722,7 +722,7 @@ char * cc_str_append_fmt_va__new( char ** str__d_f,
     Function appending string and formatted variadic input, by returning a newly allocated string,
     capped at given maximum length.
 
-    @param str__f A string, can be unallocated.
+    @param str__d_f _Optional_, a string to append to. It is `free()`ed, if given.
     @param max_len__d _Optional_, maximum length to append, if length of strings is greater than given argument. Can be `0`, if so strings are appended in their entirety.
     @param fmt A string format to append.
     @param ... Variadic input for a string format.
@@ -731,14 +731,14 @@ char * cc_str_append_fmt_va__new( char ** str__d_f,
     If string is not allocated, only formatted string is copied into a newly allocated string.
 
     @note
-    If allocated, string argument `str__f` is freed, and its inner pointer set to `NULL`, if valid result is produced.
+    If allocated, string argument `str__d_f` is freed, and its inner pointer set to `NULL`, if valid result is produced.
 
     @note
-    If no valid result is produced, allocated string argument `str__f` is not freed.
+    If no valid result is produced, allocated string argument `str__d_f` is not freed.
 
     @return A newly allocated, appended string if successful, `NULL` otherwise.
 */
-char * cc_str_append_fmt__new( char ** str__f,
+char * cc_str_append_fmt__new( char ** str__d_f,
                                size_t max_len__d,
                                char const * fmt, ... );
 
