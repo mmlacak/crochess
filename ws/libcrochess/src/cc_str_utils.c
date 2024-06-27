@@ -499,11 +499,11 @@ char * cc_str_append_free__new( char ** str_1__d_f,
     return str__a;
 }
 
-char * cc_str_append_fmt_va__new( char ** str__f,
+char * cc_str_append_fmt_va__new( char ** str__d_f,
                                   size_t max_len__d,
                                   char const * fmt,
                                   va_list args ) {
-    if ( !str__f && !fmt ) return NULL;
+    if ( !str__d_f && !fmt ) return NULL;
 
     va_list tmp;
     va_copy( tmp, args );
@@ -538,8 +538,8 @@ char * cc_str_append_fmt_va__new( char ** str__f,
         return NULL;
     }
 
-    // No need to free() str__f, str__t; cc_str_append_free__new() does that.
-    return cc_str_append_free__new( str__f, &str__t, max_len__d );
+    // No need to free() str__d_f, str__t; cc_str_append_free__new() does that.
+    return cc_str_append_free__new( str__d_f, &str__t, max_len__d );
 }
 
 char * cc_str_append_fmt__new( char ** str__f,
