@@ -228,6 +228,70 @@ Variants types
 
     :c:`Enum` is tagged with the same :c:expr:`CcVariantEnum` name.
 
+.. _lbl-libcc-ccvariant-symbols:
+
+Variants symbols
+----------------
+
+Abbreviated variant names, used to e.g. select variant to play.
+
+.. c:macro:: CC_MAX_LEN_VARIANT_SYMBOL
+
+    Maximum length of a symbol string (char array), used by any variant;
+    equals to :c:`3`.
+
+.. c:macro:: CC_LEN_VARIANT_SYMBOL_INVALID
+
+    Length of an invalid symbol string (char array); equals to :c:`0`.
+
+.. c:type:: char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL
+
+    Classical Chess symbol, equals to :c:`"cc"`.
+
+.. c:type:: char const * const CC_VARIANT_CROATIAN_TIES_SYMBOL
+
+    Croatian Ties symbol, equals to :c:`"ct"`.
+
+.. c:type:: char const * const CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL
+
+    Mayaan Ascendancy symbol, equals to :c:`"ma"`.
+
+.. c:type:: char const * const CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL
+
+    Age of Aquarius symbol, equals to :c:`"aoa"`.
+
+.. c:type:: char const * const CC_VARIANT_MIRANDAS_VEIL_SYMBOL
+
+    Miranda's Veil symbol, equals to :c:`"mv"`.
+
+.. c:type:: char const * const CC_VARIANT_NINETEEN_SYMBOL
+
+    Nineteen symbol, equals to :c:`"n"`.
+
+.. c:type:: char const * const CC_VARIANT_HEMERAS_DAWN_SYMBOL
+
+    Hemera's Dawn symbol, equals to :c:`"hd"`.
+
+.. c:type:: char const * const CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL
+
+    Tamoanchan Revisited symbol, equals to :c:`"tr"`.
+
+.. c:type:: char const * const CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL
+
+    Conquest of Tlalocan symbol, equals to :c:`"cot"`.
+
+.. c:type:: char const * const CC_VARIANT_DISCOVERY_SYMBOL
+
+    Discovery symbol, equals to :c:`"d"`.
+
+.. c:type:: char const * const CC_VARIANT_ONE_SYMBOL
+
+    One symbol, equals to :c:`"o"`.
+
+.. c:type:: char const * const CC_VARIANT_SYMBOLS[]
+
+    Array of all symbols, for all variants.
+
 
 
 
