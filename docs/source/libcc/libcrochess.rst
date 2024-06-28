@@ -78,6 +78,7 @@ Library contents
     organization
 
     ccdefines
+    ccmath
     cctags
     ccpiece
 
