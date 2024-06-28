@@ -230,8 +230,8 @@ Variants types
 
 .. _lbl-libcc-ccvariant-symbols:
 
-Variants symbols
-----------------
+Variant symbols
+---------------
 
 Abbreviated variant names, used to e.g. select variant to play.
 
@@ -291,6 +291,20 @@ Abbreviated variant names, used to e.g. select variant to play.
 .. c:type:: char const * const CC_VARIANT_SYMBOLS[]
 
     Array of all symbols, for all variants.
+
+.. _lbl-libcc-ccvariant-functions:
+
+Variant functions
+-----------------
+
+.. c:function:: size_t cc_variant_from_symbol( char const * str, CcVariantEnum * ve__o )
+
+    Function returns variant :c:`enum`, based on a string.
+
+    :param str: A string.
+    :param ve__o: *Output*, variant :c:`enum`.
+    :returns: Size of a symbol found in string if successful,
+        :c:expr:`CC_LEN_VARIANT_SYMBOL_INVALID` otherwise.
 
 
 
