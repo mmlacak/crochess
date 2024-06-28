@@ -29,7 +29,6 @@ Contents
     :name: croatian-chess-toctree
 
     libcc/libcrochess
-    libcc/test2
     test
 
 

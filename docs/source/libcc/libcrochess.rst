@@ -81,11 +81,14 @@ Library contents
     ccmath
     cctags
     ccpiece
+    ccvariant
 
     ccstrutils
     ccstrings
     cctoken
     ccversion
+
+    test2
 
 .. _lbl-libcc-libcrochess-library-footnotes:
 

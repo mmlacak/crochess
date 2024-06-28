@@ -69,3 +69,6 @@ Glossary
 
     figure
         Figure is any piece, except Pawn.
+
+    rush
+        Initial movement of a private, for two or more fields forward.
