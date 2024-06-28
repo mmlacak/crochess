@@ -70,6 +70,21 @@ String functions
     :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_strings_append()`
 
+.. c:function:: CcStrings * cc_strings_append_fmt( CcStrings ** strings__iod_a, size_t max_len__d, char const * fmt, ... )
+
+    Appends a newly allocated string element to a linked list.
+
+    If linked list :c:`*strings__iod_a` is :c:`NULL`, it will be initialized
+    with a newly allocated string link as its only element.
+
+    :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
+    :param max_len__d: *Optional*, maximum length to copy.
+    :param fmt: Formatting string, as defined for :c:`printf()`.
+    :param ...: Variadic input for a string format.
+    :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
+    :seealso: :c:expr:`cc_strings_append_fmt_va()`, :c:expr:`cc_strings_append()`
+
+
 
 
 
