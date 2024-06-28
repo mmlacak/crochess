@@ -73,3 +73,9 @@ to divergence.
     -------
 
     TODO :: about strings
+
+..
+    Linked lists
+    ------------
+
+    TODO :: about linked lists

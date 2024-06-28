@@ -82,6 +82,7 @@ Library contents
     ccpiece
 
     ccstrutils
+    ccstrings
     cctoken
     ccversion
 
