@@ -193,7 +193,7 @@ extern char const * const CC_VARIANT_SYMBOLS[];
     @note
     If `max_len__d` is given (i.e. > `0`), then it must also be > `CC_MAX_LEN_VARIANT_SYMBOL`.
 
-    @return `true` if successful, `false` otherwise.
+    @return Size of a symbol found in string if successful, `CC_LEN_VARIANT_SYMBOL_INVALID` otherwise.
 
 */
 size_t cc_variant_from_symbol( char const * str,

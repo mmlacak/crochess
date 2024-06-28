@@ -43,8 +43,8 @@ char const * const CC_VARIANT_SYMBOLS[] = {
 
 size_t cc_variant_from_symbol( char const * str,
                                CcVariantEnum * ve__o ) {
-    if ( !str ) return false;
-    if ( !ve__o ) return false;
+    if ( !str ) return CC_LEN_VARIANT_SYMBOL_INVALID;
+    if ( !ve__o ) return CC_LEN_VARIANT_SYMBOL_INVALID;
 
     char const * s = str;
     int ve = -1;
