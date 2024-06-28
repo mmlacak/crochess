@@ -197,8 +197,8 @@ position of the middle line.
 
 .. _lbl-libcc-ccvariant-types:
 
-Variants types
---------------
+Variant types
+-------------
 
 .. c:enum:: CcVariantEnum
 
@@ -306,11 +306,60 @@ Variant functions
     :returns: Size of a symbol found in string if successful,
         :c:expr:`CC_LEN_VARIANT_SYMBOL_INVALID` otherwise.
 
+.. c:function:: char const * cc_variant_symbol( CcVariantEnum ve )
 
+    Function returning variant symbol, i.e. lowercase abbreviation of a variant name.
 
+    .. warning::
 
+        Returned string is not allocated, do not :c:`free()` it.
 
+    :param ve: Variant :c:`enum`.
+    :returns: Variant symbol string if successful, :c:`NULL` otherwise.
 
+.. c:function:: char const * cc_variant_label( CcVariantEnum ve )
+
+    Function returning variant label, i.e. capitalized name of a variant.
+
+    .. warning::
+
+        Returned string is not allocated, do not :c:`free()` it.
+
+    :param ve: Variant :c:`enum`.
+    :returns: Variant label string if successful, :c:`NULL` otherwise.
+
+.. c:function:: uint cc_variant_board_size( CcVariantEnum ve )
+
+    Function returning size of a board for a given variant.
+
+    :param ve: Variant :c:`enum`.
+    :returns: Size of a chessboard if successful, :c:`0` otherwise.
+
+.. c:function:: bool cc_variant_has_sideways_pawns( CcVariantEnum ve )
+
+    Function returns if Pawns can move sideways in a given variant.
+
+    :param ve: Variant :c:`enum`.
+    :returns: :c:`true` if variant has sideways Pawns, :c:`false` otherwise.
+
+.. c:function:: uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light )
+
+    Function returns rush limit, either maximum rank for light privates,
+    or minimum rank for dark privates.
+
+    :param ve: Variant :c:`enum`.
+    :param is_piece_light: Flag, whether piece is light (:c:`true`) or dark (:c:`false`).
+    :returns: Rush limit for known variants, :c:`0` otherwise.
+
+.. c:function:: bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve, bool is_piece_light, int rank )
+
+    Function checks if given rank is within rush limits;
+    both upper and lower rush limits are checked.
+
+    :param ve: Variant :c:`enum`.
+    :param is_piece_light: Flag, whether piece is light (:c:`true`) or dark (:c:`false`).
+    :param rank: Rank, position along vertical axis.
+    :returns: :c:`true` if within rush limits, :c:`false` otherwise.
 
 .. _lbl-libcc-ccvariant-sourcecodeheader:
 
