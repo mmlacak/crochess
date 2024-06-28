@@ -82,7 +82,7 @@ String functions
     :param fmt: Formatting string, as defined for :c:`printf()`.
     :param ...: Variadic input for a string format.
     :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
-    :seealso: :c:expr:`cc_strings_append_fmt_va()`, :c:expr:`cc_strings_append()`
+    :seealso: :c:expr:`cc_strings_append_fmt_va()`
 
 .. c:function:: CcStrings * cc_strings_duplicate_all__new( CcStrings * strings )
 
@@ -91,8 +91,13 @@ String functions
     :param strings: Linked list of strings.
     :returns: Pointer to a newly allocated linked list if successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_strings_free_all( CcStrings ** strings__f )
 
+    :c:`free()`\s all string links in a linked list.
 
+    :param strings__f: Linked list of strings.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :seealso: https://en.cppreference.com/w/c/memory/free
 
 .. _lbl-libcc-ccstrings-sourcecodeheader:
 
