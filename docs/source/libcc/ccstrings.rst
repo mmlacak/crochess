@@ -84,7 +84,12 @@ String functions
     :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_strings_append_fmt_va()`, :c:expr:`cc_strings_append()`
 
+.. c:function:: CcStrings * cc_strings_duplicate_all__new( CcStrings * strings )
 
+    Duplicates all string elements in a given linked list.
+
+    :param strings: Linked list of strings.
+    :returns: Pointer to a newly allocated linked list if successful, :c:`NULL` otherwise.
 
 
 
