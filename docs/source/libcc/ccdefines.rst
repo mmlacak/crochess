@@ -1,5 +1,6 @@
 .. Copyright (c) 2021, 2024 Mario Mlačak, mmlacak@gmail.com
-   Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
+   This text is Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See accompanying LICENSING, COPYING files for details.
+   Included source code files are licensed under GNU GPL v3+ license. See LICENSING, COPYING files in root folder of the project for details.
 
 .. include:: ../defines.rst
 
@@ -478,3 +479,14 @@ Debug
     :param ...: Variadic parameters, as used by :c:`printf()`.
     :returns: The same as :c:`printf()`, i.e. an :c:`int` value.
               Number of :c:`char`\s printed, an error code if negative.
+
+.. _lbl-libcc-ccdefines-sourcecodeheader:
+
+Defines source code header
+--------------------------
+
+Included source code file is ``cc_defines.h``.
+
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_defines.h
+    :language: C
+    :linenos:

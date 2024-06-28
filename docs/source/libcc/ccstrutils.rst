@@ -1,5 +1,6 @@
 .. Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
-   Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See LICENSING, COPYING files for details.
+   This text is Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See accompanying LICENSING, COPYING files for details.
+   Included source code files are licensed under GNU GPL v3+ license. See LICENSING, COPYING files in root folder of the project for details.
 
 .. include:: ../defines.rst
 
@@ -569,3 +570,25 @@ String utility debug
     :param ...: Variadic input for a string format.
     :returns: :c:`true` if successful, :c:`false` otherwise.
     :seealso: :c:expr:`cc_str_print()`
+
+.. _lbl-libcc-ccstrutils-sourcecodeheader:
+
+String utilities source code header
+-----------------------------------
+
+Included source code file is ``cc_str_utils.h``.
+
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_str_utils.h
+    :language: C
+    :linenos:
+
+.. _lbl-libcc-ccstrutils-sourcecodefile:
+
+String utilities source code file
+---------------------------------
+
+Included source code file is ``cc_str_utils.c``.
+
+.. literalinclude:: ../../../ws/libcrochess/src/cc_str_utils.c
+    :language: C
+    :linenos:
