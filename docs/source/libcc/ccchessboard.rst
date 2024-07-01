@@ -113,6 +113,18 @@ Chessboard functions
     :returns: :c:`true` if chessboard is successfully copied,
               :c:`false` otherwise.
 
+.. c:function:: CcChessboard * cc_chessboard_duplicate__new( CcChessboard * from )
+
+    Function returns a newly allocated chessboard, with all data copied
+    from a given chessboard.
+
+    :param from: Chessboard to copy from.
+    :returns: A newly allocated chessboard if successful, :c:`NULL` otherwise.
+
+
+
+
+
 
 
 
