@@ -96,6 +96,14 @@ Chessboard functions
     :returns: :c:`true` if chessboard is successfully cleared,
               :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_setup( CcChessboard * cb__io )
+
+    Sets up pieces on a chessboard to their initial positions.
+
+    :param cb__io: *Input/output* parameter, chessboard to set up.
+    :returns: :c:`true` if chessboard is successfully set up,
+              :c:`false` otherwise.
+
 
 
 
