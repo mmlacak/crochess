@@ -88,7 +88,13 @@ Chessboard functions
     :param cb: Chessboard to check.
     :returns: :c:`true` if chessboard size is valid, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_clear( CcChessboard * cb__io )
 
+    Clears a chessboard of all pieces.
+
+    :param cb__io: *Input/output* parameter, chessboard to clear.
+    :returns: :c:`true` if chessboard is successfully cleared,
+              :c:`false` otherwise.
 
 
 
