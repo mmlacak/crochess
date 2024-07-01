@@ -63,6 +63,16 @@ Chessboard functions
                      If :c:`false`, chessboard returned is empty.
     :returns: A newly allocated chessboard if successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_chessboard_init( CcChessboard * cb__io, CcVariantEnum ve, bool do_setup )
+
+    (Re-)initializes a chessboard with initial setup, for a given variant.
+
+    :param cb__io: *Input/output* parameter, chessboard to (re-)initialize.
+    :param ve: Variant to play.
+    :param do_setup: Whether to set-up pieces to their initial positions.
+                     If :c:`false`, chessboard returned is empty.
+    :returns: :c:`true` if chessboard is successfully (re-)initialized,
+              :c:`false` otherwise.
 
 
 
