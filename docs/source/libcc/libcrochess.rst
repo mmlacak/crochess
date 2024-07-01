@@ -82,6 +82,7 @@ Library contents
     cctags
     ccpiece
     ccvariant
+    ccchessboard
 
     ccstrutils
     ccstrings
