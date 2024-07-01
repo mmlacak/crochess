@@ -104,6 +104,16 @@ Chessboard functions
     :returns: :c:`true` if chessboard is successfully set up,
               :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_copy( CcChessboard * into__io, CcChessboard * from )
+
+    Copies a chessboard to another one.
+
+    :param into__io: *Input/output* parameter, chessboard to copy into.
+    :param from: Chessboard to copy from.
+    :returns: :c:`true` if chessboard is successfully copied,
+              :c:`false` otherwise.
+
+
 
 
 
