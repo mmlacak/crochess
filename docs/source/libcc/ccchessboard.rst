@@ -26,6 +26,43 @@ Chessboard data
 Chessboard types
 ----------------
 
+.. c:struct:: CcChessboard
+
+    Chessboard :c:`struct`\ure, used for all variants.
+
+    .. c:member:: CcVariantEnum type
+
+        Chess variant to play.
+
+    .. c:member:: uint size
+
+        Actual size of a board used for a given variant.
+
+    .. c:member:: CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
+
+        Holds pieces.
+
+    .. c:member:: CcTagEnum tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
+
+        Holds tags for pieces at their respective position.
+
+    :c:`CcChessboard` is tagged with the same :c:expr:`CcChessboard` name.
+
+.. _lbl-libcc-ccchessboard-functions:
+
+Chessboard functions
+--------------------
+
+.. c:function:: CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
+
+    Function returns a newly allocated chessboard, optionally initialized
+    for a given variant.
+
+    :param ve: Variant to play.
+    :param do_setup: Whether to set-up pieces to their initial positions.
+                     If :c:`false`, chessboard returned is empty.
+    :returns: A newly allocated chessboard if successful, :c:`NULL` otherwise.
+
 
 
 
