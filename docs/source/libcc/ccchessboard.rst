@@ -297,7 +297,17 @@ Chessboard functions
     :returns: :c:`true` if chessboards are equal, :c:`false` otherwise.
 
 
+.. c:function:: char * cc_chessboard_as_string__new( CcChessboard * cb, bool is_board_or_tag )
 
+    TODO
+
+.. c:function:: bool cc_chessboard_print( CcChessboard * cb, bool is_board_or_tag )
+
+    TODO :: move out
+
+.. c:function:: CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb, char const * setup )
+
+    TODO
 
 
 .. _lbl-libcc-ccchessboard-sourcecodeheader:
