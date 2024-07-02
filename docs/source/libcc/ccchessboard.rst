@@ -147,6 +147,21 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: :c:`true` if position is on-board, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_disambiguation_on_board( CcChessboard * cb, int i, int j )
+
+    Function returning if at least one coordinate of given disambiguation
+    belongs to a board.
+
+    Disambiguation is a position which can have one coordinate outside of
+    a board, it does not have to be invalid, i.e. it does not have to be
+    equal to :c:expr:`CC_INVALID_COORD`.
+
+    :param cb: A chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :returns: :c:`true` if disambiguation is on-board, :c:`false` otherwise.
+
+
 
 
 
