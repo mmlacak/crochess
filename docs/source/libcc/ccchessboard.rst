@@ -248,6 +248,18 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: Tag if position is on-board, :c:`CC_TE_None` otherwise.
 
+.. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceEnum pe, CcTagEnum ct )
+
+    Function returning tag at a given position.
+
+    :param cb__io: *Input/output*, a chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :param pe: Piece to set.
+    :param ct: Tag to set.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
+
 
 
 
