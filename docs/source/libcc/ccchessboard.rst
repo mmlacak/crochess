@@ -221,6 +221,17 @@ Chessboard functions
     :returns: Rank of a promoting row if successful,
               :c:expr:`CC_INVALID_COORD` otherwise.
 
+.. c:function:: int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light )
+
+    Function returns rank of a figure row.
+
+    :param cb: A chessboard.
+    :param is_light: Flag, whether it is for light or dark player.
+    :returns: Rank of a figure row if successful,
+              :c:expr:`CC_INVALID_COORD` otherwise.
+
+
+
 
 
 
