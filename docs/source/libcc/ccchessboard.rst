@@ -160,7 +160,16 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: :c:`true` if disambiguation is on-board, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_coord_safe_off_board( CcChessboard * cb, int coord )
 
+    Function checks if given coordinate is within safe off-board boundaries.
+
+    Coordinate is safely off-board if there could be a movement (e.g. trance-journey),
+    which would place piece back on-board.
+
+    :param cb: A chessboard.
+    :param coord: A coordinate to check.
+    :returns: :c:`true` if coordinate is safely off-board, :c:`false` otherwise.
 
 
 
