@@ -176,12 +176,14 @@ bool cc_chessboard_is_pos_safe_off_board( CcChessboard * cb, int i, int j ) {
 }
 
 bool cc_chessboard_is_disambiguation_safe_off_board( CcChessboard * cb, int i, int j ) {
-    if ( !cc_chessboard_is_size_valid( cb ) ) return false;
+    // Not needed, checked in cc_chessboard_is_pos_safe_off_board() below.
+    // if ( !cc_chessboard_is_size_valid( cb ) ) return false;
+    if ( cc_chessboard_is_pos_safe_off_board( cb, i, j ) ) return true;
 
     size_t diag = cc_diagonal( cb->size );
 
-    return ( ( ( (int)(-diag) <= i ) && ( i <= (int)( cb->size + diag ) ) ) || \
-             ( ( (int)(-diag) <= j ) && ( j <= (int)( cb->size + diag ) ) ) );
+    return ( ( ( (int)(-diag) <= i ) && ( i <= (int)( cb->size + diag ) ) && ( j == CC_INVALID_COORD ) ) || \
+             ( ( (int)(-diag) <= j ) && ( j <= (int)( cb->size + diag ) ) && ( i == CC_INVALID_COORD ) ) );
 }
 
 bool cc_chessboard_is_field_on_light_side( CcChessboard * cb, int j ) {

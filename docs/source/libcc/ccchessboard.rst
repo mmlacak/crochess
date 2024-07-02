@@ -183,6 +183,19 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: :c:`true` if position might be safely off-board, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_disambiguation_safe_off_board( CcChessboard * cb, int i, int j )
+
+    Function returning if at least one coordinate of given disambiguation might be
+    within safe off-board boundaries.
+
+    Position is safely off-board if there could be a movement (e.g. trance-journey),
+    which would place piece back on-board.
+
+    :param cb: A chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :returns: :c:`true` if disambiguation might be safely off-board, :c:`false` otherwise.
+
 
 
 
