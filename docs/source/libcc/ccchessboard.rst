@@ -259,6 +259,20 @@ Chessboard functions
     :param ct: Tag to set.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, CcPieceEnum pe )
+
+    Function setting piece onto given position.
+
+    .. note::
+
+        Function resets tag on the same position to :c:`CC_TE_None`.
+
+    :param cb__io: *Input/output*, a chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :param pe: Piece to set.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
 
 
 
