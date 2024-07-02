@@ -152,9 +152,8 @@ Chessboard functions
     Function returning if at least one coordinate of given disambiguation
     belongs to a board.
 
-    Disambiguation is a position which can have one coordinate outside of
-    a board, it does not have to be invalid, i.e. it does not have to be
-    equal to :c:expr:`CC_INVALID_COORD`.
+    Disambiguation is a position which can have one invalid coordinate,
+    i.e. equal to :c:expr:`CC_INVALID_COORD`.
 
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.

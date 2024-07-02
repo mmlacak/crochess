@@ -151,7 +151,11 @@ bool cc_chessboard_is_pos_on_board( CcChessboard * cb, int i, int j ) {
 
 bool cc_chessboard_is_disambiguation_on_board( CcChessboard * cb, int i, int j ) {
     if ( !cc_chessboard_is_size_valid( cb ) ) return false;
-    return CC_IS_COORD_ON_BOARD( cb->size, i ) || CC_IS_COORD_ON_BOARD( cb->size, j );
+
+    if ( CC_IS_POS_ON_BOARD( cb->size, i, j ) ) return true;
+
+    return ( ( CC_IS_COORD_ON_BOARD( cb->size, i ) && !CC_IS_COORD_VALID( j ) )
+          || ( CC_IS_COORD_ON_BOARD( cb->size, j ) && !CC_IS_COORD_VALID( i ) ) );
 }
 
 bool cc_chessboard_is_coord_safe_off_board( CcChessboard * cb, int coord ) {
