@@ -128,6 +128,15 @@ Chessboard functions
     :param cb__f: Chessboard to deallocate.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_coord_on_board( CcChessboard * cb, int coord )
+
+    Function returning if given coordinate is on board, for a current variant.
+
+    All board for all variants are squares, so files and ranks always have the same range.
+
+    :param cb: A chessboard.
+    :param coord: A coordinate to check.
+    :returns: :c:`true` if coordinate is on-board, :c:`false` otherwise.
 
 
 
