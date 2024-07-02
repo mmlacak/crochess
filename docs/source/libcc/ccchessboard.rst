@@ -239,6 +239,16 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: Piece if position is on-board, :c:`CC_PE_None` otherwise.
 
+.. c:function:: CcTagEnum cc_chessboard_get_tag( CcChessboard * cb, int i, int j )
+
+    Function returning tag at a given position.
+
+    :param cb: A chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :returns: Tag if position is on-board, :c:`CC_TE_None` otherwise.
+
+
 
 
 
