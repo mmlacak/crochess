@@ -230,7 +230,14 @@ Chessboard functions
     :returns: Rank of a figure row if successful,
               :c:expr:`CC_INVALID_COORD` otherwise.
 
+.. c:function:: CcPieceEnum cc_chessboard_get_piece( CcChessboard * cb, int i, int j )
 
+    Function returning piece at a given position.
+
+    :param cb: A chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :returns: Piece if position is on-board, :c:`CC_PE_None` otherwise.
 
 
 
