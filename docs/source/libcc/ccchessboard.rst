@@ -277,6 +277,10 @@ Chessboard functions
 
     Function sets tag at a given position.
 
+    .. note::
+
+        Function does not alter piece at the same position.
+
     :param cb__io: *Input/output*, a chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
