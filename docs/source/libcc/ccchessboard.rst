@@ -212,7 +212,14 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: :c:`true` if position is on the dark side, :c:`false` otherwise.
 
+.. c:function:: int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light )
 
+    Function returns rank of a promoting row.
+
+    :param cb: A chessboard.
+    :param is_light: Flag, whether it is for light or dark player.
+    :returns: Rank of a promoting row if successful,
+              :c:expr:`CC_INVALID_COORD` otherwise.
 
 
 
