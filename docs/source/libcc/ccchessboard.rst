@@ -162,14 +162,27 @@ Chessboard functions
 
 .. c:function:: bool cc_chessboard_is_coord_safe_off_board( CcChessboard * cb, int coord )
 
-    Function checks if given coordinate is within safe off-board boundaries.
+    Function checks if given coordinate might be within safe off-board boundaries.
 
     Coordinate is safely off-board if there could be a movement (e.g. trance-journey),
     which would place piece back on-board.
 
     :param cb: A chessboard.
     :param coord: A coordinate to check.
-    :returns: :c:`true` if coordinate is safely off-board, :c:`false` otherwise.
+    :returns: :c:`true` if coordinate might be safely off-board, :c:`false` otherwise.
+
+.. c:function:: bool cc_chessboard_is_pos_safe_off_board( CcChessboard * cb, int i, int j )
+
+    Function returning if given position might be within safe off-board boundaries.
+
+    Position is safely off-board if there could be a movement (e.g. trance-journey),
+    which would place piece back on-board.
+
+    :param cb: A chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :returns: :c:`true` if position might be safely off-board, :c:`false` otherwise.
+
 
 
 
