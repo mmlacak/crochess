@@ -312,10 +312,11 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
 
 
 /**
-    Compares two chessboards field-by-field.
+    Compares two given chessboards field-by-field, if they are for
+    the same variant.
 
-    @param cb Chessboard to copy into.
-    @param cb_2 Chessboard to copy from.
+    @param cb A chessboard.
+    @param cb_2 The other chessboard.
 
     @return `true` if chessboards are equal, `false` otherwise.
 */

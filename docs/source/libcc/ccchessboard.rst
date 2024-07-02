@@ -287,6 +287,14 @@ Chessboard functions
     :param tt: Tag to set.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 )
+
+    Compares two given chessboards field-by-field, if they are for
+    the same variant.
+
+    :param cb: A chessboard.
+    :param cb_2: The other chessboard.
+    :returns: :c:`true` if chessboards are equal, :c:`false` otherwise.
 
 
 
