@@ -138,6 +138,15 @@ Chessboard functions
     :param coord: A coordinate to check.
     :returns: :c:`true` if coordinate is on-board, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_pos_on_board( CcChessboard * cb, int i, int j )
+
+    Function returning if given position belongs to a board.
+
+    :param cb: A chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :returns: :c:`true` if position is on-board, :c:`false` otherwise.
+
 
 
 
