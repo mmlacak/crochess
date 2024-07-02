@@ -204,6 +204,14 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: :c:`true` if position is on the light side, :c:`false` otherwise.
 
+.. c:function:: bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j )
+
+    Function returning if given position is on the dark side of a chessboard.
+
+    :param cb: A chessboard.
+    :param j: Rank, position along vertical axis.
+    :returns: :c:`true` if position is on the dark side, :c:`false` otherwise.
+
 
 
 
