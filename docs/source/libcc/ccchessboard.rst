@@ -121,6 +121,13 @@ Chessboard functions
     :param from: Chessboard to copy from.
     :returns: A newly allocated chessboard if successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_chessboard_free_all( CcChessboard ** cb__f )
+
+    Deallocates chessboard, and all used resources.
+
+    :param cb__f: Chessboard to deallocate.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
 
 
 
