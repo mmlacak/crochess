@@ -250,7 +250,7 @@ Chessboard functions
 
 .. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceEnum pe, CcTagEnum ct )
 
-    Function returning tag at a given position.
+    Function sets piece and tag at a given position.
 
     :param cb__io: *Input/output*, a chessboard.
     :param i: File, position along horizontal axis.
@@ -261,7 +261,7 @@ Chessboard functions
 
 .. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, CcPieceEnum pe )
 
-    Function setting piece onto given position.
+    Function sets piece at a given position.
 
     .. note::
 
@@ -271,6 +271,16 @@ Chessboard functions
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
     :param pe: Piece to set.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
+.. c:function:: bool cc_chessboard_set_tag( CcChessboard * cb__io, int i, int j, CcTagEnum tt )
+
+    Function sets tag at a given position.
+
+    :param cb__io: *Input/output*, a chessboard.
+    :param i: File, position along horizontal axis.
+    :param j: Rank, position along vertical axis.
+    :param tt: Tag to set.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
