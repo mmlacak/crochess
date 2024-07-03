@@ -45,7 +45,14 @@ Setup misc functions
                                     King-side first.
     :returns: File of figure if found, :c:expr:`CC_INVALID_COORD` otherwise.
 
+.. c:function:: int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light )
 
+    Function returns rank of figures in an initial setup of a chessboard,
+    for a given variant.
+
+    :param ve: A variant.
+    :param is_light: Flag, whether to return light, or dark figure's rank.
+    :returns: Rank of figures if successful, :c:expr:`CC_INVALID_COORD` otherwise.
 
 
 
