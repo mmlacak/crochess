@@ -61,15 +61,27 @@ Setup board data
 
     One setup.
 
+.. _lbl-libcc-ccsetupboard-functions:
 
+Setup board functions
+---------------------
 
+.. c:function:: CcPieceEnum const * cc_setup_board_get( CcVariantEnum ve )
 
+    Function returning setup for a board, based on a given variant.
 
+    :param ve: A variant.
+    :returns: Pointer to setup if successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe )
 
+    Function checks if piece is present in an initial setup of a chessboard
+    for a given variant.
 
-
-
+    :param ve: A variant.
+    :param pe: A piece.
+    :returns: :c:`true` if piece is found in an initial setup,
+              :c:`false` otherwise.
 
 .. _lbl-libcc-ccsetupboard-sourcecodeheader:
 

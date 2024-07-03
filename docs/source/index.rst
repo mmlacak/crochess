@@ -25,7 +25,7 @@ Contents
 ********
 
 .. toctree::
-    :maxdepth: 9
+    :maxdepth: 1
     :name: croatian-chess-toctree
 
     libcc/libcrochess
@@ -49,3 +49,8 @@ Indices and tables
 .. - for subsections
 .. ^ for subsubsections
 .. " for paragraphs
+
+
+
+
+    .. :titlesonly:
