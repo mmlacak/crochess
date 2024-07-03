@@ -63,8 +63,20 @@ Setup misc functions
     :returns: Maximum Kng's castling distance if valid variant is given,
               :c:expr:`CC_INVALID_COORD` otherwise.
 
+.. c:function:: bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, CcPieceEnum king, int pos_i, int pos_j, bool * is_queen_side__o, int * min_i__o, int * max_i__o )
 
+    Function checks if position is valid step-field for castling King.
 
+    :param ve: A variant.
+    :param king: Piece, either light, or dark King.
+    :param pos_i: Castling destination; file, position along horizontal axis.
+    :param pos_j: Castling destination; rank, position along vertical axis.
+    :param is_queen_side__o: *Output*, flag, whether castling is on Queen-,
+                             or King-side.
+    :param min_i__o: *Output*, lower bound on King's castling file.
+    :param max_i__o: *Output*, upper bound on King's castling file.
+    :returns: :c:`true` if position is valid step-field for castling King,
+              :c:`false` otherwise.
 
 .. _lbl-libcc-ccsetupmisc-sourcecodeheader:
 
