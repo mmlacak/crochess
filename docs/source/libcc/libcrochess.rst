@@ -84,6 +84,7 @@ Library contents
     ccvariant
     ccchessboard
     ccsetupboard
+    ccsetuptags
 
     ccstrutils
     ccstrings
