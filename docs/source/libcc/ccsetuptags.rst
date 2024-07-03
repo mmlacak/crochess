@@ -17,14 +17,61 @@ tags setup definitions and functions.
 Setup tags data
 ---------------
 
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ]
 
+    Classical Chess initial tags.
 
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ]
 
+    Croatian Ties initial tags.
 
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ]
 
+    Mayan Ascendancy initial tags.
 
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ]
 
+    Age of Aquarius initial tags.
 
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ]
+
+    Miranda's Veil initial tags.
+
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ]
+
+    Nineteen initial tags.
+
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ]
+
+    Hemera's Dawn initial tags.
+
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ]
+
+    Tamoanchan Revisited initial tags.
+
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ]
+
+    Conquest of Tlalocan initial tags.
+
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ]
+
+    Discovery initial tags.
+
+.. c:type:: CcTagEnum const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ]
+
+    One initial tags.
+
+.. _lbl-libcc-ccsetuptags-functions:
+
+Setup tags functions
+--------------------
+
+.. c:function:: CcTagEnum const * cc_setup_tags_get( CcVariantEnum ve )
+
+    Function returning setup for a tags, based on a given variant.
+
+    :param ve: A variant.
+    :returns: Pointer to setup if successful, :c:`NULL` otherwise.
 
 .. _lbl-libcc-ccsetuptags-sourcecodeheader:
 
