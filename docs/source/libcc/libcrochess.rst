@@ -83,6 +83,7 @@ Library contents
     ccpiece
     ccvariant
     ccchessboard
+    ccsetupboard
 
     ccstrutils
     ccstrings
