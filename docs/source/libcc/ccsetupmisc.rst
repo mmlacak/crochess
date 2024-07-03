@@ -28,6 +28,23 @@ Setup misc data
 Setup misc functions
 --------------------
 
+.. c:function:: int cc_get_figure_initial_file( CcVariantEnum ve, CcPieceEnum pe, bool search_queen_side_first )
+
+    Function returns file of a figure in an initial setup of a chessboard,
+    for a given variant.
+
+    Function returns valid results only for figures in first (or last) row
+    in an initial setup of chessboard.
+
+    Pawns, Scouts, Grenadiers, and Monoliths are not searched for, they'll
+    always return invalid value (:c:expr:`CC_INVALID_COORD`).
+
+    :param ve: A variant.
+    :param pe: A figure.
+    :param search_queen_side_first: Flag, whether to search Queen-side, or
+                                    King-side first.
+    :returns: File of figure if found, :c:expr:`CC_INVALID_COORD` otherwise.
+
 
 
 
