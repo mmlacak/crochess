@@ -54,6 +54,16 @@ Setup misc functions
     :param is_light: Flag, whether to return light, or dark figure's rank.
     :returns: Rank of figures if successful, :c:expr:`CC_INVALID_COORD` otherwise.
 
+.. c:function:: int cc_get_kings_max_castling_distance( CcVariantEnum ve )
+
+    Function returns maximum castling distance Kings can make in a
+    given variant.
+
+    :param ve: A variant.
+    :returns: Maximum Kng's castling distance if valid variant is given,
+              :c:expr:`CC_INVALID_COORD` otherwise.
+
+
 
 
 .. _lbl-libcc-ccsetupmisc-sourcecodeheader:
