@@ -44,6 +44,44 @@ Position data
 
     :c:`CcPos` is tagged with the same :c:expr:`CcPos` name.
 
+.. c:macro:: CC_POS_CAST_INVALID
+
+    Casted invalid position value, i.e. :c:expr:`CC_POS_INVALID`.
+
+.. c:macro:: CC_POS_CAST_STATIC_STEP
+
+    Casted static position value, i.e. :c:expr:`CC_POS_STATIC_STEP`.
+
+.. c:macro:: CC_POS_CAST_ORIGIN_FIELD
+
+    Casted origin field, i.e. :c:expr:`CC_POS_ORIGIN_FIELD`.
+
+.. c:macro:: CC_POS(int_i,int_j)
+
+    Macro definition for instantiating position, i.e. :c:expr:`CcPos` :c:`struct`\ure.
+
+    :param int_i: File, horizontal coordinate.
+    :param int_j: Rank, vertical coordinate.
+    :returns: Position with given coordinates.
+
+.. c:macro:: CC_POS_CAST(int_i,int_j)
+
+    Macro definition for a casted position.
+
+    :param int_i: File, horizontal coordinate.
+    :param int_j: Rank, vertical coordinate.
+    :returns: Casted position with given coordinates.
+
+.. c:macro:: CC_POS_IS_VALID(pos)
+
+    Macro to check if given position is valid, i.e. if both
+    coordinates are valid.
+
+    Coordinate is valid if it's not :c:expr:`CC_INVALID_COORD`.
+
+    :param pos: A position, i.e. :c:expr:`CcPos` value.
+    :returns: :c:`true` if valid position, :c:`false` otherwise.
+
 
 
 
