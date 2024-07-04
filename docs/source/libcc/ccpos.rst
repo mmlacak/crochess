@@ -195,6 +195,26 @@ Position functions
     :param pos_2: Another position.
     :returns: :c:`true` if positions are congruent, :c:`false` otherwise.
 
+.. c:function:: CcPos cc_pos_add( CcPos pos, CcPos step, int count )
+
+    Function adds step to position.
+
+    Function adds valid coordinates, if both :c:`pos` and :c:`step`
+    arguments are one of:
+
+    * valid positions
+    * file disambiguations
+    * rank disambiguations.
+
+    If :c:`pos` and :c:`step` have no common valid coordinates,
+    result is invalid position, e.g. if a rank disambiguation is
+    added to a file disambiguation.
+
+    :param pos: A position to add to.
+    :param step: A step to be added.
+    :param count: Count of steps to be added.
+    :returns: A position with added step(s) if successful,
+              :c:expr:`CC_POS_INVALID` otherwise.
 
 
 
