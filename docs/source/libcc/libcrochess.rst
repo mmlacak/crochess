@@ -87,6 +87,8 @@ Library contents
     ccsetuptags
     ccsetupmisc
 
+    ccpos
+
     ccstrutils
     ccstrings
     cctoken
