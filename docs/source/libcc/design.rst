@@ -75,6 +75,12 @@ to divergence.
     TODO :: about strings
 
 ..
+    Positions
+    ---------
+
+    TODO :: about positions
+
+..
     Linked lists
     ------------
 

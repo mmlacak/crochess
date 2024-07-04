@@ -93,7 +93,11 @@ Position data
 
     Macro to check if given position is disambiguation.
 
-    Disambiguation is any position with at least one valid coordinate.
+    .. todo::
+
+        move to design.rst
+
+        Disambiguation is any position with at least one valid coordinate.
 
     :param pos: A position, i.e. :c:expr:`CcPos` value.
     :returns: :c:`true` if disambiguation, :c:`false` otherwise.
@@ -102,7 +106,11 @@ Position data
 
     Macro to check if given position is partial position.
 
-    Partial position is any which have exactly one valid coordinate.
+    .. todo::
+
+        move to design.rst
+
+        Partial position is any which have exactly one valid coordinate.
 
     :param pos: A position, i.e. :c:expr:`CcPos` value.
     :returns: :c:`true` if partial position, :c:`false` otherwise.
@@ -127,6 +135,46 @@ Position functions
     :param i: File, horizontal coordinate.
     :param j: Rank, vertical coordinate.
     :returns: Positions with a given coordinates.
+
+.. c:function:: bool cc_pos_is_valid( CcPos pos )
+
+    Function checks if position is valid.
+
+    :param pos: A position.
+    :returns: :c:`true` if position is valid, :c:`false` otherwise.
+
+.. c:function:: bool cc_pos_is_static_step( CcPos pos )
+
+    Function checks if position is static step.
+
+    :param pos: A position.
+    :returns: :c:`true` if position is static step, :c:`false` otherwise.
+
+.. c:function:: bool cc_pos_is_disambiguation( CcPos pos )
+
+    Function checks if position is disambiguation.
+
+    .. todo::
+
+        move to design.rst
+
+        Disambiguation is any position with at least one valid coordinate.
+
+    :param pos: A position.
+    :returns: :c:`true` if position is disambiguation, :c:`false` otherwise.
+
+.. c:function:: bool cc_pos_is_partial( CcPos pos )
+
+    Function checks if position is partial position.
+
+    .. todo::
+
+        move to design.rst
+
+        Partial position is any which have exactly one valid coordinate.
+
+    :param pos: A position.
+    :returns: :c:`true` if position is partial position, :c:`false` otherwise.
 
 
 
