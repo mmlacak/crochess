@@ -82,7 +82,38 @@ Position data
     :param pos: A position, i.e. :c:expr:`CcPos` value.
     :returns: :c:`true` if valid position, :c:`false` otherwise.
 
+.. c:macro:: CC_POS_IS_STATIC_STEP(pos)
 
+    Macro to check if given position is static step.
+
+    :param pos: A position, i.e. :c:expr:`CcPos` value.
+    :returns: :c:`true` if static step, :c:`false` otherwise.
+
+.. c:macro:: CC_POS_IS_DISAMBIGUATION(pos)
+
+    Macro to check if given position is disambiguation.
+
+    Disambiguation is any position with at least one valid coordinate.
+
+    :param pos: A position, i.e. :c:expr:`CcPos` value.
+    :returns: :c:`true` if disambiguation, :c:`false` otherwise.
+
+.. c:macro:: CC_POS_IS_PARTIAL(pos)
+
+    Macro to check if given position is partial position.
+
+    Partial position is any which have exactly one valid coordinate.
+
+    :param pos: A position, i.e. :c:expr:`CcPos` value.
+    :returns: :c:`true` if partial position, :c:`false` otherwise.
+
+.. c:macro:: CC_POS_IS_EQUAL(pos_1,pos_2)
+
+    Macro to check if given positions are equal.
+
+    :param pos_1: A position, i.e. :c:expr:`CcPos` value.
+    :param pos_2: Another position, i.e. :c:expr:`CcPos` value.
+    :returns: :c:`true` if equal, :c:`false` otherwise.
 
 
 
