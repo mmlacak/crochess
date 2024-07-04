@@ -247,28 +247,7 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
     @return A position with added step if successful, invalid position otherwise.
 */
-CcPos cc_pos_add( CcPos pos, CcPos step, uint count );
-
-/**
-    Function subtracts step from position.
-
-    @param pos A position to subtract from.
-    @param step A step to be subtracted.
-    @param count Count of steps to be subtracted.
-
-    @note
-    Function subtracts valid coordinates, if both `pos` and `step` arguments are one of:
-    - valid positions
-    - file disambiguations
-    - rank disambiguations.
-
-    @note
-    If `pos` and `step` have no common valid coordinates, result is invalid position,
-    e.g. if a rank disambiguation is subtracted from a file disambiguation.
-
-    @return A position with subtracted step if successful, invalid position otherwise.
-*/
-CcPos cc_pos_subtract( CcPos pos, CcPos step, uint count );
+CcPos cc_pos_add( CcPos pos, CcPos step, int count );
 
 /**
     Function returns difference between two given positions.
