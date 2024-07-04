@@ -115,6 +115,19 @@ Position data
     :param pos_2: Another position, i.e. :c:expr:`CcPos` value.
     :returns: :c:`true` if equal, :c:`false` otherwise.
 
+.. _lbl-libcc-ccpos-functions:
+
+Position functions
+------------------
+
+.. c:function:: CcPos cc_pos( int i, int j )
+
+    Function returns a position.
+
+    :param i: File, horizontal coordinate.
+    :param j: Rank, vertical coordinate.
+    :returns: Positions with a given coordinates.
+
 
 
 
