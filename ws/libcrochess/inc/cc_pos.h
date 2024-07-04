@@ -215,7 +215,7 @@ bool cc_pos_is_partial( CcPos pos );
 bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
 
 /**
-    Function checks if two positions are the congruent.
+    Function checks if two positions are congruent.
 
     @param pos_1 A position.
     @param pos_2 An other position.

@@ -104,7 +104,7 @@ Position data
 
 .. c:macro:: CC_POS_IS_PARTIAL(pos)
 
-    Macro to check if given position is partial position.
+    Macro to check if given position is partial.
 
     .. todo::
 
@@ -165,7 +165,7 @@ Position functions
 
 .. c:function:: bool cc_pos_is_partial( CcPos pos )
 
-    Function checks if position is partial position.
+    Function checks if position is partial.
 
     .. todo::
 
@@ -174,8 +174,26 @@ Position functions
         Partial position is any which have exactly one valid coordinate.
 
     :param pos: A position.
-    :returns: :c:`true` if position is partial position, :c:`false` otherwise.
+    :returns: :c:`true` if position is partial, :c:`false` otherwise.
 
+.. c:function:: bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
+
+    Function checks if two positions are equal.
+
+    :param pos_1: A position.
+    :param pos_2: Another position.
+    :returns: :c:`true` if positions are equal, :c:`false` otherwise.
+
+.. c:function:: bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
+
+    Function checks if two positions are congruent.
+
+    For positions to be congruent, at least one set of coordinates (files,
+    or ranks) from both positions has to be valid, and the same.
+
+    :param pos_1: A position.
+    :param pos_2: Another position.
+    :returns: :c:`true` if positions are congruent, :c:`false` otherwise.
 
 
 
