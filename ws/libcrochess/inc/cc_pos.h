@@ -370,16 +370,6 @@ typedef struct CcTypedStep {
 #define CC_TYPED_STEP_IS_EQUAL(ts_1,ts_2) ( CC_POS_IS_EQUAL( (ts_1).step, (ts_2).step ) && ( (ts_1).type == (ts_2).type ) )
 
 /**
-    Function returns a step + type.
-
-    @param step Step, relative position.
-    @param type Type of a step.
-
-    @return Step and its type.
-*/
-CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type );
-
-/**
     Macro definition for a typed step.
 
     @param int_i File, horizontal coordinate.
@@ -400,6 +390,16 @@ CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type );
     @return Casted, typed step with a given coordinates.
 */
 #define CC_TYPED_STEP_CAST(int_i,int_j,enum_type) ( (CcTypedStep)CC_TYPED_STEP( (int_i), (int_j), (enum_type) ) )
+
+/**
+    Function returns a step + type.
+
+    @param step Step, relative position.
+    @param type Type of a step.
+
+    @return Step and its type.
+*/
+CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type );
 
 /**
     Function checks if two typed steps are the same.
