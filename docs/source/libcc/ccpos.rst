@@ -411,7 +411,6 @@ Linked typed steps
     :returns: Pointer to a newly allocated linked typed step if successful,
               :c:`NULL` otherwise.
 
-
 .. c:function:: CcTypedStepLink * cc_typed_step_link_extend( CcTypedStepLink ** ts_link__iod_a, CcTypedStepLink ** ts_link__n )
 
     Extends existing linked list with a another linked list.
@@ -431,7 +430,12 @@ Linked typed steps
     :returns: Weak pointer to extending portion of a linked list if successful,
               :c:`NULL` otherwise.
 
+.. c:function:: bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f )
 
+    Frees all typed steps in a linked list.
+
+    :param ts_link__f: Linked list of typed steps.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
 
