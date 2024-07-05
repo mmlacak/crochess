@@ -85,7 +85,7 @@ CcPos cc_pos_difference( CcPos start, CcPos destination ) {
     return CC_POS_CAST( i, j );
 }
 
-CcPos cc_pos_step( CcPos start, CcPos destination ) {
+CcPos cc_pos_calc_step( CcPos start, CcPos destination ) {
     int diff_i = destination.i - start.i;
     int diff_j = destination.j - start.j;
 

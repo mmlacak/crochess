@@ -281,7 +281,7 @@ CcPos cc_pos_difference( CcPos start, CcPos destination );
 
     @return A valid step if successful, invalid otherwise.
 */
-CcPos cc_pos_step( CcPos start, CcPos destination );
+CcPos cc_pos_calc_step( CcPos start, CcPos destination );
 
 /**
     Function converts position into a user-readable `<file char><rank number>` notation.

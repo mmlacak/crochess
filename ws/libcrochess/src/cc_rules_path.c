@@ -46,7 +46,7 @@
 
 //     CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
 //     if ( CC_TAG_CAN_RUSH( te ) ) {
-//         step = cc_pos_step( start, destination );
+//         step = cc_pos_calc_step( start, destination );
 
 //         // Can rush only forward.
 //         if ( cc_piece_is_light( pawn ) ) {
