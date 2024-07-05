@@ -391,6 +391,15 @@ Linked typed steps
 
     :c:`CcTypedStepLink` is tagged with the same :c:expr:`CcTypedStepLink` name.
 
+.. c:function:: CcTypedStepLink * cc_typed_step_link__new( CcTypedStep step )
+
+    Function allocates a new linked typed step.
+
+    :param step: A typed step.
+    :returns: Pointer to a newly allocated linked typed step if successful,
+              :c:`NULL` otherwise.
+
+
 
 
 
