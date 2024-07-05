@@ -327,8 +327,16 @@ Typed step
     Typed step is valid if both coordinates of a :c:`step` member
     are valid, and :c:`type` is not :c:`CC_STE_None`.
 
-    :param ts: A typed step., i.e. :c:expr:`CcTypedStep` value.
+    :param ts: A typed step, i.e. :c:expr:`CcTypedStep` value.
     :returns: :c:`true` if valid typed step, :c:`false` otherwise.
+
+.. c:macro:: CC_TYPED_STEP_IS_EQUAL(ts_1,ts_2)
+
+    Macro to check if given typed steps are equal.
+
+    :param ts_1: A typed step, i.e. :c:expr:`CcTypedStep` value.
+    :param ts_2: Another typed step, i.e. :c:expr:`CcTypedStep` value.
+    :returns: :c:`true` if equal, :c:`false` otherwise.
 
 
 
