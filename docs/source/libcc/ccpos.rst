@@ -320,6 +320,16 @@ Typed step
 
     Casted, static typed step value, i.e. no-movement, no-side-effects step.
 
+.. c:macro:: CC_TYPED_STEP_IS_VALID(ts)
+
+    Macro to check if given typed step is valid.
+
+    Typed step is valid if both coordinates of a :c:`step` member
+    are valid, and :c:`type` is not :c:`CC_STE_None`.
+
+    :param ts: A typed step., i.e. :c:expr:`CcTypedStep` value.
+    :returns: :c:`true` if valid typed step, :c:`false` otherwise.
+
 
 
 
