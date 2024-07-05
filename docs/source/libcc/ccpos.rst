@@ -438,6 +438,14 @@ Linked typed steps
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
+.. c:function:: size_t cc_typed_step_link_len( CcTypedStepLink * ts_link )
+
+    Function returns length of a linked list.
+
+    :param ts_link: A linked list of typed steps.
+    :returns: Count of typed steps in a linked list if successful,
+              :c:`0` otherwise.
+
 
 
 
