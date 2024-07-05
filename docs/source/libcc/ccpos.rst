@@ -338,7 +338,14 @@ Typed step
     :param ts_2: Another typed step, i.e. :c:expr:`CcTypedStep` value.
     :returns: :c:`true` if equal, :c:`false` otherwise.
 
+.. c:macro:: CC_TYPED_STEP(int_i,int_j,enum_type)
 
+    Macro definition for a typed step.
+
+    :param int_i: File, horizontal coordinate; an integer value.
+    :param int_j: Rank, vertical coordinate; an integer value.
+    :param enum_type: Type of a step; :c:expr:`CcStepTypeEnum` value.
+    :returns: Typed step with a given coordinates.
 
 
 
