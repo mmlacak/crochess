@@ -372,6 +372,25 @@ Typed step
     :param ts_2: Another typed step.
     :returns: :c:`true` if equal, :c:`false` otherwise.
 
+.. _lbl-libcc-ccpos-linkedtypedsteps:
+
+Linked typed steps
+------------------
+
+.. c:struct:: CcTypedStepLink
+
+    A linked list of typed steps.
+
+    .. c:member:: CcTypedStep step
+
+        Typed step value.
+
+    .. c:member:: CcTypedStepLink * next
+
+        Link to next typed step.
+
+    :c:`CcTypedStepLink` is tagged with the same :c:expr:`CcTypedStepLink` name.
+
 
 
 

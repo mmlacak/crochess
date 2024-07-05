@@ -416,10 +416,10 @@ bool cc_typed_step_is_equal( CcTypedStep ts_1, CcTypedStep ts_2 );
 // Linked typed steps.
 
 /**
-    A linked list of positions.
+    A linked list of typed steps.
 */
 typedef struct CcTypedStepLink {
-    CcTypedStep step; /**< A step + type. */
+    CcTypedStep step; /**< Typed step value. */
     struct CcTypedStepLink * next; /**< Link to next typed step. */
 } CcTypedStepLink;
 
