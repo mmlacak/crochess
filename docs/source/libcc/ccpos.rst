@@ -235,6 +235,17 @@ Position functions
     :returns: A position difference if successful,
               :c:expr:`CC_POS_INVALID` otherwise.
 
+.. c:function:: CcPos cc_pos_calc_step( CcPos start, CcPos destination )
+
+    Function calculates step from :c:`start` to :c:`destination`.
+
+    Returned step might not be legal step for any piece, it's just the
+    shortest possible step between the two given positions.
+
+    :param start: Starting position.
+    :param destination: Destination field.
+    :returns: A valid step if successful, :c:expr:`CC_POS_INVALID` otherwise.
+
 
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
