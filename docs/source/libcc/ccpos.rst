@@ -356,6 +356,14 @@ Typed step
     :param enum_type: Type of a step; :c:expr:`CcStepTypeEnum` value.
     :returns: Casted, typed step with a given coordinates.
 
+.. c:function:: CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type )
+
+    Function returns typed step.
+
+    :param step: Step, relative position.
+    :param type: Type of a step.
+    :returns: A typed step value.
+
 
 
 
