@@ -412,6 +412,25 @@ Linked typed steps
               :c:`NULL` otherwise.
 
 
+.. c:function:: CcTypedStepLink * cc_typed_step_link_extend( CcTypedStepLink ** ts_link__iod_a, CcTypedStepLink ** ts_link__n )
+
+    Extends existing linked list with a another linked list.
+
+    If linked list to extend (:c:`ts_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`ts_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`ts_link__n` has its ownership transferred to
+        extended linked list :c:`ts_link__iod_a`; as a result, inner pointer of
+        :c:`ts_link__n` is :c:`NULL`-ed.
+
+    :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
+    :param ts_link__n: Linked list with which to extend existing steps.
+    :returns: Weak pointer to extending portion of a linked list if successful,
+              :c:`NULL` otherwise.
+
 
 
 
