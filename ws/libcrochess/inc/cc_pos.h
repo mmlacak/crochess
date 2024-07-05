@@ -252,8 +252,8 @@ CcPos cc_pos_add( CcPos pos, CcPos step, int count );
 /**
     Function returns difference between two given positions.
 
-    @param pos_1 A position.
-    @param pos_2 An other position.
+    @param start Starting position.
+    @param destination Destination field.
 
     @note
     Function subtracts valid coordinates, if both positions are one of:
@@ -267,7 +267,7 @@ CcPos cc_pos_add( CcPos pos, CcPos step, int count );
 
     @return A position difference if successful, invalid position otherwise.
 */
-CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 );
+CcPos cc_pos_difference( CcPos start, CcPos destination );
 
 /**
     Function returns step from start to destination field.

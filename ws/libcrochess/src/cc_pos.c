@@ -72,15 +72,15 @@ CcPos cc_pos_add( CcPos pos, CcPos step, int count ) {
     return CC_POS_CAST( i, j );
 }
 
-CcPos cc_pos_difference( CcPos pos_1, CcPos pos_2 ) {
+CcPos cc_pos_difference( CcPos start, CcPos destination ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 
-    if ( CC_IS_COORD_VALID( pos_1.i ) && CC_IS_COORD_VALID( pos_2.i ) )
-        i = pos_1.i - pos_2.i;
+    if ( CC_IS_COORD_VALID( destination.i ) && CC_IS_COORD_VALID( start.i ) )
+        i = destination.i - start.i;
 
-    if ( CC_IS_COORD_VALID( pos_1.j ) && CC_IS_COORD_VALID( pos_2.j ) )
-        j = pos_1.j - pos_2.j;
+    if ( CC_IS_COORD_VALID( destination.j ) && CC_IS_COORD_VALID( start.j ) )
+        j = destination.j - start.j;
 
     return CC_POS_CAST( i, j );
 }
