@@ -216,6 +216,25 @@ Position functions
     :returns: A position with added step(s) if successful,
               :c:expr:`CC_POS_INVALID` otherwise.
 
+.. c:function:: CcPos cc_pos_difference( CcPos start, CcPos destination )
+
+    Function returns difference between :c:`destination` and :c:`start` positions.
+
+    Function subtracts valid coordinates, if both positions are one of:
+
+    * valid positions
+    * file disambiguations
+    * rank disambiguations.
+
+    If given positions have no common valid coordinates, result is
+    invalid position, e.g. if a rank disambiguation is subtracted
+    from a file disambiguation.
+
+    :param start: Starting position.
+    :param destination: Destination field.
+    :returns: A position difference if successful,
+              :c:expr:`CC_POS_INVALID` otherwise.
+
 
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
