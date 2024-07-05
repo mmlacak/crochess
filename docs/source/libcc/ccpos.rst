@@ -364,6 +364,16 @@ Typed step
     :param type: Type of a step.
     :returns: A typed step value.
 
+.. c:function:: bool cc_typed_step_is_equal( CcTypedStep ts_1, CcTypedStep ts_2 )
+
+    Function checks if two typed steps are equal.
+
+    :param ts_1: A typed step.
+    :param ts_2: Another typed step.
+    :returns: :c:`true` if equal, :c:`false` otherwise.
+
+
+
 
 
 
