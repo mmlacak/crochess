@@ -256,7 +256,42 @@ Position functions
 
     :param pos: A position.
     :param pos_str__o: *Output*, pointer to short string array.
-    :returns: :c:`true` if position is partial, :c:`false` otherwise.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
+.. _lbl-libcc-ccpos-steptypeenum:
+
+Step type enum
+--------------
+
+.. c:enum:: CcStepTypeEnum
+
+    Step types enumeration.
+
+    .. c:enumerator:: CC_STE_None
+
+        Undefined step type, equals to :c:`0`.
+
+    .. c:enumerator:: CC_STE_Movement
+
+        Just a step, movement. It can still cause side-effects other than capture.
+
+    .. c:enumerator:: CC_STE_Capture
+
+        Capturing step, i.e. movement + capture.
+
+    .. c:enumerator:: CC_STE_Alternative
+
+        Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps.
+
+.. c:macro:: CC_TYPED_STEP_INVALID
+
+    Invalid typed step value.
+
+.. c:macro:: CC_TYPED_STEP_STATIC
+
+    Static typed step value, i.e. no-movement, no-side-effects step.
+
+
 
 
 
