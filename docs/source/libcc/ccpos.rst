@@ -454,6 +454,52 @@ Linked typed steps
     :returns: A newly allocated, zero-terminated string if successful,
               :c:`NULL` otherwise.
 
+.. _lbl-libcc-ccpos-positiondescriptor:
+
+Position descriptor
+-------------------
+
+.. c:macro:: CC_POS_DESC_INVALID
+
+    Invalid position descriptor value.
+
+.. c:macro:: CC_POS_DESC_STATIC_STEP
+
+    Static position descriptor value, i.e. no-movement position.
+
+.. c:struct:: CcPosDesc
+
+    Position descriptor; holding a position, and a piece and a tag
+    found at it.
+
+    Structure also contains momentum a moving piece had when this
+    position was reached.
+
+    Moving piece is not part of this :c:`struct`, and is different than
+    static piece found at this position.
+
+    .. c:member:: CcPos pos
+
+        A position.
+
+    .. c:member:: CcPieceEnum piece
+
+        Piece found at position.
+
+    .. c:member:: CcTagEnum tag
+
+        Tag found at position.
+
+    .. c:member:: uint momentum
+
+        Momentum a moving piece (different from static piece found at
+        this position!) had when this position was reached.
+
+    :c:`CcPosDesc` is tagged with the same :c:expr:`CcPosDesc` name.
+
+
+
+
 
 
 
