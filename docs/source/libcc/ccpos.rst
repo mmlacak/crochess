@@ -347,7 +347,14 @@ Typed step
     :param enum_type: Type of a step; :c:expr:`CcStepTypeEnum` value.
     :returns: Typed step with a given coordinates.
 
+.. c:macro:: CC_TYPED_STEP_CAST(int_i,int_j,enum_type)
 
+    Macro definition for a casted, typed step.
+
+    :param int_i: File, horizontal coordinate; an integer value.
+    :param int_j: Rank, vertical coordinate; an integer value.
+    :param enum_type: Type of a step; :c:expr:`CcStepTypeEnum` value.
+    :returns: Casted, typed step with a given coordinates.
 
 
 
