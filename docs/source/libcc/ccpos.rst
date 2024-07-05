@@ -399,6 +399,19 @@ Linked typed steps
     :returns: Pointer to a newly allocated linked typed step if successful,
               :c:`NULL` otherwise.
 
+.. c:function:: CcTypedStepLink * cc_typed_step_link_append( CcTypedStepLink ** ts_link__iod_a, CcTypedStep step )
+
+    Function appends a newly allocated linked position to a given linked list.
+
+    If linked list :c:`*ts_link__iod_a` is :c:`NULL`, it will be initialized
+    with a newly allocated string link as its only element.
+
+    :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
+    :param step: A typed step.
+    :returns: Pointer to a newly allocated linked typed step if successful,
+              :c:`NULL` otherwise.
+
+
 
 
 
