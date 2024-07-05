@@ -291,6 +291,37 @@ Step type enum
 
     Static typed step value, i.e. no-movement, no-side-effects step.
 
+.. _lbl-libcc-ccpos-typedstep:
+
+Typed step
+----------
+
+.. c:struct:: CcTypedStep
+
+    Structure holding a step and its type.
+
+    Step is always relative to current position.
+
+    .. c:member:: CcPos step
+
+        Step, relative position.
+
+    .. c:member:: CcStepTypeEnum type
+
+        Type of a step.
+
+    :c:`CcTypedStep` is tagged with the same :c:expr:`CcTypedStep` name.
+
+.. c:macro:: CC_TYPED_STEP_CAST_INVALID
+
+    Casted, invalid typed step value.
+
+.. c:macro:: CC_TYPED_STEP_CAST_STATIC
+
+    Casted, static typed step value, i.e. no-movement, no-side-effects step.
+
+
+
 
 
 
