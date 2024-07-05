@@ -246,6 +246,19 @@ Position functions
     :param destination: Destination field.
     :returns: A valid step if successful, :c:expr:`CC_POS_INVALID` otherwise.
 
+.. c:function:: bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o )
+
+    Function converts position into a user-readable :c:`<file char><rank number>` notation.
+
+    Coordinates outside chessboard are converted into short integers, if possible.
+
+    If outside of 2 decimal places, coordinate is represented as asterisk.
+
+    :param pos: A position.
+    :param pos_str__o: *Output*, pointer to short string array.
+    :returns: :c:`true` if position is partial, :c:`false` otherwise.
+
+
 
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
