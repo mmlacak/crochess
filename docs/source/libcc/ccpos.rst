@@ -570,6 +570,25 @@ Position descriptor
     :param pd_2: Another position descriptor.
     :returns: :c:`true` if equal, :c:`false` otherwise.
 
+.. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
+
+    Function checks if two position descriptor values are congruent.
+
+    For positions to be congruent, at least one set of coordinates
+    (files, or ranks) from both positions has to be valid, and the
+    same.
+
+    For pieces to be congruent, they have to be valid, and the same
+    type, e.g two Rooks, not necessarily in the same color.
+
+    Tags, momentum members are not checked.
+
+    :param pd_1: A position descriptor.
+    :param pd_2: Another position descriptor.
+    :returns: :c:`true` if position descriptors are congruent,
+              :c:`false` otherwise.
+
+
 
 
 

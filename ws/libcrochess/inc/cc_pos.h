@@ -636,7 +636,7 @@ bool cc_pos_desc_is_valid( CcPosDesc pd );
 bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 /**
-    Function checks if two position descriptor values are the congruent.
+    Function checks if two position descriptor values are congruent.
 
     @param pd_1 A position descriptor.
     @param pd_2 An other position descriptor.
