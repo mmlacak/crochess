@@ -537,6 +537,15 @@ Position descriptor
     :returns: Casted position descriptor value.
     :seealso: :c:`true` if valid position descriptor, :c:`false` otherwise.
 
+.. c:macro:: CC_POS_DESC_IS_EQUAL(pd_1,pd_2)
+
+    Macro to check if two given position descriptors are equal.
+
+    :param pd_1: A position descriptor; :c:expr:`CcPosDesc` value.
+    :param pd_2: Another position descriptor; :c:expr:`CcPosDesc` value.
+    :returns: Casted position descriptor value.
+    :seealso: :c:`true` if equal, :c:`false` otherwise.
+
 
 
 
