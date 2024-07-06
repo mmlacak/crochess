@@ -588,7 +588,17 @@ Position descriptor
     :returns: :c:`true` if position descriptors are congruent,
               :c:`false` otherwise.
 
+.. c:function:: bool cc_pos_desc_to_short_string( CcPosDesc pd, cc_char_16 * pd_str__o )
 
+    Function converts position descriptor value into a user-readable
+    ``<file char><rank number><piece>`` notation.
+
+    Coordinates outside chessboard are converted into short integers,
+    if possible, otherwise into asterisk.
+
+    :param pd: A position descriptor.
+    :param pd_str__o: *Output*, pointer to short string array.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
 
