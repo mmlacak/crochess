@@ -642,6 +642,15 @@ Linked position descriptors
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:`NULL` otherwise.
 
+.. c:function:: CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link__io )
+
+    Duplicates a given position descriptor linked list into a newly
+    allocated one.
+
+    :param pd_link__io: *Input/output*; linked list.
+    :returns: A pointer to newly allocated linked list if successful,
+              :c:`NULL` otherwise.
+
 
 
 
