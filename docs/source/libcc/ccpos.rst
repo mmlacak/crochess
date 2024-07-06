@@ -605,18 +605,6 @@ Position descriptor
 Linked position descriptors
 ---------------------------
 
-.. c:macro:: CC_POS_DESC_LINK__NEW(int_i,int_j,piece,tag,momentum)
-
-    Macro allocates new position descriptor link with given values.
-
-    :param int_i: File, horizontal coordinate; integer.
-    :param int_j: Rank, vertical coordinate; integer.
-    :param piece: A piece; :c:expr:`CcPieceEnum` value.
-    :param tag: A tag; :c:expr:`CcTagEnum` value.
-    :param momentum: Momentum; unsigned integer.
-    :returns: Pointer to a newly allocated linked position
-              descriptor if successful, `NULL` otherwise.
-    :seealso: :c:expr:`cc_pos_desc_link__new()`
 
 
 
