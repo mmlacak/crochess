@@ -546,6 +546,15 @@ Position descriptor
     :returns: Casted position descriptor value.
     :seealso: :c:`true` if equal, :c:`false` otherwise.
 
+.. c:function:: CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag )
+
+    Function returns position descriptor value.
+
+    :param pos: A position.
+    :param piece: A piece.
+    :param tag: A tag.
+    :returns: Position descriptor value.
+
 
 
 

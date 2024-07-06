@@ -608,7 +608,7 @@ typedef struct CcPosDesc {
 
     @param pos A position.
     @param piece A piece.
-    @param tag A  tag.
+    @param tag A tag.
 
     @return Position descriptor value.
 */
