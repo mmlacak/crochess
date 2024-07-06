@@ -676,39 +676,6 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 // Linked list of position descriptors.
 
 /**
-    Convenience macro to allocate new position descriptor value to position link.
-
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-    @param piece A piece.
-    @param tag A tag.
-    @param momentum A momentum.
-
-    @return Pointer to a newly allocated linked position if successful, `NULL` otherwise.
-
-    @see cc_pos_desc_link__new()
-*/
-#define CC_POS_DESC_LINK__NEW(int_i,int_j,piece,tag,momentum) \
-    ( cc_pos_desc_link__new( CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag), (momentum) ) ) )
-
-/**
-    Macro to append a newly allocated position descriptor value to position link.
-
-    @param ptr_ptr__pd_link__iod _Optional_, _input/output_ parameter; a position linked list.
-    @param int_i File, horizontal coordinate.
-    @param int_j Rank, vertical coordinate.
-    @param piece A piece.
-    @param tag A tag.
-    @param momentum A momentum.
-
-    @see cc_pos_desc_link_append()
-
-    @return A weak pointer to a newly allocated linked position if successful, `NULL` otherwise.
-*/
-#define CC_POS_DESC_LINK_APPEND(ptr_ptr__pd_link__iod,int_i,int_j,piece,tag,momentum) \
-    ( cc_pos_desc_link_append( (ptr_ptr__pd_link__iod), CC_POS_DESC_CAST( (int_i), (int_j), (piece), (tag), (momentum) ) ) )
-
-/**
     A linked list of position descriptors.
 */
 typedef struct CcPosDescLink {
