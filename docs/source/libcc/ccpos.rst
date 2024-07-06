@@ -517,6 +517,18 @@ Position descriptor
     :returns: Position descriptor value.
     :seealso: :c:expr:`CcPosDesc`
 
+.. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum)
+
+    Macro which casts position descriptor macro.
+
+    :param int_i: File, horizontal coordinate; integer.
+    :param int_j: Rank, vertical coordinate; integer.
+    :param piece_enum: A piece; :c:expr:`CcPieceEnum` value.
+    :param tag_enum: A tag; :c:expr:`CcTagEnum` value.
+    :param uint_momentum: Momentum; unsigned integer.
+    :returns: Casted position descriptor value.
+    :seealso: :c:expr:`CC_POS_DESC`
+
 
 
 
