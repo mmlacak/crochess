@@ -555,6 +555,12 @@ Position descriptor
     :param tag: A tag.
     :returns: Position descriptor value.
 
+.. c:function:: bool cc_pos_desc_is_valid( CcPosDesc pd )
+
+    Function checks if position descriptor is valid.
+
+    :param pd: A position descriptor.
+    :returns: :c:`true` if valid, :c:`false` otherwise.
 
 
 
