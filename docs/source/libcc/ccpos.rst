@@ -505,6 +505,18 @@ Position descriptor
 
     Casted static position descriptor value, i.e. no-movement step.
 
+.. c:macro:: CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,uint_momentum)
+
+    Macro which constructs position descriptor struct.
+
+    :param int_i: File, horizontal coordinate; integer.
+    :param int_j: Rank, vertical coordinate; integer.
+    :param piece_enum: A piece; :c:expr:`CcPieceEnum` value.
+    :param tag_enum: A tag; :c:expr:`CcTagEnum` value.
+    :param uint_momentum: Momentum; unsigned integer.
+    :returns: Position descriptor value.
+    :seealso: :c:expr:`CcPosDesc`
+
 
 
 
