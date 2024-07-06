@@ -529,6 +529,15 @@ Position descriptor
     :returns: Casted position descriptor value.
     :seealso: :c:expr:`CC_POS_DESC`
 
+.. c:macro:: CC_POS_DESC_IS_VALID(pd)
+
+    Macro to check if given position descriptor is valid.
+
+    :param pd: A position descriptor; :c:expr:`CcPosDesc` value.
+    :returns: Casted position descriptor value.
+    :seealso: :c:`true` if valid position descriptor, :c:`false` otherwise.
+
+
 
 
 
