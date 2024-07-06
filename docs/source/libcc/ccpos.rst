@@ -619,6 +619,14 @@ Linked position descriptors
 
     :c:`Struct` is tagged with the same :c:expr:`CcPosDescLink` name.
 
+.. c:function:: CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd )
+
+    Function allocates a new linked position.
+
+    :param pd: A position descriptor.
+    :returns: Pointer to a newly allocated linked position descriptor
+              if successful, :c:`NULL` otherwise.
+
 
 
 
