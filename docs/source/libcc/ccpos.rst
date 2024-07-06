@@ -621,11 +621,27 @@ Linked position descriptors
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd )
 
-    Function allocates a new linked position.
+    Function allocates a new linked position descriptor.
 
     :param pd: A position descriptor.
     :returns: Pointer to a newly allocated linked position descriptor
               if successful, :c:`NULL` otherwise.
+
+.. c:function:: CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a, CcPosDesc pd )
+
+    Function appends a newly allocated linked position descriptor
+    to a given linked list.
+
+    If linked list :c:`*pd_link__iod_a` is :c:`NULL`, it will be
+    initialized with a newly allocated string link as its only
+    element.
+
+    :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
+                           linked list.
+    :param pd: A position descriptor.
+    :returns: A weak pointer to a newly allocated linked position
+              if successful, :c:`NULL` otherwise.
+
 
 
 
