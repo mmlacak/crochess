@@ -497,6 +497,14 @@ Position descriptor
 
     :c:`CcPosDesc` is tagged with the same :c:expr:`CcPosDesc` name.
 
+.. c:macro:: CC_POS_DESC_CAST_INVALID
+
+    Casted invalid position descriptor value.
+
+.. c:macro:: CC_POS_DESC_CAST_STATIC_STEP
+
+    Casted static position descriptor value, i.e. no-movement step.
+
 
 
 
