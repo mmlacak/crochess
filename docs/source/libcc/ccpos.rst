@@ -562,6 +562,16 @@ Position descriptor
     :param pd: A position descriptor.
     :returns: :c:`true` if valid, :c:`false` otherwise.
 
+.. c:function:: bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 )
+
+    Function checks if two given position descriptors are equal.
+
+    :param pd_1: A position descriptor.
+    :param pd_2: Another position descriptor.
+    :returns: :c:`true` if equal, :c:`false` otherwise.
+
+
+
 
 
 

@@ -14,7 +14,7 @@
 
 /**
     @file cc_pos.h
-    @brief Position, position + piece, linked list of position + piece.
+    @brief Position, position descriptor, linked list of position descriptor.
 */
 
 
@@ -615,31 +615,31 @@ typedef struct CcPosDesc {
 CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
 
 /**
-    Function checks if position + piece is valid.
+    Function checks if position descriptor is valid.
 
-    @param pd A position + piece.
+    @param pd A position descriptor.
 
     @see CC_POS_INVALID
 
-    @return `true` if position + piece is valid, `false` otherwise.
+    @return `true` if position descriptor is valid, `false` otherwise.
 */
 bool cc_pos_desc_is_valid( CcPosDesc pd );
 
 /**
-    Function checks if two position + piece values are the same.
+    Function checks if two position descriptor values are the same.
 
-    @param pd_1 A position + piece.
-    @param pd_2 An other position + piece.
+    @param pd_1 A position descriptor.
+    @param pd_2 An other position descriptor.
 
-    @return `true` if position + piece values are the same, `false` otherwise.
+    @return `true` if position descriptor values are the same, `false` otherwise.
 */
 bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 /**
-    Function checks if two position + piece values are the congruent.
+    Function checks if two position descriptor values are the congruent.
 
-    @param pd_1 A position + piece.
-    @param pd_2 An other position + piece.
+    @param pd_1 A position descriptor.
+    @param pd_2 An other position descriptor.
 
     @note
     For positions to be congruent, at least one set of coordinates (files,
@@ -654,10 +654,10 @@ bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 );
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 /**
-    Function converts position + piece value into a user-readable
+    Function converts position descriptor value into a user-readable
     `<file char><rank number><piece>` notation.
 
-    @param pd A position + piece.
+    @param pd A position descriptor.
     @param pd_str__o An _output_ parameter, short string array.
 
     @note
