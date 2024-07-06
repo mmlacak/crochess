@@ -605,6 +605,20 @@ Position descriptor
 Linked position descriptors
 ---------------------------
 
+.. c:struct:: CcPosDescLink
+
+    A linked list of position descriptors.
+
+    .. c:member:: CcPosDesc pd
+
+        A position descriptor.
+
+    .. c:member:: struct CcPosDescLink * next
+
+        Link to next position descriptor.
+
+    :c:`Struct` is tagged with the same :c:expr:`CcPosDescLink` name.
+
 
 
 
