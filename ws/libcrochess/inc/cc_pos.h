@@ -673,7 +673,7 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 
 
 //
-// Linked list of positions + pieces + tags.
+// Linked list of position descriptors.
 
 /**
     Convenience macro to allocate new position descriptor value to position link.
