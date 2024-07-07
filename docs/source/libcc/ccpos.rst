@@ -404,7 +404,7 @@ Linked typed steps
     Function appends a newly allocated linked position to a given linked list.
 
     If linked list :c:`*ts_link__iod_a` is :c:`NULL`, it will be initialized
-    with a newly allocated string link as its only element.
+    with a newly allocated typed step link as its only element.
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
     :param step: A typed step.
@@ -423,7 +423,7 @@ Linked typed steps
 
         Extending linked list :c:`ts_link__n` has its ownership transferred to
         extended linked list :c:`ts_link__iod_a`; as a result, inner pointer of
-        :c:`ts_link__n` is :c:`NULL`-ed.
+        :c:`ts_link__n` is :c::c:`NULL`\ed.
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
     :param ts_link__n: **Ownership transfer**; linked list with which to extend existing steps.
@@ -633,8 +633,8 @@ Linked position descriptors
     to a given linked list.
 
     If linked list :c:`*pd_link__iod_a` is :c:`NULL`, it will be
-    initialized with a newly allocated string link as its only
-    element.
+    initialized with a newly allocated position descriptor link as
+    its only element.
 
     :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
                            linked list.
@@ -663,7 +663,7 @@ Linked position descriptors
 
         Extending linked list :c:`pd_link__n` has its ownership transferred to
         extended linked list :c:`pd_link__iod_a`; as a result, inner pointer of
-        :c:`pd_link__n` is :c:`NULL`-ed.
+        :c:`pd_link__n` is :c::c:`NULL`\ed.
 
     :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
                            a linked list to extend.
@@ -720,12 +720,31 @@ Linked paths
     Function allocates a new linked path.
 
     Linked typed steps `pd_link__n` will have its ownership transferred
-    to newly allocated path, and its inner pointer will be `NULL`-ed.
+    to newly allocated path, and its inner pointer will be :c:`NULL`\ed.
 
     :param pd_link__n: **Ownership transfer**; linked list of position
                        descriptors.
     :returns: Pointer to a newly allocated linked path if successful,
               :c:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a, CcPosDescLink ** pd_link__n )
+
+    Function appends a newly allocated linked path to a given linked list.
+
+    If linked list :c:`*path_link__iod_a` is :c:`NULL`, it will be
+    initialized with a newly allocated path link as its only
+    element.
+
+    Linked typed steps `pd_link__n` will have its ownership transferred
+    to newly allocated path, and its inner pointer will be :c:`NULL`\ed.
+
+    :param path_link__iod_a: **Ownership**, *optional* *input/output*;
+                             a linked list to extend.
+    :param pd_link__n: **Ownership transfer**; linked list of position
+                       descriptors.
+    :returns: A weak pointer to a newly allocated linked path if successful,
+              :c:`NULL` otherwise.
+
 
 
 
