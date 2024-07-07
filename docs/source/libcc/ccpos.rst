@@ -715,6 +715,18 @@ Linked paths
 
     :c:`Struct` is tagged with the same :c:expr:`CcPathLink` name.
 
+.. c:function:: CcPathLink * cc_path_link__new( CcPosDescLink ** pd_link__n )
+
+    Function allocates a new linked path.
+
+    Linked typed steps `pd_link__n` will have its ownership transferred
+    to newly allocated path, and its inner pointer will be `NULL`-ed.
+
+    :param pd_link__n: **Ownership transfer**; linked list of position
+                       descriptors.
+    :returns: Pointer to a newly allocated linked path if successful,
+              :c:`NULL` otherwise.
+
 
 
 
