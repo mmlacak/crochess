@@ -719,8 +719,9 @@ Linked paths
 
     Function allocates a new linked path.
 
-    Linked typed steps `pd_link__n` will have its ownership transferred
-    to newly allocated path, and its inner pointer will be :c:`NULL`\ed.
+    Linked position descriptors :c:`pd_link__n` will have its ownership
+    transferred to newly allocated path, and its inner pointer will be
+    :c:`NULL`\ed.
 
     :param pd_link__n: **Ownership transfer**; linked list of position
                        descriptors.
@@ -735,8 +736,9 @@ Linked paths
     initialized with a newly allocated path link as its only
     element.
 
-    Linked typed steps `pd_link__n` will have its ownership transferred
-    to newly allocated path, and its inner pointer will be :c:`NULL`\ed.
+    Linked position descriptors :c:`pd_link__n` will have its ownership
+    transferred to newly allocated path, and its inner pointer will be
+    :c:`NULL`\ed.
 
     :param path_link__iod_a: **Ownership**, *optional* *input/output*;
                              a linked list to extend.
@@ -744,6 +746,23 @@ Linked paths
                        descriptors.
     :returns: A weak pointer to a newly allocated linked path if successful,
               :c:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a, CcPathLink ** path_link__n )
+
+    Extends existing linked list with a another linked list.
+
+    If linked list :c:`*path_link__iod_a` is :c:`NULL`, it will be
+    initialized with a newly allocated path link as its only
+    element.
+
+    Linked paths :c:`path_link__n` will have its ownership transferred
+    to newly allocated path, and its inner pointer will be :c:`NULL`\ed.
+
+    :param path_link__iod_a: **Ownership**, *optional* *input/output*;
+                             a linked list to extend.
+    :param path_link__n: **Ownership transfer**; linked list of paths.
+    :returns: Weak pointer to extending portion of a linked list if
+              successful, :c:`NULL` otherwise.
 
 
 
