@@ -764,7 +764,12 @@ Linked paths
     :returns: Weak pointer to extending portion of a linked list if
               successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_path_link_free_all( CcPathLink ** path_link__f )
 
+    Frees all paths in a linked list.
+
+    :param path_link__f: Linked list of paths to :c:`free()`.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
 
