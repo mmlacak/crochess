@@ -426,7 +426,7 @@ Linked typed steps
         :c:`ts_link__n` is :c:`NULL`-ed.
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
-    :param ts_link__n: Linked list with which to extend existing steps.
+    :param ts_link__n: **Ownership transfer**; linked list with which to extend existing steps.
     :returns: Weak pointer to extending portion of a linked list if successful,
               :c:`NULL` otherwise.
 
@@ -650,6 +650,27 @@ Linked position descriptors
     :param pd_link: A linked list.
     :returns: A pointer to newly allocated linked list if successful,
               :c:`NULL` otherwise.
+
+.. c:function:: CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a, CcPosDescLink ** pd_link__n )
+
+    Extends existing linked list with another linked list.
+
+    If linked list to extend (:c:`pd_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`pd_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`pd_link__n` has its ownership transferred to
+        extended linked list :c:`pd_link__iod_a`; as a result, inner pointer of
+        :c:`pd_link__n` is :c:`NULL`-ed.
+
+    :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
+                           a linked list to extend.
+    :param pd_link__n: **Ownership transfer**; linked list with which to
+                       extend existing steps.
+    :returns: Weak pointer to extending portion of a linked list
+              if successful, :c:`NULL` otherwise.
 
 
 
