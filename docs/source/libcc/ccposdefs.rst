@@ -42,6 +42,106 @@ Piece step lengths
     Equals to :c:`5`.
 
 
+.. c:macro:: CC_STEPS_KNIGHT_LEN
+
+    Equals to :c:`8`.
+
+.. c:macro:: CC_STEPS_BISHOP_LEN
+
+    Equals to :c:`4`.
+
+.. c:macro:: CC_STEPS_ROOK_LEN
+
+    Equals to :c:`4`.
+
+.. c:macro:: CC_STEPS_QUEEN_LEN
+
+    Equals to :c:`8`.
+
+.. c:macro:: CC_STEPS_KING_LEN
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_LEN`.
+
+
+.. c:macro:: CC_STEPS_PEGASUS_LEN
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
+
+.. c:macro:: CC_STEPS_PYRAMID_LEN
+
+    Equals to :c:expr:`CC_STEPS_ROOK_LEN`.
+
+.. c:macro:: CC_STEPS_SHORT_UNICORN_LEN
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
+
+.. c:macro:: CC_STEPS_LONG_UNICORN_LEN
+
+    Equals to :c:`16`.
+
+
+.. c:macro:: CC_STEPS_STAR_LEN
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_LEN`.
+
+.. c:macro:: CC_STEPS_SHORT_CENTAUR_LEN
+
+    Equals to :c:expr:`CC_STEPS_SHORT_UNICORN_LEN`.
+
+.. c:macro:: CC_STEPS_LONG_CENTAUR_LEN
+
+    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_LEN`.
+
+.. c:macro:: CC_STEPS_SERPENT_LEN
+
+    Equals to :c:`2`.
+
+.. c:macro:: CC_STEPS_ALL_SERPENT_LEN
+
+    Equals to :c:expr:`CC_STEPS_BISHOP_LEN`.
+
+
+.. c:macro:: CC_STEPS_LIGHT_SHAMAN_LEN
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN + CC_STEPS_LONG_UNICORN_LEN`,
+    i.e. count of steps + capture-steps, respectively.
+
+.. c:macro:: CC_STEPS_DARK_SHAMAN_LEN
+
+    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_LEN + CC_STEPS_KNIGHT_LEN`,
+    i.e. count of steps + capture-steps, respectively.
+
+
+.. c:macro:: CC_STEPS_SCOUT_LEN
+
+    Equals to :c:`5`.
+
+.. c:macro:: CC_STEPS_GRENADIER_LEN
+
+    Equals to :c:expr:`CC_STEPS_ROOK_LEN + CC_STEPS_BISHOP_LEN`,
+    i.e. count of ordinary steps + capture-steps, respectively.
+
+
+.. c:macro:: CC_STEPS_MIRACLE_STARCHILD_LEN
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_LEN`.
+
+.. c:macro:: CC_STEPS_STARTING_MONOLITH_LEN
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
