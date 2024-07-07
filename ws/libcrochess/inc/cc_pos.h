@@ -720,12 +720,12 @@ CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
 /**
     Duplicates a given position descriptor linked list into a newly allocated.
 
-    @param pd_link__io Linked list to duplicate.
+    @param pd_link Linked list to duplicate.
 
     @return
     A pointer to newly allocated linked list if successful, `NULL` otherwise.
 */
-CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link__io );
+CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link );
 
 /**
     Extends existing linked list with another linked list.

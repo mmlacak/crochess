@@ -120,12 +120,12 @@ CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a,
 /**
     Duplicates a given steps into a newly allocated linked list.
 
-    @param steps__io Linked list to duplicate.
+    @param steps Linked list to duplicate.
 
     @return
     A newly allocated steps if successful, `NULL` otherwise.
 */
-CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps__io );
+CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps );
 
 /**
     Extends existing linked list with step(s).

@@ -374,11 +374,11 @@ CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
-CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link__io ) {
-    if ( !pd_link__io ) return NULL;
+CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
+    if ( !pd_link ) return NULL;
 
     CcPosDescLink * pd_link__a = NULL;
-    CcPosDescLink * from = pd_link__io;
+    CcPosDescLink * from = pd_link;
 
     while ( from ) {
         CcPosDescLink * pd__w = cc_pos_desc_link_append( &pd_link__a, from->pd );

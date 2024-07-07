@@ -61,11 +61,11 @@ CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a,
     return step__t; // Weak pointer.
 }
 
-CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps__io ) {
-    if ( !steps__io ) return NULL;
+CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps ) {
+    if ( !steps ) return NULL;
 
     CcParsedStep * steps__a = NULL;
-    CcParsedStep * from = steps__io;
+    CcParsedStep * from = steps;
 
     while ( from ) {
         CcParsedStep * step__w = cc_parsed_step_append( &steps__a,
