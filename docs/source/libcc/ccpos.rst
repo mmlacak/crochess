@@ -771,10 +771,12 @@ Linked paths
     :param path_link__f: Linked list of paths to :c:`free()`.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: size_t cc_path_link_len( CcPathLink * path_link )
 
+    Function returns length of a linked list.
 
-
-
+    :param path_link: Linked list of paths.
+    :returns: Length of a linked list if successful, :c:`0` otherwise.
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
 
