@@ -686,6 +686,15 @@ Linked position descriptors
     :param pd_link: A linked list of position descriptors.
     :returns: Length of a linked list if successful, :c:`0` otherwise.
 
+.. c:function:: char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link )
+
+    Function returns string containing user-readable representation
+    of a position descriptors list.
+
+    :param pd_link: A linked list of position descriptors.
+    :returns: A newly allocated, zero-terminated (:c:`\0`) string if
+              successful, :c:`NULL` otherwise.
+    :seealso: :c:expr:`cc_pos_to_short_string()`
 
 
 
