@@ -672,6 +672,12 @@ Linked position descriptors
     :returns: Weak pointer to extending portion of a linked list
               if successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f )
+
+    Frees all position descriptors in a linked list.
+
+    :param pd_link__f: A linked list to :c:`free()`.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
 
