@@ -88,6 +88,7 @@ Library contents
     ccsetupmisc
 
     ccpos
+    ccposdefs
 
     ccstrutils
     ccstrings
