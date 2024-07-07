@@ -138,7 +138,7 @@ extern CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZ
 
 extern CcTypedStep const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ];
 extern CcTypedStep const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ];
-extern CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]; // Also, Serpent's color-changing move.
+extern CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]; // TODO :: ADD :: Also, Serpent's color-changing move.
 extern CcTypedStep const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ];
 #define CC_STEPS_KING (CC_STEPS_QUEEN)
 
