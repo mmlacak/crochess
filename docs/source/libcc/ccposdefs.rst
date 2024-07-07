@@ -130,7 +130,107 @@ Piece step lengths
 
     Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
 
+.. _lbl-libcc-ccposdefs-piecestepsizes:
 
+Piece step sizes
+----------------
+
+    Size of an array is count of all items in an it, including guard data,
+    i.e. terminating, invalid step.
+
+.. c:macro:: CC_STEPS_PAWN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_PAWN_LEN + 1`.
+
+.. c:macro:: CC_STEPS_SIDEWAYS_PAWN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_SIDEWAYS_PAWN_LEN + 1`.
+
+
+.. c:macro:: CC_STEPS_KNIGHT_SIZE
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN + 1`.
+
+.. c:macro:: CC_STEPS_BISHOP_SIZE
+
+    Equals to :c:expr:`CC_STEPS_BISHOP_LEN + 1`.
+
+.. c:macro:: CC_STEPS_ROOK_SIZE
+
+    Equals to :c:expr:`CC_STEPS_ROOK_LEN + 1`.
+
+.. c:macro:: CC_STEPS_QUEEN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_LEN + 1`.
+
+.. c:macro:: CC_STEPS_KING_SIZE
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_SIZE`.
+
+
+.. c:macro:: CC_STEPS_PEGASUS_SIZE
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_SIZE`.
+
+.. c:macro:: CC_STEPS_PYRAMID_SIZE
+
+    Equals to :c:expr:`CC_STEPS_ROOK_SIZE`.
+
+.. c:macro:: CC_STEPS_SHORT_UNICORN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_KNIGHT_SIZE`.
+
+.. c:macro:: CC_STEPS_LONG_UNICORN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_LEN + 1`.
+
+
+.. c:macro:: CC_STEPS_STAR_SIZE
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_SIZE`.
+
+.. c:macro:: CC_STEPS_SHORT_CENTAUR_SIZE
+
+    Equals to :c:expr:`CC_STEPS_SHORT_UNICORN_SIZE`.
+
+.. c:macro:: CC_STEPS_LONG_CENTAUR_SIZE
+
+    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_SIZE`.
+
+.. c:macro:: CC_STEPS_SERPENT_SIZE
+
+    Equals to :c:expr:`CC_STEPS_SERPENT_LEN + 1`.
+
+.. c:macro:: CC_STEPS_ALL_SERPENT_SIZE
+
+    Equals to :c:expr:`CC_STEPS_BISHOP_SIZE`.
+
+
+.. c:macro:: CC_STEPS_LIGHT_SHAMAN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_LIGHT_SHAMAN_LEN + 1`.
+
+.. c:macro:: CC_STEPS_DARK_SHAMAN_SIZE
+
+    Equals to :c:expr:`CC_STEPS_DARK_SHAMAN_LEN + 1`.
+
+
+.. c:macro:: CC_STEPS_SCOUT_SIZE
+
+    Equals to :c:expr:`CC_STEPS_SCOUT_LEN + 1`.
+
+.. c:macro:: CC_STEPS_GRENADIER_SIZE
+
+    Equals to :c:expr:`CC_STEPS_GRENADIER_LEN + 1`.
+
+
+.. c:macro:: CC_STEPS_MIRACLE_STARCHILD_SIZE
+
+    Equals to :c:expr:`CC_STEPS_QUEEN_SIZE`.
+
+.. c:macro:: CC_STEPS_STARTING_MONOLITH_SIZE
+
+    Equals to :c:expr:`CC_STEPS_STARTING_MONOLITH_LEN + 1`.
 
 
 
