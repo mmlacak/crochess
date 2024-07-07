@@ -692,9 +692,28 @@ Linked position descriptors
     of a position descriptors list.
 
     :param pd_link: A linked list of position descriptors.
-    :returns: A newly allocated, zero-terminated (:c:`\0`) string if
+    :returns: A newly allocated, zero-terminated (:c:`'\0'`) string if
               successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_pos_to_short_string()`
+
+.. _lbl-libcc-ccpos-linkedpaths:
+
+Linked paths
+------------
+
+.. c:struct:: CcPathLink
+
+    A linked list of paths.
+
+    .. c:member:: CcPosDescLink * path
+
+        A path.
+
+    .. c:member:: struct CcPathLink * next
+
+        Link to next path.
+
+    :c:`Struct` is tagged with the same :c:expr:`CcPathLink` name.
 
 
 
