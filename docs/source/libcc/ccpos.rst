@@ -679,6 +679,13 @@ Linked position descriptors
     :param pd_link__f: A linked list to :c:`free()`.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: size_t cc_pos_desc_link_len( CcPosDescLink * pd_link )
+
+    Function returns length of a linked list.
+
+    :param pd_link: A linked list of position descriptors.
+    :returns: Length of a linked list if successful, :c:`0` otherwise.
+
 
 
 
