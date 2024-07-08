@@ -290,12 +290,12 @@ Piece step arrays
 
 .. c:macro:: CC_STEPS_SHORT_UNICORN
 
-    Steps array for Unicorns featuring short jump, for all variants;
+    Steps array for Unicorns featuring short step, for all variants;
     equals to :c:expr:`CC_STEPS_KNIGHT`.
 
 .. c:type:: CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ]
 
-    Steps array for Unicorns featuring long jump, for all variants.
+    Steps array for Unicorns featuring long step, for all variants.
 
 
 .. c:macro:: CC_STEPS_STAR
@@ -305,12 +305,12 @@ Piece step arrays
 
 .. c:macro:: CC_STEPS_SHORT_CENTAUR
 
-    Steps array for Centaurs featuring short jump, for all variants;
+    Steps array for Centaurs featuring short step, for all variants;
     equals to :c:expr:`CC_STEPS_SHORT_UNICORN`.
 
 .. c:macro:: CC_STEPS_LONG_CENTAUR
 
-    Steps array for Centaurs featuring long jump, for all variants;
+    Steps array for Centaurs featuring long step, for all variants;
     equals to :c:expr:`CC_STEPS_LONG_UNICORN`.
 
 .. c:type:: CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ]
@@ -376,6 +376,217 @@ Piece step validity
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. _lbl-libcc-ccposdefs-piecestepvaliditymacros:
+
+Piece step validity macros
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The step validity macro conveniences are meant to be used instead
+    of :c:expr:`cc_is_step_valid()`.
+
+.. c:macro:: CC_LIGHT_PAWN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by light Pawn, from
+    Classical Chess up to, and including, Miranda's Veil variant.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_DARK_PAWN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by dark Pawn, from
+    Classical Chess up to, and including, Miranda's Veil variant.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by light Pawn,
+    from Nineteen variant onwards.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by dark Pawn,
+    from Nineteen variant onwards.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+.. c:macro:: CC_KNIGHT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Knight.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_BISHOP_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Bishop.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_ROOK_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Rook.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_QUEEN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Queen.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_KING_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by King.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+.. c:macro:: CC_PEGASUS_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Pegasus.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_PYRAMID_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Pyramid.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_UNICORN_SHORT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Unicorn featuring
+    short step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_UNICORN_LONG_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Unicorn featuring
+    long step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+.. c:macro:: CC_STAR_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Star.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_CENTAUR_SHORT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Centaur featuring
+    short step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_CENTAUR_LONG_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Centaur featuring
+    long step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_SERPENT_LEFT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Serpent featuring
+    left diagonal step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_SERPENT_RIGHT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Serpent featuring
+    right diagonal step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_SERPENT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Serpent featuring
+    initial step.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+.. c:macro:: CC_LIGHT_SCOUT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by light Scout.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_DARK_SCOUT_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by dark Scout.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_GRENADIER_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by Grenadier.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+.. c:macro:: CC_LIGHT_SHAMAN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by light Shaman.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_DARK_SHAMAN_STEP_IS_VALID(step)
+
+    Macro to check if :c:`step` can be made by dark Shaman.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+.. c:macro:: CC_STARCHILD_MIRACLE_STEP_IS_VALID(step)
+
+    Macro to check if miracle-:c:`step` can be made by Starchild.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+.. c:macro:: CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step)
+
+    Macro to check if color-changing :c:`step` can be made by Serpent.
+
+    :param step: A step to check.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
+
+
 
 
 
