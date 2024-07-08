@@ -17,16 +17,20 @@
 */
 
 
+// DOCS
 // #define CC_STEPS_HAS_MOVEMENT(ste) ( ( (ste) == CC_STE_All )        \
 //                                   || ( (ste) == CC_STE_Movement ) )
 
+// DOCS
 // #define CC_STEPS_HAS_CAPTURE(ste) ( ( (ste) == CC_STE_All )        \
 //                                  || ( (ste) == CC_STE_Capture ) )
 
+// DOCS
 // #define CC_STEPS_HAS_ALTERNATIVE(ste) ( ( (ste) == CC_STE_All )        \
 //                                      || ( (ste) == CC_STE_Alternative ) )
 
 
+// DOCS
 bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum activator,
                     CcPieceEnum piece,

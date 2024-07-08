@@ -12,8 +12,10 @@
 #include "cc_chessboard.h"
 
 
+// DOCS
 bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit );
 
+// DOCS
 bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum );
 
 /**
@@ -84,6 +86,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceEnum activator,
                                                CcPos pos );
 
+// DOCS
 bool cc_check_pawn_can_rush( CcPieceEnum pawn, CcTagEnum tag, CcTypedStep step );
 
 
