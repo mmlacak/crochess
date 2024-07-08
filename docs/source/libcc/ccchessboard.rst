@@ -299,7 +299,13 @@ Chessboard functions
 
 .. c:function:: char * cc_chessboard_as_string__new( CcChessboard * cb, bool is_board_or_tag )
 
-    TODO
+    Formats a newly allocated string to represent piece, tag positions
+    on a given chessboard.
+
+    :param cb: Chessboard to display.
+    :param is_board_or_tag: Whether pieces are displayed (if :c:`true`),
+                            or tags (if :c:`false`).
+    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
 
 .. c:function:: bool cc_chessboard_print( CcChessboard * cb, bool is_board_or_tag )
 

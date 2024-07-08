@@ -352,6 +352,7 @@ bool cc_chessboard_print( CcChessboard * cb,
 //
 // TODO :: move out
 
+// DOCS
 CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb,
                                                      char const * setup );
 
