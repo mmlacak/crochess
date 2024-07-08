@@ -358,6 +358,26 @@ Piece step arrays
     Steps array for Monolith, for all variants; equals to
     :c:expr:`CC_STEPS_KNIGHT`.
 
+.. _lbl-libcc-ccposdefs-piecestepvalidity:
+
+Piece step validity
+-------------------
+
+.. c:function:: bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d )
+
+    Function checking if step is valid, by searching a given array
+    holding all valid steps for a piece.
+
+    If :c:`steps_len__d` is not used (i.e. it's :c:expr:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`),
+    :c:`steps` array **must** be terminated with invalid step (i.e. :c:expr:`CC_POS_INVALID`)
+    as a guard.
+
+    :param step: A step to check.
+    :param steps: An array of all valid steps.
+    :param steps_len__d: *Optional* parameter, array length.
+    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+
+
 
 
 
