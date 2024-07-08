@@ -597,19 +597,21 @@ Piece step functions
     :param pos: A position.
     :returns: :c:`true` if in the same color, :c:`false` otherwise.
 
+.. c:function:: bool cc_convert_steps_to_pos_link( CcTypedStep const steps[], size_t steps_len__d, CcTypedStepLink ** steps__o )
 
+    Function converts step array into a newly allocated linked list.
 
+    *Output* argument :c:`*steps__o` has to be :c:`NULL`; appending
+    steps to the same linked list is not supported.
 
+    If :c:`steps_len__d` is :c:expr:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`,
+    :c:`steps` array **must** be terminated with invalid step
+    (i.e. :c:expr:`CC_POS_INVALID`) as a guard.
 
-
-
-
-
-
-
-
-
-
+    :param steps: A piece step array.
+    :param steps_len__d: *Optional*; size of :c:`steps` array.
+    :param steps__o: *Output*; newly allocated linked list.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
 
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
 
