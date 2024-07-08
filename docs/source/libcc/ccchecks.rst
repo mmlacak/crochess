@@ -31,6 +31,20 @@ Check functions
         * :c:`CC_MBE_False` if piece is not blocked,
         * :c:`CC_MBE_Void` in case of an error, insufficient data given.
 
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceEnum piece, uint momentum, CcPos pos )
+
+    Function checks if a piece can capture at given position.
+
+    :param cb: Chessboard.
+    :param piece: A piece.
+    :param momentum: Momentum.
+    :param pos: A position.
+    :returns: One of :c:expr:`CcMaybeBoolEnum` values:
+
+        * :c:`CC_MBE_True` if a piece can capture at given position,
+        * :c:`CC_MBE_False` if no capture is possible,
+        * :c:`CC_MBE_Void` in case of an error, insufficient data given.
+
 
 
 
