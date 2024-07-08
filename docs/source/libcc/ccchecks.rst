@@ -45,13 +45,20 @@ Check functions
         * :c:`CC_MBE_False` if no capture is possible,
         * :c:`CC_MBE_Void` in case of an error, insufficient data given.
 
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb, CcPieceEnum piece, uint momentum, CcPieceEnum activator, CcPos pos )
 
+    Function checks if a piece can diverge from given position.
 
+    :param cb: Chessboard.
+    :param piece: A piece.
+    :param momentum: Momentum.
+    :param activator: An :term:`activator`.
+    :param pos: A position.
+    :returns: One of :c:expr:`CcMaybeBoolEnum` values:
 
-
-
-
-
+        * :c:`CC_MBE_True` if a piece can diverge from given position,
+        * :c:`CC_MBE_False` if no divergence is possible,
+        * :c:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. _lbl-libcc-ccchecks-sourcecodeheader:
 
