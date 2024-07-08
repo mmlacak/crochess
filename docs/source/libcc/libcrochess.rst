@@ -92,6 +92,8 @@ Library contents
     ccposutils
     ccchecks
 
+    ccparsedmove
+
     ccstrutils
     ccstrings
     cctoken

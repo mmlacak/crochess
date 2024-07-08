@@ -295,8 +295,10 @@ bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps
 /** @} */ // end of step_is_valid_macros
 
 
+// DOCS
 bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
+// DOCS
 bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
                                    size_t steps_len__d,
                                    CcTypedStepLink ** steps__o );
