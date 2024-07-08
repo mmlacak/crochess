@@ -46,7 +46,7 @@ Chessboard types
 
         Holds tags for pieces at their respective position.
 
-    :c:`CcChessboard` is tagged with the same :c:expr:`CcChessboard` name.
+    :c:`struct` is tagged with the same :c:expr:`CcChessboard` name.
 
 .. _lbl-libcc-ccchessboard-functions:
 

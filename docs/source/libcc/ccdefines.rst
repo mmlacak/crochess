@@ -134,7 +134,7 @@ Maybe bool
 
         Boolean :c:`true` value; equals to :c:`1`.
 
-    :c:`Enum` is tagged with the same :c:expr:`CcMaybeBoolEnum` name.
+    :c:`enum` is tagged with the same :c:expr:`CcMaybeBoolEnum` name.
 
 .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 

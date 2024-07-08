@@ -226,7 +226,7 @@ Variant types
 
     .. c:enumerator:: CC_VE_One
 
-    :c:`Enum` is tagged with the same :c:expr:`CcVariantEnum` name.
+    :c:`enum` is tagged with the same :c:expr:`CcVariantEnum` name.
 
 .. _lbl-libcc-ccvariant-symbols:
 

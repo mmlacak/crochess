@@ -68,7 +68,33 @@ Parsed move data
 
         Game was drawn by rules, game ended.
 
-    :c:`Enum` is tagged with the same :c:expr:`CcParsedMoveStatusEnum` name.
+    :c:`enum` is tagged with the same :c:expr:`CcParsedMoveStatusEnum` name.
+
+.. c:struct:: CcParsedMove
+
+    Parsed move :c:`struct`\ure, queue.
+
+    .. c:member:: char * notation
+
+        Original notation, before parsing. Usually, from user input.
+
+    .. c:member:: CcParsedPly * plies
+
+        Plies.
+
+    .. c:member:: CcParsedMoveStatusEnum status
+
+        Status.
+
+    .. c:member:: struct CcParsedMove * prev
+
+        Previous move, in a queue.
+
+    .. c:member:: struct CcParsedMove * next
+
+        Next move.
+
+    :c:`struct` is tagged with the same :c:expr:`CcParsedMove` name.
 
 
 

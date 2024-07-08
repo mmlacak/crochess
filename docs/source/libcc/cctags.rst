@@ -174,7 +174,7 @@ Tag types
         Pawn was sacrificed. Non-persistent :term:`tag`, equals to :c:`5`.
         Gained in a move, used or lost in the very same move.
 
-    :c:`Enum` is tagged with the same :c:expr:`CcTagEnum` name.
+    :c:`enum` is tagged with the same :c:expr:`CcTagEnum` name.
 
 .. _lbl-libcc-cctags-functions:
 
@@ -227,7 +227,7 @@ Losing tag types
 
         Pawn lost delayed promotion :term:`tag`, equals to :c:`CC_TE_DelayedPromotion`.
 
-    :c:`Enum` is tagged with the same :c:expr:`CcLosingTagEnum` name.
+    :c:`enum` is tagged with the same :c:expr:`CcLosingTagEnum` name.
 
 .. c:macro:: CC_MAX_LEN_LOSING_TAG
 

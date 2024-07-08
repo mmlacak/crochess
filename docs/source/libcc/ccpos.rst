@@ -42,7 +42,7 @@ Position data
 
         Rank, vertical coordinate.
 
-    :c:`CcPos` is tagged with the same :c:expr:`CcPos` name.
+    :c:`struct` is tagged with the same :c:expr:`CcPos` name.
 
 .. c:macro:: CC_POS_CAST_INVALID
 
@@ -310,7 +310,7 @@ Typed step
 
         Type of a step.
 
-    :c:`CcTypedStep` is tagged with the same :c:expr:`CcTypedStep` name.
+    :c:`struct` is tagged with the same :c:expr:`CcTypedStep` name.
 
 .. c:macro:: CC_TYPED_STEP_CAST_INVALID
 
@@ -389,7 +389,7 @@ Linked typed steps
 
         Link to next typed step.
 
-    :c:`CcTypedStepLink` is tagged with the same :c:expr:`CcTypedStepLink` name.
+    :c:`struct` is tagged with the same :c:expr:`CcTypedStepLink` name.
 
 .. c:function:: CcTypedStepLink * cc_typed_step_link__new( CcTypedStep step )
 
@@ -495,7 +495,7 @@ Position descriptor
         Momentum a moving piece (different from static piece found at
         this position!) had when this position was reached.
 
-    :c:`CcPosDesc` is tagged with the same :c:expr:`CcPosDesc` name.
+    :c:`struct` is tagged with the same :c:expr:`CcPosDesc` name.
 
 .. c:macro:: CC_POS_DESC_CAST_INVALID
 

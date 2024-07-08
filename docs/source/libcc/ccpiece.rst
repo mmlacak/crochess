@@ -458,7 +458,7 @@ Monoliths) do not belong to any player.
 
     .. c:enumerator:: CC_PE_Monolith
 
-    :c:`Enum` is tagged with the same :c:expr:`CcPieceEnum` name.
+    :c:`enum` is tagged with the same :c:expr:`CcPieceEnum` name.
 
 .. _lbl-libcc-ccpiece-interfaces:
 
