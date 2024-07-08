@@ -52,24 +52,24 @@ typedef struct CcParsedMove {
 
     @param notation Original notation, as received from a user.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
-    @param plies__n Plies linked list, can be `NULL`.
+    @param plies__d_n **Ownership transfer**, _optional_, Plies linked list, can be `NULL`.
     @param status Move status.
 
     @warning
     Takes ownership of plies, inner pointer will be set to `NULL`, if valid move is produced.
 
     @warning
-    If no valid `plies__n` is given, move is still returned, with `plies` member set to `NULL`.
+    If no valid `plies__d_n` is given, move is still returned, with `plies` member set to `NULL`.
 
     @warning
-    If no valid move is produced, `plies__n` are still valid, and accessible.
+    If no valid move is produced, `plies__d_n` are still valid, and accessible.
 
     @return
     A newly allocated move if successful, `NULL` otherwise.
 */
 CcParsedMove * cc_parsed_move__new( char const * notation,
                                     size_t max_len__d,
-                                    CcParsedPly ** plies__n,
+                                    CcParsedPly ** plies__d_n,
                                     CcParsedMoveStatusEnum status );
 
 /**
@@ -78,7 +78,7 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
     @param moves__iod_a **Ownership**, _optional_ _input/output_ parameter, queue of moves, to which a new move is appended.
     @param notation Original notation, as received from a user.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
-    @param plies__n Plies; linked list.
+    @param plies__d_n **Ownership transfer**, _optional_, plies; linked list.
     @param status Move status.
 
     @note
@@ -101,7 +101,7 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
 CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
                                       char const * notation,
                                       size_t max_len__d,
-                                      CcParsedPly ** plies__n,
+                                      CcParsedPly ** plies__d_n,
                                       CcParsedMoveStatusEnum status );
 
 /**

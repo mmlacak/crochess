@@ -17,7 +17,7 @@
 
 CcParsedMove * cc_parsed_move__new( char const * notation,
                                     size_t max_len__d,
-                                    CcParsedPly ** plies__n,
+                                    CcParsedPly ** plies__d_n,
                                     CcParsedMoveStatusEnum status ) {
     CcParsedMove * mv__a = malloc( sizeof( CcParsedMove ) );
     if ( !mv__a ) return NULL;
@@ -28,11 +28,10 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
         return NULL;
     }
 
-    if ( plies__n ) {
-        mv__a->plies = *plies__n;
-        *plies__n = NULL; // Taking ownership.
-    }
-    else
+    if ( plies__d_n ) {
+        mv__a->plies = *plies__d_n;
+        *plies__d_n = NULL; // Taking ownership.
+    } else
         mv__a->plies = NULL;
 
     mv__a->status = status;
@@ -46,11 +45,11 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
 CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
                                       char const * notation,
                                       size_t max_len__d,
-                                      CcParsedPly ** plies__n,
+                                      CcParsedPly ** plies__d_n,
                                       CcParsedMoveStatusEnum status ) {
     if ( !moves__iod_a ) return NULL;
 
-    CcParsedMove * mv__t = cc_parsed_move__new( notation, max_len__d, plies__n, status );
+    CcParsedMove * mv__t = cc_parsed_move__new( notation, max_len__d, plies__d_n, status );
     if ( !mv__t ) return NULL;
 
     if ( !*moves__iod_a ) {
