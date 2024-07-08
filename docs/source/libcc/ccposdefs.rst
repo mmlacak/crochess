@@ -232,6 +232,70 @@ Piece step sizes
 
     Equals to :c:expr:`CC_STEPS_STARTING_MONOLITH_LEN + 1`.
 
+.. _lbl-libcc-ccposdefs-piecesteparrays:
+
+Piece step arrays
+-----------------
+
+.. c:type:: CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ]
+
+    Steps array for light Pawn, from Classical Chess up to, and including,
+    Miranda's Veil variant.
+
+.. c:type:: CcTypedStep const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ]
+
+    Steps array for dark Pawn, from Classical Chess up to, and including,
+    Miranda's Veil variant.
+
+.. c:type:: CcTypedStep const CC_STEPS_LIGHT_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ]
+
+    Steps array for light Pawn, from Nineteen variant onwards.
+
+.. c:type:: CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ]
+
+    Steps array for dark Pawn, from Nineteen variant onwards.
+
+
+.. c:type:: CcTypedStep const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ]
+
+    Steps array for Knights, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ]
+
+    Steps array for Bishops, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]
+
+    Steps array for Rooks, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ]
+
+    Steps array for Queens, for all variants.
+
+.. c:macro:: CC_STEPS_KING
+
+    Steps array for Kings, for all variants; equals to
+    :c:expr:`CC_STEPS_QUEEN`.
+
+
+.. c:macro:: CC_STEPS_PEGASUS
+
+    Steps array for light and dark Pegasus, for all variants;
+    equals to :c:expr:`CC_STEPS_KNIGHT`.
+
+.. c:macro:: CC_STEPS_PYRAMID
+
+    Steps array for Pyramids, for all variants; equals to
+    :c:expr:`CC_STEPS_ROOK`.
+
+.. c:macro:: CC_STEPS_SHORT_UNICORN
+
+    Steps array for Unicorn featuring short jump, for all variants;
+    equals to :c:expr:`CC_STEPS_KNIGHT`.
+
+.. c:type:: CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ]
+
+    Steps array for Unicorn featuring long jump, for all variants.
 
 
 
