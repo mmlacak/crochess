@@ -310,8 +310,9 @@ bool cc_is_same_color( CcPieceEnum piece, CcPos pos ) {
 
 bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
                                    size_t steps_len__d,
-                                   CcTypedStepLink ** steps__iod_a ) {
-    if ( !steps__iod_a ) return false;
+                                   CcTypedStepLink ** steps__o ) {
+    if ( !steps__o ) return false;
+    if ( *steps__o ) return false;
 
     CcTypedStepLink * tsl__t = NULL;
 
@@ -329,11 +330,7 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
     }
 
     // Ownership transfer.
-    if ( !cc_typed_step_link_extend( steps__iod_a, &tsl__t ) ) {
-        cc_typed_step_link_free_all( &tsl__t );
-        cc_typed_step_link_free_all( steps__iod_a );
-        return false;
-    }
+    *steps__o = tsl__t;
 
     return true;
 }

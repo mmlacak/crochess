@@ -298,8 +298,8 @@ bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps
 bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
 bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
-                                   size_t steps_len,
-                                   CcTypedStepLink ** steps__iod_a );
+                                   size_t steps_len__d,
+                                   CcTypedStepLink ** steps__o );
 
 
 // TODO :: FIX
