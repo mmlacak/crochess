@@ -96,6 +96,27 @@ Parsed move data
 
     :c:`struct` is tagged with the same :c:expr:`CcParsedMove` name.
 
+.. _lbl-libcc-ccparsedmove-functions:
+
+Parsed move functions
+---------------------
+
+.. c:function:: CcParsedMove * cc_parsed_move__new( char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcParsedMoveStatusEnum status )
+
+    Returns newly allocated move.
+
+    Takes ownership of plies, inner pointer will be set to :c:`NULL`,
+    if valid move is produced.
+
+    If no valid move is produced, :c:`plies__d_n` is still valid,
+    and accessible.
+
+    :param notation: Original notation, as received from a user.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy, can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param plies__n: **Ownership transfer**, *optional*; plies linked list, inner pointer can be :c:`NULL`.
+    :param status: Move status.
+    :returns: A newly allocated move if successful, :c:`NULL` otherwise.
+
 
 
 

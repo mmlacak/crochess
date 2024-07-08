@@ -45,6 +45,9 @@ String sizes, lengths
 
     Constant to ignore maximum length constraint in functions, equals to :c:`0`.
 
+    If used, entirety of a given string is processed, which then **must** be
+    zero-terminated (i.e. end with :c:`'\0'`).
+
 .. c:macro:: CC_SIZE_IGNORE
 
     Invalid size, to flag size argument to be ignored, equals to :c:`0`.
