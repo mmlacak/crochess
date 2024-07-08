@@ -89,6 +89,7 @@ Library contents
 
     ccpos
     ccposdefs
+    ccposutils
 
     ccstrutils
     ccstrings
