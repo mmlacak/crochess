@@ -290,14 +290,73 @@ Piece step arrays
 
 .. c:macro:: CC_STEPS_SHORT_UNICORN
 
-    Steps array for Unicorn featuring short jump, for all variants;
+    Steps array for Unicorns featuring short jump, for all variants;
     equals to :c:expr:`CC_STEPS_KNIGHT`.
 
 .. c:type:: CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ]
 
-    Steps array for Unicorn featuring long jump, for all variants.
+    Steps array for Unicorns featuring long jump, for all variants.
 
 
+.. c:macro:: CC_STEPS_STAR
+
+    Steps array for Stars, for all variants; equals to
+    :c:expr:`CC_STEPS_QUEEN`.
+
+.. c:macro:: CC_STEPS_SHORT_CENTAUR
+
+    Steps array for Centaurs featuring short jump, for all variants;
+    equals to :c:expr:`CC_STEPS_SHORT_UNICORN`.
+
+.. c:macro:: CC_STEPS_LONG_CENTAUR
+
+    Steps array for Centaurs featuring long jump, for all variants;
+    equals to :c:expr:`CC_STEPS_LONG_UNICORN`.
+
+.. c:type:: CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ]
+
+    Steps array for Serpents featuring left diagonal, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ]
+
+    Steps array for Serpents featuring right diagonal, for all variants.
+
+.. c:macro:: CC_STEPS_ALL_SERPENT
+
+    Steps array for Serpents, for all variants; equals to
+    :c:expr:`CC_STEPS_BISHOP`.
+
+
+.. c:type:: CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ]
+
+    Steps array for light Shaman, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_DARK_SHAMAN[ CC_STEPS_DARK_SHAMAN_SIZE ]
+
+    Steps array for dark Shaman, for all variants.
+
+
+.. c:type:: CcTypedStep const CC_STEPS_LIGHT_SCOUT[ CC_STEPS_SCOUT_SIZE ]
+
+    Steps array for light Scout, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_DARK_SCOUT[ CC_STEPS_SCOUT_SIZE ]
+
+    Steps array for dark Scout, for all variants.
+
+.. c:type:: CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ]
+
+    Steps array for Grenadiers, for all variants.
+
+
+.. c:type:: CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ]
+
+    Miracle-steps array for Starchilds, for all variants.
+
+.. c:macro:: CC_STEPS_STARTING_MONOLITH
+
+    Steps array for Monolith, for all variants; equals to
+    :c:expr:`CC_STEPS_KNIGHT`.
 
 
 
