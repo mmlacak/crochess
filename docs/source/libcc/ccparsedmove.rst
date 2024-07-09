@@ -140,8 +140,17 @@ Parsed move functions
     Duplicates a given :c:`moves` queue, and all accompanying resources,
     into a newly allocated queue.
 
-    :param moves: Queue to duplicate.
+    :param moves: A queue to duplicate.
     :returns: A newly allocated duplicate of :c:`moves` if successful, :c:`NULL` otherwise.
+
+.. c:function:: bool cc_parsed_move_free_all( CcParsedMove ** moves__f )
+
+    Frees all moves in a queue, and all associated entities.
+
+    :param moves__f: A queue to :c:`free()`.
+    :returns: A newly allocated duplicate of :c:`moves` if successful, :c:`NULL` otherwise.
+
+
 
 
 
