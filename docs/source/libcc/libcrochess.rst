@@ -93,6 +93,7 @@ Library contents
     ccchecks
 
     ccparsedmove
+    ccparsedply
 
     ccstrutils
     ccstrings
