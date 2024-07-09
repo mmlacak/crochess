@@ -150,15 +150,12 @@ Parsed move functions
     :param moves__f: A queue to :c:`free()`.
     :returns: A newly allocated duplicate of :c:`moves` if successful, :c:`NULL` otherwise.
 
+.. c:function:: size_t cc_parsed_move_plies_count( CcParsedMove * move )
 
+    Function returns count of plies owned by a given move.
 
-
-
-
-
-
-
-
+    :param move: A move.
+    :returns: Count of plies if successful, :c:`0` otherwise.
 
 .. _lbl-libcc-ccparsedmove-sourcecodeheader:
 
