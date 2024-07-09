@@ -105,7 +105,7 @@ Parsed move functions
 
     Returns newly allocated move.
 
-    Takes ownership of plies, inner pointer will be set to :c:`NULL`,
+    Takes ownership of :c:`plies__d_n`, inner pointer will be set to :c:`NULL`,
     if valid move is produced.
 
     If no valid move is produced, :c:`plies__d_n` is still valid,
@@ -116,6 +116,27 @@ Parsed move functions
     :param plies__n: **Ownership transfer**, *optional*; plies linked list, inner pointer can be :c:`NULL`.
     :param status: Move status.
     :returns: A newly allocated move if successful, :c:`NULL` otherwise.
+
+.. c:function:: CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a, char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcParsedMoveStatusEnum status )
+
+    Appends a newly allocated move to a given queue.
+
+    Takes ownership of :c:`plies__d_n`, inner pointer will be set to :c:`NULL`,
+    if valid move is produced.
+
+    If no valid move is produced, :c:`plies__d_n` is still valid,
+    and accessible.
+
+    :param moves__iod_a: **Ownership**, *optional* *input/output* parameter; queue of moves,
+                         to which a new move is appended, inner pointer can be :c:`NULL`.
+    :param notation: Original notation, as received from a user.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy, can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param plies__n: **Ownership transfer**, *optional*; plies linked list, inner pointer can be :c:`NULL`.
+    :param status: Move status.
+    :returns: Weak pointer to a newly allocated move if successful, :c:`NULL` otherwise.
+
+
+
 
 
 
