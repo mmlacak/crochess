@@ -76,6 +76,72 @@ Parsed ply data
 
 .. _lbl-libcc-ccparsedply-functions:
 
+.. c:struct:: CcParsedPly
+
+    Ply structure, linked list.
+
+    :c:`steps` change meaning, depending on ply :c:`link`.
+
+    :c:`steps` can have only one item in a linked list, if a single destination field is needed.
+
+    :c:`steps` can be empty (:c:`NULL`) for certain ply links.
+
+    .. list-table:: Steps depending on their links table
+        :header-rows: 1
+        :align: left
+        :widths: 35 95
+
+        * - link
+          - steps
+        * - :c:`CC_PPLE_Ply`
+          - steps taken by a piece
+        * - :c:`CC_PPLE_Teleportation`
+          - steps taken if Wave, otherwise destination field
+        * - :c:`CC_PPLE_TeleportationReemergence`
+          - destination field
+        * - :c:`CC_PPLE_TeleportationOblation`
+          - steps are empty (:c:`NULL`)
+        * - :c:`CC_PPLE_TranceJourney`
+          - steps taken by entranced Shaman
+        * - :c:`CC_PPLE_DualTranceJourney`
+          - fields at which pieces are captured, :c:`side_effect` contains captured, or displaced piece, and lost tag
+        * - :c:`CC_PPLE_FailedTranceJourney`
+          - steps are empty (:c:`NULL`)
+        * - :c:`CC_PPLE_PawnSacrifice`
+          - steps taken by a Serpent
+        * - :c:`CC_PPLE_SenseJourney`
+          - steps taken by uplifted piece
+        * - :c:`CC_PPLE_FailedSenseJourney`
+          - steps are empty (:c:`NULL`)
+
+    .. c:member:: char * notation
+
+        Copy of move notation, originating this ply.
+
+
+    .. c:member:: CcParsedPlyLinkEnum link
+
+        Type of link, of this ply, related to previous ply in a cascade.
+
+    .. c:member:: CcPieceEnum piece
+
+        A piece being moved.
+
+    .. c:member:: CcLosingTagEnum lost_tag
+
+        Flag, whether moving piece has lost its tag.
+
+    .. c:member:: CcParsedStep * steps
+
+        Steps taken by the piece.
+
+
+    .. c:member:: struct CcParsedPly * next
+
+        Next ply in a cascade.
+
+    :c:`struct` is tagged with the same :c:expr:`CcParsedPly` name.
+
 Parsed ply functions
 --------------------
 

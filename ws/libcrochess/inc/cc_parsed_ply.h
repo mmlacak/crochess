@@ -108,8 +108,8 @@ char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple );
     `steps` can have only one item in a linked list, if a single destination field is needed.
     `steps` can be empty (`NULL`) for certain ply links.
 
-    |                             `link` | `steps`                                                                                                  |
-    | ---------------------------------: | :------------------------------------------------------------------------------------------------------- |
+    |                              `link` | `steps`                                                                                                  |
+    | ----------------------------------: | :------------------------------------------------------------------------------------------------------- |
     |                         CC_PPLE_Ply | steps taken by a piece                                                                                   |
     |               CC_PPLE_Teleportation | steps taken if Wave, otherwise destination field                                                         |
     |    CC_PPLE_TeleportationReemergence | destination field                                                                                        |
