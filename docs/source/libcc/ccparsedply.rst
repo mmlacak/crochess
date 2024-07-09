@@ -74,6 +74,28 @@ Parsed ply data
 
     :c:`enum` is tagged with the same :c:expr:`CcParsedPlyLinkEnum` name.
 
+.. _lbl-libcc-ccparsedply-functions:
+
+Parsed ply functions
+--------------------
+
+.. c:function:: char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple )
+
+    Function returns string symbol, as used in algebraic notation,
+    for a given ply link.
+
+    Returned string is not allocated, so do not :c:`free()` it.
+
+    :param ple: A ply linkage.
+    :returns: String symbol if link is valid, :c:`NULL` otherwise.
+
+
+
+
+
+
+
+
 
 
 .. _lbl-libcc-ccparsedply-sourcecodeheader:

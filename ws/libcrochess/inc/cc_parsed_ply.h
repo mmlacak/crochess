@@ -36,34 +36,50 @@ typedef enum CcParsedPlyLinkEnum {
 } CcParsedPlyLinkEnum;
 
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PPLE_None )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_STARTING(ple) ( (ple) == CC_PPLE_StartingPly )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_CASCADING(ple) ( (ple) == CC_PPLE_CascadingPly )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_TELEPORTATION(ple) ( (ple) == CC_PPLE_Teleportation )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_TELEPORTATION_REEMERGENCE(ple) ( (ple) == CC_PPLE_TeleportationReemergence )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_TELEPORTATION_OBLATION(ple) ( (ple) == CC_PPLE_TeleportationOblation )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_TRANCE_JOURNEY(ple) ( (ple) == CC_PPLE_TranceJourney )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_DUAL_TRANCE_JOURNEY(ple) ( (ple) == CC_PPLE_DualTranceJourney )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_FAILED_TRANCE_JOURNEY(ple) ( (ple) == CC_PPLE_FailedTranceJourney )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_PAWN_SACRIFICE(ple) ( (ple) == CC_PPLE_PawnSacrifice )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_SENSE_JOURNEY(ple) ( (ple) == CC_PPLE_SenseJourney )
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_FAILED_SENSE_JOURNEY(ple) ( (ple) == CC_PPLE_FailedSenseJourney )
 
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PPLE_None )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PPLE_Teleportation )               \
                                                     || ( (ple) == CC_PPLE_TeleportationReemergence )    \
                                                     || ( (ple) == CC_PPLE_TeleportationOblation )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PPLE_TranceJourney )          \
                                                      || ( (ple) == CC_PPLE_DualTranceJourney )      \
                                                      || ( (ple) == CC_PPLE_FailedTranceJourney ) )
 
+// DOCS
 #define CC_PARSED_PLY_LINK_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PPLE_SenseJourney )        \
                                                     || ( (ple) == CC_PPLE_FailedSenseJourney )
 
@@ -80,6 +96,7 @@ typedef enum CcParsedPlyLinkEnum {
 */
 char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple );
 
+// DOCS
 #define CC_MAX_LEN_PARSED_PLY_LINK_SYMBOL (3)
 
 
