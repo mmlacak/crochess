@@ -135,6 +135,14 @@ Parsed move functions
     :param status: Move status.
     :returns: Weak pointer to a newly allocated move if successful, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves )
+
+    Duplicates a given :c:`moves` queue, and all accompanying resources,
+    into a newly allocated queue.
+
+    :param moves: Queue to duplicate.
+    :returns: A newly allocated duplicate of :c:`moves` if successful, :c:`NULL` otherwise.
+
 
 
 
