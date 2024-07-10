@@ -203,6 +203,14 @@ Parsed ply functions
     :returns: Weak pointer to a newly allocated ply if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_parsed_ply__new()`
 
+.. c:function:: CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies )
+
+    Duplicates a given plies, and all accompanying resources,
+    into a newly allocated linked list.
+
+    :param plies: Linked list to duplicate.
+    :returns: A newly allocated duplicate of :c:`plies` if successful,
+              :c:`NULL` otherwise.
 
 
 
