@@ -155,6 +155,30 @@ Parsed ply functions
     :param ple: A ply linkage.
     :returns: String symbol if link is valid, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedPly * cc_parsed_ply__new( char const * start_an__d, char const * end_an__d, size_t max_len__d, CcParsedPlyLinkEnum link, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcParsedStep ** steps__n )
+
+    Function returns newly allocated ply.
+
+    .. warning::
+
+        If no *optional* end arguments (:c:`end_an__d`, :c:`max_len__d`) are given,
+        annotation string (:c:`start_an__d`) has to be zero-terminated, or :c:`NULL`.
+
+    Takes ownership of :c:`steps__n`, inner pointer will be set to :c:`NULL`,
+    if valid ply is produced.
+
+    :param start_an__d: *Optional*; start of a ply notation substring. Can be :c:`NULL`, if so :c:`notation` member is initialized to :c:`NULL`.
+    :param end_an__d: *Optional*; end of a ply notation substring. Can be :c:`NULL`, if so whole zero-terminated :c:`start_an__d` string is copied.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy. Can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`, if so whole zero-terminated :c:`start_an__d` string is copied.
+    :param link: Link to previous ply in a cascade.
+    :param piece: A piece making a ply.
+    :param lost_tag: Tag lost by a moving piece.
+    :param steps__n: **Ownership transfer**; steps, linked list, can be :c:`NULL`.
+    :returns: A newly allocated ply if successful, :c:`NULL` otherwise.
+
+
+
+
 
 
 
