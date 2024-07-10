@@ -118,16 +118,16 @@ CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies ) {
 }
 
 CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
-                                    CcParsedPly ** plies__n ) {
+                                    CcParsedPly ** plies__d_n ) {
     if ( !plies__iod_a ) return NULL;
-    if ( !plies__n ) return NULL;
+    if ( !plies__d_n ) return NULL;
 
-    if ( !*plies__n ) return *plies__iod_a;
+    if ( !*plies__d_n ) return *plies__iod_a;
 
     if ( !*plies__iod_a ) {
         // Ownership transfer.
-        *plies__iod_a = *plies__n;
-        *plies__n = NULL;
+        *plies__iod_a = *plies__d_n;
+        *plies__d_n = NULL;
 
         return *plies__iod_a;
     }
@@ -136,8 +136,8 @@ CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
     CC_FASTFORWARD( last );
 
     // Ownership transfer.
-    last->next = *plies__n;
-    *plies__n = NULL;
+    last->next = *plies__d_n;
+    *plies__d_n = NULL;
 
     return last->next;
 }

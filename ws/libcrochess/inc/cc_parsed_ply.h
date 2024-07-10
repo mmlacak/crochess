@@ -216,7 +216,7 @@ CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies );
     Extends existing linked list with a newly allocated plies.
 
     @param plies__iod_a **Ownership**, _optional_ _input/ouput_ parameter; plies linked list.
-    @param plies__n Linked list with which to extend existing plies.
+    @param plies__d_n _Optional_ parameter; linked list with which to extend existing plies.
 
     @see cc_parsed_ply_append(), cc_parsed_ply__new()
 
@@ -224,7 +224,7 @@ CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies );
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
 CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
-                                    CcParsedPly ** plies__n );
+                                    CcParsedPly ** plies__d_n );
 
 /**
     Frees all plies in a linked list, and all associated entities.

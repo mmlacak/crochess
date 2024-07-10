@@ -173,7 +173,7 @@ Parsed ply functions
     :param link: Link to previous ply in a cascade.
     :param piece: A piece making a ply.
     :param lost_tag: Tag lost by a moving piece.
-    :param steps__n: **Ownership transfer**; steps, linked list, can be :c:`NULL`.
+    :param steps__n: **Ownership transfer**; steps, linked list, inner pointer can be :c:`NULL`.
     :returns: A newly allocated ply if successful, :c:`NULL` otherwise.
 
 .. c:function:: CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a, char const * start_an__d, char const * end_an__d, size_t max_len__d, CcParsedPlyLinkEnum link, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcParsedStep ** steps__n )
@@ -199,7 +199,7 @@ Parsed ply functions
     :param link: Link to previous ply in a cascade.
     :param piece: A piece making a ply.
     :param lost_tag: Tag lost by a moving piece.
-    :param steps__n: **Ownership transfer**; steps, linked list, can be :c:`NULL`.
+    :param steps__n: **Ownership transfer**; steps, linked list, inner pointer can be :c:`NULL`.
     :returns: Weak pointer to a newly allocated ply if successful, :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_parsed_ply__new()`
 
@@ -211,6 +211,28 @@ Parsed ply functions
     :param plies: Linked list to duplicate.
     :returns: A newly allocated duplicate of :c:`plies` if successful,
               :c:`NULL` otherwise.
+
+.. c:function:: CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a, CcParsedPly ** plies__d_n )
+
+    Extends existing linked list with a newly allocated plies.
+
+    If linked list to extend (:c:`plies__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`plies__d_n`.
+
+    .. note::
+
+        Extending linked list :c:`plies__d_n` has its ownership transferred to
+        extended linked list :c:`plies__iod_a`; as a result, inner pointer of
+        :c:`plies__d_n` is :c::c:`NULL`\ed.
+
+    :param plies__iod_a: **Ownership**, *optional* *input/output* parameter; linked list of plies,
+                         to which a new ply is appended, inner pointer can be :c:`NULL`.
+    :param plies__d_n: **Ownership transfer**, *optional*; plies, linked list, inner pointer can be
+                       :c:`NULL`.
+    :returns: Weak pointer to extending portion of a linked list if successful,
+              :c:`NULL` otherwise.
+    :seealso: :c:expr:`cc_parsed_ply_append()`
 
 
 
