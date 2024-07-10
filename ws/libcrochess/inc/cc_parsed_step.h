@@ -61,6 +61,7 @@ typedef enum CcParsedStepLinkEnum {
 */
 char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle );
 
+// DOCS
 #define CC_MAX_LEN_PARSED_STEP_LINK_SYMBOL (2)
 
 

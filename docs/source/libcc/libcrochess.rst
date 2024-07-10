@@ -94,6 +94,7 @@ Library contents
 
     ccparsedmove
     ccparsedply
+    ccparsedstep
 
     ccstrutils
     ccstrings
