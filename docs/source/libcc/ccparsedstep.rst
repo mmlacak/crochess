@@ -112,6 +112,21 @@ Parsed step functions
     :param side_effect: Side-effect :c:`struct`\ure.
     :returns: A newly allocated step if successful, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcParsedSideEffect side_effect )
+
+    Appends a newly allocated step to a given linked list.
+
+    If linked list :c:`*steps__iod_a` is :c:`NULL`, it will be initialized
+    with a newly allocated typed step link as its only element.
+
+    :param steps__iod_a: **Ownership**, *optional* *input/output* parameter; linked list of steps
+                         to which a new step is appended, inner pointer can be :c:`NULL`.
+    :param link: Type of a link to a previous step.
+    :param field: A field.
+    :param side_effect: Side-effect :c:`struct`\ure.
+    :returns: A newly allocated step if successful, :c:`NULL` otherwise.
+
+
 
 
 
