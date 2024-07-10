@@ -234,6 +234,13 @@ Parsed ply functions
               :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_parsed_ply_append()`
 
+.. c:function:: bool cc_parsed_ply_free_all( CcParsedPly ** plies__f )
+
+    Frees all plies in a linked list, and all associated entities.
+
+    :param plies__f: Linked list of plies to :c:`free()`.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
+
 
 
 
