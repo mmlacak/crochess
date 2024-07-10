@@ -178,8 +178,8 @@ bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply ) {
     return false;
 }
 
-CcPieceEnum cc_parsed_ply_last_active_piece( CcParsedPly * plies,
-                                      CcParsedPly * ply__d ) {
+CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies,
+                                          CcParsedPly * ply__d ) {
     if ( !plies ) return CC_PE_None;
 
     if ( plies == ply__d ) // First ply in a linked list.
@@ -192,7 +192,7 @@ CcPieceEnum cc_parsed_ply_last_active_piece( CcParsedPly * plies,
     //     return ply__d->piece;
 
     CcPieceEnum last_active_piece = CC_PE_None;
-    bool ply_encountered = ( !ply__d );
+    bool ply_encountered = false;
     CcParsedPly * p = plies;
 
     while ( p ) {
@@ -207,7 +207,10 @@ CcPieceEnum cc_parsed_ply_last_active_piece( CcParsedPly * plies,
         p = p->next;
     }
 
-    return ply_encountered ? last_active_piece : CC_PE_None;
+    if ( ply__d && !ply_encountered )
+        return CC_PE_None;
+    else
+        return last_active_piece;
 }
 
 char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies ) {

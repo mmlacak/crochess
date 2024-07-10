@@ -265,8 +265,8 @@ bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply );
 
     @return Last active piece if successful, `CC_PE_None` otherwise.
 */
-CcPieceEnum cc_parsed_ply_last_active_piece( CcParsedPly * plies,
-                                             CcParsedPly * ply__d );
+CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies,
+                                          CcParsedPly * ply__d );
 
 /**
     Function returns new string, containing user-readable representation of a plies.
