@@ -264,15 +264,14 @@ Parsed ply functions
     :param ply__d: *Optional*; a ply within given linked list, can be :c:`NULL`.
     :returns: :term:`Activator` if successful, :c:`CC_PE_None` otherwise.
 
+.. c:function:: char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies )
 
+    Function returns newly allocated string, containing user-readable
+    representation of a plies.
 
-
-
-
-
-
-
-
+    :param plies: Linked list of plies.
+    :returns: A newly allocated, zero-terminated string if successful,
+              :c:`NULL` otherwise
 
 .. _lbl-libcc-ccparsedply-sourcecodeheader:
 

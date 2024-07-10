@@ -271,7 +271,7 @@ CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies,
 /**
     Function returns new string, containing user-readable representation of a plies.
 
-    @param plies A queue of plies.
+    @param plies A linked list of plies.
 
     @return A newly allocated, zero-terminated string if successful, `NULL` otherwise
 */
