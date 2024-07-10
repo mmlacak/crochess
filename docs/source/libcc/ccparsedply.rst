@@ -248,6 +248,22 @@ Parsed ply functions
     :param ply: A ply.
     :returns: :c:`true` if any step has side-effects, :c:`false` otherwise.
 
+.. c:function:: CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies, CcParsedPly * ply__d )
+
+    Function finds :term:`activator` in a given linked list of plies.
+
+    If a ply within that linked list is also specified, last :term:`activator`
+    preceding specified ply is returned.
+
+    .. note::
+
+        If a ply is specified, but does not belong to a given linked list of
+        plies, :c:`CC_PE_None` is returned instead, indicating failure.
+
+    :param plies: A linked list of plies.
+    :param ply__d: *Optional*; a ply within given linked list, can be :c:`NULL`.
+    :returns: :term:`Activator` if successful, :c:`CC_PE_None` otherwise.
+
 
 
 

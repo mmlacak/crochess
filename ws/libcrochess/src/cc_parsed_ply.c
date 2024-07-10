@@ -191,13 +191,13 @@ CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies,
     // if ( ply__d && CC_PIECE_IS_ACTIVE( ply__d->piece ) )
     //     return ply__d->piece;
 
-    CcPieceEnum last_active_piece = CC_PE_None;
+    CcPieceEnum activator = CC_PE_None;
     bool ply_encountered = false;
     CcParsedPly * p = plies;
 
     while ( p ) {
         if ( CC_PIECE_IS_ACTIVE( p->piece ) )
-            last_active_piece = p->piece;
+            activator = p->piece;
 
         if ( p == ply__d ) {
             ply_encountered = true;
@@ -210,7 +210,7 @@ CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies,
     if ( ply__d && !ply_encountered )
         return CC_PE_None;
     else
-        return last_active_piece;
+        return activator;
 }
 
 char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies ) {
