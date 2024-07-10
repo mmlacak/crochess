@@ -126,6 +126,12 @@ Parsed step functions
     :param side_effect: Side-effect :c:`struct`\ure.
     :returns: A newly allocated step if successful, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps )
+
+    Duplicates all given steps into a newly allocated linked list.
+
+    :param sle: Linked list to duplicate.
+    :returns: A newly allocated steps if successful, :c:`NULL` otherwise.
 
 
 
