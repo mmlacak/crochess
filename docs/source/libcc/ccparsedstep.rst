@@ -103,6 +103,17 @@ Parsed step functions
     :param sle: A step linkage.
     :returns: String symbol if link is valid, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedStep * cc_parsed_step__new( CcParsedStepLinkEnum link, CcPos field, CcParsedSideEffect side_effect )
+
+    Returns a newly allocated step.
+
+    :param link: Type of a link to a previous step.
+    :param field: A field.
+    :param side_effect: Side-effect :c:`struct`\ure.
+    :returns: A newly allocated step if successful, :c:`NULL` otherwise.
+
+
+
 
 
 
