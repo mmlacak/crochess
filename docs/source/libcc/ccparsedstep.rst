@@ -88,6 +88,21 @@ Parsed step data
 
     :c:`struct` is tagged with the same :c:expr:`CcParsedStep` name.
 
+.. _lbl-libcc-ccparsedstep-functions:
+
+Parsed step functions
+---------------------
+
+.. c:function:: char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle )
+
+    Function returns string symbol, as used in algebraic notation,
+    for a given step link.
+
+    Returned string is not allocated, so do not :c:`free()` it.
+
+    :param sle: A step linkage.
+    :returns: String symbol if link is valid, :c:`NULL` otherwise.
+
 
 
 
