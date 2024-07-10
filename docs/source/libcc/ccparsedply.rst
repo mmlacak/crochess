@@ -241,6 +241,13 @@ Parsed ply functions
     :param plies__f: Linked list of plies to :c:`free()`.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply )
+
+    Checks whether any step in a ply has side-effects.
+
+    :param ply: A ply.
+    :returns: :c:`true` if any step has side-effects, :c:`false` otherwise.
+
 
 
 
