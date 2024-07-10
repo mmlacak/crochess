@@ -65,6 +65,29 @@ Parsed step data
 
     :c:`enum` is tagged with the same :c:expr:`CcParsedStepLinkEnum` name.
 
+.. c:struct:: CcParsedStep
+
+    Step :c:`struct`\ure, linked list.
+
+    .. c:member:: CcParsedStepLinkEnum link
+
+        Type of a link to previous step.
+
+    .. c:member:: CcPos field
+
+        Field of a step.
+
+    .. c:member:: CcParsedSideEffect side_effect
+
+        Side-effect structure.
+
+
+    .. c:member:: struct CcParsedStep * next
+
+        Next step in a linked list.
+
+    :c:`struct` is tagged with the same :c:expr:`CcParsedStep` name.
+
 
 
 

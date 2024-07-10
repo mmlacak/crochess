@@ -74,8 +74,6 @@ Parsed ply data
 
     :c:`enum` is tagged with the same :c:expr:`CcParsedPlyLinkEnum` name.
 
-.. _lbl-libcc-ccparsedply-functions:
-
 .. c:struct:: CcParsedPly
 
     Ply structure, linked list.
@@ -141,6 +139,8 @@ Parsed ply data
         Next ply in a cascade.
 
     :c:`struct` is tagged with the same :c:expr:`CcParsedPly` name.
+
+.. _lbl-libcc-ccparsedply-functions:
 
 Parsed ply functions
 --------------------
