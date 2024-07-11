@@ -177,6 +177,12 @@ Parsed step functions
     :param steps: Linked list of steps.
     :returns: Destination step if successful, :c:`NULL` otherwise.
 
+.. c:function:: bool cc_parsed_step_free_all( CcParsedStep ** steps__f )
+
+    Frees all steps in a linked list.
+
+    :param steps__f: Linked list of steps.
+    :returns: :c:`true` if successful, :c:`false` otherwise.
 
 
 
