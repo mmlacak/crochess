@@ -184,6 +184,20 @@ Parsed step functions
     :param steps__f: Linked list of steps.
     :returns: :c:`true` if successful, :c:`false` otherwise.
 
+.. c:function:: char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps )
+
+    Function returns a newly allocated string, containing user-readable
+    representation of steps in a given linked list.
+
+    Each step is preceded by the same separator as used in AN, e.g. ``..``
+    (double dot) is used for a distant step.
+
+    Starting step is preceded by ````` (back-tick).
+    Steps with unknown linkage are preceded by ``?`` (question-mark).
+
+    :param steps: Linked list of steps.
+    :returns: A newly allocated, zero-terminated string if successful,
+              :c:`NULL` otherwise
 
 
 
