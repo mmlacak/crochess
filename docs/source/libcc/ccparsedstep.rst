@@ -133,6 +133,25 @@ Parsed step functions
     :param sle: Linked list to duplicate.
     :returns: A newly allocated steps if successful, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a, CcParsedStep ** steps__d_n )
+
+    Extends given linked list of steps with another.
+
+    If linked list to extend (:c:`steps__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`steps__d_n`.
+
+    .. note::
+
+        Extending linked list :c:`steps__d_n` has its ownership transferred to
+        extended linked list :c:`steps__iod_a`; as a result, inner pointer
+        :c:`*steps__d_n` is :c:`NULL`\ed.
+
+    :param steps__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
+    :param steps__d_n: **Ownership transfer**, *optional*; linked list to extend existing steps.
+    :returns: Weak pointer to extended portion of a linked list if successful,
+              :c:`NULL` otherwise.
+
 
 
 

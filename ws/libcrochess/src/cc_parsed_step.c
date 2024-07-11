@@ -84,16 +84,16 @@ CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps ) {
 }
 
 CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a,
-                                      CcParsedStep ** steps__n ) {
+                                      CcParsedStep ** steps__d_n ) {
     if ( !steps__iod_a ) return NULL;
-    if ( !steps__n ) return NULL;
+    if ( !steps__d_n ) return NULL;
 
-    if ( !*steps__n ) return *steps__iod_a;
+    if ( !*steps__d_n ) return *steps__iod_a;
 
     if ( !*steps__iod_a ) {
         // Ownership transfer.
-        *steps__iod_a = *steps__n;
-        *steps__n = NULL;
+        *steps__iod_a = *steps__d_n;
+        *steps__d_n = NULL;
 
         return *steps__iod_a;
     }
@@ -102,8 +102,8 @@ CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a,
     CC_FASTFORWARD( last );
 
     // Ownership transfer.
-    last->next = *steps__n;
-    *steps__n = NULL;
+    last->next = *steps__d_n;
+    *steps__d_n = NULL;
 
     return last->next;
 }

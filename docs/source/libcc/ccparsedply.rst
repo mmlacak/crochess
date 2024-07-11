@@ -223,14 +223,14 @@ Parsed ply functions
     .. note::
 
         Extending linked list :c:`plies__d_n` has its ownership transferred to
-        extended linked list :c:`plies__iod_a`; as a result, inner pointer of
-        :c:`plies__d_n` is :c::c:`NULL`\ed.
+        extended linked list :c:`plies__iod_a`; as a result, inner pointer
+        :c:`*plies__d_n` is :c:`NULL`\ed.
 
     :param plies__iod_a: **Ownership**, *optional* *input/output* parameter; linked list of plies,
                          to which a new ply is appended, inner pointer can be :c:`NULL`.
     :param plies__d_n: **Ownership transfer**, *optional*; plies, linked list, inner pointer can be
                        :c:`NULL`.
-    :returns: Weak pointer to extending portion of a linked list if successful,
+    :returns: Weak pointer to extended portion of a linked list if successful,
               :c:`NULL` otherwise.
     :seealso: :c:expr:`cc_parsed_ply_append()`
 

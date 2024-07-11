@@ -132,23 +132,23 @@ CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps );
     Extends existing linked list with step(s).
 
     @param steps__iod_a **Ownership**, _optional_ _input/output_ parameter; linked list to extend.
-    @param steps__n Linked list with which to extend existing steps.
+    @param steps__d_n Linked list with which to extend existing steps.
 
     @note
     If linked list to extend (`steps__iod_a`) hasn't been allocated yet,
     this will initialize it     with content of an extending linked list,
-    i.e. `steps__n`.
+    i.e. `steps__d_n`.
 
     @note
-    Extending linked list `steps__n` has its ownership transferred to
+    Extending linked list `steps__d_n` has its ownership transferred to
     extended linked list `steps__iod_a`; as a result, inner pointer of
-    `steps__n` is `NULL`-ed.
+    `steps__d_n` is `NULL`-ed.
 
     @return
     Weak pointer to extending portion of a linked list if successful, `NULL` otherwise.
 */
 CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a,
-                                      CcParsedStep ** steps__n );
+                                      CcParsedStep ** steps__d_n );
 
 /**
     Function returning count of steps, based on usage.

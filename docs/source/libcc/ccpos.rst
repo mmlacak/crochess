@@ -422,12 +422,12 @@ Linked typed steps
     .. note::
 
         Extending linked list :c:`ts_link__n` has its ownership transferred to
-        extended linked list :c:`ts_link__iod_a`; as a result, inner pointer of
-        :c:`ts_link__n` is :c::c:`NULL`\ed.
+        extended linked list :c:`ts_link__iod_a`; as a result, inner pointer
+        :c:`*ts_link__n` is :c:`NULL`\ed.
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
     :param ts_link__n: **Ownership transfer**; linked list with which to extend existing steps.
-    :returns: Weak pointer to extending portion of a linked list if successful,
+    :returns: Weak pointer to extended portion of a linked list if successful,
               :c:`NULL` otherwise.
 
 .. c:function:: bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f )
@@ -662,14 +662,14 @@ Linked position descriptors
     .. note::
 
         Extending linked list :c:`pd_link__n` has its ownership transferred to
-        extended linked list :c:`pd_link__iod_a`; as a result, inner pointer of
-        :c:`pd_link__n` is :c::c:`NULL`\ed.
+        extended linked list :c:`pd_link__iod_a`; as a result, inner pointer
+        :c:`*pd_link__n` is :c:`NULL`\ed.
 
     :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
                            a linked list to extend.
     :param pd_link__n: **Ownership transfer**; linked list with which to
                        extend existing steps.
-    :returns: Weak pointer to extending portion of a linked list
+    :returns: Weak pointer to extended portion of a linked list
               if successful, :c:`NULL` otherwise.
 
 .. c:function:: bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f )
@@ -761,7 +761,7 @@ Linked paths
     :param path_link__iod_a: **Ownership**, *optional* *input/output*;
                              a linked list to extend.
     :param path_link__n: **Ownership transfer**; linked list of paths.
-    :returns: Weak pointer to extending portion of a linked list if
+    :returns: Weak pointer to extended portion of a linked list if
               successful, :c:`NULL` otherwise.
 
 .. c:function:: bool cc_path_link_free_all( CcPathLink ** path_link__f )
