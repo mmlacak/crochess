@@ -125,10 +125,18 @@ size_t cc_parsed_step_count( CcParsedStep * steps ) {
 CcParsedStep * cc_parsed_step_find_start( CcParsedStep * steps ) {
     if ( !steps ) return NULL;
 
-    // TODO :: check if first step is the only starting step
+    if ( steps->link == CC_PSLE_Start ) {
+        CcParsedStep * s = steps->next;
 
-    if ( steps->link == CC_PSLE_Start )
+        while ( s ) {
+            if ( s->link == CC_PSLE_Start )
+                return NULL;
+
+            s = s->next;
+        }
+
         return steps;
+    }
 
     return NULL;
 }
