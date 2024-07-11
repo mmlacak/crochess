@@ -166,6 +166,17 @@ Parsed step functions
     :param steps: Linked list of steps.
     :returns: Starting step if successful, :c:`NULL` otherwise.
 
+.. c:function:: CcParsedStep * cc_parsed_step_find_destination( CcParsedStep * steps )
+
+    Function finds destination step.
+
+    Destination step returned by this function is the step preceded by
+    destination separator, i.e. `-` (hyphen), or is the last
+    (non-starting) step in a given list.
+
+    :param steps: Linked list of steps.
+    :returns: Destination step if successful, :c:`NULL` otherwise.
+
 
 
 
