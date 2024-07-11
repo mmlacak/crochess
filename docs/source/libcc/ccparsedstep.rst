@@ -152,6 +152,13 @@ Parsed step functions
     :returns: Weak pointer to extended portion of a linked list if successful,
               :c:`NULL` otherwise.
 
+.. c:function:: size_t cc_parsed_step_count( CcParsedStep * steps )
+
+    Function returning count of steps.
+
+    :param steps: Linked list of steps.
+    :returns: Count of steps if successful, :c:`0` otherwise.
+
 
 
 
