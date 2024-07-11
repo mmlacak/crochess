@@ -159,6 +159,13 @@ Parsed step functions
     :param steps: Linked list of steps.
     :returns: Count of steps if successful, :c:`0` otherwise.
 
+.. c:function:: CcParsedStep * cc_parsed_step_find_start( CcParsedStep * steps )
+
+    Function finds starting step.
+
+    :param steps: Linked list of steps.
+    :returns: Starting step if successful, :c:`NULL` otherwise.
+
 
 
 
