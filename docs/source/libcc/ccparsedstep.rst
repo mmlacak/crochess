@@ -207,7 +207,7 @@ Parsed step new functions
     The new step convenience functions are meant to be used instead of
     :c:expr:`cc_parsed_step__new()`.
 
-    They have minimal set of arguments required by the type of a step
+    They have minimal set of parameters required by the type of a step
     (its linkage), otherwise they behave exactly as their generic
     progenitor.
 
@@ -235,9 +235,41 @@ Parsed step new functions
 
 .. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection__new( CcParsedStepLinkEnum link, CcPos field )
 
+.. _lbl-libcc-ccparsedstep-appendfunctions:
 
+Parsed step append functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+    The append new step convenience functions are meant to be used instead of
+    :c:expr:`cc_parsed_step_append()`.
 
+    They have minimal set of parameters required by the type of a step
+    (its linkage), otherwise they behave exactly as their generic
+    progenitor.
+
+.. c:function:: CcParsedStep * cc_parsed_step_none_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
+
+.. c:function:: CcParsedStep * cc_parsed_step_capture_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedStep * cc_parsed_step_displacement_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
+
+.. c:function:: CcParsedStep * cc_parsed_step_en_passant_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum pawn, CcPos distant )
+
+.. c:function:: CcParsedStep * cc_parsed_step_castle_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum rook, CcPos start, CcPos destination )
+
+.. c:function:: CcParsedStep * cc_parsed_step_promote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+
+.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedStep * cc_parsed_step_convert_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedStep * cc_parsed_step_failed_conversion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
+
+.. c:function:: CcParsedStep * cc_parsed_step_demote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant )
+
+.. c:function:: CcParsedStep * cc_parsed_step_resurrect_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcPos destination )
+
+.. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
 
 .. _lbl-libcc-ccparsedstep-sourcecodeheader:
 
