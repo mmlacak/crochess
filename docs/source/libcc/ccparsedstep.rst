@@ -199,6 +199,41 @@ Parsed step functions
     :returns: A newly allocated, zero-terminated string if successful,
               :c:`NULL` otherwise
 
+.. _lbl-libcc-ccparsedstep-newfunctions:
+
+Parsed step new functions
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The new step convenience functions are meant to be used instead of
+    :c:expr:`cc_parsed_step__new()`.
+
+    They have minimal set of arguments required by the type of a step
+    (its linkage), otherwise they behave exactly as their generic
+    progenitor.
+
+.. c:function:: CcParsedStep * cc_parsed_step_none__new( CcParsedStepLinkEnum link, CcPos field )
+
+.. c:function:: CcParsedStep * cc_parsed_step_capture__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedStep * cc_parsed_step_displacement__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
+
+.. c:function:: CcParsedStep * cc_parsed_step_en_passant__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum pawn, CcPos distant )
+
+.. c:function:: CcParsedStep * cc_parsed_step_castle__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum rook, CcPos start, CcPos destination )
+
+.. c:function:: CcParsedStep * cc_parsed_step_promote__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+
+.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedStep * cc_parsed_step_convert__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedStep * cc_parsed_step_failed_conversion__new( CcParsedStepLinkEnum link, CcPos field )
+
+.. c:function:: CcParsedStep * cc_parsed_step_demote__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant )
+
+.. c:function:: CcParsedStep * cc_parsed_step_resurrect__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcPos destination )
+
+.. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection__new( CcParsedStepLinkEnum link, CcPos field )
 
 
 
