@@ -94,6 +94,20 @@ Parsed side-effect data
 
     Maximum length of a side-effect symbol; equals to :c:`3`.
 
+.. _lbl-libcc-ccparsedsideeffect-functions:
+
+Parsed side-effect functions
+----------------------------
+
+.. c:function:: char const * cc_parsed_side_effect_symbol( CcParsedSideEffectEnum see )
+
+    Function returns string symbol, as used in algebraic notation, for a given side-effect.
+
+    Returned string is not allocated, so do not :c:`free()` it.
+
+    :param see: A side-effect enum.
+    :returns: String symbol if side-effect enum is valid, :c:`"?"` otherwise.
+
 
 
 
