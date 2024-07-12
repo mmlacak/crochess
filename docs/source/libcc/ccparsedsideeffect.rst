@@ -83,6 +83,17 @@ Parsed side-effect data
 
     :c:`enum` is tagged with the same :c:expr:`CcParsedSideEffectEnum` name.
 
+.. c:macro:: CC_PARSED_SIDE_EFFECT_ENUM_IS_CASTLING(see)
+
+    Macro to check if given side-effect enum is castling.
+
+    :param see: A side-effect enumeration, i.e. one of :c:expr:`CcParsedSideEffectEnum` values.
+    :returns: :c:`true` if castling, :c:`false` otherwise.
+
+.. c:macro:: CC_MAX_LEN_PARSED_SIDE_EFFECT_SYMBOL
+
+    Maximum length of a side-effect symbol; equals to :c:`3`.
+
 
 
 
