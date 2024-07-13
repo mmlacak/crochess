@@ -34,6 +34,7 @@
 //                            CcParseMsg ** parse_msgs__iod );
 
 
+// DOCS
 bool cc_parse_steps( char const * steps_start_an,
                      char const * ply_end_an,
                      CcGame * game,
