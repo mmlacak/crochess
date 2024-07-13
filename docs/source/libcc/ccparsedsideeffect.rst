@@ -94,8 +94,164 @@ Parsed side-effect data
 
     Maximum length of a side-effect symbol; equals to ``3``.
 
+.. c:struct:: CcParsedSideEffect
+
+    Step side-effect structure.
+
+    .. c:member:: CcParsedSideEffectEnum type
+
+        File, horizontal coordinate.
 
 
+    .. c:union:: @data
+
+        Union of all substructures used by different step side-effects.
+
+        .. c:struct:: capture
+
+            Capture.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece which has been captured.
+
+            .. c:member:: CcLosingTagEnum lost_tag
+
+                Tag lost by captured piece.
+
+        .. c:struct:: displacement
+
+            Displacement, used during light Shaman's trance-journey.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece which has been displaced.
+
+            .. c:member:: CcLosingTagEnum lost_tag
+
+                Tag lost by displaced piece.
+
+            .. c:member:: CcPos destination
+
+                Displacement destination.
+
+        .. c:struct:: en_passant
+
+            En passant.
+
+            .. c:member:: CcPieceEnum pawn
+
+                Pawn which has been captured.
+
+            .. c:member:: CcPos distant
+
+                Position at which Pawn has been captured.
+
+        .. c:struct:: castle
+
+            Castling.
+
+            .. c:member:: CcPieceEnum rook
+
+                Rook which castled.
+
+            .. c:member:: CcPos start
+
+                Starting position of the Rook.
+
+            .. c:member:: CcPos destination
+
+                Castling Rook destination.
+
+        .. c:struct:: promote
+
+            Promotion.
+
+            .. c:member:: CcPieceEnum captured
+
+                Piece which has been captured, if any.
+
+            .. c:member:: CcLosingTagEnum lost_tag
+
+                Tag lost by captured piece.
+
+            .. c:member:: CcPieceEnum promoted_to
+
+                Piece to which Pawn has been promoted.
+
+        .. c:struct:: tag_for_promotion
+
+            Tag for promotion.
+
+            .. todo::
+
+                Review changes, then remove.
+
+            .. c:member:: CcPieceEnum captured
+
+                Piece which has been captured, if any.
+
+            .. c:member:: CcLosingTagEnum lost_tag
+
+                Tag lost by captured piece.
+
+        .. c:struct:: convert
+
+            Conversion.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece which has been converted.
+
+            .. c:member:: CcLosingTagEnum lost_tag
+
+                Tag lost by converted piece.
+
+        .. c:struct:: transparency
+
+            Transparency.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece which has been "passed-over".
+
+        .. c:struct:: diversion
+
+            Divergence.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece from which currently moving piece diverted.
+
+        .. c:struct:: demote
+
+            Demoting.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece which has been demoted to Pawn.
+
+            .. c:member:: CcLosingTagEnum lost_tag
+
+                Tag lost by demoted piece.
+
+            .. c:member:: CcPos distant
+
+                Position at which piece has been demoted.
+
+        .. c:struct:: resurrect
+
+            Resurrection.
+
+            .. c:member:: CcPieceEnum piece
+
+                Piece which has been resurrected.
+
+            .. c:member:: CcPos destination
+
+                Position at which Wave, Starchild has been resurrected.
+
+    :c:`struct` is tagged with the same :c:struct:`CcParsedSideEffect` name.
 
 .. _lbl-libcc-ccparsedsideeffect-functions:
 

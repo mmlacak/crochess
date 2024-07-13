@@ -104,10 +104,12 @@ typedef struct CcParsedSideEffect
             CcPieceEnum promoted_to; /**< Piece to which Pawn has been promoted. */
         } promote; /**< Promotion. */
 
+        // TODO :: review :: remove
         struct {
             CcPieceEnum captured; /**< Piece which has been captured, if any. */
             CcLosingTagEnum lost_tag; /**< Flag, whether captured piece has lost its tag. */
         } tag_for_promotion; /**< Tag for promotion. */
+        // TODO :: review :: remove
 
         struct {
             CcPieceEnum piece; /**< Piece which has been converted. */
