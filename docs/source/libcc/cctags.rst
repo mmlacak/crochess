@@ -208,8 +208,8 @@ Losing tag types
     Values enumerated in losing tag are the same as in ordinary tag.
     So, conversion between tags changes just type, not value.
 
-    When converting from ordinary tag enum, :c:enumerator:`CC_LTE_None` is used for
-    all values not enumerated here.
+    When converting from ordinary tag enum, :c:enumerator:`CC_LTE_None`
+    is used for all values not enumerated here.
 
     .. c:enumerator:: CC_LTE_None
 

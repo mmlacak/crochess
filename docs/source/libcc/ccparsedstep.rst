@@ -86,7 +86,7 @@ Parsed step data
 
         Next step in a linked list.
 
-    :c:`struct` is tagged with the same :c:enum:`CcParsedStep` name.
+    :c:`struct` is tagged with the same :c:struct:`CcParsedStep` name.
 
 .. _lbl-libcc-ccparsedstep-functions:
 

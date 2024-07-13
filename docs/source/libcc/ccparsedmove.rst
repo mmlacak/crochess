@@ -94,7 +94,7 @@ Parsed move data
 
         Next move.
 
-    :c:`struct` is tagged with the same :c:enum:`CcParsedMove` name.
+    :c:`struct` is tagged with the same :c:struct:`CcParsedMove` name.
 
 .. _lbl-libcc-ccparsedmove-functions:
 

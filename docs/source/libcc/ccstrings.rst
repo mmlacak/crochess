@@ -29,7 +29,7 @@ String types
 
         Next string, in a linked list.
 
-    :c:`Struct` is tagged with the same :c:enum:`CcStrings` name.
+    :c:`struct` is tagged with the same :c:struct:`CcStrings` name.
 
 .. _lbl-libcc-ccstrings-functions:
 

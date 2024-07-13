@@ -42,7 +42,7 @@ Position data
 
         Rank, vertical coordinate.
 
-    :c:`struct` is tagged with the same :c:enum:`CcPos` name.
+    :c:`struct` is tagged with the same :c:struct:`CcPos` name.
 
 .. c:macro:: CC_POS_CAST_INVALID
 
@@ -58,7 +58,7 @@ Position data
 
 .. c:macro:: CC_POS(int_i,int_j)
 
-    Macro definition for instantiating position, i.e. :c:enum:`CcPos` :c:`struct`\ure.
+    Macro definition for instantiating position, i.e. :c:struct:`CcPos` :c:`struct`\ure.
 
     :param int_i: File, horizontal coordinate.
     :param int_j: Rank, vertical coordinate.
@@ -79,14 +79,14 @@ Position data
 
     Coordinate is valid if it's not :c:macro:`CC_INVALID_COORD`.
 
-    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :param pos: A position, i.e. :c:struct:`CcPos` value.
     :returns: :c:data:`true` if valid position, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_STATIC_STEP(pos)
 
     Macro to check if given position is static step.
 
-    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :param pos: A position, i.e. :c:struct:`CcPos` value.
     :returns: :c:data:`true` if static step, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_DISAMBIGUATION(pos)
@@ -99,7 +99,7 @@ Position data
 
         Disambiguation is any position with at least one valid coordinate.
 
-    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :param pos: A position, i.e. :c:struct:`CcPos` value.
     :returns: :c:data:`true` if disambiguation, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_PARTIAL(pos)
@@ -112,15 +112,15 @@ Position data
 
         Partial position is any which have exactly one valid coordinate.
 
-    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :param pos: A position, i.e. :c:struct:`CcPos` value.
     :returns: :c:data:`true` if partial position, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_EQUAL(pos_1,pos_2)
 
     Macro to check if given positions are equal.
 
-    :param pos_1: A position, i.e. :c:enum:`CcPos` value.
-    :param pos_2: Another position, i.e. :c:enum:`CcPos` value.
+    :param pos_1: A position, i.e. :c:struct:`CcPos` value.
+    :param pos_2: Another position, i.e. :c:struct:`CcPos` value.
     :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpos-functions:
@@ -283,6 +283,8 @@ Step type enum
 
         Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps.
 
+    :c:`enum` is tagged with the same :c:enum:`CcStepTypeEnum` name.
+
 .. c:macro:: CC_TYPED_STEP_INVALID
 
     Invalid typed step value.
@@ -310,7 +312,7 @@ Typed step
 
         Type of a step.
 
-    :c:`struct` is tagged with the same :c:enum:`CcTypedStep` name.
+    :c:`struct` is tagged with the same :c:struct:`CcTypedStep` name.
 
 .. c:macro:: CC_TYPED_STEP_CAST_INVALID
 
@@ -327,15 +329,15 @@ Typed step
     Typed step is valid if both coordinates of a :c:`step` member
     are valid, and :c:`type` is not :c:enumerator:`CC_STE_None`.
 
-    :param ts: A typed step, i.e. :c:enum:`CcTypedStep` value.
+    :param ts: A typed step, i.e. :c:struct:`CcTypedStep` value.
     :returns: :c:data:`true` if valid typed step, :c:data:`false` otherwise.
 
 .. c:macro:: CC_TYPED_STEP_IS_EQUAL(ts_1,ts_2)
 
     Macro to check if given typed steps are equal.
 
-    :param ts_1: A typed step, i.e. :c:enum:`CcTypedStep` value.
-    :param ts_2: Another typed step, i.e. :c:enum:`CcTypedStep` value.
+    :param ts_1: A typed step, i.e. :c:struct:`CcTypedStep` value.
+    :param ts_2: Another typed step, i.e. :c:struct:`CcTypedStep` value.
     :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. c:macro:: CC_TYPED_STEP(int_i,int_j,enum_type)
@@ -389,7 +391,7 @@ Linked typed steps
 
         Link to next typed step.
 
-    :c:`struct` is tagged with the same :c:enum:`CcTypedStepLink` name.
+    :c:`struct` is tagged with the same :c:struct:`CcTypedStepLink` name.
 
 .. c:function:: CcTypedStepLink * cc_typed_step_link__new( CcTypedStep step )
 
@@ -495,7 +497,7 @@ Position descriptor
         Momentum a moving piece (different from static piece found at
         this position!) had when this position was reached.
 
-    :c:`struct` is tagged with the same :c:enum:`CcPosDesc` name.
+    :c:`struct` is tagged with the same :c:struct:`CcPosDesc` name.
 
 .. c:macro:: CC_POS_DESC_CAST_INVALID
 
@@ -515,7 +517,7 @@ Position descriptor
     :param tag_enum: A tag; :c:enum:`CcTagEnum` value.
     :param uint_momentum: Momentum; unsigned integer.
     :returns: Position descriptor value.
-    :seealso: :c:enum:`CcPosDesc`
+    :seealso: :c:struct:`CcPosDesc`
 
 .. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum)
 
@@ -533,7 +535,7 @@ Position descriptor
 
     Macro to check if given position descriptor is valid.
 
-    :param pd: A position descriptor; :c:enum:`CcPosDesc` value.
+    :param pd: A position descriptor; :c:struct:`CcPosDesc` value.
     :returns: Casted position descriptor value.
     :seealso: :c:data:`true` if valid position descriptor, :c:data:`false` otherwise.
 
@@ -541,8 +543,8 @@ Position descriptor
 
     Macro to check if two given position descriptors are equal.
 
-    :param pd_1: A position descriptor; :c:enum:`CcPosDesc` value.
-    :param pd_2: Another position descriptor; :c:enum:`CcPosDesc` value.
+    :param pd_1: A position descriptor; :c:struct:`CcPosDesc` value.
+    :param pd_2: Another position descriptor; :c:struct:`CcPosDesc` value.
     :returns: Casted position descriptor value.
     :seealso: :c:data:`true` if equal, :c:data:`false` otherwise.
 
@@ -617,7 +619,7 @@ Linked position descriptors
 
         Link to next position descriptor.
 
-    :c:`Struct` is tagged with the same :c:enum:`CcPosDescLink` name.
+    :c:`Struct` is tagged with the same :c:struct:`CcPosDescLink` name.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd )
 
@@ -713,7 +715,7 @@ Linked paths
 
         Link to next path.
 
-    :c:`Struct` is tagged with the same :c:enum:`CcPathLink` name.
+    :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
 .. c:function:: CcPathLink * cc_path_link__new( CcPosDescLink ** pd_link__n )
 

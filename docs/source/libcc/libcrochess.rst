@@ -79,8 +79,8 @@ Library contents
 
     ccdefines
     ccmath
-    cctags
     ccpiece
+    cctags
     ccvariant
     ccchessboard
     ccsetupboard

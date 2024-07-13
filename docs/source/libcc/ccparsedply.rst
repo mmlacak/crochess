@@ -138,7 +138,7 @@ Parsed ply data
 
         Next ply in a cascade.
 
-    :c:`struct` is tagged with the same :c:enum:`CcParsedPly` name.
+    :c:`struct` is tagged with the same :c:struct:`CcParsedPly` name.
 
 .. _lbl-libcc-ccparsedply-functions:
 
