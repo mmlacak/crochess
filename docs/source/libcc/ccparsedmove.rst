@@ -155,7 +155,7 @@ Parsed move functions
     Function returns count of plies owned by a given move.
 
     :param move: A move.
-    :returns: Count of plies if successful, :c:`0` otherwise.
+    :returns: Count of plies if successful, ``0`` otherwise.
 
 .. _lbl-libcc-ccparsedmove-sourcecodeheader:
 

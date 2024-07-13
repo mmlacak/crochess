@@ -346,11 +346,11 @@ either just pointed-to element, or a larger sub-container, but not the whole
 container itself.
 
 These are indicated by appending ``__f`` to parameter name, e.g.
-:c:`CcRoutePin * rp__f``.
+:c:`CcRoutePin * rp__f`.
 
 Unlike corresponding ownership transfer parameter with the same ``__f`` indicator,
-free parameter pointer is single (i.e. :c:`CcRoutePin * rp__f`` and not
-:c:`CcRoutePin ** rp__f``),
+free parameter pointer is single (i.e. :c:`CcRoutePin * rp__f` and not
+:c:`CcRoutePin ** rp__f`),
 
 since container continues to live, and thus given pointer to it is not :c:data:`NULL`\ed.
 
@@ -460,7 +460,7 @@ Input, output parameters table
      - output, :c:data:`NULL`
      - write
    * - ``__io``
-     - input + output, :c:`!NULL`
+     - input + output, :c:data:`!NULL`
      - read + write
    * - ``__d``
      - input, discretional
@@ -487,15 +487,15 @@ Ownership transfer parameters table
      - :c:`*arg`
      - :c:`**arg`
    * -
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - input
      - read
    * - ``__o``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - output, :c:data:`NULL`
      - write
    * - ``__io``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - input + output
      - read + write
    * - ``__d``
@@ -507,31 +507,31 @@ Ownership transfer parameters table
      - input, mandatory
      - read
    * - ``__n``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - :c:`*args = NULL;`
      - ownership taken
    * - ``__f``
-     - :c:`!NULL`
-     - :c:`free(); *args = NULL;``
+     - :c:data:`!NULL`
+     - :c:`free(); *args = NULL;`
      - freed
    * - ``__r``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - :c:`*args = realloc();`
      - reallocated
    * - ``__t``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - input
      - ownership given
    * - ``__a``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - output
      - ownership taken
    * - ``__a``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - input + output
      - ownership retained
    * - ``__F``
-     - :c:`!NULL`
+     - :c:data:`!NULL`
      - *conditional* :c:`free(); *args = NULL;`
      - *conditionally* freed
 

@@ -65,10 +65,10 @@ String functions
 
     :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
     :param max_len__d: *Optional*, maximum length to copy.
-    :param fmt: Formatting string, as defined for :c:`printf()`.
+    :param fmt: Formatting string, as defined for :c:func:`printf()`.
     :param args: Variadic input list for a string format.
     :returns: Weak pointer to a newly allocated string if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_strings_append()`
+    :seealso: :c:func:`cc_strings_append()`
 
 .. c:function:: CcStrings * cc_strings_append_fmt( CcStrings ** strings__iod_a, size_t max_len__d, char const * fmt, ... )
 
@@ -79,10 +79,10 @@ String functions
 
     :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
     :param max_len__d: *Optional*, maximum length to copy.
-    :param fmt: Formatting string, as defined for :c:`printf()`.
+    :param fmt: Formatting string, as defined for :c:func:`printf()`.
     :param ...: Variadic input for a string format.
     :returns: Weak pointer to a newly allocated string if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_strings_append_fmt_va()`
+    :seealso: :c:func:`cc_strings_append_fmt_va()`
 
 .. c:function:: CcStrings * cc_strings_duplicate_all__new( CcStrings * strings )
 

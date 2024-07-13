@@ -37,13 +37,13 @@ Setup misc functions
     in an initial setup of chessboard.
 
     Pawns, Scouts, Grenadiers, and Monoliths are not searched for, they'll
-    always return invalid value (:c:expr:`CC_INVALID_COORD`).
+    always return invalid value (:c:macro:`CC_INVALID_COORD`).
 
     :param ve: A variant.
     :param pe: A figure.
     :param search_queen_side_first: Flag, whether to search Queen-side, or
                                     King-side first.
-    :returns: File of figure if found, :c:expr:`CC_INVALID_COORD` otherwise.
+    :returns: File of figure if found, :c:macro:`CC_INVALID_COORD` otherwise.
 
 .. c:function:: int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light )
 
@@ -52,7 +52,7 @@ Setup misc functions
 
     :param ve: A variant.
     :param is_light: Flag, whether to return light, or dark figure's rank.
-    :returns: Rank of figures if successful, :c:expr:`CC_INVALID_COORD` otherwise.
+    :returns: Rank of figures if successful, :c:macro:`CC_INVALID_COORD` otherwise.
 
 .. c:function:: int cc_get_kings_max_castling_distance( CcVariantEnum ve )
 
@@ -61,7 +61,7 @@ Setup misc functions
 
     :param ve: A variant.
     :returns: Maximum Kng's castling distance if valid variant is given,
-              :c:expr:`CC_INVALID_COORD` otherwise.
+              :c:macro:`CC_INVALID_COORD` otherwise.
 
 .. c:function:: bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, CcPieceEnum king, int pos_i, int pos_j, bool * is_queen_side__o, int * min_i__o, int * max_i__o )
 

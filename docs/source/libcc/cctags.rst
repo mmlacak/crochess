@@ -149,12 +149,12 @@ Tag types
 
     .. c:enumerator:: CC_TE_None
 
-        No :term:`tag` applies, equals to :c:`0`.
+        No :term:`tag` applies, equals to ``0``.
         Used for e.g. empty on-board fields, any off-board field.
 
     .. c:enumerator:: CC_TE_CanRush
 
-        Pawn can rush. Persistent :term:`tag`, equals to :c:`1`.
+        Pawn can rush. Persistent :term:`tag`, equals to ``1``.
 
     .. c:enumerator:: CC_TE_CanCastle
 

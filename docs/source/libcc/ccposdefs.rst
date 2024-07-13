@@ -44,7 +44,7 @@ Piece step lengths
 
 .. c:macro:: CC_STEPS_KNIGHT_LEN
 
-    Equals to :c:`8`.
+    Equals to ``8``.
 
 .. c:macro:: CC_STEPS_BISHOP_LEN
 
@@ -56,7 +56,7 @@ Piece step lengths
 
 .. c:macro:: CC_STEPS_QUEEN_LEN
 
-    Equals to :c:`8`.
+    Equals to ``8``.
 
 .. c:macro:: CC_STEPS_KING_LEN
 
@@ -383,7 +383,7 @@ Piece step validity macros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     The step validity macro conveniences are meant to be used instead
-    of :c:expr:`cc_is_step_valid()`.
+    of :c:func:`cc_is_step_valid()`.
 
 .. c:macro:: CC_LIGHT_PAWN_STEP_IS_VALID(step)
 

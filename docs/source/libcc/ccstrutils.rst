@@ -43,18 +43,18 @@ String sizes, lengths
 
 .. c:macro:: CC_MAX_LEN_ZERO_TERMINATED
 
-    Constant to ignore maximum length constraint in functions, equals to :c:`0`.
+    Constant to ignore maximum length constraint in functions, equals to ``0``.
 
     If used, entirety of a given string is processed, which then **must** be
     zero-terminated (i.e. end with :c:`'\0'`).
 
 .. c:macro:: CC_SIZE_IGNORE
 
-    Invalid size, to flag size argument to be ignored, equals to :c:`0`.
+    Invalid size, to flag size argument to be ignored, equals to ``0``.
 
 .. c:macro:: CC_SIZE_CHAR_8
 
-    Size of an 8 :c:expr:`char` array, equals to :c:`8`.
+    Size of an 8 :c:expr:`char` array, equals to ``8``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_8
 
@@ -308,13 +308,13 @@ String utility functions
     :param start: Pointer to a start of a (sub-)string.
     :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:data:`NULL`.
     :param max_len__d: *Optional*, maximum length of a string to check; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: Length of a string if successful, :c:`0` otherwise.
+    :returns: Length of a string if successful, ``0`` otherwise.
 
 .. c:function:: int cc_str_len_fmt_va( char const * fmt, va_list args )
 
     Function returns length of a formatted string.
 
-    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param fmt: A string format, as used by :c:func:`printf()` and friends.
     :param args: Variadic list, input for a string format.
     :returns: Length of a formatted string if non-negative, error code
               if negative.
@@ -326,7 +326,7 @@ String utility functions
 
     Function returns length of a formatted string.
 
-    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param fmt: A string format, as used by :c:func:`printf()` and friends.
     :param ...: variadic input for a string format.
     :returns: Length of a formatted string if non-negative, error code
               if negative.
@@ -364,7 +364,7 @@ String utility functions
     :param dest__o: Pointer to destination.
     :param dest_end__d: *Optional*, pointer to the end of destination; can be :c:data:`NULL`.
     :param size_dest__d: A starting character of a first (sub-)string.
-    :returns: Count of characters copied (not including :c:`'\0'`) if successful, :c:`0` otherwise.
+    :returns: Count of characters copied (not including :c:`'\0'`) if successful, ``0`` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
 
 .. c:function:: char * cc_str_copy__new( char const * start, char const * end__d, size_t max_len__d )
@@ -383,7 +383,7 @@ String utility functions
     optionally capped at given maximum length.
 
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param fmt: A string format, as used by :c:func:`printf()` and friends.
     :param args: Variadic input list for a string format.
     :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
     :returns: Output returned is direct result of a :c:`vsnprintf()`
@@ -396,10 +396,10 @@ String utility functions
     optionally capped at given maximum length.
 
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param fmt: A string format, as used by :c:func:`printf()` and friends.
     :param ...: Variadic input for a string format.
     :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_str_fmt_va__new()`
+    :seealso: :c:func:`cc_str_fmt_va__new()`
 
 .. c:function:: char * cc_str_duplicate__new( char const * str, bool do_reverse, size_t max_len__d )
 
@@ -493,10 +493,10 @@ String utility functions
 
     :param str__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param fmt: A string format, as used by :c:func:`printf()` and friends.
     :param args: Variadic input list for a string format.
     :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_str_append_free__new()`
+    :seealso: :c:func:`cc_str_append_free__new()`
 
 .. c:function:: char * cc_str_append_fmt__new( char ** str__d_f, size_t max_len__d, char const * fmt, ... )
 
@@ -506,10 +506,10 @@ String utility functions
 
     :param str__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt: A string format, as used by :c:`printf()` and friends.
+    :param fmt: A string format, as used by :c:func:`printf()` and friends.
     :param ...: Variadic input for a string format.
     :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_str_append_fmt_va__new()`
+    :seealso: :c:func:`cc_str_append_fmt_va__new()`
 
 .. _lbl-libcc-ccstrutils-debug:
 
@@ -527,7 +527,7 @@ String utility debug
     variadic input.
 
     Compile-time constant which controls definition of this function is
-    :c:expr:`__CC_STR_PRINT_INFO__`.
+    :c:macro:`__CC_STR_PRINT_INFO__`.
 
     .. note::
 
@@ -544,12 +544,12 @@ String utility debug
     :param start: A string to print first.
     :param end__d: *Optional*, pointer to the end of a (sub-)string.
     :param max_len__d: *Optional*, maximum length of printed string :c:`start`; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt_str: A :c:`printf()`\-format string, used to format :c:`start` string.
+    :param fmt_str: A :c:func:`printf()`\-format string, used to format :c:`start` string.
     :param fmt_len__d: *Optional*, maximum length of variadic string to print; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt__d: *Optional*, a string format, as used by :c:`printf()` and friends.
+    :param fmt__d: *Optional*, a string format, as used by :c:func:`printf()` and friends.
     :param ...: Variadic input for a string format.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-    :seealso: :c:expr:`cc_str_fmt_va__new()`
+    :seealso: :c:func:`cc_str_fmt_va__new()`
 
 .. c:macro:: CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)
 
@@ -558,21 +558,21 @@ String utility debug
         Move out of library / return newly allocated, formatted string.
         Remove library dependecy on ``<stdio.h>``.
 
-    Macro to call :c:expr:`cc_str_print()`, depending on a compile-time
+    Macro to call :c:func:`cc_str_print()`, depending on a compile-time
     constant.
 
     Compile-time constant which controls definition of this macro is
-    :c:expr:`__CC_STR_PRINT_INFO__`.
+    :c:macro:`__CC_STR_PRINT_INFO__`.
 
     :param start: A string to print first.
     :param end__d: *Optional*, pointer to the end of a (sub-)string.
     :param max_len__d: *Optional*, maximum length of printed string :c:`start`; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt_str: A :c:`printf()`\-format string, used to format :c:`start` string.
+    :param fmt_str: A :c:func:`printf()`\-format string, used to format :c:`start` string.
     :param fmt_len__d: *Optional*, maximum length of variadic string to print; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :param fmt__d: *Optional*, a string format, as used by :c:`printf()` and friends.
+    :param fmt__d: *Optional*, a string format, as used by :c:func:`printf()` and friends.
     :param ...: Variadic input for a string format.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-    :seealso: :c:expr:`cc_str_print()`
+    :seealso: :c:func:`cc_str_print()`
 
 .. _lbl-libcc-ccstrutils-sourcecodeheader:
 

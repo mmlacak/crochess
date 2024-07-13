@@ -432,7 +432,7 @@ Monoliths) do not belong to any player.
 
     .. c:enumerator:: CC_TE_None
 
-        No piece present, equals to :c:`0`.
+        No piece present, equals to ``0``.
         Used for e.g. empty on-board fields, any off-board field.
 
     .. c:enumerator:: CC_PE_LightPawn
@@ -558,7 +558,7 @@ Piece functions
 
     :param pe: A piece.
     :returns: A piece symbol if chess piece, space otherwise.
-    :seealso: :c:expr:`cc_piece_as_char()`
+    :seealso: :c:func:`cc_piece_as_char()`
 
 .. c:function:: CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe )
 
@@ -744,7 +744,7 @@ Piece functions
     :param capitalize: Flag, whether to return capitalized string.
     :param empty_field: Flag, whether to return :c:`"empty field"`, or empty string.
     :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
-    :seealso: :c:expr:`cc_piece_prefix()`, :c:expr:`cc_piece_label()`, :c:expr:`CC_DEFAULT_ENTITY_STRING`
+    :seealso: :c:func:`cc_piece_prefix()`, :c:func:`cc_piece_label()`, :c:expr:`CC_DEFAULT_ENTITY_STRING`
 
 .. _lbl-libcc-ccpiece-sourcecodeheader:
 

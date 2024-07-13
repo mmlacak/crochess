@@ -21,7 +21,7 @@ The board sizes defined for each variant.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS
 
-    Board size for Classical Chess, equals to :c:`8`.
+    Board size for Classical Chess, equals to ``8``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_CROATIAN_TIES
 
@@ -61,7 +61,7 @@ The board sizes defined for each variant.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_ONE
 
-    Board size for One, equals to :c:`26`.
+    Board size for One, equals to ``26``.
 
 .. _lbl-libcc-ccvariant-rushlimits:
 
@@ -122,11 +122,11 @@ position of the middle line.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_MIRANDAS_VEIL_DARK
 
-    Rush limits for Miranda's Veil, dark player, equals to :c:`8`.
+    Rush limits for Miranda's Veil, dark player, equals to ``8``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_NINETEEN_LIGHT
 
-    Rush limits for Nineteen, light player, equals to :c:`8`.
+    Rush limits for Nineteen, light player, equals to ``8``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_NINETEEN_DARK
 
@@ -242,7 +242,7 @@ Abbreviated variant names, used to e.g. select variant to play.
 
 .. c:macro:: CC_LEN_VARIANT_SYMBOL_INVALID
 
-    Length of an invalid symbol string (char array); equals to :c:`0`.
+    Length of an invalid symbol string (char array); equals to ``0``.
 
 .. c:type:: char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL
 
@@ -333,7 +333,7 @@ Variant functions
     Function returning size of a board for a given variant.
 
     :param ve: Variant :c:`enum`.
-    :returns: Size of a chessboard if successful, :c:`0` otherwise.
+    :returns: Size of a chessboard if successful, ``0`` otherwise.
 
 .. c:function:: bool cc_variant_has_sideways_pawns( CcVariantEnum ve )
 
@@ -349,7 +349,7 @@ Variant functions
 
     :param ve: Variant :c:`enum`.
     :param is_piece_light: Flag, whether piece is light (:c:data:`true`) or dark (:c:data:`false`).
-    :returns: Rush limit for known variants, :c:`0` otherwise.
+    :returns: Rush limit for known variants, ``0`` otherwise.
 
 .. c:function:: bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve, bool is_piece_light, int rank )
 

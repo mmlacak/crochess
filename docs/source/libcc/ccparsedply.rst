@@ -201,7 +201,7 @@ Parsed ply functions
     :param lost_tag: Tag lost by a moving piece.
     :param steps__n: **Ownership transfer**; steps, linked list, inner pointer can be :c:data:`NULL`.
     :returns: Weak pointer to a newly allocated ply if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_parsed_ply__new()`
+    :seealso: :c:func:`cc_parsed_ply__new()`
 
 .. c:function:: CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies )
 
@@ -232,7 +232,7 @@ Parsed ply functions
                        :c:data:`NULL`.
     :returns: Weak pointer to extended portion of a linked list if successful,
               :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_parsed_ply_append()`
+    :seealso: :c:func:`cc_parsed_ply_append()`
 
 .. c:function:: bool cc_parsed_ply_free_all( CcParsedPly ** plies__f )
 

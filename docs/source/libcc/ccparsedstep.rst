@@ -157,7 +157,7 @@ Parsed step functions
     Function returning count of steps.
 
     :param steps: Linked list of steps.
-    :returns: Count of steps if successful, :c:`0` otherwise.
+    :returns: Count of steps if successful, ``0`` otherwise.
 
 .. c:function:: CcParsedStep * cc_parsed_step_find_start( CcParsedStep * steps )
 
@@ -205,7 +205,7 @@ Parsed step new functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
     The new step convenience functions are meant to be used instead of
-    :c:expr:`cc_parsed_step__new()`.
+    :c:func:`cc_parsed_step__new()`.
 
     They have minimal set of parameters required by the type of a step
     (its linkage), otherwise they behave exactly as their generic
@@ -241,7 +241,7 @@ Parsed step append functions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
     The append new step convenience functions are meant to be used instead of
-    :c:expr:`cc_parsed_step_append()`.
+    :c:func:`cc_parsed_step_append()`.
 
     They have minimal set of parameters required by the type of a step
     (its linkage), otherwise they behave exactly as their generic

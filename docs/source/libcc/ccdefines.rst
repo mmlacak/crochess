@@ -30,7 +30,7 @@ Common types
 
 .. c:macro:: CC_UNSIGNED_MIN
 
-    Constant, minimum value for all :c:`unsigned` types; equals to :c:`0`.
+    Constant, minimum value for all :c:`unsigned` types; equals to ``0``.
 
 .. _lbl-libcc-ccdefines-macros:
 
@@ -71,8 +71,8 @@ Common macros
 
     Macro to inline sign function.
 
-    Sign of a number is defined as :c:`1` for positive numbers,
-    :c:`-1` for negative numbers, :c:`0` otherwise.
+    Sign of a number is defined as ``1`` for positive numbers,
+    ``-1`` for negative numbers, ``0`` otherwise.
 
     :param i: A number, value is not cast.
     :returns: Larger value of the two given.
@@ -90,7 +90,7 @@ Common macros
 
         In case of integer(s), one has to be non-zero, while the other has to be zero,
         for :c:expr:`CC_XOR` to return :c:data:`true`. Arguments are converted to :c:`bool`\s
-        (so, non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
+        (so, non-zero integer is ``1``, otherwise it's ``0``), then they are compared.
 
     .. seealso::
 
@@ -124,15 +124,15 @@ Maybe bool
 
     .. c:enumerator:: CC_MBE_Void
 
-        Void (undefined, uninitialized, or error) value; equals to :c:`-1`.
+        Void (undefined, uninitialized, or error) value; equals to ``-1``.
 
     .. c:enumerator:: CC_MBE_False
 
-        Boolean :c:data:`false` value; equals to :c:`0`.
+        Boolean :c:data:`false` value; equals to ``0``.
 
     .. c:enumerator:: CC_MBE_True
 
-        Boolean :c:data:`true` value; equals to :c:`1`.
+        Boolean :c:data:`true` value; equals to ``1``.
 
     :c:`enum` is tagged with the same :c:enum:`CcMaybeBoolEnum` name.
 
@@ -145,21 +145,21 @@ Maybe bool
 
 .. c:macro:: CC_MAYBE_IS_TRUE(maybe_bool)
 
-    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`.
+    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:enumerator:`CC_MBE_True`.
 
     :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_MAYBE_IS_FALSE(maybe_bool)
 
-    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`.
+    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:enumerator:`CC_MBE_False`.
 
     :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_MAYBE_IS_VOID(maybe_bool)
 
-    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`.
+    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:enumerator:`CC_MBE_Void`.
 
     :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
@@ -181,19 +181,19 @@ Coordinates
 
 .. c:macro:: CC_MIN_BOARD_COORD
 
-    The smallest valid on-board coordinate; equals to :c:`0`.
+    The smallest valid on-board coordinate; equals to ``0``.
 
 .. c:macro:: CC_MAX_BOARD_COORD
 
-    The largest valid on-board coordinate; equals to :c:`25`.
+    The largest valid on-board coordinate; equals to ``25``.
 
 .. c:macro:: CC_MIN_BOARD_SIZE
 
-    The smallest valid board size, used by Classic Chess; equals to :c:`8`.
+    The smallest valid board size, used by Classic Chess; equals to ``8``.
 
 .. c:macro:: CC_MAX_BOARD_SIZE
 
-    The largest valid board size; equals to :c:`26`.
+    The largest valid board size; equals to ``26``.
 
 The largest valid coordinate and board size are for the largest board, used by
 One variant. For other variants actual upper limit is smaller.
@@ -207,11 +207,11 @@ One variant. For other variants actual upper limit is smaller.
 
 .. c:macro:: CC_FIELD_COLOR_LIGHT
 
-    Light field check constant; equals to :c:`1`.
+    Light field check constant; equals to ``1``.
 
 .. c:macro:: CC_FIELD_COLOR_DARK
 
-    Dark field check constant; equals to :c:`0`.
+    Dark field check constant; equals to ``0``.
 
     Light and dark field check constants are used when checking if colors
     of a piece and field are the same, or different.
@@ -227,7 +227,7 @@ Conversions
 
     .. note::
 
-        Value of :c:`byte_file` is expected to be in a range of [:c:`0`, :c:`25`],
+        Value of :c:`byte_file` is expected to be in a range of [``0``, ``25``],
         undefined result if it's not.
 
     :param byte_file: Rank, position along vertical axis, numerical value.
@@ -247,7 +247,7 @@ Conversions
 
 .. c:macro:: CC_CONVERT_RANK_STR_INTO_NUM(char_ptr_rank)
 
-    Macro to convert string into numerical rank value, using :c:`atoi()` function.
+    Macro to convert string into numerical rank value, using :c:func:`atoi()` function.
 
     .. warning::
 
@@ -268,19 +268,19 @@ Coordinates, fields, positions
 .. c:macro:: CC_IS_COORD_VALID(coord)
 
     Macro to check if a given coordinate is valid, i.e. different than
-    :c:expr:`CC_INVALID_COORD`.
+    :c:macro:`CC_INVALID_COORD`.
 
     :param coord: Coordinate; integer value.
-    :returns: :c:`1` if valid, :c:`0` otherwise.
+    :returns: ``1`` if valid, ``0`` otherwise.
 
 .. c:macro:: CC_IS_COORD_2_VALID(i,j)
 
     Macro to check if a given position is valid, i.e. if given coordinates are
-    different than :c:expr:`CC_INVALID_COORD`.
+    different than :c:macro:`CC_INVALID_COORD`.
 
     :param i: File, position along horizontal axis; integer value.
     :param j: Rank, position along vertical axis; integer value.
-    :returns: :c:`1` if valid, :c:`0` otherwise.
+    :returns: ``1`` if valid, ``0`` otherwise.
 
 .. c:macro:: CC_IS_FIELD_LIGHT(i,j)
 
@@ -288,7 +288,7 @@ Coordinates, fields, positions
 
     :param i: File, position along horizontal axis; integer value.
     :param j: Rank, position along vertical axis; integer value.
-    :returns: :c:`1` if light, :c:`0` otherwise.
+    :returns: ``1`` if light, ``0`` otherwise.
 
 .. c:macro:: CC_IS_FIELD_DARK(i,j)
 
@@ -296,7 +296,7 @@ Coordinates, fields, positions
 
     :param i: File, position along horizontal axis; integer value.
     :param j: Rank, position along vertical axis; integer value.
-    :returns: :c:`1` if dark, :c:`0` otherwise.
+    :returns: ``1`` if dark, ``0`` otherwise.
 
 .. c:macro:: CC_IS_FIELD_COLOR(i,j,fc)
 
@@ -304,22 +304,22 @@ Coordinates, fields, positions
 
     :param i: File, position along horizontal axis; integer value.
     :param j: Rank, position along vertical axis; integer value.
-    :param fc: Field color, either :c:expr:`CC_FIELD_COLOR_LIGHT`
-        or :c:expr:`CC_FIELD_COLOR_DARK`.
-    :returns: :c:`1` if field is in given color, :c:`0` otherwise.
+    :param fc: Field color, either :c:data:`CC_FIELD_COLOR_LIGHT`
+        or :c:data:`CC_FIELD_COLOR_DARK`.
+    :returns: ``1`` if field is in given color, ``0`` otherwise.
 
 .. c:macro:: CC_IS_BOARD_SIZE_VALID(board_size)
 
     Macro to check if a given board size is valid,
-    i.e. between :c:expr:`CC_MIN_BOARD_SIZE` and :c:expr:`CC_MAX_BOARD_SIZE`.
+    i.e. between :c:macro:`CC_MIN_BOARD_SIZE` and :c:macro:`CC_MAX_BOARD_SIZE`.
 
     :param board_size: Chessboard size, integer value; cast to :c:`int`.
-    :returns: :c:`1` if valid board size, :c:`0` otherwise.
+    :returns: ``1`` if valid board size, ``0`` otherwise.
 
 .. c:macro:: CC_IS_COORD_ON_BOARD(board_size,coord)
 
     Macro to check if a given coordinate is on board, i.e. larger than (or equal
-    to) :c:expr:`CC_MIN_BOARD_COORD` and smaller than :c:`board_size`.
+    to) :c:macro:`CC_MIN_BOARD_COORD` and smaller than :c:`board_size`.
 
     .. note::
 
@@ -327,18 +327,18 @@ Coordinates, fields, positions
 
     :param board_size: Chessboard size, cast to :c:`int`.
     :param coord: Coordinate, cast to :c:`int`.
-    :returns: :c:`1` if on board, :c:`0` otherwise.
+    :returns: ``1`` if on board, ``0`` otherwise.
 
 .. c:macro:: CC_IS_COORD_ON_VALID_BOARD(board_size,coord)
 
     Macro to check if a given coordinate is on board, i.e. larger than (or equal
-    to) :c:expr:`CC_MIN_BOARD_COORD` and smaller than :c:`board_size`.
+    to) :c:macro:`CC_MIN_BOARD_COORD` and smaller than :c:`board_size`.
 
     This macro checks if board size is valid.
 
     :param board_size: Chessboard size, cast to :c:`int`.
     :param coord: Coordinate, cast to :c:`int`.
-    :returns: :c:`1` if on board, :c:`0` otherwise.
+    :returns: ``1`` if on board, ``0`` otherwise.
 
 .. c:macro:: CC_IS_POS_ON_BOARD(board_size,i,j)
 
@@ -349,7 +349,7 @@ Coordinates, fields, positions
     :param board_size: Chessboard size, cast to :c:`int`.
     :param i: File, position along horizontal axis; cast to :c:`int`.
     :param j: Rank, position along vertical axis; cast to :c:`int`.
-    :returns: :c:`1` if on board, :c:`0` otherwise.
+    :returns: ``1`` if on board, ``0`` otherwise.
 
 .. c:macro:: CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)
 
@@ -360,7 +360,7 @@ Coordinates, fields, positions
     :param board_size: Chessboard size, cast to :c:`int`.
     :param i: File, position along horizontal axis; cast to :c:`int`.
     :param j: Rank, position along vertical axis; cast to :c:`int`.
-    :returns: :c:`1` if at least one coordinate is on board, :c:`0` otherwise.
+    :returns: ``1`` if at least one coordinate is on board, ``0`` otherwise.
 
 .. c:macro:: CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank)
 
@@ -370,7 +370,7 @@ Coordinates, fields, positions
 
     :param board_size: Chessboard size, cast to :c:`int`.
     :param rank: Rank, position along vertical axis; cast to :c:`int`.
-    :returns: :c:`1` if on light side, :c:`0` otherwise.
+    :returns: ``1`` if on light side, ``0`` otherwise.
 
 .. c:macro:: CC_IS_FIELD_ON_DARK_SIDE(board_size,rank)
 
@@ -380,7 +380,7 @@ Coordinates, fields, positions
 
     :param board_size: Chessboard size, cast to :c:`int`.
     :param rank: Rank, position along vertical axis; cast to :c:`int`.
-    :returns: :c:`1` if on dark side, :c:`0` otherwise.
+    :returns: ``1`` if on dark side, ``0`` otherwise.
 
 .. _lbl-libcc-ccdefines-defaults:
 
@@ -395,7 +395,7 @@ Defaults
     usually based on some enum, e.g. a piece label.
 
     .. seealso::
-        :c:expr:`cc_piece_label()`, :c:expr:`cc_piece_as_string()`
+        :c:func:`cc_piece_label()`, :c:func:`cc_piece_as_string()`
 
 .. _lbl-libcc-ccdefines-navigation:
 
@@ -468,18 +468,18 @@ Debug
         Move out of library / return newly allocated, formatted string.
         Remove library dependecy on ``<stdio.h>``.
 
-    Macro to call :c:`printf()`, depending on a compile-time constant.
+    Macro to call :c:func:`printf()`, depending on a compile-time constant.
 
     Compile-time constant which controls definition of this macro is
-    :c:expr:`__CC_STR_PRINT_INFO__`.
+    :c:macro:`__CC_STR_PRINT_INFO__`.
 
     .. seealso::
 
         `<https://en.cppreference.com/w/c/io/fprintf>`_
 
     :param fmt: Formatting string.
-    :param ...: Variadic parameters, as used by :c:`printf()`.
-    :returns: The same as :c:`printf()`, i.e. an :c:`int` value.
+    :param ...: Variadic parameters, as used by :c:func:`printf()`.
+    :returns: The same as :c:func:`printf()`, i.e. an :c:`int` value.
               Number of :c:`char`\s printed, an error code if negative.
 
 .. _lbl-libcc-ccdefines-sourcecodeheader:

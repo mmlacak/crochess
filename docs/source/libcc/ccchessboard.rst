@@ -153,7 +153,7 @@ Chessboard functions
     belongs to a board.
 
     Disambiguation is a position which can have one invalid coordinate,
-    i.e. equal to :c:expr:`CC_INVALID_COORD`.
+    i.e. equal to :c:macro:`CC_INVALID_COORD`.
 
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
@@ -219,7 +219,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param is_light: Flag, whether it is for light or dark player.
     :returns: Rank of a promoting row if successful,
-              :c:expr:`CC_INVALID_COORD` otherwise.
+              :c:macro:`CC_INVALID_COORD` otherwise.
 
 .. c:function:: int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light )
 
@@ -228,7 +228,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param is_light: Flag, whether it is for light or dark player.
     :returns: Rank of a figure row if successful,
-              :c:expr:`CC_INVALID_COORD` otherwise.
+              :c:macro:`CC_INVALID_COORD` otherwise.
 
 .. c:function:: CcPieceEnum cc_chessboard_get_piece( CcChessboard * cb, int i, int j )
 

@@ -48,7 +48,7 @@ Conditional compilation
         Move out of library / return newly allocated, formatted string.
         Remove library dependecy on ``<stdio.h>``.
 
-    Controls presence of various debug :c:`printf()`\s and the like in
+    Controls presence of various debug :c:func:`printf()`\s and the like in
     the library.
 
     It's enough if that constant is defined in a command line while

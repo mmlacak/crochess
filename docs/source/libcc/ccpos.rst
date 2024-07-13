@@ -19,15 +19,15 @@ Position data
 
 .. c:macro:: CC_POS_INVALID
 
-    Invalid position value, both coordinates are equal to :c:expr:`CC_INVALID_COORD`.
+    Invalid position value, both coordinates are equal to :c:macro:`CC_INVALID_COORD`.
 
 .. c:macro:: CC_POS_STATIC_STEP
 
-    Static position value, i.e. no-movement step; both coordinates are equal to :c:`0`.
+    Static position value, i.e. no-movement step; both coordinates are equal to ``0``.
 
 .. c:macro:: CC_POS_ORIGIN_FIELD
 
-    Origin field, i.e. coordinate system start; both coordinates are equal to :c:`0`.
+    Origin field, i.e. coordinate system start; both coordinates are equal to ``0``.
 
 .. c:struct:: CcPos
 
@@ -77,7 +77,7 @@ Position data
     Macro to check if given position is valid, i.e. if both
     coordinates are valid.
 
-    Coordinate is valid if it's not :c:expr:`CC_INVALID_COORD`.
+    Coordinate is valid if it's not :c:macro:`CC_INVALID_COORD`.
 
     :param pos: A position, i.e. :c:enum:`CcPos` value.
     :returns: :c:data:`true` if valid position, :c:data:`false` otherwise.
@@ -443,7 +443,7 @@ Linked typed steps
 
     :param ts_link: A linked list of typed steps.
     :returns: Count of typed steps in a linked list if successful,
-              :c:`0` otherwise.
+              ``0`` otherwise.
 
 .. c:function:: char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link )
 
@@ -684,7 +684,7 @@ Linked position descriptors
     Function returns length of a linked list.
 
     :param pd_link: A linked list of position descriptors.
-    :returns: Length of a linked list if successful, :c:`0` otherwise.
+    :returns: Length of a linked list if successful, ``0`` otherwise.
 
 .. c:function:: char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link )
 
@@ -694,7 +694,7 @@ Linked position descriptors
     :param pd_link: A linked list of position descriptors.
     :returns: A newly allocated, zero-terminated (:c:`'\0'`) string if
               successful, :c:data:`NULL` otherwise.
-    :seealso: :c:expr:`cc_pos_to_short_string()`
+    :seealso: :c:func:`cc_pos_to_short_string()`
 
 .. _lbl-libcc-ccpos-linkedpaths:
 
@@ -776,7 +776,7 @@ Linked paths
     Function returns length of a linked list.
 
     :param path_link: Linked list of paths.
-    :returns: Length of a linked list if successful, :c:`0` otherwise.
+    :returns: Length of a linked list if successful, ``0`` otherwise.
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
 
