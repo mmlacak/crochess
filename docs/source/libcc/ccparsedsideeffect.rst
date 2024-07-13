@@ -262,6 +262,18 @@ Parsed side-effect functions
     :param see: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
 
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect( CcParsedSideEffectEnum type, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos start, CcPos destination, CcPieceEnum promoted_to )
+
+    Function returns step side-effect :c:`struct`\ure.
+
+    :param type: Type of side-effect.
+    :param piece: A piece.
+    :param lost_tag: Tag lost by a piece.
+    :param start: Starting position.
+    :param destination: Destination position.
+    :param promoted_to: Piece to which Pawn has been promoted.
+    :returns: Step side-effect :c:`struct`\ure.
+
 
 
 

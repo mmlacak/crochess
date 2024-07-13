@@ -143,7 +143,7 @@ typedef struct CcParsedSideEffect
     @param lost_tag Flag, if Pawn has lost its delayed promotion tag.
     @param start Starting position.
     @param destination Destination position.
-    @param promoted_to Piece to which Pawn is promoted, after capturing a piece.
+    @param promoted_to Piece to which Pawn has been promoted.
 
     @note
     Side-effect structure is returned as a value on the stack,
