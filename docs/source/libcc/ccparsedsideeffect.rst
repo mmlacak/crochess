@@ -274,6 +274,13 @@ Parsed side-effect functions
     :param promoted_to: Piece to which Pawn has been promoted.
     :returns: Step side-effect :c:`struct`\ure.
 
+.. c:function:: CcPieceEnum cc_parsed_side_effect_piece( CcParsedSideEffect se )
+
+    Function returns piece affected by a given side-effect.
+
+    :param se: A side-effect.
+    :returns: A piece affected by a side-effect.
+
 
 
 
