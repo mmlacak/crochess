@@ -100,8 +100,7 @@ Parsed side-effect data
 
     .. c:member:: CcParsedSideEffectEnum type
 
-        File, horizontal coordinate.
-
+        Type of side-effect.
 
     .. c:union:: @data
 
