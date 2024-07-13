@@ -206,7 +206,7 @@ CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void );
 
 /** TODO :: DOCS . */
 bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
-                                         cc_char_16 * see_str__o );
+                                         cc_char_16 * se_str__o );
 
 
 #endif /* __CC_PARSED_SIDE_EFFECT_H__ */

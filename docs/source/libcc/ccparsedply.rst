@@ -271,7 +271,7 @@ Parsed ply functions
 
     :param plies: Linked list of plies.
     :returns: A newly allocated, zero-terminated string if successful,
-              :c:data:`NULL` otherwise
+              :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccparsedply-sourcecodeheader:
 

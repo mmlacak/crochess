@@ -288,6 +288,15 @@ Parsed side-effect functions
     :param se: A side-effect.
     :returns: A position affected by a side-effect.
 
+.. c:function:: bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se, cc_char_16 * se_str__o )
+
+    Function returns string, containing user-readable representation
+    of a given side-effect.
+
+    :param se: A side-effect.
+    :param se_str__o: *Output* parameter; pointer to array which will hold string.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccparsedsideeffect-structfunctions:
 
 Parsed side-effect :c:`struct` functions
