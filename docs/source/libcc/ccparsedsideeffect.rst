@@ -336,10 +336,6 @@ Parsed side-effect :c:`struct` functions
 
 .. c:function:: CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void )
 
-
-
-
-
 .. _lbl-libcc-ccparsedsideeffect-sourcecodeheader:
 
 Parsed side-effect source code header

@@ -17,7 +17,6 @@
 #include "cc_pos.h"
 #include "cc_game.h"
 
-#include "cc_parse_defs.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
 #include "cc_rules.h"

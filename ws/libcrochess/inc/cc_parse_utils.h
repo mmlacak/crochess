@@ -10,7 +10,6 @@
 #include "cc_tag.h"
 #include "cc_pos.h"
 
-#include "cc_parse_defs.h"
 #include "cc_parsed_side_effect.h"
 #include "cc_parsed_step.h"
 #include "cc_parsed_ply.h"
@@ -19,6 +18,17 @@
     @file cc_parse_utils.h
     @brief Functions separating a move (algebraic notation string) into list of enums, sub-strings.
 */
+
+
+#define CC_CHAR_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
+#define CC_CHAR_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
+#define CC_CHAR_IS_PLY_GATHER_END(char_c) ( (char_c) == ']' )
+
+#define CC_CHAR_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
+
+#define CC_MAX_LEN_STEP_POS (3)
+#define CC_MAX_LEN_DISAMBIGUATION (3)
+#define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
 
 bool cc_parse_ply_link( char const * an_str,

@@ -10,8 +10,6 @@
 #include "cc_parsed_move.h"
 #include "cc_game.h"
 
-// #include "cc_parse_defs.h"
-
 
 // static int cc_an_str_ends_with_draw_offer( char const * an_start,
 //                                            char const * an_end__d,

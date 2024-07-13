@@ -21,7 +21,6 @@
 #include "cc_pos.h"
 #include "cc_game.h"
 
-#include "cc_parse_defs.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
 #include "cc_parse_move.h"
@@ -34,7 +33,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.597:1029+20240711.234752"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.598:1030+20240713.123934"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
