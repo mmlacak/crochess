@@ -281,6 +281,12 @@ Parsed side-effect functions
     :param se: A side-effect.
     :returns: A piece affected by a side-effect.
 
+.. c:function:: CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se )
+
+    Function returns position affected by a given side-effect.
+
+    :param se: A side-effect.
+    :returns: A position affected by a side-effect.
 
 
 
