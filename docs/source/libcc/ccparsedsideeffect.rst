@@ -182,10 +182,6 @@ Parsed side-effect data
 
             Tag for promotion.
 
-            .. todo::
-
-                Review changes, then remove.
-
             .. c:member:: CcPieceEnum captured
 
                 Piece which has been captured, if any.
