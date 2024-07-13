@@ -325,7 +325,7 @@ Typed step
     Macro to check if given typed step is valid.
 
     Typed step is valid if both coordinates of a :c:`step` member
-    are valid, and :c:`type` is not :c:`CC_STE_None`.
+    are valid, and :c:`type` is not :c:enumerator:`CC_STE_None`.
 
     :param ts: A typed step, i.e. :c:enum:`CcTypedStep` value.
     :returns: :c:data:`true` if valid typed step, :c:data:`false` otherwise.

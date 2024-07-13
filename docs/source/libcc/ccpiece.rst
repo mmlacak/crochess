@@ -24,7 +24,7 @@ Piece validity
 .. c:macro:: CC_PIECE_IS_VALID(pe)
 
     Macro to check if given piece is a valid,
-    i.e. between :c:`CC_PE_DimStar` and :c:`CC_PE_Monolith` values.
+    i.e. between :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values.
 
     :param pe: :c:enum:`CcPieceEnum` value.
     :returns: :c:data:`true` if valid chess piece, :c:data:`false` otherwise.
@@ -39,10 +39,10 @@ Piece validity
 
 .. c:macro:: CC_PIECE_IS_NONE(pe)
 
-    Macro to check if given piece is :c:`CC_PE_None`.
+    Macro to check if given piece is :c:enumerator:`CC_PE_None`.
 
     :param pe: :c:enum:`CcPieceEnum` value.
-    :returns: :c:data:`true` if piece is :c:`CC_PE_None`, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if piece is :c:enumerator:`CC_PE_None`, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpiece-values:
 
@@ -483,7 +483,7 @@ Piece functions
 
     :param symbol: Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
     :param is_light: Whether piece is light/bright (:c:data:`true`), or dark/dim (:c:data:`false`).
-    :returns: Piece enum if valid piece symbol passed, otherwise :c:`CC_PE_None`.
+    :returns: Piece enum if valid piece symbol passed, otherwise :c:enumerator:`CC_PE_None`.
 
 .. c:function:: bool cc_piece_symbol_is_valid( char c )
 
@@ -513,7 +513,7 @@ Piece functions
 
     Monoliths are always returned uppercase.
 
-    If there is no piece (i.e. :c:`CC_PE_None` was given) space is returned.
+    If there is no piece (i.e. :c:enumerator:`CC_PE_None` was given) space is returned.
 
     In case no valid piece enum was given, question mark (:c:`'?'`) is returned.
 
@@ -528,10 +528,10 @@ Piece functions
 
     Monolith is returned only for uppercase ``'M'`` :c:expr:`char`.
 
-    Space, unrecognized characters all yield :c:`CC_PE_None`.
+    Space, unrecognized characters all yield :c:enumerator:`CC_PE_None`.
 
     :param piece: A character.
-    :returns: Piece enum if valid piece char passed, otherwise :c:`CC_PE_None`.
+    :returns: Piece enum if valid piece char passed, otherwise :c:enumerator:`CC_PE_None`.
 
 .. c:function:: char const * cc_piece_label( CcPieceEnum pe )
 
@@ -541,7 +541,7 @@ Piece functions
 
     Piece label is the same for dark (dim) and light (bright) pieces.
 
-    For :c:`CC_PE_None` piece, label is empty string.
+    For :c:enumerator:`CC_PE_None` piece, label is empty string.
 
     All returned strings are zero-terminated.
 
@@ -563,16 +563,16 @@ Piece functions
 .. c:function:: CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe )
 
     Function returns a Pawn to which given piece can be demoted to,
-    or :c:`CC_PE_None` if piece can't be demoted.
+    or :c:enumerator:`CC_PE_None` if piece can't be demoted.
 
     Dark pieces can be demoted to dark Pawn, similarly light pieces can be
     demoted to light Pawn.
 
     Stars, Monoliths (which don't have an owner) cannot be demoted to a Pawn,
-    so :c:`CC_PE_None` is returned instead.
+    so :c:enumerator:`CC_PE_None` is returned instead.
 
     :param pe: A piece.
-    :returns: Pawn to which given piece can be demoted to, otherwise :c:`CC_PE_None`.
+    :returns: Pawn to which given piece can be demoted to, otherwise :c:enumerator:`CC_PE_None`.
 
 .. c:function:: bool cc_piece_is_dark( CcPieceEnum pe )
 
@@ -616,7 +616,7 @@ Piece functions
     Piece prefix is either a color, or a shade of a given piece,
     depending what it has.
 
-    For pieces without neither color nor shade (:c:`CC_PE_None`, and Monolith),
+    For pieces without neither color nor shade (:c:enumerator:`CC_PE_None`, and Monolith),
     prefix is empty string.
 
     .. warning::
@@ -683,7 +683,7 @@ Piece functions
     color (dark, light), or shade (dim, bright) to each other.
 
     Pieces with no color and no shade always return :c:data:`false`;
-    these are :c:`CC_PE_None`, Monolith pieces.
+    these are empty fields (i.e. :c:enumerator:`CC_PE_None`), Monolith pieces.
 
     Shades and colors belong to different types of pieces, so will always
     yield :c:data:`false`.
@@ -699,7 +699,8 @@ Piece functions
     the same type.
 
     If any given piece is without owner (i.e. with no color) it'll always
-    return :c:data:`false`; these are :c:`CC_PE_None`, Monolith, and Stars.
+    return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PE_None`),
+    Monolith, and Stars.
 
     :param pe_1: A piece.
     :param pe_2: The other piece.
@@ -712,7 +713,8 @@ Piece functions
     not necessarily the same type.
 
     If any given piece is without owner (i.e. with no color) it'll always
-    return :c:data:`false`; these are :c:`CC_PE_None`, Monolith, and Stars.
+    return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PE_None`),
+    Monolith, and Stars.
 
     :param pe_1: A piece.
     :param pe_2: The other piece.

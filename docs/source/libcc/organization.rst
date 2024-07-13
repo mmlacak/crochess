@@ -32,7 +32,7 @@ To avoid name collisions with other code, libraries, every :term:`entity` is pre
      - :c:`cc_ply.h`, :c:func:`cc_ply_append_new()`
    * - ``CC_``
      - :c:`#define`\s, :c:`const`\ants, :c:`enum` items
-     - :c:`CC_OFF_BOARD_COORD`, :c:`CC_PPLE_FailedTeleportationOblation`
+     - :c:`CC_OFF_BOARD_COORD`, :c:enumerator:`CC_PPLE_FailedTeleportationOblation`
    * - ``Cc``
      - :c:`enum`\s, :c:`struct`\s, :c:`union`\s
      - :c:enum:`CcParsedPlyLinkEnum`, :c:struct:`CcParsedPly`
@@ -53,7 +53,7 @@ names end in ``Enum``, while there is no comparable name end for :c:`struct`\s,
 
 :c:`enum` items have constant-like library prefix (i.e. ``CC_``), combined with
 abbreviated :c:`enum` name (e.g. ``PPLE_``) and capitalized words for item name.
-For instance, :c:`CC_PPLE_FailedTeleportationOblation` would be one of items in
+For instance, :c:enumerator:`CC_PPLE_FailedTeleportationOblation` would be one of items in
 :c:enum:`CcParsedPlyLinkEnum`.
 
 .. _lbl-libcc-organization-naming-linkedlists:

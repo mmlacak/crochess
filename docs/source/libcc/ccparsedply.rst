@@ -91,25 +91,25 @@ Parsed ply data
 
         * - link
           - steps
-        * - :c:`CC_PPLE_Ply`
+        * - :c:enumerator:`CC_PPLE_Ply`
           - steps taken by a piece
-        * - :c:`CC_PPLE_Teleportation`
+        * - :c:enumerator:`CC_PPLE_Teleportation`
           - steps taken if Wave, otherwise destination field
-        * - :c:`CC_PPLE_TeleportationReemergence`
+        * - :c:enumerator:`CC_PPLE_TeleportationReemergence`
           - destination field
-        * - :c:`CC_PPLE_TeleportationOblation`
+        * - :c:enumerator:`CC_PPLE_TeleportationOblation`
           - steps are empty (:c:data:`NULL`)
-        * - :c:`CC_PPLE_TranceJourney`
+        * - :c:enumerator:`CC_PPLE_TranceJourney`
           - steps taken by entranced Shaman
-        * - :c:`CC_PPLE_DualTranceJourney`
+        * - :c:enumerator:`CC_PPLE_DualTranceJourney`
           - fields at which pieces are captured, :c:`side_effect` contains captured, or displaced piece, and lost tag
-        * - :c:`CC_PPLE_FailedTranceJourney`
+        * - :c:enumerator:`CC_PPLE_FailedTranceJourney`
           - steps are empty (:c:data:`NULL`)
-        * - :c:`CC_PPLE_PawnSacrifice`
+        * - :c:enumerator:`CC_PPLE_PawnSacrifice`
           - steps taken by a Serpent
-        * - :c:`CC_PPLE_SenseJourney`
+        * - :c:enumerator:`CC_PPLE_SenseJourney`
           - steps taken by uplifted piece
-        * - :c:`CC_PPLE_FailedSenseJourney`
+        * - :c:enumerator:`CC_PPLE_FailedSenseJourney`
           - steps are empty (:c:data:`NULL`)
 
     .. c:member:: char * notation
@@ -258,11 +258,11 @@ Parsed ply functions
     .. note::
 
         If a ply is specified, but does not belong to a given linked list of
-        plies, :c:`CC_PE_None` is returned instead, indicating failure.
+        plies, :c:enumerator:`CC_PE_None` is returned instead, indicating failure.
 
     :param plies: A linked list of plies.
     :param ply__d: *Optional*; a ply within given linked list, can be :c:data:`NULL`.
-    :returns: :term:`Activator` if successful, :c:`CC_PE_None` otherwise.
+    :returns: :term:`Activator` if successful, :c:enumerator:`CC_PE_None` otherwise.
 
 .. c:function:: char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies )
 

@@ -19,7 +19,7 @@ Tag validity
 .. c:macro:: CC_TAG_IS_VALID(te)
 
     Macro to check if given :term:`tag` is a valid,
-    i.e. between :c:`CC_TE_None` and :c:`CC_TE_PawnSacrifice` values.
+    i.e. between :c:enumerator:`CC_TE_None` and :c:enumerator:`CC_TE_PawnSacrifice` values.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
@@ -34,14 +34,14 @@ Tag validity
 
 .. c:macro:: CC_TAG_IS_NONE(te)
 
-    Macro to check if given :term:`tag` is :c:`CC_TE_None`.
+    Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_None`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_EXISTS(te)
 
-    Macro to check if given :term:`tag` is valid, and not :c:`CC_TE_None`.
+    Macro to check if given :term:`tag` is valid, and not :c:enumerator:`CC_TE_None`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
@@ -53,35 +53,35 @@ Tag values
 
 .. c:macro:: CC_TAG_CAN_RUSH(te)
 
-    Macro to check if given :term:`tag` is :c:`CC_TE_CanRush`.
+    Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_CanRush`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_CASTLE(te)
 
-    Macro to check if given :term:`tag` is :c:`CC_TE_CanCastle`.
+    Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_CanCastle`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_PROMOTE(te)
 
-    Macro to check if given :term:`tag` is :c:`CC_TE_DelayedPromotion`.
+    Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_DelayedPromotion`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_EN_PASSANT(te)
 
-    Macro to check if given :term:`tag` is :c:`CC_TE_EnPassant`.
+    Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_EnPassant`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_PAWN_SACRIFICE(te)
 
-    Macro to check if given :term:`tag` is :c:`CC_TE_PawnSacrifice`.
+    Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_PawnSacrifice`.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:`bool` value.
@@ -194,7 +194,7 @@ Tag functions
 
     :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
     :returns: :c:enum:`CcTagEnum` value if valid :term:`tag` character was given,
-              :c:`CC_TE_None` otherwise.
+              :c:enumerator:`CC_TE_None` otherwise.
 
 .. _lbl-libcc-cctags-losing-tag-types:
 
@@ -208,24 +208,24 @@ Losing tag types
     Values enumerated in losing tag are the same as in ordinary tag.
     So, conversion between tags changes just type, not value.
 
-    When converting from ordinary tag enum, :c:`CC_LTE_None` is used for
+    When converting from ordinary tag enum, :c:enumerator:`CC_LTE_None` is used for
     all values not enumerated here.
 
     .. c:enumerator:: CC_LTE_None
 
-        No :term:`tag` was lost, equals to :c:`CC_TE_None`.
+        No :term:`tag` was lost, equals to :c:enumerator:`CC_TE_None`.
 
     .. c:enumerator:: CC_LTE_CanRush
 
-        Pawn lost ability to rush, equals to :c:`CC_TE_CanRush`.
+        Pawn lost ability to rush, equals to :c:enumerator:`CC_TE_CanRush`.
 
     .. c:enumerator:: CC_LTE_CanCastle
 
-        Rook or King lost ability to castle, equals to :c:`CC_TE_CanCastle`.
+        Rook or King lost ability to castle, equals to :c:enumerator:`CC_TE_CanCastle`.
 
     .. c:enumerator:: CC_LTE_DelayedPromotion
 
-        Pawn lost delayed promotion :term:`tag`, equals to :c:`CC_TE_DelayedPromotion`.
+        Pawn lost delayed promotion :term:`tag`, equals to :c:enumerator:`CC_TE_DelayedPromotion`.
 
     :c:`enum` is tagged with the same :c:enum:`CcLosingTagEnum` name.
 
@@ -251,7 +251,7 @@ Losing tag functions
 
     Converts ordinary tag into lost tag.
 
-    Ordinary tag values without equivalent losing tag value are converted into :c:`CC_LTE_None` instead.
+    Ordinary tag values without equivalent losing tag value are converted into :c:enumerator:`CC_LTE_None` instead.
 
     :param te: :c:enum:`CcTagEnum` value.
     :returns: :c:enum:`CcLosingTagEnum` value.

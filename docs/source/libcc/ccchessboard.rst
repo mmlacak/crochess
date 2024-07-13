@@ -237,7 +237,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
-    :returns: Piece if position is on-board, :c:`CC_PE_None` otherwise.
+    :returns: Piece if position is on-board, :c:enumerator:`CC_PE_None` otherwise.
 
 .. c:function:: CcTagEnum cc_chessboard_get_tag( CcChessboard * cb, int i, int j )
 
@@ -246,7 +246,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
-    :returns: Tag if position is on-board, :c:`CC_TE_None` otherwise.
+    :returns: Tag if position is on-board, :c:enumerator:`CC_TE_None` otherwise.
 
 .. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceEnum pe, CcTagEnum ct )
 
@@ -265,7 +265,7 @@ Chessboard functions
 
     .. note::
 
-        Function resets tag on the same position to :c:`CC_TE_None`.
+        Function resets tag on the same position to :c:enumerator:`CC_TE_None`.
 
     :param cb__io: *Input/output*, a chessboard.
     :param i: File, position along horizontal axis.
