@@ -21,11 +21,11 @@ Token constants
 
 .. c:type:: char const CC_TOKEN_SEPARATORS_WHITESPACE[]
 
-    Token whitespace constants, equals to :c:`" \t\v\f\r\n"`.
+    Token whitespace constants, equals to ``" \t\v\f\r\n"``.
 
 .. c:type:: char const CC_TOKEN_SEPARATORS_PUNCTUATION[]
 
-    Token punctuation constants, equals to :c:`"!\"#$%%&'()*+,-./"`.
+    Token punctuation constants, equals to ``"!\"#$%%&'()*+,-./"``.
 
 .. _lbl-libcc-cctoken-functions:
 

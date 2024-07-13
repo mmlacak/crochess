@@ -246,47 +246,47 @@ Abbreviated variant names, used to e.g. select variant to play.
 
 .. c:type:: char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL
 
-    Classical Chess symbol, equals to :c:`"cc"`.
+    Classical Chess symbol, equals to ``"cc"``.
 
 .. c:type:: char const * const CC_VARIANT_CROATIAN_TIES_SYMBOL
 
-    Croatian Ties symbol, equals to :c:`"ct"`.
+    Croatian Ties symbol, equals to ``"ct"``.
 
 .. c:type:: char const * const CC_VARIANT_MAYAN_ASCENDANCY_SYMBOL
 
-    Mayaan Ascendancy symbol, equals to :c:`"ma"`.
+    Mayaan Ascendancy symbol, equals to ``"ma"``.
 
 .. c:type:: char const * const CC_VARIANT_AGE_OF_AQUARIUS_SYMBOL
 
-    Age of Aquarius symbol, equals to :c:`"aoa"`.
+    Age of Aquarius symbol, equals to ``"aoa"``.
 
 .. c:type:: char const * const CC_VARIANT_MIRANDAS_VEIL_SYMBOL
 
-    Miranda's Veil symbol, equals to :c:`"mv"`.
+    Miranda's Veil symbol, equals to ``"mv"``.
 
 .. c:type:: char const * const CC_VARIANT_NINETEEN_SYMBOL
 
-    Nineteen symbol, equals to :c:`"n"`.
+    Nineteen symbol, equals to ``"n"``.
 
 .. c:type:: char const * const CC_VARIANT_HEMERAS_DAWN_SYMBOL
 
-    Hemera's Dawn symbol, equals to :c:`"hd"`.
+    Hemera's Dawn symbol, equals to ``"hd"``.
 
 .. c:type:: char const * const CC_VARIANT_TAMOANCHAN_REVISITED_SYMBOL
 
-    Tamoanchan Revisited symbol, equals to :c:`"tr"`.
+    Tamoanchan Revisited symbol, equals to ``"tr"``.
 
 .. c:type:: char const * const CC_VARIANT_CONQUEST_OF_TLALOCAN_SYMBOL
 
-    Conquest of Tlalocan symbol, equals to :c:`"cot"`.
+    Conquest of Tlalocan symbol, equals to ``"cot"``.
 
 .. c:type:: char const * const CC_VARIANT_DISCOVERY_SYMBOL
 
-    Discovery symbol, equals to :c:`"d"`.
+    Discovery symbol, equals to ``"d"``.
 
 .. c:type:: char const * const CC_VARIANT_ONE_SYMBOL
 
-    One symbol, equals to :c:`"o"`.
+    One symbol, equals to ``"o"``.
 
 .. c:type:: char const * const CC_VARIANT_SYMBOLS[]
 

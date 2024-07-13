@@ -106,7 +106,7 @@ Parsed side-effect functions
     Returned string is not allocated, so do not :c:func:`free()` it.
 
     :param see: A side-effect enum.
-    :returns: String symbol if side-effect enum is valid, :c:`"?"` otherwise.
+    :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
 
 
 
