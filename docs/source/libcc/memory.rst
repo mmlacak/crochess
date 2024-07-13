@@ -10,7 +10,7 @@ Memory management
 
 Entity in this text refers to any
 `plain-old-data <https://en.wikipedia.org/wiki/Passive_data_structure>`_
-structure, which can be :c:`alloc()`\ated on the heap.
+structure, which can be :c:func:`alloc()`\ated on the heap.
 
 Here, these are mostly linked :c:`struct`\s, usually containing :c:`union`\s.
 
@@ -134,8 +134,8 @@ weak before it gets returned.
 Entities
 ^^^^^^^^
 
-Every :c:`alloc()`\ated entity has implicit ownership over all links (pointers) to
-other :c:`alloc()`\ated entities, and, by extension, over all accessible entities
+Every :c:func:`alloc()`\ated entity has implicit ownership over all links (pointers) to
+other :c:func:`alloc()`\ated entities, and, by extension, over all accessible entities
 in a linked structure.
 
 Note that in a linked list, entity in the middle has ownership only over entities
@@ -147,20 +147,20 @@ appended to its name, e.g. :c:`CcParsedPly * related_ply__w`.
 
 Function(s) :c:func:`free()`\ing containing entity does not :c:func:`free()` weak pointers.
 
-For instance, :c:`CcParsedMove` contains :c:`CcParsedPly *`, so it owns all
-:c:`CcParsedPly` items in that linked list.
+For instance, :c:struct:`CcParsedMove` contains :c:`CcParsedPly *`, so it owns all
+:c:struct:`CcParsedPly` items in that linked list.
 
-Now, each :c:`CcParsedPly` contains :c:`CcParsedStep *`, so it owns all :c:`CcParsedStep`
+Now, each :c:struct:`CcParsedPly` contains :c:`CcParsedStep *`, so it owns all :c:struct:`CcParsedStep`
 items in that linked list.
 
-So, :c:`CcParsedMove` indirectly owns every :c:`CcParsedStep` in the whole structure.
+So, :c:struct:`CcParsedMove` indirectly owns every :c:struct:`CcParsedStep` in the whole structure.
 
 This is evidenced when :c:func:`free()`\ing hierarchically complete structure from a single
-:c:`CcParsedMove` pointer.
+:c:struct:`CcParsedMove` pointer.
 
-All :c:`CcParsedMove`\s in a linked list are :c:func:`free()`\ed by calling :c:`cc_move_free_all_moves()`,
-which :c:func:`free()`\s all linked :c:`CcParsedPly`\s in each :c:`CcParsedMove` (by calling :c:`cc_ply_free_all_plies()`),
-which :c:func:`free()`\s all linked :c:`CcParsedStep`\s in each :c:`CcParsedPly` (by calling :c:`cc_parsed_step_free_all_steps()`).
+All :c:struct:`CcParsedMove`\s in a linked list are :c:func:`free()`\ed by calling :c:func:`cc_move_free_all_moves()`,
+which :c:func:`free()`\s all linked :c:struct:`CcParsedPly`\s in each :c:struct:`CcParsedMove` (by calling :c:func:`cc_ply_free_all_plies()`),
+which :c:func:`free()`\s all linked :c:struct:`CcParsedStep`\s in each :c:struct:`CcParsedPly` (by calling :c:func:`cc_parsed_step_free_all_steps()`).
 
 .. _lbl-libcc-memory-management-ownership-transfer:
 
@@ -168,10 +168,10 @@ Transfer of ownership
 ^^^^^^^^^^^^^^^^^^^^^
 
 Transfer of ownership from a functions which allocates new memory is indicated by
-function name ending in ``__new``, e.g. :c:`cc_ply_teleport__new()`.
+function name ending in ``__new``, e.g. :c:func:`cc_ply_teleport__new()`.
 
 If function name does not end in ``__new``, then returned pointer is borrowed, e.g.
-:c:`cc_ply_get_steps()`.
+:c:func:`cc_ply_get_steps()`.
 
 .. _lbl-libcc-memory-management-ownership-borrows:
 
@@ -209,7 +209,7 @@ For pointers, :c:data:`NULL` is used if optional parameter is not given.
 
 For other types check which value(s) are used to convey absence of a valid value.
 
-In a given example, disambiguation coordinate is optional, with :c:`CC_INVALID_COORD`
+In a given example, disambiguation coordinate is optional, with :c:macro:`CC_INVALID_COORD`
 used as an absence value.
 
 Multi-pointer parameters can be optional not just on data (more precisely, inner-most
@@ -280,7 +280,7 @@ Ownership transfer parameters are indicated by:
   :c:`CcParsedPly ** plies__n`
 * appending ``__f`` if inner pointer is going to be :c:func:`free()`\ed then :c:data:`NULL`\ed,
   e.g. :c:`char ** str__f`
-* appending ``__r`` if inner pointer is going to be :c:`realloc()`\ated, e.g.
+* appending ``__r`` if inner pointer is going to be :c:func:`realloc()`\ated, e.g.
   :c:`char ** str_io__r`
 * appending ``__t`` if inner pointer is going to transfer ownership into function,
   e.g. :c:`char ** str__t`
@@ -322,7 +322,7 @@ it's done with such an argument, after some conditions are met, or after an erro
 In such a case ``__F`` is appended to parameter name, to specify that data can
 be freed within function (and (inner) pointer set to :c:data:`NULL`) *conditionally*.
 
-For example, iterator :c:`cc_route_pin_iter()` traverses over given path tree.
+For example, iterator :c:func:`cc_route_pin_iter()` traverses over given path tree.
 
 For the first call over a new path tree (i.e. if :c:`*route_pin__io_a_F` is :c:data:`NULL`),
 it allocates a new route, and initializes it with a first one found in a given path

@@ -120,23 +120,23 @@ on a console.
 
 .. c:macro:: CC_TAG_CHAR_CAN_RUSH
 
-    Equals to :c:`'R'`.
+    Equals to ``'R'``.
 
 .. c:macro:: CC_TAG_CHAR_CAN_CASTLE
 
-    Equals to :c:`'C'`.
+    Equals to ``'C'``.
 
 .. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
 
-    Equals to :c:`'P'`.
+    Equals to ``'P'``.
 
 .. c:macro:: CC_TAG_CHAR_EN_PASSANT
 
-    Equals to :c:`'E'`.
+    Equals to ``'E'``.
 
 .. c:macro:: CC_TAG_CHAR_PAWN_SACRIFICE
 
-    Equals to :c:`'S'`.
+    Equals to ``'S'``.
 
 .. _lbl-libcc-cctags-types:
 
@@ -158,20 +158,20 @@ Tag types
 
     .. c:enumerator:: CC_TE_CanCastle
 
-        Rooks, Kings can castle. Persistent :term:`tag`, equals to :c:`2`.
+        Rooks, Kings can castle. Persistent :term:`tag`, equals to ``2``.
 
     .. c:enumerator:: CC_TE_DelayedPromotion
 
-        Pawn delayed promotion. Persistent :term:`tag`, equals to :c:`3`.
+        Pawn delayed promotion. Persistent :term:`tag`, equals to ``3``.
 
     .. c:enumerator:: CC_TE_EnPassant
 
-        Pawn can capture en passant. Semi-persistent, equals to :c:`4`.
+        Pawn can capture en passant. Semi-persistent, equals to ``4``.
         Gained in a move, used or lost in the very next one.
 
     .. c:enumerator:: CC_TE_PawnSacrifice
 
-        Pawn was sacrificed. Non-persistent :term:`tag`, equals to :c:`5`.
+        Pawn was sacrificed. Non-persistent :term:`tag`, equals to ``5``.
         Gained in a move, used or lost in the very same move.
 
     :c:`enum` is tagged with the same :c:enum:`CcTagEnum` name.
@@ -231,7 +231,7 @@ Losing tag types
 
 .. c:macro:: CC_MAX_LEN_LOSING_TAG
 
-    Maximum length of a losing-tag symbol, equals to :c:`2`.
+    Maximum length of a losing-tag symbol, equals to ``2``.
 
 .. _lbl-libcc-cctags-losing-tag-functions:
 

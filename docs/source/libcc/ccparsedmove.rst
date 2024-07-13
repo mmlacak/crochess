@@ -112,7 +112,7 @@ Parsed move functions
     and accessible.
 
     :param notation: Original notation, as received from a user.
-    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy, can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy, can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param plies__n: **Ownership transfer**, *optional*; plies linked list, inner pointer can be :c:data:`NULL`.
     :param status: Move status.
     :returns: A newly allocated move if successful, :c:data:`NULL` otherwise.
@@ -130,7 +130,7 @@ Parsed move functions
     :param moves__iod_a: **Ownership**, *optional* *input/output* parameter; queue of moves,
                          to which a new move is appended, inner pointer can be :c:data:`NULL`.
     :param notation: Original notation, as received from a user.
-    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy, can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy, can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param plies__n: **Ownership transfer**, *optional*; plies linked list, inner pointer can be :c:data:`NULL`.
     :param status: Move status.
     :returns: Weak pointer to a newly allocated move if successful, :c:data:`NULL` otherwise.

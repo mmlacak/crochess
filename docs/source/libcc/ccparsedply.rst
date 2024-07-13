@@ -169,7 +169,7 @@ Parsed ply functions
 
     :param start_an__d: *Optional*; start of a ply notation substring. Can be :c:data:`NULL`, if so :c:`notation` member is initialized to :c:data:`NULL`.
     :param end_an__d: *Optional*; end of a ply notation substring. Can be :c:data:`NULL`, if so whole zero-terminated :c:`start_an__d` string is copied.
-    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy. Can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`, if so whole zero-terminated :c:`start_an__d` string is copied.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy. Can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`, if so whole zero-terminated :c:`start_an__d` string is copied.
     :param link: Link to previous ply in a cascade.
     :param piece: A piece making a ply.
     :param lost_tag: Tag lost by a moving piece.
@@ -195,7 +195,7 @@ Parsed ply functions
                          to which a new ply is appended, inner pointer can be :c:data:`NULL`.
     :param start_an__d: *Optional*; start of a ply notation substring. Can be :c:data:`NULL`, if so :c:`notation` member is initialized to :c:data:`NULL`.
     :param end_an__d: *Optional*; end of a ply notation substring. Can be :c:data:`NULL`, if so whole zero-terminated :c:`start_an__d` string is copied.
-    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy. Can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`, if so whole zero-terminated :c:`start_an__d` string is copied.
+    :param max_len__d: *Optional*, maximum length of :c:`notation` to copy. Can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`, if so whole zero-terminated :c:`start_an__d` string is copied.
     :param link: Link to previous ply in a cascade.
     :param piece: A piece making a ply.
     :param lost_tag: Tag lost by a moving piece.

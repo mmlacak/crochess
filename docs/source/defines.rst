@@ -18,7 +18,7 @@
     :language: python
 
 .. Useage:
-.. In C, :c:`printf("%d", 1 + 2);` prints :c:`3`.
+.. In C, :c:`printf("%d", 1 + 2);` prints ``3``.
 
 .. role:: c(code)
     :language: c

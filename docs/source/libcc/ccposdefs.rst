@@ -30,16 +30,16 @@ Piece step lengths
     Length of an array is count of useful elements in it, without
     terminating data.
 
-    This is similar how :c:`strlen()` does not count zero-terminating
-    :c:`char` (:c:`'\0'`) in strings.
+    This is similar how :c:func:`strlen()` does not count zero-terminating
+    :c:`char` (``'\0'``) in strings.
 
 .. c:macro:: CC_STEPS_PAWN_LEN
 
-    Equals to :c:`3`.
+    Equals to ``3``.
 
 .. c:macro:: CC_STEPS_SIDEWAYS_PAWN_LEN
 
-    Equals to :c:`5`.
+    Equals to ``5``.
 
 
 .. c:macro:: CC_STEPS_KNIGHT_LEN
@@ -48,11 +48,11 @@ Piece step lengths
 
 .. c:macro:: CC_STEPS_BISHOP_LEN
 
-    Equals to :c:`4`.
+    Equals to ``4``.
 
 .. c:macro:: CC_STEPS_ROOK_LEN
 
-    Equals to :c:`4`.
+    Equals to ``4``.
 
 .. c:macro:: CC_STEPS_QUEEN_LEN
 
@@ -60,75 +60,75 @@ Piece step lengths
 
 .. c:macro:: CC_STEPS_KING_LEN
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_LEN`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_LEN`.
 
 
 .. c:macro:: CC_STEPS_PEGASUS_LEN
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
+    Equals to :c:macro:`CC_STEPS_KNIGHT_LEN`.
 
 .. c:macro:: CC_STEPS_PYRAMID_LEN
 
-    Equals to :c:expr:`CC_STEPS_ROOK_LEN`.
+    Equals to :c:macro:`CC_STEPS_ROOK_LEN`.
 
 .. c:macro:: CC_STEPS_SHORT_UNICORN_LEN
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
+    Equals to :c:macro:`CC_STEPS_KNIGHT_LEN`.
 
 .. c:macro:: CC_STEPS_LONG_UNICORN_LEN
 
-    Equals to :c:`16`.
+    Equals to ``16``.
 
 
 .. c:macro:: CC_STEPS_STAR_LEN
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_LEN`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_LEN`.
 
 .. c:macro:: CC_STEPS_SHORT_CENTAUR_LEN
 
-    Equals to :c:expr:`CC_STEPS_SHORT_UNICORN_LEN`.
+    Equals to :c:macro:`CC_STEPS_SHORT_UNICORN_LEN`.
 
 .. c:macro:: CC_STEPS_LONG_CENTAUR_LEN
 
-    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_LEN`.
+    Equals to :c:macro:`CC_STEPS_LONG_UNICORN_LEN`.
 
 .. c:macro:: CC_STEPS_SERPENT_LEN
 
-    Equals to :c:`2`.
+    Equals to ``2``.
 
 .. c:macro:: CC_STEPS_ALL_SERPENT_LEN
 
-    Equals to :c:expr:`CC_STEPS_BISHOP_LEN`.
+    Equals to :c:macro:`CC_STEPS_BISHOP_LEN`.
 
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_LEN
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN + CC_STEPS_LONG_UNICORN_LEN`,
+    Equals to :c:macro:`CC_STEPS_KNIGHT_LEN` + :c:macro:`CC_STEPS_LONG_UNICORN_LEN`,
     i.e. count of steps + capture-steps, respectively.
 
 .. c:macro:: CC_STEPS_DARK_SHAMAN_LEN
 
-    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_LEN + CC_STEPS_KNIGHT_LEN`,
+    Equals to :c:macro:`CC_STEPS_LONG_UNICORN_LEN` + :c:macro:`CC_STEPS_KNIGHT_LEN`,
     i.e. count of steps + capture-steps, respectively.
 
 
 .. c:macro:: CC_STEPS_SCOUT_LEN
 
-    Equals to :c:`5`.
+    Equals to ``5``.
 
 .. c:macro:: CC_STEPS_GRENADIER_LEN
 
-    Equals to :c:expr:`CC_STEPS_ROOK_LEN + CC_STEPS_BISHOP_LEN`,
+    Equals to :c:macro:`CC_STEPS_ROOK_LEN` + :c:macro:`CC_STEPS_BISHOP_LEN`,
     i.e. count of ordinary steps + capture-steps, respectively.
 
 
 .. c:macro:: CC_STEPS_MIRACLE_STARCHILD_LEN
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_LEN`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_LEN`.
 
 .. c:macro:: CC_STEPS_STARTING_MONOLITH_LEN
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN`.
+    Equals to :c:macro:`CC_STEPS_KNIGHT_LEN`.
 
 .. _lbl-libcc-ccposdefs-piecestepsizes:
 
@@ -140,97 +140,97 @@ Piece step sizes
 
 .. c:macro:: CC_STEPS_PAWN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_PAWN_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_PAWN_LEN` + 1.
 
 .. c:macro:: CC_STEPS_SIDEWAYS_PAWN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_SIDEWAYS_PAWN_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_SIDEWAYS_PAWN_LEN` + 1.
 
 
 .. c:macro:: CC_STEPS_KNIGHT_SIZE
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_KNIGHT_LEN` + 1.
 
 .. c:macro:: CC_STEPS_BISHOP_SIZE
 
-    Equals to :c:expr:`CC_STEPS_BISHOP_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_BISHOP_LEN` + 1.
 
 .. c:macro:: CC_STEPS_ROOK_SIZE
 
-    Equals to :c:expr:`CC_STEPS_ROOK_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_ROOK_LEN` + 1.
 
 .. c:macro:: CC_STEPS_QUEEN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_LEN` + 1.
 
 .. c:macro:: CC_STEPS_KING_SIZE
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_SIZE`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_SIZE`.
 
 
 .. c:macro:: CC_STEPS_PEGASUS_SIZE
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_SIZE`.
+    Equals to :c:macro:`CC_STEPS_KNIGHT_SIZE`.
 
 .. c:macro:: CC_STEPS_PYRAMID_SIZE
 
-    Equals to :c:expr:`CC_STEPS_ROOK_SIZE`.
+    Equals to :c:macro:`CC_STEPS_ROOK_SIZE`.
 
 .. c:macro:: CC_STEPS_SHORT_UNICORN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_KNIGHT_SIZE`.
+    Equals to :c:macro:`CC_STEPS_KNIGHT_SIZE`.
 
 .. c:macro:: CC_STEPS_LONG_UNICORN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_LONG_UNICORN_LEN` + 1.
 
 
 .. c:macro:: CC_STEPS_STAR_SIZE
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_SIZE`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_SIZE`.
 
 .. c:macro:: CC_STEPS_SHORT_CENTAUR_SIZE
 
-    Equals to :c:expr:`CC_STEPS_SHORT_UNICORN_SIZE`.
+    Equals to :c:macro:`CC_STEPS_SHORT_UNICORN_SIZE`.
 
 .. c:macro:: CC_STEPS_LONG_CENTAUR_SIZE
 
-    Equals to :c:expr:`CC_STEPS_LONG_UNICORN_SIZE`.
+    Equals to :c:macro:`CC_STEPS_LONG_UNICORN_SIZE`.
 
 .. c:macro:: CC_STEPS_SERPENT_SIZE
 
-    Equals to :c:expr:`CC_STEPS_SERPENT_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_SERPENT_LEN` + 1.
 
 .. c:macro:: CC_STEPS_ALL_SERPENT_SIZE
 
-    Equals to :c:expr:`CC_STEPS_BISHOP_SIZE`.
+    Equals to :c:macro:`CC_STEPS_BISHOP_SIZE`.
 
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_LIGHT_SHAMAN_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_LIGHT_SHAMAN_LEN` + 1.
 
 .. c:macro:: CC_STEPS_DARK_SHAMAN_SIZE
 
-    Equals to :c:expr:`CC_STEPS_DARK_SHAMAN_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_DARK_SHAMAN_LEN` + 1.
 
 
 .. c:macro:: CC_STEPS_SCOUT_SIZE
 
-    Equals to :c:expr:`CC_STEPS_SCOUT_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_SCOUT_LEN` + 1.
 
 .. c:macro:: CC_STEPS_GRENADIER_SIZE
 
-    Equals to :c:expr:`CC_STEPS_GRENADIER_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_GRENADIER_LEN` + 1.
 
 
 .. c:macro:: CC_STEPS_MIRACLE_STARCHILD_SIZE
 
-    Equals to :c:expr:`CC_STEPS_QUEEN_SIZE`.
+    Equals to :c:macro:`CC_STEPS_QUEEN_SIZE`.
 
 .. c:macro:: CC_STEPS_STARTING_MONOLITH_SIZE
 
-    Equals to :c:expr:`CC_STEPS_STARTING_MONOLITH_LEN + 1`.
+    Equals to :c:macro:`CC_STEPS_STARTING_MONOLITH_LEN` + 1.
 
 .. _lbl-libcc-ccposdefs-piecesteparrays:
 
@@ -275,23 +275,23 @@ Piece step arrays
 .. c:macro:: CC_STEPS_KING
 
     Steps array for Kings, for all variants; equals to
-    :c:expr:`CC_STEPS_QUEEN`.
+    :c:macro:`CC_STEPS_QUEEN`.
 
 
 .. c:macro:: CC_STEPS_PEGASUS
 
     Steps array for light and dark Pegasus, for all variants;
-    equals to :c:expr:`CC_STEPS_KNIGHT`.
+    equals to :c:macro:`CC_STEPS_KNIGHT`.
 
 .. c:macro:: CC_STEPS_PYRAMID
 
     Steps array for Pyramids, for all variants; equals to
-    :c:expr:`CC_STEPS_ROOK`.
+    :c:macro:`CC_STEPS_ROOK`.
 
 .. c:macro:: CC_STEPS_SHORT_UNICORN
 
     Steps array for Unicorns featuring short step, for all variants;
-    equals to :c:expr:`CC_STEPS_KNIGHT`.
+    equals to :c:macro:`CC_STEPS_KNIGHT`.
 
 .. c:type:: CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ]
 
@@ -301,17 +301,17 @@ Piece step arrays
 .. c:macro:: CC_STEPS_STAR
 
     Steps array for Stars, for all variants; equals to
-    :c:expr:`CC_STEPS_QUEEN`.
+    :c:macro:`CC_STEPS_QUEEN`.
 
 .. c:macro:: CC_STEPS_SHORT_CENTAUR
 
     Steps array for Centaurs featuring short step, for all variants;
-    equals to :c:expr:`CC_STEPS_SHORT_UNICORN`.
+    equals to :c:macro:`CC_STEPS_SHORT_UNICORN`.
 
 .. c:macro:: CC_STEPS_LONG_CENTAUR
 
     Steps array for Centaurs featuring long step, for all variants;
-    equals to :c:expr:`CC_STEPS_LONG_UNICORN`.
+    equals to :c:macro:`CC_STEPS_LONG_UNICORN`.
 
 .. c:type:: CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ]
 
@@ -324,7 +324,7 @@ Piece step arrays
 .. c:macro:: CC_STEPS_ALL_SERPENT
 
     Steps array for Serpents, for all variants; equals to
-    :c:expr:`CC_STEPS_BISHOP`.
+    :c:macro:`CC_STEPS_BISHOP`.
 
 
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ]
@@ -356,7 +356,7 @@ Piece step arrays
 .. c:macro:: CC_STEPS_STARTING_MONOLITH
 
     Steps array for Monolith, for all variants; equals to
-    :c:expr:`CC_STEPS_KNIGHT`.
+    :c:macro:`CC_STEPS_KNIGHT`.
 
 .. _lbl-libcc-ccposdefs-piecestepvalidity:
 
@@ -368,8 +368,8 @@ Piece step validity
     Function checking if step is valid, by searching a given array
     holding all valid steps for a piece.
 
-    If :c:`steps_len__d` is not used (i.e. it's :c:expr:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`),
-    :c:`steps` array **must** be terminated with invalid step (i.e. :c:expr:`CC_POS_INVALID`)
+    If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`),
+    :c:`steps` array **must** be terminated with invalid step (i.e. :c:macro:`CC_POS_INVALID`)
     as a guard.
 
     :param step: A step to check.
@@ -604,9 +604,9 @@ Piece step functions
     *Output* argument :c:`*steps__o` has to be :c:data:`NULL`; appending
     steps to the same linked list is not supported.
 
-    If :c:`steps_len__d` is :c:expr:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`,
+    If :c:`steps_len__d` is :c:macro:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`,
     :c:`steps` array **must** be terminated with invalid step
-    (i.e. :c:expr:`CC_POS_INVALID`) as a guard.
+    (i.e. :c:macro:`CC_POS_INVALID`) as a guard.
 
     :param steps: A piece step array.
     :param steps_len__d: *Optional*; size of :c:`steps` array.

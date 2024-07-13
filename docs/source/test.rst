@@ -72,7 +72,7 @@ In Python, :py:`1 + 2` is equal to :py:`3`.
 .. .. role:: c(code)
 ..     :language: c
 
-In C, :c:`return 1 + 2;` returns :c:`3`.
+In C, :c:`return 1 + 2;` returns ``3``.
 
 :doc:`Memory management <libcc/memory>`
 

@@ -454,7 +454,7 @@ Monoliths) do not belong to any player.
 
     .. c:enumerator:: CC_PE_BrightStar
 
-        Equals to :c:`17`.
+        Equals to ``17``.
 
     .. c:enumerator:: CC_PE_Monolith
 
@@ -526,7 +526,7 @@ Piece functions
 
     For lowercase :c:expr:`char` dark/dim piece is returned, otherwise light/bright one.
 
-    Monolith is returned only for uppercase :c:`'M'` :c:expr:`char`.
+    Monolith is returned only for uppercase ``'M'`` :c:expr:`char`.
 
     Space, unrecognized characters all yield :c:`CC_PE_None`.
 
@@ -550,7 +550,7 @@ Piece functions
         Returned string is not allocated, do not :c:expr:`free()` it.
 
     :param pe: A piece.
-    :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
+    :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_ENTITY_STRING` otherwise.
 
 .. c:function:: char cc_piece_symbol( CcPieceEnum pe )
 
@@ -625,7 +625,7 @@ Piece functions
 
     :param pe: A piece.
     :param capitalize: Flag, whether to return capitalized prefix.
-    :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
+    :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_ENTITY_STRING` otherwise.
 
 .. c:function:: bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe )
 
@@ -743,8 +743,8 @@ Piece functions
     :param pe: A piece.
     :param capitalize: Flag, whether to return capitalized string.
     :param empty_field: Flag, whether to return :c:`"empty field"`, or empty string.
-    :returns: Pointer to string if successful, :c:expr:`CC_DEFAULT_ENTITY_STRING` otherwise.
-    :seealso: :c:func:`cc_piece_prefix()`, :c:func:`cc_piece_label()`, :c:expr:`CC_DEFAULT_ENTITY_STRING`
+    :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_ENTITY_STRING` otherwise.
+    :seealso: :c:func:`cc_piece_prefix()`, :c:func:`cc_piece_label()`, :c:macro:`CC_DEFAULT_ENTITY_STRING`
 
 .. _lbl-libcc-ccpiece-sourcecodeheader:
 

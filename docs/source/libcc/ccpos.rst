@@ -46,15 +46,15 @@ Position data
 
 .. c:macro:: CC_POS_CAST_INVALID
 
-    Casted invalid position value, i.e. :c:expr:`CC_POS_INVALID`.
+    Casted invalid position value, i.e. :c:macro:`CC_POS_INVALID`.
 
 .. c:macro:: CC_POS_CAST_STATIC_STEP
 
-    Casted static position value, i.e. :c:expr:`CC_POS_STATIC_STEP`.
+    Casted static position value, i.e. :c:macro:`CC_POS_STATIC_STEP`.
 
 .. c:macro:: CC_POS_CAST_ORIGIN_FIELD
 
-    Casted origin field, i.e. :c:expr:`CC_POS_ORIGIN_FIELD`.
+    Casted origin field, i.e. :c:macro:`CC_POS_ORIGIN_FIELD`.
 
 .. c:macro:: CC_POS(int_i,int_j)
 
@@ -214,7 +214,7 @@ Position functions
     :param step: A step to be added.
     :param count: Count of steps to be added.
     :returns: A position with added step(s) if successful,
-              :c:expr:`CC_POS_INVALID` otherwise.
+              :c:macro:`CC_POS_INVALID` otherwise.
 
 .. c:function:: CcPos cc_pos_difference( CcPos start, CcPos destination )
 
@@ -233,7 +233,7 @@ Position functions
     :param start: Starting position.
     :param destination: Destination field.
     :returns: A position difference if successful,
-              :c:expr:`CC_POS_INVALID` otherwise.
+              :c:macro:`CC_POS_INVALID` otherwise.
 
 .. c:function:: CcPos cc_pos_calc_step( CcPos start, CcPos destination )
 
@@ -244,7 +244,7 @@ Position functions
 
     :param start: Starting position.
     :param destination: Destination field.
-    :returns: A valid step if successful, :c:expr:`CC_POS_INVALID` otherwise.
+    :returns: A valid step if successful, :c:macro:`CC_POS_INVALID` otherwise.
 
 .. c:function:: bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o )
 
@@ -527,7 +527,7 @@ Position descriptor
     :param tag_enum: A tag; :c:enum:`CcTagEnum` value.
     :param uint_momentum: Momentum; unsigned integer.
     :returns: Casted position descriptor value.
-    :seealso: :c:expr:`CC_POS_DESC`
+    :seealso: :c:macro:`CC_POS_DESC`
 
 .. c:macro:: CC_POS_DESC_IS_VALID(pd)
 
@@ -692,7 +692,7 @@ Linked position descriptors
     of a position descriptors list.
 
     :param pd_link: A linked list of position descriptors.
-    :returns: A newly allocated, zero-terminated (:c:`'\0'`) string if
+    :returns: A newly allocated, zero-terminated (``'\0'``) string if
               successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_short_string()`
 

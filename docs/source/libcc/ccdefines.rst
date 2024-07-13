@@ -89,7 +89,7 @@ Common macros
     .. note::
 
         In case of integer(s), one has to be non-zero, while the other has to be zero,
-        for :c:expr:`CC_XOR` to return :c:data:`true`. Arguments are converted to :c:`bool`\s
+        for :c:macro:`CC_XOR` to return :c:data:`true`. Arguments are converted to :c:`bool`\s
         (so, non-zero integer is ``1``, otherwise it's ``0``), then they are compared.
 
     .. seealso::
@@ -171,7 +171,7 @@ Coordinates
 
 .. c:macro:: CC_INVALID_COORD
 
-    Constant, invalid off-board coordinate; equals to :c:expr:`INT_MIN + 3583`,
+    Constant, invalid off-board coordinate; equals to :c:macro:`INT_MIN` + 3583,
     so that value can't be had by accident, e.g. by simply flipping bits.
 
     No valid trance- or any other journey off-board starting from any field could
@@ -195,15 +195,11 @@ Coordinates
 
     The largest valid board size; equals to ``26``.
 
-The largest valid coordinate and board size are for the largest board, used by
-One variant. For other variants actual upper limit is smaller.
+    The largest valid coordinate and board size are for the largest board, used by
+    One variant. For other variants actual upper limit is smaller.
 
-.. seealso::
-    :c:`cc_variant_board_size() /* TODO .. x-ref back */`
-
-.. TODO .. , see `cc_variant_board_size()`.
     .. seealso::
-        , see `cc_variant_board_size()`.
+        :c:func:`cc_variant_board_size()`
 
 .. c:macro:: CC_FIELD_COLOR_LIGHT
 
@@ -239,7 +235,7 @@ Conversions
 
     .. note::
 
-        Value of :c:`char_file` is expected to be in a range of [:c:`'a'`, :c:`'z'`],
+        Value of :c:`char_file` is expected to be in a range of [``'a'``, ``'z'``],
         undefined result if it's not.
 
     :param char_file: Rank, position along vertical axis, char value.
@@ -389,7 +385,7 @@ Defaults
 
 .. c:macro:: CC_DEFAULT_ENTITY_STRING
 
-    Default entity string, equals to :c:`"<default>"`.
+    Default entity string, equals to ``"<default>"``.
 
     It is used as default value when function has to return string value,
     usually based on some enum, e.g. a piece label.

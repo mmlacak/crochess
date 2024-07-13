@@ -19,7 +19,7 @@ Setup misc data
 
 .. c:macro:: CC_KING_MIN_CASTLING_DISTANCE
 
-    Minimum distance King can travel when castling, equals to :c:`2`.
+    Minimum distance King can travel when castling, equals to ``2``.
 
     Does not depend on variant being played.
 

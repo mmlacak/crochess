@@ -25,39 +25,39 @@ The board sizes defined for each variant.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_CROATIAN_TIES
 
-    Board size for Croatian Ties, equals to :c:`10`.
+    Board size for Croatian Ties, equals to ``10``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY
 
-    Board size for Mayan Ascendancy, equals to :c:`12`.
+    Board size for Mayan Ascendancy, equals to ``12``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS
 
-    Board size for Age of Aquarius, equals to :c:`14`.
+    Board size for Age of Aquarius, equals to ``14``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL
 
-    Board size for Miranda's Veil, equals to :c:`16`.
+    Board size for Miranda's Veil, equals to ``16``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_NINETEEN
 
-    Board size for Nineteen, equals to :c:`18`.
+    Board size for Nineteen, equals to ``18``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN
 
-    Board size for Hemera's Dawn, equals to :c:`20`.
+    Board size for Hemera's Dawn, equals to ``20``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED
 
-    Board size for Tamoanchan Revisited, equals to :c:`22`.
+    Board size for Tamoanchan Revisited, equals to ``22``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN
 
-    Board size for Conquest of Tlalocan, equals to :c:`24`.
+    Board size for Conquest of Tlalocan, equals to ``24``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_DISCOVERY
 
-    Board size for Discovery, equals to :c:`24`.
+    Board size for Discovery, equals to ``24``.
 
 .. c:macro:: CC_VARIANT_BOARD_SIZE_ONE
 
@@ -86,39 +86,39 @@ position of the middle line.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_LIGHT
 
-    Rush limits for Classical Chess, light player, equals to :c:`3`.
+    Rush limits for Classical Chess, light player, equals to ``3``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_DARK
 
-    Rush limits for Classical Chess, dark player, equals to :c:`4`.
+    Rush limits for Classical Chess, dark player, equals to ``4``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_LIGHT
 
-    Rush limits for Croatian Ties, light player, equals to :c:`4`.
+    Rush limits for Croatian Ties, light player, equals to ``4``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_DARK
 
-    Rush limits for Croatian Ties, dark player, equals to :c:`5`.
+    Rush limits for Croatian Ties, dark player, equals to ``5``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_MAYAN_ASCENDANCY_LIGHT
 
-    Rush limits for Mayan Ascendancy, light player, equals to :c:`5`.
+    Rush limits for Mayan Ascendancy, light player, equals to ``5``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_MAYAN_ASCENDANCY_DARK
 
-    Rush limits for Mayan Ascendancy, dark player, equals to :c:`6`.
+    Rush limits for Mayan Ascendancy, dark player, equals to ``6``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_AGE_OF_AQUARIUS_LIGHT
 
-    Rush limits for Age of Aquarius, light player, equals to :c:`6`.
+    Rush limits for Age of Aquarius, light player, equals to ``6``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_AGE_OF_AQUARIUS_DARK
 
-    Rush limits for Age of Aquarius, dark player, equals to :c:`7`.
+    Rush limits for Age of Aquarius, dark player, equals to ``7``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_MIRANDAS_VEIL_LIGHT
 
-    Rush limits for Miranda's Veil, light player, equals to :c:`7`.
+    Rush limits for Miranda's Veil, light player, equals to ``7``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_MIRANDAS_VEIL_DARK
 
@@ -130,70 +130,70 @@ position of the middle line.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_NINETEEN_DARK
 
-    Rush limits for Nineteen, dark player, equals to :c:`9`.
+    Rush limits for Nineteen, dark player, equals to ``9``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_HEMERAS_DAWN_LIGHT
 
-    Rush limits for Hemera's Dawn, light player, equals to :c:`9`.
+    Rush limits for Hemera's Dawn, light player, equals to ``9``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_HEMERAS_DAWN_DARK
 
-    Rush limits for Hemera's Dawn, dark player, equals to :c:`10`.
+    Rush limits for Hemera's Dawn, dark player, equals to ``10``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_TAMOANCHAN_REVISITED_LIGHT
 
-    Rush limits for Tamoanchan Revisited, light player, equals to :c:`10`.
+    Rush limits for Tamoanchan Revisited, light player, equals to ``10``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_TAMOANCHAN_REVISITED_DARK
 
-    Rush limits for Tamoanchan Revisited, dark player, equals to :c:`11`.
+    Rush limits for Tamoanchan Revisited, dark player, equals to ``11``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CONQUEST_OF_TLALOCAN_LIGHT
 
-    Rush limits for Conquest of Tlalocan, light player, equals to :c:`11`.
+    Rush limits for Conquest of Tlalocan, light player, equals to ``11``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CONQUEST_OF_TLALOCAN_DARK
 
-    Rush limits for Conquest of Tlalocan, dark player, equals to :c:`12`.
+    Rush limits for Conquest of Tlalocan, dark player, equals to ``12``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_DISCOVERY_LIGHT
 
-    Rush limits for Discovery, light player, equals to :c:`11`.
+    Rush limits for Discovery, light player, equals to ``11``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_DISCOVERY_DARK
 
-    Rush limits for Discovery, dark player, equals to :c:`12`.
+    Rush limits for Discovery, dark player, equals to ``12``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_ONE_LIGHT
 
-    Rush limits for One, light player, equals to :c:`12`.
+    Rush limits for One, light player, equals to ``12``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_ONE_DARK
 
-    Rush limits for One, dark player, equals to :c:`13`.
+    Rush limits for One, dark player, equals to ``13``.
 
 
 .. c:macro:: CC_VARIANT_RUSH_RANK_OFFSET
 
     For dark player, difference between board size and shortest rush rank.
     For light player, shortest rush rank.
-    In both cases equals to :c:`3`.
+    In both cases equals to ``3``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_LIGHT
 
-    Minimum rush rank light private can reach, equals to :c:`3`.
+    Minimum rush rank light private can reach, equals to ``3``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_LIGHT
 
-    Maximum rush rank light private can reach, equals to :c:`12`.
+    Maximum rush rank light private can reach, equals to ``12``.
 
 .. c:macro:: CC_VARIANT_MIN_RUSH_RANK_DARK
 
-    Minimum rush rank dark private can reach, equals to :c:`4`.
+    Minimum rush rank dark private can reach, equals to ``4``.
 
 .. c:macro:: CC_VARIANT_MAX_RUSH_RANK_DARK
 
-    Maximum rush rank dark private can reach, equals to :c:`22`.
+    Maximum rush rank dark private can reach, equals to ``22``.
 
 .. _lbl-libcc-ccvariant-types:
 
@@ -238,7 +238,7 @@ Abbreviated variant names, used to e.g. select variant to play.
 .. c:macro:: CC_MAX_LEN_VARIANT_SYMBOL
 
     Maximum length of a symbol string (char array), used by any variant;
-    equals to :c:`3`.
+    equals to ``3``.
 
 .. c:macro:: CC_LEN_VARIANT_SYMBOL_INVALID
 
@@ -304,7 +304,7 @@ Variant functions
     :param str: A string.
     :param ve__o: *Output*, variant :c:`enum`.
     :returns: Size of a symbol found in string if successful,
-        :c:expr:`CC_LEN_VARIANT_SYMBOL_INVALID` otherwise.
+        :c:macro:`CC_LEN_VARIANT_SYMBOL_INVALID` otherwise.
 
 .. c:function:: char const * cc_variant_symbol( CcVariantEnum ve )
 

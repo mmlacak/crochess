@@ -29,32 +29,32 @@ To avoid name collisions with other code, libraries, every :term:`entity` is pre
      - Examples
    * - ``cc_``
      - functions, modules
-     - :c:`cc_ply.h`, :c:`cc_ply_append_new()`
+     - :c:`cc_ply.h`, :c:func:`cc_ply_append_new()`
    * - ``CC_``
      - :c:`#define`\s, :c:`const`\ants, :c:`enum` items
      - :c:`CC_OFF_BOARD_COORD`, :c:`CC_PPLE_FailedTeleportationOblation`
    * - ``Cc``
      - :c:`enum`\s, :c:`struct`\s, :c:`union`\s
-     - :c:`CcParsedPlyLinkEnum`, :c:`CcParsedPly`
+     - :c:enum:`CcParsedPlyLinkEnum`, :c:struct:`CcParsedPly`
 
 No particular
 `naming convention <https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats>`_
 is used.
 
 Functions and modules names are lowercase words, separated by ``_`` (underscore),
-e.g. :c:`cc_ply.h`, :c:`cc_ply_append_new()`.
+e.g. :c:`cc_ply.h`, :c:func:`cc_ply_append_new()`.
 
 :c:`#define` and :c:`const`\ant names are uppercase words, separated by ``_``
 (underscore), e.g. :c:`CC_OFF_BOARD_COORD`, :c:`CC_SETUP_BOARD_CLASSICAL_CHESS`.
 
 :c:`enum`\s, :c:`struct`\s and :c:`union`\s names are capitalized words. :c:`enum`
 names end in ``Enum``, while there is no comparable name end for :c:`struct`\s,
-:c:`union`\s. Examples, :c:`CcParsedPlyLinkEnum`, :c:`CcParsedPly`.
+:c:`union`\s. Examples, :c:enum:`CcParsedPlyLinkEnum`, :c:struct:`CcParsedPly`.
 
 :c:`enum` items have constant-like library prefix (i.e. ``CC_``), combined with
 abbreviated :c:`enum` name (e.g. ``PPLE_``) and capitalized words for item name.
 For instance, :c:`CC_PPLE_FailedTeleportationOblation` would be one of items in
-:c:`CcParsedPlyLinkEnum`.
+:c:enum:`CcParsedPlyLinkEnum`.
 
 .. _lbl-libcc-organization-naming-linkedlists:
 
@@ -94,14 +94,14 @@ Common functions linked lists have:
 
 .. note::
 
-    :c:`_append()` and :c:`_extend()` functions also work on empty linked list,
+    :c:func:`_append()` and :c:func:`_extend()` functions also work on empty linked list,
     i.e. even if pointer to linked list is :c:data:`NULL`.
 
 .. note::
 
-    :c:`_extend()` transfers ownership of the other linked list to the first given.
+    :c:func:`_extend()` transfers ownership of the other linked list to the first given.
 
-In our :c:`CcPosLink` example, common definitions would be:
+In our :c:struct:`CcPosLink` example, common definitions would be:
 
     - :c:`CcPosLink * cc_pos_link__new( CcPos pos );`
     - :c:`CcPosLink * cc_pos_link_append( CcPosLink ** list__iod_a, CcPos pos );`
@@ -171,7 +171,7 @@ operates.
 :term:`Method`\s are named after their :term:`entity`, so that they look like
 :c:`cc_<entity>_<method_name>()`.
 
-For instance, some :c:`CcPos` methods are:
+For instance, some :c:struct:`CcPos` methods are:
 
 - :c:`bool cc_pos_is_valid( CcPos pos );`
 - :c:`bool cc_pos_is_static_step( CcPos pos );`
@@ -180,7 +180,7 @@ For instance, some :c:`CcPos` methods are:
 
 The same applies to macros defined for an entity, only their name is in upper-case.
 
-In our :c:`CcPos` example, some macros are:
+In our :c:struct:`CcPos` example, some macros are:
 
 - :c:`#define CC_POS_IS_VALID(pos) ...`
 - :c:`#define CC_POS_IS_STATIC_STEP(pos) ...`
@@ -204,7 +204,7 @@ One of :term:`method`\s linked list has is
                                              CcPosDesc pd );
 
 Note, that ``append()`` :term:`method` depends only on :term:`entity` used to
-define said linked list, i.e. :c:`CcPosDesc`.
+define said linked list, i.e. :c:struct:`CcPosDesc`.
 
 This is very different from similarly named function defined in ``cc_pos_utils``:
 
