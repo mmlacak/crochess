@@ -75,8 +75,8 @@ Setup misc functions
                              or King-side.
     :param min_i__o: *Output*, lower bound on King's castling file.
     :param max_i__o: *Output*, upper bound on King's castling file.
-    :returns: :c:`true` if position is valid step-field for castling King,
-              :c:`false` otherwise.
+    :returns: :c:data:`true` if position is valid step-field for castling King,
+              :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccsetupmisc-sourcecodeheader:
 

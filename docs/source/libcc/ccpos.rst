@@ -42,7 +42,7 @@ Position data
 
         Rank, vertical coordinate.
 
-    :c:`struct` is tagged with the same :c:expr:`CcPos` name.
+    :c:`struct` is tagged with the same :c:enum:`CcPos` name.
 
 .. c:macro:: CC_POS_CAST_INVALID
 
@@ -58,7 +58,7 @@ Position data
 
 .. c:macro:: CC_POS(int_i,int_j)
 
-    Macro definition for instantiating position, i.e. :c:expr:`CcPos` :c:`struct`\ure.
+    Macro definition for instantiating position, i.e. :c:enum:`CcPos` :c:`struct`\ure.
 
     :param int_i: File, horizontal coordinate.
     :param int_j: Rank, vertical coordinate.
@@ -79,15 +79,15 @@ Position data
 
     Coordinate is valid if it's not :c:expr:`CC_INVALID_COORD`.
 
-    :param pos: A position, i.e. :c:expr:`CcPos` value.
-    :returns: :c:`true` if valid position, :c:`false` otherwise.
+    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :returns: :c:data:`true` if valid position, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_STATIC_STEP(pos)
 
     Macro to check if given position is static step.
 
-    :param pos: A position, i.e. :c:expr:`CcPos` value.
-    :returns: :c:`true` if static step, :c:`false` otherwise.
+    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :returns: :c:data:`true` if static step, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_DISAMBIGUATION(pos)
 
@@ -99,8 +99,8 @@ Position data
 
         Disambiguation is any position with at least one valid coordinate.
 
-    :param pos: A position, i.e. :c:expr:`CcPos` value.
-    :returns: :c:`true` if disambiguation, :c:`false` otherwise.
+    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :returns: :c:data:`true` if disambiguation, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_PARTIAL(pos)
 
@@ -112,16 +112,16 @@ Position data
 
         Partial position is any which have exactly one valid coordinate.
 
-    :param pos: A position, i.e. :c:expr:`CcPos` value.
-    :returns: :c:`true` if partial position, :c:`false` otherwise.
+    :param pos: A position, i.e. :c:enum:`CcPos` value.
+    :returns: :c:data:`true` if partial position, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_IS_EQUAL(pos_1,pos_2)
 
     Macro to check if given positions are equal.
 
-    :param pos_1: A position, i.e. :c:expr:`CcPos` value.
-    :param pos_2: Another position, i.e. :c:expr:`CcPos` value.
-    :returns: :c:`true` if equal, :c:`false` otherwise.
+    :param pos_1: A position, i.e. :c:enum:`CcPos` value.
+    :param pos_2: Another position, i.e. :c:enum:`CcPos` value.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpos-functions:
 
@@ -141,14 +141,14 @@ Position functions
     Function checks if position is valid.
 
     :param pos: A position.
-    :returns: :c:`true` if position is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is valid, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_is_static_step( CcPos pos )
 
     Function checks if position is static step.
 
     :param pos: A position.
-    :returns: :c:`true` if position is static step, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is static step, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_is_disambiguation( CcPos pos )
 
@@ -161,7 +161,7 @@ Position functions
         Disambiguation is any position with at least one valid coordinate.
 
     :param pos: A position.
-    :returns: :c:`true` if position is disambiguation, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is disambiguation, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_is_partial( CcPos pos )
 
@@ -174,7 +174,7 @@ Position functions
         Partial position is any which have exactly one valid coordinate.
 
     :param pos: A position.
-    :returns: :c:`true` if position is partial, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is partial, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
 
@@ -182,7 +182,7 @@ Position functions
 
     :param pos_1: A position.
     :param pos_2: Another position.
-    :returns: :c:`true` if positions are equal, :c:`false` otherwise.
+    :returns: :c:data:`true` if positions are equal, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
 
@@ -193,7 +193,7 @@ Position functions
 
     :param pos_1: A position.
     :param pos_2: Another position.
-    :returns: :c:`true` if positions are congruent, :c:`false` otherwise.
+    :returns: :c:data:`true` if positions are congruent, :c:data:`false` otherwise.
 
 .. c:function:: CcPos cc_pos_add( CcPos pos, CcPos step, int count )
 
@@ -256,7 +256,7 @@ Position functions
 
     :param pos: A position.
     :param pos_str__o: *Output*, pointer to short string array.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpos-steptypeenum:
 
@@ -269,7 +269,7 @@ Step type enum
 
     .. c:enumerator:: CC_STE_None
 
-        Undefined step type, equals to :c:`0`.
+        Undefined step type, equals to ``0``.
 
     .. c:enumerator:: CC_STE_Movement
 
@@ -310,7 +310,7 @@ Typed step
 
         Type of a step.
 
-    :c:`struct` is tagged with the same :c:expr:`CcTypedStep` name.
+    :c:`struct` is tagged with the same :c:enum:`CcTypedStep` name.
 
 .. c:macro:: CC_TYPED_STEP_CAST_INVALID
 
@@ -327,16 +327,16 @@ Typed step
     Typed step is valid if both coordinates of a :c:`step` member
     are valid, and :c:`type` is not :c:`CC_STE_None`.
 
-    :param ts: A typed step, i.e. :c:expr:`CcTypedStep` value.
-    :returns: :c:`true` if valid typed step, :c:`false` otherwise.
+    :param ts: A typed step, i.e. :c:enum:`CcTypedStep` value.
+    :returns: :c:data:`true` if valid typed step, :c:data:`false` otherwise.
 
 .. c:macro:: CC_TYPED_STEP_IS_EQUAL(ts_1,ts_2)
 
     Macro to check if given typed steps are equal.
 
-    :param ts_1: A typed step, i.e. :c:expr:`CcTypedStep` value.
-    :param ts_2: Another typed step, i.e. :c:expr:`CcTypedStep` value.
-    :returns: :c:`true` if equal, :c:`false` otherwise.
+    :param ts_1: A typed step, i.e. :c:enum:`CcTypedStep` value.
+    :param ts_2: Another typed step, i.e. :c:enum:`CcTypedStep` value.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. c:macro:: CC_TYPED_STEP(int_i,int_j,enum_type)
 
@@ -344,7 +344,7 @@ Typed step
 
     :param int_i: File, horizontal coordinate; an integer value.
     :param int_j: Rank, vertical coordinate; an integer value.
-    :param enum_type: Type of a step; :c:expr:`CcStepTypeEnum` value.
+    :param enum_type: Type of a step; :c:enum:`CcStepTypeEnum` value.
     :returns: Typed step with a given coordinates.
 
 .. c:macro:: CC_TYPED_STEP_CAST(int_i,int_j,enum_type)
@@ -353,7 +353,7 @@ Typed step
 
     :param int_i: File, horizontal coordinate; an integer value.
     :param int_j: Rank, vertical coordinate; an integer value.
-    :param enum_type: Type of a step; :c:expr:`CcStepTypeEnum` value.
+    :param enum_type: Type of a step; :c:enum:`CcStepTypeEnum` value.
     :returns: Casted, typed step with a given coordinates.
 
 .. c:function:: CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type )
@@ -370,7 +370,7 @@ Typed step
 
     :param ts_1: A typed step.
     :param ts_2: Another typed step.
-    :returns: :c:`true` if equal, :c:`false` otherwise.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpos-linkedtypedsteps:
 
@@ -389,7 +389,7 @@ Linked typed steps
 
         Link to next typed step.
 
-    :c:`struct` is tagged with the same :c:expr:`CcTypedStepLink` name.
+    :c:`struct` is tagged with the same :c:enum:`CcTypedStepLink` name.
 
 .. c:function:: CcTypedStepLink * cc_typed_step_link__new( CcTypedStep step )
 
@@ -397,19 +397,19 @@ Linked typed steps
 
     :param step: A typed step.
     :returns: Pointer to a newly allocated linked typed step if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcTypedStepLink * cc_typed_step_link_append( CcTypedStepLink ** ts_link__iod_a, CcTypedStep step )
 
     Function appends a newly allocated linked position to a given linked list.
 
-    If linked list :c:`*ts_link__iod_a` is :c:`NULL`, it will be initialized
+    If linked list :c:`*ts_link__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated typed step link as its only element.
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
     :param step: A typed step.
     :returns: Pointer to a newly allocated linked typed step if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcTypedStepLink * cc_typed_step_link_extend( CcTypedStepLink ** ts_link__iod_a, CcTypedStepLink ** ts_link__n )
 
@@ -423,19 +423,19 @@ Linked typed steps
 
         Extending linked list :c:`ts_link__n` has its ownership transferred to
         extended linked list :c:`ts_link__iod_a`; as a result, inner pointer
-        :c:`*ts_link__n` is :c:`NULL`\ed.
+        :c:`*ts_link__n` is :c:data:`NULL`\ed.
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
     :param ts_link__n: **Ownership transfer**; linked list with which to extend existing steps.
     :returns: Weak pointer to extended portion of a linked list if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f )
 
     Frees all typed steps in a linked list.
 
     :param ts_link__f: Linked list of typed steps.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: size_t cc_typed_step_link_len( CcTypedStepLink * ts_link )
 
@@ -452,7 +452,7 @@ Linked typed steps
 
     :param ts_link: A linked list of typed steps.
     :returns: A newly allocated, zero-terminated string if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccpos-positiondescriptor:
 
@@ -495,7 +495,7 @@ Position descriptor
         Momentum a moving piece (different from static piece found at
         this position!) had when this position was reached.
 
-    :c:`struct` is tagged with the same :c:expr:`CcPosDesc` name.
+    :c:`struct` is tagged with the same :c:enum:`CcPosDesc` name.
 
 .. c:macro:: CC_POS_DESC_CAST_INVALID
 
@@ -511,11 +511,11 @@ Position descriptor
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:expr:`CcPieceEnum` value.
-    :param tag_enum: A tag; :c:expr:`CcTagEnum` value.
+    :param piece_enum: A piece; :c:enum:`CcPieceEnum` value.
+    :param tag_enum: A tag; :c:enum:`CcTagEnum` value.
     :param uint_momentum: Momentum; unsigned integer.
     :returns: Position descriptor value.
-    :seealso: :c:expr:`CcPosDesc`
+    :seealso: :c:enum:`CcPosDesc`
 
 .. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum)
 
@@ -523,8 +523,8 @@ Position descriptor
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:expr:`CcPieceEnum` value.
-    :param tag_enum: A tag; :c:expr:`CcTagEnum` value.
+    :param piece_enum: A piece; :c:enum:`CcPieceEnum` value.
+    :param tag_enum: A tag; :c:enum:`CcTagEnum` value.
     :param uint_momentum: Momentum; unsigned integer.
     :returns: Casted position descriptor value.
     :seealso: :c:expr:`CC_POS_DESC`
@@ -533,18 +533,18 @@ Position descriptor
 
     Macro to check if given position descriptor is valid.
 
-    :param pd: A position descriptor; :c:expr:`CcPosDesc` value.
+    :param pd: A position descriptor; :c:enum:`CcPosDesc` value.
     :returns: Casted position descriptor value.
-    :seealso: :c:`true` if valid position descriptor, :c:`false` otherwise.
+    :seealso: :c:data:`true` if valid position descriptor, :c:data:`false` otherwise.
 
 .. c:macro:: CC_POS_DESC_IS_EQUAL(pd_1,pd_2)
 
     Macro to check if two given position descriptors are equal.
 
-    :param pd_1: A position descriptor; :c:expr:`CcPosDesc` value.
-    :param pd_2: Another position descriptor; :c:expr:`CcPosDesc` value.
+    :param pd_1: A position descriptor; :c:enum:`CcPosDesc` value.
+    :param pd_2: Another position descriptor; :c:enum:`CcPosDesc` value.
     :returns: Casted position descriptor value.
-    :seealso: :c:`true` if equal, :c:`false` otherwise.
+    :seealso: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. c:function:: CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag )
 
@@ -560,7 +560,7 @@ Position descriptor
     Function checks if position descriptor is valid.
 
     :param pd: A position descriptor.
-    :returns: :c:`true` if valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if valid, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 )
 
@@ -568,7 +568,7 @@ Position descriptor
 
     :param pd_1: A position descriptor.
     :param pd_2: Another position descriptor.
-    :returns: :c:`true` if equal, :c:`false` otherwise.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
 
@@ -585,8 +585,8 @@ Position descriptor
 
     :param pd_1: A position descriptor.
     :param pd_2: Another position descriptor.
-    :returns: :c:`true` if position descriptors are congruent,
-              :c:`false` otherwise.
+    :returns: :c:data:`true` if position descriptors are congruent,
+              :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_desc_to_short_string( CcPosDesc pd, cc_char_16 * pd_str__o )
 
@@ -598,7 +598,7 @@ Position descriptor
 
     :param pd: A position descriptor.
     :param pd_str__o: *Output*, pointer to short string array.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpos-linkedpositiondescriptors:
 
@@ -617,7 +617,7 @@ Linked position descriptors
 
         Link to next position descriptor.
 
-    :c:`Struct` is tagged with the same :c:expr:`CcPosDescLink` name.
+    :c:`Struct` is tagged with the same :c:enum:`CcPosDescLink` name.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd )
 
@@ -625,14 +625,14 @@ Linked position descriptors
 
     :param pd: A position descriptor.
     :returns: Pointer to a newly allocated linked position descriptor
-              if successful, :c:`NULL` otherwise.
+              if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a, CcPosDesc pd )
 
     Function appends a newly allocated linked position descriptor
     to a given linked list.
 
-    If linked list :c:`*pd_link__iod_a` is :c:`NULL`, it will be
+    If linked list :c:`*pd_link__iod_a` is :c:data:`NULL`, it will be
     initialized with a newly allocated position descriptor link as
     its only element.
 
@@ -640,7 +640,7 @@ Linked position descriptors
                            linked list.
     :param pd: A position descriptor.
     :returns: A weak pointer to a newly allocated linked position
-              if successful, :c:`NULL` otherwise.
+              if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link )
 
@@ -649,7 +649,7 @@ Linked position descriptors
 
     :param pd_link: A linked list.
     :returns: A pointer to newly allocated linked list if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a, CcPosDescLink ** pd_link__n )
 
@@ -663,21 +663,21 @@ Linked position descriptors
 
         Extending linked list :c:`pd_link__n` has its ownership transferred to
         extended linked list :c:`pd_link__iod_a`; as a result, inner pointer
-        :c:`*pd_link__n` is :c:`NULL`\ed.
+        :c:`*pd_link__n` is :c:data:`NULL`\ed.
 
     :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
                            a linked list to extend.
     :param pd_link__n: **Ownership transfer**; linked list with which to
                        extend existing steps.
     :returns: Weak pointer to extended portion of a linked list
-              if successful, :c:`NULL` otherwise.
+              if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f )
 
     Frees all position descriptors in a linked list.
 
-    :param pd_link__f: A linked list to :c:`free()`.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :param pd_link__f: A linked list to :c:func:`free()`.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: size_t cc_pos_desc_link_len( CcPosDescLink * pd_link )
 
@@ -693,7 +693,7 @@ Linked position descriptors
 
     :param pd_link: A linked list of position descriptors.
     :returns: A newly allocated, zero-terminated (:c:`'\0'`) string if
-              successful, :c:`NULL` otherwise.
+              successful, :c:data:`NULL` otherwise.
     :seealso: :c:expr:`cc_pos_to_short_string()`
 
 .. _lbl-libcc-ccpos-linkedpaths:
@@ -713,7 +713,7 @@ Linked paths
 
         Link to next path.
 
-    :c:`Struct` is tagged with the same :c:expr:`CcPathLink` name.
+    :c:`Struct` is tagged with the same :c:enum:`CcPathLink` name.
 
 .. c:function:: CcPathLink * cc_path_link__new( CcPosDescLink ** pd_link__n )
 
@@ -721,55 +721,55 @@ Linked paths
 
     Linked position descriptors :c:`pd_link__n` will have its ownership
     transferred to newly allocated path, and its inner pointer will be
-    :c:`NULL`\ed.
+    :c:data:`NULL`\ed.
 
     :param pd_link__n: **Ownership transfer**; linked list of position
                        descriptors.
     :returns: Pointer to a newly allocated linked path if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a, CcPosDescLink ** pd_link__n )
 
     Function appends a newly allocated linked path to a given linked list.
 
-    If linked list :c:`*path_link__iod_a` is :c:`NULL`, it will be
+    If linked list :c:`*path_link__iod_a` is :c:data:`NULL`, it will be
     initialized with a newly allocated path link as its only
     element.
 
     Linked position descriptors :c:`pd_link__n` will have its ownership
     transferred to newly allocated path, and its inner pointer will be
-    :c:`NULL`\ed.
+    :c:data:`NULL`\ed.
 
     :param path_link__iod_a: **Ownership**, *optional* *input/output*;
                              a linked list to extend.
     :param pd_link__n: **Ownership transfer**; linked list of position
                        descriptors.
     :returns: A weak pointer to a newly allocated linked path if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a, CcPathLink ** path_link__n )
 
     Extends existing linked list with a another linked list.
 
-    If linked list :c:`*path_link__iod_a` is :c:`NULL`, it will be
+    If linked list :c:`*path_link__iod_a` is :c:data:`NULL`, it will be
     initialized with a newly allocated path link as its only
     element.
 
     Linked paths :c:`path_link__n` will have its ownership transferred
-    to newly allocated path, and its inner pointer will be :c:`NULL`\ed.
+    to newly allocated path, and its inner pointer will be :c:data:`NULL`\ed.
 
     :param path_link__iod_a: **Ownership**, *optional* *input/output*;
                              a linked list to extend.
     :param path_link__n: **Ownership transfer**; linked list of paths.
     :returns: Weak pointer to extended portion of a linked list if
-              successful, :c:`NULL` otherwise.
+              successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_path_link_free_all( CcPathLink ** path_link__f )
 
     Frees all paths in a linked list.
 
-    :param path_link__f: Linked list of paths to :c:`free()`.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :param path_link__f: Linked list of paths to :c:func:`free()`.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: size_t cc_path_link_len( CcPathLink * path_link )
 

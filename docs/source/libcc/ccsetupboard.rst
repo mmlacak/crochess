@@ -71,7 +71,7 @@ Setup board functions
     Function returning setup for a board, based on a given variant.
 
     :param ve: A variant.
-    :returns: Pointer to setup if successful, :c:`NULL` otherwise.
+    :returns: Pointer to setup if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceEnum pe )
 
@@ -80,8 +80,8 @@ Setup board functions
 
     :param ve: A variant.
     :param pe: A piece.
-    :returns: :c:`true` if piece is found in an initial setup,
-              :c:`false` otherwise.
+    :returns: :c:data:`true` if piece is found in an initial setup,
+              :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccsetupboard-sourcecodeheader:
 

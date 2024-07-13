@@ -19,7 +19,7 @@ Here, these are mostly linked :c:`struct`\s, usually containing :c:`union`\s.
 Ownership
 ---------
 
-Ownership defines who (which pointer) gets to :c:`free()` allocated memory.
+Ownership defines who (which pointer) gets to :c:func:`free()` allocated memory.
 
 It refers to the one pointer variable, which is the reference from which all
 other usages are borrowed.
@@ -40,11 +40,11 @@ during its whole scope, this includes a case of a function which returns that
 pointer, since it also returns ownership.
 
 Trailing ``__a`` is also appended if pointer is the last one in a chain of
-ownership transfers, since that pointer needs to be :c:`free()`\ed always,
+ownership transfers, since that pointer needs to be :c:func:`free()`\ed always,
 unconditionally.
 
 If pointer has temporary ownership of an entity, ``__t`` is appended to its name,
-i.e. if pointer has to be :c:`free()`\ed sometimes, only under some conditions.
+i.e. if pointer has to be :c:func:`free()`\ed sometimes, only under some conditions.
 
 Transfer of ownership ``__t`` indicates what would happen if main line of execution
 is followed, i.e. if all data is valid.
@@ -145,7 +145,7 @@ of the entire linked list.
 If a pointer in an entity does not have ownership over linked entity, ``__w`` is
 appended to its name, e.g. :c:`CcParsedPly * related_ply__w`.
 
-Function(s) :c:`free()`\ing containing entity does not :c:`free()` weak pointers.
+Function(s) :c:func:`free()`\ing containing entity does not :c:func:`free()` weak pointers.
 
 For instance, :c:`CcParsedMove` contains :c:`CcParsedPly *`, so it owns all
 :c:`CcParsedPly` items in that linked list.
@@ -155,12 +155,12 @@ items in that linked list.
 
 So, :c:`CcParsedMove` indirectly owns every :c:`CcParsedStep` in the whole structure.
 
-This is evidenced when :c:`free()`\ing hierarchically complete structure from a single
+This is evidenced when :c:func:`free()`\ing hierarchically complete structure from a single
 :c:`CcParsedMove` pointer.
 
-All :c:`CcParsedMove`\s in a linked list are :c:`free()`\ed by calling :c:`cc_move_free_all_moves()`,
-which :c:`free()`\s all linked :c:`CcParsedPly`\s in each :c:`CcParsedMove` (by calling :c:`cc_ply_free_all_plies()`),
-which :c:`free()`\s all linked :c:`CcParsedStep`\s in each :c:`CcParsedPly` (by calling :c:`cc_parsed_step_free_all_steps()`).
+All :c:`CcParsedMove`\s in a linked list are :c:func:`free()`\ed by calling :c:`cc_move_free_all_moves()`,
+which :c:func:`free()`\s all linked :c:`CcParsedPly`\s in each :c:`CcParsedMove` (by calling :c:`cc_ply_free_all_plies()`),
+which :c:func:`free()`\s all linked :c:`CcParsedStep`\s in each :c:`CcParsedPly` (by calling :c:`cc_parsed_step_free_all_steps()`).
 
 .. _lbl-libcc-memory-management-ownership-transfer:
 
@@ -205,7 +205,7 @@ Optional parameters
 Discretional parameters are indicated by appending ``__d`` to their name,
 e.g. :c:`int disamb_i__d`.
 
-For pointers, :c:`NULL` is used if optional parameter is not given.
+For pointers, :c:data:`NULL` is used if optional parameter is not given.
 
 For other types check which value(s) are used to convey absence of a valid value.
 
@@ -227,7 +227,7 @@ and outer pointer are optional.
 
 Another example, :c:`CcParseMsg ** parse_msgs__md` means outer pointer is optional,
 but inner pointer (data) is mandatory, i.e. if outer pointer is provided, inner
-pointer must also be valid (non-:c:`NULL`).
+pointer must also be valid (non-:c:data:`NULL`).
 
 All indicators for the outmost pointers that are mandatory can be omitted.
 
@@ -243,7 +243,7 @@ Output parameters are indicated by appending ``__o``, e.g. :c:`char * str__o`.
 
 .. note::
 
-    Output parameter is implicitly void; that is, pointer *must* be :c:`NULL`,
+    Output parameter is implicitly void; that is, pointer *must* be :c:data:`NULL`,
     and then it's up to called function to allocate storage.
 
 If function through output parameter returns pointer to fixed, pre-allocated
@@ -261,10 +261,10 @@ their name, e.g. :c:`char * str__io`.
 .. note::
 
     Input / output parameter is implicitly mandatory; that is, given pointer
-    *must not* be :c:`NULL`.
+    *must not* be :c:data:`NULL`.
 
 So, input / output pointer has to have ``__d`` appended to its name if its optional
-(can be :c:`NULL`), like so :c:`char * str__iod`.
+(can be :c:data:`NULL`), like so :c:`char * str__iod`.
 
 .. _lbl-libcc-memory-management-parameters-transfer:
 
@@ -276,9 +276,9 @@ Ownership transfer parameters are indicated by:
 * their type (pointer to pointer to type), e.g. :c:`CcParseMsg ** parse_msgs`
 * appending direction indicator (``__o``, ``__io``) to parameter name if they are
   output, or input + output parameter
-* appending ``__n`` if inner pointer is going to be :c:`NULL`\ed, e.g.
+* appending ``__n`` if inner pointer is going to be :c:data:`NULL`\ed, e.g.
   :c:`CcParsedPly ** plies__n`
-* appending ``__f`` if inner pointer is going to be :c:`free()`\ed then :c:`NULL`\ed,
+* appending ``__f`` if inner pointer is going to be :c:func:`free()`\ed then :c:data:`NULL`\ed,
   e.g. :c:`char ** str__f`
 * appending ``__r`` if inner pointer is going to be :c:`realloc()`\ated, e.g.
   :c:`char ** str_io__r`
@@ -286,8 +286,8 @@ Ownership transfer parameters are indicated by:
   e.g. :c:`char ** str__t`
 * appending ``__a`` if inner pointer is going to transfer ownership out of a function,
   e.g. :c:`char ** str__a`
-* appending ``__F`` if inner pointer is going to be *conditionally* :c:`free()`\ed
-  then :c:`NULL`\ed, e.g. :c:`CcRoutePin ** route_pin__io_a_F`
+* appending ``__F`` if inner pointer is going to be *conditionally* :c:func:`free()`\ed
+  then :c:data:`NULL`\ed, e.g. :c:`CcRoutePin ** route_pin__io_a_F`
 
 If parameter is input only, use ``__t`` to specify that ownership is given into that
 function, and remaining pointer is weak after function returns.
@@ -296,7 +296,7 @@ Indicator ``__a`` is used when data can be allocated within function, and passed
 output parameters.
 
 For instance, in all append functions linked list can be given just as an address
-of a :c:`NULL`-initialized pointer variable, which can then be initialized with newly
+of a :c:data:`NULL`-initialized pointer variable, which can then be initialized with newly
 allocated item as its first, and only element.
 
 Another example, if optional output string :c:`char ** str__iod` can also be allocated
@@ -320,11 +320,11 @@ Function can also deallocate its argument after multiple consecutive calls when
 it's done with such an argument, after some conditions are met, or after an error.
 
 In such a case ``__F`` is appended to parameter name, to specify that data can
-be freed within function (and (inner) pointer set to :c:`NULL`) *conditionally*.
+be freed within function (and (inner) pointer set to :c:data:`NULL`) *conditionally*.
 
 For example, iterator :c:`cc_route_pin_iter()` traverses over given path tree.
 
-For the first call over a new path tree (i.e. if :c:`*route_pin__io_a_F` is :c:`NULL`),
+For the first call over a new path tree (i.e. if :c:`*route_pin__io_a_F` is :c:data:`NULL`),
 it allocates a new route, and initializes it with a first one found in a given path
 tree.
 
@@ -332,7 +332,7 @@ On each consecutive call, it returns next route from starting to destination fie
 via input / output parameter :c:`route_pin__io_a_F`.
 
 When it runs out of routes in a given path tree, it frees allocated route, and sets
-its pointer back to :c:`NULL`, so it's ready to start over again.
+its pointer back to :c:data:`NULL`, so it's ready to start over again.
 
 .. _lbl-libcc-memory-management-parameters-free:
 
@@ -340,7 +340,7 @@ Free parameters
 ^^^^^^^^^^^^^^^
 
 Free parameters are input parameters which point to an element in a container
-(e.g. linked list) that needs to be :c:`free()`\ed,
+(e.g. linked list) that needs to be :c:func:`free()`\ed,
 
 either just pointed-to element, or a larger sub-container, but not the whole
 container itself.
@@ -352,7 +352,7 @@ Unlike corresponding ownership transfer parameter with the same ``__f`` indicato
 free parameter pointer is single (i.e. :c:`CcRoutePin * rp__f`` and not
 :c:`CcRoutePin ** rp__f``),
 
-since container continues to live, and thus given pointer to it is not :c:`NULL`\ed.
+since container continues to live, and thus given pointer to it is not :c:data:`NULL`\ed.
 
 .. _lbl-libcc-memory-management-parameters-weak:
 
@@ -403,7 +403,7 @@ Functions table
      - read (+ write, if mutable)
    * - ``__new``
      - ownership transfer
-     - read + write + :c:`free()`
+     - read + write + :c:func:`free()`
 
 .. _lbl-libcc-memory-management-summary-variables:
 
@@ -426,7 +426,7 @@ Variables table
    * - ``__a``
      - standalone
      - asset (ownership)
-     - read + write + :c:`free()`
+     - read + write + :c:func:`free()`
    * - ``__t``
      - standalone
      - ownership transfer
@@ -434,7 +434,7 @@ Variables table
    * -
      - in an entity
      - ownership
-     - read + write + :c:`free()`
+     - read + write + :c:func:`free()`
    * - ``__w``
      - both
      - weak
@@ -457,7 +457,7 @@ Input, output parameters table
      - input
      - read
    * - ``__o``
-     - output, :c:`NULL`
+     - output, :c:data:`NULL`
      - write
    * - ``__io``
      - input + output, :c:`!NULL`
@@ -469,7 +469,7 @@ Input, output parameters table
      - input, weak
      - read
    * - ``__f``
-     - :c:`free()`
+     - :c:func:`free()`
      - [1]_
 
 .. _lbl-libcc-memory-management-summary-transfer:
@@ -492,7 +492,7 @@ Ownership transfer parameters table
      - read
    * - ``__o``
      - :c:`!NULL`
-     - output, :c:`NULL`
+     - output, :c:data:`NULL`
      - write
    * - ``__io``
      - :c:`!NULL`

@@ -196,7 +196,7 @@ String utility functions
 
     :param str__io: *Input/output*, string to overwrite with zeros.
     :param max_len__d: *Optional*, maximum length to overwrite.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_str_is_empty( char const * str, bool ignore_spaces )
 
@@ -204,7 +204,7 @@ String utility functions
 
     :param str: A string to check.
     :param ignore_spaces: Flag, whether to disregard spaces, or not.
-    :returns: :c:`true` if empty, :c:`false` otherwise.
+    :returns: :c:data:`true` if empty, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_str_count_chars( char const * str, cc_ctype_fp_ischar_t fp_is_char, size_t max_len__d, size_t * count__o )
 
@@ -214,7 +214,7 @@ String utility functions
     :param fp_is_char: Function pointer, used to filter characters.
     :param max_len__d: *Optional*, maximum length to count over.
     :param count__o: *Output*, result.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: char const * cc_str_contains_char( char c, bool case_sensitive, char const * start, char const * end__d, size_t max_len__d )
 
@@ -232,9 +232,9 @@ String utility functions
     :param c: Character to be found.
     :param case_sensitive: Flag, whether search is case-sensitive, or not.
     :param start: Pointer to a start of a (sub-)string.
-    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:`NULL`.
+    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:data:`NULL`.
     :param max_len__d: *Optional*, maximum length of a string to check; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: Pointer to a character if successful, :c:`NULL` otherwise.
+    :returns: Pointer to a character if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char const * cc_str_traverse_chars( char const * str, cc_ctype_fp_ischar_t fp_is_char, bool skip_or_stop_at, size_t max_len__d )
 
@@ -250,27 +250,27 @@ String utility functions
 
     :param str: A string.
     :param fp_is_char: A function pointer, used to filter characters.
-    :param skip_or_stop_at: A flag, whether to skip (if :c:`true`) or stop at (if :c:`false`) filtered character.
+    :param skip_or_stop_at: A flag, whether to skip (if :c:data:`true`) or stop at (if :c:data:`false`) filtered character.
     :param max_len__d: *Optional*, maximum length to traverse; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A string pointer within a given string if successful, :c:`NULL` otherwise.
+    :returns: A string pointer within a given string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_str_to_case( char * str__io, bool to_upper_or_lower, size_t max_len__d )
 
     Function converting a string in-place, to uppercase or lowercase.
 
     :param str__io: *Input/output*, string to convert.
-    :param to_upper_or_lower: Flag, convert to uppercase (:c:`true`), or lowercase (:c:`false`) string.
+    :param to_upper_or_lower: Flag, convert to uppercase (:c:data:`true`), or lowercase (:c:data:`false`) string.
     :param max_len__d: *Optional*, maximum length to convert; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: char * cc_str_to_case__new( char const * str, bool to_upper_or_lower, size_t max_len__d )
 
     Function returns a newly allocated string, converted to uppercase or lowercase.
 
     :param str: String to convert.
-    :param to_upper_or_lower: Flag, convert to uppercase (:c:`true`), or lowercase (:c:`false`).
+    :param to_upper_or_lower: Flag, convert to uppercase (:c:data:`true`), or lowercase (:c:data:`false`).
     :param max_len__d: *Optional*, maximum length to convert; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A newly allocated, converted string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated, converted string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char const * cc_str_end( char const * start, char const * end__d, size_t max_len__d )
 
@@ -287,9 +287,9 @@ String utility functions
         to traverse (:c:`start`) has to be zero-terminated.
 
     :param start: Pointer to a start of a (sub-)string.
-    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:`NULL`.
+    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:data:`NULL`.
     :param max_len__d: *Optional*, maximum length of a string to traverse; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: Pointer to the end of a string if successful, :c:`NULL` otherwise.
+    :returns: Pointer to the end of a string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: size_t cc_str_len( char const * start, char const * end__d, size_t max_len__d )
 
@@ -306,7 +306,7 @@ String utility functions
         to traverse (:c:`start`) has to be zero-terminated.
 
     :param start: Pointer to a start of a (sub-)string.
-    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:`NULL`.
+    :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:data:`NULL`.
     :param max_len__d: *Optional*, maximum length of a string to check; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: Length of a string if successful, :c:`0` otherwise.
 
@@ -345,11 +345,11 @@ String utility functions
         has to be zero-terminated.
 
     :param start_1: A starting character of a first (sub-)string.
-    :param end_1__d: *Optional*, end of a first (sub-)string; can be :c:`NULL`.
+    :param end_1__d: *Optional*, end of a first (sub-)string; can be :c:data:`NULL`.
     :param start_2: A starting character of a second (sub-)string.
     :param end_2__d: *Input/output*, end of a second (sub-)string.
     :param max_len__d: *Optional*, maximum length to compare; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: :c:`true` if two given (sub-)strings are equal, :c:`false` otherwise.
+    :returns: :c:data:`true` if two given (sub-)strings are equal, :c:data:`false` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncmp
 
 .. c:function:: size_t cc_str_copy( char const * start, char const * end__d, size_t max_len__d, char * dest__o, char const * dest_end__d, size_t size_dest__d )
@@ -359,10 +359,10 @@ String utility functions
     Function will zero-terminate copied string, if there is enough space.
 
     :param start: A (sub-)string to copy.
-    :param end__d: *Optional*, pointer to the end of a (sub-)string; can be :c:`NULL`.
+    :param end__d: *Optional*, pointer to the end of a (sub-)string; can be :c:data:`NULL`.
     :param max_len__d: *Optional*, maximum length to copy; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param dest__o: Pointer to destination.
-    :param dest_end__d: *Optional*, pointer to the end of destination; can be :c:`NULL`.
+    :param dest_end__d: *Optional*, pointer to the end of destination; can be :c:data:`NULL`.
     :param size_dest__d: A starting character of a first (sub-)string.
     :returns: Count of characters copied (not including :c:`'\0'`) if successful, :c:`0` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
@@ -374,7 +374,7 @@ String utility functions
     :param start: A (sub-)string to copy.
     :param end__d: *Optional*, pointer to the end of a (sub-)string.
     :param max_len__d: *Optional*, maximum length to copy; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: Pointer to a newly allocated copy of a given string if successful, :c:`NULL` otherwise.
+    :returns: Pointer to a newly allocated copy of a given string if successful, :c:data:`NULL` otherwise.
     :seealso: https://en.cppreference.com/w/c/string/byte/strncpy
 
 .. c:function:: char * cc_str_fmt_va__new( size_t max_len__d, char const * fmt, va_list args )
@@ -385,7 +385,7 @@ String utility functions
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt: A string format, as used by :c:`printf()` and friends.
     :param args: Variadic input list for a string format.
-    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
     :returns: Output returned is direct result of a :c:`vsnprintf()`
               found in ``<stdio.h>``.
     :seealso: https://en.cppreference.com/w/c/io/vfprintf
@@ -398,7 +398,7 @@ String utility functions
     :param max_len__d: *Optional*, maximum length to overwrite; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt: A string format, as used by :c:`printf()` and friends.
     :param ...: Variadic input for a string format.
-    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_fmt_va__new()`
 
 .. c:function:: char * cc_str_duplicate__new( char const * str, bool do_reverse, size_t max_len__d )
@@ -409,7 +409,7 @@ String utility functions
     :param str: A string to duplicate.
     :param do_reverse: Flag, whether returned string should be reversed.
     :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A newly allocated, duplicated string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated, duplicated string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append_into( char * str__io, size_t size_dest__d, char const * str, size_t max_len__d )
 
@@ -460,30 +460,30 @@ String utility functions
     :param size_dest__d: *Optional*, size of a destination; can be :c:expr:`CC_SIZE_IGNORE`.
     :param str: A string to append.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A weak pointer to zero-terminating char if successful, :c:`NULL` otherwise.
+    :returns: A weak pointer to zero-terminating char if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append__new( char const * str_1__d, char const * str_2__d, size_t max_len__d )
 
     Function appends strings into newly allocated string, optionally
     capped at a given maximum length.
 
-    :param str_1__d: *Optional* string to copy first, can be :c:`NULL`.
-    :param str_2__d: *Optional* string to concatenate, can be :c:`NULL`.
+    :param str_1__d: *Optional* string to copy first, can be :c:data:`NULL`.
+    :param str_2__d: *Optional* string to concatenate, can be :c:data:`NULL`.
     :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A newly allocated, appended string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated, appended string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append_free__new( char ** str_1__d_f, char ** str_2__d_f, size_t max_len__d )
 
     Function appends strings into newly allocated, zero-terminated string,
     optionally capped at a given maximum length.
 
-    Given string are :c:`free()`\ed, and their inner pointer set to
-    :c:`NULL` only if valid result is produced.
+    Given string are :c:func:`free()`\ed, and their inner pointer set to
+    :c:data:`NULL` only if valid result is produced.
 
-    :param str_1__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
-    :param str_2__d_f: *Optional*, a string to append. It is :c:`free()`\ed, if given.
+    :param str_1__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.
+    :param str_2__d_f: *Optional*, a string to append. It is :c:func:`free()`\ed, if given.
     :param max_len__d: *Optional*, maximum length to duplicate; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A newly allocated, appended string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated, appended string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append_fmt_va__new( char ** str__d_f, size_t max_len__d, char const * fmt, va_list args )
 
@@ -491,11 +491,11 @@ String utility functions
     newly allocated, zero-terminated string, optionally capped at given
     maximum length.
 
-    :param str__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
+    :param str__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt: A string format, as used by :c:`printf()` and friends.
     :param args: Variadic input list for a string format.
-    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_append_free__new()`
 
 .. c:function:: char * cc_str_append_fmt__new( char ** str__d_f, size_t max_len__d, char const * fmt, ... )
@@ -504,11 +504,11 @@ String utility functions
     newly allocated, zero-terminated string, optionally capped at given
     maximum length.
 
-    :param str__d_f: *Optional*, a string to append to. It is :c:`free()`\ed, if given.
+    :param str__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt: A string format, as used by :c:`printf()` and friends.
     :param ...: Variadic input for a string format.
-    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
     :seealso: :c:expr:`cc_str_append_fmt_va__new()`
 
 .. _lbl-libcc-ccstrutils-debug:
@@ -548,7 +548,7 @@ String utility debug
     :param fmt_len__d: *Optional*, maximum length of variadic string to print; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt__d: *Optional*, a string format, as used by :c:`printf()` and friends.
     :param ...: Variadic input for a string format.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: :c:expr:`cc_str_fmt_va__new()`
 
 .. c:macro:: CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)
@@ -571,7 +571,7 @@ String utility debug
     :param fmt_len__d: *Optional*, maximum length of variadic string to print; can be :c:expr:`CC_MAX_LEN_ZERO_TERMINATED`.
     :param fmt__d: *Optional*, a string format, as used by :c:`printf()` and friends.
     :param ...: Variadic input for a string format.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: :c:expr:`cc_str_print()`
 
 .. _lbl-libcc-ccstrutils-sourcecodeheader:

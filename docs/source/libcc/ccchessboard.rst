@@ -46,7 +46,7 @@ Chessboard types
 
         Holds tags for pieces at their respective position.
 
-    :c:`struct` is tagged with the same :c:expr:`CcChessboard` name.
+    :c:`struct` is tagged with the same :c:enum:`CcChessboard` name.
 
 .. _lbl-libcc-ccchessboard-functions:
 
@@ -60,8 +60,8 @@ Chessboard functions
 
     :param ve: Variant to play.
     :param do_setup: Whether to set-up pieces to their initial positions.
-                     If :c:`false`, chessboard returned is empty.
-    :returns: A newly allocated chessboard if successful, :c:`NULL` otherwise.
+                     If :c:data:`false`, chessboard returned is empty.
+    :returns: A newly allocated chessboard if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_chessboard_init( CcChessboard * cb__io, CcVariantEnum ve, bool do_setup )
 
@@ -70,9 +70,9 @@ Chessboard functions
     :param cb__io: *Input/output* parameter, chessboard to (re-)initialize.
     :param ve: Variant to play.
     :param do_setup: Whether to set-up pieces to their initial positions.
-                     If :c:`false`, chessboard returned is empty.
-    :returns: :c:`true` if chessboard is successfully (re-)initialized,
-              :c:`false` otherwise.
+                     If :c:data:`false`, chessboard returned is empty.
+    :returns: :c:data:`true` if chessboard is successfully (re-)initialized,
+              :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_size_valid( CcChessboard * cb )
 
@@ -86,23 +86,23 @@ Chessboard functions
     particular variant.
 
     :param cb: Chessboard to check.
-    :returns: :c:`true` if chessboard size is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if chessboard size is valid, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_clear( CcChessboard * cb__io )
 
     Clears a chessboard of all pieces.
 
     :param cb__io: *Input/output* parameter, chessboard to clear.
-    :returns: :c:`true` if chessboard is successfully cleared,
-              :c:`false` otherwise.
+    :returns: :c:data:`true` if chessboard is successfully cleared,
+              :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_setup( CcChessboard * cb__io )
 
     Sets up pieces on a chessboard to their initial positions.
 
     :param cb__io: *Input/output* parameter, chessboard to set up.
-    :returns: :c:`true` if chessboard is successfully set up,
-              :c:`false` otherwise.
+    :returns: :c:data:`true` if chessboard is successfully set up,
+              :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_copy( CcChessboard * into__io, CcChessboard * from )
 
@@ -110,8 +110,8 @@ Chessboard functions
 
     :param into__io: *Input/output* parameter, chessboard to copy into.
     :param from: Chessboard to copy from.
-    :returns: :c:`true` if chessboard is successfully copied,
-              :c:`false` otherwise.
+    :returns: :c:data:`true` if chessboard is successfully copied,
+              :c:data:`false` otherwise.
 
 .. c:function:: CcChessboard * cc_chessboard_duplicate__new( CcChessboard * from )
 
@@ -119,14 +119,14 @@ Chessboard functions
     from a given chessboard.
 
     :param from: Chessboard to copy from.
-    :returns: A newly allocated chessboard if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated chessboard if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_chessboard_free_all( CcChessboard ** cb__f )
 
     Deallocates chessboard, and all used resources.
 
     :param cb__f: Chessboard to deallocate.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_coord_on_board( CcChessboard * cb, int coord )
 
@@ -136,7 +136,7 @@ Chessboard functions
 
     :param cb: A chessboard.
     :param coord: A coordinate to check.
-    :returns: :c:`true` if coordinate is on-board, :c:`false` otherwise.
+    :returns: :c:data:`true` if coordinate is on-board, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_pos_on_board( CcChessboard * cb, int i, int j )
 
@@ -145,7 +145,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
-    :returns: :c:`true` if position is on-board, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is on-board, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_disambiguation_on_board( CcChessboard * cb, int i, int j )
 
@@ -158,7 +158,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
-    :returns: :c:`true` if disambiguation is on-board, :c:`false` otherwise.
+    :returns: :c:data:`true` if disambiguation is on-board, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_coord_safe_off_board( CcChessboard * cb, int coord )
 
@@ -169,7 +169,7 @@ Chessboard functions
 
     :param cb: A chessboard.
     :param coord: A coordinate to check.
-    :returns: :c:`true` if coordinate might be safely off-board, :c:`false` otherwise.
+    :returns: :c:data:`true` if coordinate might be safely off-board, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_pos_safe_off_board( CcChessboard * cb, int i, int j )
 
@@ -181,7 +181,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
-    :returns: :c:`true` if position might be safely off-board, :c:`false` otherwise.
+    :returns: :c:data:`true` if position might be safely off-board, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_disambiguation_safe_off_board( CcChessboard * cb, int i, int j )
 
@@ -194,7 +194,7 @@ Chessboard functions
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
-    :returns: :c:`true` if disambiguation might be safely off-board, :c:`false` otherwise.
+    :returns: :c:data:`true` if disambiguation might be safely off-board, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_field_on_light_side( CcChessboard * cb, int j )
 
@@ -202,7 +202,7 @@ Chessboard functions
 
     :param cb: A chessboard.
     :param j: Rank, position along vertical axis.
-    :returns: :c:`true` if position is on the light side, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is on the light side, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j )
 
@@ -210,7 +210,7 @@ Chessboard functions
 
     :param cb: A chessboard.
     :param j: Rank, position along vertical axis.
-    :returns: :c:`true` if position is on the dark side, :c:`false` otherwise.
+    :returns: :c:data:`true` if position is on the dark side, :c:data:`false` otherwise.
 
 .. c:function:: int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light )
 
@@ -257,7 +257,7 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :param pe: Piece to set.
     :param ct: Tag to set.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, CcPieceEnum pe )
 
@@ -271,7 +271,7 @@ Chessboard functions
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
     :param pe: Piece to set.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_set_tag( CcChessboard * cb__io, int i, int j, CcTagEnum tt )
 
@@ -285,7 +285,7 @@ Chessboard functions
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
     :param tt: Tag to set.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 )
 
@@ -294,7 +294,7 @@ Chessboard functions
 
     :param cb: A chessboard.
     :param cb_2: The other chessboard.
-    :returns: :c:`true` if chessboards are equal, :c:`false` otherwise.
+    :returns: :c:data:`true` if chessboards are equal, :c:data:`false` otherwise.
 
 
 .. c:function:: char * cc_chessboard_as_string__new( CcChessboard * cb, bool is_board_or_tag )
@@ -303,9 +303,9 @@ Chessboard functions
     on a given chessboard.
 
     :param cb: Chessboard to display.
-    :param is_board_or_tag: Whether pieces are displayed (if :c:`true`),
-                            or tags (if :c:`false`).
-    :returns: A newly allocated string if successful, :c:`NULL` otherwise.
+    :param is_board_or_tag: Whether pieces are displayed (if :c:data:`true`),
+                            or tags (if :c:data:`false`).
+    :returns: A newly allocated string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_chessboard_print( CcChessboard * cb, bool is_board_or_tag )
 

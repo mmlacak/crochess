@@ -71,7 +71,7 @@ Setup tags functions
     Function returning setup for a tags, based on a given variant.
 
     :param ve: A variant.
-    :returns: Pointer to setup if successful, :c:`NULL` otherwise.
+    :returns: Pointer to setup if successful, :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccsetuptags-sourcecodeheader:
 

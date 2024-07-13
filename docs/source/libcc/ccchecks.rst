@@ -25,7 +25,7 @@ Check functions
     :param piece: A piece.
     :param momentum: Momentum.
     :param pos: A position.
-    :returns: One of :c:expr:`CcMaybeBoolEnum` values:
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:`CC_MBE_True` if piece is blocked at given position,
         * :c:`CC_MBE_False` if piece is not blocked,
@@ -39,7 +39,7 @@ Check functions
     :param piece: A piece.
     :param momentum: Momentum.
     :param pos: A position.
-    :returns: One of :c:expr:`CcMaybeBoolEnum` values:
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:`CC_MBE_True` if a piece can capture at given position,
         * :c:`CC_MBE_False` if no capture is possible,
@@ -54,7 +54,7 @@ Check functions
     :param momentum: Momentum.
     :param activator: An :term:`activator`.
     :param pos: A position.
-    :returns: One of :c:expr:`CcMaybeBoolEnum` values:
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:`CC_MBE_True` if a piece can diverge from given position,
         * :c:`CC_MBE_False` if no divergence is possible,

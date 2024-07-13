@@ -375,7 +375,7 @@ Piece step validity
     :param step: A step to check.
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccposdefs-piecestepvaliditymacros:
 
@@ -391,7 +391,7 @@ Piece step validity macros
     Classical Chess up to, and including, Miranda's Veil variant.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_DARK_PAWN_STEP_IS_VALID(step)
 
@@ -399,7 +399,7 @@ Piece step validity macros
     Classical Chess up to, and including, Miranda's Veil variant.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID(step)
 
@@ -407,7 +407,7 @@ Piece step validity macros
     from Nineteen variant onwards.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID(step)
 
@@ -415,7 +415,7 @@ Piece step validity macros
     from Nineteen variant onwards.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 
 .. c:macro:: CC_KNIGHT_STEP_IS_VALID(step)
@@ -423,35 +423,35 @@ Piece step validity macros
     Macro to check if :c:`step` can be made by Knight.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_BISHOP_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by Bishop.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_ROOK_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by Rook.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_QUEEN_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by Queen.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_KING_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by King.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 
 .. c:macro:: CC_PEGASUS_STEP_IS_VALID(step)
@@ -459,14 +459,14 @@ Piece step validity macros
     Macro to check if :c:`step` can be made by Pegasus.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PYRAMID_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by Pyramid.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_UNICORN_SHORT_STEP_IS_VALID(step)
 
@@ -474,7 +474,7 @@ Piece step validity macros
     short step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_UNICORN_LONG_STEP_IS_VALID(step)
 
@@ -482,7 +482,7 @@ Piece step validity macros
     long step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 
 .. c:macro:: CC_STAR_STEP_IS_VALID(step)
@@ -490,7 +490,7 @@ Piece step validity macros
     Macro to check if :c:`step` can be made by Star.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_CENTAUR_SHORT_STEP_IS_VALID(step)
 
@@ -498,7 +498,7 @@ Piece step validity macros
     short step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_CENTAUR_LONG_STEP_IS_VALID(step)
 
@@ -506,7 +506,7 @@ Piece step validity macros
     long step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_SERPENT_LEFT_STEP_IS_VALID(step)
 
@@ -514,7 +514,7 @@ Piece step validity macros
     left diagonal step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_SERPENT_RIGHT_STEP_IS_VALID(step)
 
@@ -522,7 +522,7 @@ Piece step validity macros
     right diagonal step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_SERPENT_STEP_IS_VALID(step)
 
@@ -530,7 +530,7 @@ Piece step validity macros
     initial step.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 
 .. c:macro:: CC_LIGHT_SCOUT_STEP_IS_VALID(step)
@@ -538,21 +538,21 @@ Piece step validity macros
     Macro to check if :c:`step` can be made by light Scout.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_DARK_SCOUT_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by dark Scout.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_GRENADIER_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by Grenadier.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 
 .. c:macro:: CC_LIGHT_SHAMAN_STEP_IS_VALID(step)
@@ -560,21 +560,21 @@ Piece step validity macros
     Macro to check if :c:`step` can be made by light Shaman.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_DARK_SHAMAN_STEP_IS_VALID(step)
 
     Macro to check if :c:`step` can be made by dark Shaman.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_STARCHILD_MIRACLE_STEP_IS_VALID(step)
 
     Macro to check if miracle-:c:`step` can be made by Starchild.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 
 .. c:macro:: CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step)
@@ -582,7 +582,7 @@ Piece step validity macros
     Macro to check if color-changing :c:`step` can be made by Serpent.
 
     :param step: A step to check.
-    :returns: :c:`true` if step is valid, :c:`false` otherwise.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccposdefs-piecestepfunctions:
 
@@ -595,13 +595,13 @@ Piece step functions
 
     :param piece: A piece.
     :param pos: A position.
-    :returns: :c:`true` if in the same color, :c:`false` otherwise.
+    :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_convert_steps_to_pos_link( CcTypedStep const steps[], size_t steps_len__d, CcTypedStepLink ** steps__o )
 
     Function converts step array into a newly allocated linked list.
 
-    *Output* argument :c:`*steps__o` has to be :c:`NULL`; appending
+    *Output* argument :c:`*steps__o` has to be :c:data:`NULL`; appending
     steps to the same linked list is not supported.
 
     If :c:`steps_len__d` is :c:expr:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`,
@@ -611,7 +611,7 @@ Piece step functions
     :param steps: A piece step array.
     :param steps_len__d: *Optional*; size of :c:`steps` array.
     :param steps__o: *Output*; newly allocated linked list.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
 

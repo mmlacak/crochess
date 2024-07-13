@@ -80,7 +80,7 @@ Common macros
 .. c:macro:: CC_XOR(to_bool_1,to_bool_2)
 
     Macro to evaluate logical XOR, i.e. to check if one or the other :c:`bool`
-    value is :c:`true`, but not both.
+    value is :c:data:`true`, but not both.
 
     :param to_bool_1: Value cast to :c:`bool`.
     :param to_bool_2: Value cast to :c:`bool`.
@@ -89,7 +89,7 @@ Common macros
     .. note::
 
         In case of integer(s), one has to be non-zero, while the other has to be zero,
-        for :c:expr:`CC_XOR` to return :c:`true`. Arguments are converted to :c:`bool`\s
+        for :c:expr:`CC_XOR` to return :c:data:`true`. Arguments are converted to :c:`bool`\s
         (so, non-zero integer is :c:`1`, otherwise it's :c:`0`), then they are compared.
 
     .. seealso::
@@ -99,15 +99,15 @@ Common macros
 
 .. c:macro:: CC_FREE(ptr)
 
-    Macro to call :c:`free()`, given pointer is casted to :c:`void *`.
+    Macro to call :c:func:`free()`, given pointer is casted to :c:`void *`.
 
     :param ptr: Any pointer to allocated storage.
     :returns: Nothing.
 
 .. c:macro:: CC_FREE_AND_NULL(ptr_ptr)
 
-    Macro to call :c:`free()`, inner pointer is casted to :c:`void *`
-    before the call, then set to :c:`NULL`.
+    Macro to call :c:func:`free()`, inner pointer is casted to :c:`void *`
+    before the call, then set to :c:data:`NULL`.
 
     :param ptr_ptr: A pointer to pointer to allocated storage.
     :returns: Nothing.
@@ -128,40 +128,40 @@ Maybe bool
 
     .. c:enumerator:: CC_MBE_False
 
-        Boolean :c:`false` value; equals to :c:`0`.
+        Boolean :c:data:`false` value; equals to :c:`0`.
 
     .. c:enumerator:: CC_MBE_True
 
-        Boolean :c:`true` value; equals to :c:`1`.
+        Boolean :c:data:`true` value; equals to :c:`1`.
 
-    :c:`enum` is tagged with the same :c:expr:`CcMaybeBoolEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcMaybeBoolEnum` name.
 
 .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 
-    Macro to convert :c:`bool` value into :c:expr:`CcMaybeBoolEnum`.
+    Macro to convert :c:`bool` value into :c:enum:`CcMaybeBoolEnum`.
 
     :param bool_val: Boolean value.
     :returns: `CcMaybeBoolEnum` value.
 
 .. c:macro:: CC_MAYBE_IS_TRUE(maybe_bool)
 
-    Macro to check if :c:expr:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`.
+    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:`CC_MBE_True`.
 
-    :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
+    :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_MAYBE_IS_FALSE(maybe_bool)
 
-    Macro to check if :c:expr:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`.
+    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:`CC_MBE_False`.
 
-    :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
+    :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_MAYBE_IS_VOID(maybe_bool)
 
-    Macro to check if :c:expr:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`.
+    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:`CC_MBE_Void`.
 
-    :param maybe_bool: :c:expr:`CcMaybeBoolEnum` value.
+    :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
     :returns: :c:`bool` value.
 
 .. _lbl-libcc-ccdefines-coordinates:
@@ -408,7 +408,7 @@ Navigation
 
     .. warning::
 
-        Pointer to queue :c:`ptr_var_queue` must be valid pointer, i.e. *must* not be :c:`NULL`.
+        Pointer to queue :c:`ptr_var_queue` must be valid pointer, i.e. *must* not be :c:data:`NULL`.
 
     .. warning::
 
@@ -427,7 +427,7 @@ Navigation
 
     .. warning::
 
-        Pointer to list :c:`ptr_var_lst` must be valid pointer, i.e. *must* not be :c:`NULL`.
+        Pointer to list :c:`ptr_var_lst` must be valid pointer, i.e. *must* not be :c:data:`NULL`.
 
     .. warning::
 
@@ -446,7 +446,7 @@ Navigation
 
     .. warning::
 
-        Pointer to sequence :c:`ptr_var_seq` must be valid pointer, i.e. *must* not be :c:`NULL`.
+        Pointer to sequence :c:`ptr_var_seq` must be valid pointer, i.e. *must* not be :c:data:`NULL`.
 
     .. warning::
 

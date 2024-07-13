@@ -29,7 +29,7 @@ String types
 
         Next string, in a linked list.
 
-    :c:`Struct` is tagged with the same :c:expr:`CcStrings` name.
+    :c:`Struct` is tagged with the same :c:enum:`CcStrings` name.
 
 .. _lbl-libcc-ccstrings-functions:
 
@@ -42,46 +42,46 @@ String functions
 
     :param str: A string to copy, and initialize allocated link.
     :param max_len__d: *Optional*, maximum length to copy.
-    :returns: A newly allocated string link if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated string link if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcStrings * cc_strings_append( CcStrings ** strings__iod_a, char const * str, size_t max_len__d )
 
     Appends a newly allocated string element to a linked list.
 
-    If linked list :c:`*strings__iod_a` is :c:`NULL`, it will be initialized
+    If linked list :c:`*strings__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated string link as its only element.
 
     :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
     :param str: A string to copy, and initialize allocated link.
     :param max_len__d: *Optional*, maximum length to copy.
-    :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: Weak pointer to a newly allocated string if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcStrings * cc_strings_append_fmt_va( CcStrings ** strings__iod_a, size_t max_len__d, char const * fmt, va_list args )
 
     Appends a newly allocated string element to a linked list.
 
-    If linked list :c:`*strings__iod_a` is :c:`NULL`, it will be initialized
+    If linked list :c:`*strings__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated string link as its only element.
 
     :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
     :param max_len__d: *Optional*, maximum length to copy.
     :param fmt: Formatting string, as defined for :c:`printf()`.
     :param args: Variadic input list for a string format.
-    :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: Weak pointer to a newly allocated string if successful, :c:data:`NULL` otherwise.
     :seealso: :c:expr:`cc_strings_append()`
 
 .. c:function:: CcStrings * cc_strings_append_fmt( CcStrings ** strings__iod_a, size_t max_len__d, char const * fmt, ... )
 
     Appends a newly allocated string element to a linked list.
 
-    If linked list :c:`*strings__iod_a` is :c:`NULL`, it will be initialized
+    If linked list :c:`*strings__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated string link as its only element.
 
     :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
     :param max_len__d: *Optional*, maximum length to copy.
     :param fmt: Formatting string, as defined for :c:`printf()`.
     :param ...: Variadic input for a string format.
-    :returns: Weak pointer to a newly allocated string if successful, :c:`NULL` otherwise.
+    :returns: Weak pointer to a newly allocated string if successful, :c:data:`NULL` otherwise.
     :seealso: :c:expr:`cc_strings_append_fmt_va()`
 
 .. c:function:: CcStrings * cc_strings_duplicate_all__new( CcStrings * strings )
@@ -89,14 +89,14 @@ String functions
     Duplicates all string elements in a given linked list.
 
     :param strings: Linked list of strings.
-    :returns: Pointer to a newly allocated linked list if successful, :c:`NULL` otherwise.
+    :returns: Pointer to a newly allocated linked list if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_strings_free_all( CcStrings ** strings__f )
 
-    :c:`free()`\s all string links in a linked list.
+    :c:func:`free()`\s all string links in a linked list.
 
     :param strings__f: Linked list of strings.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: https://en.cppreference.com/w/c/memory/free
 
 .. _lbl-libcc-ccstrings-sourcecodeheader:

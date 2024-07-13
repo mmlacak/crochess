@@ -81,18 +81,18 @@ Parsed side-effect data
 
         Corresponds to ``$$$``.
 
-    :c:`enum` is tagged with the same :c:expr:`CcParsedSideEffectEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcParsedSideEffectEnum` name.
 
 .. c:macro:: CC_PARSED_SIDE_EFFECT_ENUM_IS_CASTLING(see)
 
     Macro to check if given side-effect enum is castling.
 
-    :param see: A side-effect enumeration, i.e. one of :c:expr:`CcParsedSideEffectEnum` values.
-    :returns: :c:`true` if castling, :c:`false` otherwise.
+    :param see: A side-effect enumeration, i.e. one of :c:enum:`CcParsedSideEffectEnum` values.
+    :returns: :c:data:`true` if castling, :c:data:`false` otherwise.
 
 .. c:macro:: CC_MAX_LEN_PARSED_SIDE_EFFECT_SYMBOL
 
-    Maximum length of a side-effect symbol; equals to :c:`3`.
+    Maximum length of a side-effect symbol; equals to ``3``.
 
 .. _lbl-libcc-ccparsedsideeffect-functions:
 
@@ -103,7 +103,7 @@ Parsed side-effect functions
 
     Function returns string symbol, as used in algebraic notation, for a given side-effect.
 
-    Returned string is not allocated, so do not :c:`free()` it.
+    Returned string is not allocated, so do not :c:func:`free()` it.
 
     :param see: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, :c:`"?"` otherwise.

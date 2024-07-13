@@ -67,7 +67,7 @@ together into linked list.
 Each link has ownership over any pointer it contains, including the link it
 points to, and -by extension- the rest of a linked list.
 
-Linked list is simply a pointer to a first item in that list. :c:`NULL` pointer
+Linked list is simply a pointer to a first item in that list. :c:data:`NULL` pointer
 is equivalent to empty list.
 
 Links have ``Link`` appended to the name, usually of a base entity, and also
@@ -88,14 +88,14 @@ Common functions linked lists have:
     - :c:`<linked_list>__new()`, allocates new link initialized with a given base item
     - :c:`<linked_list>_append()`, appends a single base item to linked list
     - :c:`<linked_list>_extend()`, extends linked list with another of the same type
-    - :c:`<linked_list>_free_all()`, :c:`free()`\s all links in a linked list, and all other contained storage
+    - :c:`<linked_list>_free_all()`, :c:func:`free()`\s all links in a linked list, and all other contained storage
     - :c:`<linked_list>_duplicate_all__new()`, allocates new, deep copy of a given linked list
     - :c:`<linked_list>_len()`, returns length of a given linked list
 
 .. note::
 
     :c:`_append()` and :c:`_extend()` functions also work on empty linked list,
-    i.e. even if pointer to linked list is :c:`NULL`.
+    i.e. even if pointer to linked list is :c:data:`NULL`.
 
 .. note::
 

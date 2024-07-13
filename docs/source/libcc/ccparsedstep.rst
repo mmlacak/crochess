@@ -21,15 +21,15 @@ Parsed step data
 
     Macro to check if a given step link is valid.
 
-    :param sle: Step link enumeration, :c:expr:`CcParsedStepLinkEnum` value.
-    :returns: :c:`true` if valid, :c:`false` otherwise.
+    :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
+    :returns: :c:data:`true` if valid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_IS_STEP_LINK_DESTINATION(sle)
 
     Macro to check if a given step link is destination.
 
-    :param sle: Step link enumeration, :c:expr:`CcParsedStepLinkEnum` value.
-    :returns: :c:`true` if destination, :c:`false` otherwise.
+    :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
+    :returns: :c:data:`true` if destination, :c:data:`false` otherwise.
 
 .. c:enum:: CcParsedStepLinkEnum
 
@@ -63,7 +63,7 @@ Parsed step data
 
         Just destination field, no separators, no other steps.
 
-    :c:`enum` is tagged with the same :c:expr:`CcParsedStepLinkEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcParsedStepLinkEnum` name.
 
 .. c:struct:: CcParsedStep
 
@@ -86,7 +86,7 @@ Parsed step data
 
         Next step in a linked list.
 
-    :c:`struct` is tagged with the same :c:expr:`CcParsedStep` name.
+    :c:`struct` is tagged with the same :c:enum:`CcParsedStep` name.
 
 .. _lbl-libcc-ccparsedstep-functions:
 
@@ -98,10 +98,10 @@ Parsed step functions
     Function returns string symbol, as used in algebraic notation,
     for a given step link.
 
-    Returned string is not allocated, so do not :c:`free()` it.
+    Returned string is not allocated, so do not :c:func:`free()` it.
 
     :param sle: A step linkage.
-    :returns: String symbol if link is valid, :c:`NULL` otherwise.
+    :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
 .. c:function:: CcParsedStep * cc_parsed_step__new( CcParsedStepLinkEnum link, CcPos field, CcParsedSideEffect side_effect )
 
@@ -110,28 +110,28 @@ Parsed step functions
     :param link: Type of a link to a previous step.
     :param field: A field.
     :param side_effect: Side-effect :c:`struct`\ure.
-    :returns: A newly allocated step if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcParsedSideEffect side_effect )
 
     Appends a newly allocated step to a given linked list.
 
-    If linked list :c:`*steps__iod_a` is :c:`NULL`, it will be initialized
+    If linked list :c:`*steps__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated typed step link as its only element.
 
     :param steps__iod_a: **Ownership**, *optional* *input/output* parameter; linked list of steps
-                         to which a new step is appended, inner pointer can be :c:`NULL`.
+                         to which a new step is appended, inner pointer can be :c:data:`NULL`.
     :param link: Type of a link to a previous step.
     :param field: A field.
     :param side_effect: Side-effect :c:`struct`\ure.
-    :returns: A newly allocated step if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps )
 
     Duplicates all given steps into a newly allocated linked list.
 
     :param sle: Linked list to duplicate.
-    :returns: A newly allocated steps if successful, :c:`NULL` otherwise.
+    :returns: A newly allocated steps if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a, CcParsedStep ** steps__d_n )
 
@@ -145,12 +145,12 @@ Parsed step functions
 
         Extending linked list :c:`steps__d_n` has its ownership transferred to
         extended linked list :c:`steps__iod_a`; as a result, inner pointer
-        :c:`*steps__d_n` is :c:`NULL`\ed.
+        :c:`*steps__d_n` is :c:data:`NULL`\ed.
 
     :param steps__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
     :param steps__d_n: **Ownership transfer**, *optional*; linked list to extend existing steps.
     :returns: Weak pointer to extended portion of a linked list if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: size_t cc_parsed_step_count( CcParsedStep * steps )
 
@@ -164,7 +164,7 @@ Parsed step functions
     Function finds starting step.
 
     :param steps: Linked list of steps.
-    :returns: Starting step if successful, :c:`NULL` otherwise.
+    :returns: Starting step if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcParsedStep * cc_parsed_step_find_destination( CcParsedStep * steps )
 
@@ -175,14 +175,14 @@ Parsed step functions
     (non-starting) step in a given list.
 
     :param steps: Linked list of steps.
-    :returns: Destination step if successful, :c:`NULL` otherwise.
+    :returns: Destination step if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_parsed_step_free_all( CcParsedStep ** steps__f )
 
     Frees all steps in a linked list.
 
     :param steps__f: Linked list of steps.
-    :returns: :c:`true` if successful, :c:`false` otherwise.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps )
 
@@ -197,7 +197,7 @@ Parsed step functions
 
     :param steps: Linked list of steps.
     :returns: A newly allocated, zero-terminated string if successful,
-              :c:`NULL` otherwise
+              :c:data:`NULL` otherwise
 
 .. _lbl-libcc-ccparsedstep-newfunctions:
 
