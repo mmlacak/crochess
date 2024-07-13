@@ -21,7 +21,7 @@ Parsed side-effect data
 
     Step side-effect enumeration.
 
-    .. c:enumerator:: CC_PSLE_None
+    .. c:enumerator:: CC_PSEE_None
 
         No side effects.
 

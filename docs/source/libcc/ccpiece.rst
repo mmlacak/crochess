@@ -430,7 +430,7 @@ Monoliths) do not belong to any player.
     .. c:enumerator:: CC_PE_DarkKnight
     .. c:enumerator:: CC_PE_DarkPawn
 
-    .. c:enumerator:: CC_TE_None
+    .. c:enumerator:: CC_PE_None
 
         No piece present, equals to ``0``.
         Used for e.g. empty on-board fields, any off-board field.
