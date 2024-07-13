@@ -288,6 +288,45 @@ Parsed side-effect functions
     :param se: A side-effect.
     :returns: A position affected by a side-effect.
 
+.. _lbl-libcc-ccparsedsideeffect-structfunctions:
+
+Parsed side-effect :c:`struct` functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    The side-effect convenience functions are meant to be used instead
+    of :c:func:`cc_parsed_side_effect()`.
+
+    They have minimal set of arguments required by the type of a side-effect,
+    otherwise they behave exactly as their generic progenitor.
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_none( void )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_en_passant( CcPieceEnum pawn, CcPos distant )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_tag_for_promotion( CcPieceEnum captured, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_failed_conversion( void )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_transparency( CcPieceEnum piece )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceEnum piece )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceEnum piece, CcPos destination )
+
+.. c:function:: CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void )
+
 
 
 
