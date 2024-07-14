@@ -145,6 +145,14 @@ Game functions
     :param game: Game to duplicate.
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
+.. c:function:: bool cc_game_free_all( CcGame ** game__f )
+
+    :c:func:`free()`\s game, and all owned resources (chessboard, moves).
+
+    :param game__f: A game to free.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
 
 
 
