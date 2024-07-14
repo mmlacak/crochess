@@ -21,6 +21,41 @@ Game data
 
     Separators constant, used to tokenize string setup.
 
+.. _lbl-libcc-ccgame-status:
+
+Game status
+-----------
+
+.. c:enum:: CcGameStatusEnum
+
+    Game status enumeration.
+
+    .. c:enumerator:: CC_GSE_None
+
+        Uninitialized game.
+
+    .. c:enumerator:: CC_GSE_Turn_Light
+
+        Light player is on turn.
+
+    .. c:enumerator:: CC_GSE_Turn_Dark
+
+        Dark player is on turn.
+
+    .. c:enumerator:: CC_GSE_Win_Light
+
+        Light player has won.
+
+    .. c:enumerator:: CC_GSE_Win_Dark
+
+        Dark player has won.
+
+    .. c:enumerator:: CC_GSE_Draw
+
+        Game was drawn.
+
+    :c:`enum` is tagged with the same :c:enum:`CcGameStatusEnum` name.
+
 
 
 
