@@ -138,6 +138,14 @@ Game functions
                      or from manually set-up position (:c:data:`false`).
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
+.. c:function:: CcGame * cc_game_duplicate_all__new( CcGame * game )
+
+    Duplicates a given game into a newly allocated one.
+
+    :param game: Game to duplicate.
+    :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
+
+
 
 
 
