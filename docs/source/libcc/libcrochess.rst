@@ -100,6 +100,8 @@ Library contents
     ccparsemessage
     ccparsemove
 
+    ccgame
+
     ccstrutils
     ccstrings
     cctoken
