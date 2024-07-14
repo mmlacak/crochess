@@ -33,6 +33,23 @@ Parse message types
 
     :c:`enum` is tagged with the same :c:enum:`CcParseMsgTypeEnum` name.
 
+.. c:struct:: CcParseMsg
+
+    Parser message :c:`struct`\ure, linked list.
+
+    .. c:member:: CcParseMsgTypeEnum type
+
+        Type of a parser message.
+
+    .. c:member:: char * msg
+
+        Parser message.
+
+    .. c:member:: struct CcParseMsg * next
+
+        Next parser message, in a linked list.
+
+    :c:`struct` is tagged with the same :c:struct:`CcParseMsg` name.
 
 
 
