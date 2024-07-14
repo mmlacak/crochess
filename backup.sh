@@ -12,7 +12,7 @@ cd .. # out of crochess folder
 rm -rfv crochess.zip
 
 echo
-zip -rTv9 crochess.zip crochess -x *.* *. -i \*.txt \*LICENSING\* \*COPYING\* \*CODE_OF_CONDUCT\* \*CONTRIBUTING\* \*.rst \*.md \*.sh \*.py \*.tex \*.c \*.h \*.ico \*Doxyfile\* -x \*tmp\* \*temp\* \*.github\* \*.DIFF.\* \*bin\* crochess/ws/docs/\* crochess/docs/build/\*
+zip -rTv9 crochess.zip crochess -x *.* *. -i \*.txt \*LICENSING\* \*COPYING\* \*CODE_OF_CONDUCT\* \*CONTRIBUTING\* \*.rst \*.md \*.sh \*.py \*.tex \*.c \*.h \*.ico \*Doxyfile\* \*.geany -x \*tmp\* \*temp\* \*.github\* \*.DIFF.\* \*bin\* crochess/ws/docs/\* crochess/docs/build/\*
 echo
 
 ls -Fal --color=auto *.zip
