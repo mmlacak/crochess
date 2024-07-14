@@ -152,12 +152,49 @@ Game functions
     :param game__f: A game to free.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: CcGame * cc_game_setup_from_string__new( char const * setup, CcGame * before_setup__d )
 
+    Functions returns a newly allocated :c:struct:`CcGame`, from a given
+    string, and optionally initial :c:struct:`CcGame`, containing starting
+    positions, game status, and moves.
 
+    Setup string contains list of ``<piece><file><rank>[<tag>]`` items, ``<tag>`` is optional.
 
+    ``<piece>`` is usual piece symbol, as used in AN; dark/dim pieces are represented by lower-case letter, e.g. dark Bishop would be ``b``, instead of usual ``B``.
 
+    If a particular field has to be cleared, ``' '`` (space) is used for ``<piece>``.
 
+    ``<file>`` is any letter from ``a`` to ``z``, inclusive.
 
+    ``<rank>`` is any number from ``1`` to ``26``, inclusive.
+
+    ``<tag>`` is optional, if given it can be one of ``P``, ``R``, ``E``, ``C``; representing delayed promotion, rushing, en passant and castling tags.
+
+    If optional, initial game setup is not given, setup string has to be preceded by variant abbreviation, i.e. use one of:
+
+        * cc  --> Classical Chess
+        * ct  --> Croatian Ties
+        * ma  --> Mayan Ascendancy
+        * aoa --> Age Of Aquarius
+        * mv  --> Miranda's Veil
+        * n   --> Nineteen
+        * hd  --> Hemera's Dawn
+        * tr  --> Tamoanchan Revisited
+        * cot --> Conquest Of Tlalocan
+        * d   --> Discovery
+        * o   --> One
+
+    Use lower-cased variant abbreviation to set dark player on the move; otherwise, it's light player's move.
+
+    Variant abbreviation has to be followed by ``' '`` (space).
+
+    Some examples: ``"O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E"``, ``"o Bh5,Bd9,Wk2,Ro2"``. ``"bd1, a11,Bl1,bd9"``; the last one can only be used along with an existing game setup.
+
+    :param setup: A setup string.
+    :param before_setup__d: An *optional*, initial game. If given, it is
+                            copied before any modification specified by a
+                            given string is applied.
+    :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccgame-sourcecodeheader:
 
