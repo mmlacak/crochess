@@ -40,6 +40,14 @@ Game status
     :param gse: Game status; :c:enum:`CcGameStatusEnum` value.
     :returns: :c:data:`true` if it's dark player's turn, :c:data:`false` otherwise.
 
+.. c:macro:: CC_GAME_STATUS_IS_TURN(gse)
+
+    Macro to check if it's either light or dark player's turn.
+
+    :param gse: Game status; :c:enum:`CcGameStatusEnum` value.
+    :returns: :c:data:`true` if it's either light or dark player's turn,
+              :c:data:`false` otherwise.
+
 .. c:enum:: CcGameStatusEnum
 
     Game status enumeration.
