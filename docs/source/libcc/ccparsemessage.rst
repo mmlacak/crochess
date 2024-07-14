@@ -121,9 +121,12 @@ Parse message functions
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: https://en.cppreference.com/w/c/memory/free
 
+.. c:function:: CcParseMsg * cc_parse_msg_get_last( CcParseMsg * parse_msgs )
 
+    Function returning last parser message from a given linked list.
 
-
+    :param parse_msgs: Linked list of parser messages.
+    :returns: Last parses message if successful; :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccparsemessage-sourcecodeheader:
 
