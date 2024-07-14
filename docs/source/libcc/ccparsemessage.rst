@@ -51,6 +51,21 @@ Parse message types
 
     :c:`struct` is tagged with the same :c:struct:`CcParseMsg` name.
 
+.. _lbl-libcc-ccparsemessage-functions:
+
+Parse message functions
+-----------------------
+
+.. c:function:: CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type, char const * msg, size_t max_len__d )
+
+    Returns a newly allocated parser message.
+
+    :param type: Type of a parser message.
+    :param msg: Parser message to copy.
+    :param max_len__d: *Optional*, maximum length of :c:`msg` to copy, can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
+    :returns: A newly allocated parser message if successful,
+              :c:`NULL` otherwise.
+
 
 
 
