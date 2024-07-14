@@ -81,7 +81,7 @@ CcParseMsg * cc_parse_msg_append( CcParseMsg ** parse_msgs__iod_a,
     @param type Type of a parser message.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param fmt Formatting string, as defined for `printf`.
-    @param args Variadic format arguments, as used for `printf`.
+    @param args Variadic list, input for a string format.
 
     @see cc_parse_msg_append()
 
@@ -101,7 +101,7 @@ CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** parse_msgs__iod_a,
     @param type Type of a parser message.
     @param max_len__d _Optional_, maximum length to copy, if a given string is longer than that. Can be `0`, if so entirety of a given string is duplicated.
     @param fmt Formatting string, as defined for `printf`.
-    @param ... Variadic format arguments, as used for `printf`.
+    @param ... Variadic input for a string format.
 
     @see cc_parse_msg_append(), cc_parse_msg_append_fmt_va()
 
