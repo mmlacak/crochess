@@ -119,6 +119,25 @@ Game types
 
     :c:`struct` is tagged with the same :c:struct:`CcGame` name.
 
+.. _lbl-libcc-ccgame-functions:
+
+Game functions
+--------------
+
+.. c:function:: CcGame * cc_game__new( CcGameStatusEnum status, CcVariantEnum ve, bool do_setup )
+
+    Function returns next game status, based on current player
+    resignation.
+
+    Linked list of performed moves will be empty. If necessary,
+    it can be populated once newly allocated game is returned.
+
+    :param status: Initial game status.
+    :param ve: Variant to play.
+    :param do_setup: Flag, if start from initial setup (:c:data:`true`),
+                     or from manually set-up position (:c:data:`false`).
+    :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
+
 
 
 
