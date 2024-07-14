@@ -88,6 +88,15 @@ Game status
     :param is_won: Flag, if current player has won the game.
     :returns: Next game status.
 
+.. c:function:: CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse )
+
+    Function returns next game status, based on current player
+    resignation.
+
+    :param gse: Current game status.
+    :returns: Next game status.
+
+
 
 
 
