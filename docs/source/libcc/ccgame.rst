@@ -96,6 +96,29 @@ Game status
     :param gse: Current game status.
     :returns: Next game status.
 
+.. _lbl-libcc-ccgame-types:
+
+Game types
+----------
+
+.. c:struct:: CcGame
+
+    Game :c:`struct`\ure.
+
+    .. c:member:: CcGameStatusEnum status
+
+        Current game status.
+
+    .. c:member:: CcChessboard * chessboard
+
+        Current position on a chessboard.
+
+    .. c:member:: CcParsedMove * moves
+
+        Queue of moves played so far.
+
+    :c:`struct` is tagged with the same :c:struct:`CcGame` name.
+
 
 
 
