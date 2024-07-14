@@ -112,6 +112,15 @@ Parse message functions
               :c:`NULL` otherwise.
     :seealso: :c:func:`cc_parse_msg_append_fmt_va()`
 
+.. c:function:: bool cc_parse_msg_free_all( CcParseMsg ** parse_msgs__f )
+
+    :c:func:`free()`\s all parser messages, and associated resources,
+    in a linked list.
+
+    :param parse_msgs__f: Linked list of parser messages.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :seealso: https://en.cppreference.com/w/c/memory/free
+
 
 
 
