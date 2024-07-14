@@ -97,6 +97,8 @@ Library contents
     ccparsedstep
     ccparsedsideeffect
 
+    ccparsemessage
+
     ccstrutils
     ccstrings
     cctoken
