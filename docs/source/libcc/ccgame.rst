@@ -1,4 +1,4 @@
-.. Copyright (c) 2021, 2024 Mario Mlačak, mmlacak@gmail.com
+.. Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
    This text is Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See accompanying LICENSING, COPYING files for details.
    Included source code files are licensed under GNU GPL v3+ license. See LICENSING, COPYING files in root folder of the project for details.
 
@@ -158,7 +158,7 @@ Game functions
     string, and optionally initial :c:struct:`CcGame`, containing starting
     positions, game status, and moves.
 
-    Setup string contains list of ``<piece><file><rank>[<tag>]`` items, ``<tag>`` is optional.
+    Setup string contains list of ``<piece><file><rank>[<tag>]`` items, separated by ``,`` (comma). ``<tag>`` is optional.
 
     ``<piece>`` is usual piece symbol, as used in AN; dark/dim pieces are represented by lower-case letter, e.g. dark Bishop would be ``b``, instead of usual ``B``.
 
