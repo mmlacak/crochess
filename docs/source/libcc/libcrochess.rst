@@ -98,6 +98,7 @@ Library contents
     ccparsedsideeffect
 
     ccparsemessage
+    ccparsemove
 
     ccstrutils
     ccstrings
