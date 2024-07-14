@@ -78,6 +78,16 @@ Game status
 
     :c:`enum` is tagged with the same :c:enum:`CcGameStatusEnum` name.
 
+.. c:function:: CcGameStatusEnum cc_game_status_next( CcGameStatusEnum gse, bool is_end, bool is_won )
+
+    Function returns next game status, based on current one,
+    and additional flags from user or position on chessboard.
+
+    :param gse: Current game status.
+    :param is_end: Flag, if game has ended due to rules.
+    :param is_won: Flag, if current player has won the game.
+    :returns: Next game status.
+
 
 
 
