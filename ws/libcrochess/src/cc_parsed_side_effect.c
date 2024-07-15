@@ -6,11 +6,6 @@
 #include "cc_defines.h"
 #include "cc_parsed_side_effect.h"
 
-/**
-    @file cc_parsed_side_effect.c
-    @brief Parsed side-effects functions.
-*/
-
 
 char const * cc_parsed_side_effect_symbol( CcParsedSideEffectEnum see ) {
     switch ( see ) {
