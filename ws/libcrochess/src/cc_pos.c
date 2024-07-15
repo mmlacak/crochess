@@ -9,11 +9,6 @@
 #include "cc_math.h"
 #include "cc_pos.h"
 
-/**
-    @file cc_pos.c
-    @brief Position, position + piece, linked list of position + piece.
-*/
-
 
 //
 // Position.
