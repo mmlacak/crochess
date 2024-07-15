@@ -6,11 +6,6 @@
 #include "cc_defines.h"
 #include "cc_parsed_step.h"
 
-/**
-    @file cc_parsed_step.c
-    @brief Parsed step, linked list functions.
-*/
-
 
 char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle ) {
     switch ( sle ) {
