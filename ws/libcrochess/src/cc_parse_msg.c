@@ -9,11 +9,6 @@
 #include "cc_token.h"
 #include "cc_parse_msg.h"
 
-/**
-    @file cc_parse_msg.c
-    @brief Parse messages related functions.
-*/
-
 
 CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
                                 char const * msg,
