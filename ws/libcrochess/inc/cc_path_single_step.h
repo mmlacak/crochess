@@ -14,11 +14,6 @@
 #include "cc_pos_defs.h"
 #include "cc_pos_utils.h"
 
-/**
-    @file cc_path_single_step.h
-    @brief Path generating, filtering for single-step pieces.
-*/
-
 
 // static bool cc_path_pawn( CcChessboard * cb,
 //                           CcPosDesc pawn,

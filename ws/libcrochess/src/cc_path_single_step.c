@@ -5,11 +5,6 @@
 
 #include "cc_path_single_step.h"
 
-/**
-    @file cc_path_single_step.c
-    @brief Path generating, filtering for single-step pieces.
-*/
-
 
 static bool cc_path_pawn( CcChessboard * cb,
                           CcPieceEnum pawn,
