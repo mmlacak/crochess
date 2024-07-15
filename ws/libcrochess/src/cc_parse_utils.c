@@ -7,11 +7,6 @@
 #include "cc_str_utils.h"
 #include "cc_parse_utils.h"
 
-/**
-    @file cc_parse_utils.c
-    @brief Functions separating a move (algebraic notation string) into list of enums, sub-strings.
-*/
-
 
 bool cc_parse_ply_link( char const * an_str,
                         CcParsedPlyLinkEnum * ple__o ) {

@@ -14,11 +14,6 @@
 #include "cc_parsed_step.h"
 #include "cc_parsed_ply.h"
 
-/**
-    @file cc_parse_utils.h
-    @brief Functions separating a move (algebraic notation string) into list of enums, sub-strings.
-*/
-
 
 // DOCS
 #define CC_CHAR_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
