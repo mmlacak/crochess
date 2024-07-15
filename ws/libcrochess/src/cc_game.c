@@ -10,10 +10,6 @@
 #include "cc_token.h"
 #include "cc_game.h"
 
-/**
-    @file cc_game.c
-    @brief Functions related to game storage.
-*/
 
 char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[] = ",";
 
