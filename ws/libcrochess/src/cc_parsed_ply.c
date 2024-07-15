@@ -6,11 +6,6 @@
 #include "cc_defines.h"
 #include "cc_parsed_ply.h"
 
-/**
-    @file cc_parsed_ply.c
-    @brief Parsed ply, plies linked list functions.
-*/
-
 
 char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple ) {
     switch ( ple ) {
