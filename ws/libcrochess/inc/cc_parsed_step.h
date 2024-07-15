@@ -9,6 +9,7 @@
 #include "cc_pos.h"
 #include "cc_parsed_side_effect.h"
 
+// TODO :: revise VALID vs. IN_DOMAIN, for all macros
 #define CC_IS_STEP_LINK_VALID(sle) ( (sle) != CC_PSLE_None )
 
 #define CC_IS_STEP_LINK_DESTINATION(sle) ( ( (sle) == CC_PSLE_Destination ) || ( (sle) == CC_PSLE_JustDestination ) )

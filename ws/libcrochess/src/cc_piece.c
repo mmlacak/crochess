@@ -9,11 +9,6 @@
 #include "cc_str_utils.h"
 #include "cc_piece.h"
 
-/**
-    @file cc_piece.c
-    @brief Piece related functions.
-*/
-
 
 CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light ) {
     switch ( symbol ) {

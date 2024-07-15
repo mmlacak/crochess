@@ -16,6 +16,17 @@ Type of a piece is what remains after it has been stripped of color (or
 shade). For instance, light and dark Rook are both Rooks. Similarly, dim
 and bright Star are both Stars.
 
+In this text, piece symbol is uppercase char, representing piece type, e.g. ``N``.
+
+Piece symbol on its own does not contain information if a particular piece is
+light/bright or dark/dim.
+
+Piece char is representation of a piece type, it is lowercase if piece is dark/dim
+pieces, otherwise it's uppercase.
+
+For example, piece char for dark Knight is ``n``, while for light Knight it is ``N``;
+piece symbol for both is the same, ``N``.
+
 .. _lbl-libcc-ccpiece-validity:
 
 Piece validity
