@@ -4,7 +4,7 @@
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccparsemessage:
+.. _lbl-libcc-ccparsemsg:
 
 Parse message
 =============
@@ -12,7 +12,7 @@ Parse message
 Documents ``cc_parse_msg.h`` and ``cc_parse_msg.c`` files,
 which contain various parse message definitions and functions.
 
-.. _lbl-libcc-ccparsemessage-types:
+.. _lbl-libcc-ccparsemsg-types:
 
 Parse message types
 -------------------
@@ -51,7 +51,7 @@ Parse message types
 
     :c:`struct` is tagged with the same :c:struct:`CcParseMsg` name.
 
-.. _lbl-libcc-ccparsemessage-functions:
+.. _lbl-libcc-ccparsemsg-functions:
 
 Parse message functions
 -----------------------
@@ -128,7 +128,7 @@ Parse message functions
     :param parse_msgs: Linked list of parser messages.
     :returns: Last parses message if successful; :c:data:`NULL` otherwise.
 
-.. _lbl-libcc-ccparsemessage-sourcecodeheader:
+.. _lbl-libcc-ccparsemsg-sourcecodeheader:
 
 Parse message source code header
 --------------------------------
@@ -139,7 +139,7 @@ Included source code file is ``cc_parse_msg.h``.
     :language: C
     :linenos:
 
-.. _lbl-libcc-ccparsemessage-sourcecodefile:
+.. _lbl-libcc-ccparsemsg-sourcecodefile:
 
 Parse message source code file
 ------------------------------

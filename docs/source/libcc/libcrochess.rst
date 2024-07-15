@@ -97,7 +97,7 @@ Library contents
     ccparsedstep
     ccparsedsideeffect
 
-    ccparsemessage
+    ccparsemsg
     ccparsemove
 
     ccgame
