@@ -18,10 +18,6 @@
 #include "cc_setup_tags.h"
 #include "cc_chessboard.h"
 
-/**
-    @file cc_chessboard.c
-    @brief Chessboard functions.
-*/
 
 char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[] = ",";
 

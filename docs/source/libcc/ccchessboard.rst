@@ -309,11 +309,22 @@ Chessboard functions
 
 .. c:function:: bool cc_chessboard_print( CcChessboard * cb, bool is_board_or_tag )
 
-    TODO :: move out
+    Prints chessboard, either pieces or tags.
+
+    .. todo::
+
+        TODO :: move out
+
+    :param cb: Chessboard to print.
+    :param is_board_or_tag: Whether pieces are printed (if :c:data:`true`),
+                            or tags (if :c:data:`false`).
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb, char const * setup )
 
-    TODO
+    .. todo::
+
+        DOCS
 
 
 .. _lbl-libcc-ccchessboard-sourcecodeheader:
