@@ -6,32 +6,9 @@
 
 #include <stddef.h>
 
-/**
-    @file cc_math.h
-    @brief Various math functions.
-*/
 
-
-/**
-    Function returns greatest common divisor between two given integers.
-
-    @param x An integer.
-    @param y Another integer.
-
-    @see
-    [https://en.wikipedia.org/wiki/Euclidean_algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm)
-
-    @return Greatest common divisor.
-*/
 int cc_gcd( int x, int y );
 
-/**
-    Function returns length of a diagonal.
-
-    @param size Size of a chessboard, an integer.
-
-    @return Diagonal of a chessboard, rounded up.
-*/
 size_t cc_diagonal( size_t size );
 
 
