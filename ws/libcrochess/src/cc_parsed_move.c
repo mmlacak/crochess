@@ -9,11 +9,6 @@
 
 #include "cc_parsed_move.h"
 
-/**
-    @file cc_parsed_move.c
-    @brief Parsed move, linked list functions.
-*/
-
 
 CcParsedMove * cc_parsed_move__new( char const * notation,
                                     size_t max_len__d,
