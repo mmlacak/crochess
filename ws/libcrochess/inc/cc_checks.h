@@ -18,68 +18,16 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
 // DOCS
 bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum );
 
-/**
-    Function checks if piece is blocked at given position.
-
-    @param cb Chessboard.
-    @param piece A piece.
-    @param momentum Momentum.
-    @param pos Position.
-
-    @see CcMaybeBoolEnum
-
-    @return
-    One of `CcMaybeBoolEnum` values:
-    - `CC_MBE_True` if piece is blocked at given position,
-    - `CC_MBE_False` if piece is not blocked,
-    - `CC_MBE_Void` in case of error (given chessboard was `NULL`, or given piece was `CC_PE_None`).
-*/
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
                                               uint momentum,
                                               CcPos pos );
 
-/**
-    Function checks if a piece can capture at given position.
-
-    @param cb Chessboard.
-    @param piece Capturing piece.
-    @param momentum Momentum.
-    @param pos Position.
-
-    @see CcMaybeBoolEnum
-
-    @return
-    One of `CcMaybeBoolEnum` values:
-    - `CC_MBE_True` if a piece can capture at given position,
-    - `CC_MBE_False` if no capture is possible,
-    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
-*/
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                uint momentum,
                                                CcPos pos );
 
-/**
-    Function checks if a piece can diverge from given position.
-
-    @param cb Chessboard.
-    @param piece Capturing piece.
-    @param momentum Momentum.
-    @param activator An activator.
-    @param pos Position.
-
-    @note
-    Activator is last material (i.e. non-Wave) piece preceding the Wave in a cascade.
-
-    @see CcMaybeBoolEnum
-
-    @return
-    One of `CcMaybeBoolEnum` values:
-    - `CC_MBE_True` if a piece can diverge from given position,
-    - `CC_MBE_False` if no divergence is possible,
-    - `CC_MBE_Void` in case of error (given chessboard was `NULL`).
-*/
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceEnum piece,
                                                uint momentum,
