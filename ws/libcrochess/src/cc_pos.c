@@ -104,7 +104,7 @@ bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o ) {
     #define LOWER_BOUND (-100)
     #define UPPER_BOUND (1000)
 
-    if ( CC_IS_POS_ON_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) ) {
+    if ( CC_IS_POS_ON_VALID_BOARD( CC_MAX_BOARD_SIZE, pos.i, pos.j ) ) {
         snprintf( *pos_str__o,
                   CC_MAX_LEN_CHAR_8,
                   "%c%hhd",

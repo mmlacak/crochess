@@ -12,8 +12,8 @@
 //                                CcPos destination ) {
 //     if ( !cb ) return false;
 //     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
-//     if ( !CC_IS_POS_ON_BOARD( cb->size, start.i, start.j ) ) return false;
-//     if ( !CC_IS_POS_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
+//     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, start.i, start.j ) ) return false;
+//     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
 //     CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
@@ -32,8 +32,8 @@
 //                             CcPos destination ) {
 //     if ( !cb ) return false;
 //     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
-//     if ( !CC_IS_POS_ON_BOARD( cb->size, start.i, start.j ) ) return false;
-//     if ( !CC_IS_POS_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
+//     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, start.i, start.j ) ) return false;
+//     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
 //     CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 

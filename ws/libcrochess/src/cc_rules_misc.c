@@ -89,8 +89,8 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 //                               CcPos destination ) {
 //     if ( !cb ) return false;
 //     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
-//     if ( !CC_IS_POS_ON_BOARD( cb->size, start.i, start.j ) ) return false;
-//     if ( !CC_IS_POS_ON_BOARD( cb->size, destination.i, destination.j ) ) return false;
+//     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, start.i, start.j ) ) return false;
+//     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
 //     if ( !cc_pos_is_equal( start, destination ) ) {
 //         CcPos step = cc_pos_difference( destination, start );

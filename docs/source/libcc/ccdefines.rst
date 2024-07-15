@@ -16,6 +16,8 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
 Common types
 ------------
 
+Convenience shorthands for unsigned integer types.
+
 .. c:type:: unsigned char uchar
 
     Convenience type.
@@ -42,10 +44,12 @@ Common macros
     Macro to inline comparing, producing smaller value of the two given.
 
     .. note::
+
         Given values are not cast. Depending on their type(s), this might
         lead to undefined behavior (e.g. if not comparable pointers).
 
     .. seealso::
+
         `<https://en.cppreference.com/w/c/language/operator_comparison>`_
 
     :param x: A number, value is not cast.
@@ -57,10 +61,12 @@ Common macros
     Macro to inline comparing, producing larger value of the two given.
 
     .. note::
+
         Given values are not cast. Depending on their type(s), this might
         lead to undefined behavior (e.g. if not comparable pointers).
 
     .. seealso::
+
         `<https://en.cppreference.com/w/c/language/operator_comparison>`_
 
     :param x: A number, value is not cast.
@@ -340,6 +346,19 @@ Coordinates, fields, positions
 
     Macro to check if a given position is on board.
 
+    .. note::
+
+        This macro does not check if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param i: File, position along horizontal axis; cast to :c:`int`.
+    :param j: Rank, position along vertical axis; cast to :c:`int`.
+    :returns: ``1`` if on board, ``0`` otherwise.
+
+.. c:macro:: CC_IS_POS_ON_VALID_BOARD(board_size,i,j)
+
+    Macro to check if a given position is on board.
+
     This macro checks if board size is valid.
 
     :param board_size: Chessboard size, cast to :c:`int`.
@@ -348,6 +367,19 @@ Coordinates, fields, positions
     :returns: ``1`` if on board, ``0`` otherwise.
 
 .. c:macro:: CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)
+
+    Macro to check if a given disambiguation (i.e. partial position) is on board.
+
+    .. note::
+
+        This macro does not check if board size is valid.
+
+    :param board_size: Chessboard size, cast to :c:`int`.
+    :param i: File, position along horizontal axis; cast to :c:`int`.
+    :param j: Rank, position along vertical axis; cast to :c:`int`.
+    :returns: ``1`` if at least one coordinate is on board, ``0`` otherwise.
+
+.. c:macro:: CC_IS_ANY_COORD_ON_VALID_BOARD(board_size,i,j)
 
     Macro to check if a given disambiguation (i.e. partial position) is on board.
 

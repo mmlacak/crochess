@@ -142,13 +142,13 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * cb, int coord ) {
 
 bool cc_chessboard_is_pos_on_board( CcChessboard * cb, int i, int j ) {
     if ( !cc_chessboard_is_size_valid( cb ) ) return false;
-    return CC_IS_POS_ON_BOARD( cb->size, i, j );
+    return CC_IS_POS_ON_VALID_BOARD( cb->size, i, j );
 }
 
 bool cc_chessboard_is_disambiguation_on_board( CcChessboard * cb, int i, int j ) {
     if ( !cc_chessboard_is_size_valid( cb ) ) return false;
 
-    if ( CC_IS_POS_ON_BOARD( cb->size, i, j ) ) return true;
+    if ( CC_IS_POS_ON_VALID_BOARD( cb->size, i, j ) ) return true;
 
     return ( ( CC_IS_COORD_ON_BOARD( cb->size, i ) && ( j == CC_INVALID_COORD ) )
           || ( CC_IS_COORD_ON_BOARD( cb->size, j ) && ( i == CC_INVALID_COORD ) ) );
