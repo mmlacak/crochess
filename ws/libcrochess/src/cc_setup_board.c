@@ -8,11 +8,6 @@
 #include "cc_variant.h"
 #include "cc_setup_board.h"
 
-/**
-    @file cc_setup_board.c
-    @brief Board setups data arrays, and related functions.
-*/
-
 
 static const int t = CC_PE_DimStar;
 
