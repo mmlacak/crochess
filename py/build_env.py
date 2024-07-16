@@ -87,6 +87,9 @@ OPTIONS_CLANG_EXECUTABLE_WITH_LINENOISE = [ '-I../../libcrochess/inc', '-I../../
 OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES_WITH_LINENOISE = [ '-L../../bin', '-lcrochess', '-llinenoise' ]
 
 
+DOCS_FOLDER = 'docs'
+DOCS_SOURCE_FOLDER = 'docs/source'
+
 SOURCE_WS_FOLDER = 'ws'
 SOURCE_IGNORE_FILE_PATH = '.IGNORE.'
 SOURCE_FILE_EXT = '.c'

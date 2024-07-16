@@ -16,8 +16,8 @@ BOOK_TEX_FOLDER = 'book'
 BOOK_TEX_FILE_NAME = 'crochess.tex'
 BOOK_IGNORE_TEX_FILE_NAME = 'crochess.IGNORE.tex'
 
-DOXYGEN_CONFIG_FILE_NAME = 'Doxyfile'
-DOXYGEN_IGNORE_CONFIG_FILE_NAME = 'Doxyfile.IGNORE'
+SPHINX_CONFIG_FILE_NAME = 'conf.py'
+SPHINX_IGNORE_CONFIG_FILE_NAME = 'conf.IGNORE.py'
 
 README_FILE_NAME = 'README.md'
 README_IGNORE_FILE_NAME = 'README.IGNORE.md'
@@ -90,8 +90,8 @@ def get_full_tex_path(root_path, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX_FILE
     path = os.path.join(root_path, tex_dir, tex_name)
     return path
 
-def get_full_docs_path(root_path, doxygen_config_dir=BE.SOURCE_WS_FOLDER, doxygen_config_name=DOXYGEN_CONFIG_FILE_NAME):
-    path = os.path.join(root_path, doxygen_config_dir, doxygen_config_name)
+def get_full_docs_path(root_path, docs_config_dir=BE.DOCS_SOURCE_FOLDER, docs_config_name=SPHINX_CONFIG_FILE_NAME):
+    path = os.path.join(root_path, docs_config_dir, docs_config_name)
     return path
 
 def get_full_readme_path(root_path, readme_name=README_FILE_NAME):
@@ -127,8 +127,11 @@ def change_docs_line_if_marked(line, git_version, book_version, book_short, is_b
     new = line
 
     if is_docs:
-        if 'docs-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
-            new = 'PROJECT_NUMBER         = "%s"   # docs-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker\n' % (git_version, )
+        if 'docs-new-lib-short-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
+            new = 'version = "%s"   # docs-new-lib-short-version-major-minor-feature-commit+meta~breaks-place-marker\n' % (git_version, )
+
+        if 'docs-new-lib-full-version-major-minor-feature-commit+meta~breaks-place-marker' in line:
+            new = 'release = "%s"   # docs-new-lib-full-version-major-minor-feature-commit+meta~breaks-place-marker\n' % (git_version, )
 
     return new
 
@@ -200,7 +203,7 @@ def replace_book_entries(git_version, book_version, book_short, root_path, is_bo
 def replace_docs_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
 
     orig_path = get_full_docs_path(root_path)
-    ignore_path = get_full_docs_path(root_path, doxygen_config_name=DOXYGEN_IGNORE_CONFIG_FILE_NAME)
+    ignore_path = get_full_docs_path(root_path, docs_config_name=SPHINX_IGNORE_CONFIG_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_docs_line_if_marked)
 

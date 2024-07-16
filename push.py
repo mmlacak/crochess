@@ -22,7 +22,7 @@ def main():
     is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], pre_git_argv) else False
     is_wet_run = True if not is_dry_run and RS.any_item_in( ['-w', '--wet-run'], pre_git_argv) else False
     is_verbose = True if is_dry_run or is_wet_run or RS.any_item_in( ['-v', '--verbose'], pre_git_argv) else False
-    is_debug = True if is_dry_run or is_wet_run or RS.any_item_in( ['-D', '--debug'], pre_git_argv) else False
+    is_debug = True if is_dry_run or is_wet_run or RS.any_item_in( ['-DS', '--debug-script'], pre_git_argv) else False
 
     is_book = True if RS.any_item_in( ['-b', '--book'], pre_git_argv) else False
     is_docs = True if RS.any_item_in( ['-d', '--docs'], pre_git_argv) else False

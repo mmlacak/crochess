@@ -40,9 +40,9 @@ def main():
 
     is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], script_argv) else False
     is_verbose = True if is_dry_run or RS.any_item_in( ['-v', '--verbose'], script_argv) else False
-    is_debug = True if is_dry_run or RS.any_item_in( ['-d', '--debug'], script_argv) else False
+    is_debug = True if is_dry_run or RS.any_item_in( ['-DS', '--debug-script'], script_argv) else False
 
-    is_debug_build = True if RS.any_item_in( ['-D', '--debug-build'], script_argv) else False
+    is_debug_build = True if RS.any_item_in( ['-D', '--debug'], script_argv) else False
     is_release_build = True if not is_debug_build and RS.any_item_in( ['-R', '--release'], script_argv) else False
     is_build = is_release_build or is_debug_build
     is_release_or_debug = is_release_build and not is_debug_build
