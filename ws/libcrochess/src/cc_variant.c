@@ -8,11 +8,6 @@
 #include "cc_str_utils.h"
 #include "cc_variant.h"
 
-/**
-    @file cc_variant.c
-    @brief Variants symbols, and related functions.
-*/
-
 
 char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL = "cc";
 char const * const CC_VARIANT_CROATIAN_TIES_SYMBOL = "ct";
