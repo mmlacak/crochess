@@ -11,11 +11,6 @@
 #include "cc_str_utils.h"
 #include "cc_strings.h"
 
-/**
-    @file cc_strings.c
-    @brief Strings (linked list) functions.
-*/
-
 
 CcStrings * cc_strings__new( char const * str,
                              size_t max_len__d ) {
