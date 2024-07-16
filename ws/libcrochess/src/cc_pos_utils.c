@@ -3,11 +3,6 @@
 
 #include "cc_pos_utils.h"
 
-/**
-    @file cc_pos_utils.c
-    @brief Pos utils.
-*/
-
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum ) {
     CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = momentum };

@@ -9,26 +9,7 @@
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 
-/**
-    @file cc_pos_utils.h
-    @brief Pos utils.
-*/
 
-
-/**
-    Function converts position to position descriptor (i.e. the one
-    containing piece, and tag at that location on a chessboard).
-
-    @param cb A chessboard.
-    @param pos A position.
-    @param momentum Momentum.
-
-    @note
-    If chessboard is not given, piece and tag members are not updated,
-    returned value still contains a given position.
-
-    @return Position descriptor.
-*/
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum );
 
 // DOCS
