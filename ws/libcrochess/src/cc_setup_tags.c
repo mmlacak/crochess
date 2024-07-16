@@ -7,11 +7,6 @@
 #include "cc_variant.h"
 #include "cc_setup_tags.h"
 
-/**
-    @file cc_setup_tags.c
-    @brief Tag setups data arrays, and related functions.
-*/
-
 
 static const int n = CC_TE_None;
 static const int R = CC_TE_CanRush;
