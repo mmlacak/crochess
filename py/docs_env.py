@@ -10,16 +10,22 @@ import os.path
 import py.paths as P
 
 
-COMPILER_DOCS = 'doxygen'
+DOCS_COMPILER = 'make'
 
-SOURCE_WS_DOCS_FOLDER = 'ws'
+DOCS_OPTION_CLEAN = 'clean'
+DOCS_OPTION_HTML = 'html'
+DOCS_OPTION_PDF = 'latexpdf'
+
+DOCS_FOLDER = 'docs'
+DOCS_SOURCE_FOLDER = 'docs/source'
+DOCS_BUILD_FOLDER = 'docs/build'
 
 
 def get_docs_dir( root_path ):
-    return os.path.join( root_path, SOURCE_WS_DOCS_FOLDER )
+    return os.path.join( root_path, DOCS_FOLDER )
 
 
-def get_compile_docs_cmd(root_path, compiler_docs=COMPILER_DOCS):
-    cmd_lst = [compiler_docs, ]
+def get_compile_docs_cmd(root_path, docs_option=DOCS_OPTION_HTML):
+    cmd_lst = [DOCS_COMPILER, docs_option, ]
     cwd_docs = get_docs_dir(root_path)
     return cwd_docs, cmd_lst

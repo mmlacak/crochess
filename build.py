@@ -59,8 +59,10 @@ def main():
                 BE.COMPILER_CLANG if is_clang else \
                 BE.DEFAULT_COMPILER
 
-    is_docs = True if RS.any_item_in( ['-docs', '--docs'], script_argv) else False
-    compiler_docs = DE.COMPILER_DOCS
+    is_clean = True if RS.any_item_in( ['-clean', '--clean'], script_argv) else False
+    is_html = True if RS.any_item_in( ['-html', '--html'], script_argv) else False
+    is_pdf = True if RS.any_item_in( ['-pdf', '--pdf'], script_argv) else False
+    is_docs = is_clean or is_html or is_pdf
 
     # is_run_app_only = True if RS.any_item_in( ['-X', '--execute'], script_argv) else False
     is_run_app = True if RS.any_item_in( ['-r', '--run'], script_argv) else False
@@ -88,8 +90,9 @@ def main():
         print( "Docs dir: %s." % str( docs_cwd ) )
         print( "Build dir: %s." % str( cmd_cwd ) )
 
-    if is_docs:
-        cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, compiler_docs=compiler_docs)
+
+    def compile_docs(opt):
+        cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, docs_option=opt)
 
         if is_debug:
             print( "Compiling docs in: %s." % str( cwd_docs ) )
@@ -100,6 +103,17 @@ def main():
             result = RS.run_process( cmd_docs, cwd=cwd_docs )
             print( result )
             print( "-" * 72 )
+
+    if is_docs:
+        if is_clean:
+            compile_docs( DE.DOCS_OPTION_CLEAN )
+
+        if is_html:
+            compile_docs( DE.DOCS_OPTION_HTML )
+
+        if is_pdf:
+            compile_docs( DE.DOCS_OPTION_PDF )
+
 
     if is_build:
         if not is_dry_run:
