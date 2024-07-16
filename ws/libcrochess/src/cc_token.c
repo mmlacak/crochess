@@ -8,11 +8,6 @@
 
 #include "cc_token.h"
 
-/**
-    @file cc_token.c
-    @brief Token constants, and related functions.
-*/
-
 
 char const CC_TOKEN_SEPARATORS_WHITESPACE[] = " \t\v\f\r\n";
 char const CC_TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
