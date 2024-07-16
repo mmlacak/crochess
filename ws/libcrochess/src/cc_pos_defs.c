@@ -3,11 +3,6 @@
 
 #include "cc_pos_defs.h"
 
-/**
-    @file cc_pos_defs.c
-    @brief Position, step definitions, checkers.
-*/
-
 
 CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ] = {
     // step

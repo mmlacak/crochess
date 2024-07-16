@@ -237,6 +237,10 @@ Piece step sizes
 Piece step arrays
 -----------------
 
+All arrays, beside their length and size, have a terminating position,
+similar to zero-terminating strings; terminating position is
+:c:data:`CC_TYPED_STEP_INVALID`.
+
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ]
 
     Steps array for light Pawn, from Classical Chess up to, and including,

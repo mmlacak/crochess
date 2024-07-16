@@ -12,34 +12,8 @@
 #include "cc_pos.h"
 
 
-/**
-    @file cc_pos_defs.h
-    @brief Position, step definitions, checkers.
-*/
-
-
-/**
-    Value to ignore array size constraint on various functions,
-    and use invalid position as a guard to terminate loops.
-*/
 #define CC_STEPS_LEN_INVALID_DATA_TERMINATED (0)
 
-/** @defgroup step_generator_array The step generator array
- *  The step generator constants and arrays are meant to be used via `cc_gen_pos()`,
-    and `cc_is_step_valid()`.
-
-    @see cc_gen_pos(), cc_is_step_valid()
- *  @{
- */
-
-/** @defgroup step_generator_lengths The step generator array lengths
- *  The step generator array lengths.
-
-    @note
-    Length of an array is count of useful data in it, without terminating data,
-    similar how `strlen()` does not count zero-terminating `char` in strings.
- *  @{
- */
 
 #define CC_STEPS_PAWN_LEN (3)
 #define CC_STEPS_SIDEWAYS_PAWN_LEN (5)
@@ -70,17 +44,6 @@
 #define CC_STEPS_MIRACLE_STARCHILD_LEN (CC_STEPS_QUEEN_LEN)
 #define CC_STEPS_STARTING_MONOLITH_LEN (CC_STEPS_KNIGHT_LEN)
 
-/** @} */ // end of step_generator_lengths
-
-/** @defgroup step_generator_sizes The step generator array sizes
- *  The step generator array sizes.
-
-    @note
-    Size of an array is count of all items in an it, including guard data,
-    i.e. terminating position.
-    For the same array, size is larger by 1 than the length.
- *  @{
- */
 
 #define CC_STEPS_PAWN_SIZE (CC_STEPS_PAWN_LEN + 1)
 #define CC_STEPS_SIDEWAYS_PAWN_SIZE (CC_STEPS_SIDEWAYS_PAWN_LEN + 1)
@@ -111,25 +74,6 @@
 #define CC_STEPS_MIRACLE_STARCHILD_SIZE (CC_STEPS_QUEEN_SIZE)
 #define CC_STEPS_STARTING_MONOLITH_SIZE (CC_STEPS_STARTING_MONOLITH_LEN + 1)
 
-/** @} */ // end of step_generator_sizes
-
-/** @defgroup step_generator_arrays The step generator arrays
- *  The step generator arrays are constants defining all valid steps,
-    for a pieces of similar movement, e.g. Bishop and Serpent share
-    the same array, for Serpent's regular movement.
-
-    @note
-    All arrays, beside their length and size, have a terminating position,
-    similar to zero-terminating strings.
-
-    @note
-    Terminating position is a `CcTypedStep` with coordinates past normal off-board
-    calculation. Currently, it's defined as `CC_POS_INVALID`, which is
-    `{ CC_INVALID_COORD, CC_INVALID_COORD }`.
-
-    @see CcTypedStep, CC_POS_INVALID, CC_INVALID_COORD
- *  @{
- */
 
 extern CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ];
 extern CcTypedStep const CC_STEPS_DARK_PAWN[ CC_STEPS_PAWN_SIZE ];
@@ -164,38 +108,9 @@ extern CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ];
 extern CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ];
 #define CC_STEPS_STARTING_MONOLITH (CC_STEPS_KNIGHT)
 
-/** @} */ // end of step_generator_arrays
 
-/** @} */ // end of step_generator_array
-
-
-/**
-    Function checking if step is valid, by searching a given array holding all valid steps for a piece.
-
-    @param step A step to check.
-    @param steps An array of all valid steps.
-    @param steps_len__d _Optional_, array length.
-
-    @note
-    If `steps_len__d` is not used (i.e. it's `0` == `CC_STEPS_LEN_INVALID_DATA_TERMINATED`),
-    `steps` array *must* be terminated with invalid position (i.e. `CC_POS_INVALID`) as a guard.
-
-    @return `true` if step is valid (i.e. found in a given `steps` array), `false` otherwise.
-*/
 bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d );
 
-
-/** @defgroup step_is_valid_macros The step validity macros
- *  The step validity macro conveniences are meant to be used instead of `cc_is_step_valid()`.
-
-    @see cc_is_step_valid()
- *  @{
- */
-
-/** @defgroup step_is_valid_base_macros The step validity base macros
- *  The step validity base macros define common movement among pieces.
- *  @{
- */
 
 #define CC_LIGHT_PAWN_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_LIGHT_PAWN, CC_STEPS_PAWN_LEN ) )
@@ -278,27 +193,12 @@ bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps
     ( cc_is_step_valid( (step), CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN ) )
 
 
-/** @} */ // end of step_is_valid_base_macros
-
-
-/** @defgroup step_is_valid_derived_macros The step validity derived macros
- *  The step validity derived macros share definition with base macros.
- *  @{
- */
-
 #define CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step) \
     ( cc_is_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
 
 
-/** @} */ // end of step_is_valid_derived_macros
-
-/** @} */ // end of step_is_valid_macros
-
-
-// DOCS
 bool cc_is_same_color( CcPieceEnum piece, CcPos pos );
 
-// DOCS
 bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
                                    size_t steps_len__d,
                                    CcTypedStepLink ** steps__o );
