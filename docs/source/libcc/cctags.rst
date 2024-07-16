@@ -11,6 +11,16 @@ Tags
 
 Documents ``cc_tag.h`` and ``cc_tag.c`` files, which contain :term:`tag` enumeration, and related functions.
 
+:c:term:`Tag` is a link between a piece and field at which it stands.
+Every piece can have only one tag applied at any given time.
+
+Persistent :c:term:`tag`\s are valid until used or lost, e.g. until
+piece is moved, activated, converted, captured, displaced, teleported,
+demoted (if figure), promoted (if Pawn).
+
+Values enumerated in losing tag are the same as in ordinary :c:term:`tag`.
+So, conversion between :c:term:`tag`\s changes just type, not value.
+
 .. _lbl-libcc-cctags-validity:
 
 Tag validity

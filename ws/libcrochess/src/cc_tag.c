@@ -4,11 +4,6 @@
 #include "cc_defines.h"
 #include "cc_tag.h"
 
-/**
-    @file cc_tag.c
-    @brief Tag related functions.
-*/
-
 
 char cc_tag_as_char( CcTagEnum ct ) {
     switch ( ct ) {
