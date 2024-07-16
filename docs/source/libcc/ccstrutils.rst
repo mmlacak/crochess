@@ -10,7 +10,7 @@ String utilities
 ================
 
 Documents ``cc_str_utils.h`` and ``cc_str_utils.c`` files, which contain
-strings, :c:expr:`char` arrays utility functions.
+strings, :c:`char` arrays utility functions.
 
 All functions which return newly allocated string, return them
 zero-terminated (``'\0'``).
@@ -21,10 +21,10 @@ This is the same as :c:func:`strlen()`, see
 
 Size of a string **includes** terminating character.
 
-Length of :c:expr:`char` arrays is the same as its size, regardless of length
+Length of :c:`char` arrays is the same as its size, regardless of length
 of its content, if it's zero-terminated, or not.
 
-When content in :c:expr:`char` array is shorter than the array itself, it is
+When content in :c:`char` array is shorter than the array itself, it is
 zero-terminated.
 
 Utility functions have string and its maximum length parameters in pairs.
@@ -33,7 +33,7 @@ When calling such functions, :c:macro:`CC_MAX_LEN_ZERO_TERMINATED` can be
 used as an argument to maximum length parameter; if so, there is no limit
 on string length, and string itself **must** be zero-terminated (``'\0'``).
 
-For :c:expr:`char` arrays always do use appropriate maximum length argument,
+For :c:`char` arrays always do use appropriate maximum length argument,
 e.g. :c:macro:`CC_MAX_LEN_CHAR_8`.
 
 .. _lbl-libcc-ccstrutils-sizeslengths:
@@ -54,59 +54,59 @@ String sizes, lengths
 
 .. c:macro:: CC_SIZE_CHAR_8
 
-    Size of an 8 :c:expr:`char` array, equals to ``8``.
+    Size of an 8 :c:`char` array, equals to ``8``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_8
 
-    Maximum length of an 8 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_8`.
+    Maximum length of an 8 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_8`.
 
 .. c:macro:: CC_SIZE_CHAR_16
 
-    Size of an 16 :c:expr:`char` array, equals to ``16``.
+    Size of an 16 :c:`char` array, equals to ``16``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_16
 
-    Maximum length of an 16 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_16`.
+    Maximum length of an 16 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_16`.
 
 .. c:macro:: CC_SIZE_CHAR_32
 
-    Size of an 32 :c:expr:`char` array, equals to ``32``.
+    Size of an 32 :c:`char` array, equals to ``32``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_32
 
-    Maximum length of an 32 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_32`.
+    Maximum length of an 32 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_32`.
 
 .. c:macro:: CC_SIZE_CHAR_64
 
-    Size of an 64 :c:expr:`char` array, equals to ``64``.
+    Size of an 64 :c:`char` array, equals to ``64``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_64
 
-    Maximum length of an 64 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_64`.
+    Maximum length of an 64 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_64`.
 
 .. c:macro:: CC_SIZE_CHAR_128
 
-    Size of an 128 :c:expr:`char` array, equals to ``128``.
+    Size of an 128 :c:`char` array, equals to ``128``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_128
 
-    Maximum length of an 128 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_128`.
+    Maximum length of an 128 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_128`.
 
 .. c:macro:: CC_SIZE_CHAR_256
 
-    Size of an 256 :c:expr:`char` array, equals to ``256``.
+    Size of an 256 :c:`char` array, equals to ``256``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_256
 
-    Maximum length of an 256 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_256`.
+    Maximum length of an 256 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_256`.
 
 .. c:macro:: CC_SIZE_CHAR_512
 
-    Size of an 512 :c:expr:`char` array, equals to ``512``.
+    Size of an 512 :c:`char` array, equals to ``512``.
 
 .. c:macro:: CC_MAX_LEN_CHAR_512
 
-    Maximum length of an 512 :c:expr:`char` array, equals to :c:macro:`CC_SIZE_CHAR_512`.
+    Maximum length of an 512 :c:`char` array, equals to :c:macro:`CC_SIZE_CHAR_512`.
 
 .. _lbl-libcc-ccstrutils-interfaces:
 
@@ -118,7 +118,7 @@ String utility interfaces
     Function interface, i.e. function pointer type; used to interface with all
     ``ctype.h`` filter functions, e.g. :c:func:`islower()`.
 
-    :param ch: A single :c:expr:`char`\acter.
+    :param ch: A single :c:`char`\acter.
     :returns: Integer, meaning depends on interfaced function.
     :seealso: https://en.cppreference.com/w/c/string/byte
 
@@ -127,11 +127,11 @@ String utility interfaces
 String utility types, arrays
 ----------------------------
 
-All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
+All arrays defined here have all their :c:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_8 [ CC_SIZE_CHAR_8 ]
 
-    A :c:expr:`char` array type, size 8.
+    A :c:`char` array type, size 8.
 
 .. c:macro:: CC_CHAR_8_EMPTY
 
@@ -139,7 +139,7 @@ All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_16 [ CC_SIZE_CHAR_16 ]
 
-    A :c:expr:`char` array type, size 16.
+    A :c:`char` array type, size 16.
 
 .. c:macro:: CC_CHAR_16_EMPTY
 
@@ -147,7 +147,7 @@ All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_32 [ CC_SIZE_CHAR_32 ]
 
-    A :c:expr:`char` array type, size 32.
+    A :c:`char` array type, size 32.
 
 .. c:macro:: CC_CHAR_32_EMPTY
 
@@ -155,7 +155,7 @@ All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_64 [ CC_SIZE_CHAR_64 ]
 
-    A :c:expr:`char` array type, size 64.
+    A :c:`char` array type, size 64.
 
 .. c:macro:: CC_CHAR_64_EMPTY
 
@@ -163,7 +163,7 @@ All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_128 [ CC_SIZE_CHAR_128 ]
 
-    A :c:expr:`char` array type, size 128.
+    A :c:`char` array type, size 128.
 
 .. c:macro:: CC_CHAR_128_EMPTY
 
@@ -171,7 +171,7 @@ All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_256 [ CC_SIZE_CHAR_256 ]
 
-    A :c:expr:`char` array type, size 256.
+    A :c:`char` array type, size 256.
 
 .. c:macro:: CC_CHAR_256_EMPTY
 
@@ -179,7 +179,7 @@ All arrays defined here have all their :c:expr:`char`\s initialized to ``'\0'``.
 
 .. c:type:: char cc_char_512 [ CC_SIZE_CHAR_512 ]
 
-    A :c:expr:`char` array type, size 512.
+    A :c:`char` array type, size 512.
 
 .. c:macro:: CC_CHAR_512_EMPTY
 
@@ -200,7 +200,7 @@ String utility functions
 
 .. c:function:: bool cc_str_is_empty( char const * str, bool ignore_spaces )
 
-    Function checks if string is empty, i.e. does not contain printable :c:expr:`char`\s.
+    Function checks if string is empty, i.e. does not contain printable :c:`char`\s.
 
     :param str: A string to check.
     :param ignore_spaces: Flag, whether to disregard spaces, or not.
@@ -244,7 +244,7 @@ String utility functions
     If there are no filtered characters in a string, function returns pointer to:
 
         - the terminating character (i.e. ``'\0'``) of a given string,
-        - :c:expr:`char` at maximum length, if :c:`max_len__d` was given
+        - :c:`char` at maximum length, if :c:`max_len__d` was given
 
     whichever comes first.
 
@@ -424,7 +424,7 @@ String utility functions
     .. warning::
 
         Rest of a destination buffer :c:`str__io`, behind that zero-terminating
-        :c:expr:`char` found earlier, must be large enough to store appending
+        :c:`char` found earlier, must be large enough to store appending
         string :c:`str`; taking into account :c:`size_dest__d` and :c:`max_len__d`,
         if given.
 
@@ -432,12 +432,12 @@ String utility functions
     if so string :c:`str` must be zero-terminated, and is appended in its entirety.
 
     Destination :c:`str__io` after appending string is always zero-terminated.
-    Function returns weak pointer to that zero-terminating :c:expr:`char`.
+    Function returns weak pointer to that zero-terminating :c:`char`.
 
     Walking pointer over destination buffer can be used in succession, or in a
-    loop. This is so because function seeks zero-terminating :c:expr:`char` in
+    loop. This is so because function seeks zero-terminating :c:`char` in
     a given destination :c:`str__io`, and returns a weak pointer to the new
-    zero-terminating :c:expr:`char` after appending in that same destination
+    zero-terminating :c:`char` after appending in that same destination
     buffer.
 
     For instance:

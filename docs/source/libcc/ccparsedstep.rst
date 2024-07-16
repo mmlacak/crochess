@@ -65,6 +65,10 @@ Parsed step data
 
     :c:`enum` is tagged with the same :c:enum:`CcParsedStepLinkEnum` name.
 
+.. c:macro:: CC_MAX_LEN_PARSED_STEP_LINK_SYMBOL
+
+    Macro constant for maximum length of a step link symbol; equals to ``2`` :c:`char`\s.
+
 .. c:struct:: CcParsedStep
 
     Step :c:`struct`\ure, linked list.

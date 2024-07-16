@@ -535,9 +535,9 @@ Piece functions
 
     Function returning chess piece, based on a piece character.
 
-    For lowercase :c:expr:`char` dark/dim piece is returned, otherwise light/bright one.
+    For lowercase :c:`char` dark/dim piece is returned, otherwise light/bright one.
 
-    Monolith is returned only for uppercase ``'M'`` :c:expr:`char`.
+    Monolith is returned only for uppercase ``'M'`` :c:`char`.
 
     Space, unrecognized characters all yield :c:enumerator:`CC_PE_None`.
 
@@ -565,7 +565,7 @@ Piece functions
 
 .. c:function:: char cc_piece_symbol( CcPieceEnum pe )
 
-    Function returns a piece symbol, i.e. an uppercase :c:expr:`char` for chess pieces.
+    Function returns a piece symbol, i.e. an uppercase :c:`char` for chess pieces.
 
     :param pe: A piece.
     :returns: A piece symbol if chess piece, space otherwise.
@@ -642,7 +642,7 @@ Piece functions
 
     Function checks if given piece has the same type as a piece symbol.
 
-    :param symbol: Piece symbol, uppercase :c:expr:`char`. It is taken verbatim, i.e. not converted to uppercase char.
+    :param symbol: Piece symbol, uppercase :c:`char`. It is taken verbatim, i.e. not converted to uppercase char.
     :param pe: A piece.
     :returns: :c:data:`true` if the same type, :c:data:`false` otherwise.
 
@@ -650,7 +650,7 @@ Piece functions
 
     Function checks if given piece is equal to one produced by a piece symbol, and a flag.
 
-    :param symbol: Piece symbol, uppercase :c:expr:`char`. It is taken verbatim, i.e. not converted to uppercase char.
+    :param symbol: Piece symbol, uppercase :c:`char`. It is taken verbatim, i.e. not converted to uppercase char.
     :param is_light: Flag, if piece is light/bright (:c:data:`true`), or dark/dim (:c:data:`false`).
     :param pe: A piece.
     :returns: :c:data:`true` if the same, :c:data:`false` otherwise.
