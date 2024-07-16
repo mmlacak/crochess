@@ -6,11 +6,6 @@
 #include "cc_pos_defs.h"
 #include "cc_pos_gens.h"
 
-/**
-    @file cc_pos_gens.c
-    @brief Position generators.
-*/
-
 
 bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum activator,

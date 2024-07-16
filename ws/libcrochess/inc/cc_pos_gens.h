@@ -11,11 +11,6 @@
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 
-/**
-    @file cc_pos_gens.h
-    @brief Position generators.
-*/
-
 
 // DOCS
 // #define CC_STEPS_HAS_MOVEMENT(ste) ( ( (ste) == CC_STE_All )        \
