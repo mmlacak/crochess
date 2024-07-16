@@ -10,11 +10,6 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 
-/**
-    @file cc_str_utils.c
-    @brief Strings, char arrays utility functions.
-*/
-
 
 bool cc_str_clear( char * str__io,
                    size_t max_len__d ) {
