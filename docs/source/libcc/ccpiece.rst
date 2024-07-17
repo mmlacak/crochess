@@ -32,13 +32,22 @@ piece symbol for both is the same, ``N``.
 Piece validity
 --------------
 
-.. c:macro:: CC_PIECE_IS_VALID(pe)
+.. c:macro:: CC_PIECE_IS_ENUMERATOR(pe)
 
-    Macro to check if given piece is a valid,
-    i.e. between :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values.
+    Macro to check if given piece is an enumerator, i.e. between
+    :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values.
 
     :param pe: :c:enum:`CcPieceEnum` value.
-    :returns: :c:data:`true` if valid chess piece, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_VALID(pe)
+
+    Macro to check if given piece is a valid enumerator, i.e. between
+    :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values,
+    but not :c:enumerator:`CC_PE_None`.
+
+    :param pe: :c:enum:`CcPieceEnum` value.
+    :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_EQUAL(pe1,pe2)
 

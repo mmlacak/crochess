@@ -147,7 +147,7 @@ CcParsedStep * cc_parsed_step_find_destination( CcParsedStep * steps ) {
         if ( s->link == CC_PSLE_None ) return NULL;
 
         if ( s->next ) {
-            if ( CC_IS_STEP_LINK_DESTINATION( s->link ) ) return NULL; // An intermediate destination?
+            if ( CC_PARSED_STEP_LINK_IS_DESTINATION( s->link ) ) return NULL; // An intermediate destination?
 
             if ( s->link == CC_PSLE_Reposition ) {
                 // Reposition is legal only on 1st, or 2nd step.

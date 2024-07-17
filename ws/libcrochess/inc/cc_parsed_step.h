@@ -10,13 +10,13 @@
 #include "cc_parsed_side_effect.h"
 
 
-// TODO :: revise VALID vs. IN_DOMAIN, for all 
+// TODO :: revise VALID vs. IN_DOMAIN, for all
 
-#define CC_IS_STEP_LINK_ENUMERATOR(sle) ( ( CC_PSLE_None <= (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
+#define CC_PARSED_STEP_LINK_IS_ENUMERATOR(sle) ( ( CC_PSLE_None <= (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
 
-#define CC_IS_STEP_LINK_VALID(sle) ( ( CC_PSLE_None < (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
+#define CC_PARSED_STEP_LINK_IS_VALID(sle) ( ( CC_PSLE_None < (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
 
-#define CC_IS_STEP_LINK_DESTINATION(sle) ( ( (sle) == CC_PSLE_Destination ) || ( (sle) == CC_PSLE_JustDestination ) )
+#define CC_PARSED_STEP_LINK_IS_DESTINATION(sle) ( ( (sle) == CC_PSLE_Destination ) || ( (sle) == CC_PSLE_JustDestination ) )
 
 typedef enum CcParsedStepLinkEnum {
     CC_PSLE_None, /* Step link not found, uninitialized, not parsed yet, or error happened. */

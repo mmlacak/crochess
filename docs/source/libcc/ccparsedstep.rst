@@ -17,21 +17,21 @@ parsed step definitions and functions.
 Parsed step data
 ----------------
 
-.. c:macro:: CC_IS_STEP_LINK_ENUMERATOR(sle)
+.. c:macro:: CC_PARSED_STEP_LINK_IS_ENUMERATOR(sle)
 
     Macro to check if a given step link is enumerator.
 
     :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
     :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
 
-.. c:macro:: CC_IS_STEP_LINK_VALID(sle)
+.. c:macro:: CC_PARSED_STEP_LINK_IS_VALID(sle)
 
     Macro to check if a given step link is valid enumerator.
 
     :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
-.. c:macro:: CC_IS_STEP_LINK_DESTINATION(sle)
+.. c:macro:: CC_PARSED_STEP_LINK_IS_DESTINATION(sle)
 
     Macro to check if a given step link is destination.
 
