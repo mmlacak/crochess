@@ -76,10 +76,10 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_IS_FIELD_COLOR(i,j,fc) ( ((i) + (j)) % 2 == (fc) )
 
-// TODO :: check if board_size is even
 #define CC_IS_BOARD_SIZE_VALID(board_size)                  \
     ( ( CC_MIN_BOARD_SIZE <= (int)(board_size) ) &&         \
-      ( (int)(board_size) <= CC_MAX_BOARD_SIZE ) )
+      ( (int)(board_size) <= CC_MAX_BOARD_SIZE ) &&         \
+      ( (int)(board_size) % 2 == 0 ) )
 
 #define CC_IS_COORD_ON_BOARD(board_size,coord)              \
     ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) &&             \
