@@ -9,8 +9,12 @@
 #include "cc_pos.h"
 #include "cc_parsed_side_effect.h"
 
+
 // TODO :: revise VALID vs. IN_DOMAIN, for all macros
-#define CC_IS_STEP_LINK_VALID(sle) ( (sle) != CC_PSLE_None )
+
+#define CC_IS_STEP_LINK_ENUMERATOR(sle) ( ( CC_PSLE_None <= (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
+
+#define CC_IS_STEP_LINK_VALID(sle) ( ( CC_PSLE_None < (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
 
 #define CC_IS_STEP_LINK_DESTINATION(sle) ( ( (sle) == CC_PSLE_Destination ) || ( (sle) == CC_PSLE_JustDestination ) )
 
@@ -26,7 +30,6 @@ typedef enum CcParsedStepLinkEnum {
 
 char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle );
 
-// DOCS
 #define CC_MAX_LEN_PARSED_STEP_LINK_SYMBOL (2)
 
 

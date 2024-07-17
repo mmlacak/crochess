@@ -87,7 +87,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
     if ( !cc_check_momentum_for_movement( piece, momentum ) ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_WAVE( piece ) ) {
-        // [i] Not needed, checked within CC_WAVE_CAN_BE_DIVERGED().
+        // [i] Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
         // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return CC_MBE_False;
 
         if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return CC_MBE_False;
