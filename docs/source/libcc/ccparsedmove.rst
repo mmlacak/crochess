@@ -86,13 +86,13 @@ Parsed move data
 
         Status.
 
-    .. c:member:: struct CcParsedMove * prev
+    .. c:member:: struct CcParsedMove * prev__w
 
-        Previous move, in a queue.
+        Weak pointer to previous move.
 
     .. c:member:: struct CcParsedMove * next
 
-        Next move.
+        Next move in a queue.
 
     :c:`struct` is tagged with the same :c:struct:`CcParsedMove` name.
 

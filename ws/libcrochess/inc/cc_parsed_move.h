@@ -31,7 +31,7 @@ typedef struct CcParsedMove {
     // CcChessboard * cb; // TODO :: if adding, pieces and tags enums **should** be based on char, not int
     CcParsedMoveStatusEnum status;
 
-    struct CcParsedMove * prev; // TODO :: rename prev --> prev__w
+    struct CcParsedMove * prev__w;
     struct CcParsedMove * next;
 } CcParsedMove;
 

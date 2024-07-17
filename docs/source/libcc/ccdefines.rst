@@ -444,7 +444,7 @@ Navigation
 
     .. warning::
 
-        Queue :c:`struct` must have :c:`prev` member, which points to previous item in that queue.
+        Queue :c:`struct` must have :c:`prev__w` member, which points to previous item in that queue.
 
     :param ptr_var_queue: A queue pointer variable.
     :returns: Nothing.

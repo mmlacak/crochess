@@ -73,9 +73,10 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
         else if ( draw_offer == CC_DRAW_OFFER_FOUND )
             return true;
 
-        m = m->prev;
+        // Skip two moves, because draw offer is made by one player.
+        m = m->prev__w;
         if ( m )
-            m = m->prev;
+            m = m->prev__w;
         else
             break;
     }

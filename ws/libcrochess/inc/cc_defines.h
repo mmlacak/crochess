@@ -121,8 +121,7 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_DEFAULT_ENTITY_STRING "<default>"
 
-// TODO :: RENAME ->prev into ->prev__w everywhere
-#define CC_REWIND(ptr_var_queue) { while ( (ptr_var_queue)->prev ) (ptr_var_queue) = (ptr_var_queue)->prev; }
+#define CC_REWIND(ptr_var_queue) { while ( (ptr_var_queue)->prev__w ) (ptr_var_queue) = (ptr_var_queue)->prev__w; }
 
 #define CC_FASTFORWARD(ptr_var_lst) { while ( (ptr_var_lst)->next ) (ptr_var_lst) = (ptr_var_lst)->next; }
 

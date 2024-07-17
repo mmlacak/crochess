@@ -31,7 +31,7 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
 
     mv__a->status = status;
 
-    mv__a->prev = NULL;
+    mv__a->prev__w = NULL;
     mv__a->next = NULL;
 
     return mv__a;
@@ -54,7 +54,7 @@ CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
         CC_FASTFORWARD( m );
 
         m->next = mv__t; // Append + ownership transfer.
-        mv__t->prev = m;
+        mv__t->prev__w = m;
     }
 
     return mv__t; // Weak pointer.
