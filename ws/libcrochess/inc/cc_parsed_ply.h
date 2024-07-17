@@ -57,7 +57,11 @@ typedef enum CcParsedPlyLinkEnum {
 
 
 // DOCS
-#define CC_PARSED_PLY_LINK_IS_VALID(ple) ( (ple) != CC_PPLE_None )
+#define CC_PARSED_PLY_LINK_IS_ENUMERATOR(ple) ( ( CC_PPLE_None <= (ple) ) && ( (ple) <= CC_PPLE_FailedSenseJourney ) )
+
+// DOCS
+#define CC_PARSED_PLY_LINK_IS_VALID(ple) ( ( CC_PPLE_None < (ple) ) && ( (ple) <= CC_PPLE_FailedSenseJourney ) )
+
 
 // DOCS
 #define CC_PARSED_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PPLE_Teleportation )               \
