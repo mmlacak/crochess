@@ -30,6 +30,22 @@ Second :c:`macro` also checks if given value is different from pre-designed
 :c:`None` (or :c:`Void`, or :c:`Empty`) enumeration value; this macro is named
 ``"is valid?"``, e.g. :c:enumerator:`CC_PARSED_STEP_LINK_IS_VALID`.
 
+.. _lbl-libcc-concepts-positionssteps:
+
+Positions, steps
+----------------
+
+Position is a pair of coordinates, used to address location (a field) on a
+chessboard.
+
+Position is an absolute address, all positions are coordinated against the same
+origin, i.e. (0, 0), or ``a1`` field.
+
+Step is relative position, i.e. difference between two absolute positions.
+
+Steps are applied multiple times to a given position, to produce complete
+movement of a piece.
+
 .. _lbl-libcc-concepts-strings:
 
 Strings
@@ -61,11 +77,17 @@ first to last :c:`char`, without zero-terminating :c:`char`.
 Size of a string counts everything from starting to ending :c:`char`,
 including zero-terminating :c:`char`.
 
-..
-    Positions
-    ---------
+.. _lbl-libcc-concepts-arrays:
 
-    TODO :: about positions, steps
+Arrays
+------
+
+Some arrays have guard-data in it to gracefully stop further processing, even if
+its size is not known, or given.
+
+
+
+TODO :: about positions, steps
 
 ..
     Linked lists
