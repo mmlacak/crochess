@@ -74,7 +74,7 @@ Library contents
 
     terms
     memory
-    design
+    concepts
     organization
 
     ccdefines

@@ -10,7 +10,7 @@
 #include "cc_parsed_side_effect.h"
 
 
-// TODO :: revise VALID vs. IN_DOMAIN, for all
+// TODO :: revise VALID vs. IN_DOMAIN, for all macros, data, types
 
 #define CC_PARSED_STEP_LINK_IS_ENUMERATOR(sle) ( ( CC_PSLE_None <= (sle) ) && ( (sle) <= CC_PSLE_JustDestination ) )
 
