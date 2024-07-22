@@ -113,17 +113,107 @@ Fixed-size arrays do not include terminating data, one has to use array size
 to access items.
 
 Here, all such arrays are 2D, and are used to hold initial setups of various
-chessboards, both for pieces and tags.
+chessboards, either for pieces or tags.
 
 For instance, :c:data:`CC_SETUP_BOARD_NINETEEN` holds initial piece positions
 for Nineteen variant, while :c:data:`CC_SETUP_TAGS_MAYAN_ASCENDANCY` holds
 initial tags for Mayan Ascendancy variant.
 
-..
-    Linked lists
-    ------------
+.. _lbl-libcc-concepts-linkedlists:
 
-    TODO :: about linked lists
+Linked lists
+------------
+
+All linked lists are realized as a :c:`struct` holding pointer to its own type.
+
+As a result, each item in a linked list holds ownership over next item in a
+sequence, and -by extension- to the rest of that linked list.
+
+Also, :c:data:`NULL`\-pointer to linked list is equivalent to an empty linked
+list.
+
+Type of a pointer to any item in a linked list is the same type as pointer to
+linked list itself.
+
+To distinguish the two, an item in a linked list is called :c:term:`link`.
+
+For instance, :c:struct:`CcTypedStepLink` defines :c:term:`link` :c:`struct`,
+chaining together :c:term:`link`\s builds typed steps, i.e. whole linked list.
+
+All :c:term:`link`\s are newly allocated on the heap; so, all linked lists has
+to be freed.
+
+.. warning::
+
+    Do not use standard :c:func:`free()` function on :c:term:`link`\s, it will
+    not free any additional allocated resources.
+
+    Use linked list specific function to free all its :c:term:`link`\s together
+    with all owned resources, see :ref:`lbl-libcc-concepts-linkedlists-free` for
+    details.
+
+.. _lbl-libcc-concepts-linkedlists-new:
+
+Linked list new()
+^^^^^^^^^^^^^^^^^
+
+All linked lists have :c:`*__new()` function, which takes all data necessary to
+fill-in all members of a :c:term:`link`.
+
+Function returns a newly allocated :c:term:`link`.
+
+.. _lbl-libcc-concepts-linkedlists-append:
+
+Linked list append()
+^^^^^^^^^^^^^^^^^^^^
+
+All linked lists have :c:`*_append()` function, which takes linked list in
+addition to all data necessary to fill-in all members of a :c:term:`link`.
+
+Function appends newly allocated :c:term:`link` to a linked list, if given
+(i.e. if inner pointer is not :c:data:`NULL`); otherwise, it initializes
+linked list with a :c:term:`link` as its only element.
+
+Function returns weak pointer to a newly allocated :c:term:`link`, or
+:c:data:`NULL` in case of an error.
+
+.. _lbl-libcc-concepts-linkedlists-extend:
+
+Linked list extend()
+^^^^^^^^^^^^^^^^^^^^
+
+Most linked lists have :c:`*_extend()` function, which takes two linked list,
+both are optional.
+
+:c:`*_extend()` function extends first linked list with the second; this also
+transfers ownership from second linked list onto the first one.
+
+As a result, inner pointer to second linked list is :c:data:`NULL`\ed.
+
+If first linked list is not given (its inner pointer is :c:data:`NULL`),
+first linked list simply takes over second linked list.
+
+If second linked list is not given (its inner pointer is :c:data:`NULL`),
+no action is performed.
+
+Function returns valid weak pointer to a :c:term:`link` if successful,
+otherwise :c:data:`NULL` in case of an error.
+
+Returned weak pointer is to an extended portion of the first linked list
+(i.e. first :c:term:`link` from the second linked list), if second linked list
+was given (not :c:data:`NULL`).
+
+If second linked list was not given, returned weak pointer is to first
+:c:term:`link` in the first linked list.
+
+.. _lbl-libcc-concepts-linkedlists-free:
+
+Linked list free()
+^^^^^^^^^^^^^^^^^^
+
+
+
+TODO :: about linked lists
 
 
 .. _lbl-libcc-concepts-designs:

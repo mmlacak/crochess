@@ -410,7 +410,7 @@ Linked typed steps
 
     :param ts_link__iod_a: **Ownership**, *optional* *input/output* parameter, linked list.
     :param step: A typed step.
-    :returns: Pointer to a newly allocated linked typed step if successful,
+    :returns: Weak pointer to a newly allocated linked typed step if successful,
               :c:data:`NULL` otherwise.
 
 .. c:function:: CcTypedStepLink * cc_typed_step_link_extend( CcTypedStepLink ** ts_link__iod_a, CcTypedStepLink ** ts_link__n )
