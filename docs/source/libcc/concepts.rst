@@ -152,6 +152,21 @@ to be freed.
     with all owned resources, see :ref:`lbl-libcc-concepts-linkedlists-free` for
     details.
 
+.. _lbl-libcc-concepts-linkedlists-macros:
+
+Linked list macros
+^^^^^^^^^^^^^^^^^^
+
+Linked list related macros are defined in ``cc_defines.h``.
+
+Macro :c:macro:`CC_FASTFORWARD` takes pointer variable to list (or any other
+:c:`struct` having :c:member:`next` member), and fast-forwards it to the last
+:c:term:`link` in a given linked list.
+
+Another macro :c:macro:`CC_REWIND_BY` does the same as :c:macro:`CC_FASTFORWARD`,
+but also takes member name to rewind, so it's not fixed to :c:member:`next`
+anymore.
+
 .. _lbl-libcc-concepts-linkedlists-new:
 
 Linked list new()
@@ -216,6 +231,75 @@ Linked list free()
 
 All linked lists have :c:`*_free_all()` function, which takes linked list and
 deallocates all its :c:term:`link`\s, and all associated, owned resources.
+
+.. note::
+
+    Function calls standard :c:func:`free()` in the background; in case of
+    freeing the same resource twice, or outstanding pointer, it'll most likely
+    crash ("behavior is undefined").
+
+Function returns :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. _lbl-libcc-concepts-queue:
+
+Queue
+-----
+
+Queue (double-linked list) is a :c:`struct` holding two pointers to its own
+type.
+
+Member :c:member:`next` holds ownership of next :c:term:`link` in the queue,
+and -by extension- to the end of that queue.
+
+Member :c:member:`prev__w` is a weak pointer to previous :c:term:`link`, and
+holds no ownership.
+
+.. _lbl-libcc-concepts-queue-macros:
+
+Queue macros
+^^^^^^^^^^^^
+
+Queue related macros are also defined in ``cc_defines.h``.
+
+Macro :c:macro:`CC_REWIND` takes pointer variable to queue (or any other
+:c:`struct` having :c:member:`prev__w` member), and rewinds it to the first
+:c:term:`link` in a given queue.
+
+Useful macro is :c:macro:`CC_REWIND_BY`, since it takes member name to rewind,
+so it's not fixed neither to :c:member:`next` nor to :c:member:`prev__w`.
+
+.. _lbl-libcc-concepts-queue-new:
+
+Queue new()
+^^^^^^^^^^^
+
+All queues have :c:`*__new()` function, which takes all data necessary to
+fill-in all members of a :c:term:`link`.
+
+Function returns a newly allocated :c:term:`link`.
+
+.. _lbl-libcc-concepts-queue-append:
+
+Queue append()
+^^^^^^^^^^^^^^
+
+All queues have :c:`*_append()` function, which takes queue in addition to all
+data necessary to fill-in all members of a :c:term:`link`.
+
+Function appends newly allocated :c:term:`link` to a queue, if given (i.e. if
+inner pointer is not :c:data:`NULL`); otherwise, it initializes queue with a
+:c:term:`link` as its only element.
+
+Function returns weak pointer to a newly allocated :c:term:`link`, or
+:c:data:`NULL` in case of an error.
+
+.. _lbl-libcc-concepts-queue-free:
+
+Queue free()
+^^^^^^^^^^^^
+
+All queues have :c:`*_free_all()` function, which takes queue and deallocates
+all its :c:term:`link`\s, and all associated, owned resources.
 
 .. note::
 
