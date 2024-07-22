@@ -249,10 +249,29 @@ Queue (double-linked list) is a :c:`struct` holding two pointers to its own
 type.
 
 Member :c:member:`next` holds ownership of next :c:term:`link` in the queue,
-and -by extension- to the end of that queue.
+and -by extension- to the end of that queue; just like in a linked list.
 
-Member :c:member:`prev__w` is a weak pointer to previous :c:term:`link`, and
-holds no ownership.
+Member :c:member:`prev__w` is a weak pointer to previous :c:term:`link`, which
+just facilitates backtracking, and holds no ownership.
+
+As before, :c:data:`NULL`\-pointer to a queue is equivalent to an empty queue.
+
+The same as in linked list, an item in a queue is called :c:term:`link`.
+
+For instance, :c:struct:`CcParsedMove` defines :c:term:`link` :c:`struct`,
+chaining together :c:term:`link`\s builds parsed moves, i.e. whole queue.
+
+All :c:term:`link`\s are newly allocated on the heap; so, all queues has
+to be freed.
+
+.. warning::
+
+    Do not use standard :c:func:`free()` function on :c:term:`link`\s, it will
+    not free any additional allocated resources.
+
+    Use linked list specific function to free all its :c:term:`link`\s together
+    with all owned resources, see :ref:`lbl-libcc-concepts-queue-free` for
+    details.
 
 .. _lbl-libcc-concepts-queue-macros:
 
@@ -265,8 +284,8 @@ Macro :c:macro:`CC_REWIND` takes pointer variable to queue (or any other
 :c:`struct` having :c:member:`prev__w` member), and rewinds it to the first
 :c:term:`link` in a given queue.
 
-Useful macro is :c:macro:`CC_REWIND_BY`, since it takes member name to rewind,
-so it's not fixed neither to :c:member:`next` nor to :c:member:`prev__w`.
+Also useful is :c:macro:`CC_REWIND_BY` macro, since it takes member name to
+rewind, so it's not fixed neither to :c:member:`next` nor to :c:member:`prev__w`.
 
 .. _lbl-libcc-concepts-queue-new:
 

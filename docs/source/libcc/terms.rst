@@ -74,4 +74,4 @@ Glossary
         Initial movement of a private, for two or more fields forward.
 
     link
-        Item in a linked list.
+        Item in a linked list, or a queue.
