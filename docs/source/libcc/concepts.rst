@@ -182,19 +182,22 @@ Function returns weak pointer to a newly allocated :c:term:`link`, or
 Linked list extend()
 ^^^^^^^^^^^^^^^^^^^^
 
-Most linked lists have :c:`*_extend()` function, which takes two linked list,
-both are optional.
+Most linked lists have :c:`*_extend()` function, which takes two optional
+linked lists.
 
 :c:`*_extend()` function extends first linked list with the second; this also
 transfers ownership from second linked list onto the first one.
 
 As a result, inner pointer to second linked list is :c:data:`NULL`\ed.
 
-If first linked list is not given (its inner pointer is :c:data:`NULL`),
-first linked list simply takes over second linked list.
+Both linked lists are optional, if either (or both!) arguments are not given,
+function tries to do the most reasonable thing:
 
-If second linked list is not given (its inner pointer is :c:data:`NULL`),
-no action is performed.
+    * If first linked list is not given (its inner pointer is :c:data:`NULL`),
+      first linked list simply takes over second linked list.
+
+    * If second linked list is not given (its inner pointer is :c:data:`NULL`),
+      no action is performed.
 
 Function returns valid weak pointer to a :c:term:`link` if successful,
 otherwise :c:data:`NULL` in case of an error.
@@ -211,10 +214,16 @@ If second linked list was not given, returned weak pointer is to first
 Linked list free()
 ^^^^^^^^^^^^^^^^^^
 
+All linked lists have :c:`*_free_all()` function, which takes linked list and
+deallocates all its :c:term:`link`\s, and all associated, owned resources.
 
+.. note::
 
-TODO :: about linked lists
+    Function calls standard :c:func:`free()` in the background; in case of
+    freeing the same resource twice, or outstanding pointer, it'll most likely
+    crash ("behavior is undefined").
 
+Function returns :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-concepts-designs:
 
