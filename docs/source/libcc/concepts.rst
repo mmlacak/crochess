@@ -39,7 +39,7 @@ Position is a pair of coordinates, used to address location (a field) on a
 chessboard.
 
 Position is an absolute address, all positions are coordinated against the same
-origin, i.e. (0, 0), or ``a1`` field.
+origin, i.e. ``(0, 0)``, a.k.a. ``a1`` field.
 
 Step is relative position, i.e. difference between two absolute positions.
 
@@ -77,17 +77,47 @@ first to last :c:`char`, without zero-terminating :c:`char`.
 Size of a string counts everything from starting to ending :c:`char`,
 including zero-terminating :c:`char`.
 
+.. _lbl-libcc-concepts-listlikearrays:
+
+List-like arrays
+----------------
+
+List-like arrays have terminating data in it to gracefully stop further processing,
+even if its size is not known, or given::
+
+    start <-------- size ----------> end
+      |                               |
+      v                               v
+    +---+---+---+... ...+---+---+---+---+
+    | A | B | C |       | X | Y | Z | # |
+    +---+---+---+... ...+---+---+---+---+
+      ^                           ^
+      |                           |
+    first <------ length ------> last
+
+Similar to strings, length of such an array does include only content items,
+while size also include terminating data.
+
+Also similar to strings, last item in array is content item, while ending item
+is always terminating item.
+
+Guard data is defined for array type; for instance, :c:enum:`CcTypedStep` arrays
+have :c:data:`CC_TYPED_STEP_INVALID` as a terminating item.
+
 .. _lbl-libcc-concepts-arrays:
 
 Arrays
 ------
 
-Some arrays have guard-data in it to gracefully stop further processing, even if
-its size is not known, or given.
+Fixed-size arrays do not include terminating data, one has to use array size
+to access items.
 
+Here, all such arrays are 2D, and are used to hold initial setups of various
+chessboards, both for pieces and tags.
 
-
-TODO :: about positions, steps
+For instance, :c:data:`CC_SETUP_BOARD_NINETEEN` holds initial piece positions
+for Nineteen variant, while :c:data:`CC_SETUP_TAGS_MAYAN_ASCENDANCY` holds
+initial tags for Mayan Ascendancy variant.
 
 ..
     Linked lists
