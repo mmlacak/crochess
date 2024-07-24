@@ -244,6 +244,9 @@ own type; an item in a queue is called :c:term:`link`.
 Each item in a queue holds ownership over next item in a sequence, and
 -by extension- to the rest of that queue.
 
+Previous item in a sequence is accessed by a weak pointer, which holds no
+ownership over previous item.
+
 Queue is simply a pointer to the first item in that queue,
 :c:data:`NULL`\-pointer is equivalent to an empty queue.
 

@@ -61,7 +61,7 @@ For instance, :c:enumerator:`CC_PPLE_FailedTeleportationOblation` would be one o
 Linked lists
 ------------
 
-Linked lists are described in :ref:`lbl-libcc-concepts-linkedlists`.
+Linked lists are described in concepts :ref:`lbl-libcc-concepts-linkedlists`.
 
 :term:`Link`\s have ``Link`` appended to the name, usually of a base entity,
 and also :c:`next` member, which points to next item in sequence.
