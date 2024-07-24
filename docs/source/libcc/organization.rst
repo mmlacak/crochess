@@ -61,17 +61,10 @@ For instance, :c:enumerator:`CC_PPLE_FailedTeleportationOblation` would be one o
 Linked lists
 ------------
 
-Link is a :c:`struct` which has a pointer to its own type; links are chained
-together into linked list.
+Linked lists are described in :ref:`lbl-libcc-concepts-linkedlists`.
 
-Each link has ownership over any pointer it contains, including the link it
-points to, and -by extension- the rest of a linked list.
-
-Linked list is simply a pointer to a first item in that list. :c:data:`NULL` pointer
-is equivalent to empty list.
-
-Links have ``Link`` appended to the name, usually of a base entity, and also
-:c:`next` member, which points to next item in sequence.
+:term:`Link`\s have ``Link`` appended to the name, usually of a base entity,
+and also :c:`next` member, which points to next item in sequence.
 
 For instance, for a simple :c:`struct CcPos;`, link would be:
 

@@ -124,18 +124,14 @@ initial tags for Mayan Ascendancy variant.
 Linked lists
 ------------
 
-All linked lists are realized as a :c:`struct` holding pointer to its own type.
+All linked lists are :c:`struct`\s holding pointer to its own type; an item in
+a linked list is called :c:term:`link`.
 
-As a result, each item in a linked list holds ownership over next item in a
-sequence, and -by extension- to the rest of that linked list.
+Each item in a linked list holds ownership over next item in a sequence, and
+-by extension- to the rest of that linked list.
 
-Also, :c:data:`NULL`\-pointer to linked list is equivalent to an empty linked
-list.
-
-Type of a pointer to any item in a linked list is the same type as pointer to
-linked list itself.
-
-To distinguish the two, an item in a linked list is called :c:term:`link`.
+Linked list is simply a pointer to the first item in that list,
+:c:data:`NULL`\-pointer is equivalent to an empty list.
 
 For instance, :c:struct:`CcTypedStepLink` defines :c:term:`link` :c:`struct`,
 chaining together :c:term:`link`\s builds typed steps, i.e. whole linked list.
@@ -182,8 +178,8 @@ Function returns a newly allocated :c:term:`link`.
 Linked list append()
 ^^^^^^^^^^^^^^^^^^^^
 
-All linked lists have :c:`*_append()` function, which takes linked list in
-addition to all data necessary to fill-in all members of a :c:term:`link`.
+All linked lists have :c:`*_append()` function, which takes optional linked list
+in addition to all data necessary to fill-in all members of a :c:term:`link`.
 
 Function appends newly allocated :c:term:`link` to a linked list, if given
 (i.e. if inner pointer is not :c:data:`NULL`); otherwise, it initializes
@@ -208,21 +204,17 @@ As a result, inner pointer to second linked list is :c:data:`NULL`\ed.
 Both linked lists are optional, if either (or both!) arguments are not given,
 function tries to do the most reasonable thing:
 
-    * If first linked list is not given (its inner pointer is :c:data:`NULL`),
-      first linked list simply takes over second linked list.
+    * if first linked list is not given (its inner pointer is :c:data:`NULL`),
+      first linked list simply takes over second linked list
 
-    * If second linked list is not given (its inner pointer is :c:data:`NULL`),
-      no action is performed.
+    * if second linked list is not given (its inner pointer is :c:data:`NULL`),
+      no action is performed
 
 Function returns valid weak pointer to a :c:term:`link` if successful,
 otherwise :c:data:`NULL` in case of an error.
 
-Returned weak pointer is to an extended portion of the first linked list
-(i.e. first :c:term:`link` from the second linked list), if second linked list
-was given (not :c:data:`NULL`).
-
-If second linked list was not given, returned weak pointer is to first
-:c:term:`link` in the first linked list.
+Returned weak pointer is either to first :c:term:`link` from the second linked
+list, if given; or to first :c:term:`link` in the first linked list.
 
 .. _lbl-libcc-concepts-linkedlists-free:
 
@@ -235,8 +227,9 @@ deallocates all its :c:term:`link`\s, and all associated, owned resources.
 .. note::
 
     Function calls standard :c:func:`free()` in the background; in case of
-    freeing the same resource twice, or outstanding pointer, it'll most likely
-    crash ("behavior is undefined").
+    circular linked list (or some other issue), it'll most likely crash
+    ("behavior is undefined", see
+    `<https://en.cppreference.com/w/c/memory/free>`_ for details).
 
 Function returns :c:data:`true` if successful, :c:data:`false` otherwise.
 
@@ -245,18 +238,14 @@ Function returns :c:data:`true` if successful, :c:data:`false` otherwise.
 Queue
 -----
 
-Queue (double-linked list) is a :c:`struct` holding two pointers to its own
-type.
+All queues (double-linked lists) are :c:`struct`\s holding two pointer to its
+own type; an item in a queue is called :c:term:`link`.
 
-Member :c:member:`next` holds ownership of next :c:term:`link` in the queue,
-and -by extension- to the end of that queue; just like in a linked list.
+Each item in a queue holds ownership over next item in a sequence, and
+-by extension- to the rest of that queue.
 
-Member :c:member:`prev__w` is a weak pointer to previous :c:term:`link`, which
-just facilitates backtracking, and holds no ownership.
-
-As before, :c:data:`NULL`\-pointer to a queue is equivalent to an empty queue.
-
-The same as in linked list, an item in a queue is called :c:term:`link`.
+Queue is simply a pointer to the first item in that queue,
+:c:data:`NULL`\-pointer is equivalent to an empty queue.
 
 For instance, :c:struct:`CcParsedMove` defines :c:term:`link` :c:`struct`,
 chaining together :c:term:`link`\s builds parsed moves, i.e. whole queue.
@@ -323,7 +312,8 @@ all its :c:term:`link`\s, and all associated, owned resources.
 .. note::
 
     Function calls standard :c:func:`free()` in the background; in case of
-    freeing the same resource twice, or outstanding pointer, it'll most likely
-    crash ("behavior is undefined").
+    circular queue (or some other issue), it'll most likely crash
+    ("behavior is undefined", see
+    `<https://en.cppreference.com/w/c/memory/free>`_ for details).
 
 Function returns :c:data:`true` if successful, :c:data:`false` otherwise.
