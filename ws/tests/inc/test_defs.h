@@ -37,7 +37,7 @@ TestMoveArgs test_move_args( char const * an_str,
     { .an_str = an, .setup__d = setup, .check_setup__d = check_setup, .check_end__d = check_end, .error_code = error }
 
 extern TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ];
-extern size_t TEST_MOVE_ARGS_ARRAY_SIZE;
+extern size_t const TEST_MOVE_ARGS_ARRAY_SIZE;
 
 bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 );
 

@@ -124,7 +124,7 @@ TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ] = {
     TEST_MOVE_ARGS_INVALID,
 };
 
-size_t TEST_MOVE_ARGS_ARRAY_SIZE = (size_t)( ( sizeof TEST_MOVE_ARGS_ARRAY ) / ( sizeof TEST_MOVE_ARGS_ARRAY[ 0 ] ) ); // Currently: 49.
+size_t const TEST_MOVE_ARGS_ARRAY_SIZE = (size_t)( ( sizeof TEST_MOVE_ARGS_ARRAY ) / ( sizeof TEST_MOVE_ARGS_ARRAY[ 0 ] ) ); // Currently: 49.
 
 
 bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 ) {
@@ -170,6 +170,6 @@ TestMoveArgs * test_move_args_fetch( size_t index ) {
     if ( TEST_MOVE_ARGS_ARRAY_SIZE < index )
         return NULL;
 
-    TestMoveArgs * tma = TEST_MOVE_ARGS_ARRAY + index;
+    TestMoveArgs * tma = (TestMoveArgs *)( TEST_MOVE_ARGS_ARRAY + index );
     return tma;
 }
