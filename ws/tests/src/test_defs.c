@@ -1,13 +1,11 @@
 // Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include <stdbool.h>
 #include <stdlib.h>
 // #include <stdio.h>
 // #include <string.h>
 //
 // #include "cc_defines.h"
-// #include "cc_str_utils.h"
 // #include "cc_math.h"
 //
 // #include "cc_version.h"
@@ -23,6 +21,9 @@
 //
 // #include "hlp_msgs.h"
 // #include "test_msgs.h"
+
+#include "cc_str_utils.h"
+
 #include "test_defs.h"
 
 
@@ -30,7 +31,7 @@ TestMoveArgs test_move_args( char const * an_str,
                              char const * setup__d,
                              char const * check_setup__d,
                              char const * check_end__d,
-                             size_t error_code ) {
+                             ull error_code ) {
     TestMoveArgs tma = { .an_str = an_str,
                          .setup__d = setup__d,
                          .check_setup__d = check_setup__d,
@@ -122,3 +123,45 @@ TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ] = {
 
     TEST_MOVE_ARGS_INVALID,
 };
+
+size_t TEST_MOVE_ARGS_ARRAY_SIZE = (size_t)( ( sizeof TEST_MOVE_ARGS_ARRAY ) / ( sizeof TEST_MOVE_ARGS_ARRAY[ 0 ] ) ); // Currently: 49.
+
+
+bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 ) {
+    if ( tma_1.an_str != tma_2.an_str ) return false;
+    if ( tma_1.setup__d != tma_2.setup__d ) return false;
+    if ( tma_1.check_setup__d != tma_2.check_setup__d ) return false;
+    if ( tma_1.check_end__d != tma_2.check_end__d ) return false;
+    if ( tma_1.error_code != tma_2.error_code ) return false;
+    return true;
+}
+
+bool test_move_args_are_invalid( TestMoveArgs tma ) {
+    return test_move_args_are_equal( tma, TEST_MOVE_ARGS_INVALID_CAST );
+}
+
+bool test_move_args_iter( TestMoveArgs ** tma__iod ) {
+    if ( !tma__iod ) return false;
+
+    if ( !*tma__iod ) {
+        *tma__iod = (TestMoveArgs *)( TEST_MOVE_ARGS_ARRAY );
+        return true;
+    }
+
+    *tma__iod += 1;
+    bool do_reset = false;
+
+    if ( test_move_args_are_invalid( **tma__iod ) )
+        do_reset = true;
+    else if ( *tma__iod < TEST_MOVE_ARGS_ARRAY )
+        do_reset = true;
+    else if ( TEST_MOVE_ARGS_ARRAY + TEST_MOVE_ARGS_ARRAY_SIZE <= *tma__iod )
+        do_reset = true;
+
+    if ( do_reset ) {
+        *tma__iod = NULL;
+        return false;
+    }
+
+    return true;
+}

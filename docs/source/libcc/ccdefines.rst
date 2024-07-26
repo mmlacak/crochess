@@ -20,15 +20,13 @@ Convenience shorthands for unsigned integer types.
 
 .. c:type:: unsigned char uchar
 
-    Convenience type.
-
 .. c:type:: unsigned short ushort
-
-    Convenience type.
 
 .. c:type:: unsigned int uint
 
-    Convenience type.
+.. c:type:: unsigned long ulong
+
+.. c:type:: unsigned long long ull
 
 .. c:macro:: CC_UNSIGNED_MIN
 
