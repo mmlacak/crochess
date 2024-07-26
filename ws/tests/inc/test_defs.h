@@ -9,6 +9,8 @@
 #include "cc_defines.h"
 
 
+#define TEST_ALL_MOVES (-1)
+
 typedef struct TestMoveArgs {
     char const * an_str;
     char const * setup__d;
@@ -42,6 +44,8 @@ bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 );
 bool test_move_args_are_invalid( TestMoveArgs tma );
 
 bool test_move_args_iter( TestMoveArgs ** tma__iod );
+
+TestMoveArgs * test_move_args_fetch( size_t index );
 
 
 #endif /* __TEST_DEFS_H__ */

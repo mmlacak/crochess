@@ -23,6 +23,7 @@
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
+#include "test_defs.h"
 #include "tests_misc.h"
 
 
@@ -186,7 +187,7 @@ bool tests_misc( int test_number ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false; }
 
-    bool do_all_tests = ( test_number == 0 );
+    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
     bool result = true;
 
     if ( ( test_number == 1 ) || do_all_tests )

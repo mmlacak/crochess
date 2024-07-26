@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.605:1037+20240726.210826"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.606:1038+20240726.233208"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -110,15 +110,14 @@ char const * get_game_status_label( CcGameStatusEnum gse ) {
 int main( void ) {
     print_app_intro( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
 
-    printf( "Array size: %zu, item size: %zu.\n", TEST_MOVE_ARGS_ARRAY_SIZE, sizeof( TestMoveArgs ) );
+    // printf( "Array size: %zu, item size: %zu.\n", TEST_MOVE_ARGS_ARRAY_SIZE, sizeof( TestMoveArgs ) );
+    //
+    // TestMoveArgs * tma = NULL;
+    // size_t index = 0;
+    // while ( test_move_args_iter( &tma ) ) {
+    //     printf( "Test %zu: %s.\n", index++, tma->an_str );
+    // }
 
-    TestMoveArgs * tma = NULL;
-    size_t index = 0;
-    while ( test_move_args_iter( &tma ) ) {
-        printf( "Test %zu: %s.\n", index++, tma->an_str );
-    }
-
-    // printf( "Array size: %zu.\n", ( ( sizeof TEST_MOVE_ARGS_ARRAY ) / ( sizeof TEST_MOVE_ARGS_ARRAY[ 0 ] ) ) );
 
 // // DEBUG
 //     // /* static */ char * foo = "xxx";
@@ -345,11 +344,11 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tm", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_move", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, 0, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
             tests_move( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tx", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, 0, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
             tests_misc( test_number );
 #ifdef __WITH_LINE_NOISE__
         } else if ( cc_str_is_equal( token_start, token_end, "kc", NULL, BUFSIZ ) ||

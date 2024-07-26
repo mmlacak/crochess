@@ -165,3 +165,11 @@ bool test_move_args_iter( TestMoveArgs ** tma__iod ) {
 
     return true;
 }
+
+TestMoveArgs * test_move_args_fetch( size_t index ) {
+    if ( TEST_MOVE_ARGS_ARRAY_SIZE < index )
+        return NULL;
+
+    TestMoveArgs * tma = TEST_MOVE_ARGS_ARRAY + index;
+    return tma;
+}

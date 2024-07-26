@@ -13,7 +13,6 @@ bool test_move( char const * an_str,
                 char const * check_end__d,
                 CcGame ** game__iodr );
 
-
 bool tests_move( int test_number );
 
 
