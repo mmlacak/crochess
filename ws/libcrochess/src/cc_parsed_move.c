@@ -161,12 +161,22 @@ size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score ) {
 
         // 1st 3 == ". " + " "
         // +digits == count of digits in cycle index, e.g. 3 in "123"
+        // +1 == '\n'
         // *cycles == count of cycles
         // last +3 == "..."
-        size += ( 3 + cc_count_of_digits( cycles ) ) * cycles + 3;
-    }
+        // last +1 == '\0'
+        size += ( 3 + cc_count_of_digits( cycles ) + 1 ) * cycles + 3 + 1;
+    } else {
+        // List of moves migth look like this:
+        //      ___previous moves___
+        // <move_light>
+        // <move_dark>
+        // <move_light>
 
-    size += count + 1; // count == '\n', +1 == '\0'
+        // count == '\n'
+        // +1 == '\0'
+        size += count + 1;
+    }
 
     return size;
 }
