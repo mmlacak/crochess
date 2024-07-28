@@ -117,7 +117,6 @@ bool cc_parsed_move_free_all( CcParsedMove ** moves__f ) {
     return result;
 }
 
-
 size_t cc_parsed_move_plies_count( CcParsedMove * move ) {
     if ( !move ) return 0;
     if ( !move->plies ) return 0;

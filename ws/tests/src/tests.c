@@ -34,7 +34,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.608:1040+20240727.000837"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.609:1041+20240728.002035"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -211,8 +211,6 @@ int main( void ) {
 
                     // TODO :: TEMP :: uncomment (?)
                     // cc_chessboard_print( game__a->chessboard, true );
-
-                    CC_FREE( move__a );
                 } else {
                     CcParseMsg * p = pm__a;
                     while ( p ) {
@@ -223,6 +221,7 @@ int main( void ) {
 //
 // TODO :: parse --> do apply
 
+                cc_parsed_move_free_all( &move__a );
                 cc_parse_msg_free_all( &pm__a );
             }
         } else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||

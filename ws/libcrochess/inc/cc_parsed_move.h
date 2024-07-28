@@ -51,7 +51,6 @@ CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves );
 
 bool cc_parsed_move_free_all( CcParsedMove ** moves__f );
 
-
 size_t cc_parsed_move_plies_count( CcParsedMove * move );
 
 
