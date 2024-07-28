@@ -5,6 +5,7 @@
 #include <stdio.h>
 
 #include "cc_defines.h"
+#include "cc_math.h"
 #include "cc_str_utils.h"
 
 #include "cc_parsed_move.h"
@@ -130,4 +131,42 @@ size_t cc_parsed_move_plies_count( CcParsedMove * move ) {
     }
 
     return count;
+}
+
+size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score ) {
+    if ( !move ) return 0;
+
+    size_t size = 0;
+    size_t count = 0;
+    CcParsedMove * m = move;
+
+    CC_REWIND( m );
+
+    while ( m ) {
+        size += cc_str_len( m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ); // TODO :: replace CC_MAX_LEN_ZERO_TERMINATED with SIZBUF (?)
+        count += 1;
+
+        m = m->next;
+    }
+
+    if ( is_score ) {
+        // Game score migth look like this:
+        //      ___previous moves___
+        // 123. <move_light> <move_dark>
+        // 124. <move_light> ...
+
+        // cycle == light move + dark move
+        // +1 == last (incomplete) cycle, because /2 == floor( integer )
+        size_t cycles = count / 2 + 1;
+
+        // 1st 3 == ". " + " "
+        // +digits == count of digits in cycle index, e.g. 3 in "123"
+        // *cycles == count of cycles
+        // last +3 == "..."
+        size += ( 3 + cc_count_of_digits( cycles ) ) * cycles + 3;
+    }
+
+    size += count + 1; // count == '\n', +1 == '\0'
+
+    return size;
 }

@@ -34,3 +34,49 @@ size_t cc_diagonal( size_t size ) {
     long double d = ceill( sqrtl( (long double)s ) );
     return (size_t)d;
 }
+
+int cc_count_of_digits( size_t n ) {
+    // https://en.cppreference.com/w/c/types/limits
+    // 2^64-1 == 18446744073709551615 == SIZE_MAX (C99)
+
+    if ( n < 10llu )
+        return 1;
+    else if ( n < 100llu )
+        return 2;
+    else if ( n < 1000llu )
+        return 3;
+    else if ( n < 10000llu )
+        return 4;
+    else if ( n < 100000llu )
+        return 5;
+    else if ( n < 1000000llu )
+        return 6;
+    else if ( n < 10000000llu )
+        return 7;
+    else if ( n < 100000000llu )
+        return 8;
+    else if ( n < 1000000000llu )
+        return 9;
+    else if ( n < 10000000000llu )
+        return 10;
+    else if ( n < 100000000000llu )
+        return 11;
+    else if ( n < 1000000000000llu )
+        return 12;
+    else if ( n < 10000000000000llu )
+        return 13;
+    else if ( n < 100000000000000llu )
+        return 14;
+    else if ( n < 1000000000000000llu )
+        return 15;
+    else if ( n < 10000000000000000llu )
+        return 16;
+    else if ( n < 100000000000000000llu )
+        return 17;
+    else if ( n < 1000000000000000000llu )
+        return 18;
+    else if ( n < 10000000000000000000llu )
+        return 19;
+    else
+        return 20;
+}

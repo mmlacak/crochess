@@ -30,11 +30,12 @@
 #include "test_msgs.h"
 #include "test_defs.h"
 #include "tests_misc.h"
+#include "tests_parse.h"
 #include "tests_move.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.609:1041+20240728.002035"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.610:1042+20240728.015526"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -78,12 +79,12 @@ bool print_all_moves( CcParsedMove * moves ) {
             l = m;
 
             if ( !m->next ) {
-                printf( "%lu %s ...\n", index+1, l->notation );
+                printf( "%lu. %s ...\n", index+1, l->notation );
                 break;
             }
         } else {
             d = m;
-            printf( "%lu %s %s\n", ++index, l->notation, d->notation );
+            printf( "%lu. %s %s\n", ++index, l->notation, d->notation );
         }
 
         m = m->next;
@@ -331,6 +332,17 @@ int main( void ) {
             }
         } else if ( cc_str_is_equal( token_start, token_end, "tb", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_book", NULL, BUFSIZ ) ) {
+        } else if ( cc_str_is_equal( token_start, token_end, "tt", NULL, BUFSIZ ) ||
+                    cc_str_is_equal( token_start, token_end, "test_temp", NULL, BUFSIZ ) ) {
+            CcParsedMove * move__a = cc_parsed_move__new( "foo", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
+            cc_parsed_move_append( &move__a, "bar", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
+            cc_parsed_move_append( &move__a, "baz", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
+            cc_parsed_move_append( &move__a, "rar", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
+            cc_parsed_move_append( &move__a, "zaz", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
+            printf( "Size raw: %zu, score: %zu.\n", cc_parsed_move_all_notations_size( move__a, false ), cc_parsed_move_all_notations_size( move__a, true ) );
+            printf( "------------------------------------------------------------------------------\n" );
+            print_all_moves( move__a );
+            cc_parsed_move_free_all( &move__a );
         } else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
