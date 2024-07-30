@@ -56,5 +56,8 @@ size_t cc_parsed_move_plies_count( CcParsedMove * move );
 // TODO :: DOCS
 size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score );
 
+// TODO :: DOCS
+char * cc_parsed_move_as_string__new( CcParsedMove * move, bool is_score );
+
 
 #endif /* __CC_PARSED_MOVE_H__ */

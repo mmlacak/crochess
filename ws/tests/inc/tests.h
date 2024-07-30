@@ -24,7 +24,7 @@ int get_integer_from_cli_arg( char const * str,
                               char const ** first_io,
                               char const ** end_io );
 
-bool print_all_moves( CcParsedMove * moves );
+bool print_all_moves( CcParsedMove * moves, bool is_score );
 
 char const * get_game_status_label( CcGameStatusEnum gse );
 

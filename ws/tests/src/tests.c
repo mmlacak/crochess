@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.611:1043+20240728.021031"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.612:1044+20240730.014833"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -62,33 +62,39 @@ int get_integer_from_cli_arg( char const * str,
     return number;
 }
 
-bool print_all_moves( CcParsedMove * moves ) {
-    if ( !moves ) return false;
+bool print_all_moves( CcParsedMove * moves, bool is_score ) {
+    // if ( !moves ) return false;
+    //
+    // CcParsedMove * m = moves;
+    // CcParsedMove * l = NULL;
+    // CcParsedMove * d = NULL;
+    //
+    // size_t i = 0;
+    // size_t index = 0;
+    //
+    // CC_REWIND( m );
+    //
+    // while ( m ) {
+    //     if ( i++ % 2 == 0 ) {
+    //         l = m;
+    //
+    //         if ( !m->next ) {
+    //             printf( "%lu. %s ...\n", index+1, l->notation );
+    //             break;
+    //         }
+    //     } else {
+    //         d = m;
+    //         printf( "%lu. %s %s\n", ++index, l->notation, d->notation );
+    //     }
+    //
+    //     m = m->next;
+    // }
 
-    CcParsedMove * m = moves;
-    CcParsedMove * l = NULL;
-    CcParsedMove * d = NULL;
+    char const * move_str__a = cc_parsed_move_as_string__new( moves, is_score );
 
-    size_t i = 0;
-    size_t index = 0;
+    printf( "%s", move_str__a );
 
-    CC_REWIND( m );
-
-    while ( m ) {
-        if ( i++ % 2 == 0 ) {
-            l = m;
-
-            if ( !m->next ) {
-                printf( "%lu. %s ...\n", index+1, l->notation );
-                break;
-            }
-        } else {
-            d = m;
-            printf( "%lu. %s %s\n", ++index, l->notation, d->notation );
-        }
-
-        m = m->next;
-    }
+    CC_FREE( move_str__a );
 
     return true;
 }
@@ -195,7 +201,7 @@ int main( void ) {
             cc_chessboard_print( game__a->chessboard, false );
         } else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) ) {
-            print_all_moves( game__a->moves );
+            print_all_moves( game__a->moves, true );
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
@@ -341,7 +347,12 @@ int main( void ) {
             cc_parsed_move_append( &move__a, "zaz", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
             printf( "Size raw: %zu, score: %zu.\n", cc_parsed_move_all_notations_size( move__a, false ), cc_parsed_move_all_notations_size( move__a, true ) );
             printf( "------------------------------------------------------------------------------\n" );
-            print_all_moves( move__a );
+            // print_all_moves( move__a ); // TODO
+
+            char const * move_str__a = cc_parsed_move_as_string__new( move__a, true );
+            printf( "%s", move_str__a );
+            CC_FREE( move_str__a );
+
             cc_parsed_move_free_all( &move__a );
         } else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {

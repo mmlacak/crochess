@@ -180,3 +180,64 @@ size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score ) {
 
     return size;
 }
+
+char * cc_parsed_move_as_string__new( CcParsedMove * move, bool is_score ) {
+    if ( !move ) return NULL;
+
+    size_t size = cc_parsed_move_all_notations_size( move, is_score );
+    if ( size == 0 ) return NULL;
+
+    char * move_str__a = malloc( size );
+    if ( !move_str__a ) return NULL;
+
+    size_t i = 0;
+    size_t index = 0;
+    int result = 0;
+
+    char * str = move_str__a;
+    CcParsedMove * m = move;
+    CcParsedMove * l = NULL; // light move
+    CcParsedMove * d = NULL; // dark move
+
+    CC_REWIND( m );
+
+    if ( is_score ) {
+        while ( m ) {
+            if ( i++ % 2 == 0 ) {
+                l = m;
+
+                if ( !m->next ) {
+                    // printf( "%lu. %s ...\n", index+1, l->notation );
+                    result = snprintf( str, size, "%zu. %s ...\n", ++index, l->notation );
+                    if ( result >= 0 ) str += result;
+                    break;
+                }
+            } else {
+                d = m;
+                // printf( "%lu. %s %s\n", ++index, l->notation, d->notation );
+                result = snprintf( str, size, "%zu. %s %s\n", ++index, l->notation, d->notation );
+                str += result;
+                if ( result < 0 ) break;
+            }
+
+            m = m->next;
+        }
+    } else {
+        while ( m ) {
+            result = snprintf( str, size, "%s\n", m->notation );
+            str += result;
+            if ( result < 0 ) break;
+
+            m = m->next;
+        }
+    }
+
+    if ( result < 0 ) {
+        // From: https://en.cppreference.com/w/c/io/fprintf
+        // ... a negative value if an encoding error (for string and character conversion specifiers) occurred.
+        CC_FREE( move_str__a );
+        return NULL;
+    }
+
+    return move_str__a;
+}
