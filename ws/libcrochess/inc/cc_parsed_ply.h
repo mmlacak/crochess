@@ -119,6 +119,8 @@ CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
 
 bool cc_parsed_ply_free_all( CcParsedPly ** plies__f );
 
+size_t cc_parsed_ply_steps_count( CcParsedPly * ply );
+
 bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply );
 
 CcPieceEnum cc_parsed_ply_find_activator( CcParsedPly * plies,

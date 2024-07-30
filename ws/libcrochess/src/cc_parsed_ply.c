@@ -160,6 +160,21 @@ bool cc_parsed_ply_free_all( CcParsedPly ** plies__f ) {
 }
 
 
+size_t cc_parsed_ply_steps_count( CcParsedPly * ply ) {
+    if ( !ply ) return 0;
+    if ( !ply->steps ) return 0;
+
+    size_t count = 0;
+    CcParsedStep * s = ply->steps;
+
+    while ( s ) {
+        ++count;
+        s = s->next;
+    }
+
+    return count;
+}
+
 bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply ) {
     if ( !ply ) return false;
     if ( !ply->steps ) return false;
