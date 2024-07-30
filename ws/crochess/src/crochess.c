@@ -26,40 +26,21 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.612:1044+20240730.014833"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.613:1045+20240730.015522"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
 #endif // __WITH_LINE_NOISE__
 
 
-bool print_all_moves( CcParsedMove * moves ) {
+bool print_all_moves( CcParsedMove * moves, bool is_score ) {
     if ( !moves ) return false;
 
-    CcParsedMove * m = moves;
-    CcParsedMove * l = NULL;
-    CcParsedMove * d = NULL;
+    char const * move_str__a = cc_parsed_move_as_string__new( moves, is_score );
 
-    size_t i = 0;
-    size_t index = 0;
+    printf( "%s", move_str__a );
 
-    CC_REWIND( m );
-
-    while ( m ) {
-        if ( i++ % 2 == 0 ) {
-            l = m;
-
-            if ( !m->next ) {
-                printf( "%lu %s ...\n", index+1, l->notation );
-                break;
-            }
-        } else {
-            d = m;
-            printf( "%lu %s %s\n", ++index, l->notation, d->notation );
-        }
-
-        m = m->next;
-    }
+    CC_FREE( move_str__a );
 
     return true;
 }
@@ -119,7 +100,7 @@ int main( void ) {
             cc_chessboard_print( game__a->chessboard, false );
         } else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) ) {
-            print_all_moves( game__a->moves );
+            print_all_moves( game__a->moves, true );
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {

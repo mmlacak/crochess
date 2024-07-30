@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.612:1044+20240730.014833"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.613:1045+20240730.015522"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -63,33 +63,8 @@ int get_integer_from_cli_arg( char const * str,
 }
 
 bool print_all_moves( CcParsedMove * moves, bool is_score ) {
-    // if ( !moves ) return false;
-    //
-    // CcParsedMove * m = moves;
-    // CcParsedMove * l = NULL;
-    // CcParsedMove * d = NULL;
-    //
-    // size_t i = 0;
-    // size_t index = 0;
-    //
-    // CC_REWIND( m );
-    //
-    // while ( m ) {
-    //     if ( i++ % 2 == 0 ) {
-    //         l = m;
-    //
-    //         if ( !m->next ) {
-    //             printf( "%lu. %s ...\n", index+1, l->notation );
-    //             break;
-    //         }
-    //     } else {
-    //         d = m;
-    //         printf( "%lu. %s %s\n", ++index, l->notation, d->notation );
-    //     }
-    //
-    //     m = m->next;
-    // }
-
+    if ( !moves ) return false;
+    
     char const * move_str__a = cc_parsed_move_as_string__new( moves, is_score );
 
     printf( "%s", move_str__a );
