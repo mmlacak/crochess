@@ -21,7 +21,7 @@
 //                                         char const * msg, ... )
 
 
-// DOCS
+// TODO :: DOCS
 bool cc_parse_move( char const * move_an,
                     CcGame * game,
                     CcParsedMove ** move__o,

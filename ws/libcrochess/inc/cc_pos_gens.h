@@ -12,20 +12,20 @@
 #include "cc_pos.h"
 
 
-// DOCS
+// TODO :: DOCS
 // #define CC_STEPS_HAS_MOVEMENT(ste) ( ( (ste) == CC_STE_All )        \
 //                                   || ( (ste) == CC_STE_Movement ) )
 
-// DOCS
+// TODO :: DOCS
 // #define CC_STEPS_HAS_CAPTURE(ste) ( ( (ste) == CC_STE_All )        \
 //                                  || ( (ste) == CC_STE_Capture ) )
 
-// DOCS
+// TODO :: DOCS
 // #define CC_STEPS_HAS_ALTERNATIVE(ste) ( ( (ste) == CC_STE_All )        \
 //                                      || ( (ste) == CC_STE_Alternative ) )
 
 
-// DOCS
+// TODO :: DOCS
 bool cc_pawn_steps( CcChessboard * cb,
                     CcPieceEnum activator,
                     CcPieceEnum piece,

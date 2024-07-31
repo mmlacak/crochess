@@ -12,10 +12,10 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum );
 
-// DOCS
+// TODO :: DOCS
 bool cc_calc_checked_momentum( uint * momentum__io, bool accumulating );
 
-// DOCS
+// TODO :: DOCS
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
                                                     uint current_momentum,
@@ -23,23 +23,23 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcTypedStepLink * steps );
 
 
-// DOCS
+// TODO :: DOCS
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      CcPos destination,
                                      uint momentum,
                                      CcPosDescLink ** pptl__iod_a );
 
-// DOCS
+// TODO :: DOCS
 bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
 
-// DOCS
+// TODO :: DOCS
 bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io );
 
-// DOCS
+// TODO :: DOCS
 bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link );
 
 
-// DOCS
+// TODO :: DOCS
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
                         CcPieceEnum piece,
