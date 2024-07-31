@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.617:1049+20240731.141309"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.618:1050+20240731.142245"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -315,15 +315,21 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_book", NULL, BUFSIZ ) ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tt", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_temp", NULL, BUFSIZ ) ) {
-            char const * ans[] = { "d..b1",
+            char const * ans[] = { "..b0",
+                                   "z..b1",
                                    "10..b2",
-                                   "d11..b3",
-                                   "e-b4",
-                                   "12-b5",
-                                   "e14-b6",
-                                   "fb7",
-                                   "15b8",
-                                   "f16b9",
+                                   "z11..b3",
+                                   "Bz12..b4",
+                                   "-c0",
+                                   "y-c1",
+                                   "10-c2",
+                                   "y11-c3",
+                                   "By12-c4",
+                                   "d0",
+                                   "xd1",
+                                   "15d2",
+                                   "x16d3",
+                                   "Bx17d4",
                                    NULL };
 
             size_t index = 0;

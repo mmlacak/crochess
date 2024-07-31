@@ -317,7 +317,7 @@ char const * cc_skip_disambiguation( char const * an_str ) {
         }
     }
 
-    return NULL;
+    return an_str;
 }
 
 bool cc_has_separated_steps( char const * an_str,
