@@ -317,7 +317,8 @@ char const * cc_skip_disambiguation( char const * an_str ) {
         }
     }
 
-    return an_str;
+    // Function returns valid pointer **only** if disambiguation has been skipped.
+    return NULL; // Do not return an_str!
 }
 
 bool cc_has_separated_steps( char const * an_str,
