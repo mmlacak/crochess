@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.616:1048+20240731.115705"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.617:1049+20240731.141309"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -315,15 +315,25 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_book", NULL, BUFSIZ ) ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tt", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_temp", NULL, BUFSIZ ) ) {
-            CcParsedMove * move__a = cc_parsed_move__new( "foo", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
-            cc_parsed_move_append( &move__a, "bar", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
-            cc_parsed_move_append( &move__a, "baz", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
-            cc_parsed_move_append( &move__a, "rar", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
-            cc_parsed_move_append( &move__a, "zaz", CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_PMSE_None );
-            printf( "Size raw: %zu, score: %zu.\n", cc_parsed_move_all_notations_size( move__a, false ), cc_parsed_move_all_notations_size( move__a, true ) );
-            printf( "------------------------------------------------------------------------------\n" );
-            print_all_moves( move__a, true );
-            cc_parsed_move_free_all( &move__a );
+            char const * ans[] = { "d..b1",
+                                   "10..b2",
+                                   "d11..b3",
+                                   "e-b4",
+                                   "12-b5",
+                                   "e14-b6",
+                                   "fb7",
+                                   "15b8",
+                                   "f16b9",
+                                   NULL };
+
+            size_t index = 0;
+            char const * an = ans[ index ];
+
+            while ( an ) {
+                char const * no_dis = cc_skip_disambiguation( an );
+                printf( "%s.\n", no_dis );
+                an = ans[ ++index ];
+            };
         } else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );

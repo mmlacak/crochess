@@ -243,8 +243,9 @@ bool cc_parse_plies( char const * move_an,
     if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
 
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
-    CcParsedPly * plies__t = NULL;
+    if ( !cb__a ) return false;
 
+    CcParsedPly * plies__t = NULL;
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
     CcPosDesc before_ply_start = CC_POS_DESC_CAST_INVALID;

@@ -295,15 +295,26 @@ char const * cc_skip_disambiguation( char const * an_str ) {
 
             if ( isdigit( *c ) ) ++c;
 
-            if ( islower( *c ) ) return c;
-        } else if ( islower( *c ) )
+            if ( islower( *c ) ) {
+                return c;
+            } else if ( CC_CHAR_IS_STEP_SEPARATOR( *c ) ) {
+                return c;
+            }
+        } else if ( islower( *c ) ) {
             return c;
+        } else if ( CC_CHAR_IS_STEP_SEPARATOR( *c ) ) {
+            return c;
+        }
     } else if ( isdigit( *c ) ) {
         ++c;
 
         if ( isdigit( *c ) ) ++c;
 
-        if ( islower( *c ) ) return c;
+        if ( islower( *c ) ) {
+            return c;
+        } else if ( CC_CHAR_IS_STEP_SEPARATOR( *c ) ) {
+            return c;
+        }
     }
 
     return NULL;

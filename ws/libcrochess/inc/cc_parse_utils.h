@@ -25,6 +25,9 @@
 #define CC_CHAR_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
 
 // TODO :: DOCS
+#define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
+
+// TODO :: DOCS
 #define CC_CHAR_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
 
 // TODO :: DOCS

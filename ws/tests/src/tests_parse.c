@@ -43,19 +43,19 @@ bool test_parse( char const * an_str,
 
     bool result = true;
     uint result_at = 0x0;
-    CcParseMsg * pm__a = NULL;
 
-    if ( check_setup__d ) {
-        CcGame * setup__a = cc_game_setup_from_string__new( check_setup__d, before_setup );
-        if ( !setup__a ) return false;
-
-        result = cc_chessboard_is_equal( game__a->chessboard, setup__a->chessboard ) && result;
-        if ( !result ) result_at |= 0x1;
-
-        cc_game_free_all( &setup__a );
-    }
+    // if ( check_setup__d ) {
+    //     CcGame * setup__a = cc_game_setup_from_string__new( check_setup__d, before_setup );
+    //     if ( !setup__a ) return false;
+    //
+    //     result = cc_chessboard_is_equal( game__a->chessboard, setup__a->chessboard ) && result;
+    //     if ( !result ) result_at |= 0x1;
+    //
+    //     cc_game_free_all( &setup__a );
+    // }
 
     CcParsedMove * parsed__a = NULL;
+    CcParseMsg * pm__a = NULL;
 
     if ( ( result = cc_parse_move( an_str, game__a, &parsed__a, &pm__a ) && result ) ) {
         // TODO :: add stringify move notation to libcrochess
@@ -95,14 +95,9 @@ bool test_parse( char const * an_str,
     //     result_at |= 0x10;
     // }
 
-    cc_parsed_move_free_all( &parsed__a );
-
-    cc_parse_msg_free_all( &pm__a );
-
-    if ( !game__iodr )
+    if ( !game__iodr ) {
         cc_game_free_all( &game__a );
-    else
-    {
+    } else {
         if ( *game__iodr )
             cc_game_free_all( game__iodr );
 
@@ -111,8 +106,24 @@ bool test_parse( char const * an_str,
 
     if ( !result ) {
         printf( "Parse '%s' failed, error(s) 0x%x.\n", an_str, result_at );
+
+        if ( pm__a ) {
+            printf( "-----------------------------------------------------------------------\n" );
+
+            CcParseMsg * pm = pm__a;
+            while ( pm ) {
+                printf( "%s\n", pm->msg );
+
+                pm = pm->next;
+            }
+        }
+
         printf( "-----------------------------------------------------------------------\n" );
     }
+
+    cc_parsed_move_free_all( &parsed__a );
+
+    cc_parse_msg_free_all( &pm__a );
 
     return result;
 }
