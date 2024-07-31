@@ -219,7 +219,7 @@ static bool cc_parse_ply( char const * ply_start_an,
     //
     // Create a new ply, which takes ownership of steps (steps__t).
 
-    *ply__o = cc_parsed_ply__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED, ple, before_ply_start__io->piece, lte, &steps__t );
+    *ply__o = cc_parsed_ply__new( ple, before_ply_start__io->piece, lte, &steps__t );
     if ( !*ply__o ) {
         cc_parsed_step_free_all( &steps__t );
         return false;

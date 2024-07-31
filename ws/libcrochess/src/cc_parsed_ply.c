@@ -27,17 +27,12 @@ char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple ) {
 }
 
 
-CcParsedPly * cc_parsed_ply__new( char const * start_an__d,
-                                  char const * end_an__d,
-                                  size_t max_len__d,
-                                  CcParsedPlyLinkEnum link,
+CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
                                   CcPieceEnum piece,
                                   CcLosingTagEnum lost_tag,
                                   CcParsedStep ** steps__n ) {
     CcParsedPly * ply__a = malloc( sizeof( CcParsedPly ) );
     if ( !ply__a ) return NULL;
-
-    ply__a->notation = cc_str_copy__new( start_an__d, end_an__d, max_len__d );
 
     ply__a->link = link;
     ply__a->piece = piece;
@@ -55,16 +50,13 @@ CcParsedPly * cc_parsed_ply__new( char const * start_an__d,
 }
 
 CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
-                                    char const * start_an__d,
-                                    char const * end_an__d,
-                                    size_t max_len__d,
                                     CcParsedPlyLinkEnum link,
                                     CcPieceEnum piece,
                                     CcLosingTagEnum lost_tag,
                                     CcParsedStep ** steps__n ) {
     if ( !plies__iod_a ) return NULL;
 
-    CcParsedPly * ply__t = cc_parsed_ply__new( start_an__d, end_an__d, max_len__d, link, piece, lost_tag, steps__n );
+    CcParsedPly * ply__t = cc_parsed_ply__new( link, piece, lost_tag, steps__n );
     if ( !ply__t ) return NULL;
 
     if ( !*plies__iod_a ) {
@@ -92,13 +84,10 @@ CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies ) {
         }
 
         CcParsedPly * ply__w = cc_parsed_ply_append( &ply__a,
-                                        from->notation,
-                                        NULL,
-                                        CC_MAX_LEN_ZERO_TERMINATED,
-                                        from->link,
-                                        from->piece,
-                                        from->lost_tag,
-                                        &steps__t );
+                                                     from->link,
+                                                     from->piece,
+                                                     from->lost_tag,
+                                                     &steps__t );
         if ( !ply__w ) {
             cc_parsed_step_free_all( &steps__t ); // Failed append --> ownership not transferred ...
             cc_parsed_ply_free_all( &ply__a );
@@ -145,8 +134,6 @@ bool cc_parsed_ply_free_all( CcParsedPly ** plies__f ) {
     CcParsedPly * ply = *plies__f;
 
     while ( ply ) {
-        CC_FREE( ply->notation );
-
         CcParsedStep ** steps = &( ply->steps );
         result = cc_parsed_step_free_all( steps ) && result;
 

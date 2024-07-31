@@ -85,8 +85,6 @@ char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple );
 
 
 typedef struct CcParsedPly {
-    char * notation;
-
     CcParsedPlyLinkEnum link;
     CcPieceEnum piece;
     CcLosingTagEnum lost_tag;
@@ -95,18 +93,14 @@ typedef struct CcParsedPly {
     struct CcParsedPly * next;
 } CcParsedPly;
 
-CcParsedPly * cc_parsed_ply__new( char const * start_an__d,
-                                  char const * end_an__d,
-                                  size_t max_len__d,
-                                  CcParsedPlyLinkEnum link,
+// TODO :: DOCS
+CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
                                   CcPieceEnum piece,
                                   CcLosingTagEnum lost_tag,
                                   CcParsedStep ** steps__n );
 
+// TODO :: DOCS
 CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
-                                    char const * start_an__d,
-                                    char const * end_an__d,
-                                    size_t max_len__d,
                                     CcParsedPlyLinkEnum link,
                                     CcPieceEnum piece,
                                     CcLosingTagEnum lost_tag,
