@@ -124,7 +124,7 @@ TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ] = {
     TEST_MOVE_ARGS_INVALID,
 };
 
-size_t const TEST_MOVE_ARGS_ARRAY_SIZE = (size_t)( ( sizeof TEST_MOVE_ARGS_ARRAY ) / ( sizeof TEST_MOVE_ARGS_ARRAY[ 0 ] ) ); // Currently: 49.
+size_t const TEST_MOVE_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_MOVE_ARGS_ARRAY ); // Currently: 49.
 
 
 bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 ) {

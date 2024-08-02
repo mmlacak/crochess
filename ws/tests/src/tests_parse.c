@@ -172,10 +172,10 @@ bool tests_skip_disambiguation( int test_number ) {
                            "Bx17d4",
                            NULL };
 
-    size_t const ans_size = (size_t)( ( sizeof ans ) / ( sizeof ans[ 0 ] ) ); // Currently: 16.
+    size_t const ans_size = CC_ARRAY_SIZE( ans ); // Currently: 16.
     size_t index = do_all_tests ? 0 : test_number;
 
-    if ( ( index < 0 ) || ( ans_size <= index ) ) {
+    if ( /* ( index < 0 ) || */ ( ans_size <= index ) ) {
         printf( "Test index %zu out of bounds [0, %zu].\n", index, ans_size-1 );
         return false;
     }
