@@ -18,6 +18,9 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
 // TODO :: DOCS
 bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum );
 
+// TODO :: DOCS
+bool cc_check_losing_tag_for_piece( CcPieceEnum piece, CcLosingTagEnum lte );
+
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
                                               uint momentum,

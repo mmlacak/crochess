@@ -11,6 +11,7 @@
 #include "cc_pos_defs.h"
 #include "cc_pos_utils.h"
 
+#include "cc_checks.h"
 #include "cc_parse_utils.h"
 #include "cc_parse_step.h"
 #include "cc_parse_ply.h"
@@ -145,6 +146,15 @@ static bool cc_parse_ply( char const * ply_start_an,
     // Losing tag.
 
     CcLosingTagEnum lte = cc_parse_losing_tag( c_str );
+
+    if ( !cc_check_losing_tag_for_piece( before_ply_start__io->piece, lte ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, true, true );
+        char const * lte_str = cc_losing_tag_as_string( lte );
+        char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot loose tag '%s' in ply '%s'.\n", piece_str, lte_str, ply_an__a );
+        CC_FREE( ply_an__a );
+        return false;
+    }
 
     c_str += cc_losing_tag_len( lte );
 

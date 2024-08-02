@@ -30,6 +30,17 @@ bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum ) {
     }
 }
 
+bool cc_check_losing_tag_for_piece( CcPieceEnum piece, CcLosingTagEnum lte ) {
+    if ( lte == CC_LTE_None ) {
+        return true;
+    } else if ( CC_PIECE_IS_PAWN( piece ) ) {
+        return ( ( lte == CC_LTE_CanRush ) || ( lte == CC_LTE_DelayedPromotion ) );
+    } else if ( CC_PIECE_IS_ROOK( piece ) || CC_PIECE_IS_KING( piece ) ) {
+        return ( lte == CC_LTE_CanCastle );
+    } else
+        return false;
+}
+
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
                                               uint momentum,
