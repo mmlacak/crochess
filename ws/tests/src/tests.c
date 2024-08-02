@@ -35,7 +35,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.619:1051+20240731.143159"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.620:1052+20240802.102118"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -315,31 +315,8 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_book", NULL, BUFSIZ ) ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tt", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_temp", NULL, BUFSIZ ) ) {
-            char const * ans[] = { "..b0",
-                                   "z..b1",
-                                   "10..b2",
-                                   "z11..b3",
-                                   "Bz12..b4",
-                                   "-c0",
-                                   "y-c1",
-                                   "10-c2",
-                                   "y11-c3",
-                                   "By12-c4",
-                                   "d0",
-                                   "xd1",
-                                   "15d2",
-                                   "x16d3",
-                                   "Bx17d4",
-                                   NULL };
-
-            size_t index = 0;
-            char const * an = ans[ index ];
-
-            while ( an ) {
-                char const * no_dis = cc_skip_disambiguation( an );
-                printf( "%s.\n", no_dis );
-                an = ans[ ++index ];
-            };
+            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            tests_skip_disambiguation( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );

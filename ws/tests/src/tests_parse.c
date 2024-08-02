@@ -151,3 +151,47 @@ bool tests_parse( int test_number ) {
     printf( "Finished: '%d'.\n", result );
     return result;
 }
+
+bool tests_skip_disambiguation( int test_number ) {
+    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+
+    char const * ans[] = { "..b0",
+                           "z..b1",
+                           "10..b2",
+                           "z11..b3",
+                           "Bz12..b4",
+                           "-c0",
+                           "y-c1",
+                           "10-c2",
+                           "y11-c3",
+                           "By12-c4",
+                           "d0",
+                           "xd1",
+                           "15d2",
+                           "x16d3",
+                           "Bx17d4",
+                           NULL };
+
+    size_t const ans_size = (size_t)( ( sizeof ans ) / ( sizeof ans[ 0 ] ) ); // Currently: 16.
+    size_t index = do_all_tests ? 0 : test_number;
+
+    if ( ( index < 0 ) || ( ans_size <= index ) ) {
+        printf( "Test index %zu out of bounds [0, %zu].\n", index, ans_size-1 );
+        return false;
+    }
+
+    char const * an = ans[ index ];
+
+    if ( do_all_tests ) {
+        while ( an ) {
+            char const * no_dis = cc_skip_disambiguation( an );
+            printf( "%s.\n", no_dis );
+            an = ans[ ++index ];
+        };
+    } else {
+        char const * no_dis = cc_skip_disambiguation( an );
+        printf( "%s.\n", no_dis );
+    }
+
+    return true;
+}
