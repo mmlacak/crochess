@@ -40,7 +40,7 @@ char const * cc_losing_tag_symbol( CcLosingTagEnum lte ) {
         case CC_LTE_CanCastle : return "&&";
         case CC_LTE_DelayedPromotion : return "==";
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
 
@@ -55,9 +55,9 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
 
         case CC_LTE_CanRush : return capitalize ? "En passant" : "en passant";
         case CC_LTE_CanCastle : return capitalize ? "Castling" : "castling";
-        case CC_LTE_DelayedPromotion : return capitalize ? "Delayed promotion" : "delayed promotion"; 
+        case CC_LTE_DelayedPromotion : return capitalize ? "Delayed promotion" : "delayed promotion";
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
 

@@ -413,7 +413,7 @@ Coordinates, fields, positions
 Defaults
 --------
 
-.. c:macro:: CC_DEFAULT_ENTITY_STRING
+.. c:macro:: CC_DEFAULT_VALUE_STRING
 
     Default entity string, equals to ``"<default>"``.
 

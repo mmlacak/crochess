@@ -25,7 +25,7 @@ char const * cc_parsed_side_effect_symbol( CcParsedSideEffectEnum see ) {
         case CC_PSEE_ResurrectingOpponent : return "$$"; /* Syzygy, resurrecting opponent's piece, corresponds to $$ (dual dollar-sign). */
         case CC_PSEE_FailedResurrection : return "$$$"; /* Syzygy, failed resurrection, corresponds to $$$ (triple dollar-sign). */
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
 

@@ -18,7 +18,7 @@ char * test_msgs_enum_label( TestMsgEnum tme ) {
         case TME_Error : return "Error";
         case TME_Fatal : return "Fatal";
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
 

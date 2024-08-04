@@ -267,7 +267,7 @@ char const * cc_piece_label( CcPieceEnum pe ) {
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
 
@@ -387,7 +387,7 @@ char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize ) {
 
         case CC_PE_Monolith : return "";
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
 
@@ -517,6 +517,6 @@ char const * cc_piece_as_string( CcPieceEnum pe, bool capitalize, bool empty_fie
 
         case CC_PE_Monolith : return "Monolith";
 
-        default : return CC_DEFAULT_ENTITY_STRING;
+        default : return CC_DEFAULT_VALUE_STRING;
     }
 }
