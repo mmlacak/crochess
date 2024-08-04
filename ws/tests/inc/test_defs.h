@@ -11,41 +11,41 @@
 
 #define TEST_ALL_MOVES (-1)
 
-typedef struct TestMoveArgs {
+typedef struct TestArgs {
     char const * an_str;
     char const * setup__d;
     char const * check_setup__d;
     char const * check_end__d;
     ull error_code;
-} TestMoveArgs;
+} TestArgs;
 
 #define TEST_OK (0)
 #define TEST_FAIL (1)
 
-TestMoveArgs test_move_args( char const * an_str,
-                             char const * setup__d,
-                             char const * check_setup__d,
-                             char const * check_end__d,
-                             ull error_code );
+TestArgs test_args( char const * an_str,
+                    char const * setup__d,
+                    char const * check_setup__d,
+                    char const * check_end__d,
+                    ull error_code );
 
-#define TEST_MOVE_ARGS_INVALID    \
+#define TEST_ARGS_INVALID    \
     { .an_str = NULL, .setup__d = NULL, .check_setup__d = NULL, .check_end__d = NULL, .error_code = 0 }
 
-#define TEST_MOVE_ARGS_INVALID_CAST ( (TestMoveArgs)TEST_MOVE_ARGS_INVALID )
+#define TEST_ARGS_INVALID_CAST ( (TestArgs)TEST_ARGS_INVALID )
 
-#define TEST_MOVE_ARGS(an,setup,check_setup,check_end,error)    \
+#define TEST_ARGS(an,setup,check_setup,check_end,error)    \
     { .an_str = an, .setup__d = setup, .check_setup__d = check_setup, .check_end__d = check_end, .error_code = error }
 
-extern TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ];
-extern size_t const TEST_MOVE_ARGS_ARRAY_SIZE;
+extern TestArgs const TEST_ARGS_ARRAY[ ];
+extern size_t const TEST_ARGS_ARRAY_SIZE;
 
-bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 );
+bool test_args_are_equal( TestArgs tma_1, TestArgs tma_2 );
 
-bool test_move_args_are_invalid( TestMoveArgs tma );
+bool test_args_are_invalid( TestArgs tma );
 
-bool test_move_args_iter( TestMoveArgs ** tma__iod );
+bool test_args_iter( TestArgs ** tma__iod );
 
-TestMoveArgs * test_move_args_fetch( size_t index );
+TestArgs * test_args_fetch( size_t index );
 
 
 #endif /* __TEST_DEFS_H__ */

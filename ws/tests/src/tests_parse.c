@@ -123,23 +123,23 @@ bool tests_parse( int test_number ) {
     bool do_all_tests = ( test_number == TEST_ALL_MOVES );
 
     if ( !do_all_tests ) {
-        if ( ( test_number < TEST_ALL_MOVES ) || ( TEST_MOVE_ARGS_ARRAY_SIZE <= (size_t)test_number ) ) {
+        if ( ( test_number < TEST_ALL_MOVES ) || ( TEST_ARGS_ARRAY_SIZE <= (size_t)test_number ) ) {
             printf( "No such a parse test: '%d'.\n", test_number );
             return false;
         }
     }
 
     bool result = true;
-    TestMoveArgs * tma = NULL;
+    TestArgs * tma = NULL;
 
     printf( "=======================================================================\n" );
 
     if ( do_all_tests ) {
-        while ( test_move_args_iter( &tma ) ) {
+        while ( test_args_iter( &tma ) ) {
             result = test_parse( tma->an_str, tma->setup__d, tma->check_setup__d, tma->check_end__d, NULL ) && result;
         }
     } else {
-        tma = test_move_args_fetch( test_number );
+        tma = test_args_fetch( test_number );
         result = test_parse( tma->an_str, tma->setup__d, tma->check_setup__d, tma->check_end__d, NULL ) && result;
     }
 
