@@ -4,6 +4,8 @@
 #ifndef __TESTS_PARSE_H__
 #define __TESTS_PARSE_H__
 
+#include <stdbool.h>
+
 #include "cc_game.h"
 
 

@@ -122,8 +122,8 @@ TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ] = {
     TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P.s7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
     TEST_MOVE_ARGS( "H.g10*.k9*.o8*-s7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
 
-    TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not checks pathing.
-    TEST_MOVE_ARGS( "H.g10*.k9*.o8*-u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not checks pathing.
+    TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
+    TEST_MOVE_ARGS( "H.g10*.k9*.o8*-u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
 
     // TEST_MOVE_ARGS(  ),
 

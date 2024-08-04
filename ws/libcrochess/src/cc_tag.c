@@ -49,8 +49,8 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
                                       bool no_tag ) {
     switch ( lte ) {
         case CC_LTE_None :
-            return no_tag ? ( capitalize ? "No tag"
-                                         : "no tag" )
+            return no_tag ? ( capitalize ? "None"
+                                         : "none" )
                           : "";
 
         case CC_LTE_CanRush : return capitalize ? "En passant" : "en passant";

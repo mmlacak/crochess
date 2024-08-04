@@ -482,31 +482,31 @@ Navigation
     :param ptr_item: Pointer, member to iterate over.
     :returns: Nothing.
 
-.. _lbl-libcc-ccdefines-debug:
-
-Debug
------
-
-.. c:macro:: CC_PRINTF_IF_INFO(fmt,...)
-
-    .. todo::
-
-        Move out of library / return newly allocated, formatted string.
-        Remove library dependecy on ``<stdio.h>``.
-
-    Macro to call :c:func:`printf()`, depending on a compile-time constant.
-
-    Compile-time constant which controls definition of this macro is
-    :c:macro:`__CC_STR_PRINT_INFO__`.
-
-    .. seealso::
-
-        `<https://en.cppreference.com/w/c/io/fprintf>`_
-
-    :param fmt: Formatting string.
-    :param ...: Variadic parameters, as used by :c:func:`printf()`.
-    :returns: The same as :c:func:`printf()`, i.e. an :c:`int` value.
-              Number of :c:`char`\s printed, an error code if negative.
+.. .. _lbl-libcc-ccdefines-debug:
+..
+.. Debug
+.. -----
+..
+.. .. c:macro:: CC_PRINTF_IF_INFO(fmt,...)
+..
+..     .. todo::
+..
+..         Move out of library / return newly allocated, formatted string.
+..         Remove library dependecy on ``<stdio.h>``.
+..
+..     Macro to call :c:func:`printf()`, depending on a compile-time constant.
+..
+..     Compile-time constant which controls definition of this macro is
+..     :c:macro:`__CC_STR_PRINT_INFO__`.
+..
+..     .. seealso::
+..
+..         `<https://en.cppreference.com/w/c/io/fprintf>`_
+..
+..     :param fmt: Formatting string.
+..     :param ...: Variadic parameters, as used by :c:func:`printf()`.
+..     :returns: The same as :c:func:`printf()`, i.e. an :c:`int` value.
+..               Number of :c:`char`\s printed, an error code if negative.
 
 .. _lbl-libcc-ccdefines-sourcecodeheader:
 
