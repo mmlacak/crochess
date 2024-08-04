@@ -99,8 +99,6 @@ bool test_move( char const * an_str,
         result_at |= 0x10;
     }
 
-    cc_parse_msg_free_all( &pm__a );
-
     if ( !game__iodr )
         cc_game_free_all( &game__a );
     else
@@ -113,8 +111,11 @@ bool test_move( char const * an_str,
 
     if ( !result ) {
         printf( "Move '%s' failed, error(s) 0x%x.\n", an_str, result_at );
-        printf( "-----------------------------------------------------------------------\n" );
     }
+
+    printf( "-----------------------------------------------------------------------\n" );
+
+    cc_parse_msg_free_all( &pm__a );
 
     return result;
 }
@@ -133,6 +134,8 @@ bool tests_move( int test_number ) {
     bool result = true;
     TestMoveArgs * tma = NULL;
 
+    printf( "=======================================================================\n" );
+
     if ( do_all_tests ) {
         while ( test_move_args_iter( &tma ) ) {
             result = test_move( tma->an_str, tma->setup__d, tma->check_setup__d, tma->check_end__d, NULL ) && result;
@@ -143,5 +146,7 @@ bool tests_move( int test_number ) {
     }
 
     printf( "Finished: '%d'.\n", result );
+    printf( "=======================================================================\n" );
+
     return result;
 }

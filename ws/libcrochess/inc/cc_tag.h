@@ -41,6 +41,9 @@
 #define CC_TAG_CHAR_EN_PASSANT 'E'
 #define CC_TAG_CHAR_PAWN_SACRIFICE 'S'
 
+// TODO :: DOCS
+#define CC_TAG_CAST_FROM_LOSING(lte) ( (CcTagEnum)(lte) )
+
 
 typedef enum CcTagEnum {
     CC_TE_None = 0, /* No tag applies. */

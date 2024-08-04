@@ -57,12 +57,14 @@ bool test_parse( char const * an_str,
     CcParsedMove * parsed__a = NULL;
     CcParseMsg * pm__a = NULL;
 
+    printf( "Parsing: %s.\n", an_str );
+    printf( "---\n" );
+
     if ( ( result = cc_parse_move( an_str, game__a, &parsed__a, &pm__a ) && result ) ) {
         // TODO :: add stringify move notation to libcrochess
 
         // TODO :: add stringify move properties to libcrochess
 
-        // print_all_moves( parsed__a );
         printf( "Parsed: %s.\n", parsed__a->notation );
     } else {
         result_at |= 0x2;
@@ -106,20 +108,9 @@ bool test_parse( char const * an_str,
 
     if ( !result ) {
         printf( "Parse '%s' failed, error(s) 0x%x.\n", an_str, result_at );
-
-        if ( pm__a ) {
-            printf( "-----------------------------------------------------------------------\n" );
-
-            CcParseMsg * pm = pm__a;
-            while ( pm ) {
-                printf( "%s\n", pm->msg );
-
-                pm = pm->next;
-            }
-        }
-
-        printf( "-----------------------------------------------------------------------\n" );
     }
+
+    printf( "-----------------------------------------------------------------------\n" );
 
     cc_parsed_move_free_all( &parsed__a );
 
@@ -141,6 +132,8 @@ bool tests_parse( int test_number ) {
     bool result = true;
     TestMoveArgs * tma = NULL;
 
+    printf( "=======================================================================\n" );
+
     if ( do_all_tests ) {
         while ( test_move_args_iter( &tma ) ) {
             result = test_parse( tma->an_str, tma->setup__d, tma->check_setup__d, tma->check_end__d, NULL ) && result;
@@ -151,6 +144,8 @@ bool tests_parse( int test_number ) {
     }
 
     printf( "Finished: '%d'.\n", result );
+    printf( "=======================================================================\n" );
+
     return result;
 }
 

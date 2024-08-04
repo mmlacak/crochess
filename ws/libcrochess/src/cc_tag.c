@@ -32,17 +32,18 @@ CcTagEnum cc_tag_from_char( char c ) {
 }
 
 
-char const * cc_losing_tag_as_string( CcLosingTagEnum te ) {
-    switch ( te ) {
-        case CC_LTE_DelayedPromotion : return "==";
+char const * cc_losing_tag_as_string( CcLosingTagEnum lte ) {
+    switch ( lte ) {
+        case CC_LTE_None : return "";
+
         case CC_LTE_CanRush : return "::";
         case CC_LTE_CanCastle : return "&&";
-
-        case CC_LTE_None : return "";
+        case CC_LTE_DelayedPromotion : return "==";
 
         default : return CC_DEFAULT_ENTITY_STRING;
     }
 }
+
 
 CcLosingTagEnum cc_tag_to_losing( CcTagEnum te ) {
     switch ( te ) {

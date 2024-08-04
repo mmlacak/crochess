@@ -117,7 +117,7 @@ static bool cc_parse_ply( char const * ply_start_an,
         if ( !cc_piece_has_same_type( piece_an, before_ply_start__io->piece ) ) {
             char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, false, true );
             char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found '%c' in notation, expected %s, in ply '%s'.\n", piece_symbol, piece_str, ply_an__a );
+            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s, expected '%c' from notation; in ply '%s'.\n", piece_str, piece_symbol, ply_an__a );
             CC_FREE( ply_an__a );
             return false;
         }
@@ -131,7 +131,7 @@ static bool cc_parse_ply( char const * ply_start_an,
 
             char const * piece_str = cc_piece_as_string( pe, false, true );
             char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation, in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
+            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation; in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
             CC_FREE( ply_an__a );
             return false;
         }
@@ -151,7 +151,7 @@ static bool cc_parse_ply( char const * ply_start_an,
         char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, true, true );
         char const * lte_str = cc_losing_tag_as_string( lte );
         char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot lose tag '%s' in ply '%s'.\n", piece_str, lte_str, ply_an__a );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot lose tag '%s'; in ply '%s'.\n", piece_str, lte_str, ply_an__a );
         CC_FREE( ply_an__a );
         return false;
     }
