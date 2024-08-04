@@ -1,8 +1,8 @@
 // Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __TEST_DEFS_H__
-#define __TEST_DEFS_H__
+#ifndef __TEST_ARGS_H__
+#define __TEST_ARGS_H__
 
 #include <stdbool.h>
 
@@ -48,4 +48,4 @@ bool test_args_iter( TestArgs ** tma__iod );
 TestArgs * test_args_fetch( size_t index );
 
 
-#endif /* __TEST_DEFS_H__ */
+#endif /* __TEST_ARGS_H__ */

@@ -24,7 +24,7 @@
 
 #include "cc_str_utils.h"
 
-#include "test_defs.h"
+#include "test_args.h"
 
 
 TestArgs test_args( char const * an_str,

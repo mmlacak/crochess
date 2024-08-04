@@ -23,7 +23,7 @@
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
-#include "test_defs.h"
+#include "test_args.h"
 #include "tests_misc.h"
 
 
