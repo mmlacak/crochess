@@ -4,6 +4,8 @@
 #ifndef __CC_TAG_H__
 #define __CC_TAG_H__
 
+#include <stdbool.h>
+
 
 #define CC_TAG_IS_VALID(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_PawnSacrifice ) )
 
@@ -72,7 +74,13 @@ typedef enum CcLosingTagEnum {
 
 #define CC_MAX_LEN_LOSING_TAG (2)
 
-char const * cc_losing_tag_as_string( CcLosingTagEnum lte );
+// TODO :: DOCS
+char const * cc_losing_tag_symbol( CcLosingTagEnum lte );
+
+// TODO :: DOCS
+char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
+                                      bool capitalize,
+                                      bool no_tag );
 
 CcLosingTagEnum cc_tag_to_losing( CcTagEnum te );
 

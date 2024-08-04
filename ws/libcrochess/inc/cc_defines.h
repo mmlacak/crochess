@@ -121,7 +121,7 @@ typedef enum CcMaybeBoolEnum {
       ( (int)(rank) < (int)(board_size) ) )
 
 
-#define CC_DEFAULT_ENTITY_STRING "<default>"
+#define CC_DEFAULT_ENTITY_STRING "<?>"
 
 #define CC_REWIND(ptr_var_queue) { while ( (ptr_var_queue)->prev__w ) (ptr_var_queue) = (ptr_var_queue)->prev__w; }
 

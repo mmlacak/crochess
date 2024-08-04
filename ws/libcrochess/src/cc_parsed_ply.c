@@ -267,7 +267,7 @@ char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies ) {
         char piece_symbol = cc_piece_symbol( p->piece );
         *s++ = piece_symbol;
 
-        char const * lte_str = cc_losing_tag_as_string( p->lost_tag );
+        char const * lte_str = cc_losing_tag_symbol( p->lost_tag );
         char * end_lte = cc_str_append_into( s, unused_size, lte_str, CC_MAX_LEN_LOSING_TAG );
 
         if ( !lte_str ) {

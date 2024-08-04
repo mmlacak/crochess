@@ -32,13 +32,30 @@ CcTagEnum cc_tag_from_char( char c ) {
 }
 
 
-char const * cc_losing_tag_as_string( CcLosingTagEnum lte ) {
+char const * cc_losing_tag_symbol( CcLosingTagEnum lte ) {
     switch ( lte ) {
         case CC_LTE_None : return "";
 
         case CC_LTE_CanRush : return "::";
         case CC_LTE_CanCastle : return "&&";
         case CC_LTE_DelayedPromotion : return "==";
+
+        default : return CC_DEFAULT_ENTITY_STRING;
+    }
+}
+
+char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
+                                      bool capitalize,
+                                      bool no_tag ) {
+    switch ( lte ) {
+        case CC_LTE_None :
+            return no_tag ? ( capitalize ? "No tag"
+                                         : "no tag" )
+                          : "";
+
+        case CC_LTE_CanRush : return capitalize ? "En passant" : "en passant";
+        case CC_LTE_CanCastle : return capitalize ? "Castling" : "castling";
+        case CC_LTE_DelayedPromotion : return capitalize ? "Delayed promotion" : "delayed promotion"; 
 
         default : return CC_DEFAULT_ENTITY_STRING;
     }

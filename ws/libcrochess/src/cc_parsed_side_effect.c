@@ -266,7 +266,7 @@ bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
     }
 
     if ( lte != CC_LTE_None ) {
-        char const * lte_str = cc_losing_tag_as_string( lte );
+        char const * lte_str = cc_losing_tag_symbol( lte );
         size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
         copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
         if ( copied != lte_str_len ) return false;
