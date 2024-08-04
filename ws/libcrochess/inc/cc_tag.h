@@ -44,9 +44,12 @@
 #define CC_TAG_CHAR_PAWN_SACRIFICE 'S'
 
 // TODO :: DOCS
+// #define CC_TAG_CHAR_MOVE_STARTER 'M'
+
+// TODO :: DOCS
 #define CC_TAG_CAST_FROM_LOSING(lte) ( (CcTagEnum)(lte) )
 
-
+// TODO :: DOCS
 typedef enum CcTagEnum {
     CC_TE_None = 0, /* No tag applies. */
 
@@ -54,9 +57,19 @@ typedef enum CcTagEnum {
     CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
     CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
 
-    CC_TE_EnPassant, /* En passant tag, semi-persistent. Gained in a move, used or lost in the very next one. */
+    /* En passant tag, semi-persistent. Gained in a move, used or lost in the
+    very next one. */
+    CC_TE_EnPassant,
 
-    CC_TE_PawnSacrifice = 5, /* Pawn sacrifice tag, non-persistent. Gained in a move, used or lost in the very same move. */
+    /* Pawn sacrifice tag, non-persistent. Gained in a move, used or lost in the
+    very same move. */
+    CC_TE_PawnSacrifice = 5,
+
+    /* Piece has started a move, thus cannot return to its starting position.
+    This house-keeping tag is obtained after the first ply is finished, and
+    follows the piece for the remainder of the move. */
+    // TODO :: FIX :: can be overwritten by other tags, e.g. CC_TE_PawnSacrifice.
+    // CC_TE_MoveStarter,
 } CcTagEnum;
 
 

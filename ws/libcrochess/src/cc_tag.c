@@ -13,6 +13,7 @@ char cc_tag_as_char( CcTagEnum ct ) {
         case CC_TE_DelayedPromotion : return CC_TAG_CHAR_DELAYED_PROMOTION;
         case CC_TE_EnPassant : return CC_TAG_CHAR_EN_PASSANT;
         case CC_TE_PawnSacrifice : return CC_TAG_CHAR_PAWN_SACRIFICE;
+        // case CC_TE_MoveStarter : return CC_TAG_CHAR_MOVE_STARTER;
 
         default : return CC_TAG_CHAR_INVALID;
     }
@@ -26,6 +27,7 @@ CcTagEnum cc_tag_from_char( char c ) {
         case CC_TAG_CHAR_DELAYED_PROMOTION : return CC_TE_DelayedPromotion;
         case CC_TAG_CHAR_EN_PASSANT : return CC_TE_EnPassant;
         case CC_TAG_CHAR_PAWN_SACRIFICE : return CC_TE_PawnSacrifice;
+        // case CC_TAG_CHAR_MOVE_STARTER : return CC_TE_MoveStarter;
 
         default : return CC_TE_None;
     }
