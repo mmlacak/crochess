@@ -116,15 +116,21 @@ TestMoveArgs const TEST_MOVE_ARGS_ARRAY[ ] = {
     // simple Shaman
     TEST_MOVE_ARGS( "Hs7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
     TEST_MOVE_ARGS( "Hk15~Wg23", setup_shaman, NULL, "o Hk15,pg10,pk9,po8,As7,Wg23", TEST_OK ),
-    TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
-    TEST_MOVE_ARGS( "H.g10*.k9*.o8*~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
+
+    TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P~As9", setup_shaman, NULL, end_shaman, TEST_FAIL ), // Shaman at destination captures Pawn, and activates Pyramid.
+    TEST_MOVE_ARGS( "H.g10*.k9*.o8*~As9", setup_shaman, NULL, end_shaman, TEST_FAIL ), // Shaman at destination captures Pawn, and activates Pyramid.
+    TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P.s7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
+    TEST_MOVE_ARGS( "H.g10*.k9*.o8*-s7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
+
+    TEST_MOVE_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not checks pathing.
+    TEST_MOVE_ARGS( "H.g10*.k9*.o8*-u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not checks pathing.
 
     // TEST_MOVE_ARGS(  ),
 
     TEST_MOVE_ARGS_INVALID,
 };
 
-size_t const TEST_MOVE_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_MOVE_ARGS_ARRAY ); // Currently: 49.
+size_t const TEST_MOVE_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_MOVE_ARGS_ARRAY ); // Currently: 51.
 
 
 bool test_move_args_are_equal( TestMoveArgs tma_1, TestMoveArgs tma_2 ) {
@@ -167,8 +173,7 @@ bool test_move_args_iter( TestMoveArgs ** tma__iod ) {
 }
 
 TestMoveArgs * test_move_args_fetch( size_t index ) {
-    if ( TEST_MOVE_ARGS_ARRAY_SIZE < index )
-        return NULL;
+    if ( TEST_MOVE_ARGS_ARRAY_SIZE <= index ) return NULL;
 
     TestMoveArgs * tma = (TestMoveArgs *)( TEST_MOVE_ARGS_ARRAY + index );
     return tma;
