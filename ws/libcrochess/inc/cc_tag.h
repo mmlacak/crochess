@@ -7,12 +7,16 @@
 #include <stdbool.h>
 
 
-#define CC_TAG_IS_VALID(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_PawnSacrifice ) )
-
+// TODO :: DOCS
 #define CC_TAG_IS_EQUAL(te1,te2) ( (te1) == (te2) )
 
+// TODO :: DOCS
 #define CC_TAG_IS_NONE(te) ( (te) == (int)CC_TE_None )
 
+// TODO :: DOCS
+#define CC_TAG_IS_VALID(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_PawnSacrifice ) )
+
+// TODO :: DOCS
 #define CC_TAG_EXISTS(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_PawnSacrifice ) )
 
 #define CC_TAG_CAN_RUSH(te) ( (te) == (int)CC_TE_CanRush )
@@ -33,6 +37,22 @@
                                || ( (te) == (int)CC_TE_PawnSacrifice ) )
 
 
+// TODO :: DOCS
+#define CC_TAG_VALUE_MASK (0x07) // <!> Keep in sync with CcTagEnum enumerators.
+
+// TODO :: DOCS
+#define CC_MOVE_STARTER_MASK (0x80)
+
+// TODO :: DOCS
+#define CC_TAG_VALUE(te) ( (te) & CC_TAG_VALUE_MASK )
+
+// TODO :: DOCS
+#define CC_MOVE_STARTER_FLAG(te) ( (te) & CC_MOVE_STARTER_MASK )
+
+// TODO :: DOCS
+#define CC_SET_MOVE_STARTER_FLAG(te) ( (te) | CC_MOVE_STARTER_MASK )
+
+
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'
 
@@ -44,8 +64,13 @@
 #define CC_TAG_CHAR_PAWN_SACRIFICE 'S'
 
 // TODO :: DOCS
-// TODO :: FIX :: can be overwritten by other tags, e.g. CC_TE_PawnSacrifice.
-// #define CC_TAG_CHAR_MOVE_STARTER 'M'
+#define CC_TAG_CHAR_MOVE_STARTER_CAN_RUSH 'r'
+#define CC_TAG_CHAR_MOVE_STARTER_CAN_CASTLE 'c'
+#define CC_TAG_CHAR_MOVE_STARTER_DELAYED_PROMOTION 'p'
+
+// TODO :: DOCS
+#define CC_TAG_CHAR_MOVE_STARTER_EN_PASSANT 'e'
+#define CC_TAG_CHAR_MOVE_STARTER_PAWN_SACRIFICE 's'
 
 // TODO :: DOCS
 typedef enum CcTagEnum {
@@ -70,12 +95,13 @@ typedef enum CcTagEnum {
 } CcTagEnum;
 
 // TODO :: DOCS
-// TODO :: FIX :: set, get, check CC_TE_MoveStarter.
 typedef unsigned char cc_tag;
 
 
+// TODO :: DOCS
 char cc_tag_as_char( cc_tag ct );
 
+// TODO :: DOCS
 cc_tag cc_tag_from_char( char c );
 
 typedef enum CcLosingTagEnum {
@@ -96,8 +122,10 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
                                       bool capitalize,
                                       bool no_tag );
 
+// TODO :: DOCS
 CcLosingTagEnum cc_tag_to_losing( cc_tag te );
 
+// TODO :: DOCS
 cc_tag cc_tag_from_losing( CcLosingTagEnum lte );
 
 
