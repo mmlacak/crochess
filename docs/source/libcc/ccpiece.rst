@@ -9,7 +9,7 @@
 Pieces
 ======
 
-Documents ``cc_piece_t.h`` and ``cc_piece_t.c`` files, which contain piece
+Documents ``cc_piece.h`` and ``cc_piece.c`` files, which contain piece
 enumeration, and related functions.
 
 Type of a piece is what remains after it has been stripped of color (or
@@ -773,9 +773,9 @@ Piece functions
 Piece source code header
 ------------------------
 
-Included source code file is ``cc_piece_t.h``.
+Included source code file is ``cc_piece.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_piece_t.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_piece.h
     :language: C
     :linenos:
 
@@ -784,8 +784,8 @@ Included source code file is ``cc_piece_t.h``.
 Piece source code file
 ----------------------
 
-Included source code file is ``cc_piece_t.c``.
+Included source code file is ``cc_piece.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_piece_t.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_piece.c
     :language: C
     :linenos:

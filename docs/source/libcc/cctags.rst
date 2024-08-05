@@ -9,7 +9,7 @@
 Tags
 ====
 
-Documents ``cc_tag_t.h`` and ``cc_tag_t.c`` files, which contain :term:`tag` enumeration, and related functions.
+Documents ``cc_tag.h`` and ``cc_tag.c`` files, which contain :term:`tag` enumeration, and related functions.
 
 :c:term:`Tag` is a link between a piece and field at which it stands.
 Every piece can have only one tag applied at any given time.
@@ -278,9 +278,9 @@ Losing tag functions
 Tags source code header
 -----------------------
 
-Included source code file is ``cc_tag_t.h``.
+Included source code file is ``cc_tag.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_tag_t.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_tag.h
     :language: C
     :linenos:
 
@@ -289,8 +289,8 @@ Included source code file is ``cc_tag_t.h``.
 Tags source code file
 ---------------------
 
-Included source code file is ``cc_tag_t.c``.
+Included source code file is ``cc_tag.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_tag_t.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_tag.c
     :language: C
     :linenos:
