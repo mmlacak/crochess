@@ -759,7 +759,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_promote( CC_PE_None, CC_LTE_None, step_piece );
+            *side_effect__o = cc_parsed_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, step_piece );
             return true;
         } case CC_PSEE_TagForPromotion : {
             // TODO -- silent capture before promotion
@@ -767,7 +767,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be tagged for promotion, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_None );
+            *side_effect__o = cc_parsed_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_NoneLost );
             return true;
         } case CC_PSEE_Conversion : {
             char piece_symbol = ' ';

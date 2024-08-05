@@ -135,7 +135,7 @@ CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se ) {
 // conveniences
 
 CcParsedSideEffect cc_parsed_side_effect_none( void ) {
-    return cc_parsed_side_effect( CC_PSEE_None, CC_PE_None, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_None, CC_PE_None, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   CC_POS_CAST_INVALID,
                                   CC_PE_None );
@@ -156,14 +156,14 @@ CcParsedSideEffect cc_parsed_side_effect_displacement( CcPieceEnum piece, CcLosi
 }
 
 CcParsedSideEffect cc_parsed_side_effect_en_passant( CcPieceEnum pawn, CcPos distant ) {
-    return cc_parsed_side_effect( CC_PSEE_EnPassant, pawn, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_EnPassant, pawn, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   distant,
                                   CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination ) {
-    return cc_parsed_side_effect( CC_PSEE_Castle, rook, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_Castle, rook, CC_LTE_NoneLost,
                                   start,
                                   destination,
                                   CC_PE_None );
@@ -191,21 +191,21 @@ CcParsedSideEffect cc_parsed_side_effect_convert( CcPieceEnum piece, CcLosingTag
 }
 
 CcParsedSideEffect cc_parsed_side_effect_failed_conversion( void ) {
-    return cc_parsed_side_effect( CC_PSEE_FailedConversion, CC_PE_None, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_FailedConversion, CC_PE_None, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   CC_POS_CAST_INVALID,
                                   CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_transparency( CcPieceEnum piece ) {
-    return cc_parsed_side_effect( CC_PSEE_Transparency, piece, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_Transparency, piece, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   CC_POS_CAST_INVALID,
                                   CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceEnum piece ) {
-    return cc_parsed_side_effect( CC_PSEE_Divergence, piece, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_Divergence, piece, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   CC_POS_CAST_INVALID,
                                   CC_PE_None );
@@ -219,14 +219,14 @@ CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceEnum piece, CcLosingTagE
 }
 
 CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceEnum piece, CcPos destination ) {
-    return cc_parsed_side_effect( CC_PSEE_Resurrection, piece, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_Resurrection, piece, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   destination,
                                   CC_PE_None );
 }
 
 CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void ) {
-    return cc_parsed_side_effect( CC_PSEE_FailedResurrection, CC_PE_None, CC_LTE_None,
+    return cc_parsed_side_effect( CC_PSEE_FailedResurrection, CC_PE_None, CC_LTE_NoneLost,
                                   CC_POS_CAST_INVALID,
                                   CC_POS_CAST_INVALID,
                                   CC_PE_None );
@@ -248,7 +248,7 @@ bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
     size_t copied = 0;
 
     CcPieceEnum captured = CC_PE_None;
-    CcLosingTagEnum lte = CC_LTE_None;
+    CcLosingTagEnum lte = CC_LTE_NoneLost;
 
     if ( se.type == CC_PSEE_Promotion ) {
         captured = se.promote.captured;
@@ -265,7 +265,7 @@ bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
         *se_p++ = captured_char;
     }
 
-    if ( lte != CC_LTE_None ) {
+    if ( lte != CC_LTE_NoneLost ) {
         char const * lte_str = cc_losing_tag_symbol( lte );
         size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
         copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );

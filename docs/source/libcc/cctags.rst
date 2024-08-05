@@ -218,22 +218,22 @@ Losing tag types
     Values enumerated in losing tag are the same as in ordinary tag.
     So, conversion between tags changes just type, not value.
 
-    When converting from ordinary tag enum, :c:enumerator:`CC_LTE_None`
+    When converting from ordinary tag enum, :c:enumerator:`CC_LTE_NoneLost`
     is used for all values not enumerated here.
 
-    .. c:enumerator:: CC_LTE_None
+    .. c:enumerator:: CC_LTE_NoneLost
 
         No :term:`tag` was lost, equals to :c:enumerator:`CC_TE_None`.
 
-    .. c:enumerator:: CC_LTE_CanRush
+    .. c:enumerator:: CC_LTE_RushingTagLost
 
         Pawn lost ability to rush, equals to :c:enumerator:`CC_TE_CanRush`.
 
-    .. c:enumerator:: CC_LTE_CanCastle
+    .. c:enumerator:: CC_LTE_CastlingTagLost
 
         Rook or King lost ability to castle, equals to :c:enumerator:`CC_TE_CanCastle`.
 
-    .. c:enumerator:: CC_LTE_DelayedPromotion
+    .. c:enumerator:: CC_LTE_DelayedPromotionLost
 
         Pawn lost delayed promotion :term:`tag`, equals to :c:enumerator:`CC_TE_DelayedPromotion`.
 
@@ -261,7 +261,7 @@ Losing tag functions
 
     Converts ordinary tag into lost tag.
 
-    Ordinary tag values without equivalent losing tag value are converted into :c:enumerator:`CC_LTE_None` instead.
+    Ordinary tag values without equivalent losing tag value are converted into :c:enumerator:`CC_LTE_NoneLost` instead.
 
     :param te: :c:enum:`cc_tag` value.
     :returns: :c:enum:`CcLosingTagEnum` value.

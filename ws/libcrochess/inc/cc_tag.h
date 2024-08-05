@@ -97,19 +97,20 @@ typedef enum CcTagEnum {
 // TODO :: DOCS
 typedef unsigned char cc_tag;
 
-
 // TODO :: DOCS
 char cc_tag_as_char( cc_tag ct );
 
 // TODO :: DOCS
 cc_tag cc_tag_from_char( char c );
 
-typedef enum CcLosingTagEnum {
-    CC_LTE_None = (int)CC_TE_None, /* No tag applies. */
 
-    CC_LTE_CanRush = (int)CC_TE_CanRush, /* Pawn can rush, persistent tag. */
-    CC_LTE_CanCastle = (int)CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
-    CC_LTE_DelayedPromotion = (int)CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
+// TODO :: DOCS
+typedef enum CcLosingTagEnum {
+    CC_LTE_NoneLost = (int)CC_TE_None, /* No tag has been lost. */
+
+    CC_LTE_RushingTagLost = (int)CC_TE_CanRush, /* Pawn lost its ability to rush. */
+    CC_LTE_CastlingTagLost = (int)CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */
+    CC_LTE_DelayedPromotionLost = (int)CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
 } CcLosingTagEnum;
 
 #define CC_MAX_LEN_LOSING_TAG (2)
