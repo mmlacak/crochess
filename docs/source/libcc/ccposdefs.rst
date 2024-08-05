@@ -593,7 +593,7 @@ Piece step validity macros
 Piece step functions
 --------------------
 
-.. c:function:: bool cc_is_same_color( cc_piece piece, CcPos pos )
+.. c:function:: bool cc_is_same_color( cc_piece_t piece, CcPos pos )
 
     Function checks if piece and a field are in the same color.
 

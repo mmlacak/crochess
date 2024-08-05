@@ -4,7 +4,7 @@
 #include "cc_pos_utils.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint momentum ) {
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum ) {
     CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = momentum };
 
     if ( cb ) {
@@ -15,10 +15,10 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint mome
     return pd;
 }
 
-bool cc_calc_checked_momentum( cc_uint * momentum__io, bool accumulating ) {
+bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating ) {
     if ( !momentum__io ) return false;
 
-    cc_uint m = *momentum__io;
+    cc_uint_t m = *momentum__io;
 
     if ( accumulating ) {
         if ( m == UINT_MAX ) return false;
@@ -33,7 +33,7 @@ bool cc_calc_checked_momentum( cc_uint * momentum__io, bool accumulating ) {
 
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
-                                                    cc_uint current_momentum,
+                                                    cc_uint_t current_momentum,
                                                     bool is_accumulating_momentum,
                                                     CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
@@ -47,7 +47,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 
     bool result = true;
     bool is_on_board = true;
-    cc_uint momentum = current_momentum;
+    cc_uint_t momentum = current_momentum;
 
     while ( result && step ) {
         pos = cc_pos_add( pos, step->step.step, 1 );
@@ -75,7 +75,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      CcPos destination,
-                                     cc_uint momentum,
+                                     cc_uint_t momentum,
                                      CcPosDescLink ** pptl__iod_a ) {
     if ( !cb ) return false;
     if ( !pptl__iod_a ) return false;
@@ -97,10 +97,10 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
         CcPosDesc pd = pdl->pd;
         CcPos pos = pd.pos;
 
-        cc_piece piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        cc_piece_t piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( piece != pd.piece ) return false;
 
-        cc_tag tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        cc_tag_t tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         if ( tag != pd.tag ) return false;
 
         if ( pd.momentum == CC_UNSIGNED_MIN ) {
@@ -123,10 +123,10 @@ bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     while ( p ) {
         CcPos pos = p->pd.pos;
 
-        cc_piece piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        cc_piece_t piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         p->pd.piece = piece;
 
-        cc_tag tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        cc_tag_t tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         p->pd.tag = tag;
 
         p = p->next;
@@ -164,7 +164,7 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
-                        cc_piece piece,
+                        cc_piece_t piece,
                         bool include_opponent,
                         CcPos * pos__io ) {
     if ( !cb ) return false;
@@ -186,7 +186,7 @@ bool cc_iter_piece_pos( CcChessboard * cb,
 
     for ( int i = pos.i; i < size; ++i ) {
         for ( int j = pos.j; j < size; ++j ) {
-            cc_piece pe = cc_chessboard_get_piece( cb, i, j );
+            cc_piece_t pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( ( pe == piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {

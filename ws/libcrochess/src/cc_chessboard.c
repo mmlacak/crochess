@@ -51,7 +51,7 @@ bool cc_chessboard_init( CcChessboard * cb__io,
 bool cc_chessboard_is_size_valid( CcChessboard * cb ) {
     if ( !cb ) return false;
 
-    cc_uint size = cc_variant_board_size( cb->type );
+    cc_uint_t size = cc_variant_board_size( cb->type );
     return ( size == cb->size );
 }
 
@@ -72,10 +72,10 @@ bool cc_chessboard_setup( CcChessboard * cb__io ) {
     if ( !cc_chessboard_is_size_valid( cb__io ) ) return false;
     if ( !cc_chessboard_clear( cb__io ) ) return false;
 
-    cc_piece const * su = cc_setup_board_get( cb__io->type );
+    cc_piece_t const * su = cc_setup_board_get( cb__io->type );
     if ( !su ) return false;
 
-    cc_tag const * tu = cc_setup_tags_get( cb__io->type );
+    cc_tag_t const * tu = cc_setup_tags_get( cb__io->type );
     if ( !tu ) return false;
 
     for ( int i = 0; i < (int)cb__io->size; ++i ) {
@@ -206,14 +206,14 @@ int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light ) {
     return (int)( cb->size - 1 );
 }
 
-cc_piece cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
+cc_piece_t cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
     if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
         return cb->board[ i ][ j ];
 
     return CC_PE_None;
 }
 
-cc_tag cc_chessboard_get_tag( CcChessboard * cb,
+cc_tag_t cc_chessboard_get_tag( CcChessboard * cb,
                                  int i,
                                  int j ) {
     if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
@@ -225,8 +225,8 @@ cc_tag cc_chessboard_get_tag( CcChessboard * cb,
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  cc_piece pe,
-                                  cc_tag tt ) {
+                                  cc_piece_t pe,
+                                  cc_tag_t tt ) {
     if ( !cb__io ) return false;
 
     if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {
@@ -243,14 +243,14 @@ bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              cc_piece pe ) {
+                              cc_piece_t pe ) {
     return cc_chessboard_set_piece_tag( cb__io, i, j, pe, CC_TE_None );
 }
 
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,
                             int j,
-                            cc_tag tt ) {
+                            cc_tag_t tt ) {
     if ( !cb__io ) return false;
 
     if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {

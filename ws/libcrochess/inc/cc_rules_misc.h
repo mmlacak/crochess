@@ -22,7 +22,7 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 
 // TODO :: DOCS
 // bool cc_check_promote_or_tag( CcChessboard * cb,
-//                               cc_piece pawn,
+//                               cc_piece_t pawn,
 //                               CcPos start,
 //                               CcPos destination );
 

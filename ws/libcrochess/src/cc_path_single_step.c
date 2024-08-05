@@ -7,10 +7,10 @@
 
 
 static bool cc_path_pawn( CcChessboard * cb,
-                          cc_piece pawn,
-                          cc_tag tag,
+                          cc_piece_t pawn,
+                          cc_tag_t tag,
                           CcPos from_pos,
-                          cc_uint momentum,
+                          cc_uint_t momentum,
                           bool is_accumulating_momentum,
                           CcPosDescLink * already_traversed__d,
                           CcPathLink ** path__o ) {
@@ -25,7 +25,7 @@ static bool cc_path_pawn( CcChessboard * cb,
     bool is_pawn_light = cc_piece_is_light( pawn );
 
     CcPosDescLink * pptl__t = NULL;
-    cc_uint mm = momentum;
+    cc_uint_t mm = momentum;
     bool accumulating = is_accumulating_momentum;
     bool result = true;
 
@@ -66,7 +66,7 @@ static bool cc_path_pawn( CcChessboard * cb,
         // TODO :: cc_pos_add() + cc_calc_checked_momentum() --> new func w/ checks
         CcPos destination = cc_pos_add( from_pos, s->step, 1 );
 
-        // cc_piece target = cc_chessboard_get_piece( cb, destination.i, destination.j );
+        // cc_piece_t target = cc_chessboard_get_piece( cb, destination.i, destination.j );
         bool can_diverge_at = CC_MAYBE_IS_TRUE( cc_check_piece_can_diverge_at( cb, pawn, mm, CC_PE_None, destination ) );
         bool do_append = false;
 
@@ -138,11 +138,11 @@ static bool cc_path_pawn( CcChessboard * cb,
 
 
 bool cc_path_single_step( CcChessboard * cb,
-                          cc_piece piece,
-                          cc_tag tag,
-                          cc_piece activator,
+                          cc_piece_t piece,
+                          cc_tag_t tag,
+                          cc_piece_t activator,
                           CcPos from_pos,
-                          cc_uint momentum,
+                          cc_uint_t momentum,
                           bool is_accumulating_momentum,
                           CcPathLink ** path__o ) {
     if ( !cb ) return false;
@@ -151,7 +151,7 @@ bool cc_path_single_step( CcChessboard * cb,
 
     if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
 
-    cc_piece from_piece = cc_chessboard_get_piece( cb, from_pos.i, from_pos.j );
+    cc_piece_t from_piece = cc_chessboard_get_piece( cb, from_pos.i, from_pos.j );
     CcPathLink * path__t = NULL;
 
     if ( CC_PIECE_IS_TELEPORTER( from_piece ) ) {

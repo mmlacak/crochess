@@ -17,7 +17,7 @@ checks.
 Check functions
 ---------------
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, cc_piece piece, cc_uint momentum, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, cc_piece_t piece, cc_uint_t momentum, CcPos pos )
 
     Function checks if piece is blocked at given position.
 
@@ -31,7 +31,7 @@ Check functions
         * :c:enumerator:`CC_MBE_False` if piece is not blocked,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, cc_piece piece, cc_uint momentum, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, cc_piece_t piece, cc_uint_t momentum, CcPos pos )
 
     Function checks if a piece can capture at given position.
 
@@ -45,7 +45,7 @@ Check functions
         * :c:enumerator:`CC_MBE_False` if no capture is possible,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb, cc_piece piece, cc_uint momentum, cc_piece activator, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb, cc_piece_t piece, cc_uint_t momentum, cc_piece_t activator, CcPos pos )
 
     Function checks if a piece can diverge from given position.
 

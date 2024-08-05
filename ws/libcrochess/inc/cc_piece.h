@@ -227,14 +227,14 @@
 // /**
 //     Macro expression to evaluate whether piece has two alternating steps.
 
-//     @param pe Piece enum, one of `cc_piece` values.
+//     @param pe Piece enum, one of `cc_piece_t` values.
 //     @param activator Piece enum. Last material (i.e. non-Wave) piece which activates Wave in a cascade.
 
 //     Two step pieces are Centaur, and Wave activated by Unicorn, Centaur, or Serpent.
 //     Unicorn itself is not two-step piece, because it makes only one step in a ply,
 //     and so it can choose direction independently to any previous choice.
 
-//     @see cc_piece
+//     @see cc_piece_t
 
 //     @return `true` if piece has two alternating steps, `false` otherwise.
 // */
@@ -303,60 +303,60 @@ typedef enum CcPieceEnum {
 #define CC_PIECE_VALUE(pe) ( (pe) & CC_PIECE_VALUE_MASK )
 
 // TODO :: DOCS
-typedef signed char cc_piece;
+typedef signed char cc_piece_t;
 
 
-typedef char (*cc_piece_fp_char_value_t)( cc_piece pe );
+typedef char (*cc_piece_fp_char_value_t)( cc_piece_t pe );
 
-cc_piece cc_piece_from_symbol( char symbol, bool is_light );
+cc_piece_t cc_piece_from_symbol( char symbol, bool is_light );
 
 bool cc_piece_symbol_is_valid( char c );
 
-cc_piece cc_piece_opposite( cc_piece pe );
+cc_piece_t cc_piece_opposite( cc_piece_t pe );
 
-char cc_piece_as_char( cc_piece pe );
+char cc_piece_as_char( cc_piece_t pe );
 
-cc_piece cc_piece_from_char( char piece );
+cc_piece_t cc_piece_from_char( char piece );
 
-char const * cc_piece_label( cc_piece pe );
+char const * cc_piece_label( cc_piece_t pe );
 
-char cc_piece_symbol( cc_piece pe );
+char cc_piece_symbol( cc_piece_t pe );
 
-cc_piece cc_piece_demoting_to( cc_piece pe );
+cc_piece_t cc_piece_demoting_to( cc_piece_t pe );
 
-bool cc_piece_is_dark( cc_piece pe );
+bool cc_piece_is_dark( cc_piece_t pe );
 
-bool cc_piece_is_light( cc_piece pe );
+bool cc_piece_is_light( cc_piece_t pe );
 
-bool cc_piece_has_color( cc_piece pe );
+bool cc_piece_has_color( cc_piece_t pe );
 
-bool cc_piece_has_shade( cc_piece pe );
+bool cc_piece_has_shade( cc_piece_t pe );
 
-bool cc_piece_has_prefix( cc_piece pe );
+bool cc_piece_has_prefix( cc_piece_t pe );
 
-char const * cc_piece_prefix( cc_piece pe, bool capitalize );
+char const * cc_piece_prefix( cc_piece_t pe, bool capitalize );
 
-bool cc_piece_has_congruent_type( char symbol, cc_piece pe );
+bool cc_piece_has_congruent_type( char symbol, cc_piece_t pe );
 
-bool cc_piece_is_equal( char symbol, bool is_light, cc_piece pe );
+bool cc_piece_is_equal( char symbol, bool is_light, cc_piece_t pe );
 
-bool cc_piece_has_same_type( cc_piece pe_1, cc_piece pe_2 );
+bool cc_piece_has_same_type( cc_piece_t pe_1, cc_piece_t pe_2 );
 
-bool cc_piece_has_same_color( cc_piece pe_1, cc_piece pe_2 );
+bool cc_piece_has_same_color( cc_piece_t pe_1, cc_piece_t pe_2 );
 
-bool cc_piece_has_same_shade( cc_piece pe_1, cc_piece pe_2 );
+bool cc_piece_has_same_shade( cc_piece_t pe_1, cc_piece_t pe_2 );
 
-bool cc_piece_is_opposite( cc_piece pe_1, cc_piece pe_2 );
+bool cc_piece_is_opposite( cc_piece_t pe_1, cc_piece_t pe_2 );
 
-bool cc_piece_has_same_owner( cc_piece pe_1, cc_piece pe_2 );
+bool cc_piece_has_same_owner( cc_piece_t pe_1, cc_piece_t pe_2 );
 
-bool cc_piece_has_different_owner( cc_piece pe_1, cc_piece pe_2 );
+bool cc_piece_has_different_owner( cc_piece_t pe_1, cc_piece_t pe_2 );
 
-bool cc_piece_is_owned_figure( cc_piece pe );
+bool cc_piece_is_owned_figure( cc_piece_t pe );
 
-bool cc_piece_is_figure( cc_piece pe );
+bool cc_piece_is_figure( cc_piece_t pe );
 
-char const * cc_piece_as_string( cc_piece pe, bool capitalize, bool empty_field );
+char const * cc_piece_as_string( cc_piece_t pe, bool capitalize, bool empty_field );
 
 
 #endif /* __CC_PIECE_H__ */

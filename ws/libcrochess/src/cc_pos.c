@@ -294,7 +294,7 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
 //
 // Position + piece + tag.
 
-CcPosDesc cc_pos_desc( CcPos pos, cc_piece piece, cc_tag tag ) {
+CcPosDesc cc_pos_desc( CcPos pos, cc_piece_t piece, cc_tag_t tag ) {
     CcPosDesc pd = { .pos = pos, .piece = piece, .tag = tag };
     return pd;
 }
@@ -326,7 +326,7 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 
     char * p = (char *)pd_str__o;
 
-    cc_uint count = 0;
+    cc_uint_t count = 0;
     while ( *p++ != '\0' ) ++count; // fast-fwd
 
     if ( count >= CC_MAX_LEN_CHAR_8 ) return false;

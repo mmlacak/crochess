@@ -18,15 +18,15 @@ Common types
 
 Convenience shorthands for unsigned integer types.
 
-.. c:type:: unsigned char cc_uchar
+.. c:type:: unsigned char cc_uchar_t
 
-.. c:type:: unsigned short cc_ushort
+.. c:type:: unsigned short cc_ushort_t
 
-.. c:type:: unsigned int cc_uint
+.. c:type:: unsigned int cc_uint_t
 
-.. c:type:: unsigned long cc_ulong
+.. c:type:: unsigned long cc_ulong_t
 
-.. c:type:: unsigned long long cc_ull
+.. c:type:: unsigned long long cc_ull_t
 
 .. c:macro:: CC_UNSIGNED_MIN
 

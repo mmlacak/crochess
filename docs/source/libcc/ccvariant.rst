@@ -328,7 +328,7 @@ Variant functions
     :param ve: Variant :c:`enum`.
     :returns: Variant label string if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: cc_uint cc_variant_board_size( CcVariantEnum ve )
+.. c:function:: cc_uint_t cc_variant_board_size( CcVariantEnum ve )
 
     Function returning size of a board for a given variant.
 
@@ -342,7 +342,7 @@ Variant functions
     :param ve: Variant :c:`enum`.
     :returns: :c:data:`true` if variant has sideways Pawns, :c:data:`false` otherwise.
 
-.. c:function:: cc_uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light )
+.. c:function:: cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light )
 
     Function returns rush limit, either maximum rank for light privates,
     or minimum rank for dark privates.

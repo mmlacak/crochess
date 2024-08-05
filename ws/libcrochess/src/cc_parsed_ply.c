@@ -28,7 +28,7 @@ char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple ) {
 
 
 CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
-                                  cc_piece piece,
+                                  cc_piece_t piece,
                                   CcLosingTagEnum lost_tag,
                                   CcParsedStep ** steps__n ) {
     CcParsedPly * ply__a = malloc( sizeof( CcParsedPly ) );
@@ -51,7 +51,7 @@ CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
 
 CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
                                     CcParsedPlyLinkEnum link,
-                                    cc_piece piece,
+                                    cc_piece_t piece,
                                     CcLosingTagEnum lost_tag,
                                     CcParsedStep ** steps__n ) {
     if ( !plies__iod_a ) return NULL;
@@ -175,7 +175,7 @@ bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply ) {
     return false;
 }
 
-cc_piece cc_parsed_ply_find_activator( CcParsedPly * plies,
+cc_piece_t cc_parsed_ply_find_activator( CcParsedPly * plies,
                                           CcParsedPly * ply__d ) {
     if ( !plies ) return CC_PE_None;
 
@@ -188,7 +188,7 @@ cc_piece cc_parsed_ply_find_activator( CcParsedPly * plies,
     // if ( ply__d && CC_PIECE_IS_ACTIVE( ply__d->piece ) )
     //     return ply__d->piece;
 
-    cc_piece activator = CC_PE_None;
+    cc_piece_t activator = CC_PE_None;
     bool ply_encountered = false;
     CcParsedPly * p = plies;
 

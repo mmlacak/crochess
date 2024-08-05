@@ -5,7 +5,7 @@
 #include "cc_tag.h"
 
 
-char cc_tag_as_char( cc_tag ct ) {
+char cc_tag_as_char( cc_tag_t ct ) {
     switch ( CC_TAG_VALUE( ct ) ) {
         case CC_TE_None : return CC_TAG_CHAR_NONE;
 
@@ -19,7 +19,7 @@ char cc_tag_as_char( cc_tag ct ) {
     }
 }
 
-cc_tag cc_tag_from_char( char c ) {
+cc_tag_t cc_tag_from_char( char c ) {
     switch ( c ) {
         case CC_TAG_CHAR_NONE : return CC_TE_None;
 
@@ -69,7 +69,7 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
     }
 }
 
-CcLosingTagEnum cc_tag_to_losing( cc_tag te ) {
+CcLosingTagEnum cc_tag_to_losing( cc_tag_t te ) {
     switch ( CC_TAG_VALUE( te ) ) {
         case CC_TE_DelayedPromotion : return CC_LTE_DelayedPromotionLost;
         case CC_TE_CanRush : return CC_LTE_RushingTagLost;
@@ -79,7 +79,7 @@ CcLosingTagEnum cc_tag_to_losing( cc_tag te ) {
     }
 }
 
-cc_tag cc_tag_from_losing( CcLosingTagEnum lte ) {
+cc_tag_t cc_tag_from_losing( CcLosingTagEnum lte ) {
     switch ( lte ) {
         case CC_LTE_DelayedPromotionLost : return CC_TE_DelayedPromotion;
         case CC_LTE_RushingTagLost : return CC_TE_CanRush;

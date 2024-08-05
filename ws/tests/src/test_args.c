@@ -31,7 +31,7 @@ TestArgs test_args( char const * an_str,
                              char const * setup__d,
                              char const * check_setup__d,
                              char const * check_end__d,
-                             cc_ull error_code ) {
+                             cc_ull_t error_code ) {
     TestArgs tma = { .an_str = an_str,
                          .setup__d = setup__d,
                          .check_setup__d = check_setup__d,

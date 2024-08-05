@@ -114,7 +114,7 @@ Organization
 
 Pieces, tags, variants, chessboards introduced in
 `the book <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_ are in
-similarly named :term:`module`\s, i.e. ``cc_piece``, ``cc_tag``, ``cc_variant``,
+similarly named :term:`module`\s, i.e. ``cc_piece_t``, ``cc_tag_t``, ``cc_variant``,
 ``cc_chessboard``.
 
 Each chessboard holds a board for pieces and the other one for tags.
@@ -206,7 +206,7 @@ This is very different from similarly named function defined in ``cc_pos_utils``
 
     bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                          CcPos destination,
-                                         cc_uint momentum,
+                                         cc_uint_t momentum,
                                          CcPosDescLink ** pptl__iod_a );
 
 which depends on bunch of other stuff instead of linked list base :term:`entity`.

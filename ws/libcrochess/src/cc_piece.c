@@ -10,7 +10,7 @@
 #include "cc_piece.h"
 
 
-cc_piece cc_piece_from_symbol( char symbol, bool is_light ) {
+cc_piece_t cc_piece_from_symbol( char symbol, bool is_light ) {
     switch ( symbol ) {
         case ' ' : return CC_PE_None;
 
@@ -66,7 +66,7 @@ bool cc_piece_symbol_is_valid( char c ) {
     }
 }
 
-cc_piece cc_piece_opposite( cc_piece pe ) {
+cc_piece_t cc_piece_opposite( cc_piece_t pe ) {
     switch ( pe ) {
         case CC_PE_DimStar : return CC_PE_BrightStar;
 
@@ -114,7 +114,7 @@ cc_piece cc_piece_opposite( cc_piece pe ) {
     }
 }
 
-char cc_piece_as_char( cc_piece pe ) {
+char cc_piece_as_char( cc_piece_t pe ) {
     switch ( pe ) {
         case CC_PE_DimStar : return 't';
 
@@ -162,7 +162,7 @@ char cc_piece_as_char( cc_piece pe ) {
     }
 }
 
-cc_piece cc_piece_from_char( char piece ) {
+cc_piece_t cc_piece_from_char( char piece ) {
     switch ( piece ) {
         case 't' : return CC_PE_DimStar;
 
@@ -210,7 +210,7 @@ cc_piece cc_piece_from_char( char piece ) {
     }
 }
 
-char const * cc_piece_label( cc_piece pe ) {
+char const * cc_piece_label( cc_piece_t pe ) {
     switch ( pe ) {
         case CC_PE_DimStar :
         case CC_PE_BrightStar : return "Star";
@@ -271,17 +271,17 @@ char const * cc_piece_label( cc_piece pe ) {
     }
 }
 
-char cc_piece_symbol( cc_piece pe ) {
+char cc_piece_symbol( cc_piece_t pe ) {
     return toupper( cc_piece_as_char( pe ) );
 }
 
-cc_piece cc_piece_demoting_to( cc_piece pe ) {
+cc_piece_t cc_piece_demoting_to( cc_piece_t pe ) {
     if ( cc_piece_is_dark( pe ) ) return CC_PE_DarkPawn;
     if ( cc_piece_is_light( pe ) ) return CC_PE_LightPawn;
     return CC_PE_None;
 }
 
-bool cc_piece_is_dark( cc_piece pe ) {
+bool cc_piece_is_dark( cc_piece_t pe ) {
     switch ( pe ) {
         case CC_PE_DarkStarchild :
         case CC_PE_DarkShaman :
@@ -306,7 +306,7 @@ bool cc_piece_is_dark( cc_piece pe ) {
     }
 }
 
-bool cc_piece_is_light( cc_piece pe ) {
+bool cc_piece_is_light( cc_piece_t pe ) {
     switch ( pe ) {
         case CC_PE_LightPawn :
         case CC_PE_LightKnight :
@@ -331,19 +331,19 @@ bool cc_piece_is_light( cc_piece pe ) {
     }
 }
 
-bool cc_piece_has_color( cc_piece pe ) {
+bool cc_piece_has_color( cc_piece_t pe ) {
     return cc_piece_is_light( pe ) || cc_piece_is_dark( pe );
 }
 
-bool cc_piece_has_shade( cc_piece pe ) {
+bool cc_piece_has_shade( cc_piece_t pe ) {
     return CC_PIECE_IS_STAR( pe );
 }
 
-bool cc_piece_has_prefix( cc_piece pe ) {
+bool cc_piece_has_prefix( cc_piece_t pe ) {
     return cc_piece_has_color( pe ) || cc_piece_has_shade( pe );
 }
 
-char const * cc_piece_prefix( cc_piece pe, bool capitalize ) {
+char const * cc_piece_prefix( cc_piece_t pe, bool capitalize ) {
     switch ( pe ) {
         case CC_PE_DimStar : return capitalize ? "Dim" : "dim";
 
@@ -391,23 +391,23 @@ char const * cc_piece_prefix( cc_piece pe, bool capitalize ) {
     }
 }
 
-bool cc_piece_has_congruent_type( char symbol, cc_piece pe ) {
+bool cc_piece_has_congruent_type( char symbol, cc_piece_t pe ) {
     char ps = cc_piece_symbol( pe );
     return ( symbol == ps );
 }
 
-bool cc_piece_is_equal( char symbol, bool is_light, cc_piece pe ) {
-    cc_piece piece = cc_piece_from_symbol( symbol, is_light );
+bool cc_piece_is_equal( char symbol, bool is_light, cc_piece_t pe ) {
+    cc_piece_t piece = cc_piece_from_symbol( symbol, is_light );
     return ( piece == pe );
 }
 
-bool cc_piece_has_same_type( cc_piece pe_1, cc_piece pe_2 ) {
+bool cc_piece_has_same_type( cc_piece_t pe_1, cc_piece_t pe_2 ) {
     if ( CC_PIECE_IS_EQUAL( pe_1, pe_2 ) ) return true;
     if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
     return false;
 }
 
-bool cc_piece_has_same_color( cc_piece pe_1, cc_piece pe_2 ) {
+bool cc_piece_has_same_color( cc_piece_t pe_1, cc_piece_t pe_2 ) {
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) )
         return true;
 
@@ -417,47 +417,47 @@ bool cc_piece_has_same_color( cc_piece pe_1, cc_piece pe_2 ) {
     return false;
 }
 
-bool cc_piece_has_same_shade( cc_piece pe_1, cc_piece pe_2 ) {
+bool cc_piece_has_same_shade( cc_piece_t pe_1, cc_piece_t pe_2 ) {
     if ( ( pe_1 == CC_PE_BrightStar ) && ( pe_2 == CC_PE_BrightStar ) ) return true;
     if ( ( pe_1 == CC_PE_DimStar ) && ( pe_2 == CC_PE_DimStar ) ) return true;
     return false;
 }
 
-bool cc_piece_is_opposite( cc_piece pe_1, cc_piece pe_2 ) {
+bool cc_piece_is_opposite( cc_piece_t pe_1, cc_piece_t pe_2 ) {
     if ( ( !CC_PIECE_HAS_OWNER( pe_1 ) ) || ( !CC_PIECE_HAS_OWNER( pe_2 ) ) ) return false;
 
     return ( pe_1 == cc_piece_opposite( pe_2 ) );
 }
 
-bool cc_piece_has_same_owner( cc_piece pe_1, cc_piece pe_2 ) {
+bool cc_piece_has_same_owner( cc_piece_t pe_1, cc_piece_t pe_2 ) {
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
 
     return false;
 }
 
-bool cc_piece_has_different_owner( cc_piece pe_1, cc_piece pe_2 ) {
+bool cc_piece_has_different_owner( cc_piece_t pe_1, cc_piece_t pe_2 ) {
     if ( cc_piece_is_light( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
     if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
 
     return false;
 }
 
-bool cc_piece_is_owned_figure( cc_piece pe ) {
+bool cc_piece_is_owned_figure( cc_piece_t pe ) {
     if ( CC_PIECE_IS_PAWN( pe ) ) return false;
     if ( cc_piece_is_light( pe ) ) return true;
     if ( cc_piece_is_dark( pe ) ) return true;
     return false;
 }
 
-bool cc_piece_is_figure( cc_piece pe ) {
+bool cc_piece_is_figure( cc_piece_t pe ) {
     if ( CC_PIECE_IS_STAR( pe ) ) return true;
     if ( CC_PIECE_IS_MONOLITH( pe ) ) return true;
 
     return cc_piece_is_owned_figure( pe );
 }
 
-char const * cc_piece_as_string( cc_piece pe, bool capitalize, bool empty_field ) {
+char const * cc_piece_as_string( cc_piece_t pe, bool capitalize, bool empty_field ) {
     switch ( pe ) {
         case CC_PE_DimStar : return capitalize ? "Dim Star" : "dim Star";
         case CC_PE_BrightStar : return capitalize ? "Bright Star" : "bright Star";

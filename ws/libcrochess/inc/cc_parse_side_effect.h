@@ -11,12 +11,12 @@
 #include "cc_parse_msg.h"
 
 // static bool cc_check_piece_has_congruent_type( char piece_symbol,
-//                                                cc_piece piece,
+//                                                cc_piece_t piece,
 //                                                char const * step_start_an,
 //                                                char const * step_end_an,
 //                                                CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_piece_can_be_captured( cc_piece piece,
+// static bool cc_check_piece_can_be_captured( cc_piece_t piece,
 //                                             char const * step_start_an,
 //                                             char const * step_end_an,
 //                                             CcParseMsg ** parse_msgs__iod );
@@ -26,12 +26,12 @@
 //                                             char const * step_end_an,
 //                                             CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_promote_to_piece_is_valid( cc_piece promote_to,
+// static bool cc_check_promote_to_piece_is_valid( cc_piece_t promote_to,
 //                                                 char const * step_start_an,
 //                                                 char const * step_end_an,
 //                                                 CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_piece_can_be_displaced( cc_piece piece,
+// static bool cc_check_piece_can_be_displaced( cc_piece_t piece,
 //                                              char const * step_start_an,
 //                                              char const * step_end_an,
 //                                              CcParseMsg ** parse_msgs__iod );
@@ -51,34 +51,34 @@
 //                                            char const * step_end_an,
 //                                            CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_piece_can_capture_en_passant( cc_piece piece,
+// static bool cc_check_piece_can_capture_en_passant( cc_piece_t piece,
 //                                                    char const * step_start_an,
 //                                                    char const * step_end_an,
 //                                                    CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_field_is_empty( cc_piece piece,
+// static bool cc_check_field_is_empty( cc_piece_t piece,
 //                                      char const * msg_fmt,
 //                                      char const * step_start_an,
 //                                      char const * step_end_an,
 //                                      CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_promoting_piece_is_pawn( cc_piece piece,
+// static bool cc_check_promoting_piece_is_pawn( cc_piece_t piece,
 //                                               char const * msg_fmt,
 //                                               char const * step_start_an,
 //                                               char const * step_end_an,
 //                                               CcParseMsg ** parse_msgs__iod ;
 
-// static bool cc_check_piece_can_be_converted( cc_piece piece,
+// static bool cc_check_piece_can_be_converted( cc_piece_t piece,
 //                                              char const * step_start_an,
 //                                              char const * step_end_an,
 //                                              CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_failed_conversion( cc_piece piece,
+// static bool cc_check_failed_conversion( cc_piece_t piece,
 //                                         char const * step_start_an,
 //                                         char const * step_end_an,
 //                                         CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_piece_can_be_resurrected( cc_piece piece,
+// static bool cc_check_piece_can_be_resurrected( cc_piece_t piece,
 //                                                char const * step_start_an,
 //                                                char const * step_end_an,
 //                                                CcParseMsg ** parse_msgs__iod );
@@ -88,7 +88,7 @@
 //                                              char const * step_end_an,
 //                                              CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_piece_is_rook_to_castle( cc_piece piece,
+// static bool cc_check_piece_is_rook_to_castle( cc_piece_t piece,
 //                                               char const * step_start_an,
 //                                               char const * step_end_an,
 //                                               CcParseMsg ** parse_msgs__iod );
@@ -97,7 +97,7 @@
 //                                                CcChessboard * cb,
 //                                                CcPos * step_pos__io,
 //                                                CcPos * rook_dest__io,
-//                                                cc_piece * rook__o,
+//                                                cc_piece_t * rook__o,
 //                                                CcPos * rook_init__o,
 //                                                char const * step_start_an,
 //                                                char const * step_end_an,

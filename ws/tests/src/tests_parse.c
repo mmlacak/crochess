@@ -42,7 +42,7 @@ bool test_parse( char const * an_str,
     if ( !game__a ) return false;
 
     bool result = true;
-    cc_uint result_at = 0x0;
+    cc_uint_t result_at = 0x0;
 
     // if ( check_setup__d ) {
     //     CcGame * setup__a = cc_game_setup_from_string__new( check_setup__d, before_setup );

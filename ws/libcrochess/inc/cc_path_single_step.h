@@ -17,9 +17,9 @@
 
 // static bool cc_path_pawn( CcChessboard * cb,
 //                           CcPosDesc pawn,
-//                           cc_tag tag,
+//                           cc_tag_t tag,
 //                           CcPos from_pos,
-//                           cc_uint momentum,
+//                           cc_uint_t momentum,
 //                           bool is_accumulating_momentum,
 //                           CcPosDescLink * already_traversed__d,
 //                           CcPathLink ** path__o );
@@ -27,11 +27,11 @@
 
 // TODO :: DOCS
 bool cc_path_single_step( CcChessboard * cb,
-                          cc_piece piece,
-                          cc_tag tag,
-                          cc_piece activator,
+                          cc_piece_t piece,
+                          cc_tag_t tag,
+                          cc_piece_t activator,
                           CcPos from_pos,
-                          cc_uint momentum,
+                          cc_uint_t momentum,
                           bool is_accumulating_momentum,
                           CcPathLink ** path__o );
 

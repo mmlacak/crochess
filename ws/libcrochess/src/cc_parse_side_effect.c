@@ -32,7 +32,7 @@
 
 
 static bool cc_check_piece_has_congruent_type( char piece_symbol,
-                                               cc_piece piece,
+                                               cc_piece_t piece,
                                                char const * step_start_an,
                                                char const * step_end_an,
                                                CcParseMsg ** parse_msgs__iod ) {
@@ -47,7 +47,7 @@ static bool cc_check_piece_has_congruent_type( char piece_symbol,
     return true;
 }
 
-static bool cc_check_piece_can_be_captured( cc_piece piece,
+static bool cc_check_piece_can_be_captured( cc_piece_t piece,
                                             char const * step_start_an,
                                             char const * step_end_an,
                                             CcParseMsg ** parse_msgs__iod ) {
@@ -76,7 +76,7 @@ static bool cc_check_piece_symbol_is_valid( char piece_symbol,
     return true;
 }
 
-static bool cc_check_promote_to_piece_is_valid( cc_piece promote_to_piece,
+static bool cc_check_promote_to_piece_is_valid( cc_piece_t promote_to_piece,
                                                 char const * step_start_an,
                                                 char const * step_end_an,
                                                 CcParseMsg ** parse_msgs__iod ) {
@@ -91,7 +91,7 @@ static bool cc_check_promote_to_piece_is_valid( cc_piece promote_to_piece,
     return true;
 }
 
-static bool cc_check_piece_can_be_displaced( cc_piece piece,
+static bool cc_check_piece_can_be_displaced( cc_piece_t piece,
                                              char const * step_start_an,
                                              char const * step_end_an,
                                              CcParseMsg ** parse_msgs__iod ) {
@@ -139,7 +139,7 @@ static bool cc_check_position_is_on_board( CcPos pos,
     return true;
 }
 
-static bool cc_check_piece_en_passant( cc_piece piece,
+static bool cc_check_piece_en_passant( cc_piece_t piece,
                                        bool is_capturing,
                                        char const * msg_fmt,
                                        char const * step_start_an,
@@ -176,10 +176,10 @@ static bool cc_check_en_passant_file( CcPos en_passant_location,
     return true;
 }
 
-static bool cc_check_captured_en_passant( cc_piece capturing,
+static bool cc_check_captured_en_passant( cc_piece_t capturing,
                                           CcPos step,
                                           CcPos en_passant_location,
-                                          cc_piece maybe_captured,
+                                          cc_piece_t maybe_captured,
                                           CcPos * captured_at__o,
                                           CcChessboard * cb,
                                           char const * step_start_an,
@@ -189,10 +189,10 @@ static bool cc_check_captured_en_passant( cc_piece capturing,
     int max_rank = cb->size / 2;
 
     CcPos captured_at = CC_POS_CAST_INVALID;
-    cc_piece captured = CC_PE_None;
+    cc_piece_t captured = CC_PE_None;
 
     for ( int rank = step.j; rank <= max_rank; rank += stepping ) {
-        cc_piece pe = cc_chessboard_get_piece( cb, step.i, rank );
+        cc_piece_t pe = cc_chessboard_get_piece( cb, step.i, rank );
 
         if ( CC_PIECE_IS_NONE( pe ) ) continue;
 
@@ -212,7 +212,7 @@ static bool cc_check_captured_en_passant( cc_piece capturing,
             return false;
         }
 
-        cc_tag te = cc_chessboard_get_tag( cb, step.i, rank );
+        cc_tag_t te = cc_chessboard_get_tag( cb, step.i, rank );
 
         if ( !CC_TAG_CAN_EN_PASSANT( te ) ) {
             char const * piece_str = cc_piece_as_string( pe, false, true );
@@ -274,7 +274,7 @@ static bool cc_check_captured_en_passant( cc_piece capturing,
 }
 
 
-static bool cc_check_field_is_empty( cc_piece piece,
+static bool cc_check_field_is_empty( cc_piece_t piece,
                                      char const * msg_fmt,
                                      char const * step_start_an,
                                      char const * step_end_an,
@@ -290,7 +290,7 @@ static bool cc_check_field_is_empty( cc_piece piece,
     return true;
 }
 
-static bool cc_check_promoting_piece_is_pawn( cc_piece piece,
+static bool cc_check_promoting_piece_is_pawn( cc_piece_t piece,
                                               char const * msg_fmt,
                                               char const * step_start_an,
                                               char const * step_end_an,
@@ -306,7 +306,7 @@ static bool cc_check_promoting_piece_is_pawn( cc_piece piece,
     return true;
 }
 
-static bool cc_check_piece_can_be_converted( cc_piece piece,
+static bool cc_check_piece_can_be_converted( cc_piece_t piece,
                                              char const * step_start_an,
                                              char const * step_end_an,
                                              CcParseMsg ** parse_msgs__iod ) {
@@ -321,7 +321,7 @@ static bool cc_check_piece_can_be_converted( cc_piece piece,
     return true;
 }
 
-static bool cc_check_failed_conversion( cc_piece piece,
+static bool cc_check_failed_conversion( cc_piece_t piece,
                                         char const * step_start_an,
                                         char const * step_end_an,
                                         CcParseMsg ** parse_msgs__iod ) {
@@ -336,7 +336,7 @@ static bool cc_check_failed_conversion( cc_piece piece,
     return true;
 }
 
-static bool cc_check_piece_can_be_resurrected( cc_piece piece,
+static bool cc_check_piece_can_be_resurrected( cc_piece_t piece,
                                                char const * step_start_an,
                                                char const * step_end_an,
                                                CcParseMsg ** parse_msgs__iod ) {
@@ -372,7 +372,7 @@ static bool cc_check_piece_is_castling_king( CcPosDesc before_ply_start,
     return true;
 }
 
-static bool cc_check_piece_is_rook_to_castle( cc_piece piece,
+static bool cc_check_piece_is_rook_to_castle( cc_piece_t piece,
                                               char const * step_start_an,
                                               char const * step_end_an,
                                               CcParseMsg ** parse_msgs__iod ) {
@@ -391,7 +391,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
                                                CcChessboard * cb,
                                                CcPos * step_pos__io,
                                                CcPos * rook_dest__io,
-                                               cc_piece * rook__o,
+                                               cc_piece_t * rook__o,
                                                CcPos * rook_init__o,
                                                char const * step_start_an,
                                                char const * step_end_an,
@@ -434,7 +434,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
     }
 
     CcPos step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
-    cc_piece rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
+    cc_piece_t rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
     int rook_i = cc_get_figure_initial_file( cb->type, rook, is_queen_side );
     CcPos pos = cc_pos_add( before_ply_start.pos, step, 1 ); // First step from King's initial position.
     int limit = is_queen_side ? pos.i - rook_i : rook_i - pos.i;
@@ -445,7 +445,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         return false;
     }
 
-    cc_piece maybe_rook = cc_chessboard_get_piece( cb, rook_i, init_j );
+    cc_piece_t maybe_rook = cc_chessboard_get_piece( cb, rook_i, init_j );
 
     if ( maybe_rook != rook ) {
         char const * rook_str = cc_piece_as_string( rook, true, true );
@@ -454,7 +454,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         return false;
     }
 
-    cc_tag maybe_tag = cc_chessboard_get_tag( cb, rook_i, init_j );
+    cc_tag_t maybe_tag = cc_chessboard_get_tag( cb, rook_i, init_j );
 
     if ( !CC_TAG_CAN_CASTLE( maybe_tag ) ) {
         char const * piece_str = cc_piece_as_string( rook, true, true );
@@ -516,7 +516,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
     if ( !cc_chessboard_is_pos_on_board( cb, step_pos__io->i, step_pos__io->j ) )
         return false;
 
-    cc_piece step_piece = cc_chessboard_get_piece( cb, step_pos__io->i, step_pos__io->j );
+    cc_piece_t step_piece = cc_chessboard_get_piece( cb, step_pos__io->i, step_pos__io->j );
     bool has_promotion_sign = false;
     CcParsedSideEffectEnum see = cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
     char const * se_an = side_effect_an + cc_parsed_side_effect_type_len( see, has_promotion_sign );
@@ -622,7 +622,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                         return false;
 
                     bool is_light = cc_piece_is_light( step_piece );
-                    cc_piece promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
+                    cc_piece_t promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
 
                     if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
@@ -674,11 +674,11 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 return false;
 
             char piece_symbol = ' ';
-            cc_piece maybe_captured = CC_PE_None;
+            cc_piece_t maybe_captured = CC_PE_None;
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
                 bool is_light = !cc_piece_is_light( before_ply_start.piece ); // !light because capturing opponent's piece.
-                cc_piece maybe_private = cc_piece_from_symbol( piece_symbol, is_light );
+                cc_piece_t maybe_private = cc_piece_from_symbol( piece_symbol, is_light );
 
                 if ( !cc_check_piece_en_passant( maybe_private, false, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
@@ -715,7 +715,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
                 bool is_light = cc_piece_is_light( before_ply_start.piece );
-                cc_piece maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
+                cc_piece_t maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
 
                 if ( !cc_check_piece_is_rook_to_castle( maybe_rook, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
@@ -729,7 +729,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( cc_parse_pos( se_an, &rook_dest, &end ) )
                 se_an = end;
 
-            cc_piece rook = CC_PE_None;
+            cc_piece_t rook = CC_PE_None;
             CcPos rook_start = CC_POS_CAST_INVALID;
 
             if ( !cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos__io, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
@@ -754,7 +754,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 return false;
 
             bool is_light = cc_piece_is_light( step_piece );
-            cc_piece promote_to = cc_piece_from_symbol( piece_symbol, is_light );
+            cc_piece_t promote_to = cc_piece_from_symbol( piece_symbol, is_light );
 
             if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
@@ -782,7 +782,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_check_piece_can_be_converted( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            cc_piece convert_to = cc_piece_opposite( step_piece );
+            cc_piece_t convert_to = cc_piece_opposite( step_piece );
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
 
             *side_effect__o = cc_parsed_side_effect_convert( convert_to, lte );
@@ -837,7 +837,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else
                 return false; // Should check status, within caller stack.
 
-            cc_piece resurrecting = cc_piece_from_symbol( piece_symbol, is_light );
+            cc_piece_t resurrecting = cc_piece_from_symbol( piece_symbol, is_light );
 
             if ( !cc_check_piece_can_be_resurrected( resurrecting, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;

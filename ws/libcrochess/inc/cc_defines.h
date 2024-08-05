@@ -9,18 +9,18 @@
 
 
 // TODO :: DOCS
-typedef signed char cc_schar;
-typedef signed short cc_sshort;
-typedef signed int cc_sint;
-typedef signed long cc_slong;
-typedef signed long long cc_sll;
+typedef signed char cc_schar_t;
+typedef signed short cc_sshort_t;
+typedef signed int cc_sint_t;
+typedef signed long cc_slong_t;
+typedef signed long long cc_sll_t;
 
 // TODO :: DOCS
-typedef unsigned char cc_uchar;
-typedef unsigned short cc_ushort;
-typedef unsigned int cc_uint;
-typedef unsigned long cc_ulong;
-typedef unsigned long long cc_ull;
+typedef unsigned char cc_uchar_t;
+typedef unsigned short cc_ushort_t;
+typedef unsigned int cc_uint_t;
+typedef unsigned long cc_ulong_t;
+typedef unsigned long long cc_ull_t;
 
 #define CC_UNSIGNED_MIN (0)
 
