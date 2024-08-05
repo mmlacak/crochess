@@ -297,12 +297,6 @@ typedef enum CcPieceEnum {
 } CcPieceEnum;
 
 // TODO :: DOCS
-#define CC_PIECE_VALUE_MASK (0x9F) // <!> Keep in sync with CcPieceEnum enumerators.
-
-// TODO :: DOCS
-#define CC_PIECE_VALUE(pe) ( (pe) & CC_PIECE_VALUE_MASK )
-
-// TODO :: DOCS
 typedef signed char cc_piece_t;
 
 
