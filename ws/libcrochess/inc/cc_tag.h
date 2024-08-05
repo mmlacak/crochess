@@ -84,14 +84,14 @@ typedef enum CcTagEnum {
     very next one. */
     CC_TE_EnPassant,
 
-    /* Pawn sacrifice tag, non-persistent. Gained in a move, used or lost in the
-    very same move. */
+    /* Pawn sacrifice tag, non-persistent. Gained in a move, used or lost in
+    the very same move. */
     CC_TE_PawnSacrifice = 5,
 
     /* Piece has started a move, thus cannot return to its starting position.
-    This house-keeping tag is obtained after the first ply is finished, and
+    This house-keeping flag is obtained after the first ply is finished, and
     follows the piece for the remainder of the move. */
-    CC_TE_MoveStarter = 0x80,
+    CC_TE_MoveStarterFlag = 0x80,
 } CcTagEnum;
 
 // TODO :: DOCS
