@@ -212,7 +212,7 @@ static bool cc_check_captured_en_passant( CcPieceEnum capturing,
             return false;
         }
 
-        CcTagEnum te = cc_chessboard_get_tag( cb, step.i, rank );
+        cc_tag te = cc_chessboard_get_tag( cb, step.i, rank );
 
         if ( !CC_TAG_CAN_EN_PASSANT( te ) ) {
             char const * piece_str = cc_piece_as_string( pe, false, true );
@@ -454,7 +454,7 @@ static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         return false;
     }
 
-    CcTagEnum maybe_tag = cc_chessboard_get_tag( cb, rook_i, init_j );
+    cc_tag maybe_tag = cc_chessboard_get_tag( cb, rook_i, init_j );
 
     if ( !CC_TAG_CAN_CASTLE( maybe_tag ) ) {
         char const * piece_str = cc_piece_as_string( rook, true, true );

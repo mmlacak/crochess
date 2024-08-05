@@ -147,7 +147,7 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
         int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
 
         char tag = *c;
-        CcTagEnum te = cc_tag_from_char( tag );
+        cc_tag te = cc_tag_from_char( tag );
 
         if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) ) {
             cc_game_free_all( &game__a );

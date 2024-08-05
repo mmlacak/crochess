@@ -100,7 +100,7 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
         CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( piece != pd.piece ) return false;
 
-        CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        cc_tag tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         if ( tag != pd.tag ) return false;
 
         if ( pd.momentum == CC_UNSIGNED_MIN ) {
@@ -126,7 +126,7 @@ bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
         CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         p->pd.piece = piece;
 
-        CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        cc_tag tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         p->pd.tag = tag;
 
         p = p->next;

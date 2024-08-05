@@ -120,7 +120,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
         return CC_MBE_False;
 }
 
-bool cc_check_pawn_can_rush( CcPieceEnum pawn, CcTagEnum tag, CcTypedStep step ) {
+bool cc_check_pawn_can_rush( CcPieceEnum pawn, cc_tag tag, CcTypedStep step ) {
     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
 
     if ( !CC_TAG_CAN_RUSH( tag ) ) return false;

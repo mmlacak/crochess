@@ -118,7 +118,7 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 
 //         // Static promotion.
 
-//         CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
+//         cc_tag te = cc_chessboard_get_tag( cb, destination.i, destination.j );
 //         if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
 //     }
 
@@ -130,7 +130,7 @@ bool cc_delete_all_en_passant_tags( CcChessboard * cb ) {
 
     for ( int i = 0; i < (int)cb->size; ++i ) {
         for ( int j = 0; j < (int)cb->size; ++j ) {
-            CcTagEnum te = cc_chessboard_get_tag( cb, i, j );
+            cc_tag te = cc_chessboard_get_tag( cb, i, j );
 
             if ( te == CC_TE_EnPassant ) {
                 if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )

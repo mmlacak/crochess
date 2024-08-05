@@ -44,6 +44,7 @@
 #define CC_TAG_CHAR_PAWN_SACRIFICE 'S'
 
 // TODO :: DOCS
+// TODO :: FIX :: can be overwritten by other tags, e.g. CC_TE_PawnSacrifice.
 // #define CC_TAG_CHAR_MOVE_STARTER 'M'
 
 // TODO :: DOCS
@@ -65,14 +66,17 @@ typedef enum CcTagEnum {
     /* Piece has started a move, thus cannot return to its starting position.
     This house-keeping tag is obtained after the first ply is finished, and
     follows the piece for the remainder of the move. */
-    // TODO :: FIX :: can be overwritten by other tags, e.g. CC_TE_PawnSacrifice.
-    // CC_TE_MoveStarter,
+    CC_TE_MoveStarter = 0x80,
 } CcTagEnum;
 
+// TODO :: DOCS
+// TODO :: FIX :: set, get, check CC_TE_MoveStarter.
+typedef unsigned char cc_tag;
 
-char cc_tag_as_char( CcTagEnum ct );
 
-CcTagEnum cc_tag_from_char( char c );
+char cc_tag_as_char( cc_tag ct );
+
+cc_tag cc_tag_from_char( char c );
 
 typedef enum CcLosingTagEnum {
     CC_LTE_None = (int)CC_TE_None, /* No tag applies. */
@@ -92,9 +96,9 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
                                       bool capitalize,
                                       bool no_tag );
 
-CcLosingTagEnum cc_tag_to_losing( CcTagEnum te );
+CcLosingTagEnum cc_tag_to_losing( cc_tag te );
 
-CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte );
+cc_tag cc_tag_from_losing( CcLosingTagEnum lte );
 
 
 #endif /* __CC_TAG_H__ */

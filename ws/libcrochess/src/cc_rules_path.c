@@ -44,7 +44,7 @@
 
 //     CcPos step = CC_POS_CAST_INVALID;
 
-//     CcTagEnum te = cc_chessboard_get_tag( cb, destination.i, destination.j );
+//     cc_tag te = cc_chessboard_get_tag( cb, destination.i, destination.j );
 //     if ( CC_TAG_CAN_RUSH( te ) ) {
 //         step = cc_pos_calc_step( start, destination );
 

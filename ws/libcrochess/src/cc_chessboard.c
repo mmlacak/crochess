@@ -75,7 +75,7 @@ bool cc_chessboard_setup( CcChessboard * cb__io ) {
     CcPieceEnum const * su = cc_setup_board_get( cb__io->type );
     if ( !su ) return false;
 
-    CcTagEnum const * tu = cc_setup_tags_get( cb__io->type );
+    cc_tag const * tu = cc_setup_tags_get( cb__io->type );
     if ( !tu ) return false;
 
     for ( int i = 0; i < (int)cb__io->size; ++i ) {
@@ -213,7 +213,7 @@ CcPieceEnum cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
     return CC_PE_None;
 }
 
-CcTagEnum cc_chessboard_get_tag( CcChessboard * cb,
+cc_tag cc_chessboard_get_tag( CcChessboard * cb,
                                  int i,
                                  int j ) {
     if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
@@ -226,7 +226,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
                                   CcPieceEnum pe,
-                                  CcTagEnum tt ) {
+                                  cc_tag tt ) {
     if ( !cb__io ) return false;
 
     if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {
@@ -250,7 +250,7 @@ bool cc_chessboard_set_piece( CcChessboard * cb__io,
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,
                             int j,
-                            CcTagEnum tt ) {
+                            cc_tag tt ) {
     if ( !cb__io ) return false;
 
     if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {

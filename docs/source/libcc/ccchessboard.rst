@@ -42,7 +42,7 @@ Chessboard types
 
         Holds pieces.
 
-    .. c:member:: CcTagEnum tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
+    .. c:member:: cc_tag tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
 
         Holds tags for pieces at their respective position.
 
@@ -239,7 +239,7 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: Piece if position is on-board, :c:enumerator:`CC_PE_None` otherwise.
 
-.. c:function:: CcTagEnum cc_chessboard_get_tag( CcChessboard * cb, int i, int j )
+.. c:function:: cc_tag cc_chessboard_get_tag( CcChessboard * cb, int i, int j )
 
     Function returning tag at a given position.
 
@@ -248,7 +248,7 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: Tag if position is on-board, :c:enumerator:`CC_TE_None` otherwise.
 
-.. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceEnum pe, CcTagEnum ct )
+.. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceEnum pe, cc_tag ct )
 
     Function sets piece and tag at a given position.
 
@@ -273,7 +273,7 @@ Chessboard functions
     :param pe: Piece to set.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_chessboard_set_tag( CcChessboard * cb__io, int i, int j, CcTagEnum tt )
+.. c:function:: bool cc_chessboard_set_tag( CcChessboard * cb__io, int i, int j, cc_tag tt )
 
     Function sets tag at a given position.
 

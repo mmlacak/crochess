@@ -138,7 +138,7 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
 typedef struct CcPosDesc {
     CcPos pos; /* A position. */
     CcPieceEnum piece; /* Piece found at position. */
-    CcTagEnum tag; /* Tag found at position. */
+    cc_tag tag; /* Tag found at position. */
     cc_uint momentum; /* Momentum a moving piece (different from static piece found at this position!) had when this position was reached. */
 } CcPosDesc;
 
@@ -147,7 +147,7 @@ typedef struct CcPosDesc {
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
 #define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum), .momentum = (cc_uint)(uint_momentum) }
+    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (cc_tag)(tag_enum), .momentum = (cc_uint)(uint_momentum) }
 
 #define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
     ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (uint_momentum) ) )
@@ -158,7 +158,7 @@ typedef struct CcPosDesc {
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) && ( (pd_1).momentum == (pd_2).momentum ) )
 
-CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, CcTagEnum tag );
+CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, cc_tag tag );
 
 bool cc_pos_desc_is_valid( CcPosDesc pd );
 

@@ -31,29 +31,29 @@ Tag validity
     Macro to check if given :term:`tag` is a valid,
     i.e. between :c:enumerator:`CC_TE_None` and :c:enumerator:`CC_TE_PawnSacrifice` values.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_IS_EQUAL(te1,te2)
 
     Macro to check if given :term:`tag`\s are the same.
 
-    :param te1: :c:enum:`CcTagEnum` value.
-    :param te2: :c:enum:`CcTagEnum` value.
+    :param te1: :c:enum:`cc_tag` value.
+    :param te2: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_IS_NONE(te)
 
     Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_None`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_EXISTS(te)
 
     Macro to check if given :term:`tag` is valid, and not :c:enumerator:`CC_TE_None`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. _lbl-libcc-cctags-values:
@@ -65,35 +65,35 @@ Tag values
 
     Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_CanRush`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_CASTLE(te)
 
     Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_CanCastle`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_PROMOTE(te)
 
     Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_DelayedPromotion`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_EN_PASSANT(te)
 
     Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_EnPassant`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_CAN_PAWN_SACRIFICE(te)
 
     Macro to check if given :term:`tag` is :c:enumerator:`CC_TE_PawnSacrifice`.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_IS_PERSISTENT(te)
@@ -101,7 +101,7 @@ Tag values
     Macro to check if given :term:`tag` is persistent,
     i.e. if it lasts until used or lost.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. c:macro:: CC_TAG_IS_TEMPORARY(te)
@@ -109,7 +109,7 @@ Tag values
     Macro to check if given :term:`tag` is temporary,
     i.e. lasts at most a single move.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:`bool` value.
 
 .. _lbl-libcc-cctags-characters:
@@ -191,19 +191,19 @@ Tag types
 Tag functions
 -------------
 
-.. c:function:: char cc_tag_as_char( CcTagEnum ct )
+.. c:function:: char cc_tag_as_char( cc_tag ct )
 
     Function returning :term:`tag` char, based on tag enum.
 
-    :param ct: :c:enum:`CcTagEnum` value.
+    :param ct: :c:enum:`cc_tag` value.
     :returns: Tag char, one of :c:`CC_TAG_CHAR_*` constants.
 
-.. c:function:: CcTagEnum cc_tag_from_char( char c )
+.. c:function:: cc_tag cc_tag_from_char( char c )
 
     Function returning :term:`tag` enum, based on :term:`tag` char.
 
     :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
-    :returns: :c:enum:`CcTagEnum` value if valid :term:`tag` character was given,
+    :returns: :c:enum:`cc_tag` value if valid :term:`tag` character was given,
               :c:enumerator:`CC_TE_None` otherwise.
 
 .. _lbl-libcc-cctags-losing-tag-types:
@@ -257,21 +257,21 @@ Losing tag functions
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 
-.. c:function:: CcLosingTagEnum cc_tag_to_losing( CcTagEnum te )
+.. c:function:: CcLosingTagEnum cc_tag_to_losing( cc_tag te )
 
     Converts ordinary tag into lost tag.
 
     Ordinary tag values without equivalent losing tag value are converted into :c:enumerator:`CC_LTE_None` instead.
 
-    :param te: :c:enum:`CcTagEnum` value.
+    :param te: :c:enum:`cc_tag` value.
     :returns: :c:enum:`CcLosingTagEnum` value.
 
-.. c:function:: CcTagEnum cc_tag_from_losing( CcLosingTagEnum lte )
+.. c:function:: cc_tag cc_tag_from_losing( CcLosingTagEnum lte )
 
     Converts losing tag into ordinary tag.
 
     :param lte: :c:enum:`CcLosingTagEnum` value.
-    :returns: :c:enum:`CcTagEnum` value.
+    :returns: :c:enum:`cc_tag` value.
 
 .. _lbl-libcc-cctags-sourcecodeheader:
 
