@@ -135,7 +135,7 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
         char const * c = start;
 
         char piece_chr = *c++;
-        CcPieceEnum pe = cc_piece_from_char( piece_chr );
+        cc_piece pe = cc_piece_from_char( piece_chr );
 
         char file_chr = *c++;
         int file = CC_CONVERT_FILE_CHAR_INTO_NUM( file_chr );

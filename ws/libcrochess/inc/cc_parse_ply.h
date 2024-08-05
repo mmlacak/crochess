@@ -16,11 +16,11 @@
 //                                          CcParseMsg ** parse_msgs__iod );
 
 // static bool cc_check_king_ply( CcChessboard * cb,
-//                                CcPieceEnum king,
+//                                cc_piece king,
 //                                CcPos * pos__o,
 //                                CcParseMsg ** parse_msgs__iod );
 
-// static bool cc_check_piece_can_be_activated( CcPieceEnum piece,
+// static bool cc_check_piece_can_be_activated( cc_piece piece,
 //                                              char const * ply_start_an,
 //                                              char const * ply_end_an,
 //                                              CcParseMsg ** parse_msgs__iod );

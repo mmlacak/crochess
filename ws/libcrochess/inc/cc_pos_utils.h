@@ -42,7 +42,7 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
 // TODO :: DOCS
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
-                        CcPieceEnum piece,
+                        cc_piece piece,
                         bool include_opponent,
                         CcPos * pos__io );
 

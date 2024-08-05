@@ -72,7 +72,7 @@ bool cc_chessboard_setup( CcChessboard * cb__io ) {
     if ( !cc_chessboard_is_size_valid( cb__io ) ) return false;
     if ( !cc_chessboard_clear( cb__io ) ) return false;
 
-    CcPieceEnum const * su = cc_setup_board_get( cb__io->type );
+    cc_piece const * su = cc_setup_board_get( cb__io->type );
     if ( !su ) return false;
 
     cc_tag const * tu = cc_setup_tags_get( cb__io->type );
@@ -206,7 +206,7 @@ int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light ) {
     return (int)( cb->size - 1 );
 }
 
-CcPieceEnum cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
+cc_piece cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
     if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
         return cb->board[ i ][ j ];
 
@@ -225,7 +225,7 @@ cc_tag cc_chessboard_get_tag( CcChessboard * cb,
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  CcPieceEnum pe,
+                                  cc_piece pe,
                                   cc_tag tt ) {
     if ( !cb__io ) return false;
 
@@ -243,7 +243,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              CcPieceEnum pe ) {
+                              cc_piece pe ) {
     return cc_chessboard_set_piece_tag( cb__io, i, j, pe, CC_TE_None );
 }
 

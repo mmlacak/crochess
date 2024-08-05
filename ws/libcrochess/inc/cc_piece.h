@@ -227,14 +227,14 @@
 // /**
 //     Macro expression to evaluate whether piece has two alternating steps.
 
-//     @param pe Piece enum, one of `CcPieceEnum` values.
+//     @param pe Piece enum, one of `cc_piece` values.
 //     @param activator Piece enum. Last material (i.e. non-Wave) piece which activates Wave in a cascade.
 
 //     Two step pieces are Centaur, and Wave activated by Unicorn, Centaur, or Serpent.
 //     Unicorn itself is not two-step piece, because it makes only one step in a ply,
 //     and so it can choose direction independently to any previous choice.
 
-//     @see CcPieceEnum
+//     @see cc_piece
 
 //     @return `true` if piece has two alternating steps, `false` otherwise.
 // */
@@ -251,6 +251,7 @@
                                              || ( (pe) == CC_PE_LightSerpent )  \
                                              || ( (pe) == CC_PE_Monolith ) )
 
+// TODO :: DOCS
 typedef enum CcPieceEnum {
     CC_PE_DimStar = -17,
 
@@ -295,58 +296,67 @@ typedef enum CcPieceEnum {
     CC_PE_Monolith,
 } CcPieceEnum;
 
+// TODO :: DOCS
+#define CC_PIECE_VALUE_MASK (0x9F) // <!> Keep in sync with CcPieceEnum enumerators.
 
-typedef char (*cc_piece_fp_char_value_t)( CcPieceEnum pe );
+// TODO :: DOCS
+#define CC_PIECE_VALUE(pe) ( (pe) & CC_PIECE_VALUE_MASK )
 
-CcPieceEnum cc_piece_from_symbol( char symbol, bool is_light );
+// TODO :: DOCS
+typedef signed char cc_piece;
+
+
+typedef char (*cc_piece_fp_char_value_t)( cc_piece pe );
+
+cc_piece cc_piece_from_symbol( char symbol, bool is_light );
 
 bool cc_piece_symbol_is_valid( char c );
 
-CcPieceEnum cc_piece_opposite( CcPieceEnum pe );
+cc_piece cc_piece_opposite( cc_piece pe );
 
-char cc_piece_as_char( CcPieceEnum pe );
+char cc_piece_as_char( cc_piece pe );
 
-CcPieceEnum cc_piece_from_char( char piece );
+cc_piece cc_piece_from_char( char piece );
 
-char const * cc_piece_label( CcPieceEnum pe );
+char const * cc_piece_label( cc_piece pe );
 
-char cc_piece_symbol( CcPieceEnum pe );
+char cc_piece_symbol( cc_piece pe );
 
-CcPieceEnum cc_piece_demoting_to( CcPieceEnum pe );
+cc_piece cc_piece_demoting_to( cc_piece pe );
 
-bool cc_piece_is_dark( CcPieceEnum pe );
+bool cc_piece_is_dark( cc_piece pe );
 
-bool cc_piece_is_light( CcPieceEnum pe );
+bool cc_piece_is_light( cc_piece pe );
 
-bool cc_piece_has_color( CcPieceEnum pe );
+bool cc_piece_has_color( cc_piece pe );
 
-bool cc_piece_has_shade( CcPieceEnum pe );
+bool cc_piece_has_shade( cc_piece pe );
 
-bool cc_piece_has_prefix( CcPieceEnum pe );
+bool cc_piece_has_prefix( cc_piece pe );
 
-char const * cc_piece_prefix( CcPieceEnum pe, bool capitalize );
+char const * cc_piece_prefix( cc_piece pe, bool capitalize );
 
-bool cc_piece_has_congruent_type( char symbol, CcPieceEnum pe );
+bool cc_piece_has_congruent_type( char symbol, cc_piece pe );
 
-bool cc_piece_is_equal( char symbol, bool is_light, CcPieceEnum pe );
+bool cc_piece_is_equal( char symbol, bool is_light, cc_piece pe );
 
-bool cc_piece_has_same_type( CcPieceEnum pe_1, CcPieceEnum pe_2 );
+bool cc_piece_has_same_type( cc_piece pe_1, cc_piece pe_2 );
 
-bool cc_piece_has_same_color( CcPieceEnum pe_1, CcPieceEnum pe_2 );
+bool cc_piece_has_same_color( cc_piece pe_1, cc_piece pe_2 );
 
-bool cc_piece_has_same_shade( CcPieceEnum pe_1, CcPieceEnum pe_2 );
+bool cc_piece_has_same_shade( cc_piece pe_1, cc_piece pe_2 );
 
-bool cc_piece_is_opposite( CcPieceEnum pe_1, CcPieceEnum pe_2 );
+bool cc_piece_is_opposite( cc_piece pe_1, cc_piece pe_2 );
 
-bool cc_piece_has_same_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
+bool cc_piece_has_same_owner( cc_piece pe_1, cc_piece pe_2 );
 
-bool cc_piece_has_different_owner( CcPieceEnum pe_1, CcPieceEnum pe_2 );
+bool cc_piece_has_different_owner( cc_piece pe_1, cc_piece pe_2 );
 
-bool cc_piece_is_owned_figure( CcPieceEnum pe );
+bool cc_piece_is_owned_figure( cc_piece pe );
 
-bool cc_piece_is_figure( CcPieceEnum pe );
+bool cc_piece_is_figure( cc_piece pe );
 
-char const * cc_piece_as_string( CcPieceEnum pe, bool capitalize, bool empty_field );
+char const * cc_piece_as_string( cc_piece pe, bool capitalize, bool empty_field );
 
 
 #endif /* __CC_PIECE_H__ */

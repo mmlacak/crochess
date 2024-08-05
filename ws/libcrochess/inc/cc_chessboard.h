@@ -18,7 +18,7 @@ typedef struct CcChessboard
     CcVariantEnum type;
     cc_uint size;
 
-    CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
+    cc_piece board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
     cc_tag tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
 } CcChessboard;
 
@@ -63,20 +63,20 @@ int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light );
 
 int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light );
 
-CcPieceEnum cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
+cc_piece cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
 
 cc_tag cc_chessboard_get_tag( CcChessboard * cb, int i, int j );
 
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  CcPieceEnum pe,
+                                  cc_piece pe,
                                   cc_tag ct );
 
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              CcPieceEnum pe );
+                              cc_piece pe );
 
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,

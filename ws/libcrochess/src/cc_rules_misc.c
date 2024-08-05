@@ -85,7 +85,7 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 }
 
 // bool cc_check_promote_or_tag( CcChessboard * cb,
-//                               CcPieceEnum pawn,
+//                               cc_piece pawn,
 //                               CcPos start,
 //                               CcPos destination ) {
 //     if ( !cb ) return false;
@@ -113,7 +113,7 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 
 //         if ( rank == destination.j ) return true;
 //     } else {
-//         CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
+//         cc_piece pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 //         if ( !CC_PIECE_IS_EQUAL( pe, pawn ) ) return false;
 
 //         // Static promotion.

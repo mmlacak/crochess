@@ -7,7 +7,7 @@
 
 
 // bool cc_is_pawn_capture_valid( CcChessboard * cb,
-//                                CcPieceEnum pawn,
+//                                cc_piece pawn,
 //                                CcPos start,
 //                                CcPos destination ) {
 //     if ( !cb ) return false;
@@ -15,7 +15,7 @@
 //     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, start.i, start.j ) ) return false;
 //     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
-//     CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
+//     cc_piece pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
 //     if ( CC_PIECE_IS_NONE( pe ) ) return false;
 //     if ( cc_piece_has_same_color( pawn, pe ) ) return false;
@@ -27,7 +27,7 @@
 // }
 
 // bool cc_is_pawn_step_valid( CcChessboard * cb,
-//                             CcPieceEnum pawn,
+//                             cc_piece pawn,
 //                             CcPos start,
 //                             CcPos destination ) {
 //     if ( !cb ) return false;
@@ -35,7 +35,7 @@
 //     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, start.i, start.j ) ) return false;
 //     if ( !CC_IS_POS_ON_VALID_BOARD( cb->size, destination.i, destination.j ) ) return false;
 
-//     CcPieceEnum pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
+//     cc_piece pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
 //     if ( !CC_PIECE_IS_NONE( pe ) ) {
 //         if ( !cc_piece_has_same_color( pawn, pe ) ) return false;

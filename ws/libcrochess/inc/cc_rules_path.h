@@ -11,13 +11,13 @@
 
 // TODO :: DOCS
 // bool cc_is_pawn_capture_valid( CcChessboard * cb,
-//                                CcPieceEnum pawn,
+//                                cc_piece pawn,
 //                                CcPos start,
 //                                CcPos destination );
 
 // TODO :: DOCS
 // bool cc_is_pawn_step_valid( CcChessboard * cb,
-//                             CcPieceEnum pawn,
+//                             cc_piece pawn,
 //                             CcPos start,
 //                             CcPos destination );
 

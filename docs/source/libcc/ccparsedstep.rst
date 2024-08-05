@@ -224,25 +224,25 @@ Parsed step new functions
 
 .. c:function:: CcParsedStep * cc_parsed_step_none__new( CcParsedStepLinkEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_capture__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcParsedStep * cc_parsed_step_capture__new( CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_displacement__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcParsedStep * cc_parsed_step_displacement__new( CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_en_passant__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum pawn, CcPos distant )
+.. c:function:: CcParsedStep * cc_parsed_step_en_passant__new( CcParsedStepLinkEnum link, CcPos field, cc_piece pawn, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_castle__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum rook, CcPos start, CcPos destination )
+.. c:function:: CcParsedStep * cc_parsed_step_castle__new( CcParsedStepLinkEnum link, CcPos field, cc_piece rook, CcPos start, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_promote__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+.. c:function:: CcParsedStep * cc_parsed_step_promote__new( CcParsedStepLinkEnum link, CcPos field, cc_piece captured, CcLosingTagEnum lost_tag, cc_piece promoted_to )
 
-.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion__new( CcParsedStepLinkEnum link, CcPos field, cc_piece captured, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_convert__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcParsedStep * cc_parsed_step_convert__new( CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag )
 
 .. c:function:: CcParsedStep * cc_parsed_step_failed_conversion__new( CcParsedStepLinkEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_demote__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcParsedStep * cc_parsed_step_demote__new( CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_resurrect__new( CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcPos destination )
+.. c:function:: CcParsedStep * cc_parsed_step_resurrect__new( CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcPos destination )
 
 .. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection__new( CcParsedStepLinkEnum link, CcPos field )
 
@@ -260,25 +260,25 @@ Parsed step append functions
 
 .. c:function:: CcParsedStep * cc_parsed_step_none_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_capture_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcParsedStep * cc_parsed_step_capture_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_displacement_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcParsedStep * cc_parsed_step_displacement_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_en_passant_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum pawn, CcPos distant )
+.. c:function:: CcParsedStep * cc_parsed_step_en_passant_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece pawn, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_castle_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum rook, CcPos start, CcPos destination )
+.. c:function:: CcParsedStep * cc_parsed_step_castle_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece rook, CcPos start, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_promote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to )
+.. c:function:: CcParsedStep * cc_parsed_step_promote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece captured, CcLosingTagEnum lost_tag, cc_piece promoted_to )
 
-.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece captured, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_convert_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcParsedStep * cc_parsed_step_convert_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag )
 
 .. c:function:: CcParsedStep * cc_parsed_step_failed_conversion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_demote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcParsedStep * cc_parsed_step_demote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcLosingTagEnum lost_tag, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_resurrect_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceEnum piece, CcPos destination )
+.. c:function:: CcParsedStep * cc_parsed_step_resurrect_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, cc_piece piece, CcPos destination )
 
 .. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
 

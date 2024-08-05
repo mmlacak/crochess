@@ -294,7 +294,7 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
 //
 // Position + piece + tag.
 
-CcPosDesc cc_pos_desc( CcPos pos, CcPieceEnum piece, cc_tag tag ) {
+CcPosDesc cc_pos_desc( CcPos pos, cc_piece piece, cc_tag tag ) {
     CcPosDesc pd = { .pos = pos, .piece = piece, .tag = tag };
     return pd;
 }

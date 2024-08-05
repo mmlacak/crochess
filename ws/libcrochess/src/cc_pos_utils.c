@@ -97,7 +97,7 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
         CcPosDesc pd = pdl->pd;
         CcPos pos = pd.pos;
 
-        CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        cc_piece piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( piece != pd.piece ) return false;
 
         cc_tag tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
@@ -123,7 +123,7 @@ bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     while ( p ) {
         CcPos pos = p->pd.pos;
 
-        CcPieceEnum piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        cc_piece piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         p->pd.piece = piece;
 
         cc_tag tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
@@ -164,7 +164,7 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
-                        CcPieceEnum piece,
+                        cc_piece piece,
                         bool include_opponent,
                         CcPos * pos__io ) {
     if ( !cb ) return false;
@@ -186,7 +186,7 @@ bool cc_iter_piece_pos( CcChessboard * cb,
 
     for ( int i = pos.i; i < size; ++i ) {
         for ( int j = pos.j; j < size; ++j ) {
-            CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+            cc_piece pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( ( pe == piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {

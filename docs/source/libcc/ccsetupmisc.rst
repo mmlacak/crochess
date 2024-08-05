@@ -28,7 +28,7 @@ Setup misc data
 Setup misc functions
 --------------------
 
-.. c:function:: int cc_get_figure_initial_file( CcVariantEnum ve, CcPieceEnum pe, bool search_queen_side_first )
+.. c:function:: int cc_get_figure_initial_file( CcVariantEnum ve, cc_piece pe, bool search_queen_side_first )
 
     Function returns file of a figure in an initial setup of a chessboard,
     for a given variant.
@@ -63,7 +63,7 @@ Setup misc functions
     :returns: Maximum Kng's castling distance if valid variant is given,
               :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, CcPieceEnum king, int pos_i, int pos_j, bool * is_queen_side__o, int * min_i__o, int * max_i__o )
+.. c:function:: bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, cc_piece king, int pos_i, int pos_j, bool * is_queen_side__o, int * min_i__o, int * max_i__o )
 
     Function checks if position is valid step-field for castling King.
 

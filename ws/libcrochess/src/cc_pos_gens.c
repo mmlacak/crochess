@@ -8,8 +8,8 @@
 
 
 bool cc_pawn_steps( CcChessboard * cb,
-                    CcPieceEnum activator,
-                    CcPieceEnum piece,
+                    cc_piece activator,
+                    cc_piece piece,
                     CcPos current_pos,
                     CcStepTypeEnum steps_type,
                     CcTypedStepLink ** steps__o ) {
@@ -25,7 +25,7 @@ bool cc_pawn_steps( CcChessboard * cb,
     int i = current_pos.i;
     int j = current_pos.j;
 
-    CcPieceEnum pe = cc_chessboard_get_piece( cb, i, j );
+    cc_piece pe = cc_chessboard_get_piece( cb, i, j );
     if ( piece != pe ) return false;
 
     CcTypedStepLink * pl__t = NULL;

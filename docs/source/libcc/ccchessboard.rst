@@ -38,7 +38,7 @@ Chessboard types
 
         Actual size of a board used for a given variant.
 
-    .. c:member:: CcPieceEnum board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
+    .. c:member:: cc_piece board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
 
         Holds pieces.
 
@@ -230,7 +230,7 @@ Chessboard functions
     :returns: Rank of a figure row if successful,
               :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: CcPieceEnum cc_chessboard_get_piece( CcChessboard * cb, int i, int j )
+.. c:function:: cc_piece cc_chessboard_get_piece( CcChessboard * cb, int i, int j )
 
     Function returning piece at a given position.
 
@@ -248,7 +248,7 @@ Chessboard functions
     :param j: Rank, position along vertical axis.
     :returns: Tag if position is on-board, :c:enumerator:`CC_TE_None` otherwise.
 
-.. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceEnum pe, cc_tag ct )
+.. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, cc_piece pe, cc_tag ct )
 
     Function sets piece and tag at a given position.
 
@@ -259,7 +259,7 @@ Chessboard functions
     :param ct: Tag to set.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, CcPieceEnum pe )
+.. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, cc_piece pe )
 
     Function sets piece at a given position.
 

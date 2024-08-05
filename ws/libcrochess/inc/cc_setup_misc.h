@@ -12,7 +12,7 @@
 
 
 int cc_get_figure_initial_file( CcVariantEnum ve,
-                                CcPieceEnum pe,
+                                cc_piece pe,
                                 bool search_queen_side_first );
 
 int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light );
@@ -20,7 +20,7 @@ int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light );
 int cc_get_kings_max_castling_distance( CcVariantEnum ve );
 
 bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
-                                         CcPieceEnum king,
+                                         cc_piece king,
                                          int pos_i,
                                          int pos_j,
                                          bool * is_queen_side__o,

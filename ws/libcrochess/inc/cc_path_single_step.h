@@ -27,9 +27,9 @@
 
 // TODO :: DOCS
 bool cc_path_single_step( CcChessboard * cb,
-                          CcPieceEnum piece,
+                          cc_piece piece,
                           cc_tag tag,
-                          CcPieceEnum activator,
+                          cc_piece activator,
                           CcPos from_pos,
                           cc_uint momentum,
                           bool is_accumulating_momentum,

@@ -7,7 +7,7 @@
 
 
 static bool cc_path_pawn( CcChessboard * cb,
-                          CcPieceEnum pawn,
+                          cc_piece pawn,
                           cc_tag tag,
                           CcPos from_pos,
                           cc_uint momentum,
@@ -66,7 +66,7 @@ static bool cc_path_pawn( CcChessboard * cb,
         // TODO :: cc_pos_add() + cc_calc_checked_momentum() --> new func w/ checks
         CcPos destination = cc_pos_add( from_pos, s->step, 1 );
 
-        // CcPieceEnum target = cc_chessboard_get_piece( cb, destination.i, destination.j );
+        // cc_piece target = cc_chessboard_get_piece( cb, destination.i, destination.j );
         bool can_diverge_at = CC_MAYBE_IS_TRUE( cc_check_piece_can_diverge_at( cb, pawn, mm, CC_PE_None, destination ) );
         bool do_append = false;
 
@@ -138,9 +138,9 @@ static bool cc_path_pawn( CcChessboard * cb,
 
 
 bool cc_path_single_step( CcChessboard * cb,
-                          CcPieceEnum piece,
+                          cc_piece piece,
                           cc_tag tag,
-                          CcPieceEnum activator,
+                          cc_piece activator,
                           CcPos from_pos,
                           cc_uint momentum,
                           bool is_accumulating_momentum,
@@ -151,7 +151,7 @@ bool cc_path_single_step( CcChessboard * cb,
 
     if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
 
-    CcPieceEnum from_piece = cc_chessboard_get_piece( cb, from_pos.i, from_pos.j );
+    cc_piece from_piece = cc_chessboard_get_piece( cb, from_pos.i, from_pos.j );
     CcPathLink * path__t = NULL;
 
     if ( CC_PIECE_IS_TELEPORTER( from_piece ) ) {

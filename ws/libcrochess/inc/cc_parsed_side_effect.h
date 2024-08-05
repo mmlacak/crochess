@@ -44,89 +44,89 @@ typedef struct CcParsedSideEffect
 
     union {
         struct {
-            CcPieceEnum piece; /* Piece which has been captured. */
+            cc_piece piece; /* Piece which has been captured. */
             CcLosingTagEnum lost_tag; /* Flag, whether captured piece has lost its tag. */
         } capture; /* Capture. */
 
         struct {
-            CcPieceEnum piece; /* Piece which has been displaced. */
+            cc_piece piece; /* Piece which has been displaced. */
             CcLosingTagEnum lost_tag; /* Flag, whether displaced piece has lost its tag. */
             CcPos destination; /* Displacement destination. */
         } displacement; /* Displacement, used during light Shaman's trance-journey. */
 
         struct {
-            CcPieceEnum pawn; /* Pawn which has been captured. */
+            cc_piece pawn; /* Pawn which has been captured. */
             CcPos distant; /* Position at which Pawn has been captured. */
         } en_passant; /* En passant. */
 
         struct {
-            CcPieceEnum rook; /* Rook which castled. */
+            cc_piece rook; /* Rook which castled. */
             CcPos start; /* Starting position of a Rook. */
             CcPos destination; /* Castling Rook destination. */
         } castle; /* Castling. */
 
         struct {
-            CcPieceEnum captured; /* Piece which has been captured, if any. */
+            cc_piece captured; /* Piece which has been captured, if any. */
             CcLosingTagEnum lost_tag; /* Flag, whether captured piece has lost its tag. */
-            CcPieceEnum promoted_to; /* Piece to which Pawn has been promoted. */
+            cc_piece promoted_to; /* Piece to which Pawn has been promoted. */
         } promote; /* Promotion. */
 
         struct {
-            CcPieceEnum captured; /* Piece which has been captured, if any. */
+            cc_piece captured; /* Piece which has been captured, if any. */
             CcLosingTagEnum lost_tag; /* Flag, whether captured piece has lost its tag. */
         } tag_for_promotion; /* Tag for promotion. */
 
         struct {
-            CcPieceEnum piece; /* Piece which has been converted. */
+            cc_piece piece; /* Piece which has been converted. */
             CcLosingTagEnum lost_tag; /* Flag, if converted piece has lost its tag. */
         } convert; /* Conversion. */
 
         struct {
-            CcPieceEnum piece; /* Piece which has been "passed-over". */
+            cc_piece piece; /* Piece which has been "passed-over". */
         } transparency; /* Transparency. */
 
         struct {
-            CcPieceEnum piece; /* Piece from which currently moving piece has been diverged. */
+            cc_piece piece; /* Piece from which currently moving piece has been diverged. */
         } diversion; /* Divergence. */
 
         struct {
-            CcPieceEnum piece; /* Piece which has been demoted to Pawn. */
+            cc_piece piece; /* Piece which has been demoted to Pawn. */
             CcLosingTagEnum lost_tag; /* Flag, whether demoted piece has lost its tag. */
             CcPos distant; /* Position at which piece has been demoted. */
         } demote; /* Demoting. */
 
         struct {
-            CcPieceEnum piece; /* Piece which has been resurrected. */
+            cc_piece piece; /* Piece which has been resurrected. */
             CcPos destination; /* Position at which Wave, Starchild has been resurrected. */
         } resurrect; /* Resurrection. */
     }; /* Union of all substructures used by different step side-effects. */
 } CcParsedSideEffect;
 
 CcParsedSideEffect cc_parsed_side_effect( CcParsedSideEffectEnum type,
-                                          CcPieceEnum piece,
+                                          cc_piece piece,
                                           CcLosingTagEnum lost_tag,
                                           CcPos start,
                                           CcPos destination,
-                                          CcPieceEnum promoted_to );
+                                          cc_piece promoted_to );
 
-CcPieceEnum cc_parsed_side_effect_piece( CcParsedSideEffect se );
+cc_piece cc_parsed_side_effect_piece( CcParsedSideEffect se );
 
 CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se );
 
 
 CcParsedSideEffect cc_parsed_side_effect_none( void );
-CcParsedSideEffect cc_parsed_side_effect_capture( CcPieceEnum piece, CcLosingTagEnum lost_tag );
-CcParsedSideEffect cc_parsed_side_effect_displacement( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos destination );
-CcParsedSideEffect cc_parsed_side_effect_en_passant( CcPieceEnum pawn, CcPos distant );
-CcParsedSideEffect cc_parsed_side_effect_castle( CcPieceEnum rook, CcPos start, CcPos destination );
-CcParsedSideEffect cc_parsed_side_effect_promote( CcPieceEnum captured, CcLosingTagEnum lost_tag, CcPieceEnum promoted_to );
-CcParsedSideEffect cc_parsed_side_effect_tag_for_promotion( CcPieceEnum captured, CcLosingTagEnum lost_tag );
-CcParsedSideEffect cc_parsed_side_effect_convert( CcPieceEnum piece, CcLosingTagEnum lost_tag );
+CcParsedSideEffect cc_parsed_side_effect_capture( cc_piece piece, CcLosingTagEnum lost_tag );
+CcParsedSideEffect cc_parsed_side_effect_displacement( cc_piece piece, CcLosingTagEnum lost_tag, CcPos destination );
+CcParsedSideEffect cc_parsed_side_effect_en_passant( cc_piece pawn, CcPos distant );
+CcParsedSideEffect cc_parsed_side_effect_castle( cc_piece rook, CcPos start, CcPos destination );
+CcParsedSideEffect cc_parsed_side_effect_promote( cc_piece captured, CcLosingTagEnum lost_tag, cc_piece promoted_to );
+CcParsedSideEffect cc_parsed_side_effect_tag_for_promotion( cc_piece captured, CcLosingTagEnum lost_tag );
+CcParsedSideEffect cc_parsed_side_effect_convert( cc_piece piece, CcLosingTagEnum lost_tag );
 CcParsedSideEffect cc_parsed_side_effect_failed_conversion( void );
-CcParsedSideEffect cc_parsed_side_effect_transparency( CcPieceEnum piece );
-CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceEnum piece );
-CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceEnum piece, CcLosingTagEnum lost_tag, CcPos distant );
-CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceEnum piece, CcPos destination );
+CcParsedSideEffect cc_parsed_side_effect_transparency( cc_piece piece );
+CcParsedSideEffect cc_parsed_side_effect_diversion( cc_piece piece );
+CcParsedSideEffect cc_parsed_side_effect_demote( cc_piece piece, CcLosingTagEnum lost_tag, CcPos distant );
+CcParsedSideEffect cc_parsed_side_effect_resurrect( cc_piece piece, CcPos destination );
 CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void );
 
 

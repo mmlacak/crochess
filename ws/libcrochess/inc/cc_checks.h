@@ -16,29 +16,29 @@
 bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit );
 
 // TODO :: DOCS
-bool cc_check_momentum_for_movement( CcPieceEnum piece, cc_uint momentum );
+bool cc_check_momentum_for_movement( cc_piece piece, cc_uint momentum );
 
 // TODO :: DOCS
-bool cc_check_losing_tag_for_piece( CcPieceEnum piece, CcLosingTagEnum lte );
+bool cc_check_losing_tag_for_piece( cc_piece piece, CcLosingTagEnum lte );
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              CcPieceEnum piece,
+                                              cc_piece piece,
                                               cc_uint momentum,
                                               CcPos pos );
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               CcPieceEnum piece,
+                                               cc_piece piece,
                                                cc_uint momentum,
                                                CcPos pos );
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                               CcPieceEnum piece,
+                                               cc_piece piece,
                                                cc_uint momentum,
-                                               CcPieceEnum activator,
+                                               cc_piece activator,
                                                CcPos pos );
 
 // TODO :: DOCS
-bool cc_check_pawn_can_rush( CcPieceEnum pawn, cc_tag tag, CcTypedStep step );
+bool cc_check_pawn_can_rush( cc_piece pawn, cc_tag tag, CcTypedStep step );
 
 
 #endif /* __CC_CHECKS_H__ */
