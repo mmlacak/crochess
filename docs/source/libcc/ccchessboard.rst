@@ -34,7 +34,7 @@ Chessboard types
 
         Chess variant to play.
 
-    .. c:member:: uint size
+    .. c:member:: cc_uint size
 
         Actual size of a board used for a given variant.
 

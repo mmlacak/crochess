@@ -10,7 +10,7 @@ static bool cc_path_pawn( CcChessboard * cb,
                           CcPieceEnum pawn,
                           CcTagEnum tag,
                           CcPos from_pos,
-                          uint momentum,
+                          cc_uint momentum,
                           bool is_accumulating_momentum,
                           CcPosDescLink * already_traversed__d,
                           CcPathLink ** path__o ) {
@@ -25,7 +25,7 @@ static bool cc_path_pawn( CcChessboard * cb,
     bool is_pawn_light = cc_piece_is_light( pawn );
 
     CcPosDescLink * pptl__t = NULL;
-    uint mm = momentum;
+    cc_uint mm = momentum;
     bool accumulating = is_accumulating_momentum;
     bool result = true;
 
@@ -142,7 +142,7 @@ bool cc_path_single_step( CcChessboard * cb,
                           CcTagEnum tag,
                           CcPieceEnum activator,
                           CcPos from_pos,
-                          uint momentum,
+                          cc_uint momentum,
                           bool is_accumulating_momentum,
                           CcPathLink ** path__o ) {
     if ( !cb ) return false;

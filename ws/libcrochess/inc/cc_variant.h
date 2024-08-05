@@ -118,11 +118,11 @@ char const * cc_variant_symbol( CcVariantEnum ve );
 
 char const * cc_variant_label( CcVariantEnum ve );
 
-uint cc_variant_board_size( CcVariantEnum ve );
+cc_uint cc_variant_board_size( CcVariantEnum ve );
 
 bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
 
-uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
+cc_uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
 
 bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
                                         bool is_piece_light,

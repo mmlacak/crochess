@@ -8,11 +8,19 @@
 #include "limits.h"
 
 
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned int uint;
-typedef unsigned long ulong;
-typedef unsigned long long ull;
+// TODO :: DOCS
+typedef signed char cc_schar;
+typedef signed short cc_sshort;
+typedef signed int cc_sint;
+typedef signed long cc_slong;
+typedef signed long long cc_sll;
+
+// TODO :: DOCS
+typedef unsigned char cc_uchar;
+typedef unsigned short cc_ushort;
+typedef unsigned int cc_uint;
+typedef unsigned long cc_ulong;
+typedef unsigned long long cc_ull;
 
 #define CC_UNSIGNED_MIN (0)
 

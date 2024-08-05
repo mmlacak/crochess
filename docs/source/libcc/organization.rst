@@ -206,7 +206,7 @@ This is very different from similarly named function defined in ``cc_pos_utils``
 
     bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                          CcPos destination,
-                                         uint momentum,
+                                         cc_uint momentum,
                                          CcPosDescLink ** pptl__iod_a );
 
 which depends on bunch of other stuff instead of linked list base :term:`entity`.

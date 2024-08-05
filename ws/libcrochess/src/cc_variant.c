@@ -155,7 +155,7 @@ char const * cc_variant_label( CcVariantEnum ve ) {
     }
 }
 
-uint cc_variant_board_size( CcVariantEnum ve ) {
+cc_uint cc_variant_board_size( CcVariantEnum ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return CC_VARIANT_BOARD_SIZE_CROATIAN_TIES;
@@ -188,7 +188,7 @@ bool cc_variant_has_sideways_pawns( CcVariantEnum ve ) {
     }
 }
 
-uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light ) {
+cc_uint cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light ) {
     if ( is_piece_light ) {
         switch ( ve ) {
             case CC_VE_ClassicalChess : return CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_LIGHT;

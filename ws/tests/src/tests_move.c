@@ -41,7 +41,7 @@ bool test_move( char const * an_str,
     if ( !game__a ) return false;
 
     bool result = true;
-    uint result_at = 0x0;
+    cc_uint result_at = 0x0;
     CcParseMsg * pm__a = NULL;
 
     // TODO :: TEMP :: un/comment (?)

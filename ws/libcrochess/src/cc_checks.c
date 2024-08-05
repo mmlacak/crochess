@@ -22,7 +22,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     return true;
 }
 
-bool cc_check_momentum_for_movement( CcPieceEnum piece, uint momentum ) {
+bool cc_check_momentum_for_movement( CcPieceEnum piece, cc_uint momentum ) {
     if ( CC_PIECE_IS_WEIGHTLESS( piece ) ) {
         return true;
     } else {
@@ -43,7 +43,7 @@ bool cc_check_losing_tag_for_piece( CcPieceEnum piece, CcLosingTagEnum lte ) {
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceEnum piece,
-                                              uint momentum,
+                                              cc_uint momentum,
                                               CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
@@ -72,7 +72,7 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceEnum piece,
-                                               uint momentum,
+                                               cc_uint momentum,
                                                CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
 
@@ -90,7 +90,7 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceEnum piece,
-                                               uint momentum,
+                                               cc_uint momentum,
                                                CcPieceEnum activator,
                                                CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;

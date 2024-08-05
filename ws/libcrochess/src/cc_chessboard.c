@@ -51,7 +51,7 @@ bool cc_chessboard_init( CcChessboard * cb__io,
 bool cc_chessboard_is_size_valid( CcChessboard * cb ) {
     if ( !cb ) return false;
 
-    uint size = cc_variant_board_size( cb->type );
+    cc_uint size = cc_variant_board_size( cb->type );
     return ( size == cb->size );
 }
 

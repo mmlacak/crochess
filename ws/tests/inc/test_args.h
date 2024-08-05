@@ -16,7 +16,7 @@ typedef struct TestArgs {
     char const * setup__d;
     char const * check_setup__d;
     char const * check_end__d;
-    ull error_code;
+    cc_ull error_code;
 } TestArgs;
 
 #define TEST_OK (0)
@@ -26,7 +26,7 @@ TestArgs test_args( char const * an_str,
                     char const * setup__d,
                     char const * check_setup__d,
                     char const * check_end__d,
-                    ull error_code );
+                    cc_ull error_code );
 
 #define TEST_ARGS_INVALID    \
     { .an_str = NULL, .setup__d = NULL, .check_setup__d = NULL, .check_end__d = NULL, .error_code = 0 }

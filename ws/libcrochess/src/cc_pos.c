@@ -326,7 +326,7 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 
     char * p = (char *)pd_str__o;
 
-    uint count = 0;
+    cc_uint count = 0;
     while ( *p++ != '\0' ) ++count; // fast-fwd
 
     if ( count >= CC_MAX_LEN_CHAR_8 ) return false;

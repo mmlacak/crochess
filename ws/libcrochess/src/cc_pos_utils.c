@@ -4,7 +4,7 @@
 #include "cc_pos_utils.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum ) {
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint momentum ) {
     CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = momentum };
 
     if ( cb ) {
@@ -15,10 +15,10 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentu
     return pd;
 }
 
-bool cc_calc_checked_momentum( uint * momentum__io, bool accumulating ) {
+bool cc_calc_checked_momentum( cc_uint * momentum__io, bool accumulating ) {
     if ( !momentum__io ) return false;
 
-    uint m = *momentum__io;
+    cc_uint m = *momentum__io;
 
     if ( accumulating ) {
         if ( m == UINT_MAX ) return false;
@@ -33,7 +33,7 @@ bool cc_calc_checked_momentum( uint * momentum__io, bool accumulating ) {
 
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
-                                                    uint current_momentum,
+                                                    cc_uint current_momentum,
                                                     bool is_accumulating_momentum,
                                                     CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
@@ -47,7 +47,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 
     bool result = true;
     bool is_on_board = true;
-    uint momentum = current_momentum;
+    cc_uint momentum = current_momentum;
 
     while ( result && step ) {
         pos = cc_pos_add( pos, step->step.step, 1 );
@@ -75,7 +75,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      CcPos destination,
-                                     uint momentum,
+                                     cc_uint momentum,
                                      CcPosDescLink ** pptl__iod_a ) {
     if ( !cb ) return false;
     if ( !pptl__iod_a ) return false;

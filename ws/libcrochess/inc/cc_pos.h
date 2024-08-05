@@ -139,7 +139,7 @@ typedef struct CcPosDesc {
     CcPos pos; /* A position. */
     CcPieceEnum piece; /* Piece found at position. */
     CcTagEnum tag; /* Tag found at position. */
-    uint momentum; /* Momentum a moving piece (different from static piece found at this position!) had when this position was reached. */
+    cc_uint momentum; /* Momentum a moving piece (different from static piece found at this position!) had when this position was reached. */
 } CcPosDesc;
 
 #define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
@@ -147,7 +147,7 @@ typedef struct CcPosDesc {
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
 #define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum), .momentum = (uint)(uint_momentum) }
+    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceEnum)(piece_enum), .tag = (CcTagEnum)(tag_enum), .momentum = (cc_uint)(uint_momentum) }
 
 #define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
     ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (uint_momentum) ) )

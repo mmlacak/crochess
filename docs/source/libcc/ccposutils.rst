@@ -17,7 +17,7 @@ position utilities.
 Position utility functions
 --------------------------
 
-.. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum )
+.. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint momentum )
 
     Function converts position to position descriptor (i.e. the one
     containing piece, and tag at that location on a chessboard).

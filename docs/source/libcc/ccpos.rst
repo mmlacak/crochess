@@ -492,7 +492,7 @@ Position descriptor
 
         Tag found at position.
 
-    .. c:member:: uint momentum
+    .. c:member:: cc_uint momentum
 
         Momentum a moving piece (different from static piece found at
         this position!) had when this position was reached.

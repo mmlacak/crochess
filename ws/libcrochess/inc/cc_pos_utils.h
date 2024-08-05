@@ -10,15 +10,15 @@
 #include "cc_pos.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, uint momentum );
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint momentum );
 
 // TODO :: DOCS
-bool cc_calc_checked_momentum( uint * momentum__io, bool accumulating );
+bool cc_calc_checked_momentum( cc_uint * momentum__io, bool accumulating );
 
 // TODO :: DOCS
 CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
                                                     CcPos current_pos,
-                                                    uint current_momentum,
+                                                    cc_uint current_momentum,
                                                     bool is_accumulating_momentum,
                                                     CcTypedStepLink * steps );
 
@@ -26,7 +26,7 @@ CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
 // TODO :: DOCS
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      CcPos destination,
-                                     uint momentum,
+                                     cc_uint momentum,
                                      CcPosDescLink ** pptl__iod_a );
 
 // TODO :: DOCS

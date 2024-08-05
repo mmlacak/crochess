@@ -47,9 +47,6 @@
 // #define CC_TAG_CHAR_MOVE_STARTER 'M'
 
 // TODO :: DOCS
-#define CC_TAG_CAST_FROM_LOSING(lte) ( (CcTagEnum)(lte) )
-
-// TODO :: DOCS
 typedef enum CcTagEnum {
     CC_TE_None = 0, /* No tag applies. */
 
