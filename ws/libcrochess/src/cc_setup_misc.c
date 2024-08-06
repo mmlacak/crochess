@@ -8,7 +8,7 @@
 
 
 int cc_get_figure_initial_file( CcVariantEnum ve,
-                                cc_piece_t pe,
+                                CcPieceType pe,
                                 bool search_queen_side_first ) {
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
@@ -18,7 +18,7 @@ int cc_get_figure_initial_file( CcVariantEnum ve,
             ( CC_PIECE_IS_MONOLITH( pe ) ) )
         return CC_INVALID_COORD;
 
-    cc_piece_t const * su = cc_setup_board_get( ve );
+    CcPieceType const * su = cc_setup_board_get( ve );
     if ( !su ) return CC_INVALID_COORD;
 
     size_t size = cc_variant_board_size( ve );
@@ -65,7 +65,7 @@ int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
 }
 
 bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
-                                         cc_piece_t king,
+                                         CcPieceType king,
                                          int pos_i,
                                          int pos_j,
                                          bool * is_queen_side__o,

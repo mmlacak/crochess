@@ -121,7 +121,7 @@ Parsed ply data
 
         Type of link, of this ply, related to previous ply in a cascade.
 
-    .. c:member:: cc_piece_t piece
+    .. c:member:: CcPieceType piece
 
         A piece being moved.
 
@@ -155,7 +155,7 @@ Parsed ply functions
     :param ple: A ply linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedPly * cc_parsed_ply__new( char const * start_an__d, char const * end_an__d, size_t max_len__d, CcParsedPlyLinkEnum link, cc_piece_t piece, CcLosingTagEnum lost_tag, CcParsedStep ** steps__n )
+.. c:function:: CcParsedPly * cc_parsed_ply__new( char const * start_an__d, char const * end_an__d, size_t max_len__d, CcParsedPlyLinkEnum link, CcPieceType piece, CcLosingTagEnum lost_tag, CcParsedStep ** steps__n )
 
     Function returns newly allocated ply.
 
@@ -176,7 +176,7 @@ Parsed ply functions
     :param steps__n: **Ownership transfer**; steps, linked list, inner pointer can be :c:data:`NULL`.
     :returns: A newly allocated ply if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a, char const * start_an__d, char const * end_an__d, size_t max_len__d, CcParsedPlyLinkEnum link, cc_piece_t piece, CcLosingTagEnum lost_tag, CcParsedStep ** steps__n )
+.. c:function:: CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a, char const * start_an__d, char const * end_an__d, size_t max_len__d, CcParsedPlyLinkEnum link, CcPieceType piece, CcLosingTagEnum lost_tag, CcParsedStep ** steps__n )
 
     Appends a newly allocated ply to a given linked list.
 
@@ -248,7 +248,7 @@ Parsed ply functions
     :param ply: A ply.
     :returns: :c:data:`true` if any step has side-effects, :c:data:`false` otherwise.
 
-.. c:function:: cc_piece_t cc_parsed_ply_find_activator( CcParsedPly * plies, CcParsedPly * ply__d )
+.. c:function:: CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies, CcParsedPly * ply__d )
 
     Function finds :term:`activator` in a given linked list of plies.
 

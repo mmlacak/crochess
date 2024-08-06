@@ -86,7 +86,7 @@ char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple );
 
 typedef struct CcParsedPly {
     CcParsedPlyLinkEnum link;
-    cc_piece_t piece;
+    CcPieceType piece;
     CcLosingTagEnum lost_tag;
     CcParsedStep * steps;
 
@@ -95,14 +95,14 @@ typedef struct CcParsedPly {
 
 // TODO :: DOCS
 CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
-                                  cc_piece_t piece,
+                                  CcPieceType piece,
                                   CcLosingTagEnum lost_tag,
                                   CcParsedStep ** steps__n );
 
 // TODO :: DOCS
 CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
                                     CcParsedPlyLinkEnum link,
-                                    cc_piece_t piece,
+                                    CcPieceType piece,
                                     CcLosingTagEnum lost_tag,
                                     CcParsedStep ** steps__n );
 
@@ -117,7 +117,7 @@ size_t cc_parsed_ply_steps_count( CcParsedPly * ply );
 
 bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply );
 
-cc_piece_t cc_parsed_ply_find_activator( CcParsedPly * plies,
+CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies,
                                           CcParsedPly * ply__d );
 
 char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies );

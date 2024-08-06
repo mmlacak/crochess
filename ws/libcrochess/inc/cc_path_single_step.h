@@ -17,7 +17,7 @@
 
 // static bool cc_path_pawn( CcChessboard * cb,
 //                           CcPosDesc pawn,
-//                           cc_tag_t tag,
+//                           CcTagType tag,
 //                           CcPos from_pos,
 //                           cc_uint_t momentum,
 //                           bool is_accumulating_momentum,
@@ -27,9 +27,9 @@
 
 // TODO :: DOCS
 bool cc_path_single_step( CcChessboard * cb,
-                          cc_piece_t piece,
-                          cc_tag_t tag,
-                          cc_piece_t activator,
+                          CcPieceType piece,
+                          CcTagType tag,
+                          CcPieceType activator,
                           CcPos from_pos,
                           cc_uint_t momentum,
                           bool is_accumulating_momentum,

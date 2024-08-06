@@ -95,13 +95,13 @@ typedef enum CcTagEnum {
 } CcTagEnum;
 
 // TODO :: DOCS
-typedef unsigned char cc_tag_t;
+typedef unsigned char CcTagType;
 
 // TODO :: DOCS
-char cc_tag_as_char( cc_tag_t ct );
+char cc_tag_as_char( CcTagType ct );
 
 // TODO :: DOCS
-cc_tag_t cc_tag_from_char( char c );
+CcTagType cc_tag_from_char( char c );
 
 
 // TODO :: DOCS
@@ -124,10 +124,10 @@ char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
                                       bool no_tag );
 
 // TODO :: DOCS
-CcLosingTagEnum cc_tag_to_losing( cc_tag_t te );
+CcLosingTagEnum cc_tag_to_losing( CcTagType te );
 
 // TODO :: DOCS
-cc_tag_t cc_tag_from_losing( CcLosingTagEnum lte );
+CcTagType cc_tag_from_losing( CcLosingTagEnum lte );
 
 
 #endif /* __CC_TAG_H__ */

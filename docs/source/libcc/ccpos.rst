@@ -484,11 +484,11 @@ Position descriptor
 
         A position.
 
-    .. c:member:: cc_piece_t piece
+    .. c:member:: CcPieceType piece
 
         Piece found at position.
 
-    .. c:member:: cc_tag_t tag
+    .. c:member:: CcTagType tag
 
         Tag found at position.
 
@@ -513,8 +513,8 @@ Position descriptor
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:type:`cc_piece_t` value.
-    :param tag_enum: A tag; :c:type:`cc_tag_t` value.
+    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param tag_enum: A tag; :c:type:`CcTagType` value.
     :param uint_momentum: Momentum; unsigned integer.
     :returns: Position descriptor value.
     :seealso: :c:struct:`CcPosDesc`
@@ -525,8 +525,8 @@ Position descriptor
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:type:`cc_piece_t` value.
-    :param tag_enum: A tag; :c:type:`cc_tag_t` value.
+    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param tag_enum: A tag; :c:type:`CcTagType` value.
     :param uint_momentum: Momentum; unsigned integer.
     :returns: Casted position descriptor value.
     :seealso: :c:macro:`CC_POS_DESC`
@@ -548,7 +548,7 @@ Position descriptor
     :returns: Casted position descriptor value.
     :seealso: :c:data:`true` if equal, :c:data:`false` otherwise.
 
-.. c:function:: CcPosDesc cc_pos_desc( CcPos pos, cc_piece_t piece, cc_tag_t tag )
+.. c:function:: CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag )
 
     Function returns position descriptor value.
 

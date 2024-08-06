@@ -13,7 +13,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     for ( int count = 0;
           ( count < limit ) && cc_chessboard_is_pos_on_board( cb, current.i, current.j );
           ++count ) {
-        cc_piece_t pe = cc_chessboard_get_piece( cb, current.i, current.j );
+        CcPieceType pe = cc_chessboard_get_piece( cb, current.i, current.j );
         if ( !CC_PIECE_IS_NONE( pe ) ) return false;
 
         current = cc_pos_add( current, step, 1 );
@@ -22,7 +22,7 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, i
     return true;
 }
 
-bool cc_check_momentum_for_movement( cc_piece_t piece, cc_uint_t momentum ) {
+bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum ) {
     if ( CC_PIECE_IS_WEIGHTLESS( piece ) ) {
         return true;
     } else {
@@ -30,7 +30,7 @@ bool cc_check_momentum_for_movement( cc_piece_t piece, cc_uint_t momentum ) {
     }
 }
 
-bool cc_check_losing_tag_for_piece( cc_piece_t piece, CcLosingTagEnum lte ) {
+bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte ) {
     if ( lte == CC_LTE_NoneLost ) {
         return true;
     } else if ( CC_PIECE_IS_PAWN( piece ) ) {
@@ -42,13 +42,13 @@ bool cc_check_losing_tag_for_piece( cc_piece_t piece, CcLosingTagEnum lte ) {
 }
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              cc_piece_t piece,
+                                              CcPieceType piece,
                                               cc_uint_t momentum,
                                               CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
 
-    cc_piece_t pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_WAVE( piece ) ) {
@@ -71,7 +71,7 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               cc_piece_t piece,
+                                               CcPieceType piece,
                                                cc_uint_t momentum,
                                                CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
@@ -82,16 +82,16 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
 
     if ( !cb ) return CC_MBE_Void;
 
-    cc_piece_t pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return CC_MBE_False; // Also weeds out other pieces without owner.
 
     return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, pe ) );
 }
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                               cc_piece_t piece,
+                                               CcPieceType piece,
                                                cc_uint_t momentum,
-                                               cc_piece_t activator,
+                                               CcPieceType activator,
                                                CcPos pos ) {
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
 
@@ -108,7 +108,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
 
     if ( !cb ) return CC_MBE_Void;
 
-    cc_piece_t pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_STARCHILD( pe ) ) return CC_MBE_True;
 
     if ( CC_PIECE_IS_SHAMAN( pe ) ) {
@@ -120,7 +120,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
         return CC_MBE_False;
 }
 
-bool cc_check_pawn_can_rush( cc_piece_t pawn, cc_tag_t tag, CcTypedStep step ) {
+bool cc_check_pawn_can_rush( CcPieceType pawn, CcTagType tag, CcTypedStep step ) {
     if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
 
     if ( !CC_TAG_CAN_RUSH( tag ) ) return false;

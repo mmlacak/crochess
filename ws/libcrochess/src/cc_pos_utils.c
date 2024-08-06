@@ -97,10 +97,10 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
         CcPosDesc pd = pdl->pd;
         CcPos pos = pd.pos;
 
-        cc_piece_t piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        CcPieceType piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( piece != pd.piece ) return false;
 
-        cc_tag_t tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         if ( tag != pd.tag ) return false;
 
         if ( pd.momentum == CC_UNSIGNED_MIN ) {
@@ -123,10 +123,10 @@ bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     while ( p ) {
         CcPos pos = p->pd.pos;
 
-        cc_piece_t piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        CcPieceType piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         p->pd.piece = piece;
 
-        cc_tag_t tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+        CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         p->pd.tag = tag;
 
         p = p->next;
@@ -164,7 +164,7 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected,
-                        cc_piece_t piece,
+                        CcPieceType piece,
                         bool include_opponent,
                         CcPos * pos__io ) {
     if ( !cb ) return false;
@@ -186,7 +186,7 @@ bool cc_iter_piece_pos( CcChessboard * cb,
 
     for ( int i = pos.i; i < size; ++i ) {
         for ( int j = pos.j; j < size; ++j ) {
-            cc_piece_t pe = cc_chessboard_get_piece( cb, i, j );
+            CcPieceType pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( ( pe == piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {

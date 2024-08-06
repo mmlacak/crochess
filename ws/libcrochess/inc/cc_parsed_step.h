@@ -69,45 +69,45 @@ char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps );
 CcParsedStep * cc_parsed_step_none__new( CcParsedStepLinkEnum link, CcPos field );
 
 CcParsedStep * cc_parsed_step_capture__new( CcParsedStepLinkEnum link, CcPos field,
-                                            cc_piece_t piece,
+                                            CcPieceType piece,
                                             CcLosingTagEnum lost_tag );
 
 CcParsedStep * cc_parsed_step_displacement__new( CcParsedStepLinkEnum link, CcPos field,
-                                                 cc_piece_t piece,
+                                                 CcPieceType piece,
                                                  CcLosingTagEnum lost_tag,
                                                  CcPos destination );
 
 CcParsedStep * cc_parsed_step_en_passant__new( CcParsedStepLinkEnum link, CcPos field,
-                                               cc_piece_t pawn,
+                                               CcPieceType pawn,
                                                CcPos distant );
 
 CcParsedStep * cc_parsed_step_castle__new( CcParsedStepLinkEnum link, CcPos field,
-                                           cc_piece_t rook,
+                                           CcPieceType rook,
                                            CcPos start,
                                            CcPos destination );
 
 CcParsedStep * cc_parsed_step_promote__new( CcParsedStepLinkEnum link, CcPos field,
-                                            cc_piece_t captured,
+                                            CcPieceType captured,
                                             CcLosingTagEnum lost_tag,
-                                            cc_piece_t promoted_to );
+                                            CcPieceType promoted_to );
 
 CcParsedStep * cc_parsed_step_tag_for_promotion__new( CcParsedStepLinkEnum link, CcPos field,
-                                                      cc_piece_t captured,
+                                                      CcPieceType captured,
                                                       CcLosingTagEnum lost_tag );
 
 CcParsedStep * cc_parsed_step_convert__new( CcParsedStepLinkEnum link, CcPos field,
-                                            cc_piece_t piece,
+                                            CcPieceType piece,
                                             CcLosingTagEnum lost_tag );
 
 CcParsedStep * cc_parsed_step_failed_conversion__new( CcParsedStepLinkEnum link, CcPos field );
 
 CcParsedStep * cc_parsed_step_demote__new( CcParsedStepLinkEnum link, CcPos field,
-                                           cc_piece_t piece,
+                                           CcPieceType piece,
                                            CcLosingTagEnum lost_tag,
                                            CcPos distant );
 
 CcParsedStep * cc_parsed_step_resurrect__new( CcParsedStepLinkEnum link, CcPos field,
-                                              cc_piece_t piece,
+                                              CcPieceType piece,
                                               CcPos destination );
 
 CcParsedStep * cc_parsed_step_failed_resurrection__new( CcParsedStepLinkEnum link, CcPos field );
@@ -120,46 +120,46 @@ CcParsedStep * cc_parsed_step_none_append( CcParsedStep ** steps__iod_a,
 CcParsedStep * cc_parsed_step_capture_append( CcParsedStep ** steps__iod_a,
                                               CcParsedStepLinkEnum link,
                                               CcPos field,
-                                              cc_piece_t piece,
+                                              CcPieceType piece,
                                               CcLosingTagEnum lost_tag );
 
 CcParsedStep * cc_parsed_step_displacement_append( CcParsedStep ** steps__iod_a,
                                                    CcParsedStepLinkEnum link,
                                                    CcPos field,
-                                                   cc_piece_t piece,
+                                                   CcPieceType piece,
                                                    CcLosingTagEnum lost_tag,
                                                    CcPos destination );
 
 CcParsedStep * cc_parsed_step_en_passant_append( CcParsedStep ** steps__iod_a,
                                                  CcParsedStepLinkEnum link,
                                                  CcPos field,
-                                                 cc_piece_t pawn,
+                                                 CcPieceType pawn,
                                                  CcPos distant );
 
 CcParsedStep * cc_parsed_step_castle_append( CcParsedStep ** steps__iod_a,
                                              CcParsedStepLinkEnum link,
                                              CcPos field,
-                                             cc_piece_t rook,
+                                             CcPieceType rook,
                                              CcPos start,
                                              CcPos destination );
 
 CcParsedStep * cc_parsed_step_promote_append( CcParsedStep ** steps__iod_a,
                                               CcParsedStepLinkEnum link,
                                               CcPos field,
-                                              cc_piece_t captured,
+                                              CcPieceType captured,
                                               CcLosingTagEnum lost_tag,
-                                              cc_piece_t promoted_to );
+                                              CcPieceType promoted_to );
 
 CcParsedStep * cc_parsed_step_tag_for_promotion_append( CcParsedStep ** steps__iod_a,
                                                         CcParsedStepLinkEnum link,
                                                         CcPos field,
-                                                        cc_piece_t captured,
+                                                        CcPieceType captured,
                                                         CcLosingTagEnum lost_tag );
 
 CcParsedStep * cc_parsed_step_convert_append( CcParsedStep ** steps__iod_a,
                                               CcParsedStepLinkEnum link,
                                               CcPos field,
-                                              cc_piece_t piece,
+                                              CcPieceType piece,
                                               CcLosingTagEnum lost_tag );
 
 CcParsedStep * cc_parsed_step_failed_conversion_append( CcParsedStep ** steps__iod_a,
@@ -169,14 +169,14 @@ CcParsedStep * cc_parsed_step_failed_conversion_append( CcParsedStep ** steps__i
 CcParsedStep * cc_parsed_step_demote_append( CcParsedStep ** steps__iod_a,
                                              CcParsedStepLinkEnum link,
                                              CcPos field,
-                                             cc_piece_t piece,
+                                             CcPieceType piece,
                                              CcLosingTagEnum lost_tag,
                                              CcPos distant );
 
 CcParsedStep * cc_parsed_step_resurrect_append( CcParsedStep ** steps__iod_a,
                                                 CcParsedStepLinkEnum link,
                                                 CcPos field,
-                                                cc_piece_t piece,
+                                                CcPieceType piece,
                                                 CcPos destination );
 
 CcParsedStep * cc_parsed_step_failed_resurrection_append( CcParsedStep ** steps__iod_a,

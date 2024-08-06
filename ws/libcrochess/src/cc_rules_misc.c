@@ -85,7 +85,7 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 }
 
 // bool cc_check_promote_or_tag( CcChessboard * cb,
-//                               cc_piece_t pawn,
+//                               CcPieceType pawn,
 //                               CcPos start,
 //                               CcPos destination ) {
 //     if ( !cb ) return false;
@@ -113,12 +113,12 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 
 //         if ( rank == destination.j ) return true;
 //     } else {
-//         cc_piece_t pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
+//         CcPieceType pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
 //         if ( !CC_PIECE_IS_EQUAL( pe, pawn ) ) return false;
 
 //         // Static promotion.
 
-//         cc_tag_t te = cc_chessboard_get_tag( cb, destination.i, destination.j );
+//         CcTagType te = cc_chessboard_get_tag( cb, destination.i, destination.j );
 //         if ( CC_TAG_CAN_PROMOTE( te ) ) return true;
 //     }
 
@@ -130,7 +130,7 @@ bool cc_delete_all_en_passant_tags( CcChessboard * cb ) {
 
     for ( int i = 0; i < (int)cb->size; ++i ) {
         for ( int j = 0; j < (int)cb->size; ++j ) {
-            cc_tag_t te = cc_chessboard_get_tag( cb, i, j );
+            CcTagType te = cc_chessboard_get_tag( cb, i, j );
 
             if ( te == CC_TE_EnPassant ) {
                 if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )

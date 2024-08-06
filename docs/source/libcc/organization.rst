@@ -114,7 +114,7 @@ Organization
 
 Pieces, tags, variants, chessboards introduced in
 `the book <https://github.com/mmlacak/crochess/raw/master/crochess.pdf>`_ are in
-similarly named :term:`module`\s, i.e. ``cc_piece_t``, ``cc_tag_t``, ``cc_variant``,
+similarly named :term:`module`\s, i.e. ``CcPieceType``, ``CcTagType``, ``cc_variant``,
 ``cc_chessboard``.
 
 Each chessboard holds a board for pieces and the other one for tags.

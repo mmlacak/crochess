@@ -27,8 +27,8 @@
 
 // TODO :: DOCS
 bool cc_pawn_steps( CcChessboard * cb,
-                    cc_piece_t activator,
-                    cc_piece_t piece,
+                    CcPieceType activator,
+                    CcPieceType piece,
                     CcPos current_pos,
                     CcStepTypeEnum steps_type,
                     CcTypedStepLink ** steps__o );

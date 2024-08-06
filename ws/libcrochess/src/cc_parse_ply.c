@@ -26,7 +26,7 @@ static void cc_add_msg_invalid_ply_link( char const * ply_start_an,
 }
 
 static bool cc_check_king_ply( CcChessboard * cb,
-                               cc_piece_t king,
+                               CcPieceType king,
                                CcPos * pos__o,
                                CcParseMsg ** parse_msgs__iod ) {
     if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, pos__o ) ) {
@@ -46,7 +46,7 @@ static bool cc_check_king_ply( CcChessboard * cb,
     return true;
 }
 
-static bool cc_check_piece_can_be_activated( cc_piece_t piece,
+static bool cc_check_piece_can_be_activated( CcPieceType piece,
                                              char const * ply_start_an,
                                              char const * ply_end_an,
                                              CcParseMsg ** parse_msgs__iod ) {
@@ -98,7 +98,7 @@ static bool cc_parse_ply( char const * ply_start_an,
     }
 
     bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
-    cc_piece_t piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
+    CcPieceType piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
 
     if ( is_first_ply ) {
         before_ply_start__io->piece = piece_an; // Piece type and owner should be correct, on the first ply.
@@ -123,7 +123,7 @@ static bool cc_parse_ply( char const * ply_start_an,
         }
 
         CcPos pos = before_ply_start__io->pos;
-        cc_piece_t pe = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
+        CcPieceType pe = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
 
         if ( pe != before_ply_start__io->piece ) {
             cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
@@ -179,7 +179,7 @@ static bool cc_parse_ply( char const * ply_start_an,
 
         if ( start && cc_pos_is_valid( start->field ) ) {
             CcPos start_pos = start->field;
-            cc_piece_t pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
+            CcPieceType pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
 
             if ( pe == before_ply_start__io->piece ) {
                 before_ply_start__io->pos = start_pos;

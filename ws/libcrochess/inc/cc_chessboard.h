@@ -18,8 +18,8 @@ typedef struct CcChessboard
     CcVariantEnum type;
     cc_uint_t size;
 
-    cc_piece_t board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
-    cc_tag_t tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
+    CcPieceType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
+    CcTagType tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
 } CcChessboard;
 
 
@@ -63,25 +63,25 @@ int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light );
 
 int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light );
 
-cc_piece_t cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
+CcPieceType cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
 
-cc_tag_t cc_chessboard_get_tag( CcChessboard * cb, int i, int j );
+CcTagType cc_chessboard_get_tag( CcChessboard * cb, int i, int j );
 
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  cc_piece_t pe,
-                                  cc_tag_t ct );
+                                  CcPieceType pe,
+                                  CcTagType ct );
 
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              cc_piece_t pe );
+                              CcPieceType pe );
 
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,
                             int j,
-                            cc_tag_t tt );
+                            CcTagType tt );
 
 
 bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 );
