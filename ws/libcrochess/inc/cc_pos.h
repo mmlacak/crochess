@@ -153,7 +153,8 @@ typedef struct CcPosDesc {
     ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (uint_momentum) ) )
 
 #define CC_POS_DESC_IS_VALID(pd) \
-    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_VALID( (pd).piece ) && ( CC_TAG_IS_VALID( (pd).tag ) ) )
+    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_VALID( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
+    // <!> Do not use CC_TAG_IS_VALID(), having no tag is still valid position descriptor!
 
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) && ( (pd_1).momentum == (pd_2).momentum ) )

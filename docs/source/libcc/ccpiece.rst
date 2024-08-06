@@ -480,6 +480,11 @@ Monoliths) do not belong to any player.
 
     :c:`enum` is tagged with the same :c:enum:`CcPieceEnum` name.
 
+.. c:type:: signed char CcPieceType
+
+    Actual storage type, as used in :c:struct:`CcChessboard` :c:member:`board`;
+    contains only enumerations from :c:enum:`CcPieceEnum`.
+
 .. _lbl-libcc-ccpiece-interfaces:
 
 Piece interfaces

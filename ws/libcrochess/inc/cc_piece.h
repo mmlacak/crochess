@@ -251,7 +251,6 @@
                                              || ( (pe) == CC_PE_LightSerpent )  \
                                              || ( (pe) == CC_PE_Monolith ) )
 
-// TODO :: DOCS
 typedef enum CcPieceEnum {
     CC_PE_DimStar = -17,
 
@@ -296,7 +295,6 @@ typedef enum CcPieceEnum {
     CC_PE_Monolith,
 } CcPieceEnum;
 
-// TODO :: DOCS
 typedef signed char CcPieceType;
 
 
