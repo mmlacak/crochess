@@ -12,8 +12,15 @@
 #include "cc_chessboard.h"
 
 
-// TODO :: DOCS
-bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit );
+#define CC_CHECK_STEPS_NO_LIMIT (0)
+
+// TODO :: Wave, transparency comparison, ... or ...
+// TODO :: maybe add function just for checking castling (?)
+bool cc_check_step_fields_are_empty( CcChessboard * cb,
+                                     CcPos pos,
+                                     CcPos step,
+                                     cc_uint_t limit__d,
+                                     bool check_pos );
 
 // TODO :: DOCS
 bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum );

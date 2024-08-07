@@ -12,10 +12,49 @@ Checks
 Documents ``cc_checks.h`` and ``cc_checks.c`` files, which contain various
 checks.
 
+.. _lbl-libcc-ccchecks-data:
+
+Check data
+----------
+
+.. c:macro:: CC_CHECK_STEPS_NO_LIMIT
+
+    Macro constant for check steps function(s), represents no limit on how many
+    steps to check; equals to ``0``.
+
+    Calculated positions still has to be on a chessboard.
+
 .. _lbl-libcc-ccchecks-functions:
 
 Check functions
 ---------------
+
+.. c:function:: bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, cc_uint_t limit__d, bool check_pos )
+
+    .. todo:: check transparency, or add specialized function for castling (?)
+
+    Function checks if step-fields are empty.
+
+    Step-fields are calculated by repeatedly adding :c:`step` to :c:`pos`.
+
+    :param cb: Chessboard.
+    :param pos: A position.
+    :param step: A step.
+    :param limit__d: _Optional_, count of steps to check, :c:macro:`CC_CHECK_STEPS_NO_LIMIT` otherwise.
+    :param check_pos: Flag, whether given position should also be checked.
+    :returns: :c:`true` if step-fields are empty, :c:`false` otherwise.
+
+.. c:function:: bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum )
+
+    :param piece: A piece.
+    :param momentum: Momentum.
+    :returns: :c:`true` if there is enough momentum for movement, :c:`false` otherwise.
+
+.. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte )
+
+    :param piece: A piece.
+    :param lte: Chessboard.
+    :returns: :c:`true` if piece can lose given tag, :c:`false` otherwise.
 
 .. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, cc_uint_t momentum, CcPos pos )
 

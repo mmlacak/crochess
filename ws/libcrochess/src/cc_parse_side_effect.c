@@ -437,9 +437,9 @@ static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
     CcPieceType rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
     int rook_i = cc_get_figure_initial_file( cb->type, rook, is_queen_side );
     CcPos pos = cc_pos_add( before_ply_start.pos, step, 1 ); // First step from King's initial position.
-    int limit = is_queen_side ? pos.i - rook_i : rook_i - pos.i;
+    cc_uint_t limit = is_queen_side ? pos.i - rook_i : rook_i - pos.i;
 
-    if ( !cc_check_step_fields_are_empty( cb, pos, step, limit ) ) {
+    if ( !cc_check_step_fields_are_empty( cb, pos, step, limit, true ) ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle, all step-fields between the King and a Rook has to be empty.\n", piece_str );
         return false;

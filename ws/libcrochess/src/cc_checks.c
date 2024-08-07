@@ -4,20 +4,36 @@
 #include "cc_checks.h"
 
 
-bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, int limit ) {
+// TODO :: Wave, transparency comparison, ... or ...
+// TODO :: maybe add function just for checking castling (?)
+bool cc_check_step_fields_are_empty( CcChessboard * cb,
+                                     CcPos pos,
+                                     CcPos step,
+                                     cc_uint_t limit__d,
+                                     bool check_pos ) {
     if ( !cb ) return false;
-    if ( limit <= 0 ) return false;
 
     CcPos current = pos;
+    cc_uint_t count = 0;
 
-    for ( int count = 0;
-          ( count < limit ) && cc_chessboard_is_pos_on_board( cb, current.i, current.j );
-          ++count ) {
-        CcPieceType pe = cc_chessboard_get_piece( cb, current.i, current.j );
-        if ( !CC_PIECE_IS_NONE( pe ) ) return false;
-
+    do {
         current = cc_pos_add( current, step, 1 );
-    }
+
+        if ( !cc_chessboard_is_pos_on_board( cb, current.i, current.j ) )
+            break;
+
+        if ( ( count > 0 ) || check_pos ) {
+            // TODO :: Wave, transparency comparison, ...
+
+            CcPieceType pe = cc_chessboard_get_piece( cb, current.i, current.j );
+            if ( !CC_PIECE_IS_NONE( pe ) ) return false;
+        }
+
+        if ( ( limit__d != CC_CHECK_STEPS_NO_LIMIT ) && ( count >= limit__d ) )
+            break;
+
+        ++count;
+    } while ( true );
 
     return true;
 }

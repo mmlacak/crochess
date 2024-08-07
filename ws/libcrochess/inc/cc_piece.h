@@ -7,8 +7,6 @@
 #include <stdbool.h>
 
 
-// TODO :: revise VALID vs. IN_DOMAIN, for all macros
-
 #define CC_PIECE_IS_ENUMERATOR(pe) ( ( CC_PE_DimStar <= (pe) ) && ( (pe) <= CC_PE_Monolith ) )
 
 #define CC_PIECE_IS_VALID(pe) ( ( CC_PE_DimStar <= (pe) ) && ( (pe) <= CC_PE_Monolith ) && ( (pe) != CC_PE_None ) )
