@@ -22,10 +22,8 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb,
                                      cc_uint_t limit__d,
                                      bool check_pos );
 
-// TODO :: DOCS
 bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum );
 
-// TODO :: DOCS
 bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte );
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
@@ -43,9 +41,6 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                cc_uint_t momentum,
                                                CcPieceType activator,
                                                CcPos pos );
-
-// TODO :: DOCS
-bool cc_check_pawn_can_rush( CcPieceType pawn, CcTagType tag, CcTypedStep step );
 
 
 #endif /* __CC_CHECKS_H__ */

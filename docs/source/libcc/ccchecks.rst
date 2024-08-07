@@ -46,14 +46,19 @@ Check functions
 
 .. c:function:: bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum )
 
+    Function checks if a piece has enough momentum for movement, or doesn't
+    need it at all (i.e. Wave, Starchild).
+
     :param piece: A piece.
-    :param momentum: Momentum.
-    :returns: :c:`true` if there is enough momentum for movement, :c:`false` otherwise.
+    :param momentum: Momentum a :c:`piece` has.
+    :returns: :c:`true` if piece can move, :c:`false` otherwise.
 
 .. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte )
 
+    Function checks if a piece can lose given tag.
+
     :param piece: A piece.
-    :param lte: Chessboard.
+    :param lte: :c:enum:`CcLosingTagEnum` value.
     :returns: :c:`true` if piece can lose given tag, :c:`false` otherwise.
 
 .. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, cc_uint_t momentum, CcPos pos )

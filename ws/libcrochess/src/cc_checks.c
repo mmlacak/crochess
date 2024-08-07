@@ -135,15 +135,3 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
     } else
         return CC_MBE_False;
 }
-
-bool cc_check_pawn_can_rush( CcPieceType pawn, CcTagType tag, CcTypedStep step ) {
-    if ( !CC_PIECE_IS_PAWN( pawn ) ) return false;
-
-    if ( !CC_TAG_CAN_RUSH( tag ) ) return false;
-
-    if ( step.type != CC_STE_Movement ) return false;
-
-    if ( step.step.i != 0 ) return false; // Rush --> vertical movement only!
-
-    return true;
-}
