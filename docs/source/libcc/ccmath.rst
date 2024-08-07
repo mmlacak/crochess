@@ -33,6 +33,14 @@ Math functions
     :param size: An integer.
     :returns: Diagonal of a chessboard, rounded up.
 
+.. c:function:: int cc_count_of_digits( size_t n )
+
+    Function returns number of digits for a given number, in base-10
+    representation.
+
+    :param n: A number.
+    :returns: Number of digits.
+
 .. _lbl-libcc-ccmath-sourcecodeheader:
 
 Math source code header

@@ -11,7 +11,6 @@ int cc_gcd( int x, int y );
 
 size_t cc_diagonal( size_t size );
 
-// TODO :: DOCS
 int cc_count_of_digits( size_t n );
 
 
