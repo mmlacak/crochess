@@ -8,14 +8,12 @@
 #include "limits.h"
 
 
-// TODO :: DOCS
 typedef signed char cc_schar_t;
 typedef signed short cc_sshort_t;
 typedef signed int cc_sint_t;
 typedef signed long cc_slong_t;
 typedef signed long long cc_sll_t;
 
-// TODO :: DOCS
 typedef unsigned char cc_uchar_t;
 typedef unsigned short cc_ushort_t;
 typedef unsigned int cc_uint_t;
@@ -137,17 +135,10 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_REWIND_BY(ptr_var_seq,ptr_item) { while ( (ptr_item) ) (ptr_var_seq) = (ptr_item); }
 
-// TODO :: DOCS
-//
-// Does not work for array parameters --> converted into pointers!
-// e.g. void print_array_param( char const * ar[] ) --> ar array is now pointer.
+// <!> Does not work for array parameters --> converted into pointers!
+// e.g. void print_array_param( int ar[] ) --> ar array is now pointer.
 // sizeof(ar) --> 8 bytes (pointer)
 // sizeof(ar) / sizeof(ar[0]) --> 1 == 8 bytes / 8 bytes (both are pointers)
-//
-// void print_array_param( char const * ar[] ) {
-//     printf("sizeof of parameter: %zu.\n", sizeof(ar));
-//     printf("Length of parameter: %zu.\n", ( sizeof(ar) / sizeof(ar[0]) ) );
-// }
 //
 // https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 #define CC_ARRAY_SIZE(array) ( (size_t)( sizeof(array) / sizeof( (array)[ 0 ] ) ) )

@@ -16,6 +16,18 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
 Common types
 ------------
 
+Convenience shorthands for signed integer types.
+
+.. c:type:: signed char cc_schar_t
+
+.. c:type:: signed short cc_sshort_t
+
+.. c:type:: signed int cc_sint_t
+
+.. c:type:: signed long cc_slong_t
+
+.. c:type:: signed long long cc_sll_t
+
 Convenience shorthands for unsigned integer types.
 
 .. c:type:: unsigned char cc_uchar_t
@@ -482,6 +494,40 @@ Navigation
     :param ptr_item: Pointer, member to iterate over.
     :returns: Nothing.
 
+.. c:macro:: CC_ARRAY_SIZE(array)
+
+    Macro to calculate size of a given array.
+
+    .. warning::
+
+        Does not work in functions, array parameters are converted into
+        pointers.
+
+        For instance, in function:
+
+        .. code-block:: C
+            :force:
+
+            void print_array_param( int ar[] ) {
+                printf("sizeof of parameter: %zu.\n", sizeof(ar));
+                printf("Length of parameter: %zu.\n", ( sizeof(ar) / sizeof(ar[0]) ) );
+            }
+
+        array :c:`ar` is treated as pointer, so :c:expr:`sizeof(ar)` returns
+        ``8`` (bytes).
+
+        Similarly, :c:expr:`sizeof(ar) / sizeof(ar[0])` returns ``1``, which
+        is just :c:expr:`8/8`, since both :c:`ar` and :c:`ar[0]` are pointers,
+        hence ``8`` bytes each.
+
+        .. seealso:: https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c,
+                     search for "An array sent as a parameter to a function is treated as a pointer".
+
+    :param array: An array variable.
+    :returns: :c:type:`size_t` value, size of a given array.
+
+.. .. TODO :: can be removed, no rush
+..
 .. .. _lbl-libcc-ccdefines-debug:
 ..
 .. Debug
@@ -507,6 +553,8 @@ Navigation
 ..     :param ...: Variadic parameters, as used by :c:func:`printf()`.
 ..     :returns: The same as :c:func:`printf()`, i.e. an :c:`int` value.
 ..               Number of :c:`char`\s printed, an error code if negative.
+..
+.. .. TODO :: can be removed, no rush
 
 .. _lbl-libcc-ccdefines-sourcecodeheader:
 

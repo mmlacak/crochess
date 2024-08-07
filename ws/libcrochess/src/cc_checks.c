@@ -6,6 +6,7 @@
 
 // TODO :: Wave, transparency comparison, ... or ...
 // TODO :: maybe add function just for checking castling (?)
+// TODO :: see cc_check_piece_is_blocked_at()
 bool cc_check_step_fields_are_empty( CcChessboard * cb,
                                      CcPos pos,
                                      CcPos step,
