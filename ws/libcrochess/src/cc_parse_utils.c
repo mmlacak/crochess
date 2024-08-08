@@ -163,6 +163,15 @@ bool cc_fetch_piece_symbol( char const * an_str,
 
     return return_validity ? cc_piece_symbol_is_valid( *piece_symbol__o )
                            : true;
+
+    // if ( cc_piece_symbol_is_valid( *p ) )
+    //     *piece_symbol__o = *p;
+    // else if ( !isupper( *p ) )
+    //     *piece_symbol__o = 'P';
+    // else
+    //     return false;
+    //
+    // return true;
 }
 
 CcLosingTagEnum cc_parse_losing_tag( char const * an_str ) {

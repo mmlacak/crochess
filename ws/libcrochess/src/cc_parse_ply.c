@@ -140,7 +140,7 @@ static bool cc_parse_ply( char const * ply_start_an,
             return false;
     }
 
-    if ( CC_CHAR_IS_PIECE_SYMBOL( *c_str ) ) ++c_str;
+    if ( cc_piece_symbol_is_valid( *c_str ) ) ++c_str;
 
     //
     // Losing tag.

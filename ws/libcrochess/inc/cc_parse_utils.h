@@ -29,25 +29,6 @@
 
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
 
-#define CC_CHAR_IS_PIECE_SYMBOL(char_c) ( ( (char_c) == 'P' ) ||    \
-                                          ( (char_c) == 'N' ) ||    \
-                                          ( (char_c) == 'B' ) ||    \
-                                          ( (char_c) == 'R' ) ||    \
-                                          ( (char_c) == 'Q' ) ||    \
-                                          ( (char_c) == 'K' ) ||    \
-                                          ( (char_c) == 'E' ) ||    \
-                                          ( (char_c) == 'A' ) ||    \
-                                          ( (char_c) == 'U' ) ||    \
-                                          ( (char_c) == 'W' ) ||    \
-                                          ( (char_c) == 'C' ) ||    \
-                                          ( (char_c) == 'O' ) ||    \
-                                          ( (char_c) == 'G' ) ||    \
-                                          ( (char_c) == 'S' ) ||    \
-                                          ( (char_c) == 'H' ) ||    \
-                                          ( (char_c) == 'I' ) ||    \
-                                          ( (char_c) == 'T' ) ||    \
-                                          ( (char_c) == 'M' ) )
-
 
 bool cc_parse_ply_link( char const * an_str,
                         CcParsedPlyLinkEnum * ple__o );
@@ -61,7 +42,7 @@ bool cc_iter_ply( char const * an_str,
                   char const ** end__io );
 
 
-// TODO :: DOCS
+// TODO :: FIX :: simplify, delete return_validity flag
 bool cc_fetch_piece_symbol( char const * an_str,
                             char * piece_symbol__o,
                             bool default_to_pawn,

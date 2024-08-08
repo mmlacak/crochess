@@ -78,13 +78,6 @@ Piece symbol is uppercase :c:`char`, as used in :term:`AN`.
     :returns: :c:data:`true` if given :c:`char` is either :c:`.` or :c:`-`,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_CHAR_IS_PIECE_SYMBOL(char_c)
-
-    Macro to check if :c:`char` is piece symbol.
-
-    :param char_c: A :c:`char`.
-    :returns: :c:data:`true` if given :c:`char` is piece symbol, :c:data:`false` otherwise.
-
 .. _lbl-libcc-ccparseutils-functions:
 
 Parse utils functions
@@ -149,6 +142,28 @@ Parse utils functions
     :param start__io: *Input/output*; start of a found ply.
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_fetch_piece_symbol( char const * an_str, char * piece_symbol__o, bool default_to_pawn, bool return_validity )
+
+    Function checks piece symbol in given notation, and outputs findings via
+    *output* parameter.
+
+    If there is no piece symbol (upper-case :c:`char`\acter), depending on
+    :c:`default_to_pawn` flag, function outputs ``'P'``, or ``' '``.
+
+    Depending on :c:`return_validity` flag, function also returns if found
+    piece symbol is valid.
+
+    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
+    :param default_to_pawn: Flag, if there is no upper-case :c:`char`, should
+        this be interpreted as Pawn.
+    :param return_validity: Flag, if function also checks and returns validity
+        of found piece symbol.
+    :returns: :c:data:`true` if successful (and/or found piece symbol valid),
+        :c:data:`false` otherwise.
+
+
 
 
 
