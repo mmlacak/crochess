@@ -48,7 +48,6 @@ bool cc_fetch_piece_symbol( char const * an_str,
                             bool default_to_pawn,
                             bool return_validity );
 
-// TODO :: DOCS
 CcLosingTagEnum cc_parse_losing_tag( char const * an_str );
 
 // TODO :: DOCS

@@ -163,6 +163,12 @@ Parse utils functions
     :returns: :c:data:`true` if successful (and/or found piece symbol valid),
         :c:data:`false` otherwise.
 
+.. c:function:: CcLosingTagEnum cc_parse_losing_tag( char const * an_str )
+
+    Function returns losing tag found in a given notation.
+
+    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :returns: Losing tag, :c:enum:`CcLosingTagEnum` value.
 
 
 
