@@ -92,11 +92,18 @@ Parse utils functions
 
 .. c:function:: bool cc_parse_ply_link( char const * an_str, CcParsedPlyLinkEnum * ple__o )
 
-    Function returns a position.
+    Function returns ply link from notation.
 
     :param an_str: Notation, :term:`AN` string.
     :param ple__o: _Output_, ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: size_t cc_ply_link_len( CcParsedPlyLinkEnum ple )
+
+    Function returns length in :c:`char`\s of a ply link as used in notation.
+
+    :param ple: Ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :returns: Length if given ply link was valid, ``0`` otherwise.
 
 
 
