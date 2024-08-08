@@ -94,7 +94,7 @@ Parse utils functions
 
     Function returns ply link from notation.
 
-    :param an_str: Notation, :term:`AN` string.
+    :param an_str: Notation; zero-terminated, :term:`AN` string.
     :param ple__o: _Output_, ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
@@ -104,6 +104,16 @@ Parse utils functions
 
     :param ple: Ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: Length if given ply link was valid, ``0`` otherwise.
+
+.. c:function:: char const * cc_next_ply_link( char const * an_str )
+
+    Function returns pointer to next ply link in a given notation.
+
+    If there is no next ply link, function returns pointer to first found ``'\0'``,
+    i.e. zero-terminating :c:`char` of a given string.
+
+    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :returns: Pointer to next ply link if successful, :c:data:`NULL` otherwise.
 
 
 

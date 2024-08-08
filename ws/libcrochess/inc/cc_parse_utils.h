@@ -52,10 +52,8 @@
 bool cc_parse_ply_link( char const * an_str,
                         CcParsedPlyLinkEnum * ple__o );
 
-// TODO :: DOCS
 size_t cc_ply_link_len( CcParsedPlyLinkEnum ple );
 
-// TODO :: DOCS
 char const * cc_next_ply_link( char const * an_str );
 
 // TODO :: DOCS
