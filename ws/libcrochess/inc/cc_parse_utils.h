@@ -56,7 +56,6 @@ size_t cc_ply_link_len( CcParsedPlyLinkEnum ple );
 
 char const * cc_next_ply_link( char const * an_str );
 
-// TODO :: DOCS
 bool cc_iter_ply( char const * an_str,
                   char const ** start__io,
                   char const ** end__io );

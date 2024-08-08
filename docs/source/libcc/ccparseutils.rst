@@ -115,6 +115,41 @@ Parse utils functions
     :param an_str: Notation; zero-terminated, :term:`AN` string.
     :returns: Pointer to next ply link if successful, :c:data:`NULL` otherwise.
 
+.. c:function:: bool cc_iter_ply( char const * an_str, char const ** start__io, char const ** end__io )
+
+    Function iterates over plies in a given notation string.
+
+    .. note::
+
+        Both inner pointers, i.e. :c:`*start__io` and :c:`*end__io` **must** be
+        reset to :c:data:`NULL` before iterating plies.
+
+    After each call, function returns :c:data:`true` if next ply is found, and
+    sets start, end pointers to it.
+
+    Once all plies are exhausted, function returns :c:data:`false`, and resets
+    start, end pointers to :c:data:`NULL`.
+
+    Typical usage:
+
+    .. code-block:: C
+        :force:
+
+        // Start, end of ply algebraic notation.
+        char const * ply_start_an = NULL;
+        char const * ply_end_an = NULL;
+        // Note: both pointers must be set to NULL before iterating plies.
+
+        // move_an here is just a zero-terminated string, containing complete user move notation.
+        while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {
+            // Do stuff with found ply, pointed by ply_start_an and ply_end_an ...
+        }
+
+    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param start__io: *Input/output*; start of a found ply.
+    :param end__io: *Input/output*; end of a found ply.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 
 
 .. _lbl-libcc-ccparseutils-sourcecodeheader:
