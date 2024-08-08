@@ -16,6 +16,15 @@
 
 
 // TODO :: DOCS
+#define CC_MAX_LEN_STEP_POS_AN (3)
+
+// TODO :: DOCS
+#define CC_MAX_LEN_DISAMBIGUATION (3)
+
+// TODO :: DOCS
+#define CC_MAX_LEN_DISAMBIGUATION_STEP (CC_MAX_LEN_STEP_POS_AN + CC_MAX_LEN_DISAMBIGUATION)
+
+// TODO :: DOCS
 #define CC_CHAR_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
 
 // TODO :: DOCS
@@ -29,15 +38,6 @@
 
 // TODO :: DOCS
 #define CC_CHAR_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
-
-// TODO :: DOCS
-#define CC_MAX_LEN_STEP_POS (3)
-
-// TODO :: DOCS
-#define CC_MAX_LEN_DISAMBIGUATION (3)
-
-// TODO :: DOCS
-#define CC_MAX_LEN_DISAMBIGUATION_STEP (6)
 
 
 // TODO :: DOCS

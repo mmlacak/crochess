@@ -99,6 +99,7 @@ Library contents
     ccparsedsideeffect
 
     ccparsemsg
+    ccparseutils
     ccparsemove
 
     ccgame
