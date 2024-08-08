@@ -15,29 +15,38 @@
 #include "cc_parsed_ply.h"
 
 
-// TODO :: DOCS
 #define CC_MAX_LEN_STEP_POS_AN (3)
 
-// TODO :: DOCS
 #define CC_MAX_LEN_DISAMBIGUATION (3)
 
-// TODO :: DOCS
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (CC_MAX_LEN_STEP_POS_AN + CC_MAX_LEN_DISAMBIGUATION)
 
-// TODO :: DOCS
 #define CC_CHAR_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
 
-// TODO :: DOCS
 #define CC_CHAR_IS_PLY_GATHER_END(char_c) ( (char_c) == ']' )
 
-// TODO :: DOCS
 #define CC_CHAR_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
 
-// TODO :: DOCS
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
 
-// TODO :: DOCS
-#define CC_CHAR_IS_PIECE_SYMBOL(char_c) ( isupper( (char_c) ) )
+#define CC_CHAR_IS_PIECE_SYMBOL(char_c) ( ( (char_c) == 'P' ) ||    \
+                                          ( (char_c) == 'N' ) ||    \
+                                          ( (char_c) == 'B' ) ||    \
+                                          ( (char_c) == 'R' ) ||    \
+                                          ( (char_c) == 'Q' ) ||    \
+                                          ( (char_c) == 'K' ) ||    \
+                                          ( (char_c) == 'E' ) ||    \
+                                          ( (char_c) == 'A' ) ||    \
+                                          ( (char_c) == 'U' ) ||    \
+                                          ( (char_c) == 'W' ) ||    \
+                                          ( (char_c) == 'C' ) ||    \
+                                          ( (char_c) == 'O' ) ||    \
+                                          ( (char_c) == 'G' ) ||    \
+                                          ( (char_c) == 'S' ) ||    \
+                                          ( (char_c) == 'H' ) ||    \
+                                          ( (char_c) == 'I' ) ||    \
+                                          ( (char_c) == 'T' ) ||    \
+                                          ( (char_c) == 'M' ) )
 
 
 // TODO :: DOCS

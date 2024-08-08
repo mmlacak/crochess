@@ -17,6 +17,15 @@ various definitions and functions.
 Parse utils data
 ----------------
 
+Constants, and macros to check ply gather :c:`char`\s, step separator, or
+piece symbols.
+
+Plies are gathered between :c:`[` and :c:`]` chars.
+
+Step separators are :c:`.` and :c:`-` chars.
+
+Piece symbol is uppercase :c:`char`, as used in :term:`AN`.
+
 .. c:macro:: CC_MAX_LEN_STEP_POS_AN
 
     Maximum length (count of :c:`char`\s) step (position) in :term:`AN` can have;
@@ -38,6 +47,43 @@ Parse utils data
 
     Maximum length (count of :c:`char`\s) disambiguation followed by a step can
     have  in :term:`AN`; equal to ``6``.
+
+.. c:macro:: CC_CHAR_IS_PLY_GATHER_START(char_c)
+
+    Macro to check if :c:`char` is ply gather start.
+
+    :param char_c: A :c:`char`.
+    :returns: :c:data:`true` if given :c:`char` is :c:`[`, :c:data:`false` otherwise.
+
+.. c:macro:: CC_CHAR_IS_PLY_GATHER_END(char_c)
+
+    Macro to check if :c:`char` is ply gather end.
+
+    :param char_c: A :c:`char`.
+    :returns: :c:data:`true` if given :c:`char` is :c:`]`, :c:data:`false` otherwise.
+
+.. c:macro:: CC_CHAR_IS_PLY_GATHER(char_c)
+
+    Macro to check if :c:`char` is ply gather.
+
+    :param char_c: A :c:`char`.
+    :returns: :c:data:`true` if given :c:`char` is either :c:`[` or :c:`]`,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_CHAR_IS_STEP_SEPARATOR(char_c)
+
+    Macro to check if :c:`char` is step separator.
+
+    :param char_c: A :c:`char`.
+    :returns: :c:data:`true` if given :c:`char` is either :c:`.` or :c:`-`,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_CHAR_IS_PIECE_SYMBOL(char_c)
+
+    Macro to check if :c:`char` is piece symbol.
+
+    :param char_c: A :c:`char`.
+    :returns: :c:data:`true` if given :c:`char` is piece symbol, :c:data:`false` otherwise.
 
 
 
