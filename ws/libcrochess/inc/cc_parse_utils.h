@@ -49,7 +49,6 @@
                                           ( (char_c) == 'M' ) )
 
 
-// TODO :: DOCS
 bool cc_parse_ply_link( char const * an_str,
                         CcParsedPlyLinkEnum * ple__o );
 

@@ -85,6 +85,19 @@ Piece symbol is uppercase :c:`char`, as used in :term:`AN`.
     :param char_c: A :c:`char`.
     :returns: :c:data:`true` if given :c:`char` is piece symbol, :c:data:`false` otherwise.
 
+.. _lbl-libcc-ccparseutils-functions:
+
+Parse utils functions
+---------------------
+
+.. c:function:: bool cc_parse_ply_link( char const * an_str, CcParsedPlyLinkEnum * ple__o )
+
+    Function returns a position.
+
+    :param an_str: Notation, :term:`AN` string.
+    :param ple__o: _Output_, ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 
 
 .. _lbl-libcc-ccparseutils-sourcecodeheader:
