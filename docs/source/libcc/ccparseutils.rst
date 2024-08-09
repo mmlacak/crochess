@@ -326,9 +326,13 @@ Parse utils functions
     :param has_promotion_sign__o: *Output*; pointer to promotion sign flag storage.
     :returns: Side-effect type, :c:enum:`CcParsedSideEffectEnum` value.
 
+.. c:function:: size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see, bool has_promotion_sign )
 
+    Function returns length in :c:`char`\s of a side-effect type as used in notation.
 
-
+    :param see: Side-effect type, :c:enum:`CcParsedSideEffectEnum` value.
+    :param has_promotion_sign: Flag, whether promotion sign was present in notation.
+    :returns: Length if given side-effect type was valid, ``0`` otherwise.
 
 .. _lbl-libcc-ccparseutils-sourcecodeheader:
 

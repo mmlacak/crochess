@@ -85,7 +85,6 @@ bool cc_iter_step( char const * ply_an_str,
 CcParsedSideEffectEnum cc_parse_side_effect_type( char const * step_an_str,
                                                   bool * has_promotion_sign__o );
 
-// TODO :: DOCS
 size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
                                        bool has_promotion_sign );
 
