@@ -54,7 +54,6 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
 bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o );
 
-// TODO :: DOCS
 bool cc_convert_pos( char const * pos, CcPos * pos__o );
 
 // TODO :: DOCS

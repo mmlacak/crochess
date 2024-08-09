@@ -182,16 +182,26 @@ Parse utils functions
     :param lte: Losing tag, i.e. :c:enum:`CcLosingTagEnum` value.
     :returns: Length if given losing tag was valid, ``0`` otherwise.
 
-.. c:function:: bool cc_convert_coords( char const * pos, int * file__o, int * rank__o )
+.. c:function:: bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o )
 
-    Function returns coordinates parsed from a positional notation.
+    Function returns coordinates parsed from a positional notation via
+    *output* parameters.
 
-    :param pos: Notation, points at positional notation;
+    :param pos_an_str: Notation, points at positional notation;
         zero-terminated, :term:`AN` string.
     :param file__o: *Output*; pointer to horizontal coordinate storage.
     :param rank__o: *Output*; pointer to vertical coordinate storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_convert_pos( char const * pos_an_str, CcPos * pos__o )
+
+    Convenience wrapper for :c:func:`cc_convert_coords()`; function returns
+    coordinates parsed from a positional notation via *output* parameter.
+
+    :param pos_an_str: Notation, points at positional notation;
+        zero-terminated, :term:`AN` string.
+    :param pos__o: *Output*; pointer to coordinates storage.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 
 

@@ -230,9 +230,9 @@ bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o ) 
     return true;
 }
 
-bool cc_convert_pos( char const * pos, CcPos * pos__o ) {
+bool cc_convert_pos( char const * pos_an_str, CcPos * pos__o ) {
     if ( !pos__o ) return false;
-    return cc_convert_coords( pos, &pos__o->i, &pos__o->j );
+    return cc_convert_coords( pos_an_str, &pos__o->i, &pos__o->j );
 }
 
 bool cc_parse_pos( char const * an_str,
