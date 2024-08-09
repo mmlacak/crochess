@@ -8,12 +8,12 @@
 #include "cc_parse_utils.h"
 
 
-bool cc_parse_ply_link( char const * an_str,
+bool cc_parse_ply_link( char const * ply_an_str,
                         CcParsedPlyLinkEnum * ple__o ) {
-    if ( !an_str ) return false;
+    if ( !ply_an_str ) return false;
     if ( !ple__o ) return false;
 
-    char const * c = an_str;
+    char const * c = ply_an_str;
 
     if ( *c == '~' ) {
         *ple__o = CC_PPLE_CascadingPly; // "~" plies
@@ -96,14 +96,14 @@ size_t cc_ply_link_len( CcParsedPlyLinkEnum ple ) {
     }
 }
 
-char const * cc_next_ply_link( char const * an_str ) {
-    if ( !an_str ) return NULL;
-    if ( *an_str == '\0' ) return NULL;
+char const * cc_next_ply_link( char const * ply_an_str ) {
+    if ( !ply_an_str ) return NULL;
+    if ( *ply_an_str == '\0' ) return NULL;
 
     // Skip over current ply link.
     CcParsedPlyLinkEnum ple = CC_PPLE_None;
-    if ( !cc_parse_ply_link( an_str, &ple ) ) return NULL;
-    char const * str__w = an_str + cc_ply_link_len( ple );
+    if ( !cc_parse_ply_link( ply_an_str, &ple ) ) return NULL;
+    char const * str__w = ply_an_str + cc_ply_link_len( ple );
 
     // Skip over everything before next ply link.
     while ( cc_parse_ply_link( str__w, &ple ) && ( ple == CC_PPLE_None ) )
@@ -112,23 +112,23 @@ char const * cc_next_ply_link( char const * an_str ) {
     return str__w;
 }
 
-bool cc_iter_ply( char const * an_str,
+bool cc_iter_ply( char const * move_an_str,
                   char const ** start__io,
                   char const ** end__io ) {
-    if ( !an_str ) return false;
+    if ( !move_an_str ) return false;
     if ( !start__io ) return false;
     if ( !end__io ) return false;
 
-    char const * an_end = cc_str_end( an_str, NULL, CC_MAX_LEN_ZERO_TERMINATED );
+    char const * an_end = cc_str_end( move_an_str, NULL, CC_MAX_LEN_ZERO_TERMINATED );
     if ( !an_end ) return false;
 
-    if ( ( *start__io && ( ( *start__io < an_str ) || ( an_end < *start__io ) ) ) ||
-         ( *end__io && ( ( *end__io < an_str ) || ( an_end < *end__io ) ) ) )
+    if ( ( *start__io && ( ( *start__io < move_an_str ) || ( an_end < *start__io ) ) ) ||
+         ( *end__io && ( ( *end__io < move_an_str ) || ( an_end < *end__io ) ) ) )
         // <!> Must manually reset pointers, otherwise it might be wrong set passed (botched copy-pasta?).
         return false;
 
     if ( !( *start__io ) && !( *end__io ) )
-        *start__io = an_str;
+        *start__io = move_an_str;
     else if ( ( *start__io ) && ( *end__io ) )
         *start__io = *end__io;
     else
@@ -145,14 +145,14 @@ bool cc_iter_ply( char const * an_str,
 }
 
 
-bool cc_fetch_piece_symbol( char const * an_str,
+bool cc_fetch_piece_symbol( char const * piece_an_str,
                             char * piece_symbol__o,
                             bool default_to_pawn,
                             bool return_validity ) {
-    if ( !an_str ) return false;
+    if ( !piece_an_str ) return false;
     if ( !piece_symbol__o ) return false;
 
-    char const * p = an_str;
+    char const * p = piece_an_str;
 
     if ( isupper( *p ) ) // <!> Usage of cc_piece_symbol_is_valid() here is bug,
                          //     all other upper chars would end as Pawns.
@@ -174,10 +174,10 @@ bool cc_fetch_piece_symbol( char const * an_str,
     // return true;
 }
 
-CcLosingTagEnum cc_parse_losing_tag( char const * an_str ) {
-    if ( !an_str ) return CC_LTE_NoneLost;
+CcLosingTagEnum cc_parse_losing_tag( char const * lt_an_str ) {
+    if ( !lt_an_str ) return CC_LTE_NoneLost;
 
-    char const * c = an_str;
+    char const * c = lt_an_str;
 
     if ( *c == '=' ) {
         if ( *++c == '=' )
@@ -203,12 +203,10 @@ size_t cc_losing_tag_len( CcLosingTagEnum lte ) {
     }
 }
 
-bool cc_convert_coords( char const * pos,
-                        int * file__o,
-                        int * rank__o ) {
-    if ( !pos ) return false;
+bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o ) {
+    if ( !pos_an_str ) return false;
 
-    char const * p = pos;
+    char const * p = pos_an_str;
 
     if ( islower( *p ) ) {
         if ( !file__o ) return false;

@@ -85,9 +85,10 @@ Parse utils functions
 
 .. c:function:: bool cc_parse_ply_link( char const * an_str, CcParsedPlyLinkEnum * ple__o )
 
-    Function returns ply link from notation.
+    Function returns ply link from ply notation.
 
-    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param ply_an_str: Ply notation, points at ply link;
+        zero-terminated, :term:`AN` string.
     :param ple__o: _Output_, ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
@@ -98,19 +99,20 @@ Parse utils functions
     :param ple: Ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: Length if given ply link was valid, ``0`` otherwise.
 
-.. c:function:: char const * cc_next_ply_link( char const * an_str )
+.. c:function:: char const * cc_next_ply_link( char const * ply_an_str )
 
-    Function returns pointer to next ply link in a given notation.
+    Function returns pointer to next ply link in a given ply notation.
 
     If there is no next ply link, function returns pointer to first found ``'\0'``,
     i.e. zero-terminating :c:`char` of a given string.
 
-    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param ply_an_str: Ply notation, points at ply link;
+        zero-terminated, :term:`AN` string.
     :returns: Pointer to next ply link if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_iter_ply( char const * an_str, char const ** start__io, char const ** end__io )
+.. c:function:: bool cc_iter_ply( char const * move_an_str, char const ** start__io, char const ** end__io )
 
-    Function iterates over plies in a given notation string.
+    Function iterates over plies in a given move notation string.
 
     .. note::
 
@@ -138,12 +140,13 @@ Parse utils functions
             // Do stuff with found ply, pointed by ply_start_an and ply_end_an ...
         }
 
-    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param move_an_str: Move notation, point at the vert start;
+        zero-terminated, :term:`AN` string.
     :param start__io: *Input/output*; start of a found ply.
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_fetch_piece_symbol( char const * an_str, char * piece_symbol__o, bool default_to_pawn, bool return_validity )
+.. c:function:: bool cc_fetch_piece_symbol( char const * piece_an_str, char * piece_symbol__o, bool default_to_pawn, bool return_validity )
 
     Function checks piece symbol in given notation, and outputs findings via
     *output* parameter.
@@ -154,7 +157,8 @@ Parse utils functions
     Depending on :c:`return_validity` flag, function also returns if found
     piece symbol is valid.
 
-    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param piece_an_str: Notation, points at piece symbol;
+        zero-terminated, :term:`AN` string.
     :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
     :param default_to_pawn: Flag, if there is no upper-case :c:`char`, should
         this be interpreted as Pawn.
@@ -163,11 +167,12 @@ Parse utils functions
     :returns: :c:data:`true` if successful (and/or found piece symbol valid),
         :c:data:`false` otherwise.
 
-.. c:function:: CcLosingTagEnum cc_parse_losing_tag( char const * an_str )
+.. c:function:: CcLosingTagEnum cc_parse_losing_tag( char const * lt_an_str )
 
     Function returns losing tag found in a given notation.
 
-    :param an_str: Notation; zero-terminated, :term:`AN` string.
+    :param lt_an_str: Notation, points at losing tag;
+        zero-terminated, :term:`AN` string.
     :returns: Losing tag, :c:enum:`CcLosingTagEnum` value.
 
 .. c:function:: size_t cc_losing_tag_len( CcLosingTagEnum lte )
@@ -176,6 +181,16 @@ Parse utils functions
 
     :param lte: Losing tag, i.e. :c:enum:`CcLosingTagEnum` value.
     :returns: Length if given losing tag was valid, ``0`` otherwise.
+
+.. c:function:: bool cc_convert_coords( char const * pos, int * file__o, int * rank__o )
+
+    Function returns coordinates parsed from a positional notation.
+
+    :param pos: Notation, points at positional notation;
+        zero-terminated, :term:`AN` string.
+    :param file__o: *Output*; pointer to horizontal coordinate storage.
+    :param rank__o: *Output*; pointer to vertical coordinate storage.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 
 

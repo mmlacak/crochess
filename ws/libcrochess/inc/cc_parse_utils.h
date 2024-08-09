@@ -30,32 +30,29 @@
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
 
 
-bool cc_parse_ply_link( char const * an_str,
+bool cc_parse_ply_link( char const * ply_an_str,
                         CcParsedPlyLinkEnum * ple__o );
 
 size_t cc_ply_link_len( CcParsedPlyLinkEnum ple );
 
-char const * cc_next_ply_link( char const * an_str );
+char const * cc_next_ply_link( char const * pl_an_str );
 
-bool cc_iter_ply( char const * an_str,
+bool cc_iter_ply( char const * move_an_str,
                   char const ** start__io,
                   char const ** end__io );
 
 
 // TODO :: FIX :: simplify, delete return_validity flag
-bool cc_fetch_piece_symbol( char const * an_str,
+bool cc_fetch_piece_symbol( char const * piece_an_str,
                             char * piece_symbol__o,
                             bool default_to_pawn,
                             bool return_validity );
 
-CcLosingTagEnum cc_parse_losing_tag( char const * an_str );
+CcLosingTagEnum cc_parse_losing_tag( char const * lt_an_str );
 
 size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
-// TODO :: DOCS
-bool cc_convert_coords( char const * pos,
-                        int * file__o,
-                        int * rank__o );
+bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o );
 
 // TODO :: DOCS
 bool cc_convert_pos( char const * pos, CcPos * pos__o );
