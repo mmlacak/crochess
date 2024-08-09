@@ -428,22 +428,22 @@ char const * cc_next_step_link( char const * step_an_str,
     return str__w;
 }
 
-bool cc_iter_step( char const * an_str,
+bool cc_iter_step( char const * ply_an_str,
                    char const * ply_end,
                    char const ** start__io,
                    char const ** end__io ) {
-    if ( !an_str ) return false;
+    if ( !ply_an_str ) return false;
     if ( !ply_end ) return false;
     if ( !start__io ) return false;
     if ( !end__io ) return false;
 
-    if ( ( *start__io && ( ( *start__io < an_str ) || ( ply_end < *start__io ) ) ) ||
-            ( *end__io && ( ( *end__io < an_str ) || ( ply_end < *end__io ) ) ) )
+    if ( ( *start__io && ( ( *start__io < ply_an_str ) || ( ply_end < *start__io ) ) ) ||
+            ( *end__io && ( ( *end__io < ply_an_str ) || ( ply_end < *end__io ) ) ) )
         // <!> Must manually reset pointers, otherwise it might be wrong set passed (botched copy-pasta?).
         return false;
 
     if ( !( *start__io ) && !( *end__io ) )
-        *start__io = an_str;
+        *start__io = ply_an_str;
     else if ( ( *start__io ) && ( *end__io ) )
         *start__io = *end__io;
     else
