@@ -170,6 +170,13 @@ Parse utils functions
     :param an_str: Notation; zero-terminated, :term:`AN` string.
     :returns: Losing tag, :c:enum:`CcLosingTagEnum` value.
 
+.. c:function:: size_t cc_losing_tag_len( CcLosingTagEnum lte )
+
+    Function returns length in :c:`char`\s of a losing tag as used in notation.
+
+    :param lte: Losing tag, i.e. :c:enum:`CcLosingTagEnum` value.
+    :returns: Length if given losing tag was valid, ``0`` otherwise.
+
 
 
 

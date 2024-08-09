@@ -50,7 +50,6 @@ bool cc_fetch_piece_symbol( char const * an_str,
 
 CcLosingTagEnum cc_parse_losing_tag( char const * an_str );
 
-// TODO :: DOCS
 size_t cc_losing_tag_len( CcLosingTagEnum lte );
 
 // TODO :: DOCS
