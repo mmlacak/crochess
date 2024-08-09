@@ -351,13 +351,13 @@ bool cc_has_separated_steps( char const * ply_an_str,
     return false;
 }
 
-bool cc_parse_step_link( char const * an_str,
+bool cc_parse_step_link( char const * step_an_str,
                          char const * ply_end,
                          CcParsedStepLinkEnum * sle__o ) {
-    if ( !an_str ) return false;
+    if ( !step_an_str ) return false;
     if ( !sle__o ) return false;
 
-    char const * c = an_str;
+    char const * c = step_an_str;
 
     if ( *c == '.' ) {
         if ( *++c == '.' ) {
@@ -374,10 +374,10 @@ bool cc_parse_step_link( char const * an_str,
         *sle__o = CC_PSLE_Reposition;
         return true;
     } else if ( isgraph( *c ) ) {
-        if ( cc_has_separated_steps( an_str, ply_end, true, true ) ) {
+        if ( cc_has_separated_steps( step_an_str, ply_end, true, true ) ) {
             *sle__o = CC_PSLE_Start;
             return true;
-        } else if ( cc_skip_disambiguation( an_str ) ) {
+        } else if ( cc_skip_disambiguation( step_an_str ) ) {
             *sle__o = CC_PSLE_Start;
             return true;
         } else {

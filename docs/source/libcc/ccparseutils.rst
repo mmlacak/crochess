@@ -240,14 +240,27 @@ Parse utils functions
     :c:`check_destination_step` has to be :c:data:`true` before searching for
     step separators.
 
-    :param ply_an_str: Ply notation, points at the very start;
+    :param ply_an_str: Ply notation, points at the start of the ply;
         zero-terminated, :term:`AN` string.
-    :param ply_end: Ply notation, points at the very end of the ply;
+    :param ply_end: Ply notation, points at the end of the ply;
         zero-terminated, :term:`AN` string.
     :param check_intermediate_steps: Flag, to check if ply contains ``'.'``.
     :param check_destination_step: Flag, to check if ply contains ``'-'``.
     :returns: :c:data:`true` if ply contains step separators,
         :c:data:`false` otherwise.
+
+.. c:function:: bool cc_parse_step_link( char const * step_an_str, char const * ply_end, CcParsedStepLinkEnum * sle__o )
+
+    Function returns parsed step link via *output* parameter.
+
+    :param step_an_str: Step notation, points at the very start;
+        zero-terminated, :term:`AN` string.
+    :param ply_end: Ply notation, points at the very end of the ply;
+        zero-terminated, :term:`AN` string.
+    :param sle__o: *Output*; pointer to step link storage.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
 
 
 

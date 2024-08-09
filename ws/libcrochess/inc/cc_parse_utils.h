@@ -67,8 +67,7 @@ bool cc_has_separated_steps( char const * ply_an_str,
                              bool check_intermediate_steps,
                              bool check_destination_step );
 
-// TODO :: DOCS
-bool cc_parse_step_link( char const * an_str,
+bool cc_parse_step_link( char const * step_an_str,
                          char const * ply_end,
                          CcParsedStepLinkEnum * sle__o );
 
