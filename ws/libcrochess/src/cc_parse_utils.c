@@ -403,17 +403,17 @@ size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle ) {
     }
 }
 
-char const * cc_next_step_link( char const * an_str,
+char const * cc_next_step_link( char const * step_an_str,
                                 char const * ply_end ) {
-    if ( !an_str ) return NULL;
-    if ( *an_str == '\0' ) return NULL;
+    if ( !step_an_str ) return NULL;
+    if ( *step_an_str == '\0' ) return NULL;
     if ( !ply_end ) return NULL;
-    if ( an_str >= ply_end ) return NULL;
+    if ( step_an_str >= ply_end ) return NULL;
 
     CcParsedStepLinkEnum sle = CC_PSLE_None;
-    if ( !cc_parse_step_link( an_str, ply_end, &sle ) ) return NULL;
+    if ( !cc_parse_step_link( step_an_str, ply_end, &sle ) ) return NULL;
 
-    char const * str__w = an_str + cc_parsed_step_link_len( sle );
+    char const * str__w = step_an_str + cc_parsed_step_link_len( sle );
 
     // Skip over everything before next step link.
     do {

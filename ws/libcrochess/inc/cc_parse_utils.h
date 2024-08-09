@@ -73,8 +73,7 @@ bool cc_parse_step_link( char const * step_an_str,
 
 size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle );
 
-// TODO :: DOCS
-char const * cc_next_step_link( char const * an_str,
+char const * cc_next_step_link( char const * step_an_str,
                                 char const * ply_end );
 
 // TODO :: DOCS

@@ -267,7 +267,17 @@ Parse utils functions
     :param sle: Step link, i.e. :c:enum:`CcParsedStepLinkEnum` value.
     :returns: Length if given step link was valid, ``0`` otherwise.
 
+.. c:function:: char const * cc_next_step_link( char const * step_an_str, char const * ply_end )
 
+    Function returns pointer to next step link found in notation.
+
+    If there is no next step link, function returns :c:`ply_end` pointer.
+
+    :param step_an_str: Step notation, points at the start;
+        zero-terminated, :term:`AN` string.
+    :param ply_end: Ply notation, points at the end of the ply;
+        zero-terminated, :term:`AN` string.
+    :returns: Pointer to next step link if successful, :c:data:`NULL` otherwise.
 
 
 
