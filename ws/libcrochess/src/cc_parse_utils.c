@@ -289,10 +289,10 @@ bool cc_parse_pos( char const * pos_an_str,
     return true;
 }
 
-char const * cc_skip_disambiguation( char const * an_str ) {
-    if ( !an_str ) return NULL;
+char const * cc_skip_disambiguation( char const * pos_an_str ) {
+    if ( !pos_an_str ) return NULL;
 
-    char const * c = an_str;
+    char const * c = pos_an_str;
 
     if ( islower( *c ) ) {
         ++c;

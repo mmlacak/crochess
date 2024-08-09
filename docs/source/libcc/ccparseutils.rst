@@ -222,6 +222,15 @@ Parse utils functions
     :param pos_end__o: *Output*; pointer to the end of positional notation.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: char const * cc_skip_disambiguation( char const * pos_an_str )
+
+    Function returns pointer to end of disambiguation, i.e. pointer to first
+    :c:`char` which does not belong to the disambiguation.
+
+    :param pos_an_str: Notation, points at positional notation;
+        zero-terminated, :term:`AN` string.
+    :returns: Valid pointer if disambiguation has been skipped,
+        :c:data:`NULL` otherwise.
 
 
 
