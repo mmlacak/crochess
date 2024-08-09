@@ -463,12 +463,12 @@ bool cc_iter_step( char const * ply_an_str,
 }
 
 
-CcParsedSideEffectEnum cc_parse_side_effect_type( char const * an_str,
+CcParsedSideEffectEnum cc_parse_side_effect_type( char const * step_an_str,
                                                   bool * has_promotion_sign__o ) {
-    if ( !an_str ) return CC_PSEE_None;
+    if ( !step_an_str ) return CC_PSEE_None;
     if ( !has_promotion_sign__o ) return CC_PSEE_None;
 
-    char const * c = an_str;
+    char const * c = step_an_str;
 
     if ( *c == '*' ) {
         return CC_PSEE_Capture;

@@ -317,6 +317,14 @@ Parse utils functions
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: CcParsedSideEffectEnum cc_parse_side_effect_type( char const * step_an_str, bool * has_promotion_sign__o )
+
+    Function returns side-effect type found in a given step notation.
+
+    :param step_an_str: Step notation, points at side-effect;
+        zero-terminated, :term:`AN` string.
+    :param has_promotion_sign__o: *Output*; pointer to promotion sign flag storage.
+    :returns: Side-effect type, :c:enum:`CcParsedSideEffectEnum` value.
 
 
 
