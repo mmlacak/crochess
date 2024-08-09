@@ -260,6 +260,12 @@ Parse utils functions
     :param sle__o: *Output*; pointer to step link storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle )
+
+    Function returns length in :c:`char`\s of a step link as used in notation.
+
+    :param sle: Step link, i.e. :c:enum:`CcParsedStepLinkEnum` value.
+    :returns: Length if given step link was valid, ``0`` otherwise.
 
 
 
