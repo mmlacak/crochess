@@ -15,12 +15,15 @@ enumeration, and related functions.
 :c:term:`Tag` is a link between a piece and field at which it stands.
 Every piece can have only one tag applied at any given time.
 
+Each :term:`tag` can be also combined with a flag, indicating that a holding
+piece has started a move.
+
 Persistent :c:term:`tag`\s are valid until used or lost, e.g. until
 piece is moved, activated, converted, captured, displaced, teleported,
 demoted (if figure), promoted (if Pawn).
 
-Values enumerated in losing tag are the same as in ordinary :c:term:`tag`.
-So, conversion between :c:term:`tag`\s changes just type, not value.
+Values enumerated in losing tag are the same as in ordinary :c:term:`tag`,
+but they don't feature move-starter flag.
 
 .. _lbl-libcc-cctags-masks:
 
@@ -235,7 +238,8 @@ Tag types
 
 .. c:enum:: CcTagEnum
 
-    Enumerates all :term:`tag`\s, used in all variants.
+    Enumerates all :term:`tag`\s, used in all variants; also includes flag for
+    pieces that started a move.
 
     .. c:enumerator:: CC_TE_None
 
@@ -312,8 +316,8 @@ Losing tag types
 
     Enumerates only :term:`tag`\s that can be lost, used in all variants.
 
-    Values enumerated in losing tag are the same as in ordinary tag.
-    So, conversion between tags changes just type, not value.
+    Values enumerated in losing tag are the same as in ordinary tag,
+    but doesn't contain move-starter flag.
 
     When converting from ordinary tag enum, :c:enumerator:`CC_LTE_NoneLost`
     is used for all values not enumerated here.
