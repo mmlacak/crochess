@@ -328,10 +328,10 @@ char const * cc_skip_disambiguation( char const * pos_an_str ) {
     return NULL; // Do not return an_str!
 }
 
-bool cc_has_separated_steps( char const * ply_an_str,
-                             char const * ply_end,
-                             bool check_intermediate_steps,
-                             bool check_destination_step ) {
+bool cc_ply_has_separated_steps( char const * ply_an_str,
+                                 char const * ply_end,
+                                 bool check_intermediate_steps,
+                                 bool check_destination_step ) {
     if ( !ply_an_str ) return false;
     if ( !ply_end ) return false;
 
@@ -374,7 +374,7 @@ bool cc_parse_step_link( char const * step_an_str,
         *sle__o = CC_PSLE_Reposition;
         return true;
     } else if ( isgraph( *c ) ) {
-        if ( cc_has_separated_steps( step_an_str, ply_end, true, true ) ) {
+        if ( cc_ply_has_separated_steps( step_an_str, ply_end, true, true ) ) {
             *sle__o = CC_PSLE_Start;
             return true;
         } else if ( cc_skip_disambiguation( step_an_str ) ) {
@@ -462,24 +462,9 @@ bool cc_iter_step( char const * ply_an_str,
     return true;
 }
 
-bool cc_ply_an_contains_steps( char const * an_str,
-                               char const * ply_end ) {
-    char const * an = cc_next_step_link( an_str, ply_end );
-
-    // Usually, step links are expected somewhere in the middle of AN string ...
-    if ( ( an ) && ( an < ply_end ) ) return true;
-
-    CcParsedStepLinkEnum sle = CC_PSLE_None;
-    if ( !cc_parse_step_link( an_str, ply_end, &sle ) ) return false;
-
-    // ... but string might start with step link.
-    // If it's start of a ply AN, this is an error, but that needs handling somewhere else.
-    return ( ( sle != CC_PSLE_None ) && ( sle != CC_PSLE_Start ) );
-}
-
 
 CcParsedSideEffectEnum cc_parse_side_effect_type( char const * an_str,
-                                            bool * has_promotion_sign__o ) {
+                                                  bool * has_promotion_sign__o ) {
     if ( !an_str ) return CC_PSEE_None;
     if ( !has_promotion_sign__o ) return CC_PSEE_None;
 
@@ -528,7 +513,7 @@ CcParsedSideEffectEnum cc_parse_side_effect_type( char const * an_str,
 }
 
 size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
-                                bool has_promotion_sign ) {
+                                       bool has_promotion_sign ) {
     switch ( see ) {
         // case CC_PSEE_None :
         case CC_PSEE_Capture : return 1;

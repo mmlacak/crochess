@@ -62,10 +62,10 @@ bool cc_parse_pos( char const * pos_an_str,
 
 char const * cc_skip_disambiguation( char const * pos_an_str );
 
-bool cc_has_separated_steps( char const * ply_an_str,
-                             char const * ply_end,
-                             bool check_intermediate_steps,
-                             bool check_destination_step );
+bool cc_ply_has_separated_steps( char const * ply_an_str,
+                                 char const * ply_end,
+                                 bool check_intermediate_steps,
+                                 bool check_destination_step );
 
 bool cc_parse_step_link( char const * step_an_str,
                          char const * ply_end,
@@ -81,18 +81,14 @@ bool cc_iter_step( char const * ply_an_str,
                    char const ** start__io,
                    char const ** end__io );
 
-// TODO :: DOCS
-bool cc_ply_an_contains_steps( char const * an_str,
-                               char const * ply_end );
-
 
 // TODO :: DOCS
 CcParsedSideEffectEnum cc_parse_side_effect_type( char const * an_str,
-                                            bool * has_promotion_sign__o );
+                                                  bool * has_promotion_sign__o );
 
 // TODO :: DOCS
 size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
-                                bool has_promotion_sign );
+                                       bool has_promotion_sign );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

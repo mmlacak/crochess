@@ -232,7 +232,7 @@ Parse utils functions
     :returns: Valid pointer if disambiguation has been skipped,
         :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_has_separated_steps( char const * ply_an_str, char const * ply_end, bool check_intermediate_steps, bool check_destination_step )
+.. c:function:: bool cc_ply_has_separated_steps( char const * ply_an_str, char const * ply_end, bool check_intermediate_steps, bool check_destination_step )
 
     Function checks if ply contains step separators, either ``'.'``, or ``'-'``.
 
