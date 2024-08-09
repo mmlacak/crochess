@@ -62,8 +62,7 @@ bool cc_parse_pos( char const * pos_an_str,
 
 char const * cc_skip_disambiguation( char const * pos_an_str );
 
-// TODO :: DOCS
-bool cc_has_separated_steps( char const * an_str,
+bool cc_has_separated_steps( char const * ply_an_str,
                              char const * ply_end,
                              bool check_intermediate_steps,
                              bool check_destination_step );

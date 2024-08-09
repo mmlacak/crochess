@@ -232,6 +232,24 @@ Parse utils functions
     :returns: Valid pointer if disambiguation has been skipped,
         :c:data:`NULL` otherwise.
 
+.. c:function:: bool cc_has_separated_steps( char const * ply_an_str, char const * ply_end, bool check_intermediate_steps, bool check_destination_step )
+
+    Function checks if ply contains step separators, either ``'.'``, or ``'-'``.
+
+    At least one of flags :c:`check_intermediate_steps`,
+    :c:`check_destination_step` has to be :c:data:`true` before searching for
+    step separators.
+
+    :param ply_an_str: Ply notation, points at the very start;
+        zero-terminated, :term:`AN` string.
+    :param ply_end: Ply notation, points at the very end of the ply;
+        zero-terminated, :term:`AN` string.
+    :param check_intermediate_steps: Flag, to check if ply contains ``'.'``.
+    :param check_destination_step: Flag, to check if ply contains ``'-'``.
+    :returns: :c:data:`true` if ply contains step separators,
+        :c:data:`false` otherwise.
+
+
 
 
 .. _lbl-libcc-ccparseutils-sourcecodeheader:

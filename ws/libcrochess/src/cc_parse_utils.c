@@ -328,18 +328,18 @@ char const * cc_skip_disambiguation( char const * pos_an_str ) {
     return NULL; // Do not return an_str!
 }
 
-bool cc_has_separated_steps( char const * an_str,
+bool cc_has_separated_steps( char const * ply_an_str,
                              char const * ply_end,
                              bool check_intermediate_steps,
                              bool check_destination_step ) {
-    if ( !an_str ) return false;
+    if ( !ply_an_str ) return false;
     if ( !ply_end ) return false;
 
-    // if ( cc_skip_disambiguation( an_str ) ) return true;
+    // if ( cc_skip_disambiguation( ply_an_str ) ) return true;
 
     if ( !check_intermediate_steps && !check_destination_step ) return false;
 
-    char const * c = an_str;
+    char const * c = ply_an_str;
 
     while ( *c != '\0' && c < ply_end ) {
         if ( check_intermediate_steps && *c == '.' ) return true;
