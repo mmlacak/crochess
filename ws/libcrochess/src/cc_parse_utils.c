@@ -235,17 +235,17 @@ bool cc_convert_pos( char const * pos_an_str, CcPos * pos__o ) {
     return cc_convert_coords( pos_an_str, &pos__o->i, &pos__o->j );
 }
 
-bool cc_parse_pos( char const * an_str,
+bool cc_parse_pos( char const * pos_an_str,
                    CcPos * pos__o,
                    char const ** pos_end__o ) {
-    if ( !an_str ) return false;
+    if ( !pos_an_str ) return false;
     if ( !pos__o ) return false;
     if ( !pos_end__o ) return false;
     if ( *pos_end__o ) return false;
 
-    char const * start = an_str; // Position, or disambiguation start.
+    char const * start = pos_an_str; // Position, or disambiguation start.
     char const * end = NULL; // Position, or disambiguation end.
-    char const * c = an_str;
+    char const * c = pos_an_str;
 
     if ( islower( *c ) ) {
         if ( isdigit( *++c ) ) { // {1}

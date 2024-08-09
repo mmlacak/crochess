@@ -56,8 +56,7 @@ bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o );
 
 bool cc_convert_pos( char const * pos, CcPos * pos__o );
 
-// TODO :: DOCS
-bool cc_parse_pos( char const * an_str,
+bool cc_parse_pos( char const * pos_an_str,
                    CcPos * pos__o,
                    char const ** pos_end__o );
 

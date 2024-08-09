@@ -203,6 +203,26 @@ Parse utils functions
     :param pos__o: *Output*; pointer to coordinates storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_parse_pos( char const * an_str, CcPos * pos__o, char const ** pos_end__o )
+
+    Function returns coordinates parsed from a positional notation, and pointer
+    to end of positional notation, via *output* parameters.
+
+    End of positional notation is the first :c:`char` after the positional
+    notation, i.e. the one that does not belong to the positional notation.
+
+    .. note::
+
+        Inner pointer :c:`*pos_end__o` **must** be reset to :c:data:`NULL`
+        before parsing coordinates.
+
+    :param pos_an_str: Notation, points at positional notation;
+        zero-terminated, :term:`AN` string.
+    :param pos__o: *Output*; pointer to coordinates storage.
+    :param pos_end__o: *Output*; pointer to the end of positional notation.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
 
 
 .. _lbl-libcc-ccparseutils-sourcecodeheader:
