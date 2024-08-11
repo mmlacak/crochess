@@ -14,8 +14,8 @@ which contain various parsed side-effect definitions and functions.
 
 .. _lbl-libcc-ccparsedsideeffect-data:
 
-Parsed side-effect data
------------------------
+Data
+----
 
 .. c:enum:: CcParsedSideEffectEnum
 
@@ -250,8 +250,8 @@ Parsed side-effect data
 
 .. _lbl-libcc-ccparsedsideeffect-functions:
 
-Parsed side-effect functions
-----------------------------
+Functions
+---------
 
 .. c:function:: char const * cc_parsed_side_effect_symbol( CcParsedSideEffectEnum see )
 
@@ -299,8 +299,8 @@ Parsed side-effect functions
 
 .. _lbl-libcc-ccparsedsideeffect-structfunctions:
 
-Parsed side-effect :c:`struct` functions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+:c:`struct` functions
+^^^^^^^^^^^^^^^^^^^^^
 
     The side-effect convenience functions are meant to be used instead
     of :c:func:`cc_parsed_side_effect()`.
@@ -338,10 +338,10 @@ Parsed side-effect :c:`struct` functions
 
 .. _lbl-libcc-ccparsedsideeffect-sourcecodeheader:
 
-Parsed side-effect source code header
--------------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parsed_side_effect.h``.
+Included source header file is ``cc_parsed_side_effect.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_side_effect.h
     :language: C
@@ -349,8 +349,8 @@ Included source code file is ``cc_parsed_side_effect.h``.
 
 .. _lbl-libcc-ccparsedsideeffect-sourcecodefile:
 
-Parsed side-effect source code file
------------------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parsed_side_effect.c``.
 

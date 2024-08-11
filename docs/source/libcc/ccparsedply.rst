@@ -14,8 +14,8 @@ parsed ply definitions and functions.
 
 .. _lbl-libcc-ccparsedply-data:
 
-Parsed ply data
----------------
+Data
+----
 
 .. c:enum:: CcParsedPlyLinkEnum
 
@@ -142,8 +142,8 @@ Parsed ply data
 
 .. _lbl-libcc-ccparsedply-functions:
 
-Parsed ply functions
---------------------
+Functions
+---------
 
 .. c:function:: char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple )
 
@@ -275,10 +275,10 @@ Parsed ply functions
 
 .. _lbl-libcc-ccparsedply-sourcecodeheader:
 
-Parsed ply source code header
------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parsed_ply.h``.
+Included source header file is ``cc_parsed_ply.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_ply.h
     :language: C
@@ -286,8 +286,8 @@ Included source code file is ``cc_parsed_ply.h``.
 
 .. _lbl-libcc-ccparsedply-sourcecodefile:
 
-Parsed ply source code file
----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parsed_ply.c``.
 

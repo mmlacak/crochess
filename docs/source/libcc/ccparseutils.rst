@@ -6,16 +6,16 @@
 
 .. _lbl-libcc-ccparseutils:
 
-Parse utils
-===========
+Parse utilities
+===============
 
 Documents ``cc_parse_utils.h`` and ``cc_parse_utils.c`` files, which contain
 various definitions and functions.
 
 .. _lbl-libcc-ccparseutils-data:
 
-Parse utils data
-----------------
+Data
+----
 
 Constants, and macros to check ply gather :c:`char`\s, step separator, or
 piece symbols.
@@ -80,8 +80,8 @@ Piece symbol is uppercase :c:`char`, as used in :term:`AN`.
 
 .. _lbl-libcc-ccparseutils-functions:
 
-Parse utils functions
----------------------
+Functions
+---------
 
 .. c:function:: bool cc_parse_ply_link( char const * an_str, CcParsedPlyLinkEnum * ple__o )
 
@@ -336,10 +336,10 @@ Parse utils functions
 
 .. _lbl-libcc-ccparseutils-sourcecodeheader:
 
-Parse utils source code header
-------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parse_utils.h``.
+Included source header file is ``cc_parse_utils.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parse_utils.h
     :language: C
@@ -347,8 +347,8 @@ Included source code file is ``cc_parse_utils.h``.
 
 .. _lbl-libcc-ccparseutils-sourcecodefile:
 
-Parse utils source code file
-----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parse_utils.c``.
 

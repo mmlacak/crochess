@@ -14,8 +14,8 @@ chessboard definitions and functions.
 
 .. _lbl-libcc-ccchessboard-data:
 
-Chessboard data
----------------
+Data
+----
 
 .. c:type:: char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[]
 
@@ -23,8 +23,8 @@ Chessboard data
 
 .. _lbl-libcc-ccchessboard-types:
 
-Chessboard types
-----------------
+Types
+-----
 
 .. c:struct:: CcChessboard
 
@@ -50,8 +50,8 @@ Chessboard types
 
 .. _lbl-libcc-ccchessboard-functions:
 
-Chessboard functions
---------------------
+Functions
+---------
 
 .. c:function:: CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
 
@@ -329,10 +329,10 @@ Chessboard functions
 
 .. _lbl-libcc-ccchessboard-sourcecodeheader:
 
-Chessboard source code header
------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_chessboard.h``.
+Included source header file is ``cc_chessboard.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_chessboard.h
     :language: C
@@ -340,8 +340,8 @@ Included source code file is ``cc_chessboard.h``.
 
 .. _lbl-libcc-ccchessboard-sourcecodefile:
 
-Chessboard source code file
----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_chessboard.c``.
 

@@ -14,8 +14,8 @@ miscellaneous setup definitions and functions.
 
 .. _lbl-libcc-ccsetupmisc-data:
 
-Setup misc data
----------------
+Data
+----
 
 .. c:macro:: CC_KING_MIN_CASTLING_DISTANCE
 
@@ -25,8 +25,8 @@ Setup misc data
 
 .. _lbl-libcc-ccsetupmisc-functions:
 
-Setup misc functions
---------------------
+Functions
+---------
 
 .. c:function:: int cc_get_figure_initial_file( CcVariantEnum ve, CcPieceType pe, bool search_queen_side_first )
 
@@ -80,10 +80,10 @@ Setup misc functions
 
 .. _lbl-libcc-ccsetupmisc-sourcecodeheader:
 
-Setup misc source code header
------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_setup_misc.h``.
+Included source header file is ``cc_setup_misc.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_setup_misc.h
     :language: C
@@ -91,8 +91,8 @@ Included source code file is ``cc_setup_misc.h``.
 
 .. _lbl-libcc-ccsetupmisc-sourcecodefile:
 
-Setup misc source code file
----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_setup_misc.c``.
 

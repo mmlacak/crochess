@@ -29,8 +29,8 @@ piece symbol for both is the same, ``N``.
 
 .. _lbl-libcc-ccpiece-validity:
 
-Piece validity
---------------
+Validity
+--------
 
 .. c:macro:: CC_PIECE_IS_ENUMERATOR(pe)
 
@@ -66,8 +66,8 @@ Piece validity
 
 .. _lbl-libcc-ccpiece-values:
 
-Piece values
-------------
+Values
+------
 
 .. c:macro:: CC_PIECE_IS_PAWN(pe)
 
@@ -197,8 +197,8 @@ Piece values
 
 .. _lbl-libcc-ccpiece-features:
 
-Piece features
---------------
+Features
+--------
 
 .. c:macro:: CC_PIECE_HAS_OWNER(pe)
 
@@ -417,8 +417,8 @@ Piece features
 
 .. _lbl-libcc-ccpiece-types:
 
-Piece types
------------
+Types
+-----
 
 Light pieces belong to light player, dark pieces to dark player.
 
@@ -487,8 +487,8 @@ Monoliths) do not belong to any player.
 
 .. _lbl-libcc-ccpiece-interfaces:
 
-Piece interfaces
-----------------
+Interfaces
+----------
 
 .. c:type:: char (*cc_piece_fp_char_value_t)( CcPieceType pe )
 
@@ -499,8 +499,8 @@ Piece interfaces
 
 .. _lbl-libcc-ccpiece-functions:
 
-Piece functions
----------------
+Functions
+---------
 
 .. c:function:: CcPieceType cc_piece_from_symbol( char symbol, bool is_light )
 
@@ -775,10 +775,10 @@ Piece functions
 
 .. _lbl-libcc-ccpiece-sourcecodeheader:
 
-Piece source code header
-------------------------
+Header file
+-----------
 
-Included source code file is ``cc_piece.h``.
+Included source header file is ``cc_piece.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_piece.h
     :language: C
@@ -786,8 +786,8 @@ Included source code file is ``cc_piece.h``.
 
 .. _lbl-libcc-ccpiece-sourcecodefile:
 
-Piece source code file
-----------------------
+Source code file
+----------------
 
 Included source code file is ``cc_piece.c``.
 

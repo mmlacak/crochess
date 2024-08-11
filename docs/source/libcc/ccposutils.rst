@@ -14,8 +14,8 @@ position utilities.
 
 .. _lbl-libcc-ccposutils-functions:
 
-Position utility functions
---------------------------
+Functions
+---------
 
 .. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum )
 
@@ -36,10 +36,10 @@ Position utility functions
 
 .. _lbl-libcc-ccposutils-sourcecodeheader:
 
-Position utilities source code header
--------------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_pos_utils.h``.
+Included source header file is ``cc_pos_utils.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_pos_utils.h
     :language: C
@@ -47,8 +47,8 @@ Included source code file is ``cc_pos_utils.h``.
 
 .. _lbl-libcc-ccposutils-sourcecodefile:
 
-Position utilities source code file
------------------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_pos_utils.c``.
 

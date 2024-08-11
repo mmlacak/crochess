@@ -38,8 +38,8 @@ e.g. :c:macro:`CC_MAX_LEN_CHAR_8`.
 
 .. _lbl-libcc-ccstrutils-sizeslengths:
 
-String sizes, lengths
----------------------
+Sizes, lengths
+--------------
 
 .. c:macro:: CC_MAX_LEN_ZERO_TERMINATED
 
@@ -110,8 +110,8 @@ String sizes, lengths
 
 .. _lbl-libcc-ccstrutils-interfaces:
 
-String utility interfaces
--------------------------
+Interfaces
+----------
 
 .. c:type:: int (*cc_ctype_fp_ischar_t)( int ch )
 
@@ -124,8 +124,8 @@ String utility interfaces
 
 .. _lbl-libcc-ccstrutils-typesarrays:
 
-String utility types, arrays
-----------------------------
+Types, arrays
+-------------
 
 All arrays defined here have all their :c:`char`\s initialized to ``'\0'``.
 
@@ -187,8 +187,8 @@ All arrays defined here have all their :c:`char`\s initialized to ``'\0'``.
 
 .. _lbl-libcc-ccstrutils-functions:
 
-String utility functions
-------------------------
+Functions
+---------
 
 .. c:function:: bool cc_str_clear( char * str__io, size_t max_len__d )
 
@@ -513,8 +513,8 @@ String utility functions
 
 .. _lbl-libcc-ccstrutils-debug:
 
-String utility debug
---------------------
+Debug
+-----
 
 .. c:function:: bool cc_str_print( char const * start, char const * end__d, size_t max_len__d, char const * fmt_str, size_t fmt_len__d, char const * fmt__d, ... )
 
@@ -576,10 +576,10 @@ String utility debug
 
 .. _lbl-libcc-ccstrutils-sourcecodeheader:
 
-String utilities source code header
------------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_str_utils.h``.
+Included source header file is ``cc_str_utils.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_str_utils.h
     :language: C
@@ -587,8 +587,8 @@ Included source code file is ``cc_str_utils.h``.
 
 .. _lbl-libcc-ccstrutils-sourcecodefile:
 
-String utilities source code file
----------------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_str_utils.c``.
 

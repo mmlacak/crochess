@@ -23,10 +23,10 @@ library version constant.
 
 .. _lbl-libcc-ccversion-sourcecodeheader:
 
-Version source code header
---------------------------
+Header file
+-----------
 
-Included source code file is ``cc_version.h``.
+Included source header file is ``cc_version.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_version.h
     :language: C
@@ -34,8 +34,8 @@ Included source code file is ``cc_version.h``.
 
 .. _lbl-libcc-ccversion-sourcecodefile:
 
-Version source code file
-------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_version.c``.
 

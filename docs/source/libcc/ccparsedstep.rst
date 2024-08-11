@@ -14,8 +14,8 @@ parsed step definitions and functions.
 
 .. _lbl-libcc-ccparsedstep-data:
 
-Parsed step data
-----------------
+Data
+----
 
 .. c:macro:: CC_PARSED_STEP_LINK_IS_ENUMERATOR(sle)
 
@@ -101,8 +101,8 @@ Parsed step data
 
 .. _lbl-libcc-ccparsedstep-functions:
 
-Parsed step functions
----------------------
+Functions
+---------
 
 .. c:function:: char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle )
 
@@ -212,8 +212,8 @@ Parsed step functions
 
 .. _lbl-libcc-ccparsedstep-newfunctions:
 
-Parsed step new functions
-^^^^^^^^^^^^^^^^^^^^^^^^^
+New step functions
+^^^^^^^^^^^^^^^^^^
 
     The new step convenience functions are meant to be used instead of
     :c:func:`cc_parsed_step__new()`.
@@ -248,8 +248,8 @@ Parsed step new functions
 
 .. _lbl-libcc-ccparsedstep-appendfunctions:
 
-Parsed step append functions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Append step functions
+^^^^^^^^^^^^^^^^^^^^^
 
     The append new step convenience functions are meant to be used instead of
     :c:func:`cc_parsed_step_append()`.
@@ -284,10 +284,10 @@ Parsed step append functions
 
 .. _lbl-libcc-ccparsedstep-sourcecodeheader:
 
-Parsed step source code header
-------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parsed_step.h``.
+Included source header file is ``cc_parsed_step.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_step.h
     :language: C
@@ -295,8 +295,8 @@ Included source code file is ``cc_parsed_step.h``.
 
 .. _lbl-libcc-ccparsedstep-sourcecodefile:
 
-Parsed step source code file
-----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parsed_step.c``.
 

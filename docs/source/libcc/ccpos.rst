@@ -14,8 +14,8 @@ position definitions, linked lists and functions.
 
 .. _lbl-libcc-ccpos-data:
 
-Position data
--------------
+Data
+----
 
 .. c:macro:: CC_POS_INVALID
 
@@ -125,8 +125,8 @@ Position data
 
 .. _lbl-libcc-ccpos-functions:
 
-Position functions
-------------------
+Functions
+---------
 
 .. c:function:: CcPos cc_pos( int i, int j )
 
@@ -782,10 +782,10 @@ Linked paths
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
 
-Position source code header
----------------------------
+Header file
+-----------
 
-Included source code file is ``cc_pos.h``.
+Included source header file is ``cc_pos.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_pos.h
     :language: C
@@ -793,8 +793,8 @@ Included source code file is ``cc_pos.h``.
 
 .. _lbl-libcc-ccpos-sourcecodefile:
 
-Position source code file
--------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_pos.c``.
 

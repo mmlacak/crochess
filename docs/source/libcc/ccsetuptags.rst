@@ -14,8 +14,8 @@ tags setup definitions and functions.
 
 .. _lbl-libcc-ccsetuptags-data:
 
-Setup tags data
----------------
+Data
+----
 
 .. c:type:: CcTagType const CC_SETUP_TAGS_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ]
 
@@ -63,8 +63,8 @@ Setup tags data
 
 .. _lbl-libcc-ccsetuptags-functions:
 
-Setup tags functions
---------------------
+Functions
+---------
 
 .. c:function:: CcTagType const * cc_setup_tags_get( CcVariantEnum ve )
 
@@ -75,10 +75,10 @@ Setup tags functions
 
 .. _lbl-libcc-ccsetuptags-sourcecodeheader:
 
-Setup tags source code header
------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_setup_tags.h``.
+Included source header file is ``cc_setup_tags.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_setup_tags.h
     :language: C
@@ -86,8 +86,8 @@ Included source code file is ``cc_setup_tags.h``.
 
 .. _lbl-libcc-ccsetuptags-sourcecodefile:
 
-Setup tags source code file
----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_setup_tags.c``.
 

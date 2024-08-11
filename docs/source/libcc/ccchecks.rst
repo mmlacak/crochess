@@ -14,8 +14,8 @@ checks.
 
 .. _lbl-libcc-ccchecks-data:
 
-Check data
-----------
+Data
+----
 
 .. c:macro:: CC_CHECK_STEPS_NO_LIMIT
 
@@ -26,8 +26,8 @@ Check data
 
 .. _lbl-libcc-ccchecks-functions:
 
-Check functions
----------------
+Functions
+---------
 
 .. c:function:: bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, cc_uint_t limit__d, bool check_pos )
 
@@ -106,10 +106,10 @@ Check functions
 
 .. _lbl-libcc-ccchecks-sourcecodeheader:
 
-Checks source code header
--------------------------
+Header file
+-----------
 
-Included source code file is ``cc_checks.h``.
+Included source header file is ``cc_checks.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_checks.h
     :language: C
@@ -117,8 +117,8 @@ Included source code file is ``cc_checks.h``.
 
 .. _lbl-libcc-ccchecks-sourcecodefile:
 
-Checks source code file
------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_checks.c``.
 

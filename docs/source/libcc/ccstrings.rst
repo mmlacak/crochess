@@ -14,8 +14,8 @@ strings linked list definitions and functions.
 
 .. _lbl-libcc-ccstrings-types:
 
-String types
-------------
+Types
+-----
 
 .. c:struct:: CcStrings
 
@@ -33,8 +33,8 @@ String types
 
 .. _lbl-libcc-ccstrings-functions:
 
-String functions
-----------------
+Functions
+---------
 
 .. c:function:: CcStrings * cc_strings__new( char const * str, size_t max_len__d )
 
@@ -101,10 +101,10 @@ String functions
 
 .. _lbl-libcc-ccstrings-sourcecodeheader:
 
-Strings source code header
---------------------------
+Header file
+-----------
 
-Included source code file is ``cc_strings.h``.
+Included source header file is ``cc_strings.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_strings.h
     :language: C
@@ -112,8 +112,8 @@ Included source code file is ``cc_strings.h``.
 
 .. _lbl-libcc-ccstrings-sourcecodefile:
 
-Strings source code file
-------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_strings.c``.
 

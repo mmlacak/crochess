@@ -14,8 +14,8 @@ various math functions.
 
 .. _lbl-libcc-ccmath-functions:
 
-Math functions
---------------
+Functions
+---------
 
 .. c:function:: int cc_gcd( int x, int y )
 
@@ -43,10 +43,10 @@ Math functions
 
 .. _lbl-libcc-ccmath-sourcecodeheader:
 
-Math source code header
------------------------
+Header file
+-----------
 
-Included source code file is ``cc_math.h``.
+Included source header file is ``cc_math.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_math.h
     :language: C
@@ -54,8 +54,8 @@ Included source code file is ``cc_math.h``.
 
 .. _lbl-libcc-ccmath-sourcecodefile:
 
-Math source code file
----------------------
+Source code file
+----------------
 
 Included source code file is ``cc_math.c``.
 

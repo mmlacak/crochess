@@ -16,8 +16,8 @@ Tokenizer is used by console applications, not in library.
 
 .. _lbl-libcc-cctoken-constants:
 
-Token constants
----------------
+Constants
+---------
 
 .. c:type:: char const CC_TOKEN_SEPARATORS_WHITESPACE[]
 
@@ -29,8 +29,8 @@ Token constants
 
 .. _lbl-libcc-cctoken-functions:
 
-Token functions
----------------
+Functions
+---------
 
 .. c:function:: bool cc_char_in( char c, char const * seps )
 
@@ -105,10 +105,10 @@ Token functions
 
 .. _lbl-libcc-cctoken-sourcecodeheader:
 
-Token source code header
-------------------------
+Header file
+-----------
 
-Included source code file is ``cc_token.h``.
+Included source header file is ``cc_token.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_token.h
     :language: C
@@ -116,8 +116,8 @@ Included source code file is ``cc_token.h``.
 
 .. _lbl-libcc-cctoken-sourcecodefile:
 
-Token source code file
-----------------------
+Source code file
+----------------
 
 Included source code file is ``cc_token.c``.
 

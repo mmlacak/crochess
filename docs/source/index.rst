@@ -29,7 +29,6 @@ Contents
     :name: croatian-chess-toctree
 
     libcc/libcrochess
-    test
 
 
 .. _lbl-index-documentation-indices:

@@ -27,8 +27,8 @@ but they don't feature move-starter flag.
 
 .. _lbl-libcc-cctags-masks:
 
-Tag masks
----------
+Masks
+-----
 
 .. c:macro:: CC_TAG_VALUE_MASK
 
@@ -65,8 +65,8 @@ Tag masks
 
 .. _lbl-libcc-cctags-validity:
 
-Tag validity
-------------
+Validity
+--------
 
 .. c:macro:: CC_TAG_IS_ENUMERATOR(te)
 
@@ -117,8 +117,8 @@ Tag validity
 
 .. _lbl-libcc-cctags-values:
 
-Tag values
-----------
+Values
+------
 
 .. c:macro:: CC_TAG_CAN_RUSH(te)
 
@@ -173,8 +173,8 @@ Tag values
 
 .. _lbl-libcc-cctags-characters:
 
-Tag characters
---------------
+Characters
+----------
 
 All :c:`CC_TAG_CHAR_*` macro constants are used to render tag board on a
 console.
@@ -233,8 +233,8 @@ used for tags linked to pieces which started a move, see
 
 .. _lbl-libcc-cctags-types:
 
-Tag types
----------
+Types
+-----
 
 .. c:enum:: CcTagEnum
 
@@ -289,8 +289,8 @@ Tag types
 
 .. _lbl-libcc-cctags-functions:
 
-Tag functions
--------------
+Functions
+---------
 
 .. c:function:: char cc_tag_as_char( CcTagType ct )
 
@@ -307,7 +307,7 @@ Tag functions
     :returns: :c:type:`CcTagType` value if valid :term:`tag` character was given,
               :c:enumerator:`CC_TE_None` otherwise.
 
-.. _lbl-libcc-cctags-losing-tag-types:
+.. _lbl-libcc-cctags-losingtagtypes:
 
 Losing tag types
 ----------------
@@ -344,7 +344,7 @@ Losing tag types
 
     Maximum length of a losing-tag symbol, equals to ``2``.
 
-.. _lbl-libcc-cctags-losing-tag-functions:
+.. _lbl-libcc-cctags-losingtagfunctions:
 
 Losing tag functions
 --------------------
@@ -389,10 +389,10 @@ Losing tag functions
 
 .. _lbl-libcc-cctags-sourcecodeheader:
 
-Tags source code header
------------------------
+Header file
+-----------
 
-Included source code file is ``cc_tag.h``.
+Included source header file is ``cc_tag.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_tag.h
     :language: C
@@ -400,8 +400,8 @@ Included source code file is ``cc_tag.h``.
 
 .. _lbl-libcc-cctags-sourcecodefile:
 
-Tags source code file
----------------------
+Source code file
+----------------
 
 Included source code file is ``cc_tag.c``.
 

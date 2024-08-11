@@ -14,8 +14,8 @@ board setup definitions and functions.
 
 .. _lbl-libcc-ccsetupboard-data:
 
-Setup board data
-----------------
+Data
+----
 
 .. c:type:: CcPieceType const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ]
 
@@ -63,8 +63,8 @@ Setup board data
 
 .. _lbl-libcc-ccsetupboard-functions:
 
-Setup board functions
----------------------
+Functions
+---------
 
 .. c:function:: CcPieceType const * cc_setup_board_get( CcVariantEnum ve )
 
@@ -85,10 +85,10 @@ Setup board functions
 
 .. _lbl-libcc-ccsetupboard-sourcecodeheader:
 
-Setup board source code header
-------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_setup_board.h``.
+Included source header file is ``cc_setup_board.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_setup_board.h
     :language: C
@@ -96,8 +96,8 @@ Included source code file is ``cc_setup_board.h``.
 
 .. _lbl-libcc-ccsetupboard-sourcecodefile:
 
-Setup board source code file
-----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_setup_board.c``.
 

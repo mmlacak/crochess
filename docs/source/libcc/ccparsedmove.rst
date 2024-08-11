@@ -14,8 +14,8 @@ parsed move definitions and functions.
 
 .. _lbl-libcc-ccparsedmove-data:
 
-Parsed move data
-----------------
+Data
+----
 
 .. c:enum:: CcParsedMoveStatusEnum
 
@@ -98,8 +98,8 @@ Parsed move data
 
 .. _lbl-libcc-ccparsedmove-functions:
 
-Parsed move functions
----------------------
+Functions
+---------
 
 .. c:function:: CcParsedMove * cc_parsed_move__new( char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcParsedMoveStatusEnum status )
 
@@ -159,10 +159,10 @@ Parsed move functions
 
 .. _lbl-libcc-ccparsedmove-sourcecodeheader:
 
-Parsed move source code header
-------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parsed_move.h``.
+Included source header file is ``cc_parsed_move.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_move.h
     :language: C
@@ -170,8 +170,8 @@ Included source code file is ``cc_parsed_move.h``.
 
 .. _lbl-libcc-ccparsedmove-sourcecodefile:
 
-Parsed move source code file
-----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parsed_move.c``.
 

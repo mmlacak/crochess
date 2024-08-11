@@ -109,8 +109,6 @@ Library contents
     cctoken
     ccversion
 
-    test2
-
 .. _lbl-libcc-libcrochess-library-footnotes:
 
 .. rubric:: Footnotes

@@ -14,8 +14,8 @@ game definitions, linked lists and functions.
 
 .. _lbl-libcc-ccgame-data:
 
-Game data
----------
+Data
+----
 
 .. c:type:: char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[]
 
@@ -23,8 +23,8 @@ Game data
 
 .. _lbl-libcc-ccgame-status:
 
-Game status
------------
+Status
+------
 
 .. c:macro:: CC_GAME_STATUS_IS_LIGHT_TURN(gse)
 
@@ -98,8 +98,8 @@ Game status
 
 .. _lbl-libcc-ccgame-types:
 
-Game types
-----------
+Types
+-----
 
 .. c:struct:: CcGame
 
@@ -121,8 +121,8 @@ Game types
 
 .. _lbl-libcc-ccgame-functions:
 
-Game functions
---------------
+Functions
+---------
 
 .. c:function:: CcGame * cc_game__new( CcGameStatusEnum status, CcVariantEnum ve, bool do_setup )
 
@@ -198,10 +198,10 @@ Game functions
 
 .. _lbl-libcc-ccgame-sourcecodeheader:
 
-Game source code header
------------------------
+Header file
+-----------
 
-Included source code file is ``cc_game.h``.
+Included source header file is ``cc_game.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_game.h
     :language: C
@@ -209,8 +209,8 @@ Included source code file is ``cc_game.h``.
 
 .. _lbl-libcc-ccgame-sourcecodefile:
 
-Game source code file
----------------------
+Source code file
+----------------
 
 Included source code file is ``cc_game.c``.
 

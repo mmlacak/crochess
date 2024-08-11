@@ -14,8 +14,8 @@ which contain various parse message definitions and functions.
 
 .. _lbl-libcc-ccparsemsg-types:
 
-Parse message types
--------------------
+Types
+-----
 
 .. c:enum:: CcParseMsgTypeEnum
 
@@ -53,8 +53,8 @@ Parse message types
 
 .. _lbl-libcc-ccparsemsg-functions:
 
-Parse message functions
------------------------
+Functions
+---------
 
 .. c:function:: CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type, char const * msg, size_t max_len__d )
 
@@ -130,10 +130,10 @@ Parse message functions
 
 .. _lbl-libcc-ccparsemsg-sourcecodeheader:
 
-Parse message source code header
---------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parse_msg.h``.
+Included source header file is ``cc_parse_msg.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parse_msg.h
     :language: C
@@ -141,8 +141,8 @@ Included source code file is ``cc_parse_msg.h``.
 
 .. _lbl-libcc-ccparsemsg-sourcecodefile:
 
-Parse message source code file
-------------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parse_msg.c``.
 

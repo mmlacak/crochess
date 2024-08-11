@@ -13,8 +13,8 @@ Documents ``cc_defines.h`` file, which contains constants and macros used throug
 
 .. _lbl-libcc-ccdefines-types:
 
-Common types
-------------
+Types
+-----
 
 Convenience shorthands for signed integer types.
 
@@ -46,8 +46,8 @@ Convenience shorthands for unsigned integer types.
 
 .. _lbl-libcc-ccdefines-macros:
 
-Common macros
--------------
+Macros
+------
 
 .. c:macro:: CC_MIN(x,y)
 
@@ -558,10 +558,10 @@ Navigation
 
 .. _lbl-libcc-ccdefines-sourcecodeheader:
 
-Defines source code header
---------------------------
+Header file
+-----------
 
-Included source code file is ``cc_defines.h``.
+Included source header file is ``cc_defines.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_defines.h
     :language: C

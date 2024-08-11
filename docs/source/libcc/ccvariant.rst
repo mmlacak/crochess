@@ -14,8 +14,8 @@ variants definitions and functions.
 
 .. _lbl-libcc-ccvariant-boardsizes:
 
-Variant board sizes
--------------------
+Board sizes
+-----------
 
 The board sizes defined for each variant.
 
@@ -65,8 +65,8 @@ The board sizes defined for each variant.
 
 .. _lbl-libcc-ccvariant-rushlimits:
 
-Variant :term:`rush` limits
----------------------------
+:term:`Rush` limits
+-------------------
 
 :term:`Rush` limits defined for each variant, and both players.
 
@@ -197,8 +197,8 @@ position of the middle line.
 
 .. _lbl-libcc-ccvariant-types:
 
-Variant types
--------------
+Types
+-----
 
 .. c:enum:: CcVariantEnum
 
@@ -230,8 +230,8 @@ Variant types
 
 .. _lbl-libcc-ccvariant-symbols:
 
-Variant symbols
----------------
+Symbols
+-------
 
 Abbreviated variant names, used to e.g. select variant to play.
 
@@ -294,8 +294,8 @@ Abbreviated variant names, used to e.g. select variant to play.
 
 .. _lbl-libcc-ccvariant-functions:
 
-Variant functions
------------------
+Functions
+---------
 
 .. c:function:: size_t cc_variant_from_symbol( char const * str, CcVariantEnum * ve__o )
 
@@ -363,10 +363,10 @@ Variant functions
 
 .. _lbl-libcc-ccvariant-sourcecodeheader:
 
-Variants source code header
----------------------------
+Header file
+-----------
 
-Included source code file is ``cc_variant.h``.
+Included source header file is ``cc_variant.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_variant.h
     :language: C
@@ -374,8 +374,8 @@ Included source code file is ``cc_variant.h``.
 
 .. _lbl-libcc-ccvariant-sourcecodefile:
 
-Variants source code file
--------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_variant.c``.
 

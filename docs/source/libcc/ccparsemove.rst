@@ -14,8 +14,8 @@ which contain various parse move definitions and functions.
 
 .. _lbl-libcc-ccparsemove-functions:
 
-Parse move functions
---------------------
+Functions
+---------
 
 .. c:function:: bool cc_parse_move( char const * move_an, CcGame * game, CcParsedMove ** move__o, CcParseMsg ** parse_msgs__iod )
 
@@ -33,10 +33,10 @@ Parse move functions
 
 .. _lbl-libcc-ccparsemove-sourcecodeheader:
 
-Parse move source code header
------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_parse_move.h``.
+Included source header file is ``cc_parse_move.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_parse_move.h
     :language: C
@@ -44,8 +44,8 @@ Included source code file is ``cc_parse_move.h``.
 
 .. _lbl-libcc-ccparsemove-sourcecodefile:
 
-Parse move source code file
----------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_parse_move.c``.
 

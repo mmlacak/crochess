@@ -12,20 +12,20 @@ Position defines
 Documents ``cc_pos_defs.h`` and ``cc_pos_defs.c`` files, which contain various
 piece steps definitions and functions.
 
-.. _lbl-libcc-ccposdefs-piecestepsdata:
+.. _lbl-libcc-ccposdefs-data:
 
-Piece steps data
-----------------
+Data
+----
 
 .. c:macro:: CC_STEPS_LEN_INVALID_DATA_TERMINATED
 
     Value to ignore array size constraint on various functions,
     and use invalid step as a guard to indicate end of an array.
 
-.. _lbl-libcc-ccposdefs-piecesteplengths:
+.. _lbl-libcc-ccposdefs-lengths:
 
-Piece step lengths
-------------------
+Lengths
+-------
 
     Length of an array is count of useful elements in it, without
     terminating data.
@@ -130,7 +130,7 @@ Piece step lengths
 
     Equals to :c:macro:`CC_STEPS_KNIGHT_LEN`.
 
-.. _lbl-libcc-ccposdefs-piecestepsizes:
+.. _lbl-libcc-ccposdefs-sizes:
 
 Piece step sizes
 ----------------
@@ -232,10 +232,10 @@ Piece step sizes
 
     Equals to :c:macro:`CC_STEPS_STARTING_MONOLITH_LEN` + 1.
 
-.. _lbl-libcc-ccposdefs-piecesteparrays:
+.. _lbl-libcc-ccposdefs-arrays:
 
-Piece step arrays
------------------
+Arrays
+------
 
 All arrays, beside their length and size, have a terminating position,
 similar to zero-terminating strings; terminating position is
@@ -362,10 +362,10 @@ similar to zero-terminating strings; terminating position is
     Steps array for Monolith, for all variants; equals to
     :c:macro:`CC_STEPS_KNIGHT`.
 
-.. _lbl-libcc-ccposdefs-piecestepvalidity:
+.. _lbl-libcc-ccposdefs-validity:
 
-Piece step validity
--------------------
+Validity
+--------
 
 .. c:function:: bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d )
 
@@ -381,10 +381,10 @@ Piece step validity
     :param steps_len__d: *Optional* parameter, array length.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccposdefs-piecestepvaliditymacros:
+.. _lbl-libcc-ccposdefs-validitymacros:
 
-Piece step validity macros
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Validity macros
+^^^^^^^^^^^^^^^
 
     The step validity macro conveniences are meant to be used instead
     of :c:func:`cc_is_step_valid()`.
@@ -588,10 +588,10 @@ Piece step validity macros
     :param step: A step to check.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccposdefs-piecestepfunctions:
+.. _lbl-libcc-ccposdefs-functions:
 
-Piece step functions
---------------------
+Functions
+---------
 
 .. c:function:: bool cc_is_same_color( CcPieceType piece, CcPos pos )
 
@@ -619,10 +619,10 @@ Piece step functions
 
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
 
-Position defines source code header
------------------------------------
+Header file
+-----------
 
-Included source code file is ``cc_pos_defs.h``.
+Included source header file is ``cc_pos_defs.h``.
 
 .. literalinclude:: ../../../ws/libcrochess/inc/cc_pos_defs.h
     :language: C
@@ -630,8 +630,8 @@ Included source code file is ``cc_pos_defs.h``.
 
 .. _lbl-libcc-ccposdefs-sourcecodefile:
 
-Position defines source code file
----------------------------------
+Source code file
+----------------
 
 Included source code file is ``cc_pos_defs.c``.
 
