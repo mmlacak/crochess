@@ -1480,6 +1480,16 @@ Pawn.
 
 % .................................................. En passant blocked
 \clearpage % ..........................................................
+% Converting opponent's pieces ----------------------------------------
+
+\subsubsection*{Converting opponent's pieces}
+\addcontentsline{toc}{subsubsection}{Converting opponent's pieces}
+\label{sec:Miranda's veil/Wave/Converting opponent's pieces}
+
+\TODO :: Conversion can take place when final, convertion ply started.
+
+% ---------------------------------------- Converting opponent's pieces
+\clearpage % ..........................................................
 % Converting own pieces -----------------------------------------------
 
 \subsubsection*{Converting own pieces}
@@ -1488,7 +1498,7 @@ Pawn.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[14]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_72_converting_own_piece_init.png}
 \vspace*{-1.4\baselineskip}
@@ -1500,26 +1510,30 @@ they retain their behavior regardless which player is actually moving them, owne
 or opponent. \newline
 Since
 \hyperref[sec:Mayan Ascendancy/Pyramid/Conversion]{opponent's pieces can be converted},
-now that means own pieces can be converted to opponent's, if both own piece and
-opponent's Pyramid are on
-\hyperref[sec:Definitions/Chessboard sides, navigation]{own side of a chessboard}. \newline
-\indent
+now that means own pieces can be converted to opponent's.
+
 Here, light player starts a cascade with its light Queen, activating dark Pyramid
 which can reach own, light Knight and convert it.
 
-% \vspace*{0.7\baselineskip}
+\vspace*{0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[14]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_73_converting_own_piece_end.png}
 \vspace*{-1.4\baselineskip}
 \caption{Own piece converted}
 \label{fig:scn_mv_73_converting_own_piece_end}
 \end{wrapfigure}
-. . .
+On the left, grey arrows show path traveled over by a piece they point to.
+Cascade has been finished, dark Pyramid oblationed, and own, light Knight
+converted.
 
-\vspace*{12.7\baselineskip}
-\TODO
+Conversion can take place only if own piece and opponent's Pyramid were both located
+on \hyperref[sec:Definitions/Chessboard sides, navigation]{own side of a chessboard}
+when
+\hyperref[sec:Miranda's veil/Wave/Converting opponent's pieces]{final, convertion ply started}.
+
+All own pieces can be converted, except King.
 
 % ----------------------------------------------- Converting own pieces
 % -------------------------------------------------- Cascading opponent
