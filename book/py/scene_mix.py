@@ -36,6 +36,5 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_mv_12_pawn_blocked_by_opponents_wave', \
-                    # 'scn_mv_13_pawn_not_blocked_by_opponents_wave', \
+                    'scn_mv_72_converting_own_piece_init', \
                 ]

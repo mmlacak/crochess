@@ -3351,3 +3351,52 @@ class SceneMirandasVeilMixin:
         scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
+
+    def scn_mv_72_converting_own_piece_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_72_converting_own_piece_init', bt, height=7.3, width=6.3 )
+
+        start_Q = (2, 5)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = (5, 5)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (5, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_a = (3, 1)
+        scene.board.set_piece( *start_a, piece=-PieceType.Pyramid )
+
+        start_N = (1, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        # Q --> W
+        start_Q_W = GS.gen_steps( start=start_Q, rels=[ (1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( start_Q_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> w
+        start_W_w = GS.gen_steps( start=start_W, rels=[ (0, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_W_w() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w --> a
+        start_w_a = GS.gen_steps( start=start_w, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_w_a() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # a --> N
+        start_a_N = GS.gen_steps( start=start_a, rels=[ (-1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_a_N() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
