@@ -36,5 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_mv_72_converting_own_piece_init', \
+                    # 'scn_mv_72_converting_own_piece_init', \
+                    'scn_mv_73_converting_own_piece_end', \
                 ]

@@ -3400,3 +3400,27 @@ class SceneMirandasVeilMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
+
+    def scn_mv_73_converting_own_piece_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_73_converting_own_piece_end', bt, height=7.3, width=6.3 )
+
+        prev_Q = (2, 5)
+        prev_W = (5, 5)
+        prev_w = (5, 3)
+        prev_a = (3, 1)
+        prev_N = (1, 1)
+
+        start_Q = prev_W
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = prev_w
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = prev_a
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_n = prev_N
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        return scene
