@@ -3423,4 +3423,19 @@ class SceneMirandasVeilMixin:
         start_n = prev_N
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
+        # Q --> W
+        start_Q_W = GS.gen_steps( start=prev_Q, rels=[ (1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( start_Q_W() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W --> w
+        start_W_w = GS.gen_steps( start=prev_W, rels=[ (0, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_W_w() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # w --> a
+        start_w_a = GS.gen_steps( start=prev_w, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_w_a() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
         return scene
