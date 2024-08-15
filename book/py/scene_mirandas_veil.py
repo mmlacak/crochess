@@ -3352,6 +3352,20 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    #
+    # Converting opponent's pieces
+
+    def scn_mv_72_converting_opponents_piece_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_72_converting_opponents_piece_init', bt )
+
+
+
+        return scene
+
+    #
+    # Converting own pieces
+
     def scn_mv_72_converting_own_piece_init( self, bt=BoardType.MirandasVeil ):
 
         scene = Scene( 'scn_mv_72_converting_own_piece_init', bt, height=7.3, width=6.3 )

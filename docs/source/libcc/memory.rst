@@ -364,7 +364,7 @@ Weak parameters are indicated by appending ``__w`` to their name, e.g.
 
 They are the same as input, read-only borrows, only they are stored in some
 structure, as opposed to just being used within called function; for example,
-:c:`char * ply_start__w``.
+:c:`char * ply_start__w`.
 
 Since lifetime of a data pointed to by weak pointer depends on external owner,
 it's best to be used within hierarchical structure, where weak pointers from
