@@ -2735,6 +2735,54 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Converting opponent's pieces
+
+    def scn_mv_61_converting_opponents_piece_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_61_converting_opponents_piece_init', bt )
+
+        start_Q = (1, 6)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_A = (10, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_W_A = (10, 10)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (14, 10)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_n = (5, 10)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        # Q --> A
+        start_Q_A = GS.gen_steps( start=start_Q, rels=[ (1, 0), ], include_prev=True, count=9 )
+        for i, arrow in enumerate( start_Q_A() ):
+            mark_type = MarkType.Action if i == 8 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # A --> W(A)
+        start_A_WA = GS.gen_steps( start=start_A, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_A_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> W(B)
+        start_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_WA_WB() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+
+        return scene
+
+    #
     # Cascading opponent
 
     def scn_mv_61_wave_cascading_opponent(self, bt=BoardType.MirandasVeil):
@@ -3349,17 +3397,6 @@ class SceneMirandasVeilMixin:
 
         scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
         scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-
-        return scene
-
-    #
-    # Converting opponent's pieces
-
-    def scn_mv_72_converting_opponents_piece_init( self, bt=BoardType.MirandasVeil ):
-
-        scene = Scene( 'scn_mv_72_converting_opponents_piece_init', bt )
-
-
 
         return scene
 
