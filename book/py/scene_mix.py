@@ -38,6 +38,6 @@ class SceneMix( SceneMixin, \
         return  [
                     # 'scn_mv_61_converting_opponents_piece_init', \
                     'scn_mv_62_converting_opponents_piece_end', \
-                    # 'scn_mv_72_converting_own_piece_init', \
-                    # 'scn_mv_73_converting_own_piece_end', \
+                    # 'scn_mv_74_converting_own_piece_init', \
+                    # 'scn_mv_75_converting_own_piece_end', \
                 ]
