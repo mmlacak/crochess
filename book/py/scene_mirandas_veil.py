@@ -2782,6 +2782,50 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    def scn_mv_62_converting_opponents_piece_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_62_converting_opponents_piece_end', bt )
+
+        prev_Q = (1, 6)
+        prev_A = (10, 6)
+        prev_W_A = (10, 10)
+        prev_W_B = (14, 10)
+        prev_n = (5, 10)
+
+        start_Q = prev_A
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_A = prev_W_A
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        start_W_A = prev_W_B
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = prev_W_B
+        # scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_n = prev_n
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        # W(B) --> A
+        start_WB_A = GS.gen_steps( start=start_W_B, rels=[ (-1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_WB_A() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # A --> n
+        start_A_n = GS.gen_steps( start=start_A, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( start_A_n() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        # scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+
+        return scene
+
     #
     # Cascading opponent
 
