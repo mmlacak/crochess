@@ -165,19 +165,25 @@ Notations
 Game score consists of numbered list of :term:`cycle`\s, each :term:`cycle` in one
 line with its own index, light player move followed by dark player move, like so:
 
-| 1. <light player move #1> <dark player move #1>
-| 2. <light player move #2> <dark player move #2>
-| 3. <light player move #3> ...
+    .. code-block:: text
+        :force:
+
+        1. <light player move #1> <dark player move #1>
+        2. <light player move #2> <dark player move #2>
+        3. <light player move #3> ...
 
 Notations list is a simple dump of all notations from parsed moves, alternating
 between light player and dark player moves, where each move is placed verbatim on
 its own line, like so:
 
-| <light player move #1>
-| <dark player move #1>
-| <light player move #2>
-| <dark player move #2>
-| <light player move #3>
+    .. code-block:: text
+        :force:
+
+        <light player move #1>
+        <dark player move #1>
+        <light player move #2>
+        <dark player move #2>
+        <light player move #3>
 
 .. c:function:: size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score )
 
