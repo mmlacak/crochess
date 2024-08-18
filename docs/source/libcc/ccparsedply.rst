@@ -173,6 +173,15 @@ Macros
     :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: :c:data:`true` if ply link is teleportation, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PARSED_PLY_LINK_IS_TELEPORTATION_REEMERGENCE(ple)
+
+    Macro to check if given ply link is re-emergence teleportation, i.e.
+    :c:enumerator:`CC_PPLE_TeleportationReemergence`.
+
+    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :returns: :c:data:`true` if ply link is re-emergence teleportation,
+        :c:data:`false` otherwise.
+
 
 
 .. _lbl-libcc-ccparsedply-functions:
