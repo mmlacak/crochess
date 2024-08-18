@@ -131,6 +131,73 @@ CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se ) {
     }
 }
 
+
+//
+// User-readable representation of a side-effect.
+
+bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
+                                         cc_char_16 * se_str__o ) {
+    if ( !se_str__o ) return false;
+
+    if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
+        return false;
+
+    if ( se.type == CC_PSEE_None )
+        return true;
+
+    char const * se_end = (char *)(se_str__o) + CC_MAX_LEN_CHAR_16;
+    char * se_p = (char *)(se_str__o);
+    size_t copied = 0;
+
+    CcPieceType captured = CC_PE_None;
+    CcLosingTagEnum lte = CC_LTE_NoneLost;
+
+    if ( se.type == CC_PSEE_Promotion ) {
+        captured = se.promote.captured;
+        lte = se.promote.lost_tag;
+    } else if ( se.type == CC_PSEE_TagForPromotion ) {
+        captured = se.tag_for_promotion.captured;
+        lte = se.tag_for_promotion.lost_tag;
+    }
+
+    if ( !CC_PIECE_IS_NONE( captured ) ) {
+        *se_p++ = '*';
+
+        char captured_char = cc_piece_symbol( captured );
+        *se_p++ = captured_char;
+    }
+
+    if ( lte != CC_LTE_NoneLost ) {
+        char const * lte_str = cc_losing_tag_symbol( lte );
+        size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
+        copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
+        if ( copied != lte_str_len ) return false;
+        se_p += copied;
+    }
+
+    char const * see_str = cc_parsed_side_effect_symbol( se.type );
+    size_t see_str_len = cc_str_len( see_str, NULL, CC_MAX_LEN_PARSED_SIDE_EFFECT_SYMBOL );
+    copied = cc_str_copy( see_str, NULL, see_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
+    if ( copied != see_str_len ) return false;
+    se_p += copied;
+
+    CcPieceType pe = cc_parsed_side_effect_piece( se );
+    char piece = cc_piece_symbol( pe );
+    *se_p++ = piece;
+
+    CcPos destination = cc_parsed_side_effect_destination( se );
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    if ( !cc_pos_to_short_string( destination, &pos_c8 ) )
+        return false;
+
+    size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+    copied = cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
+    if ( copied != pos_len ) return false;
+    // se_p += copied;
+
+    return true;
+}
+
 //
 // conveniences
 
@@ -230,68 +297,4 @@ CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void ) {
                                   CC_POS_CAST_INVALID,
                                   CC_POS_CAST_INVALID,
                                   CC_PE_None );
-}
-
-
-bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
-                                         cc_char_16 * se_str__o ) {
-    if ( !se_str__o ) return false;
-
-    if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
-        return false;
-
-    if ( se.type == CC_PSEE_None )
-        return true;
-
-    char const * se_end = (char *)(se_str__o) + CC_MAX_LEN_CHAR_16;
-    char * se_p = (char *)(se_str__o);
-    size_t copied = 0;
-
-    CcPieceType captured = CC_PE_None;
-    CcLosingTagEnum lte = CC_LTE_NoneLost;
-
-    if ( se.type == CC_PSEE_Promotion ) {
-        captured = se.promote.captured;
-        lte = se.promote.lost_tag;
-    } else if ( se.type == CC_PSEE_TagForPromotion ) {
-        captured = se.tag_for_promotion.captured;
-        lte = se.tag_for_promotion.lost_tag;
-    }
-
-    if ( !CC_PIECE_IS_NONE( captured ) ) {
-        *se_p++ = '*';
-
-        char captured_char = cc_piece_symbol( captured );
-        *se_p++ = captured_char;
-    }
-
-    if ( lte != CC_LTE_NoneLost ) {
-        char const * lte_str = cc_losing_tag_symbol( lte );
-        size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
-        copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
-        if ( copied != lte_str_len ) return false;
-        se_p += copied;
-    }
-
-    char const * see_str = cc_parsed_side_effect_symbol( se.type );
-    size_t see_str_len = cc_str_len( see_str, NULL, CC_MAX_LEN_PARSED_SIDE_EFFECT_SYMBOL );
-    copied = cc_str_copy( see_str, NULL, see_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
-    if ( copied != see_str_len ) return false;
-    se_p += copied;
-
-    CcPieceType pe = cc_parsed_side_effect_piece( se );
-    char piece = cc_piece_symbol( pe );
-    *se_p++ = piece;
-
-    CcPos destination = cc_parsed_side_effect_destination( se );
-    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    if ( !cc_pos_to_short_string( destination, &pos_c8 ) )
-        return false;
-
-    size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
-    copied = cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
-    if ( copied != pos_len ) return false;
-    // se_p += copied;
-
-    return true;
 }

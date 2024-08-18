@@ -113,6 +113,9 @@ CcPieceType cc_parsed_side_effect_piece( CcParsedSideEffect se );
 
 CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se );
 
+bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
+                                         cc_char_16 * se_str__o );
+
 
 CcParsedSideEffect cc_parsed_side_effect_none( void );
 CcParsedSideEffect cc_parsed_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag );
@@ -128,11 +131,6 @@ CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceType piece );
 CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant );
 CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceType piece, CcPos destination );
 CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void );
-
-
-/** TODO :: DOCS . */
-bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
-                                         cc_char_16 * se_str__o );
 
 
 #endif /* __CC_PARSED_SIDE_EFFECT_H__ */
