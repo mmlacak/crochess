@@ -152,6 +152,13 @@ Macros
     :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: :c:data:`true` if valid ply link, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PARSED_PLY_LINK_IS_STARTING(ple)
+
+    Macro to check if given ply link is starting, i.e. :c:enumerator:`CC_PPLE_StartingPly`.
+
+    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :returns: :c:data:`true` if ply link is starting, :c:data:`false` otherwise.
+
 
 
 .. _lbl-libcc-ccparsedply-functions:
