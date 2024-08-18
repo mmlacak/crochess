@@ -26,6 +26,9 @@ Glossary
     XAN
         The long variation of new, extended notation.
 
+    cycle
+        Light player's move followed by dark player's move.
+
     field
         Field is any square on a chessboard.
 

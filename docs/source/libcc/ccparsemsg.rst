@@ -64,7 +64,7 @@ Functions
     :param msg: Parser message to copy.
     :param max_len__d: *Optional*, maximum length of :c:`msg` to copy, can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated parser message if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcParseMsg * cc_parse_msg_append( CcParseMsg ** parse_msgs__iod_a, CcParseMsgTypeEnum type, char const * msg, size_t max_len__d )
 
@@ -78,7 +78,7 @@ Functions
     :param msg: Parser message to copy.
     :param max_len__d: *Optional*, maximum length of :c:`msg` to copy, can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated parser message if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
 
 .. c:function:: CcParseMsg * cc_parse_msg_append_fmt_va( CcParseMsg ** parse_msgs__iod_a, CcParseMsgTypeEnum type, size_t max_len__d, char const * fmt, va_list args )
 
@@ -93,7 +93,7 @@ Functions
     :param fmt: Formatting string, as defined for :c:func:`printf()`.
     :param args: Variadic list, input for a string format.
     :returns: Weak pointer to a newly allocated parser message if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_parse_msg_append()`
 
 .. c:function:: CcParseMsg * cc_parse_msg_append_fmt( CcParseMsg ** parse_msgs__iod_a, CcParseMsgTypeEnum type, size_t max_len__d, char const * fmt, ... )
@@ -109,7 +109,7 @@ Functions
     :param fmt: Formatting string, as defined for :c:func:`printf()`.
     :param ...: Variadic format arguments, as used for :c:func:`printf()`.
     :returns: Weak pointer to a newly allocated parser message if successful,
-              :c:`NULL` otherwise.
+              :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_parse_msg_append_fmt_va()`
 
 .. c:function:: bool cc_parse_msg_free_all( CcParseMsg ** parse_msgs__f )

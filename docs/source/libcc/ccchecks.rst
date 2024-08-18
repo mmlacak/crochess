@@ -42,7 +42,7 @@ Functions
     :param step: A step.
     :param limit__d: _Optional_, count of steps to check, :c:macro:`CC_CHECK_STEPS_NO_LIMIT` otherwise.
     :param check_pos: Flag, whether given position should also be checked.
-    :returns: :c:`true` if step-fields are empty, :c:`false` otherwise.
+    :returns: :c:data:`true` if step-fields are empty, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum )
 
@@ -51,7 +51,7 @@ Functions
 
     :param piece: A piece.
     :param momentum: Momentum a :c:`piece` has.
-    :returns: :c:`true` if piece can move, :c:`false` otherwise.
+    :returns: :c:data:`true` if piece can move, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte )
 
@@ -59,7 +59,7 @@ Functions
 
     :param piece: A piece.
     :param lte: :c:enum:`CcLosingTagEnum` value.
-    :returns: :c:`true` if piece can lose given tag, :c:`false` otherwise.
+    :returns: :c:data:`true` if piece can lose given tag, :c:data:`false` otherwise.
 
 .. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, cc_uint_t momentum, CcPos pos )
 

@@ -159,7 +159,7 @@ size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score ) {
         // +1 == last (incomplete) cycle, because /2 == floor( integer )
         size_t cycles = count / 2 + 1;
 
-        // 1st 3 == ". " + " "
+        // 1st 3 == ". " after cycle index + " " between moves in a cycle
         // +digits == count of digits in cycle index, e.g. 3 in "123"
         // +1 == '\n'
         // *cycles == count of cycles

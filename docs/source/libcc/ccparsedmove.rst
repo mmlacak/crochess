@@ -157,6 +157,49 @@ Functions
     :param move: A move.
     :returns: Count of plies if successful, ``0`` otherwise.
 
+.. _lbl-libcc-ccparsedmove-notations:
+
+Notations
+---------
+
+Game score consists of numbered list of :term:`cycle`\s, each :term:`cycle` in one
+line with its own index, light player move followed by dark player move, like so:
+
+| 1. <light player move #1> <dark player move #1>
+| 2. <light player move #2> <dark player move #2>
+| 3. <light player move #3> ...
+
+Notations list is a simple dump of all notations from parsed moves, alternating
+between light player and dark player moves, where each move is placed verbatim on
+its own line, like so:
+
+| <light player move #1>
+| <dark player move #1>
+| <light player move #2>
+| <dark player move #2>
+| <light player move #3>
+
+.. c:function:: size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score )
+
+    Function returns size of all notation strings taken together, with optional
+    formatting, if game score flag was given.
+
+    :param move: A move.
+    :param is_score: Flag, whether notation should be formatted as game score (if
+        :c:data:`true`), or as a simple move list (if :c:data:`false`).
+    :returns: Formatted string size if successful, ``0`` otherwise.
+
+.. c:function:: char * cc_parsed_move_as_string__new( CcParsedMove * move, bool is_score )
+
+    Function returns a newly allocated string, containing notations from all
+    parsed moves in a given linked list, with optional formatting.
+
+    :param move: A move.
+    :param is_score: Flag, whether notation should be formatted as game score (if
+        :c:data:`true`), or as a simple move list (if :c:data:`false`).
+    :returns: Valid pointer to newly allocated string if successful, :c:data:`NULL`
+        otherwise.
+
 .. _lbl-libcc-ccparsedmove-sourcecodeheader:
 
 Header file
