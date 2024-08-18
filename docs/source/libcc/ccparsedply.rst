@@ -145,44 +145,69 @@ Data
 Macros
 ------
 
-.. c:macro:: CC_PARSED_PLY_LINK_IS_NONE(ple)
+Table below contains macros to check if given ply link is specific
+:c:enum:`CcParsedPlyLinkEnum` value.
 
-    Macro to check if given ply link is none, i.e. :c:enumerator:`CC_PPLE_None`.
+All ply link value macros have a single parameter :c:data:`ple`, which is a ply
+link enum, i.e. :c:enum:`CcParsedPlyLinkEnum` value; for instance, macro to check
+if ply link is none is defined as :c:expr:`CC_PARSED_PLY_LINK_IS_NONE(ple)`.
 
-    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if ply link is none, :c:data:`false` otherwise.
+All ply link value macros return :c:data:`true` if ply link is a specific value
+as defined in a table below, or :c:data:`false` otherwise.
 
-.. c:macro:: CC_PARSED_PLY_LINK_IS_STARTING(ple)
+.. list-table:: Macros to check ply link for specific value
+   :header-rows: 1
+   :align: left
+   :widths: 15 10
 
-    Macro to check if given ply link is starting, i.e. :c:enumerator:`CC_PPLE_StartingPly`.
+   * - Macros
+     - Value
+   * - CC_PARSED_PLY_LINK_IS_NONE
+     - :c:enumerator:`CC_PPLE_None`
+   * - CC_PARSED_PLY_LINK_IS_STARTING
+     - :c:enumerator:`CC_PPLE_StartingPly`
+   * - CC_PARSED_PLY_LINK_IS_CASCADING
+     - :c:enumerator:`CC_PPLE_CascadingPly`
 
-    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if ply link is starting, :c:data:`false` otherwise.
+   * - CC_PARSED_PLY_LINK_IS_TELEPORTATION
+     - :c:enumerator:`CC_PPLE_Teleportation`
+   * - CC_PARSED_PLY_LINK_IS_TELEPORTATION_REEMERGENCE
+     - :c:enumerator:`CC_PPLE_TeleportationReemergence`
+   * - CC_PARSED_PLY_LINK_IS_TELEPORTATION_OBLATION
+     - :c:enumerator:`CC_PPLE_TeleportationOblation`
 
-.. c:macro:: CC_PARSED_PLY_LINK_IS_CASCADING(ple)
+   * - CC_PARSED_PLY_LINK_IS_TRANCE_JOURNEY
+     - :c:enumerator:`CC_PPLE_TranceJourney`
+   * - CC_PARSED_PLY_LINK_IS_DUAL_TRANCE_JOURNEY
+     - :c:enumerator:`CC_PPLE_DualTranceJourney`
+   * - CC_PARSED_PLY_LINK_IS_FAILED_TRANCE_JOURNEY
+     - :c:enumerator:`CC_PPLE_FailedTranceJourney`
 
-    Macro to check if given ply link is cascading, i.e. :c:enumerator:`CC_PPLE_CascadingPly`.
+   * - CC_PARSED_PLY_LINK_IS_PAWN_SACRIFICE
+     - :c:enumerator:`CC_PPLE_PawnSacrifice`
 
-    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if ply link is cascading, :c:data:`false` otherwise.
+   * - CC_PARSED_PLY_LINK_IS_SENSE_JOURNEY
+     - :c:enumerator:`CC_PPLE_SenseJourney`
+   * - CC_PARSED_PLY_LINK_IS_FAILED_SENSE_JOURNEY
+     - :c:enumerator:`CC_PPLE_FailedSenseJourney`
 
-.. c:macro:: CC_PARSED_PLY_LINK_IS_TELEPORTATION(ple)
+Macros below check if given value is ply link enumerator, or valid ply link.
 
-    Macro to check if given ply link is teleportation, i.e. :c:enumerator:`CC_PPLE_Teleportation`.
+.. c:macro:: CC_PARSED_PLY_LINK_IS_ENUMERATOR(ple)
 
-    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if ply link is teleportation, :c:data:`false` otherwise.
+    Macro to check if given value is ply link enumerator.
 
-.. c:macro:: CC_PARSED_PLY_LINK_IS_TELEPORTATION_REEMERGENCE(ple)
+    :param ple: A given integer value.
+    :returns: :c:data:`true` if given integer is ply link, i.e.
+        :c:enum:`CcParsedPlyLinkEnum` value, :c:data:`false` otherwise.
 
-    Macro to check if given ply link is re-emergence teleportation, i.e.
-    :c:enumerator:`CC_PPLE_TeleportationReemergence`.
+.. c:macro:: CC_PARSED_PLY_LINK_IS_VALID(ple)
 
-    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if ply link is re-emergence teleportation,
-        :c:data:`false` otherwise.
+    Macro to check if given value is valid ply link.
 
-
+    :param ple: A given integer value.
+    :returns: :c:data:`true` if given integer is valid ply link, i.e.
+        :c:enum:`CcParsedPlyLinkEnum` value, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccparsedply-functions:
 
