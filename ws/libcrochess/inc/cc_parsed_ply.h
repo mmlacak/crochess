@@ -75,13 +75,11 @@ typedef struct CcParsedPly {
     struct CcParsedPly * next;
 } CcParsedPly;
 
-// TODO :: DOCS
 CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
                                   CcPieceType piece,
                                   CcLosingTagEnum lost_tag,
                                   CcParsedStep ** steps__n );
 
-// TODO :: DOCS
 CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
                                     CcParsedPlyLinkEnum link,
                                     CcPieceType piece,
