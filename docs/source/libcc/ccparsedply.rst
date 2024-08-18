@@ -150,7 +150,7 @@ Macros
     Macro to check if given ply link is none, i.e. :c:enumerator:`CC_PPLE_None`.
 
     :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if valid ply link, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if ply link is none, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PARSED_PLY_LINK_IS_STARTING(ple)
 
@@ -158,6 +158,13 @@ Macros
 
     :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
     :returns: :c:data:`true` if ply link is starting, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PARSED_PLY_LINK_IS_CASCADING(ple)
+
+    Macro to check if given ply link is cascading, i.e. :c:enumerator:`CC_PPLE_CascadingPly`.
+
+    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :returns: :c:data:`true` if ply link is cascading, :c:data:`false` otherwise.
 
 
 

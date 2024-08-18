@@ -28,7 +28,6 @@ typedef enum CcParsedPlyLinkEnum {
 
 #define CC_PARSED_PLY_LINK_IS_NONE(ple) ( (ple) == CC_PPLE_None )
 #define CC_PARSED_PLY_LINK_IS_STARTING(ple) ( (ple) == CC_PPLE_StartingPly )
-// TODO :: DOCS
 #define CC_PARSED_PLY_LINK_IS_CASCADING(ple) ( (ple) == CC_PPLE_CascadingPly )
 
 // TODO :: DOCS
