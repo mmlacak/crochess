@@ -140,6 +140,10 @@ Data
 
     :c:`struct` is tagged with the same :c:struct:`CcParsedPly` name.
 
+.. c:macro:: CC_MAX_LEN_PARSED_PLY_LINK_SYMBOL
+
+    Maximum length of a ply link symbol in :term:`AN`; equal to ``3`` (:c:`char`\s).
+
 .. _lbl-libcc-ccparsedply-macros:
 
 Macros
@@ -160,7 +164,7 @@ as defined in a table below, or :c:data:`false` otherwise.
    :align: left
    :widths: 15 10
 
-   * - Macros
+   * - Macro
      - Value
    * - CC_PARSED_PLY_LINK_IS_NONE
      - :c:enumerator:`CC_PPLE_None`
@@ -208,6 +212,28 @@ Macros below check if given value is ply link enumerator, or valid ply link.
     :param ple: A given integer value.
     :returns: :c:data:`true` if given integer is valid ply link, i.e.
         :c:enum:`CcParsedPlyLinkEnum` value, :c:data:`false` otherwise.
+
+Macros in the table below check ply link for specific :c:enum:`CcParsedPlyLinkEnum`
+values, otherwise they are identical to macros in the table above.
+
+.. list-table:: Macros to check ply link for specific values
+   :header-rows: 1
+   :align: left
+   :widths: 5 10
+
+   * - Macro
+     - Values
+   * - CC_PARSED_PLY_LINK_IS_ANY_TELEPORTATION
+     - :c:enumerator:`CC_PPLE_Teleportation`,
+       :c:enumerator:`CC_PPLE_TeleportationReemergence`,
+       :c:enumerator:`CC_PPLE_TeleportationOblation`
+   * - CC_PARSED_PLY_LINK_IS_ANY_TRANCE_JOURNEY
+     - :c:enumerator:`CC_PPLE_TranceJourney`,
+       :c:enumerator:`CC_PPLE_DualTranceJourney`,
+       :c:enumerator:`CC_PPLE_FailedTranceJourney`
+   * - CC_PARSED_PLY_LINK_IS_ANY_SENSE_JOURNEY
+     - :c:enumerator:`CC_PPLE_SenseJourney`,
+       :c:enumerator:`CC_PPLE_FailedSenseJourney`
 
 .. _lbl-libcc-ccparsedply-functions:
 
