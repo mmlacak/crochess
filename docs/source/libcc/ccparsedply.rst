@@ -140,6 +140,20 @@ Data
 
     :c:`struct` is tagged with the same :c:struct:`CcParsedPly` name.
 
+.. _lbl-libcc-ccparsedply-macros:
+
+Macros
+------
+
+.. c:macro:: CC_PARSED_PLY_LINK_IS_NONE(ple)
+
+    Macro to check if given ply link is none, i.e. :c:enumerator:`CC_PPLE_None`.
+
+    :param ple: A ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :returns: :c:data:`true` if valid ply link, :c:data:`false` otherwise.
+
+
+
 .. _lbl-libcc-ccparsedply-functions:
 
 Functions
