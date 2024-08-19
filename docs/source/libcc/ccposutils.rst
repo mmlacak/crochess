@@ -116,10 +116,62 @@ Functions
     :param pd_link: A position descriptor linked list.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_iter_piece_pos( CcChessboard * cb, CcPos expected__d, CcPieceType piece, bool include_opponent, CcPos * pos__io )
 
-.. todo::
+    Function iterates over all positions on a chessboards which contain a given
+    piece, optionally also opponent's.
 
-    Document all other functions.
+    Expected position can be disambiguation; if given, it filters which position(s)
+    are returned.
+
+    Position where a piece was found is returned via *input/output* argument,
+    which also serves as a starting position for next iteration.
+
+    Before calling this iterator, set *output* argument to invalid position
+    (i.e. :c:data:`CC_POS_CAST_INVALID`), so that function starts searching
+    from chessboard origin.
+
+    After all positions has been exhausted, *output* argument is invalidated
+    (reset to :c:data:`CC_POS_CAST_INVALID`), and function returns :c:data:`false`.
+
+    Typical usage, in a loop:
+
+    .. code-block:: C
+        :force:
+
+        // Storage for returned position.
+        CcPos pos = CC_POS_CAST_INVALID;
+
+        // Disambiguation, rank is not given; represents any position on a ``c`` file.
+        CcPos da = cc_pos( 2, CC_INVALID_COORD );
+
+        while ( cc_iter_piece_pos( cb, da, CC_PE_Rook, false, &pos ) ) {
+            // Do stuff with Rook found at pos ...
+        }
+
+    It can also be called separately (here expected position is not given):
+
+    .. code-block:: C
+        :force:
+
+        // Storage for returned position.
+        CcPos pos = CC_POS_CAST_INVALID;
+
+        if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, CC_PE_King, false, &pos ) ) {
+            // King not found --> no good!
+        }
+
+        if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, CC_PE_King, false, &pos ) ) {
+            // King found twice --> also no good!
+        }
+
+    :param cb: A chessboard.
+    :param expected__d: *Optional*, an expected position, can be disambiguation; disregarded if invalid (i.e. :c:data:`CC_POS_CAST_INVALID`).
+    :param piece: A piece to find.
+    :param include_opponent: Flag, whether to also search for opponent's pieces
+        (if :c:data:`true`), or not (if :c:data:`false`).
+    :param pos__io: *Input/output*; a position where piece was found.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccposutils-sourcecodeheader:
 

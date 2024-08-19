@@ -169,7 +169,7 @@ bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
 }
 
 bool cc_iter_piece_pos( CcChessboard * cb,
-                        CcPos expected,
+                        CcPos expected__d,
                         CcPieceType piece,
                         bool include_opponent,
                         CcPos * pos__io ) {
@@ -187,8 +187,8 @@ bool cc_iter_piece_pos( CcChessboard * cb,
     else
         pos = CC_POS_CAST( pos.i + 1, 0 );
 
-    bool is_comparable = cc_pos_is_valid( expected ) ||
-                         cc_pos_is_disambiguation( expected );
+    bool is_comparable = cc_pos_is_valid( expected__d ) ||
+                         cc_pos_is_disambiguation( expected__d );
 
     for ( int i = pos.i; i < size; ++i ) {
         for ( int j = pos.j; j < size; ++j ) {
@@ -199,7 +199,7 @@ bool cc_iter_piece_pos( CcChessboard * cb,
                 CcPos current = CC_POS_CAST( i, j );
 
                 if ( ( !is_comparable ) ||
-                       cc_pos_is_congruent( expected, current ) ) {
+                       cc_pos_is_congruent( expected__d, current ) ) {
                     *pos__io = current;
                     return true;
                 }
