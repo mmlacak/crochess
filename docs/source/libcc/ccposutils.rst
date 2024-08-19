@@ -99,6 +99,23 @@ Functions
     :param pd_link__io: *Input/output*; a position descriptor linked list.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
+
+    Function applies all position descriptors in a given linked list to a given
+    chessboard.
+
+    Function updates chessboard with position, piece and tag from descriptor;
+    momentum is not applied.
+
+    .. warning::
+
+        If all changes are successfully applied, chessboard is reallocated to
+        a new address, and old allocation is :c:func:`free()`\ed.
+
+    :param cb__io_r: **Reallocated**, *input/output*; a chessboard.
+    :param pd_link: A position descriptor linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 
 .. todo::
 
