@@ -88,6 +88,17 @@ Functions
     :returns: :c:data:`true` if position descriptors are all valid,
         :c:data:`false` otherwise.
 
+.. c:function:: bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io )
+
+    Function updates all position descriptors in a given linked list.
+
+    Function updates piece and tag as found on a chessboard, at a position fetched
+    from descriptor; momentum is not changed.
+
+    :param cb: A chessboard.
+    :param pd_link__io: *Input/output*; a position descriptor linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 
 .. todo::
 

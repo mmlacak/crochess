@@ -28,7 +28,6 @@ bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
 
 bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
 
-// TODO :: DOCS
 bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io );
 
 // TODO :: DOCS
