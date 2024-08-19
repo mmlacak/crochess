@@ -39,9 +39,23 @@ Functions
     actual calculation takes place.
 
     :param momentum__io: *Input/output*; momentum.
-    :param accumulating: Flag, whether momentum is being accumulated (if
-        :c:data:`true`), or used (if :c:data:`false`).
+    :param accumulating: Flag, whether momentum is being accumulated
+        (if :c:data:`true`), or used (if :c:data:`false`).
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb, CcPos pos, cc_uint_t momentum, bool accumulating, CcTypedStepLink * steps )
+
+    Function returns a newly allocated linked list of position descriptors,
+    which was produced by applying steps from starting position and momentum.
+
+    :param cb: A chessboard.
+    :param pos: Starting position.
+    :param momentum: Starting momentum.
+    :param accumulating: Flag, whether momentum is being accumulated
+        (if :c:data:`true`), or used (if :c:data:`false`).
+    :param steps: Steps to perform.
+    :returns: Valid pointer to newly allocated linked list of position
+        descriptors if successful, :c:data:`NULL` otherwise.
 
 
 .. todo::

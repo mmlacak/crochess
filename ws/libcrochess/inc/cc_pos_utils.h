@@ -14,12 +14,11 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t mo
 
 bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating );
 
-// TODO :: DOCS
-CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
-                                                    CcPos current_pos,
-                                                    cc_uint_t current_momentum,
-                                                    bool is_accumulating_momentum,
-                                                    CcTypedStepLink * steps );
+CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
+                                                 CcPos pos,
+                                                 cc_uint_t momentum,
+                                                 bool accumulating,
+                                                 CcTypedStepLink * steps );
 
 
 // TODO :: DOCS

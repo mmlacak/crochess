@@ -31,38 +31,39 @@ bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating ) {
     return true;
 }
 
-CcPosDescLink * cc_convert_steps_to_positions__new( CcChessboard * cb,
-                                                    CcPos current_pos,
-                                                    cc_uint_t current_momentum,
-                                                    bool is_accumulating_momentum,
-                                                    CcTypedStepLink * steps ) {
+CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
+                                                 CcPos pos,
+                                                 cc_uint_t momentum,
+                                                 bool accumulating,
+                                                 CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
 
-    if ( !cc_pos_is_valid( current_pos ) ) return NULL;
+    if ( !cc_pos_is_valid( pos ) ) return NULL;
 
     CcPosDescLink * pd_link__a = NULL;
-    CcPos pos = current_pos;
+    CcPos p = pos;
+    CcPos last = CC_POS_INVALID;
     CcTypedStepLink * step = steps;
 
     bool result = true;
     bool is_on_board = true;
-    cc_uint_t momentum = current_momentum;
+    cc_uint_t m = momentum;
 
     while ( result && step ) {
-        pos = cc_pos_add( pos, step->step.step, 1 );
+        last = p = cc_pos_add( p, step->step.step, 1 );
 
-        if ( !( result = cc_calc_checked_momentum( &momentum, is_accumulating_momentum ) ) ) break;
+        if ( !( result = cc_calc_checked_momentum( &m, accumulating ) ) ) break;
 
-        // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
-        // Last position of any piece must be on-board.
-        is_on_board = cc_chessboard_is_pos_on_board( cb, pos.i, pos.j );
-
-        CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos, momentum );
+        CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, p, m );
         if ( !( result = cc_pos_desc_link_append( &pd_link__a, pd ) ) ) break;
 
         step = step->next;
     }
+
+    // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.
+    // Last position of any piece must be on-board.
+    is_on_board = cc_chessboard_is_pos_on_board( cb, last.i, last.j );
 
     if ( !result || !is_on_board ) {
         cc_pos_desc_link_free_all( &pd_link__a );
