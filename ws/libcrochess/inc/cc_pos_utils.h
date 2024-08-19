@@ -21,9 +21,8 @@ CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
                                                  CcTypedStepLink * steps );
 
 
-// TODO :: DOCS
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
-                                     CcPos destination,
+                                     CcPos pos,
                                      cc_uint_t momentum,
                                      CcPosDescLink ** pptl__iod_a );
 

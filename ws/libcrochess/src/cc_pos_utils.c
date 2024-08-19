@@ -75,13 +75,13 @@ CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
 
 
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
-                                     CcPos destination,
+                                     CcPos pos,
                                      cc_uint_t momentum,
                                      CcPosDescLink ** pptl__iod_a ) {
     if ( !cb ) return false;
     if ( !pptl__iod_a ) return false;
 
-    CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, destination, momentum );
+    CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos, momentum );
 
     if ( !cc_pos_desc_link_append( pptl__iod_a, pd ) ) return false;
 

@@ -57,6 +57,18 @@ Functions
     :returns: Valid pointer to newly allocated linked list of position
         descriptors if successful, :c:data:`NULL` otherwise.
 
+.. c:function:: bool cc_append_pos_to_pos_desc_link( CcChessboard * cb, CcPos pos, cc_uint_t momentum, CcPosDescLink ** pptl__iod_a )
+
+    Function appends position descriptor to a given linked list, based on a position
+    on a chessboard and a given momentum.
+
+    :param cb: A chessboard.
+    :param pos: A position.
+    :param momentum: Momentum.
+    :param pptl__iod_a: **Ownership**, *input/output*, *optional*; a position
+        descriptor linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 
 .. todo::
 
