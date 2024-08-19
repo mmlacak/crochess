@@ -25,7 +25,7 @@
 //                           CcPathLink ** path__o );
 
 
-// TODO :: DOCS
+// DOCS
 bool cc_path_single_step( CcChessboard * cb,
                           CcPieceType piece,
                           CcTagType tag,

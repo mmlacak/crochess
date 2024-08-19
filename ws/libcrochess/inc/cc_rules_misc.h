@@ -16,17 +16,17 @@
 //                                            size_t max_len__d );
 
 
-// TODO :: DOCS
+// DOCS
 bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
                                        CcGameStatusEnum gse );
 
-// TODO :: DOCS
+// DOCS
 // bool cc_check_promote_or_tag( CcChessboard * cb,
 //                               CcPieceType pawn,
 //                               CcPos start,
 //                               CcPos destination );
 
-// TODO :: DOCS
+// DOCS
 bool cc_delete_all_en_passant_tags( CcChessboard * cb );
 
 

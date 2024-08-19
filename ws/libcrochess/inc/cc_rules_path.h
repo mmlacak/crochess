@@ -9,13 +9,13 @@
 #include "cc_pos.h"
 
 
-// TODO :: DOCS
+// DOCS
 // bool cc_is_pawn_capture_valid( CcChessboard * cb,
 //                                CcPieceType pawn,
 //                                CcPos start,
 //                                CcPos destination );
 
-// TODO :: DOCS
+// DOCS
 // bool cc_is_pawn_step_valid( CcChessboard * cb,
 //                             CcPieceType pawn,
 //                             CcPos start,
