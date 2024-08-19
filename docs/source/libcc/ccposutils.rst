@@ -145,8 +145,8 @@ Functions
         // Disambiguation, rank is not given; represents any position on a ``c`` file.
         CcPos da = cc_pos( 2, CC_INVALID_COORD );
 
-        while ( cc_iter_piece_pos( cb, da, CC_PE_Rook, false, &pos ) ) {
-            // Do stuff with Rook found at pos ...
+        while ( cc_iter_piece_pos( cb, da, CC_PE_LightRook, true, &pos ) ) {
+            // Do stuff with all the Rooks, light and dark, found at positions ...
         }
 
     It can also be called separately (here expected position is not given):
@@ -157,12 +157,12 @@ Functions
         // Storage for returned position.
         CcPos pos = CC_POS_CAST_INVALID;
 
-        if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, CC_PE_King, false, &pos ) ) {
-            // King not found --> no good!
+        if ( !cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, CC_PE_LightKing, false, &pos ) ) {
+            // Light King not found --> no good!
         }
 
-        if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, CC_PE_King, false, &pos ) ) {
-            // King found twice --> also no good!
+        if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, CC_PE_LightKing, false, &pos ) ) {
+            // Light King found twice --> also no good!
         }
 
     :param cb: A chessboard.
