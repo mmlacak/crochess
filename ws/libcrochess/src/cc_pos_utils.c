@@ -77,13 +77,13 @@ CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      CcPos pos,
                                      cc_uint_t momentum,
-                                     CcPosDescLink ** pptl__iod_a ) {
+                                     CcPosDescLink ** pdl__iod_a ) {
     if ( !cb ) return false;
-    if ( !pptl__iod_a ) return false;
+    if ( !pdl__iod_a ) return false;
 
     CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos, momentum );
 
-    if ( !cc_pos_desc_link_append( pptl__iod_a, pd ) ) return false;
+    if ( !cc_pos_desc_link_append( pdl__iod_a, pd ) ) return false;
 
     return true;
 }
@@ -93,6 +93,9 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
     if ( !pd_link ) return false;
 
     CcPosDescLink * pdl = pd_link;
+
+    // TODO :: check momentum forms a strictly increasing/decreasing sequance
+    // cc_uint_t momentum = pdl->pd.momentum;
 
     while ( pdl ) {
         CcPosDesc pd = pdl->pd;
@@ -104,9 +107,11 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
         CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         if ( tag != pd.tag ) return false;
 
-        if ( pd.momentum == CC_UNSIGNED_MIN ) {
-            if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) )
-                return ( !pdl->next ); // No steps should follow if momentum is 0, and piece has weight (i.e. all, but Wave, Starchild).
+        if ( pdl != pd_link ) { // If not a 1st pos desc == starting pos --> momentum = 0.
+            if ( pd.momentum == CC_UNSIGNED_MIN ) {
+                if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) )
+                    return ( !pdl->next ); // No steps should follow if momentum is 0, and piece has weight (i.e. all, but Wave, Starchild).
+            }
         }
 
         pdl = pdl->next;

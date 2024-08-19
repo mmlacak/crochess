@@ -24,9 +24,8 @@ CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
 bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      CcPos pos,
                                      cc_uint_t momentum,
-                                     CcPosDescLink ** pptl__iod_a );
+                                     CcPosDescLink ** pdl__iod_a );
 
-// TODO :: DOCS
 bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
 
 // TODO :: DOCS
