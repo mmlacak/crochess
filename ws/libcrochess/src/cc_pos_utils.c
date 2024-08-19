@@ -94,12 +94,26 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
 
     CcPosDescLink * pdl = pd_link;
 
-    // TODO :: check momentum forms a strictly increasing/decreasing sequance
-    // cc_uint_t momentum = pdl->pd.momentum;
+    // TODO :: add check if any steps are static
+    //         --> unless static promotion i.e.
+    //             starting piece == Pawn &&
+    //             destination piece == same color figure (except King!)
+
+    cc_uint_t momentum = 0;
+    cc_uint_t prev_m = pdl->pd.momentum;
+    bool accumulating = false;
+
+    if ( pdl->next ) {
+        momentum = pdl->next->pd.momentum;
+        if ( prev_m == momentum ) return false;
+
+        accumulating = ( momentum > prev_m );
+    }
 
     while ( pdl ) {
         CcPosDesc pd = pdl->pd;
         CcPos pos = pd.pos;
+        momentum = pdl->pd.momentum;
 
         CcPieceType piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( piece != pd.piece ) return false;
@@ -107,13 +121,25 @@ bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
         CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
         if ( tag != pd.tag ) return false;
 
-        if ( pdl != pd_link ) { // If not a 1st pos desc == starting pos --> momentum = 0.
-            if ( pd.momentum == CC_UNSIGNED_MIN ) {
-                if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) )
+        if ( pdl != pd_link ) { // If !1st pos desc --> !starting pos
+            if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) ) {
+                if ( prev_m == momentum ) return false;
+
+                if ( accumulating ) {
+                    if ( momentum < prev_m ) return false;
+                } else {
+                    if ( prev_m < momentum ) return false;
+                }
+
+                if ( pd.momentum == CC_UNSIGNED_MIN ) {
                     return ( !pdl->next ); // No steps should follow if momentum is 0, and piece has weight (i.e. all, but Wave, Starchild).
+                }
+            } else {
+                if ( prev_m != momentum ) return false;
             }
         }
 
+        prev_m = pdl->pd.momentum;
         pdl = pdl->next;
     }
 

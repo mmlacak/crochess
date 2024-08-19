@@ -76,9 +76,8 @@ Functions
     Validation is done by checking piece and tag found on a chessboard position
     matches descriptor's piece and tag.
 
-    .. todo::
-
-        Add check: momentum forms strict increasing / decreasing sequence.
+    Momentums of all position descriptors are also checked to form strictly
+    increasing (or, decreasing) sequence.
 
     Lastly, steps are checked if there are any after momentum reaches ``0`` for
     a piece which uses that momentum for movement.
