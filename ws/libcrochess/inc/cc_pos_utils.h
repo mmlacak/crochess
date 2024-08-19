@@ -12,7 +12,6 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum );
 
-// TODO :: DOCS
 bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating );
 
 // TODO :: DOCS

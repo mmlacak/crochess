@@ -30,6 +30,20 @@ Functions
     :param momentum: Momentum.
     :returns: Position descriptor.
 
+.. c:function:: bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating )
+
+    Function calculates next momentum value, given and then returned via
+    *input/output* argument.
+
+    Function checks if momentum calculation will over- or under-flow before
+    actual calculation takes place.
+
+    :param momentum__io: *Input/output*; momentum.
+    :param accumulating: Flag, whether momentum is being accumulated (if
+        :c:data:`true`), or used (if :c:data:`false`).
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
 .. todo::
 
     Document all other functions.
