@@ -297,10 +297,6 @@ Functions
 
     Prints chessboard, either pieces or tags.
 
-    .. todo::
-
-        TODO :: move out
-
     :param cb: Chessboard to print.
     :param is_board_or_tag: Whether pieces are printed (if :c:data:`true`),
                             or tags (if :c:data:`false`).

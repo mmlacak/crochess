@@ -4,22 +4,10 @@
 #ifndef __CC_RULES_PATH_H__
 #define __CC_RULES_PATH_H__
 
-#include "cc_piece.h"
-#include "cc_chessboard.h"
-#include "cc_pos.h"
+// #include "cc_piece.h"
+// #include "cc_chessboard.h"
+// #include "cc_pos.h"
 
-
-// DOCS
-// bool cc_is_pawn_capture_valid( CcChessboard * cb,
-//                                CcPieceType pawn,
-//                                CcPos start,
-//                                CcPos destination );
-
-// DOCS
-// bool cc_is_pawn_step_valid( CcChessboard * cb,
-//                             CcPieceType pawn,
-//                             CcPos start,
-//                             CcPos destination );
 
 
 #endif /* __CC_RULES_PATH_H__ */

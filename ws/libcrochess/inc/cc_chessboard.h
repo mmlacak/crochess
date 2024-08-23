@@ -91,7 +91,7 @@ bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 );
 char * cc_chessboard_as_string__new( CcChessboard * cb,
                                      bool is_board_or_tag );
 
-// TODO :: move out
+// TODO :: move out --> DOCS
 bool cc_chessboard_print( CcChessboard * cb,
                           bool is_board_or_tag );
 
