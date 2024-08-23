@@ -306,7 +306,7 @@ bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 ) {
 }
 
 
-static char * cc_chessboard_get_divider__new( CcChessboard * cb ) {
+static char * _cc_chessboard_get_divider__new( CcChessboard * cb ) {
     if ( !cb ) return NULL;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
@@ -326,7 +326,7 @@ static char * cc_chessboard_get_divider__new( CcChessboard * cb ) {
     return divider__a;
 }
 
-static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb ) {
+static char * _cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb ) {
     if ( !cb ) return NULL;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
@@ -365,7 +365,7 @@ char * cc_chessboard_as_string__new( CcChessboard * cb,
     char * show__a = calloc( 1, 2048 );
     if ( !show__a ) return NULL;
 
-    char * horizontal_ruler = cc_chessboard_get_horizontal_ruler__new( cb );
+    char * horizontal_ruler = _cc_chessboard_get_horizontal_ruler__new( cb );
     if ( !horizontal_ruler ) {
         CC_FREE( show__a );
         return NULL;
@@ -373,7 +373,7 @@ char * cc_chessboard_as_string__new( CcChessboard * cb,
 
     strcat( show__a, horizontal_ruler );
 
-    char * divider__a = cc_chessboard_get_divider__new( cb );
+    char * divider__a = _cc_chessboard_get_divider__new( cb );
     if ( !divider__a ) {
         CC_FREE( show__a );
         CC_FREE( horizontal_ruler );

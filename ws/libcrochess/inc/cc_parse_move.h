@@ -12,13 +12,13 @@
 #include "cc_parse_msg.h"
 
 
-// static bool cc_check_standalone_status( char const char_an,
-//                                         CcParsedMove ** temp__n,
-//                                         CcParsedMove ** move__o,
-//                                         CcParseMsg ** parse_msgs__iod,
-//                                         CcParsedMoveStatusEnum mse,
-//                                         size_t max_len__d,
-//                                         char const * msg, ... )
+// static bool _cc_check_standalone_status( char const char_an,
+//                                          CcParsedMove ** temp__n,
+//                                          CcParsedMove ** move__o,
+//                                          CcParseMsg ** parse_msgs__iod,
+//                                          CcParsedMoveStatusEnum mse,
+//                                          size_t max_len__d,
+//                                          char const * msg, ... )
 
 
 // DOCS

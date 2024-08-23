@@ -84,9 +84,9 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
 bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 );
 
 
-// static char * cc_chessboard_get_divider__new( CcChessboard * cb );
+// static char * _cc_chessboard_get_divider__new( CcChessboard * cb );
 
-// static char * cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb );
+// static char * _cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb );
 
 char * cc_chessboard_as_string__new( CcChessboard * cb,
                                      bool is_board_or_tag );

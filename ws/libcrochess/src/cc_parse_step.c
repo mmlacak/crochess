@@ -10,20 +10,20 @@
 #include "cc_parse_step.h"
 
 
-static void cc_add_msg_invalid_step_link( char const * step_start_an,
-                                          char const * step_end_an,
-                                          CcParseMsg ** parse_msgs__iod ) {
+static void _cc_add_msg_invalid_step_link( char const * step_start_an,
+                                           char const * step_end_an,
+                                           CcParseMsg ** parse_msgs__iod ) {
     char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid step separator in step '%s'.\n", step_str__a );
     CC_FREE( step_str__a );
 }
 
-static bool cc_check_parsed_pos( char const * step_start_an,
-                                 char const * step_end_an,
-                                 CcParsedStepLinkEnum sle,
-                                 CcPos * pos__o,
-                                 char const ** pos_end_an__o,
-                                 CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_parsed_pos( char const * step_start_an,
+                                  char const * step_end_an,
+                                  CcParsedStepLinkEnum sle,
+                                  CcPos * pos__o,
+                                  char const ** pos_end_an__o,
+                                  CcParseMsg ** parse_msgs__iod ) {
     char const * step_after_link_an = step_start_an + cc_parsed_step_link_len( sle );
 
     if ( !cc_parse_pos( step_after_link_an, pos__o, pos_end_an__o ) ) {
@@ -36,16 +36,16 @@ static bool cc_check_parsed_pos( char const * step_start_an,
     return true;
 }
 
-static bool cc_parse_step( char const * step_start_an,
-                           char const * step_end_an,
-                           char const * steps_end_an,
-                           CcGame * game,
-                           CcPosDesc before_ply_start,
-                           bool is_first_step,
-                           bool * had_disambiguation__io,
-                           CcParsedStep ** step__o,
-                           CcChessboard ** cb__io,
-                           CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_parse_step( char const * step_start_an,
+                            char const * step_end_an,
+                            char const * steps_end_an,
+                            CcGame * game,
+                            CcPosDesc before_ply_start,
+                            bool is_first_step,
+                            bool * had_disambiguation__io,
+                            CcParsedStep ** step__o,
+                            CcChessboard ** cb__io,
+                            CcParseMsg ** parse_msgs__iod ) {
     if ( !step_start_an ) return false;
     if ( !step_end_an ) return false;
     if ( !steps_end_an ) return false;
@@ -59,7 +59,7 @@ static bool cc_parse_step( char const * step_start_an,
 
     CcParsedStepLinkEnum sle = CC_PSLE_None;
     if ( !cc_parse_step_link( step_start_an, steps_end_an, &sle ) ) {
-        cc_add_msg_invalid_step_link( step_start_an, step_end_an, parse_msgs__iod );
+        _cc_add_msg_invalid_step_link( step_start_an, step_end_an, parse_msgs__iod );
         return false;
     }
 
@@ -71,7 +71,7 @@ static bool cc_parse_step( char const * step_start_an,
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;
 
-    if ( !cc_check_parsed_pos( step_start_an, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) )
+    if ( !_cc_check_parsed_pos( step_start_an, step_end_an, sle, &pos, &pos_end_an, parse_msgs__iod ) )
         return false;
 
     if ( is_first_step ) {
@@ -124,13 +124,13 @@ bool cc_parse_steps( char const * steps_start_an,
 
         cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
-        if ( !cc_parse_step( step_start_an, step_end_an, steps_end_an, game, before_ply_start,
+        if ( !_cc_parse_step( step_start_an, step_end_an, steps_end_an, game, before_ply_start,
                              is_first_step,
                              &had_disambiguation,
                              &step__t,
                              cb__io,
                              parse_msgs__iod ) ) {
-            printf( "!cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
+            printf( "!_cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
 
             cc_parsed_step_free_all( &step__t );
             return false;

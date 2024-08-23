@@ -11,9 +11,9 @@
 #include "cc_game.h"
 
 
-// static int cc_an_str_ends_with_draw_offer( char const * an_start,
-//                                            char const * an_end__d,
-//                                            size_t max_len__d );
+// static int _cc_an_str_ends_with_draw_offer( char const * an_start,
+//                                             char const * an_end__d,
+//                                             size_t max_len__d );
 
 
 // DOCS

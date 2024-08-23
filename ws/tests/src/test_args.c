@@ -28,102 +28,102 @@
 
 
 TestArgs test_args( char const * an_str,
-                             char const * setup__d,
-                             char const * check_setup__d,
-                             char const * check_end__d,
-                             cc_ull_t error_code ) {
+                    char const * setup__d,
+                    char const * check_setup__d,
+                    char const * check_end__d,
+                    cc_ull_t error_code ) {
     TestArgs tma = { .an_str = an_str,
-                         .setup__d = setup__d,
-                         .check_setup__d = check_setup__d,
-                         .check_end__d = check_end__d,
-                         .error_code = error_code };
+                     .setup__d = setup__d,
+                     .check_setup__d = check_setup__d,
+                     .check_end__d = check_end__d,
+                     .error_code = error_code };
     return tma;
 }
 
-static char const * const setup_simple = "O Bd1,Bl1,bd9";
-static char const * const end_simple = "o Bh5,Bl1,bd9";
+static char const * const _setup_simple = "O Bd1,Bl1,bd9";
+static char const * const _end_simple = "o Bh5,Bl1,bd9";
 
-static char const * const setup_cascading = "O Bd1,Bd9,Wh5,Rk2";
-static char const * const end_cascading = "o Bh5,Bd9,Wk2,Ro2";
+static char const * const _setup_cascading = "O Bd1,Bd9,Wh5,Rk2";
+static char const * const _end_cascading = "o Bh5,Bd9,Wk2,Ro2";
 
-static char const * const setup_tags = "O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E";
-// static char const * const end_tags = "O Bh5,Bd9,Wk2,Ro2";
+static char const * const _setup_tags = "O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E";
+// static char const * const _end_tags = "O Bh5,Bd9,Wk2,Ro2";
 
-static char const * const setup_shaman = "O Hc11,pg10,pk9,po8,As7,Wk15";
-static char const * const end_shaman = "o Hs7,As9,Wk15";
+static char const * const _setup_shaman = "O Hc11,pg10,pk9,po8,As7,Wk15";
+static char const * const _end_shaman = "o Hs7,As9,Wk15";
 
 TestArgs const TEST_ARGS_ARRAY[ ] = {
     // simple movement, disambiguation
     TEST_ARGS( "Bh5", "O Bd1,Bk1,bd9", NULL, "o Bh5,Bk1,bd9", TEST_OK ),
-    TEST_ARGS( "Bdh5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "Blh5", setup_simple, NULL, "o Bd1,Bh5,bd9", TEST_OK ),
+    TEST_ARGS( "Bdh5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "Blh5", _setup_simple, NULL, "o Bd1,Bh5,bd9", TEST_OK ),
 
     // simple movement, steps
-    TEST_ARGS( "Bd1.e2.f3.g4.h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "Bd..h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "Bd1..h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "Bd1..f3..h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "B..f3..h5", setup_simple, NULL, end_simple, TEST_OK ),
+    TEST_ARGS( "Bd1.e2.f3.g4.h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "Bd..h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "Bd1..h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "Bd1..f3..h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "B..f3..h5", _setup_simple, NULL, _end_simple, TEST_OK ),
 
     // simple movement, destination
-    TEST_ARGS( "Bd-h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "Bd1-h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "Bd1..f3-h5", setup_simple, NULL, end_simple, TEST_OK ),
-    TEST_ARGS( "B..f3-h5", setup_simple, NULL, end_simple, TEST_OK ),
+    TEST_ARGS( "Bd-h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "Bd1-h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "Bd1..f3-h5", _setup_simple, NULL, _end_simple, TEST_OK ),
+    TEST_ARGS( "B..f3-h5", _setup_simple, NULL, _end_simple, TEST_OK ),
 
     // simple movement, failures
-    TEST_ARGS( "Bh5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Both light Bishops can reach destination field.
-    TEST_ARGS( "B-h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Both light Bishops can reach destination field.
-    TEST_ARGS( "B1h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Both light Bishops are on the same rank.
-    TEST_ARGS( "B1..h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Both light Bishops are on the same rank.
-    TEST_ARGS( "B1-h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Both light Bishops are on the same rank.
-    TEST_ARGS( "B..e3..h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Intermediate field not part of any legal path.
-    TEST_ARGS( "Bbh5", setup_simple, NULL, setup_simple, TEST_FAIL ), // There is no light Bishop at 'b' file at all.
+    TEST_ARGS( "Bh5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Both light Bishops can reach destination field.
+    TEST_ARGS( "B-h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Both light Bishops can reach destination field.
+    TEST_ARGS( "B1h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Both light Bishops are on the same rank.
+    TEST_ARGS( "B1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Both light Bishops are on the same rank.
+    TEST_ARGS( "B1-h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Both light Bishops are on the same rank.
+    TEST_ARGS( "B..e3..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Intermediate field not part of any legal path.
+    TEST_ARGS( "Bbh5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // There is no light Bishop at 'b' file at all.
     TEST_ARGS( "Bdh5", "O bd1,Bl1,bd9", NULL, "O bd1,Bl1,bd9", TEST_FAIL ), // Light player on the move, but dark Bishop is on a starting field.
-    TEST_ARGS( "Bd.h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Single dot, instead of double.
-    TEST_ARGS( "B..e2.h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Double dot, instead of single. Single dot, instead of double.
-    TEST_ARGS( "B.g4..h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Single dot, instead of double. Double dot, instead of single.
-    TEST_ARGS( "B.d1..h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Single dot in front of a starting field.
-    TEST_ARGS( "B..d1..h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Double dot in front of a starting field.
-    TEST_ARGS( "B-d1..h5", setup_simple, NULL, setup_simple, TEST_FAIL ), // Ending dash in front of a starting field.
-    TEST_ARGS( "B-f3..h5", setup_simple, NULL, end_simple, TEST_FAIL ), // Ending dash in the middle of a path.
+    TEST_ARGS( "Bd.h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Single dot, instead of double.
+    TEST_ARGS( "B..e2.h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Double dot, instead of single. Single dot, instead of double.
+    TEST_ARGS( "B.g4..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Single dot, instead of double. Double dot, instead of single.
+    TEST_ARGS( "B.d1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Single dot in front of a starting field.
+    TEST_ARGS( "B..d1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Double dot in front of a starting field.
+    TEST_ARGS( "B-d1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Ending dash in front of a starting field.
+    TEST_ARGS( "B-f3..h5", _setup_simple, NULL, _end_simple, TEST_FAIL ), // Ending dash in the middle of a path.
 
     // simple cascading
     TEST_ARGS( "Bh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", TEST_OK ),
-    TEST_ARGS( "B1h5~Wk2~Ro2", setup_cascading, NULL, end_cascading, TEST_OK ),
-    TEST_ARGS( "Bd1.e2.f3.g4.h5~[Wh5.i4.j3.k2]~Rk2.l2.m2.n2.o2", setup_cascading, NULL, end_cascading, TEST_OK ),
-    TEST_ARGS( "B..f3..h5~[W.i4..k2]~R..m2..o2", setup_cascading, NULL, end_cascading, TEST_OK ),
-    TEST_ARGS( "B1..h5~[Wh..k2]~Rk..o2", setup_cascading, NULL, end_cascading, TEST_OK ),
-    TEST_ARGS( "B1-h5~[Wh-k2]~Rk-o2", setup_cascading, NULL, end_cascading, TEST_OK ),
+    TEST_ARGS( "B1h5~Wk2~Ro2", _setup_cascading, NULL, _end_cascading, TEST_OK ),
+    TEST_ARGS( "Bd1.e2.f3.g4.h5~[Wh5.i4.j3.k2]~Rk2.l2.m2.n2.o2", _setup_cascading, NULL, _end_cascading, TEST_OK ),
+    TEST_ARGS( "B..f3..h5~[W.i4..k2]~R..m2..o2", _setup_cascading, NULL, _end_cascading, TEST_OK ),
+    TEST_ARGS( "B1..h5~[Wh..k2]~Rk..o2", _setup_cascading, NULL, _end_cascading, TEST_OK ),
+    TEST_ARGS( "B1-h5~[Wh-k2]~Rk-o2", _setup_cascading, NULL, _end_cascading, TEST_OK ),
 
     // simple cascading, failures
-    TEST_ARGS( "Bdh5~Wk2~Ro2", setup_cascading, NULL, setup_cascading, TEST_FAIL ), // Both light Bishops are on the same file.
-    TEST_ARGS( "Bh5~Wk2~Ro2", setup_cascading, NULL, setup_cascading, TEST_FAIL ), // Both light Bishops are on the same file.
-    TEST_ARGS( "B1h5~Wk2~Rr2", setup_cascading, NULL, setup_cascading, TEST_FAIL ), // Rook moved for more than received momentum.
+    TEST_ARGS( "Bdh5~Wk2~Ro2", _setup_cascading, NULL, _setup_cascading, TEST_FAIL ), // Both light Bishops are on the same file.
+    TEST_ARGS( "Bh5~Wk2~Ro2", _setup_cascading, NULL, _setup_cascading, TEST_FAIL ), // Both light Bishops are on the same file.
+    TEST_ARGS( "B1h5~Wk2~Rr2", _setup_cascading, NULL, _setup_cascading, TEST_FAIL ), // Rook moved for more than received momentum.
 
     // simple losing tags
-    TEST_ARGS( "Rl1", setup_tags, NULL, "o Rl1,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "R&&l1", setup_tags, NULL, "o Rl1,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "a9", setup_tags, NULL, "o Ra1C,Pa9,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "::a9", setup_tags, NULL, "o Ra1C,Pa9,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "c23", setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "==c23", setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "Rl1", _setup_tags, NULL, "o Rl1,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "R&&l1", _setup_tags, NULL, "o Rl1,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "a9", _setup_tags, NULL, "o Ra1C,Pa9,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "::a9", _setup_tags, NULL, "o Ra1C,Pa9,Pb23P,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "c23", _setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "==c23", _setup_tags, NULL, "o Ra1C,Pa2R,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
 
     // simple losing tags, failures
-    TEST_ARGS( "R::l1", setup_tags, NULL, setup_tags, TEST_FAIL ), // Wrong losing tag.
-    TEST_ARGS( "R==l1", setup_tags, NULL, setup_tags, TEST_FAIL ), // Wrong losing tag.
+    TEST_ARGS( "R::l1", _setup_tags, NULL, _setup_tags, TEST_FAIL ), // Wrong losing tag.
+    TEST_ARGS( "R==l1", _setup_tags, NULL, _setup_tags, TEST_FAIL ), // Wrong losing tag.
 
     // simple Shaman
-    TEST_ARGS( "Hs7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
-    TEST_ARGS( "Hk15~Wg23", setup_shaman, NULL, "o Hk15,pg10,pk9,po8,As7,Wg23", TEST_OK ),
+    TEST_ARGS( "Hs7~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ),
+    TEST_ARGS( "Hk15~Wg23", _setup_shaman, NULL, "o Hk15,pg10,pk9,po8,As7,Wg23", TEST_OK ),
 
-    TEST_ARGS( "H.g10*P.k9*P.o8*P~As9", setup_shaman, NULL, end_shaman, TEST_FAIL ), // Shaman at destination captures Pawn, and activates Pyramid.
-    TEST_ARGS( "H.g10*.k9*.o8*~As9", setup_shaman, NULL, end_shaman, TEST_FAIL ), // Shaman at destination captures Pawn, and activates Pyramid.
-    TEST_ARGS( "H.g10*P.k9*P.o8*P.s7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
-    TEST_ARGS( "H.g10*.k9*.o8*-s7~As9", setup_shaman, NULL, end_shaman, TEST_OK ),
+    TEST_ARGS( "H.g10*P.k9*P.o8*P~As9", _setup_shaman, NULL, _end_shaman, TEST_FAIL ), // Shaman at destination captures Pawn, and activates Pyramid.
+    TEST_ARGS( "H.g10*.k9*.o8*~As9", _setup_shaman, NULL, _end_shaman, TEST_FAIL ), // Shaman at destination captures Pawn, and activates Pyramid.
+    TEST_ARGS( "H.g10*P.k9*P.o8*P.s7~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ),
+    TEST_ARGS( "H.g10*.k9*.o8*-s7~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ),
 
-    TEST_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
-    TEST_ARGS( "H.g10*.k9*.o8*-u6~As9", setup_shaman, NULL, end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
+    TEST_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
+    TEST_ARGS( "H.g10*.k9*.o8*-u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
 
     // TEST_ARGS(  ),
 
