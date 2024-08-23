@@ -74,20 +74,6 @@ Functions
     :returns: :c:data:`true` if chessboard is successfully (re-)initialized,
               :c:data:`false` otherwise.
 
-.. c:function:: bool cc_chessboard_is_size_valid( CcChessboard * cb )
-
-    Checks if chessboard size is valid, i.e. the same as defined for
-    variant being played.
-
-    Actual board size cannot be tested, 2D array is allocated only once,
-    at the size of the largest variant.
-
-    Chessboard size just limits which portion of board is used for a
-    particular variant.
-
-    :param cb: Chessboard to check.
-    :returns: :c:data:`true` if chessboard size is valid, :c:data:`false` otherwise.
-
 .. c:function:: bool cc_chessboard_clear( CcChessboard * cb__io )
 
     Clears a chessboard of all pieces.

@@ -28,9 +28,6 @@ bool cc_chessboard_init( CcChessboard * cb__io,
                          CcVariantEnum ve,
                          bool do_setup );
 
-// DOCS :: DELETE
-// bool cc_chessboard_is_size_valid( CcChessboard * cb ); // TODO :: DELETE 
-
 bool cc_chessboard_clear( CcChessboard * cb__io );
 
 bool cc_chessboard_setup( CcChessboard * cb__io );
