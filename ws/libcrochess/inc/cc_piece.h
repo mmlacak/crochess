@@ -220,30 +220,12 @@
                                           && ( (activator) != CC_PE_LightCentaur )      \
                                           && ( CC_PIECE_IS_ACTIVATOR( (activator) ) ) )
 
-// TODO :: move into function, then fix
-//
-// /**
-//     Macro expression to evaluate whether piece has two alternating steps.
-
-//     @param pe Piece enum, one of `CcPieceType` values.
-//     @param activator Piece enum. Last material (i.e. non-Wave) piece which activates Wave in a cascade.
-
-//     Two step pieces are Centaur, and Wave activated by Unicorn, Centaur, or Serpent.
-//     Unicorn itself is not two-step piece, because it makes only one step in a ply,
-//     and so it can choose direction independently to any previous choice.
-
-//     @see CcPieceType
-
-//     @return `true` if piece has two alternating steps, `false` otherwise.
-// */
-// #define CC_PIECE_IS_TWO_STEP(pe,activator) \
-//     ( ( ( (pe) == CC_PE_DarkCentaur ) || ( (pe) == CC_PE_LightCentaur ) )   \
-//    || ( ( ( (pe) == CC_PE_DarkWave ) || ( (pe) == CC_PE_LightWave ) )       \
-//         && ( ( ( (activator) == CC_PE_DarkUnicorn ) || ( (activator) == CC_PE_LightUnicorn ) ) \
-//           || ( ( (activator) == CC_PE_DarkCentaur ) || ( (activator) == CC_PE_LightCentaur ) ) \
-//           || ( ( (activator) == CC_PE_DarkSerpent ) || ( (activator) == CC_PE_LightSerpent ) ) ) ) )
-//
-// TODO :: move into function, then fix
+#define CC_PIECE_IS_TWO_STEP(pe,activator)                                                                  \
+    ( ( ( (pe) == CC_PE_DarkCentaur ) || ( (pe) == CC_PE_LightCentaur ) )                                   \
+     || ( ( ( (pe) == CC_PE_DarkWave ) || ( (pe) == CC_PE_LightWave ) )                                     \
+         && ( ( ( (activator) == CC_PE_DarkUnicorn ) || ( (activator) == CC_PE_LightUnicorn ) )             \
+             || ( ( (activator) == CC_PE_DarkCentaur ) || ( (activator) == CC_PE_LightCentaur ) )           \
+             || ( ( (activator) == CC_PE_DarkSerpent ) || ( (activator) == CC_PE_LightSerpent ) ) ) ) )
 
 #define CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pe)  ( ( (pe) == CC_PE_DarkSerpent )   \
                                              || ( (pe) == CC_PE_LightSerpent )  \
