@@ -8,34 +8,11 @@
 #include "cc_parse_side_effect.h"
 
 
-// static bool cc_parse_side_effect_error_msg( char const * side_effect_an,
-//                                             char const * step_end_an,
-//                                             CcParseMsg ** parse_msgs__iod,
-//                                             char const * fmt, ... ) {
-//     char * step_an__a = cc_str_copy__new( side_effect_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-
-//     va_list args;
-//     va_start( args, fmt );
-
-//     cc_parse_msg_append_fmt_va( parse_msgs__iod,
-//                                       CC_PMTE_Error,
-//                                       CC_MAX_LEN_ZERO_TERMINATED,
-//                                       fmt,
-//                                       args );
-
-//     va_end( args );
-
-//     CC_FREE( step_an__a );
-
-//     return true;
-// }
-
-
-static bool cc_check_piece_has_congruent_type( char piece_symbol,
-                                               CcPieceType piece,
-                                               char const * step_start_an,
-                                               char const * step_end_an,
-                                               CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_has_congruent_type( char piece_symbol,
+                                                CcPieceType piece,
+                                                char const * step_start_an,
+                                                char const * step_end_an,
+                                                CcParseMsg ** parse_msgs__iod ) {
     if ( !cc_piece_has_congruent_type( piece_symbol, piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, false, true );
@@ -47,10 +24,10 @@ static bool cc_check_piece_has_congruent_type( char piece_symbol,
     return true;
 }
 
-static bool cc_check_piece_can_be_captured( CcPieceType piece,
-                                            char const * step_start_an,
-                                            char const * step_end_an,
-                                            CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_can_be_captured( CcPieceType piece,
+                                             char const * step_start_an,
+                                             char const * step_end_an,
+                                             CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, true, true );
@@ -62,10 +39,10 @@ static bool cc_check_piece_can_be_captured( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_piece_symbol_is_valid( char piece_symbol,
-                                            char const * step_start_an,
-                                            char const * step_end_an,
-                                            CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_symbol_is_valid( char piece_symbol,
+                                             char const * step_start_an,
+                                             char const * step_end_an,
+                                             CcParseMsg ** parse_msgs__iod ) {
     if ( !cc_piece_symbol_is_valid( piece_symbol ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Character '%c' is not valid piece symbol, in step '%s'.\n", piece_symbol, step_an__a );
@@ -76,10 +53,10 @@ static bool cc_check_piece_symbol_is_valid( char piece_symbol,
     return true;
 }
 
-static bool cc_check_promote_to_piece_is_valid( CcPieceType promote_to_piece,
-                                                char const * step_start_an,
-                                                char const * step_end_an,
-                                                CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_promote_to_piece_is_valid( CcPieceType promote_to_piece,
+                                                 char const * step_start_an,
+                                                 char const * step_end_an,
+                                                 CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promote_to_piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( promote_to_piece, false, true );
@@ -91,10 +68,10 @@ static bool cc_check_promote_to_piece_is_valid( CcPieceType promote_to_piece,
     return true;
 }
 
-static bool cc_check_piece_can_be_displaced( CcPieceType piece,
-                                             char const * step_start_an,
-                                             char const * step_end_an,
-                                             CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_can_be_displaced( CcPieceType piece,
+                                              char const * step_start_an,
+                                              char const * step_end_an,
+                                              CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, true, true );
@@ -106,13 +83,13 @@ static bool cc_check_piece_can_be_displaced( CcPieceType piece,
     return true;
 }
 
-static bool cc_parse_and_check_position( char const * pos_an,
-                                         CcPos * pos__o,
-                                         char const ** pos_end_an__o,
-                                         char const * msg_fmt,
-                                         char const * step_start_an,
-                                         char const * step_end_an,
-                                         CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_parse_and_check_position( char const * pos_an,
+                                          CcPos * pos__o,
+                                          char const ** pos_end_an__o,
+                                          char const * msg_fmt,
+                                          char const * step_start_an,
+                                          char const * step_end_an,
+                                          CcParseMsg ** parse_msgs__iod ) {
     if ( !cc_parse_pos( pos_an, pos__o, pos_end_an__o ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, step_an__a );
@@ -123,12 +100,12 @@ static bool cc_parse_and_check_position( char const * pos_an,
     return true;
 }
 
-static bool cc_check_position_is_on_board( CcPos pos,
-                                           CcChessboard * cb,
-                                           char const * msg_fmt,
-                                           char const * step_start_an,
-                                           char const * step_end_an,
-                                           CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_position_is_on_board( CcPos pos,
+                                            CcChessboard * cb,
+                                            char const * msg_fmt,
+                                            char const * step_start_an,
+                                            char const * step_end_an,
+                                            CcParseMsg ** parse_msgs__iod ) {
     if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, step_an__a );
@@ -139,12 +116,12 @@ static bool cc_check_position_is_on_board( CcPos pos,
     return true;
 }
 
-static bool cc_check_piece_en_passant( CcPieceType piece,
-                                       bool is_capturing,
-                                       char const * msg_fmt,
-                                       char const * step_start_an,
-                                       char const * step_end_an,
-                                       CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_en_passant( CcPieceType piece,
+                                        bool is_capturing,
+                                        char const * msg_fmt,
+                                        char const * step_start_an,
+                                        char const * step_end_an,
+                                        CcParseMsg ** parse_msgs__iod ) {
     bool is_en_passant = is_capturing ? CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece )
                                       : CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( piece );
 
@@ -159,11 +136,11 @@ static bool cc_check_piece_en_passant( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_en_passant_file( CcPos en_passant_location,
-                                      CcChessboard * cb,
-                                      char const * step_start_an,
-                                      char const * step_end_an,
-                                      CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_en_passant_file( CcPos en_passant_location,
+                                       CcChessboard * cb,
+                                       char const * step_start_an,
+                                       char const * step_end_an,
+                                       CcParseMsg ** parse_msgs__iod ) {
     if ( ( !cc_chessboard_is_coord_on_board( cb, en_passant_location.j ) )
          || ( CC_IS_COORD_VALID( en_passant_location.i )
               && ( !cc_chessboard_is_coord_on_board( cb, en_passant_location.i ) ) ) ) {
@@ -176,15 +153,15 @@ static bool cc_check_en_passant_file( CcPos en_passant_location,
     return true;
 }
 
-static bool cc_check_captured_en_passant( CcPieceType capturing,
-                                          CcPos step,
-                                          CcPos en_passant_location,
-                                          CcPieceType maybe_captured,
-                                          CcPos * captured_at__o,
-                                          CcChessboard * cb,
-                                          char const * step_start_an,
-                                          char const * step_end_an,
-                                          CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_captured_en_passant( CcPieceType capturing,
+                                           CcPos step,
+                                           CcPos en_passant_location,
+                                           CcPieceType maybe_captured,
+                                           CcPos * captured_at__o,
+                                           CcChessboard * cb,
+                                           char const * step_start_an,
+                                           char const * step_end_an,
+                                           CcParseMsg ** parse_msgs__iod ) {
     int stepping = cc_piece_is_light( capturing ) ? -1 : 1; // Rank direction, where to search for captured private.
     cc_uint_t size = cc_variant_board_size( cb->type );
     int max_rank = (int)( size / 2 );
@@ -275,11 +252,11 @@ static bool cc_check_captured_en_passant( CcPieceType capturing,
 }
 
 
-static bool cc_check_field_is_empty( CcPieceType piece,
-                                     char const * msg_fmt,
-                                     char const * step_start_an,
-                                     char const * step_end_an,
-                                     CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_field_is_empty( CcPieceType piece,
+                                      char const * msg_fmt,
+                                      char const * step_start_an,
+                                      char const * step_end_an,
+                                      CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_IS_NONE( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, false, true );
@@ -291,11 +268,11 @@ static bool cc_check_field_is_empty( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_promoting_piece_is_pawn( CcPieceType piece,
-                                              char const * msg_fmt,
-                                              char const * step_start_an,
-                                              char const * step_end_an,
-                                              CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_promoting_piece_is_pawn( CcPieceType piece,
+                                               char const * msg_fmt,
+                                               char const * step_start_an,
+                                               char const * step_end_an,
+                                               CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_IS_PAWN( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, false, true );
@@ -307,10 +284,10 @@ static bool cc_check_promoting_piece_is_pawn( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_piece_can_be_converted( CcPieceType piece,
-                                             char const * step_start_an,
-                                             char const * step_end_an,
-                                             CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_can_be_converted( CcPieceType piece,
+                                              char const * step_start_an,
+                                              char const * step_end_an,
+                                              CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, true, true );
@@ -322,10 +299,10 @@ static bool cc_check_piece_can_be_converted( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_failed_conversion( CcPieceType piece,
-                                        char const * step_start_an,
-                                        char const * step_end_an,
-                                        CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_failed_conversion( CcPieceType piece,
+                                         char const * step_start_an,
+                                         char const * step_end_an,
+                                         CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_IS_STARCHILD( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, false, true );
@@ -337,10 +314,10 @@ static bool cc_check_failed_conversion( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_piece_can_be_resurrected( CcPieceType piece,
-                                               char const * step_start_an,
-                                               char const * step_end_an,
-                                               CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_can_be_resurrected( CcPieceType piece,
+                                                char const * step_start_an,
+                                                char const * step_end_an,
+                                                CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         char const * piece_str = cc_piece_as_string( piece, true, true );
@@ -352,10 +329,10 @@ static bool cc_check_piece_can_be_resurrected( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_piece_is_castling_king( CcPosDesc before_ply_start,
-                                             char const * step_start_an,
-                                             char const * step_end_an,
-                                             CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_is_castling_king( CcPosDesc before_ply_start,
+                                              char const * step_start_an,
+                                              char const * step_end_an,
+                                              CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, false, true );
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -373,10 +350,10 @@ static bool cc_check_piece_is_castling_king( CcPosDesc before_ply_start,
     return true;
 }
 
-static bool cc_check_piece_is_rook_to_castle( CcPieceType piece,
-                                              char const * step_start_an,
-                                              char const * step_end_an,
-                                              CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_piece_is_rook_to_castle( CcPieceType piece,
+                                               char const * step_start_an,
+                                               char const * step_end_an,
+                                               CcParseMsg ** parse_msgs__iod ) {
     if ( !CC_PIECE_IS_ROOK( piece ) ) {
         char const * piece_str = cc_piece_as_string( piece, false, true );
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -388,15 +365,15 @@ static bool cc_check_piece_is_rook_to_castle( CcPieceType piece,
     return true;
 }
 
-static bool cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
-                                               CcChessboard * cb,
-                                               CcPos * step_pos__io,
-                                               CcPos * rook_dest__io,
-                                               CcPieceType * rook__o,
-                                               CcPos * rook_init__o,
-                                               char const * step_start_an,
-                                               char const * step_end_an,
-                                               CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
+                                                CcChessboard * cb,
+                                                CcPos * step_pos__io,
+                                                CcPos * rook_dest__io,
+                                                CcPieceType * rook__o,
+                                                CcPos * rook_init__o,
+                                                char const * step_start_an,
+                                                char const * step_end_an,
+                                                CcParseMsg ** parse_msgs__iod ) {
     bool is_light = cc_piece_is_light( before_ply_start.piece );
     int init_i = cc_get_figure_initial_file( cb->type, before_ply_start.piece, false );
     int init_j = cc_get_initial_figure_rank( cb->type, is_light );
@@ -596,13 +573,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
-                if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
                 ++se_an;
             }
 
-            if ( !cc_check_piece_can_be_captured( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_can_be_captured( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
@@ -620,13 +597,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     if ( !cc_fetch_piece_symbol( promo_an, &promote_to_symbol, true, false ) )
                         return false;
 
-                    if ( !cc_check_piece_symbol_is_valid( promote_to_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
+                    if ( !_cc_check_piece_symbol_is_valid( promote_to_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
 
                     bool is_light = cc_piece_is_light( step_piece );
                     CcPieceType promote_to = cc_piece_from_symbol( promote_to_symbol, is_light );
 
-                    if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
+                    if ( !_cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
 
                     *side_effect__o = cc_parsed_side_effect_promote( step_piece, lte, promote_to );
@@ -645,13 +622,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
-                if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
                 ++se_an;
             }
 
-            if ( !cc_check_piece_can_be_displaced( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_can_be_displaced( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
@@ -660,19 +637,19 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing displacement destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing displacement destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            if ( !cc_check_position_is_on_board( pos, cb, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_position_is_on_board( pos, cb, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             *side_effect__o = cc_parsed_side_effect_displacement( step_piece, lte, pos );
             return true;
         } case CC_PSEE_EnPassant : {
-            if ( !cc_check_piece_en_passant( before_ply_start.piece, true, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_en_passant( before_ply_start.piece, true, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            if ( !cc_check_field_is_empty( step_piece, "Capturing by en passant can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_field_is_empty( step_piece, "Capturing by en passant can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
@@ -682,7 +659,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 bool is_light = !cc_piece_is_light( before_ply_start.piece ); // !light because capturing opponent's piece.
                 CcPieceType maybe_private = cc_piece_from_symbol( piece_symbol, is_light );
 
-                if ( !cc_check_piece_en_passant( maybe_private, false, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_piece_en_passant( maybe_private, false, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
                 maybe_captured = maybe_private;
@@ -692,17 +669,17 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPos maybe_en_passant_location = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_and_check_position( se_an, &maybe_en_passant_location, &pos_end_an, "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_parse_and_check_position( se_an, &maybe_en_passant_location, &pos_end_an, "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             if ( CC_IS_COORD_VALID( maybe_en_passant_location.j ) ) { // If location is given, at least rank must be valid.
-                if ( !cc_check_en_passant_file( maybe_en_passant_location, cb, step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_en_passant_file( maybe_en_passant_location, cb, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
             }
 
             CcPos captured_at = CC_POS_CAST_INVALID;
 
-            if ( !cc_check_captured_en_passant( before_ply_start.piece, *step_pos__io, maybe_en_passant_location, maybe_captured, &captured_at, cb, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_captured_en_passant( before_ply_start.piece, *step_pos__io, maybe_en_passant_location, maybe_captured, &captured_at, cb, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             // TODO :: check path of capturing piece
@@ -710,7 +687,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_parsed_side_effect_en_passant( step_piece, captured_at );
             return true;
         } case CC_PSEE_Castle : {
-            if ( !cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
@@ -719,7 +696,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 bool is_light = cc_piece_is_light( before_ply_start.piece );
                 CcPieceType maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
 
-                if ( !cc_check_piece_is_rook_to_castle( maybe_rook, step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_piece_is_rook_to_castle( maybe_rook, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
                 ++se_an;
@@ -734,7 +711,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType rook = CC_PE_None;
             CcPos rook_start = CC_POS_CAST_INVALID;
 
-            if ( !cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos__io, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos__io, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             *side_effect__o = cc_parsed_side_effect_castle( rook, rook_start, rook_dest );
@@ -744,7 +721,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             //      -- moving promotion
             //      -- silent capture before promotion
 
-            if ( !cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be promoted, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be promoted, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
@@ -752,13 +729,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
                 return false;
 
-            if ( !cc_check_piece_symbol_is_valid( piece_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_symbol_is_valid( piece_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             bool is_light = cc_piece_is_light( step_piece );
             CcPieceType promote_to = cc_piece_from_symbol( piece_symbol, is_light );
 
-            if ( !cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             *side_effect__o = cc_parsed_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, step_piece );
@@ -766,7 +743,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
         } case CC_PSEE_TagForPromotion : {
             // TODO -- silent capture before promotion
 
-            if ( !cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be tagged for promotion, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be tagged for promotion, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             *side_effect__o = cc_parsed_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_NoneLost );
@@ -775,13 +752,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
-                if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
                 ++se_an;
             }
 
-            if ( !cc_check_piece_can_be_converted( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_can_be_converted( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             CcPieceType convert_to = cc_piece_opposite( step_piece );
@@ -790,7 +767,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_parsed_side_effect_convert( convert_to, lte );
             return true;
         } case CC_PSEE_FailedConversion : {
-            if ( !cc_check_failed_conversion( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_failed_conversion( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             *side_effect__o = cc_parsed_side_effect_failed_conversion();
@@ -800,7 +777,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
-                if ( !cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_piece_has_congruent_type( piece_symbol, step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
                 ++se_an;
@@ -819,7 +796,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return false;
         } case CC_PSEE_Resurrection : { // Intentional fall-through ...
         } case CC_PSEE_ResurrectingOpponent : {
-            if ( !cc_check_field_is_empty( step_piece, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_field_is_empty( step_piece, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             char piece_symbol = ' ';
@@ -827,7 +804,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
                 return false;
 
-            if ( !cc_check_piece_symbol_is_valid( piece_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_symbol_is_valid( piece_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             bool is_light = true;
@@ -841,7 +818,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             CcPieceType resurrecting = cc_piece_from_symbol( piece_symbol, is_light );
 
-            if ( !cc_check_piece_can_be_resurrected( resurrecting, step_start_an, step_end_an, parse_msgs__iod ) )
+            if ( !_cc_check_piece_can_be_resurrected( resurrecting, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
             CcPos pos = CC_POS_CAST_INVALID;
@@ -850,10 +827,10 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 char const * pos_an = se_an + 1;
                 char const * pos_end_an = NULL;
 
-                if ( !cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing resurrection destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing resurrection destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
 
-                if ( !cc_check_position_is_on_board( pos, cb, "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
+                if ( !_cc_check_position_is_on_board( pos, cb, "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                     return false;
             }
 
