@@ -586,7 +586,7 @@ Functions
 
     .. warning::
 
-        Returned string is not allocated, do not :c:expr:`free()` it.
+        Returned string is not allocated, do not :c:func:`free()` it.
 
     :param pe: A piece.
     :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_VALUE_STRING` otherwise.
@@ -660,7 +660,7 @@ Functions
 
     .. warning::
 
-        Returned string is not allocated, do not :c:expr:`free()` it.
+        Returned string is not allocated, do not :c:func:`free()` it.
 
     :param pe: A piece.
     :param capitalize: Flag, whether to return capitalized prefix.
@@ -779,7 +779,7 @@ Functions
 
     .. warning::
 
-        Returned string is not allocated, do not :c:expr:`free()` it.
+        Returned string is not allocated, do not :c:func:`free()` it.
 
     :param pe: A piece.
     :param capitalize: Flag, whether to return capitalized string.
