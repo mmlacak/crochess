@@ -86,8 +86,7 @@ typedef enum CcVariantEnum {
 
 #define CC_LEN_VARIANT_SYMBOL_INVALID (0)
 
-// DOCS // <!> Keep in-sync with CcVariantEnum.
-#define CC_VARIANT_IS_VALID(ve) ( ( CC_VE_ClassicalChess <= (ve) ) && ( (ve) <= CC_VE_One ) )
+#define CC_VARIANT_IS_VALID(ve) ( ( CC_VE_ClassicalChess <= (ve) ) && ( (ve) <= CC_VE_One ) ) // <!> Keep in-sync with CcVariantEnum.
 
 extern char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL;
 
