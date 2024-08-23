@@ -69,24 +69,6 @@ Functions
         descriptor linked list.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link )
-
-    Function validates all position descriptors in a given linked list.
-
-    Validation is done by checking piece and tag found on a chessboard position
-    matches descriptor's piece and tag.
-
-    Momentums of all position descriptors are also checked to form strictly
-    increasing (or, decreasing) sequence.
-
-    Lastly, steps are checked if there are any after momentum reaches ``0`` for
-    a piece which uses that momentum for movement.
-
-    :param cb: A chessboard.
-    :param pd_link: A position descriptor linked list.
-    :returns: :c:data:`true` if position descriptors are all valid,
-        :c:data:`false` otherwise.
-
 .. c:function:: bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io )
 
     Function updates all position descriptors in a given linked list.
