@@ -16,7 +16,6 @@ extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
 typedef struct CcChessboard
 {
     CcVariantEnum type;
-    cc_uint_t size;
 
     CcPieceType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
     CcTagType tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
@@ -29,7 +28,8 @@ bool cc_chessboard_init( CcChessboard * cb__io,
                          CcVariantEnum ve,
                          bool do_setup );
 
-bool cc_chessboard_is_size_valid( CcChessboard * cb );
+// DOCS :: DELETE
+// bool cc_chessboard_is_size_valid( CcChessboard * cb ); // TODO :: DELETE 
 
 bool cc_chessboard_clear( CcChessboard * cb__io );
 

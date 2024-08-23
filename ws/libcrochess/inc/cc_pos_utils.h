@@ -26,7 +26,8 @@ bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                      cc_uint_t momentum,
                                      CcPosDescLink ** pdl__iod_a );
 
-bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
+// TODO ::DELETE
+// bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link );
 
 bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io );
 

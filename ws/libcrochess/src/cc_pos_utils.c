@@ -88,63 +88,69 @@ bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
     return true;
 }
 
-bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
-    if ( !cb ) return false;
-    if ( !pd_link ) return false;
+// TODO :: DELETE :: remove all excess validation
 
-    CcPosDescLink * pdl = pd_link;
-
-    // TODO :: add check if any steps are static
-    //         --> unless static promotion i.e.
-    //             starting piece == Pawn &&
-    //             destination piece == same color figure (except King!)
-
-    cc_uint_t momentum = 0;
-    cc_uint_t prev_m = pdl->pd.momentum;
-    bool accumulating = false;
-
-    if ( pdl->next ) {
-        momentum = pdl->next->pd.momentum;
-        if ( prev_m == momentum ) return false;
-
-        accumulating = ( momentum > prev_m );
-    }
-
-    while ( pdl ) {
-        CcPosDesc pd = pdl->pd;
-        CcPos pos = pd.pos;
-        momentum = pdl->pd.momentum;
-
-        CcPieceType piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        if ( piece != pd.piece ) return false;
-
-        CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-        if ( tag != pd.tag ) return false;
-
-        if ( pdl != pd_link ) { // If !1st pos desc --> !starting pos
-            if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) ) {
-                if ( prev_m == momentum ) return false;
-
-                if ( accumulating ) {
-                    if ( momentum < prev_m ) return false;
-                } else {
-                    if ( prev_m < momentum ) return false;
-                }
-
-                if ( pd.momentum == CC_UNSIGNED_MIN ) {
-                    return ( !pdl->next ); // No steps should follow if momentum is 0, and piece has weight (i.e. all, but Wave, Starchild).
-                }
-            } else {
-                if ( prev_m != momentum ) return false;
-            }
-        }
-
-        prev_m = pdl->pd.momentum;
-        pdl = pdl->next;
-    }
-
-    return true;
-}
+// TODO ::DELETE
+//
+// bool cc_validate_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link ) {
+//     if ( !cb ) return false;
+//     if ( !pd_link ) return false;
+//
+//     CcPosDescLink * pdl = pd_link;
+//
+//     // TODO :: add check if any step is static
+//     //         --> unless static promotion i.e.
+//     //             starting piece == Pawn &&
+//     //             destination piece == same color figure (except King!)
+//
+//     cc_uint_t momentum = 0;
+//     cc_uint_t prev_m = pdl->pd.momentum;
+//     bool accumulating = false;
+//
+//     if ( pdl->next ) {
+//         momentum = pdl->next->pd.momentum;
+//         if ( prev_m == momentum ) return false;
+//
+//         accumulating = ( momentum > prev_m );
+//     }
+//
+//     while ( pdl ) {
+//         CcPosDesc pd = pdl->pd;
+//         CcPos pos = pd.pos;
+//         momentum = pdl->pd.momentum;
+//
+//         CcPieceType piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
+//         if ( piece != pd.piece ) return false;
+//
+//         CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+//         if ( tag != pd.tag ) return false;
+//
+//         if ( pdl != pd_link ) { // If !1st pos desc --> !starting pos
+//             if ( !CC_PIECE_IS_WEIGHTLESS( pd.piece ) ) { // TODO :: piece found @ position == piece moving! --> add parameter.
+//                 if ( prev_m == momentum ) return false;
+//
+//                 if ( accumulating ) {
+//                     if ( momentum < prev_m ) return false;
+//                 } else {
+//                     if ( prev_m < momentum ) return false;
+//                 }
+//
+//                 if ( pd.momentum == CC_UNSIGNED_MIN ) {
+//                     return ( !pdl->next ); // No steps should follow if momentum is 0, and piece has weight (i.e. all, but Wave, Starchild).
+//                 }
+//             } else {
+//                 if ( prev_m != momentum ) return false;
+//             }
+//         }
+//
+//         prev_m = pdl->pd.momentum;
+//         pdl = pdl->next;
+//     }
+//
+//     return true;
+// }
+//
+// TODO ::DELETE
 
 bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     if ( !cb ) return false;
@@ -202,13 +208,13 @@ bool cc_iter_piece_pos( CcChessboard * cb,
     if ( !cb ) return false;
     if ( !pos__io ) return false;
 
-    int size = (int)cb->size;
+    cc_uint_t size = cc_variant_board_size( cb->type );
     CcPos pos = *pos__io;
 
     // Next position to check.
     if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) )
         pos = CC_POS_CAST_ORIGIN_FIELD;
-    else if ( pos.j < size - 1 )
+    else if ( pos.j < (int)( size - 1 ) )
         pos = CC_POS_CAST( pos.i, pos.j + 1 );
     else
         pos = CC_POS_CAST( pos.i + 1, 0 );
@@ -216,8 +222,8 @@ bool cc_iter_piece_pos( CcChessboard * cb,
     bool is_comparable = cc_pos_is_valid( expected__d ) ||
                          cc_pos_is_disambiguation( expected__d );
 
-    for ( int i = pos.i; i < size; ++i ) {
-        for ( int j = pos.j; j < size; ++j ) {
+    for ( int i = pos.i; i < (int)size; ++i ) {
+        for ( int j = pos.j; j < (int)size; ++j ) {
             CcPieceType pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( ( pe == piece ) ||

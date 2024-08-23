@@ -186,7 +186,8 @@ static bool cc_check_captured_en_passant( CcPieceType capturing,
                                           char const * step_end_an,
                                           CcParseMsg ** parse_msgs__iod ) {
     int stepping = cc_piece_is_light( capturing ) ? -1 : 1; // Rank direction, where to search for captured private.
-    int max_rank = cb->size / 2;
+    cc_uint_t size = cc_variant_board_size( cb->type );
+    int max_rank = (int)( size / 2 );
 
     CcPos captured_at = CC_POS_CAST_INVALID;
     CcPieceType captured = CC_PE_None;
@@ -510,8 +511,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
     if ( sle == CC_PSLE_None ) return false;
 
     if ( !game->chessboard ) return false;
+    if ( !CC_VARIANT_IS_VALID( cb->type ) ) return false;
+    if ( !CC_VARIANT_IS_VALID( game->chessboard->type ) ) return false;
     if ( cb->type != game->chessboard->type ) return false;
-    if ( cb->size != game->chessboard->size ) return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb, step_pos__io->i, step_pos__io->j ) )
         return false;

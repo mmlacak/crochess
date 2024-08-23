@@ -106,7 +106,7 @@ Functions
     Function updates chessboard with position, piece and tag from descriptor;
     momentum is not applied.
 
-    .. warning::
+    .. note::
 
         If all changes are successfully applied, chessboard is reallocated to
         a new address, and old allocation is :c:func:`free()`\ed.
@@ -141,7 +141,7 @@ Functions
         // Storage for returned position.
         CcPos pos = CC_POS_CAST_INVALID;
 
-        // Disambiguation, rank is not given; represents any position on a ``c`` file.
+        // Disambiguation, rank is not given; represents any position on a 'c' file.
         CcPos da = cc_pos( 2, CC_INVALID_COORD );
 
         while ( cc_iter_piece_pos( cb, da, CC_PE_LightRook, true, &pos ) ) {

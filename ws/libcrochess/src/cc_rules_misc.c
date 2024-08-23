@@ -128,8 +128,10 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 bool cc_delete_all_en_passant_tags( CcChessboard * cb ) {
     if ( !cb ) return false;
 
-    for ( int i = 0; i < (int)cb->size; ++i ) {
-        for ( int j = 0; j < (int)cb->size; ++j ) {
+    cc_uint_t size = cc_variant_board_size( cb->type );
+
+    for ( int i = 0; i < (int)size; ++i ) {
+        for ( int j = 0; j < (int)size; ++j ) {
             CcTagType te = cc_chessboard_get_tag( cb, i, j );
 
             if ( te == CC_TE_EnPassant ) {
