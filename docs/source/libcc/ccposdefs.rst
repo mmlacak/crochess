@@ -92,6 +92,7 @@ Lengths
 
     Equals to :c:macro:`CC_STEPS_LONG_UNICORN_LEN`.
 
+
 .. c:macro:: CC_STEPS_SERPENT_LEN
 
     Equals to ``2``.
@@ -99,6 +100,10 @@ Lengths
 .. c:macro:: CC_STEPS_ALL_SERPENT_LEN
 
     Equals to :c:macro:`CC_STEPS_BISHOP_LEN`.
+
+.. c:macro:: CC_STEPS_COLOR_CHANGE_SERPENT_LEN
+
+    Equals to :c:macro:`CC_STEPS_ROOK_LEN`.
 
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_LEN
@@ -197,13 +202,18 @@ Piece step sizes
 
     Equals to :c:macro:`CC_STEPS_LONG_UNICORN_SIZE`.
 
+
 .. c:macro:: CC_STEPS_SERPENT_SIZE
 
     Equals to :c:macro:`CC_STEPS_SERPENT_LEN` + 1.
 
 .. c:macro:: CC_STEPS_ALL_SERPENT_SIZE
 
-    Equals to :c:macro:`CC_STEPS_BISHOP_SIZE`.
+    Equals to :c:macro:`CC_STEPS_ALL_SERPENT_LEN` + 1.
+
+.. c:macro:: CC_STEPS_COLOR_CHANGE_SERPENT_SIZE
+
+    Equals to :c:macro:`CC_STEPS_COLOR_CHANGE_SERPENT_LEN` + 1.
 
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_SIZE
@@ -317,6 +327,7 @@ similar to zero-terminating strings; terminating position is
     Steps array for Centaurs featuring long step, for all variants;
     equals to :c:macro:`CC_STEPS_LONG_UNICORN`.
 
+
 .. c:type:: CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ]
 
     Steps array for Serpents featuring left diagonal, for all variants.
@@ -329,6 +340,16 @@ similar to zero-terminating strings; terminating position is
 
     Steps array for Serpents, for all variants; equals to
     :c:macro:`CC_STEPS_BISHOP`.
+
+.. c:macro:: CC_STEPS_COLOR_CHANGE_SERPENT
+
+    Color-changing steps array for Serpents, for all variants; equals to
+    :c:macro:`CC_STEPS_ROOK`.
+
+    .. note::
+
+        This color-changing steps are *not* included in all-steps array,
+        i.e. they are *not* in :c:macro:`CC_STEPS_ALL_SERPENT`.
 
 
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ]
@@ -536,6 +557,13 @@ Validity macros
     :param step: A step to check.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
+.. c:macro:: CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step)
+
+    Macro to check if color-changing :c:`step` can be made by Serpent.
+
+    :param step: A step to check.
+    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+
 
 .. c:macro:: CC_LIGHT_SCOUT_STEP_IS_VALID(step)
 
@@ -576,14 +604,6 @@ Validity macros
 .. c:macro:: CC_STARCHILD_MIRACLE_STEP_IS_VALID(step)
 
     Macro to check if miracle-:c:`step` can be made by Starchild.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-
-.. c:macro:: CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step)
-
-    Macro to check if color-changing :c:`step` can be made by Serpent.
 
     :param step: A step to check.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.

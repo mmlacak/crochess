@@ -32,8 +32,10 @@
 #define CC_STEPS_STAR_LEN (CC_STEPS_QUEEN_LEN)
 #define CC_STEPS_SHORT_CENTAUR_LEN (CC_STEPS_SHORT_UNICORN_LEN)
 #define CC_STEPS_LONG_CENTAUR_LEN (CC_STEPS_LONG_UNICORN_LEN)
+
 #define CC_STEPS_SERPENT_LEN (2)
 #define CC_STEPS_ALL_SERPENT_LEN (CC_STEPS_BISHOP_LEN)
+#define CC_STEPS_COLOR_CHANGE_SERPENT_LEN (CC_STEPS_ROOK_LEN)
 
 #define CC_STEPS_LIGHT_SHAMAN_LEN (CC_STEPS_KNIGHT_LEN + CC_STEPS_LONG_UNICORN_LEN) // Steps + capture-steps.
 #define CC_STEPS_DARK_SHAMAN_LEN (CC_STEPS_LONG_UNICORN_LEN + CC_STEPS_KNIGHT_LEN) // Steps + capture-steps.
@@ -62,8 +64,10 @@
 #define CC_STEPS_STAR_SIZE (CC_STEPS_QUEEN_SIZE)
 #define CC_STEPS_SHORT_CENTAUR_SIZE (CC_STEPS_SHORT_UNICORN_SIZE)
 #define CC_STEPS_LONG_CENTAUR_SIZE (CC_STEPS_LONG_UNICORN_SIZE)
+
 #define CC_STEPS_SERPENT_SIZE (CC_STEPS_SERPENT_LEN + 1)
-#define CC_STEPS_ALL_SERPENT_SIZE (CC_STEPS_BISHOP_SIZE)
+#define CC_STEPS_ALL_SERPENT_SIZE (CC_STEPS_ALL_SERPENT_LEN + 1)
+#define CC_STEPS_COLOR_CHANGE_SERPENT_SIZE (CC_STEPS_COLOR_CHANGE_SERPENT_LEN + 1)
 
 #define CC_STEPS_LIGHT_SHAMAN_SIZE (CC_STEPS_LIGHT_SHAMAN_LEN + 1)
 #define CC_STEPS_DARK_SHAMAN_SIZE (CC_STEPS_DARK_SHAMAN_LEN + 1)
@@ -82,7 +86,7 @@ extern CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZ
 
 extern CcTypedStep const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ];
 extern CcTypedStep const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ];
-extern CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ]; // TODO :: ADD :: Also, Serpent's color-changing move.
+extern CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ];
 extern CcTypedStep const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ];
 #define CC_STEPS_KING (CC_STEPS_QUEEN)
 
@@ -94,9 +98,11 @@ extern CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ];
 #define CC_STEPS_STAR (CC_STEPS_QUEEN)
 #define CC_STEPS_SHORT_CENTAUR (CC_STEPS_SHORT_UNICORN)
 #define CC_STEPS_LONG_CENTAUR (CC_STEPS_LONG_UNICORN)
+
 extern CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ];
 extern CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ];
 #define CC_STEPS_ALL_SERPENT (CC_STEPS_BISHOP)
+#define CC_STEPS_COLOR_CHANGE_SERPENT (CC_STEPS_ROOK)
 
 extern CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ];
 extern CcTypedStep const CC_STEPS_DARK_SHAMAN[ CC_STEPS_DARK_SHAMAN_SIZE ];
@@ -163,6 +169,7 @@ bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t
 #define CC_CENTAUR_LONG_STEP_IS_VALID(step) \
     ( cc_is_typed_step_valid( (step), CC_STEPS_LONG_CENTAUR, CC_STEPS_LONG_CENTAUR_LEN ) )
 
+
 #define CC_SERPENT_LEFT_STEP_IS_VALID(step) \
     ( cc_is_typed_step_valid( (step), CC_STEPS_SERPENT_LEFT, CC_STEPS_SERPENT_LEN ) )
 
@@ -171,6 +178,9 @@ bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t
 
 #define CC_SERPENT_STEP_IS_VALID(step) \
     ( cc_is_typed_step_valid( (step), CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN ) )
+
+#define CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step) \
+    ( cc_is_typed_step_valid( (step), CC_STEPS_COLOR_CHANGE_SERPENT, CC_STEPS_COLOR_CHANGE_SERPENT_LEN ) )
 
 
 #define CC_LIGHT_SCOUT_STEP_IS_VALID(step) \
@@ -191,10 +201,6 @@ bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t
 
 #define CC_STARCHILD_MIRACLE_STEP_IS_VALID(step) \
     ( cc_is_typed_step_valid( (step), CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN ) )
-
-
-#define CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step) \
-    ( cc_is_typed_step_valid( (step), CC_STEPS_ROOK, CC_STEPS_ROOK_LEN ) )
 
 
 bool cc_is_same_color( CcPieceType piece, CcPos pos );
