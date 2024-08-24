@@ -348,7 +348,7 @@ similar to zero-terminating strings; terminating position is
 
     .. note::
 
-        This color-changing steps are *not* included in all-steps array,
+        These color-changing steps are *not* included in all-steps array,
         i.e. they are *not* in :c:macro:`CC_STEPS_ALL_SERPENT`.
 
 
