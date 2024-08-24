@@ -77,9 +77,9 @@ typedef enum CcStepTypeEnum {
     CC_STE_None = 0, /* Undefined step type. */
     CC_STE_Movement, /* Just a step, movement. It can still cause side-effects other than capture. */
     CC_STE_Capture,  /* Capturing step, i.e. movement + capture. */
-    CC_STE_Alternative, /* Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps. */
+    CC_STE_Alternative, /* Alternative step; one of displacement-, color-change-, entrancement-, uplifting-, miracle-steps. */
 } CcStepTypeEnum;
-// TODO :: CC_STE_All --> convert CcStepTypeEnum into bit-field (?)
+// TODO :: maybe split alternative steps, each into its own proper (?)
 
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
 

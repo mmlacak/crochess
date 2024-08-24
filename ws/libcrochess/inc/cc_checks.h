@@ -17,11 +17,12 @@
 // TODO :: Wave, transparency comparison, ... or ...
 // TODO :: maybe add function just for checking castling (?)
 // TODO :: see cc_check_piece_is_blocked_at()
-bool cc_check_step_fields_are_empty( CcChessboard * cb,
-                                     CcPos pos,
-                                     CcPos step,
-                                     cc_uint_t limit__d,
-                                     bool check_pos );
+// --> DOCS
+CcMaybeBoolEnum cc_check_step_fields_are_empty( CcChessboard * cb,
+                                                CcPos pos,
+                                                CcPos step,
+                                                cc_uint_t limit__d,
+                                                bool check_pos );
 
 bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum );
 

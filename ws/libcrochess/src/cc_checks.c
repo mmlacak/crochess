@@ -7,19 +7,17 @@
 // TODO :: Wave, transparency comparison, ... or ...
 // TODO :: maybe add function just for checking castling (?)
 // TODO :: see cc_check_piece_is_blocked_at()
-bool cc_check_step_fields_are_empty( CcChessboard * cb,
-                                     CcPos pos,
-                                     CcPos step,
-                                     cc_uint_t limit__d,
-                                     bool check_pos ) {
-    if ( !cb ) return false;
+CcMaybeBoolEnum cc_check_step_fields_are_empty( CcChessboard * cb,
+                                                CcPos pos,
+                                                CcPos step,
+                                                cc_uint_t limit__d,
+                                                bool check_pos ) {
+    if ( !cb ) return CC_MBE_Void;
 
     CcPos current = pos;
     cc_uint_t count = 0;
 
     do {
-        current = cc_pos_add( current, step, 1 );
-
         if ( !cc_chessboard_is_pos_on_board( cb, current.i, current.j ) )
             break;
 
@@ -27,23 +25,26 @@ bool cc_check_step_fields_are_empty( CcChessboard * cb,
             // TODO :: Wave, transparency comparison, ...
 
             CcPieceType pe = cc_chessboard_get_piece( cb, current.i, current.j );
-            if ( !CC_PIECE_IS_NONE( pe ) ) return false;
+            if ( !CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
         }
 
         if ( ( limit__d != CC_CHECK_STEPS_NO_LIMIT ) && ( count >= limit__d ) )
             break;
 
+        current = cc_pos_add( current, step, 1 );
+
         ++count;
     } while ( true );
 
-    return true;
+    return ( count > 0 ) ? CC_MBE_True
+                         : CC_MBE_Void;
 }
 
 bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum ) {
     if ( CC_PIECE_IS_WEIGHTLESS( piece ) ) {
         return true;
     } else {
-        return ( momentum > CC_UNSIGNED_MIN );
+        return ( momentum > 0 );
     }
 }
 

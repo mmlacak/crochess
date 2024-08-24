@@ -29,7 +29,7 @@ Data
 Functions
 ---------
 
-.. c:function:: bool cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, cc_uint_t limit__d, bool check_pos )
+.. c:function:: CcMaybeBoolEnum cc_check_step_fields_are_empty( CcChessboard * cb, CcPos pos, CcPos step, cc_uint_t limit__d, bool check_pos )
 
     .. todo:: check transparency, or add specialized function for castling (?)
 
@@ -40,9 +40,13 @@ Functions
     :param cb: Chessboard.
     :param pos: A position.
     :param step: A step.
-    :param limit__d: _Optional_, count of steps to check, :c:macro:`CC_CHECK_STEPS_NO_LIMIT` otherwise.
+    :param limit__d: *Optional*, count of steps to check, :c:macro:`CC_CHECK_STEPS_NO_LIMIT` otherwise.
     :param check_pos: Flag, whether given position should also be checked.
-    :returns: :c:data:`true` if step-fields are empty, :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if fields are empty,
+        * :c:enumerator:`CC_MBE_False` if at least one field is not empty,
+        * :c:enumerator:`CC_MBE_Void` if no fields were checked (an error encountered, insufficient data given).
 
 .. c:function:: bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum )
 
