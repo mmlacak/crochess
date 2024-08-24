@@ -42,7 +42,6 @@ bool cc_iter_ply( char const * move_an_str,
                   char const ** end__io );
 
 
-// TODO :: FIX :: simplify, delete return_validity flag
 bool cc_fetch_piece_symbol( char const * piece_an_str,
                             char * piece_symbol__o,
                             bool default_to_pawn,

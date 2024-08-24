@@ -88,8 +88,6 @@ bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
     return true;
 }
 
-// TODO :: DELETE :: remove all excess validation
-
 bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
     if ( !cb ) return false;
     if ( !pd_link__io ) return false;
