@@ -19,7 +19,6 @@ bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum );
 
 bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte );
 
-// DOCS
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceType piece,
                                               cc_uint_t momentum,
@@ -36,7 +35,6 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceType activator,
                                                CcPos pos );
 
-// DOCS
 CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos king_start,
                                                CcPos king_dest,
