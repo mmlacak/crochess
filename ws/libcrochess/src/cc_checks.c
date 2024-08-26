@@ -4,43 +4,6 @@
 #include "cc_checks.h"
 
 
-// TODO :: Wave, transparency comparison, ... or ...
-// TODO :: maybe add function just for checking castling (?)
-// TODO :: see cc_check_piece_is_blocked_at()
-// TODO :: --> DOCS
-CcMaybeBoolEnum cc_check_step_fields_are_empty( CcChessboard * cb,
-                                                CcPos pos,
-                                                CcPos step,
-                                                cc_uint_t limit__d,
-                                                bool check_pos ) {
-    if ( !cb ) return CC_MBE_Void;
-
-    CcPos current = pos;
-    cc_uint_t count = 0;
-
-    do {
-        if ( !cc_chessboard_is_pos_on_board( cb, current.i, current.j ) )
-            break;
-
-        if ( ( count > 0 ) || check_pos ) {
-            // TODO :: Wave, transparency comparison, ...
-
-            CcPieceType pe = cc_chessboard_get_piece( cb, current.i, current.j );
-            if ( !CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
-        }
-
-        if ( ( limit__d != CC_CHECK_STEPS_NO_LIMIT ) && ( count >= limit__d ) )
-            break;
-
-        current = cc_pos_add( current, step, 1 );
-
-        ++count;
-    } while ( true );
-
-    return ( count > 0 ) ? CC_MBE_True
-                         : CC_MBE_Void;
-}
-
 bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum ) {
     if ( CC_PIECE_IS_WEIGHTLESS( piece ) ) {
         return true;
@@ -67,6 +30,9 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
 
+    bool mm = cc_check_momentum_for_movement( piece, momentum );
+    if ( !mm ) return CC_MBE_True;
+
     CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
 
@@ -86,7 +52,7 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
         if ( CC_PIECE_IS_SEMI_OPAQUE( pe ) )
             return CC_MBE_True;
 
-    return CC_BOOL_TO_MAYBE( cc_check_momentum_for_movement( piece, momentum ) );
+    return CC_MBE_False;
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
@@ -137,4 +103,51 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
             return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, pe ) );
     } else
         return CC_MBE_False;
+}
+
+CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
+                                               CcPos king_start,
+                                               CcPos king_dest,
+                                               CcPos rook_start,
+                                               CcPos rook_dest ) {
+    if ( !cb ) return CC_MBE_Void;
+
+    if ( king_start.j != rook_start.j ) return CC_MBE_False;
+
+    CcPieceType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
+    if ( !CC_PIECE_IS_KING( king ) ) return CC_MBE_False;
+
+    CcPieceType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
+    if ( !CC_PIECE_IS_ROOK( rook ) ) return CC_MBE_False;
+
+    if ( !cc_piece_has_same_color( king, rook ) ) return CC_MBE_False;
+
+    CcTagType king_tag = cc_chessboard_get_tag( cb, king_start.i, king_start.j );
+    if ( !CC_TAG_CAN_CASTLE( king_tag ) ) return CC_MBE_False;
+
+    CcTagType rook_tag = cc_chessboard_get_tag( cb, rook_start.i, rook_start.j );
+    if ( !CC_TAG_CAN_CASTLE( rook_tag ) ) return CC_MBE_False;
+
+    CcPieceType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
+    if ( !CC_PIECE_IS_NONE( empty_for_king ) ) return CC_MBE_False;
+
+    CcPieceType empty_for_rook = cc_chessboard_get_piece( cb, rook_dest.i, rook_dest.j );
+    if ( !CC_PIECE_IS_NONE( empty_for_rook ) ) return CC_MBE_False;
+
+    bool is_queen_side = ( king_start.i > rook_start.i );
+    CcPos king_step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
+
+    CcPos current = cc_pos_add( king_start, king_step, 1 );
+    cc_uint_t momentum = 1;
+
+    do {
+        if ( CC_MAYBE_IS_TRUE( cc_check_piece_is_blocked_at( cb, king, momentum, current ) ) )
+            return CC_MBE_False;
+
+        current = cc_pos_add( current, king_step, 1 );
+
+        ++momentum;
+    } while ( !cc_pos_is_equal( rook_dest, current ) );
+
+    return CC_MBE_True;
 }

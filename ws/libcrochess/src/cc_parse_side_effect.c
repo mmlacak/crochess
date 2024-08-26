@@ -411,18 +411,8 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         return false;
     }
 
-    CcPos step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
     CcPieceType rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
     int rook_i = cc_get_figure_initial_file( cb->type, rook, is_queen_side );
-    CcPos pos = cc_pos_add( before_ply_start.pos, step, 1 ); // First step from King's initial position.
-    cc_uint_t limit = is_queen_side ? pos.i - rook_i : rook_i - pos.i;
-
-    if ( !CC_MAYBE_IS_TRUE( cc_check_step_fields_are_empty( cb, pos, step, limit, true ) ) ) {
-        char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle, all step-fields between the King and a Rook has to be empty.\n", piece_str );
-        return false;
-    }
-
     CcPieceType maybe_rook = cc_chessboard_get_piece( cb, rook_i, init_j );
 
     if ( maybe_rook != rook ) {
@@ -440,11 +430,18 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         return false;
     }
 
+    CcPos rook_start = CC_POS_CAST( rook_i, init_j );
     int rook_end_i = is_queen_side ? step_pos__io->i + 1 : step_pos__io->i - 1;
-    CcPos rook_end = CC_POS_CAST( rook_end_i, init_j );
+    CcPos rook_dest = CC_POS_CAST( rook_end_i, init_j );
+
+    if ( !CC_MAYBE_IS_TRUE( cc_check_castling_step_fields( cb, before_ply_start.pos, *step_pos__io, rook_start, rook_dest ) ) ) {
+        char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle, all step-fields between the King and a Rook has to be empty.\n", piece_str );
+        return false;
+    }
 
     if ( cc_pos_is_disambiguation( *rook_dest__io ) ) {
-        if ( !cc_pos_is_congruent( rook_end, *rook_dest__io ) ) {
+        if ( !cc_pos_is_congruent( rook_dest, *rook_dest__io ) ) {
             char const * piece_str = cc_piece_as_string( rook, false, true );
             char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
             cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Destination of %s is not valid (next to castling King, on the inner side), in step '%s'.\n", piece_str, step_an__a );
@@ -453,7 +450,7 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         }
     }
 
-    *rook_dest__io = rook_end;
+    *rook_dest__io = rook_dest;
     *rook__o = rook;
     *rook_init__o = CC_POS_CAST( rook_i, init_j );
 
