@@ -145,7 +145,8 @@ bool tests_move( int test_number ) {
         result = test_move( tma->an_str, tma->setup__d, tma->check_setup__d, tma->check_end__d, NULL ) && result;
     }
 
-    printf( "Finished: '%d'.\n", result );
+    size_t count = do_all_tests ? TEST_ARGS_ARRAY_SIZE - 1 : 1;
+    printf( "Finished %zu test(s): '%d'.\n", count, result );
     printf( "=======================================================================\n" );
 
     return result;

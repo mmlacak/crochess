@@ -141,6 +141,8 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     cc_uint_t momentum = 1;
 
     do {
+        // [i] Rook is semi-opaque just like King, so it's enough to check only King
+        //     against all fields in-between the two.
         if ( CC_MAYBE_IS_TRUE( cc_check_piece_is_blocked_at( cb, king, momentum, current ) ) )
             return CC_MBE_False;
 
