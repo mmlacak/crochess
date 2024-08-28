@@ -108,7 +108,7 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 //         // Movement (+ capture / activation) + promotion.
 
 //         bool is_light = cc_piece_is_light( pawn );
-//         int rank = cc_chessboard_promoting_rank( cb, is_light );
+//         int rank = cc_variant_promoting_rank( cb, is_light );
 //         if ( !cc_chessboard_is_coord_on_board( cb, rank ) ) return false;
 
 //         if ( rank == destination.j ) return true;

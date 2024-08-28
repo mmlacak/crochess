@@ -130,5 +130,11 @@ bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
                                         bool is_piece_light,
                                         int rank );
 
+// TODO :: RENAMED :: DOCS
+cc_uint_t cc_variant_promoting_rank( CcVariantEnum ve, bool is_light );
+
+// TODO :: RENAMED :: DOCS
+cc_uint_t cc_variant_figure_rank( CcVariantEnum ve, bool is_light );
+
 
 #endif /* __CC_VARIANT_H__ */

@@ -56,10 +56,6 @@ bool cc_chessboard_is_field_on_light_side( CcChessboard * cb, int j );
 
 bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j );
 
-int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light );
-
-int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light );
-
 CcPieceType cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
 
 CcTagType cc_chessboard_get_tag( CcChessboard * cb, int i, int j );

@@ -36,6 +36,39 @@ static bool _cc_check_parsed_pos( char const * step_start_an,
     return true;
 }
 
+static bool _cc_fill_in_castling_partial_destination( char const * step_start_an,
+                                                      char const * step_end_an,
+                                                      CcGame * game,
+                                                      CcPosDesc before_ply_start,
+                                                      char const * pos_end_an,
+                                                      CcPos * destination__io,
+                                                      CcParseMsg ** parse_msgs__iod ) {
+    if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) return true;
+
+    if ( !destination__io ) return false;
+    if ( !CC_POS_IS_PARTIAL( *destination__io ) ) return true;
+
+    if ( !pos_end_an ) return false;
+    if ( !game ) return false;
+
+    char const * c = pos_end_an;
+
+    if ( *c++ == '&' ) {
+        if ( *c != '&' ) {
+            bool is_light = cc_piece_is_light( before_ply_start.piece );
+            cc_uint_t rank = cc_variant_figure_rank( game->chessboard->type, is_light );
+            destination__io->j = (int)rank;
+        }
+    }
+
+    // if ( !step_start_an ) return false;
+    // if ( !step_end_an ) return false;
+
+    // if ( !parse_msgs__iod ) return false;
+
+    return true;
+}
+
 static bool _cc_parse_step( char const * step_start_an,
                             char const * step_end_an,
                             char const * steps_end_an,
@@ -80,9 +113,17 @@ static bool _cc_parse_step( char const * step_start_an,
         }
     }
 
+    // TODO :: check if castling disambiguation --> fill-in rank.
+
+    if ( !_cc_fill_in_castling_partial_destination( step_start_an, step_end_an, game, before_ply_start,
+                                                    pos_end_an,
+                                                    &pos,
+                                                    parse_msgs__iod ) )
+        return false;
+
     CcParsedSideEffect se = cc_parsed_side_effect_none();
 
-    if ( !*had_disambiguation__io )
+    if ( !*had_disambiguation__io ) // Disambiguation == starting position --> no side-effect.
         if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
                                     *cb__io,
                                     sle,

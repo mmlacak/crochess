@@ -198,7 +198,7 @@ Functions
     :param j: Rank, position along vertical axis.
     :returns: :c:data:`true` if position is on the dark side, :c:data:`false` otherwise.
 
-.. c:function:: int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light )
+.. c:function:: int cc_variant_promoting_rank( CcChessboard * cb, bool is_light )
 
     Function returns rank of a promoting row.
 
@@ -207,7 +207,7 @@ Functions
     :returns: Rank of a promoting row if successful,
               :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light )
+.. c:function:: int cc_variant_figure_rank( CcChessboard * cb, bool is_light )
 
     Function returns rank of a figure row.
 

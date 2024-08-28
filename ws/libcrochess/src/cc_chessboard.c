@@ -210,22 +210,6 @@ bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j ) {
     return CC_IS_FIELD_ON_DARK_SIDE( size, j );
 }
 
-int cc_chessboard_promoting_rank( CcChessboard * cb, bool is_light ) {
-    if ( !cb ) return CC_INVALID_COORD;
-    if ( !is_light ) return 0;
-
-    cc_uint_t size = cc_variant_board_size( cb->type );
-    return (int)( size - 1 );
-}
-
-int cc_chessboard_figure_rank( CcChessboard * cb, bool is_light ) {
-    if ( !cb ) return CC_INVALID_COORD;
-    if ( is_light ) return 0;
-
-    cc_uint_t size = cc_variant_board_size( cb->type );
-    return (int)( size - 1 );
-}
-
 CcPieceType cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
     if ( !cb ) return CC_PE_None;
 
