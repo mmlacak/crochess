@@ -21,6 +21,14 @@
 //                                   char const ** pos_end_an__o,
 //                                   CcParseMsg ** parse_msgs__iod );
 
+// static bool _cc_fill_in_castling_partial_destination( /* char const * step_start_an, */
+//                                                       /* char const * step_end_an, */
+//                                                       CcGame * game,
+//                                                       CcPosDesc before_ply_start,
+//                                                       char const * pos_end_an,
+//                                                       CcPos * destination__io /* ,
+//                                                       CcParseMsg ** parse_msgs__iod */ );
+
 // static bool _cc_parse_step( char const * step_start_an,
 //                             char const * step_end_an,
 //                             char const * steps_end_an,

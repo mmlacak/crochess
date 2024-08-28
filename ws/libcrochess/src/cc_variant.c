@@ -243,20 +243,16 @@ bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
     }
 }
 
-// TODO :: RENAMED :: DOCS
 cc_uint_t cc_variant_promoting_rank( CcVariantEnum ve, bool is_light ) {
     if ( !is_light ) return 0;
 
     cc_uint_t size = cc_variant_board_size( ve );
-    // return (cc_uint_t)( size - 1 );
     return size - 1;
 }
 
-// TODO :: RENAMED :: DOCS
 cc_uint_t cc_variant_figure_rank( CcVariantEnum ve, bool is_light ) {
     if ( is_light ) return 0;
 
     cc_uint_t size = cc_variant_board_size( ve );
-    // return (cc_uint_t)( size - 1 );
     return size - 1;
 }

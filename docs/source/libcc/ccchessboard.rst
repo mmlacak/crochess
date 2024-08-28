@@ -198,24 +198,6 @@ Functions
     :param j: Rank, position along vertical axis.
     :returns: :c:data:`true` if position is on the dark side, :c:data:`false` otherwise.
 
-.. c:function:: int cc_variant_promoting_rank( CcChessboard * cb, bool is_light )
-
-    Function returns rank of a promoting row.
-
-    :param cb: A chessboard.
-    :param is_light: Flag, whether it is for light or dark player.
-    :returns: Rank of a promoting row if successful,
-              :c:macro:`CC_INVALID_COORD` otherwise.
-
-.. c:function:: int cc_variant_figure_rank( CcChessboard * cb, bool is_light )
-
-    Function returns rank of a figure row.
-
-    :param cb: A chessboard.
-    :param is_light: Flag, whether it is for light or dark player.
-    :returns: Rank of a figure row if successful,
-              :c:macro:`CC_INVALID_COORD` otherwise.
-
 .. c:function:: CcPieceType cc_chessboard_get_piece( CcChessboard * cb, int i, int j )
 
     Function returning piece at a given position.

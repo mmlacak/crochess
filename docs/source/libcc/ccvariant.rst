@@ -369,6 +369,22 @@ Functions
     :param rank: Rank, position along vertical axis.
     :returns: :c:data:`true` if within rush limits, :c:data:`false` otherwise.
 
+.. c:function:: cc_uint_t cc_variant_promoting_rank( CcVariantEnum ve, bool is_light )
+
+    Function returns rank of a promoting row.
+
+    :param ve: Variant :c:`enum`.
+    :param is_light: Flag, whether it is for light or dark player.
+    :returns: Rank of a promoting row.
+
+.. c:function:: cc_uint_t cc_variant_figure_rank( CcVariantEnum ve, bool is_light )
+
+    Function returns rank of a figure row.
+
+    :param ve: Variant :c:`enum`.
+    :param is_light: Flag, whether it is for light or dark player.
+    :returns: Rank of a figure row.
+
 .. _lbl-libcc-ccvariant-sourcecodeheader:
 
 Header file
