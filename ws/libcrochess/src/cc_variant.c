@@ -243,16 +243,18 @@ bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
     }
 }
 
-cc_uint_t cc_variant_promoting_rank( CcVariantEnum ve, bool is_light ) {
+int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light ) {
     if ( !is_light ) return 0;
+    if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 
     cc_uint_t size = cc_variant_board_size( ve );
-    return size - 1;
+    return (int)( size - 1 );
 }
 
-cc_uint_t cc_variant_figure_rank( CcVariantEnum ve, bool is_light ) {
+int cc_variant_figure_rank( CcVariantEnum ve, bool is_light ) {
     if ( is_light ) return 0;
+    if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 
     cc_uint_t size = cc_variant_board_size( ve );
-    return size - 1;
+    return (int)( size - 1 );
 }

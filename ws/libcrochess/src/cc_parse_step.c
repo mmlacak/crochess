@@ -50,14 +50,15 @@ static bool _cc_fill_in_castling_partial_destination( /* char const * step_start
 
     if ( !pos_end_an ) return false;
     if ( !game ) return false;
+    if ( !game->chessboard ) return false;
 
     char const * c = pos_end_an;
 
     if ( *c++ == '&' ) { // Maybe castling ( "&" == castling, "&&" == losing castling tag )?
         if ( *c != '&' ) { // Definitely castling.
             bool is_light = cc_piece_is_light( before_ply_start.piece );
-            cc_uint_t rank = cc_variant_figure_rank( game->chessboard->type, is_light );
-            destination__io->j = (int)rank;
+            int rank = cc_variant_figure_rank( game->chessboard->type, is_light );
+            destination__io->j = rank;
         }
     }
 
@@ -112,8 +113,6 @@ static bool _cc_parse_step( char const * step_start_an,
             *had_disambiguation__io = true;
         }
     }
-
-    // TODO :: check if castling disambiguation --> fill-in rank.
 
     if ( !_cc_fill_in_castling_partial_destination( /* step_start_an, step_end_an, */ game, before_ply_start,
                                                     pos_end_an,
