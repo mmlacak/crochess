@@ -2475,7 +2475,8 @@ teleporting piece (Star) is introduced.
 <displacement-side-effect> =
   \alg{<}[<disposable-piece-losing-tag>]<field>
 
-<transparency-side-effect> = [\alg{\^{}}[\alg{W}]]
+<transparency-side-effect> = [\alg{\^{}}[\alg{W}|\alg{I}]]
+<transparency-starchild-side-effect> = [\alg{\^{}}[\alg{I}]]
 <divergence-side-effect> = [\alg{/}[\alg{H}|\alg{I}]]
 
 <wave-transparency-side-effect> =
@@ -2673,8 +2674,15 @@ teleporting piece (Star) is introduced.
     [<resurrecting-side-effect>]
     \alg{~}\alg{T}<stepping-no-side-effects>
 
+<monolith-stepping> =
+  <stepping-no-side-effects>
+| [<disambiguation>]
+  \{<step>
+    [<transparency-starchild-side-effect>]\}
+  (<step> | \alg{-}<field>)
+
 <monolith-ply> =
-  \alg{M}<stepping-no-side-effects>
+  \alg{M}<monolith-stepping>
   [<demoting-side-effect>]
 
 <king-castling-ply> =
