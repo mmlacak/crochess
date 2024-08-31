@@ -228,10 +228,21 @@ Types
 
     :c:`enum` is tagged with the same :c:enum:`CcVariantEnum` name.
 
+.. c:macro:: CC_VARIANT_IS_ENUMERATOR(ve)
+
+    Macro to check if given variant value is an enumerator, i.e. between
+    :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_One` values.
+
+    :param ve: Variant (integer) value.
+    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+
 .. c:macro:: CC_VARIANT_IS_VALID(ve)
 
     Macro to check if given variant value is a valid enumerator, i.e. between
     :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_One` values.
+
+    This macro is the same as :c:macro:`CC_VARIANT_IS_ENUMERATOR`, since
+    :c:enum:`CcVariantEnum` does not feature *null* (or *void*, or *empty*) value.
 
     :param ve: Variant (integer) value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.

@@ -81,6 +81,12 @@ typedef enum CcStepTypeEnum {
 } CcStepTypeEnum;
 // TODO :: maybe split alternative steps, each into its own proper (?)
 
+// TODO :: DOCS
+#define CC_STEP_TYPE_IS_ENUMERATOR(ste) ( ( CC_STE_None <= (ste) ) && ( (ste) <= CC_STE_Alternative ) )
+
+// TODO :: DOCS
+#define CC_STEP_TYPE_IS_VALID(ste) ( ( CC_STE_None < (ste) ) && ( (ste) <= CC_STE_Alternative ) )
+
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
 
 #define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_Movement }
@@ -94,7 +100,7 @@ typedef struct CcTypedStep {
 
 #define CC_TYPED_STEP_CAST_STATIC ( (CcTypedStep)CC_TYPED_STEP_STATIC )
 
-#define CC_TYPED_STEP_IS_VALID(ts) ( CC_POS_IS_VALID( (ts).step ) && ( (ts).type != CC_STE_None ) )
+#define CC_TYPED_STEP_IS_VALID(ts) ( CC_POS_IS_VALID( (ts).step ) && CC_STEP_TYPE_IS_VALID( (ts).type ) )
 
 #define CC_TYPED_STEP_IS_EQUAL(ts_1,ts_2) ( CC_POS_IS_EQUAL( (ts_1).step, (ts_2).step ) && ( (ts_1).type == (ts_2).type ) )
 
