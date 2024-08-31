@@ -10,6 +10,8 @@
 int cc_find_initial_figure_file( CcVariantEnum ve,
                                  CcPieceType pe,
                                  bool search_queen_side_first ) {
+    if ( !CC_VARIANT_IS_VALID( ve ) ) return false;
+
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
             ( CC_PIECE_IS_PAWN( pe ) ) ||
@@ -64,6 +66,7 @@ bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
                                          bool * is_queen_side__o,
                                          int * min_i__o,
                                          int * max_i__o ) {
+    if ( !CC_VARIANT_IS_VALID( ve ) ) return false;
     if ( !CC_PIECE_IS_KING( king ) ) return false;
     if ( !is_queen_side__o ) return false;
     if ( !min_i__o ) return false;
