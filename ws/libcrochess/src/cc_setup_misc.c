@@ -7,9 +7,9 @@
 #include "cc_setup_misc.h"
 
 
-int cc_get_figure_initial_file( CcVariantEnum ve,
-                                CcPieceType pe,
-                                bool search_queen_side_first ) {
+int cc_find_initial_figure_file( CcVariantEnum ve,
+                                 CcPieceType pe,
+                                 bool search_queen_side_first ) {
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
             ( CC_PIECE_IS_PAWN( pe ) ) ||
@@ -37,13 +37,6 @@ int cc_get_figure_initial_file( CcVariantEnum ve,
     }
 
     return CC_INVALID_COORD;
-}
-
-int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light ) {
-    if ( is_light ) return 0;
-
-    size_t size = cc_variant_board_size( ve );
-    return (int)(size - 1);
 }
 
 int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
@@ -79,13 +72,13 @@ bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
     int size = cc_variant_board_size( ve );
     if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
-    int init_i = cc_get_figure_initial_file( ve, king, false );
+    int init_i = cc_find_initial_figure_file( ve, king, false );
     if ( !CC_IS_COORD_ON_BOARD( size, init_i ) ) return false;
 
     if ( pos_i == init_i ) return false;
 
     bool is_light = cc_piece_is_light( king );
-    int init_j = cc_get_initial_figure_rank( ve, is_light );
+    int init_j = cc_variant_figure_rank( ve, is_light );
     if ( !CC_IS_COORD_ON_BOARD( size, init_j ) ) return false;
 
     if ( pos_j != init_j ) return false;

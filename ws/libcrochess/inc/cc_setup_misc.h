@@ -11,11 +11,9 @@
 #define CC_KING_MIN_CASTLING_DISTANCE (2)
 
 
-int cc_get_figure_initial_file( CcVariantEnum ve,
-                                CcPieceType pe,
-                                bool search_queen_side_first );
-
-int cc_get_initial_figure_rank( CcVariantEnum ve, bool is_light );
+int cc_find_initial_figure_file( CcVariantEnum ve,
+                                 CcPieceType pe,
+                                 bool search_queen_side_first );
 
 int cc_get_kings_max_castling_distance( CcVariantEnum ve );
 

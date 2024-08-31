@@ -375,8 +375,8 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
                                                 char const * step_end_an,
                                                 CcParseMsg ** parse_msgs__iod ) {
     bool is_light = cc_piece_is_light( before_ply_start.piece );
-    int init_i = cc_get_figure_initial_file( cb->type, before_ply_start.piece, false );
-    int init_j = cc_get_initial_figure_rank( cb->type, is_light );
+    int init_i = cc_find_initial_figure_file( cb->type, before_ply_start.piece, false );
+    int init_j = cc_variant_figure_rank( cb->type, is_light );
 
     if ( before_ply_start.pos.i != init_i || before_ply_start.pos.j != init_j ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
@@ -412,7 +412,7 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
     }
 
     CcPieceType rook = is_light ? CC_PE_LightRook : CC_PE_DarkRook;
-    int rook_i = cc_get_figure_initial_file( cb->type, rook, is_queen_side );
+    int rook_i = cc_find_initial_figure_file( cb->type, rook, is_queen_side );
     CcPieceType maybe_rook = cc_chessboard_get_piece( cb, rook_i, init_j );
 
     if ( maybe_rook != rook ) {
