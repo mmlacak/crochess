@@ -82,7 +82,8 @@ Validity
 
 .. c:macro:: CC_TAG_IS_VALID(te)
 
-    Macro to check if given :term:`tag` is valid, and not :c:enumerator:`CC_TE_None`.
+    Macro to check if given :term:`tag` is enumerator, and not
+    :c:enumerator:`CC_TE_None`.
 
     Move-starter flag is not tested, its 1-bit storage exactly covers both
     states it can be in.

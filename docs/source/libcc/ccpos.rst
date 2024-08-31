@@ -285,6 +285,27 @@ Step type enum
 
     :c:`enum` is tagged with the same :c:enum:`CcStepTypeEnum` name.
 
+.. c:macro:: CC_STEP_TYPE_IS_ENUMERATOR(ste)
+
+    Macro to check if given step type is an enumerator, i.e. between
+    :c:enumerator:`CC_STE_None` and :c:enumerator:`CC_STE_Alternative` values.
+
+    :param ste: Step type, :c:type:`CcStepTypeEnum` value.
+    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+
+.. c:macro:: CC_STEP_TYPE_IS_VALID(ste)
+
+    Macro to check if given step type is an enumerator, but not
+    :c:enumerator:`CC_STE_None`.
+
+    :param ste: Step type, :c:type:`CcStepTypeEnum` value.
+    :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
+
+.. _lbl-libcc-ccpos-typedstep:
+
+Typed step
+----------
+
 .. c:macro:: CC_TYPED_STEP_INVALID
 
     Invalid typed step value.
@@ -292,11 +313,6 @@ Step type enum
 .. c:macro:: CC_TYPED_STEP_STATIC
 
     Static typed step value, i.e. no-movement, no-side-effects step.
-
-.. _lbl-libcc-ccpos-typedstep:
-
-Typed step
-----------
 
 .. c:struct:: CcTypedStep
 
