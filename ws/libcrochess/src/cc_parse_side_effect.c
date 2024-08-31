@@ -376,7 +376,7 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
                                                 CcParseMsg ** parse_msgs__iod ) {
     bool is_light = cc_piece_is_light( before_ply_start.piece );
     int init_i = cc_find_initial_figure_file( cb->type, before_ply_start.piece, false );
-    int init_j = cc_variant_figure_rank( cb->type, is_light );
+    int init_j = cc_variant_initial_figure_rank( cb->type, is_light );
 
     if ( before_ply_start.pos.i != init_i || before_ply_start.pos.j != init_j ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );

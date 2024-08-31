@@ -3,6 +3,7 @@
 
 #include <stdio.h> // printf :: TODO :: DEBUG :: DELETE
 
+#include "cc_setup_misc.h"
 #include "cc_parsed_side_effect.h"
 
 #include "cc_parse_utils.h"
@@ -36,38 +37,60 @@ static bool _cc_check_parsed_pos( char const * step_start_an,
     return true;
 }
 
-static bool _cc_fill_in_castling_partial_destination( /* char const * step_start_an, */
-                                                      /* char const * step_end_an, */
-                                                      CcGame * game,
+// Returns true if successful, or nothing to do (not castling, not King, ...); otherwise false.
+static bool _cc_fill_in_castling_partial_destination( CcVariantEnum ve,
                                                       CcPosDesc before_ply_start,
                                                       char const * pos_end_an,
                                                       CcPos * destination__io /* ,
                                                       CcParseMsg ** parse_msgs__iod */ ) {
-    if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) return true;
-
     if ( !destination__io ) return false;
-    if ( !CC_POS_IS_PARTIAL( *destination__io ) ) return true;
+    if ( !CC_IS_COORD_VALID( destination__io->i ) ) return false;
+    if ( CC_IS_COORD_VALID( destination__io->j ) ) return true; // Nothing to be done here.
+
+    if ( destination__io->i == before_ply_start.pos.i ) return false; // Static step not welcome.
+
+    if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) return true; // Nothing to be done here.
+    if ( !CC_TAG_CAN_CASTLE( before_ply_start.tag ) ) return false;
+
+    bool is_light = cc_piece_is_light( before_ply_start.piece );
+    int init_i = cc_find_initial_figure_file( ve, before_ply_start.piece, false );
+    int init_j = cc_variant_initial_figure_rank( ve, is_light );
+
+    if ( ( before_ply_start.pos.i != init_i ) || ( before_ply_start.pos.j != init_j ) )
+        return false;
 
     if ( !pos_end_an ) return false;
-    if ( !game ) return false;
-    if ( !game->chessboard ) return false;
-
     char const * c = pos_end_an;
+    bool do_fill_in = false;
 
     if ( *c++ == '&' ) { // Maybe castling ( "&" == castling, "&&" == losing castling tag )?
         if ( *c != '&' ) { // Definitely castling.
-            bool is_light = cc_piece_is_light( before_ply_start.piece );
-            int rank = cc_variant_figure_rank( game->chessboard->type, is_light );
-            destination__io->j = rank;
+            do_fill_in = true;
+        }
+    } else {
+        int max_dist = cc_get_kings_max_castling_distance( ve );
+        if ( !CC_IS_COORD_VALID( max_dist ) ) return false;
+
+        bool is_queen_side = ( destination__io->i < init_i );
+
+        int min_i = is_queen_side ? init_i - max_dist
+                                  : init_i + CC_KING_MIN_CASTLING_DISTANCE;
+
+        int max_i = is_queen_side ? init_i - CC_KING_MIN_CASTLING_DISTANCE
+                                  : init_i + max_dist;
+
+        if ( min_i <= destination__io->i && destination__io->i <= max_i ) {
+            do_fill_in = true;
         }
     }
 
-    // if ( !step_start_an ) return false;
-    // if ( !step_end_an ) return false;
+    // if ( !parse_msgs__iod ) return CC_MBE_Void;
 
-    // if ( !parse_msgs__iod ) return false;
-
-    return true;
+    if ( do_fill_in ) {
+        destination__io->j = init_j;
+        return true;
+    } else
+        return false;
 }
 
 static bool _cc_parse_step( char const * step_start_an,
@@ -114,7 +137,8 @@ static bool _cc_parse_step( char const * step_start_an,
         }
     }
 
-    if ( !_cc_fill_in_castling_partial_destination( /* step_start_an, step_end_an, */ game, before_ply_start,
+    if ( !_cc_fill_in_castling_partial_destination( game->chessboard->type,
+                                                    before_ply_start,
                                                     pos_end_an,
                                                     &pos /* ,
                                                     parse_msgs__iod */ ) )

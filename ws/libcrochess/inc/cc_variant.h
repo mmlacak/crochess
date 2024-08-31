@@ -132,7 +132,7 @@ bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
 
 int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light );
 
-int cc_variant_figure_rank( CcVariantEnum ve, bool is_light );
+int cc_variant_initial_figure_rank( CcVariantEnum ve, bool is_light );
 
 
 #endif /* __CC_VARIANT_H__ */

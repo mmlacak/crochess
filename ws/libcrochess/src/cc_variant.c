@@ -251,7 +251,7 @@ int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light ) {
     return (int)( size - 1 );
 }
 
-int cc_variant_figure_rank( CcVariantEnum ve, bool is_light ) {
+int cc_variant_initial_figure_rank( CcVariantEnum ve, bool is_light ) {
     if ( is_light ) return 0;
     if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 

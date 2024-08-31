@@ -78,7 +78,7 @@ bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
     if ( pos_i == init_i ) return false;
 
     bool is_light = cc_piece_is_light( king );
-    int init_j = cc_variant_figure_rank( ve, is_light );
+    int init_j = cc_variant_initial_figure_rank( ve, is_light );
     if ( !CC_IS_COORD_ON_BOARD( size, init_j ) ) return false;
 
     if ( pos_j != init_j ) return false;

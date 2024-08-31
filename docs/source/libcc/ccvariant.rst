@@ -378,7 +378,7 @@ Functions
     :returns: Rank of a promoting row if successful,
               :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: int cc_variant_figure_rank( CcVariantEnum ve, bool is_light )
+.. c:function:: int cc_variant_initial_figure_rank( CcVariantEnum ve, bool is_light )
 
     Function returns rank of a figure row.
 

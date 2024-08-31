@@ -131,6 +131,7 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS( "Ke1&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ),
     TEST_ARGS( "Ke&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ),
     TEST_ARGS( "Ke1", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ), // TODO :: default interactions :: if King is moving horizontally, for 2+ fields, it's castling
+    TEST_ARGS( "Ke", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ), // TODO :: default interactions :: if King is moving horizontally, for 2+ fields, it's castling
     TEST_ARGS( "Kj&k", _setup_castling, NULL, _setup_castling, TEST_FAIL ), // Queen-side light Rook would end on position already occupied by light Wave.
     TEST_ARGS( "Ks&t", _setup_castling, NULL, _setup_castling, TEST_FAIL ), // King moving over position already occupied by light Knight.
 
@@ -139,7 +140,7 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS_INVALID,
 };
 
-size_t const TEST_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_ARGS_ARRAY ); // Currently: 56.
+size_t const TEST_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_ARGS_ARRAY ); // Currently: 57.
 
 
 bool test_args_are_equal( TestArgs tma_1, TestArgs tma_2 ) {
