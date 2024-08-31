@@ -52,7 +52,7 @@ static char const * const _setup_tags = "O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E";
 static char const * const _setup_shaman = "O Hc11,pg10,pk9,po8,As7,Wk15";
 static char const * const _end_shaman = "o Hs7,As9,Wk15";
 
-static char const * const _setup_castling = "O Rb1C,Wk1,Kn1C,Nr1,Ry1C,rb25C,wi25,kn25C,nt25,ry25C";
+static char const * const _setup_castling = "O Rb1C,Wk1,Kn1C,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C";
 
 TestArgs const TEST_ARGS_ARRAY[ ] = {
     // simple movement, disambiguation
@@ -128,8 +128,9 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS( "H.g10*.k9*.o8*-u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // Should fail, but currenty does not check pathing.
 
     // castling
-    TEST_ARGS( "Ke1&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb25C,wi25,kn25C,nt25,ry25C", TEST_OK ),
-    TEST_ARGS( "Ke&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb25C,wi25,kn25C,nt25,ry25C", TEST_OK ), // TODO :: currently fails, expects destination field before side-effect, not disambiguation.
+    TEST_ARGS( "Ke1&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ),
+    TEST_ARGS( "Ke&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ),
+    TEST_ARGS( "Ke1", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1C,rb26C,wi26,kn26C,nt26,ry26C", TEST_OK ), // TODO :: default interactions :: if King is moving horizontally, for 2+ fields, it's castling
     TEST_ARGS( "Kj&k", _setup_castling, NULL, _setup_castling, TEST_FAIL ), // Queen-side light Rook would end on position already occupied by light Wave.
     TEST_ARGS( "Ks&t", _setup_castling, NULL, _setup_castling, TEST_FAIL ), // King moving over position already occupied by light Knight.
 
@@ -138,7 +139,7 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS_INVALID,
 };
 
-size_t const TEST_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_ARGS_ARRAY ); // Currently: 55.
+size_t const TEST_ARGS_ARRAY_SIZE = CC_ARRAY_SIZE( TEST_ARGS_ARRAY ); // Currently: 56.
 
 
 bool test_args_are_equal( TestArgs tma_1, TestArgs tma_2 ) {
