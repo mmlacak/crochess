@@ -38,3 +38,7 @@ history*.*
 _.*
 _.*.*
 crochess.geany
+/tags
+/.tags
+/TAGS
+/.TAGS

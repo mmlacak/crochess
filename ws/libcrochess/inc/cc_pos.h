@@ -81,10 +81,8 @@ typedef enum CcStepTypeEnum {
 } CcStepTypeEnum;
 // TODO :: maybe split alternative steps, each into its own proper (?)
 
-// TODO :: DOCS
 #define CC_STEP_TYPE_IS_ENUMERATOR(ste) ( ( CC_STE_None <= (ste) ) && ( (ste) <= CC_STE_Alternative ) )
 
-// TODO :: DOCS
 #define CC_STEP_TYPE_IS_VALID(ste) ( ( CC_STE_None < (ste) ) && ( (ste) <= CC_STE_Alternative ) )
 
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
