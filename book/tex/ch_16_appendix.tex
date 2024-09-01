@@ -934,10 +934,10 @@ a last step of a ply, these are called ply side-effects. Capturing, displacement
 and losing (promotion, rushing, or castling) tags are both step and ply side-effects,
 others are purely ply side-effects.
 
-In Classical Chess capturing opponent's piece is the most prevalent side-effect,
-since there aren't all that many, and those can be done once per Pawn (en passant,
-promotion), or once per whole game (castling). So, in \algfmt{CAN} capturing is
-optional, see \algfmt{FIDE~C.9}; this is so in \algfmt{NAN} as well.
+In Classical Chess capturing opponent's piece is the most prevalent side-effect
+since there aren't all that many others, and those can be done once per Pawn (en
+passant, promotion), or once per whole game (castling). So, in \algfmt{CAN}
+capturing is optional, see \algfmt{FIDE~C.9}; this is so in \algfmt{NAN} as well.
 
 Most mandatory side-effects are marked as such, because otherwise \algfmt{AN}
 would lack information to describe what happened. Displacement has to have a
