@@ -59,6 +59,8 @@ def main():
                 BE.COMPILER_CLANG if is_clang else \
                 BE.DEFAULT_COMPILER
 
+    is_ctags = True if RS.any_item_in( ['-ct', '--ctags'], script_argv) else False
+
     is_clean = True if RS.any_item_in( ['-clean', '--clean'], script_argv) else False
     is_html = True if RS.any_item_in( ['-html', '--html'], script_argv) else False
     is_pdf = True if RS.any_item_in( ['-pdf', '--pdf'], script_argv) else False
@@ -114,6 +116,20 @@ def main():
         if is_pdf:
             compile_docs( DE.DOCS_OPTION_PDF )
 
+
+    if is_build or is_ctags:
+        ctags_cmd_lst = BE.get_ctags_cmd()
+
+        if is_debug:
+            print( "" )
+            print( "Running: %s." % " ".join( ctags_cmd_lst ) )
+
+        if not is_dry_run:
+            # print( "" )
+            print( "." * 72 )
+            result = RS.run_process( ctags_cmd_lst, cwd=PROJECT_ROOT_PATH )
+            print( result )
+            print( "-" * 72 )
 
     if is_build:
         if not is_dry_run:

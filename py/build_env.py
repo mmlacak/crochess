@@ -355,6 +355,13 @@ def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_de
     return cwd_tests, cmd_lst
 
 
+def get_ctags_cmd():
+    # cmd_lst = ['pwd', ]
+    # cmd_lst = ['ctags', '-R', 'ws/*', ] # ctags: Warning: cannot open input file "ws/*" : No such file or directory
+    cmd_lst = ['ctags', '-R', 'ws', ]
+    # cmd_lst = ['./ctags.sh', ]
+    return cmd_lst
+
 def get_ls_cmd():
     cmd_lst = ['ls', '-Fal', ]
     return cmd_lst
