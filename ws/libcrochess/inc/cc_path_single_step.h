@@ -32,8 +32,8 @@ bool cc_path_single_step( CcChessboard * cb,
                           CcPieceType activator,
                           CcPos from_pos,
                           cc_uint_t momentum,
-                          bool is_accumulating_momentum,
-                          CcPathLink ** path__o );
+                          bool is_accumulating_momentum /* ,
+                          CcPathLink ** path__o */ );
 
 
 #endif /* __CC_PATH_SINGLE_STEP_H__ */

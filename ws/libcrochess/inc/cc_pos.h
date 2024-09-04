@@ -198,25 +198,5 @@ size_t cc_pos_desc_link_len( CcPosDescLink * pd_link );
 
 char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link );
 
-//
-// Linked paths.
-
-typedef struct CcPathLink {
-    CcPosDescLink * path;
-    struct CcPathLink * next;
-} CcPathLink;
-
-CcPathLink * cc_path_link__new( CcPosDescLink ** pd_link__n );
-
-CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
-                                  CcPosDescLink ** pd_link__n );
-
-CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
-                                  CcPathLink ** path_link__n );
-
-bool cc_path_link_free_all( CcPathLink ** path_link__f );
-
-size_t cc_path_link_len( CcPathLink * path_link );
-
 
 #endif /* __CC_POS_H__ */
