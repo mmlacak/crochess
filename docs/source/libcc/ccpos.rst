@@ -625,7 +625,7 @@ Linked position descriptors
 
 .. c:struct:: CcPosDescLink
 
-    A linked list of position descriptors.
+    A linked tree of position descriptors.
 
     .. c:member:: CcPosDesc pd
 
@@ -648,68 +648,72 @@ Linked position descriptors
 .. c:function:: CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a, CcPosDesc pd )
 
     Function appends a newly allocated linked position descriptor
-    to a given linked list.
+    to a given linked tree.
 
-    If linked list :c:`*pd_link__iod_a` is :c:data:`NULL`, it will be
+    If linked tree :c:`*pd_link__iod_a` is :c:data:`NULL`, it will be
     initialized with a newly allocated position descriptor link as
     its only element.
 
     :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
-                           linked list.
+                           linked tree.
     :param pd: A position descriptor.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link )
 
-    Duplicates a given position descriptor linked list into a newly
+    Duplicates a given position descriptor linked tree into a newly
     allocated one.
 
-    :param pd_link: A linked list.
-    :returns: A pointer to newly allocated linked list if successful,
+    :param pd_link: A linked tree.
+    :returns: A pointer to newly allocated linked tree if successful,
               :c:data:`NULL` otherwise.
 
 .. c:function:: CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a, CcPosDescLink ** pd_link__n )
 
-    Extends existing linked list with another linked list.
+    Extends existing linked tree with another linked tree.
 
-    If linked list to extend (:c:`pd_link__iod_a`) hasn't been allocated yet,
-    this will initialize it with content of an extending linked list, i.e.
+    If linked tree to extend (:c:`pd_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked tree, i.e.
     :c:`pd_link__n`.
 
     .. note::
 
-        Extending linked list :c:`pd_link__n` has its ownership transferred to
-        extended linked list :c:`pd_link__iod_a`; as a result, inner pointer
+        Extending linked tree :c:`pd_link__n` has its ownership transferred to
+        extended linked tree :c:`pd_link__iod_a`; as a result, inner pointer
         :c:`*pd_link__n` is :c:data:`NULL`\ed.
 
     :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
-                           a linked list to extend.
-    :param pd_link__n: **Ownership transfer**; linked list with which to
+                           a linked tree to extend.
+    :param pd_link__n: **Ownership transfer**; linked tree with which to
                        extend existing steps.
-    :returns: Weak pointer to extended portion of a linked list
+    :returns: Weak pointer to extended portion of a linked tree
               if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f )
 
-    Frees all position descriptors in a linked list.
+    Frees all position descriptors in a linked tree.
 
-    :param pd_link__f: A linked list to :c:func:`free()`.
+    :param pd_link__f: A linked tree to :c:func:`free()`.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: size_t cc_pos_desc_link_len( CcPosDescLink * pd_link )
 
-    Function returns length of a linked list.
+    Function returns length of pointed-to path segment in a linked tree.
 
-    :param pd_link: A linked list of position descriptors.
-    :returns: Length of a linked list if successful, ``0`` otherwise.
+    Function follows only :c:member:`next` steps, and does not count
+    alternative, or divergent steps; i.e. function does not follow neither
+    :c:member:`alt`, nor :c:member:`diverge`.
+
+    :param pd_link: A linked tree of position descriptors.
+    :returns: Length of a linked tree if successful, ``0`` otherwise.
 
 .. c:function:: char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link )
 
     Function returns string containing user-readable representation
     of a position descriptors list.
 
-    :param pd_link: A linked list of position descriptors.
+    :param pd_link: A linked tree of position descriptors.
     :returns: A newly allocated, zero-terminated (``'\0'``) string if
               successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_short_string()`

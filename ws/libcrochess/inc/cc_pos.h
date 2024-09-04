@@ -191,7 +191,6 @@ CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd );
 CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
                                          CcPosDesc pd );
 
-// TODO :: FIX :: DOCS
 CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link );
 
 CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,

@@ -372,22 +372,41 @@ CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
-// TODO :: FIX :: DOCS
 CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
     if ( !pd_link ) return NULL;
 
     CcPosDescLink * pd_link__a = NULL;
     CcPosDescLink * from = pd_link;
+    bool result = true;
 
     while ( from ) {
         CcPosDescLink * pd__w = cc_pos_desc_link_append( &pd_link__a, from->pd );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
-            cc_pos_desc_link_free_all( &pd_link__a );
-            return NULL;
+            result = false;
+            break;
+        }
+
+        if ( from->alt ) {
+            if ( !( pd__w->alt = cc_pos_desc_link_duplicate_all__new( from->alt ) ) ) {
+                result = false;
+                break;
+            }
+        }
+
+        if ( from->diverge ) {
+            if ( !( pd__w->diverge = cc_pos_desc_link_duplicate_all__new( from->diverge ) ) ) {
+                result = false;
+                break;
+            }
         }
 
         from = from->next;
+    }
+
+    if ( !result ) {
+        cc_pos_desc_link_free_all( &pd_link__a );
+        return NULL;
     }
 
     return pd_link__a;
