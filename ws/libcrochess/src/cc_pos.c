@@ -292,10 +292,10 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
 
 
 //
-// Position + piece + tag.
+// Position descriptor.
 
-CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag ) {
-    CcPosDesc pd = { .pos = pos, .piece = piece, .tag = tag };
+CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag, cc_uint_t momentum ) {
+    CcPosDesc pd = { .pos = pos, .piece = piece, .tag = tag, .momentum = momentum };
     return pd;
 }
 

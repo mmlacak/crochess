@@ -564,13 +564,14 @@ Position descriptor
     :returns: Casted position descriptor value.
     :seealso: :c:data:`true` if equal, :c:data:`false` otherwise.
 
-.. c:function:: CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag )
+.. c:function:: CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag, cc_uint_t momentum )
 
     Function returns position descriptor value.
 
     :param pos: A position.
     :param piece: A piece.
     :param tag: A tag.
+    :param momentum: A momentum.
     :returns: Position descriptor value.
 
 .. c:function:: bool cc_pos_desc_is_valid( CcPosDesc pd )

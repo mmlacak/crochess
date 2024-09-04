@@ -163,7 +163,7 @@ typedef struct CcPosDesc {
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) && ( (pd_1).momentum == (pd_2).momentum ) )
 
-CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag );
+CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag, cc_uint_t momentum );
 
 bool cc_pos_desc_is_valid( CcPosDesc pd );
 
