@@ -347,8 +347,8 @@ CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
 
     pl__t->pd = pd;
 
-    pl__t->alt = NULL;
     pl__t->diverge = NULL;
+    pl__t->alt = NULL;
     pl__t->next = NULL;
 
     return pl__t;
@@ -387,15 +387,15 @@ CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
             break;
         }
 
-        if ( from->alt ) {
-            if ( !( pd__w->alt = cc_pos_desc_link_duplicate_all__new( from->alt ) ) ) {
+        if ( from->diverge ) {
+            if ( !( pd__w->diverge = cc_pos_desc_link_duplicate_all__new( from->diverge ) ) ) {
                 result = false;
                 break;
             }
         }
 
-        if ( from->diverge ) {
-            if ( !( pd__w->diverge = cc_pos_desc_link_duplicate_all__new( from->diverge ) ) ) {
+        if ( from->alt ) {
+            if ( !( pd__w->alt = cc_pos_desc_link_duplicate_all__new( from->alt ) ) ) {
                 result = false;
                 break;
             }
@@ -446,11 +446,11 @@ bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f ) {
     bool result = true;
 
     while ( pl ) {
-        if ( pl->alt )
-            result = cc_pos_desc_link_free_all( &( pl->alt ) ) && result;
-
         if ( pl->diverge )
             result = cc_pos_desc_link_free_all( &( pl->diverge ) ) && result;
+
+        if ( pl->alt )
+            result = cc_pos_desc_link_free_all( &( pl->alt ) ) && result;
 
         tmp = pl->next;
         CC_FREE( pl );

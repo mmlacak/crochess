@@ -631,9 +631,25 @@ Linked position descriptors
 
         A position descriptor.
 
+    .. c:member:: struct CcPosDescLink * diverge
+
+        Link to divergent paths.
+
+        Every divergent path has this step as its starting position.
+
+        One divergent path links to another via :c:member:`alt` member.
+
+    .. c:member:: struct CcPosDescLink * alt
+
+        Link to alternative path segment from this one.
+
+        This link should be set only after divergence, or if part of alternative
+        paths, i.e. if this step has been pointed-to by either :c:member:`diverge`,
+        or :c:member:`alt` member.
+
     .. c:member:: struct CcPosDescLink * next
 
-        Link to next position descriptor.
+        Link to next position descriptor in a straight path segment.
 
     :c:`Struct` is tagged with the same :c:struct:`CcPosDescLink` name.
 
