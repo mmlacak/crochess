@@ -175,10 +175,14 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
                                   cc_char_16 * pd_str__o );
 
 //
-// Linked list of position descriptors.
+// Linked tree of position descriptors.
 
+// TODO :: DOCS
 typedef struct CcPosDescLink {
     CcPosDesc pd;
+
+    struct CcPosDescLink * alt;
+    struct CcPosDescLink * diverge;
     struct CcPosDescLink * next;
 } CcPosDescLink;
 
@@ -187,6 +191,7 @@ CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd );
 CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
                                          CcPosDesc pd );
 
+// TODO :: FIX :: DOCS
 CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link );
 
 CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,

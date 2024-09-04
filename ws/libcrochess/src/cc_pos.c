@@ -339,13 +339,16 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 
 
 //
-// Linked list of positions + pieces + tags.
+// Linked tree of positions + pieces + tags.
 
 CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
     CcPosDescLink * pl__t = malloc( sizeof( CcPosDescLink ) );
     if ( !pl__t ) return NULL;
 
     pl__t->pd = pd;
+
+    pl__t->alt = NULL;
+    pl__t->diverge = NULL;
     pl__t->next = NULL;
 
     return pl__t;
@@ -369,6 +372,7 @@ CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
+// TODO :: FIX :: DOCS
 CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
     if ( !pd_link ) return NULL;
 
@@ -420,15 +424,22 @@ bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f ) {
 
     CcPosDescLink * pl = *pd_link__f;
     CcPosDescLink * tmp = NULL;
+    bool result = true;
 
     while ( pl ) {
+        if ( pl->alt )
+            result = cc_pos_desc_link_free_all( &( pl->alt ) ) && result;
+
+        if ( pl->diverge )
+            result = cc_pos_desc_link_free_all( &( pl->diverge ) ) && result;
+
         tmp = pl->next;
         CC_FREE( pl );
         pl = tmp;
     }
 
     *pd_link__f = NULL;
-    return true;
+    return result;
 }
 
 size_t cc_pos_desc_link_len( CcPosDescLink * pd_link ) {
