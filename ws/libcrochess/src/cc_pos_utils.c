@@ -15,18 +15,18 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t mo
     return pd;
 }
 
-bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating ) {
+bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating ) {
     if ( !momentum__io ) return false;
 
     cc_uint_t m = *momentum__io;
 
-    if ( accumulating ) {
+    if ( CC_MAYBE_IS_TRUE( accumulating ) ) {
         if ( m == UINT_MAX ) return false;
         *momentum__io = m + 1;
-    } else {
+    } else if ( CC_MAYBE_IS_VOID( accumulating ) ) {
         if ( m == CC_UNSIGNED_MIN ) return false;
         *momentum__io = m - 1;
-    }
+    } // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
 
     return true;
 }
@@ -34,7 +34,7 @@ bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating ) {
 CcPathLink * cc_build_path_segment__new( CcChessboard * cb,
                                          CcPos pos,
                                          cc_uint_t momentum,
-                                         bool accumulating,
+                                         CcMaybeBoolEnum accumulating,
                                          CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
@@ -57,7 +57,7 @@ CcPathLink * cc_build_path_segment__new( CcChessboard * cb,
 
         if ( !( result = cc_path_link_append( &pl__a, p, m ) ) ) break;
 
-        step = step->next;
+        step = step->next; // TODO :: redo
     }
 
     // Pieces can step outside chessboard ... e.g. Wave activated by Centaur.

@@ -154,6 +154,8 @@ Functions
 
     Function checks if position is disambiguation.
 
+    .. TODO
+
     .. todo::
 
         move to design.rst
@@ -166,6 +168,8 @@ Functions
 .. c:function:: bool cc_pos_is_partial( CcPos pos )
 
     Function checks if position is partial.
+
+    .. TODO
 
     .. todo::
 
@@ -619,10 +623,10 @@ Position descriptor
     :param pd_str__o: *Output*, pointer to short string array.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccpos-linkedpositiondescriptors:
+.. _lbl-libcc-ccpos-linkedpaths:
 
-Linked position descriptors
----------------------------
+Linked paths
+------------
 
 .. c:struct:: CcPathLink
 
