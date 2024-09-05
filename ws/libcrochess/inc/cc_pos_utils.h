@@ -12,10 +12,8 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum );
 
-// TODO :: DOCS
 bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating );
 
-// TODO :: DOCS
 CcPathLink * cc_build_path_segment__new( CcChessboard * cb,
                                          CcPos pos,
                                          cc_uint_t momentum,

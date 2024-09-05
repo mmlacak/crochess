@@ -177,38 +177,31 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 //
 // Linked tree of positions.
 
-// TODO :: DOCS
 typedef struct CcPathLink {
-    CcPos pos; /* A position. */
-    cc_uint_t momentum; /* Momentum a moving piece had when this position was reached. */
+    CcPos pos;
+    cc_uint_t momentum;
 
     struct CcPathLink * diverge;
     struct CcPathLink * alt;
     struct CcPathLink * next;
 } CcPathLink;
 
-// TODO :: DOCS
 CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcPos pos,
                                   cc_uint_t momentum );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 
-// TODO :: DOCS
 bool cc_path_link_free_all( CcPathLink ** pl__f );
 
-// TODO :: DOCS
+// TODO :: add options to count diverge, alt paths :: DOCS
 size_t cc_path_link_len( CcPathLink * path_link );
 
-// TODO :: DOCS
 char * cc_path_link_to_short_string__new( CcPathLink * path_link );
 
 

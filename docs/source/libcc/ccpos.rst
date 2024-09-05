@@ -630,11 +630,17 @@ Linked paths
 
 .. c:struct:: CcPathLink
 
-    A linked tree of position descriptors.
+    A linked tree of path segments.
 
-    .. c:member:: CcPosDesc pd
+    Each path segment is comprised of path links linked only via :c:member:`next`.
 
-        A position descriptor.
+    .. c:member:: CcPosDesc pos
+
+        A position.
+
+    .. c:member:: cc_uint_t momentum
+
+        Momentum a moving piece had when this position was reached.
 
     .. c:member:: struct CcPathLink * diverge
 
@@ -646,11 +652,11 @@ Linked paths
 
     .. c:member:: struct CcPathLink * alt
 
-        Link to alternative path segment from this one.
+        Link to alternative to this path segment.
 
         This link should be set only after divergence, or if part of alternative
         paths, i.e. if this step has been pointed-to by either :c:member:`diverge`,
-        or :c:member:`alt` member.
+        or :c:member:`alt`.
 
     .. c:member:: struct CcPathLink * next
 
@@ -658,83 +664,84 @@ Linked paths
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcPosDesc pd )
+.. c:function:: CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum )
 
-    Function allocates a new linked position descriptor.
+    Function allocates a new path link.
 
-    :param pd: A position descriptor.
-    :returns: Pointer to a newly allocated linked position descriptor
-              if successful, :c:data:`NULL` otherwise.
+    :param pos: A position.
+    :param momentum: A momentum.
+    :returns: Pointer to a newly allocated path link if successful,
+        :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pd_link__iod_a, CcPosDesc pd )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcPos pos, cc_uint_t momentum )
 
-    Function appends a newly allocated linked position descriptor
-    to a given linked tree.
+    Function appends a newly allocated path link to a given path segment,
+    as its :c:member:`next` member.
 
-    If linked tree :c:`*pd_link__iod_a` is :c:data:`NULL`, it will be
-    initialized with a newly allocated position descriptor link as
-    its only element.
+    If path segment :c:`*pl__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated path link as its only element.
 
-    :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
-                           linked tree.
-    :param pd: A position descriptor.
+    :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
+    :param pos: A position.
+    :param momentum: A momentum.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * pd_link )
+.. c:function:: CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a, CcPathLink ** pl__n )
 
-    Duplicates a given position descriptor linked tree into a newly
-    allocated one.
+    Extends existing path segment with another one, as its :c:member:`next`
+    segment.
 
-    :param pd_link: A linked tree.
-    :returns: A pointer to newly allocated linked tree if successful,
-              :c:data:`NULL` otherwise.
-
-.. c:function:: CcPathLink * cc_path_link_extend( CcPathLink ** pd_link__iod_a, CcPathLink ** pd_link__n )
-
-    Extends existing linked tree with another linked tree.
-
-    If linked tree to extend (:c:`pd_link__iod_a`) hasn't been allocated yet,
+    If linked tree to extend (:c:`pl__iod_a`) hasn't been allocated yet,
     this will initialize it with content of an extending linked tree, i.e.
-    :c:`pd_link__n`.
+    :c:`pl__n`.
 
     .. note::
 
-        Extending linked tree :c:`pd_link__n` has its ownership transferred to
-        extended linked tree :c:`pd_link__iod_a`; as a result, inner pointer
-        :c:`*pd_link__n` is :c:data:`NULL`\ed.
+        Extending linked tree :c:`pl__n` has its ownership transferred to
+        extended linked tree :c:`pl__iod_a`; as a result, inner pointer
+        :c:`*pl__n` is :c:data:`NULL`\ed.
 
-    :param pd_link__iod_a: **Ownership**, *optional* *input/output*;
-                           a linked tree to extend.
-    :param pd_link__n: **Ownership transfer**; linked tree with which to
-                       extend existing steps.
-    :returns: Weak pointer to extended portion of a linked tree
-              if successful, :c:data:`NULL` otherwise.
+    :param pl__iod_a: **Ownership**, *optional* *input/output*; a path segment
+        to extend.
+    :param pl__n: **Ownership transfer**; path segment with which to extend
+        existing segment.
+    :returns: Weak pointer to extended portion of a resulting path segment if
+        successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_path_link_free_all( CcPathLink ** pd_link__f )
+.. c:function:: CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link )
 
-    Frees all position descriptors in a linked tree.
+    Duplicates complete linked tree of a given path segment into a newly
+    allocated one.
 
-    :param pd_link__f: A linked tree to :c:func:`free()`.
+    :param path_link: A path segment.
+    :returns: A pointer to newly allocated path segment if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_path_link_free_all( CcPathLink ** pl__f )
+
+    Frees all path links from complete linked tree of a given path segment.
+
+    :param pl__f: A path segment to :c:func:`free()`.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: size_t cc_path_link_len( CcPathLink * pd_link )
+.. c:function:: size_t cc_path_link_len( CcPathLink * path_link )
 
-    Function returns length of pointed-to path segment in a linked tree.
+    Function returns length of a given path segment.
 
-    Function follows only :c:member:`next` steps, and does not count
-    alternative, or divergent steps; i.e. function does not follow neither
+    Function follows only :c:member:`next` steps, and does not count over
+    alternative, or divergent paths; i.e. function does not follow neither
     :c:member:`alt`, nor :c:member:`diverge`.
 
-    :param pd_link: A linked tree of position descriptors.
+    :param path_link: A path segment.
     :returns: Length of a linked tree if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * pd_link )
+.. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * path_link )
 
-    Function returns string containing user-readable representation
-    of a position descriptors list.
+    Function returns string containing user-readable representation of a given
+    path segment, i.e. only :c:member:`next` steps are stringified.
 
-    :param pd_link: A linked tree of position descriptors.
+    :param path_link: A path segment.
     :returns: A newly allocated, zero-terminated (``'\0'``) string if
               successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_short_string()`
