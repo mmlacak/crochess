@@ -43,7 +43,7 @@ Functions
         (if :c:data:`true`), or used (if :c:data:`false`).
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb, CcPos pos, cc_uint_t momentum, bool accumulating, CcTypedStepLink * steps )
+.. c:function:: CcPathLink * cc_build_path_segment__new( CcChessboard * cb, CcPos pos, cc_uint_t momentum, bool accumulating, CcTypedStepLink * steps )
 
     Function returns a newly allocated linked list of position descriptors,
     which was produced by applying steps from starting position and momentum.
@@ -56,46 +56,6 @@ Functions
     :param steps: Steps to perform.
     :returns: Valid pointer to newly allocated linked list of position
         descriptors if successful, :c:data:`NULL` otherwise.
-
-.. c:function:: bool cc_append_pos_to_pos_desc_link( CcChessboard * cb, CcPos pos, cc_uint_t momentum, CcPosDescLink ** pdl__iod_a )
-
-    Function appends position descriptor to a given linked list, based on a position
-    on a chessboard and a given momentum.
-
-    :param cb: A chessboard.
-    :param pos: A position.
-    :param momentum: Momentum.
-    :param pdl__iod_a: **Ownership**, *input/output*, *optional*; a position
-        descriptor linked list.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io )
-
-    Function updates all position descriptors in a given linked list.
-
-    Function updates piece and tag as found on a chessboard, at a position fetched
-    from descriptor; momentum is not changed.
-
-    :param cb: A chessboard.
-    :param pd_link__io: *Input/output*; a position descriptor linked list.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link )
-
-    Function applies all position descriptors in a given linked list to a given
-    chessboard.
-
-    Function updates chessboard with position, piece and tag from descriptor;
-    momentum is not applied.
-
-    .. note::
-
-        If all changes are successfully applied, chessboard is reallocated to
-        a new address, and old allocation is :c:func:`free()`\ed.
-
-    :param cb__io_r: **Reallocated**, *input/output*; a chessboard.
-    :param pd_link: A position descriptor linked list.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_iter_piece_pos( CcChessboard * cb, CcPos expected__d, CcPieceType piece, bool include_opponent, CcPos * pos__io )
 

@@ -175,32 +175,41 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
                                   cc_char_16 * pd_str__o );
 
 //
-// Linked tree of position descriptors.
+// Linked tree of positions.
 
 // TODO :: DOCS
-typedef struct CcPosDescLink {
-    CcPosDesc pd;
+typedef struct CcPathLink {
+    CcPos pos; /* A position. */
+    cc_uint_t momentum; /* Momentum a moving piece had when this position was reached. */
 
-    struct CcPosDescLink * diverge;
-    struct CcPosDescLink * alt;
-    struct CcPosDescLink * next;
-} CcPosDescLink;
+    struct CcPathLink * diverge;
+    struct CcPathLink * alt;
+    struct CcPathLink * next;
+} CcPathLink;
 
-CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd );
+// TODO :: DOCS
+CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum );
 
-CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
-                                         CcPosDesc pd );
+// TODO :: DOCS
+CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
+                                  CcPos pos,
+                                  cc_uint_t momentum );
 
-CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link );
+// TODO :: DOCS
+CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
+                                  CcPathLink ** pl__n );
 
-CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,
-                                         CcPosDescLink ** pd_link__n );
+// TODO :: DOCS
+CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 
-bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f );
+// TODO :: DOCS
+bool cc_path_link_free_all( CcPathLink ** pl__f );
 
-size_t cc_pos_desc_link_len( CcPosDescLink * pd_link );
+// TODO :: DOCS
+size_t cc_path_link_len( CcPathLink * path_link );
 
-char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link );
+// TODO :: DOCS
+char * cc_path_link_to_short_string__new( CcPathLink * path_link );
 
 
 #endif /* __CC_POS_H__ */

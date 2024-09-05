@@ -339,13 +339,14 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 
 
 //
-// Linked tree of positions + pieces + tags.
+// Linked tree of positions.
 
-CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
-    CcPosDescLink * pl__t = malloc( sizeof( CcPosDescLink ) );
+CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum ) {
+    CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->pd = pd;
+    pl__t->pos = pos;
+    pl__t->momentum = momentum;
 
     pl__t->diverge = NULL;
     pl__t->alt = NULL;
@@ -354,17 +355,18 @@ CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
     return pl__t;
 }
 
-CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
-                                         CcPosDesc pd ) {
-    if ( !pd_link__iod_a ) return NULL;
+CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
+                                  CcPos pos,
+                                  cc_uint_t momentum ) {
+    if ( !pl__iod_a ) return NULL;
 
-    CcPosDescLink * pl__t = cc_pos_desc_link__new( pd );
+    CcPathLink * pl__t = cc_path_link__new( pos, momentum );
     if ( !pl__t ) return NULL;
 
-    if ( !*pd_link__iod_a ) {
-        *pd_link__iod_a = pl__t; // Ownership transfer.
+    if ( !*pl__iod_a ) {
+        *pl__iod_a = pl__t; // Ownership transfer.
     } else {
-        CcPosDescLink * pl = *pd_link__iod_a;
+        CcPathLink * pl = *pl__iod_a;
         CC_FASTFORWARD( pl );
         pl->next = pl__t; // Append + ownership transfer.
     }
@@ -372,15 +374,40 @@ CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
-CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
-    if ( !pd_link ) return NULL;
+CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
+                                  CcPathLink ** pl__n ) {
+    if ( !pl__iod_a ) return NULL;
+    if ( !pl__n ) return NULL;
 
-    CcPosDescLink * pd_link__a = NULL;
-    CcPosDescLink * from = pd_link;
+    if ( !*pl__n ) return *pl__iod_a;
+
+    if ( !*pl__iod_a ) {
+        // Ownership transfer.
+        *pl__iod_a = *pl__n;
+        *pl__n = NULL;
+
+        return *pl__iod_a;
+    }
+
+    CcPathLink * last = *pl__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *pl__n;
+    *pl__n = NULL;
+
+    return last->next;
+}
+
+CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
+    if ( !path_link ) return NULL;
+
+    CcPathLink * pl__a = NULL;
+    CcPathLink * from = path_link;
     bool result = true;
 
     while ( from ) {
-        CcPosDescLink * pd__w = cc_pos_desc_link_append( &pd_link__a, from->pd );
+        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->pos, from->momentum );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
             result = false;
@@ -388,14 +415,14 @@ CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
         }
 
         if ( from->diverge ) {
-            if ( !( pd__w->diverge = cc_pos_desc_link_duplicate_all__new( from->diverge ) ) ) {
+            if ( !( pd__w->diverge = cc_path_link_duplicate_all__new( from->diverge ) ) ) {
                 result = false;
                 break;
             }
         }
 
         if ( from->alt ) {
-            if ( !( pd__w->alt = cc_pos_desc_link_duplicate_all__new( from->alt ) ) ) {
+            if ( !( pd__w->alt = cc_path_link_duplicate_all__new( from->alt ) ) ) {
                 result = false;
                 break;
             }
@@ -405,67 +432,42 @@ CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
     }
 
     if ( !result ) {
-        cc_pos_desc_link_free_all( &pd_link__a );
+        cc_path_link_free_all( &pl__a );
         return NULL;
     }
 
-    return pd_link__a;
+    return pl__a;
 }
 
-CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,
-                                         CcPosDescLink ** pd_link__n ) {
-    if ( !pd_link__iod_a ) return NULL;
-    if ( !pd_link__n ) return NULL;
+bool cc_path_link_free_all( CcPathLink ** pl__f ) {
+    if ( !pl__f ) return false;
+    if ( !*pl__f ) return true;
 
-    if ( !*pd_link__n ) return *pd_link__iod_a;
-
-    if ( !*pd_link__iod_a ) {
-        // Ownership transfer.
-        *pd_link__iod_a = *pd_link__n;
-        *pd_link__n = NULL;
-
-        return *pd_link__iod_a;
-    }
-
-    CcPosDescLink * last = *pd_link__iod_a;
-    CC_FASTFORWARD( last );
-
-    // Ownership transfer.
-    last->next = *pd_link__n;
-    *pd_link__n = NULL;
-
-    return last->next;
-}
-
-bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f ) {
-    if ( !pd_link__f ) return false;
-    if ( !*pd_link__f ) return true;
-
-    CcPosDescLink * pl = *pd_link__f;
-    CcPosDescLink * tmp = NULL;
+    CcPathLink * pl = *pl__f;
+    CcPathLink * tmp = NULL;
     bool result = true;
 
     while ( pl ) {
         if ( pl->diverge )
-            result = cc_pos_desc_link_free_all( &( pl->diverge ) ) && result;
+            result = cc_path_link_free_all( &( pl->diverge ) ) && result;
 
         if ( pl->alt )
-            result = cc_pos_desc_link_free_all( &( pl->alt ) ) && result;
+            result = cc_path_link_free_all( &( pl->alt ) ) && result;
 
         tmp = pl->next;
         CC_FREE( pl );
         pl = tmp;
     }
 
-    *pd_link__f = NULL;
+    *pl__f = NULL;
     return result;
 }
 
-size_t cc_pos_desc_link_len( CcPosDescLink * pd_link ) {
-    if ( !pd_link ) return 0;
+size_t cc_path_link_len( CcPathLink * path_link ) {
+    if ( !path_link ) return 0;
 
     size_t len = 0;
-    CcPosDescLink * pl = pd_link;
+    CcPathLink * pl = path_link;
 
     while ( pl ) {
         ++len;
@@ -476,13 +478,13 @@ size_t cc_pos_desc_link_len( CcPosDescLink * pd_link ) {
 }
 
 
-char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link ) {
-    if ( !pd_link ) return NULL;
+char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
+    if ( !path_link ) return NULL;
 
-    // unused len is certainly > 0, because pd_link != NULL
-    signed int unused = cc_pos_desc_link_len( pd_link ) *
+    // unused len is certainly > 0, because path_link != NULL
+    signed int unused = cc_path_link_len( path_link ) *
                         ( CC_MAX_LEN_CHAR_8 + 1 );
-                        // CC_MAX_LEN_CHAR_16, for position + piece
+                        // CC_MAX_LEN_CHAR_8, for position + piece
                         // +1, for separator '.' between positions
 
     char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
@@ -492,21 +494,21 @@ char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link ) {
 
     char * pl_str = pl_str__a;
     char * pl_end = pl_str;
-    cc_char_16 pd_c16 = CC_CHAR_16_EMPTY;
-    CcPosDescLink * pl = pd_link;
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    CcPathLink * pl = path_link;
 
     while ( pl && ( unused > 0 ) ) {
-        if ( pl != pd_link ) { // Not 1st pos ...
+        if ( pl != path_link ) { // Not 1st pos ...
             *pl_str++ = '.';
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_desc_to_short_string( pl->pd, &pd_c16 ) ) {
+        if ( !cc_pos_to_short_string( pl->pos, &pos_c8 ) ) {
             CC_FREE( pl_str__a );
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, pd_c16, CC_MAX_LEN_CHAR_16 );
+        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
         if ( !pl_end ) {
             CC_FREE( pl_str__a );
             return NULL;

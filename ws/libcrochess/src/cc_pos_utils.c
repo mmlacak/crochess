@@ -31,17 +31,17 @@ bool cc_calc_checked_momentum( cc_uint_t * momentum__io, bool accumulating ) {
     return true;
 }
 
-CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
-                                                 CcPos pos,
-                                                 cc_uint_t momentum,
-                                                 bool accumulating,
-                                                 CcTypedStepLink * steps ) {
+CcPathLink * cc_build_path_segment__new( CcChessboard * cb,
+                                         CcPos pos,
+                                         cc_uint_t momentum,
+                                         bool accumulating,
+                                         CcTypedStepLink * steps ) {
     if ( !cb ) return NULL;
     if ( !steps ) return NULL;
 
     if ( !cc_pos_is_valid( pos ) ) return NULL;
 
-    CcPosDescLink * pd_link__a = NULL;
+    CcPathLink * pl__a = NULL;
     CcPos p = pos;
     CcPos last = CC_POS_INVALID;
     CcTypedStepLink * step = steps;
@@ -55,8 +55,7 @@ CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
 
         if ( !( result = cc_calc_checked_momentum( &m, accumulating ) ) ) break;
 
-        CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, p, m );
-        if ( !( result = cc_pos_desc_link_append( &pd_link__a, pd ) ) ) break;
+        if ( !( result = cc_path_link_append( &pl__a, p, m ) ) ) break;
 
         step = step->next;
     }
@@ -66,75 +65,13 @@ CcPosDescLink * cc_apply_steps_to_position__new( CcChessboard * cb,
     is_on_board = cc_chessboard_is_pos_on_board( cb, last.i, last.j );
 
     if ( !result || !is_on_board ) {
-        cc_pos_desc_link_free_all( &pd_link__a );
+        cc_path_link_free_all( &pl__a );
         return NULL;
     }
 
-    return pd_link__a;
+    return pl__a;
 }
 
-
-bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
-                                     CcPos pos,
-                                     cc_uint_t momentum,
-                                     CcPosDescLink ** pdl__iod_a ) {
-    if ( !cb ) return false;
-    if ( !pdl__iod_a ) return false;
-
-    CcPosDesc pd = cc_convert_pos_to_pos_desc( cb, pos, momentum );
-
-    if ( !cc_pos_desc_link_append( pdl__iod_a, pd ) ) return false;
-
-    return true;
-}
-
-bool cc_update_pos_desc_link( CcChessboard * cb, CcPosDescLink * pd_link__io ) {
-    if ( !cb ) return false;
-    if ( !pd_link__io ) return false;
-
-    CcPosDescLink * p = pd_link__io;
-
-    while ( p ) {
-        CcPos pos = p->pd.pos;
-
-        CcPieceType piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        p->pd.piece = piece;
-
-        CcTagType tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-        p->pd.tag = tag;
-
-        p = p->next;
-    }
-
-    return true;
-}
-
-bool cc_apply_pos_desc_link( CcChessboard ** cb__io_r, CcPosDescLink * pd_link ) {
-    if ( !cb__io_r ) return false;
-    if ( !*cb__io_r ) return false;
-    if ( !pd_link ) return false;
-
-    CcPosDescLink * pdl = pd_link;
-    CcChessboard * cb__t = cc_chessboard_duplicate__new( *cb__io_r );
-
-    while ( pdl ) {
-        CcPosDesc pd = pdl->pd;
-        CcPos p = pd.pos;
-
-        if ( !cc_chessboard_set_piece_tag( cb__t, p.i, p.j, pd.piece, pd.tag ) ) {
-            cc_chessboard_free_all( &cb__t );
-            return false;
-        }
-
-        pdl = pdl->next;
-    }
-
-    // free() + ownership transfer ~= realloc().
-    cc_chessboard_free_all( cb__io_r );
-    *cb__io_r = cb__t;
-
-    return true;
-}
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected__d,

@@ -21,7 +21,7 @@
 //                           CcPos from_pos,
 //                           cc_uint_t momentum,
 //                           bool is_accumulating_momentum,
-//                           CcPosDescLink * already_traversed__d,
+//                           CcPathLink * already_traversed__d,
 //                           CcPathLink ** path__o );
 
 

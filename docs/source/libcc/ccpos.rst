@@ -624,7 +624,7 @@ Position descriptor
 Linked position descriptors
 ---------------------------
 
-.. c:struct:: CcPosDescLink
+.. c:struct:: CcPathLink
 
     A linked tree of position descriptors.
 
@@ -632,7 +632,7 @@ Linked position descriptors
 
         A position descriptor.
 
-    .. c:member:: struct CcPosDescLink * diverge
+    .. c:member:: struct CcPathLink * diverge
 
         Link to divergent paths.
 
@@ -640,7 +640,7 @@ Linked position descriptors
 
         One divergent path links to another via :c:member:`alt` member.
 
-    .. c:member:: struct CcPosDescLink * alt
+    .. c:member:: struct CcPathLink * alt
 
         Link to alternative path segment from this one.
 
@@ -648,13 +648,13 @@ Linked position descriptors
         paths, i.e. if this step has been pointed-to by either :c:member:`diverge`,
         or :c:member:`alt` member.
 
-    .. c:member:: struct CcPosDescLink * next
+    .. c:member:: struct CcPathLink * next
 
         Link to next position descriptor in a straight path segment.
 
-    :c:`Struct` is tagged with the same :c:struct:`CcPosDescLink` name.
+    :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd )
+.. c:function:: CcPathLink * cc_path_link__new( CcPosDesc pd )
 
     Function allocates a new linked position descriptor.
 
@@ -662,7 +662,7 @@ Linked position descriptors
     :returns: Pointer to a newly allocated linked position descriptor
               if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a, CcPosDesc pd )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pd_link__iod_a, CcPosDesc pd )
 
     Function appends a newly allocated linked position descriptor
     to a given linked tree.
@@ -677,7 +677,7 @@ Linked position descriptors
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link )
+.. c:function:: CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * pd_link )
 
     Duplicates a given position descriptor linked tree into a newly
     allocated one.
@@ -686,7 +686,7 @@ Linked position descriptors
     :returns: A pointer to newly allocated linked tree if successful,
               :c:data:`NULL` otherwise.
 
-.. c:function:: CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a, CcPosDescLink ** pd_link__n )
+.. c:function:: CcPathLink * cc_path_link_extend( CcPathLink ** pd_link__iod_a, CcPathLink ** pd_link__n )
 
     Extends existing linked tree with another linked tree.
 
@@ -707,14 +707,14 @@ Linked position descriptors
     :returns: Weak pointer to extended portion of a linked tree
               if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f )
+.. c:function:: bool cc_path_link_free_all( CcPathLink ** pd_link__f )
 
     Frees all position descriptors in a linked tree.
 
     :param pd_link__f: A linked tree to :c:func:`free()`.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: size_t cc_pos_desc_link_len( CcPosDescLink * pd_link )
+.. c:function:: size_t cc_path_link_len( CcPathLink * pd_link )
 
     Function returns length of pointed-to path segment in a linked tree.
 
@@ -725,7 +725,7 @@ Linked position descriptors
     :param pd_link: A linked tree of position descriptors.
     :returns: Length of a linked tree if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_pos_desc_link_to_short_string__new( CcPosDescLink * pd_link )
+.. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * pd_link )
 
     Function returns string containing user-readable representation
     of a position descriptors list.
