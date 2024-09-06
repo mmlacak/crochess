@@ -207,5 +207,32 @@ size_t cc_path_link_len( CcPathLink * path_link );
 
 char * cc_path_link_to_short_string__new( CcPathLink * path_link );
 
+//
+// Linked list of path segments.
+
+// TODO :: DOCS
+typedef struct CcPathWeakLink {
+    CcPathLink * pl__w;
+
+    struct CcPathWeakLink * next;
+} CcPathWeakLink;
+
+// TODO :: DOCS
+CcPathWeakLink * cc_path_weak_link__new( CcPathLink * pl );
+
+// TODO :: DOCS
+CcPathWeakLink * cc_path_weak_link_append( CcPathWeakLink ** pwl__iod_a,
+                                           CcPathLink * pl );
+
+// TODO :: DOCS
+CcPathWeakLink * cc_path_weak_link_extend( CcPathWeakLink ** pwl__iod_a,
+                                           CcPathWeakLink ** pwl__n );
+
+// TODO :: DOCS
+bool cc_path_weak_link_free_all( CcPathWeakLink ** pwl__f );
+
+// TODO :: DOCS
+size_t cc_path_weak_link_len( CcPathWeakLink * pwl );
+
 
 #endif /* __CC_POS_H__ */

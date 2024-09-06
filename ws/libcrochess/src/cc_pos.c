@@ -548,3 +548,92 @@ char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
 
     return pl_str__a;
 }
+
+//
+// Linked list of path segments.
+
+CcPathWeakLink * cc_path_weak_link__new( CcPathLink * pl ) {
+    CcPathWeakLink * pwl__a = malloc( sizeof( CcPathWeakLink ) );
+    if ( !pwl__a ) return NULL;
+
+    pwl__a->pl__w = pl; // Weak pointer, no ownership transfer.
+    pwl__a->next = NULL;
+
+    return pwl__a;
+}
+
+CcPathWeakLink * cc_path_weak_link_append( CcPathWeakLink ** pwl__iod_a,
+                                           CcPathLink * pl ) {
+    if ( !pwl__iod_a ) return NULL;
+
+    CcPathWeakLink * pwl__t = cc_path_weak_link__new( pl );
+    if ( !pwl__t ) return NULL;
+
+    if ( !*pwl__iod_a ) {
+        *pwl__iod_a = pwl__t; // Ownership transfer.
+    } else {
+        CcPathWeakLink * pwl = *pwl__iod_a;
+        CC_FASTFORWARD( pwl );
+        pwl->next = pwl__t; // Append + ownership transfer.
+    }
+
+    return pwl__t; // Weak pointer.
+}
+
+CcPathWeakLink * cc_path_weak_link_extend( CcPathWeakLink ** pwl__iod_a,
+                                           CcPathWeakLink ** pwl__n ) {
+    if ( !pwl__iod_a ) return NULL;
+    if ( !pwl__n ) return NULL;
+
+    if ( !*pwl__n ) return *pwl__iod_a;
+
+    if ( !*pwl__iod_a ) {
+        // Ownership transfer.
+        *pwl__iod_a = *pwl__n;
+        *pwl__n = NULL;
+
+        return *pwl__iod_a;
+    }
+
+    CcPathWeakLink * last = *pwl__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *pwl__n;
+    *pwl__n = NULL;
+
+    return last->next;
+}
+
+bool cc_path_weak_link_free_all( CcPathWeakLink ** pwl__f ) {
+    if ( !pwl__f ) return false;
+    if ( !*pwl__f ) return true;
+
+    CcPathWeakLink * pwl = *pwl__f;
+    CcPathWeakLink * tmp = NULL;
+
+    while ( pwl ) {
+        // <!> pl__w is weak pointer, not to be free()-ed.
+
+        tmp = pwl->next;
+        CC_FREE( pwl );
+        pwl = tmp;
+    }
+
+    *pwl__f = NULL;
+    return true;
+}
+
+size_t cc_path_weak_link_len( CcPathWeakLink * pwl ) {
+    if ( !pwl ) return 0;
+
+    size_t len = 0;
+    CcPathWeakLink * p = pwl;
+
+    while ( p ) {
+        ++len;
+        p = p->next;
+    }
+
+    return len;
+}
