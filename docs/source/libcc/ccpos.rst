@@ -692,14 +692,14 @@ Linked paths
     Extends existing path segment with another one, as its :c:member:`next`
     segment.
 
-    If linked tree to extend (:c:`pl__iod_a`) hasn't been allocated yet,
-    this will initialize it with content of an extending linked tree, i.e.
+    If path segment to extend (:c:`pl__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending path segment, i.e.
     :c:`pl__n`.
 
     .. note::
 
-        Extending linked tree :c:`pl__n` has its ownership transferred to
-        extended linked tree :c:`pl__iod_a`; as a result, inner pointer
+        Extending path segment :c:`pl__n` has its ownership transferred to
+        extended path segment :c:`pl__iod_a`; as a result, inner pointer
         :c:`*pl__n` is :c:data:`NULL`\ed.
 
     :param pl__iod_a: **Ownership**, *optional* *input/output*; a path segment
@@ -708,6 +708,25 @@ Linked paths
         existing segment.
     :returns: Weak pointer to extended portion of a resulting path segment if
         successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
+
+    Function extends divergent paths of a given path step (:c:`pl_step__a`) with
+    path segment (:c:`pl_alt__n`) as an additional alternative path.
+
+    If a given path step doesn't have divergent path yet, function initializes it
+    with a given alternative path.
+
+    .. note::
+
+        Extending path segment :c:`pl_alt__n` has its ownership transferred to
+        diverging path segment :c:`pl_step__a`; as a result, inner pointer
+        :c:`*pl_alt__n` is :c:data:`NULL`\ed.
+
+    :param pl_step__a: **Ownership**; a path step from which to diverge.
+    :param pl_alt__n: **Ownership transfer**; diverging path.
+    :returns: Weak pointer to alternative path if successful,
+        :c:data:`NULL` otherwise.
 
 .. c:function:: CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link )
 

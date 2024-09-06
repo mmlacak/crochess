@@ -195,9 +195,8 @@ CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );
 
-// TODO :: DOCS
-CcPathLink * cc_path_link_diverge( CcPathLink ** pl__a,
-                                   CcPathLink ** pl__n );
+CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a,
+                                   CcPathLink ** pl_alt__n );
 
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 

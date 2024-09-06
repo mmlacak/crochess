@@ -399,28 +399,28 @@ CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
     return last->next;
 }
 
-CcPathLink * cc_path_link_diverge( CcPathLink ** pl__a,
-                                   CcPathLink ** pl__n ) {
-    if ( !pl__a ) return NULL;
-    if ( !*pl__a ) return NULL;
+CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a,
+                                   CcPathLink ** pl_alt__n ) {
+    if ( !pl_step__a ) return NULL;
+    if ( !*pl_step__a ) return NULL;
 
-    if ( !pl__n ) return NULL;
-    if ( !*pl__n ) return NULL;
+    if ( !pl_alt__n ) return NULL;
+    if ( !*pl_alt__n ) return NULL;
 
-    if ( ( *pl__a )->diverge ) {
-        CcPathLink * pl = ( *pl__a )->diverge;
+    if ( ( *pl_step__a )->diverge ) {
+        CcPathLink * pl = ( *pl_step__a )->diverge;
 
         while ( pl->alt ) {
             pl = pl->alt;
         }
 
-        pl->alt = *pl__n;
+        pl->alt = *pl_alt__n;
     } else {
-        ( *pl__a )->diverge = *pl__n;
+        ( *pl_step__a )->diverge = *pl_alt__n;
     }
 
-    CcPathLink * pl__w = *pl__n;
-    *pl__n = NULL;
+    CcPathLink * pl__w = *pl_alt__n;
+    *pl_alt__n = NULL;
 
     return pl__w;
 }
