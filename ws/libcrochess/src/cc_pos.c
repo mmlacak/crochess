@@ -339,7 +339,7 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
 
 
 //
-// Linked tree of positions.
+// Linked path segments.
 
 CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );

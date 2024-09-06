@@ -623,16 +623,30 @@ Position descriptor
     :param pd_str__o: *Output*, pointer to short string array.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccpos-linkedpaths:
+.. _lbl-libcc-ccpos-linkedpathsegments:
 
-Linked paths
-------------
+Linked path segments
+--------------------
 
 .. c:struct:: CcPathLink
 
-    A linked tree of path segments.
+    Linked path :term:`segment` is essentially a linked list of traversed positions,
+    with possible alternative paths after divergence.
 
-    Each path segment is comprised of path links linked only via :c:member:`next`.
+    Each path :term:`segment` is comprised of path links linked only by
+    :c:member:`next` member, the same as in ordinary linked list.
+
+    Divergent :term:`path`\s are introduced by single :c:member:`diverge` path;
+    all other possible :term:`path`\s after the same divergence are then linked
+    by :c:member:`alt`.
+
+    .. warning::
+
+        All :c:member:`diverge`, :c:member:`alt`, and :c:member:`next` members
+        must always be a singular pointer to any path link.
+
+        Circular references within a path tree, or shared among them, are not
+        allowed, and will likely cause crash.
 
     .. c:member:: CcPosDesc pos
 
@@ -753,7 +767,7 @@ Linked paths
     :c:member:`alt`, nor :c:member:`diverge`.
 
     :param path_link: A path segment.
-    :returns: Length of a linked tree if successful, ``0`` otherwise.
+    :returns: Length of a path segment if successful, ``0`` otherwise.
 
 .. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * path_link )
 

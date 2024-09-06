@@ -175,7 +175,7 @@ bool cc_pos_desc_to_short_string( CcPosDesc pd,
                                   cc_char_16 * pd_str__o );
 
 //
-// Linked tree of positions.
+// Linked path segments.
 
 typedef struct CcPathLink {
     CcPos pos;

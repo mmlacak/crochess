@@ -78,3 +78,11 @@ Glossary
 
     link
         Item in a linked list, or a queue.
+
+    path
+        Path is a complete list of all fields traversed by a single piece,
+        in a single ply, in order in which they were visited.
+
+    segment
+        Segment is a straight part of a path, before and after any path alteration;
+        e.g. before teleportation, or after divergence.
