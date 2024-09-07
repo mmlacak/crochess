@@ -758,16 +758,16 @@ Linked path segments
     :param pl__f: A path segment to :c:func:`free()`.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: size_t cc_path_link_len( CcPathLink * path_link )
+.. c:function:: size_t cc_path_link_len( CcPathLink * path_link, bool count_all )
 
-    Function returns length of a given path segment.
-
-    Function follows only :c:member:`next` steps, and does not count over
-    alternative, or divergent paths; i.e. function does not follow neither
-    :c:member:`alt`, nor :c:member:`diverge`.
+    Function returns length of a given path segment; optionally also includes
+    :c:member:`diverge`, :c:member:`alt` branches.
 
     :param path_link: A path segment.
-    :returns: Length of a path segment if successful, ``0`` otherwise.
+    :param count_all: Flag, whether to include :c:member:`diverge`, :c:member:`alt`
+        path segments (if :c:data:`true`), or only a given path segment
+        without branching (if :c:data:`false`).
+    :returns: Length of a given path segment if successful, ``0`` otherwise.
 
 .. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * path_link )
 

@@ -489,7 +489,7 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
     return result;
 }
 
-size_t cc_path_link_len( CcPathLink * path_link ) {
+size_t cc_path_link_len( CcPathLink * path_link, bool count_all ) {
     if ( !path_link ) return 0;
 
     size_t len = 0;
@@ -497,6 +497,17 @@ size_t cc_path_link_len( CcPathLink * path_link ) {
 
     while ( pl ) {
         ++len;
+
+        if ( count_all ) {
+            if ( pl->diverge ) {
+                len += cc_path_link_len( pl->diverge, count_all );
+            }
+
+            if ( pl->alt ) {
+                len += cc_path_link_len( pl->alt, count_all );
+            }
+        }
+
         pl = pl->next;
     }
 
@@ -508,7 +519,7 @@ char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
 
     // unused len is certainly > 0, because path_link != NULL
-    signed int unused = cc_path_link_len( path_link ) *
+    signed int unused = cc_path_link_len( path_link, true ) *
                         ( CC_MAX_LEN_CHAR_8 + 1 );
                         // CC_MAX_LEN_CHAR_8, for position + piece
                         // +1, for separator '.' between positions

@@ -196,7 +196,6 @@ typedef char cc_char_512 [ CC_SIZE_CHAR_512 ];
 
 bool cc_str_clear( char * str__io, size_t max_len__d );
 
-// TODO :: DOCS
 char * cc_str_pad__new( char pad, size_t count );
 
 bool cc_str_is_empty( char const * str, bool ignore_spaces );

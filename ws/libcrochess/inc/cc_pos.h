@@ -203,7 +203,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 bool cc_path_link_free_all( CcPathLink ** pl__f );
 
 // TODO :: add options to count diverge, alt paths :: DOCS
-size_t cc_path_link_len( CcPathLink * path_link );
+size_t cc_path_link_len( CcPathLink * path_link, bool count_all );
 
 // TODO :: count of diverges, alts
 
