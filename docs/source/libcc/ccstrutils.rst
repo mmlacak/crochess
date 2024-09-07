@@ -198,6 +198,18 @@ Functions
     :param max_len__d: *Optional*, maximum length to overwrite.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: char * cc_str_pad__new( char pad, size_t count )
+
+    Function returns newly allocated, zero-terminated string, containing :c:`pad`
+    character repeated :c:`count` times.
+
+    Allocated string is greater than :c:`count` by ``1``, for zero-terminating
+    :c:`char`, i.e. ``'\0'``.
+
+    :param pad: A pad character.
+    :param count: Count of padding characters in a returned string.
+    :returns: Valid pointer to string if successful, :c:data:`NULL` otherwise.
+
 .. c:function:: bool cc_str_is_empty( char const * str, bool ignore_spaces )
 
     Function checks if string is empty, i.e. does not contain printable :c:`char`\s.
