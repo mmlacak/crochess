@@ -769,6 +769,14 @@ Linked path segments
         without branching (if :c:data:`false`).
     :returns: Length of a given path segment if successful, ``0`` otherwise.
 
+.. c:function:: size_t cc_path_link_count_all_branches( CcPathLink * path_link )
+
+    Function returns count of all branches, including :c:member:`diverge`,
+    :c:member:`alt`.
+
+    :param path_link: A path segment.
+    :returns: Count of all branches if successful, ``0`` otherwise.
+
 .. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * path_link )
 
     Function returns string containing user-readable representation of a given
