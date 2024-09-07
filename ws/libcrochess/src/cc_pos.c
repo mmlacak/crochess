@@ -514,6 +514,27 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all ) {
     return len;
 }
 
+size_t cc_path_link_count_all_branches( CcPathLink * path_link ) {
+    if ( !path_link ) return 0;
+
+    size_t count = 1; // = 1, for this path segment
+    CcPathLink * pl = path_link;
+
+    while ( pl ) {
+        if ( pl->diverge ) {
+            count += cc_path_link_count_all_branches( pl->diverge );
+        }
+
+        if ( pl->alt ) {
+            count += cc_path_link_count_all_branches( pl->alt );
+        }
+
+        pl = pl->next;
+    }
+
+    return count;
+}
+
 
 char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
