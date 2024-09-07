@@ -31,6 +31,7 @@ bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumul
     return true;
 }
 
+// TODO :: REDO
 CcPathLink * cc_build_path_segment__new( CcChessboard * cb,
                                          CcPos pos,
                                          cc_uint_t momentum,

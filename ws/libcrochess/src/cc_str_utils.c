@@ -29,6 +29,22 @@ bool cc_str_clear( char * str__io,
     return true;
 }
 
+char * cc_str_pad__new( char pad, size_t count ) {
+    size_t size = count + 1; // + 1 for '\0'
+    char * pad__a = (char *)malloc( size );
+    if ( !pad__a ) return NULL;
+
+    char * n = pad__a;
+    char const * end = pad__a + size;
+
+    while ( n <= end ) {
+        *n = n < end ? pad : '\0';
+        ++n;
+    }
+
+    return pad__a;
+}
+
 bool cc_str_is_empty( char const * str, bool ignore_spaces ) {
     if ( !str ) return true;
 

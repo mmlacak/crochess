@@ -84,5 +84,5 @@ Glossary
         in a single ply, in order in which they were visited.
 
     segment
-        Segment is a straight part of a path, before and after any path alteration;
+        Segment is a straight part of a path, before or after any path alteration;
         e.g. before teleportation, or after divergence.
