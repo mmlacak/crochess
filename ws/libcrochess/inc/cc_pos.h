@@ -204,7 +204,7 @@ bool cc_path_link_free_all( CcPathLink ** pl__f );
 
 size_t cc_path_link_len( CcPathLink * path_link, bool count_all );
 
-size_t cc_path_link_count_all_branches( CcPathLink * path_link );
+size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 
 // TODO :: REDO :: DOCS
 char * cc_path_link_to_short_string__new( CcPathLink * path_link );
