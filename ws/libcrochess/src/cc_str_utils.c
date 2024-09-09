@@ -11,8 +11,7 @@
 #include "cc_str_utils.h"
 
 
-bool cc_str_clear( char * str__io,
-                   size_t max_len__d ) {
+bool cc_str_clear( char * str__io, size_t max_len__d ) {
     if ( !str__io ) return false;
 
     char * s = str__io;

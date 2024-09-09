@@ -536,6 +536,73 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
 }
 
 
+// CcMaybeBoolEnum path_diverged:
+// == CC_MBE_Void --> regular path segment
+// == CC_MBE_False --> alternative path segment
+// == CC_MBE_True --> diverged path segment
+static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
+                                             size_t depth,
+                                             CcMaybeBoolEnum path_diverged,
+                                             char ** str__io_a,
+                                             char const * str_end ) {
+    if ( !path_link ) return false;
+    if ( !str__io_a ) return false;
+    if ( !*str__io_a ) return false;
+    if ( !str_end ) return false;
+
+    if ( **str__io_a != '\0' ) return false; // Each segment string must be properly terminated.
+
+    size_t len = cc_path_link_len( path_link, false );
+    size_t depth_size = 2 * depth; // 2 == ' ' + ' '
+    size_t str_size = 4 // 4 == '*' or '|' + ' ' + '\n' at the end of line + '\0' at the end of string
+                    + depth_size // for padding
+                    + 4 * len; // 4 == '.' + <file char> + 2 <rank chars>, <momentum> is disregarded
+    // TODO :: maybe add <momentum> (?)
+    size_t unused = str_size;
+
+    if ( str_end < ( *str__io_a + str_size ) ) return false;
+
+    char * str__t = *str__io_a; // str__t == position transfer variable (not ownership)
+
+    for ( size_t i = 0; i < depth_size; ++i ) {
+        *str__t++ = ' ';
+    }
+
+    unused -= depth_size;
+
+    if ( CC_MAYBE_IS_TRUE( path_diverged ) ) { // diverge path
+        *str__t++ = '*';
+        *str__t++ = ' ';
+        unused -= 2;
+    } else if ( CC_MAYBE_IS_FALSE( path_diverged ) ) { // alt path
+        *str__t++ = '|';
+        *str__t++ = ' ';
+        unused -= 2;
+    } // path_diverged == CC_MBE_Void --> just a regular path segment --> nothing more to do
+
+    CcPathLink * pl = path_link;
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    char const * end__t = str__t; // end__t == position transfer variable (not ownership)
+
+    while ( pl ) {
+        if ( !cc_pos_to_short_string( pl->pos, &pos_c8 ) )
+            return false;
+
+        end__t = cc_str_append_into( str__t, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
+        if ( !end__t )  return false;
+
+        unused -= ( end__t - str__t );
+        str__t = (char *)end__t;
+
+        pl = pl->next;
+    }
+
+    *str__t = '\0';
+    *str__io_a = str__t; // position transfer (not ownership)
+
+    return false; // TODO
+}
+
 char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
 
