@@ -598,6 +598,7 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
         pl = pl->next;
     }
 
+    *str__t++ = '\n';
     *str__t = '\0';
 
     return str__t;
