@@ -210,7 +210,7 @@ CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies,
         return activator;
 }
 
-char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies ) {
+char * cc_parsed_ply_all_to_string__new( CcParsedPly * plies ) {
     if ( !plies ) return NULL;
 
     //
@@ -280,7 +280,7 @@ char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies ) {
 
         // Append steps.
 
-        char * steps_str__a = cc_parsed_step_all_to_short_string__new( p->steps );
+        char * steps_str__a = cc_parsed_step_all_to_string__new( p->steps );
 
         if ( !steps_str__a ) {
             CC_FREE( plies_str__a );

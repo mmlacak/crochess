@@ -233,10 +233,10 @@ static bool _cc_check_captured_en_passant( CcPieceType capturing,
          || ( CC_IS_COORD_VALID( en_passant_location.i )
               && ( captured_at.i != en_passant_location.i ) ) ) {
         cc_char_8 step_c8 = CC_CHAR_8_EMPTY;
-        if ( !cc_pos_to_short_string( step, &step_c8 ) ) return false;
+        if ( !cc_pos_to_string( step, &step_c8 ) ) return false;
 
         cc_char_8 epl_c8 = CC_CHAR_8_EMPTY;
-        if ( !cc_pos_to_short_string( en_passant_location, &epl_c8 ) ) return false;
+        if ( !cc_pos_to_string( en_passant_location, &epl_c8 ) ) return false;
 
         char const * capturing_str = cc_piece_as_string( capturing, false, true );
         char const * captured_str = cc_piece_as_string( captured, true, true );
@@ -403,7 +403,7 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
 
         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-        if ( !cc_pos_to_short_string( *step_pos__io, &pos_c8 ) ) return false;
+        if ( !cc_pos_to_string( *step_pos__io, &pos_c8 ) ) return false;
 
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle onto field %s (out of bounds), in step '%s'.\n", piece_str, pos_c8, step_an__a );

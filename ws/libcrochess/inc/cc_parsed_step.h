@@ -61,7 +61,7 @@ CcParsedStep * cc_parsed_step_find_destination( CcParsedStep * steps );
 
 bool cc_parsed_step_free_all( CcParsedStep ** steps__f );
 
-char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps );
+char * cc_parsed_step_all_to_string__new( CcParsedStep * steps );
 
 
 CcParsedStep * cc_parsed_step_none__new( CcParsedStepLinkEnum link, CcPos field );

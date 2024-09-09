@@ -68,7 +68,7 @@ CcPos cc_pos_difference( CcPos start, CcPos destination );
 
 CcPos cc_pos_calc_step( CcPos start, CcPos destination );
 
-bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o );
+bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 
 //
 // Typed step
@@ -130,7 +130,7 @@ bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f );
 
 size_t cc_typed_step_link_len( CcTypedStepLink * ts_link );
 
-char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link );
+char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link );
 
 //
 // Position descriptor.
@@ -171,7 +171,7 @@ bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
 
-bool cc_pos_desc_to_short_string( CcPosDesc pd,
+bool cc_pos_desc_to_string( CcPosDesc pd,
                                   cc_char_16 * pd_str__o );
 
 //
@@ -213,7 +213,7 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 //                                              char const * str_end );
 
 // TODO :: REDO :: DOCS
-char * cc_path_link_to_short_string__new( CcPathLink * path_link );
+char * cc_path_link_to_string__new( CcPathLink * path_link );
 
 //
 // Linked list of path segments.

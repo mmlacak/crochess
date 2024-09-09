@@ -100,7 +100,7 @@ bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply );
 CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies,
                                           CcParsedPly * ply__d );
 
-char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies );
+char * cc_parsed_ply_all_to_string__new( CcParsedPly * plies );
 
 
 #endif /* __CC_PARSED_PLY_H__ */

@@ -187,7 +187,7 @@ bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
 
     CcPos destination = cc_parsed_side_effect_destination( se );
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    if ( !cc_pos_to_short_string( destination, &pos_c8 ) )
+    if ( !cc_pos_to_string( destination, &pos_c8 ) )
         return false;
 
     size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );

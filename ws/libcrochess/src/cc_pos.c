@@ -93,7 +93,7 @@ CcPos cc_pos_calc_step( CcPos start, CcPos destination ) {
     return CC_POS_CAST( diff_i, diff_j );
 }
 
-bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o ) {
+bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o ) {
     if ( !pos_str__o ) return false;
 
     #define LOWER_BOUND (-100)
@@ -245,7 +245,7 @@ size_t cc_typed_step_link_len( CcTypedStepLink * ts_link ) {
     return len;
 }
 
-char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
+char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
     if ( !ts_link ) return NULL;
 
     // unused len is certainly > 0, because pos_link != NULL
@@ -270,7 +270,7 @@ char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link ) {
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_to_short_string( tsl->step.step, &pos_c8 ) ) {
+        if ( !cc_pos_to_string( tsl->step.step, &pos_c8 ) ) {
             CC_FREE( pl_str__a );
             return NULL;
         }
@@ -318,11 +318,11 @@ bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
     return true;
 }
 
-bool cc_pos_desc_to_short_string( CcPosDesc pd,
+bool cc_pos_desc_to_string( CcPosDesc pd,
                                   cc_char_16 * pd_str__o ) {
     if ( !pd_str__o ) return false;
 
-    if ( !cc_pos_to_short_string( pd.pos, (cc_char_8 *)pd_str__o ) ) return false;
+    if ( !cc_pos_to_string( pd.pos, (cc_char_8 *)pd_str__o ) ) return false;
 
     char * p = (char *)pd_str__o;
 
@@ -536,7 +536,7 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
 }
 
 
-// CcMaybeBoolEnum path_diverged:
+// path_diverged
 // == CC_MBE_Void --> regular path segment
 // == CC_MBE_False --> alternative path segment
 // == CC_MBE_True --> diverged path segment
@@ -585,7 +585,7 @@ static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
     char const * end__t = str__t; // end__t == position transfer variable (not ownership)
 
     while ( pl ) {
-        if ( !cc_pos_to_short_string( pl->pos, &pos_c8 ) )
+        if ( !cc_pos_to_string( pl->pos, &pos_c8 ) )
             return false;
 
         end__t = cc_str_append_into( str__t, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
@@ -600,10 +600,10 @@ static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
     *str__t = '\0';
     *str__io_a = str__t; // position transfer (not ownership)
 
-    return false; // TODO
+    return true;
 }
 
-char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
+char * cc_path_link_to_string__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
 
     // unused len is certainly > 0, because path_link != NULL
@@ -628,7 +628,7 @@ char * cc_path_link_to_short_string__new( CcPathLink * path_link ) {
             *pl_str = '\0';
         }
 
-        if ( !cc_pos_to_short_string( pl->pos, &pos_c8 ) ) {
+        if ( !cc_pos_to_string( pl->pos, &pos_c8 ) ) {
             CC_FREE( pl_str__a );
             return NULL;
         }

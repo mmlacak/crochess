@@ -195,7 +195,7 @@ Functions
     :param steps__f: Linked list of steps.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps )
+.. c:function:: char * cc_parsed_step_all_to_string__new( CcParsedStep * steps )
 
     Function returns a newly allocated string, containing user-readable
     representation of steps in a given linked list.

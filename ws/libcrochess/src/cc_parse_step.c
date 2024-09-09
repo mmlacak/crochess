@@ -211,7 +211,7 @@ bool cc_parse_steps( char const * steps_start_an,
     // TODO :: DEBUG :: DELETE
     //
     {
-        char * step_str__a = cc_parsed_step_all_to_short_string__new( *steps__o );
+        char * step_str__a = cc_parsed_step_all_to_string__new( *steps__o );
 
         cc_str_print( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 

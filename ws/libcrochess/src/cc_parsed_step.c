@@ -190,7 +190,7 @@ bool cc_parsed_step_free_all( CcParsedStep ** steps__f ) {
     return true;
 }
 
-char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps ) {
+char * cc_parsed_step_all_to_string__new( CcParsedStep * steps ) {
     if ( !steps ) return NULL;
 
     // unused len is certainly > 0, because steps != NULL
@@ -229,7 +229,7 @@ char * cc_parsed_step_all_to_short_string__new( CcParsedStep * steps ) {
             steps_str = sle_end;
         }
 
-        if ( !cc_pos_to_short_string( s->field, &pos_c8 ) ) {
+        if ( !cc_pos_to_string( s->field, &pos_c8 ) ) {
             CC_FREE( steps_str__a );
             return NULL;
         }

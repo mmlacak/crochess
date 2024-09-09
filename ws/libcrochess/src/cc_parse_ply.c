@@ -127,7 +127,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
         if ( pe != before_ply_start__io->piece ) {
             cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-            if ( !cc_pos_to_short_string( pos, &pos_c8 ) )  return false;
+            if ( !cc_pos_to_string( pos, &pos_c8 ) )  return false;
 
             char const * piece_str = cc_piece_as_string( pe, false, true );
             char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -186,7 +186,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
                 before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, start_pos.i, start_pos.j );
             } else {
                 cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-                if ( !cc_pos_to_short_string( start_pos, &pos_c8 ) ) {
+                if ( !cc_pos_to_string( start_pos, &pos_c8 ) ) {
                     cc_parsed_step_free_all( &steps__t );
                     return false;
                 }
@@ -278,7 +278,7 @@ bool cc_parse_plies( char const * move_an,
         // TODO :: DEBUG :: DELETE
         //
         {
-            char * plies_str__a = cc_parsed_ply_all_to_short_string__new( ply__t );
+            char * plies_str__a = cc_parsed_ply_all_to_string__new( ply__t );
 
             // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
             printf( "Ply: '%s'.\n", plies_str__a );
@@ -307,7 +307,7 @@ bool cc_parse_plies( char const * move_an,
     // TODO :: DEBUG :: DELETE
     //
     {
-        char * plies_str__a = cc_parsed_ply_all_to_short_string__new( plies__t );
+        char * plies_str__a = cc_parsed_ply_all_to_string__new( plies__t );
 
         cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
         printf( "---\n" );

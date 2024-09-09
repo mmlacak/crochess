@@ -250,7 +250,7 @@ Functions
     :param destination: Destination field.
     :returns: A valid step if successful, :c:macro:`CC_POS_INVALID` otherwise.
 
-.. c:function:: bool cc_pos_to_short_string( CcPos pos, cc_char_8 * pos_str__o )
+.. c:function:: bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o )
 
     Function converts position into a user-readable :c:`<file char><rank number>` notation.
 
@@ -467,7 +467,7 @@ Linked typed steps
     :returns: Count of typed steps in a linked list if successful,
               ``0`` otherwise.
 
-.. c:function:: char * cc_typed_step_link_to_short_string__new( CcTypedStepLink * ts_link )
+.. c:function:: char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link )
 
     Function returns string containing user-readable representation
     of a linked list of typed steps.
@@ -611,7 +611,7 @@ Position descriptor
     :returns: :c:data:`true` if position descriptors are congruent,
               :c:data:`false` otherwise.
 
-.. c:function:: bool cc_pos_desc_to_short_string( CcPosDesc pd, cc_char_16 * pd_str__o )
+.. c:function:: bool cc_pos_desc_to_string( CcPosDesc pd, cc_char_16 * pd_str__o )
 
     Function converts position descriptor value into a user-readable
     ``<file char><rank number><piece>`` notation.
@@ -777,7 +777,7 @@ Linked path segments
     :param path_link: A path segment.
     :returns: Count of all segments if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_path_link_to_short_string__new( CcPathLink * path_link )
+.. c:function:: char * cc_path_link_to_string__new( CcPathLink * path_link )
 
     Function returns string containing user-readable representation of a given
     path segment, i.e. only :c:member:`next` steps are stringified.
@@ -785,7 +785,7 @@ Linked path segments
     :param path_link: A path segment.
     :returns: A newly allocated, zero-terminated (``'\0'``) string if
               successful, :c:data:`NULL` otherwise.
-    :seealso: :c:func:`cc_pos_to_short_string()`
+    :seealso: :c:func:`cc_pos_to_string()`
 
 .. _lbl-libcc-ccpos-weaklylinkedpathsegments:
 

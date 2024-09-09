@@ -341,7 +341,7 @@ Functions
     :param ply__d: *Optional*; a ply within given linked list, can be :c:data:`NULL`.
     :returns: :term:`Activator` if successful, :c:enumerator:`CC_PE_None` otherwise.
 
-.. c:function:: char * cc_parsed_ply_all_to_short_string__new( CcParsedPly * plies )
+.. c:function:: char * cc_parsed_ply_all_to_string__new( CcParsedPly * plies )
 
     Function returns newly allocated string, containing user-readable
     representation of a plies.
