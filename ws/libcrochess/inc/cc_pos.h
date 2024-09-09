@@ -212,6 +212,12 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 //                                              char ** str__io_a,
 //                                              char const * str_end );
 
+// static char * _cc_path_link_to_string( CcPathLink * path_link,
+//                                        size_t depth,
+//                                        CcMaybeBoolEnum path_diverged,
+//                                        char * str_start__io,
+//                                        char const * str_end );
+
 // TODO :: REDO :: DOCS
 char * cc_path_link_to_string__new( CcPathLink * path_link );
 

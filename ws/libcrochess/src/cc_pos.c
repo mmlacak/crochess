@@ -540,17 +540,16 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
 // == CC_MBE_Void --> regular path segment
 // == CC_MBE_False --> alternative path segment
 // == CC_MBE_True --> diverged path segment
-static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
-                                             size_t depth,
-                                             CcMaybeBoolEnum path_diverged,
-                                             char ** str__io_a,
-                                             char const * str_end ) {
-    if ( !path_link ) return false;
-    if ( !str__io_a ) return false;
-    if ( !*str__io_a ) return false;
-    if ( !str_end ) return false;
+static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
+                                               size_t depth,
+                                               CcMaybeBoolEnum path_diverged,
+                                               char * str_start__io,
+                                               char const * str_end ) {
+    if ( !path_link ) return NULL;
+    if ( !str_start__io ) return NULL;
+    if ( !str_end ) return NULL;
 
-    if ( **str__io_a != '\0' ) return false; // Each segment string must be properly terminated.
+    if ( *str_start__io != '\0' ) return NULL; // Each segment string must be properly terminated.
 
     size_t len = cc_path_link_len( path_link, false );
     size_t depth_size = 2 * depth; // 2 == ' ' + ' '
@@ -560,9 +559,9 @@ static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
     // TODO :: maybe add <momentum> (?)
     size_t unused = str_size;
 
-    if ( str_end < ( *str__io_a + str_size ) ) return false;
+    if ( str_end < ( str_start__io + str_size ) ) return NULL;
 
-    char * str__t = *str__io_a; // str__t == position transfer variable (not ownership)
+    char * str__t = str_start__io; // str__t == position transfer variable (not ownership)
 
     for ( size_t i = 0; i < depth_size; ++i ) {
         *str__t++ = ' ';
@@ -586,10 +585,10 @@ static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
 
     while ( pl ) {
         if ( !cc_pos_to_string( pl->pos, &pos_c8 ) )
-            return false;
+            return NULL;
 
         end__t = cc_str_append_into( str__t, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-        if ( !end__t )  return false;
+        if ( !end__t )  return NULL;
 
         unused -= ( end__t - str__t );
         str__t = (char *)end__t;
@@ -598,9 +597,47 @@ static bool _cc_path_link_segment_to_string( CcPathLink * path_link,
     }
 
     *str__t = '\0';
-    *str__io_a = str__t; // position transfer (not ownership)
 
-    return true;
+    return str__t;
+}
+
+static char * _cc_path_link_to_string( CcPathLink * path_link,
+                                       size_t depth,
+                                       CcMaybeBoolEnum path_diverged,
+                                       char * str_start__io,
+                                       char const * str_end ) {
+    if ( !path_link ) return NULL;
+    if ( !str_start__io ) return NULL;
+    if ( !str_end ) return NULL;
+
+    char * str__t = str_start__io;
+    char * end__t = NULL;
+    CcPathLink * pl = path_link;
+
+    while ( pl ) {
+        end__t = _cc_path_link_segment_to_string( pl, depth, path_diverged, str__t, str_end );
+        if ( !end__t ) return NULL;
+
+        str__t = end__t;
+
+        if ( pl->diverge ) {
+            end__t = _cc_path_link_to_string( pl->diverge, depth + 1, CC_MBE_True, str__t, str_end );
+            if ( !end__t ) return NULL;
+
+            str__t = end__t;
+        }
+
+        if ( pl->alt ) {
+            end__t = _cc_path_link_to_string( pl->alt, depth, CC_MBE_False, str__t, str_end );
+            if ( !end__t ) return NULL;
+
+            str__t = end__t;
+        }
+
+        pl = pl->next;
+    }
+
+    return str__t;
 }
 
 char * cc_path_link_to_string__new( CcPathLink * path_link ) {
