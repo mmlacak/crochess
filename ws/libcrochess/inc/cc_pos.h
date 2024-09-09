@@ -218,7 +218,6 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 //                                        char * str_start__io,
 //                                        char const * str_end );
 
-// TODO :: REDO :: DOCS
 char * cc_path_link_to_string__new( CcPathLink * path_link );
 
 //

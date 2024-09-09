@@ -779,12 +779,12 @@ Linked path segments
 
 .. c:function:: char * cc_path_link_to_string__new( CcPathLink * path_link )
 
-    Function returns string containing user-readable representation of a given
-    path segment, i.e. only :c:member:`next` steps are stringified.
+    Function returns string containing user-readable representation of a complete
+    path tree, including :c:member:`diverge`, :c:member:`alt` branches.
 
     :param path_link: A path segment.
     :returns: A newly allocated, zero-terminated (``'\0'``) string if
-              successful, :c:data:`NULL` otherwise.
+        successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_string()`
 
 .. _lbl-libcc-ccpos-weaklylinkedpathsegments:
