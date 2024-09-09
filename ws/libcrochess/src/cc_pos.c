@@ -553,6 +553,8 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
 
     size_t len = cc_path_link_len( path_link, false );
     size_t depth_size = 2 * depth; // 2 == ' ' + ' '
+
+    // <!> Keep in-sync with cc_path_link_to_string__new().
     size_t str_size = 4 // 4 == '*' or '|' + ' ' + '\n' at the end of line + '\0' at the end of string
                     + depth_size // for padding
                     + 4 * len; // 4 == '.' + <file char> + 2 <rank chars>, <momentum> is disregarded
@@ -643,43 +645,31 @@ static char * _cc_path_link_to_string( CcPathLink * path_link,
 char * cc_path_link_to_string__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
 
-    // unused len is certainly > 0, because path_link != NULL
-    signed int unused = cc_path_link_len( path_link, true ) *
-                        ( CC_MAX_LEN_CHAR_8 + 1 );
-                        // CC_MAX_LEN_CHAR_8, for position + piece
-                        // +1, for separator '.' between positions
+    size_t total_len = cc_path_link_len( path_link, true );
+    size_t count = cc_path_link_count_all_seqments( path_link );
+    size_t max_depth = count - 1; // Depth start from 0, and there are `count` of them.
 
-    char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
+    // <!> Keep in-sync with _cc_path_link_segment_to_string().
+    size_t str_size = 2 * max_depth * ( count - 1 ) // 2 == ' ' + ' ' for padding, count - 1 == first segment is not padded
+                    + 3 * count // 3 == '*' or '|' + ' ' + '\n' at the end of line
+                    + 4 * total_len // 4 == '.' + <file char> + 2 <rank chars>; <momentum> is disregarded
+                    + 1; // 1 == '\0' at the end of string
+
+    char * pl_str__a = malloc( str_size );
     if ( !pl_str__a ) return NULL;
 
-    *pl_str__a = '\0';
+    // *pl_str__a = '\0';
+    if ( !cc_str_clear( pl_str__a, str_size ) ) {
+        CC_FREE( pl_str__a );
+        return NULL;
+    }
 
-    char * pl_str = pl_str__a;
-    char * pl_end = pl_str;
-    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    CcPathLink * pl = path_link;
+    char const * pl_end = pl_str__a + str_size;
 
-    while ( pl && ( unused > 0 ) ) {
-        if ( pl != path_link ) { // Not 1st pos ...
-            *pl_str++ = '.';
-            *pl_str = '\0';
-        }
-
-        if ( !cc_pos_to_string( pl->pos, &pos_c8 ) ) {
-            CC_FREE( pl_str__a );
-            return NULL;
-        }
-
-        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-        if ( !pl_end ) {
-            CC_FREE( pl_str__a );
-            return NULL;
-        }
-
-        unused -= ( pl_end - pl_str );
-        pl_str = pl_end;
-
-        pl = pl->next;
+    char * end = _cc_path_link_to_string( path_link, 0, CC_MBE_Void, pl_str__a, pl_end );
+    if ( !end ) {
+        CC_FREE( pl_str__a );
+        return NULL;
     }
 
     return pl_str__a;

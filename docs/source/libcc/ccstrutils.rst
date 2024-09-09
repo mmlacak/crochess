@@ -190,12 +190,17 @@ All arrays defined here have all their :c:`char`\s initialized to ``'\0'``.
 Functions
 ---------
 
-.. c:function:: bool cc_str_clear( char * str__io, size_t max_len__d )
+.. c:function:: bool cc_str_clear( char * str__io, size_t size__d )
 
     Function to clear string, or char array, by writing ``'\0'`` into every char.
 
+    .. note::
+
+        If *optional* size is not supplied (i.e. is :c:macro:`CC_SIZE_IGNORE`),
+        given string must be zero-terminated.
+
     :param str__io: *Input/output*, string to overwrite with zeros.
-    :param max_len__d: *Optional*, maximum length to overwrite.
+    :param size__d: *Optional*, maximum size to overwrite.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: char * cc_str_pad__new( char pad, size_t count )

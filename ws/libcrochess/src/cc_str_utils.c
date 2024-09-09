@@ -11,17 +11,17 @@
 #include "cc_str_utils.h"
 
 
-bool cc_str_clear( char * str__io, size_t max_len__d ) {
+bool cc_str_clear( char * str__io, size_t size__d ) {
     if ( !str__io ) return false;
 
     char * s = str__io;
 
-    if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED ) {
+    if ( size__d == CC_SIZE_IGNORE ) {
         while ( *s ) *s++ = '\0';
     } else {
         size_t c = 0;
 
-        while ( ( *s ) && ( c++ < max_len__d ) )
+        while ( ( *s ) && ( c++ < size__d ) )
             *s++ = '\0';
     }
 

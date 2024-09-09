@@ -139,7 +139,7 @@ bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
                                          cc_char_16 * se_str__o ) {
     if ( !se_str__o ) return false;
 
-    if ( !cc_str_clear( *se_str__o, CC_MAX_LEN_CHAR_16 ) )
+    if ( !cc_str_clear( *se_str__o, CC_SIZE_CHAR_16 ) )
         return false;
 
     if ( se.type == CC_PSEE_None )

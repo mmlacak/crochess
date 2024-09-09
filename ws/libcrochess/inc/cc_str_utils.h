@@ -194,7 +194,8 @@ typedef char cc_char_512 [ CC_SIZE_CHAR_512 ];
                             '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
 
 
-bool cc_str_clear( char * str__io, size_t max_len__d );
+// TODO :: DOCS
+bool cc_str_clear( char * str__io, size_t size__d );
 
 char * cc_str_pad__new( char pad, size_t count );
 

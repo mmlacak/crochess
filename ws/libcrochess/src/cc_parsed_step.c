@@ -194,11 +194,11 @@ char * cc_parsed_step_all_to_string__new( CcParsedStep * steps ) {
     if ( !steps ) return NULL;
 
     // unused len is certainly > 0, because steps != NULL
-    signed int unused = cc_parsed_step_count( steps ) *
-                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) + 1; // +1, for '\0'
-                        // CC_MAX_LEN_CHAR_8, for position
-                        // + CC_MAX_LEN_CHAR_16, for side-effect
-                        // + 2, for step links, e.g. ".." before step
+    size_t unused = cc_parsed_step_count( steps ) *
+                    ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) + 1; // +1, for '\0'
+                    // CC_MAX_LEN_CHAR_8, for position
+                    // + CC_MAX_LEN_CHAR_16, for side-effect
+                    // + 2, for step links, e.g. ".." before step
 
     char * steps_str__a = malloc( unused );
     if ( !steps_str__a ) return NULL;
