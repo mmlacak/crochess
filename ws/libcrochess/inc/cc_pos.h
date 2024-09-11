@@ -73,10 +73,12 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 //
 // Typed step
 
+// TODO :: DOCS
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0, /* Undefined step type. */
-    CC_STE_Movement, /* Just a step, movement. It can still cause side-effects other than capture. */
-    CC_STE_Capture,  /* Capturing step, i.e. movement + capture. */
+    CC_STE_MovementOnly, /* Just a step, movement. It can still cause side-effects other than capture. */
+    CC_STE_CaptureOrMovement,  /* Capturing step, i.e. movement with or without capture. */
+    CC_STE_CaptureOnly,  /* Capturing step, i.e. movement only if piece can capture. */
     CC_STE_Alternative, /* Alternative step; one of displacement-, color-change-, entrancement-, uplifting-, miracle-steps. */
 } CcStepTypeEnum;
 // TODO :: maybe split alternative steps, each into its own proper (?)
@@ -87,7 +89,7 @@ typedef enum CcStepTypeEnum {
 
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
 
-#define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_Movement }
+#define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_None }
 
 typedef struct CcTypedStep {
     CcPos step; /* Step, relative position. */

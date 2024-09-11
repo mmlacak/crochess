@@ -275,11 +275,11 @@ Step type enum
 
         Undefined step type, equals to ``0``.
 
-    .. c:enumerator:: CC_STE_Movement
+    .. c:enumerator:: CC_STE_MovementOnly
 
         Just a step, movement. It can still cause side-effects other than capture.
 
-    .. c:enumerator:: CC_STE_Capture
+    .. c:enumerator:: CC_STE_CaptureOrMovement
 
         Capturing step, i.e. movement + capture.
 
