@@ -14,9 +14,6 @@
 #include "cc_pos.h"
 
 
-// TODO :: moved --> DOCS
-
-
 //
 // Linked path segments.
 

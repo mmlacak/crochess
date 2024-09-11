@@ -69,6 +69,8 @@ Library contents
     ccposutils
     ccchecks
 
+    ccpath
+
     ccparsedmove
     ccparsedply
     ccparsedstep
