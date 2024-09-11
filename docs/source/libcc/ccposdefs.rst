@@ -105,6 +105,10 @@ Lengths
 
     Equals to :c:macro:`CC_STEPS_ROOK_LEN`.
 
+.. c:macro:: CC_STEPS_DISPLACEMENT_SERPENT_LEN
+
+    Equals to :c:macro:`CC_STEPS_ROOK_LEN`.
+
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_LEN
 
@@ -134,6 +138,12 @@ Lengths
 .. c:macro:: CC_STEPS_STARTING_MONOLITH_LEN
 
     Equals to :c:macro:`CC_STEPS_KNIGHT_LEN`.
+
+
+.. c:macro:: CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN
+
+    Equals to ``44``.
+
 
 .. _lbl-libcc-ccposdefs-sizes:
 
@@ -215,6 +225,10 @@ Piece step sizes
 
     Equals to :c:macro:`CC_STEPS_COLOR_CHANGE_SERPENT_LEN` + 1.
 
+.. c:macro:: CC_STEPS_DISPLACEMENT_SERPENT_SIZE
+
+    Equals to :c:macro:`CC_STEPS_DISPLACEMENT_SERPENT_LEN` + 1.
+
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_SIZE
 
@@ -241,6 +255,12 @@ Piece step sizes
 .. c:macro:: CC_STEPS_STARTING_MONOLITH_SIZE
 
     Equals to :c:macro:`CC_STEPS_STARTING_MONOLITH_LEN` + 1.
+
+
+.. c:macro:: CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE
+
+    Equals to :c:macro:`CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN` + 1.
+
 
 .. _lbl-libcc-ccposdefs-arrays:
 
@@ -351,6 +371,16 @@ similar to zero-terminating strings; terminating position is
         These color-changing steps are *not* included in all-steps array,
         i.e. they are *not* in :c:macro:`CC_STEPS_ALL_SERPENT`.
 
+.. c:macro:: CC_STEPS_DISPLACEMENT_SERPENT
+
+    Pawn-displacement steps array for Serpents, for all variants; equals to
+    :c:macro:`CC_STEPS_ROOK`.
+
+    .. note::
+
+        These Pawn-displacement steps are *not* included in all-steps array,
+        i.e. they are *not* in :c:macro:`CC_STEPS_ALL_SERPENT`.
+
 
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ]
 
@@ -382,6 +412,13 @@ similar to zero-terminating strings; terminating position is
 
     Steps array for Monolith, for all variants; equals to
     :c:macro:`CC_STEPS_KNIGHT`.
+
+
+.. c:type:: CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE ]
+
+    Displacement steps array for trance-journey initiated by light Shaman,
+    for all variants.
+
 
 .. _lbl-libcc-ccposdefs-validity:
 
