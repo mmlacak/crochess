@@ -283,6 +283,10 @@ Step type enum
 
         Capturing step, i.e. movement + capture.
 
+    .. c:enumerator:: CC_STE_CaptureOnly
+
+        Capturing step, i.e. valid movement only if piece can capture.
+
     .. c:enumerator:: CC_STE_Alternative
 
         Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps.

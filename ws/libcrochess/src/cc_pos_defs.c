@@ -277,6 +277,71 @@ CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ] 
     CC_TYPED_STEP_INVALID,
 };
 
+CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE ] = {
+    // I. quadrant
+    { .step = { .i =  3, .j =  1 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  2, .j =  2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  1, .j =  3 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i =  4, .j =  2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  3, .j =  3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  2, .j =  4 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i =  6, .j =  2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  5, .j =  3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  4, .j =  4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  3, .j =  5 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  2, .j =  6 }, .type = CC_STE_MovementOnly },
+
+    // II. quadrant
+    { .step = { .i = -3, .j =  1 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -2, .j =  2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -1, .j =  3 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i = -4, .j =  2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -3, .j =  3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -2, .j =  4 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i = -6, .j =  2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -5, .j =  3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -4, .j =  4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -3, .j =  5 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -2, .j =  6 }, .type = CC_STE_MovementOnly },
+
+    // III. quadrant
+    { .step = { .i = -3, .j = -1 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -2, .j = -2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -1, .j = -3 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i = -4, .j = -2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -3, .j = -3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -2, .j = -4 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i = -6, .j = -2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -5, .j = -3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -4, .j = -4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -3, .j = -5 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -2, .j = -6 }, .type = CC_STE_MovementOnly },
+
+    // IV. quadrant
+    { .step = { .i =  3, .j = -1 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  2, .j = -2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  1, .j = -3 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i =  4, .j = -2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  3, .j = -3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  2, .j = -4 }, .type = CC_STE_MovementOnly },
+
+    { .step = { .i =  6, .j = -2 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  5, .j = -3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  4, .j = -4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  3, .j = -5 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  2, .j = -6 }, .type = CC_STE_MovementOnly },
+
+    CC_TYPED_STEP_INVALID,
+};
+
+
 bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d ) {
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
 

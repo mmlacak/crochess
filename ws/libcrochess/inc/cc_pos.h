@@ -73,7 +73,6 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 //
 // Typed step
 
-// TODO :: DOCS
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0, /* Undefined step type. */
     CC_STE_MovementOnly, /* Just a step, movement. It can still cause side-effects other than capture. */
