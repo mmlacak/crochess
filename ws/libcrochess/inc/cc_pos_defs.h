@@ -12,7 +12,7 @@
 #include "cc_pos.h"
 
 
-#define CC_STEPS_LEN_INVALID_DATA_TERMINATED (0)
+#define CC_STEPS_LEN_GUARD_DATA_TERMINATED (0)
 
 
 #define CC_STEPS_PAWN_LEN (3)
@@ -125,6 +125,9 @@ extern CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACE
 
 
 bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d );
+
+// TODO :: DOCS
+CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t steps_len__d );
 
 
 #define CC_LIGHT_PAWN_STEP_IS_VALID(step) \

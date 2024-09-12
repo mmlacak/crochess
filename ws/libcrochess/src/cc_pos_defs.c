@@ -343,10 +343,11 @@ CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TR
 
 
 bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d ) {
+    if ( !steps ) return false;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
 
     for ( size_t k = 0;
-          (steps_len__d == CC_STEPS_LEN_INVALID_DATA_TERMINATED) || (k < steps_len__d);
+          (steps_len__d == CC_STEPS_LEN_GUARD_DATA_TERMINATED) || (k < steps_len__d);
           ++k ) {
         CcTypedStep p = steps[ k ];
 
@@ -356,6 +357,22 @@ bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t
     }
 
     return false;
+}
+
+CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t steps_len__d ) {
+    if ( !steps ) return CC_STE_None;
+
+    for ( size_t k = 0;
+          (steps_len__d == CC_STEPS_LEN_GUARD_DATA_TERMINATED) || (k < steps_len__d);
+          ++k ) {
+        CcTypedStep p = steps[ k ];
+
+        if ( !CC_TYPED_STEP_IS_VALID( p ) ) break;
+
+        if ( cc_pos_is_equal( step, p.step ) ) return p.type;
+    }
+
+    return CC_STE_None;
 }
 
 bool cc_is_same_color( CcPieceType piece, CcPos pos ) {
@@ -377,7 +394,7 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
     CcTypedStepLink * tsl__t = NULL;
 
     for ( size_t k = 0;
-          (steps_len__d == CC_STEPS_LEN_INVALID_DATA_TERMINATED) || (k < steps_len__d);
+          (steps_len__d == CC_STEPS_LEN_GUARD_DATA_TERMINATED) || (k < steps_len__d);
           ++k ) {
         CcTypedStep ts = steps[ k ];
 

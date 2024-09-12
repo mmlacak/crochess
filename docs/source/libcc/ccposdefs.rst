@@ -17,7 +17,7 @@ piece steps definitions and functions.
 Data
 ----
 
-.. c:macro:: CC_STEPS_LEN_INVALID_DATA_TERMINATED
+.. c:macro:: CC_STEPS_LEN_GUARD_DATA_TERMINATED
 
     Value to ignore array size constraint on various functions,
     and use invalid step as a guard to indicate end of an array.
@@ -430,7 +430,7 @@ Validity
     Function checking if step is valid, by searching a given array
     holding all valid steps for a piece.
 
-    If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`),
+    If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`),
     :c:`steps` array **must** be terminated with invalid step (i.e. :c:macro:`CC_POS_INVALID`)
     as a guard.
 
@@ -665,7 +665,7 @@ Functions
     *Output* argument :c:`*steps__o` has to be :c:data:`NULL`; appending
     steps to the same linked list is not supported.
 
-    If :c:`steps_len__d` is :c:macro:`CC_STEPS_LEN_INVALID_DATA_TERMINATED`,
+    If :c:`steps_len__d` is :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`,
     :c:`steps` array **must** be terminated with invalid step
     (i.e. :c:macro:`CC_POS_INVALID`) as a guard.
 
