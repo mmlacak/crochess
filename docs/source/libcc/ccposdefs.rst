@@ -431,13 +431,31 @@ Validity
     holding all valid steps for a piece.
 
     If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`),
-    :c:`steps` array **must** be terminated with invalid step (i.e. :c:macro:`CC_POS_INVALID`)
+    :c:`steps` array must be terminated with invalid step (i.e. :c:macro:`CC_TYPED_STEP_INVALID`)
     as a guard.
 
     :param step: A step to check.
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+
+.. c:function:: CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t steps_len__d )
+
+    Function returns type of a given step, by searching a given array.
+
+    Returned type also serves as a check if step is valid for a piece, if given
+    array holds all valid steps for that piece. This is not the case for Monolith,
+    Starchild, trance-journey Shamans, etc.; such steps needs to be calculated.
+
+    If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`),
+    :c:`steps` array must be terminated with invalid step (i.e. :c:macro:`CC_TYPED_STEP_INVALID`)
+    as a guard.
+
+    :param step: A step to check.
+    :param steps: An array of all valid steps.
+    :param steps_len__d: *Optional* parameter, array length.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+        :c:enumerator:`CC_STE_None` otherwise.
 
 .. _lbl-libcc-ccposdefs-validitymacros:
 
