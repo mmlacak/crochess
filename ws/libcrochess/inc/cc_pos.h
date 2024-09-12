@@ -73,18 +73,25 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 //
 // Typed step
 
+// TODO :: DOCS
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0, /* Undefined step type. */
     CC_STE_MovementOnly, /* Just a step, movement. It can still cause side-effects other than capture. */
     CC_STE_CaptureOrMovement,  /* Capturing step, i.e. movement with or without capture. */
     CC_STE_CaptureOnly,  /* Capturing step, i.e. movement only if piece can capture. */
-    CC_STE_Alternative, /* Alternative step; one of displacement-, color-change-, entrancement-, uplifting-, miracle-steps. */
+
+    CC_STE_Displacement,
+    CC_STE_ColorChange,
+    CC_STE_Entrancement,
+    CC_STE_Uplifting,
+    CC_STE_Miracle,
+    // CC_STE_Alternative, /* Alternative step; one of displacement-, color-change-, entrancement-, uplifting-, miracle-steps. */
 } CcStepTypeEnum;
 // TODO :: maybe split alternative steps, each into its own proper (?)
 
-#define CC_STEP_TYPE_IS_ENUMERATOR(ste) ( ( CC_STE_None <= (ste) ) && ( (ste) <= CC_STE_Alternative ) )
+#define CC_STEP_TYPE_IS_ENUMERATOR(ste) ( ( CC_STE_None <= (ste) ) && ( (ste) <= CC_STE_Miracle ) )
 
-#define CC_STEP_TYPE_IS_VALID(ste) ( ( CC_STE_None < (ste) ) && ( (ste) <= CC_STE_Alternative ) )
+#define CC_STEP_TYPE_IS_VALID(ste) ( ( CC_STE_None < (ste) ) && ( (ste) <= CC_STE_Miracle ) )
 
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
 

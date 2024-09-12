@@ -138,6 +138,30 @@ CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
+CcTypedStep const CC_STEPS_ALL_SERPENT[ CC_STEPS_ALL_SERPENT_SIZE ] = {
+    // Left diagonal steps
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+
+    // Right diagonal steps
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
+
+    // Color-changing steps
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_ColorChange },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_ColorChange },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_ColorChange },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_ColorChange },
+
+    // Pawn displacement steps
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Displacement },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Displacement },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Displacement },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Displacement },
+
+    CC_TYPED_STEP_INVALID,
+};
+
 CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ] = {
     //
     // Knight steps
@@ -265,78 +289,78 @@ CcTypedStep const CC_STEPS_GRENADIER[ CC_STEPS_GRENADIER_SIZE ] = {
 };
 
 CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ] = {
-    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Alternative },
-    { .step = { .i =  1, .j =  1 }, .type = CC_STE_Alternative },
-    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Alternative },
-    { .step = { .i = -1, .j =  1 }, .type = CC_STE_Alternative },
-    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Alternative },
-    { .step = { .i = -1, .j = -1 }, .type = CC_STE_Alternative },
-    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Alternative },
-    { .step = { .i =  1, .j = -1 }, .type = CC_STE_Alternative },
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Miracle },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_Miracle },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Miracle },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_Miracle },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Miracle },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_Miracle },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Miracle },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_Miracle },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE ] = {
     // I. quadrant
-    { .step = { .i =  3, .j =  1 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  2, .j =  2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  1, .j =  3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  3, .j =  1 }, .type = CC_STE_Displacement },
+    { .step = { .i =  2, .j =  2 }, .type = CC_STE_Displacement },
+    { .step = { .i =  1, .j =  3 }, .type = CC_STE_Displacement },
 
-    { .step = { .i =  4, .j =  2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  3, .j =  3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  2, .j =  4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  4, .j =  2 }, .type = CC_STE_Displacement },
+    { .step = { .i =  3, .j =  3 }, .type = CC_STE_Displacement },
+    { .step = { .i =  2, .j =  4 }, .type = CC_STE_Displacement },
 
-    { .step = { .i =  6, .j =  2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  5, .j =  3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  4, .j =  4 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  3, .j =  5 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  2, .j =  6 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  6, .j =  2 }, .type = CC_STE_Displacement },
+    { .step = { .i =  5, .j =  3 }, .type = CC_STE_Displacement },
+    { .step = { .i =  4, .j =  4 }, .type = CC_STE_Displacement },
+    { .step = { .i =  3, .j =  5 }, .type = CC_STE_Displacement },
+    { .step = { .i =  2, .j =  6 }, .type = CC_STE_Displacement },
 
     // II. quadrant
-    { .step = { .i = -3, .j =  1 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -2, .j =  2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -1, .j =  3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -3, .j =  1 }, .type = CC_STE_Displacement },
+    { .step = { .i = -2, .j =  2 }, .type = CC_STE_Displacement },
+    { .step = { .i = -1, .j =  3 }, .type = CC_STE_Displacement },
 
-    { .step = { .i = -4, .j =  2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -3, .j =  3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -2, .j =  4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -4, .j =  2 }, .type = CC_STE_Displacement },
+    { .step = { .i = -3, .j =  3 }, .type = CC_STE_Displacement },
+    { .step = { .i = -2, .j =  4 }, .type = CC_STE_Displacement },
 
-    { .step = { .i = -6, .j =  2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -5, .j =  3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -4, .j =  4 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -3, .j =  5 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -2, .j =  6 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -6, .j =  2 }, .type = CC_STE_Displacement },
+    { .step = { .i = -5, .j =  3 }, .type = CC_STE_Displacement },
+    { .step = { .i = -4, .j =  4 }, .type = CC_STE_Displacement },
+    { .step = { .i = -3, .j =  5 }, .type = CC_STE_Displacement },
+    { .step = { .i = -2, .j =  6 }, .type = CC_STE_Displacement },
 
     // III. quadrant
-    { .step = { .i = -3, .j = -1 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -2, .j = -2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -1, .j = -3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -3, .j = -1 }, .type = CC_STE_Displacement },
+    { .step = { .i = -2, .j = -2 }, .type = CC_STE_Displacement },
+    { .step = { .i = -1, .j = -3 }, .type = CC_STE_Displacement },
 
-    { .step = { .i = -4, .j = -2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -3, .j = -3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -2, .j = -4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -4, .j = -2 }, .type = CC_STE_Displacement },
+    { .step = { .i = -3, .j = -3 }, .type = CC_STE_Displacement },
+    { .step = { .i = -2, .j = -4 }, .type = CC_STE_Displacement },
 
-    { .step = { .i = -6, .j = -2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -5, .j = -3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -4, .j = -4 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -3, .j = -5 }, .type = CC_STE_MovementOnly },
-    { .step = { .i = -2, .j = -6 }, .type = CC_STE_MovementOnly },
+    { .step = { .i = -6, .j = -2 }, .type = CC_STE_Displacement },
+    { .step = { .i = -5, .j = -3 }, .type = CC_STE_Displacement },
+    { .step = { .i = -4, .j = -4 }, .type = CC_STE_Displacement },
+    { .step = { .i = -3, .j = -5 }, .type = CC_STE_Displacement },
+    { .step = { .i = -2, .j = -6 }, .type = CC_STE_Displacement },
 
     // IV. quadrant
-    { .step = { .i =  3, .j = -1 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  2, .j = -2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  1, .j = -3 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  3, .j = -1 }, .type = CC_STE_Displacement },
+    { .step = { .i =  2, .j = -2 }, .type = CC_STE_Displacement },
+    { .step = { .i =  1, .j = -3 }, .type = CC_STE_Displacement },
 
-    { .step = { .i =  4, .j = -2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  3, .j = -3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  2, .j = -4 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  4, .j = -2 }, .type = CC_STE_Displacement },
+    { .step = { .i =  3, .j = -3 }, .type = CC_STE_Displacement },
+    { .step = { .i =  2, .j = -4 }, .type = CC_STE_Displacement },
 
-    { .step = { .i =  6, .j = -2 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  5, .j = -3 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  4, .j = -4 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  3, .j = -5 }, .type = CC_STE_MovementOnly },
-    { .step = { .i =  2, .j = -6 }, .type = CC_STE_MovementOnly },
+    { .step = { .i =  6, .j = -2 }, .type = CC_STE_Displacement },
+    { .step = { .i =  5, .j = -3 }, .type = CC_STE_Displacement },
+    { .step = { .i =  4, .j = -4 }, .type = CC_STE_Displacement },
+    { .step = { .i =  3, .j = -5 }, .type = CC_STE_Displacement },
+    { .step = { .i =  2, .j = -6 }, .type = CC_STE_Displacement },
 
     CC_TYPED_STEP_INVALID,
 };
