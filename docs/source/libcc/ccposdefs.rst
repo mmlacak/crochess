@@ -418,11 +418,16 @@ Validity
     as a guard.
 
     :param step: A step to check.
-    :param filter__d: *Optional* value to filter out types of steps, can be
-        :c:enumerator:`CC_STE_None`, in which case array steps are not filtered.
+    :param filter__d: *Optional* value to filter out :c:var:`steps` array by type,
+        can be :c:enumerator:`CC_STE_None`, in which case steps are not filtered.
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+
+.. _lbl-libcc-ccposdefs-steptype:
+
+Step type
+---------
 
 .. c:function:: CcStepTypeEnum cc_get_step_type( CcPos step, CcStepTypeEnum filter__d, CcTypedStep const steps[], size_t steps_len__d )
 
@@ -437,218 +442,232 @@ Validity
     as a guard.
 
     :param step: A step to check.
-    :param filter__d: *Optional* value to filter out types of steps, can be
-        :c:enumerator:`CC_STE_None`, in which case array steps are not filtered.
+    :param filter__d: *Optional* value to filter out :c:var:`steps` array by type,
+        can be :c:enumerator:`CC_STE_None`, in which case steps are not filtered.
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
         :c:enumerator:`CC_STE_None` otherwise.
 
-.. _lbl-libcc-ccposdefs-validitymacros:
+.. _lbl-libcc-ccposdefs-steptypemacros:
 
-Validity macros
-^^^^^^^^^^^^^^^
+Step type macros
+^^^^^^^^^^^^^^^^
 
-    The step validity macro conveniences are meant to be used instead
-    of :c:func:`cc_is_typed_step_valid()`.
+    The step type macro conveniences are meant to be used instead of :c:func:`cc_get_step_type()`.
 
-.. c:macro:: CC_LIGHT_PAWN_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_LIGHT_PAWN_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by light Pawn, from
-    Classical Chess up to, and including, Miranda's Veil variant.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_DARK_PAWN_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by dark Pawn, from
-    Classical Chess up to, and including, Miranda's Veil variant.
+    Macro to get :c:`step` type made by light Pawn, from Classical Chess up to,
+    and including, Miranda's Veil variant.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_LIGHT_SIDEWAYS_PAWN_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_DARK_PAWN_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by light Pawn,
-    from Nineteen variant onwards.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_DARK_SIDEWAYS_PAWN_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by dark Pawn,
-    from Nineteen variant onwards.
+    Macro to get :c:`step` type made by dark Pawn, from Classical Chess up to,
+    and including, Miranda's Veil variant.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
+.. c:macro:: CC_GET_LIGHT_SIDEWAYS_PAWN_STEP_TYPE(step)
 
-.. c:macro:: CC_KNIGHT_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by Knight.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_BISHOP_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by Bishop.
+    Macro to get :c:`step` type made by light Pawn, from Nineteen variant onwards.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_ROOK_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_DARK_SIDEWAYS_PAWN_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Rook.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_QUEEN_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by Queen.
+    Macro to get :c:`step` type made by dark Pawn, from Nineteen variant onwards.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_KING_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by King.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
 
-.. c:macro:: CC_PEGASUS_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_KNIGHT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Pegasus.
+    Macro to get :c:`step` type made by Knight.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_PYRAMID_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_BISHOP_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Pyramid.
+    Macro to get :c:`step` type made by Bishop.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_UNICORN_SHORT_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_ROOK_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Unicorn featuring
+    Macro to get :c:`step` type made by Rook.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+.. c:macro:: CC_GET_QUEEN_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by Queen.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+.. c:macro:: CC_GET_KING_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by King.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+
+.. c:macro:: CC_GET_PEGASUS_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by Pegasus.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+.. c:macro:: CC_GET_PYRAMID_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by Pyramid.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+.. c:macro:: CC_GET_UNICORN_SHORT_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by Unicorn featuring
     short step.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_UNICORN_LONG_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_UNICORN_LONG_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Unicorn featuring
+    Macro to get :c:`step` type made by Unicorn featuring
     long step.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
 
-.. c:macro:: CC_STAR_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_STAR_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Star.
+    Macro to get :c:`step` type made by Star.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_CENTAUR_SHORT_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_CENTAUR_SHORT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Centaur featuring
+    Macro to get :c:`step` type made by Centaur featuring
     short step.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_CENTAUR_LONG_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_CENTAUR_LONG_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Centaur featuring
+    Macro to get :c:`step` type made by Centaur featuring
     long step.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_SERPENT_LEFT_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_SERPENT_LEFT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Serpent featuring
+    Macro to get :c:`step` type made by Serpent featuring
     left diagonal step.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_SERPENT_RIGHT_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_SERPENT_RIGHT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Serpent featuring
+    Macro to get :c:`step` type made by Serpent featuring
     right diagonal step.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_SERPENT_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_SERPENT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Serpent featuring
-    initial step.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_SERPENT_COLOR_CHANGE_STEP_IS_VALID(step)
-
-    Macro to check if color-changing :c:`step` can be made by Serpent.
+    Macro to get :c:`step` type made by Serpent.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
 
-.. c:macro:: CC_LIGHT_SCOUT_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_LIGHT_SCOUT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by light Scout.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_DARK_SCOUT_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by dark Scout.
+    Macro to get :c:`step` type made by light Scout.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_GRENADIER_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_DARK_SCOUT_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by Grenadier.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-
-.. c:macro:: CC_LIGHT_SHAMAN_STEP_IS_VALID(step)
-
-    Macro to check if :c:`step` can be made by light Shaman.
+    Macro to get :c:`step` type made by dark Scout.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
-.. c:macro:: CC_DARK_SHAMAN_STEP_IS_VALID(step)
+.. c:macro:: CC_GET_GRENADIER_STEP_TYPE(step)
 
-    Macro to check if :c:`step` can be made by dark Shaman.
-
-    :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
-
-.. c:macro:: CC_STARCHILD_MIRACLE_STEP_IS_VALID(step)
-
-    Macro to check if miracle-:c:`step` can be made by Starchild.
+    Macro to get :c:`step` type made by Grenadier.
 
     :param step: A step to check.
-    :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+
+.. c:macro:: CC_GET_LIGHT_SHAMAN_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by light Shaman.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+.. c:macro:: CC_GET_DARK_SHAMAN_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by dark Shaman.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
+
+.. c:macro:: CC_GET_STARCHILD_MIRACLE_STEP_TYPE(step)
+
+    Macro to get :c:`step` type made by Starchild.
+
+    :param step: A step to check.
+    :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
+      :c:enumerator:`CC_STE_None` otherwise.
 
 .. _lbl-libcc-ccposdefs-functions:
 
