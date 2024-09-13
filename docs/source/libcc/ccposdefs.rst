@@ -359,6 +359,8 @@ similar to zero-terminating strings; terminating position is
     Steps array for Serpents, for all variants; includes Serpent's left and
     right diagonal steps, color-changing steps and Pawn displacement steps.
 
+    Displacements here are steps made by Pawns when encountered by Serpent.
+
 
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ]
 
@@ -397,27 +399,32 @@ similar to zero-terminating strings; terminating position is
     Displacement steps array for trance-journey initiated by light Shaman,
     for all variants.
 
+    Displacements here are steps made by any pieces encountered by trance-journey
+    Shaman.
+
 
 .. _lbl-libcc-ccposdefs-validity:
 
 Validity
 --------
 
-.. c:function:: bool cc_is_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d )
+.. c:function:: bool cc_is_typed_step_valid( CcTypedStep step, CcStepTypeEnum filter__d, CcTypedStep const steps[], size_t steps_len__d )
 
-    Function checking if step is valid, by searching a given array
-    holding all valid steps for a piece.
+    Function checking if step is valid, by searching a given array holding all
+    valid steps for a piece.
 
     If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`),
     :c:`steps` array must be terminated with invalid step (i.e. :c:macro:`CC_TYPED_STEP_INVALID`)
     as a guard.
 
     :param step: A step to check.
+    :param filter__d: *Optional* value to filter out types of steps, can be
+        :c:enumerator:`CC_STE_None`, in which case array steps are not filtered.
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
 
-.. c:function:: CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t steps_len__d )
+.. c:function:: CcStepTypeEnum cc_get_step_type( CcPos step, CcStepTypeEnum filter__d, CcTypedStep const steps[], size_t steps_len__d )
 
     Function returns type of a given step, by searching a given array.
 
@@ -430,6 +437,8 @@ Validity
     as a guard.
 
     :param step: A step to check.
+    :param filter__d: *Optional* value to filter out types of steps, can be
+        :c:enumerator:`CC_STE_None`, in which case array steps are not filtered.
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
@@ -441,7 +450,7 @@ Validity macros
 ^^^^^^^^^^^^^^^
 
     The step validity macro conveniences are meant to be used instead
-    of :c:func:`cc_is_step_valid()`.
+    of :c:func:`cc_is_typed_step_valid()`.
 
 .. c:macro:: CC_LIGHT_PAWN_STEP_IS_VALID(step)
 

@@ -121,11 +121,15 @@ extern CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_
 extern CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE ];
 
 
-// TODO :: add type step filter :: DOCS
-bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d );
+bool cc_is_typed_step_valid( CcTypedStep step,
+                             CcStepTypeEnum filter__d,
+                             CcTypedStep const steps[],
+                             size_t steps_len__d );
 
-// TODO :: add type step filter :: DOCS
-CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t steps_len__d );
+CcStepTypeEnum cc_get_step_type( CcPos step,
+                                 CcStepTypeEnum filter__d,
+                                 CcTypedStep const steps[],
+                                 size_t steps_len__d );
 // TODO :: fix all macros below :: DOCS
 
 

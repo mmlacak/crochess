@@ -366,9 +366,14 @@ CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TR
 };
 
 
-bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t steps_len__d ) {
+bool cc_is_typed_step_valid( CcTypedStep step,
+                             CcStepTypeEnum filter__d,
+                             CcTypedStep const steps[],
+                             size_t steps_len__d ) {
     if ( !steps ) return false;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
+
+    bool no_filter = ( filter__d == CC_STE_None );
 
     for ( size_t k = 0;
           (steps_len__d == CC_STEPS_LEN_GUARD_DATA_TERMINATED) || (k < steps_len__d);
@@ -377,14 +382,22 @@ bool cc_is_typed_step_valid( CcTypedStep step, CcTypedStep const steps[], size_t
 
         if ( !CC_TYPED_STEP_IS_VALID( p ) ) break;
 
-        if ( cc_typed_step_is_equal( step, p ) ) return true;
+        if ( no_filter || ( filter__d == p.type ) ) {
+            if ( cc_typed_step_is_equal( step, p ) )
+                return true;
+        }
     }
 
     return false;
 }
 
-CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t steps_len__d ) {
+CcStepTypeEnum cc_get_step_type( CcPos step,
+                                 CcStepTypeEnum filter__d,
+                                 CcTypedStep const steps[],
+                                 size_t steps_len__d ) {
     if ( !steps ) return CC_STE_None;
+
+    bool no_filter = ( filter__d == CC_STE_None );
 
     for ( size_t k = 0;
           (steps_len__d == CC_STEPS_LEN_GUARD_DATA_TERMINATED) || (k < steps_len__d);
@@ -393,11 +406,15 @@ CcStepTypeEnum cc_get_step_type( CcPos step, CcTypedStep const steps[], size_t s
 
         if ( !CC_TYPED_STEP_IS_VALID( p ) ) break;
 
-        if ( cc_pos_is_equal( step, p.step ) ) return p.type;
+        if ( no_filter || ( filter__d == p.type ) ) {
+            if ( cc_pos_is_equal( step, p.step ) )
+                return p.type;
+        }
     }
 
     return CC_STE_None;
 }
+
 
 bool cc_is_same_color( CcPieceType piece, CcPos pos ) {
     if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
