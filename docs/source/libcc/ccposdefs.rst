@@ -93,21 +93,27 @@ Lengths
     Equals to :c:macro:`CC_STEPS_LONG_UNICORN_LEN`.
 
 
-.. c:macro:: CC_STEPS_SERPENT_LEN
+.. c:macro:: CC_STEPS_DIAGONAL_SERPENT_LEN
 
     Equals to ``2``.
 
-.. c:macro:: CC_STEPS_ALL_SERPENT_LEN
-
-    Equals to :c:macro:`CC_STEPS_BISHOP_LEN`.
-
 .. c:macro:: CC_STEPS_COLOR_CHANGE_SERPENT_LEN
 
-    Equals to :c:macro:`CC_STEPS_ROOK_LEN`.
+    Equals to ``4``.
 
 .. c:macro:: CC_STEPS_DISPLACEMENT_SERPENT_LEN
 
-    Equals to :c:macro:`CC_STEPS_ROOK_LEN`.
+    Equals to ``4``.
+
+.. c:macro:: CC_STEPS_ALL_SERPENT_LEN
+
+    All Serpent steps are comprised from left diagonal (represented by the first
+    :c:macro:`CC_STEPS_DIAGONAL_SERPENT_LEN`), right diagonal (the second
+    :c:macro:`CC_STEPS_DIAGONAL_SERPENT_LEN`), color-change steps, and displacement
+    steps.
+
+    Equals to :c:macro:`CC_STEPS_DIAGONAL_SERPENT_LEN` + :c:macro:`CC_STEPS_DIAGONAL_SERPENT_LEN`
+    + :c:macro:`CC_STEPS_COLOR_CHANGE_SERPENT_LEN` + :c:macro:`CC_STEPS_DISPLACEMENT_SERPENT_LEN`.
 
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_LEN
@@ -213,21 +219,13 @@ Piece step sizes
     Equals to :c:macro:`CC_STEPS_LONG_UNICORN_SIZE`.
 
 
-.. c:macro:: CC_STEPS_SERPENT_SIZE
+.. c:macro:: CC_STEPS_DIAGONAL_SERPENT_SIZE
 
-    Equals to :c:macro:`CC_STEPS_SERPENT_LEN` + 1.
+    Equals to :c:macro:`CC_STEPS_DIAGONAL_SERPENT_LEN` + 1.
 
 .. c:macro:: CC_STEPS_ALL_SERPENT_SIZE
 
     Equals to :c:macro:`CC_STEPS_ALL_SERPENT_LEN` + 1.
-
-.. c:macro:: CC_STEPS_COLOR_CHANGE_SERPENT_SIZE
-
-    Equals to :c:macro:`CC_STEPS_COLOR_CHANGE_SERPENT_LEN` + 1.
-
-.. c:macro:: CC_STEPS_DISPLACEMENT_SERPENT_SIZE
-
-    Equals to :c:macro:`CC_STEPS_DISPLACEMENT_SERPENT_LEN` + 1.
 
 
 .. c:macro:: CC_STEPS_LIGHT_SHAMAN_SIZE
@@ -348,38 +346,18 @@ similar to zero-terminating strings; terminating position is
     equals to :c:macro:`CC_STEPS_LONG_UNICORN`.
 
 
-.. c:type:: CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ]
+.. c:type:: CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_DIAGONAL_SERPENT_SIZE ]
 
     Steps array for Serpents featuring left diagonal, for all variants.
 
-.. c:type:: CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ]
+.. c:type:: CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_DIAGONAL_SERPENT_SIZE ]
 
     Steps array for Serpents featuring right diagonal, for all variants.
 
 .. c:macro:: CC_STEPS_ALL_SERPENT
 
-    Steps array for Serpents, for all variants; equals to
-    :c:macro:`CC_STEPS_BISHOP`.
-
-.. c:macro:: CC_STEPS_COLOR_CHANGE_SERPENT
-
-    Color-changing steps array for Serpents, for all variants; equals to
-    :c:macro:`CC_STEPS_ROOK`.
-
-    .. note::
-
-        These color-changing steps are *not* included in all-steps array,
-        i.e. they are *not* in :c:macro:`CC_STEPS_ALL_SERPENT`.
-
-.. c:macro:: CC_STEPS_DISPLACEMENT_SERPENT
-
-    Pawn-displacement steps array for Serpents, for all variants; equals to
-    :c:macro:`CC_STEPS_ROOK`.
-
-    .. note::
-
-        These Pawn-displacement steps are *not* included in all-steps array,
-        i.e. they are *not* in :c:macro:`CC_STEPS_ALL_SERPENT`.
+    Steps array for Serpents, for all variants; includes Serpent's left and
+    right diagonal steps, color-changing steps and Pawn displacement steps.
 
 
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_SHAMAN[ CC_STEPS_LIGHT_SHAMAN_SIZE ]

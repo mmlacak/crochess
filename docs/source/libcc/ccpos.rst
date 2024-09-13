@@ -287,9 +287,26 @@ Step type enum
 
         Capturing step, i.e. valid movement only if piece can capture.
 
-    .. c:enumerator:: CC_STE_Alternative
+    .. c:enumerator:: CC_STE_Displacement
 
-        Alternative step; one of color-change-, entrancement-, uplifting-, miracle-steps.
+        Displacement step; it can be either step made by displacing or displaced
+        piece, depending on context.
+
+    .. c:enumerator:: CC_STE_ColorChange
+
+        Serpent's color-changing step.
+
+    .. c:enumerator:: CC_STE_Entrancement
+
+        Shaman's entrancement step.
+
+    .. c:enumerator:: CC_STE_Uplifting
+
+        Starchild's upliftng step.
+
+    .. c:enumerator:: CC_STE_Miracle
+
+        Starchild's miracle step.
 
     :c:`enum` is tagged with the same :c:enum:`CcStepTypeEnum` name.
 

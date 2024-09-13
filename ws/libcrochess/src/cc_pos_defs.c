@@ -124,14 +124,14 @@ CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ] = {
     CC_TYPED_STEP_INVALID,
 };
 
-CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_SERPENT_SIZE ] = {
+CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_DIAGONAL_SERPENT_SIZE ] = {
     { .step = { .i = -1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
     { .step = { .i =  1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
 
     CC_TYPED_STEP_INVALID,
 };
 
-CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_SERPENT_SIZE ] = {
+CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_DIAGONAL_SERPENT_SIZE ] = {
     { .step = { .i = -1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
     { .step = { .i =  1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
 
