@@ -366,31 +366,6 @@ CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TR
 };
 
 
-bool cc_is_typed_step_valid( CcTypedStep step,
-                             CcStepTypeEnum filter__d,
-                             CcTypedStep const steps[],
-                             size_t steps_len__d ) {
-    if ( !steps ) return false;
-    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
-
-    bool no_filter = ( filter__d == CC_STE_None );
-
-    for ( size_t k = 0;
-          (steps_len__d == CC_STEPS_LEN_GUARD_DATA_TERMINATED) || (k < steps_len__d);
-          ++k ) {
-        CcTypedStep p = steps[ k ];
-
-        if ( !CC_TYPED_STEP_IS_VALID( p ) ) break;
-
-        if ( no_filter || ( filter__d == p.type ) ) {
-            if ( cc_typed_step_is_equal( step, p ) )
-                return true;
-        }
-    }
-
-    return false;
-}
-
 CcStepTypeEnum cc_get_step_type( CcPos step,
                                  CcStepTypeEnum filter__d,
                                  CcTypedStep const steps[],
@@ -413,6 +388,14 @@ CcStepTypeEnum cc_get_step_type( CcPos step,
     }
 
     return CC_STE_None;
+}
+
+bool cc_is_typed_step_valid( CcTypedStep step,
+                             CcStepTypeEnum filter__d,
+                             CcTypedStep const steps[],
+                             size_t steps_len__d ) {
+    CcStepTypeEnum type = cc_get_step_type( step.step, filter__d, steps, steps_len__d );
+    return ( type == step.type );
 }
 
 

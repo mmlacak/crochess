@@ -121,15 +121,15 @@ extern CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_
 extern CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE ];
 
 
-bool cc_is_typed_step_valid( CcTypedStep step,
-                             CcStepTypeEnum filter__d,
-                             CcTypedStep const steps[],
-                             size_t steps_len__d );
-
 CcStepTypeEnum cc_get_step_type( CcPos step,
                                  CcStepTypeEnum filter__d,
                                  CcTypedStep const steps[],
                                  size_t steps_len__d );
+
+bool cc_is_typed_step_valid( CcTypedStep step,
+                             CcStepTypeEnum filter__d,
+                             CcTypedStep const steps[],
+                             size_t steps_len__d );
 
 
 #define CC_GET_LIGHT_PAWN_STEP_TYPE(step) \

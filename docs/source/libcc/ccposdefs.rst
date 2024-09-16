@@ -411,11 +411,7 @@ Validity
 .. c:function:: bool cc_is_typed_step_valid( CcTypedStep step, CcStepTypeEnum filter__d, CcTypedStep const steps[], size_t steps_len__d )
 
     Function checking if step is valid, by searching a given array holding all
-    valid steps for a piece.
-
-    If :c:`steps_len__d` is not used (i.e. it's :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`),
-    :c:`steps` array must be terminated with invalid step (i.e. :c:macro:`CC_TYPED_STEP_INVALID`)
-    as a guard.
+    valid steps.
 
     :param step: A step to check.
     :param filter__d: *Optional* value to filter out :c:var:`steps` array by type,
@@ -423,6 +419,7 @@ Validity
     :param steps: An array of all valid steps.
     :param steps_len__d: *Optional* parameter, array length.
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_get_step_type`
 
 .. _lbl-libcc-ccposdefs-steptype:
 
