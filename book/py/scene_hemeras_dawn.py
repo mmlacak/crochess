@@ -656,8 +656,8 @@ class SceneHemerasDawnMixin:
         start_p_2 = (4, 2)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
-        start_p_3 = (5, 3)
-        scene.board.set_piece( *start_p_3, piece=-PieceType.Pawn )
+        start_w = (5, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         adder = GS.adder( start_O, include_prev=True )
         scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
@@ -670,9 +670,10 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
 
-        scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
-        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
+        # scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+        # scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        # scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
 
         scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Action )
 
