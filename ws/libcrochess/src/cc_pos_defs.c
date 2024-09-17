@@ -371,6 +371,7 @@ CcStepTypeEnum cc_get_step_type( CcPos step,
                                  CcTypedStep const steps[],
                                  size_t steps_len__d ) {
     if ( !steps ) return CC_STE_None;
+    if ( !CC_STEP_TYPE_IS_ENUMERATOR( filter__d ) ) return false;
 
     bool no_filter = ( filter__d == CC_STE_None );
 
@@ -439,8 +440,10 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 
 bool cc_iter_typed_steps( CcTypedStep const steps[],
                           size_t steps_len__d,
+                          CcStepTypeEnum filter__d,
                           CcTypedStep const * step__iod ) {
     if ( !steps ) return false;
+    if ( !CC_STEP_TYPE_IS_ENUMERATOR( filter__d ) ) return false;
     if ( step__iod && ( step__iod < steps ) ) return false;
 
     if ( !step__iod ) {
@@ -450,7 +453,11 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
         step__iod = NULL;
         return false;
     } else {
-        ++step__iod;
+        bool do_filter = ( filter__d != CC_STE_None );
+
+        do {
+            ++step__iod;
+        } while ( do_filter && ( filter__d != step__iod->type ) );
     }
 
     if ( !CC_TYPED_STEP_IS_VALID( *step__iod ) ) {
