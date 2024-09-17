@@ -86,7 +86,7 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic' # 'nature' # 'bizstyle' # 'pyramid' # 'sphinx_rtd_theme' # 'alabaster'
+html_theme = 'classic' # 'sphinx_rtd_theme' # 'nature' # 'bizstyle' # 'pyramid' # 'alabaster'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -136,15 +136,8 @@ html_favicon = 'crochess.ico'
 #     'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
 # }
 
-# Light-grey 'classic' theme
+# Light-grey 'classic' theme.
 #
-# html_theme_options = {
-#     # -- Options for HTML output, basic layout -----------------------------------
-#     'body_max_width': 'none',
-#     'navigation_with_keys': True,
-#     'externalrefs': True,
-# }
-
 html_theme_options = {
     # -- Options for HTML output, basic layout -----------------------------------
     'body_max_width': 'none',
@@ -180,3 +173,23 @@ html_theme_options = {
     'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for normal text.
     'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
 }
+
+# Read-the-docs theme.
+#
+# html_theme_options = {
+#     # 'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
+#     # 'analytics_anonymize_ip': False,
+#     'logo_only': False,
+#     'display_version': True,
+#     'prev_next_buttons_location': 'bottom',
+#     'style_external_links': True,
+#     'vcs_pageview_mode': '',
+#     'style_nav_header_background': 'LightGray',
+#     'flyout_display': 'hidden',
+#     # Toc options
+#     'collapse_navigation': True,
+#     'sticky_navigation': True,
+#     'navigation_depth': 9,
+#     'includehidden': True,
+#     'titles_only': False
+# }
