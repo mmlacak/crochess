@@ -281,7 +281,7 @@ Ownership transfer parameters are indicated by:
 * appending ``__f`` if inner pointer is going to be :c:func:`free()`\ed then :c:data:`NULL`\ed,
   e.g. :c:`char ** str__f`
 * appending ``__r`` if inner pointer is going to be :c:func:`realloc()`\ated, e.g.
-  :c:`char ** str_io__r`
+  :c:`char ** str__io_r`
 * appending ``__t`` if inner pointer is going to transfer ownership into function,
   e.g. :c:`char ** str__t`
 * appending ``__a`` if inner pointer is going to transfer ownership out of a function,

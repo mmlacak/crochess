@@ -98,6 +98,26 @@ CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
+CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
+                                     CcPathLink ** pl_alt__n ) {
+    if ( !pl_step__a ) return NULL;
+    if ( !*pl_step__a ) return NULL;
+
+    if ( !pl_alt__n ) return NULL;
+    if ( !*pl_alt__n ) return NULL;
+
+    CcPathLink * pl__w = *pl_step__a;
+
+    while ( pl__w->alt ) {
+        pl__w = pl__w->alt;
+    }
+
+    pl__w->alt = *pl_alt__n;
+    *pl_alt__n = NULL;
+
+    return pl__w;
+}
+
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
 
