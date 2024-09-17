@@ -39,10 +39,11 @@ release = "0.0.1.699:1131+20240916.072114"   # docs-new-lib-full-version-major-m
 # ones.
 #
 # extensions = [ ]
-extensions = [ 'sphinx.ext.autodoc',
-               'sphinx.ext.autosectionlabel',
-               'sphinx.ext.autosummary',
-               'sphinx.ext.todo',
+extensions = [  'sphinx.ext.autodoc',
+                'sphinx.ext.autosectionlabel',
+                'sphinx.ext.autosummary',
+                'sphinx.ext.todo',
+                # 'sphinx_rtd_theme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -185,7 +186,7 @@ html_theme_options = {
 #     'style_external_links': True,
 #     'vcs_pageview_mode': '',
 #     'style_nav_header_background': 'LightGray',
-#     'flyout_display': 'hidden',
+#     # 'flyout_display': 'hidden', # WARNING: unsupported theme option 'flyout_display' given
 #     # Toc options
 #     'collapse_navigation': True,
 #     'sticky_navigation': True,
