@@ -448,16 +448,18 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
 
     if ( !step__iod ) {
         step__iod = steps;
-    } else if ( ( steps_len__d != CC_STEPS_LEN_GUARD_DATA_TERMINATED )
-             && ( steps + steps_len__d < step__iod ) ) {
-        step__iod = NULL;
-        return false;
     } else {
         bool do_filter = ( filter__d != CC_STE_None );
 
         do {
             ++step__iod;
         } while ( do_filter && ( filter__d != step__iod->type ) );
+    }
+
+    if ( ( steps_len__d != CC_STEPS_LEN_GUARD_DATA_TERMINATED )
+         && ( steps + steps_len__d < step__iod ) ) {
+        step__iod = NULL;
+        return false;
     }
 
     if ( !CC_TYPED_STEP_IS_VALID( *step__iod ) ) {

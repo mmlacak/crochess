@@ -227,96 +227,116 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
                           CcStepTypeEnum filter__d,
                           CcTypedStep const * step__iod );
 
-// TODO :: FIX :: DOCS
-#define CC_ITER_LIGHT_PAWN_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_LIGHT_PAWN, CC_STEPS_PAWN_LEN, (step__iod) ) )
+// TODO :: DOCS
+#define CC_ITER_LIGHT_PAWN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_LIGHT_PAWN, CC_STEPS_PAWN_LEN, (filter__d), (step__iod) ) )
 
-// TODO :: FIX :: DOCS
-#define CC_ITER_DARK_PAWN_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_DARK_PAWN, CC_STEPS_PAWN_LEN, (step__iod) ) )
+// TODO :: DOCS
+#define CC_ITER_DARK_PAWN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_DARK_PAWN, CC_STEPS_PAWN_LEN, (filter__d), (step__iod) ) )
 
-// TODO :: FIX :: DOCS
-#define CC_ITER_LIGHT_SIDEWAYS_PAWN_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_LIGHT_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN, (step__iod) ) )
+// TODO :: DOCS
+#define CC_ITER_LIGHT_SIDEWAYS_PAWN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_LIGHT_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN, (filter__d), (step__iod) ) )
 
-// TODO :: FIX :: DOCS
-#define CC_ITER_DARK_SIDEWAYS_PAWN_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_DARK_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN, (step__iod) ) )
-
-
-// TODO :: FIX :: DOCS
-#define CC_ITER_KNIGHT_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_KNIGHT, CC_STEPS_KNIGHT_LEN, (step__iod) ) )
-
-// TODO :: FIX :: DOCS
-#define CC_ITER_BISHOP_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN, (step__iod) ) )
-
-// TODO :: FIX :: DOCS
-#define CC_ITER_ROOK_STEPS(step__iod) \
-    ( cc_iter_typed_steps( CC_STEPS_ROOK, CC_STEPS_ROOK_LEN, (step__iod) ) )
+// TODO :: DOCS
+#define CC_ITER_DARK_SIDEWAYS_PAWN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_DARK_SIDEWAYS_PAWN, CC_STEPS_SIDEWAYS_PAWN_LEN, (filter__d), (step__iod) ) )
 
 
-// TODO :: vvv convert vvv
+// TODO :: DOCS
+#define CC_ITER_KNIGHT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_KNIGHT, CC_STEPS_KNIGHT_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_QUEEN_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_QUEEN, CC_STEPS_QUEEN_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_BISHOP_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_BISHOP, CC_STEPS_BISHOP_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_KING_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_KING, CC_STEPS_KING_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_ROOK_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_ROOK, CC_STEPS_ROOK_LEN, (filter__d), (step__iod) ) )
 
+// TODO :: DOCS
+#define CC_ITER_QUEEN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_QUEEN, CC_STEPS_QUEEN_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_PEGASUS_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN ) )
-
-#define CC_GET_PYRAMID_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_PYRAMID, CC_STEPS_PYRAMID_LEN ) )
-
-#define CC_GET_UNICORN_SHORT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_SHORT_UNICORN, CC_STEPS_SHORT_UNICORN_LEN ) )
-
-#define CC_GET_UNICORN_LONG_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_LONG_UNICORN, CC_STEPS_LONG_UNICORN_LEN ) )
-
-
-#define CC_GET_STAR_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_STAR, CC_STEPS_STAR_LEN ) )
-
-#define CC_GET_CENTAUR_SHORT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_SHORT_CENTAUR, CC_STEPS_SHORT_CENTAUR_LEN ) )
-
-#define CC_GET_CENTAUR_LONG_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_LONG_CENTAUR, CC_STEPS_LONG_CENTAUR_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_KING_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_KING, CC_STEPS_KING_LEN, (filter__d), (step__iod) ) )
 
 
-#define CC_GET_SERPENT_LEFT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_SERPENT_LEFT, CC_STEPS_DIAGONAL_SERPENT_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_PEGASUS_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_PEGASUS, CC_STEPS_PEGASUS_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_SERPENT_RIGHT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_SERPENT_RIGHT, CC_STEPS_DIAGONAL_SERPENT_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_PYRAMID_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_PYRAMID, CC_STEPS_PYRAMID_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_SERPENT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_UNICORN_SHORT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_SHORT_UNICORN, CC_STEPS_SHORT_UNICORN_LEN, (filter__d), (step__iod) ) )
 
-
-#define CC_GET_LIGHT_SCOUT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_LIGHT_SCOUT, CC_STEPS_SCOUT_LEN ) )
-
-#define CC_GET_DARK_SCOUT_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_DARK_SCOUT, CC_STEPS_SCOUT_LEN ) )
-
-#define CC_GET_GRENADIER_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_GRENADIER, CC_STEPS_GRENADIER_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_UNICORN_LONG_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_LONG_UNICORN, CC_STEPS_LONG_UNICORN_LEN, (filter__d), (step__iod) ) )
 
 
-#define CC_GET_LIGHT_SHAMAN_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_LIGHT_SHAMAN, CC_STEPS_LIGHT_SHAMAN_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_STAR_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_STAR, CC_STEPS_STAR_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_DARK_SHAMAN_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_DARK_SHAMAN, CC_STEPS_DARK_SHAMAN_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_CENTAUR_SHORT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_SHORT_CENTAUR, CC_STEPS_SHORT_CENTAUR_LEN, (filter__d), (step__iod) ) )
 
-#define CC_GET_STARCHILD_MIRACLE_STEP_TYPE(step) \
-    ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN ) )
+// TODO :: DOCS
+#define CC_ITER_CENTAUR_LONG_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_LONG_CENTAUR, CC_STEPS_LONG_CENTAUR_LEN, (filter__d), (step__iod) ) )
+
+
+// TODO :: DOCS
+#define CC_ITER_SERPENT_LEFT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_SERPENT_LEFT, CC_STEPS_DIAGONAL_SERPENT_LEN, (filter__d), (step__iod) ) )
+
+// TODO :: DOCS
+#define CC_ITER_SERPENT_RIGHT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_SERPENT_RIGHT, CC_STEPS_DIAGONAL_SERPENT_LEN, (filter__d), (step__iod) ) )
+
+// TODO :: DOCS
+#define CC_ITER_SERPENT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_ALL_SERPENT, CC_STEPS_ALL_SERPENT_LEN, (filter__d), (step__iod) ) )
+
+
+// TODO :: DOCS
+#define CC_ITER_LIGHT_SCOUT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_LIGHT_SCOUT, CC_STEPS_SCOUT_LEN, (filter__d), (step__iod) ) )
+
+// TODO :: DOCS
+#define CC_ITER_DARK_SCOUT_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_DARK_SCOUT, CC_STEPS_SCOUT_LEN, (filter__d), (step__iod) ) )
+
+// TODO :: DOCS
+#define CC_ITER_GRENADIER_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_GRENADIER, CC_STEPS_GRENADIER_LEN, (filter__d), (step__iod) ) )
+
+
+// TODO :: DOCS
+#define CC_ITER_LIGHT_SHAMAN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_LIGHT_SHAMAN, CC_STEPS_LIGHT_SHAMAN_LEN, (filter__d), (step__iod) ) )
+
+// TODO :: DOCS
+#define CC_ITER_DARK_SHAMAN_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_DARK_SHAMAN, CC_STEPS_DARK_SHAMAN_LEN, (filter__d), (step__iod) ) )
+
+// TODO :: DOCS
+#define CC_ITER_STARCHILD_MIRACLE_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN, (filter__d), (step__iod) ) )
+
+
+// TODO :: DOCS
+#define CC_ITER_DISPLACEMENT_TRANCE_JOURNEY_STEPS(step__iod,filter__d) \
+    ( cc_iter_typed_steps( CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY, CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN, (filter__d), (step__iod) ) )
 
 
 #endif /* __CC_POS_DEFS_H__ */
