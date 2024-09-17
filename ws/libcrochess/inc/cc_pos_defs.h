@@ -221,4 +221,10 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
                                    CcTypedStepLink ** steps__o );
 
 
+// TODO :: DOCS
+bool cc_iter_typed_steps( CcTypedStep const steps[],
+                          size_t steps_len__d,
+                          CcTypedStep const * step__iod );
+
+
 #endif /* __CC_POS_DEFS_H__ */
