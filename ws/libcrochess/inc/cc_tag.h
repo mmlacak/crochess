@@ -26,24 +26,24 @@
 
 #define CC_TAG_IS_EQUIVALENT(te1,te2) ( CC_TAG_VALUE(te1) == CC_TAG_VALUE(te2) )
 
-#define CC_TAG_IS_NONE(te) ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_None )
+#define CC_TAG_IS_NONE(te) ( CC_TAG_VALUE(te) == CC_TE_None )
 
-#define CC_TAG_CAN_RUSH(te) ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_CanRush )
+#define CC_TAG_CAN_RUSH(te) ( CC_TAG_VALUE(te) == CC_TE_CanRush )
 
-#define CC_TAG_CAN_CASTLE(te) ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_CanCastle )
+#define CC_TAG_CAN_CASTLE(te) ( CC_TAG_VALUE(te) == CC_TE_CanCastle )
 
-#define CC_TAG_CAN_PROMOTE(te) ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_DelayedPromotion )
+#define CC_TAG_CAN_PROMOTE(te) ( CC_TAG_VALUE(te) == CC_TE_DelayedPromotion )
 
-#define CC_TAG_CAN_EN_PASSANT(te) ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_EnPassant )
+#define CC_TAG_CAN_EN_PASSANT(te) ( CC_TAG_VALUE(te) == CC_TE_EnPassant )
 
-#define CC_TAG_CAN_PAWN_SACRIFICE(te) ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_PawnSacrifice )
+#define CC_TAG_CAN_PAWN_SACRIFICE(te) ( CC_TAG_VALUE(te) == CC_TE_PawnSacrifice )
 
-#define CC_TAG_IS_PERSISTENT(te) ( ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_CanRush )               \
-                                || ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_CanCastle )             \
-                                || ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_DelayedPromotion ) )
+#define CC_TAG_IS_PERSISTENT(te) ( ( CC_TAG_VALUE(te) == CC_TE_CanRush )               \
+                                || ( CC_TAG_VALUE(te) == CC_TE_CanCastle )             \
+                                || ( CC_TAG_VALUE(te) == CC_TE_DelayedPromotion ) )
 
-#define CC_TAG_IS_TEMPORARY(te) ( ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_EnPassant )         \
-                               || ( CC_TAG_VALUE(te) == (CcTagType)CC_TE_PawnSacrifice ) )
+#define CC_TAG_IS_TEMPORARY(te) ( ( CC_TAG_VALUE(te) == CC_TE_EnPassant )         \
+                               || ( CC_TAG_VALUE(te) == CC_TE_PawnSacrifice ) )
 
 
 #define CC_TAG_CHAR_NONE ' '
