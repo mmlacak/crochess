@@ -441,29 +441,32 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 bool cc_iter_typed_steps( CcTypedStep const steps[],
                           size_t steps_len__d,
                           CcStepTypeEnum filter__d,
-                          CcTypedStep const * step__iod ) {
+                          CcTypedStep const ** step__iod ) {
     if ( !steps ) return false;
     if ( !CC_STEP_TYPE_IS_ENUMERATOR( filter__d ) ) return false;
-    if ( step__iod && ( step__iod < steps ) ) return false;
+    if ( !step__iod ) return false;
+    if ( *step__iod && ( *step__iod < steps ) ) return false;
 
-    if ( !step__iod ) {
-        step__iod = steps;
+    bool check_len = ( steps_len__d != CC_STEPS_LEN_GUARD_DATA_TERMINATED );
+
+    if ( !*step__iod ) {
+        *step__iod = steps;
     } else {
         bool do_filter = ( filter__d != CC_STE_None );
 
         do {
-            ++step__iod;
-        } while ( do_filter && ( filter__d != step__iod->type ) );
+            ++*step__iod;
+        } while ( ( do_filter && ( filter__d != (*step__iod)->type ) )
+                  && ( check_len && ( *step__iod <= steps + steps_len__d ) ) ); // Deliberately <=, drive **step__iod into invalid value, if all steps[] are filtered-out.
     }
 
-    if ( ( steps_len__d != CC_STEPS_LEN_GUARD_DATA_TERMINATED )
-         && ( steps + steps_len__d < step__iod ) ) {
-        step__iod = NULL;
+    if ( check_len && ( steps + steps_len__d < *step__iod ) ) {
+        *step__iod = NULL;
         return false;
     }
 
-    if ( !CC_TYPED_STEP_IS_VALID( *step__iod ) ) {
-        step__iod = NULL;
+    if ( !CC_TYPED_STEP_IS_VALID( **step__iod ) ) {
+        *step__iod = NULL;
         return false;
     } else
         return true;

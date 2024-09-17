@@ -225,7 +225,7 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
 bool cc_iter_typed_steps( CcTypedStep const steps[],
                           size_t steps_len__d,
                           CcStepTypeEnum filter__d,
-                          CcTypedStep const * step__iod );
+                          CcTypedStep const ** step__iod );
 
 // TODO :: DOCS
 #define CC_ITER_LIGHT_PAWN_STEPS(step__iod,filter__d) \
