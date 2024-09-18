@@ -456,11 +456,16 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
 
         do {
             ++*step__iod;
+
+            if ( !CC_TYPED_STEP_IS_VALID( **step__iod ) ) { // Needed to prevent infinite loop, if bogus filter given & no len.
+                *step__iod = NULL;
+                return false;
+            }
         } while ( ( do_filter && ( filter__d != (*step__iod)->type ) )
-                  && ( check_len && ( *step__iod <= steps + steps_len__d ) ) ); // Deliberately <=, drive **step__iod into invalid value, if all steps[] are filtered-out.
+                  && ( !check_len || ( *step__iod < steps + steps_len__d ) ) ); // <= not needed, if all steps[] are filtered-out, last loop will drive **step__iod into invalid value.
     }
 
-    if ( check_len && ( steps + steps_len__d < *step__iod ) ) {
+    if ( check_len && ( steps + steps_len__d <= *step__iod ) ) { // If equality is satisfied, step is already invalid.
         *step__iod = NULL;
         return false;
     }
