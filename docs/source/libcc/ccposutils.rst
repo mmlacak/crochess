@@ -30,7 +30,7 @@ Functions
     :param momentum: Momentum.
     :returns: Position descriptor.
 
-.. c:function:: bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating )
+.. c:function:: bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating )
 
     Function calculates next momentum value, given and then returned via
     *input/output* argument.

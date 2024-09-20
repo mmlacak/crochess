@@ -21,6 +21,7 @@
 #define CC_TAG_IS_MOVE_STARTER_FLAG(te) ( (bool)( (te) & CC_TAG_MOVE_STARTER_MASK ) )
 
 
+// TODO :: warning: comparison of unsigned expression in ‘>= 0’ is always true [-Wtype-limits] (in CC_TE_None <= ...)
 #define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= CC_TAG_VALUE(te) ) && ( CC_TAG_VALUE(te) <= CC_TE_PawnSacrifice ) )
 
 #define CC_TAG_IS_VALID(te) ( ( CC_TE_None < CC_TAG_VALUE(te) ) && ( CC_TAG_VALUE(te) <= CC_TE_PawnSacrifice ) )

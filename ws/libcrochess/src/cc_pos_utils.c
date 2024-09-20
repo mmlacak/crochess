@@ -15,7 +15,7 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t mo
     return pd;
 }
 
-bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating ) {
+bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating ) {
     if ( !momentum__io ) return false;
 
     cc_uint_t m = *momentum__io;
@@ -26,7 +26,10 @@ bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumul
     } else if ( CC_MAYBE_IS_VOID( accumulating ) ) {
         if ( m == CC_UNSIGNED_MIN ) return false;
         *momentum__io = m - 1;
-    } // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
+    } else if ( CC_MAYBE_IS_FALSE( accumulating ) ) {
+         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
+    } else
+        return false; // Enums are secretly ints.
 
     return true;
 }
@@ -135,7 +138,7 @@ bool cc_calc_if_accumulating_momentum( CcPieceType piece,
 //     while ( result && step ) {
 //         last = p = cc_pos_add( p, step->step.step, 1 );
 //
-//         if ( !( result = cc_calc_checked_momentum( &m, accumulating ) ) ) break;
+//         if ( !( result = cc_calc_momentum_for_next_step( &m, accumulating ) ) ) break;
 //
 //         if ( !( result = cc_path_link_append( &pl__a, p, m ) ) ) break;
 //

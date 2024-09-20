@@ -12,7 +12,7 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum );
 
-bool cc_calc_checked_momentum( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating );
+bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating );
 
 // TODO :: DOCS
 bool cc_calc_if_accumulating_momentum( CcPieceType piece,

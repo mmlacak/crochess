@@ -18,9 +18,10 @@ static bool cc_path_knight( CcChessboard * cb,
     bool is_starter = CC_TAG_IS_MOVE_STARTER_FLAG( tag );
     if ( is_starter && ( momentum > 0 ) ) return false;
 
-    CcMaybeBoolEnum accumulating = CC_MBE_Void;
-    if ( !cc_calc_if_accumulating_momentum( knight, tag, &accumulating ) )
-        return false;
+    // Calculating momentum only for the very next step, since Knight is single-step piece.
+    cc_uint_t mm = momentum;
+    CcMaybeBoolEnum has_mm = cc_check_momentum_for_next_step( knight, tag, &mm );
+    if ( !CC_MAYBE_IS_TRUE( has_mm ) ) return false;
 
     CcTypedStep const * ts = NULL;
 
@@ -28,14 +29,14 @@ static bool cc_path_knight( CcChessboard * cb,
         CcPos pos = cc_pos_add( from_pos, ts->step, 1 );
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) continue;
 
-        cc_uint_t mm = momentum;
-        if ( !cc_calc_checked_momentum( &mm, accumulating ) ) return false;
+        CcMaybeBoolEnum capturing = cc_check_piece_can_capture_at( cb, knight, pos );
+        if ( CC_MAYBE_IS_VOID( capturing ) ) return false;
 
-        CcMaybeBoolEnum blocked = cc_check_piece_is_blocked_at( cb, knight, mm, pos );
-        if ( CC_MAYBE_IS_VOID( blocked ) ) return false;
-        if ( CC_MAYBE_IS_TRUE( blocked ) ) continue;
-
-        // TODO :: check opponent's piece can be captured @ destination (?)
+        if ( CC_MAYBE_IS_FALSE( capturing ) ) {
+            CcMaybeBoolEnum blocked = cc_check_piece_is_blocked_at( cb, knight, pos );
+            if ( CC_MAYBE_IS_VOID( blocked ) ) return false;
+            if ( CC_MAYBE_IS_TRUE( blocked ) ) continue; // Knight blocked, can't capture ...
+        }
 
         CcPathLink * pl__t = cc_path_link__new( pos, mm );
         if ( !pl__t ) return false;
@@ -47,7 +48,9 @@ static bool cc_path_knight( CcChessboard * cb,
         }
 
 
-        // TODO :: check destination if diverging piece --> do recursion
+        // TODO :: check if diverging piece @ destination
+        //      --> tag no longer move starter
+        //      --> do recursion
     }
 
     return false; // TODO

@@ -29,7 +29,7 @@ Data
 Functions
 ---------
 
-.. c:function:: bool cc_check_momentum_for_movement( CcPieceType piece, cc_uint_t momentum )
+.. c:function:: bool cc_check_momentum_for_next_step( CcPieceType piece, cc_uint_t momentum )
 
     Function checks if a piece has enough momentum for movement, or doesn't
     need it at all (i.e. Wave, Starchild).
