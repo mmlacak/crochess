@@ -30,8 +30,8 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
     if ( CC_PIECE_IS_NONE( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
 
-    bool mm = cc_check_momentum_for_movement( piece, momentum );
-    if ( !mm ) return CC_MBE_True;
+    bool have_mm = cc_check_momentum_for_movement( piece, momentum );
+    if ( !have_mm ) return CC_MBE_True;
 
     CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;

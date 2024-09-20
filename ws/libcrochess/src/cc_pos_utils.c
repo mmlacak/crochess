@@ -36,7 +36,7 @@ bool cc_calc_if_accumulating_momentum( CcPieceType piece,
                                        CcMaybeBoolEnum * accumulating__o ) {
     if ( !accumulating__o ) return false;
 
-    if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false;
+    // if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false; // Not needed, defaults in switch.
     if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return false;
 
     bool is_starter = CC_TAG_IS_MOVE_STARTER_FLAG( tag );
@@ -73,9 +73,15 @@ bool cc_calc_if_accumulating_momentum( CcPieceType piece,
             return true;
         }
 
-        case CC_PE_DarkStarchild :
         case CC_PE_DarkWave :
-        case CC_PE_LightWave :
+        case CC_PE_LightWave : {
+            if ( is_starter ) return false;
+
+            *accumulating__o = CC_MBE_False;
+            return true;
+        }
+
+        case CC_PE_DarkStarchild :
         case CC_PE_LightStarchild : {
             *accumulating__o = is_starter ? CC_MBE_True : CC_MBE_False;
             return true;
