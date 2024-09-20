@@ -28,13 +28,14 @@ static bool cc_path_knight( CcChessboard * cb,
         CcPos pos = cc_pos_add( from_pos, ts->step, 1 );
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) continue;
 
-        // TODO :: check destination blocked
+        cc_uint_t mm = momentum;
+        if ( !cc_calc_checked_momentum( &mm, accumulating ) ) return false;
+
+        CcMaybeBoolEnum blocked = cc_check_piece_is_blocked_at( cb, knight, mm, pos );
+        if ( CC_MAYBE_IS_VOID( blocked ) ) return false;
+        if ( CC_MAYBE_IS_TRUE( blocked ) ) continue;
 
         // TODO :: check opponent's piece can be captured @ destination (?)
-
-        cc_uint_t mm = momentum;
-
-        if ( !cc_calc_checked_momentum( &mm, accumulating ) ) return false;
 
         CcPathLink * pl__t = cc_path_link__new( pos, mm );
         if ( !pl__t ) return false;
