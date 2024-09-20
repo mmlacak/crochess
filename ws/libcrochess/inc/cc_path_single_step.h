@@ -11,29 +11,25 @@
 #include "cc_chessboard.h"
 
 #include "cc_pos.h"
-#include "cc_pos_defs.h"
-#include "cc_pos_utils.h"
+#include "cc_path.h"
 
 
-// static bool cc_path_pawn( CcChessboard * cb,
-//                           CcPosDesc pawn,
-//                           CcTagType tag,
-//                           CcPos from_pos,
-//                           cc_uint_t momentum,
-//                           bool is_accumulating_momentum,
-//                           CcPathLink * already_traversed__d,
-//                           CcPathLink ** path__o );
+// static bool cc_path_knight( CcChessboard * cb,
+//                             CcPieceType knight,
+//                             CcTagType tag,
+//                             CcPos from_pos,
+//                             cc_uint_t momentum,
+//                             CcPathLink ** path__io );
 
 
-// // DOCS
-// bool cc_path_single_step( CcChessboard * cb,
-//                           CcPieceType piece,
-//                           CcTagType tag,
-//                           CcPieceType activator,
-//                           CcPos from_pos,
-//                           cc_uint_t momentum,
-//                           bool is_accumulating_momentum /* ,
-//                           CcPathLink ** path__o */ );
+// DOCS
+bool cc_path_single_step( CcChessboard * cb,
+                          CcPieceType piece,
+                          CcTagType tag,
+                          CcPieceType activator,
+                          CcPos from_pos,
+                          cc_uint_t momentum,
+                          CcPathLink ** path__o );
 
 
 #endif /* __CC_PATH_SINGLE_STEP_H__ */

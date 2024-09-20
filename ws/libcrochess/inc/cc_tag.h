@@ -9,13 +9,16 @@
 
 #define CC_TAG_VALUE_MASK (0x07) // <!> Keep in sync with CcTagEnum enumerators.
 
-#define CC_MOVE_STARTER_MASK (0x80)
+#define CC_TAG_MOVE_STARTER_MASK (0x80)
 
 #define CC_TAG_VALUE(te) ( (te) & CC_TAG_VALUE_MASK )
 
-#define CC_MOVE_STARTER_FLAG(te) ( (te) & CC_MOVE_STARTER_MASK )
+#define CC_TAG_GET_MOVE_STARTER_FLAG(te) ( (te) & CC_TAG_MOVE_STARTER_MASK )
 
-#define CC_SET_MOVE_STARTER_FLAG(te) ( (te) | CC_MOVE_STARTER_MASK )
+#define CC_TAG_SET_MOVE_STARTER_FLAG(te) ( (te) | CC_TAG_MOVE_STARTER_MASK )
+
+// TODO :: DOCS
+#define CC_TAG_IS_MOVE_STARTER_FLAG(te) ( (bool)( (te) & CC_TAG_MOVE_STARTER_MASK ) )
 
 
 #define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= CC_TAG_VALUE(te) ) && ( CC_TAG_VALUE(te) <= CC_TE_PawnSacrifice ) )

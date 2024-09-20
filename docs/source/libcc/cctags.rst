@@ -35,7 +35,7 @@ Masks
     Macro constant to filter out move-starter flag, leaving only a tag;
     equal to ``0x07``.
 
-.. c:macro:: CC_MOVE_STARTER_MASK
+.. c:macro:: CC_TAG_MOVE_STARTER_MASK
 
     Macro constant to filter out tag, leaving only move-starter flag;
     equal to ``0x80``.
@@ -48,7 +48,7 @@ Masks
     :returns: :c:type:`CcTagType` value containing only given tag, and with
               move-starter flag removed.
 
-.. c:macro:: CC_MOVE_STARTER_FLAG(te)
+.. c:macro:: CC_TAG_GET_MOVE_STARTER_FLAG(te)
 
     Macro to filter out tag, leaving only move-starter flag.
 
@@ -56,7 +56,7 @@ Masks
     :returns: :c:type:`CcTagType` value containing only given move-starter flag,
               and with tag removed.
 
-.. c:macro:: CC_SET_MOVE_STARTER_FLAG(te)
+.. c:macro:: CC_TAG_SET_MOVE_STARTER_FLAG(te)
 
     Macro to set move-starter flag, for a given tag.
 

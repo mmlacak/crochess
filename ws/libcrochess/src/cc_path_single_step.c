@@ -3,44 +3,106 @@
 
 #include "cc_checks.h"
 
+#include "cc_pos_defs.h"
+#include "cc_pos_utils.h"
+
 #include "cc_path_single_step.h"
 
 
-// bool cc_path_single_step( CcChessboard * cb,
-//                           CcPieceType piece,
-//                           CcTagType tag,
-//                           CcPieceType activator,
-//                           CcPos from_pos,
-//                           cc_uint_t momentum,
-//                           bool is_accumulating_momentum /* ,
-//                           CcPathLink ** path__o */ ) {
-//     if ( !cb ) return false;
-//     // if ( !path__o ) return false;
-//     // if ( *path__o ) return false;
-//
-//     if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
-//
-//     CcPieceType from_piece = cc_chessboard_get_piece( cb, from_pos.i, from_pos.j );
-//     // CcPathLink * path__t = NULL;
-//
-//     if ( CC_PIECE_IS_TELEPORTER( from_piece ) ) {
-//         // TODO
-//     } else {
-//         if ( CC_PIECE_IS_PAWN( piece ) ) {
-//             // if ( !cc_path_pawn( cb, piece, tag, from_pos, momentum, is_accumulating_momentum, NULL, &path__t ) ) return false;
-//             //
-//             // *path__o = path__t;
-//             // path__t = NULL;
-//             return true;
-//         } else if ( CC_PIECE_IS_WAVE( piece ) ) {
-//             if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
-//
-//             // TODO
-//         } else
-//             return false;
-//     }
-//
-//     // TODO
-//
-//     return false;
-// }
+static bool cc_path_knight( CcChessboard * cb,
+                            CcPieceType knight,
+                            CcTagType tag,
+                            CcPos from_pos,
+                            cc_uint_t momentum,
+                            CcPathLink ** path__io ) {
+    bool is_starter = CC_TAG_IS_MOVE_STARTER_FLAG( tag );
+    if ( is_starter && ( momentum > 0 ) ) return false;
+
+    CcMaybeBoolEnum accumulating = CC_MBE_Void;
+    if ( !cc_calc_if_accumulating_momentum( knight, tag, &accumulating ) )
+        return false;
+
+    CcTypedStep const * ts = NULL;
+
+    while ( CC_ITER_KNIGHT_STEPS( &ts, CC_STE_None ) ) {
+        CcPos pos = cc_pos_add( from_pos, ts->step, 1 );
+        if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) continue;
+
+        // TODO :: check destination blocked
+
+        // TODO :: check opponent's piece can be captured @ destination (?)
+
+        cc_uint_t mm = momentum;
+
+        if ( !cc_calc_checked_momentum( &mm, accumulating ) ) return false;
+
+        CcPathLink * pl__t = cc_path_link__new( pos, mm );
+        if ( !pl__t ) return false;
+
+        CcPathLink * pl__w = cc_path_link_diverge( path__io, &pl__t );
+        if ( !pl__w ) {
+            cc_path_link_free_all( &pl__t );
+            return false;
+        }
+
+
+        // TODO :: check destination if diverging piece --> do recursion
+    }
+
+    return false; // TODO
+}
+
+bool cc_path_single_step( CcChessboard * cb,
+                          CcPieceType piece,
+                          CcTagType tag,
+                          CcPieceType activator,
+                          CcPos from_pos,
+                          cc_uint_t momentum,
+                          CcPathLink ** path__o ) {
+    if ( !cb ) return false;
+    if ( !path__o ) return false;
+    if ( *path__o ) return false;
+
+    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
+    if ( !CC_TAG_IS_VALID( tag ) ) return false;
+    if ( !cc_chessboard_is_pos_on_board( cb, from_pos.i, from_pos.j ) ) return false;
+
+    CcPieceType from_piece = cc_chessboard_get_piece( cb, from_pos.i, from_pos.j );
+
+    CcPathLink * path__t = cc_path_link__new( from_pos, momentum );
+    if ( !path__t ) return false;
+
+    if ( CC_PIECE_IS_TELEPORTER( from_piece ) ) {
+        // TODO
+    // } else if ( ... ) { // TODO :: trance-journeys
+    // } else if ( ... ) { // TODO :: Pawn-sacrifice
+    // } else if ( ... ) { // TODO :: sense-journeys
+    } else {
+        if ( CC_PIECE_IS_PAWN( piece ) ) {
+            // if ( !cc_path_pawn( cb, piece, tag, from_pos, momentum, &path__t ) )
+            //     return false;
+            //
+            // *path__o = path__t;
+            // path__t = NULL;
+            return false; // TODO
+        } else if ( CC_PIECE_IS_KNIGHT( piece ) ) {
+            if ( cc_path_knight( cb, piece, tag, from_pos, momentum, &path__t ) ) {
+                *path__o = path__t;
+                path__t = NULL;
+                return true;
+            }
+        } else if ( CC_PIECE_IS_WAVE( piece ) ) {
+            if ( !CC_PIECE_IS_VALID( activator ) ) return false;
+            if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
+
+            // TODO
+        } else
+            return false;
+    }
+
+    if ( path__t ) {
+        cc_path_link_free_all( &path__t );
+    }
+
+    return false;
+}
