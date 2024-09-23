@@ -29,14 +29,19 @@ Data
 Functions
 ---------
 
-.. c:function:: bool cc_check_momentum_for_next_step( CcPieceType piece, cc_uint_t momentum )
+.. c:function:: CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece, CcTagEnum tag, cc_uint_t * momentum__io )
 
-    Function checks if a piece has enough momentum for movement, or doesn't
-    need it at all (i.e. Wave, Starchild).
+    Function calculates momentum for next step, returns if there is enough of
+    it to actually make the step.
 
     :param piece: A piece.
-    :param momentum: Momentum a :c:`piece` has.
-    :returns: :c:data:`true` if piece can move, :c:data:`false` otherwise.
+    :param tag: A tag piece has.
+    :param momentum__io: *Input*/*output*; momentum a :c:`piece` has.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if there is enough momentum for next step,
+        * :c:enumerator:`CC_MBE_False` if there is not enough momentum,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte )
 
@@ -46,13 +51,12 @@ Functions
     :param lte: :c:enum:`CcLosingTagEnum` value.
     :returns: :c:data:`true` if piece can lose given tag, :c:data:`false` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, cc_uint_t momentum, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, CcPos pos )
 
     Function checks if piece is blocked at given position.
 
     :param cb: Chessboard.
     :param piece: A piece.
-    :param momentum: Momentum.
     :param pos: A position.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
@@ -60,13 +64,12 @@ Functions
         * :c:enumerator:`CC_MBE_False` if piece is not blocked,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceType piece, cc_uint_t momentum, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceType piece, CcPos pos )
 
     Function checks if a piece can capture at given position.
 
     :param cb: Chessboard.
     :param piece: A piece.
-    :param momentum: Momentum.
     :param pos: A position.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 

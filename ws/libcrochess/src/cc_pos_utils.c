@@ -27,7 +27,7 @@ bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum a
         if ( m == CC_UNSIGNED_MIN ) return false;
         *momentum__io = m - 1;
     } else if ( CC_MAYBE_IS_FALSE( accumulating ) ) {
-         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
+        // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
     } else
         return false; // Enums are secretly ints.
 

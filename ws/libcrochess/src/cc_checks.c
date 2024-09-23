@@ -22,7 +22,7 @@ CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
     } else if ( CC_MAYBE_IS_VOID( accumulating ) ) {
         if ( *momentum__io == CC_UNSIGNED_MIN ) return CC_MBE_False;
     } else if ( CC_MAYBE_IS_FALSE( accumulating ) ) {
-         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
+        // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
     } else
         return CC_MBE_Void; // Enums are secretly ints.
 

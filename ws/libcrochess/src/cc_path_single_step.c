@@ -33,6 +33,8 @@ static bool cc_path_knight( CcChessboard * cb,
         if ( CC_MAYBE_IS_VOID( capturing ) ) return false;
 
         if ( CC_MAYBE_IS_FALSE( capturing ) ) {
+            // TODO :: check if Knight can activate piece @ destination
+
             CcMaybeBoolEnum blocked = cc_check_piece_is_blocked_at( cb, knight, pos );
             if ( CC_MAYBE_IS_VOID( blocked ) ) return false;
             if ( CC_MAYBE_IS_TRUE( blocked ) ) continue; // Knight blocked, can't capture ...

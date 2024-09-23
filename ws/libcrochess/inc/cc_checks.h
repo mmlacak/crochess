@@ -15,19 +15,16 @@
 #define CC_CHECK_STEPS_NO_LIMIT (0)
 
 
-// TODO :: DOCS :: next step --> new calculated value || failure
 CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
                                                  CcTagEnum tag,
                                                  cc_uint_t * momentum__io );
 
 bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceType piece,
                                               CcPos pos );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceType piece,
                                                CcPos pos );
