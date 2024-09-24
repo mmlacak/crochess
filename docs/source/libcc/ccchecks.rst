@@ -36,12 +36,14 @@ Functions
 
     :param piece: A piece.
     :param tag: A tag piece has.
-    :param momentum__io: *Input*/*output*; momentum a :c:`piece` has.
+    :param momentum__io: *Input/output*; momentum a :c:`piece` has.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if there is enough momentum for next step,
         * :c:enumerator:`CC_MBE_False` if there is not enough momentum,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
+    :seealso: :c:func:`cc_calc_momentum_for_next_step()`
 
 .. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte )
 

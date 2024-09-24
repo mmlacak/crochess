@@ -46,6 +46,22 @@ Functions
     * used, if :c:data:`CC_MBE_Void`
 
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_check_momentum_for_next_step()`
+
+.. c:function:: bool cc_calc_if_accumulating_momentum( CcPieceType piece, CcTagType tag, CcMaybeBoolEnum * accumulating__o )
+
+    Function calculates if piece with a tag is accumulating, or spending
+    momentum for movement.
+
+    :param piece: A piece.
+    :param tag: A tag piece has.
+    :param accumulating__o: *Output*; flag, whether momentum is being:
+
+    * accumulated, if :c:data:`CC_MBE_True`
+    * unchanged, if :c:data:`CC_MBE_False`
+    * used, if :c:data:`CC_MBE_Void`
+
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: CcPathLink * cc_build_path_segment__new( CcChessboard * cb, CcPos pos, cc_uint_t momentum, CcMaybeBoolEnum accumulating, CcTypedStepLink * steps )
 
