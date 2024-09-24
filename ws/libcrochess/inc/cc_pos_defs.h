@@ -312,4 +312,13 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
     ( cc_iter_typed_steps( CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY, CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN, (filter__d), (step__iod) ) )
 
 
+// TODO :: DOCS
+bool cc_iter_piece_steps( CcPieceType piece,
+                          bool sideways_pawns,
+                          bool short_step,
+                          CcMaybeBoolEnum serpent_direction,
+                          CcStepTypeEnum filter__d,
+                          CcTypedStep const ** step__iod );
+
+
 #endif /* __CC_POS_DEFS_H__ */
