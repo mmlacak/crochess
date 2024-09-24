@@ -42,7 +42,7 @@ bool cc_calc_if_accumulating_momentum( CcPieceType piece,
     // if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false; // Not needed, defaults in switch.
     if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return false;
 
-    bool is_starter = CC_TAG_IS_MOVE_STARTER_FLAG( tag );
+    bool is_starter = CC_TAG_HAS_MOVE_STARTER_FLAG( tag );
 
     switch ( piece ) {
         case CC_PE_DarkShaman :

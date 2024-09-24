@@ -15,7 +15,7 @@ static bool cc_path_knight( CcChessboard * cb,
                             CcPos from_pos,
                             cc_uint_t momentum,
                             CcPathLink ** path__io ) {
-    bool is_starter = CC_TAG_IS_MOVE_STARTER_FLAG( tag );
+    bool is_starter = CC_TAG_HAS_MOVE_STARTER_FLAG( tag );
     if ( is_starter && ( momentum > 0 ) ) return false;
 
     // Calculating momentum only for the very next step, since Knight is single-step piece.

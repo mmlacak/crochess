@@ -17,8 +17,7 @@
 
 #define CC_TAG_SET_MOVE_STARTER_FLAG(te) ( (te) | CC_TAG_MOVE_STARTER_MASK )
 
-// TODO :: DOCS
-#define CC_TAG_IS_MOVE_STARTER_FLAG(te) ( (bool)( (te) & CC_TAG_MOVE_STARTER_MASK ) )
+#define CC_TAG_HAS_MOVE_STARTER_FLAG(te) ( (bool)( (te) & CC_TAG_MOVE_STARTER_MASK ) )
 
 
 // TODO :: warning: comparison of unsigned expression in ‘>= 0’ is always true [-Wtype-limits] (in CC_TE_None <= ...)

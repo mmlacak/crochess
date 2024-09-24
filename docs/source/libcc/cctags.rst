@@ -63,6 +63,13 @@ Masks
     :param te: :c:type:`CcTagType` value.
     :returns: Given :c:type:`CcTagType` value, with move-starter flag set.
 
+.. c:macro:: CC_TAG_HAS_MOVE_STARTER_FLAG(te)
+
+    Macro to check if given tag has move-starter flag set.
+
+    :param te: :c:type:`CcTagType` value.
+    :returns: :c:`bool` value; ``1`` if flag is set, ``0`` otherwise.
+
 .. _lbl-libcc-cctags-validity:
 
 Validity
