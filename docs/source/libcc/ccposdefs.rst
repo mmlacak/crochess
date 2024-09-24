@@ -695,6 +695,66 @@ Functions
     :param steps__o: *Output*; newly allocated linked list.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. _lbl-libcc-ccposdefs-typedsteps:
+
+Typed steps
+-----------
+
+.. c:function:: bool cc_iter_typed_steps( CcTypedStep const steps[], size_t steps_len__d, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
+
+    Function iterates over steps in a given array.
+
+    .. note::
+
+        Inner *output* pointer :c:`*step__iod` **must** be reset to :c:data:`NULL`
+        before iterating steps.
+
+    After each call, function returns :c:data:`true` if next step is valid, and
+    sets pointer to it.
+
+    Once all steps are exhausted, function returns :c:data:`false`, and resets
+    pointer to :c:data:`NULL`.
+
+    Typical usage:
+
+    .. code-block:: C
+        :force:
+
+        // Typed step storage during iteration.
+        CcTypedStep const * step = NULL;
+        // Note: pointer must be set to NULL before iterating steps.
+
+        while ( cc_iter_typed_steps( ..., &step ) ) {
+            // Do stuff with found step, ...
+        }
+
+        // After iteration, step is reset to NULL, and ready for another.
+
+    :param steps: A piece step array.
+    :param steps_len__d: *Optional*; size of :c:`steps` array.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. _lbl-libcc-ccposdefs-typedstepsmacros:
+
+Typed steps macros
+^^^^^^^^^^^^^^^^^^
+
+    The typed steps macro conveniences are meant to be used instead of
+    :c:func:`cc_iter_typed_steps()`.
+
+.. c:macro:: CC_ITER_LIGHT_PAWN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by light Pawn, from Classical Chess up to,
+    and including, Miranda's Veil variant.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
 
 Header file

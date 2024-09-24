@@ -221,13 +221,11 @@ bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
                                    CcTypedStepLink ** steps__o );
 
 
-// TODO :: DOCS
 bool cc_iter_typed_steps( CcTypedStep const steps[],
                           size_t steps_len__d,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod );
 
-// TODO :: DOCS
 #define CC_ITER_LIGHT_PAWN_STEPS(step__iod,filter__d) \
     ( cc_iter_typed_steps( CC_STEPS_LIGHT_PAWN, CC_STEPS_PAWN_LEN, (filter__d), (step__iod) ) )
 
