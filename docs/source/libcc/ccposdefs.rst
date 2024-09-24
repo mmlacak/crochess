@@ -755,6 +755,239 @@ Typed steps macros
         :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:macro:: CC_ITER_DARK_PAWN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by dark Pawn, from Classical Chess up to,
+    and including, Miranda's Veil variant.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_LIGHT_SIDEWAYS_PAWN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by light Pawn, from Nineteen variant onwards.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_DARK_SIDEWAYS_PAWN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by dark Pawn, from Nineteen variant onwards.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_KNIGHT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Knight.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_BISHOP_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Bishop.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_ROOK_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Rook.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_QUEEN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Queen.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_KING_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by King.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_PEGASUS_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Pegasus.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_PYRAMID_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Pyramid.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_UNICORN_SHORT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over short steps made by Unicorn.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_UNICORN_LONG_STEPS(step__iod,filter__d)
+
+    Macro to iterate over long steps made by Unicorn.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_STAR_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Star.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_CENTAUR_SHORT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over short steps made by Centaur.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_CENTAUR_LONG_STEPS(step__iod,filter__d)
+
+    Macro to iterate over long steps made by Centaur.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_SERPENT_LEFT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over left steps made by Serpent.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_SERPENT_RIGHT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over right steps made by Serpent.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_SERPENT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Serpent.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_LIGHT_SCOUT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by light Scout.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_DARK_SCOUT_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by dark Scout.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_GRENADIER_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by Grenadier.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_LIGHT_SHAMAN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by light Shaman.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_DARK_SHAMAN_STEPS(step__iod,filter__d)
+
+    Macro to iterate over steps made by dark Shaman.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:macro:: CC_ITER_STARCHILD_MIRACLE_STEPS(step__iod,filter__d)
+
+    Macro to iterate over miracle-steps made by Starchild.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+
+.. c:macro:: CC_ITER_DISPLACEMENT_TRANCE_JOURNEY_STEPS(step__iod,filter__d)
+
+    Macro to iterate over displacement steps in a trance-journey.
+
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
 
 Header file
