@@ -532,12 +532,12 @@ bool cc_iter_monolith_steps( cc_uint_t step_index,
             j = -coord;
         }
     } else if ( i > 0 && j < 0 ) { // @ 4th quadrant
-        if ( j < coord ) {
+        if ( i < coord ) {
             ++i;
             ++j;
-        } else { // --> 1st q.
-            i = coord;
-            j = 1;
+        } else {
+            *step__io = CC_TYPED_STEP_CAST_INVALID;
+            return false;
         }
     } else
         return false;
@@ -627,7 +627,7 @@ bool cc_iter_piece_steps( CcPieceType piece,
         case CC_PE_DimStar :
         case CC_PE_BrightStar : return CC_ITER_STAR_STEPS( step__iod, filter__d );
 
-        case CC_PE_Monolith : return false; // TODO :: Monolith steps generator
+        case CC_PE_Monolith : return false; // [i] Use cc_iter_monolith_steps() instead.
 
         case CC_PE_None :
         default : return false;
