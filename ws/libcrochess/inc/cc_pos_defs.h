@@ -312,7 +312,6 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
     ( cc_iter_typed_steps( CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY, CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN, (filter__d), (step__iod) ) )
 
 
-// TODO :: DOCS
 bool cc_iter_monolith_steps( cc_uint_t step_index,
                              CcTypedStep * step__io );
 

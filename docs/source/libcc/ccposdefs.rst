@@ -988,6 +988,59 @@ Typed steps macros
         :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. _lbl-libcc-ccposdefs-stepiterators:
+
+Step iterators
+--------------
+
+.. c:function:: bool cc_iter_monolith_steps( cc_uint_t step_index, CcTypedStep * step__io )
+
+    Function iterates over Monolith steps for a given step index.
+
+    Step index is simply count of steps taken so far, and effectively is the same
+    as momentum.
+
+    Step index ``0`` is meant for starting position, and does not iterate over anything.
+
+    Step index is limited to ``24``, since for every step both starting position
+    and destination has to be on a chessboard.
+
+    .. note::
+
+        *Output* pointer :c:`step__io` **must** be reset to
+        :c:data:`CC_TYPED_STEP_CAST_INVALID` before iterating steps.
+
+    After each call, function calculates next step, and returns :c:data:`true`
+    if calculated step is valid.
+
+    Once all steps are exhausted, function returns :c:data:`false`, and resets
+    *output* step parameter to :c:data:`CC_TYPED_STEP_CAST_INVALID`.
+
+    Typical usage:
+
+    .. code-block:: C
+        :force:
+
+        // Typed step storage during iteration.
+        CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
+        // Note: pointer must be reset to CC_TYPED_STEP_CAST_INVALID before iterating steps.
+
+        while ( cc_iter_monolith_steps( ..., &step ) ) {
+            // Do stuff with step, ...
+        }
+
+        // After iteration, step is reset to CC_TYPED_STEP_CAST_INVALID, and ready for another.
+
+    :param step_index: A piece step array.
+    :param step__io: *Input/output*; iteration step.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_iter_piece_steps( CcPieceType piece, bool sideways_pawns, bool short_step, CcMaybeBoolEnum serpent_direction, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
+
+    .. todo::
+
+        TODO
+
 .. _lbl-libcc-ccposdefs-sourcecodeheader:
 
 Header file
