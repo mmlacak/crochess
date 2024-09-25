@@ -1,6 +1,8 @@
 // Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <stdlib.h> // abs()
+
 #include "cc_pos_defs.h"
 
 
@@ -475,6 +477,75 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
         return false;
     } else
         return true;
+}
+
+bool cc_iter_monolith_steps( cc_uint_t step_index,
+                             CcTypedStep * step__io ) {
+    if ( step_index < 1 ) return false;
+    if ( !step__io ) return false;
+    if ( step_index > 24 ) return false; // .. won't fit onto the largest chessboard.
+
+    cc_uint_t step_count = 2 * step_index; // ... in one quadrant.
+    int coord = (int)step_count;
+    int sum_coords = coord + 1;
+
+    step__io->type = CC_STE_MovementOnly;
+
+    int i = step__io->step.i;
+    int j = step__io->step.j;
+
+    if ( i == 0 || j == 0 ) return false;
+
+    if ( !CC_TYPED_STEP_IS_VALID( *step__io ) ) { // init 1st q.
+        step__io->step.i = coord;
+        step__io->step.j = 1;
+        return true;
+    } else {
+        int abs_i = abs( i );
+        int abs_j = abs( j );
+
+        if ( abs_i + abs_j != sum_coords ) return false;
+    }
+
+    if ( i > 0 && j > 0 ) { // @ 1st quadrant
+        if ( j < coord ) {
+            --i;
+            ++j;
+        } else { // --> 2nd q.
+            i = -1;
+            j = coord;
+        }
+    } else if ( i < 0 && j > 0 ) { // @ 2nd quadrant
+        if ( i > -coord ) {
+            --i;
+            --j;
+        } else { // --> 3rd q.
+            i = -coord;
+            j = -1;
+        }
+    } else if ( i < 0 && j < 0 ) { // @ 3rd quadrant
+        if ( j > -coord ) {
+            ++i;
+            --j;
+        } else { // --> 4th q.
+            i = 1;
+            j = -coord;
+        }
+    } else if ( i > 0 && j < 0 ) { // @ 4th quadrant
+        if ( j < coord ) {
+            ++i;
+            ++j;
+        } else { // --> 1st q.
+            i = coord;
+            j = 1;
+        }
+    } else
+        return false;
+
+    step__io->step.i = i;
+    step__io->step.j = j;
+
+    return true;
 }
 
 bool cc_iter_piece_steps( CcPieceType piece,
