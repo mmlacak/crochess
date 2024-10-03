@@ -645,7 +645,7 @@ class SceneMirandasVeilMixin:
         # W --> (forward)
         coords_W_2_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
         for i, arrow in enumerate( coords_W_2_() ):
-            mark_type = MarkType.Blocked if i in [ 1, 3 ] else \
+            mark_type = MarkType.Blocked if i == 3 else \
                         MarkType.Action if i in [ 7, 10 ] else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
@@ -674,64 +674,58 @@ class SceneMirandasVeilMixin:
 
         scene = Scene( 'scn_mv_22_wave_activated_by_step_pawn', bt )
 
-        # TODO :: REDO
+        start_P_A = (8, 1)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
 
-        #
-        # step-fields 1, Pawn 1
-        start_P1 = (2, 3)
-        scene.board.set_piece( *start_P1, piece=PieceType.Pawn )
+        start_W = (8, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_W = (1, 5)
-        start_P3 = (1, 9)
-        scene.board.set_piece( 2, 7, piece=-PieceType.Pawn )
-        scene.board.set_piece( 2, 11, piece=PieceType.Knight )
-        scene.board.set_piece( *start_W, piece=-PieceType.Wave )
-        scene.board.set_piece( *start_P3, piece=PieceType.Pawn )
+        scene.board.set_piece( 5, 6, piece=PieceType.Pyramid )
+        scene.board.set_piece( 8, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 8, 11, piece=PieceType.Knight )
+        scene.board.set_piece( 2, 9, piece=-PieceType.Wave )
 
-        coords = GS.gen_next( GS.gen_steps( start=start_P1, rels=[(0, 1), ], include_prev=True ) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
+        start_P_B = (12, 9)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        scene.append_arrow( 2, 4, 1, 5, mark_type=MarkType.Illegal )
-        scene.append_arrow( 2, 4, 3, 5, mark_type=MarkType.Illegal )
-        scene.append_arrow( 2, 8, 1, 9, mark_type=MarkType.Illegal )
-        scene.append_arrow( 2, 8, 3, 9, mark_type=MarkType.Illegal )
+        # P(A) --> W
+        coords_PA_W = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_PA_W() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "1", *start_P1, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "3", *start_P3, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        # W --> (right)
+        coords_W_1_ = GS.gen_steps( start=start_W, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_1_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        #
-        # step-fields 2, Pawn 2
-        start_P2 = (13, 4)
-        scene.board.set_piece( *start_P2, piece=PieceType.Pawn )
+        # W --> (forward)
+        coords_W_2_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_2_() ):
+            mark_type = MarkType.Blocked if i == 3 else \
+                        MarkType.Action if i == 7 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.board.set_piece( 13, 9, piece=-PieceType.Pawn )
-        scene.board.set_piece( 13, 13, piece=PieceType.Pyramid )
+        # W --> (left)
+        coords_W_3_ = GS.gen_steps( start=start_W, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_3_() ):
+            mark_type = MarkType.Blocked if i == 2 else \
+                        MarkType.Action if i == 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        coords = GS.gen_next( GS.gen_steps( start=start_P2, rels=[(0, 1), ], include_prev=True ) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
+        start_ = ( 13, 8 )
+        end_l = ( 12, 9 )
+        end_r = ( 13, 9 )
 
-        scene.append_text( "2", *start_P2, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        # --> W --> P(B)
+        scene.append_arrow( *( start_ + end_l ), mark_type=MarkType.Illegal )
+        scene.append_arrow( *( start_ + end_r ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_P_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_P_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
