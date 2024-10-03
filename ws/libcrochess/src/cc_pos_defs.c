@@ -559,11 +559,11 @@ bool cc_iter_piece_steps( CcPieceType piece,
     switch ( piece ) {
         case CC_PE_DarkPawn :
             return sideways_pawns ? CC_ITER_DARK_SIDEWAYS_PAWN_STEPS( step__iod, filter__d )
-                                  : CC_ITER_DARK_PAWN_STEPS( step__iod, filter__d ) ;
+                                  : CC_ITER_DARK_PAWN_STEPS( step__iod, filter__d );
 
         case CC_PE_LightPawn :
             return sideways_pawns ? CC_ITER_LIGHT_SIDEWAYS_PAWN_STEPS( step__iod, filter__d )
-                                  : CC_ITER_LIGHT_PAWN_STEPS( step__iod, filter__d ) ;
+                                  : CC_ITER_LIGHT_PAWN_STEPS( step__iod, filter__d );
 
         case CC_PE_DarkKnight :
         case CC_PE_LightKnight : return CC_ITER_KNIGHT_STEPS( step__iod, filter__d );

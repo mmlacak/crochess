@@ -43,9 +43,9 @@ with no momentum. Wave can activate any own piece, except King, if it has moment
 Wave can also activate other Wave, own or opponent's, even if it has no momentum.
 Wave transfers all of received momentum to a piece it activates.
 
-Wave is transparent; all other pieces can move past (pass over) Wave, as if it
+Wave is transparent; all other pieces can move past (step over) Wave, as if it
 isn't present on a chessboard. Other pieces are transparent to Wave; Wave can move
-past (pass over) any piece, as if it isn't there. Transparency of Wave makes
+past (step over) any piece, as if it isn't there. Transparency of Wave makes
 activation of Wave optional.
 
 Wave cannot capture any piece; and so cannot neither check nor checkmate opponent's
@@ -58,16 +58,16 @@ King.
 \addcontentsline{toc}{subsection}{Activation}
 \label{sec:Miranda's veil/Wave/Activation}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_01_wave_activation_init.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Activating Wave}
 \label{fig:scn_mv_01_wave_activation_init}
 \end{figure}
 
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.5\baselineskip}
 A piece can activate own Wave by simply capturing a field at which that Wave stands.
 Activation is optional, a piece could just as well move past Wave. Activated Wave
 receives any momentum activating piece had.
@@ -80,13 +80,16 @@ Here, Pegasus has opportunity to activate Wave, with 5 momentum.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_02_wave_activated.png}
+\vspace*{-1.4\baselineskip}
 \caption{Wave activated}
 \label{fig:scn_mv_02_wave_activated}
 \end{figure}
 
-Activated Wave inherits way of moving from the activating piece. Activated Wave
-does not spend received momentum for moving, and so Wave can be activated even if
-activating piece has no momentum.
+\vspace*{-0.5\baselineskip}
+Activated Wave inherits way of moving from the activating piece; more specifically,
+Wave inherits all initial step-fields which activating piece starting its ply would
+have. Activated Wave does not spend received momentum for moving, and so Wave can
+be activated even if activating piece has no momentum.
 
 Here, Wave activated by Pegasus (now "in the air") moves like one, i.e. along one
 chosen semi-diagonal.
@@ -109,7 +112,7 @@ chosen semi-diagonal.
 
 \vspace*{-0.5\baselineskip}
 Wave in its movement is not obstructed by any piece on chessboard, it can move
-past (pass over) any piece, as if it's not there. In short, other pieces are
+past (step over) any piece, as if it's not there. In short, other pieces are
 all transparent to Wave, and all activations are optional.
 
 Here, Wave cannot activate opponent's Pawn on its step-field, but it's not
@@ -214,7 +217,7 @@ dark Pawn is shielded by own Pegasus.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Since it's transparent Wave cannot be pinned, i.e. a piece can ignore (pass over)
+Since it's transparent Wave cannot be pinned, i.e. a piece can ignore (step over)
 Wave placed on its capture-field, and still check opponent's King.
 
 Here, dark Pegasus checks light King, even though light Wave is on dark Pegasus'
@@ -308,7 +311,7 @@ can be passed over, since both Pawns can make only one step in a ply. \newline
 \indent
 Here, both Pawns can rush, thus making more than one step in a single ply. Opponent's,
 dark Wave is blocking light Pawn B from settling onto step-field it occupies. Even so,
-both Waves are transparent to light Pawns; each Pawn can now pass over corresponding
+both Waves are transparent to light Pawns; each Pawn can now step over corresponding
 Wave, and reach step-fields behind it.
 
 \clearpage % ..........................................................
@@ -1242,7 +1245,7 @@ since that is positioned on its capture-field.
 \label{fig:scn_mv_60_en_passant_wave_captured}
 \end{wrapfigure}
 Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent}, rushing
-Pawn can pass over it, and can continue rushing further. Any piece captured instead
+Pawn can step over it, and can continue rushing further. Any piece captured instead
 of a rushed Pawn prevents that Pawn being captured en passant.
 
 In a new example on the left similar to previous one, grey arrows show path traveled
@@ -1512,7 +1515,7 @@ so it cannot move to its capture-field.
 \label{fig:scn_mv_73_en_passant_blocked_by_wave}
 \end{wrapfigure}
 Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent} to all pieces,
-own or opponent's; rushing Pawn can pass over opponent's Wave, and can continue rushing
+own or opponent's; rushing Pawn can step over opponent's Wave, and can continue rushing
 further. Any piece blocking opponent's Pawn capture-field also prevents rushing Pawn to
 be captured en passant.
 
