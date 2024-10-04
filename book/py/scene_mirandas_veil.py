@@ -620,13 +620,18 @@ class SceneMirandasVeilMixin:
 
         scene = Scene( 'scn_mv_21_wave_activation_by_step_pawn', bt )
 
-        start_P_A = (5, 2)
-        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+        start_P = (5, 2)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         start_W = (5, 3)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
+        start_A_A = (2, 6)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (5, 9)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
         scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
         scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
@@ -635,7 +640,10 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # P(A) --> W
-        scene.append_arrow( *( start_P_A + start_W ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
@@ -644,14 +652,19 @@ class SceneMirandasVeilMixin:
         scene = Scene( 'scn_mv_22_wave_activated_by_step_pawn', bt )
 
         # prev_P_A = (5, 2)
-        start_P_A = (5, 3)
-        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
+        start_P = (5, 3)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         prev_W = (5, 3)
         start_W = prev_W
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        scene.board.set_piece( 2, 6, piece=PieceType.Pyramid )
+        start_A_A = (2, 6)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (5, 9)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
         scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
         scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
@@ -667,7 +680,7 @@ class SceneMirandasVeilMixin:
         # W --> (forward)
         coords_W_2_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
         for i, arrow in enumerate( coords_W_2_() ):
-            mark_type = MarkType.Blocked if i == 3 else \
+            mark_type = MarkType.Blocked if i in [ 3, 5 ] else \
                         MarkType.Action if i in [ 7, 10 ] else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
@@ -692,30 +705,39 @@ class SceneMirandasVeilMixin:
         for i, arrow in enumerate( coords_W_5_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
+        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
         return scene
 
     def scn_mv_23_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
 
         scene = Scene('scn_mv_23_wave_activation_by_capture_pawn', bt)
 
-        # TODO :: REDO
+        start_P = (4, 2)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        #
-        # capture-fields
-        start_P = (5, 6)
-        scene.board.set_piece(*start_P, piece=PieceType.Pawn)
-        scene.board.set_piece(4, 7, piece=PieceType.Wave)
+        start_W = (5, 3)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        scene.board.set_piece(1, 10, piece=PieceType.Pyramid)
-        scene.board.set_piece(3, 8, piece=-PieceType.Rook)
-        scene.board.set_piece(2, 13, piece=-PieceType.Wave)
+        start_A_A = (2, 6)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
-        scene.board.set_piece(6, 12, piece=PieceType.Pegasus)
-        scene.board.set_piece(8, 11, piece=-PieceType.Pyramid)
-        scene.board.set_piece(10, 13, piece=PieceType.Knight)
+        start_A_B = (5, 9)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(-1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 5, 11, piece=PieceType.Knight )
+        scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
+
+        start_B = (9, 13)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        # P(A) --> W
+        scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
@@ -723,48 +745,62 @@ class SceneMirandasVeilMixin:
 
         scene = Scene('scn_mv_24_wave_activated_by_capture_pawn', bt)
 
-        # TODO :: REDO
+        # prev_P_A = (5, 2)
+        start_P = (5, 3)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        #
-        # capture-fields
-        start_W = (4, 7)
-        scene.board.set_piece(*start_W, piece=PieceType.Pawn)
+        prev_W = (5, 3)
+        start_W = prev_W
+        # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start = (6, 9)
+        start_A_A = (2, 6)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
-        scene.board.set_piece(1, 10, piece=PieceType.Pyramid)
-        scene.board.set_piece(3, 8, piece=-PieceType.Rook)
-        scene.board.set_piece(2, 13, piece=-PieceType.Wave)
+        start_A_B = (5, 9)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        scene.board.set_piece(6, 12, piece=PieceType.Pegasus)
-        scene.board.set_piece(8, 11, piece=-PieceType.Pyramid)
-        scene.board.set_piece(10, 13, piece=PieceType.Knight)
+        scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 5, 11, piece=PieceType.Knight )
+        scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W, rels=[(-1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
+        start_B = (9, 13)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        coords = GS.gen_next( GS.gen_steps(start=start_W, rels=[(1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
-        scene.append_arrow( *coords(), mark_type=MarkType.Legal )
+        # W --> (right)
+        coords_W_1_ = GS.gen_steps( start=start_W, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_1_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        coords = GS.gen_steps(start=start, rels=[(0, 1), ], include_prev=True, count=6)
-        for step in coords():
-            scene.append_arrow(*step, mark_type=MarkType.Illegal)
+        # W --> (forward)
+        coords_W_2_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_2_() ):
+            mark_type = MarkType.Blocked if i in [ 3, 5 ] else \
+                        MarkType.Action if i in [ 7, 10 ] else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        coords = GS.gen_steps(start=start, rels=[(-1, 1), ], include_prev=True, count=6)
-        for step in coords():
-            scene.append_arrow(*step, mark_type=MarkType.Illegal)
+        # W --> (left)
+        coords_W_3_ = GS.gen_steps( start=start_W, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_3_() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text("A", *start, corner=Corner.LowerRight, mark_type=MarkType.Legal)
+        # W --> *
+        start_ = (12, 10)
+
+        # W --> * --> (forward)
+        coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_4_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        # W --> * --> (left)
+        coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        for i, arrow in enumerate( coords_W_5_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
