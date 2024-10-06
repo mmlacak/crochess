@@ -220,11 +220,11 @@ class SceneMirandasVeilMixin:
         start_Q = (14, 1)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W = (12, 3)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_w = (9, 6)
+        start_w = (12, 3)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (9, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
         start_e = (6, 9)
         scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
