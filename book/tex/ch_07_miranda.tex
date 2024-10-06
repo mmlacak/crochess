@@ -342,19 +342,22 @@ momentum received from Knight.
 \addcontentsline{toc}{subsection}{Movement}
 \label{sec:Miranda's veil/Wave/Movement}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_15_bishop_activating_wave.png}
+\vspace*{-1.4\baselineskip}
 \caption{Bishop activating Wave}
 \label{fig:scn_mv_15_bishop_activating_wave}
 \end{figure}
 
-Generally, activated Wave inherits way of movement from activating piece. Wave activated
-by pieces which move for one field (such as Pawn, Knight, King, and Unicorn) can move
-over multiple fields. Again, activating Wave is optional, activating piece could continue
-its movement past Wave. Activated Wave is not limited by received momentum, and can move
-past any piece as if it's not there.
+\vspace*{-0.5\baselineskip}
+Activated Wave inherits choice of initial step-fields and way of movement from
+activating piece; so, movement of activated Wave is the same as activating piece
+starting a new ply. Wave activated by pieces which can move for only one field
+(such as Pawn, Knight, King, and Unicorn) can move over multiple fields, by
+repeating initial step(s) multiple times. Again, activating Wave is optional,
+activating piece could continue its movement past Wave.
 
 \clearpage % ..........................................................
 
@@ -362,10 +365,14 @@ past any piece as if it's not there.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_16_wave_activated_by_bishop.png}
-% \vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Wave activated by Bishop}
 \label{fig:scn_mv_16_wave_activated_by_bishop}
 \end{figure}
+
+\vspace*{-0.5\baselineskip}
+Activated Wave is not limited by received momentum, and can move past (step over)
+any piece as if not present.
 
 Here, Wave (now "in the air") activated by Bishop moves like one, i.e. along one chosen
 diagonal. Activated light Wave cannot activate dark Knight, but can activate own Pawn.
