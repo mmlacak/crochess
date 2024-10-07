@@ -632,7 +632,7 @@ class SceneMirandasVeilMixin:
         start_A_B = (5, 9)
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
         scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
 
@@ -665,7 +665,7 @@ class SceneMirandasVeilMixin:
         start_A_B = (5, 9)
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
         scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
 
@@ -675,12 +675,14 @@ class SceneMirandasVeilMixin:
         # W --> (right)
         coords_W_1_ = GS.gen_steps( start=start_W, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
         for i, arrow in enumerate( coords_W_1_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+            mark_type = MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W --> (forward)
         coords_W_2_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
         for i, arrow in enumerate( coords_W_2_() ):
-            mark_type = MarkType.Blocked if i in [ 3, 5 ] else \
+            mark_type = MarkType.Blocked if i == 5 else \
                         MarkType.Action if i in [ 7, 10 ] else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
@@ -726,7 +728,7 @@ class SceneMirandasVeilMixin:
         start_A_B = (5, 9)
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
         scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
 
@@ -759,7 +761,7 @@ class SceneMirandasVeilMixin:
         start_A_B = (5, 9)
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        scene.board.set_piece( 5, 7, piece=-PieceType.Pawn )
+        scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
         scene.board.set_piece( 5, 14, piece=-PieceType.Wave )
 
@@ -769,12 +771,14 @@ class SceneMirandasVeilMixin:
         # W --> (right)
         coords_W_1_ = GS.gen_steps( start=start_W, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
         for i, arrow in enumerate( coords_W_1_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+            mark_type = MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W --> (forward)
         coords_W_2_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
         for i, arrow in enumerate( coords_W_2_() ):
-            mark_type = MarkType.Blocked if i in [ 3, 5 ] else \
+            mark_type = MarkType.Blocked if i == 5 else \
                         MarkType.Action if i in [ 7, 10 ] else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
