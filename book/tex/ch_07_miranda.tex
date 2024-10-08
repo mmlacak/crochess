@@ -356,7 +356,7 @@ Activated Wave inherits choice of initial step-fields and way of movement from
 activating piece; so, movement of activated Wave is the same as activating piece
 starting a new ply. Wave activated by pieces which can move for only one field
 (such as Pawn, Knight, King, and Unicorn) can move over multiple fields, by
-repeating initial step(s) multiple times. Again, activating Wave is optional,
+repeating initial step multiple times. Again, activating Wave is optional,
 activating piece could continue its movement past Wave.
 
 \clearpage % ..........................................................
@@ -486,15 +486,13 @@ does not have to activate Wave, and can continue rushing further instead.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-
-\TODO :: REDO
-
-% Wave activated on Pawn's step-fields can move only forward, towards opponent's
-% initial positions, until the end of a chessboard. Wave could also activate light
-% Knight, transferring to them 1 received momentum; Wave cannot activate Pyramid.
-% Wave cannot change its direction to Pawn's capture-fields, even if pieces are
-% present on them. So, Wave cannot activate neither opponent's piece (dark Wave),
-% nor own (Pawn 3).
+Wave activated by Pawn on its step-fields (now "in-the-air") can move straight
+forward or diagonally, towards opponent's initial positions, until the end of a
+chessboard. Activated Wave cannot change direction once it starts moving; so,
+light Bishop is out of reach. Here, Wave can activate light Knight or dark Wave,
+but cannot activate neither light Pyramids nor dark Pawn. \newline
+\indent
+Wave activated by rushing Pawn behaves the same, except it receives more momentum.
 
 \clearpage % ..........................................................
 
