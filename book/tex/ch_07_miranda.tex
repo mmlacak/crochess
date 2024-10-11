@@ -480,7 +480,7 @@ does not have to activate Wave, and can continue rushing further instead.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_22_wave_activated_by_step_pawn.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Wave activated on Pawn's step-field}
 \label{fig:scn_mv_22_wave_activated_by_step_pawn}
 \end{figure}
@@ -500,18 +500,20 @@ Wave activated by rushing Pawn behaves the same, except it receives more momentu
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_23_wave_activation_by_capture_pawn.png}
+\vspace*{-1.4\baselineskip}
 \caption{Pawn activates Wave on capture-field}
 \label{fig:scn_mv_23_wave_activation_by_capture_pawn}
 \end{figure}
 
-\TODO :: REDO
-
-% In this example, Wave can be activated by Pawn on its capture-field, receiving 1 momentum.
-%
-% Once activated, Wave can move forward diagonally (towards opponent's
-% \hyperref[sec:Terms/Figure row]{figure row}), either to the left or to the right, until the
-% end of the board, regardless if capture-fields are empty, or if own or opponent's pieces are
-% present.
+\vspace*{-0.5\baselineskip}
+Wave can be activated by Pawn on its capture-field, with 1 momentum. Activated
+Wave moves the same as if activated on its step-fields; i.e. straight forward or
+diagonally, towards opponent's initial positions, until the end of a chessboard.
+As before, activated Wave cannot change direction once it starts moving; so, light
+Bishop in the very next example is out of reach. \newline
+\indent
+Here, light Pawn is about to activate Wave on its capture-field, giving Wave 1
+momentum.
 
 \clearpage % ..........................................................
 
@@ -519,17 +521,20 @@ Wave activated by rushing Pawn behaves the same, except it receives more momentu
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_24_wave_activated_by_capture_pawn.png}
+\vspace*{-1.4\baselineskip}
 \caption{Wave activated on Pawn's capture-field}
 \label{fig:scn_mv_24_wave_activated_by_capture_pawn}
 \end{figure}
 
-\TODO :: REDO
-
-% Wave activated on Pawn's capture-fields (now "in the air") can also activate Pyramid
-% in addition to ordinary pieces (here, light Knight). Once in motion, Wave cannot
-% change initially chosen direction. Here, upon reaching field A, Wave cannot change
-% direction to Pawn's step-fields, or to Pawn's other capture diagonal. So, Wave can't
-% activate neither light Pegasus, nor dark Wave.
+\vspace*{-0.5\baselineskip}
+\hyperref[sec:Terms/Activator]{Activator} is material (non-Wave) piece from which
+Wave inherits its steps; here, this is light Pawn. Wave cannot capture opponent's
+pieces, all of its fields are steps-fields. When refering to Wave's capture-fields
+it actually means its activator's capture-fields; here, all fields on diagonals. \newline
+\indent
+Moving over capture-fields allows Wave to activate own Pyramids. Here, Wave (now
+"in-the-air") can activate light Pyramid A on capture-fields, but cannot activate
+light Pyramid B on step-fields.
 
 % ................................................... Activated by Pawn
 \clearpage % ..........................................................
