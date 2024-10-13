@@ -27,7 +27,7 @@ A new piece is introduced, Wave.
 
 \vspace*{-1.4\baselineskip}
 \noindent
-\begin{wrapfigure}[12]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/10_wave.png}
 \caption{Wave}
@@ -35,8 +35,10 @@ A new piece is introduced, Wave.
 \end{wrapfigure}
 Wave is passive piece, it has to be activated before it can move. Activation is done
 with own piece capturing field at which Wave is located, before Wave can move.
-Movement of Wave mimics that of activating piece, and is not limited to a single
-step.
+
+Wave inherits step- and capture-fields from activating piece. Once initial step is
+made, Wave cannot change its direction. Activated Wave can move over multiple fields,
+even if activated by a single-step piece (e.g. a Knight).
 
 Wave does not use received momentum for moving, and so Wave can be activated even
 with no momentum. Wave can activate any own piece, except King, if it has momentum.
@@ -51,7 +53,10 @@ activation of Wave optional.
 Wave cannot capture any piece; and so cannot neither check nor checkmate opponent's
 King.
 
-\TODO :: REDO
+% \TODO :: REDO
+
+% Movement of Wave mimics that of activating piece, and is not limited to a single
+% step.
 
 \clearpage % ..........................................................
 % Activation ----------------------------------------------------------
@@ -89,7 +94,7 @@ Here, Pegasus has opportunity to activate Wave, with 5 momentum.
 
 \vspace*{-0.5\baselineskip}
 Activated Wave inherits way of moving from the activating piece; more specifically,
-Wave inherits all initial step-fields which activating piece starting its ply would
+Wave inherits all initial step-fields which activating piece starting a ply would
 have. Activated Wave does not spend received momentum for moving, and so Wave can
 be activated even if activating piece has no momentum.
 
@@ -533,8 +538,8 @@ pieces, all of its fields are steps-fields. When refering to Wave's capture-fiel
 it actually means its activator's capture-fields; here, all fields on diagonals. \newline
 \indent
 Moving over its capture-fields allows Wave to activate own Pyramids. Here, light
-Wave (now "in-the-air") can activate light Pyramid A on its capture-fields, but
-cannot activate light Pyramid B on its step-fields.
+Wave (now "in-the-air") can activate light Pyramid A on its capture-field, but
+cannot activate light Pyramid B on its step-field.
 
 % ................................................... Activated by Pawn
 \clearpage % ..........................................................
