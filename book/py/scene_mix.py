@@ -36,9 +36,8 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_mv_07_wave_is_transparent', \
-                    'scn_mv_21_wave_activation_by_step_pawn', \
-                    'scn_mv_22_wave_activated_by_step_pawn', \
-                    'scn_mv_23_wave_activation_by_capture_pawn', \
-                    'scn_mv_24_wave_activated_by_capture_pawn', \
+                    'scn_hd_24_scout_activating_wave_step_fields_init', \
+                    'scn_hd_25_scout_activating_wave_step_fields_end', \
+                    'scn_hd_26_scout_activating_wave_capture_fields_init', \
+                    'scn_hd_27_scout_activating_wave_capture_fields_end', \
                 ]
