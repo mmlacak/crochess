@@ -38,6 +38,6 @@ class SceneMix( SceneMixin, \
         return  [
                     'scn_hd_24_scout_activating_wave_step_fields_init', \
                     'scn_hd_25_scout_activating_wave_step_fields_end', \
-                    'scn_hd_26_scout_activating_wave_capture_fields_init', \
-                    'scn_hd_27_scout_activating_wave_capture_fields_end', \
+                    # 'scn_hd_26_scout_activating_wave_capture_fields_init', \
+                    # 'scn_hd_27_scout_activating_wave_capture_fields_end', \
                 ]

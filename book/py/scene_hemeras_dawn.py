@@ -750,7 +750,7 @@ class SceneHemerasDawnMixin:
         start_W = (9, 9)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_O = (9, 2)
+        start_O = (9, 4)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
         start_A_A = (12, 9)
@@ -766,9 +766,9 @@ class SceneHemerasDawnMixin:
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # O --> W
-        gen_O_W = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=7 )
+        gen_O_W = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=5 )
         for i, arr in enumerate( gen_O_W() ):
-            mt_O_W = MarkType.Action if i == 6 else \
+            mt_O_W = MarkType.Action if i == 4 else \
                      MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt_O_W )
 
@@ -785,7 +785,7 @@ class SceneHemerasDawnMixin:
         start_W = prev_W
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        prev_O = (9, 2)
+        prev_O = (9, 4)
         start_O = prev_W
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
