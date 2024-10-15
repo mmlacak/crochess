@@ -448,22 +448,19 @@ Wave B, and transfer to it remaining 7 momentum.
 \addcontentsline{toc}{subsection}{Activating Wave, Pyramid}
 \label{sec:Hemera's Dawn/Scout/Activating Wave, Pyramid}
 
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_24_scout_activating_wave_step_fields_init.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Activating Wave on step-fields}
 \label{fig:scn_hd_24_scout_activating_wave_step_fields_init}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave activated by Scout on its step-fields can move left, right, or forward
-(towards opponent's initial positions); the same as
-\hyperref[fig:scn_n_17_sideways_pawn_activated_wave]{Wave activated by Pawn on its step-field}.
-Direction, once chosen, cannot be changed for duration of a ply. Activated
-Wave is not limited by received momentum, and so can move until end of a
-chessboard is reached. Wave activated on step-fields cannot activate Pyramid.
+Scout can activate Wave on its step-fields. Activated Wave can chose any direction
+Scout would be able to take, including any capturing step, even if associated fields
+are empty. Direction, once chosen, cannot be changed for duration of a ply.
 
 \clearpage % ..........................................................
 
@@ -471,16 +468,17 @@ chessboard is reached. Wave activated on step-fields cannot activate Pyramid.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_25_scout_activating_wave_step_fields_end.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Wave activated on step-fields}
 \label{fig:scn_hd_25_scout_activating_wave_step_fields_end}
 \end{figure}
 
-\TODO :: REDO
-
-\hyperref[fig:scn_n_18_sideways_pawn_does_not_activate_pyramid]{The same as Pawn},
-Scout cannot activate Pyramid on its step-fields, neither directly nor indirectly
-(via Wave).
+\vspace*{-0.5\baselineskip}
+Activated Wave is not limited by received momentum, and so can move until end of a
+chessboard is reached. Wave activated on a step-field cannot activate Pyramid. \newline
+\indent
+This is all the same as
+\hyperref[fig:scn_n_17_sideways_pawn_activated_wave]{Wave activated by Pawn on its step-field}.
 
 \clearpage % ..........................................................
 
@@ -488,7 +486,7 @@ Scout cannot activate Pyramid on its step-fields, neither directly nor indirectl
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_26_scout_activating_wave_capture_fields_init.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Activating Wave on capture-fields}
 \label{fig:scn_hd_26_scout_activating_wave_capture_fields_init}
 \end{figure}
@@ -510,13 +508,14 @@ activate a Pyramid.
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_27_scout_activating_wave_capture_fields_end.png}
-\vspace*{-1.3\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Wave activated on capture-fields}
 \label{fig:scn_hd_27_scout_activating_wave_capture_fields_end}
 \end{figure}
 
 \TODO :: REDO
 
+\vspace*{-0.5\baselineskip}
 Scout can activate Pyramid on its capture-fields. Cascade in which Pyramid is
 activated can contain Scout moving over its step-fields, as long as last material
 (non-Wave) piece is the one which can activate Pyramid; this is
