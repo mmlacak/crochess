@@ -1720,8 +1720,11 @@ class SceneMirandasVeilMixin:
         start_W_B = (1, 5)
         scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_A = (3, 7)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+        start_A_A = (1, 7)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (3, 7)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         # P --> W(A)
         coords_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=2 )
@@ -1737,12 +1740,25 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> A
-        coords_WB_A = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=3 )
-        for i, arrow in enumerate( coords_WB_A() ):
+        # W(B) --> A(A)
+        coords_WB_AA = GS.gen_steps( start=start_W_B, rels=[ (0, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WB_AA() ):
             mark_type = MarkType.Blocked if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(B) --> A(B)
+        coords_WB_AB = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WB_AB() ):
+            mark_type = MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
