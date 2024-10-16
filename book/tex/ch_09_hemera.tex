@@ -460,7 +460,10 @@ Wave B, and transfer to it remaining 7 momentum.
 \vspace*{-0.5\baselineskip}
 Scout can activate Wave on its step-fields. Activated Wave can chose any direction
 Scout would be able to take, including any capturing step, even if associated fields
-are empty. Direction, once chosen, cannot be changed for duration of a ply.
+are empty. \newline
+\indent
+Direction, once chosen, cannot be changed for duration of a ply; so, light Pawn
+in this example would remain out of reach.
 
 \clearpage % ..........................................................
 
@@ -495,16 +498,14 @@ This is all similar to
 \label{fig:scn_hd_26_scout_activating_wave_capture_fields_init}
 \end{figure}
 
-\TODO :: REDO
-
 \vspace*{-0.5\baselineskip}
-Wave activated by Scout on its capture-fields can move diagonally left or right,
-towards own initial positions. This is similar to
-\hyperref[fig:scn_mv_23_wave_activation_by_capture_pawn]{Wave activated by Pawn on its capture-field},
-except Wave steps are now backwards. Direction, once chosen, cannot be changed for
-duration of a ply. Activated Wave is not limited by received momentum, and so can
-move until end of a chessboard is reached. Wave activated on a capture-field can
-activate a Pyramid.
+Wave can be activated by Scout on its capture-field, with 1 momentum. The same as
+on step-fields, Wave activated on capture-fields can chose any direction Scout would
+be able to take at the beginning of its ply; this includes any capturing step, even
+if associated fields are empty. \newline
+\indent
+As before, activated Wave cannot change direction once it starts moving; so, light
+Pawn in the very next example is out of reach.
 
 \clearpage % ..........................................................
 
@@ -517,13 +518,13 @@ activate a Pyramid.
 \label{fig:scn_hd_27_scout_activating_wave_capture_fields_end}
 \end{figure}
 
-\TODO :: REDO
-
 \vspace*{-0.5\baselineskip}
 Scout can activate Pyramid on its capture-fields. Cascade in which Pyramid is
 activated can contain Scout moving over its step-fields, as long as last material
 (non-Wave) piece is the one which can activate Pyramid; this is
 \hyperref[fig:scn_n_19_sideways_pawns_cascade_pyramids]{the same as in cascade with a Pawn}.
+
+\TODO :: REDO
 
 \clearpage % ..........................................................
 
