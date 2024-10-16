@@ -1704,7 +1704,59 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Cascading to Pyramid
+
+    def scn_mv_40_cascading_wave_to_pyramid_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_40_cascading_wave_to_pyramid_init', bt, width=6.3, height=9.3 )
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        start_P = (1, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W_A = (1, 3)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (1, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_A = (3, 7)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # P --> W(A)
+        coords_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_P_WA() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_WA_WB() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(B) --> A
+        coords_WB_A = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_WB_A() ):
+            mark_type = MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    def scn_mv_41_cascading_wave_to_pyramid_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_41_cascading_wave_to_pyramid_end', bt, width=6.3, height=8.3 )
+        rect = (0.05, 0.8, 0.65, 0.1)
+
+        return scene
+
+    #
     # Activated by Pyramid
+
+    # TODO :: REINDEX +++
 
     def scn_mv_40_activated_by_pyramid(self, bt=BoardType.MirandasVeil):
 
