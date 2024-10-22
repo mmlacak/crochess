@@ -36,10 +36,8 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_mv_40_cascading_wave_to_pyramid_init', \
-                    'scn_mv_41_cascading_wave_to_pyramid_end', \
-                    # 'scn_hd_24_scout_activating_wave_step_fields_init', \
-                    # 'scn_hd_25_scout_activating_wave_step_fields_end', \
-                    # 'scn_hd_27_scout_activating_wave_capture_fields_end', \
-                    # 'scn_hd_26_scout_activating_wave_capture_fields_init', \
+                    'scn_n_16_sideways_pawn_init', \
+                    'scn_n_17_sideways_pawn_activated_wave', \
+                    # 'scn_mv_40_cascading_wave_to_pyramid_init', \
+                    # 'scn_mv_41_cascading_wave_to_pyramid_end', \
                 ]
