@@ -847,16 +847,23 @@ it in a cascade could activate, with addition of opponent's Wave.
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_cascading_wave_to_pyramid_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Step-fields to Pyramid}
 \label{fig:scn_mv_40_cascading_wave_to_pyramid_init}
 \end{wrapfigure}
-. . .
+Again, \hyperref[sec:Terms/Activator]{activator} is material (non-Wave) piece from
+which Wave inherits its steps; here it's light Pawn. Wave by itself doesn't have
+capture-fields; those are just a shorthand for its activator's capture-fields. \newline
+\indent
+To be able to activate Pyramid, last Wave in a cascade and its activator has to
+move over their capture-fields, other Waves does not matter. Here, light Pawn
+activates Wave A on its step-field; so, even if Wave B takes its capture-steps,
+it still can't activate Pyramid B.
 
-\vspace*{14.7\baselineskip}
+\vspace*{-0.7\baselineskip}
 \noindent
 \begin{wrapfigure}[1]{l}{0.4\textwidth}
 \centering
@@ -866,6 +873,10 @@ it in a cascade could activate, with addition of opponent's Wave.
 \label{fig:scn_mv_41_cascading_wave_to_pyramid_end}
 \end{wrapfigure}
 . . .
+
+% Moving over its capture-fields allows Wave to activate own Pyramids. Here, light
+% Wave (now "in-the-air") can activate light Pyramid A on its capture-field, but
+% cannot activate light Pyramid B on its step-field.
 
 \clearpage % ..........................................................
 

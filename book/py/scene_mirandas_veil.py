@@ -1740,14 +1740,14 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> A(A)
+        # W(B) --> A(A) -->
         coords_WB_AA = GS.gen_steps( start=start_W_B, rels=[ (0, 1), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_WB_AA() ):
             mark_type = MarkType.Blocked if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> A(B)
+        # W(B) --> A(B) -->
         coords_WB_AB = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_WB_AB() ):
             mark_type = MarkType.Blocked if i == 1 else \
@@ -1792,14 +1792,14 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> A(A)
+        # W(B) --> A(A) -->
         coords_WB_AA = GS.gen_steps( start=start_W_B, rels=[ (0, 1), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_WB_AA() ):
             mark_type = MarkType.Blocked if i == 1 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> A(B)
+        # W(B) --> A(B) -->
         coords_WB_AB = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_WB_AB() ):
             mark_type = MarkType.Action if i == 1 else \
@@ -1816,8 +1816,6 @@ class SceneMirandasVeilMixin:
 
     #
     # Activated by Pyramid
-
-    # TODO :: REINDEX +++
 
     def scn_mv_42_activated_by_pyramid(self, bt=BoardType.MirandasVeil):
 
