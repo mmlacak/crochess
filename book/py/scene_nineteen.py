@@ -815,9 +815,9 @@ class SceneNineteenMixin:
     #
     # Activating Pyramid
 
-    def scn_n_18_sideways_pawn_does_not_activate_pyramid(self, bt=BoardType.Nineteen):
+    def scn_n_20_sideways_pawn_does_not_activate_pyramid(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_18_sideways_pawn_does_not_activate_pyramid', bt)
+        scene = Scene('scn_n_20_sideways_pawn_does_not_activate_pyramid', bt)
 
         # top, dark pieces
 
@@ -859,9 +859,9 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_19_sideways_pawns_cascade_pyramids(self, bt=BoardType.Nineteen):
+    def scn_n_21_sideways_pawns_cascade_pyramids(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_19_sideways_pawns_cascade_pyramids', bt)
+        scene = Scene('scn_n_21_sideways_pawns_cascade_pyramids', bt)
 
         # top, dark pieces
 
@@ -969,9 +969,9 @@ class SceneNineteenMixin:
     #
     # Pawn ranks, rows
 
-    def scn_n_21_pawn_ranks(self, bt=BoardType.Nineteen):
+    def scn_n_23_pawn_ranks(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_21_pawn_ranks', bt)
+        scene = Scene('scn_n_23_pawn_ranks', bt)
 
         scene.append_arrow(0.7, 16.5, 17.3, 16.5, mark_type=MarkType.Blocked, start_pointer=True, end_pointer=True)
         scene.append_arrow(0.7, 15.5, 17.3, 15.5, mark_type=MarkType.Illegal, start_pointer=True, end_pointer=True)
@@ -987,9 +987,9 @@ class SceneNineteenMixin:
     #
     # Promotion, only one Queen
 
-    def scn_n_22_only_one_queen(self, bt=BoardType.Nineteen):
+    def scn_n_24_only_one_queen(self, bt=BoardType.Nineteen):
 
-        scene = Scene('scn_n_22_only_one_queen', bt)
+        scene = Scene('scn_n_24_only_one_queen', bt)
 
         start_Q = (12, 15)
         scene.board.set_piece( *start_Q, piece=PieceType.Queen )
@@ -1020,9 +1020,9 @@ class SceneNineteenMixin:
     #
     # Castling
 
-    def scn_n_23_new_castling_init( self, bt=BoardType.Nineteen ):
+    def scn_n_25_new_castling_init( self, bt=BoardType.Nineteen ):
 
-        scene = Scene( 'scn_n_23_new_castling_init', bt, height=2.3 )
+        scene = Scene( 'scn_n_25_new_castling_init', bt, height=2.3 )
 
         start_K = (9, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -1043,9 +1043,9 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_24_new_castling_end( self, bt=BoardType.Nineteen ):
+    def scn_n_26_new_castling_end( self, bt=BoardType.Nineteen ):
 
-        scene = Scene( 'scn_n_24_new_castling_end', bt, height=2.3 )
+        scene = Scene( 'scn_n_26_new_castling_end', bt, height=2.3 )
 
         start_K = (4, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
