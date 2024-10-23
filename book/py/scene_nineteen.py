@@ -563,18 +563,12 @@ class SceneNineteenMixin:
         start_N = (6, 10)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_W_E = (6, 14)
-        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
-
         # diagonal, forward-right
-        start_r = (9, 6)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
-
         start_A_C = (12, 9)
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
-        start_E = (16, 13)
-        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+        start_W_E = (16, 13) # (6, 14)
+        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
 
         # unreachable
         start_B = (10, 15)
@@ -613,18 +607,12 @@ class SceneNineteenMixin:
         start_N = (6, 10)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_W_E = (6, 14)
-        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
-
         # diagonal, forward-right
-        start_r = (9, 6)
-        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
-
         start_A_C = (12, 9)
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
-        start_E = (16, 13)
-        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+        start_W_E = (16, 13) # (6, 14)
+        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
 
         # unreachable
         start_B = (10, 15)
@@ -644,14 +632,14 @@ class SceneNineteenMixin:
         coords_Wf_ = GS.gen_steps( start=prev_W_D, rels=[(0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_Wf_() ):
             mark_type = MarkType.Blocked if i == 3 else \
-                        MarkType.Action if i in [6, 10] else \
+                        MarkType.Action if i == 6 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # W --> (forward, right)
         coords_Wfr_ = GS.gen_steps( start=prev_W_D, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_Wfr_() ):
-            mark_type = MarkType.Blocked if i in [2, 5] else \
+            mark_type = MarkType.Blocked if i == 5 else \
                         MarkType.Action if i == 9 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
