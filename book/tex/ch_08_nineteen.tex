@@ -398,16 +398,6 @@ Here, Wave activated by Pawn on its step-field (now "in-the-air") can activate l
 Knight, light Wave E or dark Wave, but none of light Pyramids. Activated Wave cannot
 change direction once it starts moving; so, light Bishop is out of reach.
 
-% \TODO :: REDO
-
-% Wave activated by a piece has the same choices of direction as activating piece,
-% and can take any of those regardless of any previous choice. So, Wave activated
-% by a Pawn on its step-field moves the same as stepping Pawn, regardless if that
-% Pawn stepped forward or sideways, i.e. it moves horizontally or vertically
-% towards opponent. Unlike Pawn, Wave is not limited to only one step, and so
-% can move to the end of chessboard. Direction, once chosen, cannot be changed
-% later in a ply.
-
 \clearpage % ..........................................................
 % Activating Wave -----------------------------------------------------
 
@@ -425,8 +415,12 @@ change direction once it starts moving; so, light Bishop is out of reach.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-
-\TODO :: REDO
+Wave can be activated by sideways Pawn on its capture-field, with 1 momentum.
+Activated Wave moves the same as if activated on Pawn's step-fields; i.e. either
+forward or laterally, until the end of a chessboard.
+\hyperref[fig:scn_mv_22_wave_activated_by_step_pawn]{Forward movement} is the
+same as with ordinary, non-sideways Pawns, i.e. straight or diagonally forward,
+towards opponent's initial positions.
 
 \clearpage % ..........................................................
 
