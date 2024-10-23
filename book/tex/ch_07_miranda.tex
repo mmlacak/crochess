@@ -847,7 +847,7 @@ it in a cascade could activate, with addition of opponent's Wave.
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[13]{l}{0.4\textwidth}
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_40_cascading_wave_to_pyramid_init.png}
 \vspace*{-1.4\baselineskip}
@@ -860,11 +860,13 @@ capture-fields; those are just a shorthand for its activator's capture-fields. \
 \indent
 To be able to activate Pyramid, Wave activating a Pyramid and its activator has to
 move over their capture-fields; other Waves in a cascade can still move over their
-step-fields.
+step-fields. \newline
+\indent
+Here, and in next example Pawn activates Wave A, which then activates Wave B.
 
-\vspace*{2.3\baselineskip}
+\vspace*{-0.4\baselineskip}
 \noindent
-\begin{wrapfigure}[16]{l}{0.4\textwidth}
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_41_cascading_wave_to_pyramid_end.png}
 \vspace*{-1.4\baselineskip}
@@ -874,12 +876,12 @@ step-fields.
 In previous example, light Pawn activated Wave A on its step-field; so, even if Wave
 B takes diagonal, capture-steps, it still wouldn't be able to activate Pyramid B. \newline
 \indent
-Here, light Pawn activates Wave A on its capture-field; if Wave B would take diagonal,
-capture-steps, it now would be able to activate Pyramid B. \newline
+Here, light Pawn activates Wave A on its capture-field; if Wave B would take diagonal
+(capture-)steps, it now would be able to activate Pyramid B. \newline
 \indent
-In both cases, Wave A can move over its step-fields, i.e. straight forward, since
-it doesn't activate Pyramid directly. Also, in both examples, Pyramid A cannot be
-activated since it's on Wave's step-field.
+In both cases, Wave A moving straight forward over its step-fields is of no consequence,
+since it doesn't activate Pyramid directly. Also, in both examples, Pyramid A cannot be
+activated since it's on Wave B's step-field.
 
 % ................................................ Cascading to Pyramid
 \clearpage % ..........................................................
