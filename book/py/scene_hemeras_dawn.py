@@ -1667,24 +1667,42 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_55_grenadier_activating_wave_capture_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_55_grenadier_activating_wave_capture_field', bt, x=6, y=4, width=7, height=4 )
+        scene = Scene( 'scn_hd_55_grenadier_activating_wave_capture_field', bt )
 
-        start_G = (8, 5)
-        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
-
-        start_W = (11, 6)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_n = (7, 6)
+        start_n = (7, 9)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        # G --> W
-        gen_G_W = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=2 )
-        for i, arr in enumerate( gen_G_W() ):
+        start_G = (6, 8)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_W = (9, 7)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A_A = (12, 7)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (6, 4)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        start_w = (17, 7)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_N = (3, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_P = (7, 16)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        # G --> * --> W
+        gen_G__W = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=2 )
+        for i, arr in enumerate( gen_G__W() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-            if i == 1:
-                scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Action )
+        start_ = (8, 8) # == start_G + (2, 0)
+        scene.append_arrow( *GS.append_pos_rel( start_, 1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
