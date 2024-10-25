@@ -1545,20 +1545,38 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_53_grenadier_activating_wave_step_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_53_grenadier_activating_wave_step_field', bt, x=8, y=1, width=5, height=3 )
+        scene = Scene( 'scn_hd_53_grenadier_activating_wave_step_field', bt )
 
-        start_G = (9, 2)
+        start_G = (9, 5)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_W = (11, 2)
+        start_W = (9, 7)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
+        start_A_A = (12, 7)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (6, 4)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        start_w = (17, 7)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_N = (3, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_P = (7, 16)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
         # G --> W
-        gen_G_W = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=2 )
+        gen_G_W = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=2 )
         for i, arr in enumerate( gen_G_W() ):
-            mt_g = MarkType.Action if i == 1 else \
-                   MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mt_g )
+            mt_G_W = MarkType.Action if i == 1 else \
+                     MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_G_W )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
