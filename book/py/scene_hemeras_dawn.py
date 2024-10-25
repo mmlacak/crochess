@@ -1582,50 +1582,86 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_54_grenadier_activated_wave_step_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_54_grenadier_activated_wave_step_field', bt, height=7.7 )
+        scene = Scene( 'scn_hd_54_grenadier_activated_wave_step_field', bt )
 
         prev_G = (9, 2)
-        prev_W = (11, 2)
-
-        start_G = prev_W # (9, 2)
-        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
-
-        start_W = prev_W # (11, 2)
+        prev_W = (9, 7)
+        start_W = prev_W
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_B = (14, 2)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+        start_G = prev_W
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
 
-        start_A = (3, 2)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+        start_A_A = (12, 7)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
-        # W --> (1, 0) -->
-        gen_W_r_ = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_r_() ):
-            mt_wr = MarkType.Action if i == 2 else \
-                    MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mt_wr )
+        start_A_B = (6, 4)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
-        # W --> (0, 1) -->
-        gen_W_u_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board.get_position_limits() ) # , bounds=scene.board_view.get_position_limits()
-        for i, arr in enumerate( gen_W_u_() ):
-            mt_wu = MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mt_wu )
+        start_w = (17, 7)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
-        # W --> (-1, 0) -->
-        gen_W_l_ = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_l_() ):
-            mt_wl = MarkType.Blocked if i == 7 else \
-                    MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mt_wl )
+        start_N = (3, 1)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        # W --> (0, -1) -->
-        gen_W_d_ = GS.gen_steps( start=start_W, rels=[ (0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_d_() ):
-            mt_wd = MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mt_wd )
+        start_P = (7, 18)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        scene.append_text( "G", *prev_G, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        # W --> (right)
+        gen_Wr_ = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wr_() ):
+            mt = MarkType.Blocked if i == 2 else \
+                 MarkType.Action if i == 7 else \
+                 MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt )
+
+        # W --> (diagonal right forward)
+        gen_Wfr_ = GS.gen_steps( start=start_W, rels=[ (1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wfr_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W --> (forward)
+        gen_Wf_ = GS.gen_steps( start=start_W, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wf_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W --> (diagonal left forward)
+        gen_Wfl_ = GS.gen_steps( start=start_W, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wfl_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W --> (left)
+        gen_Wl_ = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wl_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W --> (diagonal left back)
+        gen_Wbl_ = GS.gen_steps( start=start_W, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wbl_() ):
+            mt = MarkType.Blocked if i == 2 else \
+                 MarkType.Action if i == 5 else \
+                 MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt )
+
+        # W --> (backward)
+        gen_Wb_ = GS.gen_steps( start=start_W, rels=[ (0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wb_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W --> (diagonal right back)
+        gen_Wbr_ = GS.gen_steps( start=start_W, rels=[ (1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_Wbr_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # W --> * --> P -->
+        start_ = (9, 18)
+
+        gen_W_P_ = GS.gen_steps( start=start_, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( gen_W_P_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 

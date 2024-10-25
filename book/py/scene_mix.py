@@ -36,9 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_n_16_sideways_pawn_init', \
-                    # 'scn_n_17_sideways_pawn_activated_wave', \
-                    # 'scn_n_18_capture_pawn_init', \
-                    # 'scn_n_19_capture_pawn_activated_wave', \
-                    'scn_hd_53_grenadier_activating_wave_step_field', \
+                    # 'scn_hd_53_grenadier_activating_wave_step_field', \
+                    'scn_hd_54_grenadier_activated_wave_step_field', \
                 ]
