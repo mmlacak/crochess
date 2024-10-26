@@ -38,5 +38,6 @@ class SceneMix( SceneMixin, \
         return  [
                     # 'scn_hd_53_grenadier_activating_wave_step_field', \
                     # 'scn_hd_54_grenadier_activated_wave_step_field', \
-                    'scn_hd_55_grenadier_activating_wave_capture_field', \
+                    # 'scn_hd_55_grenadier_activating_wave_capture_field', \
+                    'scn_hd_56_grenadier_activated_wave_capture_field', \
                 ]
