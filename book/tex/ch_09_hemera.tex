@@ -874,8 +874,6 @@ associated fields are empty. \newline
 Direction, once chosen, cannot be changed for duration of a ply; so, light Pawn
 in this example would remain out of reach.
 
-% \TODO :: REDO
-
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
@@ -888,16 +886,15 @@ in this example would remain out of reach.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Direction, once chosen, cannot be changed for duration of a ply. Activated
-Wave is not limited by received momentum, and so can move until end of a
-chessboard is reached. Wave activated on step-fields cannot activate own
-Pyramid.
-
-\hyperref[fig:scn_n_20_sideways_pawn_does_not_activate_pyramid]{The same as Pawn},
-Grenadier cannot activate Pyramid on its step-fields, neither directly nor indirectly
-(via Wave).
-
-\TODO :: REDO
+Activated Wave (now "in-the-air") can move up, down, or laterally, to the left or
+to the right; these are all only movement steps. Wave can also choose Grenadier’s
+capture-step as its direction, and move diagonally. \newline
+\indent
+Activated Wave is not limited by received momentum, and so can move until end of
+a chessboard is reached. Wave activated on a step-field cannot activate any Pyramids. \newline
+\indent
+This is also similar to
+\hyperref[fig:scn_n_17_sideways_pawn_activated_wave]{Wave activated by Pawn on its step-field}.
 
 \clearpage % ..........................................................
 
