@@ -887,7 +887,7 @@ in this example would remain out of reach.
 
 \vspace*{-0.5\baselineskip}
 Activated Wave (now "in-the-air") can move up, down, or laterally, to the left or
-to the right; these are all only movement steps. Wave can also choose Grenadier’s
+to the right; these are all movement only steps. Wave can also choose Grenadier’s
 capture-step as its direction, and move diagonally. \newline
 \indent
 Activated Wave is not limited by received momentum, and so can move until end of
@@ -909,15 +909,13 @@ This is also similar to
 
 \vspace*{-0.5\baselineskip}
 Wave can be activated by Grenadier on its capture-fields, regardless if activating
-Grenadier was in close-quarters, or not. The same as on step-fields, Wave activated
+Grenadier was in close quarters, or not. The same as on step-fields, Wave activated
 on capture-fields can chose any direction Grenadier would be able to take at the
 beginning of its ply; this includes any capturing step, even if associated fields
 are empty. \newline
 \indent
 As before, activated Wave cannot change direction once it starts moving; so, light
 Pawn in the very next example is out of reach.
-
-% \TODO :: REDO
 
 \clearpage % ..........................................................
 
@@ -931,17 +929,15 @@ Pawn in the very next example is out of reach.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-. . .
-% Direction, once chosen, cannot be changed for duration of a ply. Activated Wave
-% is not limited by received momentum, and so can move until end of a chessboard
-% is reached. Wave activated on a capture-field can activate own Pyramid.
-%
-% Grenadier can activate Pyramid on its capture-fields. Cascade in which Pyramid
-% is activated can contain Grenadier moving over its step-fields, as long as last
-% material (non-Wave) piece is the one which can activate Pyramid; this is
-% \hyperref[fig:scn_n_21_sideways_pawns_cascade_pyramids]{the same as in cascade with a Pawn}.
-
-\TODO :: REDO
+Wave activated by Grenadier on its capture-fields moves the same as if activated
+on step-fields; i.e. horizontal and vertical steps are all movement only steps,
+while diagonal steps are capturing ones. Similar to
+\hyperref[fig:scn_mv_24_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-step},
+Wave can also activate Pyramid if chosen direction is Grenadier's capture-step,
+i.e. diagonal. \newline
+\indent
+Here, activated Wave (now "in-the-air") can activate light Pyramid B with 3 momentum;
+light Pyramid A cannot be activated, as it's located on Grenadier's step-field.
 
 \clearpage % ..........................................................
 
