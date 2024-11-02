@@ -1709,12 +1709,18 @@ Activated Wave generally moves the same way as activating piece. Wave can make
 multiple steps in chosen direction, even if activating piece can make only a
 single step. For instance, Wave activated by Knight moves like a Pegasus.
 
-% \TODO :: rewrite
+Activated Wave generally has the same initial steps as activating piece starting
+a new ply. Once direction is chosen, Wave cannot change its heading for the
+remainder of its ply. For instance,
+\hyperref[fig:scn_mv_20_wave_activated_by_king]{Wave activated by King} cannot
+change its movement to horizontal once it started moving diagonally.
 
-Activated Wave generally has the same set of initial step(s) as activating piece,
-and can take any initial step, even if activating piece would be blocked, or if
-opponent's piece is not present. For instance, Wave activated by Pawn can take
-diagonal step even if destination field is empty.
+Wave can take any initial step, even those activating piece could not. For instance,
+\hyperref[fig:scn_mv_22_wave_activated_by_step_pawn]{Wave activated by Pawn}
+can take diagonal step, even if Pawn would not be able to because diagonal field
+does not host opponent's piece.
+
+% \TODO :: rewrite
 
 \hyperref[fig:scn_tr_31_serpent_activating_wave]{Wave activated by Serpent} is an
 exception, it moves by alternating between 2 diagonal steps, which, once chosen,
