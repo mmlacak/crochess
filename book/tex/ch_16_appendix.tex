@@ -1620,6 +1620,123 @@ under \emph{moving piece} column.
 
 \clearpage % ..........................................................
 
+\subsection*{Piece activations}
+\addcontentsline{toc}{subsection}{Piece activations}
+\label{sec:Appendix/Summary/Piece activations}
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ lll }
+% \toprule % ===============================================================================================
+% \multicolumn{2}{c}{ \textbf{Activating} }                               & \textbf{Activated}            \\
+% \cmidrule{1-2} % .........................................................................................
+% \emph{Piece}                            & \emph{At field}               &                               \\
+% \midrule % -----------------------------------------------------------------------------------------------
+% \multirow{2}{*}{any\footnotemark[1]}    & capture- or                   & \multirow{2}{*}{own Pyramid}  \\
+%                                         & miracle-                      &                               \\
+% \cmidrule{1-3} % .........................................................................................
+% any\footnotemark[1]                     & any                           & own Wave                      \\
+% \cmidrule{1-3} % .........................................................................................
+% \multirow{3}{*}{Wave}                   & \multirow{3}{*}{any}          & any own,                      \\
+%                                         &                               & except King,                  \\
+%                                         &                               & Pyramid                       \\
+% \cmidrule{1-3} % .........................................................................................
+% \multirow{2}{*}{Wave\footnotemark[2]}   & capture- or                   & any own,                      \\
+%                                         & miracle-                      & except King                   \\
+% \cmidrule{1-3} % .........................................................................................
+% \multirow{2}{*}{Wave}                   & \multirow{2}{*}{any}          & opponent's                    \\
+%                                         &                               & Wave                          \\
+% \cmidrule{1-3} % .........................................................................................
+% Starchild                               & any                           & own Starchild                 \\
+% \cmidrule{1-3} % .........................................................................................
+% \multirow{2}{*}{Starchild}              & \multirow{2}{*}{miracle-}     & any own,                      \\
+%                                         &                               & except King                   \\
+% \cmidrule{1-3} % .........................................................................................
+% \multirow{2}{*}{Starchild}              & \multirow{2}{*}{miracle-}     & opponent's                    \\
+%                                         &                               & Starchild                     \\
+% \cmidrule{1-3} % .........................................................................................
+% Starchild                               & miracle-                      & any Star                      \\
+% \bottomrule % ============================================================================================
+% \end{tabular}
+% \caption{Piece activations}
+% \label{tbl:Appendix/Summary/Piece activations}
+% \end{table}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ lll }
+\toprule % ===============================================================================================
+\multicolumn{2}{c}{ \textbf{Activating} }                               & \textbf{Activated}            \\
+\cmidrule{1-2} % .........................................................................................
+\emph{Piece}                            & \emph{At field}               &                               \\
+\midrule % -----------------------------------------------------------------------------------------------
+\multirow{2}{*}{any\footnotemark[1]}    & capture- or                   & \multirow{2}{*}{own Pyramid}  \\
+                                        & miracle-                      &                               \\
+\cmidrule{1-3} % .........................................................................................
+any\footnotemark[1]                     & any                           & own Wave                      \\
+\cmidrule{1-3} % .........................................................................................
+\multirow{2}{*}{Wave}                   & \multirow{2}{*}{any}          & any own, except               \\
+                                        &                               & King, Pyramid                 \\
+\cmidrule{1-3} % .........................................................................................
+\multirow{2}{*}{Wave\footnotemark[2]}   & capture- or                   & any own,                      \\
+                                        & miracle-                      & except King                   \\
+\cmidrule{1-3} % .........................................................................................
+Wave                                    & any                           & opponent's Wave               \\
+\cmidrule{1-3} % .........................................................................................
+Starchild                               & any                           & own Starchild                 \\
+\cmidrule{1-3} % .........................................................................................
+\multirow{3}{*}{Starchild}              & \multirow{3}{*}{miracle-}     & any own, except King,         \\
+                                        &                               & opponent's Starchild,         \\
+                                        &                               & any Star                      \\
+\bottomrule % ============================================================================================
+\end{tabular}
+\caption{Piece activations}
+\label{tbl:Appendix/Summary/Piece activations}
+\end{table}
+
+\footnotetext[1]{Any piece, except Stars, Monolith.}
+\footnotetext[2]{If activated on capture-fields, or Starchild's miracle-fields.}
+
+\TODO :: REDO
+
+Here, activated own piece means it's in the same (dark or light) color as
+activating piece, activated opponent's piece means it's in the opposite color
+to activating piece.
+
+Wave does not have any of step-, capture-, or miracle-fields on its own; fields
+are inherited from an activating piece, in the moment of activation. Activating
+piece itself can be a Wave, which inherited fields from a piece preceding it in
+a cascade. Every inheritance chain starts with a material (i.e. non-Wave) piece,
+such a piece is called activator.
+
+Wave inherits (step-, capture-, or miracle-) fields from an activator as a whole
+set of fields over which to move. Distinction is important when those sets of
+fields are different from each other, as they are for Pawns, Scouts, Grenadiers,
+Shamans, and Starchilds.
+
+For instance, Wave activated by Pawn on its step-field has to move only over that
+Pawn's step-fields (from activating field straight forward, towards opponent), and
+cannot move over Pawn's capture-fields (diagonally, towards opponent). Later, a
+sideways step-fields are added to Pawn's repertoire; from then on, activated Wave
+can also choose to move laterally, regardless if Wave was activated on a forward,
+or a side step-field.
+
+With inherited fields, Wave does not inherit what interactions it can do on those
+fields. For instance, Wave cannot capture opponent's pieces, even if activated on
+a capture-field.
+
+Wave can also activate the same pieces as activating piece could activate, in the
+moment of activating that Wave; with addition of activating opponent's Wave.
+
+So, when saying that Wave can activate own Pyramid on a capture-fields, it does
+not mean that Wave can now capture opponent's pieces; it just means that Wave is
+moving over its activator's capture-fields; and with capture-fields Wave also got
+an option to activate own Pyramid.
+
+\TODO :: REDO
+
+\clearpage % ..........................................................
+
 \subsection*{Movement of Wave}
 \addcontentsline{toc}{subsection}{Movement of Wave}
 \label{sec:Appendix/Movement of Wave}
@@ -1730,90 +1847,6 @@ activated Wave, and on which (step- or capture-) field:
     \vspace*{-0.7\baselineskip}
     \item Wave transfers all of received momentum to a piece it activates.
 \end{itemize}
-
-\clearpage % ..........................................................
-
-\subsection*{Piece activations}
-\addcontentsline{toc}{subsection}{Piece activations}
-\label{sec:Appendix/Summary/Piece activations}
-
-\begin{table}[!h]
-\centering
-\begin{tabular}{ lll }
-\toprule % ===============================================================================================
-\multicolumn{2}{c}{ \textbf{Activating} }                               & \textbf{Activated}            \\
-\cmidrule{1-2} % .........................................................................................
-\emph{Piece}                            & \emph{At field}               &                               \\
-\midrule % -----------------------------------------------------------------------------------------------
-\multirow{2}{*}{any}                    & capture or                    & \multirow{2}{*}{own Pyramid}  \\
-                                        & miracle                       &                               \\
-\cmidrule{1-3} % .........................................................................................
-any                                     & any                           & own Wave                      \\
-\cmidrule{1-3} % .........................................................................................
-\multirow{3}{*}{Wave}                   & \multirow{3}{*}{any}          & any own,                      \\
-                                        &                               & except King,                  \\
-                                        &                               & Pyramid                       \\
-\cmidrule{1-3} % .........................................................................................
-\multirow{2}{*}{Wave\footnotemark[1]}   & capture or                    & any own,                      \\
-                                        & miracle                       & except King                   \\
-\cmidrule{1-3} % .........................................................................................
-\multirow{2}{*}{Wave}                   & \multirow{2}{*}{any}          & opponent's                    \\
-                                        &                               & Wave                          \\
-\cmidrule{1-3} % .........................................................................................
-Starchild                               & any                           & own Starchild                 \\
-\cmidrule{1-3} % .........................................................................................
-\multirow{2}{*}{Starchild}              & \multirow{2}{*}{miracle}      & any own,                      \\
-                                        &                               & except King                   \\
-\cmidrule{1-3} % .........................................................................................
-\multirow{2}{*}{Starchild}              & \multirow{2}{*}{miracle}      & opponent's                    \\
-                                        &                               & Starchild                     \\
-\cmidrule{1-3} % .........................................................................................
-Starchild                               & miracle                       & any Star                      \\
-\bottomrule % ============================================================================================
-\end{tabular}
-\caption{Piece activations}
-\label{tbl:Appendix/Summary/Piece activations}
-\end{table}
-
-\footnotetext[1]{If activated on capture-fields, or Starchild's miracle-fields.}
-
-\TODO :: REDO
-
-Here, activated own piece means it's in the same (dark or light) color as
-activating piece, activated opponent's piece means it's in the opposite color
-to activating piece.
-
-Wave does not have any of step-, capture-, or miracle-fields on its own; fields
-are inherited from an activating piece, in the moment of activation. Activating
-piece itself can be a Wave, which inherited fields from a piece preceding it in
-a cascade. Every inheritance chain starts with a material (i.e. non-Wave) piece,
-such a piece is called activator.
-
-Wave inherits (step-, capture-, or miracle-) fields from an activator as a whole
-set of fields over which to move. Distinction is important when those sets of
-fields are different from each other, as they are for Pawns, Scouts, Grenadiers,
-Shamans, and Starchilds.
-
-For instance, Wave activated by Pawn on its step-field has to move only over that
-Pawn's step-fields (from activating field straight forward, towards opponent), and
-cannot move over Pawn's capture-fields (diagonally, towards opponent). Later, a
-sideways step-fields are added to Pawn's repertoire; from then on, activated Wave
-can also choose to move laterally, regardless if Wave was activated on a forward,
-or a side step-field.
-
-With inherited fields, Wave does not inherit what interactions it can do on those
-fields. For instance, Wave cannot capture opponent's pieces, even if activated on
-a capture-field.
-
-Wave can also activate the same pieces as activating piece could activate, in the
-moment of activating that Wave; with addition of activating opponent's Wave.
-
-So, when saying that Wave can activate own Pyramid on a capture-fields, it does
-not mean that Wave can now capture opponent's pieces; it just means that Wave is
-moving over its activator's capture-fields; and with capture-fields Wave also got
-an option to activate own Pyramid.
-
-\TODO :: REDO
 
 \clearpage % ..........................................................
 
