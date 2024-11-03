@@ -1737,10 +1737,10 @@ in a cascade. Such a material piece is called
 \hyperref[sec:Terms/Activator]{activator}.
 
 Wave cannot capture opponent's pieces, all of its fields are steps-fields. When
-refering to Wave's capture-fields it's just a shorthand for activator's
-capture-fields. Pyramid can be activated by Wave only if both activating Wave and
-its activator has been moving over their capture-fields; other Waves between the
-two can move over their step-fields.\newline
+refering to Wave's capture-fields it's just a shorthand for capture-fields of its
+activator. Pyramid can be activated by Wave only if both activating Wave and its
+activator has been moving over their capture-fields; other Waves between the two
+can move over their step-fields.\newline
 \indent
 For instance,
 \hyperref[fig:scn_mv_24_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-field}
@@ -1749,11 +1749,15 @@ has the same initial steps as
 but, only the former can activate Pyramids, if moving diagonally, over its
 capture-fields.
 
-\TODO :: REDO :: rewrite Grenadier
+\hyperref[fig:scn_hd_54_grenadier_activated_wave_step_field]{Wave activated by Grenadier}
+moves like a Queen; difference is that only diagonal steps are capture-steps, both
+horizontal and vertical steps are just movement steps.
 
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
 nor activate a Star.
+
+\TODO :: REDO
 
 All other properties of Wave movement remains the same, regardless which piece
 activated it, and on which (step- or capture-) field: ability to move past (pass
@@ -1762,8 +1766,6 @@ to capture any piece, ability to activate any own piece (except King, Pyramid ca
 be activated on step-fields), ability to activate opponent's Wave, ability to move
 over the edge of a board as long as Wave's ply ends on it, and ability to transfer
 all of received momentum to activated piece.
-
-\TODO :: REDO
 
 \clearpage % ..........................................................
 
