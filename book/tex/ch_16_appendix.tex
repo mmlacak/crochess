@@ -1713,15 +1713,23 @@ Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activate
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
 nor activate a Star.
 
-\TODO :: REDO
-
 All other properties of Wave movement remains the same, regardless which piece
-activated it, and on which (step- or capture-) field: ability to move past (step
-over) pieces on a chessboard as if they're not there (except Monoliths), inability
-to capture any piece, ability to activate any own piece (except King, Pyramid can't
-be activated on step-fields), ability to activate opponent's Wave, ability to move
-over the edge of a board as long as Wave's ply ends on it, and ability to transfer
-all of received momentum to activated piece.
+activated Wave, and on which (step- or capture-) field:
+\vspace*{-1.1\baselineskip}
+\begin{itemize}
+    % \vspace*{-0.7\baselineskip}
+    \item Wave can step over pieces (except Monolith);
+    \vspace*{-0.7\baselineskip}
+    \item Wave cannot capture opponent's pieces;
+    \vspace*{-0.7\baselineskip}
+    \item Wave can activate own pieces, except King (Pyramid only on capture-fields);
+    \vspace*{-0.7\baselineskip}
+    \item Wave can activate opponent's Wave;
+    \vspace*{-0.7\baselineskip}
+    \item Wave can leave chessboard, as long as its ply end on a chessboard field;
+    \vspace*{-0.7\baselineskip}
+    \item Wave transfers all of received momentum to a piece it activates.
+\end{itemize}
 
 \clearpage % ..........................................................
 
