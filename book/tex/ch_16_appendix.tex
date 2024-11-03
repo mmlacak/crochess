@@ -1730,10 +1730,13 @@ make from its starting field and first step-field.
 like a Serpent, but it's restricted to alternating between two initially chosen
 diagonal steps, which also has to be on different diagonals.
 
-% \TODO :: rewrite
+Wave can also be activated by another Wave, including opponent's. Activated Wave
+inherits its initial steps from (and behaves the same as) activating Wave;
+inheritance chain starts with last material (non-Wave) piece which precedes Waves
+in a cascade. Such a material piece is called
+\hyperref[sec:Terms/Activator]{activator}.
 
-\hyperref[sec:Terms/Activator]{Activator} is material (non-Wave) piece from which
-Wave inherits its steps.
+\TODO :: REDO :: rewrite activator :: vvv
 
 Wave cannot capture opponent's pieces, all of its fields are steps-fields. When
 refering to Wave's capture-fields it's just a shorthand for activating piece's
@@ -1747,7 +1750,7 @@ has the same initial steps as
 but, only the former can activate Pyramids, if moving diagonally, over its
 capture-fields.
 
-\TODO :: rewrite :: Grenadier
+\TODO :: REDO :: rewrite Grenadier
 
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
