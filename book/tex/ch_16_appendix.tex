@@ -1716,9 +1716,9 @@ remainder of its ply. For instance,
 change its movement to horizontal once it started moving diagonally.
 
 Wave can take any initial step, even those activating piece could not. For instance,
-\hyperref[fig:scn_mv_22_wave_activated_by_step_pawn]{Wave activated by Pawn}
-can take diagonal step, even if Pawn would not be able to because diagonal field
-does not host opponent's piece.
+\hyperref[fig:scn_hd_25_scout_activating_wave_step_fields_end]{Wave activated by Scout}
+can take diagonal step, even if Scout itself would not be able to because diagonal
+field does not host opponent's piece.
 
 \hyperref[fig:scn_mv_27_wave_activation_by_unicorn_first_step]{Wave activated by Unicorn}
 moves similar to Centaur, it has to keep alternating between two initially chosen
@@ -1730,22 +1730,24 @@ make from its starting field and first step-field.
 like a Serpent, but it's restricted to alternating between two initially chosen
 diagonal steps, which also has to be on different diagonals.
 
+% \TODO :: rewrite
+
+\hyperref[sec:Terms/Activator]{Activator} is material (non-Wave) piece from which
+Wave inherits its steps.
+
 Wave cannot capture opponent's pieces, all of its fields are steps-fields. When
 refering to Wave's capture-fields it's just a shorthand for activating piece's
 capture-fields. Only Wave activated on a capture-field, and also moving over its
 capture-fields can activate Pyramid. \newline
 \indent
 For instance,
-\hyperref[fig:scn_mv_24_wave_activated_by_capture_pawn]{Wave activated by Pawn}
-on its capture-field has the same initial steps as
-\hyperref[fig:scn_mv_22_wave_activated_by_step_pawn]{Wave activated by Pawn}
-on its step-field; but, only the former can activate Pyramids, if moving
-diagonally, over its capture-fields.
+\hyperref[fig:scn_mv_24_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-field}
+has the same initial steps as
+\hyperref[fig:scn_mv_22_wave_activated_by_step_pawn]{Wave activated by Pawn on its step-field};
+but, only the former can activate Pyramids, if moving diagonally, over its
+capture-fields.
 
-\TODO :: rewrite
-
-\hyperref[sec:Terms/Activator]{Activator} is material (non-Wave) piece from which
-Wave inherits its steps.
+\TODO :: rewrite :: Grenadier
 
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
