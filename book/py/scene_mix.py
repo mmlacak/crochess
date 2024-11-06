@@ -43,5 +43,5 @@ class SceneMix( SceneMixin, \
                     'scn_cot_010_activating_wave_step_field', \
                     'scn_cot_011_activated_wave_step_fields', \
                     'scn_cot_012_activated_wave_capture_fields', \
-                    'scn_cot_011_activating_wave_capture_field', \
+                    'scn_cot_013_activating_wave_capture_field', \
                 ]
