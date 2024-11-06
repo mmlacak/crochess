@@ -364,11 +364,19 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene( 'scn_cot_010_activating_wave_step_field', bt )
 
-        start_H = (9, 10) # (5, 0)
+        start_H = (10, 9)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_W = (11, 11) # (7, 1)
+        start_W = (11, 11)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # short jump obstacles
+
+        start_A_1 = (15, 13)
+        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+
+        start_N = (19, 15)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
 
@@ -382,14 +390,24 @@ class SceneConquestOfTlalocanMixin:
         start_H = prev_W
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
+        # short jump obstacles
+
+        start_A_1 = (15, 13)
+        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+
+        start_N = (19, 15)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
         # light Shaman, short jump
 
         for rel_idx, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
             coords = GS.gen_steps( [ rel, ], start=prev_W, include_prev=True, bounds=scene.board_view.get_position_limits() )
+            mark_type = MarkType.Legal
             for i, arr in enumerate( coords() ):
-                # mark_type = MarkType.Blocked if i == 1 else \
-                #             MarkType.Legal
-                scene.append_arrow( *arr, mark_type=MarkType.Legal )
+                if rel_idx == 0:
+                    mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Legal
+                scene.append_arrow( *arr, mark_type=mark_type )
 
         return scene
 
@@ -400,6 +418,14 @@ class SceneConquestOfTlalocanMixin:
         prev_W = (11, 11)
         start_H = prev_W
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        # short jump obstacles
+
+        start_A_1 = (15, 13)
+        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+
+        start_N = (19, 15)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # light Shaman, long jump
 
