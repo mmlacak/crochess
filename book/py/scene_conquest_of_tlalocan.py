@@ -362,34 +362,59 @@ class SceneConquestOfTlalocanMixin:
 
     def scn_cot_010_activating_wave_step_field( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_010_activating_wave_step_field', bt, width=9.4, height=5.4 )
+        scene = Scene( 'scn_cot_010_activating_wave_step_field', bt )
 
-        start_H = (5, 0)
+        start_H = (9, 10) # (5, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        start_W = (7, 1)
+        start_W = (11, 11) # (7, 1)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_A = (3, 3)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
-
-        start_N = (1, 4)
-        scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
 
-        gen_arr_2 = GS.gen_steps( [ (-2, 1), ], start=start_W, include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_arr_2() ):
-            mark_type = MarkType.Blocked if i == 1 else \
-                        MarkType.Action if i == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *arr, mark_type=mark_type )
+        return scene
+
+    def scn_cot_011_activated_wave_step_fields( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_011_activated_wave_step_fields', bt )
+
+        prev_W = (11, 11)
+        start_H = prev_W
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        # light Shaman, short jump
+
+        for rel_idx, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+            coords = GS.gen_steps( [ rel, ], start=prev_W, include_prev=True, bounds=scene.board_view.get_position_limits() )
+            for i, arr in enumerate( coords() ):
+                # mark_type = MarkType.Blocked if i == 1 else \
+                #             MarkType.Legal
+                scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_cot_012_activated_wave_capture_fields( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_012_activated_wave_capture_fields', bt )
+
+        prev_W = (11, 11)
+        start_H = prev_W
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        # light Shaman, long jump
+
+        for rel_idx, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
+            coords = GS.gen_steps( [ rel, ], start=prev_W, include_prev=True, bounds=scene.board_view.get_position_limits() )
+            for i, arr in enumerate( coords() ):
+                # mark_type = MarkType.Blocked if i == 1 else \
+                #             MarkType.Legal
+                scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         return scene
 
     def scn_cot_011_activating_wave_capture_field( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_011_activating_wave_capture_field', bt, width=9.4, height=10.4 )
+        scene = Scene( 'scn_cot_011_activating_wave_capture_field', bt ) # , width=9.4, height=10.4 )
 
         start_H = (5, 1)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
