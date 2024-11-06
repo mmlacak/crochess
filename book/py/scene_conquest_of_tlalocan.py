@@ -378,6 +378,14 @@ class SceneConquestOfTlalocanMixin:
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
+        # long jump obstacles
+
+        start_A_2 = (7, 17)
+        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+
+        start_B = (3, 23)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
         scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
 
         return scene
@@ -398,6 +406,14 @@ class SceneConquestOfTlalocanMixin:
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
+        # long jump obstacles
+
+        start_A_2 = (7, 17)
+        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+
+        start_B = (3, 23)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
         # light Shaman, short jump
 
         for rel_idx, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
@@ -406,6 +422,7 @@ class SceneConquestOfTlalocanMixin:
             for i, arr in enumerate( coords() ):
                 if rel_idx == 0:
                     mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Action if i == 3 else \
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
@@ -427,14 +444,25 @@ class SceneConquestOfTlalocanMixin:
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
+        # long jump obstacles
+
+        start_A_2 = (7, 17)
+        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+
+        start_B = (3, 23)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
         # light Shaman, long jump
 
         for rel_idx, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
             coords = GS.gen_steps( [ rel, ], start=prev_W, include_prev=True, bounds=scene.board_view.get_position_limits() )
+            mark_type = MarkType.Legal
             for i, arr in enumerate( coords() ):
-                # mark_type = MarkType.Blocked if i == 1 else \
-                #             MarkType.Legal
-                scene.append_arrow( *arr, mark_type=MarkType.Legal )
+                if rel_idx == 5:
+                    mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Action if i == 3 else \
+                                MarkType.Legal
+                scene.append_arrow( *arr, mark_type=mark_type )
 
         return scene
 
