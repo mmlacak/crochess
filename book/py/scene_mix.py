@@ -40,8 +40,10 @@ class SceneMix( SceneMixin, \
                     # 'scn_hd_54_grenadier_activated_wave_step_field', \
                     # 'scn_hd_55_grenadier_activating_wave_capture_field', \
                     # 'scn_hd_56_grenadier_activated_wave_capture_field', \
-                    'scn_cot_010_activating_wave_step_field', \
-                    'scn_cot_011_activated_wave_step_fields', \
-                    'scn_cot_012_activated_wave_capture_fields', \
-                    'scn_cot_013_activating_wave_capture_field', \
+                    'scn_cot_010_activating_wave_on_step_field', \
+                    'scn_cot_011_step_activated_wave_step_fields', \
+                    'scn_cot_012_step_activated_wave_capture_fields', \
+                    'scn_cot_013_activating_wave_on_capture_field', \
+                    'scn_cot_014_capture_activated_wave_step_fields', \
+                    'scn_cot_015_capture_activated_wave_capture_fields', \
                 ]
