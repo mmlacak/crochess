@@ -358,13 +358,13 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
-    # Activating Wave
+    # Activating Wave on step-field
 
     def scn_cot_010_activating_wave_on_step_field( self, bt=BoardType.ConquestOfTlalocan ):
 
         scene = Scene( 'scn_cot_010_activating_wave_on_step_field', bt )
 
-        start_H = (10, 9)
+        start_H = (8, 5)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_W = (11, 11)
@@ -386,7 +386,13 @@ class SceneConquestOfTlalocanMixin:
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
+        # activating Wave
+
+        coords = GS.gen_steps( [ (1, 2), ], start=start_H, include_prev=True, count=3) # bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         scene.append_text( "A", *start_A_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
@@ -475,11 +481,14 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    #
+    # Activating Wave on capture-field
+
     def scn_cot_013_activating_wave_on_capture_field( self, bt=BoardType.ConquestOfTlalocan ):
 
         scene = Scene( 'scn_cot_013_activating_wave_on_capture_field', bt ) # , width=9.4, height=10.4 )
 
-        start_H = (9, 8)
+        start_H = (7, 5)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
         start_W = (11, 11)
@@ -501,7 +510,13 @@ class SceneConquestOfTlalocanMixin:
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        scene.append_arrow( *( start_H + start_W ), mark_type=MarkType.Action )
+        # activating Wave
+
+        coords = GS.gen_steps( [ (2, 3), ], start=start_H, include_prev=True, count=2) # bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
 
         scene.append_text( "A", *start_A_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
