@@ -7,8 +7,8 @@
 \addcontentsline{toc}{chapter}{Appendix}
 \label{ch:Appendix}
 
-Appendix contains description of algebraic notation, extended from the base described here: \newline
-\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}. \newline
+Appendix contains description of algebraic notation, extended from the base described here:\newline
+\href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)}.\newline
 This description mostly covers short notation, and is written in monospace font, e.g. \alg{Nc3}.
 
 Parts of classic notation clashes with new developments, and so had to be covered with
@@ -211,7 +211,7 @@ written as \alg{h5}. Long notation would be \alg{h2-h5}.
 
 Disambiguation is position notation, shortened to minimum necessary to distinguish from
 another position(s). It contains one of: just file, just rank, rank + file, in that order
-of preference. This is the same as in \algfmt{CAN}, described in: \newline
+of preference. This is the same as in \algfmt{CAN}, described in:\newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Disambiguating\_moves}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\newline
 \#Disambiguating\_moves}, see also \algfmt{FIDE~C.10}.
 Disambiguation is used in a ply, to distinguish starting position of a piece from others
@@ -235,7 +235,7 @@ would be written as \alg{Eg4*P}, or just \alg{Eg4*}, if captured piece is not ne
 
 In \algfmt{CAN}, the same move would be written as \algcty{Exg4}. Note, FIDE handbook requires
 captures made by Pawn to contain starting file, \algcty{x}, and then destination field; see
-\algfmt{FIDE~C.9.3}. \newline
+\algfmt{FIDE~C.9.3}.\newline
 \indent
 If \hyperref[fig:scn_mv_23_wave_activation_by_capture_pawn]{Wave activated by Pawn example} had
 dark Wave instead of light one, light Pawn would be able to capture it, which in \algfmt{CAN}
@@ -267,16 +267,16 @@ are separated by \~{} (tilde). In the example starting with
 another Pyramid; example is comprised of series of 4 images, each corresponding to one ply,
 while last image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
 
-In \algfmt{XAN}, the same would be written as \newline
+In \algfmt{XAN}, the same would be written as\newline
 \alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used
-to gather each ply to help tell them apart: \newline
+to gather each ply to help tell them apart:\newline
 \alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
 
 \subsection*{Pawn promotion}
 \addcontentsline{toc}{subsection}{Pawn promotion}
 \label{sec:Appendix/Notation/Pawn promotion}
 
-Pawn promotion is also written the same way as in \algfmt{CAN}, as described in detail: \newline
+Pawn promotion is also written the same way as in \algfmt{CAN}, as described in detail:\newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Pawn\_promotion}{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\newline
 \#Pawn\_promotion}, with Pawn's destination field + piece to which it was promoted to,
 like so: \alg{e8Q}. Inserting \alg{=} (equal sign) between field and promoted-to piece
@@ -378,8 +378,8 @@ Passing over a piece is noted by using \alg{\^{}} (caret) after a step,
 optionally followed by a piece which has been passed-over.
 
 For instance, in \hyperref[fig:scn_mv_07_wave_is_transparent]{this example} light Queen
-could capture dark Pegasus, which would be written as \newline
-\alg{Q..m4\^{}..j7\^{}..g10*}, or in \algfmt{XAN} as \newline
+could capture dark Pegasus, which would be written as\newline
+\alg{Q..m4\^{}..j7\^{}..g10*}, or in \algfmt{XAN} as\newline
 \alg{Qo2..m4\^{}W..j7\^{}W..g10*E}.
 
 \subsection*{Divergence}
@@ -397,7 +397,7 @@ Note, diverging from opponent's Starchild is mandatory to write, otherwise it
 can be assumed Starchild has been captured. If interaction is not written,
 capturing opponent's piece is default action. This is the reason too why
 \hyperref[sec:Appendix/Notation/Conversion]{conversion of opponent's pieces}
-are also mandatory to write. \newline
+are also mandatory to write.\newline
 \indent
 For instance, in
 \hyperref[fig:scn_o_19_starchild_divergence_end]{this example} light Queen
@@ -418,7 +418,7 @@ field.
 
 For instance, in \hyperref[fig:scn_tr_19_displacement_init]{this example}, Serpent ends
 its ply with two Pawns displaced. This could be written as \alg{S..e5<f5..f4<f3..h4},
-or in \algfmt{XAN} as \newline
+or in \algfmt{XAN} as\newline
 \alg{Sb4..e5<Pf5..f4<Pf3..h4}.
 
 \subsection*{Trance-journey}
@@ -438,7 +438,7 @@ piece can be written before displacement-field. The same
 \hyperref[fig:scn_cot_087_light_light_shaman_interaction_end]{trance-journey example},
 now with all interactions taken into account, would be written as
 \alg{He13@H..e18<i14..m12<j17..g24}.
-In \algfmt{XAN}, with gathered plies and displaced pieces it would be \newline
+In \algfmt{XAN}, with gathered plies and displaced pieces it would be\newline
 \alg{[Hd12-e13]@[He13..e18<Ni14..m12<Pj17..g24]}.
 
 Forward-displacement is written the same as ordinary trance-journey displacement,
@@ -446,16 +446,16 @@ except entranced Shaman visits a field onto which a piece has been displaced in
 previous step, and so the same piece can be displaced again. This sharing of the
 same displacement- and step-field can be seen in
 \hyperref[fig:scn_cot_098_forward_displacement_start]{an example} which would be
-written as \alg{Hu8@H..o10<i12..i12<c14..c14<a16}, or in \algfmt{XAN} as \newline
+written as \alg{Hu8@H..o10<i12..i12<c14..c14<a16}, or in \algfmt{XAN} as\newline
 \alg{[Ht9-u8]@[Hu8..o10<Ri12..i12<Rc14..c14<Ra16]}, if final displacement of
 a Rook was chosen to be \alg{a16}.
 
 Captures are noted by writing \alg{*} (asterisk) immediately after step in which
 a piece is reached, optionally followed by a captured piece. This
 \hyperref[fig:scn_cot_089_dark_light_shaman_interaction_end]{trance-journey example with captures}
-would be written as \newline
+would be written as\newline
 \alg{He13@H..e18*..m12*..g24}. In \algfmt{XAN}, with gathered plies and captured
-pieces it would be \newline
+pieces it would be\newline
 \alg{[Hf12-e13]@[He13..e18*N..m12*P..g24]}.
 
 One peculiarity of dark Shaman's trance-journey is that it starts from the far end
@@ -468,7 +468,7 @@ trance-journey, \alg{,} (comma) is used to separate them, like so
 \alg{He12@He12,w18..q16*..k14*..c18}.
 If initial position is omitted, separator (i.e. comma) is still written, like so
 \alg{He12@H,w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered plies
-and noted captured pieces it would look like so \newline
+and noted captured pieces it would look like so\newline
 \alg{[Hd13-e12]@[He12,w18..q16*P..k14*N..c18]}.
 
 Another peculiarity of dark Shaman is dual trance-journey, which is written with \alg{@@}
@@ -478,9 +478,9 @@ captured pieces in a list is not important. This example of
 \hyperref[fig:scn_cot_092_dark_dark_shaman_double_interaction_start]{dark Shaman's dual trance-journey}
 is written just as \alg{He12@@} or, with captured pieces, as
 \alg{He12@@P,B,R,R,N,B,N}. In \algfmt{XAN}, with gathered plies and capturing locations noted,
-it would be written as \newline
-\alg{[Hd13-e12]@@} \newline
-\alg{Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}. \newline
+it would be written as\newline
+\alg{[Hd13-e12]@@}\newline
+\alg{Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.\newline
 % \alg{[Hd13-e12]@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
 Note, sacrificed entranced dark Shaman is \emph{not} to be written in a list of captured
 pieces.
@@ -509,8 +509,8 @@ initial position of uplifted dark piece and distant starting field of sense-jour
 \alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bc5,z11..n7}.
 If initial position is omitted, separator (i.e. comma) is still written, like so
 \alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"B,z11..n7}. Now, in \algfmt{XAN} with gathered plies
-and noted initial, and starting positions it would look like so \newline
-\alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"} \newline
+and noted initial, and starting positions it would look like so\newline
+\alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"}\newline
 \alg{[Bc5,z11-n7]}.
 % \alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"[Bc5,z11-n7]}.
 
@@ -596,8 +596,8 @@ written as \alg{Ra18|||}, or in \algfmt{XAN} it would be \alg{Ra13-a18|||R}.
 
 In this \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
 \hyperref[fig:scn_n_05_teleport_end]{Wave teleported example}, if activated Pyramid
-would move 2 fields upward, complete move would be written as \newline
-\alg{Eg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be \newline
+would move 2 fields upward, complete move would be written as\newline
+\alg{Eg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be\newline
 \alg{[Ei11-g15]\~{}[Wg15-a18]|[Wr1-l4]\~{}[Al4-l6]}.
 
 If previous example ended with
@@ -608,8 +608,8 @@ it would be written as \alg{Eg15\~{}Wa18|||}, and in \algfmt{XAN} it would be
 This \hyperref[fig:scn_d_18_teleporting_wave_cascade]{cascading teleportation example}
 would be written by sequencing teleportations like so \alg{Eh2\~{}Wb4|Wa24|Wr4\~{}Bt6},
 if activated Bishop would take upper-right diagonal. In \algfmt{XAN}, with plies
-gathering, it would be \newline
-\alg{[Ej6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}} \newline
+gathering, it would be\newline
+\alg{[Ej6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}}\newline
 \alg{[Br4-t6]}.
 
 Starchild and Wave activated by it cannot teleport, which is written with \alg{||}
@@ -637,10 +637,10 @@ only be Pawns.
 
 This \hyperref[fig:scn_tr_27_pawn_sacrifice_init]{Pawn-sacrifice} followed by
 \hyperref[fig:scn_tr_29_pawn_sacrifice_end]{tagged light Serpent's ply} is
-written as \alg{Sb4\~{}Ab2;;} \newline
-\alg{S..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9}. \newline
-In \algfmt{XAN}, with plies gathering, it would be \newline
-\alg{[Sg3-b4]\~{}[Ab4-b2];;} \newline
+written as \alg{Sb4\~{}Ab2;;}\newline
+\alg{S..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9}.\newline
+In \algfmt{XAN}, with plies gathering, it would be\newline
+\alg{[Sg3-b4]\~{}[Ab4-b2];;}\newline
 \alg{[Sb4..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9]}.
 
 If there aren't enough Pawns captured or displaced to isolate only one path an
@@ -677,7 +677,7 @@ example, if destination field is \alg{j4}, then there is only one path leading t
 it's \alg{Se5\~{}We5.f4.g5.h4.i5.j4}, so it can be noted just as \alg{Se5\~{}Wj4}.
 
 If destination field is \alg{i5}, which is on the same rank as Wave's ply starting field,
-then \alg{Se5\~{}Wi5} might be interpreted as either \alg{Se5\~{}We5.f4.g5.h4.i5}, or as \newline
+then \alg{Se5\~{}Wi5} might be interpreted as either \alg{Se5\~{}We5.f4.g5.h4.i5}, or as\newline
 \alg{Se5\~{}We5.f6.g5.h6.i5}, so first step is needed, like so \alg{Se5\~{}W.f4..i5}.
 
 If Wave activated by Serpent is blocked from reaching destination field using only on-board
@@ -712,7 +712,7 @@ Losing ability to castle is denoted with \alg{\&\&} (double ampersand).
 Rooks moved to their destination fields without castling, it would be written as
 \alg{R\&\&e1}, and \alg{R\&\&q1}, and in \algfmt{XAN} it would be \alg{R\&\&a1-e1},
 and \alg{R\&\&y1-q1}. Using just disambiguation, it could be written as e.g.
-\alg{R\&\&a..e1}, and \alg{R\&\&y..q1}. \newline
+\alg{R\&\&a..e1}, and \alg{R\&\&y..q1}.\newline
 \indent
 If, in the first example, there were opponent's Bishop on light Rook's neighboring-field
 capturing it, it would be written as \alg{Ba1*R\&\&}, or as \alg{Bb2-a1*R\&\&} in
@@ -778,7 +778,7 @@ starting position is \alg{c3}, and destination \alg{g3}, depicted complete path 
 \alg{Sc3.d4.c5.d6.e5.f6.g5.f4.g3}. Even with as few steps as possible, to have unique path
 it would still need to be written as \alg{S..d6..f6..g3}.
 
-However, one of the shortest paths (here, e.g. \newline
+However, one of the shortest paths (here, e.g.\newline
 \alg{Sc3.d4.e3.f4.g3}) would result in exactly the same outcome, namely Serpent moved from
 \alg{c3} onto \alg{g3}, with no additional interactions taking place. Even with additional
 side-effects, most of the time it does not matter if a piece made long or short path to e.g.
@@ -799,9 +799,9 @@ path available.
 First example here can then be written as \alg{Sg3}, this would be taken as if
 \alg{Sc3.d4.e3.f4.g3} is written, i.e. light Serpent would be taking the shortest path
 available. Next example would be written as \alg{Sc7\~{}Ad7}, if Pyramid moved 1 field
-to the right; movement is assumed to be \newline
+to the right; movement is assumed to be\newline
 % \alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]\~{}[Ac7-d7]},
-\alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]} \newline
+\alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]}\newline
 \alg{\~{}[Ac7-d7]}, that is, light Serpent would take the longest path available,
 since it's the first piece in a cascade.
 
@@ -810,7 +810,7 @@ since it's the first piece in a cascade.
 \label{sec:Appendix/Notation/Move symbols, annotations}
 
 Placeholder for a move is \alg{...} (three dots), usually used to resume game score
-after commentary, see \newline
+after commentary, see\newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}
 {https://en.wikipedia.org/wiki/\newline
 Algebraic\_notation\_(chess)\#Notation\_for\_a\_series\_of\_moves}.
@@ -877,9 +877,9 @@ and annotations, like so \alg{ef8*\_!}, \alg{Nb3(=)\_=}. Usage of underscore is
 mandatory when annotation can be confused for a regular chess \algfmt{AN}.
 
 For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal
-chances of winning, see \newline
+chances of winning, see\newline
 \href{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)#Annotation\_symbols}
-{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess) \newline
+{https://en.wikipedia.org/wiki/Algebraic\_notation\_(chess)\newline
 \#Annotation\_symbols}. In such a case, regular chess \algfmt{AN} is assumed, i.e. it
 is Pawn tagged for promotion. If annotation is meant instead, it has to be written as
 \alg{e8\_=}.
@@ -958,18 +958,18 @@ more effort reader is presented with much easier to understand notation. Compare
 minimalistic notation with slightly more verbose version:
 
 \noindent
-\alg{Re2\~{}Wc2\~{}b3} vs. \newline
-\alg{Re2\~{}Wc2\~{}b3*} vs. \newline
+\alg{Re2\~{}Wc2\~{}b3} vs.\newline
+\alg{Re2\~{}Wc2\~{}b3*} vs.\newline
 \alg{Re2\~{}Wc2\~{}P::b3*N},
 
 \noindent
-\alg{He12@H..q16..k14..c18} vs. \newline
-\alg{He12@H..q16*..k14*..c18} vs. \newline
+\alg{He12@H..q16..k14..c18} vs.\newline
+\alg{He12@H..q16*..k14*..c18} vs.\newline
 \alg{He12@H,w18..q16*P..k14*N..c18},
 
 \noindent
-\alg{He12@@} vs. \newline
-\alg{He12@@P,B,R,R,N,B,N} vs. \newline
+\alg{He12@@} vs.\newline
+\alg{He12@@P,B,R,R,N,B,N} vs.\newline
 \alg{He12@@Pq16,Bp14,Rd20,Rg6,Nk14,Bj12,Nd10}.
 
 % \clearpage % ..........................................................
@@ -1255,7 +1255,7 @@ For dark player Pawn rows are 2nd to last (and 3rd to last, in later variants).
 \addcontentsline{toc}{subsubsection}{Scouts}
 \label{sec:Appendix/Summary/Initial setups/Scouts}
 
-In addition to two rows of Pawns, most of later variants also feature Scouts. \newline
+In addition to two rows of Pawns, most of later variants also feature Scouts.\newline
 
 \begin{table}[!h]
 \centering
@@ -1333,7 +1333,7 @@ Table above contains initial positions of Scouts for dark player.
 \addcontentsline{toc}{subsubsection}{Grenadiers}
 \label{sec:Appendix/Summary/Initial setups/Grenadiers}
 
-Some of Pawns found in two initial rows are exchanged for Grenadiers, in most of later variants. \newline
+Some of Pawns found in two initial rows are exchanged for Grenadiers, in most of later variants.\newline
 
 \begin{table}[!h]
 \centering
@@ -1466,14 +1466,14 @@ respectively.
 When there are opponent's pieces on its grenadier-fields, Grenadier can make 1
 step up or down. In close quarters, Grenadier can make 1 step more than the count
 of opponent's pieces on its grenadier-fields to the left or to the right. After
-each step, Grenadier can end its ply with forking capture-step. \newline
+each step, Grenadier can end its ply with forking capture-step.\newline
 \indent
 So, in close quarters, Grenadier's movement limits are 2 steps when starting
 a ply with a vertical step, and 10 steps when starting with a horizontal step,
 regardless which variant is being played.
 
 Serpent is introduced in Tamoanchan Revisited variant, so its movement limit is
-not defined for Hemera's Dawn variant. \newline
+not defined for Hemera's Dawn variant.\newline
 \indent
 Monolith can make one step more than the number of Pawns player has.
 Starchild can make only one step in a ply.
@@ -1520,7 +1520,7 @@ figures. For light player table contains limits for privates on the second rank,
 and for dark player on the second to last rank.
 
 In later variants, as more privates are added to initial setup, those on more
-forward positions cannot reach all of destination ranks listed above when rushing. \newline
+forward positions cannot reach all of destination ranks listed above when rushing.\newline
 \indent
 For instance, in Discovery variant light Scouts at initial rank 5 can only rush
 between, and including, ranks 7 to 12.
@@ -1567,7 +1567,7 @@ One                   & & d                     & l                     & & n   
 
 Table above contains minimum and maximum files a castling King can reach, separated
 for Queen-side and King-side castling. Light and dark Kings share the same file at
-the beginning of a game, listed in the middle column. \newline
+the beginning of a game, listed in the middle column.\newline
 \indent
 Rook always ends on a field immediately to the right of a King in Queen-side castling,
 and immediately to the left in King-side castling. This can be seen in
@@ -2016,7 +2016,7 @@ Grenadier                   &                           &                       
 Only after Pawn-sacrifice Serpent can capture at any step; only Pawns can be
 captured, regardless if opponent's or own. Otherwise, Serpent (without Pawn-sacrifice
 tag) can capture any opponent's piece, but only at the very last step in its ply,
-just like all the other \hyperref[sec:Terms/Materiel]{materiel pieces} except Shaman. \newline
+just like all the other \hyperref[sec:Terms/Materiel]{materiel pieces} except Shaman.\newline
 \indent
 Unlike other \hyperref[sec:Terms/Material]{material pieces}, Centaur and Serpent
 cannot diverge.
@@ -2212,11 +2212,11 @@ Items enclosed in \algfmt{\{ \}} brackets are to be repeated at least once. For 
 \begin{alltt}
 <abc> = \alg{d} \{ \alg{e} \} \alg{f}
 \end{alltt}
-gives \alg{def}, \alg{deef}, \alg{deeef}, \alg{deeeef}, ... for \algfmt{<abc>}. \newline
+gives \alg{def}, \alg{deef}, \alg{deeef}, \alg{deeeef}, ... for \algfmt{<abc>}.\newline
 \indent
 Note, this is different than definition in
 \href{https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form#Table_of_symbols}{Extended Backus–Naur form},
-which states that items are optionally repeated, i.e. zero or more times. \newline
+which states that items are optionally repeated, i.e. zero or more times.\newline
 \indent
 To have the same definition here, repeating group can be enclosed into option group,
 like so

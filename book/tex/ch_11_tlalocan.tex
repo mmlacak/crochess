@@ -9,7 +9,7 @@
 
 \begin{flushright}
 \parbox{0.78\textwidth}{
-\emph{The greatest difficulty with the world is not its ability to produce, but the unwillingness to share. \newline
+\emph{The greatest difficulty with the world is not its ability to produce, but the unwillingness to share.\newline
 \hspace*{\fill}{\textperiodcentered \textperiodcentered \textperiodcentered \hspace*{0.2em} Roy L. Smith} } }
 \end{flushright}
 
@@ -217,11 +217,12 @@ Knight's (short) jumps as capture-steps.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Shaman can activate Wave on its step-field.
-
+Shaman can activate Wave on its step-field; Wave activated on step-fields cannot
+activate Pyramids.\newline
+\indent
 As before, when refering to Wave's capture-fields it's actually shorthand for
-capture-fields inherited from its \hyperref[sec:Terms/Activator]{activator}.
-
+capture-fields inherited from its \hyperref[sec:Terms/Activator]{activator}.\newline
+\indent
 End example for this activation is split into two over next two pages, since
 activated Wave can choose to move over both step- and capture-fields.
 
@@ -239,12 +240,12 @@ activated Wave can choose to move over both step- and capture-fields.
 \vspace*{-0.5\baselineskip}
 Activated Wave can choose any Shaman's step-field as its initial direction, and
 continue its movement until end of chessboard is reached. Direction, once chosen,
-cannot be changed later, after Wave started moving. \newline
+cannot be changed later, after Wave started moving.\newline
 \indent
 Here, activated Wave (now "in-the-air") inherited movement steps from activating
 Shaman, this is also pattern how light Shaman would be moving. Since light Wave
-moves over step-fields, it cannot activate Pyramid A, only light Knight with 3
-momentum.
+was activated on a step-field, it cannot activate Pyramid A, only light Knight
+with 3 momentum.
 
 \clearpage % ..........................................................
 
@@ -258,9 +259,20 @@ momentum.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-. . .
+Activated Wave can also choose any Shaman's capture-field as its initial direction;
+which cannot be changed once Wave starts moving. Unlike Shaman, Wave can move over
+any capture-fields, even if empty.\newline
+\indent
+Here, activated Wave (now "in-the-air") inherited capturing steps from activating
+Shaman; this is also pattern how light Shaman could be moving, if there were
+opponent's pieces on capturing-fields, aligned for
+\hyperref[fig:scn_cot_004_light_shaman_capture_ply]{capturing them sequentially}.
 
-\TODO :: REDO
+%  Even though light
+% Wave moves over capture-fields, it was activated on a step-field, and so it cannot
+% activate Pyramid B, only light Bishop with 3 momentum.
+
+% \TODO :: REDO
 
 % ....................................... Activating Wave on step-field
 \clearpage % ..........................................................
@@ -370,7 +382,7 @@ In this variant
 cannot be tagged for promotion.
 Pawn teleported to opponent's \hyperref[sec:Terms/Figure row]{figure row} (here,
 field 1) has to be promoted immediately. Pawn teleported to opponent's Pawn row
-(fields 2, 3) won't be tagged for promotion. \newline
+(fields 2, 3) won't be tagged for promotion.\newline
 \indent
 Pawn teleported onto own side of a board (portal-fields 4, 5, 6) does not gain
 opportunity to rush on initial move; the same as in
@@ -398,7 +410,7 @@ opportunity to rush on initial move; the same as in
 Piece, when encounters own Shaman, can continue its movement, and changes direction
 to any available, as if starting a new ply from a position of encountered Shaman.
 Direction change is divergence, after which piece is limited by momentum it had when
-own Shaman was encountered. \newline
+own Shaman was encountered.\newline
 \indent
 Here, light Queen can diverge only from own, light Shaman; but not from opponent's,
 dark Shaman.
@@ -484,7 +496,7 @@ i.e. difference between received momentum and amount spent moving towards Shaman
 
 \vspace*{-0.5\baselineskip}
 Image above and the next one have four examples presented in parallel; each with
-its own, labeled Pawn. \newline
+its own, labeled Pawn.\newline
 \indent
 Pawn can diverge from own Shaman by making forward-, sideways-, or capture-step,
 or by rushing. After divergence, steps are available as if starting a new ply;
@@ -504,7 +516,7 @@ placed on a Pawn's capture-field behind own, divergent Shaman.
 
 \vspace*{-0.4\baselineskip}
 Image above have all four Pawns "in the air", each can choose its next direction
-independently of arriving path; each from its own, divergent Shaman. \newline
+independently of arriving path; each from its own, divergent Shaman.\newline
 \indent
 Diverged Pawn is limited to only one step, regardless how much momentum it had
 when own Shaman was encountered. Here, activated Pawn E can make only one step
@@ -531,7 +543,7 @@ Pyramid, only Wave.
 Rushing Pawn is limited to only one step after divergence, regardless how much
 momentum it had when encountered divergent Shaman. Diverged Pawn can capture
 opponent's piece, or it can activate own Wave. Diverged Pawn can also activate
-own Pyramid, if it has at least one momentum after divergent step. \newline
+own Pyramid, if it has at least one momentum after divergent step.\newline
 \indent
 Note, Shaman is not transparent to Pawns; so, rushing Pawn has to either diverge,
 or stop before Shaman is reached.
@@ -548,7 +560,7 @@ or stop before Shaman is reached.
 Here, rushing light Pawn after divergence can step for only one field forward or
 sideways. Just like any other, non-rushing Pawn would be able to, it could also
 capture dark Knight, or it could activate either Wave or Pyramid with remaining
-five momentum. \newline
+five momentum.\newline
 \indent
 The same applies to rushing Pawn which has been activated, only difference is
 that Pawn has to receive enough momentum for a step after divergence in addition
@@ -622,7 +634,7 @@ Single-step pieces (e.g. Knight or Unicorn) can be activated with more than 1 mo
 \hyperref[fig:scn_mv_35_single_step_piece_momentum]{they still can make only one step}.
 If diverging, single-step piece can make
 \hyperref[fig:scn_cot_038_diverging_unicorn_init]{only one additional step}; this also
-applies to a diverging single-step piece activated with more than 1 momentum. \newline
+applies to a diverging single-step piece activated with more than 1 momentum.\newline
 \indent
 Here, light Unicorn is about to be activated with 4 momentum, it can then reach light
 Shaman, and diverge from there.
@@ -728,7 +740,7 @@ and has to find alternative route to its destination field.
 \end{wrapfigure}
 Shaman can diverge from own Shaman, regardless if it has been moving over ordinary
 or capture-steps; similar to
-\hyperref[fig:scn_cot_034_diverging_pawn_init]{diverging Pawns}. \newline
+\hyperref[fig:scn_cot_034_diverging_pawn_init]{diverging Pawns}.\newline
 \indent
 Kind of steps before and after divergence do not need to match; Shaman can choose
 any ordinary or capture-step as its new direction of movement, regardless how it
@@ -768,7 +780,7 @@ same Shaman A; Shaman B by making ordinary steps, while Shaman C is making captu
 \vspace*{-0.4\baselineskip}
 Both Shaman B and C can choose one direction of all ordinary steps depicted above
 for its next movement. Light Shaman (now "in the air") is limited by 3 momentum it
-had when diverged. \newline
+had when diverged.\newline
 \indent
 Since Shaman is now moving over step-fields, it cannot neither capture opponent's
 Knight, nor activate own Pyramid. Shaman can activate own Wave; it could also
@@ -793,7 +805,7 @@ teleport, if it have enough momentum to reach the Star.
 Alternatively, both Shaman B and C could choose one direction of all capture-steps
 depicted above as its next movement. Shaman can move over capture-fields only as
 long as it keeps capturing opponent's pieces, and here it's limited by 3 momentum
-it had when diverged. \newline
+it had when diverged.\newline
 \indent
 Light Shaman (now "in the air") can also activate Pyramid in addition to Wave,
 either at the end of a string of captures, or as the only action after divergence.
@@ -814,7 +826,7 @@ either at the end of a string of captures, or as the only action after divergenc
 \label{fig:scn_cot_049_diverging_activated_shaman}
 \end{wrapfigure}
 Activated Shaman diverges the same way as before, except it now uses momentum before
-divergence, not just afterwards. \newline
+divergence, not just afterwards.\newline
 \indent
 \hyperref[fig:scn_cot_032_diverging_activated_piece_init]{As before}, activated
 Shaman must have momentum to be able to diverge.
@@ -853,7 +865,7 @@ so Shaman B is blocked by Shaman A.
 \vspace*{-0.5\baselineskip}
 Shaman is the only piece which can diverge from opponent's Shaman. As before, after
 divergence Shaman can choose any direction as if starting a ply, and is limited by
-momentum it had when diverged. \newline
+momentum it had when diverged.\newline
 \indent
 Here, diverging Shaman can e.g activate light Wave; Pyramids cannot be activated
 on step-fields. Or, Shaman could capture dark Pawns on its capture-fields; only two
@@ -879,10 +891,10 @@ can be captured since others are behind an empty capture-field.
 \vspace*{-0.4\baselineskip}
 After divergence, Wave can choose any direction its
 \hyperref[fig:scn_mv_32_wave_cascading_steps]{activator} can; that is, last material
-(i.e. non-Wave) piece preceding it in a cascade. \newline
+(i.e. non-Wave) piece preceding it in a cascade.\newline
 \indent
 Here, light Wave is activated by Queen with 3 momentum, and is about to diverge from
-Shaman. \newline
+Shaman.\newline
 \indent
 Again, \hyperref[fig:scn_cot_030_own_shaman_is_divergent_init]{divergence} is optional,
 Shaman could be activated, instead.
@@ -997,7 +1009,7 @@ remainder of a ply.
 \vspace*{-0.5\baselineskip}
 There is no limit to the number of divergences a piece can perform, neither in a ply,
 nor in a move. The only limitation is that after first divergence piece is moving
-only on momentum. \newline
+only on momentum.\newline
 \indent
 Here, light Queen can diverge from own, light Shamans A, then B, and then capture
 dark Centaur, since it's within range of accumulated momentum. Dark Serpent couldn't
@@ -1059,7 +1071,7 @@ to its starting field, just like activated piece in an ordinary cascade would be
 \label{fig:scn_cot_059_diverging_first_piece}
 \end{wrapfigure}
 As mentioned above, piece starting a move cannot return to its starting position
-after divergence. \newline
+after divergence.\newline
 \indent
 Here, light Queen is starting a move, and is about to diverge from own, light Shaman.
 
@@ -1092,7 +1104,7 @@ to its starting position, i.e. field Q.
 \label{fig:scn_cot_061_diverging_activated_piece}
 \end{wrapfigure}
 Piece which did not started a move (for instance, one that has been activated
-in a cascade) can return to its starting position after diverging. \newline
+in a cascade) can return to its starting position after diverging.\newline
 \indent
 Here, light Queen is about to be activated, and is going to diverge from own,
 light Shaman.
@@ -1130,7 +1142,7 @@ remaining 1 momentum.
 Opportunity to check (or checkmate) after divergence is still not an attack on
 opponent's King. Again, opponent's King can be checked (or checkmated) only if
 it's located on a capture field of active piece
-\hyperref[fig:scn_mv_49_activating_piece_check_init]{when move is finished}. \newline
+\hyperref[fig:scn_mv_49_activating_piece_check_init]{when move is finished}.\newline
 \indent
 On the left, light Queen can diverge from own, light Shaman (here, green, blue
 arrows). Still, dark King is not in check, even if it would be located on light
@@ -1146,7 +1158,7 @@ Queen's capture-field as she diverges from light Shaman (grey arrows).
 \label{fig:scn_cot_064_diverged_check_end}
 \end{wrapfigure}
 Again, only after all pieces in cascade has settled, and move has finished, can
-a piece check (or checkmate) opponent's King. \newline
+a piece check (or checkmate) opponent's King.\newline
 \indent
 On the left, grey arrows show path traveled over by light Queen, both before
 and after divergence from own, light Shaman. Light player's move has been
@@ -1202,7 +1214,7 @@ vertically, and diagonally. They are the same fields as step-fields of a King.
 \end{wrapfigure}
 In a single ply, Shaman can travel over only one of step-, capture- or trance-fields;
 choice can be made only on the very first step, and cannot be changed for duration of
-the ply. \newline
+the ply.\newline
 \indent
 Here, light Shaman can be moved onto field T, so that its trance-field is occupied by
 dark Shaman. It's illegal to change course during the ply, so light Shaman cannot
@@ -1395,10 +1407,10 @@ fields 4 and 5, in that order. All other (step-)fields are not affected.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Dark Shaman's pattern is the same as light one's, except: \newline
-- complete pattern consists of up (green) and down (blue) hand pattern \newline
-- both patterns use Knight's right steps, instead of left ones \newline
-- every step now starts with diagonal leg and ends with either vertical or horizontal leg \newline
+Dark Shaman's pattern is the same as light one's, except:\newline
+- complete pattern consists of up (green) and down (blue) hand pattern\newline
+- both patterns use Knight's right steps, instead of left ones\newline
+- every step now starts with diagonal leg and ends with either vertical or horizontal leg\newline
 - dark Shaman starts moving from outermost step-field towards starting position.
 
 \clearpage % ..........................................................
@@ -1423,7 +1435,7 @@ dark, so all displacements, captures are optional.
 
 If entrancing Shaman is light, pieces found on affected step-fields can optionally
 be displaced (i.e. moved to an empty displacement-field). If there is no empty
-displacement-field, piece is not moved. \newline
+displacement-field, piece is not moved.\newline
 \indent
 If entrancing Shaman is dark, all pieces, own or opponent's, found on affected
 step-fields can optionally be captured.
@@ -1431,7 +1443,7 @@ step-fields can optionally be captured.
 Pieces on step-fields not reached by entranced Shaman are not affected. In all
 cases, Kings and Stars on a step-fields are ignored, they cannot be displaced
 nor captured. Entranced Shaman can continue its trance-journey past all Kings
-and Stars, regardless of colors of pieces. \newline
+and Stars, regardless of colors of pieces.\newline
 \indent
 In all cases, entranced Shaman cannot activate neither Pyramid nor Wave. Just
 like any other piece when reached upon, they can be displaced or captured.
@@ -1574,7 +1586,7 @@ captured.
 \vspace*{-0.5\baselineskip}
 Shaman entranced by dark Shaman is about to start capturing pieces along down-hand
 pattern inwards, i.e. from field 1 in upper right corner of chessboard towards its
-starting position. \newline
+starting position.\newline
 \indent
 King and Star can't be captured, but pieces past them can (here, light Knight on
 field 9, dark Knight on field 12). Other pieces not on a capture-fields of an
@@ -1652,7 +1664,7 @@ trance-journey patterns have been captured, entranced Shaman is now oblationed.
 \vspace*{-0.5\baselineskip}
 Dark Shaman entranced by light Shaman is about to start displacing pieces along
 down-hand pattern inwards, i.e. from field 1 in upper right corner of chessboard
-towards its starting position. \newline
+towards its starting position.\newline
 \indent
 King and Star can't be displaced, but pieces past them (here, light Knight on field
 9, dark Knight on field 12) can be displaced. Other pieces not on a step-fields of
