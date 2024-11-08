@@ -614,7 +614,7 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
-    # Activated by Pawn
+    # Activated by stepping Pawn
 
     def scn_mv_21_wave_activation_by_step_pawn( self, bt=BoardType.MirandasVeil ):
 
@@ -711,6 +711,9 @@ class SceneMirandasVeilMixin:
         scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
+
+    #
+    # Activated by capturing Pawn
 
     def scn_mv_23_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
 
