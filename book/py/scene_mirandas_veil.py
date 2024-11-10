@@ -812,54 +812,7 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
-    # Activated by opponent's Pawn
-
-    def scn_mv_25_wave_activation_by_opponents_pawn(self, bt=BoardType.MirandasVeil):
-
-        scene = Scene( 'scn_mv_25_wave_activation_by_opponents_pawn', bt )
-
-        start_p = (4, 14)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        start_w = (5, 13)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
-
-        start_W = (5, 10)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_A_A = (2, 7)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
-
-        start_A_B = (5, 6)
-        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
-
-        scene.board.set_piece( 7, 8, piece=-PieceType.Pyramid )
-        scene.board.set_piece( 10, 5, piece=-PieceType.Pawn )
-        scene.board.set_piece( 5, 4, piece=PieceType.Knight )
-        scene.board.set_piece( 5, 1, piece=-PieceType.Wave )
-
-        start_B = (9, 2)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
-
-        # p --> w
-        scene.append_arrow( *( start_p + start_w ), mark_type=MarkType.Action )
-
-        # w --> W
-        coords_w_W = GS.gen_steps( start=start_w, rels=[ (0, -1), ], include_prev=True, count=3 )
-        for i, arrow in enumerate( coords_w_W() ):
-            mark_type = MarkType.Action if i == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-
-        return scene
-
-    #
     # Activated by Unicorn
-
-    # % \TODO :: REDO :: REINDEX
 
     def scn_mv_25_wave_same_color(self, bt=BoardType.MirandasVeil):
 
@@ -3710,5 +3663,50 @@ class SceneMirandasVeilMixin:
         start_w_a = GS.gen_steps( start=prev_w, rels=[ (-1, -1), ], include_prev=True, count=2 )
         for i, arrow in enumerate( start_w_a() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
+    # Activating opponent's Wave
+
+    def scn_mv_78_wave_activation_by_opponents_pawn(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene( 'scn_mv_78_wave_activation_by_opponents_pawn', bt )
+
+        start_p = (4, 14)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w = (5, 13)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (5, 10)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A_A = (2, 7)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (5, 6)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        scene.board.set_piece( 7, 8, piece=-PieceType.Pyramid )
+        scene.board.set_piece( 10, 5, piece=-PieceType.Pawn )
+        scene.board.set_piece( 5, 4, piece=PieceType.Knight )
+        scene.board.set_piece( 5, 1, piece=-PieceType.Wave )
+
+        start_B = (9, 2)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        # p --> w
+        scene.append_arrow( *( start_p + start_w ), mark_type=MarkType.Action )
+
+        # w --> W
+        coords_w_W = GS.gen_steps( start=start_w, rels=[ (0, -1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_w_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
