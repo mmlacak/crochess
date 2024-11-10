@@ -36,11 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_cot_010_activating_wave_on_step_field', \
-                    # 'scn_cot_011_step_activated_wave_step_fields', \
-                    # 'scn_cot_012_step_activated_wave_capture_fields', \
-                    # 'scn_cot_013_activating_wave_on_capture_field', \
-                    # 'scn_cot_014_capture_activated_wave_step_fields', \
-                    # 'scn_cot_015_capture_activated_wave_capture_fields', \
-                    'scn_mv_78_wave_activation_by_opponents_pawn', \
+                    'scn_mv_78_activating_opponents_wave', \
+                    'scn_mv_79_activated_opponents_wave', \
                 ]

@@ -3669,9 +3669,9 @@ class SceneMirandasVeilMixin:
     #
     # Activating opponent's Wave
 
-    def scn_mv_78_wave_activation_by_opponents_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_78_activating_opponents_wave(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene( 'scn_mv_78_wave_activation_by_opponents_pawn', bt )
+        scene = Scene( 'scn_mv_78_activating_opponents_wave', bt )
 
         start_p = (4, 14)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
@@ -3689,7 +3689,7 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         scene.board.set_piece( 7, 8, piece=-PieceType.Pyramid )
-        scene.board.set_piece( 10, 5, piece=-PieceType.Pawn )
+        scene.board.set_piece( 13, 2, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 4, piece=PieceType.Knight )
         scene.board.set_piece( 5, 1, piece=-PieceType.Wave )
 
@@ -3708,5 +3708,76 @@ class SceneMirandasVeilMixin:
 
         scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
         scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        return scene
+
+    def scn_mv_79_activated_opponents_wave(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene( 'scn_mv_79_activated_opponents_wave', bt )
+
+        prev_p = (4, 14)
+        prev_w = (5, 13)
+        prev_W = (5, 10)
+
+        start_p = prev_w
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w = prev_W
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # start_W = (5, 10)
+        # scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A_A = (2, 7)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (5, 6)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        scene.board.set_piece( 7, 8, piece=-PieceType.Pyramid )
+        scene.board.set_piece( 13, 2, piece=-PieceType.Pawn )
+        scene.board.set_piece( 5, 4, piece=PieceType.Knight )
+        scene.board.set_piece( 5, 1, piece=-PieceType.Wave )
+
+        start_B = (9, 2)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        # W -->| (right-down)
+        coords_W_rd_ = GS.gen_steps( start=prev_W, rels=[ (1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
+        for i, arrow in enumerate( coords_W_rd_() ):
+            mark_type = MarkType.Blocked if i in [1, 7] else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W -->| (down)
+        coords_W_d_ = GS.gen_steps( start=prev_W, rels=[ (0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
+        for i, arrow in enumerate( coords_W_d_() ):
+            mark_type = MarkType.Action if i in [3, 5, 8] else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W -->| (left-down)
+        coords_W_ld_ = GS.gen_steps( start=prev_W, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
+        for i, arrow in enumerate( coords_W_ld_() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> * (right-down)
+        start_ = (11, 4)
+
+        # W --> * --> (left-down)
+        coords_W__ld_ = GS.gen_steps( start=start_, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
+        for i, arrow in enumerate( coords_W__ld_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        # W --> * --> (down)
+        coords_W__d_ = GS.gen_steps( start=start_, rels=[ (0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
+        for i, arrow in enumerate( coords_W__d_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "C", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
