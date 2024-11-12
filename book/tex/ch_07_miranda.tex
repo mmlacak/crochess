@@ -89,9 +89,9 @@ Here, Pegasus has opportunity to activate Wave, with 5 momentum.
 
 \vspace*{-0.5\baselineskip}
 Activated Wave inherits way of moving from the activating piece; more specifically,
-Wave inherits all initial step-fields which activating piece starting a ply would
-have. Activated Wave does not spend received momentum for moving, and so Wave can
-be activated even if activating piece has no momentum.
+Wave inherits all initial step- and capture-fields which activating piece would
+have when starting a ply. Activated Wave does not spend received momentum for moving,
+and so Wave can be activated even if activating piece has no momentum.
 
 Here, Wave activated by Pegasus (now "in the air") moves like one, i.e. along one
 chosen semi-diagonal.
@@ -1662,9 +1662,14 @@ All own pieces can be converted, except King.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-...
+Opponent's Wave can be activated indirectly, and it would inherit from its
+\hyperref[sec:Terms/Activator]{activator} all capture and movement steps,
+\hyperref[fig:scn_mv_02_wave_activated]{the same as before}. When
+\hyperref[fig:scn_mv_23_wave_activation_by_capture_pawn]{activating piece is Pawn},
+opponent's Wave would also have movement direction swapped backwards, i.e. towards
+own initial positions.
 
-\TODO :: ADD :: example: light Wave activated by dark Pawn --> inherited steps vs. capture-steps
+Here, dark Pawn is about to activate light Wave, indirectly, on its capture-field.
 
 \clearpage % ..........................................................
 
