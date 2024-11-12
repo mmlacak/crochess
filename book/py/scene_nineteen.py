@@ -813,6 +813,72 @@ class SceneNineteenMixin:
         return scene
 
     #
+    # Activating opponent's Wave
+
+    def scn_n_20_activating_opponents_wave(self, bt=BoardType.Nineteen):
+
+        scene = Scene('scn_n_20_activating_opponents_wave', bt)
+
+        start_p = (7, 16)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w_F = (6, 15)
+        scene.board.set_piece( *start_w_F, piece=-PieceType.Wave )
+
+        start_W_D = (6, 13)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        # right
+        start_A_A = (11, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_W_E = (16, 13)
+        scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
+
+        # diagonal, downward-right
+        start_a_H = (13, 6)
+        scene.board.set_piece( *start_a_H, piece=-PieceType.Pyramid )
+
+        # downward
+        start_N = (6, 7)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_A_B = (6, 10)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        start_w_G = (6, 1)
+        scene.board.set_piece( *start_w_G, piece=-PieceType.Wave )
+
+        # diagonal, downward-left
+        start_A_C = (2, 9)
+        scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
+
+        # unreachable
+        start_B = (10, 15)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        # p --> w(F)
+        scene.append_arrow( *( start_p + start_w_F ), mark_type=MarkType.Action )
+
+        # w(F) --> W(D)
+        coords_wF_WD = GS.gen_steps( start=start_w_F, rels=[(0, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_wF_WD() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "F", *start_w_F, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "G", *start_w_G, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "H", *start_a_H, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
     # Activating Pyramid
 
     def scn_n_20_sideways_pawn_does_not_activate_pyramid(self, bt=BoardType.Nineteen):
