@@ -1783,8 +1783,6 @@ class SceneOneMixin:
         for i in range(44):
             scene.append_field_marker( *coords(), corner=_ur, mark_type=MarkType.Legal, force_unique=True )
 
-        # scene.append_field_marker( 1, 10, corner=None, mark_type=MarkType.Legal, force_unique=True ) # \TODO :: just debug :: DELETE
-
 
         rel = (-2, -1)
         # bounds = ((-42, -42), (99, 99)) # ((0, 0), (25, 25))
