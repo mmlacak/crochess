@@ -854,7 +854,7 @@ class SceneNineteenMixin:
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
         # unreachable
-        start_B = (15, 2)
+        start_B = (13, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # p --> w(F)
@@ -921,7 +921,7 @@ class SceneNineteenMixin:
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
         # unreachable
-        start_B = (15, 2)
+        start_B = (13, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # W(D) -->| (left)
