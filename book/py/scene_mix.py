@@ -36,6 +36,7 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_n_20_activating_opponents_wave', \
-                    'scn_n_21_activated_opponents_wave', \
+                    # 'scn_n_20_activating_opponents_wave', \
+                    # 'scn_n_21_activated_opponents_wave', \
+                    'scn_cot_019_activating_opponents_wave', \
                 ]

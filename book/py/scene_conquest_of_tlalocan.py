@@ -372,16 +372,16 @@ class SceneConquestOfTlalocanMixin:
 
         # short jump obstacles
 
-        start_A_1 = (15, 13)
-        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # long jump obstacles
 
-        start_A_2 = (7, 17)
-        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -394,8 +394,8 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Legal
             scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -409,16 +409,16 @@ class SceneConquestOfTlalocanMixin:
 
         # short jump obstacles
 
-        start_A_1 = (15, 13)
-        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # long jump obstacles
 
-        start_A_2 = (7, 17)
-        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -435,8 +435,8 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_1, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -450,16 +450,16 @@ class SceneConquestOfTlalocanMixin:
 
         # short jump obstacles
 
-        start_A_1 = (15, 13)
-        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # long jump obstacles
 
-        start_A_2 = (7, 17)
-        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -476,8 +476,8 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -496,16 +496,16 @@ class SceneConquestOfTlalocanMixin:
 
         # short jump obstacles
 
-        start_A_1 = (15, 13)
-        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # long jump obstacles
 
-        start_A_2 = (7, 17)
-        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -518,8 +518,8 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Legal
             scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -533,16 +533,16 @@ class SceneConquestOfTlalocanMixin:
 
         # short jump obstacles
 
-        start_A_1 = (15, 13)
-        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # long jump obstacles
 
-        start_A_2 = (7, 17)
-        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -559,8 +559,8 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_1, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -574,16 +574,16 @@ class SceneConquestOfTlalocanMixin:
 
         # short jump obstacles
 
-        start_A_1 = (15, 13)
-        scene.board.set_piece( *start_A_1, piece=PieceType.Pyramid )
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
         start_N = (19, 15)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
         # long jump obstacles
 
-        start_A_2 = (7, 17)
-        scene.board.set_piece( *start_A_2, piece=PieceType.Pyramid )
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -599,17 +599,76 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_1, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_2, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+    #
+    # Activating opponent's Wave
+
+    def scn_cot_019_activating_opponents_wave(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_019_activating_opponents_wave', bt)
+
+        start_h = (5, 6)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_w = (7, 5)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (11, 11)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        # short jump obstacles
+
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_N = (19, 15)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_a_C = (17, 8)
+        scene.board.set_piece( *start_a_C, piece=-PieceType.Pyramid )
+
+        # long jump obstacles
+
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        start_B = (3, 23)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_a_D = (3, 9)
+        scene.board.set_piece( *start_a_D, piece=-PieceType.Pyramid )
+
+        # activating Wave
+
+        # h --> w
+        scene.append_arrow( *( start_h + start_w ), mark_type=MarkType.Action )
+
+        # w --> W
+        coords = GS.gen_steps( start=start_w, rels=[ (2, 3), ], include_prev=True, count=2) # bounds=scene.board_view.get_position_limits() )
+        for i, arr in enumerate( coords() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mark_type )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_a_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_a_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
     #
     # Teleporting Shaman
 
-    def scn_cot_019_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
+    # \TODO :: REDO :: REINDEX
 
-        scene = Scene('scn_cot_019_teleport_shaman_all', bt)
+    def scn_cot_022_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_022_teleport_shaman_all', bt)
 
         start_H_A = (9, 17)
         start_T = (0, 23)
@@ -666,9 +725,9 @@ class SceneConquestOfTlalocanMixin:
     #
     # Teleporting Pawn
 
-    def scn_cot_020_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
+    def scn_cot_023_teleport_pawn_init(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene('scn_cot_020_teleport_pawn_init', bt)
+        scene = Scene('scn_cot_023_teleport_pawn_init', bt)
 
         start_T = (0, 23)
         start_P = (1, 22)
@@ -700,8 +759,6 @@ class SceneConquestOfTlalocanMixin:
 
     #
     # Divergence
-
-    # TODO :: reindex
 
     def scn_cot_030_own_shaman_is_divergent_init(self, bt=BoardType.ConquestOfTlalocan):
 
