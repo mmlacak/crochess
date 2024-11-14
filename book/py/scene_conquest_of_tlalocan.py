@@ -768,7 +768,7 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "C", *start_a_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "D", *start_a_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
