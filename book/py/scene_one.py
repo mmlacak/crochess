@@ -912,11 +912,61 @@ class SceneOneMixin:
         return scene
 
     #
+    # Wave cannot diverge
+
+    def scn_o_35_wave_cannot_diverge(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_35_wave_cannot_diverge', bt, width=9, height=8 ) # , height=5.3 )
+
+        # step-field
+
+        start_I_A = (4, 1)
+        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
+
+        start_W_B = (3, 6)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_H_1 = (1, 3)
+        scene.board.set_piece( *start_H_1, piece=PieceType.Shaman )
+
+        # I(A) --> W(B)
+        scene.append_arrow( *( start_I_A + start_W_B ), mark_type=MarkType.Action )
+
+        # W(B) --> H(1)
+        scene.append_arrow( *( start_W_B + start_H_1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_I_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+
+        # miracle-field
+
+        start_I_C = (7, 6)
+        scene.board.set_piece( *start_I_C, piece=PieceType.Starchild )
+
+        start_W_D = (6, 5)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        start_H_2 = (6, 4)
+        scene.board.set_piece( *start_H_2, piece=PieceType.Shaman )
+
+        # I(C) --> W(D)
+        scene.append_arrow( *( start_I_C + start_W_D ), mark_type=MarkType.Action )
+
+        # W(D) --> H(2)
+        scene.append_arrow( *( start_W_D + start_H_2 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "C", *start_I_C, mark_type=MarkType.Action, corner=Corner.UpperRight )
+        scene.append_text( "D", *start_W_D, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+
+        return scene
+
+
+    #
     # Failed trance-journey
 
-    def scn_o_35_trance_journey_failed(self, bt=BoardType.One):
+    def scn_o_36_trance_journey_failed(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_35_trance_journey_failed', bt)
+        scene = Scene('scn_o_36_trance_journey_failed', bt)
 
         start_H = (24, 1)
         scene.board.set_piece(*start_H, piece=PieceType.Shaman)

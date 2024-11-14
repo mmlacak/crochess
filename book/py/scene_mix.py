@@ -38,5 +38,7 @@ class SceneMix( SceneMixin, \
         return  [
                     # 'scn_cot_019_activating_opponents_wave', \
                     # 'scn_cot_020_activated_opponents_wave_step_fields', \
-                    'scn_cot_021_activated_opponents_wave_capture_fields', \
+                    # 'scn_cot_021_activated_opponents_wave_capture_fields', \
+                    'scn_o_35_wave_cannot_diverge', \
+                    # 'scn_o_36_trance_journey_failed', \
                 ]
