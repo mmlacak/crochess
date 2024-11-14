@@ -611,7 +611,7 @@ class SceneConquestOfTlalocanMixin:
 
         scene = Scene('scn_cot_019_activating_opponents_wave', bt)
 
-        start_h = (5, 6)
+        start_h = (8, 3)
         scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
 
         start_w = (7, 5)
@@ -639,10 +639,8 @@ class SceneConquestOfTlalocanMixin:
         start_B = (3, 23)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_a_D = (3, 9)
+        start_a_D = (5, 7)
         scene.board.set_piece( *start_a_D, piece=-PieceType.Pyramid )
-
-        # activating Wave
 
         # h --> w
         scene.append_arrow( *( start_h + start_w ), mark_type=MarkType.Action )
@@ -658,6 +656,66 @@ class SceneConquestOfTlalocanMixin:
         scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "C", *start_a_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
         scene.append_text( "D", *start_a_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_cot_020_activated_opponents_wave_step_fields(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_020_activated_opponents_wave_step_fields', bt)
+
+        prev_w = (7, 5)
+        prev_W = (11, 11)
+
+        start_h = prev_w
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_w = prev_W
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # short jump obstacles
+
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_N = (19, 15)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_a_C = (17, 8)
+        scene.board.set_piece( *start_a_C, piece=-PieceType.Pyramid )
+
+        # long jump obstacles
+
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        start_B = (3, 23)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_a_D = (5, 7)
+        scene.board.set_piece( *start_a_D, piece=-PieceType.Pyramid )
+
+        # dark Shaman, long jump
+
+        for rel_idx, rel in enumerate( GS.DEFAULT_UNICORN_REL_LONG_MOVES ):
+            coords = GS.gen_steps( [ rel, ], start=prev_W, include_prev=True, bounds=scene.board_view.get_position_limits() )
+            mark_type = MarkType.Legal
+            for i, arr in enumerate( coords() ):
+                if rel_idx == 5:
+                    mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Action if i == 3 else \
+                                MarkType.Legal
+                elif rel_idx == 9:
+                    mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Legal
+                elif rel_idx == 10:
+                    mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Legal
+                scene.append_arrow( *arr, mark_type=mark_type )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_a_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_a_D, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         return scene
 
