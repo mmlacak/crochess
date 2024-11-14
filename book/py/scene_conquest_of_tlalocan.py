@@ -778,8 +778,6 @@ class SceneConquestOfTlalocanMixin:
     #
     # Teleporting Shaman
 
-    # \TODO :: REDO :: REINDEX
-
     def scn_cot_022_teleport_shaman_all(self, bt=BoardType.ConquestOfTlalocan):
 
         scene = Scene('scn_cot_022_teleport_shaman_all', bt)
