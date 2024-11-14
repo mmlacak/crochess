@@ -719,6 +719,62 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    def scn_cot_021_activated_opponents_wave_capture_fields(self, bt=BoardType.ConquestOfTlalocan):
+
+        scene = Scene('scn_cot_021_activated_opponents_wave_capture_fields', bt)
+
+        prev_w = (7, 5)
+        prev_W = (11, 11)
+
+        start_h = prev_w
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_w = prev_W
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # short jump obstacles
+
+        start_A_A = (15, 13)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_N = (19, 15)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_a_C = (17, 8)
+        scene.board.set_piece( *start_a_C, piece=-PieceType.Pyramid )
+
+        # long jump obstacles
+
+        start_A_B = (7, 17)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        start_B = (3, 23)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_a_D = (5, 7)
+        scene.board.set_piece( *start_a_D, piece=-PieceType.Pyramid )
+
+        # dark Shaman, short jump
+
+        for rel_idx, rel in enumerate( GS.DEFAULT_KNIGHT_REL_MOVES ):
+            coords = GS.gen_steps( [ rel, ], start=prev_W, include_prev=True, bounds=scene.board_view.get_position_limits() )
+            mark_type = MarkType.Legal
+            for i, arr in enumerate( coords() ):
+                if rel_idx == 0:
+                    mark_type = MarkType.Action if i in [1, 3] else \
+                                MarkType.Legal
+                if rel_idx == 7:
+                    mark_type = MarkType.Blocked if i == 2 else \
+                                MarkType.Legal
+                scene.append_arrow( *arr, mark_type=mark_type )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_a_C, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "D", *start_a_D, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+
+        return scene
+
     #
     # Teleporting Shaman
 
