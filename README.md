@@ -150,7 +150,7 @@ A collection of songs for your listening pleasure while reading [the book](https
 * Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight")](https://www.youtube.com/watch?v=WQYN2P3E06s)
 * Introduction: [Renaissance - Wanderer](https://www.youtube.com/watch?v=AwJugy5Soto)
 * Prerequisites: [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
-* Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=Y1yvzngMqu4)
+* Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=pZ0894xyaYI)
 * Croatian Ties: [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos)
 * Mayan Ascendancy: [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4)
 * Age of Aquarius: [Handel - La Réjouissance](https://www.youtube.com/watch?v=KMslsg-NWWU)
