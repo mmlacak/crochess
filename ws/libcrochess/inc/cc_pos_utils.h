@@ -12,29 +12,16 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum );
 
-bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating );
-
-bool cc_calc_if_accumulating_momentum( CcPieceType piece,
-                                       CcTagType tag,
-                                       CcMaybeBoolEnum * accumulating__o );
-
-// // TODO :: REDO
-// CcPathLink * cc_build_path_segment__new( CcChessboard * cb,
-//                                          CcPos pos,
-//                                          cc_uint_t momentum,
-//                                          CcMaybeBoolEnum accumulating,
-//                                          CcTypedStepLink * steps );
-
-
-// TODO :: cc_iter_typed_steps() --> iter by piece, tag, step type filter, chessboard, ...
-//         similar to cc_calc_momentum_for_next_step() --> cc_check_momentum_for_next_step()
+// TODO :: accumulating --> usage :: true --> +, false --> -, void --> ~
 //
-// bool cc_iter_piece_steps( CcChessboard * cb,
-//                           CcPieceType piece,
-//                           CcTagType tag,
-//                           cc_uint_t momentum,
-//                           CcStepTypeEnum filter__d,
-//                           CcTypedStep const ** step__iod );
+// bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating );
+//
+// bool cc_calc_if_accumulating_momentum( CcPieceType piece,
+//                                        CcTagType tag,
+//                                        CcMaybeBoolEnum * accumulating__o );
+//
+// TODO :: accumulating --> usage :: true --> +, false --> -, void --> ~
+
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected__d,
