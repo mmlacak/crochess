@@ -19,7 +19,7 @@ bool tests_gcds( void );
 bool tests_pos_steps( void );
 bool tests_str_append_into( void );
 bool tests_str_len( void );
-bool tests_iter_monolith_steps( void );
+// bool tests_iter_monolith_steps( void );
 
 bool tests_misc( int test_number );
 

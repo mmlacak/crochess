@@ -86,16 +86,16 @@ bool test_move( char const * an_str,
         cc_game_free_all( &end__a );
     }
 
-    if ( game__a->moves ) {
-        CcParsedMove * m = game__a->moves;
-        CC_FASTFORWARD( m );
-
-        result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
-        if ( !result ) result_at |= 0x8;
-    } else {
+    // if ( game__a->moves ) {
+    //     CcParsedMove * m = game__a->moves;
+    //     CC_FASTFORWARD( m );
+    //
+    //     result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
+    //     if ( !result ) result_at |= 0x8;
+    // } else {
         result = false;
         result_at |= 0x10;
-    }
+    // }
 
     if ( !game__iodr )
         cc_game_free_all( &game__a );

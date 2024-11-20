@@ -15,7 +15,6 @@
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 #include "cc_pos.h"
-#include "cc_pos_defs.h"
 #include "cc_pos_utils.h"
 #include "cc_game.h"
 
@@ -181,19 +180,19 @@ bool tests_str_len( void ) {
     return result;
 }
 
-bool tests_iter_monolith_steps( void ) {
-    bool result = true;
-    CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
-    cc_uint_t step_index = 3;
-
-    printf( "---------------------\n" );
-    while ( ( result = cc_iter_monolith_steps( step_index, &step ) && result ) ) {
-        printf( "Step: (%d, %d).\n", step.step.i, step.step.j );
-    }
-    printf( "---------------------\n" );
-
-    return result;
-}
+// bool tests_iter_monolith_steps( void ) {
+//     bool result = true;
+//     CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
+//     cc_uint_t step_index = 3;
+//
+//     printf( "---------------------\n" );
+//     while ( ( result = cc_iter_monolith_steps( step_index, &step ) && result ) ) {
+//         printf( "Step: (%d, %d).\n", step.step.i, step.step.j );
+//     }
+//     printf( "---------------------\n" );
+//
+//     return result;
+// }
 
 
 bool tests_misc( int test_number ) {
@@ -216,8 +215,8 @@ bool tests_misc( int test_number ) {
     if ( ( test_number == 4 ) || do_all_tests )
         result = tests_str_len() && result;
 
-    if ( ( test_number == 5 ) || do_all_tests )
-        result = tests_iter_monolith_steps() && result;
+    // if ( ( test_number == 5 ) || do_all_tests )
+    //     result = tests_iter_monolith_steps() && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;

@@ -32,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.0.4:1154+20241120.134143"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.0.5:1155+20241120.152543"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -164,33 +164,34 @@ int main( void ) {
             printf( "List moves command currently is not supported.\n" );
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
-            if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
-                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
-                if ( !an_str ) continue;
-
-                CcParseMsg * pm__a = NULL;
-                CcParsedMove * move__a = NULL;
-
-// TODO :: parse --> do apply
+            printf( "Apply move command currently is not supported.\n" );
+//             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
+//                 char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
+//                 if ( !an_str ) continue;
 //
-                if ( cc_parse_move( an_str, game__a, &move__a, &pm__a ) ) {
-                    printf( "Move: '%s'.\n", move__a->notation );
-
-                    // TODO :: TEMP :: uncomment (?)
-                    // cc_chessboard_print( game__a->chessboard, true );
-                } else {
-                    CcParseMsg * p = pm__a;
-                    while ( p ) {
-                        printf( "%s\n", p->msg );
-                        p = p->next;
-                    }
-                }
+//                 CcParseMsg * pm__a = NULL;
+//                 CcParsedMove * move__a = NULL;
 //
-// TODO :: parse --> do apply
-
-                cc_parsed_move_free_all( &move__a );
-                cc_parse_msg_free_all( &pm__a );
-            }
+// // TODO :: parse --> do apply
+// //
+//                 if ( cc_parse_move( an_str, game__a, &move__a, &pm__a ) ) {
+//                     printf( "Move: '%s'.\n", move__a->notation );
+//
+//                     // TODO :: TEMP :: uncomment (?)
+//                     // cc_chessboard_print( game__a->chessboard, true );
+//                 } else {
+//                     CcParseMsg * p = pm__a;
+//                     while ( p ) {
+//                         printf( "%s\n", p->msg );
+//                         p = p->next;
+//                     }
+//                 }
+// //
+// // TODO :: parse --> do apply
+//
+//                 cc_parsed_move_free_all( &move__a );
+//                 cc_parse_msg_free_all( &pm__a );
+//             }
         } else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "player", NULL, BUFSIZ ) ) {
             CcGameStatusEnum gse = CC_GSE_None;
