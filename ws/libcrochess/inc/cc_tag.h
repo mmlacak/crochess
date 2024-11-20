@@ -84,6 +84,8 @@ typedef enum CcTagEnum {
     /* Piece has started a move, thus cannot return to its starting position.
     This house-keeping flag is obtained after the first ply is finished, and
     follows the piece for the remainder of the move. */
+    // \TODO :: SPLIT flag into --> starting position + starting piece
+    //       :: also add --> checks if both flags meet after move is finished
     CC_TE_MoveStarterFlag = 0x80,
 } CcTagEnum;
 
