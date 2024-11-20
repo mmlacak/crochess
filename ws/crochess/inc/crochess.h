@@ -13,9 +13,6 @@ extern char const CROCHESS_HISTORY_FILE_NAME[];
 #endif // __WITH_LINE_NOISE__
 
 
-bool print_all_moves( CcParsedMove * moves, bool is_score );
-
-
 int main(void);
 
 

@@ -21,10 +21,7 @@
 #include "cc_pos.h"
 #include "cc_game.h"
 
-#include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
-#include "cc_parse_move.h"
-#include "cc_rules.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -35,7 +32,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.0.3:1153+20241120.132425"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.0.4:1154+20241120.134143"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -60,18 +57,6 @@ int get_integer_from_cli_arg( char const * str,
     }
 
     return number;
-}
-
-bool print_all_moves( CcParsedMove * moves, bool is_score ) {
-    if ( !moves ) return false;
-
-    char const * move_str__a = cc_parsed_move_as_string__new( moves, is_score );
-
-    printf( "%s", move_str__a );
-
-    CC_FREE( move_str__a );
-
-    return true;
 }
 
 char const * get_game_status_label( CcGameStatusEnum gse ) {
@@ -176,7 +161,7 @@ int main( void ) {
             cc_chessboard_print( game__a->chessboard, false );
         } else if ( cc_str_is_equal( token_start, token_end, "l", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "list", NULL, BUFSIZ ) ) {
-            print_all_moves( game__a->moves, true );
+            printf( "List moves command currently is not supported.\n" );
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
