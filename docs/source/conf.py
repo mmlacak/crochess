@@ -43,7 +43,7 @@ extensions = [  'sphinx.ext.autodoc',
                 'sphinx.ext.autosectionlabel',
                 'sphinx.ext.autosummary',
                 'sphinx.ext.todo',
-                # 'sphinx_rtd_theme',
+                'sphinx_rtd_theme',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -87,7 +87,7 @@ todo_include_todos = True
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'classic' # 'sphinx_rtd_theme' # 'nature' # 'bizstyle' # 'pyramid' # 'alabaster'
+html_theme = 'sphinx_rtd_theme' # 'classic' # 'nature' # 'bizstyle' # 'pyramid' # 'alabaster'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -97,10 +97,10 @@ html_static_path = ['_static']
 html_favicon = 'crochess.ico'
 
 
-# Thanks to buggy 'classic' theme (code colors are hard-coded, if specified
-# they are not being applied), it's not really possible to turn theme into
-# proper dark mode.
-#
+# # Thanks to buggy 'classic' theme (code colors are hard-coded, if specified
+# # they are not being applied), it's not really possible to turn theme into
+# # proper dark mode.
+# #
 # html_theme_options = {
 #     # -- Options for HTML output, basic layout -----------------------------------
 #     'body_max_width': 'none',
@@ -137,60 +137,61 @@ html_favicon = 'crochess.ico'
 #     'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
 # }
 
-# Light-grey 'classic' theme.
+# # Light-grey 'classic' theme.
+# #
+# html_theme_options = {
+#     # -- Options for HTML output, basic layout -----------------------------------
+#     'body_max_width': 'none',
+#     'navigation_with_keys': True,
+#     'externalrefs': True,
 #
-html_theme_options = {
-    # -- Options for HTML output, basic layout -----------------------------------
-    'body_max_width': 'none',
-    'navigation_with_keys': True,
-    'externalrefs': True,
-
-    # -- Options for HTML output, classic theme ----------------------------------
-    'footerbgcolor' : "Gray", # (CSS color): Background color for the footer line.
-    'footertextcolor' : "NavajoWhite", # (CSS color): Text color for the footer line.
-
-    'sidebarbgcolor' : "DarkGray", # (CSS color): Background color for the sidebar.
-    'sidebarbtncolor' : "SaddleBrown", # (CSS color): Background color for the sidebar collapse button (used when collapsiblesidebar is True).
-    'sidebartextcolor' : "Black", # (CSS color): Text color for the sidebar.
-    'sidebarlinkcolor' : "SaddleBrown", # (CSS color): Link color for the sidebar.
-
-    'relbarbgcolor' : "DimGray", # (CSS color): Background color for the relation bar.
-    'relbartextcolor' : "Black", # (CSS color): Text color for the relation bar.
-    'relbarlinkcolor' : "NavajoWhite", # (CSS color): Link color for the relation bar.
-
-    'bgcolor' : "Silver", # (CSS color): Body background color.
-    'textcolor' : "Black", # (CSS color): Body text color.
-    'linkcolor' : "SaddleBrown", # (CSS color): Body link color.
-    'visitedlinkcolor' : "IndianRed", # (CSS color): Body color for visited links.
-
-    'headbgcolor' : "LightGray", # (CSS color): Background color for headings.
-    'headtextcolor' : "Black", # (CSS color): Text color for headings.
-    'headlinkcolor' : "IndianRed", # (CSS color): Link color for headings.
-
-    # This doesn't work.
-    'codebgcolor' : "LightGray", # (CSS color): Background color for code blocks.
-    'codetextcolor' : "Black", # (CSS color): Default text color for code blocks, if not set differently by the highlighting style.
-
-    'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for normal text.
-    'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
-}
+#     # -- Options for HTML output, classic theme ----------------------------------
+#     'footerbgcolor' : "Gray", # (CSS color): Background color for the footer line.
+#     'footertextcolor' : "NavajoWhite", # (CSS color): Text color for the footer line.
+#
+#     'sidebarbgcolor' : "DarkGray", # (CSS color): Background color for the sidebar.
+#     'sidebarbtncolor' : "SaddleBrown", # (CSS color): Background color for the sidebar collapse button (used when collapsiblesidebar is True).
+#     'sidebartextcolor' : "Black", # (CSS color): Text color for the sidebar.
+#     'sidebarlinkcolor' : "SaddleBrown", # (CSS color): Link color for the sidebar.
+#
+#     'relbarbgcolor' : "DimGray", # (CSS color): Background color for the relation bar.
+#     'relbartextcolor' : "Black", # (CSS color): Text color for the relation bar.
+#     'relbarlinkcolor' : "NavajoWhite", # (CSS color): Link color for the relation bar.
+#
+#     'bgcolor' : "Silver", # (CSS color): Body background color.
+#     'textcolor' : "Black", # (CSS color): Body text color.
+#     'linkcolor' : "SaddleBrown", # (CSS color): Body link color.
+#     'visitedlinkcolor' : "IndianRed", # (CSS color): Body color for visited links.
+#
+#     'headbgcolor' : "LightGray", # (CSS color): Background color for headings.
+#     'headtextcolor' : "Black", # (CSS color): Text color for headings.
+#     'headlinkcolor' : "IndianRed", # (CSS color): Link color for headings.
+#
+#     # This doesn't work.
+#     'codebgcolor' : "LightGray", # (CSS color): Background color for code blocks.
+#     'codetextcolor' : "Black", # (CSS color): Default text color for code blocks, if not set differently by the highlighting style.
+#
+#     'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for normal text.
+#     'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
+# }
 
 # Read-the-docs theme.
 #
-# html_theme_options = {
-#     # 'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
-#     # 'analytics_anonymize_ip': False,
-#     'logo_only': False,
-#     'display_version': True,
-#     'prev_next_buttons_location': 'bottom',
-#     'style_external_links': True,
-#     'vcs_pageview_mode': '',
-#     'style_nav_header_background': 'LightGray',
-#     # 'flyout_display': 'hidden', # WARNING: unsupported theme option 'flyout_display' given
-#     # Toc options
-#     'collapse_navigation': True,
-#     'sticky_navigation': True,
-#     'navigation_depth': 9,
-#     'includehidden': True,
-#     'titles_only': False
-# }
+html_theme_options = {
+    # 'analytics_id': 'G-XXXXXXXXXX',  #  Provided by Google in your dashboard
+    # 'analytics_anonymize_ip': True,
+    'logo_only': False,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': True,
+    'vcs_pageview_mode': '',
+    'style_nav_header_background': 'LightGray',
+    'flyout_display': 'hidden',
+    'version_selector': True,
+    'language_selector': True,
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+    'navigation_depth': 9,
+    'includehidden': True,
+    'titles_only': False,
+}
