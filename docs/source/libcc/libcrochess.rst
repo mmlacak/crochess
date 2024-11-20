@@ -62,28 +62,15 @@ Library contents
     ccchessboard
     ccsetupboard
     ccsetuptags
-    ccsetupmisc
 
     ccpos
-    ccposdefs
     ccposutils
-    ccchecks
-
-    ccpath
-
-    ccparsedmove
-    ccparsedply
-    ccparsedstep
-    ccparsedsideeffect
 
     ccparsemsg
-    ccparseutils
-    ccparsemove
 
     ccgame
 
     ccstrutils
-    ccstrings
     cctoken
     ccversion
 

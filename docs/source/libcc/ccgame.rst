@@ -113,10 +113,6 @@ Types
 
         Current position on a chessboard.
 
-    .. c:member:: CcParsedMove * moves
-
-        Queue of moves played so far.
-
     :c:`struct` is tagged with the same :c:struct:`CcGame` name.
 
 .. _lbl-libcc-ccgame-functions:
@@ -128,9 +124,6 @@ Functions
 
     Function returns next game status, based on current player
     resignation.
-
-    Linked list of performed moves will be empty. If necessary,
-    it can be populated once newly allocated game is returned.
 
     :param status: Initial game status.
     :param ve: Variant to play.
