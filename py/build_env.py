@@ -45,7 +45,6 @@ DEFAULT_COMPILER = COMPILER_GCC
 
 EXECUTABLE_FILE_NAME = 'crochess'
 LIBRARY_FILE_NAME = 'libcrochess.so'
-LIBRARY_LINENOISE_FILE_NAME = 'liblinenoise.so'
 TESTS_FILE_NAME = 'tests'
 OBJECT_FILE_EXTENSIONS = ['.o', '.obj', ]
 BUILD_BIN_FOLDER = 'bin'
@@ -57,7 +56,6 @@ OPTIONS_GCC_EXTRA_WARNINGS = [ '-Wextra', ] # '-fdiagnostics-show-option'
 OPTIONS_GCC_SILENCE = [ '-Wno-return-type', '-Wno-comment', ]
 OPTIONS_GCC_DEBUG_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 OPTIONS_GCC_RELEASE_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
-OPTIONS_GCC_WITH_LINENOISE_CONSTS = [ '-D__WITH_LINE_NOISE__', ]
 
 OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ]
 OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', ]
@@ -65,7 +63,6 @@ OPTIONS_CLANG_EXTRA_WARNINGS = [ '-Wextra', ] # '-fdiagnostics-show-option'
 OPTIONS_CLANG_SILENCE = [ '-Wno-format-security', '-Wno-gnu-zero-variadic-macro-arguments', ]
 OPTIONS_CLANG_DEBUG_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
 OPTIONS_CLANG_RELEASE_CONSTS = [ '-D__CC_STR_PRINT_INFO__', ]
-OPTIONS_CLANG_WITH_LINENOISE_CONSTS = [ '-D__WITH_LINE_NOISE__', ]
 
 
 OPTIONS_GCC_LIBRARY = [ '--shared', '-fPIC', '-I../inc', ]
@@ -74,8 +71,6 @@ OPTIONS_GCC_LIBRARY_LINENOISE = [ '--shared', '-fPIC', '-I./', ]
 OPTIONS_GCC_LIBRARY_LINENOISE_DEPENDENCIES = [ ]
 OPTIONS_GCC_EXECUTABLE = [ '-I../../libcrochess/inc', '-I../inc', ]
 OPTIONS_GCC_EXECUTABLE_DEPENDENCIES = [ '-L../../bin', '-lcrochess', ]
-OPTIONS_GCC_EXECUTABLE_WITH_LINENOISE = [ '-I../../libcrochess/inc', '-I../../linenoise', '-I../inc', ]
-OPTIONS_GCC_EXECUTABLE_DEPENDENCIES_WITH_LINENOISE = [ '-L../../bin', '-lcrochess', '-llinenoise' ]
 
 OPTIONS_CLANG_LIBRARY = ['--shared', '-fPIC', '-I../inc', ]
 OPTIONS_CLANG_LIBRARY_DEPENDENCIES = [ '-lm', ]
@@ -83,8 +78,6 @@ OPTIONS_CLANG_LIBRARY_LINENOISE = ['--shared', '-fPIC', '-I./', ]
 OPTIONS_CLANG_LIBRARY_LINENOISE_DEPENDENCIES = [ ]
 OPTIONS_CLANG_EXECUTABLE = ['-I../../libcrochess/inc', '-I../inc', ]
 OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES = ['-L../../bin', '-lcrochess', ]
-OPTIONS_CLANG_EXECUTABLE_WITH_LINENOISE = [ '-I../../libcrochess/inc', '-I../../linenoise', '-I../inc', ]
-OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES_WITH_LINENOISE = [ '-L../../bin', '-lcrochess', '-llinenoise' ]
 
 
 DOCS_FOLDER = 'docs'
@@ -103,17 +96,12 @@ SOURCE_LIB_FOLDER = 'libcrochess'
 SOURCE_LIB_SRC_FOLDER = 'src'
 SOURCE_LIB_HEADER_FOLDER = 'inc'
 
-SOURCE_LIB_LN_FOLDER = 'linenoise'
-SOURCE_LIB_LN_SRC_FOLDER = '.'
-SOURCE_LIB_LN_HEADER_FOLDER = '.'
-SOURCE_LIB_LN_SRC_FILE_NAMES = [ 'linenoise', ]
-
 SOURCE_TESTS_FOLDER = 'tests'
 SOURCE_TESTS_SRC_FOLDER = 'src'
 SOURCE_TESTS_HEADER_FOLDER = 'inc'
 
 
-def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, with_line_noise=False):
+def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False):
     options = None
 
     if compiler == COMPILER_GCC:
@@ -127,9 +115,6 @@ def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_d
 
         if is_consts:
             options += OPTIONS_GCC_RELEASE_CONSTS if is_release_or_debug else OPTIONS_GCC_DEBUG_CONSTS
-
-        if with_line_noise:
-            options += OPTIONS_GCC_WITH_LINENOISE_CONSTS
     elif compiler == COMPILER_CLANG:
         options = OPTIONS_CLANG_RELEASE[ : ] if is_release_or_debug else OPTIONS_CLANG_DEBUG[ : ]
 
@@ -141,18 +126,15 @@ def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_d
 
         if is_consts:
             options += OPTIONS_CLANG_RELEASE_CONSTS if is_release_or_debug else OPTIONS_CLANG_DEBUG_CONSTS
-
-        if with_line_noise:
-            options += OPTIONS_CLANG_WITH_LINENOISE_CONSTS
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler)
 
     return options
 
-def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS, with_line_noise=False):
+def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS):
     if compiler == COMPILER_GCC:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
-            return OPTIONS_GCC_EXECUTABLE_WITH_LINENOISE if with_line_noise else OPTIONS_GCC_EXECUTABLE
+            return OPTIONS_GCC_EXECUTABLE
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_GCC_LIBRARY
         elif target == Target.LIB_LINENOISE:
@@ -161,7 +143,7 @@ def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROC
             raise RuntimeError("Unknown target '%s'." % str(target))
     elif compiler == COMPILER_CLANG:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
-            return OPTIONS_CLANG_EXECUTABLE_WITH_LINENOISE if with_line_noise else OPTIONS_CLANG_EXECUTABLE
+            return OPTIONS_CLANG_EXECUTABLE
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_CLANG_LIBRARY
         elif target == Target.LIB_LINENOISE:
@@ -171,10 +153,10 @@ def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROC
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler)
 
-def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS, with_line_noise=False):
+def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS):
     if compiler == COMPILER_GCC:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
-            return OPTIONS_GCC_EXECUTABLE_DEPENDENCIES_WITH_LINENOISE if with_line_noise else OPTIONS_GCC_EXECUTABLE_DEPENDENCIES
+            return OPTIONS_GCC_EXECUTABLE_DEPENDENCIES
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_GCC_LIBRARY_DEPENDENCIES
         elif target == Target.LIB_LINENOISE:
@@ -183,7 +165,7 @@ def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB
             raise RuntimeError("Unknown target '%s'." % str(target))
     elif compiler == COMPILER_CLANG:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
-            return OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES_WITH_LINENOISE if with_line_noise else OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES
+            return OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_CLANG_LIBRARY_DEPENDENCIES
         elif target == Target.LIB_LINENOISE:
@@ -274,12 +256,12 @@ def get_source_path_list(cwd_cmd, src_dir, target=Target.LIB_CROCHESS):
     return new_lst
 
 
-def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, with_line_noise=False, adx_options_list=None):
+def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts, with_line_noise=with_line_noise)
+    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
 
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.EXE_CROCHESS, with_line_noise=with_line_noise)
+    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.EXE_CROCHESS)
 
     if adx_options_list is not None:
         cmd_lst += adx_options_list
@@ -288,7 +270,7 @@ def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
     src_dir = P.get_rel_path_or_abs(get_app_src_dir(root_path), cwd_app) # get_app_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_app, src_dir, target=Target.EXE_CROCHESS)
 
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.EXE_CROCHESS, with_line_noise=with_line_noise)
+    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.EXE_CROCHESS)
 
     cmd_lst += get_output_compiler_options(root_path, EXECUTABLE_FILE_NAME, cwd_app, compiler=compiler)
 
@@ -297,9 +279,9 @@ def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
 def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts, with_line_noise=False)
+    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
 
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.LIB_CROCHESS, with_line_noise=False)
+    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.LIB_CROCHESS)
 
     if adx_options_list is not None:
         cmd_lst += adx_options_list
@@ -308,38 +290,18 @@ def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
     src_dir = P.get_rel_path_or_abs(get_lib_src_dir(root_path), cwd_lib) # get_lib_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_lib, src_dir, target=Target.LIB_CROCHESS)
 
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.LIB_CROCHESS, with_line_noise=False)
+    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.LIB_CROCHESS)
 
     cmd_lst += get_output_compiler_options(root_path, LIBRARY_FILE_NAME, cwd_lib, compiler=compiler)
 
     return cwd_lib, cmd_lst
 
-def get_compile_lib_ln_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, adx_options_list=None):
+def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=False, with_line_noise=False)
+    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
 
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.LIB_LINENOISE, with_line_noise=True)
-
-    if adx_options_list is not None:
-        cmd_lst += adx_options_list
-
-    cwd_lib = get_lib_ln_src_dir(root_path)
-    src_dir = P.get_rel_path_or_abs(get_lib_ln_src_dir(root_path), cwd_lib) # get_lib_src_dir(root_path)
-    cmd_lst += get_source_path_list(cwd_lib, src_dir, target=Target.LIB_LINENOISE)
-
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.LIB_LINENOISE, with_line_noise=True)
-
-    cmd_lst += get_output_compiler_options(root_path, LIBRARY_LINENOISE_FILE_NAME, cwd_lib, compiler=compiler)
-
-    return cwd_lib, cmd_lst
-
-def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, with_line_noise=False, adx_options_list=None):
-    cmd_lst = [compiler, ]
-
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts, with_line_noise=with_line_noise)
-
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.EXE_TESTS, with_line_noise=with_line_noise)
+    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.EXE_TESTS)
 
     if adx_options_list is not None:
         cmd_lst += adx_options_list
@@ -348,7 +310,7 @@ def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_de
     src_dir = P.get_rel_path_or_abs(get_tests_src_dir(root_path), cwd_tests) # get_app_src_dir(root_path)
     cmd_lst += get_source_path_list(cwd_tests, src_dir, target=Target.EXE_TESTS)
 
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.EXE_TESTS, with_line_noise=with_line_noise)
+    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.EXE_TESTS)
 
     cmd_lst += get_output_compiler_options(root_path, TESTS_FILE_NAME, cwd_tests, compiler=compiler)
 
