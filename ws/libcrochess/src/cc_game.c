@@ -53,7 +53,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
         return NULL;
     }
 
-    gm__a->moves = NULL;
+    // gm__a->moves = NULL;
 
     return gm__a;
 }
@@ -74,13 +74,13 @@ CcGame * cc_game_duplicate_all__new( CcGame * game ) {
 
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
-    CcParsedMove * mv__t = cc_parsed_move_duplicate_all__new( game->moves );
-    if ( game->moves && ( !mv__t ) ) {
-        cc_game_free_all( &gm__a );
-        return NULL;
-    }
-
-    gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
+    // CcParsedMove * mv__t = cc_parsed_move_duplicate_all__new( game->moves );
+    // if ( game->moves && ( !mv__t ) ) {
+    //     cc_game_free_all( &gm__a );
+    //     return NULL;
+    // }
+    //
+    // gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
 
     return gm__a;
 }
@@ -94,8 +94,8 @@ bool cc_game_free_all( CcGame ** game__f ) {
     CcChessboard ** cb__a = &( ( *game__f )->chessboard );
     result = cc_chessboard_free_all( cb__a ) && result;
 
-    CcParsedMove ** mv__a = &( ( *game__f )->moves );
-    result = cc_parsed_move_free_all( mv__a ) && result;
+    // CcParsedMove ** mv__a = &( ( *game__f )->moves );
+    // result = cc_parsed_move_free_all( mv__a ) && result;
 
     CC_FREE_AND_NULL( game__f );
 

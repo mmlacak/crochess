@@ -6,8 +6,8 @@
 
 #include <stdbool.h>
 
-#include "cc_parsed_move.h"
 #include "cc_chessboard.h"
+// #include "cc_parsed_move.h"
 
 
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
@@ -38,7 +38,7 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse );
 typedef struct CcGame {
     CcGameStatusEnum status;
     CcChessboard * chessboard;
-    CcParsedMove * moves;
+    // CcParsedMove * moves;
 } CcGame;
 
 CcGame * cc_game__new( CcGameStatusEnum status,
