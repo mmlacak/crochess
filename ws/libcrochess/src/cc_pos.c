@@ -13,31 +13,6 @@
 //
 // Position.
 
-CcPos cc_pos( int i, int j ) {
-    CcPos pos = { .i = i, .j = j };
-    return pos;
-}
-
-bool cc_pos_is_valid( CcPos pos ) {
-    return CC_POS_IS_VALID( pos );
-}
-
-bool cc_pos_is_static_step( CcPos pos ) {
-    return CC_POS_IS_STATIC_STEP( pos );
-}
-
-bool cc_pos_is_disambiguation( CcPos pos ) {
-    return CC_POS_IS_DISAMBIGUATION(pos);
-}
-
-bool cc_pos_is_partial( CcPos pos ) {
-    return CC_POS_IS_PARTIAL( pos );
-}
-
-bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 ) {
-    return CC_POS_IS_EQUAL( pos_1, pos_2 );
-}
-
 bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 ) {
     bool is_file = ( CC_IS_COORD_VALID( pos_1.i ) &&
                      CC_IS_COORD_VALID( pos_2.i ) );
@@ -148,19 +123,6 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o ) {
 
 //
 // Position descriptor.
-
-CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag, cc_uint_t momentum ) {
-    CcPosDesc pd = { .pos = pos, .piece = piece, .tag = tag, .momentum = momentum };
-    return pd;
-}
-
-bool cc_pos_desc_is_valid( CcPosDesc pd ) {
-    return CC_POS_DESC_IS_VALID( pd );
-}
-
-bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 ) {
-    return CC_POS_DESC_IS_EQUAL( pd_1, pd_2 );
-}
 
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
     if ( !cc_pos_is_congruent( pd_1.pos, pd_2.pos ) ) return false;

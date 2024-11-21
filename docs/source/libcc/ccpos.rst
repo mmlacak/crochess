@@ -128,66 +128,6 @@ Data
 Functions
 ---------
 
-.. c:function:: CcPos cc_pos( int i, int j )
-
-    Function returns a position.
-
-    :param i: File, horizontal coordinate.
-    :param j: Rank, vertical coordinate.
-    :returns: Positions with a given coordinates.
-
-.. c:function:: bool cc_pos_is_valid( CcPos pos )
-
-    Function checks if position is valid.
-
-    :param pos: A position.
-    :returns: :c:data:`true` if position is valid, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_is_static_step( CcPos pos )
-
-    Function checks if position is static step.
-
-    :param pos: A position.
-    :returns: :c:data:`true` if position is static step, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_is_disambiguation( CcPos pos )
-
-    Function checks if position is disambiguation.
-
-    .. TODO
-
-    .. todo::
-
-        move to design.rst
-
-        Disambiguation is any position with at least one valid coordinate.
-
-    :param pos: A position.
-    :returns: :c:data:`true` if position is disambiguation, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_is_partial( CcPos pos )
-
-    Function checks if position is partial.
-
-    .. TODO
-
-    .. todo::
-
-        move to design.rst
-
-        Partial position is any which have exactly one valid coordinate.
-
-    :param pos: A position.
-    :returns: :c:data:`true` if position is partial, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 )
-
-    Function checks if two positions are equal.
-
-    :param pos_1: A position.
-    :param pos_2: Another position.
-    :returns: :c:data:`true` if positions are equal, :c:data:`false` otherwise.
-
 .. c:function:: bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 )
 
     Function checks if two positions are congruent.
@@ -353,31 +293,6 @@ Position descriptor
     :param pd_2: Another position descriptor; :c:struct:`CcPosDesc` value.
     :returns: Casted position descriptor value.
     :seealso: :c:data:`true` if equal, :c:data:`false` otherwise.
-
-.. c:function:: CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag, cc_uint_t momentum )
-
-    Function returns position descriptor value.
-
-    :param pos: A position.
-    :param piece: A piece.
-    :param tag: A tag.
-    :param momentum: A momentum.
-    :returns: Position descriptor value.
-
-.. c:function:: bool cc_pos_desc_is_valid( CcPosDesc pd )
-
-    Function checks if position descriptor is valid.
-
-    :param pd: A position descriptor.
-    :returns: :c:data:`true` if valid, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 )
-
-    Function checks if two given position descriptors are equal.
-
-    :param pd_1: A position descriptor.
-    :param pd_2: Another position descriptor.
-    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
 
