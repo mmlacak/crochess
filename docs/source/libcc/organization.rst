@@ -166,9 +166,8 @@ operates.
 
 For instance, some :c:struct:`CcPos` methods are:
 
-- :c:`bool cc_pos_is_valid( CcPos pos );`
-- :c:`bool cc_pos_is_static_step( CcPos pos );`
-- :c:`bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );`
+- :c:`bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );`
+- :c:`CcPos cc_pos_add( CcPos pos, CcPos step, int count );`
 - etc.
 
 The same applies to macros defined for an entity, only their name is in upper-case.

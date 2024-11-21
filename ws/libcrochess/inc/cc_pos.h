@@ -48,18 +48,6 @@ typedef struct CcPos {
 #define CC_POS_IS_EQUAL(pos_1,pos_2) ( ( (pos_1).i == (pos_2).i ) && ( (pos_1).j == (pos_2).j ) )
 
 
-CcPos cc_pos( int i, int j );
-
-bool cc_pos_is_valid( CcPos pos );
-
-bool cc_pos_is_static_step( CcPos pos );
-
-bool cc_pos_is_disambiguation( CcPos pos );
-
-bool cc_pos_is_partial( CcPos pos );
-
-bool cc_pos_is_equal( CcPos pos_1, CcPos pos_2 );
-
 bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
 CcPos cc_pos_add( CcPos pos, CcPos step, int count );
@@ -167,11 +155,6 @@ typedef struct CcPosDesc {
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) && ( (pd_1).momentum == (pd_2).momentum ) )
 
-CcPosDesc cc_pos_desc( CcPos pos, CcPieceType piece, CcTagType tag, cc_uint_t momentum );
-
-bool cc_pos_desc_is_valid( CcPosDesc pd );
-
-bool cc_pos_desc_is_equal( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
 

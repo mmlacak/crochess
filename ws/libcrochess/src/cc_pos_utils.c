@@ -177,8 +177,8 @@ bool cc_iter_piece_pos( CcChessboard * cb,
     else
         pos = CC_POS_CAST( pos.i + 1, 0 );
 
-    bool is_comparable = cc_pos_is_valid( expected__d ) ||
-                         cc_pos_is_disambiguation( expected__d );
+    bool is_comparable = CC_POS_IS_VALID( expected__d ) ||
+                         CC_POS_IS_DISAMBIGUATION( expected__d );
 
     for ( int i = pos.i; i < (int)size; ++i ) {
         for ( int j = pos.j; j < (int)size; ++j ) {
