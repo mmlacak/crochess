@@ -30,7 +30,7 @@ Validity
 .. c:macro:: CC_TAG_IS_ENUMERATOR(te)
 
     Macro to check if given :term:`tag` is enumeration in :c:enum:`CcTagEnum`,
-    i.e. between :c:enumerator:`CC_TE_None` and :c:enumerator:`CC_TE_PawnSacrifice`
+    i.e. between :c:enumerator:`CC_TE_None` and :c:enumerator:`CC_TE_DelayedPromotion`
     values.
 
     :param te: A tag, integer value.

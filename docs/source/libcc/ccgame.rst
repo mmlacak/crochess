@@ -131,6 +131,26 @@ Types
 
         Current position on a chessboard.
 
+    .. c:member:: CcPosDesc en_passant
+
+        A private at its destination after rushing.
+        Resets after the very next move.
+
+    .. c:member:: CcPosDesc pawn_sacrifice
+
+        A Serpent at its current position, after Pawn-sacrifice, before capturing
+        opponent's Pawns. Resets immediately at the end of a current move.
+
+    .. c:member:: CcPosDesc starting_piece
+
+        A piece starting a cascade, at its current position. Resets immediately
+        at the end of a current move.
+
+    .. c:member:: CcPos starting_pos
+
+        A starting position of a piece starting a cascade. Resets immediately
+        at the end of a current move.
+
     .. c:member:: CcParsedMove * moves
 
         Queue of moves played so far.

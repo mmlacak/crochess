@@ -8,6 +8,8 @@
 
 #include "cc_parsed_move.h"
 #include "cc_chessboard.h"
+#include "cc_pos.h"
+#include "cc_parsed_move.h"
 
 
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
@@ -42,6 +44,12 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse );
 typedef struct CcGame {
     CcGameStatusEnum status;
     CcChessboard * chessboard;
+
+    CcPosDesc en_passant;
+    CcPosDesc pawn_sacrifice;
+    CcPosDesc starting_piece; // Current position of a piece starting current move.
+    CcPos starting_pos; // Starting position in the current move.
+
     CcParsedMove * moves;
 } CcGame;
 
