@@ -13,8 +13,7 @@
 extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
 
 
-typedef struct CcChessboard
-{
+typedef struct CcChessboard {
     CcVariantEnum type;
 
     CcPieceType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];

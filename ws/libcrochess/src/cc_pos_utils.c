@@ -4,8 +4,8 @@
 #include "cc_pos_utils.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum ) {
-    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = momentum };
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
+    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
 
     if ( cb ) {
         pd.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );

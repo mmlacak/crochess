@@ -17,7 +17,7 @@ position utilities.
 Functions
 ---------
 
-.. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum )
+.. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos )
 
     Function converts position to position descriptor (i.e. the one
     containing piece, and tag at that location on a chessboard).
@@ -27,60 +27,40 @@ Functions
 
     :param cb: A chessboard.
     :param pos: A position.
-    :param momentum: Momentum.
     :returns: Position descriptor.
 
-.. c:function:: bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating )
+.. .. c:function:: bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating )
+..
+..     Function calculates next momentum value, given and then returned via
+..     *input/output* argument.
+..
+..     Function checks if momentum calculation will over- or under-flow before
+..     actual calculation takes place.
+..
+..     :param momentum__io: *Input/output*; momentum.
+..     :param accumulating: Flag, whether momentum is being:
+..
+..     * accumulated, if :c:data:`CC_MBE_True`
+..     * unchanged, if :c:data:`CC_MBE_False`
+..     * used, if :c:data:`CC_MBE_Void`
+..
+..     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+..     :seealso: :c:func:`cc_check_momentum_for_next_step()`
 
-    Function calculates next momentum value, given and then returned via
-    *input/output* argument.
-
-    Function checks if momentum calculation will over- or under-flow before
-    actual calculation takes place.
-
-    :param momentum__io: *Input/output*; momentum.
-    :param accumulating: Flag, whether momentum is being:
-
-    * accumulated, if :c:data:`CC_MBE_True`
-    * unchanged, if :c:data:`CC_MBE_False`
-    * used, if :c:data:`CC_MBE_Void`
-
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-    :seealso: :c:func:`cc_check_momentum_for_next_step()`
-
-.. c:function:: bool cc_calc_if_accumulating_momentum( CcPieceType piece, CcTagType tag, CcMaybeBoolEnum * accumulating__o )
-
-    Function calculates if piece with a tag is accumulating, or spending
-    momentum for movement.
-
-    :param piece: A piece.
-    :param tag: A tag piece has.
-    :param accumulating__o: *Output*; flag, whether momentum is being:
-
-    * accumulated, if :c:data:`CC_MBE_True`
-    * unchanged, if :c:data:`CC_MBE_False`
-    * used, if :c:data:`CC_MBE_Void`
-
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-
-.. c:function:: CcPathLink * cc_build_path_segment__new( CcChessboard * cb, CcPos pos, cc_uint_t momentum, CcMaybeBoolEnum accumulating, CcTypedStepLink * steps )
-
-    Function returns a newly allocated path segment (linked list of path link,
-    connected only via :c:member:`next`), which was produced by applying steps
-    from starting position and momentum.
-
-    :param cb: A chessboard.
-    :param pos: Starting position.
-    :param momentum: Starting momentum.
-    :param accumulating: Flag, whether momentum is being:
-
-    * accumulated, if :c:data:`CC_MBE_True`
-    * unchanged, if :c:data:`CC_MBE_False`
-    * used, if :c:data:`CC_MBE_Void`
-
-    :param steps: Steps to perform.
-    :returns: Valid pointer to newly allocated path segment if successful,
-        :c:data:`NULL` otherwise.
+.. .. c:function:: bool cc_calc_if_accumulating_momentum( CcPieceType piece, CcTagType tag, CcMaybeBoolEnum * accumulating__o )
+..
+..     Function calculates if piece with a tag is accumulating, or spending
+..     momentum for movement.
+..
+..     :param piece: A piece.
+..     :param tag: A tag piece has.
+..     :param accumulating__o: *Output*; flag, whether momentum is being:
+..
+..     * accumulated, if :c:data:`CC_MBE_True`
+..     * unchanged, if :c:data:`CC_MBE_False`
+..     * used, if :c:data:`CC_MBE_Void`
+..
+..     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_iter_piece_pos( CcChessboard * cb, CcPos expected__d, CcPieceType piece, bool include_opponent, CcPos * pos__io )
 
