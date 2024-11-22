@@ -53,6 +53,10 @@ CcGame * cc_game__new( CcGameStatusEnum status,
         return NULL;
     }
 
+    gm__a->en_passant = CC_POS_DESC_CAST_INVALID;
+    gm__a->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
+    gm__a->starting_piece = CC_POS_DESC_CAST_INVALID;
+    gm__a->starting_pos = CC_POS_CAST_INVALID;
     // gm__a->moves = NULL;
 
     return gm__a;
@@ -73,6 +77,11 @@ CcGame * cc_game_duplicate_all__new( CcGame * game ) {
     }
 
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
+
+    gm__a->en_passant = game->en_passant;
+    gm__a->pawn_sacrifice = game->pawn_sacrifice;
+    gm__a->starting_piece = game->starting_piece;
+    gm__a->starting_pos = game->starting_pos;
 
     // CcParsedMove * mv__t = cc_parsed_move_duplicate_all__new( game->moves );
     // if ( game->moves && ( !mv__t ) ) {
