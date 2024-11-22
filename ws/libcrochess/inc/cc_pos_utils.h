@@ -10,7 +10,7 @@
 #include "cc_pos.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos, cc_uint_t momentum );
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos );
 
 // TODO :: accumulating --> usage :: true --> +, false --> -, void --> ~
 //

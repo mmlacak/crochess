@@ -61,33 +61,32 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 //
 // Position descriptor.
 
-#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0 }
+#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None }
 
-#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0 }
+#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None }
 
 typedef struct CcPosDesc {
     CcPos pos; /* A position. */
     CcPieceType piece; /* Piece found at position. */
     CcTagType tag; /* Tag found at position. */
-    cc_uint_t momentum; /* Momentum a moving piece (different from static piece found at this position!) had when this position was reached. */
 } CcPosDesc;
 
 #define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
 
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
-#define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum), .momentum = (cc_uint_t)(uint_momentum) }
+#define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum) \
+    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum) }
 
-#define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,uint_momentum) \
-    ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (uint_momentum) ) )
+#define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum) \
+    ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum) ) )
 
 #define CC_POS_DESC_IS_VALID(pd) \
     ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
     // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(), having no piece, tag is still valid position descriptor!
 
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
-    ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) && ( (pd_1).momentum == (pd_2).momentum ) )
+    ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) )
 
 
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
