@@ -9,47 +9,47 @@
 #include "cc_setup_board.h"
 
 
-static const int t = CC_PE_DimStar;
+static const CcPieceType t = CC_PE_DimStar;
 
-static const int i = CC_PE_DarkStarchild;
-static const int h = CC_PE_DarkShaman;
-static const int s = CC_PE_DarkSerpent;
-static const int g = CC_PE_DarkGrenadier;
-static const int o = CC_PE_DarkScout;
-static const int c = CC_PE_DarkCentaur;
-static const int w = CC_PE_DarkWave;
-static const int u = CC_PE_DarkUnicorn;
-static const int a = CC_PE_DarkPyramid;
-static const int e = CC_PE_DarkPegasus;
-static const int k = CC_PE_DarkKing;
-static const int q = CC_PE_DarkQueen;
-static const int r = CC_PE_DarkRook;
-static const int b = CC_PE_DarkBishop;
-static const int n = CC_PE_DarkKnight;
-static const int p = CC_PE_DarkPawn;
+static const CcPieceType i = CC_PE_DarkStarchild;
+static const CcPieceType h = CC_PE_DarkShaman;
+static const CcPieceType s = CC_PE_DarkSerpent;
+static const CcPieceType g = CC_PE_DarkGrenadier;
+static const CcPieceType o = CC_PE_DarkScout;
+static const CcPieceType c = CC_PE_DarkCentaur;
+static const CcPieceType w = CC_PE_DarkWave;
+static const CcPieceType u = CC_PE_DarkUnicorn;
+static const CcPieceType a = CC_PE_DarkPyramid;
+static const CcPieceType e = CC_PE_DarkPegasus;
+static const CcPieceType k = CC_PE_DarkKing;
+static const CcPieceType q = CC_PE_DarkQueen;
+static const CcPieceType r = CC_PE_DarkRook;
+static const CcPieceType b = CC_PE_DarkBishop;
+static const CcPieceType n = CC_PE_DarkKnight;
+static const CcPieceType p = CC_PE_DarkPawn;
 
-static const int x = CC_PE_None;
+static const CcPieceType x = CC_PE_None;
 
-static const int P = CC_PE_LightPawn;
-static const int N = CC_PE_LightKnight;
-static const int B = CC_PE_LightBishop;
-static const int R = CC_PE_LightRook;
-static const int Q = CC_PE_LightQueen;
-static const int K = CC_PE_LightKing;
-static const int E = CC_PE_LightPegasus;
-static const int A = CC_PE_LightPyramid;
-static const int U = CC_PE_LightUnicorn;
-static const int W = CC_PE_LightWave;
-static const int C = CC_PE_LightCentaur;
-static const int O = CC_PE_LightScout;
-static const int G = CC_PE_LightGrenadier;
-static const int S = CC_PE_LightSerpent;
-static const int H = CC_PE_LightShaman;
-static const int I = CC_PE_LightStarchild;
+static const CcPieceType P = CC_PE_LightPawn;
+static const CcPieceType N = CC_PE_LightKnight;
+static const CcPieceType B = CC_PE_LightBishop;
+static const CcPieceType R = CC_PE_LightRook;
+static const CcPieceType Q = CC_PE_LightQueen;
+static const CcPieceType K = CC_PE_LightKing;
+static const CcPieceType E = CC_PE_LightPegasus;
+static const CcPieceType A = CC_PE_LightPyramid;
+static const CcPieceType U = CC_PE_LightUnicorn;
+static const CcPieceType W = CC_PE_LightWave;
+static const CcPieceType C = CC_PE_LightCentaur;
+static const CcPieceType O = CC_PE_LightScout;
+static const CcPieceType G = CC_PE_LightGrenadier;
+static const CcPieceType S = CC_PE_LightSerpent;
+static const CcPieceType H = CC_PE_LightShaman;
+static const CcPieceType I = CC_PE_LightStarchild;
 
-static const int T = CC_PE_BrightStar;
+static const CcPieceType T = CC_PE_BrightStar;
 
-static const int M = CC_PE_Monolith;
+static const CcPieceType M = CC_PE_Monolith;
 
 
 CcPieceType const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] = {
