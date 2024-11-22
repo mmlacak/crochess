@@ -13,6 +13,10 @@
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
 
 
+#define CC_GAME_STATUS_IS_ENUMERATION(gse) ( ( CC_GSE_None <= (gse) ) && ( (gse) <= CC_GSE_Draw ) )
+
+#define CC_GAME_STATUS_IS_VALID(gse) ( ( CC_GSE_None < (gse) ) && ( (gse) <= CC_GSE_Draw ) )
+
 #define CC_GAME_STATUS_IS_LIGHT_TURN(gse) ( (gse) == CC_GSE_Turn_Light )
 
 #define CC_GAME_STATUS_IS_DARK_TURN(gse) ( (gse) == CC_GSE_Turn_Dark )

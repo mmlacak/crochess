@@ -26,6 +26,24 @@ Data
 Status
 ------
 
+.. c:macro:: CC_GAME_STATUS_IS_ENUMERATION(gse)
+
+    Macro to check if given :term:`tag` is enumeration in :c:enum:`CcGameStatusEnum`,
+    i.e. between :c:enumerator:`CC_GSE_None` and :c:enumerator:`CC_GSE_Draw` values.
+
+    :param gse: A game status, integer value.
+    :returns: :c:data:`true` if :c:enum:`CcGameStatusEnum` enumeration,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_GAME_STATUS_IS_VALID(gse)
+
+    Macro to check if given :term:`tag` is :c:enum:`CcGameStatusEnum` enumerator,
+    and not :c:enumerator:`CC_GSE_None`.
+
+    :param gse: A game status, integer value.
+    :returns: :c:data:`true` if valid :c:enum:`CcGameStatusEnum` enumeration,
+              :c:data:`false` otherwise.
+
 .. c:macro:: CC_GAME_STATUS_IS_LIGHT_TURN(gse)
 
     Macro to check if it's light player's turn.
