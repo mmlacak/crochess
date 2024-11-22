@@ -426,8 +426,6 @@ char * cc_chessboard_as_string__new( CcChessboard * cb,
     return show__a;
 }
 
-// TODO :: move out
-//
 bool cc_chessboard_print( CcChessboard * cb,
                           bool is_board_or_tag ) {
     if ( !cb ) return false;
@@ -440,8 +438,6 @@ bool cc_chessboard_print( CcChessboard * cb,
 
     return true;
 }
-//
-// TODO :: move out
 
 CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb,
                                                      char const * setup ) {

@@ -136,9 +136,9 @@ typedef enum CcMaybeBoolEnum {
 #define CC_REWIND_BY(ptr_var_seq,ptr_item) { while ( (ptr_item) ) (ptr_var_seq) = (ptr_item); }
 
 // <!> Does not work for array parameters --> converted into pointers!
-// e.g. void print_array_param( int ar[] ) --> ar array is now pointer.
-// sizeof(ar) --> 8 bytes (pointer)
-// sizeof(ar) / sizeof(ar[0]) --> 1 == 8 bytes / 8 bytes (both are pointers)
+//     e.g. void print_array_param( int ar[] ) --> ar array is now pointer.
+//     sizeof(ar) --> 8 bytes (pointer)
+//     sizeof(ar) / sizeof(ar[0]) --> 1 == 8 bytes / 8 bytes (both are pointers)
 //
 // https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 #define CC_ARRAY_SIZE(array) ( (size_t)( sizeof(array) / sizeof( (array)[ 0 ] ) ) )
