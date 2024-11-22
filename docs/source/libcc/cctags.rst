@@ -33,22 +33,18 @@ Validity
     i.e. between :c:enumerator:`CC_TE_None` and :c:enumerator:`CC_TE_PawnSacrifice`
     values.
 
-    Move-starter flag is not tested, its 1-bit storage exactly covers both
-    states it can be in.
-
-    :param te: :c:type:`CcTagType` value.
-    :returns: :c:`bool` value.
+    :param te: A tag, integer value.
+    :returns: :c:data:`true` if :c:type:`CcTagType` enumerator,
+              :c:data:`false` otherwise.
 
 .. c:macro:: CC_TAG_IS_VALID(te)
 
-    Macro to check if given :term:`tag` is enumerator, and not
-    :c:enumerator:`CC_TE_None`.
+    Macro to check if given :term:`tag` is valid :c:enum:`CcTagEnum` enumerator,
+    and not :c:enumerator:`CC_TE_None`.
 
-    Move-starter flag is not tested, its 1-bit storage exactly covers both
-    states it can be in.
-
-    :param te: :c:type:`CcTagType` value.
-    :returns: :c:`bool` value.
+    :param te: A tag, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcTagType` enumerator,
+              :c:data:`false` otherwise.
 
 .. _lbl-libcc-cctags-values:
 

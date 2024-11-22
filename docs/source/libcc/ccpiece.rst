@@ -34,20 +34,22 @@ Validity
 
 .. c:macro:: CC_PIECE_IS_ENUMERATOR(pe)
 
-    Macro to check if given piece is an enumerator, i.e. between
+    Macro to check if given piece is :c:type:`CcPieceType` enumerator, i.e. between
     :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
-    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+    :param pe: A piece, integer value.
+    :returns: :c:data:`true` if :c:type:`CcPieceType` enumerator,
+              :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_VALID(pe)
 
-    Macro to check if given piece is a valid enumerator, i.e. between
-    :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values,
-    but not :c:enumerator:`CC_PE_None`.
+    Macro to check if given piece is a valid :c:type:`CcPieceType` enumerator,
+    i.e. between :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith`
+    values, but not :c:enumerator:`CC_PE_None`.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
-    :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
+    :param pe: A piece, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcPieceType` enumerator,
+              :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_EQUAL(pe1,pe2)
 
