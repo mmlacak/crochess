@@ -7,6 +7,9 @@
 
 #include "cc_parse_defs.h"
 
+//
+// ply link enum
+
 char const * cc_ply_link_symbol( CcPlyLinkEnum ple ) {
     switch ( ple ) {
         case CC_PLE_None : return NULL;
@@ -26,6 +29,8 @@ char const * cc_ply_link_symbol( CcPlyLinkEnum ple ) {
     }
 }
 
+//
+// step link enum
 
 char const * cc_step_link_symbol( CcStepLinkEnum sle ) {
     switch ( sle ) {
@@ -41,6 +46,8 @@ char const * cc_step_link_symbol( CcStepLinkEnum sle ) {
     }
 }
 
+//
+// side-effect enum
 
 char const * cc_side_effect_symbol( CcSideEffectEnum see ) {
     switch ( see ) {

@@ -26,26 +26,25 @@ typedef enum CcPlyLinkEnum {
     CC_PLE_FailedSenseJourney,
 } CcPlyLinkEnum;
 
-#define CC_PLY_LINK_IS_ENUMERATOR(ple) ( ( CC_PLE_None <= (ple) ) && ( (ple) <= CC_PLE_FailedSenseJourney ) )
+#define CC_PLY_LINK_ENUM_IS_ENUMERATOR(ple) ( ( CC_PLE_None <= (ple) ) && ( (ple) <= CC_PLE_FailedSenseJourney ) )
 
-#define CC_PLY_LINK_IS_VALID(ple) ( ( CC_PLE_None < (ple) ) && ( (ple) <= CC_PLE_FailedSenseJourney ) )
+#define CC_PLY_LINK_ENUM_IS_VALID(ple) ( ( CC_PLE_None < (ple) ) && ( (ple) <= CC_PLE_FailedSenseJourney ) )
 
 
-#define CC_PLY_LINK_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )               \
-                                             || ( (ple) == CC_PLE_TeleportationReemergence )    \
-                                             || ( (ple) == CC_PLE_TeleportationOblation )
+#define CC_PLY_LINK_ENUM_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLE_Teleportation )               \
+                                                  || ( (ple) == CC_PLE_TeleportationReemergence )    \
+                                                  || ( (ple) == CC_PLE_TeleportationOblation )
 
-#define CC_PLY_LINK_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )          \
-                                              || ( (ple) == CC_PLE_DualTranceJourney )      \
-                                              || ( (ple) == CC_PLE_FailedTranceJourney ) )
+#define CC_PLY_LINK_ENUM_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLE_TranceJourney )          \
+                                                   || ( (ple) == CC_PLE_DualTranceJourney )      \
+                                                   || ( (ple) == CC_PLE_FailedTranceJourney ) )
 
-#define CC_PLY_LINK_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PLE_SenseJourney )        \
+#define CC_PLY_LINK_ENUM_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PLE_SenseJourney )        \
                                              || ( (ple) == CC_PLE_FailedSenseJourney )
-
-char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 
 #define CC_MAX_LEN_PLY_LINK_SYMBOL (3)
 
+char const * cc_ply_link_symbol( CcPlyLinkEnum ple );
 
 //
 // step link enum
@@ -60,16 +59,15 @@ typedef enum CcStepLinkEnum {
     CC_SLE_JustDestination, /* Just destination field, no separators, no other steps. */
 } CcStepLinkEnum;
 
-#define CC_STEP_LINK_IS_ENUMERATOR(sle) ( ( CC_SLE_None <= (sle) ) && ( (sle) <= CC_SLE_JustDestination ) )
+#define CC_STEP_LINK_ENUM_IS_ENUMERATOR(sle) ( ( CC_SLE_None <= (sle) ) && ( (sle) <= CC_SLE_JustDestination ) )
 
-#define CC_STEP_LINK_IS_VALID(sle) ( ( CC_SLE_None < (sle) ) && ( (sle) <= CC_SLE_JustDestination ) )
+#define CC_STEP_LINK_ENUM_IS_VALID(sle) ( ( CC_SLE_None < (sle) ) && ( (sle) <= CC_SLE_JustDestination ) )
 
-#define CC_STEP_LINK_IS_DESTINATION(sle) ( ( (sle) == CC_SLE_Destination ) || ( (sle) == CC_SLE_JustDestination ) )
-
-char const * cc_step_link_symbol( CcStepLinkEnum sle );
+#define CC_STEP_LINK_ENUM_IS_DESTINATION(sle) ( ( (sle) == CC_SLE_Destination ) || ( (sle) == CC_SLE_JustDestination ) )
 
 #define CC_MAX_LEN_STEP_LINK_SYMBOL (2)
 
+char const * cc_step_link_symbol( CcStepLinkEnum sle );
 
 //
 // side-effect enum
