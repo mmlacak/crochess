@@ -32,10 +32,10 @@ To avoid name collisions with other code, libraries, every :term:`entity` is pre
      - :c:`cc_ply.h`, :c:func:`cc_ply_append_new()`
    * - ``CC_``
      - :c:`#define`\s, :c:`const`\ants, :c:`enum` items
-     - :c:`CC_OFF_BOARD_COORD`, :c:enumerator:`CC_PPLE_FailedTeleportationOblation`
+     - :c:`CC_OFF_BOARD_COORD`, :c:enumerator:`CC_PLE_FailedTeleportationOblation`
    * - ``Cc``
      - :c:`enum`\s, :c:`struct`\s, :c:`union`\s
-     - :c:enum:`CcParsedPlyLinkEnum`, :c:struct:`CcParsedPly`
+     - :c:enum:`CcPlyLinkEnum`, :c:struct:`CcParsedPly`
 
 No particular
 `naming convention <https://en.wikipedia.org/wiki/Naming_convention_(programming)#Examples_of_multiple-word_identifier_formats>`_
@@ -49,12 +49,12 @@ e.g. :c:`cc_ply.h`, :c:func:`cc_ply_append_new()`.
 
 :c:`enum`\s, :c:`struct`\s and :c:`union`\s names are capitalized words. :c:`enum`
 names end in ``Enum``, while there is no comparable name end for :c:`struct`\s,
-:c:`union`\s. Examples, :c:enum:`CcParsedPlyLinkEnum`, :c:struct:`CcParsedPly`.
+:c:`union`\s. Examples, :c:enum:`CcPlyLinkEnum`, :c:struct:`CcParsedPly`.
 
 :c:`enum` items have constant-like library prefix (i.e. ``CC_``), combined with
 abbreviated :c:`enum` name (e.g. ``PPLE_``) and capitalized words for item name.
-For instance, :c:enumerator:`CC_PPLE_FailedTeleportationOblation` would be one of items in
-:c:enum:`CcParsedPlyLinkEnum`.
+For instance, :c:enumerator:`CC_PLE_FailedTeleportationOblation` would be one of items in
+:c:enum:`CcPlyLinkEnum`.
 
 .. _lbl-libcc-organization-naming-linkedlists:
 

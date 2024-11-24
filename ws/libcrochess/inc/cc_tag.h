@@ -7,15 +7,6 @@
 #include <stdbool.h>
 
 
-// TODO :: warning: comparison of unsigned expression in ‘>= 0’ is always true [-Wtype-limits] (in CC_TE_None <= ...)
-#define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
-
-#define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
-
-#define CC_TAG_IS_PERSISTENT(te) ( ( (te) == CC_TE_CanRush )               \
-                                || ( (te) == CC_TE_CanCastle )             \
-                                || ( (te) == CC_TE_DelayedPromotion ) )
-
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'
 
@@ -32,6 +23,15 @@ typedef enum CcTagEnum {
 } CcTagEnum;
 
 typedef unsigned char CcTagType;
+
+// TODO :: warning: comparison of unsigned expression in ‘>= 0’ is always true [-Wtype-limits] (in CC_TE_None <= ...)
+#define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
+
+#define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
+
+#define CC_TAG_IS_PERSISTENT(te) ( ( (te) == CC_TE_CanRush )               \
+                                || ( (te) == CC_TE_CanCastle )             \
+                                || ( (te) == CC_TE_DelayedPromotion ) )
 
 char cc_tag_as_char( CcTagType ct );
 

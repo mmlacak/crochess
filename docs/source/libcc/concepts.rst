@@ -24,11 +24,11 @@ valid, even if a coordinate may be way off-board.
 
 For :c:`enum`\s, first :c:`macro` checks if a given value is enumerated within
 the :c:`enum`; this macro is named ``"is enumerator?"``, e.g.
-:c:enumerator:`CC_PARSED_STEP_LINK_IS_ENUMERATOR`.
+:c:enumerator:`CC_STEP_LINK_IS_ENUMERATOR`.
 
 Second :c:`macro` also checks if given value is different from pre-designed
 :c:`None` (or :c:`Void`, or :c:`Empty`) enumeration value; this macro is named
-``"is valid?"``, e.g. :c:enumerator:`CC_PARSED_STEP_LINK_IS_VALID`.
+``"is valid?"``, e.g. :c:enumerator:`CC_STEP_LINK_IS_VALID`.
 
 .. _lbl-libcc-concepts-positionssteps:
 
