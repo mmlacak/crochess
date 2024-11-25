@@ -1,4 +1,4 @@
-// Copyright (c) 2024 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #ifndef __CC_PARSE_DEFS_H__
