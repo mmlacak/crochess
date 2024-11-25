@@ -30,11 +30,18 @@ bool cc_do_ply( char const * ply_start_an,
     //
     // Ply link.
 
-    CcPlyLinkEnum ple = CC_PLE_None;
-    if ( !CC_MAYBE_IS_TRUE( cc_parse_ply_link( ply_start_an, &ple ) ) )
+    // TODO :: DELETE :: after cc_parse_ply_link() is fixed
+    //
+    // CcPlyLinkEnum ple = CC_PLE_None;
+    // if ( !CC_MAYBE_IS_TRUE( cc_parse_ply_link( ply_start_an, &ple ) ) )
+    //     return _cc_fail_with_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
+    //
+    // TODO :: DELETE :: after cc_parse_ply_link() is fixed
+    CcPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
+    if ( ple == CC_PLE_None )
         return _cc_fail_with_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
 
-    // if ( is_first_ply && ( ple == CC_PLE_None ) ) ple = CC_PLE_StartingPly; // TODO :: CHECK :: after cc_parse_ply_link() is fixed
+    // if ( is_first_ply && ( ple == CC_PLE_None ) ) ple = CC_PLE_StartingPly; // TODO :: DELETE :: after cc_parse_ply_link() is fixed
 
     char const * c_str = ply_start_an + cc_ply_link_len( ple );
 

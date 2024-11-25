@@ -30,10 +30,12 @@
 
 
 // TODO :: DOCS
-CcMaybeBoolEnum cc_parse_ply_link( char const * ply_an_str,
-                                   CcPlyLinkEnum * ple__o );
+CcPlyLinkEnum cc_parse_ply_link( char const * ply_an_str );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
+
+// TODO :: DOCS
+bool cc_is_ply_link_char( char const * ply_an_str );
 
 char const * cc_next_ply_link( char const * pl_an_str );
 

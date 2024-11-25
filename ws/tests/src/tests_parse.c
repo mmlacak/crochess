@@ -18,6 +18,7 @@
 #include "cc_game.h"
 
 #include "cc_parse_msg.h"
+#include "cc_parse_utils.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -175,18 +176,66 @@ bool tests_skip_disambiguation( int test_number ) {
         return false;
     }
 
-    // char const * an = ans[ index ];
-    //
-    // if ( do_all_tests ) {
-    //     while ( an ) {
-    //         char const * no_dis = cc_skip_disambiguation( an );
-    //         printf( "%s.\n", no_dis );
-    //         an = ans[ ++index ];
-    //     };
-    // } else {
-    //     char const * no_dis = cc_skip_disambiguation( an );
-    //     printf( "%s.\n", no_dis );
-    // }
+    char const * an = ans[ index ];
+
+    if ( do_all_tests ) {
+        while ( an ) {
+            char const * no_dis = cc_skip_disambiguation( an ); // TODO :: TEST :: FIX
+            printf( "%s.\n", no_dis );
+            an = ans[ ++index ];
+        };
+    } else {
+        char const * no_dis = cc_skip_disambiguation( an ); // TODO :: TEST :: FIX
+        printf( "%s.\n", no_dis );
+    }
+
+    return true;
+}
+
+bool tests_next_ply_link( int test_number ) {
+    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+
+    char const * ans[] = { "b0",
+                           "Rb0",
+                           "Rb0~Wa1",
+                           "Rb0~Wa1~Ra7",
+                           "Rb0~Wa1~Ra7|Rz24",
+                           "Hb0~Ha1\"Bx7",
+                           "Hb0~Ha1@Bx7",
+                           "Hb0~Ha1@@Bx7,Pa23,Rp17,Cd3",
+                           "",
+                           NULL };
+
+    size_t const ans_size = CC_ARRAY_SIZE( ans ); // Currently: 8.
+    size_t index = do_all_tests ? 0 : test_number;
+
+    if ( /* ( index < 0 ) || */ ( ans_size <= index ) ) {
+        printf( "Test index %zu out of bounds [0, %zu].\n", index, ans_size-1 );
+        return false;
+    }
+
+    char const * an = ans[ index ];
+
+    if ( do_all_tests ) {
+        while ( an ) {
+            printf( "-----------------------------------------------------------------------\n" );
+            char const * n = an;
+            while ( n ) {
+                printf( "%s.\n", n );
+                n = cc_next_ply_link( n );
+            }
+            printf( ".......................................................................\n" );
+
+            an = ans[ ++index ];
+        };
+    } else {
+        printf( "-----------------------------------------------------------------------\n" );
+        while ( an ) {
+            printf( "%s.\n", an );
+            char const * an = cc_next_ply_link( an );
+        }
+        printf( ".......................................................................\n" );
+    }
 
     return true;
 }
