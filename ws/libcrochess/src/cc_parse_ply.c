@@ -75,8 +75,8 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Ply link.
 
-    CcParsedPlyLinkEnum ple = CC_PPLE_None;
-    if ( !cc_parse_ply_link( ply_start_an, &ple ) ) {
+    CcParsedPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
+    if ( ple == CC_PPLE_None ) {
         _cc_add_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
         return false;
     }

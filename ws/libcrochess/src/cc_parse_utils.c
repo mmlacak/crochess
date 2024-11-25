@@ -8,73 +8,47 @@
 #include "cc_parse_utils.h"
 
 
-bool cc_parse_ply_link( char const * ply_an_str,
-                        CcParsedPlyLinkEnum * ple__o ) {
-    if ( !ply_an_str ) return false;
-    if ( !ple__o ) return false;
+CcParsedPlyLinkEnum cc_parse_ply_link( char const * ply_an_str ) {
+    if ( !ply_an_str ) return CC_PPLE_None;
+    if ( *ply_an_str == '\0' ) return CC_PPLE_None; // Not really needed.
 
     char const * c = ply_an_str;
 
-    if ( *c == '~' ) {
-        *ple__o = CC_PPLE_CascadingPly; // "~" plies
-        return true;
-    }
+    if ( *c == '~' ) return CC_PPLE_CascadingPly; // "~" plies
 
     if ( *c == '|' ) {
         if ( *++c == '|' ) {
-            if ( *++c == '|' ) {
-                *ple__o = CC_PPLE_TeleportationOblation; // "|||" failed teleportation, oblation
-                return true;
-            }
+            if ( *++c == '|' ) return CC_PPLE_TeleportationOblation; // "|||" failed teleportation, oblation
 
-            *ple__o = CC_PPLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
-            return true;
+            return CC_PPLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
         }
 
-        *ple__o = CC_PPLE_Teleportation; // "|" teleportation
-        return true;
+        return CC_PPLE_Teleportation; // "|" teleportation
     }
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
-            if ( *++c == '@' ) {
-                *ple__o = CC_PPLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
-                return true;
-            }
+            if ( *++c == '@' ) return CC_PPLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
 
-            *ple__o = CC_PPLE_DualTranceJourney; // "@@" dual trance-journey, oblation
-            return true;
+            return CC_PPLE_DualTranceJourney; // "@@" dual trance-journey, oblation
         }
 
-        *ple__o = CC_PPLE_TranceJourney; // "@" trance-journey
-        return true;
+        return CC_PPLE_TranceJourney; // "@" trance-journey
     }
 
     if ( *c == ';' ) {
-        if ( *++c == ';' ) {
-            *ple__o = CC_PPLE_PawnSacrifice; // ";;" Pawn-sacrifice
-            return true;
-        }
+        if ( *++c == ';' ) return CC_PPLE_PawnSacrifice; // ";;" Pawn-sacrifice
 
-        return false;
+        return CC_PPLE_None;
     }
 
-    if ( *c == '"' ) {
-        *ple__o = CC_PPLE_SenseJourney; // "\"" sense-journey
-        return true;
-    }
+    if ( *c == '"' ) return CC_PPLE_SenseJourney; // "\"" sense-journey
 
-    if ( *c == '\'' ) {
-        *ple__o = CC_PPLE_FailedSenseJourney; // "'" failed sense-journey, oblation
-        return true;
-    }
+    if ( *c == '\'' ) return CC_PPLE_FailedSenseJourney; // "'" failed sense-journey, oblation
 
-    if ( isgraph( *c ) ) {
-        *ple__o = CC_PPLE_None;
-        return true;
-    }
+    if ( isgraph( *c ) ) return CC_PPLE_StartingPly;
 
-    return false;
+    return CC_PPLE_None;
 }
 
 size_t cc_ply_link_len( CcParsedPlyLinkEnum ple ) {
@@ -96,18 +70,37 @@ size_t cc_ply_link_len( CcParsedPlyLinkEnum ple ) {
     }
 }
 
+bool cc_is_ply_link_char( char const * ply_an_str ) {
+    if ( !ply_an_str ) return false;
+    // if ( *ply_an_str == '\0' ) return false; // Not needed.
+
+    char const c = *ply_an_str;
+
+    return ( c == '~' || c == '|' || c == '@' || c == ';' || c == '"' || c == '\'' );
+}
+
 char const * cc_next_ply_link( char const * ply_an_str ) {
     if ( !ply_an_str ) return NULL;
     if ( *ply_an_str == '\0' ) return NULL;
 
     // Skip over current ply link.
-    CcParsedPlyLinkEnum ple = CC_PPLE_None;
-    if ( !cc_parse_ply_link( ply_an_str, &ple ) ) return NULL;
+    CcParsedPlyLinkEnum ple = cc_parse_ply_link( ply_an_str );
+    if ( ple == CC_PPLE_None ) return NULL;
+
     char const * str__w = ply_an_str + cc_ply_link_len( ple );
 
     // Skip over everything before next ply link.
-    while ( cc_parse_ply_link( str__w, &ple ) && ( ple == CC_PPLE_None ) )
-        ++str__w;
+    while ( *str__w != '\0' ) {
+        ple = cc_parse_ply_link( str__w );
+
+        if ( ple == CC_PPLE_None )
+            return NULL;
+        else if ( ple == CC_PPLE_StartingPly ) {
+            while ( ( *str__w != '\0' ) && ( !cc_is_ply_link_char( str__w ) ) )
+                ++str__w;
+        } else
+            break;
+    }
 
     return str__w;
 }
@@ -280,6 +273,7 @@ bool cc_parse_pos( char const * pos_an_str,
     return true;
 }
 
+// TODO :: TEST :: FIX
 char const * cc_skip_disambiguation( char const * pos_an_str ) {
     if ( !pos_an_str ) return NULL;
 

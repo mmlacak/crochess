@@ -19,5 +19,7 @@ bool tests_parse( int test_number );
 
 bool tests_skip_disambiguation( int test_number );
 
+bool tests_next_ply_link( int test_number );
+
 
 #endif /* __TESTS_PARSE_H__ */
