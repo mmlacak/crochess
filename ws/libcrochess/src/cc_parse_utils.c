@@ -10,73 +10,73 @@
 #include "cc_parse_utils.h"
 
 
-bool cc_parse_ply_link( char const * ply_an_str,
-                        CcPlyLinkEnum * ple__o ) {
-    if ( !ply_an_str ) return false;
-    if ( !ple__o ) return false;
+CcMaybeBoolEnum cc_parse_ply_link( char const * ply_an_str,
+                                   CcPlyLinkEnum * ple__o ) {
+    if ( !ply_an_str ) return CC_MBE_Void;
+    if ( !ple__o ) return CC_MBE_Void;
 
     char const * c = ply_an_str;
 
     if ( *c == '~' ) {
         *ple__o = CC_PLE_CascadingPly; // "~" plies
-        return true;
+        return CC_MBE_True;
     }
 
     if ( *c == '|' ) {
         if ( *++c == '|' ) {
             if ( *++c == '|' ) {
                 *ple__o = CC_PLE_TeleportationOblation; // "|||" failed teleportation, oblation
-                return true;
+                return CC_MBE_True;
             }
 
             *ple__o = CC_PLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
-            return true;
+            return CC_MBE_True;
         }
 
         *ple__o = CC_PLE_Teleportation; // "|" teleportation
-        return true;
+        return CC_MBE_True;
     }
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
             if ( *++c == '@' ) {
                 *ple__o = CC_PLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
-                return true;
+                return CC_MBE_True;
             }
 
             *ple__o = CC_PLE_DualTranceJourney; // "@@" dual trance-journey, oblation
-            return true;
+            return CC_MBE_True;
         }
 
         *ple__o = CC_PLE_TranceJourney; // "@" trance-journey
-        return true;
+        return CC_MBE_True;
     }
 
     if ( *c == ';' ) {
         if ( *++c == ';' ) {
             *ple__o = CC_PLE_PawnSacrifice; // ";;" Pawn-sacrifice
-            return true;
+            return CC_MBE_True;
         }
 
-        return false;
+        return CC_MBE_False;
     }
 
     if ( *c == '"' ) {
         *ple__o = CC_PLE_SenseJourney; // "\"" sense-journey
-        return true;
+        return CC_MBE_True;
     }
 
     if ( *c == '\'' ) {
         *ple__o = CC_PLE_FailedSenseJourney; // "'" failed sense-journey, oblation
-        return true;
+        return CC_MBE_True;
     }
 
     if ( isgraph( *c ) ) {
-        *ple__o = CC_PLE_None;
-        return true;
+        *ple__o = CC_PLE_None; // TODO :: check for reposition, otherwise it's starting ply
+        return CC_MBE_True;
     }
 
-    return false;
+    return CC_MBE_False;
 }
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
@@ -102,16 +102,22 @@ char const * cc_next_ply_link( char const * ply_an_str ) {
     if ( !ply_an_str ) return NULL;
     if ( *ply_an_str == '\0' ) return NULL;
 
-    // Skip over current ply link.
-    CcPlyLinkEnum ple = CC_PLE_None;
-    if ( !cc_parse_ply_link( ply_an_str, &ple ) ) return NULL;
-    char const * str__w = ply_an_str + cc_ply_link_len( ple );
+    // TODO :: REDO :: after cc_parse_ply_link() is fixed
+    //
+    // // Skip over current ply link.
+    // CcPlyLinkEnum ple = CC_PLE_None;
+    // if ( !cc_parse_ply_link( ply_an_str, &ple ) ) return NULL;
+    // char const * str__w = ply_an_str + cc_ply_link_len( ple );
+    //
+    // // Skip over everything before next ply link.
+    // while ( cc_parse_ply_link( str__w, &ple ) && ( ple == CC_PLE_None ) )
+    //     ++str__w;
+    //
+    // return str__w;
+    //
+    // TODO :: REDO :: after cc_parse_ply_link() is fixed
 
-    // Skip over everything before next ply link.
-    while ( cc_parse_ply_link( str__w, &ple ) && ( ple == CC_PLE_None ) )
-        ++str__w;
-
-    return str__w;
+    return NULL;
 }
 
 bool cc_iter_ply( char const * move_an_str,

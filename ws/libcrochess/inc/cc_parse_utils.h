@@ -6,9 +6,12 @@
 
 #include <stddef.h>
 
+#include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_pos.h"
+
+#include "cc_parse_defs.h"
 
 
 #define CC_MAX_LEN_STEP_POS_AN (3)
@@ -26,8 +29,9 @@
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
 
 
-bool cc_parse_ply_link( char const * ply_an_str,
-                        CcPlyLinkEnum * ple__o );
+// TODO :: DOCS
+CcMaybeBoolEnum cc_parse_ply_link( char const * ply_an_str,
+                                   CcPlyLinkEnum * ple__o );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
