@@ -464,12 +464,12 @@ is noted similar to light's one. For instance, this
 \hyperref[fig:scn_cot_090_dark_dark_shaman_interaction_start]{dark Shaman's trance-journey}
 would be written as \alg{He12@H..q16*..k14*..c18}.
 There is no step between Shaman's initial position and distant starting field of
-trance-journey, \alg{,} (comma) is used to separate them, like so
-\alg{He12@He12,w18..q16*..k14*..c18}.
-If initial position is omitted, separator (i.e. comma) is still written, like so
-\alg{He12@H,w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered plies
+trance-journey, \alg{\textbackslash} (backslash) is used to separate them, like so
+\alg{He12@He12\textbackslash{}w18..q16*..k14*..c18}.
+If initial position is omitted, separator (i.e. backslash) is still written, like so
+\alg{He12@H\textbackslash{}w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered plies
 and noted captured pieces it would look like so\newline
-\alg{[Hd13-e12]@[He12,w18..q16*P..k14*N..c18]}.
+\alg{[Hd13-e12]@[He12\textbackslash{}w18..q16*P..k14*N..c18]}.
 
 Another peculiarity of dark Shaman is dual trance-journey, which is written with \alg{@@}
 (double at-sign), optionally followed by list of captured pieces, each separated by \alg{,}
@@ -505,13 +505,13 @@ be written as \alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bn7}. In \algfmt{XAN}, it would be
 One peculiarity of sense-journey taken by uplifted dark piece is that it starts from
 the far end of a pattern inward, towards its initial position. There is no step between
 initial position of uplifted dark piece and distant starting field of sense-journey,
-\alg{,} (comma) is used to separate them, like so
-\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bc5,z11..n7}.
-If initial position is omitted, separator (i.e. comma) is still written, like so
-\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"B,z11..n7}. Now, in \algfmt{XAN} with gathered plies
+\alg{\textbackslash} (backslash) is used to separate them, like so
+\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bc5\textbackslash{}z11..n7}.
+If initial position is omitted, separator (i.e. backslash) is still written, like so
+\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"B\textbackslash{}z11..n7}. Now, in \algfmt{XAN} with gathered plies
 and noted initial, and starting positions it would look like so\newline
 \alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"}\newline
-\alg{[Bc5,z11-n7]}.
+\alg{[Bc5\textbackslash{}z11-n7]}.
 % \alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"[Bc5,z11-n7]}.
 
 Failed sense-journey is noted with \alg{'} (single apostrophe) after uplifting a
@@ -520,6 +520,8 @@ piece. Optionally, oblationed piece can be written after \alg{'}. In this
 step-fields are blocked, so uplifted dark Bishop is oblationed, which is written as
 \alg{Id4\~{}Ic5'}, and in \algfmt{XAN}, with plies gathered and oblationed piece,
 as \alg{[Ic3-d4]\~{}[Id4-c5]'B}.
+
+\vfill
 
 \subsection*{Syzygy, demoting to Pawn}
 \addcontentsline{toc}{subsection}{Syzygy, demoting to Pawn}
@@ -1107,6 +1109,7 @@ found in \emph{promoting} column and \emph{promotion} row.
 \alg{.}              & single steps                               \\
 \alg{..}             & multiple steps                             \\
 \alg{-}              & steps and destination field                \\
+\alg{\textbackslash} & reposition                                 \\
 \cmidrule{1-2} % ...................................................
 \alg{\~{}}           & plies                                      \\
 \alg{|}              & teleportation                              \\
@@ -1127,14 +1130,15 @@ found in \emph{promoting} column and \emph{promotion} row.
 \label{tbl:Appendix/Summary/Path separators}
 \end{table}
 
-First 3 symbols (\alg{.}, \alg{..}, and \alg{-}) separates steps within a single ply.
+First 3 symbols (\alg{.}, \alg{..}, and \alg{-}) separates steps within a single ply,
+next one (i.e. \alg{\textbackslash}) separates initial and starting position.
 Other symbols (\alg{\~{}}, \alg{|}, \alg{@}, \alg{;;}, and \alg{"}) are separators
 between plies; or ply and, by extension, move terminators (\alg{||}, \alg{|||}, \alg{@@},
-\alg{@@@}, and \alg{'}).
-
+\alg{@@@}, and \alg{'}).\newline
+\indent
 Items separator (\alg{,}) is used where multiple items needs to be listed for a single
-step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.
-
+step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.\newline
+\indent
 Ply gathering symbols (\alg{[}, \alg{]}) are just wrappers around plies to visually
 enhance them, making them easier to tell apart, but otherwise does not contribute any
 new information.
@@ -2587,7 +2591,7 @@ teleporting piece (Star) is introduced.
   \alg{H}<stepping-no-side-effects>
 
 <journey-start> =
-  [<disambiguation>][\alg{,}<field>]
+  [<disambiguation>][\alg{\textbackslash}<field>]
 
 <trance-journey> =
   <trance-journey-init>\alg{@H}<journey-start>
