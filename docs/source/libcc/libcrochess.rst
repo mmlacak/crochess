@@ -67,6 +67,7 @@ Library contents
     ccposutils
 
     ccparsemsg
+    ccparseutils
 
     ccgame
 
