@@ -83,21 +83,29 @@ Piece symbol is uppercase :c:`char`, as used in :term:`AN`.
 Functions
 ---------
 
-.. c:function:: bool cc_parse_ply_link( char const * an_str, CcParsedPlyLinkEnum * ple__o )
+.. c:function:: CcPlyLinkEnum cc_parse_ply_link( char const * ply_an_str )
 
     Function returns ply link from ply notation.
 
     :param ply_an_str: Ply notation, points at ply link;
         zero-terminated, :term:`AN` string.
-    :param ple__o: _Output_, ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :returns: Valid :c:enum:`CcPlyLinkEnum` value if ply link found,
+        :c:enumerator:`CC_PPLE_StartingPly` if not,
+        :c:enumerator:`CC_PLE_None` in case of error.
 
-.. c:function:: size_t cc_ply_link_len( CcParsedPlyLinkEnum ple )
+.. c:function:: size_t cc_ply_link_len( CcPlyLinkEnum ple )
 
     Function returns length in :c:`char`\s of a ply link as used in notation.
 
-    :param ple: Ply link, i.e. :c:enum:`CcParsedPlyLinkEnum` value.
+    :param ple: Ply link, i.e. :c:enum:`CcPlyLinkEnum` value.
     :returns: Length if given ply link was valid, ``0`` otherwise.
+
+.. c:function:: bool cc_is_ply_link_char( char const c )
+
+    Function checks if given :c:`char` is used for ply link notation.
+
+    :param c: A :c:`char`\acter.
+    :returns: :c:data:`true` if ply link :c:`char`, :c:data:`false` otherwise.
 
 .. c:function:: char const * cc_next_ply_link( char const * ply_an_str )
 

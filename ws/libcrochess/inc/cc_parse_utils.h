@@ -29,13 +29,11 @@
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
 
 
-// TODO :: DOCS
 CcPlyLinkEnum cc_parse_ply_link( char const * ply_an_str );
 
 size_t cc_ply_link_len( CcPlyLinkEnum ple );
 
-// TODO :: DOCS
-bool cc_is_ply_link_char( char const * ply_an_str );
+bool cc_is_ply_link_char( char const c );
 
 char const * cc_next_ply_link( char const * pl_an_str );
 

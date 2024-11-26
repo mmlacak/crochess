@@ -72,12 +72,7 @@ size_t cc_ply_link_len( CcPlyLinkEnum ple ) {
     }
 }
 
-bool cc_is_ply_link_char( char const * ply_an_str ) {
-    if ( !ply_an_str ) return false;
-    // if ( *ply_an_str == '\0' ) return false; // Not needed.
-
-    char const c = *ply_an_str;
-
+bool cc_is_ply_link_char( char const c ) {
     return ( c == '~' || c == '|' || c == '@' || c == ';' || c == '"' || c == '\'' );
 }
 
@@ -98,7 +93,7 @@ char const * cc_next_ply_link( char const * ply_an_str ) {
         if ( ple == CC_PLE_None )
             return NULL;
         else if ( ple == CC_PLE_StartingPly ) {
-            while ( ( *str__w != '\0' ) && ( !cc_is_ply_link_char( str__w ) ) )
+            while ( ( *str__w != '\0' ) && ( !cc_is_ply_link_char( *str__w ) ) )
                 ++str__w;
         } else
             break;
