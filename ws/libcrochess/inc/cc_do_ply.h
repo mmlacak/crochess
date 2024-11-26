@@ -12,6 +12,16 @@
 // TODO :: DOCS
 
 
+// static bool _cc_fail_with_msg_invalid_ply_link( char const * ply_start_an,
+//                                                 char const * ply_end_an,
+//                                                 CcParseMsg ** parse_msgs__iod );
+
+// static bool _cc_fail_with_msg_pieces_different_type( char const * ply_start_an,
+//                                                      char const * ply_end_an,
+//                                                      CcPosDesc before_ply_start,
+//                                                      CcPieceType piece_an,
+//                                                      CcParseMsg ** parse_msgs__iod );
+
 bool cc_do_ply( char const * ply_start_an,
                 char const * ply_end_an,
                 CcGame * game,
