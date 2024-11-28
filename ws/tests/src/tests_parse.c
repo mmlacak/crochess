@@ -232,7 +232,7 @@ bool tests_next_ply_link( int test_number ) {
         printf( "-----------------------------------------------------------------------\n" );
         while ( an ) {
             printf( "%s.\n", an );
-            char const * an = cc_next_ply_link( an );
+            an = cc_next_ply_link( an );
         }
         printf( ".......................................................................\n" );
     }

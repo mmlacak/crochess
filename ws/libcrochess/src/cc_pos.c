@@ -143,9 +143,9 @@ bool cc_pos_desc_to_string( CcPosDesc pd, cc_char_16 * pd_str__o ) {
     char * p = (char *)pd_str__o;
 
     cc_uint_t count = 0;
-    while ( *p++ != '\0' ) ++count; // fast-fwd
+    while ( *p++ != '\0' ) ++count; // fast-fwd // TODO :: FIX :: no '\0' encountered --> check count <= 8
 
-    if ( count >= CC_MAX_LEN_CHAR_8 ) return false;
+    if ( count >= CC_MAX_LEN_CHAR_8 ) return false; // TODO :: check if actually necessary
 
     *p++ = cc_piece_symbol( pd.piece );
     *p = '\0';
