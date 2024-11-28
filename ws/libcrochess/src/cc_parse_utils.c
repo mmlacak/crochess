@@ -155,7 +155,7 @@ bool cc_fetch_piece_symbol( char const * piece_an_str,
                            : true;
 }
 
-CcTagEnum cc_parse_losing_tag( char const * lt_an_str ) {
+CcTagType cc_parse_losing_tag( char const * lt_an_str ) {
     if ( !lt_an_str ) return CC_TE_None;
 
     char const * c = lt_an_str;
@@ -174,8 +174,8 @@ CcTagEnum cc_parse_losing_tag( char const * lt_an_str ) {
     return CC_TE_None;
 }
 
-size_t cc_losing_tag_len( CcTagEnum lte ) {
-    switch ( lte ) {
+size_t cc_losing_tag_len( CcTagType tt ) {
+    switch ( tt ) {
         case CC_TE_CanRush : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
         case CC_TE_CanCastle : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
         case CC_TE_DelayedPromotion : return 2; /* Losing promotion, corresponds to == (dual equal sign). */

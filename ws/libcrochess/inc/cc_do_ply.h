@@ -25,7 +25,7 @@
 bool cc_do_ply( char const * ply_start_an,
                 char const * ply_end_an,
                 CcGame * game,
-                CcPosDesc * before_ply_start__io,
+                CcPosDesc * before_ply__io,
                 CcChessboard ** cb__io,
                 CcParseMsg ** parse_msgs__iod );
 

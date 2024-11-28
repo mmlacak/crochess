@@ -37,5 +37,8 @@ char cc_tag_as_char( CcTagType ct );
 
 CcTagType cc_tag_from_char( char c );
 
+// TODO :: DOCS
+char const * cc_tag_as_string( CcTagType tt, bool capitalize, bool no_tag );
+
 
 #endif /* __CC_TAG_H__ */

@@ -47,9 +47,9 @@ bool cc_fetch_piece_symbol( char const * piece_an_str,
                             bool default_to_pawn,
                             bool return_validity );
 
-CcTagEnum cc_parse_losing_tag( char const * lt_an_str );
+CcTagType cc_parse_losing_tag( char const * lt_an_str );
 
-size_t cc_losing_tag_len( CcTagEnum lte );
+size_t cc_losing_tag_len( CcTagType tt );
 
 bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o );
 
