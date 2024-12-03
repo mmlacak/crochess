@@ -26,8 +26,5 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 //                               CcPos start,
 //                               CcPos destination );
 
-// DOCS
-bool cc_delete_all_en_passant_tags( CcChessboard * cb );
-
 
 #endif /* __CC_RULES_MISC_H__ */

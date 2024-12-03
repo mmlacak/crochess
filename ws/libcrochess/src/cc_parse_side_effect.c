@@ -192,11 +192,13 @@ static bool _cc_check_captured_en_passant( CcPieceType capturing,
 
         CcTagType te = cc_chessboard_get_tag( cb, step.i, rank );
 
-        if ( !CC_TAG_CAN_EN_PASSANT( te ) ) {
-            char const * piece_str = cc_piece_as_string( pe, false, true );
-            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Private %s has not been rushed in the very previous move.\n", piece_str );
-            return false;
-        }
+        // TODO :: REDO
+        //
+        // if ( !CC_TAG_CAN_EN_PASSANT( te ) ) {
+        //     char const * piece_str = cc_piece_as_string( pe, false, true );
+        //     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Private %s has not been rushed in the very previous move.\n", piece_str );
+        //     return false;
+        // }
 
         captured_at = CC_POS_CAST( step.i, rank );
         captured = pe;
@@ -341,7 +343,7 @@ static bool _cc_check_piece_is_castling_king( CcPosDesc before_ply_start,
         return false;
     }
 
-    if ( !CC_TAG_CAN_CASTLE( before_ply_start.tag ) ) {
+    if ( before_ply_start.tag != CC_TE_CanCastle ) {
         char const * piece_str = cc_piece_as_string( before_ply_start.piece, true, true );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle anymore (has lost its castling tag).\n", piece_str );
         return false;
@@ -424,7 +426,7 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
 
     CcTagType maybe_tag = cc_chessboard_get_tag( cb, rook_i, init_j );
 
-    if ( !CC_TAG_CAN_CASTLE( maybe_tag ) ) {
+    if ( maybe_tag != CC_TE_CanCastle ) {
         char const * piece_str = cc_piece_as_string( rook, true, true );
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot castle anymore (has lost its castling tag).\n", piece_str );
         return false;
@@ -440,7 +442,7 @@ static bool _cc_check_king_and_rook_can_castle( CcPosDesc before_ply_start,
         return false;
     }
 
-    if ( cc_pos_is_disambiguation( *rook_dest__io ) ) {
+    if ( CC_POS_IS_DISAMBIGUATION( *rook_dest__io ) ) {
         if ( !cc_pos_is_congruent( rook_dest, *rook_dest__io ) ) {
             char const * piece_str = cc_piece_as_string( rook, false, true );
             char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );

@@ -61,6 +61,8 @@ CcGame * cc_game_duplicate_all__new( CcGame * game );
 
 bool cc_game_free_all( CcGame ** game__f );
 
+// TODO :: reset flags for a new move :: +DOCS
+
 CcGame * cc_game_setup_from_string__new( char const * setup,
                                          CcGame * before_setup__d );
 

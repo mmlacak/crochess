@@ -6,6 +6,8 @@
 
 #include <stdbool.h>
 
+//
+// Tag enum
 
 // TODO :: warning: comparison of unsigned expression in ‘>= 0’ is always true [-Wtype-limits] (in CC_TE_None <= ...)
 #define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
@@ -36,6 +38,34 @@ typedef unsigned char CcTagType;
 char cc_tag_as_char( CcTagType ct );
 
 CcTagType cc_tag_from_char( char c );
+
+//
+// Losing tag enum
+
+#define CC_LOSING_TAG_IS_ENUMERATOR(lte) ( ( CC_LTE_NoneLost <= (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
+
+#define CC_LOSING_TAG_IS_VALID(lte) ( ( CC_LTE_NoneLost < (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
+
+typedef enum CcLosingTagEnum {
+    CC_LTE_NoneLost = CC_TE_None, /* No tag has been lost. */
+
+    CC_LTE_RushingTagLost = CC_TE_CanRush, /* Pawn lost its ability to rush. */
+    CC_LTE_CastlingTagLost = CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */
+    CC_LTE_DelayedPromotionLost = CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
+} CcLosingTagEnum;
+
+#define CC_MAX_LEN_LOSING_TAG (2)
+
+char const * cc_losing_tag_symbol( CcLosingTagEnum lte );
+
+char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
+                                      bool capitalize,
+                                      bool no_tag );
+
+CcLosingTagEnum cc_tag_to_losing( CcTagType te );
+
+CcTagType cc_tag_from_losing( CcLosingTagEnum lte );
+
 
 
 #endif /* __CC_TAG_H__ */

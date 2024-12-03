@@ -385,7 +385,7 @@ CcStepTypeEnum cc_get_step_type( CcPos step,
         if ( !CC_TYPED_STEP_IS_VALID( p ) ) break;
 
         if ( no_filter || ( filter__d == p.type ) ) {
-            if ( cc_pos_is_equal( step, p.step ) )
+            if ( CC_POS_IS_EQUAL( step, p.step ) )
                 return p.type;
         }
     }

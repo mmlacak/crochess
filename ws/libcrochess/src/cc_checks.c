@@ -6,31 +6,32 @@
 #include "cc_checks.h"
 
 
-CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
-                                                 CcTagEnum tag,
-                                                 cc_uint_t * momentum__io ) {
-    if ( !momentum__io ) return CC_MBE_Void;
-    if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
-    if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return CC_MBE_Void;
-
-    CcMaybeBoolEnum accumulating = CC_MBE_False;
-    if ( !cc_calc_if_accumulating_momentum( piece, tag, &accumulating ) )
-        return CC_MBE_Void;
-
-    if ( CC_MAYBE_IS_TRUE( accumulating ) ) {
-        if ( *momentum__io == UINT_MAX ) return CC_MBE_False;
-    } else if ( CC_MAYBE_IS_VOID( accumulating ) ) {
-        if ( *momentum__io == CC_UNSIGNED_MIN ) return CC_MBE_False;
-    } else if ( CC_MAYBE_IS_FALSE( accumulating ) ) {
-        // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
-    } else
-        return CC_MBE_Void; // Enums are secretly ints.
-
-    if ( !cc_calc_momentum_for_next_step( momentum__io, accumulating ) )
-        return CC_MBE_Void;
-
-    return CC_MBE_True;
-}
+// // TODO :: REDO
+// CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
+//                                                  CcTagEnum tag,
+//                                                  cc_uint_t * momentum__io ) {
+//     if ( !momentum__io ) return CC_MBE_Void;
+//     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
+//     if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return CC_MBE_Void;
+//
+//     CcMaybeBoolEnum accumulating = CC_MBE_False;
+//     if ( !cc_calc_if_accumulating_momentum( piece, tag, &accumulating ) )
+//         return CC_MBE_Void;
+//
+//     if ( CC_MAYBE_IS_TRUE( accumulating ) ) {
+//         if ( *momentum__io == UINT_MAX ) return CC_MBE_False;
+//     } else if ( CC_MAYBE_IS_VOID( accumulating ) ) {
+//         if ( *momentum__io == CC_UNSIGNED_MIN ) return CC_MBE_False;
+//     } else if ( CC_MAYBE_IS_FALSE( accumulating ) ) {
+//         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
+//     } else
+//         return CC_MBE_Void; // Enums are secretly ints.
+//
+//     if ( !cc_calc_momentum_for_next_step( momentum__io, accumulating ) )
+//         return CC_MBE_Void;
+//
+//     return CC_MBE_True;
+// }
 
 bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte ) {
     if ( lte == CC_LTE_NoneLost ) {
@@ -136,10 +137,10 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     if ( !cc_piece_has_same_color( king, rook ) ) return CC_MBE_False;
 
     CcTagType king_tag = cc_chessboard_get_tag( cb, king_start.i, king_start.j );
-    if ( !CC_TAG_CAN_CASTLE( king_tag ) ) return CC_MBE_False;
+    if ( king_tag != CC_TE_CanCastle ) return CC_MBE_False;
 
     CcTagType rook_tag = cc_chessboard_get_tag( cb, rook_start.i, rook_start.j );
-    if ( !CC_TAG_CAN_CASTLE( rook_tag ) ) return CC_MBE_False;
+    if ( rook_tag != CC_TE_CanCastle ) return CC_MBE_False;
 
     CcPieceType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
     if ( !CC_PIECE_IS_NONE( empty_for_king ) ) return CC_MBE_False;
@@ -162,7 +163,7 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
         current = cc_pos_add( current, king_step, 1 );
 
         ++momentum;
-    } while ( !cc_pos_is_equal( rook_dest, current ) );
+    } while ( !CC_POS_IS_EQUAL( rook_dest, current ) );
 
     return CC_MBE_True;
 }

@@ -34,86 +34,87 @@ bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum a
     return true;
 }
 
-bool cc_calc_if_accumulating_momentum( CcPieceType piece,
-                                       CcTagType tag,
-                                       CcMaybeBoolEnum * accumulating__o ) {
-    if ( !accumulating__o ) return false;
-
-    // if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false; // Not needed, defaults in switch.
-    if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return false;
-
-    bool is_starter = CC_TAG_HAS_MOVE_STARTER_FLAG( tag );
-
-    switch ( piece ) {
-        case CC_PE_DarkShaman :
-        case CC_PE_DarkSerpent :
-        case CC_PE_DarkGrenadier :
-        case CC_PE_DarkScout :
-        case CC_PE_DarkCentaur :
-        case CC_PE_DarkUnicorn :
-        case CC_PE_DarkPegasus :
-        case CC_PE_DarkKing :
-        case CC_PE_DarkQueen :
-        case CC_PE_DarkRook :
-        case CC_PE_DarkBishop :
-        case CC_PE_DarkKnight :
-        case CC_PE_DarkPawn :
-
-        case CC_PE_LightPawn :
-        case CC_PE_LightKnight :
-        case CC_PE_LightBishop :
-        case CC_PE_LightRook :
-        case CC_PE_LightQueen :
-        case CC_PE_LightKing :
-        case CC_PE_LightPegasus :
-        case CC_PE_LightUnicorn :
-        case CC_PE_LightCentaur :
-        case CC_PE_LightScout :
-        case CC_PE_LightGrenadier :
-        case CC_PE_LightSerpent :
-        case CC_PE_LightShaman : {
-            *accumulating__o = is_starter ? CC_MBE_True : CC_MBE_Void;
-            return true;
-        }
-
-        case CC_PE_DarkWave :
-        case CC_PE_LightWave : {
-            if ( is_starter ) return false;
-
-            *accumulating__o = CC_MBE_False;
-            return true;
-        }
-
-        case CC_PE_DarkStarchild :
-        case CC_PE_LightStarchild : {
-            *accumulating__o = is_starter ? CC_MBE_True : CC_MBE_False;
-            return true;
-        }
-
-        case CC_PE_Monolith : {
-            if ( !is_starter ) return false;
-
-            *accumulating__o = CC_MBE_True;
-            return true;
-        }
-
-        case CC_PE_DimStar :
-        case CC_PE_BrightStar :
-        case CC_PE_DarkPyramid :
-        case CC_PE_LightPyramid : {
-            if ( is_starter ) return false;
-
-            *accumulating__o = CC_MBE_Void;
-            return true;
-        }
-
-        case CC_PE_None :
-        default :
-            return false;
-    }
-
-    return false;
-}
+// // TODO :: REDO
+// bool cc_calc_if_accumulating_momentum( CcPieceType piece,
+//                                        CcTagType tag,
+//                                        CcMaybeBoolEnum * accumulating__o ) {
+//     if ( !accumulating__o ) return false;
+//
+//     // if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false; // Not needed, defaults in switch.
+//     if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return false;
+//
+//     bool is_starter = CC_TAG_HAS_MOVE_STARTER_FLAG( tag );
+//
+//     switch ( piece ) {
+//         case CC_PE_DarkShaman :
+//         case CC_PE_DarkSerpent :
+//         case CC_PE_DarkGrenadier :
+//         case CC_PE_DarkScout :
+//         case CC_PE_DarkCentaur :
+//         case CC_PE_DarkUnicorn :
+//         case CC_PE_DarkPegasus :
+//         case CC_PE_DarkKing :
+//         case CC_PE_DarkQueen :
+//         case CC_PE_DarkRook :
+//         case CC_PE_DarkBishop :
+//         case CC_PE_DarkKnight :
+//         case CC_PE_DarkPawn :
+//
+//         case CC_PE_LightPawn :
+//         case CC_PE_LightKnight :
+//         case CC_PE_LightBishop :
+//         case CC_PE_LightRook :
+//         case CC_PE_LightQueen :
+//         case CC_PE_LightKing :
+//         case CC_PE_LightPegasus :
+//         case CC_PE_LightUnicorn :
+//         case CC_PE_LightCentaur :
+//         case CC_PE_LightScout :
+//         case CC_PE_LightGrenadier :
+//         case CC_PE_LightSerpent :
+//         case CC_PE_LightShaman : {
+//             *accumulating__o = is_starter ? CC_MBE_True : CC_MBE_Void;
+//             return true;
+//         }
+//
+//         case CC_PE_DarkWave :
+//         case CC_PE_LightWave : {
+//             if ( is_starter ) return false;
+//
+//             *accumulating__o = CC_MBE_False;
+//             return true;
+//         }
+//
+//         case CC_PE_DarkStarchild :
+//         case CC_PE_LightStarchild : {
+//             *accumulating__o = is_starter ? CC_MBE_True : CC_MBE_False;
+//             return true;
+//         }
+//
+//         case CC_PE_Monolith : {
+//             if ( !is_starter ) return false;
+//
+//             *accumulating__o = CC_MBE_True;
+//             return true;
+//         }
+//
+//         case CC_PE_DimStar :
+//         case CC_PE_BrightStar :
+//         case CC_PE_DarkPyramid :
+//         case CC_PE_LightPyramid : {
+//             if ( is_starter ) return false;
+//
+//             *accumulating__o = CC_MBE_Void;
+//             return true;
+//         }
+//
+//         case CC_PE_None :
+//         default :
+//             return false;
+//     }
+//
+//     return false;
+// }
 
 // // TODO :: REDO
 // CcPathLink * cc_build_path_segment__new( CcChessboard * cb,

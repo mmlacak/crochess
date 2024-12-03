@@ -50,7 +50,7 @@ static bool _cc_fill_in_castling_partial_destination( CcVariantEnum ve,
     if ( destination__io->i == before_ply_start.pos.i ) return false; // Static step not welcome.
 
     if ( !CC_PIECE_IS_KING( before_ply_start.piece ) ) return true; // Nothing to be done here.
-    if ( !CC_TAG_CAN_CASTLE( before_ply_start.tag ) ) return false;
+    if ( before_ply_start.tag != CC_TE_CanCastle ) return false;
 
     bool is_light = cc_piece_is_light( before_ply_start.piece );
     int init_i = cc_find_initial_figure_file( ve, before_ply_start.piece, false );

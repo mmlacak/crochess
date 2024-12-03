@@ -177,7 +177,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
     if ( is_first_ply ) {
         start = cc_parsed_step_find_start( steps__t );
 
-        if ( start && cc_pos_is_valid( start->field ) ) {
+        if ( start && CC_POS_IS_VALID( start->field ) ) {
             CcPos start_pos = start->field;
             CcPieceType pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
 

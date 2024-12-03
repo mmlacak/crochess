@@ -124,22 +124,3 @@ bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
 
 //     return false;
 // }
-
-bool cc_delete_all_en_passant_tags( CcChessboard * cb ) {
-    if ( !cb ) return false;
-
-    cc_uint_t size = cc_variant_board_size( cb->type );
-
-    for ( int i = 0; i < (int)size; ++i ) {
-        for ( int j = 0; j < (int)size; ++j ) {
-            CcTagType te = cc_chessboard_get_tag( cb, i, j );
-
-            if ( te == CC_TE_EnPassant ) {
-                if ( !cc_chessboard_set_tag( cb, i, j, CC_TE_None ) )
-                    return false;
-            }
-        }
-    }
-
-    return true;
-}
