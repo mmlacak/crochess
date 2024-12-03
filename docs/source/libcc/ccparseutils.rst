@@ -236,6 +236,8 @@ Functions
     Function returns pointer to end of disambiguation, i.e. pointer to first
     :c:`char` which does not belong to the disambiguation.
 
+    Disambiguation includes both partial and complete initial positions.
+
     :param pos_an_str: Notation, points at positional notation;
         zero-terminated, :term:`AN` string.
     :returns: Valid pointer if disambiguation has been skipped,
