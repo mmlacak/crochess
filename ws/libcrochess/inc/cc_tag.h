@@ -58,6 +58,8 @@ typedef enum CcLosingTagEnum {
 
 #define CC_MAX_LEN_LOSING_TAG (2)
 
+// typedef unsigned char CcLosingTagType; // TODO :: maybe (?)
+
 // TODO :: CcLosingTagEnum --> CcTagType :: DOCS
 
 char const * cc_losing_tag_symbol( CcLosingTagEnum lte );

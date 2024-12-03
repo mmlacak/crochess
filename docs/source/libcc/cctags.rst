@@ -34,7 +34,7 @@ Validity
     values.
 
     :param te: A tag, integer value.
-    :returns: :c:data:`true` if :c:type:`CcTagType` enumerator,
+    :returns: :c:data:`true` if :c:type:`CcTagEnum` enumerator,
               :c:data:`false` otherwise.
 
 .. c:macro:: CC_TAG_IS_VALID(te)
@@ -43,7 +43,7 @@ Validity
     and not :c:enumerator:`CC_TE_None`.
 
     :param te: A tag, integer value.
-    :returns: :c:data:`true` if valid :c:type:`CcTagType` enumerator,
+    :returns: :c:data:`true` if valid :c:type:`CcTagEnum` enumerator,
               :c:data:`false` otherwise.
 
 .. _lbl-libcc-cctags-values:
@@ -56,7 +56,7 @@ Values
     Macro to check if given :term:`tag` is persistent,
     i.e. if it lasts until used or lost.
 
-    :param te: :c:type:`CcTagType` value.
+    :param te: :c:type:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
 .. _lbl-libcc-cctags-characters:
@@ -139,6 +139,110 @@ Functions
     :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
     :returns: :c:type:`CcTagType` value if valid :term:`tag` character was given,
               :c:enumerator:`CC_TE_None` otherwise.
+
+.. _lbl-libcc-cctags-losingtagvalidity:
+
+Losing tag validity
+-------------------
+
+.. c:macro:: CC_LOSING_TAG_IS_ENUMERATOR(lte)
+
+    Macro to check if given :term:`tag` is enumeration in :c:enum:`CcLosingTagEnum`,
+    i.e. between :c:enumerator:`CC_LTE_NoneLost` and :c:enumerator:`CC_LTE_DelayedPromotionLost`
+    values.
+
+    :param lte: A tag, integer value.
+    :returns: :c:data:`true` if :c:type:`CcLosingTagEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_LOSING_TAG_IS_VALID(lte)
+
+    Macro to check if given :term:`tag` is valid :c:enum:`CcLosingTagEnum` enumerator,
+    and not :c:enumerator:`CC_LTE_NoneLost`.
+
+    :param lte: A tag, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcLosingTagEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. _lbl-libcc-cctags-losingtagtypes:
+
+Losing tag types
+----------------
+
+.. c:enum:: CcLosingTagEnum
+
+    Enumerates only :term:`tag`\s that can be lost, used in all variants.
+
+    Values enumerated in losing tag are the same as in ordinary tag,
+    but doesn't contain move-starter flag.
+
+    When converting from ordinary tag enum, :c:enumerator:`CC_LTE_NoneLost`
+    is used for all values not enumerated here.
+
+    .. c:enumerator:: CC_LTE_NoneLost
+
+        No :term:`tag` was lost, equals to :c:enumerator:`CC_TE_None`.
+
+    .. c:enumerator:: CC_LTE_RushingTagLost
+
+        Pawn lost ability to rush, equals to :c:enumerator:`CC_TE_CanRush`.
+
+    .. c:enumerator:: CC_LTE_CastlingTagLost
+
+        Rook or King lost ability to castle, equals to :c:enumerator:`CC_TE_CanCastle`.
+
+    .. c:enumerator:: CC_LTE_DelayedPromotionLost
+
+        Pawn lost delayed promotion :term:`tag`, equals to :c:enumerator:`CC_TE_DelayedPromotion`.
+
+    :c:`enum` is tagged with the same :c:enum:`CcLosingTagEnum` name.
+
+.. c:macro:: CC_MAX_LEN_LOSING_TAG
+
+    Maximum length of a losing-tag symbol, equals to ``2``.
+
+.. _lbl-libcc-cctags-losingtagfunctions:
+
+Losing tag functions
+--------------------
+
+.. c:function:: char const * cc_losing_tag_symbol( CcLosingTagEnum lte )
+
+    Function returns losing tag symbol as used in :term:`AN`, based on lost tag.
+
+    :param lte: :c:enum:`CcLosingTagEnum` value.
+    :returns: Valid pointer to zero-terminated string literal,
+              do not try to :c:func:`free()` it.
+              String can be empty, if tag cannot be lost.
+
+.. c:function:: char const * cc_losing_tag_as_string( CcLosingTagEnum lte, bool capitalize, bool no_tag )
+
+    Function returning descriptive string as used in user messages,
+    based on lost tag.
+
+    :param lte: :c:enum:`CcLosingTagEnum` value.
+    :param capitalize: Flag, whether string should be capitalized.
+    :param no_tag: Flag, whether should also describe no-tag value.
+    :returns: Valid pointer to zero-terminated string literal,
+              do not try to :c:func:`free()` it.
+              String can be empty, if tag cannot be lost.
+
+.. c:function:: CcLosingTagEnum cc_tag_to_losing( CcTagType te )
+
+    Converts ordinary tag into lost tag.
+
+    Ordinary tag values without equivalent losing tag value are converted
+    into :c:enumerator:`CC_LTE_NoneLost` instead.
+
+    :param te: :c:type:`CcTagType` value.
+    :returns: :c:enum:`CcLosingTagEnum` value.
+
+.. c:function:: CcTagType cc_tag_from_losing( CcLosingTagEnum lte )
+
+    Converts losing tag into ordinary tag.
+
+    :param lte: :c:enum:`CcLosingTagEnum` value.
+    :returns: :c:type:`CcTagType` value.
 
 .. _lbl-libcc-cctags-sourcecodeheader:
 
