@@ -29,7 +29,7 @@ Data
 Functions
 ---------
 
-.. c:function:: CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece, CcTagEnum tag, cc_uint_t * momentum__io )
+.. c:function:: CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece, CcTagType tag, cc_uint_t * momentum__io )
 
     Function calculates momentum for next step, returns if there is enough of
     it to actually make the step.

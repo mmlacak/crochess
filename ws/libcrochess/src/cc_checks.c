@@ -8,7 +8,7 @@
 
 // // TODO :: REDO
 // CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
-//                                                  CcTagEnum tag,
+//                                                  CcTagType tag,
 //                                                  cc_uint_t * momentum__io ) {
 //     if ( !momentum__io ) return CC_MBE_Void;
 //     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;

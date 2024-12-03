@@ -42,8 +42,10 @@ CcTagType cc_tag_from_char( char c );
 //
 // Losing tag enum
 
+// TODO :: DOCS
 #define CC_LOSING_TAG_IS_ENUMERATOR(lte) ( ( CC_LTE_NoneLost <= (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
 
+// TODO :: DOCS
 #define CC_LOSING_TAG_IS_VALID(lte) ( ( CC_LTE_NoneLost < (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
 
 typedef enum CcLosingTagEnum {
@@ -55,6 +57,8 @@ typedef enum CcLosingTagEnum {
 } CcLosingTagEnum;
 
 #define CC_MAX_LEN_LOSING_TAG (2)
+
+// TODO :: CcLosingTagEnum --> CcTagType :: DOCS
 
 char const * cc_losing_tag_symbol( CcLosingTagEnum lte );
 

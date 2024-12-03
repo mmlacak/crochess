@@ -17,7 +17,7 @@
 
 // // TODO :: REDO
 // CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
-//                                                  CcTagEnum tag,
+//                                                  CcTagType tag,
 //                                                  cc_uint_t * momentum__io );
 
 bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte );
