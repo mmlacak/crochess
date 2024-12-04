@@ -10,7 +10,7 @@
 #include "cc_tag.h"
 #include "cc_pos.h"
 
-#include "cc_parsed_side_effect.h"
+#include "cc_side_effect.h"
 #include "cc_step.h"
 #include "cc_ply.h"
 

@@ -4,15 +4,15 @@
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccparsedsideeffect:
+.. _lbl-libcc-ccsideeffect:
 
-Parsed side-effect
-==================
+Side-effect
+===========
 
-Documents ``cc_parsed_side_effect.h`` and ``cc_parsed_side_effect.c`` files,
+Documents ``cc_side_effect.h`` and ``cc_side_effect.c`` files,
 which contain various parsed side-effect definitions and functions.
 
-.. _lbl-libcc-ccparsedsideeffect-data:
+.. _lbl-libcc-ccsideeffect-data:
 
 Data
 ----
@@ -241,7 +241,7 @@ Data
 
     :c:`struct` is tagged with the same :c:struct:`CcSideEffect` name.
 
-.. _lbl-libcc-ccparsedsideeffect-functions:
+.. _lbl-libcc-ccsideeffect-functions:
 
 Functions
 ---------
@@ -290,7 +290,7 @@ Functions
     :param se_str__o: *Output* parameter; pointer to array which will hold string.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccparsedsideeffect-structfunctions:
+.. _lbl-libcc-ccsideeffect-structfunctions:
 
 :c:`struct` functions
 ^^^^^^^^^^^^^^^^^^^^^
@@ -329,24 +329,24 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_failed_resurrection( void )
 
-.. _lbl-libcc-ccparsedsideeffect-sourcecodeheader:
+.. _lbl-libcc-ccsideeffect-sourcecodeheader:
 
 Header file
 -----------
 
-Included source header file is ``cc_parsed_side_effect.h``.
+Included source header file is ``cc_side_effect.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_side_effect.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_side_effect.h
     :language: C
     :linenos:
 
-.. _lbl-libcc-ccparsedsideeffect-sourcecodefile:
+.. _lbl-libcc-ccsideeffect-sourcecodefile:
 
 Source code file
 ----------------
 
-Included source code file is ``cc_parsed_side_effect.c``.
+Included source code file is ``cc_side_effect.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_parsed_side_effect.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_side_effect.c
     :language: C
     :linenos:

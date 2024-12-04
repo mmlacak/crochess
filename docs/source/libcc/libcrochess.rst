@@ -74,7 +74,7 @@ Library contents
     ccmove
     ccply
     ccstep
-    ccparsedsideeffect
+    ccsideeffect
 
     ccparsemsg
     ccparseutils

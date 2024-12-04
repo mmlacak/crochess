@@ -7,7 +7,7 @@
 #include <stddef.h>
 
 #include "cc_pos.h"
-#include "cc_parsed_side_effect.h"
+#include "cc_side_effect.h"
 
 
 #define CC_STEP_LINK_TYPE_IS_ENUMERATOR(sle) ( ( CC_SLTE_None <= (sle) ) && ( (sle) <= CC_SLTE_JustDestination ) )

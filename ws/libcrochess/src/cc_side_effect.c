@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_parsed_side_effect.h"
+#include "cc_side_effect.h"
 
 
 char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see ) {
