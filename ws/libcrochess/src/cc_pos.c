@@ -281,7 +281,7 @@ bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
 }
 
 bool cc_pos_desc_to_string( CcPosDesc pd,
-                                  cc_char_16 * pd_str__o ) {
+                            cc_char_16 * pd_str__o ) {
     if ( !pd_str__o ) return false;
 
     if ( !cc_pos_to_string( pd.pos, (cc_char_8 *)pd_str__o ) ) return false;

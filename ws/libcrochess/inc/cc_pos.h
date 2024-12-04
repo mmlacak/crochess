@@ -158,7 +158,7 @@ typedef struct CcPosDesc {
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
 
 bool cc_pos_desc_to_string( CcPosDesc pd,
-                                  cc_char_16 * pd_str__o );
+                            cc_char_16 * pd_str__o );
 
 
 #endif /* __CC_POS_H__ */
