@@ -78,7 +78,7 @@ Data
 
         Original notation, before parsing. Usually, from user input.
 
-    .. c:member:: CcParsedPly * plies
+    .. c:member:: CcPly * plies
 
         Plies.
 
@@ -101,7 +101,7 @@ Data
 Functions
 ---------
 
-.. c:function:: CcMove * cc_move__new( char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcMoveStatusEnum status )
+.. c:function:: CcMove * cc_move__new( char const * notation, size_t max_len__d, CcPly ** plies__d_n, CcMoveStatusEnum status )
 
     Returns newly allocated move.
 
@@ -117,7 +117,7 @@ Functions
     :param status: Move status.
     :returns: A newly allocated move if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcMove * cc_move_append( CcMove ** moves__iod_a, char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcMoveStatusEnum status )
+.. c:function:: CcMove * cc_move_append( CcMove ** moves__iod_a, char const * notation, size_t max_len__d, CcPly ** plies__d_n, CcMoveStatusEnum status )
 
     Appends a newly allocated move to a given queue.
 

@@ -66,7 +66,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
                            CcGame * game,
                            CcPosDesc * before_ply_start__io,
                            bool is_first_ply,
-                           CcParsedPly ** ply__o,
+                           CcPly ** ply__o,
                            CcChessboard ** cb__io,
                            CcParseMsg ** parse_msgs__iod ) {
     if ( !before_ply_start__io ) return false;
@@ -75,13 +75,13 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Ply link.
 
-    CcParsedPlyLinkEnum ple = cc_parse_ply_link( ply_start_an );
-    if ( ple == CC_PPLE_None ) {
+    CcPlyLinkTypeEnum ple = cc_parse_ply_link( ply_start_an );
+    if ( ple == CC_PLTE_None ) {
         _cc_add_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
         return false;
     }
 
-    if ( is_first_ply && ( ple == CC_PPLE_None ) ) ple = CC_PPLE_StartingPly;
+    if ( is_first_ply && ( ple == CC_PLTE_None ) ) ple = CC_PLTE_StartingPly;
 
     char const * c_str = ply_start_an + cc_ply_link_len( ple );
 
@@ -229,7 +229,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Create a new ply, which takes ownership of steps (steps__t).
 
-    *ply__o = cc_parsed_ply__new( ple, before_ply_start__io->piece, lte, &steps__t );
+    *ply__o = cc_ply__new( ple, before_ply_start__io->piece, lte, &steps__t );
     if ( !*ply__o ) {
         cc_parsed_step_free_all( &steps__t );
         return false;
@@ -243,7 +243,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
 bool cc_parse_plies( char const * move_an,
                      CcGame * game,
-                     CcParsedPly ** plies__o,
+                     CcPly ** plies__o,
                      CcParseMsg ** parse_msgs__iod ) {
     if ( !move_an ) return false;
     if ( !game ) return false;
@@ -255,19 +255,19 @@ bool cc_parse_plies( char const * move_an,
     CcChessboard * cb__a = cc_chessboard_duplicate__new( game->chessboard );
     if ( !cb__a ) return false;
 
-    CcParsedPly * plies__t = NULL;
+    CcPly * plies__t = NULL;
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
     CcPosDesc before_ply_start = CC_POS_DESC_CAST_INVALID;
     bool is_first_ply = true;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {
-        CcParsedPly * ply__t = NULL;
+        CcPly * ply__t = NULL;
 
         if ( !_cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply_start, is_first_ply, &ply__t, &cb__a,
                             parse_msgs__iod ) ) {
-            cc_parsed_ply_free_all( &ply__t );
-            cc_parsed_ply_free_all( &plies__t );
+            cc_ply_free_all( &ply__t );
+            cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
 
             printf( "!_cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
@@ -278,7 +278,7 @@ bool cc_parse_plies( char const * move_an,
         // TODO :: DEBUG :: DELETE
         //
         {
-            char * plies_str__a = cc_parsed_ply_all_to_string__new( ply__t );
+            char * plies_str__a = cc_ply_all_to_string__new( ply__t );
 
             // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
             printf( "Ply: '%s'.\n", plies_str__a );
@@ -289,12 +289,12 @@ bool cc_parse_plies( char const * move_an,
         //
         // TODO :: DEBUG :: DELETE
 
-        if ( !cc_parsed_ply_extend( &plies__t, &ply__t ) ) {
-            cc_parsed_ply_free_all( &ply__t );
-            cc_parsed_ply_free_all( &plies__t );
+        if ( !cc_ply_extend( &plies__t, &ply__t ) ) {
+            cc_ply_free_all( &ply__t );
+            cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
 
-            printf( "!cc_parsed_ply_extend( ... )\n" ); // TODO :: DEBUG :: DELETE
+            printf( "!cc_ply_extend( ... )\n" ); // TODO :: DEBUG :: DELETE
 
             return false;
         }
@@ -307,7 +307,7 @@ bool cc_parse_plies( char const * move_an,
     // TODO :: DEBUG :: DELETE
     //
     {
-        char * plies_str__a = cc_parsed_ply_all_to_string__new( plies__t );
+        char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
         cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
         printf( "---\n" );

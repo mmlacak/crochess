@@ -8,63 +8,63 @@
 #include "cc_parse_utils.h"
 
 
-CcParsedPlyLinkEnum cc_parse_ply_link( char const * ply_an_str ) {
-    if ( !ply_an_str ) return CC_PPLE_None;
-    if ( *ply_an_str == '\0' ) return CC_PPLE_None; // Not really needed.
+CcPlyLinkTypeEnum cc_parse_ply_link( char const * ply_an_str ) {
+    if ( !ply_an_str ) return CC_PLTE_None;
+    if ( *ply_an_str == '\0' ) return CC_PLTE_None; // Not really needed.
 
     char const * c = ply_an_str;
 
-    if ( *c == '~' ) return CC_PPLE_CascadingPly; // "~" plies
+    if ( *c == '~' ) return CC_PLTE_CascadingPly; // "~" plies
 
     if ( *c == '|' ) {
         if ( *++c == '|' ) {
-            if ( *++c == '|' ) return CC_PPLE_TeleportationOblation; // "|||" failed teleportation, oblation
+            if ( *++c == '|' ) return CC_PLTE_TeleportationOblation; // "|||" failed teleportation, oblation
 
-            return CC_PPLE_TeleportationReemergence; // "||" failed teleportation, re-emergence
+            return CC_PLTE_TeleportationReemergence; // "||" failed teleportation, re-emergence
         }
 
-        return CC_PPLE_Teleportation; // "|" teleportation
+        return CC_PLTE_Teleportation; // "|" teleportation
     }
 
     if ( *c == '@' ) {
         if ( *++c == '@' ) {
-            if ( *++c == '@' ) return CC_PPLE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
+            if ( *++c == '@' ) return CC_PLTE_FailedTranceJourney; // "@@@" failed trance-journey, oblation
 
-            return CC_PPLE_DualTranceJourney; // "@@" dual trance-journey, oblation
+            return CC_PLTE_DualTranceJourney; // "@@" dual trance-journey, oblation
         }
 
-        return CC_PPLE_TranceJourney; // "@" trance-journey
+        return CC_PLTE_TranceJourney; // "@" trance-journey
     }
 
     if ( *c == ';' ) {
-        if ( *++c == ';' ) return CC_PPLE_PawnSacrifice; // ";;" Pawn-sacrifice
+        if ( *++c == ';' ) return CC_PLTE_PawnSacrifice; // ";;" Pawn-sacrifice
 
-        return CC_PPLE_None;
+        return CC_PLTE_None;
     }
 
-    if ( *c == '"' ) return CC_PPLE_SenseJourney; // "\"" sense-journey
+    if ( *c == '"' ) return CC_PLTE_SenseJourney; // "\"" sense-journey
 
-    if ( *c == '\'' ) return CC_PPLE_FailedSenseJourney; // "'" failed sense-journey, oblation
+    if ( *c == '\'' ) return CC_PLTE_FailedSenseJourney; // "'" failed sense-journey, oblation
 
-    if ( isgraph( *c ) ) return CC_PPLE_StartingPly;
+    if ( isgraph( *c ) ) return CC_PLTE_StartingPly;
 
-    return CC_PPLE_None;
+    return CC_PLTE_None;
 }
 
-size_t cc_ply_link_len( CcParsedPlyLinkEnum ple ) {
+size_t cc_ply_link_len( CcPlyLinkTypeEnum ple ) {
     switch ( ple ) {
-        case CC_PPLE_None : return 0; // Ply link not found, uninitialized, or error happened.
-        case CC_PPLE_StartingPly : return 0; // Just first ply, standalone or starting a cascade.
-        case CC_PPLE_CascadingPly : return 1; // Just one ply, continuing cascade. Corresponds to `~`.
-        case CC_PPLE_Teleportation : return 1; // Teleportation of piece. Corresponds to `|`.
-        case CC_PPLE_TeleportationReemergence : return 2; // Failed teleportation, re-emergence, corresponds to `||`.
-        case CC_PPLE_TeleportationOblation : return 3; // Failed teleportation, oblation, corresponds to `|||`.
-        case CC_PPLE_TranceJourney : return 1; // Trance-journey, corresponds to `@`.
-        case CC_PPLE_DualTranceJourney : return 2; // Double trance-journey, corresponds to `@@`.
-        case CC_PPLE_FailedTranceJourney : return 3; // Failed trance-journey, corresponds to `@@@`.
-        case CC_PPLE_PawnSacrifice : return 2; // Pawn sacrifice, corresponds to `;;`.
-        case CC_PPLE_SenseJourney : return 1; // Sense-journey, corresponds to `"`.
-        case CC_PPLE_FailedSenseJourney : return 1; // Failed sense-journey, corresponds to `'`.
+        case CC_PLTE_None : return 0; // Ply link not found, uninitialized, or error happened.
+        case CC_PLTE_StartingPly : return 0; // Just first ply, standalone or starting a cascade.
+        case CC_PLTE_CascadingPly : return 1; // Just one ply, continuing cascade. Corresponds to `~`.
+        case CC_PLTE_Teleportation : return 1; // Teleportation of piece. Corresponds to `|`.
+        case CC_PLTE_TeleportationReemergence : return 2; // Failed teleportation, re-emergence, corresponds to `||`.
+        case CC_PLTE_TeleportationOblation : return 3; // Failed teleportation, oblation, corresponds to `|||`.
+        case CC_PLTE_TranceJourney : return 1; // Trance-journey, corresponds to `@`.
+        case CC_PLTE_DualTranceJourney : return 2; // Double trance-journey, corresponds to `@@`.
+        case CC_PLTE_FailedTranceJourney : return 3; // Failed trance-journey, corresponds to `@@@`.
+        case CC_PLTE_PawnSacrifice : return 2; // Pawn sacrifice, corresponds to `;;`.
+        case CC_PLTE_SenseJourney : return 1; // Sense-journey, corresponds to `"`.
+        case CC_PLTE_FailedSenseJourney : return 1; // Failed sense-journey, corresponds to `'`.
 
         default : return 0;
     }
@@ -79,8 +79,8 @@ char const * cc_next_ply_link( char const * ply_an_str ) {
     if ( *ply_an_str == '\0' ) return NULL;
 
     // Skip over current ply link.
-    CcParsedPlyLinkEnum ple = cc_parse_ply_link( ply_an_str );
-    if ( ple == CC_PPLE_None ) return NULL;
+    CcPlyLinkTypeEnum ple = cc_parse_ply_link( ply_an_str );
+    if ( ple == CC_PLTE_None ) return NULL;
 
     char const * str__w = ply_an_str + cc_ply_link_len( ple );
 
@@ -88,9 +88,9 @@ char const * cc_next_ply_link( char const * ply_an_str ) {
     while ( *str__w != '\0' ) {
         ple = cc_parse_ply_link( str__w );
 
-        if ( ple == CC_PPLE_None )
+        if ( ple == CC_PLTE_None )
             return NULL;
-        else if ( ple == CC_PPLE_StartingPly ) {
+        else if ( ple == CC_PLTE_StartingPly ) {
             while ( ( *str__w != '\0' ) && ( !cc_is_ply_link_char( *str__w ) ) )
                 ++str__w;
         } else

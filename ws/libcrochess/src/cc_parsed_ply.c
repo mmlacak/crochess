@@ -7,31 +7,31 @@
 #include "cc_parsed_ply.h"
 
 
-char const * cc_parsed_ply_link_symbol( CcParsedPlyLinkEnum ple ) {
+char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple ) {
     switch ( ple ) {
-        case CC_PPLE_None : return NULL;
-        case CC_PPLE_StartingPly : return "";
-        case CC_PPLE_CascadingPly : return "~";
-        case CC_PPLE_Teleportation : return "|";
-        case CC_PPLE_TeleportationReemergence : return "||";
-        case CC_PPLE_TeleportationOblation : return "|||";
-        case CC_PPLE_TranceJourney : return "@";
-        case CC_PPLE_DualTranceJourney : return "@@";
-        case CC_PPLE_FailedTranceJourney : return "@@@";
-        case CC_PPLE_PawnSacrifice : return ";;";
-        case CC_PPLE_SenseJourney : return "\"";
-        case CC_PPLE_FailedSenseJourney : return "'";
+        case CC_PLTE_None : return NULL;
+        case CC_PLTE_StartingPly : return "";
+        case CC_PLTE_CascadingPly : return "~";
+        case CC_PLTE_Teleportation : return "|";
+        case CC_PLTE_TeleportationReemergence : return "||";
+        case CC_PLTE_TeleportationOblation : return "|||";
+        case CC_PLTE_TranceJourney : return "@";
+        case CC_PLTE_DualTranceJourney : return "@@";
+        case CC_PLTE_FailedTranceJourney : return "@@@";
+        case CC_PLTE_PawnSacrifice : return ";;";
+        case CC_PLTE_SenseJourney : return "\"";
+        case CC_PLTE_FailedSenseJourney : return "'";
 
         default : return NULL;
     }
 }
 
 
-CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
-                                  CcPieceType piece,
-                                  CcLosingTagEnum lost_tag,
-                                  CcParsedStep ** steps__n ) {
-    CcParsedPly * ply__a = malloc( sizeof( CcParsedPly ) );
+CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
+                     CcPieceType piece,
+                     CcLosingTagEnum lost_tag,
+                     CcParsedStep ** steps__n ) {
+    CcPly * ply__a = malloc( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;
 
     ply__a->link = link;
@@ -49,20 +49,20 @@ CcParsedPly * cc_parsed_ply__new( CcParsedPlyLinkEnum link,
     return ply__a;
 }
 
-CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
-                                    CcParsedPlyLinkEnum link,
-                                    CcPieceType piece,
-                                    CcLosingTagEnum lost_tag,
-                                    CcParsedStep ** steps__n ) {
+CcPly * cc_ply_append( CcPly ** plies__iod_a,
+                       CcPlyLinkTypeEnum link,
+                       CcPieceType piece,
+                       CcLosingTagEnum lost_tag,
+                       CcParsedStep ** steps__n ) {
     if ( !plies__iod_a ) return NULL;
 
-    CcParsedPly * ply__t = cc_parsed_ply__new( link, piece, lost_tag, steps__n );
+    CcPly * ply__t = cc_ply__new( link, piece, lost_tag, steps__n );
     if ( !ply__t ) return NULL;
 
     if ( !*plies__iod_a ) {
         *plies__iod_a = ply__t; // Ownership transfer.
     } else {
-        CcParsedPly * p = *plies__iod_a;
+        CcPly * p = *plies__iod_a;
         CC_FASTFORWARD( p );
         p->next = ply__t; // Append + ownership transfer.
     }
@@ -70,27 +70,27 @@ CcParsedPly * cc_parsed_ply_append( CcParsedPly ** plies__iod_a,
     return ply__t; // Weak pointer.
 }
 
-CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies ) {
+CcPly * cc_ply_duplicate_all__new( CcPly * plies ) {
     if ( !plies ) return NULL;
 
-    CcParsedPly * ply__a = NULL;
-    CcParsedPly * from = plies;
+    CcPly * ply__a = NULL;
+    CcPly * from = plies;
 
     do {
         CcParsedStep * steps__t = cc_parsed_step_duplicate_all__new( from->steps );
         if ( !steps__t ) {
-            cc_parsed_ply_free_all( &ply__a );
+            cc_ply_free_all( &ply__a );
             return NULL;
         }
 
-        CcParsedPly * ply__w = cc_parsed_ply_append( &ply__a,
+        CcPly * ply__w = cc_ply_append( &ply__a,
                                                      from->link,
                                                      from->piece,
                                                      from->lost_tag,
                                                      &steps__t );
         if ( !ply__w ) {
             cc_parsed_step_free_all( &steps__t ); // Failed append --> ownership not transferred ...
-            cc_parsed_ply_free_all( &ply__a );
+            cc_ply_free_all( &ply__a );
             return NULL;
         }
 
@@ -101,8 +101,8 @@ CcParsedPly * cc_parsed_ply_duplicate_all__new( CcParsedPly * plies ) {
     return ply__a;
 }
 
-CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
-                                    CcParsedPly ** plies__d_n ) {
+CcPly * cc_ply_extend( CcPly ** plies__iod_a,
+                       CcPly ** plies__d_n ) {
     if ( !plies__iod_a ) return NULL;
     if ( !plies__d_n ) return NULL;
 
@@ -116,7 +116,7 @@ CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
         return *plies__iod_a;
     }
 
-    CcParsedPly * last = *plies__iod_a;
+    CcPly * last = *plies__iod_a;
     CC_FASTFORWARD( last );
 
     // Ownership transfer.
@@ -126,18 +126,18 @@ CcParsedPly * cc_parsed_ply_extend( CcParsedPly ** plies__iod_a,
     return last->next;
 }
 
-bool cc_parsed_ply_free_all( CcParsedPly ** plies__f ) {
+bool cc_ply_free_all( CcPly ** plies__f ) {
     if ( !plies__f ) return false;
     if ( !*plies__f ) return true;
 
     bool result = true;
-    CcParsedPly * ply = *plies__f;
+    CcPly * ply = *plies__f;
 
     while ( ply ) {
         CcParsedStep ** steps = &( ply->steps );
         result = cc_parsed_step_free_all( steps ) && result;
 
-        CcParsedPly * tmp = ply->next;
+        CcPly * tmp = ply->next;
         CC_FREE( ply );
         ply = tmp;
     }
@@ -147,7 +147,7 @@ bool cc_parsed_ply_free_all( CcParsedPly ** plies__f ) {
 }
 
 
-size_t cc_parsed_ply_steps_count( CcParsedPly * ply ) {
+size_t cc_ply_steps_count( CcPly * ply ) {
     if ( !ply ) return 0;
     if ( !ply->steps ) return 0;
 
@@ -162,7 +162,7 @@ size_t cc_parsed_ply_steps_count( CcParsedPly * ply ) {
     return count;
 }
 
-bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply ) {
+bool cc_ply_contains_side_effects( CcPly * ply ) {
     if ( !ply ) return false;
     if ( !ply->steps ) return false;
 
@@ -175,8 +175,8 @@ bool cc_parsed_ply_contains_side_effects( CcParsedPly * ply ) {
     return false;
 }
 
-CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies,
-                                          CcParsedPly * ply__d ) {
+CcPieceType cc_ply_find_activator( CcPly * plies,
+                                   CcPly * ply__d ) {
     if ( !plies ) return CC_PE_None;
 
     if ( plies == ply__d ) // First ply in a linked list.
@@ -190,7 +190,7 @@ CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies,
 
     CcPieceType activator = CC_PE_None;
     bool ply_encountered = false;
-    CcParsedPly * p = plies;
+    CcPly * p = plies;
 
     while ( p ) {
         if ( CC_PIECE_IS_ACTIVE( p->piece ) )
@@ -210,13 +210,13 @@ CcPieceType cc_parsed_ply_find_activator( CcParsedPly * plies,
         return activator;
 }
 
-char * cc_parsed_ply_all_to_string__new( CcParsedPly * plies ) {
+char * cc_ply_all_to_string__new( CcPly * plies ) {
     if ( !plies ) return NULL;
 
     //
     // Count plies, steps.
 
-    CcParsedPly * p_count = plies;
+    CcPly * p_count = plies;
     size_t count_plies = 0;
     size_t count_steps = 0;
 
@@ -235,7 +235,7 @@ char * cc_parsed_ply_all_to_string__new( CcParsedPly * plies ) {
                        // + CC_MAX_LEN_CHAR_16, for side-effect
                        // + 2, for step links, e.g. ".." before step
 
-    size_t unused_size = ( count_plies * CC_MAX_LEN_PARSED_PLY_LINK_SYMBOL )
+    size_t unused_size = ( count_plies * CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL )
                        + ( count_steps * step_size )
                        + 1; // +1, for '\0'
 
@@ -245,14 +245,14 @@ char * cc_parsed_ply_all_to_string__new( CcParsedPly * plies ) {
     //
     // Collect ply string, append to result.
 
-    CcParsedPly * p = plies;
+    CcPly * p = plies;
     char * s = plies_str__a;
 
     while ( p ) {
         // Append ply link symbol.
 
-        char const * pl = cc_parsed_ply_link_symbol( p->link );
-        char * end_ple = cc_str_append_into( s, unused_size, pl, CC_MAX_LEN_PARSED_PLY_LINK_SYMBOL );
+        char const * pl = cc_ply_link_type_symbol( p->link );
+        char * end_ple = cc_str_append_into( s, unused_size, pl, CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL );
 
         if ( !end_ple ) {
             CC_FREE( plies_str__a );

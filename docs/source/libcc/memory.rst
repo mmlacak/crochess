@@ -62,7 +62,7 @@ larger entity:
 
     CcChessboard * cb__a = cc_chessboard__new( ... ); // ownership (asset)
     ...
-    CcParsedPly * plies_0__t = cc_parsed_ply__new( ... ); // transfer
+    CcPly * plies_0__t = cc_ply__new( ... ); // transfer
     ...
     CcParsedStep * steps_2__t = cc_parsed_step_none__new( ... ); // ditto
 
@@ -74,7 +74,7 @@ alive transfer variables, before it can bail-out:
 
     if ( !cc_parsed_step_none_append( steps_2__t, ... ) ) {
         cc_parsed_step_free_all( &steps_2__t );
-        cc_parsed_ply_free_all( &plies_0__t );
+        cc_ply_free_all( &plies_0__t );
         cc_chessboard_free_all( &cb__a );
         return false;
     }
@@ -143,14 +143,14 @@ in the tail of that linked list; only the first entity has the complete ownershi
 of the entire linked list.
 
 If a pointer in an entity does not have ownership over linked entity, ``__w`` is
-appended to its name, e.g. :c:`CcParsedPly * related_ply__w`.
+appended to its name, e.g. :c:`CcPly * related_ply__w`.
 
 Function(s) :c:func:`free()`\ing containing entity does not :c:func:`free()` weak pointers.
 
-For instance, :c:struct:`CcMove` contains :c:`CcParsedPly *`, so it owns all
-:c:struct:`CcParsedPly` items in that linked list.
+For instance, :c:struct:`CcMove` contains :c:`CcPly *`, so it owns all
+:c:struct:`CcPly` items in that linked list.
 
-Now, each :c:struct:`CcParsedPly` contains :c:`CcParsedStep *`, so it owns all :c:struct:`CcParsedStep`
+Now, each :c:struct:`CcPly` contains :c:`CcParsedStep *`, so it owns all :c:struct:`CcParsedStep`
 items in that linked list.
 
 So, :c:struct:`CcMove` indirectly owns every :c:struct:`CcParsedStep` in the whole structure.
@@ -159,8 +159,8 @@ This is evidenced when :c:func:`free()`\ing hierarchically complete structure fr
 :c:struct:`CcMove` pointer.
 
 All :c:struct:`CcMove`\s in a linked list are :c:func:`free()`\ed by calling :c:func:`cc_move_free_all_moves()`,
-which :c:func:`free()`\s all linked :c:struct:`CcParsedPly`\s in each :c:struct:`CcMove` (by calling :c:func:`cc_ply_free_all_plies()`),
-which :c:func:`free()`\s all linked :c:struct:`CcParsedStep`\s in each :c:struct:`CcParsedPly` (by calling :c:func:`cc_parsed_step_free_all_steps()`).
+which :c:func:`free()`\s all linked :c:struct:`CcPly`\s in each :c:struct:`CcMove` (by calling :c:func:`cc_ply_free_all_plies()`),
+which :c:func:`free()`\s all linked :c:struct:`CcParsedStep`\s in each :c:struct:`CcPly` (by calling :c:func:`cc_parsed_step_free_all_steps()`).
 
 .. _lbl-libcc-memory-management-ownership-transfer:
 
@@ -277,7 +277,7 @@ Ownership transfer parameters are indicated by:
 * appending direction indicator (``__o``, ``__io``) to parameter name if they are
   output, or input + output parameter
 * appending ``__n`` if inner pointer is going to be :c:data:`NULL`\ed, e.g.
-  :c:`CcParsedPly ** plies__n`
+  :c:`CcPly ** plies__n`
 * appending ``__f`` if inner pointer is going to be :c:func:`free()`\ed then :c:data:`NULL`\ed,
   e.g. :c:`char ** str__f`
 * appending ``__r`` if inner pointer is going to be :c:func:`realloc()`\ated, e.g.

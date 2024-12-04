@@ -30,9 +30,9 @@
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
 
 
-CcParsedPlyLinkEnum cc_parse_ply_link( char const * ply_an_str );
+CcPlyLinkTypeEnum cc_parse_ply_link( char const * ply_an_str );
 
-size_t cc_ply_link_len( CcParsedPlyLinkEnum ple );
+size_t cc_ply_link_len( CcPlyLinkTypeEnum ple );
 
 bool cc_is_ply_link_char( char const c );
 

@@ -27,7 +27,7 @@ typedef enum CcMoveStatusEnum {
 
 typedef struct CcMove {
     char * notation;
-    CcParsedPly * plies;
+    CcPly * plies;
     // CcChessboard * cb; // TODO :: if adding, pieces and tags enums **should** be based on char, not int
     CcMoveStatusEnum status;
 
@@ -38,13 +38,13 @@ typedef struct CcMove {
 
 CcMove * cc_move__new( char const * notation,
                        size_t max_len__d,
-                       CcParsedPly ** plies__d_n,
+                       CcPly ** plies__d_n,
                        CcMoveStatusEnum status );
 
 CcMove * cc_move_append( CcMove ** moves__iod_a,
                          char const * notation,
                          size_t max_len__d,
-                         CcParsedPly ** plies__d_n,
+                         CcPly ** plies__d_n,
                          CcMoveStatusEnum status );
 
 CcMove * cc_move_duplicate_all__new( CcMove * moves );
