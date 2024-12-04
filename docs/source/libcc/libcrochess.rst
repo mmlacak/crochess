@@ -71,7 +71,7 @@ Library contents
 
     ccpath
 
-    ccparsedmove
+    ccmove
     ccparsedply
     ccparsedstep
     ccparsedsideeffect

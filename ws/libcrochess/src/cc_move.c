@@ -8,7 +8,7 @@
 #include "cc_math.h"
 #include "cc_str_utils.h"
 
-#include "cc_parsed_move.h"
+#include "cc_move.h"
 
 
 CcMove * cc_move__new( char const * notation,

@@ -4,15 +4,15 @@
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccparsedmove:
+.. _lbl-libcc-ccmove:
 
-Parsed move
-===========
+Move
+====
 
-Documents ``cc_parsed_move.h`` and ``cc_parsed_move.c`` files, which contain various
+Documents ``cc_move.h`` and ``cc_move.c`` files, which contain various
 parsed move definitions and functions.
 
-.. _lbl-libcc-ccparsedmove-data:
+.. _lbl-libcc-ccmove-data:
 
 Data
 ----
@@ -96,7 +96,7 @@ Data
 
     :c:`struct` is tagged with the same :c:struct:`CcMove` name.
 
-.. _lbl-libcc-ccparsedmove-functions:
+.. _lbl-libcc-ccmove-functions:
 
 Functions
 ---------
@@ -157,7 +157,7 @@ Functions
     :param move: A move.
     :returns: Count of plies if successful, ``0`` otherwise.
 
-.. _lbl-libcc-ccparsedmove-notations:
+.. _lbl-libcc-ccmove-notations:
 
 Notations
 ---------
@@ -206,24 +206,24 @@ its own line, like so:
     :returns: Valid pointer to newly allocated string if successful, :c:data:`NULL`
         otherwise.
 
-.. _lbl-libcc-ccparsedmove-sourcecodeheader:
+.. _lbl-libcc-ccmove-sourcecodeheader:
 
 Header file
 -----------
 
-Included source header file is ``cc_parsed_move.h``.
+Included source header file is ``cc_move.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_move.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_move.h
     :language: C
     :linenos:
 
-.. _lbl-libcc-ccparsedmove-sourcecodefile:
+.. _lbl-libcc-ccmove-sourcecodefile:
 
 Source code file
 ----------------
 
-Included source code file is ``cc_parsed_move.c``.
+Included source code file is ``cc_move.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_parsed_move.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_move.c
     :language: C
     :linenos:

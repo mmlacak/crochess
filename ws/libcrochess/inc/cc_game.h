@@ -6,10 +6,10 @@
 
 #include <stdbool.h>
 
-#include "cc_parsed_move.h"
+#include "cc_move.h"
 #include "cc_chessboard.h"
 #include "cc_pos.h"
-#include "cc_parsed_move.h"
+#include "cc_move.h"
 
 
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
