@@ -17,70 +17,70 @@ parsed step definitions and functions.
 Data
 ----
 
-.. c:macro:: CC_PARSED_STEP_LINK_IS_ENUMERATOR(sle)
+.. c:macro:: CC_STEP_LINK_TYPE_IS_ENUMERATOR(sle)
 
     Macro to check if a given step link is enumerator.
 
-    :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
+    :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
     :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
 
-.. c:macro:: CC_PARSED_STEP_LINK_IS_VALID(sle)
+.. c:macro:: CC_STEP_LINK_TYPE_IS_VALID(sle)
 
     Macro to check if a given step link is valid enumerator.
 
-    :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
+    :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
-.. c:macro:: CC_PARSED_STEP_LINK_IS_DESTINATION(sle)
+.. c:macro:: CC_STEP_LINK_TYPE_IS_DESTINATION(sle)
 
     Macro to check if a given step link is destination.
 
-    :param sle: Step link enumeration, :c:enum:`CcParsedStepLinkEnum` value.
+    :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
     :returns: :c:data:`true` if destination, :c:data:`false` otherwise.
 
-.. c:enum:: CcParsedStepLinkEnum
+.. c:enum:: CcStepLinkTypeEnum
 
     Step link enumeration.
 
-    .. c:enumerator:: CC_PSLE_None
+    .. c:enumerator:: CC_SLTE_None
 
         Step link not found, uninitialized, not parsed yet, or error happened.
 
-    .. c:enumerator:: CC_PSLE_Start
+    .. c:enumerator:: CC_SLTE_Start
 
         Position from which a piece started moving.
 
-    .. c:enumerator:: CC_PSLE_Reposition
+    .. c:enumerator:: CC_SLTE_Reposition
 
         In trance-journey, dark Shaman's distant starting field; separated by ``,`` (comma).
 
-    .. c:enumerator:: CC_PSLE_Next
+    .. c:enumerator:: CC_SLTE_Next
 
         Step immediately following previous, separated by ``.`` (dot).
 
-    .. c:enumerator:: CC_PSLE_Distant
+    .. c:enumerator:: CC_SLTE_Distant
 
         Step not immediately following previous, separated by ``..`` (double-dot).
 
-    .. c:enumerator:: CC_PSLE_Destination
+    .. c:enumerator:: CC_SLTE_Destination
 
         Step to destination field, separated by ``-`` (hyphen).
 
-    .. c:enumerator:: CC_PSLE_JustDestination
+    .. c:enumerator:: CC_SLTE_JustDestination
 
         Just destination field, no separators, no other steps.
 
-    :c:`enum` is tagged with the same :c:enum:`CcParsedStepLinkEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcStepLinkTypeEnum` name.
 
-.. c:macro:: CC_MAX_LEN_PARSED_STEP_LINK_SYMBOL
+.. c:macro:: CC_MAX_LEN_STEP_LINK_TYPE_SYMBOL
 
     Macro constant for maximum length of a step link symbol; equals to ``2`` :c:`char`\s.
 
-.. c:struct:: CcParsedStep
+.. c:struct:: CcStep
 
     Step :c:`struct`\ure, linked list.
 
-    .. c:member:: CcParsedStepLinkEnum link
+    .. c:member:: CcStepLinkTypeEnum link
 
         Type of a link to previous step.
 
@@ -93,18 +93,18 @@ Data
         Side-effect structure.
 
 
-    .. c:member:: struct CcParsedStep * next
+    .. c:member:: struct CcStep * next
 
         Next step in a linked list.
 
-    :c:`struct` is tagged with the same :c:struct:`CcParsedStep` name.
+    :c:`struct` is tagged with the same :c:struct:`CcStep` name.
 
 .. _lbl-libcc-ccparsedstep-functions:
 
 Functions
 ---------
 
-.. c:function:: char const * cc_parsed_step_link_symbol( CcParsedStepLinkEnum sle )
+.. c:function:: char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle )
 
     Function returns string symbol, as used in algebraic notation,
     for a given step link.
@@ -114,7 +114,7 @@ Functions
     :param sle: A step linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedStep * cc_parsed_step__new( CcParsedStepLinkEnum link, CcPos field, CcParsedSideEffect side_effect )
+.. c:function:: CcStep * cc_step__new( CcStepLinkTypeEnum link, CcPos field, CcParsedSideEffect side_effect )
 
     Returns a newly allocated step.
 
@@ -123,7 +123,7 @@ Functions
     :param side_effect: Side-effect :c:`struct`\ure.
     :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedStep * cc_parsed_step_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcParsedSideEffect side_effect )
+.. c:function:: CcStep * cc_step_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcParsedSideEffect side_effect )
 
     Appends a newly allocated step to a given linked list.
 
@@ -137,14 +137,14 @@ Functions
     :param side_effect: Side-effect :c:`struct`\ure.
     :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedStep * cc_parsed_step_duplicate_all__new( CcParsedStep * steps )
+.. c:function:: CcStep * cc_step_duplicate_all__new( CcStep * steps )
 
     Duplicates all given steps into a newly allocated linked list.
 
     :param sle: Linked list to duplicate.
     :returns: A newly allocated steps if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedStep * cc_parsed_step_extend( CcParsedStep ** steps__iod_a, CcParsedStep ** steps__d_n )
+.. c:function:: CcStep * cc_step_extend( CcStep ** steps__iod_a, CcStep ** steps__d_n )
 
     Extends given linked list of steps with another.
 
@@ -163,21 +163,21 @@ Functions
     :returns: Weak pointer to extended portion of a linked list if successful,
               :c:data:`NULL` otherwise.
 
-.. c:function:: size_t cc_parsed_step_count( CcParsedStep * steps )
+.. c:function:: size_t cc_step_count( CcStep * steps )
 
     Function returning count of steps.
 
     :param steps: Linked list of steps.
     :returns: Count of steps if successful, ``0`` otherwise.
 
-.. c:function:: CcParsedStep * cc_parsed_step_find_start( CcParsedStep * steps )
+.. c:function:: CcStep * cc_step_find_start( CcStep * steps )
 
     Function finds starting step.
 
     :param steps: Linked list of steps.
     :returns: Starting step if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedStep * cc_parsed_step_find_destination( CcParsedStep * steps )
+.. c:function:: CcStep * cc_step_find_destination( CcStep * steps )
 
     Function finds destination step.
 
@@ -188,14 +188,14 @@ Functions
     :param steps: Linked list of steps.
     :returns: Destination step if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_parsed_step_free_all( CcParsedStep ** steps__f )
+.. c:function:: bool cc_step_free_all( CcStep ** steps__f )
 
     Frees all steps in a linked list.
 
     :param steps__f: Linked list of steps.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: char * cc_parsed_step_all_to_string__new( CcParsedStep * steps )
+.. c:function:: char * cc_step_all_to_string__new( CcStep * steps )
 
     Function returns a newly allocated string, containing user-readable
     representation of steps in a given linked list.
@@ -216,35 +216,35 @@ New step functions
 ^^^^^^^^^^^^^^^^^^
 
     The new step convenience functions are meant to be used instead of
-    :c:func:`cc_parsed_step__new()`.
+    :c:func:`cc_step__new()`.
 
     They have minimal set of parameters required by the type of a step
     (its linkage), otherwise they behave exactly as their generic
     progenitor.
 
-.. c:function:: CcParsedStep * cc_parsed_step_none__new( CcParsedStepLinkEnum link, CcPos field )
+.. c:function:: CcStep * cc_step_none__new( CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_capture__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_capture__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_displacement__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_en_passant__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType pawn, CcPos distant )
+.. c:function:: CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType pawn, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_castle__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType rook, CcPos start, CcPos destination )
+.. c:function:: CcStep * cc_step_castle__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_promote__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
+.. c:function:: CcStep * cc_step_promote__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
 
-.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_tag_for_promotion__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_convert__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_convert__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_failed_conversion__new( CcParsedStepLinkEnum link, CcPos field )
+.. c:function:: CcStep * cc_step_failed_conversion__new( CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_demote__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcStep * cc_step_demote__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_resurrect__new( CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcPos destination )
+.. c:function:: CcStep * cc_step_resurrect__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection__new( CcParsedStepLinkEnum link, CcPos field )
+.. c:function:: CcStep * cc_step_failed_resurrection__new( CcStepLinkTypeEnum link, CcPos field )
 
 .. _lbl-libcc-ccparsedstep-appendfunctions:
 
@@ -252,35 +252,35 @@ Append step functions
 ^^^^^^^^^^^^^^^^^^^^^
 
     The append new step convenience functions are meant to be used instead of
-    :c:func:`cc_parsed_step_append()`.
+    :c:func:`cc_step_append()`.
 
     They have minimal set of parameters required by the type of a step
     (its linkage), otherwise they behave exactly as their generic
     progenitor.
 
-.. c:function:: CcParsedStep * cc_parsed_step_none_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
+.. c:function:: CcStep * cc_step_none_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_capture_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_capture_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_displacement_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcStep * cc_step_displacement_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_en_passant_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType pawn, CcPos distant )
+.. c:function:: CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType pawn, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_castle_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType rook, CcPos start, CcPos destination )
+.. c:function:: CcStep * cc_step_castle_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_promote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
+.. c:function:: CcStep * cc_step_promote_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
 
-.. c:function:: CcParsedStep * cc_parsed_step_tag_for_promotion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_tag_for_promotion_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_convert_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_convert_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedStep * cc_parsed_step_failed_conversion_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
+.. c:function:: CcStep * cc_step_failed_conversion_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcParsedStep * cc_parsed_step_demote_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcStep * cc_step_demote_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
 
-.. c:function:: CcParsedStep * cc_parsed_step_resurrect_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field, CcPieceType piece, CcPos destination )
+.. c:function:: CcStep * cc_step_resurrect_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcPos destination )
 
-.. c:function:: CcParsedStep * cc_parsed_step_failed_resurrection_append( CcParsedStep ** steps__iod_a, CcParsedStepLinkEnum link, CcPos field )
+.. c:function:: CcStep * cc_step_failed_resurrection_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field )
 
 .. _lbl-libcc-ccparsedstep-sourcecodeheader:
 

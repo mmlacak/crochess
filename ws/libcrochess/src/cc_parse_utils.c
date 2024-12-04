@@ -333,7 +333,7 @@ bool cc_ply_has_separated_steps( char const * ply_an_str,
 
 bool cc_parse_step_link( char const * step_an_str,
                          char const * ply_end,
-                         CcParsedStepLinkEnum * sle__o ) {
+                         CcStepLinkTypeEnum * sle__o ) {
     if ( !step_an_str ) return false;
     if ( !sle__o ) return false;
 
@@ -341,27 +341,27 @@ bool cc_parse_step_link( char const * step_an_str,
 
     if ( *c == '.' ) {
         if ( *++c == '.' ) {
-            *sle__o = CC_PSLE_Distant;
+            *sle__o = CC_SLTE_Distant;
             return true;
         }
 
-        *sle__o = CC_PSLE_Next;
+        *sle__o = CC_SLTE_Next;
         return true;
     } else if ( *c == '-' ) {
-        *sle__o = CC_PSLE_Destination;
+        *sle__o = CC_SLTE_Destination;
         return true;
     } else if ( *c == ',' ) {
-        *sle__o = CC_PSLE_Reposition;
+        *sle__o = CC_SLTE_Reposition;
         return true;
     } else if ( isgraph( *c ) ) {
         if ( cc_ply_has_separated_steps( step_an_str, ply_end, true, true ) ) {
-            *sle__o = CC_PSLE_Start;
+            *sle__o = CC_SLTE_Start;
             return true;
         } else if ( cc_skip_disambiguation( step_an_str ) ) {
-            *sle__o = CC_PSLE_Start;
+            *sle__o = CC_SLTE_Start;
             return true;
         } else {
-            *sle__o = CC_PSLE_JustDestination;
+            *sle__o = CC_SLTE_JustDestination;
             return true;
         }
     }
@@ -369,15 +369,15 @@ bool cc_parse_step_link( char const * step_an_str,
     return false;
 }
 
-size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle ) {
+size_t cc_step_link_len( CcStepLinkTypeEnum sle ) {
     switch ( sle ) {
-        case CC_PSLE_None : return 0; /* Step link not found, uninitialized, or error happened. */
-        case CC_PSLE_Start : return 0; /* Position from which a piece started moving. */
-        case CC_PSLE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
-        case CC_PSLE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
-        case CC_PSLE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
-        case CC_PSLE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
-        case CC_PSLE_JustDestination : return 0; /* Just destination field, no separators, no other steps, maybe disambiguation. */
+        case CC_SLTE_None : return 0; /* Step link not found, uninitialized, or error happened. */
+        case CC_SLTE_Start : return 0; /* Position from which a piece started moving. */
+        case CC_SLTE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
+        case CC_SLTE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
+        case CC_SLTE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
+        case CC_SLTE_Destination : return 1; /* Step to destination field, separated by - (hyphen). */
+        case CC_SLTE_JustDestination : return 0; /* Just destination field, no separators, no other steps, maybe disambiguation. */
 
         default : return 0;
     }
@@ -390,16 +390,16 @@ char const * cc_next_step_link( char const * step_an_str,
     if ( !ply_end ) return NULL;
     if ( step_an_str >= ply_end ) return NULL;
 
-    CcParsedStepLinkEnum sle = CC_PSLE_None;
+    CcStepLinkTypeEnum sle = CC_SLTE_None;
     if ( !cc_parse_step_link( step_an_str, ply_end, &sle ) ) return NULL;
 
-    char const * str__w = step_an_str + cc_parsed_step_link_len( sle );
+    char const * str__w = step_an_str + cc_step_link_len( sle );
 
     // Skip over everything before next step link.
     do {
         if ( !cc_parse_step_link( str__w, ply_end, &sle ) ) return NULL;
 
-        if ( ( sle == CC_PSLE_Start ) || ( sle == CC_PSLE_JustDestination ) )
+        if ( ( sle == CC_SLTE_Start ) || ( sle == CC_SLTE_JustDestination ) )
             ++str__w;
         else
             break;

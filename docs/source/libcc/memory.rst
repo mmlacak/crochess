@@ -64,7 +64,7 @@ larger entity:
     ...
     CcPly * plies_0__t = cc_ply__new( ... ); // transfer
     ...
-    CcParsedStep * steps_2__t = cc_parsed_step_none__new( ... ); // ditto
+    CcStep * steps_2__t = cc_step_none__new( ... ); // ditto
 
 Now, if appending a new step fails, it also has to clean-up all owned and all
 alive transfer variables, before it can bail-out:
@@ -72,8 +72,8 @@ alive transfer variables, before it can bail-out:
 .. code-block:: C
     :force:
 
-    if ( !cc_parsed_step_none_append( steps_2__t, ... ) ) {
-        cc_parsed_step_free_all( &steps_2__t );
+    if ( !cc_step_none_append( steps_2__t, ... ) ) {
+        cc_step_free_all( &steps_2__t );
         cc_ply_free_all( &plies_0__t );
         cc_chessboard_free_all( &cb__a );
         return false;
@@ -95,9 +95,9 @@ will be returned from a function, for example:
 .. code-block:: C
     :force:
 
-    CcParsedStep * cc_parsed_step_duplicate_all__new( ... ) {
+    CcStep * cc_step_duplicate_all__new( ... ) {
         // Function returns weak pointer, for read+write borrow, or for checking if append passed ok.
-        CcParsedStep * step__w = cc_parsed_step_append( ... );
+        CcStep * step__w = cc_step_append( ... );
 
         if ( !step__w ) {
             // Failed append --> ownership not transferred ...
@@ -150,17 +150,17 @@ Function(s) :c:func:`free()`\ing containing entity does not :c:func:`free()` wea
 For instance, :c:struct:`CcMove` contains :c:`CcPly *`, so it owns all
 :c:struct:`CcPly` items in that linked list.
 
-Now, each :c:struct:`CcPly` contains :c:`CcParsedStep *`, so it owns all :c:struct:`CcParsedStep`
+Now, each :c:struct:`CcPly` contains :c:`CcStep *`, so it owns all :c:struct:`CcStep`
 items in that linked list.
 
-So, :c:struct:`CcMove` indirectly owns every :c:struct:`CcParsedStep` in the whole structure.
+So, :c:struct:`CcMove` indirectly owns every :c:struct:`CcStep` in the whole structure.
 
 This is evidenced when :c:func:`free()`\ing hierarchically complete structure from a single
 :c:struct:`CcMove` pointer.
 
 All :c:struct:`CcMove`\s in a linked list are :c:func:`free()`\ed by calling :c:func:`cc_move_free_all_moves()`,
 which :c:func:`free()`\s all linked :c:struct:`CcPly`\s in each :c:struct:`CcMove` (by calling :c:func:`cc_ply_free_all_plies()`),
-which :c:func:`free()`\s all linked :c:struct:`CcParsedStep`\s in each :c:struct:`CcPly` (by calling :c:func:`cc_parsed_step_free_all_steps()`).
+which :c:func:`free()`\s all linked :c:struct:`CcStep`\s in each :c:struct:`CcPly` (by calling :c:func:`cc_step_free_all_steps()`).
 
 .. _lbl-libcc-memory-management-ownership-transfer:
 
@@ -182,7 +182,7 @@ Whether borrow is mutable or not can be seen in a function return type, if retur
 pointer points to :c:`const` entity, that is immutable borrow.
 
 Pointers returned from a function usually are mutable borrows
-(e.g. :c:`CcParsedStep * cc_ply_get_steps()`), although there are also read-only
+(e.g. :c:`CcStep * cc_ply_get_steps()`), although there are also read-only
 borrows (e.g. :c:`char const * cc_variant_label()`).
 
 .. _lbl-libcc-memory-management-parameters:

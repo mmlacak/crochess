@@ -21,11 +21,11 @@ static void _cc_add_msg_invalid_step_link( char const * step_start_an,
 
 static bool _cc_check_parsed_pos( char const * step_start_an,
                                   char const * step_end_an,
-                                  CcParsedStepLinkEnum sle,
+                                  CcStepLinkTypeEnum sle,
                                   CcPos * pos__o,
                                   char const ** pos_end_an__o,
                                   CcParseMsg ** parse_msgs__iod ) {
-    char const * step_after_link_an = step_start_an + cc_parsed_step_link_len( sle );
+    char const * step_after_link_an = step_start_an + cc_step_link_len( sle );
 
     if ( !cc_parse_pos( step_after_link_an, pos__o, pos_end_an__o ) ) {
         char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
@@ -100,7 +100,7 @@ static bool _cc_parse_step( char const * step_start_an,
                             CcPosDesc before_ply_start,
                             bool is_first_step,
                             bool * had_disambiguation__io,
-                            CcParsedStep ** step__o,
+                            CcStep ** step__o,
                             CcChessboard ** cb__io,
                             CcParseMsg ** parse_msgs__iod ) {
     if ( !step_start_an ) return false;
@@ -114,14 +114,14 @@ static bool _cc_parse_step( char const * step_start_an,
 
     if ( is_first_step ) *had_disambiguation__io = false;
 
-    CcParsedStepLinkEnum sle = CC_PSLE_None;
+    CcStepLinkTypeEnum sle = CC_SLTE_None;
     if ( !cc_parse_step_link( step_start_an, steps_end_an, &sle ) ) {
         _cc_add_msg_invalid_step_link( step_start_an, step_end_an, parse_msgs__iod );
         return false;
     }
 
     if ( *had_disambiguation__io ) {
-        if ( sle == CC_PSLE_Start ) sle = CC_PSLE_JustDestination;
+        if ( sle == CC_SLTE_Start ) sle = CC_SLTE_JustDestination;
         *had_disambiguation__io = false;
     }
 
@@ -154,7 +154,7 @@ static bool _cc_parse_step( char const * step_start_an,
                                     &se,
                                     parse_msgs__iod ) ) return false;
 
-    CcParsedStep * step__t = cc_parsed_step__new( sle, pos, se );
+    CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
 
     *step__o = step__t;
@@ -168,7 +168,7 @@ bool cc_parse_steps( char const * steps_start_an,
                      char const * steps_end_an,
                      CcGame * game,
                      CcPosDesc before_ply_start,
-                     CcParsedStep ** steps__o,
+                     CcStep ** steps__o,
                      CcChessboard ** cb__io,
                      CcParseMsg ** parse_msgs__iod ) {
     if ( !steps_start_an ) return false;
@@ -184,7 +184,7 @@ bool cc_parse_steps( char const * steps_start_an,
     bool had_disambiguation = false;
 
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
-        CcParsedStep * step__t = NULL;
+        CcStep * step__t = NULL;
 
         cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
@@ -196,12 +196,12 @@ bool cc_parse_steps( char const * steps_start_an,
                              parse_msgs__iod ) ) {
             printf( "!_cc_parse_step\n" );  // TODO :: DEBUG :: DELETE
 
-            cc_parsed_step_free_all( &step__t );
+            cc_step_free_all( &step__t );
             return false;
         }
 
-        if ( !cc_parsed_step_extend( steps__o, &step__t ) ) {
-            cc_parsed_step_free_all( &step__t );
+        if ( !cc_step_extend( steps__o, &step__t ) ) {
+            cc_step_free_all( &step__t );
             return false;
         }
 
@@ -211,7 +211,7 @@ bool cc_parse_steps( char const * steps_start_an,
     // TODO :: DEBUG :: DELETE
     //
     {
-        char * step_str__a = cc_parsed_step_all_to_string__new( *steps__o );
+        char * step_str__a = cc_step_all_to_string__new( *steps__o );
 
         cc_str_print( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 

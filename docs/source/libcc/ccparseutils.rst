@@ -260,7 +260,7 @@ Functions
     :returns: :c:data:`true` if ply contains step separators,
         :c:data:`false` otherwise.
 
-.. c:function:: bool cc_parse_step_link( char const * step_an_str, char const * ply_end, CcParsedStepLinkEnum * sle__o )
+.. c:function:: bool cc_parse_step_link( char const * step_an_str, char const * ply_end, CcStepLinkTypeEnum * sle__o )
 
     Function returns parsed step link via *output* parameter.
 
@@ -271,11 +271,11 @@ Functions
     :param sle__o: *Output*; pointer to step link storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle )
+.. c:function:: size_t cc_step_link_len( CcStepLinkTypeEnum sle )
 
     Function returns length in :c:`char`\s of a step link as used in notation.
 
-    :param sle: Step link, i.e. :c:enum:`CcParsedStepLinkEnum` value.
+    :param sle: Step link, i.e. :c:enum:`CcStepLinkTypeEnum` value.
     :returns: Length if given step link was valid, ``0`` otherwise.
 
 .. c:function:: char const * cc_next_step_link( char const * step_an_str, char const * ply_end )

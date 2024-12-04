@@ -69,9 +69,9 @@ bool cc_ply_has_separated_steps( char const * ply_an_str,
 
 bool cc_parse_step_link( char const * step_an_str,
                          char const * ply_end,
-                         CcParsedStepLinkEnum * sle__o );
+                         CcStepLinkTypeEnum * sle__o );
 
-size_t cc_parsed_step_link_len( CcParsedStepLinkEnum sle );
+size_t cc_step_link_len( CcStepLinkTypeEnum sle );
 
 char const * cc_next_step_link( char const * step_an_str,
                                 char const * ply_end );

@@ -161,21 +161,21 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Steps.
 
-    CcParsedStep * steps__t = NULL;
+    CcStep * steps__t = NULL;
 
     if ( !cc_parse_steps( c_str, ply_end_an, game, *before_ply_start__io, &steps__t, cb__io,
                           parse_msgs__iod ) ) {
-        cc_parsed_step_free_all( &steps__t );
+        cc_step_free_all( &steps__t );
         return false;
     }
 
     //
     // Finding starting position, tag, if first ply.
 
-    CcParsedStep * start = NULL;
+    CcStep * start = NULL;
 
     if ( is_first_ply ) {
-        start = cc_parsed_step_find_start( steps__t );
+        start = cc_step_find_start( steps__t );
 
         if ( start && CC_POS_IS_VALID( start->field ) ) {
             CcPos start_pos = start->field;
@@ -187,7 +187,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
             } else {
                 cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
                 if ( !cc_pos_to_string( start_pos, &pos_c8 ) ) {
-                    cc_parsed_step_free_all( &steps__t );
+                    cc_step_free_all( &steps__t );
                     return false;
                 }
 
@@ -196,7 +196,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
                 cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation, in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
                 CC_FREE( ply_an__a );
 
-                cc_parsed_step_free_all( &steps__t );
+                cc_step_free_all( &steps__t );
                 return false;
             }
         } else {
@@ -209,10 +209,10 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Updating last destination, before change.
 
-    CcParsedStep * destination = cc_parsed_step_find_destination( steps__t );
+    CcStep * destination = cc_step_find_destination( steps__t );
 
     if ( !destination ) {
-        cc_parsed_step_free_all( &steps__t );
+        cc_step_free_all( &steps__t );
         return false;
     }
 
@@ -231,7 +231,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
     *ply__o = cc_ply__new( ple, before_ply_start__io->piece, lte, &steps__t );
     if ( !*ply__o ) {
-        cc_parsed_step_free_all( &steps__t );
+        cc_step_free_all( &steps__t );
         return false;
     }
 

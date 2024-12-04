@@ -52,7 +52,7 @@ typedef struct CcPly {
     CcPlyLinkTypeEnum link;
     CcPieceType piece;
     CcLosingTagEnum lost_tag;
-    CcParsedStep * steps;
+    CcStep * steps;
 
     struct CcPly * next;
 } CcPly;
@@ -60,13 +60,13 @@ typedef struct CcPly {
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
                      CcPieceType piece,
                      CcLosingTagEnum lost_tag,
-                     CcParsedStep ** steps__n );
+                     CcStep ** steps__n );
 
 CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
                        CcPieceType piece,
                        CcLosingTagEnum lost_tag,
-                       CcParsedStep ** steps__n );
+                       CcStep ** steps__n );
 
 CcPly * cc_ply_duplicate_all__new( CcPly * plies );
 
