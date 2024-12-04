@@ -328,20 +328,20 @@ Functions
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: CcParsedSideEffectEnum cc_parse_side_effect_type( char const * step_an_str, bool * has_promotion_sign__o )
+.. c:function:: CcSideEffectTypeEnum cc_parse_side_effect_type( char const * step_an_str, bool * has_promotion_sign__o )
 
     Function returns side-effect type found in a given step notation.
 
     :param step_an_str: Step notation, points at side-effect;
         zero-terminated, :term:`AN` string.
     :param has_promotion_sign__o: *Output*; pointer to promotion sign flag storage.
-    :returns: Side-effect type, :c:enum:`CcParsedSideEffectEnum` value.
+    :returns: Side-effect type, :c:enum:`CcSideEffectTypeEnum` value.
 
-.. c:function:: size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see, bool has_promotion_sign )
+.. c:function:: size_t cc_side_effect_type_len( CcSideEffectTypeEnum see, bool has_promotion_sign )
 
     Function returns length in :c:`char`\s of a side-effect type as used in notation.
 
-    :param see: Side-effect type, :c:enum:`CcParsedSideEffectEnum` value.
+    :param see: Side-effect type, :c:enum:`CcSideEffectTypeEnum` value.
     :param has_promotion_sign: Flag, whether promotion sign was present in notation.
     :returns: Length if given side-effect type was valid, ``0`` otherwise.
 

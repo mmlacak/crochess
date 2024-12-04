@@ -472,7 +472,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                            CcChessboard * cb,
                            CcStepLinkTypeEnum sle,
                            CcPos * step_pos__io,
-                           CcParsedSideEffect * side_effect__o,
+                           CcSideEffect * side_effect__o,
                            CcParseMsg ** parse_msgs__iod ) {
     if ( !side_effect_an ) return false;
     if ( !step_start_an ) return false;
@@ -496,11 +496,11 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
     CcPieceType step_piece = cc_chessboard_get_piece( cb, step_pos__io->i, step_pos__io->j );
     bool has_promotion_sign = false;
-    CcParsedSideEffectEnum see = cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
-    char const * se_an = side_effect_an + cc_parsed_side_effect_type_len( see, has_promotion_sign );
+    CcSideEffectTypeEnum see = cc_parse_side_effect_type( side_effect_an, &has_promotion_sign );
+    char const * se_an = side_effect_an + cc_side_effect_type_len( see, has_promotion_sign );
 
     switch ( see ) {
-        case CC_PSEE_None : {
+        case CC_SETE_None : {
 
             // TODO :: default interactions
             //
@@ -514,7 +514,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             //         it can't be promotion, if promote-to piece is missing
 
             if ( CC_PIECE_IS_NONE( step_piece ) ) {
-                *side_effect__o = cc_parsed_side_effect_none();
+                *side_effect__o = cc_side_effect_none();
                 return true;
             } else {
                 if ( sle == CC_SLTE_Start ) { // [1]
@@ -541,7 +541,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     //
                     // TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
 
-                    *side_effect__o = cc_parsed_side_effect_none();
+                    *side_effect__o = cc_side_effect_none();
                     return true;
                 } else { // [2]
                     // TODO :: silent capture ::
@@ -559,12 +559,12 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     //     return false;
                     // }
 
-                    *side_effect__o = cc_parsed_side_effect_none();
+                    *side_effect__o = cc_side_effect_none();
                     return true;
                 }
             }
             // TODO
-        } case CC_PSEE_Capture : {
+        } case CC_SETE_Capture : {
             // TODO
             //
             // -- moving promotion :: if it's a capture made by Pawn, check if it's also a promotion
@@ -586,10 +586,10 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) ) {
                 bool has_promo_sign = false;
-                CcParsedSideEffectEnum promo = cc_parse_side_effect_type( promo_an, &has_promo_sign );
+                CcSideEffectTypeEnum promo = cc_parse_side_effect_type( promo_an, &has_promo_sign );
 
-                if ( promo == CC_PSEE_Promotion ) {
-                    promo_an += cc_parsed_side_effect_type_len( promo, has_promo_sign );
+                if ( promo == CC_SETE_Promotion ) {
+                    promo_an += cc_side_effect_type_len( promo, has_promo_sign );
 
                     char promote_to_symbol = ' ';
 
@@ -605,16 +605,16 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     if ( !_cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
 
-                    *side_effect__o = cc_parsed_side_effect_promote( step_piece, lte, promote_to );
+                    *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
                     return true;
-                } else if ( promo == CC_PSEE_TagForPromotion ) {
+                } else if ( promo == CC_SETE_TagForPromotion ) {
                     // TODO :: add flag
                 }
             }
 
-            *side_effect__o = cc_parsed_side_effect_capture( step_piece, lte );
+            *side_effect__o = cc_side_effect_capture( step_piece, lte );
             return true;
-        } case CC_PSEE_Displacement : {
+        } case CC_SETE_Displacement : {
             // TODO -- add Serpent
             //      -- check light entranced Shaman
 
@@ -642,9 +642,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_position_is_on_board( pos, cb, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_displacement( step_piece, lte, pos );
+            *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
             return true;
-        } case CC_PSEE_EnPassant : {
+        } case CC_SETE_EnPassant : {
             if ( !_cc_check_piece_en_passant( before_ply_start.piece, true, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
@@ -683,9 +683,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             // TODO :: check path of capturing piece
 
-            *side_effect__o = cc_parsed_side_effect_en_passant( step_piece, captured_at );
+            *side_effect__o = cc_side_effect_en_passant( step_piece, captured_at );
             return true;
-        } case CC_PSEE_Castle : {
+        } case CC_SETE_Castle : {
             if ( !_cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
@@ -713,9 +713,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos__io, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_castle( rook, rook_start, rook_dest );
+            *side_effect__o = cc_side_effect_castle( rook, rook_start, rook_dest );
             return true;
-        } case CC_PSEE_Promotion : {
+        } case CC_SETE_Promotion : {
             // TODO -- static promotion
             //      -- moving promotion
             //      -- silent capture before promotion
@@ -737,17 +737,17 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, step_piece );
+            *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, step_piece );
             return true;
-        } case CC_PSEE_TagForPromotion : {
+        } case CC_SETE_TagForPromotion : {
             // TODO -- silent capture before promotion
 
             if ( !_cc_check_promoting_piece_is_pawn( step_piece, "Only Pawn can be tagged for promotion, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_NoneLost );
+            *side_effect__o = cc_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_NoneLost );
             return true;
-        } case CC_PSEE_Conversion : {
+        } case CC_SETE_Conversion : {
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
@@ -763,16 +763,16 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType convert_to = cc_piece_opposite( step_piece );
             CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
 
-            *side_effect__o = cc_parsed_side_effect_convert( convert_to, lte );
+            *side_effect__o = cc_side_effect_convert( convert_to, lte );
             return true;
-        } case CC_PSEE_FailedConversion : {
+        } case CC_SETE_FailedConversion : {
             if ( !_cc_check_failed_conversion( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_parsed_side_effect_failed_conversion();
+            *side_effect__o = cc_side_effect_failed_conversion();
             return true;
-        } case CC_PSEE_Transparency : { // Intentional fall-through ...
-        } case CC_PSEE_Divergence : {
+        } case CC_SETE_Transparency : { // Intentional fall-through ...
+        } case CC_SETE_Divergence : {
             char piece_symbol = ' ';
 
             if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
@@ -782,19 +782,19 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 ++se_an;
             }
 
-            if ( see == CC_PSEE_Transparency )
-                *side_effect__o = cc_parsed_side_effect_transparency( step_piece );
-            else if ( see == CC_PSEE_Divergence )
-                *side_effect__o = cc_parsed_side_effect_diversion( step_piece );
+            if ( see == CC_SETE_Transparency )
+                *side_effect__o = cc_side_effect_transparency( step_piece );
+            else if ( see == CC_SETE_Divergence )
+                *side_effect__o = cc_side_effect_diversion( step_piece );
             else
                 return false; // In case some other, unexpected side-effect gets here.
 
             return true;
-        } case CC_PSEE_DemoteToPawn : {
+        } case CC_SETE_DemoteToPawn : {
             // TODO :: demote to Pawn
             return false;
-        } case CC_PSEE_Resurrection : { // Intentional fall-through ...
-        } case CC_PSEE_ResurrectingOpponent : {
+        } case CC_SETE_Resurrection : { // Intentional fall-through ...
+        } case CC_SETE_ResurrectingOpponent : {
             if ( !_cc_check_field_is_empty( step_piece, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
@@ -809,9 +809,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
             bool is_light = true;
 
             if ( CC_GAME_STATUS_IS_LIGHT_TURN( game->status ) )
-                is_light = ( see == CC_PSEE_Resurrection );
+                is_light = ( see == CC_SETE_Resurrection );
             else if ( CC_GAME_STATUS_IS_DARK_TURN( game->status ) )
-                is_light = ( see == CC_PSEE_ResurrectingOpponent );
+                is_light = ( see == CC_SETE_ResurrectingOpponent );
             else
                 return false; // Should check status, within caller stack.
 
@@ -833,10 +833,10 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     return false;
             }
 
-            *side_effect__o = cc_parsed_side_effect_resurrect( step_piece, pos );
+            *side_effect__o = cc_side_effect_resurrect( step_piece, pos );
             return true;
-        } case CC_PSEE_FailedResurrection : {
-            *side_effect__o = cc_parsed_side_effect_failed_resurrection();
+        } case CC_SETE_FailedResurrection : {
+            *side_effect__o = cc_side_effect_failed_resurrection();
             return true;
         }
 

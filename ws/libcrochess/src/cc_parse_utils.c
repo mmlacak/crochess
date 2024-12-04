@@ -443,73 +443,73 @@ bool cc_iter_step( char const * ply_an_str,
 }
 
 
-CcParsedSideEffectEnum cc_parse_side_effect_type( char const * step_an_str,
+CcSideEffectTypeEnum cc_parse_side_effect_type( char const * step_an_str,
                                                   bool * has_promotion_sign__o ) {
-    if ( !step_an_str ) return CC_PSEE_None;
-    if ( !has_promotion_sign__o ) return CC_PSEE_None;
+    if ( !step_an_str ) return CC_SETE_None;
+    if ( !has_promotion_sign__o ) return CC_SETE_None;
 
     char const * c = step_an_str;
 
     if ( *c == '*' ) {
-        return CC_PSEE_Capture;
+        return CC_SETE_Capture;
     } else if ( *c == '<' ) {
-        return CC_PSEE_Displacement;
+        return CC_SETE_Displacement;
     } else if ( *c == ':' ) {
-        return CC_PSEE_EnPassant;
+        return CC_SETE_EnPassant;
     } else if ( *c == '&' ) {
-        return CC_PSEE_Castle;
+        return CC_SETE_Castle;
     } else if ( *c == '=' ) {
         if ( isupper( *++c ) ) {
             *has_promotion_sign__o = true;
-            return CC_PSEE_Promotion;
+            return CC_SETE_Promotion;
         } else
-            return CC_PSEE_TagForPromotion;
+            return CC_SETE_TagForPromotion;
     } else if ( *c == '%' ) {
         if ( *++c == '%' )
-            return CC_PSEE_FailedConversion;
+            return CC_SETE_FailedConversion;
 
-        return CC_PSEE_Conversion;
+        return CC_SETE_Conversion;
     } else if ( *c == '^' ) {
-        return CC_PSEE_Transparency;
+        return CC_SETE_Transparency;
     } else if ( *c == '/' ) {
-        return CC_PSEE_Divergence;
+        return CC_SETE_Divergence;
     } else if ( *c == '>' ) {
-        return CC_PSEE_DemoteToPawn;
+        return CC_SETE_DemoteToPawn;
     } else if ( *c == '$' ) {
         if ( *++c == '$' ) {
             if ( *++c == '$' )
-                return CC_PSEE_FailedResurrection;
+                return CC_SETE_FailedResurrection;
 
-            return CC_PSEE_ResurrectingOpponent;
+            return CC_SETE_ResurrectingOpponent;
         }
 
-        return CC_PSEE_Resurrection;
+        return CC_SETE_Resurrection;
     } else if ( isupper( *c ) ) {
         *has_promotion_sign__o = false;
-        return CC_PSEE_Promotion; // Promotion without `=`.
+        return CC_SETE_Promotion; // Promotion without `=`.
     }
 
-    return CC_PSEE_None;
+    return CC_SETE_None;
 }
 
-size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
+size_t cc_side_effect_type_len( CcSideEffectTypeEnum see,
                                        bool has_promotion_sign ) {
     switch ( see ) {
-        // case CC_PSEE_None :
-        case CC_PSEE_Capture : return 1;
-        case CC_PSEE_Displacement : return 1;
-        case CC_PSEE_EnPassant : return 1;
-        case CC_PSEE_Castle : return 1;
-        case CC_PSEE_Promotion : return has_promotion_sign ? 1 : 0;
-        case CC_PSEE_TagForPromotion : return 1;
-        case CC_PSEE_Conversion : return 1;
-        case CC_PSEE_FailedConversion : return 2;
-        case CC_PSEE_Transparency : return 1;
-        case CC_PSEE_Divergence : return 1;
-        case CC_PSEE_DemoteToPawn : return 1;
-        case CC_PSEE_Resurrection : return 1;
-        case CC_PSEE_ResurrectingOpponent : return 2;
-        case CC_PSEE_FailedResurrection : return 3;
+        // case CC_SETE_None :
+        case CC_SETE_Capture : return 1;
+        case CC_SETE_Displacement : return 1;
+        case CC_SETE_EnPassant : return 1;
+        case CC_SETE_Castle : return 1;
+        case CC_SETE_Promotion : return has_promotion_sign ? 1 : 0;
+        case CC_SETE_TagForPromotion : return 1;
+        case CC_SETE_Conversion : return 1;
+        case CC_SETE_FailedConversion : return 2;
+        case CC_SETE_Transparency : return 1;
+        case CC_SETE_Divergence : return 1;
+        case CC_SETE_DemoteToPawn : return 1;
+        case CC_SETE_Resurrection : return 1;
+        case CC_SETE_ResurrectingOpponent : return 2;
+        case CC_SETE_FailedResurrection : return 3;
 
         default : return 0;
     }

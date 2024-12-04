@@ -88,7 +88,7 @@ Data
 
         Field of a step.
 
-    .. c:member:: CcParsedSideEffect side_effect
+    .. c:member:: CcSideEffect side_effect
 
         Side-effect structure.
 
@@ -114,7 +114,7 @@ Functions
     :param sle: A step linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
-.. c:function:: CcStep * cc_step__new( CcStepLinkTypeEnum link, CcPos field, CcParsedSideEffect side_effect )
+.. c:function:: CcStep * cc_step__new( CcStepLinkTypeEnum link, CcPos field, CcSideEffect side_effect )
 
     Returns a newly allocated step.
 
@@ -123,7 +123,7 @@ Functions
     :param side_effect: Side-effect :c:`struct`\ure.
     :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcStep * cc_step_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcParsedSideEffect side_effect )
+.. c:function:: CcStep * cc_step_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcSideEffect side_effect )
 
     Appends a newly allocated step to a given linked list.
 

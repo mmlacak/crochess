@@ -1,8 +1,8 @@
 // Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_PARSED_SIDE_EFFECT_H__
-#define __CC_PARSED_SIDE_EFFECT_H__
+#ifndef __CC_SIDE_EFFECT_H__
+#define __CC_SIDE_EFFECT_H__
 
 #include <stddef.h>
 
@@ -13,34 +13,32 @@
 #include "cc_pos.h"
 
 
-typedef enum CcParsedSideEffectEnum {
-    CC_PSEE_None, /* No side effects. */
-    CC_PSEE_Capture, /* Corresponds to `*`. */
-    CC_PSEE_Displacement, /* Corresponds to `<`. */
-    CC_PSEE_EnPassant, /* Corresponds to `:`. */
-    CC_PSEE_Castle, /* Corresponds to `&`. */
-    CC_PSEE_Promotion, /* Corresponds to `=`, ``. */
-    CC_PSEE_TagForPromotion, /* Corresponds to `=`. */
-    CC_PSEE_Conversion, /* Corresponds to `%`. */
-    CC_PSEE_FailedConversion, /* Corresponds to `%%`. */
-    CC_PSEE_Transparency, /* Corresponds to `^`. */
-    CC_PSEE_Divergence, /* Corresponds to `/`. */
-    CC_PSEE_DemoteToPawn, /* Corresponds to `>`. */
-    CC_PSEE_Resurrection, /* Corresponds to `$`. */
-    CC_PSEE_ResurrectingOpponent, /* Corresponds to `$$`. */
-    CC_PSEE_FailedResurrection, /* Corresponds to `$$$`. */
-} CcParsedSideEffectEnum;
+typedef enum CcSideEffectTypeEnum {
+    CC_SETE_None, /* No side effects. */
+    CC_SETE_Capture, /* Corresponds to `*`. */
+    CC_SETE_Displacement, /* Corresponds to `<`. */
+    CC_SETE_EnPassant, /* Corresponds to `:`. */
+    CC_SETE_Castle, /* Corresponds to `&`. */
+    CC_SETE_Promotion, /* Corresponds to `=`, ``. */
+    CC_SETE_TagForPromotion, /* Corresponds to `=`. */
+    CC_SETE_Conversion, /* Corresponds to `%`. */
+    CC_SETE_FailedConversion, /* Corresponds to `%%`. */
+    CC_SETE_Transparency, /* Corresponds to `^`. */
+    CC_SETE_Divergence, /* Corresponds to `/`. */
+    CC_SETE_DemoteToPawn, /* Corresponds to `>`. */
+    CC_SETE_Resurrection, /* Corresponds to `$`. */
+    CC_SETE_ResurrectingOpponent, /* Corresponds to `$$`. */
+    CC_SETE_FailedResurrection, /* Corresponds to `$$$`. */
+} CcSideEffectTypeEnum;
 
-#define CC_PARSED_SIDE_EFFECT_ENUM_IS_CASTLING(see) ( (see) == CC_PSEE_Castle )
+#define CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL (3)
 
-#define CC_MAX_LEN_PARSED_SIDE_EFFECT_SYMBOL (3)
-
-char const * cc_parsed_side_effect_symbol( CcParsedSideEffectEnum see );
+char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see );
 
 
-typedef struct CcParsedSideEffect
+typedef struct CcSideEffect
 {
-    CcParsedSideEffectEnum type; /* Type of side-effect. */
+    CcSideEffectTypeEnum type; /* Type of side-effect. */
 
     union {
         struct {
@@ -100,37 +98,37 @@ typedef struct CcParsedSideEffect
             CcPos destination; /* Position at which Wave, Starchild has been resurrected. */
         } resurrect; /* Resurrection. */
     }; /* Union of all substructures used by different step side-effects. */
-} CcParsedSideEffect;
+} CcSideEffect;
 
-CcParsedSideEffect cc_parsed_side_effect( CcParsedSideEffectEnum type,
-                                          CcPieceType piece,
-                                          CcLosingTagEnum lost_tag,
-                                          CcPos start,
-                                          CcPos destination,
-                                          CcPieceType promoted_to );
+CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
+                             CcPieceType piece,
+                             CcLosingTagEnum lost_tag,
+                             CcPos start,
+                             CcPos destination,
+                             CcPieceType promoted_to );
 
-CcPieceType cc_parsed_side_effect_piece( CcParsedSideEffect se );
+CcPieceType cc_side_effect_piece( CcSideEffect se );
 
-CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se );
+CcPos cc_side_effect_destination( CcSideEffect se );
 
-bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se,
-                                         cc_char_16 * se_str__o );
-
-
-CcParsedSideEffect cc_parsed_side_effect_none( void );
-CcParsedSideEffect cc_parsed_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag );
-CcParsedSideEffect cc_parsed_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination );
-CcParsedSideEffect cc_parsed_side_effect_en_passant( CcPieceType pawn, CcPos distant );
-CcParsedSideEffect cc_parsed_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination );
-CcParsedSideEffect cc_parsed_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to );
-CcParsedSideEffect cc_parsed_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag );
-CcParsedSideEffect cc_parsed_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag );
-CcParsedSideEffect cc_parsed_side_effect_failed_conversion( void );
-CcParsedSideEffect cc_parsed_side_effect_transparency( CcPieceType piece );
-CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceType piece );
-CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant );
-CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceType piece, CcPos destination );
-CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void );
+bool cc_side_effect_to_short_str( CcSideEffect se,
+                                  cc_char_16 * se_str__o );
 
 
-#endif /* __CC_PARSED_SIDE_EFFECT_H__ */
+CcSideEffect cc_side_effect_none( void );
+CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag );
+CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination );
+CcSideEffect cc_side_effect_en_passant( CcPieceType pawn, CcPos distant );
+CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination );
+CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to );
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag );
+CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag );
+CcSideEffect cc_side_effect_failed_conversion( void );
+CcSideEffect cc_side_effect_transparency( CcPieceType piece );
+CcSideEffect cc_side_effect_diversion( CcPieceType piece );
+CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant );
+CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination );
+CcSideEffect cc_side_effect_failed_resurrection( void );
+
+
+#endif /* __CC_SIDE_EFFECT_H__ */

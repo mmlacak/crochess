@@ -168,7 +168,7 @@ bool cc_ply_contains_side_effects( CcPly * ply ) {
 
     CcStep * s = ply->steps;
     while ( s->next ) {
-        if ( s->side_effect.type != CC_PSEE_None ) return true;
+        if ( s->side_effect.type != CC_SETE_None ) return true;
         s = s->next;
     }
 

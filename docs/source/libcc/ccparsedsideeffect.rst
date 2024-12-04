@@ -17,88 +17,81 @@ which contain various parsed side-effect definitions and functions.
 Data
 ----
 
-.. c:enum:: CcParsedSideEffectEnum
+.. c:enum:: CcSideEffectTypeEnum
 
     Step side-effect enumeration.
 
-    .. c:enumerator:: CC_PSEE_None
+    .. c:enumerator:: CC_SETE_None
 
         No side effects.
 
-    .. c:enumerator:: CC_PSEE_Capture
+    .. c:enumerator:: CC_SETE_Capture
 
         Corresponds to ``*``.
 
-    .. c:enumerator:: CC_PSEE_Displacement
+    .. c:enumerator:: CC_SETE_Displacement
 
         Corresponds to ``<``.
 
-    .. c:enumerator:: CC_PSEE_EnPassant
+    .. c:enumerator:: CC_SETE_EnPassant
 
         Corresponds to ``:``.
 
-    .. c:enumerator:: CC_PSEE_Castle
+    .. c:enumerator:: CC_SETE_Castle
 
         Corresponds to ``&``.
 
-    .. c:enumerator:: CC_PSEE_Promotion
+    .. c:enumerator:: CC_SETE_Promotion
 
         Corresponds to ``=``, can be omitted.
 
-    .. c:enumerator:: CC_PSEE_TagForPromotion
+    .. c:enumerator:: CC_SETE_TagForPromotion
 
         Corresponds to ``=``, it's mandatory.
 
-    .. c:enumerator:: CC_PSEE_Conversion
+    .. c:enumerator:: CC_SETE_Conversion
 
         Corresponds to ``%``.
 
-    .. c:enumerator:: CC_PSEE_FailedConversion
+    .. c:enumerator:: CC_SETE_FailedConversion
 
         Corresponds to ``%%``.
 
-    .. c:enumerator:: CC_PSEE_Transparency
+    .. c:enumerator:: CC_SETE_Transparency
 
         Corresponds to ``^``.
 
-    .. c:enumerator:: CC_PSEE_Divergence
+    .. c:enumerator:: CC_SETE_Divergence
 
         Corresponds to ``/``.
 
-    .. c:enumerator:: CC_PSEE_DemoteToPawn
+    .. c:enumerator:: CC_SETE_DemoteToPawn
 
         Corresponds to ``>``.
 
-    .. c:enumerator:: CC_PSEE_Resurrection
+    .. c:enumerator:: CC_SETE_Resurrection
 
         Corresponds to ``$``.
 
-    .. c:enumerator:: CC_PSEE_ResurrectingOpponent
+    .. c:enumerator:: CC_SETE_ResurrectingOpponent
 
         Corresponds to ``$$``.
 
-    .. c:enumerator:: CC_PSEE_FailedResurrection
+    .. c:enumerator:: CC_SETE_FailedResurrection
 
         Corresponds to ``$$$``.
 
-    :c:`enum` is tagged with the same :c:enum:`CcParsedSideEffectEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcSideEffectTypeEnum` name.
 
-.. c:macro:: CC_PARSED_SIDE_EFFECT_ENUM_IS_CASTLING(see)
-
-    Macro to check if given side-effect enum is castling.
-
-    :param see: A side-effect enumeration, i.e. one of :c:enum:`CcParsedSideEffectEnum` values.
-    :returns: :c:data:`true` if castling, :c:data:`false` otherwise.
-
-.. c:macro:: CC_MAX_LEN_PARSED_SIDE_EFFECT_SYMBOL
+.. c:macro:: CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL
 
     Maximum length of a side-effect symbol; equals to ``3``.
 
-.. c:struct:: CcParsedSideEffect
+.. c:struct:: CcSideEffect
 
     Step side-effect structure.
 
-    .. c:member:: CcParsedSideEffectEnum type
+    .. c:member:: CcSideEffectTypeEnum type
 
         Type of side-effect.
 
@@ -246,14 +239,14 @@ Data
 
                 Position at which Wave, Starchild has been resurrected.
 
-    :c:`struct` is tagged with the same :c:struct:`CcParsedSideEffect` name.
+    :c:`struct` is tagged with the same :c:struct:`CcSideEffect` name.
 
 .. _lbl-libcc-ccparsedsideeffect-functions:
 
 Functions
 ---------
 
-.. c:function:: char const * cc_parsed_side_effect_symbol( CcParsedSideEffectEnum see )
+.. c:function:: char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see )
 
     Function returns string symbol, as used in algebraic notation, for a given side-effect.
 
@@ -262,7 +255,7 @@ Functions
     :param see: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect( CcParsedSideEffectEnum type, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos start, CcPos destination, CcPieceType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos start, CcPos destination, CcPieceType promoted_to )
 
     Function returns step side-effect :c:`struct`\ure.
 
@@ -274,21 +267,21 @@ Functions
     :param promoted_to: Piece to which Pawn has been promoted.
     :returns: Step side-effect :c:`struct`\ure.
 
-.. c:function:: CcPieceType cc_parsed_side_effect_piece( CcParsedSideEffect se )
+.. c:function:: CcPieceType cc_side_effect_piece( CcSideEffect se )
 
     Function returns piece affected by a given side-effect.
 
     :param se: A side-effect.
     :returns: A piece affected by a side-effect.
 
-.. c:function:: CcPos cc_parsed_side_effect_destination( CcParsedSideEffect se )
+.. c:function:: CcPos cc_side_effect_destination( CcSideEffect se )
 
     Function returns position affected by a given side-effect.
 
     :param se: A side-effect.
     :returns: A position affected by a side-effect.
 
-.. c:function:: bool cc_parsed_side_effect_to_short_str( CcParsedSideEffect se, cc_char_16 * se_str__o )
+.. c:function:: bool cc_side_effect_to_short_str( CcSideEffect se, cc_char_16 * se_str__o )
 
     Function returns string, containing user-readable representation
     of a given side-effect.
@@ -303,38 +296,38 @@ Functions
 ^^^^^^^^^^^^^^^^^^^^^
 
     The side-effect convenience functions are meant to be used instead
-    of :c:func:`cc_parsed_side_effect()`.
+    of :c:func:`cc_side_effect()`.
 
     They have minimal set of arguments required by the type of a side-effect,
     otherwise they behave exactly as their generic progenitor.
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_none( void )
+.. c:function:: CcSideEffect cc_side_effect_none( void )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_en_passant( CcPieceType pawn, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceType pawn, CcPos distant )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_failed_conversion( void )
+.. c:function:: CcSideEffect cc_side_effect_failed_conversion( void )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_transparency( CcPieceType piece )
+.. c:function:: CcSideEffect cc_side_effect_transparency( CcPieceType piece )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_diversion( CcPieceType piece )
+.. c:function:: CcSideEffect cc_side_effect_diversion( CcPieceType piece )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_resurrect( CcPieceType piece, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination )
 
-.. c:function:: CcParsedSideEffect cc_parsed_side_effect_failed_resurrection( void )
+.. c:function:: CcSideEffect cc_side_effect_failed_resurrection( void )
 
 .. _lbl-libcc-ccparsedsideeffect-sourcecodeheader:
 

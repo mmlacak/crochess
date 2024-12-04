@@ -82,10 +82,10 @@ bool cc_iter_step( char const * ply_an_str,
                    char const ** end__io );
 
 
-CcParsedSideEffectEnum cc_parse_side_effect_type( char const * step_an_str,
+CcSideEffectTypeEnum cc_parse_side_effect_type( char const * step_an_str,
                                                   bool * has_promotion_sign__o );
 
-size_t cc_parsed_side_effect_type_len( CcParsedSideEffectEnum see,
+size_t cc_side_effect_type_len( CcSideEffectTypeEnum see,
                                        bool has_promotion_sign );
 
 

@@ -144,7 +144,7 @@ static bool _cc_parse_step( char const * step_start_an,
                                                     parse_msgs__iod */ ) )
         return false;
 
-    CcParsedSideEffect se = cc_parsed_side_effect_none();
+    CcSideEffect se = cc_side_effect_none();
 
     if ( !*had_disambiguation__io ) // Disambiguation == starting position --> no side-effect.
         if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,

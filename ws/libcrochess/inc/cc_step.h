@@ -34,19 +34,19 @@ char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle );
 typedef struct CcStep {
     CcStepLinkTypeEnum link; /* Type of a link to previous step. */
     CcPos field; /* Field of a step. */
-    CcParsedSideEffect side_effect; /* Side-effect structure. */
+    CcSideEffect side_effect; /* Side-effect structure. */
 
     struct CcStep * next; /* Next step in a linked list. */
 } CcStep;
 
 CcStep * cc_step__new( CcStepLinkTypeEnum link,
                        CcPos field,
-                       CcParsedSideEffect side_effect );
+                       CcSideEffect side_effect );
 
 CcStep * cc_step_append( CcStep ** steps__iod_a,
                          CcStepLinkTypeEnum link,
                          CcPos field,
-                         CcParsedSideEffect side_effect );
+                         CcSideEffect side_effect );
 
 CcStep * cc_step_duplicate_all__new( CcStep * steps );
 
