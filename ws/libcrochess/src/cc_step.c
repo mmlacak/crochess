@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_parsed_step.h"
+#include "cc_step.h"
 
 
 char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle ) {

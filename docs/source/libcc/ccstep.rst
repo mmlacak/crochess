@@ -4,15 +4,15 @@
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccparsedstep:
+.. _lbl-libcc-ccstep:
 
-Parsed step
-===========
+Step
+====
 
-Documents ``cc_parsed_step.h`` and ``cc_parsed_step.c`` files, which contain various
+Documents ``cc_step.h`` and ``cc_step.c`` files, which contain various
 parsed step definitions and functions.
 
-.. _lbl-libcc-ccparsedstep-data:
+.. _lbl-libcc-ccstep-data:
 
 Data
 ----
@@ -99,7 +99,7 @@ Data
 
     :c:`struct` is tagged with the same :c:struct:`CcStep` name.
 
-.. _lbl-libcc-ccparsedstep-functions:
+.. _lbl-libcc-ccstep-functions:
 
 Functions
 ---------
@@ -210,7 +210,7 @@ Functions
     :returns: A newly allocated, zero-terminated string if successful,
               :c:data:`NULL` otherwise
 
-.. _lbl-libcc-ccparsedstep-newfunctions:
+.. _lbl-libcc-ccstep-newfunctions:
 
 New step functions
 ^^^^^^^^^^^^^^^^^^
@@ -246,7 +246,7 @@ New step functions
 
 .. c:function:: CcStep * cc_step_failed_resurrection__new( CcStepLinkTypeEnum link, CcPos field )
 
-.. _lbl-libcc-ccparsedstep-appendfunctions:
+.. _lbl-libcc-ccstep-appendfunctions:
 
 Append step functions
 ^^^^^^^^^^^^^^^^^^^^^
@@ -282,24 +282,24 @@ Append step functions
 
 .. c:function:: CcStep * cc_step_failed_resurrection_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field )
 
-.. _lbl-libcc-ccparsedstep-sourcecodeheader:
+.. _lbl-libcc-ccstep-sourcecodeheader:
 
 Header file
 -----------
 
-Included source header file is ``cc_parsed_step.h``.
+Included source header file is ``cc_step.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_step.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_step.h
     :language: C
     :linenos:
 
-.. _lbl-libcc-ccparsedstep-sourcecodefile:
+.. _lbl-libcc-ccstep-sourcecodefile:
 
 Source code file
 ----------------
 
-Included source code file is ``cc_parsed_step.c``.
+Included source code file is ``cc_step.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_parsed_step.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_step.c
     :language: C
     :linenos:

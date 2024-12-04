@@ -73,7 +73,7 @@ Library contents
 
     ccmove
     ccply
-    ccparsedstep
+    ccstep
     ccparsedsideeffect
 
     ccparsemsg

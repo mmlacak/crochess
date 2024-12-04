@@ -4,7 +4,7 @@
 #ifndef __CC_PARSE_PLY_H__
 #define __CC_PARSE_PLY_H__
 
-// #include "cc_parsed_step.h"
+// #include "cc_step.h"
 #include "cc_ply.h"
 #include "cc_game.h"
 

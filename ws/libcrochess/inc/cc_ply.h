@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #include "cc_piece.h"
-#include "cc_parsed_step.h"
+#include "cc_step.h"
 
 
 typedef enum CcPlyLinkTypeEnum {
