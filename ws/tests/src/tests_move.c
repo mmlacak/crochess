@@ -89,7 +89,7 @@ bool test_move( char const * an_str,
     }
 
     if ( game__a->moves ) {
-        CcParsedMove * m = game__a->moves;
+        CcMove * m = game__a->moves;
         CC_FASTFORWARD( m );
 
         result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;

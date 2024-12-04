@@ -17,7 +17,7 @@
 
 
 // DOCS
-bool cc_check_valid_draw_offer_exists( CcParsedMove * moves,
+bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse );
 
 // DOCS

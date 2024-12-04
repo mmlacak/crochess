@@ -250,7 +250,7 @@ ownership over previous item.
 Queue is simply a pointer to the first item in that queue,
 :c:data:`NULL`\-pointer is equivalent to an empty queue.
 
-For instance, :c:struct:`CcParsedMove` defines :c:term:`link` :c:`struct`,
+For instance, :c:struct:`CcMove` defines :c:term:`link` :c:`struct`,
 chaining together :c:term:`link`\s builds parsed moves, i.e. whole queue.
 
 All :c:term:`link`\s are newly allocated on the heap; so, all queues has

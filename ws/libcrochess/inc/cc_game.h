@@ -50,7 +50,7 @@ typedef struct CcGame {
     CcPosDesc starting_piece; // Current position of a piece starting current move.
     CcPos starting_pos; // Starting position in the current move.
 
-    CcParsedMove * moves;
+    CcMove * moves;
 } CcGame;
 
 CcGame * cc_game__new( CcGameStatusEnum status,

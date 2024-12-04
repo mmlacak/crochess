@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.0.20:1170+20241203.030109"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.0.21:1171+20241204.000847"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -65,10 +65,10 @@ int get_integer_from_cli_arg( char const * str,
     return number;
 }
 
-bool print_all_moves( CcParsedMove * moves, bool is_score ) {
+bool print_all_moves( CcMove * moves, bool is_score ) {
     if ( !moves ) return false;
 
-    char const * move_str__a = cc_parsed_move_as_string__new( moves, is_score );
+    char const * move_str__a = cc_move_as_string__new( moves, is_score );
 
     printf( "%s", move_str__a );
 
@@ -187,7 +187,7 @@ int main( void ) {
                 if ( !an_str ) continue;
 
                 CcParseMsg * pm__a = NULL;
-                CcParsedMove * move__a = NULL;
+                CcMove * move__a = NULL;
 
 // TODO :: parse --> do apply
 //
@@ -206,7 +206,7 @@ int main( void ) {
 //
 // TODO :: parse --> do apply
 
-                cc_parsed_move_free_all( &move__a );
+                cc_move_free_all( &move__a );
                 cc_parse_msg_free_all( &pm__a );
             }
         } else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||

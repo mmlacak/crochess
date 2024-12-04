@@ -17,60 +17,60 @@ parsed move definitions and functions.
 Data
 ----
 
-.. c:enum:: CcParsedMoveStatusEnum
+.. c:enum:: CcMoveStatusEnum
 
     Move status enumeration, after a valid movement.
 
-    .. c:enumerator:: CC_PMSE_None
+    .. c:enumerator:: CC_MSE_None
 
         No status.
 
-    .. c:enumerator:: CC_PMSE_DrawOffer
+    .. c:enumerator:: CC_MSE_DrawOffer
 
         Player offered a draw.
 
-    .. c:enumerator:: CC_PMSE_DrawOffer_Revoked
+    .. c:enumerator:: CC_MSE_DrawOffer_Revoked
 
         Player took back draw offer.
 
 
-    .. c:enumerator:: CC_PMSE_Check
+    .. c:enumerator:: CC_MSE_Check
 
         Checking opponent.
 
-    .. c:enumerator:: CC_PMSE_Check_DrawOffer
+    .. c:enumerator:: CC_MSE_Check_DrawOffer
 
         Checking opponent, player offered a draw.
 
-    .. c:enumerator:: CC_PMSE_Check_DrawOffer_Revoked
+    .. c:enumerator:: CC_MSE_Check_DrawOffer_Revoked
 
         Checking opponent, player took back draw offer.
 
 
-    .. c:enumerator:: CC_PMSE_Checkmate
+    .. c:enumerator:: CC_MSE_Checkmate
 
         Opponent checkmated.
 
-    .. c:enumerator:: CC_PMSE_SelfCheckmate
+    .. c:enumerator:: CC_MSE_SelfCheckmate
 
         Opponent checkmated self, game ended.
 
 
-    .. c:enumerator:: CC_PMSE_Resign
+    .. c:enumerator:: CC_MSE_Resign
 
         Player resigned, game ended.
 
-    .. c:enumerator:: CC_PMSE_DrawAccepted
+    .. c:enumerator:: CC_MSE_DrawAccepted
 
         Player accepted draw offer, game ended.
 
-    .. c:enumerator:: CC_PMSE_DrawByRules
+    .. c:enumerator:: CC_MSE_DrawByRules
 
         Game was drawn by rules, game ended.
 
-    :c:`enum` is tagged with the same :c:enum:`CcParsedMoveStatusEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcMoveStatusEnum` name.
 
-.. c:struct:: CcParsedMove
+.. c:struct:: CcMove
 
     Parsed move :c:`struct`\ure, queue.
 
@@ -82,26 +82,26 @@ Data
 
         Plies.
 
-    .. c:member:: CcParsedMoveStatusEnum status
+    .. c:member:: CcMoveStatusEnum status
 
         Status.
 
-    .. c:member:: struct CcParsedMove * prev__w
+    .. c:member:: struct CcMove * prev__w
 
         Weak pointer to previous move.
 
-    .. c:member:: struct CcParsedMove * next
+    .. c:member:: struct CcMove * next
 
         Next move in a queue.
 
-    :c:`struct` is tagged with the same :c:struct:`CcParsedMove` name.
+    :c:`struct` is tagged with the same :c:struct:`CcMove` name.
 
 .. _lbl-libcc-ccparsedmove-functions:
 
 Functions
 ---------
 
-.. c:function:: CcParsedMove * cc_parsed_move__new( char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcParsedMoveStatusEnum status )
+.. c:function:: CcMove * cc_move__new( char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcMoveStatusEnum status )
 
     Returns newly allocated move.
 
@@ -117,7 +117,7 @@ Functions
     :param status: Move status.
     :returns: A newly allocated move if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a, char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcParsedMoveStatusEnum status )
+.. c:function:: CcMove * cc_move_append( CcMove ** moves__iod_a, char const * notation, size_t max_len__d, CcParsedPly ** plies__d_n, CcMoveStatusEnum status )
 
     Appends a newly allocated move to a given queue.
 
@@ -135,7 +135,7 @@ Functions
     :param status: Move status.
     :returns: Weak pointer to a newly allocated move if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves )
+.. c:function:: CcMove * cc_move_duplicate_all__new( CcMove * moves )
 
     Duplicates a given :c:`moves` queue, and all accompanying resources,
     into a newly allocated queue.
@@ -143,14 +143,14 @@ Functions
     :param moves: A queue to duplicate.
     :returns: A newly allocated duplicate of :c:`moves` if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_parsed_move_free_all( CcParsedMove ** moves__f )
+.. c:function:: bool cc_move_free_all( CcMove ** moves__f )
 
     Frees all moves in a queue, and all associated entities.
 
     :param moves__f: A queue to :c:func:`free()`.
     :returns: A newly allocated duplicate of :c:`moves` if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: size_t cc_parsed_move_plies_count( CcParsedMove * move )
+.. c:function:: size_t cc_move_plies_count( CcMove * move )
 
     Function returns count of plies owned by a given move.
 
@@ -185,7 +185,7 @@ its own line, like so:
         <dark player move #2>
         <light player move #3>
 
-.. c:function:: size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score )
+.. c:function:: size_t cc_move_all_notations_size( CcMove * move, bool is_score )
 
     Function returns size of all notation strings taken together, with optional
     formatting, if game score flag was given.
@@ -195,7 +195,7 @@ its own line, like so:
         :c:data:`true`), or as a simple move list (if :c:data:`false`).
     :returns: Formatted string size if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_parsed_move_as_string__new( CcParsedMove * move, bool is_score )
+.. c:function:: char * cc_move_as_string__new( CcMove * move, bool is_score )
 
     Function returns a newly allocated string, containing notations from all
     parsed moves in a given linked list, with optional formatting.

@@ -29,17 +29,17 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.0.20:1170+20241203.030109"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.0.21:1171+20241204.000847"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
 #endif // __WITH_LINE_NOISE__
 
 
-bool print_all_moves( CcParsedMove * moves, bool is_score ) {
+bool print_all_moves( CcMove * moves, bool is_score ) {
     if ( !moves ) return false;
 
-    char const * move_str__a = cc_parsed_move_as_string__new( moves, is_score );
+    char const * move_str__a = cc_move_as_string__new( moves, is_score );
 
     printf( "%s", move_str__a );
 

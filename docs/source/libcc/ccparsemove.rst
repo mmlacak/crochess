@@ -17,7 +17,7 @@ which contain various parse move definitions and functions.
 Functions
 ---------
 
-.. c:function:: bool cc_parse_move( char const * move_an, CcGame * game, CcParsedMove ** move__o, CcParseMsg ** parse_msgs__iod )
+.. c:function:: bool cc_parse_move( char const * move_an, CcGame * game, CcMove ** move__o, CcParseMsg ** parse_msgs__iod )
 
     .. todo::
 

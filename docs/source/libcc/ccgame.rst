@@ -151,7 +151,7 @@ Types
         A starting position of a piece starting a cascade. Resets immediately
         at the end of a current move.
 
-    .. c:member:: CcParsedMove * moves
+    .. c:member:: CcMove * moves
 
         Queue of moves played so far.
 

@@ -11,11 +11,11 @@
 #include "cc_parsed_move.h"
 
 
-CcParsedMove * cc_parsed_move__new( char const * notation,
+CcMove * cc_move__new( char const * notation,
                                     size_t max_len__d,
                                     CcParsedPly ** plies__d_n,
-                                    CcParsedMoveStatusEnum status ) {
-    CcParsedMove * mv__a = malloc( sizeof( CcParsedMove ) );
+                                    CcMoveStatusEnum status ) {
+    CcMove * mv__a = malloc( sizeof( CcMove ) );
     if ( !mv__a ) return NULL;
 
     mv__a->notation = cc_str_duplicate__new( notation, false, max_len__d );
@@ -38,20 +38,20 @@ CcParsedMove * cc_parsed_move__new( char const * notation,
     return mv__a;
 }
 
-CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
+CcMove * cc_move_append( CcMove ** moves__iod_a,
                                       char const * notation,
                                       size_t max_len__d,
                                       CcParsedPly ** plies__d_n,
-                                      CcParsedMoveStatusEnum status ) {
+                                      CcMoveStatusEnum status ) {
     if ( !moves__iod_a ) return NULL;
 
-    CcParsedMove * mv__t = cc_parsed_move__new( notation, max_len__d, plies__d_n, status );
+    CcMove * mv__t = cc_move__new( notation, max_len__d, plies__d_n, status );
     if ( !mv__t ) return NULL;
 
     if ( !*moves__iod_a ) {
         *moves__iod_a = mv__t; // Ownership transfer.
     } else {
-        CcParsedMove * m = *moves__iod_a;
+        CcMove * m = *moves__iod_a;
         CC_FASTFORWARD( m );
 
         m->next = mv__t; // Append + ownership transfer.
@@ -61,29 +61,29 @@ CcParsedMove * cc_parsed_move_append( CcParsedMove ** moves__iod_a,
     return mv__t; // Weak pointer.
 }
 
-CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves ) {
+CcMove * cc_move_duplicate_all__new( CcMove * moves ) {
     if ( !moves ) return NULL;
 
-    CcParsedMove * mv__a = NULL;
-    CcParsedMove * from = moves;
+    CcMove * mv__a = NULL;
+    CcMove * from = moves;
 
     CC_REWIND( from );
 
     do {
         CcParsedPly * plies__t = cc_parsed_ply_duplicate_all__new( from->plies );
         if ( !plies__t ) {
-            cc_parsed_move_free_all( &mv__a );
+            cc_move_free_all( &mv__a );
             return NULL;
         }
 
-        CcParsedMove * mv__w = cc_parsed_move_append( &mv__a,
+        CcMove * mv__w = cc_move_append( &mv__a,
                                          from->notation,
                                          CC_MAX_LEN_ZERO_TERMINATED,
                                          &plies__t,
                                          from->status );
         if ( !mv__w ) {
             cc_parsed_ply_free_all( &plies__t ); // Failed append --> no ownership transfer ...
-            cc_parsed_move_free_all( &mv__a );
+            cc_move_free_all( &mv__a );
             return NULL;
         }
 
@@ -94,12 +94,12 @@ CcParsedMove * cc_parsed_move_duplicate_all__new( CcParsedMove * moves ) {
     return mv__a;
 }
 
-bool cc_parsed_move_free_all( CcParsedMove ** moves__f ) {
+bool cc_move_free_all( CcMove ** moves__f ) {
     if ( !moves__f ) return false;
     if ( !*moves__f ) return true;
 
     bool result = true;
-    CcParsedMove * mv = *moves__f;
+    CcMove * mv = *moves__f;
 
     CC_REWIND( mv );
 
@@ -109,7 +109,7 @@ bool cc_parsed_move_free_all( CcParsedMove ** moves__f ) {
         CcParsedPly ** plies = &( mv->plies );
         result = cc_parsed_ply_free_all( plies ) && result;
 
-        CcParsedMove * tmp = mv->next;
+        CcMove * tmp = mv->next;
         CC_FREE( mv );
         mv = tmp;
     }
@@ -118,7 +118,7 @@ bool cc_parsed_move_free_all( CcParsedMove ** moves__f ) {
     return result;
 }
 
-size_t cc_parsed_move_plies_count( CcParsedMove * move ) {
+size_t cc_move_plies_count( CcMove * move ) {
     if ( !move ) return 0;
     if ( !move->plies ) return 0;
 
@@ -133,12 +133,12 @@ size_t cc_parsed_move_plies_count( CcParsedMove * move ) {
     return count;
 }
 
-size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score ) {
+size_t cc_move_all_notations_size( CcMove * move, bool is_score ) {
     if ( !move ) return 0;
 
     size_t size = 0;
     size_t count = 0;
-    CcParsedMove * m = move;
+    CcMove * m = move;
 
     CC_REWIND( m );
 
@@ -181,10 +181,10 @@ size_t cc_parsed_move_all_notations_size( CcParsedMove * move, bool is_score ) {
     return size;
 }
 
-char * cc_parsed_move_as_string__new( CcParsedMove * move, bool is_score ) {
+char * cc_move_as_string__new( CcMove * move, bool is_score ) {
     if ( !move ) return NULL;
 
-    size_t size = cc_parsed_move_all_notations_size( move, is_score );
+    size_t size = cc_move_all_notations_size( move, is_score );
     if ( size == 0 ) return NULL;
 
     char * move_str__a = malloc( size );
@@ -195,9 +195,9 @@ char * cc_parsed_move_as_string__new( CcParsedMove * move, bool is_score ) {
     int result = 0;
 
     char * str = move_str__a;
-    CcParsedMove * m = move;
-    CcParsedMove * l = NULL; // light move
-    CcParsedMove * d = NULL; // dark move
+    CcMove * m = move;
+    CcMove * l = NULL; // light move
+    CcMove * d = NULL; // dark move
 
     CC_REWIND( m );
 

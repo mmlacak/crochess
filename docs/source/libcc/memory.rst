@@ -87,7 +87,7 @@ variable name, for instance:
 .. code-block:: C
     :force:
 
-    CcMoves * moves__w = cc_parsed_move_append( moves__io, an, max_len__d );
+    CcMoves * moves__w = cc_move_append( moves__io, an, max_len__d );
 
 Do the same (i.e. append ``__w`` to its name) for weak pointer variables that
 will be returned from a function, for example:
@@ -147,19 +147,19 @@ appended to its name, e.g. :c:`CcParsedPly * related_ply__w`.
 
 Function(s) :c:func:`free()`\ing containing entity does not :c:func:`free()` weak pointers.
 
-For instance, :c:struct:`CcParsedMove` contains :c:`CcParsedPly *`, so it owns all
+For instance, :c:struct:`CcMove` contains :c:`CcParsedPly *`, so it owns all
 :c:struct:`CcParsedPly` items in that linked list.
 
 Now, each :c:struct:`CcParsedPly` contains :c:`CcParsedStep *`, so it owns all :c:struct:`CcParsedStep`
 items in that linked list.
 
-So, :c:struct:`CcParsedMove` indirectly owns every :c:struct:`CcParsedStep` in the whole structure.
+So, :c:struct:`CcMove` indirectly owns every :c:struct:`CcParsedStep` in the whole structure.
 
 This is evidenced when :c:func:`free()`\ing hierarchically complete structure from a single
-:c:struct:`CcParsedMove` pointer.
+:c:struct:`CcMove` pointer.
 
-All :c:struct:`CcParsedMove`\s in a linked list are :c:func:`free()`\ed by calling :c:func:`cc_move_free_all_moves()`,
-which :c:func:`free()`\s all linked :c:struct:`CcParsedPly`\s in each :c:struct:`CcParsedMove` (by calling :c:func:`cc_ply_free_all_plies()`),
+All :c:struct:`CcMove`\s in a linked list are :c:func:`free()`\ed by calling :c:func:`cc_move_free_all_moves()`,
+which :c:func:`free()`\s all linked :c:struct:`CcParsedPly`\s in each :c:struct:`CcMove` (by calling :c:func:`cc_ply_free_all_plies()`),
 which :c:func:`free()`\s all linked :c:struct:`CcParsedStep`\s in each :c:struct:`CcParsedPly` (by calling :c:func:`cc_parsed_step_free_all_steps()`).
 
 .. _lbl-libcc-memory-management-ownership-transfer:
@@ -195,7 +195,7 @@ Pointers as function parameters are usually input, read-only borrows.
 Strings (i.e. :c:`char *`) have their underlying type :c:`const`\ed
 (i.e. :c:`char const *`), most other types do not have :c:`const`.
 
-For instance, :c:`char const * str`, :c:`CcParsedMove * moves`.
+For instance, :c:`char const * str`, :c:`CcMove * moves`.
 
 .. _lbl-libcc-memory-management-parameters-optional:
 

@@ -54,7 +54,7 @@ bool test_parse( char const * an_str,
     //     cc_game_free_all( &setup__a );
     // }
 
-    CcParsedMove * parsed__a = NULL;
+    CcMove * parsed__a = NULL;
     CcParseMsg * pm__a = NULL;
 
     printf( "Parsing: %s.\n", an_str );
@@ -87,7 +87,7 @@ bool test_parse( char const * an_str,
     // }
 
     // if ( game__a->moves ) {
-    //     CcParsedMove * m = game__a->moves;
+    //     CcMove * m = game__a->moves;
     //     CC_FASTFORWARD( m );
     //
     //     result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
@@ -112,7 +112,7 @@ bool test_parse( char const * an_str,
 
     printf( "-----------------------------------------------------------------------\n" );
 
-    cc_parsed_move_free_all( &parsed__a );
+    cc_move_free_all( &parsed__a );
 
     cc_parse_msg_free_all( &pm__a );
 
