@@ -129,7 +129,7 @@ Parsers for user notation are in ``cc_parse_move``, ``cc_parse_ply``, ``cc_parse
 ``cc_parse_side_effect``, and helpers are in ``cc_parse_defs``, ``cc_parse_utils``
 :term:`module`\s.
 
-Parsed notation is stored in ``cc_move``, ``cc_parsed_ply``, ``cc_parsed_step``,
+Parsed notation is stored in ``cc_move``, ``cc_ply``, ``cc_parsed_step``,
 ``cc_parsed_side_effect`` :term:`module`\s.
 
 Parser messages are located in ``cc_parse_msg`` :term:`module`.

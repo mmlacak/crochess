@@ -4,7 +4,7 @@
 #ifndef __CC_MOVE_H__
 #define __CC_MOVE_H__
 
-#include "cc_parsed_ply.h"
+#include "cc_ply.h"
 
 
 typedef enum CcMoveStatusEnum {

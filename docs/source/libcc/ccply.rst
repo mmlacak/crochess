@@ -4,15 +4,15 @@
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccparsedply:
+.. _lbl-libcc-ccply:
 
-Parsed ply
-==========
+Ply
+===
 
-Documents ``cc_parsed_ply.h`` and ``cc_parsed_ply.c`` files, which contain various
+Documents ``cc_ply.h`` and ``cc_ply.c`` files, which contain various
 parsed ply definitions and functions.
 
-.. _lbl-libcc-ccparsedply-data:
+.. _lbl-libcc-ccply-data:
 
 Data
 ----
@@ -141,7 +141,7 @@ Data
 
     Maximum length of a ply link symbol in :term:`AN`; equal to ``3`` (:c:`char`\s).
 
-.. _lbl-libcc-ccparsedply-macros:
+.. _lbl-libcc-ccply-macros:
 
 Macros
 ------
@@ -186,7 +186,7 @@ values, otherwise they are identical to macros in the table above.
      - :c:enumerator:`CC_PLTE_SenseJourney`,
        :c:enumerator:`CC_PLTE_FailedSenseJourney`
 
-.. _lbl-libcc-ccparsedply-functions:
+.. _lbl-libcc-ccply-functions:
 
 Functions
 ---------
@@ -306,24 +306,24 @@ Functions
     :returns: A newly allocated, zero-terminated string if successful,
               :c:data:`NULL` otherwise.
 
-.. _lbl-libcc-ccparsedply-sourcecodeheader:
+.. _lbl-libcc-ccply-sourcecodeheader:
 
 Header file
 -----------
 
-Included source header file is ``cc_parsed_ply.h``.
+Included source header file is ``cc_ply.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_parsed_ply.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_ply.h
     :language: C
     :linenos:
 
-.. _lbl-libcc-ccparsedply-sourcecodefile:
+.. _lbl-libcc-ccply-sourcecodefile:
 
 Source code file
 ----------------
 
-Included source code file is ``cc_parsed_ply.c``.
+Included source code file is ``cc_ply.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_parsed_ply.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_ply.c
     :language: C
     :linenos:

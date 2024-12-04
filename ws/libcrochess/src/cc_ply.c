@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 #include "cc_defines.h"
-#include "cc_parsed_ply.h"
+#include "cc_ply.h"
 
 
 char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple ) {
