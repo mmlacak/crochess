@@ -33,7 +33,7 @@
 //     return CC_MBE_True;
 // }
 
-bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte ) {
+bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagType lte ) {
     if ( lte == CC_LTE_NoneLost ) {
         return true;
     } else if ( CC_PIECE_IS_PAWN( piece ) ) {

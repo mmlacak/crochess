@@ -29,7 +29,7 @@ char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple ) {
 
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
                      CcPieceType piece,
-                     CcLosingTagEnum lost_tag,
+                     CcLosingTagType lost_tag,
                      CcStep ** steps__n ) {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;
@@ -52,7 +52,7 @@ CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
 CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
                        CcPieceType piece,
-                       CcLosingTagEnum lost_tag,
+                       CcLosingTagType lost_tag,
                        CcStep ** steps__n ) {
     if ( !plies__iod_a ) return NULL;
 
@@ -268,7 +268,7 @@ char * cc_ply_all_to_string__new( CcPly * plies ) {
         *s++ = piece_symbol;
 
         char const * lte_str = cc_losing_tag_symbol( p->lost_tag );
-        char * end_lte = cc_str_append_into( s, unused_size, lte_str, CC_MAX_LEN_LOSING_TAG );
+        char * end_lte = cc_str_append_into( s, unused_size, lte_str, CC_MAX_LEN_LOSING_TAG_SYMBOL );
 
         if ( !lte_str ) {
             CC_FREE( plies_str__a );

@@ -51,7 +51,7 @@ char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple );
 typedef struct CcPly {
     CcPlyLinkTypeEnum link;
     CcPieceType piece;
-    CcLosingTagEnum lost_tag;
+    CcLosingTagType lost_tag;
     CcStep * steps;
 
     struct CcPly * next;
@@ -59,13 +59,13 @@ typedef struct CcPly {
 
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
                      CcPieceType piece,
-                     CcLosingTagEnum lost_tag,
+                     CcLosingTagType lost_tag,
                      CcStep ** steps__n );
 
 CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
                        CcPieceType piece,
-                       CcLosingTagEnum lost_tag,
+                       CcLosingTagType lost_tag,
                        CcStep ** steps__n );
 
 CcPly * cc_ply_duplicate_all__new( CcPly * plies );

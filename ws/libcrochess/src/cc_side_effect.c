@@ -32,7 +32,7 @@ char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see ) {
 
 CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
                              CcPieceType piece,
-                             CcLosingTagEnum lost_tag,
+                             CcLosingTagType lost_tag,
                              CcPos start,
                              CcPos destination,
                              CcPieceType promoted_to ) {
@@ -150,7 +150,7 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     size_t copied = 0;
 
     CcPieceType captured = CC_PE_None;
-    CcLosingTagEnum lte = CC_LTE_NoneLost;
+    CcLosingTagType lte = CC_LTE_NoneLost;
 
     if ( se.type == CC_SETE_Promotion ) {
         captured = se.promote.captured;
@@ -169,7 +169,7 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
     if ( lte != CC_LTE_NoneLost ) {
         char const * lte_str = cc_losing_tag_symbol( lte );
-        size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG );
+        size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG_SYMBOL );
         copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
         if ( copied != lte_str_len ) return false;
         se_p += copied;
@@ -208,14 +208,14 @@ CcSideEffect cc_side_effect_none( void ) {
                            CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag ) {
+CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagType lost_tag ) {
     return cc_side_effect( CC_SETE_Capture, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination ) {
+CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagType lost_tag, CcPos destination ) {
     return cc_side_effect( CC_SETE_Displacement, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            destination,
@@ -236,21 +236,21 @@ CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destina
                            CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to ) {
+CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to ) {
     return cc_side_effect( CC_SETE_Promotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            promoted_to );
 }
 
-CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag ) {
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagType lost_tag ) {
     return cc_side_effect( CC_SETE_TagForPromotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag ) {
+CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagType lost_tag ) {
     return cc_side_effect( CC_SETE_Conversion, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
@@ -278,7 +278,7 @@ CcSideEffect cc_side_effect_diversion( CcPieceType piece ) {
                            CC_PE_None );
 }
 
-CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant ) {
+CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagType lost_tag, CcPos distant ) {
     return cc_side_effect( CC_SETE_DemoteToPawn, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            distant,

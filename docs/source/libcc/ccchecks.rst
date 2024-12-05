@@ -45,12 +45,12 @@ Functions
 
     :seealso: :c:func:`cc_calc_momentum_for_next_step()`
 
-.. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte )
+.. c:function:: bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagType lte )
 
     Function checks if a piece can lose given tag.
 
     :param piece: A piece.
-    :param lte: :c:enum:`CcLosingTagEnum` value.
+    :param lte: :c:type:`CcLosingTagType` value.
     :returns: :c:data:`true` if piece can lose given tag, :c:data:`false` otherwise.
 
 .. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, CcPos pos )

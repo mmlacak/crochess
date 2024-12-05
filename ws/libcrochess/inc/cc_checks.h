@@ -20,7 +20,7 @@
 //                                                  CcTagType tag,
 //                                                  cc_uint_t * momentum__io );
 
-bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagEnum lte );
+bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagType lte );
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceType piece,

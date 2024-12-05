@@ -107,7 +107,7 @@ Data
 
                 Piece which has been captured.
 
-            .. c:member:: CcLosingTagEnum lost_tag
+            .. c:member:: CcLosingTagType lost_tag
 
                 Tag lost by captured piece.
 
@@ -119,7 +119,7 @@ Data
 
                 Piece which has been displaced.
 
-            .. c:member:: CcLosingTagEnum lost_tag
+            .. c:member:: CcLosingTagType lost_tag
 
                 Tag lost by displaced piece.
 
@@ -163,7 +163,7 @@ Data
 
                 Piece which has been captured, if any.
 
-            .. c:member:: CcLosingTagEnum lost_tag
+            .. c:member:: CcLosingTagType lost_tag
 
                 Tag lost by captured piece.
 
@@ -179,7 +179,7 @@ Data
 
                 Piece which has been captured, if any.
 
-            .. c:member:: CcLosingTagEnum lost_tag
+            .. c:member:: CcLosingTagType lost_tag
 
                 Tag lost by captured piece.
 
@@ -191,7 +191,7 @@ Data
 
                 Piece which has been converted.
 
-            .. c:member:: CcLosingTagEnum lost_tag
+            .. c:member:: CcLosingTagType lost_tag
 
                 Tag lost by converted piece.
 
@@ -219,7 +219,7 @@ Data
 
                 Piece which has been demoted to Pawn.
 
-            .. c:member:: CcLosingTagEnum lost_tag
+            .. c:member:: CcLosingTagType lost_tag
 
                 Tag lost by demoted piece.
 
@@ -255,7 +255,7 @@ Functions
     :param see: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
 
-.. c:function:: CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos start, CcPos destination, CcPieceType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, CcPieceType piece, CcLosingTagType lost_tag, CcPos start, CcPos destination, CcPieceType promoted_to )
 
     Function returns step side-effect :c:`struct`\ure.
 
@@ -303,19 +303,19 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_none( void )
 
-.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagType lost_tag )
 
-.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagType lost_tag, CcPos destination )
 
 .. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceType pawn, CcPos distant )
 
 .. c:function:: CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to )
 
-.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagType lost_tag )
 
-.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagType lost_tag )
 
 .. c:function:: CcSideEffect cc_side_effect_failed_conversion( void )
 
@@ -323,7 +323,7 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_diversion( CcPieceType piece )
 
-.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagType lost_tag, CcPos distant )
 
 .. c:function:: CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination )
 

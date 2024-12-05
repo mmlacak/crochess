@@ -43,12 +43,12 @@ typedef struct CcSideEffect
     union {
         struct {
             CcPieceType piece; /* Piece which has been captured. */
-            CcLosingTagEnum lost_tag; /* Flag, whether captured piece has lost its tag. */
+            CcLosingTagType lost_tag; /* Flag, whether captured piece has lost its tag. */
         } capture; /* Capture. */
 
         struct {
             CcPieceType piece; /* Piece which has been displaced. */
-            CcLosingTagEnum lost_tag; /* Flag, whether displaced piece has lost its tag. */
+            CcLosingTagType lost_tag; /* Flag, whether displaced piece has lost its tag. */
             CcPos destination; /* Displacement destination. */
         } displacement; /* Displacement, used during light Shaman's trance-journey. */
 
@@ -65,18 +65,18 @@ typedef struct CcSideEffect
 
         struct {
             CcPieceType captured; /* Piece which has been captured, if any. */
-            CcLosingTagEnum lost_tag; /* Flag, whether captured piece has lost its tag. */
+            CcLosingTagType lost_tag; /* Flag, whether captured piece has lost its tag. */
             CcPieceType promoted_to; /* Piece to which Pawn has been promoted. */
         } promote; /* Promotion. */
 
         struct {
             CcPieceType captured; /* Piece which has been captured, if any. */
-            CcLosingTagEnum lost_tag; /* Flag, whether captured piece has lost its tag. */
+            CcLosingTagType lost_tag; /* Flag, whether captured piece has lost its tag. */
         } tag_for_promotion; /* Tag for promotion. */
 
         struct {
             CcPieceType piece; /* Piece which has been converted. */
-            CcLosingTagEnum lost_tag; /* Flag, if converted piece has lost its tag. */
+            CcLosingTagType lost_tag; /* Flag, if converted piece has lost its tag. */
         } convert; /* Conversion. */
 
         struct {
@@ -89,7 +89,7 @@ typedef struct CcSideEffect
 
         struct {
             CcPieceType piece; /* Piece which has been demoted to Pawn. */
-            CcLosingTagEnum lost_tag; /* Flag, whether demoted piece has lost its tag. */
+            CcLosingTagType lost_tag; /* Flag, whether demoted piece has lost its tag. */
             CcPos distant; /* Position at which piece has been demoted. */
         } demote; /* Demoting. */
 
@@ -102,7 +102,7 @@ typedef struct CcSideEffect
 
 CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
                              CcPieceType piece,
-                             CcLosingTagEnum lost_tag,
+                             CcLosingTagType lost_tag,
                              CcPos start,
                              CcPos destination,
                              CcPieceType promoted_to );
@@ -116,17 +116,17 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
 
 
 CcSideEffect cc_side_effect_none( void );
-CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagEnum lost_tag );
-CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination );
+CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagType lost_tag );
+CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagType lost_tag, CcPos destination );
 CcSideEffect cc_side_effect_en_passant( CcPieceType pawn, CcPos distant );
 CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination );
-CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to );
-CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagEnum lost_tag );
-CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagEnum lost_tag );
+CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to );
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagType lost_tag );
+CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagType lost_tag );
 CcSideEffect cc_side_effect_failed_conversion( void );
 CcSideEffect cc_side_effect_transparency( CcPieceType piece );
 CcSideEffect cc_side_effect_diversion( CcPieceType piece );
-CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant );
+CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagType lost_tag, CcPos distant );
 CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection( void );
 

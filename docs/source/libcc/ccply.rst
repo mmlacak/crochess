@@ -122,7 +122,7 @@ Data
 
         A piece being moved.
 
-    .. c:member:: CcLosingTagEnum lost_tag
+    .. c:member:: CcLosingTagType lost_tag
 
         Flag, whether moving piece has lost its tag.
 
@@ -201,7 +201,7 @@ Functions
     :param ple: A ply linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagEnum lost_tag, CcStep ** steps__n )
+.. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__n )
 
     Function returns newly allocated ply.
 
@@ -214,7 +214,7 @@ Functions
     :param steps__n: **Ownership transfer**; steps, linked list, inner pointer can be :c:data:`NULL`.
     :returns: A newly allocated ply if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPly * cc_ply_append( CcPly ** plies__iod_a, CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagEnum lost_tag, CcStep ** steps__n )
+.. c:function:: CcPly * cc_ply_append( CcPly ** plies__iod_a, CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__n )
 
     Appends a newly allocated ply to a given linked list.
 

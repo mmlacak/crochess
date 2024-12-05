@@ -581,7 +581,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_piece_can_be_captured( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
+            CcLosingTagType lte = cc_parse_losing_tag( se_an );
             char const * promo_an = se_an + cc_losing_tag_len( lte );
 
             if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) ) {
@@ -630,7 +630,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_piece_can_be_displaced( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
+            CcLosingTagType lte = cc_parse_losing_tag( se_an );
             char const * pos_an = se_an + cc_losing_tag_len( lte );
 
             CcPos pos = CC_POS_CAST_INVALID;
@@ -761,7 +761,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 return false;
 
             CcPieceType convert_to = cc_piece_opposite( step_piece );
-            CcLosingTagEnum lte = cc_parse_losing_tag( se_an );
+            CcLosingTagType lte = cc_parse_losing_tag( se_an );
 
             *side_effect__o = cc_side_effect_convert( convert_to, lte );
             return true;

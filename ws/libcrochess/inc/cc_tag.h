@@ -42,10 +42,8 @@ CcTagType cc_tag_from_char( char c );
 //
 // Losing tag enum
 
-// TODO :: DOCS
 #define CC_LOSING_TAG_IS_ENUMERATOR(lte) ( ( CC_LTE_NoneLost <= (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
 
-// TODO :: DOCS
 #define CC_LOSING_TAG_IS_VALID(lte) ( ( CC_LTE_NoneLost < (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
 
 typedef enum CcLosingTagEnum {
@@ -56,21 +54,19 @@ typedef enum CcLosingTagEnum {
     CC_LTE_DelayedPromotionLost = CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
 } CcLosingTagEnum;
 
-#define CC_MAX_LEN_LOSING_TAG (2)
+#define CC_MAX_LEN_LOSING_TAG_SYMBOL (2)
 
-// typedef unsigned char CcLosingTagType; // TODO :: maybe (?)
+typedef CcTagType CcLosingTagType; // unsigned char
 
-// TODO :: CcLosingTagEnum --> CcTagType :: DOCS
+char const * cc_losing_tag_symbol( CcLosingTagType lte );
 
-char const * cc_losing_tag_symbol( CcLosingTagEnum lte );
-
-char const * cc_losing_tag_as_string( CcLosingTagEnum lte,
+char const * cc_losing_tag_as_string( CcLosingTagType lte,
                                       bool capitalize,
                                       bool no_tag );
 
-CcLosingTagEnum cc_tag_to_losing( CcTagType te );
+CcLosingTagType cc_tag_to_losing( CcTagType te );
 
-CcTagType cc_tag_from_losing( CcLosingTagEnum lte );
+CcTagType cc_tag_from_losing( CcLosingTagType lte );
 
 
 

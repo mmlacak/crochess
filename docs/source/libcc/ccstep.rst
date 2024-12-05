@@ -224,23 +224,23 @@ New step functions
 
 .. c:function:: CcStep * cc_step_none__new( CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcStep * cc_step_capture__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_capture__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag )
 
-.. c:function:: CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag, CcPos destination )
 
 .. c:function:: CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType pawn, CcPos distant )
 
 .. c:function:: CcStep * cc_step_castle__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcStep * cc_step_promote__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
+.. c:function:: CcStep * cc_step_promote__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to )
 
-.. c:function:: CcStep * cc_step_tag_for_promotion__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_tag_for_promotion__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagType lost_tag )
 
-.. c:function:: CcStep * cc_step_convert__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_convert__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag )
 
 .. c:function:: CcStep * cc_step_failed_conversion__new( CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcStep * cc_step_demote__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcStep * cc_step_demote__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag, CcPos distant )
 
 .. c:function:: CcStep * cc_step_resurrect__new( CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcPos destination )
 
@@ -260,23 +260,23 @@ Append step functions
 
 .. c:function:: CcStep * cc_step_none_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcStep * cc_step_capture_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_capture_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag )
 
-.. c:function:: CcStep * cc_step_displacement_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos destination )
+.. c:function:: CcStep * cc_step_displacement_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag, CcPos destination )
 
 .. c:function:: CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType pawn, CcPos distant )
 
 .. c:function:: CcStep * cc_step_castle_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcStep * cc_step_promote_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag, CcPieceType promoted_to )
+.. c:function:: CcStep * cc_step_promote_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to )
 
-.. c:function:: CcStep * cc_step_tag_for_promotion_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_tag_for_promotion_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType captured, CcLosingTagType lost_tag )
 
-.. c:function:: CcStep * cc_step_convert_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag )
+.. c:function:: CcStep * cc_step_convert_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag )
 
 .. c:function:: CcStep * cc_step_failed_conversion_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field )
 
-.. c:function:: CcStep * cc_step_demote_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagEnum lost_tag, CcPos distant )
+.. c:function:: CcStep * cc_step_demote_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcLosingTagType lost_tag, CcPos distant )
 
 .. c:function:: CcStep * cc_step_resurrect_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceType piece, CcPos destination )
 

@@ -145,7 +145,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Losing tag.
 
-    CcLosingTagEnum lte = cc_parse_losing_tag( c_str );
+    CcLosingTagType lte = cc_parse_losing_tag( c_str );
 
     if ( !cc_check_losing_tag_for_piece( before_ply_start__io->piece, lte ) ) {
         char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, true, true );

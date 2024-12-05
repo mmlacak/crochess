@@ -176,19 +176,19 @@ Functions
     :returns: :c:data:`true` if successful (and/or found piece symbol valid),
         :c:data:`false` otherwise.
 
-.. c:function:: CcLosingTagEnum cc_parse_losing_tag( char const * lt_an_str )
+.. c:function:: CcLosingTagType cc_parse_losing_tag( char const * lt_an_str )
 
     Function returns losing tag found in a given notation.
 
     :param lt_an_str: Notation, points at losing tag;
         zero-terminated, :term:`AN` string.
-    :returns: Losing tag, :c:enum:`CcLosingTagEnum` value.
+    :returns: Losing tag, :c:type:`CcLosingTagType` value.
 
-.. c:function:: size_t cc_losing_tag_len( CcLosingTagEnum lte )
+.. c:function:: size_t cc_losing_tag_len( CcLosingTagType lte )
 
     Function returns length in :c:`char`\s of a losing tag as used in notation.
 
-    :param lte: Losing tag, i.e. :c:enum:`CcLosingTagEnum` value.
+    :param lte: Losing tag, i.e. :c:type:`CcLosingTagType` value.
     :returns: Length if given losing tag was valid, ``0`` otherwise.
 
 .. c:function:: bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o )
