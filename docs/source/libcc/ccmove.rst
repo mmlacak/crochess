@@ -12,6 +12,29 @@ Move
 Documents ``cc_move.h`` and ``cc_move.c`` files, which contain various
 parsed move definitions and functions.
 
+.. _lbl-libcc-ccmove-validity:
+
+Validity
+--------
+
+.. c:macro:: CC_MOVE_STATUS_IS_ENUMERATION(mse)
+
+    Macro to check if given :term:`tag` is enumeration in :c:enum:`CcMoveStatusEnum`,
+    i.e. between :c:enumerator:`CC_MSE_None` and :c:enumerator:`CC_MSE_DrawByRules` values.
+
+    :param mse: A move status, integer value.
+    :returns: :c:data:`true` if :c:enum:`CcMoveStatusEnum` enumeration,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_MOVE_STATUS_IS_VALID(mse)
+
+    Macro to check if given :term:`tag` is :c:enum:`CcMoveStatusEnum` enumerator,
+    and not :c:enumerator:`CC_MSE_None`.
+
+    :param mse: A move status, integer value.
+    :returns: :c:data:`true` if valid :c:enum:`CcMoveStatusEnum` enumeration,
+              :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccmove-data:
 
 Data
