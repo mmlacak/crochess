@@ -808,9 +808,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             bool is_light = true;
 
-            if ( CC_GAME_STATUS_IS_LIGHT_TURN( game->status ) )
+            if ( game->status == CC_GSE_Turn_Light )
                 is_light = ( see == CC_SETE_Resurrection );
-            else if ( CC_GAME_STATUS_IS_DARK_TURN( game->status ) )
+            else if ( game->status == CC_GSE_Turn_Dark )
                 is_light = ( see == CC_SETE_ResurrectingOpponent );
             else
                 return false; // Should check status, within caller stack.

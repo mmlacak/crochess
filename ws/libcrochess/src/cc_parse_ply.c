@@ -97,7 +97,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
         return false;
     }
 
-    bool is_light = CC_GAME_STATUS_IS_LIGHT_TURN( game->status );
+    bool is_light = ( game->status == CC_GSE_Turn_Light );
     CcPieceType piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
 
     if ( is_first_ply ) {
