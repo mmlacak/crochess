@@ -28,7 +28,7 @@
 
 CcPlyLinkTypeEnum cc_parse_ply_link( char const * ply_an_str );
 
-size_t cc_ply_link_len( CcPlyLinkTypeEnum ple );
+size_t cc_ply_link_len( CcPlyLinkTypeEnum plte );
 
 bool cc_is_ply_link_char( char const c );
 
@@ -39,7 +39,7 @@ bool cc_iter_ply( char const * move_an_str,
                   char const ** end__io );
 
 
-bool cc_fetch_piece_symbol( char const * piece_an_str,
+bool cc_fetch_piece_symbol( char const * piece_an,
                             char * piece_symbol__o,
                             bool default_to_pawn,
                             bool return_validity );

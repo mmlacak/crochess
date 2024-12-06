@@ -26,24 +26,31 @@ typedef enum CcPlyLinkTypeEnum {
 } CcPlyLinkTypeEnum;
 
 
-#define CC_PLY_LINK_TYPE_IS_ENUMERATOR(ple) ( ( CC_PLTE_None <= (ple) ) && ( (ple) <= CC_PLTE_FailedSenseJourney ) )
+#define CC_PLY_LINK_TYPE_IS_ENUMERATOR(plte) ( ( CC_PLTE_None <= (plte) ) && ( (plte) <= CC_PLTE_FailedSenseJourney ) )
 
-#define CC_PLY_LINK_TYPE_IS_VALID(ple) ( ( CC_PLTE_None < (ple) ) && ( (ple) <= CC_PLTE_FailedSenseJourney ) )
-
-
-#define CC_PLY_LINK_TYPE_IS_ANY_TELEPORTATION(ple) ( ( (ple) == CC_PLTE_Teleportation )               \
-                                                  || ( (ple) == CC_PLTE_TeleportationReemergence )    \
-                                                  || ( (ple) == CC_PLTE_TeleportationOblation )
-
-#define CC_PLY_LINK_TYPE_IS_ANY_TRANCE_JOURNEY(ple) ( ( (ple) == CC_PLTE_TranceJourney )          \
-                                                   || ( (ple) == CC_PLTE_DualTranceJourney )      \
-                                                   || ( (ple) == CC_PLTE_FailedTranceJourney ) )
-
-#define CC_PLY_LINK_TYPE_IS_ANY_SENSE_JOURNEY(ple) ( ( (ple) == CC_PLTE_SenseJourney )        \
-                                                  || ( (ple) == CC_PLTE_FailedSenseJourney )
+#define CC_PLY_LINK_TYPE_IS_VALID(plte) ( ( CC_PLTE_None < (plte) ) && ( (plte) <= CC_PLTE_FailedSenseJourney ) )
 
 
-char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple );
+#define CC_PLY_LINK_TYPE_IS_ANY_TELEPORTATION(plte) ( ( (plte) == CC_PLTE_Teleportation )               \
+                                                   || ( (plte) == CC_PLTE_TeleportationReemergence )    \
+                                                   || ( (plte) == CC_PLTE_TeleportationOblation )
+
+#define CC_PLY_LINK_TYPE_IS_ANY_TRANCE_JOURNEY(plte) ( ( (plte) == CC_PLTE_TranceJourney )          \
+                                                    || ( (plte) == CC_PLTE_DualTranceJourney )      \
+                                                    || ( (plte) == CC_PLTE_FailedTranceJourney ) )
+
+#define CC_PLY_LINK_TYPE_IS_ANY_SENSE_JOURNEY(plte) ( ( (plte) == CC_PLTE_SenseJourney )         \
+                                                   || ( (plte) == CC_PLTE_FailedSenseJourney ) )
+
+#define CC_PLY_LINK_TYPE_HAS_PIECE_ACTIVATION(plte) ( ( (plte) == CC_PLTE_CascadingPly )          \
+                                                   || ( (plte) == CC_PLTE_TranceJourney )         \
+                                                   || ( (plte) == CC_PLTE_DualTranceJourney )     \
+                                                   || ( (plte) == CC_PLTE_FailedTranceJourney )   \
+                                                   || ( (plte) == CC_PLTE_SenseJourney )          \
+                                                   || ( (plte) == CC_PLTE_FailedSenseJourney ) )
+
+
+char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte );
 
 #define CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL (3)
 

@@ -148,19 +148,19 @@ Macros
 
 Macros below check if given value is ply link type enumerator, or valid ply link type.
 
-.. c:macro:: CC_PLY_LINK_TYPE_IS_ENUMERATOR(ple)
+.. c:macro:: CC_PLY_LINK_TYPE_IS_ENUMERATOR(plte)
 
     Macro to check if given value is ply link type enumerator.
 
-    :param ple: A given integer value.
+    :param plte: A given integer value.
     :returns: :c:data:`true` if given integer is ply link type, i.e.
         :c:enum:`CcPlyLinkTypeEnum` value, :c:data:`false` otherwise.
 
-.. c:macro:: CC_PLY_LINK_TYPE_IS_VALID(ple)
+.. c:macro:: CC_PLY_LINK_TYPE_IS_VALID(plte)
 
     Macro to check if given value is valid ply link type.
 
-    :param ple: A given integer value.
+    :param plte: A given integer value.
     :returns: :c:data:`true` if given integer is valid ply link type, i.e.
         :c:enum:`CcPlyLinkTypeEnum` value, :c:data:`false` otherwise.
 
@@ -191,14 +191,14 @@ values, otherwise they are identical to macros in the table above.
 Functions
 ---------
 
-.. c:function:: char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple )
+.. c:function:: char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte )
 
     Function returns string symbol, as used in algebraic notation,
     for a given ply link.
 
     Returned string is not allocated, so do not :c:func:`free()` it.
 
-    :param ple: A ply linkage.
+    :param plte: A ply linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
 .. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__n )

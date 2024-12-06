@@ -80,11 +80,11 @@ Functions
         :c:enumerator:`CC_PLTE_StartingPly` if not,
         :c:enumerator:`CC_PLTE_None` in case of error.
 
-.. c:function:: size_t cc_ply_link_len( CcPlyLinkTypeEnum ple )
+.. c:function:: size_t cc_ply_link_len( CcPlyLinkTypeEnum plte )
 
     Function returns length in :c:`char`\s of a ply link as used in notation.
 
-    :param ple: Ply link, i.e. :c:enum:`CcPlyLinkTypeEnum` value.
+    :param plte: Ply link, i.e. :c:enum:`CcPlyLinkTypeEnum` value.
     :returns: Length if given ply link was valid, ``0`` otherwise.
 
 .. c:function:: bool cc_is_ply_link_char( char const c )
@@ -141,7 +141,7 @@ Functions
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_fetch_piece_symbol( char const * piece_an_str, char * piece_symbol__o, bool default_to_pawn, bool return_validity )
+.. c:function:: bool cc_fetch_piece_symbol( char const * piece_an, char * piece_symbol__o, bool default_to_pawn, bool return_validity )
 
     Function checks piece symbol in given notation, and outputs findings via
     *output* parameter.
@@ -152,7 +152,7 @@ Functions
     Depending on :c:`return_validity` flag, function also returns if found
     piece symbol is valid.
 
-    :param piece_an_str: Notation, points at piece symbol;
+    :param piece_an: Notation, points at piece symbol;
         zero-terminated, :term:`AN` string.
     :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
     :param default_to_pawn: Flag, if there is no upper-case :c:`char`, should

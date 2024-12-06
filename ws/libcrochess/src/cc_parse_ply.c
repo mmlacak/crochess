@@ -183,8 +183,12 @@ static bool _cc_parse_ply( char const * ply_start_an,
         if ( pt_cb != before_ply__io->piece )
             return _cc_fail_with_msg_unexpected_piece( pos, piece_symbol, pt_cb, ply_start_an, ply_end_an, parse_msgs__iod );
 
-        if ( !_cc_check_piece_can_be_activated( pt_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // This is fine, color (owner) does not matter.
-            return false;
+        if ( CC_PLY_LINK_TYPE_HAS_PIECE_ACTIVATION( plte_an ) )
+            if ( !_cc_check_piece_can_be_activated( pt_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // <!> This is fine, color (owner) does not matter.
+                return false;
+        // TODO :: handle other ply links
+
+        // TODO :: check destination of previous ply == initial position in this ply
     }
 
     if ( cc_piece_symbol_is_valid( *c_an ) ) ++c_an;
@@ -323,9 +327,6 @@ bool cc_parse_plies( char const * move_an,
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
-
-            printf( "!cc_ply_extend( ... )\n" ); // TODO :: DEBUG :: DELETE
-
             return false;
         }
 

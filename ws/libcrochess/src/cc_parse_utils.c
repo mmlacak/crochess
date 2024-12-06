@@ -51,8 +51,8 @@ CcPlyLinkTypeEnum cc_parse_ply_link( char const * ply_an_str ) {
     return CC_PLTE_None;
 }
 
-size_t cc_ply_link_len( CcPlyLinkTypeEnum ple ) {
-    switch ( ple ) {
+size_t cc_ply_link_len( CcPlyLinkTypeEnum plte ) {
+    switch ( plte ) {
         case CC_PLTE_None : return 0; // Ply link not found, uninitialized, or error happened.
         case CC_PLTE_StartingPly : return 0; // Just first ply, standalone or starting a cascade.
         case CC_PLTE_CascadingPly : return 1; // Just one ply, continuing cascade. Corresponds to `~`.
@@ -79,18 +79,18 @@ char const * cc_next_ply_link( char const * ply_an_str ) {
     if ( *ply_an_str == '\0' ) return NULL;
 
     // Skip over current ply link.
-    CcPlyLinkTypeEnum ple = cc_parse_ply_link( ply_an_str );
-    if ( ple == CC_PLTE_None ) return NULL;
+    CcPlyLinkTypeEnum plte = cc_parse_ply_link( ply_an_str );
+    if ( plte == CC_PLTE_None ) return NULL;
 
-    char const * str__w = ply_an_str + cc_ply_link_len( ple );
+    char const * str__w = ply_an_str + cc_ply_link_len( plte );
 
     // Skip over everything before next ply link.
     while ( *str__w != '\0' ) {
-        ple = cc_parse_ply_link( str__w );
+        plte = cc_parse_ply_link( str__w );
 
-        if ( ple == CC_PLTE_None )
+        if ( plte == CC_PLTE_None )
             return NULL;
-        else if ( ple == CC_PLTE_StartingPly ) {
+        else if ( plte == CC_PLTE_StartingPly ) {
             while ( ( *str__w != '\0' ) && ( !cc_is_ply_link_char( *str__w ) ) )
                 ++str__w;
         } else
@@ -133,14 +133,14 @@ bool cc_iter_ply( char const * move_an_str,
 }
 
 
-bool cc_fetch_piece_symbol( char const * piece_an_str,
+bool cc_fetch_piece_symbol( char const * piece_an,
                             char * piece_symbol__o,
                             bool default_to_pawn,
                             bool return_validity ) {
-    if ( !piece_an_str ) return false;
+    if ( !piece_an ) return false;
     if ( !piece_symbol__o ) return false;
 
-    char const * p = piece_an_str;
+    char const * p = piece_an;
 
     if ( isupper( *p ) ) // <!> Usage of cc_piece_symbol_is_valid() here is bug,
                          //     all other upper chars would end as Pawns.

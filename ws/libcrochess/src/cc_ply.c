@@ -7,8 +7,8 @@
 #include "cc_ply.h"
 
 
-char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum ple ) {
-    switch ( ple ) {
+char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte ) {
+    switch ( plte ) {
         case CC_PLTE_None : return NULL;
         case CC_PLTE_StartingPly : return "";
         case CC_PLTE_CascadingPly : return "~";
