@@ -42,12 +42,12 @@ typedef enum CcPlyLinkTypeEnum {
 #define CC_PLY_LINK_TYPE_IS_ANY_SENSE_JOURNEY(plte) ( ( (plte) == CC_PLTE_SenseJourney )         \
                                                    || ( (plte) == CC_PLTE_FailedSenseJourney ) )
 
-#define CC_PLY_LINK_TYPE_HAS_PIECE_ACTIVATION(plte) ( ( (plte) == CC_PLTE_CascadingPly )          \
-                                                   || ( (plte) == CC_PLTE_TranceJourney )         \
-                                                   || ( (plte) == CC_PLTE_DualTranceJourney )     \
-                                                   || ( (plte) == CC_PLTE_FailedTranceJourney )   \
-                                                   || ( (plte) == CC_PLTE_SenseJourney )          \
-                                                   || ( (plte) == CC_PLTE_FailedSenseJourney ) )
+#define CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE(plte) ( ( (plte) == CC_PLTE_CascadingPly )          \
+                                                  || ( (plte) == CC_PLTE_TranceJourney )         \
+                                                  || ( (plte) == CC_PLTE_DualTranceJourney )     \
+                                                  || ( (plte) == CC_PLTE_FailedTranceJourney )   \
+                                                  || ( (plte) == CC_PLTE_SenseJourney )          \
+                                                  || ( (plte) == CC_PLTE_FailedSenseJourney ) )
 
 
 char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte );

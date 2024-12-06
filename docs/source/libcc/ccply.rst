@@ -175,16 +175,27 @@ values, otherwise they are identical to macros in the table above.
    * - Macro
      - Values
    * - CC_PLY_LINK_TYPE_IS_ANY_TELEPORTATION
-     - :c:enumerator:`CC_PLTE_Teleportation`,
-       :c:enumerator:`CC_PLTE_TeleportationReemergence`,
-       :c:enumerator:`CC_PLTE_TeleportationOblation`
+     - .. line-block::
+        :c:enumerator:`CC_PLTE_Teleportation`
+        :c:enumerator:`CC_PLTE_TeleportationReemergence`
+        :c:enumerator:`CC_PLTE_TeleportationOblation`
    * - CC_PLY_LINK_TYPE_IS_ANY_TRANCE_JOURNEY
-     - :c:enumerator:`CC_PLTE_TranceJourney`,
-       :c:enumerator:`CC_PLTE_DualTranceJourney`,
-       :c:enumerator:`CC_PLTE_FailedTranceJourney`
+     - .. line-block::
+        :c:enumerator:`CC_PLTE_TranceJourney`
+        :c:enumerator:`CC_PLTE_DualTranceJourney`
+        :c:enumerator:`CC_PLTE_FailedTranceJourney`
    * - CC_PLY_LINK_TYPE_IS_ANY_SENSE_JOURNEY
-     - :c:enumerator:`CC_PLTE_SenseJourney`,
-       :c:enumerator:`CC_PLTE_FailedSenseJourney`
+     - .. line-block::
+        :c:enumerator:`CC_PLTE_SenseJourney`
+        :c:enumerator:`CC_PLTE_FailedSenseJourney`
+   * - CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE
+     - .. line-block::
+        :c:enumerator:`CC_PLTE_CascadingPly`
+        :c:enumerator:`CC_PLTE_TranceJourney`
+        :c:enumerator:`CC_PLTE_DualTranceJourney`
+        :c:enumerator:`CC_PLTE_FailedTranceJourney`
+        :c:enumerator:`CC_PLTE_SenseJourney`
+        :c:enumerator:`CC_PLTE_FailedSenseJourney`
 
 .. _lbl-libcc-ccply-functions:
 

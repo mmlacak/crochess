@@ -124,6 +124,23 @@ static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceType piece,
     return false;
 }
 
+static bool _cc_fail_with_msg_unexpected_pos( CcPos prev_dest,
+                                              CcPos init_pos,
+                                              char const * ply_start_an,
+                                              char const * ply_end_an,
+                                              CcParseMsg ** parse_msgs__iod ) {
+    cc_char_8 prev_dest_c8 = CC_CHAR_8_EMPTY;
+    if ( !cc_pos_to_string( prev_dest, &prev_dest_c8 ) ) return false;
+
+    cc_char_8 init_pos_c8 = CC_CHAR_8_EMPTY;
+    if ( !cc_pos_to_string( init_pos, &init_pos_c8 ) ) return false;
+
+    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Previous destination %s differs from initial position %s from notation; in ply '%s'.\n", prev_dest_c8, init_pos_c8, ply_an__a );
+    CC_FREE( ply_an__a );
+    return false;
+}
+
 static bool _cc_parse_ply( char const * ply_start_an,
                            char const * ply_end_an,
                            CcGame * game,
@@ -139,7 +156,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
     // Ply link.
 
     CcPlyLinkTypeEnum plte_an = cc_parse_ply_link( ply_start_an );
-    if ( plte_an == CC_PLTE_None )
+    if ( plte_an == CC_PLTE_None ) // Shouldn't fail, unless there's bug in cc_iter_ply().
         return _cc_fail_with_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
 
     if ( is_first_ply && ( plte_an != CC_PLTE_StartingPly ) )
@@ -158,7 +175,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
         return _cc_fail_with_msg_invalid_piece_symbol( *c_an, ply_start_an, ply_end_an, parse_msgs__iod );
 
     bool is_light = ( game->status == CC_GSE_Turn_Light );
-    CcPieceType pt_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
+    CcPieceType pt_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if activating opponent's pieces (if not first ply).
 
     if ( is_first_ply ) {
         before_ply__io->piece = pt_an; // Piece type and owner should be correct, on the first ply.
@@ -175,15 +192,9 @@ static bool _cc_parse_ply( char const * ply_start_an,
         }
     } else {
         if ( !cc_piece_has_same_type( pt_an, before_ply__io->piece ) )
-            return _cc_fail_with_msg_unexpected_piece_type( before_ply__io->piece, piece_symbol, ply_start_an, ply_end_an, parse_msgs__iod );
+            return _cc_fail_with_msg_unexpected_piece( before_ply__io->pos, piece_symbol, before_ply__io->piece, ply_start_an, ply_end_an, parse_msgs__iod );
 
-        CcPos pos = before_ply__io->pos;
-        CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
-
-        if ( pt_cb != before_ply__io->piece )
-            return _cc_fail_with_msg_unexpected_piece( pos, piece_symbol, pt_cb, ply_start_an, ply_end_an, parse_msgs__iod );
-
-        if ( CC_PLY_LINK_TYPE_HAS_PIECE_ACTIVATION( plte_an ) )
+        if ( CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE( plte_an ) )
             if ( !_cc_check_piece_can_be_activated( pt_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // <!> This is fine, color (owner) does not matter.
                 return false;
         // TODO :: handle other ply links
@@ -217,11 +228,9 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Finding starting position, tag, if first ply.
 
-    CcStep * init_step = NULL;
+    CcStep * init_step = cc_step_find_init( steps__t );
 
     if ( is_first_ply ) {
-        init_step = cc_step_find_init( steps__t );
-
         if ( init_step && CC_POS_IS_VALID( init_step->field ) ) {
             CcPos init_pos = init_step->field;
             CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, init_pos.i, init_pos.j );
@@ -238,6 +247,21 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
             // TODO :: handle disambiguation, check it's congruent with found starting position
         }
+    } else {
+        if ( CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE( plte_an ) ) {
+            if ( init_step ) {
+                CcPos init_pos = init_step->field;
+                CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, init_pos.i, init_pos.j );
+
+                // TODO :: CHECK :: m Rb1-k1~Wj1-g7 :: m Rb1-j1~Wk1-g7 :: if CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE
+
+                if ( !CC_POS_IS_EQUAL( init_pos, before_ply__io->pos ) )
+                    return _cc_fail_with_msg_unexpected_pos( before_ply__io->pos, init_pos, ply_start_an, ply_end_an, parse_msgs__iod );
+            }
+        }
+        // TODO :: find starting position, tag by reversing pathing on chessboard
+
+        // TODO :: handle disambiguation, check it's congruent with found starting position
     }
 
     //
