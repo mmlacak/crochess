@@ -26,6 +26,17 @@ static bool _cc_fail_with_msg_invalid_ply_link( char const * ply_start_an,
     return false;
 }
 
+static bool _cc_fail_with_msg_invalid_first_ply_link( CcPlyLinkTypeEnum plte,
+                                                      char const * ply_start_an,
+                                                      char const * ply_end_an,
+                                                      CcParseMsg ** parse_msgs__iod ) {
+    char const * plte_str = cc_ply_link_type_symbol( plte );
+    char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found ply separator '%s', expected none in the first ply '%s'.\n", plte_str, ply_str__a );
+    CC_FREE( ply_str__a );
+    return false;
+}
+
 static bool _cc_check_king_ply( CcChessboard * cb,
                                 CcPieceType king,
                                 CcPos * pos__o,
@@ -117,13 +128,14 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Ply link.
 
-    CcPlyLinkTypeEnum ple = cc_parse_ply_link( ply_start_an );
-    if ( ple == CC_PLTE_None )
+    CcPlyLinkTypeEnum plte_an = cc_parse_ply_link( ply_start_an );
+    if ( plte_an == CC_PLTE_None )
         return _cc_fail_with_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
 
-    if ( is_first_ply && ( ple == CC_PLTE_None ) ) ple = CC_PLTE_StartingPly;
+    if ( is_first_ply && ( plte_an != CC_PLTE_StartingPly ) )
+        return _cc_fail_with_msg_invalid_first_ply_link( plte_an, ply_start_an, ply_end_an, parse_msgs__iod );
 
-    char const * c_an = ply_start_an + cc_ply_link_len( ple );
+    char const * c_an = ply_start_an + cc_ply_link_len( plte_an );
 
     if ( *c_an == '[' ) ++c_an; // Move past ply gathering.
 
@@ -227,11 +239,11 @@ static bool _cc_parse_ply( char const * ply_start_an,
     }
 
     CcPos dest = destination->field;
-    CcPosDesc new_ply_start = CC_POS_DESC_CAST_INVALID;
+    CcPosDesc before_this_ply = CC_POS_DESC_CAST_INVALID;
 
-    new_ply_start.piece = cc_chessboard_get_piece( *cb__io, dest.i, dest.j );
-    new_ply_start.pos = dest;
-    new_ply_start.tag = cc_chessboard_get_tag( *cb__io, dest.i, dest.j );
+    before_this_ply.piece = cc_chessboard_get_piece( *cb__io, dest.i, dest.j );
+    before_this_ply.pos = dest;
+    before_this_ply.tag = cc_chessboard_get_tag( *cb__io, dest.i, dest.j );
 
     //
     // TODO :: update cb__io
@@ -239,13 +251,13 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Create a new ply, which takes ownership of steps (steps__t).
 
-    *ply__o = cc_ply__new( ple, before_ply__io->piece, ltt_an, &steps__t );
+    *ply__o = cc_ply__new( plte_an, before_ply__io->piece, ltt_an, &steps__t );
     if ( !*ply__o ) {
         cc_step_free_all( &steps__t );
         return false;
     }
 
-    *before_ply__io = new_ply_start;
+    *before_ply__io = before_this_ply;
 
     return true;
 }
