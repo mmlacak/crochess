@@ -220,7 +220,7 @@ static bool _cc_check_captured_en_passant( CcPieceType capturing,
     }
 
     if ( !CC_PIECE_IS_NONE( maybe_captured ) ) {
-        if ( !CC_PIECE_IS_EQUAL( maybe_captured, captured ) ) {
+        if ( maybe_captured != captured ) {
             char const * maybe_str = cc_piece_as_string( maybe_captured, false, true );
             char const * captured_str = cc_piece_as_string( captured, true, true );
 
@@ -581,8 +581,8 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_piece_can_be_captured( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            CcLosingTagType lte = cc_parse_losing_tag( se_an );
-            char const * promo_an = se_an + cc_losing_tag_len( lte );
+            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
+            char const * promo_an = se_an + cc_losing_tag_len( ltt );
 
             if ( CC_PIECE_IS_PAWN( before_ply_start.piece ) ) {
                 bool has_promo_sign = false;
@@ -605,14 +605,14 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     if ( !_cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
                         return false;
 
-                    *side_effect__o = cc_side_effect_promote( step_piece, lte, promote_to );
+                    *side_effect__o = cc_side_effect_promote( step_piece, ltt, promote_to );
                     return true;
                 } else if ( promo == CC_SETE_TagForPromotion ) {
                     // TODO :: add flag
                 }
             }
 
-            *side_effect__o = cc_side_effect_capture( step_piece, lte );
+            *side_effect__o = cc_side_effect_capture( step_piece, ltt );
             return true;
         } case CC_SETE_Displacement : {
             // TODO -- add Serpent
@@ -630,8 +630,8 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_piece_can_be_displaced( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            CcLosingTagType lte = cc_parse_losing_tag( se_an );
-            char const * pos_an = se_an + cc_losing_tag_len( lte );
+            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
+            char const * pos_an = se_an + cc_losing_tag_len( ltt );
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
@@ -642,7 +642,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !_cc_check_position_is_on_board( pos, cb, "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
                 return false;
 
-            *side_effect__o = cc_side_effect_displacement( step_piece, lte, pos );
+            *side_effect__o = cc_side_effect_displacement( step_piece, ltt, pos );
             return true;
         } case CC_SETE_EnPassant : {
             if ( !_cc_check_piece_en_passant( before_ply_start.piece, true, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
@@ -761,9 +761,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 return false;
 
             CcPieceType convert_to = cc_piece_opposite( step_piece );
-            CcLosingTagType lte = cc_parse_losing_tag( se_an );
+            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
 
-            *side_effect__o = cc_side_effect_convert( convert_to, lte );
+            *side_effect__o = cc_side_effect_convert( convert_to, ltt );
             return true;
         } case CC_SETE_FailedConversion : {
             if ( !_cc_check_failed_conversion( step_piece, step_start_an, step_end_an, parse_msgs__iod ) )

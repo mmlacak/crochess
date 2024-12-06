@@ -145,22 +145,22 @@ Functions
 Losing tag validity
 -------------------
 
-.. c:macro:: CC_LOSING_TAG_IS_ENUMERATOR(lte)
+.. c:macro:: CC_LOSING_TAG_IS_ENUMERATOR(ltt)
 
     Macro to check if given :term:`tag` is enumeration in :c:enum:`CcLosingTagEnum`,
     i.e. between :c:enumerator:`CC_LTE_NoneLost` and :c:enumerator:`CC_LTE_DelayedPromotionLost`
     values.
 
-    :param lte: A tag, integer value.
+    :param ltt: A tag, integer value.
     :returns: :c:data:`true` if :c:enum:`CcLosingTagEnum` enumerator,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_LOSING_TAG_IS_VALID(lte)
+.. c:macro:: CC_LOSING_TAG_IS_VALID(ltt)
 
     Macro to check if given :term:`tag` is valid :c:enum:`CcLosingTagEnum` enumerator,
     and not :c:enumerator:`CC_LTE_NoneLost`.
 
-    :param lte: A tag, integer value.
+    :param ltt: A tag, integer value.
     :returns: :c:data:`true` if valid :c:enum:`CcLosingTagEnum` enumerator,
               :c:data:`false` otherwise.
 
@@ -211,21 +211,21 @@ Losing tag types
 Losing tag functions
 --------------------
 
-.. c:function:: char const * cc_losing_tag_symbol( CcLosingTagType lte )
+.. c:function:: char const * cc_losing_tag_symbol( CcLosingTagType ltt )
 
     Function returns losing tag symbol as used in :term:`AN`, based on lost tag.
 
-    :param lte: :c:type:`CcLosingTagType` value.
+    :param ltt: :c:type:`CcLosingTagType` value.
     :returns: Valid pointer to zero-terminated string literal,
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 
-.. c:function:: char const * cc_losing_tag_as_string( CcLosingTagType lte, bool capitalize, bool no_tag )
+.. c:function:: char const * cc_losing_tag_as_string( CcLosingTagType ltt, bool capitalize, bool no_tag )
 
     Function returning descriptive string as used in user messages,
     based on lost tag.
 
-    :param lte: :c:type:`CcLosingTagType` value.
+    :param ltt: :c:type:`CcLosingTagType` value.
     :param capitalize: Flag, whether string should be capitalized.
     :param no_tag: Flag, whether should also describe no-tag value.
     :returns: Valid pointer to zero-terminated string literal,
@@ -242,11 +242,11 @@ Losing tag functions
     :param te: :c:type:`CcTagType` value.
     :returns: :c:type:`CcLosingTagType` value.
 
-.. c:function:: CcTagType cc_tag_from_losing( CcLosingTagType lte )
+.. c:function:: CcTagType cc_tag_from_losing( CcLosingTagType ltt )
 
     Converts losing tag into ordinary tag.
 
-    :param lte: :c:type:`CcLosingTagType` value.
+    :param ltt: :c:type:`CcLosingTagType` value.
     :returns: :c:type:`CcTagType` value.
 
 .. _lbl-libcc-cctags-sourcecodeheader:

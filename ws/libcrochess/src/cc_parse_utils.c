@@ -172,8 +172,8 @@ CcLosingTagType cc_parse_losing_tag( char const * lt_an_str ) {
     return CC_LTE_NoneLost;
 }
 
-size_t cc_losing_tag_len( CcLosingTagType lte ) {
-    switch ( lte ) {
+size_t cc_losing_tag_len( CcLosingTagType ltt ) {
+    switch ( ltt ) {
         case CC_LTE_DelayedPromotionLost : return 2; /* Losing promotion, corresponds to == (dual equal sign). */
         case CC_LTE_RushingTagLost : return 2; /* Losing ability to rush, corresponds to :: (double-colon). */
         case CC_LTE_CastlingTagLost : return 2; /* Losing ability to castle, corresponds to && (double-ampersand). */
@@ -249,7 +249,7 @@ bool cc_parse_pos( char const * pos_an_str,
 
     if ( !end ) return false;
 
-    // if ( CC_CHAR_IS_PLY_GATHER_END( *c ) ) ++c; // Isn't used after this, so ...
+    // if ( *c == ']' ) ++c; // Move past ply gathering. // Isn't used after this, so ...
 
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 

@@ -33,13 +33,13 @@
 //     return CC_MBE_True;
 // }
 
-bool cc_check_losing_tag_for_piece( CcPieceType piece, CcLosingTagType lte ) {
-    if ( lte == CC_LTE_NoneLost ) {
+bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt ) {
+    if ( ltt == CC_LTE_NoneLost ) {
         return true;
     } else if ( CC_PIECE_IS_PAWN( piece ) ) {
-        return ( ( lte == CC_LTE_RushingTagLost ) || ( lte == CC_LTE_DelayedPromotionLost ) );
+        return ( ( ltt == CC_LTE_RushingTagLost ) || ( ltt == CC_LTE_DelayedPromotionLost ) );
     } else if ( CC_PIECE_IS_ROOK( piece ) || CC_PIECE_IS_KING( piece ) ) {
-        return ( lte == CC_LTE_CastlingTagLost );
+        return ( ltt == CC_LTE_CastlingTagLost );
     } else
         return false;
 }

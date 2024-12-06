@@ -150,14 +150,14 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
     size_t copied = 0;
 
     CcPieceType captured = CC_PE_None;
-    CcLosingTagType lte = CC_LTE_NoneLost;
+    CcLosingTagType ltt = CC_LTE_NoneLost;
 
     if ( se.type == CC_SETE_Promotion ) {
         captured = se.promote.captured;
-        lte = se.promote.lost_tag;
+        ltt = se.promote.lost_tag;
     } else if ( se.type == CC_SETE_TagForPromotion ) {
         captured = se.tag_for_promotion.captured;
-        lte = se.tag_for_promotion.lost_tag;
+        ltt = se.tag_for_promotion.lost_tag;
     }
 
     if ( !CC_PIECE_IS_NONE( captured ) ) {
@@ -167,8 +167,8 @@ bool cc_side_effect_to_short_str( CcSideEffect se,
         *se_p++ = captured_char;
     }
 
-    if ( lte != CC_LTE_NoneLost ) {
-        char const * lte_str = cc_losing_tag_symbol( lte );
+    if ( ltt != CC_LTE_NoneLost ) {
+        char const * lte_str = cc_losing_tag_symbol( ltt );
         size_t lte_str_len = cc_str_len( lte_str, NULL, CC_MAX_LEN_LOSING_TAG_SYMBOL );
         copied = cc_str_copy( lte_str, NULL, lte_str_len, *se_str__o, se_end, CC_MAX_LEN_CHAR_16 );
         if ( copied != lte_str_len ) return false;

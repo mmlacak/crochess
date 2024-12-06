@@ -51,14 +51,6 @@ Validity
     :returns: :c:data:`true` if valid :c:type:`CcPieceType` enumerator,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_PIECE_IS_EQUAL(pe1,pe2)
-
-    Macro to check if given pieces are the same.
-
-    :param pe1: A piece, :c:type:`CcPieceType` value.
-    :param pe2: A piece, :c:type:`CcPieceType` value to compare.
-    :returns: :c:data:`true` if pieces are the same, :c:data:`false` otherwise.
-
 .. c:macro:: CC_PIECE_IS_NONE(pe)
 
     Macro to check if given piece is :c:enumerator:`CC_PE_None`.

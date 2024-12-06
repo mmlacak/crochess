@@ -48,20 +48,6 @@ Piece symbol is uppercase :c:`char`, as used in :term:`AN`.
     Maximum length (count of :c:`char`\s) disambiguation followed by a step can
     have  in :term:`AN`; equal to ``6``.
 
-.. c:macro:: CC_CHAR_IS_PLY_GATHER_START(char_c)
-
-    Macro to check if :c:`char` is ply gather start.
-
-    :param char_c: A :c:`char`.
-    :returns: :c:data:`true` if given :c:`char` is :c:`[`, :c:data:`false` otherwise.
-
-.. c:macro:: CC_CHAR_IS_PLY_GATHER_END(char_c)
-
-    Macro to check if :c:`char` is ply gather end.
-
-    :param char_c: A :c:`char`.
-    :returns: :c:data:`true` if given :c:`char` is :c:`]`, :c:data:`false` otherwise.
-
 .. c:macro:: CC_CHAR_IS_PLY_GATHER(char_c)
 
     Macro to check if :c:`char` is ply gather.
@@ -184,11 +170,11 @@ Functions
         zero-terminated, :term:`AN` string.
     :returns: Losing tag, :c:type:`CcLosingTagType` value.
 
-.. c:function:: size_t cc_losing_tag_len( CcLosingTagType lte )
+.. c:function:: size_t cc_losing_tag_len( CcLosingTagType ltt )
 
     Function returns length in :c:`char`\s of a losing tag as used in notation.
 
-    :param lte: Losing tag, i.e. :c:type:`CcLosingTagType` value.
+    :param ltt: Losing tag, i.e. :c:type:`CcLosingTagType` value.
     :returns: Length if given losing tag was valid, ``0`` otherwise.
 
 .. c:function:: bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o )

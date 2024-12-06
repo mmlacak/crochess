@@ -148,10 +148,10 @@ bool cc_parse_move( char const * move_an,
 
 
     move__t->plies = plies__t; // Ownership transfer.
-    plies__t = NULL;
+    // plies__t = NULL; // Not really needed.
 
     *move__o = move__t; // Ownership transfer.
-    move__t = NULL;
+    // move__t = NULL; // Not really needed.
 
     return true;
 }

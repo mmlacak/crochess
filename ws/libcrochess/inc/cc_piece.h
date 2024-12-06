@@ -9,9 +9,7 @@
 
 #define CC_PIECE_IS_ENUMERATOR(pe) ( ( CC_PE_DimStar <= (pe) ) && ( (pe) <= CC_PE_Monolith ) )
 
-#define CC_PIECE_IS_VALID(pe) ( ( CC_PE_DimStar <= (pe) ) && ( (pe) <= CC_PE_Monolith ) && ( (pe) != CC_PE_None ) )
-
-#define CC_PIECE_IS_EQUAL(pe1,pe2) ( (pe1) == (pe2) )
+#define CC_PIECE_IS_VALID(pe) ( ( (pe) != CC_PE_None ) && ( CC_PE_DimStar <= (pe) ) && ( (pe) <= CC_PE_Monolith ) )
 
 #define CC_PIECE_IS_NONE(pe) ( (pe) == CC_PE_None )
 

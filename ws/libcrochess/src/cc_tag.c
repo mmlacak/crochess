@@ -34,8 +34,8 @@ CcTagType cc_tag_from_char( char c ) {
 //
 // Losing tag enum
 
-char const * cc_losing_tag_symbol( CcLosingTagType lte ) {
-    switch ( lte ) {
+char const * cc_losing_tag_symbol( CcLosingTagType ltt ) {
+    switch ( ltt ) {
         case CC_LTE_NoneLost : return "";
 
         case CC_LTE_RushingTagLost : return "::";
@@ -46,10 +46,10 @@ char const * cc_losing_tag_symbol( CcLosingTagType lte ) {
     }
 }
 
-char const * cc_losing_tag_as_string( CcLosingTagType lte,
+char const * cc_losing_tag_as_string( CcLosingTagType ltt,
                                       bool capitalize,
                                       bool no_tag ) {
-    switch ( lte ) {
+    switch ( ltt ) {
         case CC_LTE_NoneLost :
             return no_tag ? ( capitalize ? "None"
                                          : "none" )
@@ -73,8 +73,8 @@ CcLosingTagType cc_tag_to_losing( CcTagType te ) {
     }
 }
 
-CcTagType cc_tag_from_losing( CcLosingTagType lte ) {
-    switch ( lte ) {
+CcTagType cc_tag_from_losing( CcLosingTagType ltt ) {
+    switch ( ltt ) {
         case CC_LTE_DelayedPromotionLost : return CC_TE_DelayedPromotion;
         case CC_LTE_RushingTagLost : return CC_TE_CanRush;
         case CC_LTE_CastlingTagLost : return CC_TE_CanCastle;

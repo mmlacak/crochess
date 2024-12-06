@@ -114,7 +114,7 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
 //         if ( rank == destination.j ) return true;
 //     } else {
 //         CcPieceType pe = cc_chessboard_get_piece( cb, destination.i, destination.j );
-//         if ( !CC_PIECE_IS_EQUAL( pe, pawn ) ) return false;
+//         if ( pe != pawn ) return false;
 
 //         // Static promotion.
 

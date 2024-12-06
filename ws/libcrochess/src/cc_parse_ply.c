@@ -17,12 +17,13 @@
 #include "cc_parse_ply.h"
 
 
-static void _cc_add_msg_invalid_ply_link( char const * ply_start_an,
-                                          char const * ply_end_an,
-                                          CcParseMsg ** parse_msgs__iod ) {
+static bool _cc_fail_with_msg_invalid_ply_link( char const * ply_start_an,
+                                                char const * ply_end_an,
+                                                CcParseMsg ** parse_msgs__iod ) {
     char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
     CC_FREE( ply_str__a );
+    return false;
 }
 
 static bool _cc_check_king_ply( CcChessboard * cb,
@@ -46,6 +47,34 @@ static bool _cc_check_king_ply( CcChessboard * cb,
     return true;
 }
 
+static bool _cc_fail_with_msg_unexpected_piece_type( CcPieceType piece,
+                                                     char piece_symbol,
+                                                     char const * ply_start_an,
+                                                     char const * ply_end_an,
+                                                     CcParseMsg ** parse_msgs__iod ) {
+    char const * piece_str = cc_piece_as_string( piece, false, true );
+    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s, expected '%c' from notation; in ply '%s'.\n", piece_str, piece_symbol, ply_an__a );
+    CC_FREE( ply_an__a );
+    return false;
+}
+
+static bool _cc_fail_with_msg_unexpected_piece( CcPos pos,
+                                                char piece_symbol,
+                                                CcPieceType piece,
+                                                char const * ply_start_an,
+                                                char const * ply_end_an,
+                                                CcParseMsg ** parse_msgs__iod ) {
+    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+    if ( !cc_pos_to_string( pos, &pos_c8 ) ) return false;
+
+    char const * piece_str = cc_piece_as_string( piece, false, true );
+    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation; in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
+    CC_FREE( ply_an__a );
+    return false;
+}
+
 static bool _cc_check_piece_can_be_activated( CcPieceType piece,
                                               char const * ply_start_an,
                                               char const * ply_end_an,
@@ -61,109 +90,101 @@ static bool _cc_check_piece_can_be_activated( CcPieceType piece,
     return true;
 }
 
+static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceType piece,
+                                                     CcLosingTagType ltt,
+                                                     char const * ply_start_an,
+                                                     char const * ply_end_an,
+                                                     CcParseMsg ** parse_msgs__iod ) {
+    char const * piece_str = cc_piece_as_string( piece, true, true );
+    char const * ltt_str = cc_losing_tag_as_string( ltt, false, true );
+    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot lose %s tag; in ply '%s'.\n", piece_str, ltt_str, ply_an__a );
+    CC_FREE( ply_an__a );
+    return false;
+}
+
 static bool _cc_parse_ply( char const * ply_start_an,
                            char const * ply_end_an,
                            CcGame * game,
-                           CcPosDesc * before_ply_start__io,
+                           CcPosDesc * before_ply__io,
                            bool is_first_ply,
                            CcPly ** ply__o,
                            CcChessboard ** cb__io,
                            CcParseMsg ** parse_msgs__iod ) {
-    if ( !before_ply_start__io ) return false;
+    if ( !before_ply__io ) return false;
     if ( *ply__o ) return false;
 
     //
     // Ply link.
 
     CcPlyLinkTypeEnum ple = cc_parse_ply_link( ply_start_an );
-    if ( ple == CC_PLTE_None ) {
-        _cc_add_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
-        return false;
-    }
+    if ( ple == CC_PLTE_None )
+        return _cc_fail_with_msg_invalid_ply_link( ply_start_an, ply_end_an, parse_msgs__iod );
 
     if ( is_first_ply && ( ple == CC_PLTE_None ) ) ple = CC_PLTE_StartingPly;
 
-    char const * c_str = ply_start_an + cc_ply_link_len( ple );
+    char const * c_an = ply_start_an + cc_ply_link_len( ple );
 
-    if ( CC_CHAR_IS_PLY_GATHER_START( *c_str ) ) ++c_str; // Move past '['.
+    if ( *c_an == '[' ) ++c_an; // Move past ply gathering.
 
     //
     // Piece symbol.
 
     char piece_symbol = ' ';
 
-    if ( !cc_fetch_piece_symbol( c_str, &piece_symbol, true, true ) ) {
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid piece symbol '%c'.\n", piece_symbol );
+    if ( !cc_fetch_piece_symbol( c_an, &piece_symbol, true, true ) ) {
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid piece symbol '%c'.\n", *c_an );
         return false;
     }
 
     bool is_light = ( game->status == CC_GSE_Turn_Light );
-    CcPieceType piece_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
+    CcPieceType pt_an = cc_piece_from_symbol( piece_symbol, is_light ); // Piece type should be correct, but color (owner) might not be, if it's not first ply.
 
     if ( is_first_ply ) {
-        before_ply_start__io->piece = piece_an; // Piece type and owner should be correct, on the first ply.
+        before_ply__io->piece = pt_an; // Piece type and owner should be correct, on the first ply.
         // Position, and tag are generally not known at this time.
 
-        if ( CC_PIECE_IS_KING( piece_an ) ) {
+        if ( CC_PIECE_IS_KING( pt_an ) ) {
             CcPos pos = CC_POS_CAST_INVALID;
 
-            if ( !_cc_check_king_ply( *cb__io, piece_an, &pos, parse_msgs__iod ) )
+            if ( !_cc_check_king_ply( *cb__io, pt_an, &pos, parse_msgs__iod ) )
                 return false;
 
-            before_ply_start__io->pos = pos;
-            before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
+            before_ply__io->pos = pos;
+            before_ply__io->tag = cc_chessboard_get_tag( *cb__io, pos.i, pos.j );
         }
     } else {
-        if ( !cc_piece_has_same_type( piece_an, before_ply_start__io->piece ) ) {
-            char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, false, true );
-            char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s, expected '%c' from notation; in ply '%s'.\n", piece_str, piece_symbol, ply_an__a );
-            CC_FREE( ply_an__a );
-            return false;
-        }
+        if ( !cc_piece_has_same_type( pt_an, before_ply__io->piece ) )
+            return _cc_fail_with_msg_unexpected_piece_type( before_ply__io->piece, piece_symbol, ply_start_an, ply_end_an, parse_msgs__iod );
 
-        CcPos pos = before_ply_start__io->pos;
-        CcPieceType pe = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
+        CcPos pos = before_ply__io->pos;
+        CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, pos.i, pos.j );
 
-        if ( pe != before_ply_start__io->piece ) {
-            cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-            if ( !cc_pos_to_string( pos, &pos_c8 ) )  return false;
+        if ( pt_cb != before_ply__io->piece )
+            return _cc_fail_with_msg_unexpected_piece( pos, piece_symbol, pt_cb, ply_start_an, ply_end_an, parse_msgs__iod );
 
-            char const * piece_str = cc_piece_as_string( pe, false, true );
-            char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-            cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation; in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
-            CC_FREE( ply_an__a );
-            return false;
-        }
-
-        if ( !_cc_check_piece_can_be_activated( piece_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // This is fine, color (owner) does not matter.
+        if ( !_cc_check_piece_can_be_activated( pt_an, ply_start_an, ply_end_an, parse_msgs__iod ) ) // This is fine, color (owner) does not matter.
             return false;
     }
 
-    if ( cc_piece_symbol_is_valid( *c_str ) ) ++c_str;
+    if ( cc_piece_symbol_is_valid( *c_an ) ) ++c_an;
 
     //
     // Losing tag.
 
-    CcLosingTagType lte = cc_parse_losing_tag( c_str );
+    CcLosingTagType ltt_an = cc_parse_losing_tag( c_an );
 
-    if ( !cc_check_losing_tag_for_piece( before_ply_start__io->piece, lte ) ) {
-        char const * piece_str = cc_piece_as_string( before_ply_start__io->piece, true, true );
-        char const * lte_str = cc_losing_tag_as_string( lte, false, true );
-        char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot lose %s tag; in ply '%s'.\n", piece_str, lte_str, ply_an__a );
-        CC_FREE( ply_an__a );
-        return false;
-    }
+    if ( !cc_check_piece_can_lose_tag( before_ply__io->piece, ltt_an ) )
+        return _cc_fail_with_msg_piece_cannot_lose_tag( before_ply__io->piece, ltt_an, ply_start_an, ply_end_an, parse_msgs__iod );
 
-    c_str += cc_losing_tag_len( lte );
+    c_an += cc_losing_tag_len( ltt_an );
 
     //
     // Steps.
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( c_str, ply_end_an, game, *before_ply_start__io, &steps__t, cb__io,
+    if ( !cc_parse_steps( c_an, ply_end_an, game, *before_ply__io, &steps__t, cb__io,
                           parse_msgs__iod ) ) {
         cc_step_free_all( &steps__t );
         return false;
@@ -179,11 +200,11 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
         if ( start && CC_POS_IS_VALID( start->field ) ) {
             CcPos start_pos = start->field;
-            CcPieceType pe = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
+            CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
 
-            if ( pe == before_ply_start__io->piece ) {
-                before_ply_start__io->pos = start_pos;
-                before_ply_start__io->tag = cc_chessboard_get_tag( *cb__io, start_pos.i, start_pos.j );
+            if ( pt_cb == before_ply__io->piece ) {
+                before_ply__io->pos = start_pos;
+                before_ply__io->tag = cc_chessboard_get_tag( *cb__io, start_pos.i, start_pos.j );
             } else {
                 cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
                 if ( !cc_pos_to_string( start_pos, &pos_c8 ) ) {
@@ -191,12 +212,12 @@ static bool _cc_parse_ply( char const * ply_start_an,
                     return false;
                 }
 
-                char const * piece_str = cc_piece_as_string( pe, false, true );
+                cc_step_free_all( &steps__t );
+
+                char const * piece_str = cc_piece_as_string( pt_cb, false, true );
                 char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                 cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation, in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
                 CC_FREE( ply_an__a );
-
-                cc_step_free_all( &steps__t );
                 return false;
             }
         } else {
@@ -229,13 +250,13 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Create a new ply, which takes ownership of steps (steps__t).
 
-    *ply__o = cc_ply__new( ple, before_ply_start__io->piece, lte, &steps__t );
+    *ply__o = cc_ply__new( ple, before_ply__io->piece, ltt_an, &steps__t );
     if ( !*ply__o ) {
         cc_step_free_all( &steps__t );
         return false;
     }
 
-    *before_ply_start__io = new_ply_start;
+    *before_ply__io = new_ply_start;
 
     return true;
 }
@@ -265,7 +286,7 @@ bool cc_parse_plies( char const * move_an,
         CcPly * ply__t = NULL;
 
         if ( !_cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply_start, is_first_ply, &ply__t, &cb__a,
-                            parse_msgs__iod ) ) {
+                             parse_msgs__iod ) ) {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
             cc_chessboard_free_all( &cb__a );
@@ -323,5 +344,6 @@ bool cc_parse_plies( char const * move_an,
     // plies__t = NULL; // Not needed.
 
     cc_chessboard_free_all( &cb__a );
+
     return true;
 }

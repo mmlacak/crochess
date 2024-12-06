@@ -402,7 +402,7 @@ bool cc_piece_is_equal( char symbol, bool is_light, CcPieceType pe ) {
 }
 
 bool cc_piece_has_same_type( CcPieceType pe_1, CcPieceType pe_2 ) {
-    if ( CC_PIECE_IS_EQUAL( pe_1, pe_2 ) ) return true;
+    if ( pe_1 == pe_2 ) return true;
     if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
     return false;
 }

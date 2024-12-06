@@ -42,9 +42,9 @@ CcTagType cc_tag_from_char( char c );
 //
 // Losing tag enum
 
-#define CC_LOSING_TAG_IS_ENUMERATOR(lte) ( ( CC_LTE_NoneLost <= (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
+#define CC_LOSING_TAG_IS_ENUMERATOR(ltt) ( ( CC_LTE_NoneLost <= (ltt) ) && ( (ltt) <= CC_LTE_DelayedPromotionLost ) )
 
-#define CC_LOSING_TAG_IS_VALID(lte) ( ( CC_LTE_NoneLost < (lte) ) && ( (lte) <= CC_LTE_DelayedPromotionLost ) )
+#define CC_LOSING_TAG_IS_VALID(ltt) ( ( CC_LTE_NoneLost < (ltt) ) && ( (ltt) <= CC_LTE_DelayedPromotionLost ) )
 
 typedef enum CcLosingTagEnum {
     CC_LTE_NoneLost = CC_TE_None, /* No tag has been lost. */
@@ -58,15 +58,15 @@ typedef enum CcLosingTagEnum {
 
 typedef CcTagType CcLosingTagType; // unsigned char
 
-char const * cc_losing_tag_symbol( CcLosingTagType lte );
+char const * cc_losing_tag_symbol( CcLosingTagType ltt );
 
-char const * cc_losing_tag_as_string( CcLosingTagType lte,
+char const * cc_losing_tag_as_string( CcLosingTagType ltt,
                                       bool capitalize,
                                       bool no_tag );
 
 CcLosingTagType cc_tag_to_losing( CcTagType te );
 
-CcTagType cc_tag_from_losing( CcLosingTagType lte );
+CcTagType cc_tag_from_losing( CcLosingTagType ltt );
 
 
 

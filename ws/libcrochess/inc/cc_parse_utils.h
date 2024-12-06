@@ -21,10 +21,6 @@
 
 #define CC_MAX_LEN_DISAMBIGUATION_STEP (CC_MAX_LEN_STEP_POS_AN + CC_MAX_LEN_DISAMBIGUATION)
 
-#define CC_CHAR_IS_PLY_GATHER_START(char_c) ( (char_c) == '[' )
-
-#define CC_CHAR_IS_PLY_GATHER_END(char_c) ( (char_c) == ']' )
-
 #define CC_CHAR_IS_PLY_GATHER(char_c) ( ( (char_c) == '[' ) || ( (char_c) == ']' ) )
 
 #define CC_CHAR_IS_STEP_SEPARATOR(char_c) ( ( (char_c) == '.' ) || ( (char_c) == '-' ) )
@@ -50,7 +46,7 @@ bool cc_fetch_piece_symbol( char const * piece_an_str,
 
 CcLosingTagType cc_parse_losing_tag( char const * lt_an_str );
 
-size_t cc_losing_tag_len( CcLosingTagType lte );
+size_t cc_losing_tag_len( CcLosingTagType ltt );
 
 bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o );
 
