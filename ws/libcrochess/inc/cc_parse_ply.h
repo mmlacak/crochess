@@ -15,6 +15,16 @@
 //                                                 char const * ply_end_an,
 //                                                 CcParseMsg ** parse_msgs__iod );
 
+// static bool _cc_fail_with_msg_invalid_first_ply_link( CcPlyLinkTypeEnum plte,
+//                                                       char const * ply_start_an,
+//                                                       char const * ply_end_an,
+//                                                       CcParseMsg ** parse_msgs__iod );
+
+// static bool _cc_fail_with_msg_invalid_piece_symbol( char piece_symbol,
+//                                                     char const * ply_start_an,
+//                                                     char const * ply_end_an,
+//                                                     CcParseMsg ** parse_msgs__iod );
+
 // static bool _cc_check_king_ply( CcChessboard * cb,
 //                                 CcPieceType king,
 //                                 CcPos * pos__o,
