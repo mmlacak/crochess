@@ -18,7 +18,7 @@
 
 typedef enum CcStepLinkTypeEnum {
     CC_SLTE_None, /* Step link not found, uninitialized, not parsed yet, or error happened. */
-    CC_SLTE_Start, /* Position from which a piece started moving. */
+    CC_SLTE_Init, /* Position at which a piece was located before it started moving. */
     CC_SLTE_Reposition, /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
     CC_SLTE_Next, /* Step immediately following previous, separated by . (dot). */
     CC_SLTE_Distant, /* Step not immediately following previous, separated by .. (double-dot). */
@@ -55,7 +55,7 @@ CcStep * cc_step_extend( CcStep ** steps__iod_a,
 
 size_t cc_step_count( CcStep * steps );
 
-CcStep * cc_step_find_start( CcStep * steps );
+CcStep * cc_step_find_init( CcStep * steps );
 
 CcStep * cc_step_find_destination( CcStep * steps );
 

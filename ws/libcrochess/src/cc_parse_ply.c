@@ -36,7 +36,7 @@ static bool _cc_check_king_ply( CcChessboard * cb,
         return false;
     }
 
-    CcPos pos = *pos__o; // Temp var, as next iter will start from found position, but we don't want to change what was already found.
+    CcPos pos = *pos__o; // Temp var, as next iter will init_step from found position, but we don't want to change what was already found.
 
     if ( cc_iter_piece_pos( cb, CC_POS_CAST_INVALID, king, false, &pos ) ) { // Check if it's only one King of the same color on chessboard.
         char const * piece_str = cc_piece_as_string( king, false, true );
@@ -193,32 +193,21 @@ static bool _cc_parse_ply( char const * ply_start_an,
     //
     // Finding starting position, tag, if first ply.
 
-    CcStep * start = NULL;
+    CcStep * init_step = NULL;
 
     if ( is_first_ply ) {
-        start = cc_step_find_start( steps__t );
+        init_step = cc_step_find_init( steps__t );
 
-        if ( start && CC_POS_IS_VALID( start->field ) ) {
-            CcPos start_pos = start->field;
-            CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, start_pos.i, start_pos.j );
+        if ( init_step && CC_POS_IS_VALID( init_step->field ) ) {
+            CcPos init_pos = init_step->field;
+            CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, init_pos.i, init_pos.j );
 
             if ( pt_cb == before_ply__io->piece ) {
-                before_ply__io->pos = start_pos;
-                before_ply__io->tag = cc_chessboard_get_tag( *cb__io, start_pos.i, start_pos.j );
+                before_ply__io->pos = init_pos;
+                before_ply__io->tag = cc_chessboard_get_tag( *cb__io, init_pos.i, init_pos.j );
             } else {
-                cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-                if ( !cc_pos_to_string( start_pos, &pos_c8 ) ) {
-                    cc_step_free_all( &steps__t );
-                    return false;
-                }
-
                 cc_step_free_all( &steps__t );
-
-                char const * piece_str = cc_piece_as_string( pt_cb, false, true );
-                char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-                cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s at %s, expected '%c' from notation, in ply '%s'.\n", piece_str, pos_c8, piece_symbol, ply_an__a );
-                CC_FREE( ply_an__a );
-                return false;
+                return _cc_fail_with_msg_unexpected_piece( init_pos, piece_symbol, pt_cb, ply_start_an, ply_end_an, parse_msgs__iod );
             }
         } else {
             // TODO :: find starting position, tag by reversing pathing on chessboard

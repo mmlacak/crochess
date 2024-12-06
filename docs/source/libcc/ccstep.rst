@@ -46,9 +46,9 @@ Data
 
         Step link not found, uninitialized, not parsed yet, or error happened.
 
-    .. c:enumerator:: CC_SLTE_Start
+    .. c:enumerator:: CC_SLTE_Init
 
-        Position from which a piece started moving.
+        Position at which a piece was located before it started moving.
 
     .. c:enumerator:: CC_SLTE_Reposition
 
@@ -170,9 +170,11 @@ Functions
     :param steps: Linked list of steps.
     :returns: Count of steps if successful, ``0`` otherwise.
 
-.. c:function:: CcStep * cc_step_find_start( CcStep * steps )
+.. c:function:: CcStep * cc_step_find_init( CcStep * steps )
 
-    Function finds starting step.
+    Function finds step containing initial position.
+
+    Function also checks if initial position is only present in the first step link.
 
     :param steps: Linked list of steps.
     :returns: Starting step if successful, :c:data:`NULL` otherwise.

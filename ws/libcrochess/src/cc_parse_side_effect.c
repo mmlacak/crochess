@@ -517,7 +517,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 *side_effect__o = cc_side_effect_none();
                 return true;
             } else {
-                if ( sle == CC_SLTE_Start ) { // [1]
+                if ( sle == CC_SLTE_Init ) { // [1]
                     // Starting position, piece is the one found in destination of last ply, or the one starting a move.
 
                     // TODO :: too early for this :: UNCOMMENT when before_ply_start.piece is valid
@@ -551,7 +551,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     //      --> then it's silent capture (!)
 
                     // TODO ::  >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n
-                    // if ( sle != CC_SLTE_Start ) { // [i] Already found out that 'sle != CC_SLTE_Start' holds true, see [1], [2].
+                    // if ( sle != CC_SLTE_Init ) { // [i] Already found out that 'sle != CC_SLTE_Init' holds true, see [1], [2].
                     //     char * step_an__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
                     //     char sp = cc_piece_as_char( step_piece );
                     //     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, " >>> TODO >>> Piece '%c' found at step-field, should be empty, in step '%s'.\n", sp, step_an__a );

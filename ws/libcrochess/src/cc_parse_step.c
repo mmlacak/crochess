@@ -121,7 +121,7 @@ static bool _cc_parse_step( char const * step_start_an,
     }
 
     if ( *had_disambiguation__io ) {
-        if ( sle == CC_SLTE_Start ) sle = CC_SLTE_JustDestination;
+        if ( sle == CC_SLTE_Init ) sle = CC_SLTE_JustDestination;
         *had_disambiguation__io = false;
     }
 

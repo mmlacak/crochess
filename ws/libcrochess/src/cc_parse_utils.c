@@ -355,10 +355,10 @@ bool cc_parse_step_link( char const * step_an_str,
         return true;
     } else if ( isgraph( *c ) ) {
         if ( cc_ply_has_separated_steps( step_an_str, ply_end, true, true ) ) {
-            *sle__o = CC_SLTE_Start;
+            *sle__o = CC_SLTE_Init;
             return true;
         } else if ( cc_skip_disambiguation( step_an_str ) ) {
-            *sle__o = CC_SLTE_Start;
+            *sle__o = CC_SLTE_Init;
             return true;
         } else {
             *sle__o = CC_SLTE_JustDestination;
@@ -372,7 +372,7 @@ bool cc_parse_step_link( char const * step_an_str,
 size_t cc_step_link_len( CcStepLinkTypeEnum sle ) {
     switch ( sle ) {
         case CC_SLTE_None : return 0; /* Step link not found, uninitialized, or error happened. */
-        case CC_SLTE_Start : return 0; /* Position from which a piece started moving. */
+        case CC_SLTE_Init : return 0; /* Position from which a piece started moving. */
         case CC_SLTE_Reposition : return 1; /* In trance-journey, dark Shaman's distant starting field; separated by , (comma). */
         case CC_SLTE_Next : return 1; /* Step immediately following previous, separated by . (dot). */
         case CC_SLTE_Distant : return 2; /* Step not immediately following previous, separated by .. (double-dot). */
@@ -399,7 +399,7 @@ char const * cc_next_step_link( char const * step_an_str,
     do {
         if ( !cc_parse_step_link( str__w, ply_end, &sle ) ) return NULL;
 
-        if ( ( sle == CC_SLTE_Start ) || ( sle == CC_SLTE_JustDestination ) )
+        if ( ( sle == CC_SLTE_Init ) || ( sle == CC_SLTE_JustDestination ) )
             ++str__w;
         else
             break;
