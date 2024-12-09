@@ -316,13 +316,13 @@ bool cc_parse_plies( char const * move_an,
     CcPly * plies__t = NULL;
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
-    CcPosDesc before_ply_start = CC_POS_DESC_CAST_INVALID;
+    CcPosDesc before_ply = CC_POS_DESC_CAST_INVALID;
     bool is_first_ply = true;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {
         CcPly * ply__t = NULL;
 
-        if ( !_cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply_start, is_first_ply, &ply__t, &cb__a,
+        if ( !_cc_parse_ply( ply_start_an, ply_end_an, game, &before_ply, is_first_ply, &ply__t, &cb__a,
                              parse_msgs__iod ) ) {
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
