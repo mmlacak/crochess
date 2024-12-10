@@ -66,6 +66,8 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             char const * promo_an = se_an + cc_losing_tag_len( ltt );
 
+            // TODO :: check if followed by promotion
+
             *side_effect__o = cc_side_effect_capture( piece, ltt );
             return true;
         } case CC_SETE_Displacement : {
