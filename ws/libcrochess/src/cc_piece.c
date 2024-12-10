@@ -210,7 +210,7 @@ CcPieceType cc_piece_from_char( char piece ) {
     }
 }
 
-char const * cc_piece_label( CcPieceType pe ) {
+char const * cc_piece_label( CcPieceType pe, bool capitalize, bool empty_field ) {
     switch ( pe ) {
         case CC_PE_DimStar :
         case CC_PE_BrightStar : return "Star";
@@ -263,7 +263,10 @@ char const * cc_piece_label( CcPieceType pe ) {
         case CC_PE_DarkPawn :
         case CC_PE_LightPawn : return "Pawn";
 
-        case CC_PE_None : return "";
+        case CC_PE_None :
+            return empty_field ? ( capitalize ? "Empty field"
+                                              : "empty field" )
+                               : "";
 
         case CC_PE_Monolith : return "Monolith";
 

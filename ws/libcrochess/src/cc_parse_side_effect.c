@@ -28,6 +28,17 @@ static bool _cc_fail_with_msg_in_step( char const * msg_fmt,
     return false;
 }
 
+static bool _cc_fail_with_msg_only_private_en_passant( CcPieceType piece,
+                                                       char const * side_effect_an,
+                                                       char const * step_end_an,
+                                                       CcParseMsg ** parse_msgs__iod ) {
+    char const * piece_str = cc_piece_label( piece, false, true );
+    char * se_an__a = cc_str_copy__new( side_effect_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only privates can be captured en passant, %s encountered, in side-effect '%s'.\n", piece_str, se_an__a );
+    CC_FREE( se_an__a );
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * side_effect_an,
                            char const * step_start_an,
@@ -95,47 +106,29 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_side_effect_displacement( piece, ltt, pos );
             return true;
         } case CC_SETE_EnPassant : {
-            // if ( !_cc_check_piece_en_passant( before_ply_start.piece, true, "Only Pawns, Scouts, Grenadiers can capture en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // if ( !_cc_check_field_is_empty( piece, "Capturing by en passant can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // char piece_symbol = ' ';
-            // CcPieceType maybe_captured = CC_PE_None;
-            //
-            // if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
-            //     bool is_light = !cc_piece_is_light( before_ply_start.piece ); // !light because capturing opponent's piece.
-            //     CcPieceType maybe_private = cc_piece_from_symbol( piece_symbol, is_light );
-            //
-            //     if ( !_cc_check_piece_en_passant( maybe_private, false, "Only Pawns, Scouts, Grenadiers can be captured en passant, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            //
-            //     maybe_captured = maybe_private;
-            //     ++se_an;
-            // }
-            //
-            // CcPos maybe_en_passant_location = CC_POS_CAST_INVALID;
-            // char const * pos_end_an = NULL;
-            //
-            // if ( !_cc_parse_and_check_position( se_an, &maybe_en_passant_location, &pos_end_an, "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // if ( CC_IS_COORD_VALID( maybe_en_passant_location.j ) ) { // If location is given, at least rank must be valid.
-            //     if ( !_cc_check_en_passant_file( maybe_en_passant_location, cb, step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            // }
-            //
-            // CcPos captured_at = CC_POS_CAST_INVALID;
-            //
-            // if ( !_cc_check_captured_en_passant( before_ply_start.piece, *step_pos__io, maybe_en_passant_location, maybe_captured, &captured_at, cb, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // // TODO :: check path of capturing piece
-            //
-            // *side_effect__o = cc_side_effect_en_passant( piece, captured_at );
-            // return true;
-            return false; // TODO
+            char private_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &private_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( private_symbol, side_effect_an, step_end_an, parse_msgs__iod );
+
+            CcPieceType private = cc_piece_from_symbol( private_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            if ( !CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( private ) )
+                return _cc_fail_with_msg_only_private_en_passant( private, step_start_an, step_end_an, parse_msgs__iod );
+
+            CcPos pos = CC_POS_CAST_INVALID;
+            char const * pos_end_an = NULL;
+
+            if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
+                return _cc_fail_with_msg_in_step( "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( !CC_IS_COORD_VALID( pos.j ) ) // If location is given, at least rank must be valid.
+                return _cc_fail_with_msg_in_step( "If en passant location is given, at least rank must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+            *side_effect__o = cc_side_effect_en_passant( private, pos );
+            return true;
         } case CC_SETE_Castle : {
             // if ( !_cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
             //     return false;

@@ -189,6 +189,8 @@ bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o ) 
     if ( islower( *p ) ) {
         if ( !file__o ) return false;
 
+        // TODO :: check *p
+
         *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ );
     } else
         *file__o = CC_INVALID_COORD;
@@ -200,6 +202,8 @@ bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o ) 
         if ( isdigit( *c ) ) return false; // max len of rank is 2
 
         if ( !rank__o ) return false;
+
+        // TODO :: check *p
 
         *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p );
     } else
@@ -247,8 +251,6 @@ bool cc_parse_pos( char const * pos_an_str,
         return false;
 
     if ( !end ) return false;
-
-    // if ( *c == ']' ) ++c; // Move past ply gathering. // Isn't used after this, so ...
 
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
 

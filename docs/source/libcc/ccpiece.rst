@@ -566,7 +566,7 @@ Functions
     :param piece: A character.
     :returns: Piece enum if valid piece char passed, otherwise :c:enumerator:`CC_PE_None`.
 
-.. c:function:: char const * cc_piece_label( CcPieceType pe )
+.. c:function:: char const * cc_piece_label( CcPieceType pe, bool capitalize, bool empty_field )
 
     Function returns a piece label.
 
@@ -574,7 +574,8 @@ Functions
 
     Piece label is the same for dark (dim) and light (bright) pieces.
 
-    For :c:enumerator:`CC_PE_None` piece, label is empty string.
+    For :c:enumerator:`CC_PE_None` piece, label depends on :c:var:`capitalize`
+    and :c:var:`empty_field` flags.
 
     All returned strings are null-terminated.
 
@@ -583,6 +584,9 @@ Functions
         Returned string is not allocated, do not :c:func:`free()` it.
 
     :param pe: A piece.
+    :param capitalize: Flag, whether to return capitalized string; affects only
+        :c:enumerator:`CC_PE_None` piece, i.e. empty field.
+    :param empty_field: Flag, whether to return :c:`"empty field"`, or empty string.
     :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_VALUE_STRING` otherwise.
 
 .. c:function:: char cc_piece_symbol( CcPieceType pe )

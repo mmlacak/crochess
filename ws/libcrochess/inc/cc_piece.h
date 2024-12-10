@@ -288,7 +288,7 @@ char cc_piece_as_char( CcPieceType pe );
 
 CcPieceType cc_piece_from_char( char piece );
 
-char const * cc_piece_label( CcPieceType pe );
+char const * cc_piece_label( CcPieceType pe, bool capitalize, bool empty_field );
 
 char cc_piece_symbol( CcPieceType pe );
 
