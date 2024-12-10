@@ -46,11 +46,11 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_BOOL_TO_MAYBE(bool_val) ( (bool_val) ? CC_MBE_True : CC_MBE_False )
 
-#define CC_MAYBE_IS_TRUE(maybe_bool) ( ( (maybe_bool) == CC_MBE_True ) ? true : false )
+#define CC_MAYBE_IS_TRUE(maybe_bool) ( (maybe_bool) == CC_MBE_True )
 
-#define CC_MAYBE_IS_FALSE(maybe_bool) ( ( (maybe_bool) == CC_MBE_False ) ? true : false )
+#define CC_MAYBE_IS_FALSE(maybe_bool) ( (maybe_bool) == CC_MBE_False )
 
-#define CC_MAYBE_IS_VOID(maybe_bool) ( ( (maybe_bool) == CC_MBE_Void ) ? true : false )
+#define CC_MAYBE_IS_VOID(maybe_bool) ( (maybe_bool) == CC_MBE_Void )
 
 
 #define CC_INVALID_COORD (INT_MIN + 3583) // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
@@ -93,28 +93,13 @@ typedef enum CcMaybeBoolEnum {
     ( ( CC_MIN_BOARD_COORD <= (int)(coord) ) &&             \
       ( (int)(coord) < (int)(board_size) ) )
 
-#define CC_IS_COORD_ON_VALID_BOARD(board_size,coord)        \
-    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
-      ( CC_MIN_BOARD_COORD <= (int)(coord) ) &&             \
-      ( (int)(coord) < (int)(board_size) ) )
-
 #define CC_IS_POS_ON_BOARD(board_size,i,j)                  \
     ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) &&      \
-      ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
-
-#define CC_IS_POS_ON_VALID_BOARD(board_size,i,j)            \
-    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
-      ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) &&      \
       ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
 
 #define CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)            \
     ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) ||      \
       ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
-
-#define CC_IS_ANY_COORD_ON_VALID_BOARD(board_size,i,j)      \
-    ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \
-      ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) ||    \
-        ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) ) )
 
 #define CC_IS_FIELD_ON_LIGHT_SIDE(board_size,rank)          \
     ( ( CC_IS_BOARD_SIZE_VALID( (board_size) ) ) &&         \

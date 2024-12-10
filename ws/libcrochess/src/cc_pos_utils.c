@@ -168,6 +168,8 @@ bool cc_iter_piece_pos( CcChessboard * cb,
     if ( !pos__io ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
+
     CcPos pos = *pos__io;
 
     // Next position to check.

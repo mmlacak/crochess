@@ -3,7 +3,7 @@
 
 #include <ctype.h>
 
-#include "cc_defines.h"
+// #include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_parse_utils.h"
 
@@ -133,12 +133,11 @@ bool cc_iter_ply( char const * move_an_str,
 }
 
 
-bool cc_fetch_piece_symbol( char const * piece_an,
-                            char * piece_symbol__o,
-                            bool default_to_pawn,
-                            bool return_validity ) {
-    if ( !piece_an ) return false;
-    if ( !piece_symbol__o ) return false;
+CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
+                                       char * piece_symbol__o,
+                                       bool default_to_pawn ) {
+    if ( !piece_an ) return CC_MBE_Void;
+    if ( !piece_symbol__o ) return CC_MBE_Void;
 
     char const * p = piece_an;
 
@@ -149,8 +148,8 @@ bool cc_fetch_piece_symbol( char const * piece_an,
         *piece_symbol__o = default_to_pawn ? 'P'
                                            : ' ';
 
-    return return_validity ? cc_piece_symbol_is_valid( *piece_symbol__o )
-                           : true;
+    return cc_piece_symbol_is_valid( *piece_symbol__o ) ? CC_MBE_True
+                                                        : CC_MBE_False;
 }
 
 CcLosingTagType cc_parse_losing_tag( char const * lt_an_str ) {

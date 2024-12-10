@@ -112,6 +112,8 @@ static bool _cc_parse_step( char const * step_start_an,
     if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
 
+    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
+
     if ( is_first_step ) *had_disambiguation__io = false;
 
     CcStepLinkTypeEnum sle = CC_SLTE_None;
@@ -146,13 +148,18 @@ static bool _cc_parse_step( char const * step_start_an,
 
     CcSideEffect se = cc_side_effect_none();
 
-    if ( !*had_disambiguation__io ) // Disambiguation == starting position --> no side-effect.
-        if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an, game, before_ply_start,
-                                    *cb__io,
-                                    sle,
-                                    &pos,
+    if ( !*had_disambiguation__io ) { // Disambiguation == starting position --> no side-effect.
+        bool is_turn_light = ( game->status == CC_GSE_Turn_Light );
+
+        cc_uint_t size = cc_variant_board_size( (*cb__io)->type );
+        if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
+
+        if ( !cc_parse_side_effect( pos_end_an, step_start_an, step_end_an,
+                                    is_turn_light,
+                                    size,
                                     &se,
                                     parse_msgs__iod ) ) return false;
+    }
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;

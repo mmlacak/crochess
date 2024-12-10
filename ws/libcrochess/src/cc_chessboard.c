@@ -72,6 +72,7 @@ bool cc_chessboard_setup( CcChessboard * cb__io ) {
     if ( !tu ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb__io->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     for ( int i = 0; i < (int)size; ++i ) {
         for ( int j = 0; j < (int)size; ++j ) {
@@ -98,6 +99,7 @@ bool cc_chessboard_copy( CcChessboard * into__io,
         return false;
 
     cc_uint_t size = cc_variant_board_size( from->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     for ( int i = 0; i < (int)size; ++i ) {
         for ( int j = 0; j < (int)size; ++j ) {
@@ -137,6 +139,7 @@ bool cc_chessboard_is_coord_on_board( CcChessboard * cb, int coord ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     return CC_IS_COORD_ON_BOARD( size, coord );
 }
@@ -145,25 +148,25 @@ bool cc_chessboard_is_pos_on_board( CcChessboard * cb, int i, int j ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
-    return CC_IS_POS_ON_VALID_BOARD( size, i, j );
+    return CC_IS_POS_ON_BOARD( size, i, j );
 }
 
 bool cc_chessboard_is_disambiguation_on_board( CcChessboard * cb, int i, int j ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
-    if ( CC_IS_POS_ON_VALID_BOARD( size, i, j ) ) return true;
-
-    return ( ( CC_IS_COORD_ON_BOARD( size, i ) && ( j == CC_INVALID_COORD ) )
-          || ( CC_IS_COORD_ON_BOARD( size, j ) && ( i == CC_INVALID_COORD ) ) );
+    return CC_IS_ANY_COORD_ON_BOARD( size, i, j );
 }
 
 bool cc_chessboard_is_coord_safe_off_board( CcChessboard * cb, int coord ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     size_t diag = cc_diagonal( size );
 
@@ -174,6 +177,7 @@ bool cc_chessboard_is_pos_safe_off_board( CcChessboard * cb, int i, int j ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     size_t diag = cc_diagonal( size );
 
@@ -187,6 +191,7 @@ bool cc_chessboard_is_disambiguation_safe_off_board( CcChessboard * cb, int i, i
     if ( cc_chessboard_is_pos_safe_off_board( cb, i, j ) ) return true;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     size_t diag = cc_diagonal( size );
 
@@ -198,6 +203,7 @@ bool cc_chessboard_is_field_on_light_side( CcChessboard * cb, int j ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    // if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false; // <!> Not needed, CC_IS_FIELD_ON_LIGHT_SIDE() also checks size.
 
     return CC_IS_FIELD_ON_LIGHT_SIDE( size, j );
 }
@@ -206,6 +212,7 @@ bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j ) {
     if ( !cb ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    // if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false; // <!> Not needed, CC_IS_FIELD_ON_DARK_SIDE() also checks size.
 
     return CC_IS_FIELD_ON_DARK_SIDE( size, j );
 }
@@ -278,6 +285,7 @@ bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 ) {
     if ( cb->type != cb_2->type ) return false;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     for ( int i = 0; i < (int)size; ++i ) {
         for ( int j = 0; j < (int)size; ++j ) {
@@ -294,6 +302,8 @@ static char * _cc_chessboard_get_divider__new( CcChessboard * cb ) {
     if ( !cb ) return NULL;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return NULL;
+
     size_t len = 3 + 2 * size + 3 + 1;
     char * divider__a = calloc( 1, len );
     if ( !divider__a ) return NULL;
@@ -314,6 +324,8 @@ static char * _cc_chessboard_get_horizontal_ruler__new( CcChessboard * cb ) {
     if ( !cb ) return NULL;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return NULL;
+
     size_t len = 3 + 2 * size + 3 + 1;
     char * hr__a = calloc( 1, len );
     if ( !hr__a ) return NULL;
@@ -345,6 +357,7 @@ char * cc_chessboard_as_string__new( CcChessboard * cb,
     if ( !cb ) return NULL;
 
     cc_uint_t size = cc_variant_board_size( cb->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return NULL;
 
     char * show__a = calloc( 1, 2048 );
     if ( !show__a ) return NULL;

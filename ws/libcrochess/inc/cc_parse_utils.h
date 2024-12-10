@@ -6,6 +6,8 @@
 
 #include <stddef.h>
 
+#include "cc_defines.h"
+
 #include "cc_piece.h"
 #include "cc_tag.h"
 #include "cc_pos.h"
@@ -39,10 +41,10 @@ bool cc_iter_ply( char const * move_an_str,
                   char const ** end__io );
 
 
-bool cc_fetch_piece_symbol( char const * piece_an,
-                            char * piece_symbol__o,
-                            bool default_to_pawn,
-                            bool return_validity );
+// TODO :: DOCS
+CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
+                                       char * piece_symbol__o,
+                                       bool default_to_pawn );
 
 CcLosingTagType cc_parse_losing_tag( char const * lt_an_str );
 
@@ -79,10 +81,10 @@ bool cc_iter_step( char const * ply_an_str,
 
 
 CcSideEffectTypeEnum cc_parse_side_effect_type( char const * step_an_str,
-                                                  bool * has_promotion_sign__o );
+                                                bool * has_promotion_sign__o );
 
 size_t cc_side_effect_type_len( CcSideEffectTypeEnum see,
-                                       bool has_promotion_sign );
+                                bool has_promotion_sign );
 
 
 #endif /* __CC_PARSE_UTILS_H__ */

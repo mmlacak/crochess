@@ -304,6 +304,7 @@ bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceType pe ) {
     if ( !su ) return false;
 
     size_t size = cc_variant_board_size( ve );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     for ( int i = 0; i < (int)size; ++i ) {
         for ( int j = 0; j < (int)size; ++j ) {

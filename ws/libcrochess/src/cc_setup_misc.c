@@ -10,7 +10,7 @@
 int cc_find_initial_figure_file( CcVariantEnum ve,
                                  CcPieceType pe,
                                  bool search_queen_side_first ) {
-    if ( !CC_VARIANT_IS_VALID( ve ) ) return false;
+    if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
@@ -24,6 +24,8 @@ int cc_find_initial_figure_file( CcVariantEnum ve,
     if ( !su ) return CC_INVALID_COORD;
 
     size_t size = cc_variant_board_size( ve );
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return CC_INVALID_COORD;
+
     int start = search_queen_side_first ? 0 : (int)(size - 1);
     int step = search_queen_side_first ? 1 : -1;
 
