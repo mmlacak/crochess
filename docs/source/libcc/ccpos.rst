@@ -434,7 +434,7 @@ Linked typed steps
     of a linked list of typed steps.
 
     :param ts_link: A linked list of typed steps.
-    :returns: A newly allocated, zero-terminated string if successful,
+    :returns: A newly allocated, null-terminated string if successful,
               :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccpos-positiondescriptor:

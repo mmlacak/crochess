@@ -209,7 +209,7 @@ Functions
     Steps with unknown linkage are preceded by ``?`` (question-mark).
 
     :param steps: Linked list of steps.
-    :returns: A newly allocated, zero-terminated string if successful,
+    :returns: A newly allocated, null-terminated string if successful,
               :c:data:`NULL` otherwise
 
 .. _lbl-libcc-ccstep-newfunctions:

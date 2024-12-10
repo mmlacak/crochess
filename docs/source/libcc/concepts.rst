@@ -51,9 +51,9 @@ movement of a piece.
 Strings
 -------
 
-All newly allocated strings are zero-terminated (i.e. they end in ``'\0'``).
+All newly allocated strings are null-terminated (i.e. they end in ``'\0'``).
 
-Array strings are not necessary zero-terminated even though arrays are zeroed,
+Array strings are not necessary null-terminated even though arrays are zeroed,
 since it's possible for a string to be exactly the same size as a holding array.
 
 Always do use array size, to limit processing to array proper.
@@ -72,10 +72,10 @@ defined like so::
     first <------ length ------> last
 
 Length of a string counts all of its content, i.e. it includes everything from
-first to last :c:`char`, without zero-terminating :c:`char`.
+first to last :c:`char`, without null-terminating :c:`char`.
 
 Size of a string counts everything from starting to ending :c:`char`,
-including zero-terminating :c:`char`.
+including null-terminating :c:`char`.
 
 .. _lbl-libcc-concepts-listlikearrays:
 

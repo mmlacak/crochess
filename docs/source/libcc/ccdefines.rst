@@ -263,7 +263,7 @@ Conversions
 
     .. warning::
 
-        Given string must be zero-terminated, undefined behavior otherwise.
+        Given string must be null-terminated, undefined behavior otherwise.
 
     .. seealso::
 

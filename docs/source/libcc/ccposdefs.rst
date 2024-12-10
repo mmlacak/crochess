@@ -30,7 +30,7 @@ Lengths
     Length of an array is count of useful elements in it, without
     terminating data.
 
-    This is similar how :c:func:`strlen()` does not count zero-terminating
+    This is similar how :c:func:`strlen()` does not count null-terminating
     :c:`char` (``'\0'``) in strings.
 
 .. c:macro:: CC_STEPS_PAWN_LEN
@@ -266,7 +266,7 @@ Arrays
 ------
 
 All arrays, beside their length and size, have a terminating position,
-similar to zero-terminating strings; terminating position is
+similar to null-terminating strings; terminating position is
 :c:data:`CC_TYPED_STEP_INVALID`.
 
 .. c:type:: CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ]

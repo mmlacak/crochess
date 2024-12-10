@@ -314,7 +314,7 @@ Functions
     representation of a plies.
 
     :param plies: Linked list of plies.
-    :returns: A newly allocated, zero-terminated string if successful,
+    :returns: A newly allocated, null-terminated string if successful,
               :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccply-sourcecodeheader:

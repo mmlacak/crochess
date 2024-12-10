@@ -576,7 +576,7 @@ Functions
 
     For :c:enumerator:`CC_PE_None` piece, label is empty string.
 
-    All returned strings are zero-terminated.
+    All returned strings are null-terminated.
 
     .. warning::
 

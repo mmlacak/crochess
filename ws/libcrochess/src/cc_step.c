@@ -203,7 +203,7 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
     char * steps_str__a = malloc( unused );
     if ( !steps_str__a ) return NULL;
 
-    // Must be zero-terminated.
+    // Must be null-terminated.
     if ( !cc_str_clear( steps_str__a, unused ) ) {
         CC_FREE( steps_str__a );
         return NULL;

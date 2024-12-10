@@ -216,7 +216,7 @@ Losing tag functions
     Function returns losing tag symbol as used in :term:`AN`, based on lost tag.
 
     :param ltt: :c:type:`CcLosingTagType` value.
-    :returns: Valid pointer to zero-terminated string literal,
+    :returns: Valid pointer to null-terminated string literal,
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 
@@ -228,7 +228,7 @@ Losing tag functions
     :param ltt: :c:type:`CcLosingTagType` value.
     :param capitalize: Flag, whether string should be capitalized.
     :param no_tag: Flag, whether should also describe no-tag value.
-    :returns: Valid pointer to zero-terminated string literal,
+    :returns: Valid pointer to null-terminated string literal,
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 

@@ -13,25 +13,25 @@ Documents ``cc_str_utils.h`` and ``cc_str_utils.c`` files, which contain
 strings, :c:`char` arrays utility functions.
 
 All functions which return newly allocated string, return them
-zero-terminated (``'\0'``).
+null-terminated (``'\0'``).
 
-Length of a string counts only content, without zero-terminating character.
+Length of a string counts only content, without null-terminating character.
 This is the same as :c:func:`strlen()`, see
 `<https://en.cppreference.com/w/c/string/byte/strlen>`_.
 
 Size of a string **includes** terminating character.
 
 Length of :c:`char` arrays is the same as its size, regardless of length
-of its content, if it's zero-terminated, or not.
+of its content, if it's null-terminated, or not.
 
 When content in :c:`char` array is shorter than the array itself, it is
-zero-terminated.
+null-terminated.
 
 Utility functions have string and its maximum length parameters in pairs.
 
 When calling such functions, :c:macro:`CC_MAX_LEN_ZERO_TERMINATED` can be
 used as an argument to maximum length parameter; if so, there is no limit
-on string length, and string itself **must** be zero-terminated (``'\0'``).
+on string length, and string itself **must** be null-terminated (``'\0'``).
 
 For :c:`char` arrays always do use appropriate maximum length argument,
 e.g. :c:macro:`CC_MAX_LEN_CHAR_8`.
@@ -46,7 +46,7 @@ Sizes, lengths
     Constant to ignore maximum length constraint in functions, equals to ``0``.
 
     If used, entirety of a given string is processed, which then **must** be
-    zero-terminated (i.e. end with ``'\0'``).
+    null-terminated (i.e. end with ``'\0'``).
 
 .. c:macro:: CC_SIZE_IGNORE
 
@@ -197,7 +197,7 @@ Functions
     .. note::
 
         If *optional* size is not supplied (i.e. is :c:macro:`CC_SIZE_IGNORE`),
-        given string must be zero-terminated.
+        given string must be null-terminated.
 
     :param str__io: *Input/output*, string to overwrite with zeros.
     :param size__d: *Optional*, maximum size to overwrite.
@@ -205,10 +205,10 @@ Functions
 
 .. c:function:: char * cc_str_pad__new( char pad, size_t count )
 
-    Function returns newly allocated, zero-terminated string, containing :c:`pad`
+    Function returns newly allocated, null-terminated string, containing :c:`pad`
     character repeated :c:`count` times.
 
-    Allocated string is greater than :c:`count` by ``1``, for zero-terminating
+    Allocated string is greater than :c:`count` by ``1``, for null-terminating
     :c:`char`, i.e. ``'\0'``.
 
     :param pad: A pad character.
@@ -244,7 +244,7 @@ Functions
     .. note::
 
         If no optional arguments (:c:`end__d`, :c:`max_len__d`) were given, string
-        to search (:c:`start`) has to be zero-terminated.
+        to search (:c:`start`) has to be null-terminated.
 
     :param c: Character to be found.
     :param case_sensitive: Flag, whether search is case-sensitive, or not.
@@ -301,7 +301,7 @@ Functions
     .. note::
 
         If no optional arguments (:c:`end__d`, :c:`max_len__d`) were given, string
-        to traverse (:c:`start`) has to be zero-terminated.
+        to traverse (:c:`start`) has to be null-terminated.
 
     :param start: Pointer to a start of a (sub-)string.
     :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:data:`NULL`.
@@ -320,7 +320,7 @@ Functions
     .. note::
 
         If no optional arguments (:c:`end__d`, :c:`max_len__d`) were given, string
-        to traverse (:c:`start`) has to be zero-terminated.
+        to traverse (:c:`start`) has to be null-terminated.
 
     :param start: Pointer to a start of a (sub-)string.
     :param end__d: *Optional*, pointer to an end of a (sub-)string; can be :c:data:`NULL`.
@@ -359,7 +359,7 @@ Functions
 
         Strings to traverse (:c:`start_1`, :c:`start_2`) missing their corresponding
         end pointer (:c:`end_1__d`, :c:`end_2__d`) and their length (:c:`max_len__d`)
-        has to be zero-terminated.
+        has to be null-terminated.
 
     :param start_1: A starting character of a first (sub-)string.
     :param end_1__d: *Optional*, end of a first (sub-)string; can be :c:data:`NULL`.
@@ -373,7 +373,7 @@ Functions
 
     Function copies (sub-)string into a char array, or already allocated string.
 
-    Function will zero-terminate copied string, if there is enough space.
+    Function will null-terminate copied string, if there is enough space.
 
     :param start: A (sub-)string to copy.
     :param end__d: *Optional*, pointer to the end of a (sub-)string; can be :c:data:`NULL`.
@@ -434,27 +434,27 @@ Functions
 
     .. warning::
 
-        Destination buffer :c:`str__io` must always be zero-terminated (``'\0'``),
+        Destination buffer :c:`str__io` must always be null-terminated (``'\0'``),
         so that function can determine from where to start appending given string
         :c:`str`.
 
     .. warning::
 
-        Rest of a destination buffer :c:`str__io`, behind that zero-terminating
+        Rest of a destination buffer :c:`str__io`, behind that null-terminating
         :c:`char` found earlier, must be large enough to store appending
         string :c:`str`; taking into account :c:`size_dest__d` and :c:`max_len__d`,
         if given.
 
     *Optional* :c:`max_len__d` can be  :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`,
-    if so string :c:`str` must be zero-terminated, and is appended in its entirety.
+    if so string :c:`str` must be null-terminated, and is appended in its entirety.
 
-    Destination :c:`str__io` after appending string is always zero-terminated.
-    Function returns weak pointer to that zero-terminating :c:`char`.
+    Destination :c:`str__io` after appending string is always null-terminated.
+    Function returns weak pointer to that null-terminating :c:`char`.
 
     Walking pointer over destination buffer can be used in succession, or in a
-    loop. This is so because function seeks zero-terminating :c:`char` in
+    loop. This is so because function seeks null-terminating :c:`char` in
     a given destination :c:`str__io`, and returns a weak pointer to the new
-    zero-terminating :c:`char` after appending in that same destination
+    null-terminating :c:`char` after appending in that same destination
     buffer.
 
     For instance:
@@ -462,7 +462,7 @@ Functions
     .. code-block:: C
         :force:
 
-        // Must always contain zero-terminated string,
+        // Must always contain null-terminated string,
         // initialize to '\0' if it doesn't (e.g. just allocated).
         buffer__a[ 0 ] = '\0';
 
@@ -477,7 +477,7 @@ Functions
     :param size_dest__d: *Optional*, size of a destination; can be :c:macro:`CC_SIZE_IGNORE`.
     :param str: A string to append.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A weak pointer to zero-terminating char if successful, :c:data:`NULL` otherwise.
+    :returns: A weak pointer to null-terminating char if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append__new( char const * str_1__d, char const * str_2__d, size_t max_len__d )
 
@@ -491,7 +491,7 @@ Functions
 
 .. c:function:: char * cc_str_append_free__new( char ** str_1__d_f, char ** str_2__d_f, size_t max_len__d )
 
-    Function appends strings into newly allocated, zero-terminated string,
+    Function appends strings into newly allocated, null-terminated string,
     optionally capped at a given maximum length.
 
     Given string are :c:func:`free()`\ed, and their inner pointer set to
@@ -505,7 +505,7 @@ Functions
 .. c:function:: char * cc_str_append_fmt_va__new( char ** str__d_f, size_t max_len__d, char const * fmt, va_list args )
 
     Function appends formatted variadic input to a given string, into
-    newly allocated, zero-terminated string, optionally capped at given
+    newly allocated, null-terminated string, optionally capped at given
     maximum length.
 
     :param str__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.
@@ -518,7 +518,7 @@ Functions
 .. c:function:: char * cc_str_append_fmt__new( char ** str__d_f, size_t max_len__d, char const * fmt, ... )
 
     Function appends formatted variadic input to a given string, into
-    newly allocated, zero-terminated string, optionally capped at given
+    newly allocated, null-terminated string, optionally capped at given
     maximum length.
 
     :param str__d_f: *Optional*, a string to append to. It is :c:func:`free()`\ed, if given.

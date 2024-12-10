@@ -74,7 +74,7 @@ Functions
     Function returns ply link from ply notation.
 
     :param ply_an_str: Ply notation, points at ply link;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param ple__o: _Output_, ply link, i.e. :c:enum:`CcPlyLinkTypeEnum` value.
     :returns: Valid :c:enum:`CcPlyLinkEnum` value if ply link found,
         :c:enumerator:`CC_PLTE_StartingPly` if not,
@@ -99,10 +99,10 @@ Functions
     Function returns pointer to next ply link in a given ply notation.
 
     If there is no next ply link, function returns pointer to first found ``'\0'``,
-    i.e. zero-terminating :c:`char` of a given string.
+    i.e. null-terminating :c:`char` of a given string.
 
     :param ply_an_str: Ply notation, points at ply link;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :returns: Pointer to next ply link if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_iter_ply( char const * move_an_str, char const ** start__io, char const ** end__io )
@@ -130,18 +130,18 @@ Functions
         char const * ply_end_an = NULL;
         // Note: both pointers must be set to NULL before iterating plies.
 
-        // move_an here is just a zero-terminated string, containing complete user move notation.
+        // move_an here is just a null-terminated string, containing complete user move notation.
         while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {
             // Do stuff with found ply, pointed by ply_start_an and ply_end_an ...
         }
 
     :param move_an_str: Move notation, point at the vert start;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param start__io: *Input/output*; start of a found ply.
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_fetch_piece_symbol( char const * piece_an, char * piece_symbol__o, bool default_to_pawn, bool return_validity )
+.. c:function:: CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an, char * piece_symbol__o, bool default_to_pawn )
 
     Function checks piece symbol in given notation, and outputs findings via
     *output* parameter.
@@ -149,25 +149,23 @@ Functions
     If there is no piece symbol (upper-case :c:`char`\acter), depending on
     :c:`default_to_pawn` flag, function outputs ``'P'``, or ``' '``.
 
-    Depending on :c:`return_validity` flag, function also returns if found
-    piece symbol is valid.
-
     :param piece_an: Notation, points at piece symbol;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
     :param default_to_pawn: Flag, if there is no upper-case :c:`char`, should
         this be interpreted as Pawn.
-    :param return_validity: Flag, if function also checks and returns validity
-        of found piece symbol.
-    :returns: :c:data:`true` if successful (and/or found piece symbol valid),
-        :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if valid piece symbol was found,
+        * :c:enumerator:`CC_MBE_False` if upper-case :c:`char` was encountered, which is not valid piece symbol,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: CcLosingTagType cc_parse_losing_tag( char const * lt_an_str )
 
     Function returns losing tag found in a given notation.
 
     :param lt_an_str: Notation, points at losing tag;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :returns: Losing tag, :c:type:`CcLosingTagType` value.
 
 .. c:function:: size_t cc_losing_tag_len( CcLosingTagType ltt )
@@ -183,7 +181,7 @@ Functions
     *output* parameters.
 
     :param pos_an_str: Notation, points at positional notation;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param file__o: *Output*; pointer to horizontal coordinate storage.
     :param rank__o: *Output*; pointer to vertical coordinate storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
@@ -194,7 +192,7 @@ Functions
     coordinates parsed from a positional notation via *output* parameter.
 
     :param pos_an_str: Notation, points at positional notation;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param pos__o: *Output*; pointer to coordinates storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
@@ -212,7 +210,7 @@ Functions
         before parsing coordinates.
 
     :param pos_an_str: Notation, points at positional notation;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param pos__o: *Output*; pointer to coordinates storage.
     :param pos_end__o: *Output*; pointer to the end of positional notation.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
@@ -225,7 +223,7 @@ Functions
     Disambiguation includes both partial and complete initial positions.
 
     :param pos_an_str: Notation, points at positional notation;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :returns: Valid pointer if disambiguation has been skipped,
         :c:data:`NULL` otherwise.
 
@@ -238,9 +236,9 @@ Functions
     step separators.
 
     :param ply_an_str: Ply notation, points at the start of the ply;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param ply_end: Ply notation, points at the end of the ply;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param check_intermediate_steps: Flag, to check if ply contains ``'.'``.
     :param check_destination_step: Flag, to check if ply contains ``'-'``.
     :returns: :c:data:`true` if ply contains step separators,
@@ -251,9 +249,9 @@ Functions
     Function returns parsed step link via *output* parameter.
 
     :param step_an_str: Step notation, points at the very start;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param ply_end: Ply notation, points at the very end of the ply;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param sle__o: *Output*; pointer to step link storage.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
@@ -271,9 +269,9 @@ Functions
     If there is no next step link, function returns :c:`ply_end` pointer.
 
     :param step_an_str: Step notation, points at the start;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param ply_end: Ply notation, points at the end of the ply;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :returns: Pointer to next step link if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_iter_step( char const * ply_an_str, char const * ply_end, char const ** start__io, char const ** end__io )
@@ -301,15 +299,15 @@ Functions
         char const * step_end_an = NULL;
         // Note: both pointers must be set to NULL before iterating steps.
 
-        // ply_an, ply_end here are just zero-terminated strings, delimiting ply notation.
+        // ply_an, ply_end here are just null-terminated strings, delimiting ply notation.
         while ( cc_iter_step( ply_an, ply_end, &step_start_an, &step_end_an ) ) {
             // Do stuff with found step, pointed by step_start_an and step_end_an ...
         }
 
     :param ply_an_str: Ply notation, point at the vert start;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param ply_end: Ply notation, points at the end of the ply;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param start__io: *Input/output*; start of a found ply.
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
@@ -319,7 +317,7 @@ Functions
     Function returns side-effect type found in a given step notation.
 
     :param step_an_str: Step notation, points at side-effect;
-        zero-terminated, :term:`AN` string.
+        null-terminated, :term:`AN` string.
     :param has_promotion_sign__o: *Output*; pointer to promotion sign flag storage.
     :returns: Side-effect type, :c:enum:`CcSideEffectTypeEnum` value.
 

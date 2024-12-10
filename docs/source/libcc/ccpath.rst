@@ -172,7 +172,7 @@ Linked path segments
     path tree, including :c:member:`diverge`, :c:member:`alt` branches.
 
     :param path_link: A path segment.
-    :returns: A newly allocated, zero-terminated (``'\0'``) string if
+    :returns: A newly allocated, null-terminated (``'\0'``) string if
         successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_string()`
 
