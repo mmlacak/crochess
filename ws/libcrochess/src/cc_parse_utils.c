@@ -445,7 +445,7 @@ bool cc_iter_step( char const * ply_an_str,
 
 
 CcSideEffectTypeEnum cc_parse_side_effect_type( char const * step_an_str,
-                                                  bool * has_promotion_sign__o ) {
+                                                bool * has_promotion_sign__o ) {
     if ( !step_an_str ) return CC_SETE_None;
     if ( !has_promotion_sign__o ) return CC_SETE_None;
 
@@ -494,7 +494,7 @@ CcSideEffectTypeEnum cc_parse_side_effect_type( char const * step_an_str,
 }
 
 size_t cc_side_effect_type_len( CcSideEffectTypeEnum see,
-                                       bool has_promotion_sign ) {
+                                bool has_promotion_sign ) {
     switch ( see ) {
         // case CC_SETE_None :
         case CC_SETE_Capture : return 1;

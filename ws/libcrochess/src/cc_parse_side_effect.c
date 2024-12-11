@@ -50,6 +50,17 @@ static bool _cc_fail_with_msg_only_rook_can_castle( CcPieceType piece,
     return false;
 }
 
+static bool _cc_fail_with_msg_pawn_cant_be_promoted_to_piece( CcPieceType piece,
+                                                              char const * side_effect_an,
+                                                              char const * step_end_an,
+                                                              CcParseMsg ** parse_msgs__iod ) {
+    char const * piece_str = cc_piece_label( piece, false, true );
+    char * se_an__a = cc_str_copy__new( side_effect_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Pawns can't be promoted to %s, in side-effect '%s'.\n", piece_str, se_an__a );
+    CC_FREE( se_an__a );
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * side_effect_an,
                            char const * step_start_an,
@@ -87,7 +98,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             // char const * promo_an = se_an + cc_losing_tag_len( ltt );
-            // TODO :: check if followed by promotion
+            // TODO :: check if followed by promotion, or tag for promotion
 
             *side_effect__o = cc_side_effect_capture( piece, ltt );
             return true;
@@ -166,30 +177,25 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_side_effect_castle( rook, CC_POS_CAST_INVALID, pos );
             return true;
         } case CC_SETE_Promotion : {
-            // // TODO -- static promotion
-            // //      -- moving promotion
-            // //      -- silent capture before promotion
-            //
-            // if ( !_cc_check_promoting_piece_is_pawn( piece, "Only Pawn can be promoted, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // char piece_symbol = ' ';
-            //
-            // if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
-            //     return false;
-            //
-            // if ( !_cc_check_piece_symbol_is_valid( piece_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // bool is_light = cc_piece_is_light( piece );
-            // CcPieceType promote_to = cc_piece_from_symbol( piece_symbol, is_light );
-            //
-            // if ( !_cc_check_promote_to_piece_is_valid( promote_to, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, piece );
-            // return true;
-            return false; // TODO
+            char piece_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, side_effect_an, step_end_an, parse_msgs__iod );
+            else if ( result == CC_MBE_Void )
+                return _cc_fail_with_msg_in_step( "Figure to which Pawn has been promoted to is mandatory, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            else
+                return false; // cc_fetch_piece_symbol() returned some garbage?
+
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+
+            if ( !CC_PAWN_CAN_BE_PROMOTED_TO( piece ) )
+                return _cc_fail_with_msg_pawn_cant_be_promoted_to_piece( piece, step_start_an, step_end_an, parse_msgs__iod );
+
+            *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, piece );
+            return true;
         } case CC_SETE_TagForPromotion : {
             // // TODO -- silent capture before promotion
             //

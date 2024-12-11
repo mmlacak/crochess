@@ -27,6 +27,16 @@
 //                                                        char const * step_end_an,
 //                                                        CcParseMsg ** parse_msgs__iod );
 
+// static bool _cc_fail_with_msg_only_rook_can_castle( CcPieceType piece,
+//                                                     char const * side_effect_an,
+//                                                     char const * step_end_an,
+//                                                     CcParseMsg ** parse_msgs__iod );
+
+// static bool _cc_fail_with_msg_pawn_cant_be_promoted_to_piece( CcPieceType piece,
+//                                                               char const * side_effect_an,
+//                                                               char const * step_end_an,
+//                                                               CcParseMsg ** parse_msgs__iod );
+
 
 // DOCS
 bool cc_parse_side_effect( char const * side_effect_an,
