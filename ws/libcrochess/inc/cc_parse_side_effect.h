@@ -11,42 +11,23 @@
 
 #include "cc_parse_msg.h"
 
-// static bool _cc_check_piece_has_congruent_type( char piece_symbol,
-//                                                 CcPieceType piece,
-//                                                 char const * step_start_an,
-//                                                 char const * step_end_an,
-//                                                 CcParseMsg ** parse_msgs__iod );
+// static bool _cc_fail_with_msg_unrecognized_piece_symbol( char piece_symbol,
+//                                                          char const * start_an,
+//                                                          char const * end_an,
+//                                                          CcParseMsg ** parse_msgs__iod );
 
 // static bool _cc_fail_with_msg_in_step( char const * msg_fmt,
-//                                        char const * step_start_an,
-//                                        char const * step_end_an,
+//                                        char const * start_an,
+//                                        char const * end_an,
 //                                        CcParseMsg ** parse_msgs__iod );
 
 // static bool _cc_fail_with_msg_piece_in_side_effect( char const * msg_fmt,
 //                                                     CcPieceType piece,
-//                                                     char const * side_effect_an,
-//                                                     char const * step_end_an,
+//                                                     bool capitalize,
+//                                                     bool empty_field,
+//                                                     char const * start_an,
+//                                                     char const * end_an,
 //                                                     CcParseMsg ** parse_msgs__iod );
-
-// static bool _cc_fail_with_msg_only_private_en_passant( CcPieceType piece,
-//                                                        char const * side_effect_an,
-//                                                        char const * step_end_an,
-//                                                        CcParseMsg ** parse_msgs__iod );
-
-// static bool _cc_fail_with_msg_only_rook_can_castle( CcPieceType piece,
-//                                                     char const * side_effect_an,
-//                                                     char const * step_end_an,
-//                                                     CcParseMsg ** parse_msgs__iod );
-
-// static bool _cc_fail_with_msg_pawn_cant_be_promoted_to_piece( CcPieceType piece,
-//                                                               char const * side_effect_an,
-//                                                               char const * step_end_an,
-//                                                               CcParseMsg ** parse_msgs__iod );
-
-// static bool _cc_fail_with_msg_piece_cant_be_converted( CcPieceType piece,
-//                                                        char const * side_effect_an,
-//                                                        char const * step_end_an,
-//                                                        CcParseMsg ** parse_msgs__iod );
 
 
 // DOCS
