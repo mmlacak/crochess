@@ -222,29 +222,26 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( CC_PIECE_IS_OPAQUE( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "%s is not transparent, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "%s is opaque, expected transparent piece, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             *side_effect__o = cc_side_effect_transparency( piece );
             return true;
         } case CC_SETE_Divergence : {
-            // char piece_symbol = ' ';
-            //
-            // if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
-            //     if ( !_cc_check_piece_has_congruent_type( piece_symbol, piece, step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            //
-            //     ++se_an;
-            // }
-            //
-            // if ( sete == CC_SETE_Transparency )
-            //     *side_effect__o = cc_side_effect_transparency( piece );
-            // else if ( sete == CC_SETE_Divergence )
-            //     *side_effect__o = cc_side_effect_diversion( piece );
-            // else
-            //     return false; // In case some other, unexpected side-effect gets here.
-            //
-            // return true;
-            return false; // TODO
+            char piece_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+
+            if ( !CC_PIECE_IS_DIVERGENT( piece ) )
+                return _cc_fail_with_msg_piece_in_side_effect( "%s is not divergent, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            *side_effect__o = cc_side_effect_diversion( piece );
+            return true;
         } case CC_SETE_DemoteToPawn : {
             // TODO :: demote to Pawn
             return false;
