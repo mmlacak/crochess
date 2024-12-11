@@ -13,7 +13,7 @@ static bool _cc_fail_with_msg_unrecognized_piece_symbol( char piece_symbol,
                                                          char const * end_an,
                                                          CcParseMsg ** parse_msgs__iod ) {
     char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Unrecognized piece symbol '%c' encountered, in side-effect '%s'.\n", piece_symbol, an__a );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Unrecognized piece symbol '%c' encountered, in '%s'.\n", piece_symbol, an__a );
     CC_FREE( an__a );
     return false;
 }
@@ -79,7 +79,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be captured, in side-effect '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be captured, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             // char const * promo_an = se_an + cc_losing_tag_len( ltt );
@@ -99,7 +99,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be displaced, in side-effect '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be displaced, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             char const * pos_an = se_an + cc_losing_tag_len( ltt );
@@ -127,7 +127,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "Only privates can be captured en passant, %s encountered, in side-effect '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "Only privates can be captured en passant, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
@@ -151,7 +151,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
             if ( !CC_PIECE_IS_ROOK( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "Only Rooks can castle with their King, %s encountered, in side-effect '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "Only Rooks can castle with their King, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
@@ -182,7 +182,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PAWN_CAN_BE_PROMOTED_TO( piece ) ) // Piece is not optional here, so no need to check if it's valid.
-                return _cc_fail_with_msg_piece_in_side_effect( "Pawns can't be promoted to %s, in side-effect '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "Pawns can't be promoted to %s, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
 
             *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, piece );
             return true;
@@ -203,7 +203,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             // char const * pos_an = se_an + cc_losing_tag_len( ltt );
 
             if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "Piece %s can't be converted, in side-effect '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "Piece %s can't be converted, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             *side_effect__o = cc_side_effect_convert( piece, ltt );
             return true;
@@ -219,10 +219,10 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( CC_PIECE_IS_OPAQUE( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "%s is not transparent, in side-effect '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_piece_in_side_effect( "%s is not transparent, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             *side_effect__o = cc_side_effect_transparency( piece );
             return true;
