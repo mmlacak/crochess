@@ -51,21 +51,21 @@
 
 
 #define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )              \
-                              && ( (pe) != CC_PE_None )                 \
                               && ( (pe) != CC_PE_BrightStar )           \
-                              && ( (pe) != CC_PE_Monolith ) )
+                              && ( (pe) != CC_PE_Monolith )             \
+                              && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_IS_ACTIVATOR(pe) ( ( (pe) != CC_PE_DimStar )           \
                                  && ( (pe) != CC_PE_DarkWave )          \
-                                 && ( (pe) != CC_PE_None )              \
                                  && ( (pe) != CC_PE_LightWave )         \
                                  && ( (pe) != CC_PE_BrightStar )        \
-                                 && ( (pe) != CC_PE_Monolith ) )
+                                 && ( (pe) != CC_PE_Monolith )          \
+                                 && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_ACTIVATE(pe) ( ( (pe) != CC_PE_DimStar )           \
-                                 && ( (pe) != CC_PE_None )              \
                                  && ( (pe) != CC_PE_BrightStar )        \
-                                 && ( (pe) != CC_PE_Monolith ) )
+                                 && ( (pe) != CC_PE_Monolith )          \
+                                 && ( CC_PIECE_IS_VALID( (pe) ) )
 
 #define CC_PIECE_CAN_ACTIVATE_STAR(pe) ( ( (pe) == CC_PE_DarkStarchild )        \
                                       || ( (pe) == CC_PE_LightStarchild ) )
@@ -73,11 +73,11 @@
 #define CC_PIECE_CAN_CAPTURE(pe) ( ( (pe) != CC_PE_DarkStarchild )      \
                                 && ( (pe) != CC_PE_DimStar )            \
                                 && ( (pe) != CC_PE_DarkWave )           \
-                                && ( (pe) != CC_PE_None )               \
                                 && ( (pe) != CC_PE_LightWave )          \
                                 && ( (pe) != CC_PE_BrightStar )         \
                                 && ( (pe) != CC_PE_LightStarchild )     \
-                                && ( (pe) != CC_PE_Monolith ) )
+                                && ( (pe) != CC_PE_Monolith )           \
+                                && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
                                            || ( (pe) == CC_PE_DarkScout )           \
@@ -103,10 +103,10 @@
 #define CC_PIECE_IS_ACTIVE(pe) ( ( (pe) != CC_PE_DimStar )              \
                               && ( (pe) != CC_PE_DarkWave )             \
                               && ( (pe) != CC_PE_DarkPyramid )          \
-                              && ( (pe) != CC_PE_None )                 \
                               && ( (pe) != CC_PE_LightPyramid )         \
                               && ( (pe) != CC_PE_LightWave )            \
-                              && ( (pe) != CC_PE_BrightStar ) )
+                              && ( (pe) != CC_PE_BrightStar )           \
+                              && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_DarkStarchild )   \
                                   || ( (pe) == CC_PE_DarkWave )    \
@@ -116,51 +116,52 @@
 #define CC_PIECE_CAN_BE_ACTIVATED(pe) ( ( (pe) != CC_PE_DarkKing )      \
                                      && ( (pe) != CC_PE_None )          \
                                      && ( (pe) != CC_PE_LightKing )     \
-                                     && ( (pe) != CC_PE_Monolith ) )
+                                     && ( (pe) != CC_PE_Monolith )      \
+                                     && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_BE_CAPTURED(pe) ( ( (pe) != CC_PE_DimStar )        \
                                     && ( (pe) != CC_PE_DarkKing )       \
-                                    && ( (pe) != CC_PE_None )           \
                                     && ( (pe) != CC_PE_LightKing )      \
                                     && ( (pe) != CC_PE_BrightStar )     \
-                                    && ( (pe) != CC_PE_Monolith ) )
+                                    && ( (pe) != CC_PE_Monolith )       \
+                                    && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PAWN_CAN_BE_PROMOTED_TO(pe) ( ( (pe) != CC_PE_DimStar )      \
                                       && ( (pe) != CC_PE_DarkKing )     \
                                       && ( (pe) != CC_PE_DarkPawn )     \
-                                      && ( (pe) != CC_PE_None )         \
                                       && ( (pe) != CC_PE_LightPawn )    \
                                       && ( (pe) != CC_PE_LightKing )    \
                                       && ( (pe) != CC_PE_BrightStar )   \
-                                      && ( (pe) != CC_PE_Monolith ) )
+                                      && ( (pe) != CC_PE_Monolith )     \
+                                      && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_BE_DISPLACED(pe) ( ( (pe) != CC_PE_DimStar )       \
                                      && ( (pe) != CC_PE_DarkKing )      \
-                                     && ( (pe) != CC_PE_None )          \
                                      && ( (pe) != CC_PE_LightKing )     \
                                      && ( (pe) != CC_PE_BrightStar )    \
-                                     && ( (pe) != CC_PE_Monolith ) )
+                                     && ( (pe) != CC_PE_Monolith )      \
+                                     && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_BE_CONVERTED(pe) ( ( (pe) != CC_PE_DimStar )       \
                                      && ( (pe) != CC_PE_DarkKing )      \
-                                     && ( (pe) != CC_PE_None )          \
                                      && ( (pe) != CC_PE_LightKing )     \
                                      && ( (pe) != CC_PE_BrightStar )    \
-                                     && ( (pe) != CC_PE_Monolith ) )
+                                     && ( (pe) != CC_PE_Monolith )      \
+                                     && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_BE_DEMOTED(pe) ( ( (pe) != CC_PE_DimStar )         \
                                    && ( (pe) != CC_PE_DarkKing )        \
-                                   && ( (pe) != CC_PE_None )            \
                                    && ( (pe) != CC_PE_LightKing )       \
                                    && ( (pe) != CC_PE_BrightStar )      \
-                                   && ( (pe) != CC_PE_Monolith ) )
+                                   && ( (pe) != CC_PE_Monolith )        \
+                                   && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_BE_RESURRECTED(pe) ( ( (pe) != CC_PE_DimStar )      \
                                        && ( (pe) != CC_PE_DarkKing )     \
-                                       && ( (pe) != CC_PE_None )         \
                                        && ( (pe) != CC_PE_LightKing )    \
                                        && ( (pe) != CC_PE_BrightStar )   \
-                                       && ( (pe) != CC_PE_Monolith ) )
+                                       && ( (pe) != CC_PE_Monolith )     \
+                                       && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_IS_TELEPORTER(pe) ( ( (pe) == CC_PE_DimStar )      \
                                   || ( (pe) == CC_PE_BrightStar )   \
@@ -168,10 +169,10 @@
 
 #define CC_PIECE_CAN_BE_TELEPORTED(pe) ( ( (pe) != CC_PE_DimStar )      \
                                       && ( (pe) != CC_PE_DarkKing )     \
-                                      && ( (pe) != CC_PE_None )         \
                                       && ( (pe) != CC_PE_LightKing )    \
                                       && ( (pe) != CC_PE_BrightStar )   \
-                                      && ( (pe) != CC_PE_Monolith ) )
+                                      && ( (pe) != CC_PE_Monolith )     \
+                                      && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe)  ( ( (pe) == CC_PE_DarkStarchild )   \
                                                || ( (pe) == CC_PE_LightStarchild ) )
@@ -181,13 +182,15 @@
                                     || ( (pe) == CC_PE_DarkStarchild )      \
                                     || ( (pe) == CC_PE_LightStarchild ) )
 
-#define CC_PIECE_IS_SEMI_TRANSPARENT(pe) ( ( (pe) != CC_PE_Monolith ) )
+#define CC_PIECE_IS_SEMI_TRANSPARENT(pe) ( ( (pe) != CC_PE_Monolith )      \
+                                        && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_IS_SEMI_OPAQUE(pe) ( ( (pe) != CC_PE_Monolith )          \
                                    && ( (pe) != CC_PE_DarkWave )          \
                                    && ( (pe) != CC_PE_LightWave )         \
                                    && ( (pe) != CC_PE_DarkStarchild )     \
-                                   && ( (pe) != CC_PE_LightStarchild ) )
+                                   && ( (pe) != CC_PE_LightStarchild )    \
+                                   && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_IS_OPAQUE(pe) ( (pe) == CC_PE_Monolith )
 
@@ -207,7 +210,8 @@
                                     && ( (pe) != CC_PE_LightCentaur )   \
                                     && ( (pe) != CC_PE_LightStarchild ) \
                                     && ( (pe) != CC_PE_BrightStar )     \
-                                    && ( (pe) != CC_PE_Monolith ) )
+                                    && ( (pe) != CC_PE_Monolith )       \
+                                    && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_WAVE_CAN_BE_DIVERGED(activator) ( ( (activator) != CC_PE_DarkCentaur )       \
                                           && ( (activator) != CC_PE_DarkSerpent )       \

@@ -22,6 +22,12 @@
 //                                        char const * step_end_an,
 //                                        CcParseMsg ** parse_msgs__iod );
 
+// static bool _cc_fail_with_msg_piece_in_side_effect( char const * msg_fmt,
+//                                                     CcPieceType piece,
+//                                                     char const * side_effect_an,
+//                                                     char const * step_end_an,
+//                                                     CcParseMsg ** parse_msgs__iod );
+
 // static bool _cc_fail_with_msg_only_private_en_passant( CcPieceType piece,
 //                                                        char const * side_effect_an,
 //                                                        char const * step_end_an,
