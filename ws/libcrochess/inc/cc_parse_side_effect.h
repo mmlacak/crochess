@@ -37,6 +37,11 @@
 //                                                               char const * step_end_an,
 //                                                               CcParseMsg ** parse_msgs__iod );
 
+// static bool _cc_fail_with_msg_piece_cant_be_converted( CcPieceType piece,
+//                                                        char const * side_effect_an,
+//                                                        char const * step_end_an,
+//                                                        CcParseMsg ** parse_msgs__iod );
+
 
 // DOCS
 bool cc_parse_side_effect( char const * side_effect_an,

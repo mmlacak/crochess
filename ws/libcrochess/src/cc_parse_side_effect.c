@@ -61,6 +61,17 @@ static bool _cc_fail_with_msg_pawn_cant_be_promoted_to_piece( CcPieceType piece,
     return false;
 }
 
+static bool _cc_fail_with_msg_piece_cant_be_converted( CcPieceType piece,
+                                                       char const * side_effect_an,
+                                                       char const * step_end_an,
+                                                       CcParseMsg ** parse_msgs__iod ) {
+    char const * piece_str = cc_piece_label( piece, false, true );
+    char * se_an__a = cc_str_copy__new( side_effect_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Piece %s can't be converted, in side-effect '%s'.\n", piece_str, se_an__a );
+    CC_FREE( se_an__a );
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * side_effect_an,
                            char const * step_start_an,
@@ -200,24 +211,23 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_NoneLost );
             return true;
         } case CC_SETE_Conversion : {
-            // char piece_symbol = ' ';
-            //
-            // if ( cc_fetch_piece_symbol( se_an, &piece_symbol, true, true ) ) {
-            //     if ( !_cc_check_piece_has_congruent_type( piece_symbol, piece, step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            //
-            //     ++se_an;
-            // }
-            //
-            // if ( !_cc_check_piece_can_be_converted( piece, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // CcPieceType convert_to = cc_piece_opposite( piece );
-            // CcLosingTagType ltt = cc_parse_losing_tag( se_an );
-            //
-            // *side_effect__o = cc_side_effect_convert( convert_to, ltt );
-            // return true;
-            return false; // TODO
+            char piece_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, side_effect_an, step_end_an, parse_msgs__iod );
+
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
+            // char const * pos_an = se_an + cc_losing_tag_len( ltt );
+
+            if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) )
+                return _cc_fail_with_msg_piece_cant_be_converted( piece, side_effect_an, step_end_an, parse_msgs__iod );
+
+            *side_effect__o = cc_side_effect_convert( piece, ltt );
+            return true;
         } case CC_SETE_FailedConversion : {
             *side_effect__o = cc_side_effect_failed_conversion();
             return true;
