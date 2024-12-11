@@ -219,12 +219,8 @@ bool cc_parse_side_effect( char const * side_effect_an,
             // return true;
             return false; // TODO
         } case CC_SETE_FailedConversion : {
-            // if ( !_cc_check_failed_conversion( piece, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // *side_effect__o = cc_side_effect_failed_conversion();
-            // return true;
-            return false; // TODO
+            *side_effect__o = cc_side_effect_failed_conversion();
+            return true;
         } case CC_SETE_Transparency : { // Intentional fall-through ...
         } case CC_SETE_Divergence : {
             // char piece_symbol = ' ';
