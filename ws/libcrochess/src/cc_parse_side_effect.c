@@ -39,6 +39,17 @@ static bool _cc_fail_with_msg_only_private_en_passant( CcPieceType piece,
     return false;
 }
 
+static bool _cc_fail_with_msg_only_rook_can_castle( CcPieceType piece,
+                                                    char const * side_effect_an,
+                                                    char const * step_end_an,
+                                                    CcParseMsg ** parse_msgs__iod ) {
+    char const * piece_str = cc_piece_label( piece, false, true );
+    char * se_an__a = cc_str_copy__new( side_effect_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Only Rooks can castle with their King, %s encountered, in side-effect '%s'.\n", piece_str, se_an__a );
+    CC_FREE( se_an__a );
+    return false;
+}
+
 
 bool cc_parse_side_effect( char const * side_effect_an,
                            char const * step_start_an,
@@ -75,8 +86,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
-            char const * promo_an = se_an + cc_losing_tag_len( ltt );
-
+            // char const * promo_an = se_an + cc_losing_tag_len( ltt );
             // TODO :: check if followed by promotion
 
             *side_effect__o = cc_side_effect_capture( piece, ltt );
@@ -130,36 +140,31 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_side_effect_en_passant( private, pos );
             return true;
         } case CC_SETE_Castle : {
-            // if ( !_cc_check_piece_is_castling_king( before_ply_start, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // char piece_symbol = ' ';
-            //
-            // if ( cc_fetch_piece_symbol( se_an, &piece_symbol, false, true ) ) {
-            //     bool is_light = cc_piece_is_light( before_ply_start.piece );
-            //     CcPieceType maybe_rook = cc_piece_from_symbol( piece_symbol, is_light );
-            //
-            //     if ( !_cc_check_piece_is_rook_to_castle( maybe_rook, step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            //
-            //     ++se_an;
-            // }
-            //
-            // CcPos rook_dest = CC_POS_CAST_INVALID;
-            // char const * end = NULL;
-            //
-            // if ( cc_parse_pos( se_an, &rook_dest, &end ) )
-            //     se_an = end;
-            //
-            // CcPieceType rook = CC_PE_None;
-            // CcPos rook_start = CC_POS_CAST_INVALID;
-            //
-            // if ( !_cc_check_king_and_rook_can_castle( before_ply_start, cb, step_pos__io, &rook_dest, &rook, &rook_start, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // *side_effect__o = cc_side_effect_castle( rook, rook_start, rook_dest );
-            // return true;
-            return false; // TODO
+            char rook_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &rook_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( rook_symbol, side_effect_an, step_end_an, parse_msgs__iod );
+
+            CcPieceType rook = cc_piece_from_symbol( rook_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            if ( !CC_PIECE_IS_ROOK( rook ) )
+                return _cc_fail_with_msg_only_rook_can_castle( rook, step_start_an, step_end_an, parse_msgs__iod );
+
+            CcPos pos = CC_POS_CAST_INVALID;
+            char const * pos_end_an = NULL;
+
+            if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
+                return _cc_fail_with_msg_in_step( "Error parsing Rook castling destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+            se_an = pos_end_an;
+
+            if ( !CC_IS_COORD_VALID( pos.i ) ) // If Rook castling destination is given, at least file must be valid.
+                return _cc_fail_with_msg_in_step( "If Rook castling destination is given, at least file must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+            *side_effect__o = cc_side_effect_castle( rook, CC_POS_CAST_INVALID, pos );
+            return true;
         } case CC_SETE_Promotion : {
             // // TODO -- static promotion
             // //      -- moving promotion

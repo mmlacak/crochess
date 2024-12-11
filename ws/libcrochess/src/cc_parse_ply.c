@@ -68,17 +68,17 @@ static bool _cc_check_king_ply( CcChessboard * cb,
     return true;
 }
 
-static bool _cc_fail_with_msg_unexpected_piece_type( CcPieceType piece,
-                                                     char piece_symbol,
-                                                     char const * ply_start_an,
-                                                     char const * ply_end_an,
-                                                     CcParseMsg ** parse_msgs__iod ) {
-    char const * piece_str = cc_piece_as_string( piece, false, true );
-    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s, expected '%c' from notation; in ply '%s'.\n", piece_str, piece_symbol, ply_an__a );
-    CC_FREE( ply_an__a );
-    return false;
-}
+// static bool _cc_fail_with_msg_unexpected_piece_type( CcPieceType piece,
+//                                                      char piece_symbol,
+//                                                      char const * ply_start_an,
+//                                                      char const * ply_end_an,
+//                                                      CcParseMsg ** parse_msgs__iod ) {
+//     char const * piece_str = cc_piece_as_string( piece, false, true );
+//     char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
+//     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found %s, expected '%c' from notation; in ply '%s'.\n", piece_str, piece_symbol, ply_an__a );
+//     CC_FREE( ply_an__a );
+//     return false;
+// }
 
 static bool _cc_fail_with_msg_unexpected_piece( CcPos pos,
                                                 char piece_symbol,
@@ -251,8 +251,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
         if ( CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE( plte_an ) ) {
             if ( init_step ) {
                 CcPos init_pos = init_step->field;
-                CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, init_pos.i, init_pos.j );
-
+                // CcPieceType pt_cb = cc_chessboard_get_piece( *cb__io, init_pos.i, init_pos.j );
                 // TODO :: CHECK :: m Rb1-k1~Wj1-g7 :: m Rb1-j1~Wk1-g7 :: if CC_PLY_LINK_TYPE_IS_ACTIVATING_PIECE
 
                 if ( !CC_POS_IS_EQUAL( init_pos, before_ply__io->pos ) )
