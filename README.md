@@ -19,7 +19,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20241213.005656 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20241213.024837 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -176,6 +176,6 @@ Outtakes:
 * [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=FuELLd3Ec4U)
 * [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
 
-YouTube playlist featuring all listed songs + outtakes: [Croatian chess soundtrack + outtakes](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPqG2NZhkRy0CO68jH7MDXdg).
+YouTube playlist featuring all listed songs + outtakes: [Croatian Chess soundtrack + outtakes](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPqG2NZhkRy0CO68jH7MDXdg).
 
 [^rv96]: Unfortunately, complete concerto (which also works on Linux) is not available anymore.

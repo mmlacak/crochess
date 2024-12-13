@@ -8,7 +8,7 @@
 #include "hlp_msgs.h"
 
 void print_license_intro( void ) {
-    printf( "Croatian chess - chess variants console application\n"
+    printf( "Croatian Chess - chess variants console application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n"
             "Repository: https://github.com/mmlacak/crochess.\n" );
     // fflush( stdout );
@@ -25,7 +25,7 @@ void print_app_intro( char const * lib_ver, char const * app_ver ) {
 
     printf( "Licensed under GNU GPL v3+ license. Use `about` for details.\n"
             "\n"
-            "Based on book \"Croatian chess and other variants\", by Mario Mlačak.\n"
+            "Based on book \"Croatian Chess and other variants\", by Mario Mlačak.\n"
             "\n"
             "Versions:\n" );
 

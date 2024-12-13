@@ -9,7 +9,7 @@
 #include "hlp_msgs.h"
 
 void print_license_intro( void ) {
-    printf( "Croatian chess - chess variants tests application\n"
+    printf( "Croatian Chess - chess variants tests application\n"
             "Copyright (c) 2021 Mario Mlačak, mmlacak@gmail.com.\n"
             "Repository: https://github.com/mmlacak/crochess.\n" );
     // fflush( stdout );
