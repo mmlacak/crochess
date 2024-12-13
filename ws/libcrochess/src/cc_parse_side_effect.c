@@ -252,49 +252,43 @@ bool cc_parse_side_effect( char const * side_effect_an,
         } case CC_SETE_DemoteToPawn : {
             // TODO :: demote to Pawn
             return false;
-        } case CC_SETE_Resurrection : { // Intentional fall-through ...
-        } case CC_SETE_ResurrectingOpponent : {
-            // if ( !_cc_check_field_is_empty( piece, "Resurrection can be performed only on an empty field, encountered %s in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // char piece_symbol = ' ';
-            //
-            // if ( !cc_fetch_piece_symbol( se_an, &piece_symbol, true, false ) )
-            //     return false;
-            //
-            // if ( !_cc_check_piece_symbol_is_valid( piece_symbol, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // bool is_light = true;
-            //
-            // if ( game->status == CC_GSE_Turn_Light )
-            //     is_light = ( sete == CC_SETE_Resurrection );
-            // else if ( game->status == CC_GSE_Turn_Dark )
-            //     is_light = ( sete == CC_SETE_ResurrectingOpponent );
-            // else
-            //     return false; // Should check status, within caller stack.
-            //
-            // CcPieceType resurrecting = cc_piece_from_symbol( piece_symbol, is_light );
-            //
-            // if ( !_cc_check_piece_can_be_resurrected( resurrecting, step_start_an, step_end_an, parse_msgs__iod ) )
-            //     return false;
-            //
-            // CcPos pos = CC_POS_CAST_INVALID;
-            //
-            // if ( CC_PIECE_IS_WAVE( resurrecting ) || CC_PIECE_IS_STARCHILD( resurrecting ) ) {
-            //     char const * pos_an = se_an + 1;
-            //     char const * pos_end_an = NULL;
-            //
-            //     if ( !_cc_parse_and_check_position( pos_an, &pos, &pos_end_an, "Error parsing resurrection destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            //
-            //     if ( !_cc_check_position_is_on_board( pos, cb, "Resurrection destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod ) )
-            //         return false;
-            // }
-            //
-            // *side_effect__o = cc_side_effect_resurrect( piece, pos );
-            // return true;
-            return false; // TODO
+        } case CC_SETE_Resurrection : // Intentional fall-through ...
+        case CC_SETE_ResurrectingOpponent : {
+            char piece_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result == CC_MBE_Void )
+                return _cc_fail_with_msg_in_step( "Figure to which Pawn has been promoted to is mandatory, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            else
+                return false; // cc_fetch_piece_symbol() returned some garbage?
+
+            bool is_light = ( sete == CC_SETE_ResurrectingOpponent ) ? is_opponent_light
+                                                                     : is_turn_light;
+
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_light ); // If piece symbol was not found, piece is none.
+
+            if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) // Piece is not optional here, so no need to check if it's valid.
+                return _cc_fail_with_msg_piece_in_side_effect( "%s can't be resurrected, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            CcPos pos = CC_POS_CAST_INVALID;
+            char const * pos_end_an = NULL;
+
+            if ( CC_PIECE_IS_WAVE( piece ) || CC_PIECE_IS_STARCHILD( piece ) ) {
+                if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
+                    return _cc_fail_with_msg_in_step( "Error parsing resurrecting destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+                se_an = pos_end_an;
+
+                if ( !CC_IS_POS_ON_BOARD( board_size, pos.i, pos.j ) ) // Resurrecting destination has to be complete position, not disambiguation.
+                    return _cc_fail_with_msg_in_step( "Resurrecting destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            }
+
+            *side_effect__o = cc_side_effect_resurrect( piece, pos );
+            return true;
         } case CC_SETE_FailedResurrection : {
             *side_effect__o = cc_side_effect_failed_resurrection();
             return true;
