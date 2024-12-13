@@ -354,7 +354,7 @@ Coordinates, fields, positions
     :param j: Rank, position along vertical axis; cast to :c:`int`.
     :returns: ``1`` if on board, ``0`` otherwise.
 
-.. c:macro:: CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)
+.. c:macro:: CC_IS_DISAMBIGUATION_ON_BOARD(board_size,i,j)
 
     Macro to check if a given disambiguation (i.e. partial position) is on board.
 

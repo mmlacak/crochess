@@ -159,7 +159,7 @@ bool cc_chessboard_is_disambiguation_on_board( CcChessboard * cb, int i, int j )
     cc_uint_t size = cc_variant_board_size( cb->type );
     if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
-    return CC_IS_ANY_COORD_ON_BOARD( size, i, j );
+    return CC_IS_DISAMBIGUATION_ON_BOARD( size, i, j );
 }
 
 bool cc_chessboard_is_coord_safe_off_board( CcChessboard * cb, int coord ) {

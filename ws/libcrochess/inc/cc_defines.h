@@ -97,7 +97,7 @@ typedef enum CcMaybeBoolEnum {
     ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) &&      \
       ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
 
-#define CC_IS_ANY_COORD_ON_BOARD(board_size,i,j)            \
+#define CC_IS_DISAMBIGUATION_ON_BOARD(board_size,i,j)       \
     ( ( CC_IS_COORD_ON_BOARD( (board_size), (i) ) ) ||      \
       ( CC_IS_COORD_ON_BOARD( (board_size), (j) ) ) )
 

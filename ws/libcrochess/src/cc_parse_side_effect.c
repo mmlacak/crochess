@@ -138,7 +138,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
                 return _cc_fail_with_msg_in_step( "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            if ( !CC_IS_COORD_VALID( pos.j ) ) // If location is given, at least rank must be valid.
+            if ( !CC_IS_COORD_ON_BOARD( board_size, pos.j ) ) // If location is given, at least rank must be valid.
                 return _cc_fail_with_msg_in_step( "If en passant location is given, at least rank must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
             *side_effect__o = cc_side_effect_en_passant( piece, pos );
@@ -163,9 +163,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
                 return _cc_fail_with_msg_in_step( "Error parsing Rook castling destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            se_an = pos_end_an;
+            // se_an = pos_end_an; // <!> Not used below, so ...
 
-            if ( !CC_IS_COORD_VALID( pos.i ) ) // If Rook castling destination is given, at least file must be valid.
+            if ( !CC_IS_COORD_ON_BOARD( board_size, pos.i ) ) // If Rook castling destination is given, at least file must be valid.
                 return _cc_fail_with_msg_in_step( "If Rook castling destination is given, at least file must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
             *side_effect__o = cc_side_effect_castle( piece, CC_POS_CAST_INVALID, pos );
@@ -250,8 +250,37 @@ bool cc_parse_side_effect( char const * side_effect_an,
             *side_effect__o = cc_side_effect_diversion( piece );
             return true;
         } case CC_SETE_DemoteToPawn : {
-            // TODO :: demote to Pawn
-            return false;
+            char piece_symbol = ' ';
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+
+            if ( result == CC_MBE_True )
+                ++se_an;
+            else if ( result == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
+            char const * pos_an = se_an + cc_losing_tag_len( ltt );
+
+            if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
+                if ( !CC_PIECE_CAN_BE_DEMOTED( piece ) )
+                    return _cc_fail_with_msg_piece_in_side_effect( "%s can't be demoted, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            CcPos pos = CC_POS_CAST_INVALID;
+            char const * pos_end_an = NULL;
+
+            if ( cc_parse_pos( pos_an, &pos, &pos_end_an ) ) // Demoting position is also optional.
+                if ( !CC_IS_DISAMBIGUATION_ON_BOARD( board_size, pos.i, pos.j ) ) // If demoting position is given, at least one coordinate must be valid.
+                    return _cc_fail_with_msg_in_step( "If demoting position is given, it must be valid disambiguation, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+            // se_an = pos_end_an; // <!> Not used below, so ...
+
+            if ( !( CC_PIECE_IS_VALID( piece ) ||
+                    CC_IS_DISAMBIGUATION_ON_BOARD( board_size, pos.i, pos.j ) ) ) // Either piece or demoting disambiguation has to be given.
+                return _cc_fail_with_msg_in_step( "For demoting either piece or disambiguation has to be given, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+
+            *side_effect__o = cc_side_effect_demote( piece, ltt, pos );
+            return true;
         } case CC_SETE_Resurrection : // Intentional fall-through ...
         case CC_SETE_ResurrectingOpponent : {
             char piece_symbol = ' ';
