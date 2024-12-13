@@ -1157,39 +1157,6 @@ class SceneNineteenMixin:
         return scene
 
     #
-    # Promotion, only one Queen
-
-    def scn_n_31_only_one_queen(self, bt=BoardType.Nineteen):
-
-        scene = Scene('scn_n_31_only_one_queen', bt)
-
-        start_Q = (12, 15)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
-
-        start_B = (3, 11)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
-
-        start_A = (11, 3)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
-
-        start_q = (7, 3)
-        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
-
-        gen_B_A = GS.gen_steps( start=start_B, rels=[(1, -1), ], include_prev=True, count=8 )
-        for index, coords in enumerate( gen_B_A() ):
-            mark_type = MarkType.Action if index == 7 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        gen_A_q = GS.gen_steps( start=start_A, rels=[(-1, 0), ], include_prev=True, count=4 )
-        for index, coords in enumerate( gen_A_q() ):
-            mark_type = MarkType.Action if index == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        return scene
-
-    #
     # Castling
 
     def scn_n_32_new_castling_init( self, bt=BoardType.Nineteen ):
