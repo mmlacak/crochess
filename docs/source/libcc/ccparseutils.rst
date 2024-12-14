@@ -227,7 +227,7 @@ Functions
     :returns: Valid pointer if disambiguation has been skipped,
         :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_ply_has_separated_steps( char const * ply_an_str, char const * ply_end, bool check_intermediate_steps, bool check_destination_step )
+.. c:function:: CcMaybeBoolEnum cc_ply_has_separated_steps( char const * ply_an_str, char const * ply_end, bool check_intermediate_steps, bool check_destination_step )
 
     Function checks if ply contains step separators, either ``'.'``, or ``'-'``.
 
@@ -241,10 +241,13 @@ Functions
         null-terminated, :term:`AN` string.
     :param check_intermediate_steps: Flag, to check if ply contains ``'.'``.
     :param check_destination_step: Flag, to check if ply contains ``'-'``.
-    :returns: :c:data:`true` if ply contains step separators,
-        :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
-.. c:function:: bool cc_parse_step_link( char const * step_an_str, char const * ply_end, CcStepLinkTypeEnum * sle__o )
+        * :c:enumerator:`CC_MBE_True` if ply contains step separators,
+        * :c:enumerator:`CC_MBE_False` if ply does not contains step separators,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
+.. c:function:: CcMaybeBoolEnum cc_parse_step_link( char const * step_an_str, char const * ply_end, CcStepLinkTypeEnum * sle__o )
 
     Function returns parsed step link via *output* parameter.
 
@@ -253,7 +256,11 @@ Functions
     :param ply_end: Ply notation, points at the very end of the ply;
         null-terminated, :term:`AN` string.
     :param sle__o: *Output*; pointer to step link storage.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if step link parsed successfully,
+        * :c:enumerator:`CC_MBE_False` if no step link found,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: size_t cc_step_link_len( CcStepLinkTypeEnum sle )
 
