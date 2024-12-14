@@ -59,14 +59,16 @@ bool cc_parse_pos( char const * pos_an_str,
 
 char const * cc_skip_disambiguation( char const * pos_an_str );
 
-bool cc_ply_has_separated_steps( char const * ply_an_str,
-                                 char const * ply_end,
-                                 bool check_intermediate_steps,
-                                 bool check_destination_step );
+// TODO :: DOCS
+CcMaybeBoolEnum cc_ply_has_separated_steps( char const * ply_an_str,
+                                            char const * ply_end,
+                                            bool check_intermediate_steps,
+                                            bool check_destination_step );
 
-bool cc_parse_step_link( char const * step_an_str,
-                         char const * ply_end,
-                         CcStepLinkTypeEnum * sle__o );
+// TODO :: DOCS
+CcMaybeBoolEnum cc_parse_step_link( char const * step_an_str,
+                                    char const * ply_end,
+                                    CcStepLinkTypeEnum * sle__o );
 
 size_t cc_step_link_len( CcStepLinkTypeEnum sle );
 

@@ -309,65 +309,67 @@ char const * cc_skip_disambiguation( char const * pos_an_str ) {
     return NULL; // Do not return an_str!
 }
 
-bool cc_ply_has_separated_steps( char const * ply_an_str,
-                                 char const * ply_end,
-                                 bool check_intermediate_steps,
-                                 bool check_destination_step ) {
-    if ( !ply_an_str ) return false;
-    if ( !ply_end ) return false;
+CcMaybeBoolEnum cc_ply_has_separated_steps( char const * ply_an_str,
+                                            char const * ply_end,
+                                            bool check_intermediate_steps,
+                                            bool check_destination_step ) {
+    if ( !ply_an_str ) return CC_MBE_Void;
+    if ( !ply_end ) return CC_MBE_Void;
 
-    // if ( cc_skip_disambiguation( ply_an_str ) ) return true;
+    // if ( cc_skip_disambiguation( ply_an_str ) )
+    //     return CC_MBE_True;
 
-    if ( !check_intermediate_steps && !check_destination_step ) return false;
+    if ( !check_intermediate_steps && !check_destination_step )
+        return CC_MBE_False;
 
     char const * c = ply_an_str;
 
     while ( *c != '\0' && c < ply_end ) {
-        if ( check_intermediate_steps && *c == '.' ) return true;
-        if ( check_destination_step && *c == '-' ) return true;
+        if ( check_intermediate_steps && *c == '.' ) return CC_MBE_True;
+        if ( check_destination_step && *c == '-' ) return CC_MBE_True;
 
         ++c;
     }
 
-    return false;
+    return CC_MBE_False;
 }
 
-bool cc_parse_step_link( char const * step_an_str,
-                         char const * ply_end,
-                         CcStepLinkTypeEnum * sle__o ) {
-    if ( !step_an_str ) return false;
-    if ( !sle__o ) return false;
+CcMaybeBoolEnum cc_parse_step_link( char const * step_an_str,
+                                    char const * ply_end,
+                                    CcStepLinkTypeEnum * sle__o ) {
+    if ( !step_an_str ) return CC_MBE_Void;
+    if ( !sle__o ) return CC_MBE_Void;
 
     char const * c = step_an_str;
 
     if ( *c == '.' ) {
         if ( *++c == '.' ) {
             *sle__o = CC_SLTE_Distant;
-            return true;
+            return CC_MBE_True;
         }
 
         *sle__o = CC_SLTE_Next;
-        return true;
+        return CC_MBE_True;
     } else if ( *c == '-' ) {
         *sle__o = CC_SLTE_Destination;
-        return true;
-    } else if ( *c == ',' ) {
+        return CC_MBE_True;
+    } else if ( *c == '\\' ) {
         *sle__o = CC_SLTE_Reposition;
-        return true;
+        return CC_MBE_True;
     } else if ( isgraph( *c ) ) {
-        if ( cc_ply_has_separated_steps( step_an_str, ply_end, true, true ) ) {
+        if ( cc_ply_has_separated_steps( step_an_str, ply_end, true, true ) == CC_MBE_True ) {
             *sle__o = CC_SLTE_Init;
-            return true;
+            return CC_MBE_True;
         } else if ( cc_skip_disambiguation( step_an_str ) ) {
             *sle__o = CC_SLTE_Init;
-            return true;
+            return CC_MBE_True;
         } else {
             *sle__o = CC_SLTE_JustDestination;
-            return true;
+            return CC_MBE_True;
         }
     }
 
-    return false;
+    return CC_MBE_False;
 }
 
 size_t cc_step_link_len( CcStepLinkTypeEnum sle ) {
@@ -392,13 +394,13 @@ char const * cc_next_step_link( char const * step_an_str,
     if ( step_an_str >= ply_end ) return NULL;
 
     CcStepLinkTypeEnum sle = CC_SLTE_None;
-    if ( !cc_parse_step_link( step_an_str, ply_end, &sle ) ) return NULL;
+    if ( cc_parse_step_link( step_an_str, ply_end, &sle ) != CC_MBE_True ) return NULL;
 
     char const * str__w = step_an_str + cc_step_link_len( sle );
 
     // Skip over everything before next step link.
     do {
-        if ( !cc_parse_step_link( str__w, ply_end, &sle ) ) return NULL;
+        if ( cc_parse_step_link( str__w, ply_end, &sle ) != CC_MBE_True ) return NULL;
 
         if ( ( sle == CC_SLTE_Init ) || ( sle == CC_SLTE_JustDestination ) )
             ++str__w;
