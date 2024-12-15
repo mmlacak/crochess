@@ -25,7 +25,7 @@ static bool _cc_parse_step( char const * step_start_an,
                             char const * step_end_an,
                             char const * steps_end_an,
                             bool is_turn_light,
-                            cc_uint_t size,
+                            cc_uint_t board_size,
                             bool is_first_step,
                             CcStep ** step__o,
                             CcParseMsg ** parse_msgs__iod ) {
@@ -53,6 +53,7 @@ static bool _cc_parse_step( char const * step_start_an,
                 cc_step_free_all( &da__t );
                 return false;
             }
+            // da__t = NULL; // Not needed, ownership transferred.
 
             step_an = da_end_an;
             return (bool)( *step__o );
@@ -75,7 +76,7 @@ static bool _cc_parse_step( char const * step_start_an,
 
     if ( !cc_parse_side_effect( pos_end_an, step_an, step_end_an,
                                 is_turn_light,
-                                size,
+                                board_size,
                                 &se,
                                 parse_msgs__iod ) )
         return false;
@@ -87,8 +88,7 @@ static bool _cc_parse_step( char const * step_start_an,
         cc_step_free_all( &step__t );
         return false;
     }
-
-    // step__t = NULL; // Not needed, local var.
+    // step__t = NULL; // Not needed, ownership transferred.
 
     return (bool)( *step__o );
 }
@@ -96,37 +96,27 @@ static bool _cc_parse_step( char const * step_start_an,
 
 bool cc_parse_steps( char const * steps_start_an,
                      char const * steps_end_an,
-                     CcGame * game,
-                     CcPosDesc before_ply_start,
+                     bool is_turn_light,
+                     cc_uint_t board_size,
                      CcStep ** steps__o,
-                     CcChessboard ** cb__io,
                      CcParseMsg ** parse_msgs__iod ) {
     if ( !steps_start_an ) return false;
     if ( !steps_end_an ) return false;
-    if ( !game ) return false;
-    if ( !game->chessboard ) return false;
     if ( !steps__o || *steps__o ) return false;
-    if ( !cb__io || !*cb__io ) return false;
     if ( !parse_msgs__iod ) return false;
+
+    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
 
     char const * step_start_an = NULL;
     char const * step_end_an = NULL;
     bool is_first_step = true;
-    // bool had_disambiguation = false;
-
-    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
-
-    bool is_turn_light = ( game->status == CC_GSE_Turn_Light );
-
-    cc_uint_t size = cc_variant_board_size( game->chessboard->type );
-    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
 
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * steps__t = NULL;
 
         cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // TODO :: DEBUG :: DELETE
 
-        if ( !_cc_parse_step( step_start_an, step_end_an, steps_end_an, is_turn_light, size,
+        if ( !_cc_parse_step( step_start_an, step_end_an, steps_end_an, is_turn_light, board_size,
                               is_first_step,
                               &steps__t,
                               parse_msgs__iod ) ) {

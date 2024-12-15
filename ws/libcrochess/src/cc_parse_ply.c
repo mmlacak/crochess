@@ -219,11 +219,23 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
     CcStep * steps__t = NULL;
 
-    if ( !cc_parse_steps( c_an, ply_end_an, game, *before_ply__io, &steps__t, cb__io,
+    // TODO :: TEMP :: DELETE :: only until this parser is simplified
+    //
+    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
+
+    bool is_turn_light = ( game->status == CC_GSE_Turn_Light );
+
+    cc_uint_t board_size = cc_variant_board_size( game->chessboard->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
+    //
+    // TODO :: TEMP :: DELETE :: only until this parser is simplified
+
+    if ( !cc_parse_steps( c_an, ply_end_an, is_turn_light, board_size, &steps__t,
                           parse_msgs__iod ) ) {
         cc_step_free_all( &steps__t );
         return false;
     }
+    // steps__t = NULL; // Not needed, ownership transferred.
 
     //
     // Finding starting position, tag, if first ply.

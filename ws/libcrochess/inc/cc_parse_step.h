@@ -27,11 +27,10 @@
 
 // DOCS
 bool cc_parse_steps( char const * steps_start_an,
-                     char const * ply_end_an,
-                     CcGame * game,
-                     CcPosDesc last_ply_destination,
+                     char const * steps_end_an,
+                     bool is_turn_light,
+                     cc_uint_t board_size,
                      CcStep ** steps__o,
-                     CcChessboard ** cb__io,
                      CcParseMsg ** parse_msgs__iod );
 
 
