@@ -130,26 +130,13 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
 
 bool cc_parse_plies( char const * move_an,
-                     CcGame * game,
+                     bool is_turn_light,
+                     cc_uint_t board_size,
                      CcPly ** plies__o,
                      CcParseMsg ** parse_msgs__iod ) {
     if ( !move_an ) return false;
-    if ( !game ) return false;
     if ( !plies__o || *plies__o ) return false;
     if ( !parse_msgs__iod ) return false;
-
-    // if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
-
-    // TODO :: TEMP :: DELETE :: only until this parser is simplified
-    //
-    if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) return false;
-
-    bool is_turn_light = ( game->status == CC_GSE_Turn_Light );
-
-    cc_uint_t board_size = cc_variant_board_size( game->chessboard->type );
-    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
-    //
-    // TODO :: TEMP :: DELETE :: only until this parser is simplified
 
     CcPly * plies__t = NULL;
     char const * ply_start_an = NULL;
@@ -171,9 +158,8 @@ bool cc_parse_plies( char const * move_an,
             return false;
         }
 
-        // TODO :: DEBUG :: DELETE
-        //
-        {
+
+        { // TODO :: DEBUG :: DELETE
             char * plies_str__a = cc_ply_all_to_string__new( ply__t );
 
             // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
@@ -181,9 +167,8 @@ bool cc_parse_plies( char const * move_an,
             printf( "...\n" );
 
             CC_FREE( plies_str__a );
-        }
-        //
-        // TODO :: DEBUG :: DELETE
+        } // TODO :: DEBUG :: DELETE
+
 
         if ( !cc_ply_extend( &plies__t, &ply__t ) ) {
             cc_ply_free_all( &ply__t );
@@ -195,20 +180,14 @@ bool cc_parse_plies( char const * move_an,
     }
 
 
-
-    // TODO :: DEBUG :: DELETE
-    //
-    {
+    { // TODO :: DEBUG :: DELETE
         char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
         cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
         printf( "---\n" );
 
         CC_FREE( plies_str__a );
-    }
-    //
-    // TODO :: DEBUG :: DELETE
-
+    } // TODO :: DEBUG :: DELETE
 
 
     *plies__o = plies__t; // Ownership transfer.

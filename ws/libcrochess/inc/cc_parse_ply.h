@@ -42,7 +42,8 @@
 
 // DOCS
 bool cc_parse_plies( char const * move_an,
-                     CcGame * game,
+                     bool is_turn_light,
+                     cc_uint_t board_size,
                      CcPly ** plies__o,
                      CcParseMsg ** parse_msgs__iod );
 

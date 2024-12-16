@@ -45,10 +45,10 @@ bool cc_parse_move( char const * move_an,
                     CcParseMsg ** parse_msgs__iod ) {
     if ( !move_an ) return false;
     if ( !game ) return false;
+    if ( !game->chessboard ) return false;
+    // if ( !game->moves ) return false; // Currently not initialized.
     if ( !move__o || *move__o ) return false;
     if ( !parse_msgs__iod ) return false;
-
-    if ( !game->chessboard ) return false;
 
     if ( !CC_GAME_STATUS_IS_TURN( game->status ) ) {
         char const * msg =
@@ -58,6 +58,11 @@ bool cc_parse_move( char const * move_an,
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg );
         return false;
     }
+
+    bool is_turn_light = ( game->status == CC_GSE_Turn_Light );
+
+    cc_uint_t board_size = cc_variant_board_size( game->chessboard->type );
+    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
 
     CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
     if ( !move__t ) return false;
@@ -118,32 +123,26 @@ bool cc_parse_move( char const * move_an,
 
     CcPly * plies__t = NULL;
 
-    if ( !cc_parse_plies( move__t->notation, game, &plies__t, parse_msgs__iod ) ) {
+    if ( !cc_parse_plies( move__t->notation, is_turn_light, board_size,
+                          &plies__t,
+                          parse_msgs__iod ) ) {
         cc_ply_free_all( &plies__t );
         cc_move_free_all( &move__t );
         return false;
     }
 
 
-    // TODO :: DEBUG :: DELETE
-    //
-    // {
+    // { // TODO :: DEBUG :: DELETE
     //     char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
     //     cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
 
     //     CC_FREE( plies_str__a );
-    // }
-    //
-    // TODO :: DEBUG :: DELETE
-
-
-
+    // } // TODO :: DEBUG :: DELETE
 
 
 
     // TODO :: post-plies status
-
 
 
 
