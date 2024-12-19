@@ -18,11 +18,9 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
     CC_FASTFORWARD( m );
 
     while ( m ) {
-        if ( ( m->status == CC_MSE_DrawOffer_Revoked ) ||
-             ( m->status == CC_MSE_Check_DrawOffer_Revoked ) )
+        if ( CC_MOVE_STATUS_IS_DRAW_OFFER_REVOKED( m->status ) )
             return false;
-        else if ( ( m->status == CC_MSE_DrawOffer ) ||
-                  ( m->status == CC_MSE_Check_DrawOffer ) )
+        else if ( CC_MOVE_STATUS_IS_DRAW_OFFER( m->status ) )
             return true;
 
         // Skip two moves, because draw offer is made by one player.

@@ -7,10 +7,6 @@
 #include "cc_ply.h"
 
 
-#define CC_MOVE_STATUS_IS_ENUMERATION(mse) ( ( CC_MSE_None <= (mse) ) && ( (mse) <= CC_MSE_DrawByRules ) )
-
-#define CC_MOVE_STATUS_IS_VALID(mse) ( ( CC_MSE_None < (mse) ) && ( (mse) <= CC_MSE_DrawByRules ) )
-
 typedef enum CcMoveStatusEnum {
     CC_MSE_None,
     CC_MSE_DrawOffer,
@@ -27,6 +23,17 @@ typedef enum CcMoveStatusEnum {
     CC_MSE_DrawAccepted,
     CC_MSE_DrawByRules,
 } CcMoveStatusEnum;
+
+#define CC_MOVE_STATUS_IS_ENUMERATION(mse) ( ( CC_MSE_None <= (mse) ) && ( (mse) <= CC_MSE_DrawByRules ) )
+
+#define CC_MOVE_STATUS_IS_VALID(mse) ( ( CC_MSE_None < (mse) ) && ( (mse) <= CC_MSE_DrawByRules ) )
+
+#define CC_MOVE_STATUS_IS_DRAW_OFFER(mse) ( ( (mse) == CC_MSE_DrawOffer ) ||        \
+                                            ( (mse) == CC_MSE_Check_DrawOffer ) )
+
+#define CC_MOVE_STATUS_IS_DRAW_OFFER_REVOKED(mse) ( ( (mse) == CC_MSE_DrawOffer_Revoked ) ||        \
+                                                    ( (mse) == CC_MSE_Check_DrawOffer_Revoked ) )
+
 
 
 typedef struct CcMove {
