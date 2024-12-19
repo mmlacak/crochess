@@ -5,7 +5,7 @@
 // #include <stdarg.h>
 
 // #include <string.h>
-// #include <stdio.h>
+// #include <stdio.h> // TODO :: TEMP :: DEBUG :: printf
 
 #include "cc_rules_misc.h"
 #include "cc_parse_ply.h"
@@ -68,6 +68,7 @@ bool cc_parse_move( char const * move_an,
     if ( !move__t ) return false;
 
     char const * m_an = move_an;
+
     if ( *m_an == '#' ) {
         if ( *++m_an == '#' ) {
             // "##" resign
@@ -142,9 +143,49 @@ bool cc_parse_move( char const * move_an,
 
 
 
-    // TODO :: post-plies status
+    //
+    // Post-plies status.
 
+    while ( *m_an != '\0' ) {
+        if ( ( *m_an == '+' ) || ( *m_an == '#' ) || ( *m_an == '(' ) )
+            break;
 
+        ++m_an;
+    }
+
+    if ( *m_an == '#' ) {
+        // # checkmate
+        move__t->status = CC_MSE_Checkmate;
+    } else if ( *m_an == '+' ) {
+        if ( *++m_an == '+' ) {
+            // ++ checkmate
+            move__t->status = CC_MSE_Checkmate;
+        } else {
+            // + check
+            move__t->status = CC_MSE_Check;
+        }
+    }
+
+    if ( ( move__t->status == CC_MSE_None ) || ( move__t->status == CC_MSE_Check ) ) {
+        if ( *m_an == '(' ) {
+            if ( *++m_an == '=' ) {
+                if ( *++m_an == ')' ) {
+                    if ( move__t->status == CC_MSE_Check )
+                        move__t->status = CC_MSE_Check_DrawOffer;
+                    else
+                        move__t->status = CC_MSE_DrawOffer;
+                }
+            } else if ( *m_an == ')' ) {
+                if ( move__t->status == CC_MSE_Check )
+                    move__t->status = CC_MSE_Check_DrawOffer_Revoked;
+                else
+                    move__t->status = CC_MSE_DrawOffer_Revoked;
+            }
+        }
+    }
+
+    //
+    // Ownership transfer.
 
     move__t->plies = plies__t; // Ownership transfer.
     // plies__t = NULL; // Not really needed.

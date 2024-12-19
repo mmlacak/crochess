@@ -134,17 +134,15 @@ bool cc_parse_steps( char const * steps_start_an,
         is_first_step = false;
     }
 
-    // TODO :: DEBUG :: DELETE
-    //
-    {
+
+    { // TODO :: DEBUG :: DELETE
         char * step_str__a = cc_step_all_to_string__new( *steps__o );
 
         cc_str_print( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 
         CC_FREE( step_str__a );
-    }
-    //
-    // TODO :: DEBUG :: DELETE
+    } // TODO :: DEBUG :: DELETE
+
 
     return true;
 }
