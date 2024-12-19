@@ -859,11 +859,11 @@ ends a game, like so:
 \algcyc{82.}{...}{(==)}{Dark player accepts draw offer.}
 \algcycparend
 
-Draw offer can be canceled by writing \alg{(-)} (minus sign in brackets), after a complete
+Draw offer can be canceled by writing \alg{()} (minus sign in brackets), after a complete
 move, like so:
 
 \algcycpar
-\algcyc{79.}{Bc7+(-)}{...}{Light player cancels draw offer.}
+\algcyc{79.}{Bc7+()}{...}{Light player cancels draw offer.}
 \algcycparend
 
 Forced draw, i.e. draw by rules, is written with \alg{(===)} (three equal signs in
@@ -1166,7 +1166,7 @@ new information.
 \alg{\#\#}           & resign                         \\
 \cmidrule{1-2} % .......................................
 \alg{(=)}            & draw offered                   \\
-\alg{(-)}            & draw offer withdrawn           \\
+\alg{()}             & draw offer withdrawn           \\
 \alg{(==)}           & draw accepted                  \\
 \alg{(===)}          & draw by rules                  \\
 \cmidrule{1-2} % .......................................
@@ -1188,7 +1188,7 @@ accepted by the opponent. Accepted draw and draw by rules notations are mandator
 since they also note end of a game score.
 
 Draw offer does not expire, and can be issued multiple times. If a draw offer is
-not valid anymore it has to be canceled; a single \alg{(-)} cancels draw offer,
+not valid anymore it has to be canceled; a single \alg{()} cancels draw offer,
 regardless how many times it was offered prior to cancelation.
 
 \clearpage % ..........................................................
@@ -2670,11 +2670,11 @@ teleporting piece (Star) is introduced.
 <status> = ()
          | [\alg{+}]
          | [\alg{+}]\alg{(=)}
-         | [\alg{+}]\alg{(-)}
+         | [\alg{+}]\alg{()}
          | \alg{#}
          | \algcty{++}
          | \alg{(=)}
-         | \alg{(-)}
+         | \alg{()}
 
 <compatibility-capture> =
   <classic-piece>[<disambiguation>][\algcty{x}]

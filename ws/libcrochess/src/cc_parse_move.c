@@ -170,12 +170,14 @@ bool cc_parse_move( char const * move_an,
         if ( *m_an == '(' ) {
             if ( *++m_an == '=' ) {
                 if ( *++m_an == ')' ) {
+                    // (=) draw offer
                     if ( move__t->status == CC_MSE_Check )
                         move__t->status = CC_MSE_Check_DrawOffer;
                     else
                         move__t->status = CC_MSE_DrawOffer;
                 }
             } else if ( *m_an == ')' ) {
+                // () draw offer withdrawn
                 if ( move__t->status == CC_MSE_Check )
                     move__t->status = CC_MSE_Check_DrawOffer_Revoked;
                 else

@@ -42,11 +42,9 @@ static int _cc_an_str_ends_with_draw_offer( char const * an_start,
                 // "(=)" draw offered
                 return CC_DRAW_OFFER_FOUND;
             }
-        } else if ( *c == '-' ) {
-            if ( *--c == '(' ) {
-                // "(-)" draw offer canceled
-                return CC_DRAW_OFFER_CANCELED;
-            }
+        } else if ( *c == '(' ) {
+            // "()" draw offer canceled
+            return CC_DRAW_OFFER_CANCELED;
         }
     }
 
