@@ -142,7 +142,6 @@ bool cc_parse_move( char const * move_an,
     // } // TODO :: DEBUG :: DELETE
 
 
-
     //
     // Post-plies status.
 
