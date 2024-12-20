@@ -12,30 +12,64 @@
 #include "cc_parse_move.h"
 
 
-static bool _cc_check_standalone_status( char const char_an,
-                                         CcMove ** temp__n,
-                                         CcMove ** move__o,
-                                         CcParseMsg ** parse_msgs__iod,
-                                         CcMoveStatusEnum mse,
-                                         size_t max_len__d,
-                                         char const * msg, ... ) {
-    if ( iscntrl( char_an ) || isspace( char_an ) ) {
-        ( *temp__n )->status = mse;
+static CcMaybeBoolEnum _cc_parse_standalone_status( char const * move_an,
+                                                    CcMove ** move__io,
+                                                    CcParseMsg ** parse_msgs__iod ) {
+    // result <-- standalone move status:
+    // CC_MBE_Void <-- not encountered && it's ok
+    // CC_MBE_False <-- encountered && error
+    // CC_MBE_True <-- encountered && parsed successfully
+    CcMaybeBoolEnum result = CC_MBE_Void;
 
-        // Ownership transfer.
-        *move__o = *temp__n;
-        *temp__n = NULL;
+    CcMove * move__t = *move__io;
+    char const * m_an = move_an;
 
-        return true;
-    } else {
-        va_list args;
-        va_start( args, msg );
+    if ( *m_an == '#' ) {
+        if ( *++m_an == '#' ) {
+            // "##" resign
+            move__t->status = CC_MSE_Resign;
+            ++m_an;
+        } else {
+            // "#" self-checkmate
+            move__t->status = CC_MSE_SelfCheckmate;
+        }
 
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, max_len__d, msg, args );
-
-        va_end( args );
-        return false;
+        result = CC_MBE_True;
     }
+
+    if ( *m_an == '(' ) {
+        result = CC_MBE_False;
+
+        if ( move__t->status == CC_MSE_None ) {
+            if ( *++m_an == '=' ) {
+                if ( *++m_an == '=' ) {
+                    if ( *++m_an == ')' ) {
+                        // "(==)" draw offer accepted
+                        move__t->status = CC_MSE_DrawAccepted;
+                        result = CC_MBE_True;
+                        ++m_an;
+                    }
+                    // Draw-by-rules should be issued by arbiter, not players;
+                    //     i.e. should be issued by server, not clients.
+                    //
+                    // else if ( *m_an == '=' ) {
+                    //     if ( *++m_an == ')' ) {
+                    //         // "(===)" draw by rules
+                    //     }
+                    // }
+                }
+            }
+        }
+    }
+
+    if ( result == CC_MBE_True )
+        if ( ( *m_an != ' ' ) && ( *m_an != '_' ) && ( *m_an != '\0' ) )
+            result = CC_MBE_False;
+
+    if ( result == CC_MBE_False )
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Malformed standalone status, in move '%s'.\n", move_an );
+
+    return result;
 }
 
 static CcMaybeBoolEnum _cc_parse_move_status( char const * move_an,
@@ -112,6 +146,10 @@ static CcMaybeBoolEnum _cc_parse_move_status( char const * move_an,
         }
     }
 
+    if ( result == CC_MBE_True )
+        if ( ( *m_an != ' ' ) && ( *m_an != '_' ) && ( *m_an != '\0' ) )
+            result = CC_MBE_False;
+
     if ( result == CC_MBE_False )
         cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Malformed (or standalone) move status '%s' encountered after plies; in move '%s'.\n", status_an, move_an );
 
@@ -147,61 +185,22 @@ bool cc_parse_move( char const * move_an,
     CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
     if ( !move__t ) return false;
 
-    char const * m_an = move_an;
-
     //
     // Parsing standalone status.
 
-    if ( *m_an == '#' ) {
-        if ( *++m_an == '#' ) {
-            // "##" resign
-            return _cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_Resign, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after resign.\n" );
-        } else {
-            // "#" self-checkmate
+    // result <-- standalone move status:
+    // CC_MBE_Void <-- not encountered && it's ok
+    // CC_MBE_False <-- encountered && error
+    // CC_MBE_True <-- encountered && parsed successfully
+    CcMaybeBoolEnum result_sms = _cc_parse_standalone_status( move_an, &move__t, parse_msgs__iod );
 
-            // TODO :: Do check if opponent is really (self-)checkmated.
-            //         Self- is optional, since both players could overlook checkmate,
-            //         this is option to rectify such a situation.
+    if ( result_sms == CC_MBE_True ) {
+        *move__o = move__t; // Ownership transfer.
+        // move__t = NULL; // Not really needed.
 
-            return _cc_check_standalone_status( *m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_SelfCheckmate, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after self-checkmate.\n" );
-        }
-    }
-
-    if ( *m_an == '(' ) {
-        if ( *++m_an == '=' ) {
-            if ( *++m_an == '=' ) {
-                if ( *++m_an == ')' ) {
-                    // "(==)" draw offer accepted
-
-                    if ( cc_check_valid_draw_offer_exists( game->moves, game->status ) ) {
-                        return _cc_check_standalone_status( *++m_an, &move__t, move__o, parse_msgs__iod, CC_MSE_DrawAccepted, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) after accepted draw.\n" );
-                    } else {
-                        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "No valid opponent's draw offer found.\n" );
-                        return false;
-                    }
-                }
-                // Draw-by-rules should be issued by arbiter, not players;
-                //     i.e. should be issued by server, not clients.
-                //
-                // else if ( *m_an == '=' )
-                // {
-                //     if ( *++m_an == ')' )
-                //     {
-                //         // "(===)" draw by rules
-                //
-                //         return _cc_check_standalone_status( *++m_an,
-                //                                            &move__t,
-                //                                            move__o,
-                //                                            parse_msgs__iod,
-                //                                            CC_MSE_DrawByRules,
-                //                                            CC_MAX_LEN_ZERO_TERMINATED,
-                //                                            "Invalid char(s) after draw by rules.\n" );
-                //     }
-                // }
-            }
-        }
-
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid char(s) within draw; draw offer cannot be issued standalone; draw-by-rules only by arbiter, not players.\n" );
+        return true;
+    } else if ( result_sms == CC_MBE_False ) {
+        cc_move_free_all( &move__t );
         return false;
     }
 
