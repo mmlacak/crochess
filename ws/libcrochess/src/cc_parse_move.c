@@ -149,6 +149,9 @@ bool cc_parse_move( char const * move_an,
 
     char const * m_an = move_an;
 
+    //
+    // Parsing standalone status.
+
     if ( *m_an == '#' ) {
         if ( *++m_an == '#' ) {
             // "##" resign
@@ -202,6 +205,9 @@ bool cc_parse_move( char const * move_an,
         return false;
     }
 
+    //
+    // Parsing plies.
+
     CcPly * plies__t = NULL;
 
     if ( !cc_parse_plies( move__t->notation, is_turn_light, board_size,
@@ -222,17 +228,19 @@ bool cc_parse_move( char const * move_an,
     // } // TODO :: DEBUG :: DELETE
 
 
+    move__t->plies = plies__t; // Ownership transfer.
+    // plies__t = NULL; // Not really needed.
+
     //
     // Post-plies status.
 
-    if ( _cc_parse_move_status( move_an, &move__t, parse_msgs__iod ) == CC_MBE_False )
+    if ( _cc_parse_move_status( move_an, &move__t, parse_msgs__iod ) == CC_MBE_False ) {
+        cc_move_free_all( &move__t );
         return false;
+    }
 
     //
     // Ownership transfer.
-
-    move__t->plies = plies__t; // Ownership transfer.
-    // plies__t = NULL; // Not really needed.
 
     *move__o = move__t; // Ownership transfer.
     // move__t = NULL; // Not really needed.
