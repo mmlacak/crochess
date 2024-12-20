@@ -41,6 +41,9 @@ static bool _cc_check_standalone_status( char const char_an,
 static CcMaybeBoolEnum _cc_parse_move_status( char const * move_an,
                                               CcMove ** move__io,
                                               CcParseMsg ** parse_msgs__iod ) {
+    if ( ( *move__io )->status != CC_MSE_None ) // Move containing standalone status shouldn't have plies parsed, let alone post-plies status.
+        return CC_MBE_False;
+
     // result <-- (post-plies) move status:
     // CC_MBE_Void <-- not encountered && it's ok
     // CC_MBE_False <-- encountered && error
