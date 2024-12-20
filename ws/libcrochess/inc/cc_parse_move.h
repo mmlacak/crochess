@@ -4,6 +4,8 @@
 #ifndef __CC_PARSE_MOVE_H__
 #define __CC_PARSE_MOVE_H__
 
+#include "cc_defines.h"
+
 // #include "cc_step.h"
 // #include "cc_ply.h"
 #include "cc_move.h"

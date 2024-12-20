@@ -141,7 +141,6 @@ bool cc_parse_plies( char const * move_an,
     CcPly * plies__t = NULL;
     char const * ply_start_an = NULL;
     char const * ply_end_an = NULL;
-    CcPosDesc before_ply = CC_POS_DESC_CAST_INVALID;
     bool is_first_ply = true;
 
     while ( cc_iter_ply( move_an, &ply_start_an, &ply_end_an ) ) {

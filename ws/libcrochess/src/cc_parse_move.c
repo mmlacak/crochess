@@ -38,6 +38,83 @@ static bool _cc_check_standalone_status( char const char_an,
     }
 }
 
+static CcMaybeBoolEnum _cc_parse_move_status( char const * move_an,
+                                              CcMove ** move__io,
+                                              CcParseMsg ** parse_msgs__iod ) {
+    // result <-- (post-plies) move status:
+    // CC_MBE_Void <-- not encountered && it's ok
+    // CC_MBE_False <-- encountered && error
+    // CC_MBE_True <-- encountered && parsed successfully
+    CcMaybeBoolEnum result = CC_MBE_Void;
+
+    CcMove * move__t = *move__io;
+    char const * m_an = move_an;
+
+    while ( *m_an != '\0' ) {
+        if ( ( *m_an == '+' ) || ( *m_an == '#' ) || ( *m_an == '(' ) )
+            break;
+
+        ++m_an;
+    }
+
+    char const * status_an = m_an;
+
+    if ( *m_an == '#' ) {
+        // # checkmate
+        move__t->status = CC_MSE_Checkmate;
+        result = CC_MBE_True;
+        ++m_an;
+    } else if ( *m_an == '+' ) {
+        if ( *++m_an == '+' ) {
+            // ++ checkmate
+            move__t->status = CC_MSE_Checkmate;
+            ++m_an;
+        } else {
+            // + check
+            move__t->status = CC_MSE_Check;
+        }
+
+        result = CC_MBE_True;
+    }
+
+    if ( ( move__t->status == CC_MSE_None ) ||
+         ( move__t->status == CC_MSE_Check ) ||
+         ( move__t->status == CC_MSE_Checkmate ) ) {
+        if ( *m_an == '(' ) {
+            result = CC_MBE_False;
+
+            if ( move__t->status != CC_MSE_Checkmate ) {
+                if ( *++m_an == '=' ) {
+                    if ( *++m_an == ')' ) {
+                        // (=) draw offer
+                        if ( move__t->status == CC_MSE_Check )
+                            move__t->status = CC_MSE_Check_DrawOffer;
+                        else
+                            move__t->status = CC_MSE_DrawOffer;
+
+                        result = CC_MBE_True;
+                        ++m_an;
+                    }
+                } else if ( *m_an == ')' ) {
+                    // () draw offer withdrawn
+                    if ( move__t->status == CC_MSE_Check )
+                        move__t->status = CC_MSE_Check_DrawOffer_Revoked;
+                    else
+                        move__t->status = CC_MSE_DrawOffer_Revoked;
+
+                    result = CC_MBE_True;
+                    ++m_an;
+                }
+            }
+        }
+    }
+
+    if ( result == CC_MBE_False )
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Malformed (or standalone) move status '%s' encountered after plies; in move '%s'.\n", status_an, move_an );
+
+    return result;
+}
+
 
 bool cc_parse_move( char const * move_an,
                     CcGame * game,
@@ -46,7 +123,7 @@ bool cc_parse_move( char const * move_an,
     if ( !move_an ) return false;
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
-    // if ( !game->moves ) return false; // Currently not initialized.
+    // if ( !game->moves ) return false; // Might not be initialized.
     if ( !move__o || *move__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
@@ -145,45 +222,8 @@ bool cc_parse_move( char const * move_an,
     //
     // Post-plies status.
 
-    while ( *m_an != '\0' ) {
-        if ( ( *m_an == '+' ) || ( *m_an == '#' ) || ( *m_an == '(' ) )
-            break;
-
-        ++m_an;
-    }
-
-    if ( *m_an == '#' ) {
-        // # checkmate
-        move__t->status = CC_MSE_Checkmate;
-    } else if ( *m_an == '+' ) {
-        if ( *++m_an == '+' ) {
-            // ++ checkmate
-            move__t->status = CC_MSE_Checkmate;
-        } else {
-            // + check
-            move__t->status = CC_MSE_Check;
-        }
-    }
-
-    if ( ( move__t->status == CC_MSE_None ) || ( move__t->status == CC_MSE_Check ) ) {
-        if ( *m_an == '(' ) {
-            if ( *++m_an == '=' ) {
-                if ( *++m_an == ')' ) {
-                    // (=) draw offer
-                    if ( move__t->status == CC_MSE_Check )
-                        move__t->status = CC_MSE_Check_DrawOffer;
-                    else
-                        move__t->status = CC_MSE_DrawOffer;
-                }
-            } else if ( *m_an == ')' ) {
-                // () draw offer withdrawn
-                if ( move__t->status == CC_MSE_Check )
-                    move__t->status = CC_MSE_Check_DrawOffer_Revoked;
-                else
-                    move__t->status = CC_MSE_DrawOffer_Revoked;
-            }
-        }
-    }
+    if ( _cc_parse_move_status( move_an, &move__t, parse_msgs__iod ) == CC_MBE_False )
+        return false;
 
     //
     // Ownership transfer.
