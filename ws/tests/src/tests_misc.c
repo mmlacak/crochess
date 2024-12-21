@@ -128,9 +128,9 @@ bool tests_str_append_into( void ) {
     printf( "---------------------\n" );
     p = test_str_append_into( x, p, BUFSIZ, " bar", CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, CC_SIZE_IGNORE, " Goodbye, World!", CC_MAX_LEN_BUFFER );
+    p = test_str_append_into( x, p, CC_SIZE_BUFFER, " Goodbye, World!", CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, CC_SIZE_IGNORE, " baz", 11 );
+    p = test_str_append_into( x, p, CC_SIZE_BUFFER, " baz", 11 );
     printf( "---------------------\n" );
     p = test_str_append_into( x, p, 99, " zaz", 11 );
     printf( "---------------------\n" );

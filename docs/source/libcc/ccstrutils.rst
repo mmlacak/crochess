@@ -48,9 +48,13 @@ Sizes, lengths
     If used, entirety of a given string is processed, which then **must** be
     null-terminated (i.e. end with ``'\0'``).
 
+.. c:macro:: CC_SIZE_BUFFER
+
+    Constant to set buffer size, equals to ``8192``.
+
 .. c:macro:: CC_MAX_LEN_BUFFER
 
-    Constant to set maximum length to one ``stdio`` buffer, equals to :c:macro:`BUFSIZ` - 1.
+    Constant to set maximum length of a buffer, equals to :c:macro:`CC_SIZE_BUFFER` - 1.
 
 .. c:macro:: CC_SIZE_IGNORE
 
