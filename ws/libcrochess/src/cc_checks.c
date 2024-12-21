@@ -18,11 +18,11 @@
 //     if ( !cc_calc_if_accumulating_momentum( piece, tag, &accumulating ) )
 //         return CC_MBE_Void;
 //
-//     if ( CC_MAYBE_IS_TRUE( accumulating ) ) {
+//     if ( accumulating == CC_MBE_True ) {
 //         if ( *momentum__io == UINT_MAX ) return CC_MBE_False;
-//     } else if ( CC_MAYBE_IS_VOID( accumulating ) ) {
+//     } else if ( accumulating == CC_MBE_Void ) {
 //         if ( *momentum__io == CC_UNSIGNED_MIN ) return CC_MBE_False;
-//     } else if ( CC_MAYBE_IS_FALSE( accumulating ) ) {
+//     } else if ( accumulating == CC_MBE_False ) {
 //         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
 //     } else
 //         return CC_MBE_Void; // Enums are secretly ints.
@@ -157,7 +157,7 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     do {
         // [i] Rook is semi-opaque just like King, so it's enough to check only King
         //     against all fields in-between the two.
-        if ( CC_MAYBE_IS_TRUE( cc_check_piece_is_blocked_at( cb, king, current ) ) )
+        if ( cc_check_piece_is_blocked_at( cb, king, current ) == CC_MBE_True )
             return CC_MBE_False;
 
         current = cc_pos_add( current, king_step, 1 );

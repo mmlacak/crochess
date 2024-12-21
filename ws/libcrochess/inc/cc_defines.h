@@ -46,15 +46,6 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_BOOL_TO_MAYBE(bool_val) ( (bool_val) ? CC_MBE_True : CC_MBE_False )
 
-// TODO :: REMOVE
-#define CC_MAYBE_IS_TRUE(maybe_bool) ( (maybe_bool) == CC_MBE_True )
-
-// TODO :: REMOVE
-#define CC_MAYBE_IS_FALSE(maybe_bool) ( (maybe_bool) == CC_MBE_False )
-
-// TODO :: REMOVE
-#define CC_MAYBE_IS_VOID(maybe_bool) ( (maybe_bool) == CC_MBE_Void )
-
 
 #define CC_INVALID_COORD (INT_MIN + 3583) // + number, so that value can't be get by accident, e.g. by simply flipping bits, ...
 

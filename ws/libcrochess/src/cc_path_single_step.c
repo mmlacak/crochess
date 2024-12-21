@@ -21,7 +21,7 @@
 //     // Calculating momentum only for the very next step, since Knight is single-step piece.
 //     cc_uint_t mm = momentum;
 //     CcMaybeBoolEnum has_mm = cc_check_momentum_for_next_step( knight, tag, &mm );
-//     if ( !CC_MAYBE_IS_TRUE( has_mm ) ) return false;
+//     if ( has_mm != CC_MBE_True ) return false;
 //
 //     CcTypedStep const * ts = NULL;
 //
@@ -30,14 +30,14 @@
 //         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) continue;
 //
 //         CcMaybeBoolEnum capturing = cc_check_piece_can_capture_at( cb, knight, pos );
-//         if ( CC_MAYBE_IS_VOID( capturing ) ) return false;
+//         if ( capturing == CC_MBE_Void ) return false;
 //
-//         if ( CC_MAYBE_IS_FALSE( capturing ) ) {
+//         if ( capturing == CC_MBE_False ) {
 //             // TODO :: check if Knight can activate piece @ destination
 //
 //             CcMaybeBoolEnum blocked = cc_check_piece_is_blocked_at( cb, knight, pos );
-//             if ( CC_MAYBE_IS_VOID( blocked ) ) return false;
-//             if ( CC_MAYBE_IS_TRUE( blocked ) ) continue; // Knight blocked, can't capture ...
+//             if ( blocked == CC_MBE_Void ) return false;
+//             if ( blocked == CC_MBE_True ) continue; // Knight blocked, can't capture ...
 //         }
 //
 //         CcPathLink * pl__t = cc_path_link__new( pos, mm );

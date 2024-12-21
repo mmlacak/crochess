@@ -608,11 +608,11 @@ bool cc_iter_piece_steps( CcPieceType piece,
 
         case CC_PE_DarkSerpent :
         case CC_PE_LightSerpent :
-            if ( CC_MAYBE_IS_TRUE( serpent_direction ) ) {
+            if ( serpent_direction == CC_MBE_True ) {
                 return CC_ITER_SERPENT_RIGHT_STEPS( step__iod, filter__d );
-            } else if ( CC_MAYBE_IS_FALSE( serpent_direction ) ) {
+            } else if ( serpent_direction == CC_MBE_False ) {
                 return CC_ITER_SERPENT_LEFT_STEPS( step__iod, filter__d );
-            } else if ( CC_MAYBE_IS_VOID( serpent_direction ) ) {
+            } else if ( serpent_direction == CC_MBE_Void ) {
                 return CC_ITER_SERPENT_STEPS( step__iod, filter__d );
             } else
                 return false;

@@ -159,27 +159,6 @@ Maybe bool
     :param bool_val: Boolean value.
     :returns: `CcMaybeBoolEnum` value.
 
-.. c:macro:: CC_MAYBE_IS_TRUE(maybe_bool)
-
-    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:enumerator:`CC_MBE_True`.
-
-    :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
-    :returns: :c:`bool` value.
-
-.. c:macro:: CC_MAYBE_IS_FALSE(maybe_bool)
-
-    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:enumerator:`CC_MBE_False`.
-
-    :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
-    :returns: :c:`bool` value.
-
-.. c:macro:: CC_MAYBE_IS_VOID(maybe_bool)
-
-    Macro to check if :c:enum:`CcMaybeBoolEnum` value is :c:enumerator:`CC_MBE_Void`.
-
-    :param maybe_bool: :c:enum:`CcMaybeBoolEnum` value.
-    :returns: :c:`bool` value.
-
 .. _lbl-libcc-ccdefines-coordinates:
 
 Coordinates

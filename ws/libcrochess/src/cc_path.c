@@ -264,11 +264,11 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
 
     unused -= depth_size;
 
-    if ( CC_MAYBE_IS_TRUE( path_diverged ) ) { // diverge path
+    if ( path_diverged == CC_MBE_True ) { // diverge path
         *str__t++ = '*';
         *str__t++ = ' ';
         unused -= 2;
-    } else if ( CC_MAYBE_IS_FALSE( path_diverged ) ) { // alt path
+    } else if ( path_diverged == CC_MBE_False ) { // alt path
         *str__t++ = '|';
         *str__t++ = ' ';
         unused -= 2;
