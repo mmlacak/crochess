@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.36:1215+20241220.204803"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.37:1216+20241221.023834"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -183,7 +183,7 @@ int main( void ) {
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
-                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_ZERO_TERMINATED );
+                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_BUFFER );
                 if ( !an_str ) continue;
 
                 CcParseMsg * pm__a = NULL;
@@ -374,7 +374,7 @@ int main( void ) {
                           cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) )
                     print_help_setup();
                 else
-                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_ZERO_TERMINATED, NULL );
+                    cc_str_print( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_BUFFER, NULL );
             } else
                 print_help();
         } else {

@@ -78,7 +78,7 @@ CcMove * cc_move_duplicate_all__new( CcMove * moves ) {
 
         CcMove * mv__w = cc_move_append( &mv__a,
                                          from->notation,
-                                         CC_MAX_LEN_ZERO_TERMINATED,
+                                         CC_MAX_LEN_BUFFER,
                                          &plies__t,
                                          from->status );
         if ( !mv__w ) {
@@ -143,7 +143,7 @@ size_t cc_move_all_notations_size( CcMove * move, bool is_score ) {
     CC_REWIND( m );
 
     while ( m ) {
-        size += cc_str_len( m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ); // TODO :: replace CC_MAX_LEN_ZERO_TERMINATED with SIZBUF (?)
+        size += cc_str_len( m->notation, NULL, CC_MAX_LEN_BUFFER );
         count += 1;
 
         m = m->next;

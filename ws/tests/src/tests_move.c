@@ -92,7 +92,7 @@ bool test_move( char const * an_str,
         CcMove * m = game__a->moves;
         CC_FASTFORWARD( m );
 
-        result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_ZERO_TERMINATED ) && result;
+        result = cc_str_is_equal( an_str, NULL, m->notation, NULL, CC_MAX_LEN_BUFFER ) && result;
         if ( !result ) result_at |= 0x8;
     } else {
         result = false;

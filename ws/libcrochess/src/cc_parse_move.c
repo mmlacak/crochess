@@ -67,7 +67,7 @@ static CcMaybeBoolEnum _cc_parse_standalone_status( char const * move_an,
             result = CC_MBE_False;
 
     if ( result == CC_MBE_False )
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Malformed standalone status, in move '%s'.\n", move_an );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Malformed standalone status, in move '%s'.\n", move_an );
 
     return result;
 }
@@ -151,7 +151,7 @@ static CcMaybeBoolEnum _cc_parse_move_status( char const * move_an,
             result = CC_MBE_False;
 
     if ( result == CC_MBE_False )
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Malformed (or standalone) move status '%s' encountered after plies; in move '%s'.\n", status_an, move_an );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Malformed (or standalone) move status '%s' encountered after plies; in move '%s'.\n", status_an, move_an );
 
     return result;
 }
@@ -173,7 +173,7 @@ bool cc_parse_move( char const * move_an,
             ( game->status == CC_GSE_None ) ? "Game is not initialized.\n"
                                             : "Game is finished.\n";
 
-        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg );
+        cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, msg );
         return false;
     }
 
@@ -182,7 +182,7 @@ bool cc_parse_move( char const * move_an,
     cc_uint_t board_size = cc_variant_board_size( game->chessboard->type );
     if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
 
-    CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_ZERO_TERMINATED, NULL, CC_MSE_None );
+    CcMove * move__t = cc_move__new( move_an, CC_MAX_LEN_BUFFER, NULL, CC_MSE_None );
     if ( !move__t ) return false;
 
     //

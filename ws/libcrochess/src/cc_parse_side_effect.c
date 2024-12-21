@@ -12,8 +12,8 @@ static bool _cc_fail_with_msg_unrecognized_piece_symbol( char piece_symbol,
                                                          char const * start_an,
                                                          char const * end_an,
                                                          CcParseMsg ** parse_msgs__iod ) {
-    char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Unrecognized piece symbol '%c' encountered, in '%s'.\n", piece_symbol, an__a );
+    char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Unrecognized piece symbol '%c' encountered, in '%s'.\n", piece_symbol, an__a );
     CC_FREE( an__a );
     return false;
 }
@@ -22,8 +22,8 @@ static bool _cc_fail_with_msg_in_step( char const * msg_fmt,
                                        char const * start_an,
                                        char const * end_an,
                                        CcParseMsg ** parse_msgs__iod ) {
-    char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, an__a );
+    char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, msg_fmt, an__a );
     CC_FREE( an__a );
     return false;
 }
@@ -36,8 +36,8 @@ static bool _cc_fail_with_msg_piece_in_side_effect( char const * msg_fmt,
                                                     char const * end_an,
                                                     CcParseMsg ** parse_msgs__iod ) {
     char const * piece_str = cc_piece_label( piece, capitalize, empty_field );
-    char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, piece_str, an__a );
+    char * an__a = cc_str_copy__new( start_an, end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, msg_fmt, piece_str, an__a );
     CC_FREE( an__a );
     return false;
 }

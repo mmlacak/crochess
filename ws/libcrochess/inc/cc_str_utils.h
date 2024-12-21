@@ -6,10 +6,13 @@
 
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdarg.h>
 
 
 #define CC_MAX_LEN_ZERO_TERMINATED (0)
+
+#define CC_MAX_LEN_BUFFER (BUFSIZ - 1)
 
 #define CC_SIZE_IGNORE (0)
 

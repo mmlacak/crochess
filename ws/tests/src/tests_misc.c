@@ -126,9 +126,9 @@ bool tests_str_append_into( void ) {
     printf( "---------------------\n" );
     p = test_str_append_into( x, p, BUFSIZ, " Hello, World!", 12 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, BUFSIZ, " bar", CC_MAX_LEN_ZERO_TERMINATED );
+    p = test_str_append_into( x, p, BUFSIZ, " bar", CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, CC_SIZE_IGNORE, " Goodbye, World!", CC_MAX_LEN_ZERO_TERMINATED );
+    p = test_str_append_into( x, p, CC_SIZE_IGNORE, " Goodbye, World!", CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
     p = test_str_append_into( x, p, CC_SIZE_IGNORE, " baz", 11 );
     printf( "---------------------\n" );
@@ -136,7 +136,7 @@ bool tests_str_append_into( void ) {
     printf( "---------------------\n" );
     p = test_str_append_into( x, p, 10, " Hello, again!", 12 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, 12, " Goodbye, again!", CC_MAX_LEN_ZERO_TERMINATED );
+    p = test_str_append_into( x, p, 12, " Goodbye, again!", CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
 
     return (bool)( p );
@@ -149,22 +149,22 @@ bool tests_str_len( void ) {
     bool result = true;
 
     printf( "---------------------\n" );
-    result = ( strlen( hello ) == cc_str_len( hello, NULL, CC_MAX_LEN_ZERO_TERMINATED ) ) && result;
-    printf( "Length hello: %lu == %zu --> %d.\n", strlen( hello ), cc_str_len( hello, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+    result = ( strlen( hello ) == cc_str_len( hello, NULL, CC_MAX_LEN_BUFFER ) ) && result;
+    printf( "Length hello: %lu == %zu --> %d.\n", strlen( hello ), cc_str_len( hello, NULL, CC_MAX_LEN_BUFFER ), result );
 
     printf( "---------------------\n" );
-    result = ( strlen( start ) == cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ) ) && result;
-    printf( "Length start: %lu == %zu --> %d.\n", strlen( start ), cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+    result = ( strlen( start ) == cc_str_len( start, NULL, CC_MAX_LEN_BUFFER ) ) && result;
+    printf( "Length start: %lu == %zu --> %d.\n", strlen( start ), cc_str_len( start, NULL, CC_MAX_LEN_BUFFER ), result );
 
     printf( "---------------------\n" );
-    result = ( strlen( end ) == cc_str_len( end, NULL, CC_MAX_LEN_ZERO_TERMINATED ) ) && result;
-    printf( "Length end: %lu == %zu --> %d.\n", strlen( end ), cc_str_len( end, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
+    result = ( strlen( end ) == cc_str_len( end, NULL, CC_MAX_LEN_BUFFER ) ) && result;
+    printf( "Length end: %lu == %zu --> %d.\n", strlen( end ), cc_str_len( end, NULL, CC_MAX_LEN_BUFFER ), result );
 
     printf( "---------------------\n" );
-    result = ( cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ) == 12 ) && result;
-    printf( "Len start: %zu --> %d.\n", cc_str_len( start, NULL, CC_MAX_LEN_ZERO_TERMINATED ), result );
-    result = ( cc_str_len( start, end, CC_MAX_LEN_ZERO_TERMINATED ) == 5 ) && result;
-    printf( "Len start, end: %zu --> %d.\n", cc_str_len( start, end, CC_MAX_LEN_ZERO_TERMINATED ), result );
+    result = ( cc_str_len( start, NULL, CC_MAX_LEN_BUFFER ) == 12 ) && result;
+    printf( "Len start: %zu --> %d.\n", cc_str_len( start, NULL, CC_MAX_LEN_BUFFER ), result );
+    result = ( cc_str_len( start, end, CC_MAX_LEN_BUFFER ) == 5 ) && result;
+    printf( "Len start, end: %zu --> %d.\n", cc_str_len( start, end, CC_MAX_LEN_BUFFER ), result );
 
     printf( "---------------------\n" );
     result = ( cc_str_len( start, NULL, 99 ) == 12 ) && result;

@@ -20,8 +20,8 @@
 static bool _cc_fail_with_msg_invalid_ply_link( char const * ply_start_an,
                                                 char const * ply_end_an,
                                                 CcParseMsg ** parse_msgs__iod ) {
-    char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Invalid ply separator in ply '%s'.\n", ply_str__a );
+    char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Invalid ply separator in ply '%s'.\n", ply_str__a );
     CC_FREE( ply_str__a );
     return false;
 }
@@ -31,8 +31,8 @@ static bool _cc_fail_with_msg_invalid_first_ply_link( CcPlyLinkTypeEnum plte,
                                                       char const * ply_end_an,
                                                       CcParseMsg ** parse_msgs__iod ) {
     char const * plte_str = cc_ply_link_type_symbol( plte );
-    char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found ply separator '%s', expected none in the first ply '%s'.\n", plte_str, ply_str__a );
+    char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Found ply separator '%s', expected none in the first ply '%s'.\n", plte_str, ply_str__a );
     CC_FREE( ply_str__a );
     return false;
 }
@@ -41,8 +41,8 @@ static bool _cc_fail_with_msg_invalid_piece_symbol( char piece_symbol,
                                                     char const * ply_start_an,
                                                     char const * ply_end_an,
                                                     CcParseMsg ** parse_msgs__iod ) {
-    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "Found invalid piece symbol '%c'; in ply '%s'.\n", piece_symbol, ply_an__a );
+    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Found invalid piece symbol '%c'; in ply '%s'.\n", piece_symbol, ply_an__a );
     CC_FREE( ply_an__a );
     return false;
 }
@@ -54,8 +54,8 @@ static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceType piece,
                                                      CcParseMsg ** parse_msgs__iod ) {
     char const * piece_str = cc_piece_as_string( piece, true, true );
     char const * ltt_str = cc_losing_tag_as_string( ltt, false, true );
-    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, "%s cannot lose %s tag; in ply '%s'.\n", piece_str, ltt_str, ply_an__a );
+    char * ply_an__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "%s cannot lose %s tag; in ply '%s'.\n", piece_str, ltt_str, ply_an__a );
     CC_FREE( ply_an__a );
     return false;
 }

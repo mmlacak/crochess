@@ -15,8 +15,8 @@ static bool _cc_fail_with_msg_in_step( char const * msg_fmt,
                                        char const * step_start_an,
                                        char const * step_end_an,
                                        CcParseMsg ** parse_msgs__iod ) {
-    char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_ZERO_TERMINATED );
-    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_ZERO_TERMINATED, msg_fmt, step_str__a );
+    char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, msg_fmt, step_str__a );
     CC_FREE( step_str__a );
     return false;
 }

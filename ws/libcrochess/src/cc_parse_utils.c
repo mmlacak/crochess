@@ -107,7 +107,7 @@ bool cc_iter_ply( char const * move_an_str,
     if ( !start__io ) return false;
     if ( !end__io ) return false;
 
-    char const * an_end = cc_str_end( move_an_str, NULL, CC_MAX_LEN_ZERO_TERMINATED );
+    char const * an_end = cc_str_end( move_an_str, NULL, CC_MAX_LEN_BUFFER );
     if ( !an_end ) return false;
 
     if ( ( *start__io && ( ( *start__io < move_an_str ) || ( an_end < *start__io ) ) ) ||

@@ -287,7 +287,7 @@ char * cc_ply_all_to_string__new( CcPly * plies ) {
             return NULL;
         }
 
-        char * end_steps = cc_str_append_into( s, unused_size, steps_str__a, CC_MAX_LEN_ZERO_TERMINATED );
+        char * end_steps = cc_str_append_into( s, unused_size, steps_str__a, CC_MAX_LEN_BUFFER );
 
         if ( !end_steps ) {
             CC_FREE( steps_str__a );

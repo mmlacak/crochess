@@ -81,13 +81,13 @@ CcStrings * cc_strings_append_fmt( CcStrings ** strings__iod_a,
 CcStrings * cc_strings_duplicate_all__new( CcStrings * strings ) {
     if ( !strings ) return NULL;
 
-    CcStrings * new__a = cc_strings__new( strings->str, CC_MAX_LEN_ZERO_TERMINATED );
+    CcStrings * new__a = cc_strings__new( strings->str, CC_MAX_LEN_BUFFER );
     if ( !new__a ) return NULL;
 
     CcStrings * s = strings->next;
 
     while ( s ) {
-        if ( !cc_strings_append( &new__a, s->str, CC_MAX_LEN_ZERO_TERMINATED ) ) {
+        if ( !cc_strings_append( &new__a, s->str, CC_MAX_LEN_BUFFER ) ) {
             cc_strings_free_all( &new__a );
             return NULL; }
 
