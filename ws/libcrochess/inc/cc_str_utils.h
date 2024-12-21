@@ -12,7 +12,7 @@
 
 #define CC_MAX_LEN_ZERO_TERMINATED (0)
 
-#define CC_MAX_LEN_BUFFER (BUFSIZ - 1)
+#define CC_MAX_LEN_BUFFER (8191) // (BUFSIZ - 1) isn't good; BUFSIZ varies, and could be < 256.
 
 #define CC_SIZE_IGNORE (0)
 
