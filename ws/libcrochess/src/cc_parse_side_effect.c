@@ -154,12 +154,11 @@ bool cc_parse_side_effect( char const * side_effect_an,
             } else if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
 
-            CcPieceType piece =
-                piece_found ? cc_piece_from_symbol( piece_symbol, is_turn_light )
-                            : cc_piece_from_symbol( 'R', is_turn_light );
+            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light );
 
-            if ( !CC_PIECE_IS_ROOK( piece ) )
-                return _cc_fail_with_msg_piece_in_side_effect( "Only Rooks can castle with their King, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
+            if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
+                if ( !CC_PIECE_IS_ROOK( piece ) )
+                    return _cc_fail_with_msg_piece_in_side_effect( "Only Rooks can castle with their King, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
