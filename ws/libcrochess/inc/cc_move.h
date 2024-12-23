@@ -35,11 +35,10 @@ typedef enum CcMoveStatusEnum {
                                                     ( (mse) == CC_MSE_Check_DrawOffer_Revoked ) )
 
 
-
 typedef struct CcMove {
     char * notation;
     CcPly * plies;
-    // CcChessboard * cb; // TODO :: if adding, pieces and tags enums **should** be based on char, not int
+    // CcChessboard * cb; // todo :: rethink :: add (?)
     CcMoveStatusEnum status;
 
     struct CcMove * prev__w;

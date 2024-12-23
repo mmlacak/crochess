@@ -189,8 +189,6 @@ bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o ) 
     if ( islower( *p ) ) {
         if ( !file__o ) return false;
 
-        // TODO :: check *p
-
         *file__o = CC_CONVERT_FILE_CHAR_INTO_NUM( *p++ );
     } else
         *file__o = CC_INVALID_COORD;
@@ -202,8 +200,6 @@ bool cc_convert_coords( char const * pos_an_str, int * file__o, int * rank__o ) 
         if ( isdigit( *c ) ) return false; // max len of rank is 2
 
         if ( !rank__o ) return false;
-
-        // TODO :: check *p
 
         *rank__o = CC_CONVERT_RANK_STR_INTO_NUM( p );
     } else

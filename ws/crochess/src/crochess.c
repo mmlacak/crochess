@@ -113,10 +113,10 @@ int main( void ) {
 
                 CcParseMsg * pm__a = NULL;
 
-// TODO
+// todo
                 // if ( cc_apply_move( an_str, game__a, &pm__a ) )
                 // {
-                //     // TODO :: TEMP :: uncomment (?)
+                //     // todo :: TEMP :: uncomment (?)
                 //     // cc_chessboard_print( game__a->chessboard, true );
                 // }
                 // else
@@ -128,7 +128,7 @@ int main( void ) {
                 //         p = p->next;
                 //     }
                 // }
-// TODO
+// todo
 
                 cc_parse_msg_free_all( &pm__a );
             }

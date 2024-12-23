@@ -189,12 +189,11 @@ int main( void ) {
                 CcParseMsg * pm__a = NULL;
                 CcMove * move__a = NULL;
 
-// TODO :: parse --> do apply
-//
+// todo :: parse --> do apply
                 if ( cc_parse_move( an_str, game__a, &move__a, &pm__a ) ) {
                     printf( "Move: '%s'.\n", move__a->notation );
 
-                    // TODO :: TEMP :: uncomment (?)
+                    // TEMP :: DEBUG :: un/comment (?)
                     // cc_chessboard_print( game__a->chessboard, true );
                 } else {
                     CcParseMsg * p = pm__a;
@@ -203,8 +202,7 @@ int main( void ) {
                         p = p->next;
                     }
                 }
-//
-// TODO :: parse --> do apply
+// todo :: parse --> do apply
 
                 cc_move_free_all( &move__a );
                 cc_parse_msg_free_all( &pm__a );

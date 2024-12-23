@@ -5,7 +5,7 @@
 // #include <stdarg.h>
 
 // #include <string.h>
-// #include <stdio.h> // TODO :: TEMP :: DEBUG :: printf
+// #include <stdio.h> // TEMP :: DEBUG :: printf
 
 #include "cc_rules_misc.h"
 #include "cc_parse_ply.h"
@@ -218,13 +218,13 @@ bool cc_parse_move( char const * move_an,
     }
 
 
-    // { // TODO :: DEBUG :: DELETE
+    // { // DEBUG :: DELETE
     //     char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
     //     cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
 
     //     CC_FREE( plies_str__a );
-    // } // TODO :: DEBUG :: DELETE
+    // } // DEBUG :: DELETE
 
 
     move__t->plies = plies__t; // Ownership transfer.

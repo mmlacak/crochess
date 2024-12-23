@@ -152,13 +152,13 @@ bool cc_parse_plies( char const * move_an,
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
 
-            printf( "!_cc_parse_ply( ... )\n" ); // TODO :: DEBUG :: DELETE
+            printf( "!_cc_parse_ply( ... )\n" ); // DEBUG :: DELETE
 
             return false;
         }
 
 
-        { // TODO :: DEBUG :: DELETE
+        { // DEBUG :: DELETE
             char * plies_str__a = cc_ply_all_to_string__new( ply__t );
 
             // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
@@ -166,7 +166,7 @@ bool cc_parse_plies( char const * move_an,
             printf( "...\n" );
 
             CC_FREE( plies_str__a );
-        } // TODO :: DEBUG :: DELETE
+        } // DEBUG :: DELETE
 
 
         if ( !cc_ply_extend( &plies__t, &ply__t ) ) {
@@ -179,14 +179,14 @@ bool cc_parse_plies( char const * move_an,
     }
 
 
-    { // TODO :: DEBUG :: DELETE
+    { // DEBUG :: DELETE
         char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
         cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
         printf( "---\n" );
 
         CC_FREE( plies_str__a );
-    } // TODO :: DEBUG :: DELETE
+    } // DEBUG :: DELETE
 
 
     *plies__o = plies__t; // Ownership transfer.

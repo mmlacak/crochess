@@ -61,9 +61,7 @@ bool test_parse( char const * an_str,
     printf( "---\n" );
 
     if ( ( result = cc_parse_move( an_str, game__a, &parsed__a, &pm__a ) && result ) ) {
-        // TODO :: add stringify move notation to libcrochess
-
-        // TODO :: add stringify move properties to libcrochess
+        // todo :: add stringify move into notation to libcrochess
 
         printf( "Parsed: %s.\n", parsed__a->notation );
     } else {

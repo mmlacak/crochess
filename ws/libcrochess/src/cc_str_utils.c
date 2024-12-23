@@ -567,8 +567,7 @@ char * cc_str_append_fmt__new( char ** str__d_f,
     return str__a;
 }
 
-// TODO :: (?) move / return newly allocated string (?)
-//
+// todo :: (?) move / return newly allocated string (?)
 bool cc_str_print( char const * start,
                    char const * end__d,
                    size_t max_len__d,
@@ -616,5 +615,4 @@ bool cc_str_print( char const * start,
 #endif // __CC_STR_PRINT_INFO__
 
 }
-//
-// TODO :: (?) move / return newly allocated string (?)
+// todo :: (?) move / return newly allocated string (?)

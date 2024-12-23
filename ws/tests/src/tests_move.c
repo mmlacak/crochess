@@ -44,7 +44,7 @@ bool test_move( char const * an_str,
     cc_uint_t result_at = 0x0;
     CcParseMsg * pm__a = NULL;
 
-    // TODO :: TEMP :: un/comment (?)
+    // TEMP :: DEBUG :: un/comment (?)
     cc_chessboard_print( game__a->chessboard, true );
     cc_chessboard_print( game__a->chessboard, false );
 
@@ -58,10 +58,10 @@ bool test_move( char const * an_str,
         cc_game_free_all( &setup__a );
     }
 
-// TODO
+// todo
     // if ( ( result = cc_apply_move( an_str, game__a, &pm__a ) && result ) )
     // {
-    //     // TODO :: TEMP :: un/comment (?)
+    //     // TEMP :: DEBUG :: un/comment (?)
     //     cc_chessboard_print( game__a->chessboard, true );
     //     cc_chessboard_print( game__a->chessboard, false );
     // }
@@ -76,7 +76,7 @@ bool test_move( char const * an_str,
     //         p = p->next;
     //     }
     // }
-// TODO
+// todo
 
     if ( check_end__d ) {
         CcGame * end__a = cc_game_setup_from_string__new( check_end__d, before_setup );

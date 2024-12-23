@@ -592,7 +592,7 @@ bool cc_iter_piece_steps( CcPieceType piece,
                               : CC_ITER_UNICORN_LONG_STEPS( step__iod, filter__d );
 
         case CC_PE_DarkWave :
-        case CC_PE_LightWave : return false; // TODO :: activator
+        case CC_PE_LightWave : return false; // todo :: activator (?), new function (?)
 
         case CC_PE_DarkCentaur :
         case CC_PE_LightCentaur :

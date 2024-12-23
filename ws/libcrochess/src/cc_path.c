@@ -251,7 +251,7 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
     size_t str_size = 4 // 4 == '*' or '|' + ' ' + '\n' at the end of line + '\0' at the end of string
                     + depth_size // for padding
                     + 4 * len; // 4 == '.' + <file char> + 2 <rank chars>, <momentum> is disregarded
-    // TODO :: maybe add <momentum> (?)
+    // todo :: rethink :: maybe add <momentum> (?)
     size_t unused = str_size;
 
     if ( str_end < ( str_start__io + str_size ) ) return NULL;

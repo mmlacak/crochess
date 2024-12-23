@@ -6,7 +6,7 @@
 #include "cc_checks.h"
 
 
-// // TODO :: REDO
+// // todo :: REDO
 // CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
 //                                                  CcTagType tag,
 //                                                  cc_uint_t * momentum__io ) {
