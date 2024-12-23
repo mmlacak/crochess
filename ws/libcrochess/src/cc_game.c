@@ -53,14 +53,27 @@ CcGame * cc_game__new( CcGameStatusEnum status,
         return NULL;
     }
 
-    gm__a->en_passant = CC_POS_DESC_CAST_INVALID;
-    gm__a->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
-    gm__a->starting_piece = CC_POS_DESC_CAST_INVALID;
-    gm__a->starting_pos = CC_POS_CAST_INVALID;
+    if ( !cc_game_reset_flags( gm__a, true ) ) {
+        CC_FREE( gm__a );
+        return NULL;
+    }
 
     gm__a->moves = NULL;
 
     return gm__a;
+}
+
+bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant ) {
+    if ( !game__io ) return false;
+
+    if ( reset_en_passant )
+        game__io->en_passant = CC_POS_DESC_CAST_INVALID;
+
+    game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
+    game__io->starting_piece = CC_POS_DESC_CAST_INVALID;
+    game__io->starting_pos = CC_POS_CAST_INVALID;
+
+    return true;
 }
 
 CcGame * cc_game_duplicate_all__new( CcGame * game ) {

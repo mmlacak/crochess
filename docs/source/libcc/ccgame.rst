@@ -119,23 +119,24 @@ Types
 
     .. c:member:: CcPosDesc en_passant
 
-        A private at its destination after rushing.
+        Flag, a private at its destination after rushing.
         Resets after the very next move.
 
     .. c:member:: CcPosDesc pawn_sacrifice
 
-        A Serpent at its current position, after Pawn-sacrifice, before capturing
-        opponent's Pawns. Resets immediately at the end of a current move.
+        Flag, a Serpent at its current position, after Pawn-sacrifice, before
+        capturing opponent's Pawns.
+        Resets immediately at the end of a current move.
 
     .. c:member:: CcPosDesc starting_piece
 
-        A piece starting a cascade, at its current position. Resets immediately
-        at the end of a current move.
+        Flag, a piece starting a cascade, at its current position.
+        Resets immediately at the end of a current move.
 
     .. c:member:: CcPos starting_pos
 
-        A starting position of a piece starting a cascade. Resets immediately
-        at the end of a current move.
+        Flag, a starting position of a piece starting a cascade.
+        Resets immediately at the end of a current move.
 
     .. c:member:: CcMove * moves
 
@@ -161,6 +162,22 @@ Functions
     :param do_setup: Flag, if start from initial setup (:c:data:`true`),
                      or from manually set-up position (:c:data:`false`).
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant )
+
+    Resets flags in a given game.
+
+    Flags in a :c:struct:`CcGame` are:
+
+        * :c:member:`en_passant`,
+        * :c:member:`pawn_sacrifice`,
+        * :c:member:`starting_piece`,
+        * :c:member:`starting_pos`.
+
+    :param game__io: Game to reset flags.
+    :param reset_en_passant: Whether to reset :c:member:`en_passant` flag
+        (if :c:data:`true`), or not (if :c:data:`false`).
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: CcGame * cc_game_duplicate_all__new( CcGame * game )
 
