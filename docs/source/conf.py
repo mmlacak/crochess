@@ -26,10 +26,10 @@ copyright = '2021, Mario Mlačak'
 author = 'Mario Mlačak'
 
 # The short X.Y version
-version = "0.0.1.42:1221+20241223.103322"   # docs-new-lib-short-version-major-minor-feature-commit+meta~breaks-place-marker
+version = "0.0.1.43:1222+20241223.115241"   # docs-new-lib-short-version-major-minor-feature-commit+meta~breaks-place-marker
 
 # The full version, including alpha/beta/rc tags
-release = "0.0.1.42:1221+20241223.103322"   # docs-new-lib-full-version-major-minor-feature-commit+meta~breaks-place-marker
+release = "0.0.1.43:1222+20241223.115241"   # docs-new-lib-full-version-major-minor-feature-commit+meta~breaks-place-marker
 
 
 # -- General configuration ---------------------------------------------------

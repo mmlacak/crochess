@@ -141,23 +141,30 @@ Functions
     :param end__io: *Input/output*; end of a found ply.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an, char * piece_symbol__o, bool default_to_pawn )
+.. c:function:: CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an, bool optional, bool default_to_pawn, char * piece_symbol__o )
 
-    Function checks piece symbol in given notation, and outputs findings via
-    *output* parameter.
+    Function checks piece symbol (upper-case :c:`char`\acter) in given notation,
+    outputs findings via *output* parameter; returns :c:enumerator:`CC_MBE_True`
+    or :c:enumerator:`CC_MBE_False`, depending on validity of a piece symbol
+    produced in output.
 
-    If there is no piece symbol (upper-case :c:`char`\acter), depending on
-    :c:`default_to_pawn` flag, function outputs ``'P'``, or ``' '``.
+    If there is no optional piece symbol (i.e. if :c:`optional` flag is set),
+    function outputs ``' '`` as piece symbol, and returns :c:enumerator:`CC_MBE_True`.
+
+    If there is no mandatory piece symbol (:c:`optional` flag not set), depending
+    on :c:`default_to_pawn` flag, function outputs ``'P'``, or ``' '``.
 
     :param piece_an: Notation, points at piece symbol;
         null-terminated, :term:`AN` string.
-    :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
+    :param optional: Flag, whether piece symbol is optional.
     :param default_to_pawn: Flag, if there is no upper-case :c:`char`, should
         this be interpreted as Pawn.
+    :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
-        * :c:enumerator:`CC_MBE_True` if valid piece symbol was found,
-        * :c:enumerator:`CC_MBE_False` if upper-case :c:`char` was encountered, which is not valid piece symbol,
+        * :c:enumerator:`CC_MBE_True` if valid piece symbol was found, or is optional,
+        * :c:enumerator:`CC_MBE_False` if upper-case :c:`char` was encountered,
+            which is not valid piece symbol,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: CcLosingTagType cc_parse_losing_tag( char const * lt_an_str )

@@ -134,17 +134,21 @@ bool cc_iter_ply( char const * move_an_str,
 
 
 CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
-                                       char * piece_symbol__o,
-                                       bool default_to_pawn ) {
+                                       bool optional,
+                                       bool default_to_pawn,
+                                       char * piece_symbol__o ) {
     if ( !piece_an ) return CC_MBE_Void;
     if ( !piece_symbol__o ) return CC_MBE_Void;
 
     char const * p = piece_an;
 
-    if ( isupper( *p ) ) // <!> Usage of cc_piece_symbol_is_valid() here is bug,
-                         //     all other upper chars would end as Pawns.
+    if ( isupper( *p ) ) { // <!> Usage of cc_piece_symbol_is_valid() here is bug,
+                           //     all other upper chars would end as Pawns.
         *piece_symbol__o = *p;
-    else
+    } else if ( optional ) {
+        *piece_symbol__o = ' ';
+        return CC_MBE_True;
+    } else
         *piece_symbol__o = default_to_pawn ? 'P'
                                            : ' ';
 

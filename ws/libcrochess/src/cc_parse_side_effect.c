@@ -69,7 +69,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Capture : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -90,7 +90,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Displacement : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -119,7 +119,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_EnPassant : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -145,14 +145,18 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Castle : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, true, false, &piece_symbol );
+            bool piece_found = ( piece_symbol != ' ' );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_True ) {
+                if ( piece_found )
+                    ++se_an;
+            } else if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcPieceType piece =
+                piece_found ? cc_piece_from_symbol( piece_symbol, is_turn_light )
+                            : cc_piece_from_symbol( 'R', is_turn_light );
 
             if ( !CC_PIECE_IS_ROOK( piece ) )
                 return _cc_fail_with_msg_piece_in_side_effect( "Only Rooks can castle with their King, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
@@ -172,7 +176,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Promotion : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -195,7 +199,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Conversion : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -217,7 +221,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Transparency : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -234,7 +238,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Divergence : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -251,7 +255,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_DemoteToPawn : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;
@@ -284,7 +288,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
         } case CC_SETE_Resurrection : // Intentional fall-through ...
         case CC_SETE_ResurrectingOpponent : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, &piece_symbol, true );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, false, true, &piece_symbol );
 
             if ( result == CC_MBE_True )
                 ++se_an;

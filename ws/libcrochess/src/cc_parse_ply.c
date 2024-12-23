@@ -88,7 +88,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
     char piece_symbol = ' ';
 
-    if ( cc_fetch_piece_symbol( c_an, &piece_symbol, true ) != CC_MBE_True )
+    if ( cc_fetch_piece_symbol( c_an, false, true, &piece_symbol ) != CC_MBE_True )
         return _cc_fail_with_msg_invalid_piece_symbol( *c_an, ply_start_an, ply_end_an, parse_msgs__iod );
 
     CcPieceType pt_an = cc_piece_from_symbol( piece_symbol, is_turn_light ); // Piece type should be correct, but color (owner) might not be, if activating opponent's pieces (if not first ply).

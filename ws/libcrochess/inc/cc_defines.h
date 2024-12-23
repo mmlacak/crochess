@@ -106,7 +106,7 @@ typedef enum CcMaybeBoolEnum {
       ( (int)(rank) < (int)(board_size) ) )
 
 
-#define CC_DEFAULT_VALUE_STRING "?" // [i] Step link and losing tag symbols have max len of 2.
+#define CC_DEFAULT_VALUE_STRING "?" // [?] Step link and losing tag symbols have max len of 2.
 
 #define CC_REWIND(ptr_var_queue) { while ( (ptr_var_queue)->prev__w ) (ptr_var_queue) = (ptr_var_queue)->prev__w; }
 

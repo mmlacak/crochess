@@ -97,7 +97,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
     if ( momentum == 0 ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_WAVE( piece ) ) {
-        // [i] Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
+        // [?] Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
         // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return CC_MBE_False;
 
         if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return CC_MBE_False;
@@ -155,7 +155,7 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     cc_uint_t momentum = 1;
 
     do {
-        // [i] Rook is semi-opaque just like King, so it's enough to check only King
+        // [?] Rook is semi-opaque just like King, so it's enough to check only King
         //     against all fields in-between the two.
         if ( cc_check_piece_is_blocked_at( cb, king, current ) == CC_MBE_True )
             return CC_MBE_False;
