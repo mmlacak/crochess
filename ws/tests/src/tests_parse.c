@@ -183,12 +183,12 @@ bool tests_skip_disambiguation( int test_number ) {
     if ( do_all_tests ) {
         while ( an ) {
             char const * no_dis = cc_skip_disambiguation( an );
-            printf( "%s.\n", no_dis );
+            printf( "%s --> %s.\n", an, no_dis );
             an = ans[ ++index ];
         };
     } else {
         char const * no_dis = cc_skip_disambiguation( an );
-        printf( "%s.\n", no_dis );
+        printf( "%s --> %s.\n", an, no_dis );
     }
 
     return true;

@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.40:1219+20241221.034919"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.41:1220+20241223.090050"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -319,8 +319,8 @@ int main( void ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tt", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_temp", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
-            // tests_skip_disambiguation( test_number );
-            tests_next_ply_link( test_number );
+            tests_skip_disambiguation( test_number );
+            // tests_next_ply_link( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );

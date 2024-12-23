@@ -269,7 +269,6 @@ bool cc_parse_pos( char const * pos_an_str,
     return true;
 }
 
-// TODO :: TEST :: FIX
 char const * cc_skip_disambiguation( char const * pos_an_str ) {
     if ( !pos_an_str ) return NULL;
 
@@ -305,8 +304,8 @@ char const * cc_skip_disambiguation( char const * pos_an_str ) {
         }
     }
 
-    // Function returns valid pointer **only** if disambiguation has been skipped.
-    return NULL; // Do not return an_str!
+    // [?] Function returns valid pointer **only** if disambiguation has been skipped.
+    return NULL; // <!> Do not return an_str!
 }
 
 CcMaybeBoolEnum cc_ply_has_separated_steps( char const * ply_an_str,
