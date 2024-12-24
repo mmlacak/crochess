@@ -88,7 +88,7 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS( "B.d1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Single dot in front of a starting field.
     TEST_ARGS( "B..d1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Double dot in front of a starting field.
     TEST_ARGS( "B-d1..h5", _setup_simple, NULL, _setup_simple, TEST_FAIL ), // Ending dash in front of a starting field.
-    TEST_ARGS( "B-f3..h5", _setup_simple, NULL, _end_simple, TEST_FAIL ), // Ending dash in the middle of a path.
+    TEST_ARGS( "B..d1-f3..h5", _setup_simple, NULL, _end_simple, TEST_FAIL ), // Ending dash in the middle of a path.
 
     // simple cascading
     TEST_ARGS( "Bh5~Wk2~Ro2", "O Bd1,Bl1,Wh5,Rk2", NULL, "o Bh5,Bl1,Wk2,Ro2", TEST_OK ),

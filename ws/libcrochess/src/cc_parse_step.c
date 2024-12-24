@@ -35,6 +35,12 @@ static bool _cc_parse_step( char const * step_start_an,
     if ( !step__o || *step__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
+    // TODO :: FIX :: B-h5
+
+    // TODO :: FIX :: B-d1..h5
+
+    // TODO :: FIX :: B..d1-f3..h5
+
     char const * step_an = step_start_an;
     CcSideEffect se = cc_side_effect_none();
 
