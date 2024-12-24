@@ -134,8 +134,7 @@ bool cc_iter_ply( char const * move_an_str,
 
 
 CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
-                                       bool optional,
-                                       bool default_to_pawn,
+                                       CcMaybeBoolEnum optional_to_pawn,
                                        char * piece_symbol__o ) {
     if ( !piece_an ) return CC_MBE_Void;
     if ( !piece_symbol__o ) return CC_MBE_Void;
@@ -145,15 +144,21 @@ CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
     if ( isupper( *p ) ) { // <!> Usage of cc_piece_symbol_is_valid() here is bug,
                            //     all other upper chars would end as Pawns.
         *piece_symbol__o = *p;
-    } else if ( optional ) {
-        *piece_symbol__o = ' ';
-        return CC_MBE_True;
+        return cc_piece_symbol_is_valid( *piece_symbol__o );
     } else
-        *piece_symbol__o = default_to_pawn ? 'P'
-                                           : ' ';
-
-    return cc_piece_symbol_is_valid( *piece_symbol__o ) ? CC_MBE_True
-                                                        : CC_MBE_False;
+        switch ( optional_to_pawn ) {
+            case CC_MBE_True : {
+                *piece_symbol__o = 'P';
+                return CC_MBE_True;
+            } case CC_MBE_False : {
+                *piece_symbol__o = ' ';
+                return CC_MBE_True;
+            } case CC_MBE_Void : {
+                *piece_symbol__o = ' ';
+                return CC_MBE_False;
+            } default :
+                return CC_MBE_Void;
+        };
 }
 
 CcLosingTagType cc_parse_losing_tag( char const * lt_an_str ) {

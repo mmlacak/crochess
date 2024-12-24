@@ -42,8 +42,7 @@ bool cc_iter_ply( char const * move_an_str,
 
 
 CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
-                                       bool optional,
-                                       bool default_to_pawn,
+                                       CcMaybeBoolEnum optional_to_pawn,
                                        char * piece_symbol__o );
 
 CcLosingTagType cc_parse_losing_tag( char const * lt_an_str );
