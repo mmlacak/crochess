@@ -149,12 +149,12 @@ Functions
 
     If there is no upper-case :c:`char` in a given notation, :c:var:`optional_to_pawn` flag determines outcome:
 
-        * :c:enumerator:`CC_MBE_True` if piece symbol is optional, converted to ``'P'``, returns :c:enumerator:`CC_MBE_True`
-        * :c:enumerator:`CC_MBE_False` if piece symbol is optional, kept as ``' '``, returns :c:enumerator:`CC_MBE_True`
-        * :c:enumerator:`CC_MBE_Void` if piece symbol is mandatory (also kept as ``' '``), returns :c:enumerator:`CC_MBE_False`.
+        * :c:enumerator:`CC_MBE_True` if piece symbol is optional, defaulted to ``'P'``, returns :c:enumerator:`CC_MBE_True`
+        * :c:enumerator:`CC_MBE_False` if piece symbol is optional, set  to ``' '``, returns :c:enumerator:`CC_MBE_True`
+        * :c:enumerator:`CC_MBE_Void` if piece symbol is mandatory (also set to ``' '``), returns :c:enumerator:`CC_MBE_False`.
 
     :param piece_an: Notation, points at piece symbol; null-terminated, :term:`AN` string.
-    :param optional_to_pawn: Flag, whether piece symbol is optional, and if it should default to Pawn (i.e. ``'P'``) if not found.
+    :param optional_to_pawn: Flag, whether piece symbol is optional, and if should it default to Pawn (i.e. ``'P'``) if not found.
     :param piece_symbol__o: *Output*; pointer to piece symbol :c:`char`.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 

@@ -1,6 +1,8 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <ctype.h>
+
 #include "cc_setup_misc.h"
 
 #include "cc_checks.h"
@@ -69,18 +71,21 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Capture : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be captured, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( cc_piece_symbol_is_valid( *se_an ) )
+                ++se_an;
 
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             // char const * promo_an = se_an + cc_losing_tag_len( ltt );
@@ -90,18 +95,21 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Displacement : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be displaced, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( cc_piece_symbol_is_valid( *se_an ) )
+                ++se_an;
 
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             char const * pos_an = se_an + cc_losing_tag_len( ltt );
@@ -121,16 +129,19 @@ bool cc_parse_side_effect( char const * side_effect_an,
             char piece_symbol = ' ';
             CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "Only privates can be captured en passant, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( cc_piece_symbol_is_valid( *se_an ) )
+                ++se_an;
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
@@ -146,13 +157,11 @@ bool cc_parse_side_effect( char const * side_effect_an,
         } case CC_SETE_Castle : {
             char piece_symbol = ' ';
             CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
-            bool piece_found = cc_piece_symbol_is_valid( piece_symbol );
 
-            if ( result == CC_MBE_True ) {
-                if ( piece_found )
-                    ++se_an;
-            } else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light );
 
@@ -160,10 +169,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 if ( !CC_PIECE_IS_ROOK( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "Only Rooks can castle with their King, %s encountered, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
 
+            if ( cc_piece_symbol_is_valid( *se_an ) )
+                ++se_an;
+
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
+            if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) ) // TODO :: FIX :: s "O Kn1C,Rb1C,Ry1C,kn26C,rb26C,ry26C" --> m Kf&
                 return _cc_fail_with_msg_in_step( "Error parsing Rook castling destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
             // se_an = pos_end_an; // <!> Not used below, so ...
@@ -175,21 +187,23 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Promotion : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_Void, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
-                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result == CC_MBE_Void )
-                return _cc_fail_with_msg_in_step( "Figure to which Pawn has been promoted to is mandatory, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
-            else
-                return false; // cc_fetch_piece_symbol() returned some garbage?
+            if ( result == CC_MBE_False )
+                if ( isupper( piece_symbol ) )
+                    return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+                else
+                    return _cc_fail_with_msg_in_step( "Figure to which Pawn has been promoted to is mandatory, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PAWN_CAN_BE_PROMOTED_TO( piece ) ) // Piece is not optional here, so no need to check if it's valid.
                 return _cc_fail_with_msg_piece_in_side_effect( "Pawns can't be promoted to %s, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            // if ( cc_piece_symbol_is_valid( *se_an ) ) // [?] Not used anymore, not needed.
+            //     ++se_an;
 
             *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, piece );
             return true;
@@ -198,12 +212,12 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Conversion : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
@@ -213,6 +227,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "Piece %s can't be converted, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
+            // if ( cc_piece_symbol_is_valid( *se_an ) ) // [?] Not used anymore, not needed.
+            //     ++se_an;
+
             *side_effect__o = cc_side_effect_convert( piece, ltt );
             return true;
         } case CC_SETE_FailedConversion : {
@@ -220,12 +237,12 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_Transparency : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
@@ -233,16 +250,19 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 if ( CC_PIECE_IS_OPAQUE( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "%s is opaque, expected transparent piece, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
+            // if ( cc_piece_symbol_is_valid( *se_an ) ) // [?] Not used anymore, not needed.
+            //     ++se_an;
+
             *side_effect__o = cc_side_effect_transparency( piece );
             return true;
         } case CC_SETE_Divergence : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
@@ -250,24 +270,31 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 if ( !CC_PIECE_IS_DIVERGENT( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "%s is not divergent, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
+            // if ( cc_piece_symbol_is_valid( *se_an ) ) // [?] Not used anymore, not needed.
+            //     ++se_an;
+
             *side_effect__o = cc_side_effect_diversion( piece );
             return true;
         } case CC_SETE_DemoteToPawn : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
+            if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True )
+                return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
-            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
-            char const * pos_an = se_an + cc_losing_tag_len( ltt );
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_DEMOTED( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "%s can't be demoted, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( cc_piece_symbol_is_valid( *se_an ) )
+                ++se_an;
+
+            CcLosingTagType ltt = cc_parse_losing_tag( se_an );
+            char const * pos_an = se_an + cc_losing_tag_len( ltt );
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
@@ -276,7 +303,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 if ( !CC_IS_DISAMBIGUATION_ON_BOARD( board_size, pos.i, pos.j ) ) // If demoting position is given, at least one coordinate must be valid.
                     return _cc_fail_with_msg_in_step( "If demoting position is given, it must be valid disambiguation, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            // se_an = pos_end_an; // <!> Not used below, so ...
+            // se_an = pos_end_an; // [?] Not used below, so not needed.
 
             if ( !( CC_PIECE_IS_VALID( piece ) ||
                     CC_IS_DISAMBIGUATION_ON_BOARD( board_size, pos.i, pos.j ) ) ) // Either piece or demoting disambiguation has to be given.
@@ -287,16 +314,15 @@ bool cc_parse_side_effect( char const * side_effect_an,
         } case CC_SETE_Resurrection : // Intentional fall-through ...
         case CC_SETE_ResurrectingOpponent : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_Void, &piece_symbol );
 
-            if ( result == CC_MBE_True )
-                ++se_an;
-            else if ( result == CC_MBE_False )
-                return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result == CC_MBE_Void )
-                return _cc_fail_with_msg_in_step( "Figure to which Pawn has been promoted to is mandatory, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
-            else
-                return false; // cc_fetch_piece_symbol() returned some garbage?
+            if ( result == CC_MBE_False )
+                if ( isupper( piece_symbol ) )
+                    return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
+                else
+                    return _cc_fail_with_msg_in_step( "Resurrected piece is mandatory, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
+                return false;
 
             bool is_light = ( sete == CC_SETE_ResurrectingOpponent ) ? is_opponent_light
                                                                      : is_turn_light;
@@ -305,6 +331,9 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) // Piece is not optional here, so no need to check if it's valid.
                 return _cc_fail_with_msg_piece_in_side_effect( "%s can't be resurrected, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( cc_piece_symbol_is_valid( *se_an ) )
+                ++se_an;
 
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
