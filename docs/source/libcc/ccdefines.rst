@@ -207,6 +207,14 @@ Coordinates
     Light and dark field check constants are used when checking if colors
     of a piece and field are the same, or different.
 
+.. c:macro:: CC_IS_CHAR_COORD(chr)
+
+    Macro to check if a given :c:var:`chr` is notational coordinate, either lowercase
+    :c:`char` or a digit.
+
+    :param chr: :c:`char`\acter to check.
+    :returns: ``1`` if coordinate, ``0`` otherwise.
+
 .. _lbl-libcc-ccdefines-conversions:
 
 Conversions

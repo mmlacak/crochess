@@ -4,8 +4,9 @@
 #ifndef __CC_DEFINES_H__
 #define __CC_DEFINES_H__
 
-#include "stdbool.h"
-#include "limits.h"
+#include <stdbool.h>
+#include <ctype.h>
+#include <limits.h>
 
 
 typedef signed char cc_schar_t;
@@ -60,6 +61,8 @@ typedef enum CcMaybeBoolEnum {
 #define CC_FIELD_COLOR_LIGHT (1)
 
 #define CC_FIELD_COLOR_DARK (0)
+
+#define CC_IS_CHAR_COORD(chr) ( islower(chr) || isdigit(chr) )
 
 
 #define CC_CONVERT_BYTE_INTO_FILE_CHAR(byte_file) ( 'a' + (byte_file) )

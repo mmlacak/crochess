@@ -1,7 +1,7 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include <ctype.h>
+// #include <ctype.h>
 
 #include "cc_setup_misc.h"
 
@@ -75,7 +75,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
@@ -99,7 +99,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
@@ -127,11 +127,11 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_EnPassant : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_True, &piece_symbol );
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol ); // [?] In addition to Pawns, in later variants Scouts and Grenadiers can be en passant-ed, too.
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
@@ -146,11 +146,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
-                return _cc_fail_with_msg_in_step( "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            if ( CC_IS_CHAR_COORD( *se_an ) ) { // Position is optional.
+                if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
+                    return _cc_fail_with_msg_in_step( "Error parsing en passant location, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            if ( !CC_IS_COORD_ON_BOARD( board_size, pos.j ) ) // If location is given, at least rank must be valid.
-                return _cc_fail_with_msg_in_step( "If en passant location is given, at least rank must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+                if ( !CC_IS_COORD_ON_BOARD( board_size, pos.j ) ) // If location is given, at least rank must be valid.
+                    return _cc_fail_with_msg_in_step( "If en passant location is given, at least rank must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            }
 
             *side_effect__o = cc_side_effect_en_passant( piece, pos );
             return true;
@@ -160,7 +162,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light );
@@ -175,13 +177,15 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) ) // TODO :: FIX :: s "O Kn1C,Rb1C,Ry1C,kn26C,rb26C,ry26C" --> m Kf&
-                return _cc_fail_with_msg_in_step( "Error parsing Rook castling destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            if ( CC_IS_CHAR_COORD( *se_an ) ) { // Position is optional.
+                if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) ) // TODO :: FIX :: s "O Kn1C,Rb1C,Ry1C,kn26C,rb26C,ry26C" --> m Kf&
+                    return _cc_fail_with_msg_in_step( "Error parsing Rook castling destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            // se_an = pos_end_an; // <!> Not used below, so ...
+                // se_an = pos_end_an; // <!> Not used below, so ...
 
-            if ( !CC_IS_COORD_ON_BOARD( board_size, pos.i ) ) // If Rook castling destination is given, at least file must be valid.
-                return _cc_fail_with_msg_in_step( "If Rook castling destination is given, at least file must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+                if ( !CC_IS_COORD_ON_BOARD( board_size, pos.i ) ) // If Rook castling destination is given, at least file must be valid.
+                    return _cc_fail_with_msg_in_step( "If Rook castling destination is given, at least file must be valid, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            }
 
             *side_effect__o = cc_side_effect_castle( piece, CC_POS_CAST_INVALID, pos );
             return true;
@@ -216,7 +220,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
@@ -241,7 +245,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
@@ -261,7 +265,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
@@ -281,7 +285,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );
-            else if ( result != CC_MBE_True )
+            else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
@@ -342,7 +346,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                 if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
                     return _cc_fail_with_msg_in_step( "Error parsing resurrecting destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-                se_an = pos_end_an;
+                // se_an = pos_end_an; // [?] Not used below, not needed.
 
                 if ( !CC_IS_POS_ON_BOARD( board_size, pos.i, pos.j ) ) // Resurrecting destination has to be complete position, not disambiguation.
                     return _cc_fail_with_msg_in_step( "Resurrecting destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
