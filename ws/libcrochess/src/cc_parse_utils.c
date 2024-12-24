@@ -144,7 +144,7 @@ CcMaybeBoolEnum cc_fetch_piece_symbol( char const * piece_an,
     if ( isupper( *p ) ) { // <!> Usage of cc_piece_symbol_is_valid() here is bug,
                            //     all other upper chars would end as Pawns.
         *piece_symbol__o = *p;
-        return cc_piece_symbol_is_valid( *piece_symbol__o );
+        return CC_BOOL_TO_MAYBE( cc_piece_symbol_is_valid( *piece_symbol__o ) );
     } else
         switch ( optional_to_pawn ) {
             case CC_MBE_True : {
