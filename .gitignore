@@ -24,6 +24,7 @@ book/gfx/test/
 *IGNORE*
 *OLD*
 *NEW*
+*TODO*
 .vscode
 *synctex*
 build/

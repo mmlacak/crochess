@@ -113,19 +113,11 @@ bool cc_parse_steps( char const * steps_start_an,
     // bool is_first_step = true;
 
     size_t index = 0;
-    bool initial_pos = false;
-    int reposition_index = -1;
-    bool starting_pos = false;
-    int destination_index = -1;
-    bool just_destination = false;
-
-    // TODO :: FIX :: B-h5
-
-    // TODO :: FIX :: B-d1..h5
-
-    // TODO :: FIX :: B..d1-f3..h5
-
-    // TODO :: also handle \ reposition --> can be only in 1st or 2nd place
+    bool had_just_destination = false;
+    bool had_initial_pos = false;
+    // bool had_reposition = false; // Not used.
+    // bool had_starting_pos = false; // Contained in reposition step.
+    bool had_destination = false;
 
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * step__t = NULL; // <!> Could contain more than one step!
@@ -144,28 +136,49 @@ bool cc_parse_steps( char const * steps_start_an,
         }
 
         if ( step__t->link == CC_SLTE_JustDestination ) {
-            destination_index = index;
-            just_destination = true;
+            if ( index != 0 ) { // == true --> bug
+                cc_step_free_all( &step__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+
+            had_just_destination = true;
         } else if ( step__t->link == CC_SLTE_Init ) {
-            if ( just_destination || index != 0 ) {
+            if ( had_just_destination || index != 0 ) { // == true --> bug
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
                 return false;
             }
 
-            initial_pos = true;
+            had_initial_pos = true;
         } else if ( step__t->link == CC_SLTE_Reposition ) {
-            bool reposition_ok = ( !initial_pos && ( index == 0 ) ) || ( initial_pos && ( index == 1 ) );
+            bool reposition_ok = ( !had_initial_pos && ( index == 0 ) ) || ( had_initial_pos && ( index == 1 ) );
 
-            if ( just_destination || !reposition_ok ) {
-                _cc_fail_with_msg_in_step( "Reposition can only be used in the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+            if ( had_just_destination || !reposition_ok ) { // had_just_destination ? --> bug
+                if ( !reposition_ok )
+                    _cc_fail_with_msg_in_step( "Reposition can only be used for the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
                 return false;
             }
 
-            reposition_index = index;
+            // had_reposition = true; // Not used.
+        } else if ( step__t->link == CC_SLTE_Destination ) {
+            had_destination = true;
+        } else if ( ( step__t->link == CC_SLTE_Next ) || ( step__t->link == CC_SLTE_Distant ) ) {
+            if ( had_just_destination || had_destination ) { // had_just_destination ? --> bug
+                if ( had_destination )
+                    _cc_fail_with_msg_in_step( "There can be no more steps after destination, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+
+                cc_step_free_all( &step__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+        } else { // == CC_SLTE_None ? garbage ? --> bug
+            cc_step_free_all( &step__t );
+            cc_step_free_all( &steps__t );
+            return false;
         }
 
         if ( !cc_step_extend( &steps__t, &step__t ) ) { // <!> step__t could contain more than one step --> use cc_step_extend(), instead of cc_step_append().
