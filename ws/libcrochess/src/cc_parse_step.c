@@ -35,12 +35,6 @@ static bool _cc_parse_step( char const * step_start_an,
     if ( !step__o || *step__o ) return false;
     if ( !parse_msgs__iod ) return false;
 
-    // TODO :: FIX :: B-h5
-
-    // TODO :: FIX :: B-d1..h5
-
-    // TODO :: FIX :: B..d1-f3..h5
-
     char const * step_an = step_start_an;
     CcSideEffect se = cc_side_effect_none();
 
@@ -115,40 +109,87 @@ bool cc_parse_steps( char const * steps_start_an,
 
     char const * step_start_an = NULL;
     char const * step_end_an = NULL;
-    bool is_first_step = true;
+    CcStep * steps__t = NULL;
+    // bool is_first_step = true;
+
+    size_t index = 0;
+    bool initial_pos = false;
+    int reposition_index = -1;
+    bool starting_pos = false;
+    int destination_index = -1;
+    bool just_destination = false;
+
+    // TODO :: FIX :: B-h5
+
+    // TODO :: FIX :: B-d1..h5
+
+    // TODO :: FIX :: B..d1-f3..h5
+
+    // TODO :: also handle \ reposition --> can be only in 1st or 2nd place
 
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
-        CcStep * steps__t = NULL;
+        CcStep * step__t = NULL; // <!> Could contain more than one step!
 
         cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // DEBUG :: DELETE
 
         if ( !_cc_parse_step( step_start_an, step_end_an, steps_end_an, is_turn_light, board_size,
-                              is_first_step,
-                              &steps__t,
+                              ( index == 0 ), // is_first_step,
+                              &step__t,
                               parse_msgs__iod ) ) {
             printf( "!_cc_parse_step\n" );  // DEBUG :: DELETE
 
+            cc_step_free_all( &step__t );
             cc_step_free_all( &steps__t );
             return false;
         }
 
-        if ( !cc_step_extend( steps__o, &steps__t ) ) {
+        if ( step__t->link == CC_SLTE_JustDestination ) {
+            destination_index = index;
+            just_destination = true;
+        } else if ( step__t->link == CC_SLTE_Init ) {
+            if ( just_destination || index != 0 ) {
+                cc_step_free_all( &step__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+
+            initial_pos = true;
+        } else if ( step__t->link == CC_SLTE_Reposition ) {
+            bool reposition_ok = ( !initial_pos && ( index == 0 ) ) || ( initial_pos && ( index == 1 ) );
+
+            if ( just_destination || !reposition_ok ) {
+                _cc_fail_with_msg_in_step( "Reposition can only be used in the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+
+                cc_step_free_all( &step__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+
+            reposition_index = index;
+        }
+
+        if ( !cc_step_extend( &steps__t, &step__t ) ) { // <!> step__t could contain more than one step --> use cc_step_extend(), instead of cc_step_append().
+            cc_step_free_all( &step__t );
             cc_step_free_all( &steps__t );
             return false;
         }
 
-        is_first_step = false;
+        // is_first_step = false;
+        ++index;
     }
 
 
     { // DEBUG :: DELETE
-        char * step_str__a = cc_step_all_to_string__new( *steps__o );
+        char * step_str__a = cc_step_all_to_string__new( steps__t );
 
         cc_str_print( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 
         CC_FREE( step_str__a );
     } // DEBUG :: DELETE
 
+
+    *steps__o = steps__t; // Ownership transfer.
+    // steps__t = NULL; // Not needed.
 
     return true;
 }
