@@ -46,7 +46,7 @@ static bool _cc_parse_step( char const * step_start_an,
             if ( !cc_parse_pos( step_an, &da, &da_end_an ) )
                 return _cc_fail_with_msg_in_step( "Error parsing disambiguation in step '%s'.\n", step_an, step_end_an, parse_msgs__iod );
 
-            CcStep * da__t = cc_step__new( CC_SLTE_Init, da, se );
+            CcStep * da__t = cc_step__new( CC_SLTE_InitialPosition, da, se );
             if ( !da__t ) return false;
 
             if ( !cc_step_extend( step__o, &da__t ) ) {
@@ -115,7 +115,7 @@ bool cc_parse_steps( char const * steps_start_an,
     size_t index = 0;
     bool had_just_destination = false;
     bool had_initial_pos = false;
-    // bool had_reposition = false; // Not used.
+    bool had_reposition = false;
     // bool had_starting_pos = false; // Contained in reposition step.
     bool had_destination = false;
 
@@ -136,15 +136,17 @@ bool cc_parse_steps( char const * steps_start_an,
         }
 
         if ( step__t->link == CC_SLTE_JustDestination ) {
-            if ( index != 0 ) { // == true --> bug
+            bool just_dest_ok = ( ( index == 0 ) || ( index == 1 && had_initial_pos ) ); // Here, initial position == disambiguation.
+
+            if ( had_just_destination || !just_dest_ok ) { // == true --> bug
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
                 return false;
             }
 
             had_just_destination = true;
-        } else if ( step__t->link == CC_SLTE_Init ) {
-            if ( had_just_destination || index != 0 ) { // == true --> bug
+        } else if ( step__t->link == CC_SLTE_InitialPosition ) {
+            if ( had_just_destination || had_initial_pos || index != 0 ) { // == true --> bug
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
                 return false;
@@ -154,7 +156,7 @@ bool cc_parse_steps( char const * steps_start_an,
         } else if ( step__t->link == CC_SLTE_Reposition ) {
             bool reposition_ok = ( !had_initial_pos && ( index == 0 ) ) || ( had_initial_pos && ( index == 1 ) );
 
-            if ( had_just_destination || !reposition_ok ) { // had_just_destination ? --> bug
+            if ( had_just_destination || had_reposition || !reposition_ok ) { // had_just_destination ? --> bug
                 if ( !reposition_ok )
                     _cc_fail_with_msg_in_step( "Reposition can only be used for the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
 
@@ -163,7 +165,7 @@ bool cc_parse_steps( char const * steps_start_an,
                 return false;
             }
 
-            // had_reposition = true; // Not used.
+            had_reposition = true;
         } else if ( step__t->link == CC_SLTE_Destination ) {
             had_destination = true;
         } else if ( ( step__t->link == CC_SLTE_Next ) || ( step__t->link == CC_SLTE_Distant ) ) {

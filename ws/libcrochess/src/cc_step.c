@@ -10,7 +10,7 @@
 char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle ) {
     switch ( sle ) {
         case CC_SLTE_None : return NULL;
-        case CC_SLTE_Init : return "";
+        case CC_SLTE_InitialPosition : return "";
         case CC_SLTE_Reposition : return "\\";
         case CC_SLTE_Next : return ".";
         case CC_SLTE_Distant : return "..";
@@ -120,11 +120,11 @@ size_t cc_step_count( CcStep * steps ) {
 CcStep * cc_step_find_init( CcStep * steps ) {
     if ( !steps ) return NULL;
 
-    if ( steps->link == CC_SLTE_Init ) {
+    if ( steps->link == CC_SLTE_InitialPosition ) {
         CcStep * s = steps->next;
 
         while ( s ) {
-            if ( s->link == CC_SLTE_Init )
+            if ( s->link == CC_SLTE_InitialPosition )
                 return NULL;
 
             s = s->next;
@@ -154,7 +154,7 @@ CcStep * cc_step_find_destination( CcStep * steps ) {
                 if ( ( s != steps ) && ( prev != steps ) ) return NULL;
             }
 
-            if ( s->link == CC_SLTE_Init ) {
+            if ( s->link == CC_SLTE_InitialPosition ) {
                 // Start is legal only on 1st step.
                 if ( s != steps ) return NULL;
             }
@@ -164,7 +164,7 @@ CcStep * cc_step_find_destination( CcStep * steps ) {
             prev = s;
             s = s->next;
         } else {
-            if ( prev_step && ( s->link == CC_SLTE_Init ) )
+            if ( prev_step && ( s->link == CC_SLTE_InitialPosition ) )
                 return NULL;
             else
                 return s;

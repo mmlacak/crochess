@@ -46,7 +46,7 @@ Data
 
         Step link not found, uninitialized, not parsed yet, or error happened.
 
-    .. c:enumerator:: CC_SLTE_Init
+    .. c:enumerator:: CC_SLTE_InitialPosition
 
         Position at which a piece was located before it started moving.
 
