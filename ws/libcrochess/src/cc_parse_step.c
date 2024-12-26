@@ -183,6 +183,24 @@ bool cc_parse_steps( char const * steps_start_an,
             return false;
         }
 
+        if ( step__t->link == CC_SLTE_InitialPosition ) {
+            if ( !CC_POS_IS_DISAMBIGUATION( step__t->field ) ) {
+                _cc_fail_with_msg_in_step( "Initial position has to be a valid disambiguation, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+
+                cc_step_free_all( &step__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+        } else {
+            if ( !CC_POS_IS_VALID( step__t->field ) ) {
+                _cc_fail_with_msg_in_step( "All steps has to specify complete position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+
+                cc_step_free_all( &step__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+        }
+
         if ( !cc_step_extend( &steps__t, &step__t ) ) { // <!> step__t could contain more than one step --> use cc_step_extend(), instead of cc_step_append().
             cc_step_free_all( &step__t );
             cc_step_free_all( &steps__t );
