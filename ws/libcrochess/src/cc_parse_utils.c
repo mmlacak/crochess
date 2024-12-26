@@ -404,7 +404,7 @@ char const * cc_next_step_link( char const * step_an_str,
 
     // Skip over everything before next step link.
     do {
-        if ( cc_parse_step_link( str__w, ply_end, &sle ) != CC_MBE_True ) return NULL;
+        if ( cc_parse_step_link( str__w, ply_end, &sle ) == CC_MBE_Void ) return NULL;
 
         if ( ( sle == CC_SLTE_InitialPosition ) || ( sle == CC_SLTE_JustDestination ) )
             ++str__w;
