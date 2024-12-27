@@ -13,9 +13,15 @@
 
 static bool _cc_fail_with_msg_in_step( char const * msg_fmt,
                                        char const * step_start_an,
+                                       char const * step_an__d,
                                        char const * step_end_an,
                                        CcParseMsg ** parse_msgs__iod ) {
-    char * step_str__a = cc_str_copy__new( step_start_an, step_end_an, CC_MAX_LEN_BUFFER );
+    char const * s_an = step_start_an;
+
+    if ( step_an__d && ( step_an__d != step_end_an ) )
+        s_an = step_an__d;
+
+    char * step_str__a = cc_str_copy__new( s_an, step_end_an, CC_MAX_LEN_BUFFER );
     cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, msg_fmt, step_str__a );
     CC_FREE( step_str__a );
     return false;
@@ -44,7 +50,7 @@ static bool _cc_parse_step( char const * step_start_an,
             char const * da_end_an = NULL;
 
             if ( !cc_parse_pos( step_an, &da, &da_end_an ) )
-                return _cc_fail_with_msg_in_step( "Error parsing disambiguation in step '%s'.\n", step_an, step_end_an, parse_msgs__iod );
+                return _cc_fail_with_msg_in_step( "Error parsing disambiguation in step '%s'.\n", step_start_an, step_an, step_end_an, parse_msgs__iod );
 
             CcStep * da__t = cc_step__new( CC_SLTE_InitialPosition, da, se );
             if ( !da__t ) return false;
@@ -66,13 +72,13 @@ static bool _cc_parse_step( char const * step_start_an,
     if ( result == CC_MBE_True )
         step_an += cc_step_link_len( sle );
     else if ( result == CC_MBE_False )
-        return _cc_fail_with_msg_in_step( "Invalid step separator in step '%s'.\n", step_an, step_end_an, parse_msgs__iod );
+        return _cc_fail_with_msg_in_step( "Invalid step separator in step '%s'.\n", step_start_an, step_an, step_end_an, parse_msgs__iod );
 
     CcPos pos = CC_POS_CAST_INVALID;
     char const * pos_end_an = NULL;
 
     if ( !cc_parse_pos( step_an, &pos, &pos_end_an ) )
-        return _cc_fail_with_msg_in_step( "Error parsing disambiguation in step '%s'.\n", step_an, step_end_an, parse_msgs__iod );
+        return _cc_fail_with_msg_in_step( "Error parsing step '%s'.\n", step_start_an, step_an, step_end_an, parse_msgs__iod );
 
     if ( !cc_parse_side_effect( pos_end_an, step_an, step_end_an,
                                 is_turn_light,
@@ -158,7 +164,7 @@ bool cc_parse_steps( char const * steps_start_an,
 
             if ( had_just_destination || had_reposition || !reposition_ok ) { // had_just_destination ? --> bug
                 if ( !reposition_ok )
-                    _cc_fail_with_msg_in_step( "Reposition can only be used for the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+                    _cc_fail_with_msg_in_step( "Reposition can only be used for the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
@@ -171,7 +177,7 @@ bool cc_parse_steps( char const * steps_start_an,
         } else if ( ( step__t->link == CC_SLTE_Next ) || ( step__t->link == CC_SLTE_Distant ) ) {
             if ( had_just_destination || had_destination ) { // had_just_destination ? --> bug
                 if ( had_destination )
-                    _cc_fail_with_msg_in_step( "There can be no more steps after destination, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+                    _cc_fail_with_msg_in_step( "There can be no more steps after destination, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
@@ -185,7 +191,7 @@ bool cc_parse_steps( char const * steps_start_an,
 
         if ( step__t->link == CC_SLTE_InitialPosition ) {
             if ( !CC_POS_IS_DISAMBIGUATION( step__t->field ) ) {
-                _cc_fail_with_msg_in_step( "Initial position has to be a valid disambiguation, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+                _cc_fail_with_msg_in_step( "Initial position has to be a valid disambiguation, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
@@ -193,7 +199,7 @@ bool cc_parse_steps( char const * steps_start_an,
             }
         } else {
             if ( !CC_POS_IS_VALID( step__t->field ) ) {
-                _cc_fail_with_msg_in_step( "All steps has to specify complete position, in steps '%s'.\n", steps_start_an, steps_end_an, parse_msgs__iod );
+                _cc_fail_with_msg_in_step( "All steps has to specify complete position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );
