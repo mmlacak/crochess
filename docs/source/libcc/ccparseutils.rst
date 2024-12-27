@@ -229,24 +229,22 @@ Functions
     :returns: Valid pointer if disambiguation has been skipped,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_ply_has_separated_steps( char const * ply_an_str, char const * ply_end, bool check_intermediate_steps, bool check_destination_step )
+.. c:function:: CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an, char const * end_an, bool check_intermediate_steps, bool check_destination_step )
 
-    Function checks if ply contains step separators, either ``'.'``, or ``'-'``.
+    Function checks if :term:`AN` string contains step separators, either ``'.'``, or ``'-'``.
 
     At least one of flags :c:`check_intermediate_steps`,
     :c:`check_destination_step` has to be :c:data:`true` before searching for
     step separators.
 
-    :param ply_an_str: Ply notation, points at the start of the ply;
-        null-terminated, :term:`AN` string.
-    :param ply_end: Ply notation, points at the end of the ply;
-        null-terminated, :term:`AN` string.
-    :param check_intermediate_steps: Flag, to check if ply contains ``'.'``.
-    :param check_destination_step: Flag, to check if ply contains ``'-'``.
+    :param start_an: Start of notation; null-terminated, :term:`AN` string.
+    :param end_an: End of notation; null-terminated, :term:`AN` string.
+    :param check_intermediate_steps: Flag, to check if :term:`AN` string contains ``'.'``.
+    :param check_destination_step: Flag, to check if :term:`AN` string contains ``'-'``.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
-        * :c:enumerator:`CC_MBE_True` if ply contains step separators,
-        * :c:enumerator:`CC_MBE_False` if ply does not contains step separators,
+        * :c:enumerator:`CC_MBE_True` if step separators were found,
+        * :c:enumerator:`CC_MBE_False` if step separators were not found,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: CcMaybeBoolEnum cc_parse_step_link( char const * step_an_str, char const * ply_end, CcStepLinkTypeEnum * sle__o )

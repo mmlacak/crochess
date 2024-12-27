@@ -313,22 +313,22 @@ char const * cc_skip_disambiguation( char const * pos_an_str ) {
     return NULL; // <!> Do not return an_str!
 }
 
-CcMaybeBoolEnum cc_ply_has_separated_steps( char const * ply_an_str,
-                                            char const * ply_end,
-                                            bool check_intermediate_steps,
-                                            bool check_destination_step ) {
-    if ( !ply_an_str ) return CC_MBE_Void;
-    if ( !ply_end ) return CC_MBE_Void;
+CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an,
+                                           char const * end_an,
+                                           bool check_intermediate_steps,
+                                           bool check_destination_step ) {
+    if ( !start_an ) return CC_MBE_Void;
+    if ( !end_an ) return CC_MBE_Void;
 
-    // if ( cc_skip_disambiguation( ply_an_str ) )
+    // if ( cc_skip_disambiguation( start_an ) )
     //     return CC_MBE_True;
 
     if ( !check_intermediate_steps && !check_destination_step )
         return CC_MBE_False;
 
-    char const * c = ply_an_str;
+    char const * c = start_an;
 
-    while ( *c != '\0' && c < ply_end ) {
+    while ( *c != '\0' && c < end_an ) {
         if ( check_intermediate_steps && *c == '.' ) return CC_MBE_True;
         if ( check_destination_step && *c == '-' ) return CC_MBE_True;
 
@@ -361,7 +361,7 @@ CcMaybeBoolEnum cc_parse_step_link( char const * step_an_str,
         *sle__o = CC_SLTE_Reposition;
         return CC_MBE_True;
     } else if ( isgraph( *c ) ) {
-        if ( cc_ply_has_separated_steps( step_an_str, ply_end, true, true ) == CC_MBE_True ) {
+        if ( cc_an_has_separated_steps( step_an_str, ply_end, true, true ) == CC_MBE_True ) {
             *sle__o = CC_SLTE_InitialPosition;
             return CC_MBE_True;
         } else if ( cc_skip_disambiguation( step_an_str ) ) {
