@@ -42,6 +42,7 @@ static bool _cc_parse_step( char const * step_start_an,
     if ( !parse_msgs__iod ) return false;
 
     char const * step_an = step_start_an;
+    char const * se_end_an = NULL;
     CcSideEffect se = cc_side_effect_none();
 
     if ( is_first_step ) {
@@ -84,8 +85,12 @@ static bool _cc_parse_step( char const * step_start_an,
                                 is_turn_light,
                                 board_size,
                                 &se,
+                                &se_end_an,
                                 parse_msgs__iod ) )
         return false;
+
+    if ( se_end_an != step_end_an )
+        return _cc_fail_with_msg_in_step( "Unexpected notation at the end encountered, in step '%s'.\n", step_start_an, step_an, step_end_an, parse_msgs__iod );
 
     CcStep * step__t = cc_step__new( sle, pos, se );
     if ( !step__t ) return false;
@@ -167,7 +172,7 @@ bool cc_parse_steps( char const * steps_start_an,
 
             if ( had_just_destination || had_reposition || !reposition_ok ) { // had_just_destination ? --> bug
                 if ( !reposition_ok )
-                    _cc_fail_with_msg_in_step( "Reposition can only be used for the first step, optionally preceeded by initial position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
+                    _cc_fail_with_msg_in_step( "Reposition can only be used for the first step, optionally preceded by initial position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
                 cc_step_free_all( &steps__t );

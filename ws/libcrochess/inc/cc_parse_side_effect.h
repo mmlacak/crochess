@@ -37,6 +37,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                            bool is_turn_light,
                            cc_uint_t board_size,
                            CcSideEffect * side_effect__o,
+                           char const ** side_effect_end_an__o,
                            CcParseMsg ** parse_msgs__iod );
 
 
