@@ -231,7 +231,7 @@ Functions
 
 .. c:function:: CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an, char const * end_an, bool check_intermediate_steps, bool check_destination_step )
 
-    Function checks if :term:`AN` string contains step separators, either ``'.'``, or ``'-'``.
+    Function checks if :term:`AN` string contains step separators, i.e. one of ``'.'``, ``'\'``, ``'-'``.
 
     At least one of flags :c:`check_intermediate_steps`,
     :c:`check_destination_step` has to be :c:data:`true` before searching for
@@ -239,7 +239,7 @@ Functions
 
     :param start_an: Start of notation; null-terminated, :term:`AN` string.
     :param end_an: End of notation; null-terminated, :term:`AN` string.
-    :param check_intermediate_steps: Flag, to check if :term:`AN` string contains ``'.'``.
+    :param check_intermediate_steps: Flag, to check if :term:`AN` string contains ``'.'``, or ``'\'``.
     :param check_destination_step: Flag, to check if :term:`AN` string contains ``'-'``.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 

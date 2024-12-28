@@ -329,7 +329,7 @@ CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an,
     char const * c = start_an;
 
     while ( *c != '\0' && c < end_an ) {
-        if ( check_intermediate_steps && *c == '.' ) return CC_MBE_True;
+        if ( check_intermediate_steps && ( *c == '.' || *c == '\\' ) ) return CC_MBE_True;
         if ( check_destination_step && *c == '-' ) return CC_MBE_True;
 
         ++c;
