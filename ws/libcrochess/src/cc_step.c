@@ -166,8 +166,12 @@ CcStep * cc_step_find_destination( CcStep * steps ) {
         } else {
             if ( prev_step && ( s->link == CC_SLTE_InitialPosition ) )
                 return NULL;
-            else
-                return s;
+            else {
+                if ( CC_STEP_LINK_TYPE_IS_DESTINATION( s->link ) )
+                    return s;
+                else
+                    return NULL;
+            }
         }
     }
 

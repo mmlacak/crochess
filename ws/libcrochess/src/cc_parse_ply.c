@@ -60,6 +60,15 @@ static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceType piece,
     return false;
 }
 
+static bool _cc_fail_with_msg_ply_has_no_destination( char const * ply_start_an,
+                                                      char const * ply_end_an,
+                                                      CcParseMsg ** parse_msgs__iod ) {
+    char * ply_str__a = cc_str_copy__new( ply_start_an, ply_end_an, CC_MAX_LEN_BUFFER );
+    cc_parse_msg_append_fmt( parse_msgs__iod, CC_PMTE_Error, CC_MAX_LEN_BUFFER, "Every ply has to have at least a destination, in ply '%s'.\n", ply_str__a );
+    CC_FREE( ply_str__a );
+    return false;
+}
+
 static bool _cc_parse_ply( char const * ply_start_an,
                            char const * ply_end_an,
                            bool is_turn_light,
@@ -114,7 +123,14 @@ static bool _cc_parse_ply( char const * ply_start_an,
         cc_step_free_all( &steps__t );
         return false;
     }
-    // steps__t = NULL; // Not needed, ownership transferred.
+
+    // TODO :: check if steps__t empty, does it contain destination ?
+    if ( !steps__t || !cc_step_find_destination( steps__t ) ) {
+        _cc_fail_with_msg_ply_has_no_destination( ply_start_an, ply_end_an, parse_msgs__iod );
+
+        cc_step_free_all( &steps__t );
+        return false;
+    }
 
     //
     // Create a new ply, which takes ownership of steps (steps__t).
@@ -124,6 +140,8 @@ static bool _cc_parse_ply( char const * ply_start_an,
         cc_step_free_all( &steps__t );
         return false;
     }
+
+    // steps__t = NULL; // Not needed, ownership transferred.
 
     return true;
 }
