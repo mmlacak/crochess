@@ -553,17 +553,17 @@ is only one ply.
 
 % \TODO :: fix lmodern
 
-Resurrection is written by appending \alg{\$} (dollar sign) after the move, followed by
-piece which was resurrected. If Wave or Starchild has been resurrected on empty field,
-position is appended after piece. If resurrecting opponent's piece, \alg{\$\$} (double
-dollar) sign is appended after the move, followed by a piece to resurrect.
+Resurrection is written by appending \alg{\$} (dollar sign) after the move, followed
+by piece which was resurrected. If Wave or Starchild has been resurrected on an empty
+miracle-field, position is appended after the piece.
 
-\TODO :: clarify resurrecting Wave or Starchild by oblationing initiating Starchild.
+If resurrecting opponent's piece, \alg{\$\$} (double dollar) sign is appended after
+the move, followed by a piece to resurrect. If opponent's Wave or Starchild was
+resurrected on empty miracle-field, position is appended after the piece.
 
-If there was no suitable empty field at which Wave or Starchild could be resurrected,
-resurrection is not performed, which could be written by appending \alg{\$\$\$} (triple
-dollar) after the ply. Since there are no actual side-effects to failed resurrection,
-\alg{\$\$\$} is optional.
+Resurrection is always optional, and does not have to be performed, which could
+be written by appending \alg{\$\$\$} (triple dollar) after the ply. Since there
+are no actual side-effects to failed resurrection, \alg{\$\$\$} is optional.
 
 If \hyperref[fig:scn_o_51_syzygy_starchild_init]{resurrection by light player} ended by
 \hyperref[fig:scn_o_52_syzygy_starchild_end]{resurrecting own, light Queen}, it would be
