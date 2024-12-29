@@ -7,7 +7,6 @@
 #include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_side_effect.h"
-// #include "cc_game.h"
 
 #include "cc_parse_msg.h"
 

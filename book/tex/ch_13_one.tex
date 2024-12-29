@@ -45,7 +45,7 @@ activate any own piece (except King), opponent's Starchild and any Star on its
 miracle-fields. Activated Starchild does not use momentum while moving.
 
 \noindent
-\begin{wrapfigure}[11]{l}{0.4\textwidth}
+\begin{wrapfigure}[12]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/star/22_one.png}
 \caption{Star}
@@ -53,12 +53,12 @@ miracle-fields. Activated Starchild does not use momentum while moving.
 \end{wrapfigure}
 Starchild can't teleport. In a single ply, Starchild can make only one step, from
 its starting field to destination in opposite color, without interacting with any
-piece on chessboard.
-
-Starchild can resurrect any captured piece, except Kings, Stars, Monoliths. Waves
-and Starchilds can be resurrected without resurrecting Starchild being oblationed.
-Starchild can take any own piece, except Kings, Waves, Stars, Starchilds and
-Monoliths, for a sense-journey.
+piece on chessboard.\newline
+\indent
+Starchild can resurrect any captured or oblationed piece, except Kings, Stars,
+Monoliths. Waves and Starchilds can be resurrected without resurrecting Starchild
+being oblationed. Starchild can take any own piece, except Kings, Waves, Stars,
+Starchilds and Monoliths, for a sense-journey.
 
 Star colors in this variant are the opposite of colors of other pieces.
 
@@ -837,12 +837,13 @@ syzygy-steps are called syzygy-fields.
 
 \vspace*{-0.5\baselineskip}
 If Starchild moves into syzygy, from a field not in any alignment, onto an empty
-syzygy-field, it's granted option to resurrect one captured piece. A piece is
-resurrected by replacing initiating Starchild, Starchild itself is then oblationed.
-Only captured pieces can be resurrected. Kings, Stars and Monoliths cannot be
-resurrected.
-
-Here, Starchild is about to initiate resurrecting syzygy.
+syzygy-field, it's granted option to resurrect one captured or oblationed piece.
+A piece is resurrected by replacing initiating Starchild, Starchild itself is
+then oblationed. Only captured and oblationed pieces can be resurrected. Kings,
+Stars and Monoliths cannot be resurrected.\newline
+\indent
+Here, Starchild is about to initiate resurrecting syzygy; next example, resurrected
+Queen replaced initiating Starchild.
 
 \clearpage % ..........................................................
 
@@ -856,18 +857,14 @@ Here, Starchild is about to initiate resurrecting syzygy.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Here, resurrected Queen replaced initiating Starchild.
-
 Resurrecting is not limited to player's own pieces, opponent's pieces can be
 resurrected as well. For instance, dark Queen could be resurrected instead of
-the light one; regardless if move is played by light or dark player.\newline
-\indent
-Again, only captured pieces can be resurrected.
-\hyperref[fig:scn_ma_08_conversion_init]{Converted pieces} cannot be resurrected
-since they weren't captured, and so didn't leave chessboard; they only changed
-their color.
+the light one; regardless if move is played by light or dark player.
 
-\TODO :: only captured and oblationed pieces can be resurrected.
+Again, only captured and oblationed pieces can be resurrected.
+\hyperref[fig:scn_ma_08_conversion_init]{Converted pieces} cannot be resurrected
+since they were neither captured nor oblationed, and so didn't leave chessboard;
+they only changed their color.
 
 \clearpage % ..........................................................
 
@@ -881,11 +878,13 @@ their color.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Captured Waves and Starchilds can be resurrected, without initiating Starchild being
-oblationed. Chosen piece can emerge on any empty
+Captured or oblationed Waves and Starchilds can be resurrected, without initiating
+Starchild being oblationed. Chosen piece can emerge on any empty
 \hyperref[fig:scn_o_05_miracle_fields]{miracle-field} around initiating Starchild in
 syzygy (here, enumerated fields). If all miracle-fields are occupied, resurrection
 is not performed.
+
+\TODO :: clarify resurrecting Wave or Starchild by oblationing initiating Starchild.
 
 % ................................................. Resurrection syzygy
 \clearpage % ..........................................................
@@ -895,18 +894,20 @@ is not performed.
 \addcontentsline{toc}{subsubsection}{Existing syzygy}
 \label{sec:One/Starchild/Syzygy/Existing syzygy}
 
-\vspace*{-1.2\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_54_syzygy_existing.png}
+\vspace*{-1.4\baselineskip}
 \caption{Existing syzygy}
 \label{fig:scn_o_54_syzygy_existing}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Similar to \hyperref[fig:scn_d_26_syzygy_existing]{Monolith entering existing syzygy},
 Starchild too can enter already existing, and used syzygy, and resurrect one captured
-piece, even if a piece has been resurrected in that syzygy, in a previous turn.\newline
-\indent
+piece, even if a piece has been resurrected in that syzygy, in a previous turn.
+
 Here, light Wave has been resurrected by Starchild A in a previous turn; regardless,
 Starchild B can enter the same syzygy, and resurrect one captured piece.
 
@@ -917,21 +918,23 @@ Starchild B can enter the same syzygy, and resurrect one captured piece.
 \addcontentsline{toc}{subsubsection}{Reentering syzygy}
 \label{sec:One/Starchild/Syzygy/Reentering syzygy}
 
-\vspace*{-1.2\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_55_reentering_syzygies.png}
+\vspace*{-1.4\baselineskip}
 \caption{Reentering syzygy}
 \label{fig:scn_o_55_reentering_syzygies}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Similar to
 \hyperref[fig:scn_d_27_syzygy_reentering_same_move]{Monolith reentering syzygy},
-to get option to resurrect captured piece, Starchild has to move from a normal,
-non-syzygy field into syzygy. Starchild already in syzygy can move into the same
-(or the other) alignment, but cannot resurrect any piece. To be able to resurrect,
-Starchild has to move out of alignment in a first move, and then on a next move
-it can move into resurrecting syzygy.
+to get option to resurrect captured or oblationed piece, Starchild has to move
+from a normal, non-syzygy field into syzygy. Starchild already in syzygy can move
+into the same (or the other) alignment, but cannot resurrect any piece. To be able
+to resurrect, Starchild has to move out of alignment in a first move, and then on
+a next move it can move into resurrecting syzygy.
 
 \clearpage % ..........................................................
 
@@ -939,14 +942,16 @@ it can move into resurrecting syzygy.
 \addcontentsline{toc}{subsubsection}{Cascading syzygy}
 \label{sec:One/Starchild/Syzygy/Cascading syzygy}
 
-\vspace*{-1.2\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_56_syzygy_starchild_cascading.png}
+\vspace*{-1.4\baselineskip}
 \caption{Starchild cascading}
 \label{fig:scn_o_56_syzygy_starchild_cascading}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Starchild moving into syzygy can activate pieces on a destination syzygy-field,
 and start a cascade; this move does not grant option to resurrect. To be able to
 resurrect, Starchild has to move onto empty syzygy-field, from a field out of
@@ -958,19 +963,21 @@ any alignment.
 \addcontentsline{toc}{subsubsection}{Double syzygy}
 \label{sec:One/Starchild/Syzygy/Double syzygy}
 
-\vspace*{-1.2\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_57_two_syzygies_shared_celestial_piece.png}
+\vspace*{-1.4\baselineskip}
 \caption{Shared celestial piece}
 \label{fig:scn_o_57_two_syzygies_shared_celestial_piece}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Starchild initiating syzygy can activate another Starchild, creating double
 (triple, ...) syzygies in the same move; only the very last Starchild in a
-cascade can resurrect a captured piece, if it stepped onto an empty syzygy-field.
-This is so regardless if syzygies share celestial piece (pictured here), just a
-syzygy-field, or are completely independent.
+cascade can resurrect any captured or oblationed piece, if it stepped onto an
+empty syzygy-field. This is so regardless if syzygies share celestial piece
+(pictured here), just a syzygy-field, or are completely independent.
 
 \clearpage % ..........................................................
 
@@ -978,20 +985,22 @@ syzygy-field, or are completely independent.
 \addcontentsline{toc}{subsubsection}{Opponent's Starchild}
 \label{sec:One/Starchild/Syzygy/Opponent's Starchild}
 
-\vspace*{-1.2\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_58_syzygy_opponents_starchild.png}
+\vspace*{-1.4\baselineskip}
 \caption{Opponent's Starchild in syzygy}
 \label{fig:scn_o_58_syzygy_opponents_starchild}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Opponent's Starchild can be activated, and pushed into syzygy, this will also
 initiate resurrection. Here, light player is moving dark Starchild into syzygy.
 
-Any Starchild can resurrect any captured piece, regardless of their respective
-colors. Here, light player can resurrect any captured piece, regardless if it's
-light or dark.
+Any Starchild can resurrect any captured or oblationed piece, regardless of their
+respective colors, or if it's moved by light or dark player. Here, light player
+can resurrect any piece, regardless if it's light or dark.
 
 \clearpage % ..........................................................
 
@@ -999,16 +1008,18 @@ light or dark.
 \addcontentsline{toc}{subsubsection}{Star-initiated syzygy}
 \label{sec:One/Starchild/Syzygy/Star-initiated syzygy}
 
-\vspace*{-1.2\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/22_o/scn_o_59_syzygy_star.png}
+\vspace*{-1.4\baselineskip}
 \caption{Star-initiated syzygy}
 \label{fig:scn_o_59_syzygy_star}
 \end{figure}
 
+\vspace*{-0.5\baselineskip}
 Pushing Star into a syzygy brings no additional interactions, i.e. it neither can
-demote own figure to Pawn, nor it can resurrect any captured piece.
+demote own figure to Pawn, nor it can resurrect any piece.
 
 % -------------------------------------------------------------- Syzygy
 \clearpage % ..........................................................
