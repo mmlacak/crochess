@@ -383,14 +383,13 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPos pos = CC_POS_CAST_INVALID;
             char const * pos_end_an = NULL;
 
-            if ( CC_PIECE_IS_WAVE( piece ) || CC_PIECE_IS_STARCHILD( piece ) ) {
-                if ( !cc_parse_pos( se_an, &pos, &pos_end_an ) )
-                    return _cc_fail_with_msg_in_step( "Error parsing resurrecting destination, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
+            if ( CC_PIECE_IS_WAVE( piece ) || CC_PIECE_IS_STARCHILD( piece ) ) { // Resurrecting position is effectively optional, but if given, it has to be complete.
+                if ( cc_parse_pos( se_an, &pos, &pos_end_an ) ) {
+                    if ( !CC_IS_POS_ON_BOARD( board_size, pos.i, pos.j ) )
+                        return _cc_fail_with_msg_in_step( "If given, resurrecting destination has to be complete (and not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-                if ( !CC_IS_POS_ON_BOARD( board_size, pos.i, pos.j ) ) // Resurrecting destination has to be complete position, not disambiguation.
-                    return _cc_fail_with_msg_in_step( "Resurrecting destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
-
-                se_an = pos_end_an;
+                    se_an = pos_end_an;
+                }
             }
 
             *side_effect__o = cc_side_effect_resurrect( piece, pos );
