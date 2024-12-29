@@ -13,6 +13,16 @@
 #include "cc_pos.h"
 
 
+// TODO :: DOCS
+#define CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR(sete) ( ( CC_SETE_None <= (sete) ) && ( (sete) <= CC_SETE_FailedResurrection ) )
+
+// TODO :: DOCS
+#define CC_SIDE_EFFECT_TYPE_IS_VALID(sete) ( ( CC_SETE_None < (sete) ) && ( (sete) <= CC_SETE_FailedResurrection ) )
+
+// TODO :: DOCS
+#define CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP(sete) ( ( (sete) == CC_SETE_Transparency ) \
+                                                          || ( (sete) == CC_SETE_Divergence ) )
+
 typedef enum CcSideEffectTypeEnum {
     CC_SETE_None, /* No side effects. */
     CC_SETE_Capture, /* Corresponds to `*`. */

@@ -129,6 +129,7 @@ bool cc_parse_steps( char const * steps_start_an,
     bool had_reposition = false;
     // bool had_starting_pos = false; // Contained in reposition step.
     bool had_destination = false;
+    bool requires_another_step = false;
 
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * step__t = NULL; // <!> Could contain more than one step!
@@ -215,6 +216,11 @@ bool cc_parse_steps( char const * steps_start_an,
             }
         }
 
+        requires_another_step = false;
+
+        if ( CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP( step__t->side_effect.type ) )
+            requires_another_step = true;
+
         if ( !cc_step_extend( &steps__t, &step__t ) ) { // <!> step__t could contain more than one step --> use cc_step_extend(), instead of cc_step_append().
             cc_step_free_all( &step__t );
             cc_step_free_all( &steps__t );
@@ -224,6 +230,14 @@ bool cc_parse_steps( char const * steps_start_an,
         // is_first_step = false;
         ++index;
     }
+
+    if ( requires_another_step ) {
+        _cc_fail_with_msg_in_step( "Transparency and divergence must be followed by destination step, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
+
+        cc_step_free_all( &steps__t );
+        return false;
+    }
+
 
 
     { // DEBUG :: DELETE
