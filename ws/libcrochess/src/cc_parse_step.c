@@ -207,7 +207,7 @@ bool cc_parse_steps( char const * steps_start_an,
                 return false;
             }
         } else {
-            if ( !CC_POS_IS_VALID( step__t->field ) ) {
+            if ( !CC_POS_IS_VALID( step__t->field ) && ( step__t->side_effect.type != CC_SETE_Castle ) ) { // For castling it's enough to have just files.
                 _cc_fail_with_msg_in_step( "All steps has to specify complete position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );

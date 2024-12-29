@@ -124,7 +124,6 @@ static bool _cc_parse_ply( char const * ply_start_an,
         return false;
     }
 
-    // TODO :: check if steps__t empty, does it contain destination ?
     if ( !steps__t || !cc_step_find_destination( steps__t ) ) {
         _cc_fail_with_msg_ply_has_no_destination( ply_start_an, ply_end_an, parse_msgs__iod );
 
