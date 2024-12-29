@@ -92,9 +92,41 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             se_an += cc_losing_tag_len( ltt );
 
-            // TODO :: check if followed by promotion, or tag for promotion
+            //
+            // Check if followed by tag or promotion.
 
-            *side_effect__o = cc_side_effect_capture( piece, ltt );
+            bool is_tag_or_promo = false;
+            if ( *se_an == '=' ) {
+                is_tag_or_promo = true;
+                ++se_an;
+            }
+
+            char promoted_to_symbol = ' ';
+            CcMaybeBoolEnum result_pts = cc_fetch_piece_symbol( se_an, CC_MBE_False, &promoted_to_symbol );
+
+            if ( result_pts == CC_MBE_False )
+                return _cc_fail_with_msg_unrecognized_piece_symbol( promoted_to_symbol, step_start_an, step_end_an, parse_msgs__iod );
+            else if ( result_pts != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
+                return false;
+
+            CcPieceType promoted_to = cc_piece_from_symbol( promoted_to_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+
+            if ( !CC_PIECE_IS_NONE( promoted_to ) ) // Promoted-to piece is optional.
+                if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promoted_to ) )
+                    return _cc_fail_with_msg_piece_in_side_effect( "Pawn cannot be promoted to %s, in step '%s'.\n", promoted_to, false, true, step_start_an, step_end_an, parse_msgs__iod );
+
+            if ( cc_piece_symbol_is_valid( *se_an ) ) ++se_an;
+
+            //
+            // Capture turned into side-side-effect, if tag or promotion.
+
+            if ( CC_PIECE_IS_VALID( promoted_to ) ) {
+                *side_effect__o = cc_side_effect_promote( piece, ltt, promoted_to );
+            } else if ( is_tag_or_promo ) {
+                *side_effect__o = cc_side_effect_tag_for_promotion( piece, ltt );
+            } else
+                *side_effect__o = cc_side_effect_capture( piece, ltt );
+
             *side_effect_end_an__o = se_an;
             return true;
         } case CC_SETE_Displacement : {
