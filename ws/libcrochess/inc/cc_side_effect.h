@@ -23,6 +23,8 @@
 #define CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP(sete) ( ( (sete) == CC_SETE_Transparency ) \
                                                           || ( (sete) == CC_SETE_Divergence ) )
 
+#define CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL (3)
+
 typedef enum CcSideEffectTypeEnum {
     CC_SETE_None, /* No side effects. */
     CC_SETE_Capture, /* Corresponds to `*`. */
@@ -40,8 +42,6 @@ typedef enum CcSideEffectTypeEnum {
     CC_SETE_ResurrectingOpponent, /* Corresponds to `$$`. */
     CC_SETE_FailedResurrection, /* Corresponds to `$$$`. */
 } CcSideEffectTypeEnum;
-
-#define CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL (3)
 
 char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see );
 

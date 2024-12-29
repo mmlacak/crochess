@@ -12,6 +12,43 @@ Side-effect
 Documents ``cc_side_effect.h`` and ``cc_side_effect.c`` files,
 which contain various parsed side-effect definitions and functions.
 
+.. _lbl-libcc-ccsideeffect-macros:
+
+Macros
+------
+
+.. c:macro:: CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR(sete)
+
+    Macro to check if given side-effect type is enumeration in :c:enum:`CcSideEffectTypeEnum`,
+    i.e. between :c:enumerator:`CC_SETE_None` and :c:enumerator:`CC_SETE_FailedResurrection`
+    values.
+
+    :param sete: A side-effect type, integer value.
+    :returns: :c:data:`true` if :c:type:`CcSideEffectTypeEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_SIDE_EFFECT_TYPE_IS_VALID(sete)
+
+    Macro to check if given side-effect type is valid :c:enum:`CcSideEffectTypeEnum`
+    enumerator, and not :c:enumerator:`CC_SETE_None`.
+
+    :param sete: A side-effect type, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcSideEffectTypeEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP(sete)
+
+    Macro to check if given side-effect must be followed by at least one step,
+    i.e. if side-effect is transparency or divergence.
+
+    :param sete: A side-effect type, integer value.
+    :returns: :c:data:`true` if side-effect must be followed by a step,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL
+
+    Maximum length of a side-effect symbol; equals to ``3``.
+
 .. _lbl-libcc-ccsideeffect-data:
 
 Data
@@ -82,10 +119,6 @@ Data
         Corresponds to ``$$$``.
 
     :c:`enum` is tagged with the same :c:enum:`CcSideEffectTypeEnum` name.
-
-.. c:macro:: CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL
-
-    Maximum length of a side-effect symbol; equals to ``3``.
 
 .. c:struct:: CcSideEffect
 

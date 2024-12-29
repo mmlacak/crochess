@@ -239,7 +239,6 @@ bool cc_parse_steps( char const * steps_start_an,
     }
 
 
-
     { // DEBUG :: DELETE
         char * step_str__a = cc_step_all_to_string__new( steps__t );
 
