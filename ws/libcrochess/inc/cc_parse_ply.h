@@ -31,6 +31,10 @@
 //                                                      char const * ply_end_an,
 //                                                      CcParseMsg ** parse_msgs__iod );
 
+// static bool _cc_fail_with_msg_ply_has_no_destination( char const * ply_start_an,
+//                                                       char const * ply_end_an,
+//                                                       CcParseMsg ** parse_msgs__iod );
+
 // static bool _cc_parse_ply( char const * ply_start_an,
 //                            char const * ply_end_an,
 //                            bool is_turn_light,
