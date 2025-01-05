@@ -2296,8 +2296,6 @@ variant before that will not be using divergence side-effect. Similarly, none
 of teleportation path separators are used before Nineteen variant, when first
 teleporting piece (Star) is introduced.
 
-\TODO :: can Starchild be activated? --> FIX grammar
-
 \clearpage % ..........................................................
 
 \begin{alltt}
@@ -2325,7 +2323,7 @@ teleporting piece (Star) is introduced.
 <capturing-piece> =
   <capturing-active-piece> | \alg{A}
 
-<activateable-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q}
+<activateable-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{I}
                       | <new-active-figure>
                       | <passive-figure>
 
@@ -2334,7 +2332,7 @@ teleporting piece (Star) is introduced.
 
 <disposable-figure> =
 <promote-to-figure> =
-  <activateable-figure> | \alg{I}
+  <activateable-figure>
 \end{alltt}
 
 \clearpage % ..........................................................
