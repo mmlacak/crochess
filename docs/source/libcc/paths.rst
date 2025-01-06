@@ -15,22 +15,37 @@ Describes generating all legal plies a piece can take.
 Description
 -----------
 
-Position a piece have at the beginning of its ply is its initial position.
+Position a piece have at the very beginning of its ply is its initial position.
 
 Position from which a piece starts its ply is a starting position.
 
-Most of the time initial and starting positions are the same, but not always.
-If positions are not the same, a piece is repositioned from initial onto starting
-position, before commencing its ply.
+Most of the time initial and starting positions are the same, but not always;
+if not the same, a piece is repositioned from initial onto starting position,
+before commencing its ply.
 
 Path is a list of steps a piece can take from its starting position to a destination.
 
-Some pieces can have multiple, different paths connecting the same starting
-position and destination; route is collection of all those paths.
+Some pieces can have different paths connecting the same starting position and
+destination; route is collection of all those paths.
 
-In a single ply, from its starting position a piece can have multiple legal
-destinations, so it can take multiple routes; each route can have multiple paths;
-along each path a piece can interact with multiple other pieces.
+In a single ply, from its starting position a piece can have many legal destinations,
+so it can take multiple routes; each route can have a few paths; along each path
+a piece can encounter other pieces, each with a few possible interactions, each
+leading to different paths.
+
+For instance, one can encounter opponent's Starchild along its path; depending on
+a piece moving, possible interactions with the Starchild might include:
+
+    * transparency, piece continues its movement as if nothing happened
+    * divergence, piece changes its direction, continues moving
+    * capture, thus ending its ply, and a move
+    * activation, ending its ply, but starting Starchild's
+    * initiating sense-journey
+
+If a piece above was e.g. a Centaur or a Serpent, it could also have multiple paths
+towards said Starchild. Even pieces with straight movement (e.g. Bishop) could
+encounter Shaman earlier in the ply, and diverge from it towards the Starchild
+above.
 
 .. _lbl-libcc-paths-path:
 
@@ -38,7 +53,7 @@ Path
 ----
 
 Path segment is a list of steps from one position to another, last step can also
-have an interaction.
+have an interaction, i.e. a side-effect.
 
 Complete such a path tree is represented by :c:type:`CcPathLink`, its
 :c:member:`CcPathLink.steps` contain a path segment, and :c:member:`CcPathLink.momentum` at the end
