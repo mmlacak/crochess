@@ -52,6 +52,7 @@ Library contents
     memory
     concepts
     designs
+    paths
     organization
 
     ccdefines
