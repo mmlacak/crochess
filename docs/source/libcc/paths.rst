@@ -182,38 +182,56 @@ Complete paths
 
 A complete path is built by traversing path tree from its origin :c:type:`CcPathLink`
 node down to any terminal node; a legal ply is built by stitching path segments
-from those node, in order in which nodes were visited.
+from those nodes, in order in which they were visited.
 
-Path::
+For instance, this path in a path-tree::
 
-    +---+   next    +---+   alt          diverge    +---+
-    | A |  ------>  | B |  ----->  ...  --------->  | Z |
-    +---+           +---+                           +---+
+    +---+  next   +---+   alt    +---+   diverge    +---+
+    | A | ------> | B |  ----->  | C |  --------->  | D |
+    +---+         +---+          +---+              +---+
 
-      |               |                               |
-      | steps         | steps                         | steps
-      |               |                               |
-      V               V                               V
+      |             |              |                  |
+      | steps       | steps        | steps            | steps
+      |             |              |                  |
+      V             V              V                  V
 
-    +----+          +----+                          +----+
-    | a0 |          | b0 |                          | z0 |
-    +----+          +----+                          +----+
-      |               |                               |
-      | next          | next                          | next
-      V               V                               V
-    +----+          +----+                          +----+
-    | a1 |          | b1 |                          | z1 |
-    +----+          +----+                          +----+
-      |               |                               |
-      | next          | next                          | next
-      V               V                               V
+    +----+        +----+         +----+             +----+
+    | a0 |        | b0 |         | c0 |             | d0 |
+    +----+        +----+         +----+             +----+
+      |             |              |                  |
+      | next        | next         | next             | next
+      V             V              V                  V
+    +----+        +----+         +----+             +----+
+    | a1 |        | b1 |         | c1 |             | d1 |
+    +----+        +----+         +----+             +----+
+      |             |              |                  |
+      | next        | next         | next             | next
+      V             V              V                  V
 
-      :               :                               :
-      :               :                               :
+      :             :              :                  :
+      :             :              :                  :
 
-      |               |                               |
-      | next          | next                          | next
-      V               V                               V
-    +----+          +----+                          +----+
-    | an |          | bn |                          | zn |
-    +----+          +----+                          +----+
+      |             |              |                  |
+      | next        | next         | next             | next
+      V             V              V                  V
+    +----+        +----+         +----+             +----+
+    | an |        | bn |         | cn |             | dn |
+    +----+        +----+         +----+             +----+
+
+gives a complete ply with steps ordered like so::
+
+    +----+  next   +----+  next        next   +----+  next
+    | a0 | ------> | a1 | ------> ... ------> | an | ------> ...
+    +----+         +----+                     +----+
+
+         next   +----+  next   +----+  next        next   +----+  next
+    ... ------> | b0 | ------> | b1 | ------> ... ------> | bn | ------> ...
+                +----+         +----+                     +----+
+
+         next   +----+  next   +----+  next        next   +----+  next
+    ... ------> | c0 | ------> | c1 | ------> ... ------> | cn | ------> ...
+                +----+         +----+                     +----+
+
+         next   +----+  next   +----+  next        next   +----+
+    ... ------> | d0 | ------> | d1 | ------> ... ------> | dn |
+                +----+         +----+                     +----+
