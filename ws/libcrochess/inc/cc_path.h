@@ -17,11 +17,12 @@
 //
 // Linked path segments.
 
+// TODO :: DOCS
 typedef struct CcPathLink {
-    CcPos pos;
     cc_uint_t momentum;
+    CcPos pos; // TODO :: replace --> CcSteps
 
-    struct CcPathLink * diverge;
+    struct CcPathLink * diverge; // TODO :: rename --> fork (?)
     struct CcPathLink * alt;
     struct CcPathLink * next;
 } CcPathLink;
