@@ -14,14 +14,13 @@
 //
 // Linked path segments.
 
-CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum ) {
+CcPathLink * cc_path_link__new( CcStep * steps ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->pos = pos;
-    pl__t->momentum = momentum;
+    pl__t->steps = steps;
 
-    pl__t->diverge = NULL;
+    pl__t->fork = NULL;
     pl__t->alt = NULL;
     pl__t->next = NULL;
 
@@ -29,11 +28,10 @@ CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcPos pos,
-                                  cc_uint_t momentum ) {
+                                  CcStep * steps ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( pos, momentum );
+    CcPathLink * pl__t = cc_path_link__new( steps );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -72,16 +70,16 @@ CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
     return last->next;
 }
 
-CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a,
-                                   CcPathLink ** pl_alt__n ) {
+CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
+                                CcPathLink ** pl_alt__n ) {
     if ( !pl_step__a ) return NULL;
     if ( !*pl_step__a ) return NULL;
 
     if ( !pl_alt__n ) return NULL;
     if ( !*pl_alt__n ) return NULL;
 
-    if ( ( *pl_step__a )->diverge ) {
-        CcPathLink * pl = ( *pl_step__a )->diverge;
+    if ( ( *pl_step__a )->fork ) {
+        CcPathLink * pl = ( *pl_step__a )->fork;
 
         while ( pl->alt ) {
             pl = pl->alt;
@@ -89,7 +87,7 @@ CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a,
 
         pl->alt = *pl_alt__n;
     } else {
-        ( *pl_step__a )->diverge = *pl_alt__n;
+        ( *pl_step__a )->fork = *pl_alt__n;
     }
 
     CcPathLink * pl__w = *pl_alt__n;
@@ -126,15 +124,15 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     bool result = true;
 
     while ( from ) {
-        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->pos, from->momentum );
+        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->steps );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
             result = false;
             break;
         }
 
-        if ( from->diverge ) {
-            if ( !( pd__w->diverge = cc_path_link_duplicate_all__new( from->diverge ) ) ) {
+        if ( from->fork ) {
+            if ( !( pd__w->fork = cc_path_link_duplicate_all__new( from->fork ) ) ) {
                 result = false;
                 break;
             }
@@ -167,8 +165,8 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
     bool result = true;
 
     while ( pl ) {
-        if ( pl->diverge )
-            result = cc_path_link_free_all( &( pl->diverge ) ) && result;
+        if ( pl->fork )
+            result = cc_path_link_free_all( &( pl->fork ) ) && result;
 
         if ( pl->alt )
             result = cc_path_link_free_all( &( pl->alt ) ) && result;
@@ -192,8 +190,8 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all ) {
         ++len;
 
         if ( count_all ) {
-            if ( pl->diverge ) {
-                len += cc_path_link_len( pl->diverge, count_all );
+            if ( pl->fork ) {
+                len += cc_path_link_len( pl->fork, count_all );
             }
 
             if ( pl->alt ) {
@@ -214,8 +212,8 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
     CcPathLink * pl = path_link;
 
     while ( pl ) {
-        if ( pl->diverge ) {
-            count += cc_path_link_count_all_seqments( pl->diverge );
+        if ( pl->fork ) {
+            count += cc_path_link_count_all_seqments( pl->fork );
         }
 
         if ( pl->alt ) {
@@ -232,7 +230,7 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
 // path_diverged
 // == CC_MBE_Void --> regular path segment
 // == CC_MBE_False --> alternative path segment
-// == CC_MBE_True --> diverged path segment
+// == CC_MBE_True --> forked path segment
 static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
                                                size_t depth,
                                                CcMaybeBoolEnum path_diverged,
@@ -264,7 +262,7 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
 
     unused -= depth_size;
 
-    if ( path_diverged == CC_MBE_True ) { // diverge path
+    if ( path_diverged == CC_MBE_True ) { // fork path
         *str__t++ = '*';
         *str__t++ = ' ';
         unused -= 2;
@@ -279,8 +277,9 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
     char const * end__t = str__t; // end__t == position transfer variable (not ownership)
 
     while ( pl ) {
-        if ( !cc_pos_to_string( pl->pos, &pos_c8 ) )
-            return NULL;
+        // TODO :: FIX :: pos --> steps
+        // if ( !cc_pos_to_string( pl->pos, &pos_c8 ) )
+        //     return NULL;
 
         end__t = cc_str_append_into( str__t, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
         if ( !end__t )  return NULL;
@@ -316,8 +315,8 @@ static char * _cc_path_link_to_string( CcPathLink * path_link,
 
         str__t = end__t;
 
-        if ( pl->diverge ) {
-            end__t = _cc_path_link_to_string( pl->diverge, depth + 1, CC_MBE_True, str__t, str_end );
+        if ( pl->fork ) {
+            end__t = _cc_path_link_to_string( pl->fork, depth + 1, CC_MBE_True, str__t, str_end );
             if ( !end__t ) return NULL;
 
             str__t = end__t;

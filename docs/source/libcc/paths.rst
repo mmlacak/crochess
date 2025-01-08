@@ -178,8 +178,8 @@ alternative paths after divergence are linked via :c:member:`CcPathLink.alt`.
 It is possible to have subsequent nodes use :c:member:`CcPathLink.fork` link,
 if all their path segments end with divergence.
 
-Forking paths are used after divergence; and also to host multiple, independent
-paths from a starting position.
+Forking paths are used after divergence; and also to facilitate multiple,
+independent paths from a starting position.
 
 .. _lbl-libcc-paths-segmenttree-complete:
 

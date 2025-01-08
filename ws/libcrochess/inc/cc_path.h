@@ -11,6 +11,7 @@
 
 // #include "cc_piece.h"
 // #include "cc_tag.h"
+#include "cc_step.h"
 #include "cc_pos.h"
 
 
@@ -19,25 +20,23 @@
 
 // TODO :: DOCS
 typedef struct CcPathLink {
-    cc_uint_t momentum;
-    CcPos pos; // TODO :: replace --> CcSteps
+    CcStep * steps;
 
-    struct CcPathLink * diverge; // TODO :: rename --> fork (?)
+    struct CcPathLink * fork; // TODO :: rename --> fork (?)
     struct CcPathLink * alt;
     struct CcPathLink * next;
 } CcPathLink;
 
-CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum );
+CcPathLink * cc_path_link__new( CcStep * steps );
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcPos pos,
-                                  cc_uint_t momentum );
+                                  CcStep * steps );
 
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );
 
-CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a,
-                                   CcPathLink ** pl_alt__n );
+CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
+                                CcPathLink ** pl_alt__n );
 
 CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );

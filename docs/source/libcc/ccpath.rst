@@ -112,7 +112,7 @@ Linked path segments
     :returns: Weak pointer to extended portion of a resulting path segment if
         successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_diverge( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
+.. c:function:: CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
 
     Function extends divergent paths of a given path step (:c:`pl_step__a`) with
     path segment (:c:`pl_alt__n`) as an additional alternative path.
