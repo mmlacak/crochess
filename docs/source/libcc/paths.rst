@@ -87,9 +87,9 @@ Alternative paths are represented as a list of :c:type:`CcPathLink` nodes connec
 via :c:member:`CcPathLink.alt`; they are "in-situ" segments, i.e. each alternative
 path segment is meant to replace originating segment. For instance::
 
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | C0 |
-    +---+           +---+           +----+
+    +---+   next    +---+   next    +----+   next    +---+
+    | A |  ------>  | B |  ------>  | C0 |  ------>  | D |
+    +---+           +---+           +----+           +---+
                                       |
                                       | alt
                                       V
@@ -105,9 +105,9 @@ path segment is meant to replace originating segment. For instance::
 
 produces 3 different paths::
 
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | C0 |
-    +---+           +---+           +----+
+    +---+   next    +---+   next    +----+   next    +---+
+    | A |  ------>  | B |  ------>  | C0 |  ------>  | D |
+    +---+           +---+           +----+           +---+
 
     +---+   next    +---+   next    +----+
     | A |  ------>  | B |  ------>  | C1 |
@@ -117,20 +117,23 @@ produces 3 different paths::
     | A |  ------>  | B |  ------>  | C2 |
     +---+           +---+           +----+
 
-.. _lbl-libcc-paths-segmenttree-diverging:
+Alternative paths are used when there are multiple possible interactions with
+encountered piece.
 
-Diverging paths
-^^^^^^^^^^^^^^^
+.. _lbl-libcc-paths-segmenttree-forking:
 
-Diverging paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.diverge`; they are "post-node" segments, i.e. each diverging
+Forking paths
+^^^^^^^^^^^^^
+
+Forking paths are represented as a list of :c:type:`CcPathLink` nodes connected
+via :c:member:`CcPathLink.fork`; they are "post-node" segments, i.e. each forking
 path segment is meant to be concatenated to originating segment. For instance::
 
     +---+   next    +---+   next    +---+
     | A |  ------>  | B |  ------>  | C |
     +---+           +---+           +---+
                       \
-                       \  diverge
+                       \  fork
                         \
                          V
                        +----+
@@ -169,11 +172,14 @@ also produces::
     | A |  ------>  | B |  ------>  | D2 |
     +---+           +---+           +----+
 
-Note that :c:member:`CcPathLink.diverge` link was used only once, all other
+Note that :c:member:`CcPathLink.fork` link was used only once, all other
 alternative paths after divergence are linked via :c:member:`CcPathLink.alt`.
 
-It is possible to have subsequent nodes use :c:member:`CcPathLink.diverge` link,
+It is possible to have subsequent nodes use :c:member:`CcPathLink.fork` link,
 if all their path segments end with divergence.
+
+Forking paths are used after divergence; and also to host multiple, independent
+paths from a starting position.
 
 .. _lbl-libcc-paths-segmenttree-complete:
 
@@ -186,37 +192,37 @@ from those nodes, in order in which they were visited.
 
 For instance, this path in a path-tree::
 
-    +---+  next   +---+   alt    +---+   diverge    +---+
-    | A | ------> | B |  ----->  | C |  --------->  | D |
-    +---+         +---+          +---+              +---+
+    +---+  next   +---+   alt    +---+   fork    +---+
+    | A | ------> | B |  ----->  | C |  ------>  | D |
+    +---+         +---+          +---+           +---+
 
-      |             |              |                  |
-      | steps       | steps        | steps            | steps
-      |             |              |                  |
-      V             V              V                  V
+      |             |              |               |
+      | steps       | steps        | steps         | steps
+      |             |              |               |
+      V             V              V               V
 
-    +----+        +----+         +----+             +----+
-    | a0 |        | b0 |         | c0 |             | d0 |
-    +----+        +----+         +----+             +----+
-      |             |              |                  |
-      | next        | next         | next             | next
-      V             V              V                  V
-    +----+        +----+         +----+             +----+
-    | a1 |        | b1 |         | c1 |             | d1 |
-    +----+        +----+         +----+             +----+
-      |             |              |                  |
-      | next        | next         | next             | next
-      V             V              V                  V
+    +----+        +----+         +----+          +----+
+    | a0 |        | b0 |         | c0 |          | d0 |
+    +----+        +----+         +----+          +----+
+      |             |              |               |
+      | next        | next         | next          | next
+      V             V              V               V
+    +----+        +----+         +----+          +----+
+    | a1 |        | b1 |         | c1 |          | d1 |
+    +----+        +----+         +----+          +----+
+      |             |              |               |
+      | next        | next         | next          | next
+      V             V              V               V
 
-      :             :              :                  :
-      :             :              :                  :
+      :             :              :               :
+      :             :              :               :
 
-      |             |              |                  |
-      | next        | next         | next             | next
-      V             V              V                  V
-    +----+        +----+         +----+             +----+
-    | an |        | bn |         | cn |             | dn |
-    +----+        +----+         +----+             +----+
+      |             |              |               |
+      | next        | next         | next          | next
+      V             V              V               V
+    +----+        +----+         +----+          +----+
+    | an |        | bn |         | cn |          | dn |
+    +----+        +----+         +----+          +----+
 
 gives a complete ply with steps ordered like so::
 
