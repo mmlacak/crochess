@@ -123,6 +123,23 @@ Functions
     :param side_effect: Side-effect :c:`struct`\ure.
     :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
 
+.. c:function:: CcStep * cc_step_next_no_side_effects__new( CcPos field )
+
+    Convenience function, returns a newly allocated step, with :c:enumerator:`CC_SLTE_Next`
+    linkage, and no side-effect.
+
+    :param field: A field.
+    :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcStep * cc_step_next__new( CcPos field, CcSideEffect side_effect )
+
+    Convenience function, returns a newly allocated step, with :c:enumerator:`CC_SLTE_Next`
+    linkage.
+
+    :param field: A field.
+    :param side_effect: Side-effect :c:`struct`\ure.
+    :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
+
 .. c:function:: CcStep * cc_step_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcSideEffect side_effect )
 
     Appends a newly allocated step to a given linked list.
