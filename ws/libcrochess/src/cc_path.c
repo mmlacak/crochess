@@ -157,31 +157,31 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool do_check_steps,
         return false;
 
     //
-    // Check links, at most 1 should be valid.
+    // Check links.
+
+    int links = 0;
 
     if ( pl->fork ) {
-        if ( pl->alt ) return false;
-        if ( pl->next ) return false;
-
         if ( pl->fork->back__w != pl ) return false;
-
         if ( !_cc_path_link_is_valid( pl->fork, true, true ) ) return false;
-    } else if ( pl->alt ) {
-        if ( pl->fork ) return false;
-        if ( pl->next ) return false;
+        ++links;
+    }
 
+    if ( pl->alt ) {
         if ( pl->alt->back__w != pl ) return false;
-
         if ( !_cc_path_link_is_valid( pl->alt, true, true ) ) return false;
-    } else if ( pl->next ) {
-        if ( pl->fork ) return false;
-        if ( pl->alt ) return false;
+        ++links;
+    }
 
+    if ( pl->next ) {
         if ( pl->next->back__w != pl ) return false;
-
         if ( !_cc_path_link_is_valid( pl->next, true, true ) ) return false;
-    } else
-        return has_steps; // Terminal node, but initial node should not be terminal.
+        ++links;
+    }
+
+    if ( links == 0 )
+        return has_steps; // No links --> terminal node.
+        // If also root node, it should not be terminal, without having at least initial and terminal steps.
 
     return true;
 }
