@@ -23,7 +23,7 @@ Linked path segments
 
 .. c:struct:: CcPathLink
 
-    Node containing path segment, and links to other nodes.
+    Node containing path segment, and links to other nodes in a path tree.
 
     Forking :term:`path`\s are introduced by single :c:member:`fork` path; all
     other possible :term:`path`\s after the same e.g. divergence are then linked
@@ -39,6 +39,10 @@ Linked path segments
         Any back-references within a path tree, or shared among them, are not
         allowed, and will likely cause crash.
 
+    .. seealso::
+
+        :ref:`lbl-libcc-paths-segmenttree`
+
     .. c:member:: CcStep * steps
 
         Steps, a path segment.
@@ -47,10 +51,6 @@ Linked path segments
         position to another in order in which they were made; only the last step
         in a :term:`segment` can also have side-effect (i.e. interaction with
         encountered piece).
-
-        .. seealso::
-
-            :ref:`lbl-libcc-paths-segmenttree`
 
     .. c:member:: struct CcPathLink * fork
 
