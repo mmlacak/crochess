@@ -23,6 +23,8 @@ typedef struct CcPathLink {
 
     struct CcPathLink * fork;
     struct CcPathLink * alt;
+
+    struct CcPathLink * back__w; // TODO :: DOCS
     struct CcPathLink * next;
 } CcPathLink;
 
@@ -39,6 +41,9 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
 
 CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );
+
+// TODO
+// cc_path_link_is_valid()
 
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 
@@ -62,26 +67,30 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 
 char * cc_path_link_to_string__new( CcPathLink * path_link );
 
+// TODO :: DELETE
 //
-// Linked list of path segments.
-
-typedef struct CcPathWeakLink {
-    CcPathLink * pl__w;
-
-    struct CcPathWeakLink * next;
-} CcPathWeakLink;
-
-CcPathWeakLink * cc_path_weak_link__new( CcPathLink * pl );
-
-CcPathWeakLink * cc_path_weak_link_append( CcPathWeakLink ** pwl__iod_a,
-                                           CcPathLink * pl );
-
-CcPathWeakLink * cc_path_weak_link_extend( CcPathWeakLink ** pwl__iod_a,
-                                           CcPathWeakLink ** pwl__n );
-
-bool cc_path_weak_link_free_all( CcPathWeakLink ** pwl__f );
-
-size_t cc_path_weak_link_len( CcPathWeakLink * pwl );
+// //
+// // Linked list of path segments.
+//
+// typedef struct CcPathWeakLink {
+//     CcPathLink * pl__w;
+//
+//     struct CcPathWeakLink * next;
+// } CcPathWeakLink;
+//
+// CcPathWeakLink * cc_path_weak_link__new( CcPathLink * pl );
+//
+// CcPathWeakLink * cc_path_weak_link_append( CcPathWeakLink ** pwl__iod_a,
+//                                            CcPathLink * pl );
+//
+// CcPathWeakLink * cc_path_weak_link_extend( CcPathWeakLink ** pwl__iod_a,
+//                                            CcPathWeakLink ** pwl__n );
+//
+// bool cc_path_weak_link_free_all( CcPathWeakLink ** pwl__f );
+//
+// size_t cc_path_weak_link_len( CcPathWeakLink * pwl );
+//
+// TODO :: DELETE
 
 
 #endif /* __CC_PATH_H__ */

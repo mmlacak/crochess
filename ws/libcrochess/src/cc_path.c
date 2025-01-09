@@ -22,6 +22,8 @@ CcPathLink * cc_path_link__new( CcStep * steps ) {
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
+
+    pl__t->back__w = NULL;
     pl__t->next = NULL;
 
     return pl__t;
@@ -38,8 +40,11 @@ CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
         *pl__iod_a = pl__t; // Ownership transfer.
     } else {
         CcPathLink * pl = *pl__iod_a;
+
         CC_FASTFORWARD( pl );
+
         pl->next = pl__t; // Append + ownership transfer.
+        pl__t->back__w = pl;
     }
 
     return pl__t; // Weak pointer.
@@ -65,6 +70,7 @@ CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
 
     // Ownership transfer.
     last->next = *pl__n;
+    ( *pl__n )->back__w = last;
     *pl__n = NULL;
 
     return last->next;
@@ -86,10 +92,13 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
         }
 
         pl->alt = *pl_alt__n;
+        ( *pl_alt__n )->back__w = pl;
     } else {
         ( *pl_step__a )->fork = *pl_alt__n;
+        ( *pl_alt__n )->back__w = *pl_step__a;
     }
 
+    // Ownership transferred.
     CcPathLink * pl__w = *pl_alt__n;
     *pl_alt__n = NULL;
 
@@ -110,7 +119,10 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
         pl__w = pl__w->alt;
     }
 
+    // Ownership transfer.
     pl__w->alt = *pl_alt__n;
+    ( *pl_alt__n )->back__w = pl__w;
+
     *pl_alt__n = NULL;
 
     return pl__w;
@@ -118,6 +130,7 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
 
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
+    if ( path_link->back__w ) return NULL;
 
     CcPathLink * pl__a = NULL;
     CcPathLink * from = path_link;
@@ -132,14 +145,18 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
         }
 
         if ( from->fork ) {
-            if ( !( pd__w->fork = cc_path_link_duplicate_all__new( from->fork ) ) ) {
+            if ( ( pd__w->fork = cc_path_link_duplicate_all__new( from->fork ) ) ) {
+                pd__w->fork->back__w = pd__w;
+            } else {
                 result = false;
                 break;
             }
         }
 
         if ( from->alt ) {
-            if ( !( pd__w->alt = cc_path_link_duplicate_all__new( from->alt ) ) ) {
+            if ( ( pd__w->alt = cc_path_link_duplicate_all__new( from->alt ) ) ) {
+                pd__w->fork->back__w = pd__w;
+            } else {
                 result = false;
                 break;
             }
@@ -170,6 +187,8 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
 
         if ( pl->alt )
             result = cc_path_link_free_all( &( pl->alt ) ) && result;
+
+        // [i] pl->back__w is weak pointer, not an owner, so must not be free()-ed.
 
         tmp = pl->next;
         CC_FREE( pl );
@@ -368,91 +387,95 @@ char * cc_path_link_to_string__new( CcPathLink * path_link ) {
     return pl_str__a;
 }
 
+// TODO :: DELETE
 //
-// Linked list of path segments.
-
-CcPathWeakLink * cc_path_weak_link__new( CcPathLink * pl ) {
-    CcPathWeakLink * pwl__a = malloc( sizeof( CcPathWeakLink ) );
-    if ( !pwl__a ) return NULL;
-
-    pwl__a->pl__w = pl; // Weak pointer, no ownership transfer.
-    pwl__a->next = NULL;
-
-    return pwl__a;
-}
-
-CcPathWeakLink * cc_path_weak_link_append( CcPathWeakLink ** pwl__iod_a,
-                                           CcPathLink * pl ) {
-    if ( !pwl__iod_a ) return NULL;
-
-    CcPathWeakLink * pwl__t = cc_path_weak_link__new( pl );
-    if ( !pwl__t ) return NULL;
-
-    if ( !*pwl__iod_a ) {
-        *pwl__iod_a = pwl__t; // Ownership transfer.
-    } else {
-        CcPathWeakLink * pwl = *pwl__iod_a;
-        CC_FASTFORWARD( pwl );
-        pwl->next = pwl__t; // Append + ownership transfer.
-    }
-
-    return pwl__t; // Weak pointer.
-}
-
-CcPathWeakLink * cc_path_weak_link_extend( CcPathWeakLink ** pwl__iod_a,
-                                           CcPathWeakLink ** pwl__n ) {
-    if ( !pwl__iod_a ) return NULL;
-    if ( !pwl__n ) return NULL;
-
-    if ( !*pwl__n ) return *pwl__iod_a;
-
-    if ( !*pwl__iod_a ) {
-        // Ownership transfer.
-        *pwl__iod_a = *pwl__n;
-        *pwl__n = NULL;
-
-        return *pwl__iod_a;
-    }
-
-    CcPathWeakLink * last = *pwl__iod_a;
-    CC_FASTFORWARD( last );
-
-    // Ownership transfer.
-    last->next = *pwl__n;
-    *pwl__n = NULL;
-
-    return last->next;
-}
-
-bool cc_path_weak_link_free_all( CcPathWeakLink ** pwl__f ) {
-    if ( !pwl__f ) return false;
-    if ( !*pwl__f ) return true;
-
-    CcPathWeakLink * pwl = *pwl__f;
-    CcPathWeakLink * tmp = NULL;
-
-    while ( pwl ) {
-        // <!> pl__w is weak pointer, not to be free()-ed.
-
-        tmp = pwl->next;
-        CC_FREE( pwl );
-        pwl = tmp;
-    }
-
-    *pwl__f = NULL;
-    return true;
-}
-
-size_t cc_path_weak_link_len( CcPathWeakLink * pwl ) {
-    if ( !pwl ) return 0;
-
-    size_t len = 0;
-    CcPathWeakLink * p = pwl;
-
-    while ( p ) {
-        ++len;
-        p = p->next;
-    }
-
-    return len;
-}
+// //
+// // Linked list of path segments.
+//
+// CcPathWeakLink * cc_path_weak_link__new( CcPathLink * pl ) {
+//     CcPathWeakLink * pwl__a = malloc( sizeof( CcPathWeakLink ) );
+//     if ( !pwl__a ) return NULL;
+//
+//     pwl__a->pl__w = pl; // Weak pointer, no ownership transfer.
+//     pwl__a->next = NULL;
+//
+//     return pwl__a;
+// }
+//
+// CcPathWeakLink * cc_path_weak_link_append( CcPathWeakLink ** pwl__iod_a,
+//                                            CcPathLink * pl ) {
+//     if ( !pwl__iod_a ) return NULL;
+//
+//     CcPathWeakLink * pwl__t = cc_path_weak_link__new( pl );
+//     if ( !pwl__t ) return NULL;
+//
+//     if ( !*pwl__iod_a ) {
+//         *pwl__iod_a = pwl__t; // Ownership transfer.
+//     } else {
+//         CcPathWeakLink * pwl = *pwl__iod_a;
+//         CC_FASTFORWARD( pwl );
+//         pwl->next = pwl__t; // Append + ownership transfer.
+//     }
+//
+//     return pwl__t; // Weak pointer.
+// }
+//
+// CcPathWeakLink * cc_path_weak_link_extend( CcPathWeakLink ** pwl__iod_a,
+//                                            CcPathWeakLink ** pwl__n ) {
+//     if ( !pwl__iod_a ) return NULL;
+//     if ( !pwl__n ) return NULL;
+//
+//     if ( !*pwl__n ) return *pwl__iod_a;
+//
+//     if ( !*pwl__iod_a ) {
+//         // Ownership transfer.
+//         *pwl__iod_a = *pwl__n;
+//         *pwl__n = NULL;
+//
+//         return *pwl__iod_a;
+//     }
+//
+//     CcPathWeakLink * last = *pwl__iod_a;
+//     CC_FASTFORWARD( last );
+//
+//     // Ownership transfer.
+//     last->next = *pwl__n;
+//     *pwl__n = NULL;
+//
+//     return last->next;
+// }
+//
+// bool cc_path_weak_link_free_all( CcPathWeakLink ** pwl__f ) {
+//     if ( !pwl__f ) return false;
+//     if ( !*pwl__f ) return true;
+//
+//     CcPathWeakLink * pwl = *pwl__f;
+//     CcPathWeakLink * tmp = NULL;
+//
+//     while ( pwl ) {
+//         // <!> pl__w is weak pointer, not to be free()-ed.
+//
+//         tmp = pwl->next;
+//         CC_FREE( pwl );
+//         pwl = tmp;
+//     }
+//
+//     *pwl__f = NULL;
+//     return true;
+// }
+//
+// size_t cc_path_weak_link_len( CcPathWeakLink * pwl ) {
+//     if ( !pwl ) return 0;
+//
+//     size_t len = 0;
+//     CcPathWeakLink * p = pwl;
+//
+//     while ( p ) {
+//         ++len;
+//         p = p->next;
+//     }
+//
+//     return len;
+// }
+//
+// TODO :: DELETE
