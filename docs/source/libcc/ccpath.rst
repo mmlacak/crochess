@@ -12,6 +12,10 @@ Path
 Documents ``cc_path.h`` and ``cc_path.c`` files, which contain various
 path definitions, types and functions.
 
+.. seealso::
+
+    Paths are discussed in greater details in :doc:`paths`.
+
 .. _lbl-libcc-ccpath-linkedpathsegments:
 
 Linked path segments
@@ -19,64 +23,88 @@ Linked path segments
 
 .. c:struct:: CcPathLink
 
-    Linked path :term:`segment` is essentially a linked list of traversed positions,
-    with possible alternative paths after divergence.
+    Node containing path segment, and links to other nodes.
 
-    Each path :term:`segment` is comprised of path links linked only by
-    :c:member:`next` member, the same as in ordinary linked list.
-
-    Divergent :term:`path`\s are introduced by single :c:member:`diverge` path;
-    all other possible :term:`path`\s after the same divergence are then linked
+    Forking :term:`path`\s are introduced by single :c:member:`fork` path; all
+    other possible :term:`path`\s after the same e.g. divergence are then linked
     by :c:member:`alt`.
 
     .. warning::
 
-        All :c:member:`diverge`, :c:member:`alt`, and :c:member:`next` members
-        must always be a singular pointer to any path link.
+        All :c:member:`fork`, :c:member:`alt`, and :c:member:`next` members are
+        owners of the remainder of a path tree they are pointing to; and must
+        always be a singular pointer within a path tree to their respective
+        forking, alternating, or subsequent path.
 
-        Circular references within a path tree, or shared among them, are not
+        Any back-references within a path tree, or shared among them, are not
         allowed, and will likely cause crash.
 
-    .. c:member:: CcPosDesc pos
+    .. c:member:: CcStep * steps
 
-        A position.
+        Steps, a path segment.
 
-    .. c:member:: cc_uint_t momentum
+        Linked path :term:`segment` is a linked list of all steps taken from one
+        position to another in order in which they were made; only the last step
+        in a :term:`segment` can also have side-effect (i.e. interaction with
+        encountered piece).
 
-        Momentum a moving piece had when this position was reached.
+        .. seealso::
 
-    .. c:member:: struct CcPathLink * diverge
+            :ref:`lbl-libcc-paths-segmenttree`
 
-        Link to divergent paths.
+    .. c:member:: struct CcPathLink * fork
 
-        Every divergent path has this step as its starting position.
+        Link to forking paths.
 
-        One divergent path links to another via :c:member:`alt` member.
+        Forking paths are used after divergence; and also to facilitate multiple,
+        independent paths from a starting position.
+
+        Every forking path has this step as its starting position.
+
+        One forking path links to another via :c:member:`alt` member.
+
+        .. seealso::
+
+            :ref:`lbl-libcc-paths-segmenttree-forking`
 
     .. c:member:: struct CcPathLink * alt
 
         Link to alternative to this path segment.
 
+        Alternative paths are used when there are multiple possible interactions with
+        encountered piece.
+
         This link should be set only after divergence, or if part of alternative
-        paths, i.e. if this step has been pointed-to by either :c:member:`diverge`,
+        paths, i.e. if this step has been pointed-to by either :c:member:`fork`,
         or :c:member:`alt`.
+
+        .. seealso::
+
+            :ref:`lbl-libcc-paths-segmenttree-alternative`
 
     .. c:member:: struct CcPathLink * next
 
-        Link to next position descriptor in a straight path segment.
+        Link to subsequent path.
+
+        Subsequent paths are used when interaction does not produce multiple alternative
+        paths (e.g. when Serpent displaces Pawns), or when path segment is continuation of
+        movement in previous segment (e.g. a piece encounters transparent piece).
+
+        .. seealso::
+
+            :ref:`lbl-libcc-paths-segmenttree-subsequent`
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcPos pos, cc_uint_t momentum )
+.. c:function:: CcPathLink * cc_path_link__new( CcStep * steps )
 
     Function allocates a new path link.
 
-    :param pos: A position.
-    :param momentum: A momentum.
+    :param steps: Steps, a path segment.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcPos pos, cc_uint_t momentum )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcStep * steps )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.
@@ -85,8 +113,7 @@ Linked path segments
     with a newly allocated path link as its only element.
 
     :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
-    :param pos: A position.
-    :param momentum: A momentum.
+    :param steps: Steps, a path segment.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 
@@ -114,10 +141,10 @@ Linked path segments
 
 .. c:function:: CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
 
-    Function extends divergent paths of a given path step (:c:`pl_step__a`) with
+    Function extends forking paths of a given path step (:c:`pl_step__a`) with
     path segment (:c:`pl_alt__n`) as an additional alternative path.
 
-    If a given path step doesn't have divergent path yet, function initializes it
+    If a given path step doesn't have forking path yet, function initializes it
     with a given alternative path.
 
     .. note::
@@ -126,7 +153,7 @@ Linked path segments
         diverging path segment :c:`pl_step__a`; as a result, inner pointer
         :c:`*pl_alt__n` is :c:data:`NULL`\ed.
 
-    :param pl_step__a: **Ownership**; a path step from which to diverge.
+    :param pl_step__a: **Ownership**; a path step from which to fork.
     :param pl_alt__n: **Ownership transfer**; diverging path.
     :returns: Weak pointer to alternative path if successful,
         :c:data:`NULL` otherwise.
@@ -150,17 +177,17 @@ Linked path segments
 .. c:function:: size_t cc_path_link_len( CcPathLink * path_link, bool count_all )
 
     Function returns length of a given path segment; optionally also includes
-    :c:member:`diverge`, :c:member:`alt` branches.
+    :c:member:`fork`, :c:member:`alt` branches.
 
     :param path_link: A path segment.
-    :param count_all: Flag, whether to include :c:member:`diverge`, :c:member:`alt`
+    :param count_all: Flag, whether to include :c:member:`fork`, :c:member:`alt`
         path segments (if :c:data:`true`), or only a given path segment
         without branching (if :c:data:`false`).
     :returns: Length of a given path segment if successful, ``0`` otherwise.
 
 .. c:function:: size_t cc_path_link_count_all_seqments( CcPathLink * path_link )
 
-    Function returns count of all segments, including :c:member:`diverge`,
+    Function returns count of all segments, including :c:member:`fork`,
     :c:member:`alt` ones.
 
     :param path_link: A path segment.
@@ -169,7 +196,7 @@ Linked path segments
 .. c:function:: char * cc_path_link_to_string__new( CcPathLink * path_link )
 
     Function returns string containing user-readable representation of a complete
-    path tree, including :c:member:`diverge`, :c:member:`alt` branches.
+    path tree, including :c:member:`fork`, :c:member:`alt` branches.
 
     :param path_link: A path segment.
     :returns: A newly allocated, null-terminated (``'\0'``) string if

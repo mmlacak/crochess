@@ -18,11 +18,10 @@
 //
 // Linked path segments.
 
-// TODO :: DOCS
 typedef struct CcPathLink {
     CcStep * steps;
 
-    struct CcPathLink * fork; // TODO :: rename --> fork (?)
+    struct CcPathLink * fork;
     struct CcPathLink * alt;
     struct CcPathLink * next;
 } CcPathLink;
