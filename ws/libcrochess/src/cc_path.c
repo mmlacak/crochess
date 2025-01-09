@@ -128,6 +128,94 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
+static bool _cc_path_link_steps_are_valid( CcStep * steps ) {
+    if ( !steps ) return false;
+
+    CcStep * s = steps;
+
+    while ( s ) {
+        if ( s->link != CC_SLTE_Next ) return false;
+
+        if ( !CC_POS_IS_VALID( s->field ) ) return false;
+
+        if ( s->next ) { // Not last step.
+            if ( s->side_effect.type != CC_SETE_None ) return false;
+        }
+
+        s = s->next;
+    }
+
+    return true;
+}
+
+static bool _cc_path_link_is_valid( CcPathLink * path_link, bool do_check_steps, bool has_steps ) {
+    if ( !path_link ) return false;
+
+    CcPathLink * pl = path_link;
+
+    if ( do_check_steps && !_cc_path_link_steps_are_valid( pl->steps ) )
+        return false;
+
+    //
+    // Check links, at most 1 should be valid.
+
+    if ( pl->fork ) {
+        if ( pl->alt ) return false;
+        if ( pl->next ) return false;
+
+        if ( pl->fork->back__w != pl ) return false;
+
+        if ( !_cc_path_link_is_valid( pl->fork, true, true ) ) return false;
+    } else if ( pl->alt ) {
+        if ( pl->fork ) return false;
+        if ( pl->next ) return false;
+
+        if ( pl->alt->back__w != pl ) return false;
+
+        if ( !_cc_path_link_is_valid( pl->alt, true, true ) ) return false;
+    } else if ( pl->next ) {
+        if ( pl->fork ) return false;
+        if ( pl->alt ) return false;
+
+        if ( pl->next->back__w != pl ) return false;
+
+        if ( !_cc_path_link_is_valid( pl->next, true, true ) ) return false;
+    } else
+        return has_steps; // Terminal node, but initial node should not be terminal.
+
+    return true;
+}
+
+bool cc_path_link_is_valid( CcPathLink * path_link ) {
+    if ( !path_link ) return false;
+
+    CcPathLink * root = path_link;
+
+    CC_REWIND_BY( root, root->back__w );
+
+    //
+    // Check steps.
+
+    CcStep * s = root->steps;
+
+    if ( s->link != CC_SLTE_InitialPosition ) return false;
+
+    if ( !CC_POS_IS_VALID( s->field ) ) return false;
+
+    if ( s->side_effect.type != CC_SETE_None ) return false;
+
+    if ( s->next && !_cc_path_link_steps_are_valid( s->next ) ) return false;
+
+    //
+    // Check links.
+
+    bool has_steps = ( s->next ); // Initial step should not be the only one, if root is the only node.
+
+    if ( !_cc_path_link_is_valid( root, false, has_steps ) ) return false;
+
+    return true;
+}
+
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     if ( !path_link ) return NULL;
     if ( path_link->back__w ) return NULL;

@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-// #include "cc_defines.h"
+#include "cc_defines.h"
 // #include "cc_str_utils.h"
 
 // #include "cc_piece.h"
@@ -42,8 +42,12 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
 CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );
 
-// TODO
-// cc_path_link_is_valid()
+// static bool _cc_path_link_steps_are_valid( CcStep * steps );
+
+// static bool _cc_path_link_is_valid( CcPathLink * path_link );
+
+// TODO :: DOCS
+bool cc_path_link_is_valid( CcPathLink * path_link );
 
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 
