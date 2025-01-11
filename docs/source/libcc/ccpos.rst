@@ -241,6 +241,13 @@ Linked positions
     :param pos: A position.
     :returns: A newly allocated position link if successful, :c:data:`NULL` otherwise.
 
+.. c:function:: CcPosLink * cc_pos_link_duplicate_all__new( CcPosLink * pos_link )
+
+    Duplicates all given positions into a newly allocated linked list.
+
+    :param pos_link: Linked list to duplicate.
+    :returns: A newly allocated linked list if successful, :c:data:`NULL` otherwise.
+
 .. c:function:: CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a, CcPosLink ** pos_link__n )
 
     Extends given linked list of positions with another.

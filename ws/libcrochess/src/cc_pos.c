@@ -152,6 +152,25 @@ CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
     return pl__t; // Weak pointer.
 }
 
+CcPosLink * cc_pos_link_duplicate_all__new( CcPosLink * pos_link ) {
+    if ( !pos_link ) return NULL;
+
+    CcPosLink * pos_link__a = NULL;
+    CcPosLink * from = pos_link;
+
+    while ( from ) {
+        CcPosLink * pl__w = cc_pos_link_append( &pos_link__a, from->pos );
+        if ( !pl__w ) { // Failed append --> ownership not transferred ...
+            cc_pos_link_free_all( &pos_link__a );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return pos_link__a;
+}
+
 CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,
                                 CcPosLink ** pos_link__n ) {
     if ( !pos_link__iod_a ) return NULL;
