@@ -59,6 +59,32 @@ CcPos cc_pos_calc_step( CcPos start, CcPos destination );
 bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 
 //
+// Linked positions.
+
+// TODO :: DOCS
+typedef struct CcPosLink {
+    CcPos pos;
+    struct CcPosLink * next;
+} CcPosLink;
+
+CcPosLink * cc_pos_link__new( CcPos pos );
+
+// TODO :: merge append & expand <-- use cc_step_append()
+CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+                                CcPos pos );
+
+CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
+                                CcPos pos );
+
+// TODO :: add extend <-- use cc_step_extend()
+
+bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
+
+size_t cc_pos_link_len( CcPosLink * restrict pos_link );
+
+char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
+
+//
 // Typed step
 
 typedef enum CcStepTypeEnum {

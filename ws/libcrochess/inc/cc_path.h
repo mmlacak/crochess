@@ -11,7 +11,8 @@
 
 // #include "cc_piece.h"
 // #include "cc_tag.h"
-#include "cc_step.h"
+// #include "cc_step.h"
+#include "cc_side_effect.h"
 #include "cc_pos.h"
 
 
@@ -19,7 +20,8 @@
 // Linked path segments.
 
 typedef struct CcPathLink {
-    CcStep * steps;
+    CcPosLink * steps; // TODO + DOCS --> pos list + last side-effect
+    CcSideEffect side_effect; // TODO :: DOCS
 
     struct CcPathLink * fork;
     struct CcPathLink * alt;
@@ -28,10 +30,10 @@ typedef struct CcPathLink {
     struct CcPathLink * next;
 } CcPathLink;
 
-CcPathLink * cc_path_link__new( CcStep * steps );
+CcPathLink * cc_path_link__new( CcPosLink * steps );
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcStep * steps );
+                                  CcPosLink * steps );
 
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );
@@ -42,7 +44,7 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
 CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );
 
-// static bool _cc_path_link_steps_are_valid( CcStep * steps );
+// static bool _cc_path_link_steps_are_valid( CcPosLink * steps );
 
 // static bool _cc_path_link_is_valid( CcPathLink * path_link );
 

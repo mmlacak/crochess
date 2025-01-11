@@ -14,7 +14,7 @@
 //
 // Linked path segments.
 
-CcPathLink * cc_path_link__new( CcStep * steps ) {
+CcPathLink * cc_path_link__new( CcPosLink * steps ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
@@ -30,7 +30,7 @@ CcPathLink * cc_path_link__new( CcStep * steps ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcStep * steps ) {
+                                  CcPosLink * steps ) {
     if ( !pl__iod_a ) return NULL;
 
     CcPathLink * pl__t = cc_path_link__new( steps );
@@ -128,19 +128,13 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
-static bool _cc_path_link_steps_are_valid( CcStep * steps ) {
+static bool _cc_path_link_steps_are_valid( CcPosLink * steps ) {
     if ( !steps ) return false;
 
-    CcStep * s = steps;
+    CcPosLink * s = steps;
 
     while ( s ) {
-        if ( s->link != CC_SLTE_Next ) return false;
-
-        if ( !CC_POS_IS_VALID( s->field ) ) return false;
-
-        if ( s->next ) { // Not last step.
-            if ( s->side_effect.type != CC_SETE_None ) return false;
-        }
+        if ( !CC_POS_IS_VALID( s->pos ) ) return false;
 
         s = s->next;
     }
@@ -152,6 +146,8 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool do_check_steps,
     if ( !path_link ) return false;
 
     CcPathLink * pl = path_link;
+
+    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
     if ( do_check_steps && !_cc_path_link_steps_are_valid( pl->steps ) )
         return false;
@@ -193,25 +189,9 @@ bool cc_path_link_is_valid( CcPathLink * path_link ) {
 
     CC_REWIND_BY( root, root->back__w );
 
-    //
-    // Check steps.
+    bool has_steps = ( cc_pos_link_len( root->steps ) > 1 ); // Initial step should not be the only one, if root is the only node.
 
-    CcStep * s = root->steps;
-
-    if ( s->link != CC_SLTE_InitialPosition ) return false;
-
-    if ( !CC_POS_IS_VALID( s->field ) ) return false;
-
-    if ( s->side_effect.type != CC_SETE_None ) return false;
-
-    if ( s->next && !_cc_path_link_steps_are_valid( s->next ) ) return false;
-
-    //
-    // Check links.
-
-    bool has_steps = ( s->next ); // Initial step should not be the only one, if root is the only node.
-
-    if ( !_cc_path_link_is_valid( root, false, has_steps ) ) return false;
+    if ( !_cc_path_link_is_valid( root, true, has_steps ) ) return false;
 
     return true;
 }
@@ -262,7 +242,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
 }
 
 bool cc_path_link_free_all( CcPathLink ** pl__f ) {
-    if ( !pl__f ) return false;
+    if ( !pl__f ) return false; // TODO :: FIX :: true || maybe bool (???)
     if ( !*pl__f ) return true;
 
     CcPathLink * pl = *pl__f;
@@ -270,6 +250,8 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
     bool result = true;
 
     while ( pl ) {
+        result = cc_pos_link_free_all( &( pl->steps ) ) && result;
+
         if ( pl->fork )
             result = cc_path_link_free_all( &( pl->fork ) ) && result;
 
