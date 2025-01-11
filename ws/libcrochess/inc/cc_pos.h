@@ -71,7 +71,6 @@ CcPosLink * cc_pos_link__new( CcPos pos );
 CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
                                 CcPos pos );
 
-// TODO  :: DOCS :: use cc_step_duplicate_all__new()
 CcPosLink * cc_pos_link_duplicate_all__new( CcPosLink * pos_link );
 
 CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,

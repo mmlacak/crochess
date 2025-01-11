@@ -19,6 +19,7 @@ CcPathLink * cc_path_link__new( CcPosLink * steps ) {
     if ( !pl__t ) return NULL;
 
     pl__t->steps = steps;
+    pl__t->side_effect = cc_side_effect_none();
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
