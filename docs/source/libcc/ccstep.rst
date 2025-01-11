@@ -145,7 +145,7 @@ Functions
     Appends a newly allocated step to a given linked list.
 
     If linked list :c:`*steps__iod_a` is :c:data:`NULL`, it will be initialized
-    with a newly allocated typed step link as its only element.
+    with a newly allocated step link as its only element.
 
     :param steps__iod_a: **Ownership**, *optional* *input/output* parameter; linked list of steps
                          to which a new step is appended, inner pointer can be :c:data:`NULL`.

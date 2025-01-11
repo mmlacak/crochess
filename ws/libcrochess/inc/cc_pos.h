@@ -61,7 +61,6 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 //
 // Linked positions.
 
-// TODO :: DOCS
 typedef struct CcPosLink {
     CcPos pos;
     struct CcPosLink * next;
@@ -69,11 +68,11 @@ typedef struct CcPosLink {
 
 CcPosLink * cc_pos_link__new( CcPos pos );
 
-// TODO :: DOCS <-- use cc_step_append()
 CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
                                 CcPos pos );
 
-// TODO :: DOCS <-- use cc_step_extend()
+// TODO  :: add duplicate all <-- use cc_step_duplicate_all__new() :: + DOCS
+
 CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,
                                 CcPosLink ** pos_link__n );
 

@@ -214,7 +214,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
     // unused len is certainly > 0, because pos_link != NULL
     signed int unused = cc_pos_link_len( pos_link ) *
                         ( CC_MAX_LEN_CHAR_8 + 1 );
-                        // CC_MAX_LEN_CHAR_16, for position + piece
+                        // CC_MAX_LEN_CHAR_8, for position
                         // +1, for separator '.' between positions
 
     char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
@@ -238,7 +238,7 @@ char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_16 );
+        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
         if ( !pl_end ) {
             CC_FREE( pl_str__a );
             return NULL;

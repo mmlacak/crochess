@@ -202,6 +202,88 @@ Functions
     :param pos_str__o: *Output*, pointer to short string array.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. _lbl-libcc-ccpos-linkedpositions:
+
+Linked positions
+----------------
+
+.. c:struct:: CcPosLink
+
+    Linked positions :c:`struct`\ure, linked list.
+
+    .. c:member:: CcPos pos
+
+        A position.
+
+    .. c:member:: struct CcPosLink * next
+
+        Next position in a linked list.
+
+    :c:`struct` is tagged with the same :c:struct:`CcPosLink` name.
+
+.. c:function:: CcPosLink * cc_pos_link__new( CcPos pos )
+
+    Returns a newly allocated position link.
+
+    :param pos: A position.
+    :returns: A newly allocated position link if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a, CcPos pos )
+
+    Appends a newly allocated position link to a given linked list.
+
+    If linked list :c:`*pos_link__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated position link as its only element.
+
+    :param pos_link__iod_a: **Ownership**, *optional* *input/output* parameter;
+        linked list of positions to which a new position is appended, inner pointer
+        can be :c:data:`NULL`.
+    :param pos: A position.
+    :returns: A newly allocated position link if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a, CcPosLink ** pos_link__n )
+
+    Extends given linked list of positions with another.
+
+    If linked list to extend (:c:`pos_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`pos_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`pos_link__n` has its ownership transferred to
+        extended linked list :c:`pos_link__iod_a`; as a result, inner pointer
+        :c:`*pos_link__n` is :c:data:`NULL`\ed.
+
+    :param pos_link__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
+    :param pos_link__n: **Ownership transfer**, *optional*; linked list to extend existing positions.
+    :returns: Weak pointer to extended portion of a linked list if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_pos_link_free_all( CcPosLink ** pos_link__f )
+
+    Frees all positions in a linked list.
+
+    :param pos_link__f: Linked list of positions.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: size_t cc_pos_link_len( CcPosLink * pos_link )
+
+    Function returning length of linked list of positions.
+
+    :param pos_link: Linked list of positions.
+    :returns: Length if successful, ``0`` otherwise.
+
+.. c:function:: char * cc_pos_link_to_short_string__new( CcPosLink * pos_link )
+
+    Function returns a newly allocated string, containing user-readable
+    representation of positions in a given linked list, separated by ``'.'`` (dot);
+    e.g. ``"b8.c10.d12.e14"``.
+
+    :param pos_link: Linked list of positions.
+    :returns: A newly allocated, null-terminated string if successful,
+              :c:data:`NULL` otherwise
+
 .. _lbl-libcc-ccpos-steptypeenum:
 
 Step type enum
