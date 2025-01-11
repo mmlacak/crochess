@@ -69,20 +69,19 @@ typedef struct CcPosLink {
 
 CcPosLink * cc_pos_link__new( CcPos pos );
 
-// TODO :: merge append & expand <-- use cc_step_append()
-CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+// TODO :: DOCS <-- use cc_step_append()
+CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
                                 CcPos pos );
 
-CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
-                                CcPos pos );
+// TODO :: DOCS <-- use cc_step_extend()
+CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,
+                                CcPosLink ** pos_link__n );
 
-// TODO :: add extend <-- use cc_step_extend()
+bool cc_pos_link_free_all( CcPosLink ** pos_link__f );
 
-bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f );
+size_t cc_pos_link_len( CcPosLink * pos_link );
 
-size_t cc_pos_link_len( CcPosLink * restrict pos_link );
-
-char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link );
+char * cc_pos_link_to_short_string__new( CcPosLink * pos_link );
 
 //
 // Typed step

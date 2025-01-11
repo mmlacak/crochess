@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.70:1249+20250111.060210"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.71:1250+20250111.140347"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";

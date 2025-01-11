@@ -134,36 +134,50 @@ CcPosLink * cc_pos_link__new( CcPos pos ) {
     return pl__t;
 }
 
-CcPosLink * cc_pos_link_append( CcPosLink * restrict pos_link__io,
+CcPosLink * cc_pos_link_append( CcPosLink ** pos_link__iod_a,
                                 CcPos pos ) {
-    if ( !pos_link__io ) return NULL;
+    if ( !pos_link__iod_a ) return NULL;
 
     CcPosLink * pl__t = cc_pos_link__new( pos );
     if ( !pl__t ) return NULL;
 
-    CcPosLink * pl = pos_link__io;
+    if ( !*pos_link__iod_a ) {
+        *pos_link__iod_a = pl__t; // Ownership transfer.
+    } else {
+        CcPosLink * pl = *pos_link__iod_a;
+        CC_FASTFORWARD( pl );
+        pl->next = pl__t; // Append + ownership transfer.
+    }
 
-    CC_FASTFORWARD( pl );
-    pl->next = pl__t; // append // Ownership transfer --> pl__t is now weak pointer.
-
-    return pl__t;
+    return pl__t; // Weak pointer.
 }
 
-CcPosLink * cc_pos_link_expand( CcPosLink ** restrict pos_link__io,
-                                CcPos pos ) {
-    if ( !pos_link__io ) return NULL;
+CcPosLink * cc_pos_link_extend( CcPosLink ** pos_link__iod_a,
+                                CcPosLink ** pos_link__n ) {
+    if ( !pos_link__iod_a ) return NULL;
+    if ( !pos_link__n ) return NULL;
 
-    CcPosLink * pl__w = NULL;
+    if ( !*pos_link__n ) return *pos_link__iod_a;
 
-    if ( !*pos_link__io )
-        *pos_link__io = pl__w = cc_pos_link__new( pos );
-    else
-        pl__w = cc_pos_link_append( *pos_link__io, pos );
+    if ( !*pos_link__iod_a ) {
+        // Ownership transfer.
+        *pos_link__iod_a = *pos_link__n;
+        *pos_link__n = NULL;
 
-    return pl__w;
+        return *pos_link__iod_a;
+    }
+
+    CcPosLink * last = *pos_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *pos_link__n;
+    *pos_link__n = NULL;
+
+    return last->next;
 }
 
-bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
+bool cc_pos_link_free_all( CcPosLink ** pos_link__f ) {
     if ( !pos_link__f ) return false;
     if ( !*pos_link__f ) return true;
 
@@ -180,7 +194,7 @@ bool cc_pos_link_free_all( CcPosLink ** restrict pos_link__f ) {
     return true;
 }
 
-size_t cc_pos_link_len( CcPosLink * restrict pos_link ) {
+size_t cc_pos_link_len( CcPosLink * pos_link ) {
     if ( !pos_link ) return 0;
 
     size_t len = 0;
@@ -194,7 +208,7 @@ size_t cc_pos_link_len( CcPosLink * restrict pos_link ) {
     return len;
 }
 
-char * cc_pos_link_to_short_string__new( CcPosLink * restrict pos_link ) {
+char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
     if ( !pos_link ) return NULL;
 
     // unused len is certainly > 0, because pos_link != NULL

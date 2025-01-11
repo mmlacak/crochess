@@ -242,7 +242,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
 }
 
 bool cc_path_link_free_all( CcPathLink ** pl__f ) {
-    if ( !pl__f ) return false; // TODO :: FIX :: true || maybe bool (???)
+    if ( !pl__f ) return false;
     if ( !*pl__f ) return true;
 
     CcPathLink * pl = *pl__f;
