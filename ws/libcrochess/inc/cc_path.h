@@ -26,14 +26,15 @@ typedef struct CcPathLink {
     struct CcPathLink * fork;
     struct CcPathLink * alt;
 
-    struct CcPathLink * back__w; // TODO :: DOCS
+    struct CcPathLink * back__w;
     struct CcPathLink * next;
 } CcPathLink;
 
-CcPathLink * cc_path_link__new( CcPosLink * steps );
+CcPathLink * cc_path_link__new( CcPosLink * steps, CcSideEffect side_effect );
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcPosLink * steps );
+                                  CcPosLink * steps,
+                                  CcSideEffect side_effect );
 
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );

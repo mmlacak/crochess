@@ -14,12 +14,12 @@
 //
 // Linked path segments.
 
-CcPathLink * cc_path_link__new( CcPosLink * steps ) {
+CcPathLink * cc_path_link__new( CcPosLink * steps, CcSideEffect side_effect ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
     pl__t->steps = steps;
-    pl__t->side_effect = cc_side_effect_none();
+    pl__t->side_effect = side_effect;
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
@@ -31,10 +31,11 @@ CcPathLink * cc_path_link__new( CcPosLink * steps ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcPosLink * steps ) {
+                                  CcPosLink * steps,
+                                  CcSideEffect side_effect ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( steps );
+    CcPathLink * pl__t = cc_path_link__new( steps, side_effect );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -206,7 +207,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     bool result = true;
 
     while ( from ) {
-        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->steps );
+        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->steps, from->side_effect );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
             result = false;
@@ -224,7 +225,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
 
         if ( from->alt ) {
             if ( ( pd__w->alt = cc_path_link_duplicate_all__new( from->alt ) ) ) {
-                pd__w->fork->back__w = pd__w;
+                pd__w->alt->back__w = pd__w;
             } else {
                 result = false;
                 break;

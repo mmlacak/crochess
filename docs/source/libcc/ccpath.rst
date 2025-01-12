@@ -110,15 +110,16 @@ Linked path segments
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcPosLink * steps )
+.. c:function:: CcPathLink * cc_path_link__new( CcPosLink * steps, CcSideEffect side_effect )
 
     Function allocates a new path link.
 
     :param steps: Linked positions, a path segment.
+    :param side_effect: A side-effect.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcPosLink * steps )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcPosLink * steps, CcSideEffect side_effect )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.
@@ -128,6 +129,7 @@ Linked path segments
 
     :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
     :param steps: Linked positions, a path segment.
+    :param side_effect: A side-effect.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 
