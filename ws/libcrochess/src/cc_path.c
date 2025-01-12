@@ -78,12 +78,12 @@ CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
 }
 
 CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
-                                CcPathLink ** pl_alt__n ) {
+                                CcPathLink ** pl_fork__n ) {
     if ( !pl_step__a ) return NULL;
     if ( !*pl_step__a ) return NULL;
 
-    if ( !pl_alt__n ) return NULL;
-    if ( !*pl_alt__n ) return NULL;
+    if ( !pl_fork__n ) return NULL;
+    if ( !*pl_fork__n ) return NULL;
 
     if ( ( *pl_step__a )->fork ) {
         CcPathLink * pl = ( *pl_step__a )->fork;
@@ -92,16 +92,16 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
             pl = pl->alt;
         }
 
-        pl->alt = *pl_alt__n;
-        ( *pl_alt__n )->back__w = pl;
+        pl->alt = *pl_fork__n;
+        ( *pl_fork__n )->back__w = pl;
     } else {
-        ( *pl_step__a )->fork = *pl_alt__n;
-        ( *pl_alt__n )->back__w = *pl_step__a;
+        ( *pl_step__a )->fork = *pl_fork__n;
+        ( *pl_fork__n )->back__w = *pl_step__a;
     }
 
     // Ownership transferred.
-    CcPathLink * pl__w = *pl_alt__n;
-    *pl_alt__n = NULL;
+    CcPathLink * pl__w = *pl_fork__n;
+    *pl_fork__n = NULL;
 
     return pl__w;
 }

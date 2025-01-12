@@ -33,24 +33,33 @@ Linked path segments
 
         All :c:member:`fork`, :c:member:`alt`, and :c:member:`next` members are
         owners of the remainder of a path tree they are pointing to; and must
-        always be a singular pointer within a path tree to their respective
+        always be a singular pointer (owner) within a path tree to their respective
         forking, alternating, or subsequent path.
 
-        Any back-references within a path tree, or shared among them, are not
-        allowed, and will likely cause crash.
+        Any two pointers pointing to the same node, any back-references within
+        a path tree, or shared among them are not allowed, and will likely cause
+        crash.
+
+    .. note::
+
+        Weak back-links are fine, as they are never :c:func:`free()`\-ed.
 
     .. seealso::
 
         :ref:`lbl-libcc-paths-segmenttree`
 
-    .. c:member:: CcStep * steps
+    .. c:member:: CcPosLink * steps
 
-        Steps, a path segment.
+        Linked positions, a path segment.
 
         Linked path :term:`segment` is a linked list of all steps taken from one
         position to another in order in which they were made; only the last step
         in a :term:`segment` can also have side-effect (i.e. interaction with
         encountered piece).
+
+    .. c:member:: CcSideEffect side_effect
+
+        Side-effect accompanying the last step.
 
     .. c:member:: struct CcPathLink * fork
 
@@ -82,6 +91,11 @@ Linked path segments
 
             :ref:`lbl-libcc-paths-segmenttree-alternative`
 
+    .. c:member:: struct CcPathLink * back__w
+
+        Weak back-link to parent node, regardless if pointed-to by :c:member:`fork`,
+        :c:member:`alt`, or :c:member:`next`.
+
     .. c:member:: struct CcPathLink * next
 
         Link to subsequent path.
@@ -96,15 +110,15 @@ Linked path segments
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcStep * steps )
+.. c:function:: CcPathLink * cc_path_link__new( CcPosLink * steps )
 
     Function allocates a new path link.
 
-    :param steps: Steps, a path segment.
+    :param steps: Linked positions, a path segment.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcStep * steps )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcPosLink * steps )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.
@@ -113,7 +127,7 @@ Linked path segments
     with a newly allocated path link as its only element.
 
     :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
-    :param steps: Steps, a path segment.
+    :param steps: Linked positions, a path segment.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 
@@ -139,24 +153,55 @@ Linked path segments
     :returns: Weak pointer to extended portion of a resulting path segment if
         successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
+.. c:function:: CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a, CcPathLink ** pl_fork__n )
 
-    Function extends forking paths of a given path step (:c:`pl_step__a`) with
-    path segment (:c:`pl_alt__n`) as an additional alternative path.
+    Function extends forking paths of a given path step (:c:`pl_step__a`) with a
+    path segment (:c:`pl_fork__n`), as an additional alternative path (i.e. appends
+    to :c:`pl_step__a->fork->alt` linked list).
 
-    If a given path step doesn't have forking path yet, function initializes it
-    with a given alternative path.
+    If a given path step doesn't have forking path yet (i.e. if :c:`pl_step__a->fork == NULL`),
+    function initializes it with a given forking path.
+
+    .. note::
+
+        Extending path segment :c:`pl_fork__n` has its ownership transferred to
+        path segment :c:`pl_step__a`; as a result, inner pointer :c:`*pl_fork__n`
+        is :c:data:`NULL`\ed.
+
+    :param pl_step__a: **Ownership**; a path step from which to fork.
+    :param pl_fork__n: **Ownership transfer**; forking path.
+    :returns: Weak pointer to alternative path if successful,
+        :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
+
+    Function extends alternating paths of a given path step (:c:`pl_step__a`) with
+    path segment (:c:`pl_alt__n`), i.e. appends to :c:`pl_step__a->alt` linked list.
+
+    If a given path step doesn't have alternating path yet (i.e. if :c:`pl_step__a->alt == NULL`),
+    function initializes it with a given alternative path.
 
     .. note::
 
         Extending path segment :c:`pl_alt__n` has its ownership transferred to
-        diverging path segment :c:`pl_step__a`; as a result, inner pointer
-        :c:`*pl_alt__n` is :c:data:`NULL`\ed.
+        path segment :c:`pl_step__a`; as a result, inner pointer :c:`*pl_alt__n`
+        is :c:data:`NULL`\ed.
 
     :param pl_step__a: **Ownership**; a path step from which to fork.
-    :param pl_alt__n: **Ownership transfer**; diverging path.
+    :param pl_alt__n: **Ownership transfer**; alternating path.
     :returns: Weak pointer to alternative path if successful,
         :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_path_link_is_valid( CcPathLink * path_link )
+
+    Checks if given path segment is valid; by checking if all positions are valid
+    (i.e. not :c:data:`CC_INVALID_COORD`), and if all back-links are valid (e.g.
+    if :c:`pl->fork` is non-:c:data:`NULL`, then :c:`pl->fork->back__w` must point
+    back to :c:`pl`).
+
+    :param path_link: A path segment.
+    :returns: :c:data:`true` if given path segment is valid,
+              :c:data:`false` otherwise.
 
 .. c:function:: CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link )
 

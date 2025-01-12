@@ -75,8 +75,8 @@ their respective predecessor. For instance::
     +---+           +---+          +----+
 
 Subsequent paths are used when interaction does not produce multiple alternative
-paths (e.g. when Serpent displaces Pawns), or when path segment is continuation of
-movement in previous segment (e.g. a piece encounters transparent piece).
+paths (e.g. when Serpent displaces own Pawns), or when path segment is continuation
+of movement in previous segment (e.g. a piece encounters transparent piece).
 
 .. _lbl-libcc-paths-segmenttree-alternative:
 
@@ -132,25 +132,25 @@ path segment is meant to be concatenated to originating segment. For instance::
     +---+   next    +---+   next    +---+
     | A |  ------>  | B |  ------>  | C |
     +---+           +---+           +---+
-                      \
-                       \  fork
-                        \
-                         V
-                       +----+
-                       | D0 |
-                       +----+
-                         |
-                         | alt
-                         V
-                       +----+
-                       | D1 |
-                       +----+
-                         |
-                         | alt
-                         V
-                       +----+
-                       | D2 |
-                       +----+
+                       \
+                        \  fork
+                         \
+                          V
+                        +----+
+                        | D0 |
+                        +----+
+                          |
+                          | alt
+                          V
+                        +----+
+                        | D1 |
+                        +----+
+                          |
+                          | alt
+                          V
+                        +----+
+                        | D2 |
+                        +----+
 
 beside default path::
 
