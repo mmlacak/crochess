@@ -281,7 +281,7 @@ Linked positions
     :param pos_link: Linked list of positions.
     :returns: Length if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_pos_link_to_short_string__new( CcPosLink * pos_link )
+.. c:function:: char * cc_pos_link_to_string__new( CcPosLink * pos_link )
 
     Function returns a newly allocated string, containing user-readable
     representation of positions in a given linked list, separated by ``'.'`` (dot);

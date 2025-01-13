@@ -118,8 +118,8 @@ CcPieceType cc_side_effect_piece( CcSideEffect se );
 
 CcPos cc_side_effect_destination( CcSideEffect se );
 
-bool cc_side_effect_to_short_str( CcSideEffect se,
-                                  cc_char_16 * se_str__o );
+bool cc_side_effect_to_str( CcSideEffect se,
+                            cc_char_16 * se_str__o );
 
 
 CcSideEffect cc_side_effect_none( void );

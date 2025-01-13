@@ -227,7 +227,7 @@ size_t cc_pos_link_len( CcPosLink * pos_link ) {
     return len;
 }
 
-char * cc_pos_link_to_short_string__new( CcPosLink * pos_link ) {
+char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
     if ( !pos_link ) return NULL;
 
     // unused len is certainly > 0, because pos_link != NULL

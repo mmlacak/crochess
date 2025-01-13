@@ -80,7 +80,7 @@ bool cc_pos_link_free_all( CcPosLink ** pos_link__f );
 
 size_t cc_pos_link_len( CcPosLink * pos_link );
 
-char * cc_pos_link_to_short_string__new( CcPosLink * pos_link );
+char * cc_pos_link_to_string__new( CcPosLink * pos_link );
 
 //
 // Typed step

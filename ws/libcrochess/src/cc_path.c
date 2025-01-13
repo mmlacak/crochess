@@ -333,7 +333,7 @@ static char * _cc_path_link_segment_to_string( CcPathLink * path_link,
 
     if ( *str_start__io != '\0' ) return NULL; // Each segment string must be properly terminated.
 
-    size_t len = cc_path_link_len( path_link, false );
+    size_t len = cc_path_link_len( path_link, true );
     size_t depth_size = 2 * depth; // 2 == ' ' + ' '
 
     // <!> Keep in-sync with cc_path_link_to_string__new().

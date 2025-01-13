@@ -252,7 +252,7 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
         unused -= ( steps_end - steps_str );
         steps_str = steps_end;
 
-        if ( !cc_side_effect_to_short_str( s->side_effect, &se_c16 ) ) {
+        if ( !cc_side_effect_to_str( s->side_effect, &se_c16 ) ) {
             CC_FREE( steps_str__a );
             return NULL;
         }

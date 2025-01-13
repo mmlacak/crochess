@@ -135,8 +135,8 @@ CcPos cc_side_effect_destination( CcSideEffect se ) {
 //
 // User-readable representation of a side-effect.
 
-bool cc_side_effect_to_short_str( CcSideEffect se,
-                                  cc_char_16 * se_str__o ) {
+bool cc_side_effect_to_str( CcSideEffect se,
+                            cc_char_16 * se_str__o ) {
     if ( !se_str__o ) return false;
 
     if ( !cc_str_clear( *se_str__o, CC_SIZE_CHAR_16 ) )

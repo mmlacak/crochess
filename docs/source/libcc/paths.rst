@@ -57,9 +57,10 @@ in which they were visited; last step can also have an interaction, i.e. a
 side-effect.
 
 Complete such a path tree is represented by :c:type:`CcPathLink` nodes linked via
-:c:member:`CcPathLink.diverge`, :c:member:`CcPathLink.alt` and :c:member:`CcPathLink.next`
+:c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt` and :c:member:`CcPathLink.next`
 members; its :c:member:`CcPathLink.steps` contain a path segment, and
-:c:member:`CcPathLink.momentum` a piece have at the beginning of this path segment.
+:c:member:`CcPathLink.side_effect` a side-effect moving piece had at the end of
+this path segment.
 
 .. _lbl-libcc-paths-segmenttree-subsequent:
 
