@@ -94,26 +94,28 @@ char const * cc_str_contains_char( char c,
                                    size_t max_len__d ) {
     if ( !start ) return NULL;
 
-    char const * s = start;
+    char const * str__w = start;
     size_t count = 0;
 
-    while ( *s != '\0' ) {
+    while ( *str__w != '\0' ) {
         if ( case_sensitive ) {
-            if ( *s == c ) return s;
+            if ( *str__w == c ) return str__w;
         } else {
-            if ( tolower( *s ) == tolower( c ) )
-                return s;
+            if ( tolower( *str__w ) == tolower( c ) )
+                return str__w;
         }
 
-        if ( end__d && ( s >= end__d ) ) return NULL;
+        if ( end__d && ( str__w >= end__d ) ) return NULL;
 
         if ( ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) && ( count >= max_len__d ) )
             return NULL;
 
         ++count;
-        ++s; }
+        ++str__w;
+    }
 
-    return NULL; }
+    return NULL;
+}
 
 char const * cc_str_traverse_chars( char const * str,
                                     cc_ctype_fp_ischar_t fp_is_char,
@@ -210,23 +212,23 @@ char const * cc_str_end( char const * start,
     if ( !start ) return NULL;
 
     size_t len = 0;
-    char const * s = start;
+    char const * str__w = start;
 
     if ( !end__d ) {
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
-            while ( *s != '\0' ) ++s;
+            while ( *str__w != '\0' ) ++str__w;
         else
-            while ( ( *s != '\0' ) && ( len++ < max_len__d ) ) ++s;
+            while ( ( *str__w != '\0' ) && ( len++ < max_len__d ) ) ++str__w;
     } else {
         char const * e = end__d;
 
         if ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED )
-            while ( ( *s != '\0' ) && ( s < e ) ) ++s;
+            while ( ( *str__w != '\0' ) && ( str__w < e ) ) ++str__w;
         else
-            while ( ( *s != '\0' ) && ( s < e ) && ( len++ < max_len__d ) ) ++s;
+            while ( ( *str__w != '\0' ) && ( str__w < e ) && ( len++ < max_len__d ) ) ++str__w;
     }
 
-    return s;
+    return str__w;
 }
 
 size_t cc_str_len( char const * start,
@@ -420,11 +422,11 @@ char * cc_str_append_into( char * str__io,
     bool if_zero_terminated = ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED );
 
     size_t count = 0;
-    char * io = str__io;
+    char * io__w = str__io;
 
-    while ( *io != '\0' ) {
+    while ( *io__w != '\0' ) {
         if ( if_ignore_size || ( count < size_dest__d ) ) {
-            ++io;
+            ++io__w;
             ++count;
         } else
             return NULL; // Early exit, I/O string is already full.
@@ -437,7 +439,7 @@ char * cc_str_append_into( char * str__io,
     while ( *s != '\0' ) {
         if ( ( if_ignore_size || ( count < size_dest__d ) ) &&
                 ( if_zero_terminated || ( appended < max_len__d ) ) ) {
-            *io++ = *s++;
+            *io__w++ = *s++;
 
             ++appended;
             ++count;
@@ -445,8 +447,8 @@ char * cc_str_append_into( char * str__io,
             break;
     }
 
-    *io = '\0';
-    return io;
+    *io__w = '\0';
+    return io__w;
 }
 
 char * cc_str_append__new( char const * str_1__d,
