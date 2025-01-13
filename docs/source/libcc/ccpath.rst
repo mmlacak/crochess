@@ -25,6 +25,9 @@ Linked path segments
 
     Node containing path segment, and links to other nodes in a path tree.
 
+    First step in a root node is initial position of a piece. Second step either
+    in root node or otherwise might be repositioning.
+
     Forking :term:`path`\s are introduced by single :c:member:`fork` path; all
     other possible :term:`path`\s after the same e.g. divergence are then linked
     by :c:member:`alt`.

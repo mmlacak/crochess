@@ -62,6 +62,9 @@ members; its :c:member:`CcPathLink.steps` contain a path segment, and
 :c:member:`CcPathLink.side_effect` what a moving piece had at the end of
 this path segment.
 
+First step in a root node is initial position of a piece. Second step either in
+root node or otherwise might be repositioning.
+
 .. _lbl-libcc-paths-segmenttree-subsequent:
 
 Subsequent paths
@@ -242,3 +245,6 @@ gives a complete ply with steps ordered like so::
          next   +----+  next   +----+  next        next   +----+
     ... ------> | d0 | ------> | d1 | ------> ... ------> | dn |
                 +----+         +----+                     +----+
+
+First step in a complete ply is initial position of a piece; second step might
+be repositioning.
