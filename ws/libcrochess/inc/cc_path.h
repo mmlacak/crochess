@@ -47,7 +47,7 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
 
 // static bool _cc_path_link_steps_are_valid( CcPosLink * steps );
 
-// static bool _cc_path_link_is_valid( CcPathLink * path_link );
+// static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps );
 
 bool cc_path_link_is_valid( CcPathLink * path_link );
 

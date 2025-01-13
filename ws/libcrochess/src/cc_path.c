@@ -144,14 +144,14 @@ static bool _cc_path_link_steps_are_valid( CcPosLink * steps ) {
     return true;
 }
 
-static bool _cc_path_link_is_valid( CcPathLink * path_link, bool do_check_steps, bool has_steps ) {
+static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
     if ( !path_link ) return false;
 
     CcPathLink * pl = path_link;
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
-    if ( do_check_steps && !_cc_path_link_steps_are_valid( pl->steps ) )
+    if ( !_cc_path_link_steps_are_valid( pl->steps ) )
         return false;
 
     //
@@ -161,19 +161,19 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool do_check_steps,
 
     if ( pl->fork ) {
         if ( pl->fork->back__w != pl ) return false;
-        if ( !_cc_path_link_is_valid( pl->fork, true, true ) ) return false;
+        if ( !_cc_path_link_is_valid( pl->fork, true ) ) return false;
         ++links;
     }
 
     if ( pl->alt ) {
         if ( pl->alt->back__w != pl ) return false;
-        if ( !_cc_path_link_is_valid( pl->alt, true, true ) ) return false;
+        if ( !_cc_path_link_is_valid( pl->alt, true ) ) return false;
         ++links;
     }
 
     if ( pl->next ) {
         if ( pl->next->back__w != pl ) return false;
-        if ( !_cc_path_link_is_valid( pl->next, true, true ) ) return false;
+        if ( !_cc_path_link_is_valid( pl->next, true ) ) return false;
         ++links;
     }
 
@@ -193,7 +193,7 @@ bool cc_path_link_is_valid( CcPathLink * path_link ) {
 
     bool has_steps = ( cc_pos_link_len( root->steps ) > 1 ); // Initial step should not be the only one, if root is the only node.
 
-    if ( !_cc_path_link_is_valid( root, true, has_steps ) ) return false;
+    if ( !_cc_path_link_is_valid( root, has_steps ) ) return false;
 
     return true;
 }
