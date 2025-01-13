@@ -240,15 +240,26 @@ Linked path segments
     :param path_link: A path segment.
     :returns: Count of all segments if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_path_link_to_string__new( CcPathLink * path_link )
+.. c:function:: char * cc_path_link_node_to_string__new( CcPathLink * path_link_node )
 
-    Function returns string containing user-readable representation of a complete
-    path tree, including :c:member:`fork`, :c:member:`alt` branches.
+    Function returns string containing user-readable representation of a given
+    path node.
 
-    :param path_link: A path segment.
+    :param path_link_node: A path segment.
     :returns: A newly allocated, null-terminated (``'\0'``) string if
         successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_string()`
+
+.. .. TODO :: rethink (maybe?)
+.. .. c:function:: char * cc_path_link_to_string__new( CcPathLink * path_link )
+..
+..     Function returns string containing user-readable representation of a complete
+..     path tree, including :c:member:`fork`, :c:member:`alt` branches.
+..
+..     :param path_link: A path segment.
+..     :returns: A newly allocated, null-terminated (``'\0'``) string if
+..         successful, :c:data:`NULL` otherwise.
+..     :seealso: :c:func:`cc_pos_to_string()`
 
 .. _lbl-libcc-ccpath-sourcecodeheader:
 
