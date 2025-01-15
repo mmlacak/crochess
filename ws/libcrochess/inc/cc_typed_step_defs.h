@@ -1,15 +1,16 @@
 // Copyright (c) 2021, 2022, 2024, 2025 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#ifndef __CC_POS_DEFS_H__
-#define __CC_POS_DEFS_H__
+#ifndef __CC_TYPED_STEP_DEFS_H__
+#define __CC_TYPED_STEP_DEFS_H__
 
 #include <stddef.h>
 
 #include "cc_variant.h"
 #include "cc_piece.h"
 // #include "cc_chessboard.h"
-#include "cc_pos.h"
+// #include "cc_pos.h"
+#include "cc_typed_step.h"
 
 
 #define CC_STEPS_LEN_GUARD_DATA_TERMINATED (0)
@@ -324,4 +325,4 @@ bool cc_iter_piece_steps( CcPieceType piece,
                           CcTypedStep const ** step__iod );
 
 
-#endif /* __CC_POS_DEFS_H__ */
+#endif /* __CC_TYPED_STEP_DEFS_H__ */

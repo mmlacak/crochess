@@ -69,6 +69,7 @@ Library contents
     ccposutils
     ccchecks
 
+    cctypedstep
     cctypedstepdefs
     ccpath
 
