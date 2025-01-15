@@ -66,10 +66,10 @@ Library contents
     ccsetupmisc
 
     ccpos
-    ccposdefs
     ccposutils
     ccchecks
 
+    cctypedstepdefs
     ccpath
 
     ccmove

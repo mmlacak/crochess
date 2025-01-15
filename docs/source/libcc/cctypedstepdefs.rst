@@ -1,18 +1,18 @@
-.. Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
+.. Copyright (c) 2021, 2022, 2024, 2025 Mario Mlačak, mmlacak@gmail.com
    This text is Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See accompanying LICENSING, COPYING files for details.
    Included source code files are licensed under GNU GPL v3+ license. See LICENSING, COPYING files in root folder of the project for details.
 
 .. include:: ../defines.rst
 
-.. _lbl-libcc-ccposdefs:
+.. _lbl-libcc-cctypedstepdefs:
 
-Position defines
-================
+Typed step defines
+==================
 
-Documents ``cc_pos_defs.h`` and ``cc_pos_defs.c`` files, which contain various
+Documents ``cc_typed_step_defs.h`` and ``cc_typed_step_defs.c`` files, which contain various
 piece steps definitions and functions.
 
-.. _lbl-libcc-ccposdefs-data:
+.. _lbl-libcc-cctypedstepdefs-data:
 
 Data
 ----
@@ -22,7 +22,7 @@ Data
     Value to ignore array size constraint on various functions,
     and use invalid step as a guard to indicate end of an array.
 
-.. _lbl-libcc-ccposdefs-lengths:
+.. _lbl-libcc-cctypedstepdefs-lengths:
 
 Lengths
 -------
@@ -151,7 +151,7 @@ Lengths
     Equals to ``44``.
 
 
-.. _lbl-libcc-ccposdefs-sizes:
+.. _lbl-libcc-cctypedstepdefs-sizes:
 
 Piece step sizes
 ----------------
@@ -260,7 +260,7 @@ Piece step sizes
     Equals to :c:macro:`CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN` + 1.
 
 
-.. _lbl-libcc-ccposdefs-arrays:
+.. _lbl-libcc-cctypedstepdefs-arrays:
 
 Arrays
 ------
@@ -403,7 +403,7 @@ similar to null-terminating strings; terminating position is
     Shaman.
 
 
-.. _lbl-libcc-ccposdefs-validity:
+.. _lbl-libcc-cctypedstepdefs-validity:
 
 Validity
 --------
@@ -421,7 +421,7 @@ Validity
     :returns: :c:data:`true` if step is valid, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_get_step_type`
 
-.. _lbl-libcc-ccposdefs-steptype:
+.. _lbl-libcc-cctypedstepdefs-steptype:
 
 Step type
 ---------
@@ -446,7 +446,7 @@ Step type
     :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
         :c:enumerator:`CC_STE_None` otherwise.
 
-.. _lbl-libcc-ccposdefs-steptypemacros:
+.. _lbl-libcc-cctypedstepdefs-steptypemacros:
 
 Step type macros
 ^^^^^^^^^^^^^^^^
@@ -666,7 +666,7 @@ Step type macros
     :returns: valid :c:enum:`CcStepTypeEnum` value if step is valid,
       :c:enumerator:`CC_STE_None` otherwise.
 
-.. _lbl-libcc-ccposdefs-functions:
+.. _lbl-libcc-cctypedstepdefs-functions:
 
 Functions
 ---------
@@ -695,7 +695,7 @@ Functions
     :param steps__o: *Output*; newly allocated linked list.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccposdefs-typedsteps:
+.. _lbl-libcc-cctypedstepdefs-typedsteps:
 
 Typed steps
 -----------
@@ -737,7 +737,7 @@ Typed steps
     :param step__iod: *Input/output*, *optional*; iteration step.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccposdefs-typedstepsmacros:
+.. _lbl-libcc-cctypedstepdefs-typedstepsmacros:
 
 Typed steps macros
 ^^^^^^^^^^^^^^^^^^
@@ -988,7 +988,7 @@ Typed steps macros
         :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccposdefs-stepiterators:
+.. _lbl-libcc-cctypedstepdefs-stepiterators:
 
 Step iterators
 --------------
@@ -1041,24 +1041,24 @@ Step iterators
 
         TODO
 
-.. _lbl-libcc-ccposdefs-sourcecodeheader:
+.. _lbl-libcc-cctypedstepdefs-sourcecodeheader:
 
 Header file
 -----------
 
-Included source header file is ``cc_pos_defs.h``.
+Included source header file is ``cc_typed_step_defs.h``.
 
-.. literalinclude:: ../../../ws/libcrochess/inc/cc_pos_defs.h
+.. literalinclude:: ../../../ws/libcrochess/inc/cc_typed_step_defs.h
     :language: C
     :linenos:
 
-.. _lbl-libcc-ccposdefs-sourcecodefile:
+.. _lbl-libcc-cctypedstepdefs-sourcecodefile:
 
 Source code file
 ----------------
 
-Included source code file is ``cc_pos_defs.c``.
+Included source code file is ``cc_typed_step_defs.c``.
 
-.. literalinclude:: ../../../ws/libcrochess/src/cc_pos_defs.c
+.. literalinclude:: ../../../ws/libcrochess/src/cc_typed_step_defs.c
     :language: C
     :linenos:

@@ -8,7 +8,7 @@
 
 #include "cc_tag.h"
 
-#include "cc_pos_defs.h"
+#include "cc_typed_step_defs.h"
 #include "cc_pos_utils.h"
 
 #include "cc_checks.h"

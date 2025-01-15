@@ -15,7 +15,7 @@
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 #include "cc_pos.h"
-#include "cc_pos_defs.h"
+#include "cc_typed_step_defs.h"
 #include "cc_pos_utils.h"
 #include "cc_game.h"
 

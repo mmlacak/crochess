@@ -122,7 +122,7 @@ Initial setups for those are in ``cc_setup_board`` and ``cc_setup_tags``,
 misc setup function are in ``cc_setup_misc`` :term:`module`.
 
 Various :term:`position`\s, :term:`step`\s and linked lists based on those are in
-``cc_pos``, :term:`step` definitions are in ``cc_pos_defs``, position generators
+``cc_pos``, :term:`step` definitions are in ``cc_typed_step_defs``, position generators
 are in ``cc_pos_gens``, and position utilities are in ``cc_pos_utils`` :term:`module`.
 
 Parsers for user notation are in ``cc_parse_move``, ``cc_parse_ply``, ``cc_parse_step``,

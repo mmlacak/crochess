@@ -1,9 +1,9 @@
-// Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
+// Copyright (c) 2021, 2022, 2024, 2025 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 #include <stdlib.h> // abs()
 
-#include "cc_pos_defs.h"
+#include "cc_typed_step_defs.h"
 
 
 CcTypedStep const CC_STEPS_LIGHT_PAWN[ CC_STEPS_PAWN_SIZE ] = {
