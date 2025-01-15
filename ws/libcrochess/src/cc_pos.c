@@ -1,6 +1,7 @@
 // Copyright (c) 2021, 2025 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -66,6 +67,28 @@ CcPos cc_pos_calc_step( CcPos start, CcPos destination ) {
     diff_j /= gcd;
 
     return CC_POS_CAST( diff_i, diff_j );
+}
+
+bool cc_pos_are_same_color( CcPos start, CcPos destination ) {
+    if ( CC_IS_FIELD_LIGHT( start.i, start.j ) &&
+         CC_IS_FIELD_LIGHT( destination.i, destination.j ) )
+            return true;
+
+    if ( CC_IS_FIELD_DARK( start.i, start.j ) &&
+         CC_IS_FIELD_DARK( destination.i, destination.j ) )
+            return true;
+
+    return false;
+}
+
+bool cc_pos_piece_are_same_color( CcPos pos, CcPieceType piece ) {
+    if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
+        return true;
+
+    if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
+        return true;
+
+    return false;
 }
 
 bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o ) {

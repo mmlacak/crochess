@@ -56,6 +56,10 @@ CcPos cc_pos_difference( CcPos start, CcPos destination );
 
 CcPos cc_pos_calc_step( CcPos start, CcPos destination );
 
+bool cc_pos_are_same_color( CcPos start, CcPos destination );
+
+bool cc_pos_piece_are_same_color( CcPos pos, CcPieceType piece );
+
 bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 
 //

@@ -402,16 +402,6 @@ bool cc_is_typed_step_valid( CcTypedStep step,
 }
 
 
-bool cc_is_same_color( CcPieceType piece, CcPos pos ) {
-    if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
-        return true;
-
-    if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
-        return true;
-
-    return false;
-}
-
 bool cc_convert_typed_steps_to_links( CcTypedStep const steps[],
                                       size_t steps_len__d,
                                       CcTypedStepLink ** steps__o ) {

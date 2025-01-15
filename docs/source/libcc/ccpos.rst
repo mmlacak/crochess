@@ -190,6 +190,22 @@ Functions
     :param destination: Destination field.
     :returns: A valid step if successful, :c:macro:`CC_POS_INVALID` otherwise.
 
+.. c:function:: bool cc_pos_are_same_color( CcPos start, CcPos destination )
+
+    Function checks if starting and destination fields are in the same color.
+
+    :param start: Starting position.
+    :param destination: Destination field.
+    :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_pos_piece_are_same_color( CcPos pos, CcPieceType piece )
+
+    Function checks if piece and a field are in the same color.
+
+    :param pos: A position.
+    :param piece: A piece.
+    :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
+
 .. c:function:: bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o )
 
     Function converts position into a user-readable :c:`<file char><rank number>` notation.

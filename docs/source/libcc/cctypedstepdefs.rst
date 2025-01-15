@@ -671,14 +671,6 @@ Step type macros
 Functions
 ---------
 
-.. c:function:: bool cc_is_same_color( CcPieceType piece, CcPos pos )
-
-    Function checks if piece and a field are in the same color.
-
-    :param piece: A piece.
-    :param pos: A position.
-    :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
-
 .. c:function:: bool cc_convert_typed_steps_to_links( CcTypedStep const steps[], size_t steps_len__d, CcTypedStepLink ** steps__o )
 
     Function converts typed steps array into a newly allocated linked list.

@@ -215,8 +215,6 @@ bool cc_is_typed_step_valid( CcTypedStep step,
     ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_MIRACLE_STARCHILD, CC_STEPS_MIRACLE_STARCHILD_LEN ) )
 
 
-bool cc_is_same_color( CcPieceType piece, CcPos pos );
-
 bool cc_convert_typed_steps_to_links( CcTypedStep const steps[],
                                       size_t steps_len__d,
                                       CcTypedStepLink ** steps__o );
