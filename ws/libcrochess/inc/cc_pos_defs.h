@@ -216,9 +216,9 @@ bool cc_is_typed_step_valid( CcTypedStep step,
 
 bool cc_is_same_color( CcPieceType piece, CcPos pos );
 
-bool cc_convert_steps_to_pos_link( CcTypedStep const steps[],
-                                   size_t steps_len__d,
-                                   CcTypedStepLink ** steps__o );
+bool cc_convert_typed_steps_to_links( CcTypedStep const steps[],
+                                      size_t steps_len__d,
+                                      CcTypedStepLink ** steps__o );
 
 
 bool cc_iter_typed_steps( CcTypedStep const steps[],

@@ -679,16 +679,16 @@ Functions
     :param pos: A position.
     :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_convert_steps_to_pos_link( CcTypedStep const steps[], size_t steps_len__d, CcTypedStepLink ** steps__o )
+.. c:function:: bool cc_convert_typed_steps_to_links( CcTypedStep const steps[], size_t steps_len__d, CcTypedStepLink ** steps__o )
 
-    Function converts step array into a newly allocated linked list.
+    Function converts typed steps array into a newly allocated linked list.
 
     *Output* argument :c:`*steps__o` has to be :c:data:`NULL`; appending
     steps to the same linked list is not supported.
 
     If :c:`steps_len__d` is :c:macro:`CC_STEPS_LEN_GUARD_DATA_TERMINATED`,
     :c:`steps` array **must** be terminated with invalid step
-    (i.e. :c:macro:`CC_POS_INVALID`) as a guard.
+    (i.e. :c:macro:`CC_TYPED_STEP_INVALID`) as a guard.
 
     :param steps: A piece step array.
     :param steps_len__d: *Optional*; size of :c:`steps` array.
