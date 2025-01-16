@@ -1077,10 +1077,6 @@ Step iterators
 
         // After iteration, step is reset to NULL, and ready for another.
 
-    .. seealso::
-
-        :c:func:`cc_iter_typed_steps()`, :c:func:`cc_iter_monolith_steps()`
-
     :param piece: A piece.
     :param sideways_pawns: A flag, whether Pawns can move sideways, or not.
     :param short_step: A flag, whether Unicorns and Centaurs move over short or long steps.
@@ -1089,6 +1085,7 @@ Step iterators
         :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
     :param step__iod: *Input/output*, *optional*; iteration step.
     :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_iter_typed_steps()`, :c:func:`cc_iter_monolith_steps()`
 
 .. _lbl-libcc-cctypedstepdefs-sourcecodeheader:
 

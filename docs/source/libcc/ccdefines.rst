@@ -193,8 +193,7 @@ Coordinates
     The largest valid coordinate and board size are for the largest board, used by
     One variant. For other variants actual upper limit is smaller.
 
-    .. seealso::
-        :c:func:`cc_variant_board_size()`
+    :seealso: :c:func:`cc_variant_board_size()`
 
 .. c:macro:: CC_FIELD_COLOR_LIGHT
 
@@ -386,8 +385,7 @@ Defaults
     It is used as default value when function has to return string value,
     usually based on some enum, e.g. a piece label.
 
-    .. seealso::
-        :c:func:`cc_piece_label()`, :c:func:`cc_piece_as_string()`
+    :seealso: :c:func:`cc_piece_label()`, :c:func:`cc_piece_as_string()`
 
 .. _lbl-libcc-ccdefines-navigation:
 
@@ -474,8 +472,10 @@ Navigation
         is just :c:expr:`8/8`, since both :c:`ar` and :c:`ar[0]` are pointers,
         hence ``8`` bytes each.
 
-        .. seealso:: https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c,
-                     search for "An array sent as a parameter to a function is treated as a pointer".
+    .. seealso::
+
+        https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c,
+        search for "An array sent as a parameter to a function is treated as a pointer".
 
     :param array: An array variable.
     :returns: :c:type:`size_t` value, size of a given array.
