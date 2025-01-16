@@ -189,8 +189,26 @@ bool tests_iter_monolith_steps( void ) {
     cc_uint_t step_index = 3;
 
     printf( "---------------------\n" );
-    while ( ( result = cc_iter_monolith_steps( step_index, &step ) && result ) ) {
+    while ( cc_iter_monolith_steps( step_index, &step ) ) {
         printf( "Step: (%d, %d).\n", step.step.i, step.step.j );
+    }
+    printf( "---------------------\n" );
+
+    return result;
+}
+
+bool tests_iter_piece_steps( void ) {
+    bool result = true;
+    CcPieceType piece = CC_PE_LightCentaur;
+    bool sideways_pawns = true;
+    bool short_step = false;
+    CcMaybeBoolEnum serpent_direction = CC_MBE_Void;
+    CcStepTypeEnum filter = CC_STE_None;
+    CcTypedStep const * step = NULL;
+
+    printf( "---------------------\n" );
+    while ( cc_iter_piece_steps( piece, sideways_pawns, short_step, serpent_direction, filter, &step ) ) {
+        printf( "Step: (%d, %d; %d).\n", step->step.i, step->step.j, step->type );
     }
     printf( "---------------------\n" );
 
@@ -199,7 +217,7 @@ bool tests_iter_monolith_steps( void ) {
 
 
 bool tests_misc( int test_number ) {
-    if ( ( test_number < 0 ) || ( 5 < test_number ) ) {
+    if ( ( test_number < 0 ) || ( 6 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false; }
 
@@ -220,6 +238,9 @@ bool tests_misc( int test_number ) {
 
     if ( ( test_number == 5 ) || do_all_tests )
         result = tests_iter_monolith_steps() && result;
+
+    if ( ( test_number == 6 ) || do_all_tests )
+        result = tests_iter_piece_steps() && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;
