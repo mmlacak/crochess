@@ -27,7 +27,7 @@
 //     } else
 //         return CC_MBE_Void; // Enums are secretly ints.
 //
-//     if ( !cc_calc_momentum_for_next_step( momentum__io, accumulating ) )
+//     if ( !cc_calc_momentum( accumulating, 1, momentum__io ) )
 //         return CC_MBE_Void;
 //
 //     return CC_MBE_True;

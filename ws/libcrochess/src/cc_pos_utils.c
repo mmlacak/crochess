@@ -15,17 +15,17 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
     return pd;
 }
 
-bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating ) {
+bool cc_calc_momentum( CcMaybeBoolEnum accumulating,
+                       cc_uint_t count,
+                       cc_uint_t * momentum__io ) {
     if ( !momentum__io ) return false;
 
-    cc_uint_t m = *momentum__io;
-
     if ( accumulating == CC_MBE_True ) {
-        if ( m == UINT_MAX ) return false;
-        *momentum__io = m + 1;
+        if ( *momentum__io > UINT_MAX - count ) return false;
+        *momentum__io += count;
     } else if ( accumulating == CC_MBE_Void ) {
-        if ( m == CC_UNSIGNED_MIN ) return false;
-        *momentum__io = m - 1;
+        if ( *momentum__io < CC_UNSIGNED_MIN + count ) return false;
+        *momentum__io -= count;
     } else if ( accumulating == CC_MBE_False ) {
         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
     } else

@@ -43,7 +43,7 @@ Functions
         * :c:enumerator:`CC_MBE_False` if there is not enough momentum,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-    :seealso: :c:func:`cc_calc_momentum_for_next_step()`
+    :seealso: :c:func:`cc_calc_momentum()`
 
 .. c:function:: bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt )
 

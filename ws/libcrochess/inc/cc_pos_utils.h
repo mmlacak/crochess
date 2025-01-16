@@ -12,11 +12,14 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos );
 
-bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating );
+// TODO :: DOCS
+bool cc_calc_momentum( CcMaybeBoolEnum accumulating,
+                       cc_uint_t count,
+                       cc_uint_t * momentum__io );
 
 
 // TODO :: cc_iter_typed_steps() --> iter by piece, tag, step type filter, chessboard, ...
-//         similar to cc_calc_momentum_for_next_step() --> cc_check_momentum_for_next_step()
+//         similar to cc_calc_momentum() --> cc_check_momentum_for_next_step()
 //
 // bool cc_iter_piece_steps( CcChessboard * cb,
 //                           CcPieceType piece,

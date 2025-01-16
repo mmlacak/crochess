@@ -29,10 +29,11 @@ Functions
     :param pos: A position.
     :returns: Position descriptor.
 
-.. c:function:: bool cc_calc_momentum_for_next_step( cc_uint_t * momentum__io, CcMaybeBoolEnum accumulating )
+.. c:function:: bool cc_calc_momentum( CcMaybeBoolEnum accumulating, cc_uint_t count, cc_uint_t * momentum__io )
 
-    Function calculates next momentum value, via *input/output* :c:var:`momentum__io`
-    argument.
+    Function calculates next momentum value by adding or subtracting :c:var:`count`
+    argument; momentum is given, and result is returned via *input/output*
+    :c:var:`momentum__io` parameter.
 
     Function checks if momentum calculation will over- or under-flow before
     actual calculation takes place.
@@ -43,8 +44,9 @@ Functions
         * :c:data:`CC_MBE_False`: momentum is unchanged,
         * :c:data:`CC_MBE_Void`: momentum is being used.
 
-    :param momentum__io: *Input/output*; momentum.
     :param accumulating: Flag, whether momentum is being accumulated, used, or unchanged.
+    :param count: Count of steps.
+    :param momentum__io: *Input/output*; momentum.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_check_momentum_for_next_step()`
 
