@@ -622,6 +622,4 @@ bool cc_iter_piece_steps( CcPieceType piece,
         case CC_PE_None :
         default : return false;
     }
-
-    return false;
 }
