@@ -114,10 +114,10 @@ size_t cc_typed_step_link_len( CcTypedStepLink * ts_link ) {
 char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
     if ( !ts_link ) return NULL;
 
-    // unused len is certainly > 0, because pos_link != NULL
+    // unused len is certainly > 0, because ts_link != NULL
     signed int unused = cc_typed_step_link_len( ts_link ) *
                         ( CC_MAX_LEN_CHAR_8 + 1 );
-                        // CC_MAX_LEN_CHAR_16, for position + piece
+                        // CC_MAX_LEN_CHAR_8, for position + piece
                         // +1, for separator '.' between positions
 
     char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
@@ -141,7 +141,7 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_16 );
+        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
         if ( !pl_end ) {
             CC_FREE( pl_str__a );
             return NULL;
