@@ -314,7 +314,6 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
 bool cc_iter_monolith_steps( cc_uint_t step_index,
                              CcTypedStep * step__io );
 
-// DOCS
 bool cc_iter_piece_steps( CcPieceType piece,
                           bool sideways_pawns,
                           bool short_step,

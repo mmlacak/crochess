@@ -727,7 +727,7 @@ Typed steps
     :param filter__d: *Optional*; type of steps to iterate over, can be
         :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
     :param step__iod: *Input/output*, *optional*; iteration step.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-cctypedstepdefs-typedstepsmacros:
 
@@ -1025,13 +1025,70 @@ Step iterators
 
     :param step_index: A piece step array.
     :param step__io: *Input/output*; iteration step.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_iter_piece_steps( CcPieceType piece, bool sideways_pawns, bool short_step, CcMaybeBoolEnum serpent_direction, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
 
-    .. todo::
+    Function iterates over steps a given piece can make.
 
-        TODO
+    If Pawn was given, :c:var:`sideways_pawns` flag determines if sideways steps are also iterated over.
+
+    If Unicorn or Centaur is given, :c:var:`short_step` flag determines if short or long steps are iterated over.
+
+    If Serpent was given, :c:var:`serpent_direction` flag determines which Serpent's diagonal(s) to iterate over:
+
+        * :c:enumerator:`CC_MBE_True`, only steps on right diagonal are iterated
+        * :c:enumerator:`CC_MBE_False`, only steps on left diagonal are iterated
+        * :c:enumerator:`CC_MBE_Void`, all steps are iterated
+
+    Steps on right diagonal are upper-right, lower-left; on left diagonal they are upper-left, lower-right.
+
+    .. note::
+
+        Function does not handle neither Monolith, nor Waves.
+
+        For Monolith, use :c:func:`cc_iter_monolith_steps()` instead.
+
+    Type of steps to iterate over are given by *optional* :c:var:`filter__d` argument, if :c:enumerator:`CC_STE_None` all types of steps would be iterated.
+
+    .. note::
+
+        Inner *output* pointer :c:`*step__iod` **must** be reset to :c:data:`NULL`
+        before iterating steps.
+
+    After each call, function returns :c:data:`true` if next step is valid, and
+    sets pointer to it.
+
+    Once all steps are exhausted, function returns :c:data:`false`, and resets
+    pointer to :c:data:`NULL`.
+
+    Typical usage:
+
+    .. code-block:: C
+        :force:
+
+        // Typed step storage during iteration.
+        CcTypedStep const * step = NULL;
+        // Note: pointer must be set to NULL before iterating steps.
+
+        while ( cc_iter_piece_steps( ..., &step ) ) {
+            // Do stuff with found step, ...
+        }
+
+        // After iteration, step is reset to NULL, and ready for another.
+
+    .. seealso::
+
+        :c:func:`cc_iter_typed_steps()`, :c:func:`cc_iter_monolith_steps()`
+
+    :param piece: A piece.
+    :param sideways_pawns: A flag, whether Pawns can move sideways, or not.
+    :param short_step: A flag, whether Unicorns and Centaurs move over short or long steps.
+    :param serpent_direction: A flag, which Serpent's diagonal(s) to iterate over.
+    :param filter__d: *Optional*; type of steps to iterate over, can be
+        :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
+    :param step__iod: *Input/output*, *optional*; iteration step.
+    :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-cctypedstepdefs-sourcecodeheader:
 
