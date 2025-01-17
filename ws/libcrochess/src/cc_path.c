@@ -14,11 +14,11 @@
 //
 // Linked path segments.
 
-CcPathLink * cc_path_link__new( CcPosLink * steps, CcSideEffect side_effect ) {
+CcPathLink * cc_path_link__new( CcPosLink * fields, CcSideEffect side_effect ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->steps = steps;
+    pl__t->fields = fields;
     pl__t->side_effect = side_effect;
 
     pl__t->fork = NULL;
@@ -31,11 +31,11 @@ CcPathLink * cc_path_link__new( CcPosLink * steps, CcSideEffect side_effect ) {
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcPosLink * steps,
+                                  CcPosLink * fields,
                                   CcSideEffect side_effect ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( steps, side_effect );
+    CcPathLink * pl__t = cc_path_link__new( fields, side_effect );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -130,10 +130,10 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
-static bool _cc_path_link_steps_are_valid( CcPosLink * steps ) {
-    if ( !steps ) return false;
+static bool _cc_path_link_steps_are_valid( CcPosLink * fields ) {
+    if ( !fields ) return false;
 
-    CcPosLink * s = steps;
+    CcPosLink * s = fields;
 
     while ( s ) {
         if ( !CC_POS_IS_VALID( s->pos ) ) return false;
@@ -151,7 +151,7 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
-    if ( !_cc_path_link_steps_are_valid( pl->steps ) )
+    if ( !_cc_path_link_steps_are_valid( pl->fields ) )
         return false;
 
     //
@@ -179,7 +179,7 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
 
     if ( links == 0 )
         return has_steps; // No links --> terminal node.
-        // If also root node, it should not be terminal, without having at least initial and terminal steps.
+        // If also root node, it should not be terminal, without having at least initial and terminal fields.
 
     return true;
 }
@@ -191,7 +191,7 @@ bool cc_path_link_is_valid( CcPathLink * path_link ) {
 
     CC_REWIND_BY( root, root->back__w );
 
-    bool has_steps = ( cc_pos_link_len( root->steps ) > 1 ); // Initial step should not be the only one, if root is the only node.
+    bool has_steps = ( cc_pos_link_len( root->fields ) > 1 ); // Initial step should not be the only one, if root is the only node.
 
     if ( !_cc_path_link_is_valid( root, has_steps ) ) return false;
 
@@ -207,7 +207,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     bool result = true;
 
     while ( from ) {
-        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->steps, from->side_effect );
+        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->fields, from->side_effect );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
             result = false;
@@ -252,7 +252,7 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
     bool result = true;
 
     while ( pl ) {
-        result = cc_pos_link_free_all( &( pl->steps ) ) && result;
+        result = cc_pos_link_free_all( &( pl->fields ) ) && result;
 
         if ( pl->fork )
             result = cc_path_link_free_all( &( pl->fork ) ) && result;
@@ -325,7 +325,7 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
     if ( cc_side_effect_to_str( path_link_node->side_effect, &se_str ) )
         return NULL;
 
-    char * pos_str__a = cc_pos_link_to_string__new( path_link_node->steps );
+    char * pos_str__a = cc_pos_link_to_string__new( path_link_node->fields );
     if ( !pos_str__a ) return NULL;
 
     size_t str_size = cc_str_len( pos_str__a, NULL, CC_SIZE_BUFFER );

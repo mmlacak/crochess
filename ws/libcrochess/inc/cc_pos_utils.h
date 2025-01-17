@@ -12,7 +12,6 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos );
 
-// TODO :: DOCS
 bool cc_calc_momentum( CcMaybeBoolEnum accumulating,
                        cc_uint_t count,
                        cc_uint_t * momentum__io );

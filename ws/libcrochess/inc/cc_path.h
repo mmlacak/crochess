@@ -20,7 +20,7 @@
 // Linked path segments.
 
 typedef struct CcPathLink {
-    CcPosLink * steps;
+    CcPosLink * fields;
     CcSideEffect side_effect;
 
     struct CcPathLink * fork;
@@ -30,10 +30,10 @@ typedef struct CcPathLink {
     struct CcPathLink * next;
 } CcPathLink;
 
-CcPathLink * cc_path_link__new( CcPosLink * steps, CcSideEffect side_effect );
+CcPathLink * cc_path_link__new( CcPosLink * fields, CcSideEffect side_effect );
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
-                                  CcPosLink * steps,
+                                  CcPosLink * fields,
                                   CcSideEffect side_effect );
 
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
@@ -45,7 +45,7 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
 CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );
 
-// static bool _cc_path_link_steps_are_valid( CcPosLink * steps );
+// static bool _cc_path_link_steps_are_valid( CcPosLink * fields );
 
 // static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps );
 
