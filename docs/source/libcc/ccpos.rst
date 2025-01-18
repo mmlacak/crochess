@@ -377,6 +377,14 @@ Position descriptor
 
         Tag found at position.
 
+    .. c:member:: cc_uint_t momentum
+
+        Momentum a piece had at this position.
+
+    .. c:member:: CcMomentumUsageEnum usage
+
+        Momentum usage.
+
     :c:`struct` is tagged with the same :c:struct:`CcPosDesc` name.
 
 .. c:macro:: CC_POS_DESC_CAST_INVALID
@@ -387,7 +395,7 @@ Position descriptor
 
     Casted static position descriptor value, i.e. no-movement step.
 
-.. c:macro:: CC_POS_DESC(int_i,int_j,piece_enum,tag_enum)
+.. c:macro:: CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,momentum,usage_enum)
 
     Macro which constructs position descriptor struct.
 
@@ -395,10 +403,12 @@ Position descriptor
     :param int_j: Rank, vertical coordinate; integer.
     :param piece_enum: A piece; :c:type:`CcPieceType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
+    :param momentum: Momentum; an unsigned integer.
+    :param usage_enum: A momentum usage; :c:type:`CcMomentumUsageEnum` value.
     :returns: Position descriptor value.
     :seealso: :c:struct:`CcPosDesc`
 
-.. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum)
+.. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,momentum,usage_enum)
 
     Macro which casts position descriptor macro.
 
@@ -406,6 +416,8 @@ Position descriptor
     :param int_j: Rank, vertical coordinate; integer.
     :param piece_enum: A piece; :c:type:`CcPieceType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
+    :param momentum: Momentum; an unsigned integer.
+    :param usage_enum: A momentum usage; :c:type:`CcMomentumUsageEnum` value.
     :returns: Casted position descriptor value.
     :seealso: :c:macro:`CC_POS_DESC`
 
@@ -423,8 +435,7 @@ Position descriptor
 
     :param pd_1: A position descriptor; :c:struct:`CcPosDesc` value.
     :param pd_2: Another position descriptor; :c:struct:`CcPosDesc` value.
-    :returns: Casted position descriptor value.
-    :seealso: :c:data:`true` if equal, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
 
@@ -437,7 +448,10 @@ Position descriptor
     For pieces to be congruent, they have to be valid, and the same
     type, e.g two Rooks, not necessarily in the same color.
 
-    Tags are not checked.
+    For tags to be congruent, they both have to be at least enumeration;
+    if both are valid, they also have to be the same.
+
+    Momentum and its usage both has to be the same.
 
     :param pd_1: A position descriptor.
     :param pd_2: Another position descriptor.

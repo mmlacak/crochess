@@ -39,6 +39,8 @@ char cc_tag_as_char( CcTagType ct );
 
 CcTagType cc_tag_from_char( char c );
 
+bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 );
+
 //
 // Losing tag enum
 
@@ -67,6 +69,8 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
 CcLosingTagType cc_convert_tag_to_losing( CcTagType te );
 
 CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt );
+
+bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 );
 
 
 

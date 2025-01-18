@@ -102,32 +102,42 @@ typedef enum CcMomentumUsageEnum {
 //
 // Position descriptor.
 
-#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None }
+#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0, .usage = CC_MUE_Spending }
 
-#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None }
+#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None, .momentum = 0, .usage = CC_MUE_NotUsing }
 
 typedef struct CcPosDesc {
     CcPos pos; /* A position. */
     CcPieceType piece; /* Piece found at position. */
     CcTagType tag; /* Tag found at position. */
+    cc_uint_t momentum; /* Momentum a piece had at this position. */
+    CcMomentumUsageEnum usage; /* Momentum usage. */
 } CcPosDesc;
 
 #define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
 
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
-#define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum) \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum) }
+#define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,momentum,usage_enum)        \
+    { .pos = CC_POS_CAST( (int_i), (int_j) ),                                   \
+      .piece = (CcPieceType)(piece_enum),                                       \
+      .tag = (CcTagType)(tag_enum),                                             \
+      .momentum = (cc_uint_t)(momentum),                                        \
+      .usage = (CcMomentumUsageEnum)(usage_enum) }
 
-#define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum) \
-    ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum) ) )
+#define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,momentum,usage_enum)   \
+    ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum), (momentum), (usage_enum) ) )
 
 #define CC_POS_DESC_IS_VALID(pd) \
-    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
+    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) && ( CC_MOMENTUM_USAGE_IS_ENUMERATOR( (pd).usage ) ) )
     // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(), having no piece, tag is still valid position descriptor!
 
-#define CC_POS_DESC_IS_EQUAL(pd_1,pd_2) \
-    ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) && ( (pd_1).piece == (pd_2).piece ) && ( (pd_1).tag == (pd_2).tag ) )
+#define CC_POS_DESC_IS_EQUAL(pd_1,pd_2)                 \
+    ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) &&      \
+      ( (pd_1).piece == (pd_2).piece ) &&               \
+      ( (pd_1).tag == (pd_2).tag ) &&                   \
+      ( (pd_1).momentum == (pd_2).momentum ) &&         \
+      ( (pd_1).usage == (pd_2).usage ) )
 
 
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );

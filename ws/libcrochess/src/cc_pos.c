@@ -307,6 +307,12 @@ bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
 
     if ( !cc_piece_has_same_type( pd_1.piece, pd_2.piece ) ) return false;
 
+    if ( !cc_tag_is_congruent( pd_1.tag, pd_2.tag ) ) return false;
+
+    if ( pd_1.momentum != pd_2.momentum ) return false;
+
+    if ( pd_1.usage != pd_2.usage ) return false;
+
     return true;
 }
 
@@ -325,6 +331,8 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
 
     *p++ = cc_piece_symbol( pd.piece );
     *p = '\0';
+
+    // TODO :: stringify momentum and usage
 
     return true;
 }

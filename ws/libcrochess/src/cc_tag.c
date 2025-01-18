@@ -31,6 +31,17 @@ CcTagType cc_tag_from_char( char c ) {
     }
 }
 
+bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 ) {
+    if ( !CC_TAG_IS_ENUMERATOR( ct_1 ) ) return false;
+    if ( !CC_TAG_IS_ENUMERATOR( ct_2 ) ) return false;
+
+    if ( ( ct_1 != CC_TE_None ) && ( ct_2 != CC_TE_None ) && ( ct_1 != ct_2 ) )
+        // Both tags are valid, but different ...
+        return false;
+
+    return true;
+}
+
 //
 // Losing tag enum
 
@@ -81,4 +92,15 @@ CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt ) {
 
         default : return CC_TE_None;
     }
+}
+
+bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 ) {
+    if ( !CC_LOSING_TAG_IS_ENUMERATOR( ltt_1 ) ) return false;
+    if ( !CC_LOSING_TAG_IS_ENUMERATOR( ltt_2 ) ) return false;
+
+    if ( ( ltt_1 != CC_TE_None ) && ( ltt_2 != CC_TE_None ) && ( ltt_1 != ltt_2 ) )
+        // Both losing tags are valid, but different ...
+        return false;
+
+    return true;
 }

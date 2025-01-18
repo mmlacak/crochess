@@ -140,6 +140,21 @@ Functions
     :returns: :c:type:`CcTagType` value if valid :term:`tag` character was given,
               :c:enumerator:`CC_TE_None` otherwise.
 
+.. c:function:: bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 )
+
+    Function checks if two tags are congruent.
+
+    For tags to be congruent, at least both has to be enumerations.
+    If both are valid enumerations, they also have to be the same.
+
+    So, if any tag is :c:enumerator:`CC_TE_None`, the other just have
+    to be any :c:type:`CcTagType` enumeration.
+
+    :param ct_1: A tag, :c:type:`CcTagType` value.
+    :param ct_2: Other tag, :c:type:`CcTagType` value.
+    :returns: :c:data:`true` if tags are congruent, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_TAG_IS_ENUMERATOR()`, :c:macro:`CC_TAG_IS_VALID()`
+
 .. _lbl-libcc-cctags-losingtagvalidity:
 
 Losing tag validity
@@ -248,6 +263,21 @@ Losing tag functions
 
     :param ltt: :c:type:`CcLosingTagType` value.
     :returns: :c:type:`CcTagType` value.
+
+.. c:function:: bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 )
+
+    Function checks if two losing tags are congruent.
+
+    For losing tags to be congruent, at least both has to be enumerations.
+    If both are valid enumerations, they also have to be the same.
+
+    So, if any losing tag is :c:enumerator:`CC_LTE_NoneLost`, the other just have
+    to be any :c:type:`CcLosingTagType` enumeration.
+
+    :param ltt_1: A losing tag, :c:type:`CcLosingTagType` value.
+    :param ltt_2: Other losing tag, :c:type:`CcLosingTagType` value.
+    :returns: :c:data:`true` if losing tags are congruent, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_LOSING_TAG_IS_ENUMERATOR()`, :c:macro:`CC_LOSING_TAG_IS_VALID()`
 
 .. _lbl-libcc-cctags-sourcecodeheader:
 
