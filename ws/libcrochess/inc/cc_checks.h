@@ -15,11 +15,6 @@
 #define CC_CHECK_STEPS_NO_LIMIT (0)
 
 
-// // todo :: REDO
-// CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
-//                                                  CcTagType tag,
-//                                                  cc_uint_t * momentum__io );
-
 bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt );
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,

@@ -12,13 +12,13 @@
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos );
 
-bool cc_calc_momentum( CcMaybeBoolEnum accumulating,
+bool cc_calc_momentum( CcMomentumUsageEnum usage,
                        cc_uint_t count,
                        cc_uint_t * momentum__io );
 
 
 // TODO :: cc_iter_typed_steps() --> iter by piece, tag, step type filter, chessboard, ...
-//         similar to cc_calc_momentum() --> cc_check_momentum_for_next_step()
+//         similar to cc_calc_momentum()
 //
 // bool cc_iter_piece_steps( CcChessboard * cb,
 //                           CcPieceType piece,

@@ -29,26 +29,20 @@ Functions
     :param pos: A position.
     :returns: Position descriptor.
 
-.. c:function:: bool cc_calc_momentum( CcMaybeBoolEnum accumulating, cc_uint_t count, cc_uint_t * momentum__io )
+.. c:function:: bool cc_calc_momentum( CcMomentumUsageEnum usage, cc_uint_t count, cc_uint_t * momentum__io )
 
-    Function calculates next momentum value by adding or subtracting :c:var:`count`
-    argument; momentum is given, and result is returned via *input/output*
-    :c:var:`momentum__io` parameter.
+    Function calculates next momentum value by adding or subtracting :c:var:`count`,
+    based on :c:var:`usage` argument; momentum is given, and result is returned via
+    *input/output* :c:var:`momentum__io` parameter.
 
     Function checks if momentum calculation will over- or under-flow before
     actual calculation takes place.
 
-    Momentum is calculated based on :c:var:`accumulating` argument:
-
-        * :c:data:`CC_MBE_True`: momentum is accumulating,
-        * :c:data:`CC_MBE_False`: momentum is unchanged,
-        * :c:data:`CC_MBE_Void`: momentum is being used.
-
-    :param accumulating: Flag, whether momentum is being accumulated, used, or unchanged.
+    :param usage: Flag, whether momentum is accumulated, spent, or unchanged
+        while piece is moving; :c:enum:`CcMomentumUsageEnum` value.
     :param count: Count of steps.
     :param momentum__io: *Input/output*; momentum.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-    :seealso: :c:func:`cc_check_momentum_for_next_step()`
 
 .. c:function:: bool cc_iter_piece_pos( CcChessboard * cb, CcPos expected__d, CcPieceType piece, bool include_opponent, CcPos * pos__io )
 

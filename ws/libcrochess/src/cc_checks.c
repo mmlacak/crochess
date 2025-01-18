@@ -6,33 +6,6 @@
 #include "cc_checks.h"
 
 
-// // todo :: REDO
-// CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece,
-//                                                  CcTagType tag,
-//                                                  cc_uint_t * momentum__io ) {
-//     if ( !momentum__io ) return CC_MBE_Void;
-//     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
-//     if ( !CC_TAG_IS_ENUMERATOR( tag ) ) return CC_MBE_Void;
-//
-//     CcMaybeBoolEnum accumulating = CC_MBE_False;
-//     if ( !cc_calc_if_accumulating_momentum( piece, tag, &accumulating ) )
-//         return CC_MBE_Void;
-//
-//     if ( accumulating == CC_MBE_True ) {
-//         if ( *momentum__io == UINT_MAX ) return CC_MBE_False;
-//     } else if ( accumulating == CC_MBE_Void ) {
-//         if ( *momentum__io == CC_UNSIGNED_MIN ) return CC_MBE_False;
-//     } else if ( accumulating == CC_MBE_False ) {
-//         // If accumulating is CC_MBE_False, momentum stays the same, e.g. for Wave.
-//     } else
-//         return CC_MBE_Void; // Enums are secretly ints.
-//
-//     if ( !cc_calc_momentum( accumulating, 1, momentum__io ) )
-//         return CC_MBE_Void;
-//
-//     return CC_MBE_True;
-// }
-
 bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt ) {
     if ( ltt == CC_LTE_NoneLost ) {
         return true;

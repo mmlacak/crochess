@@ -29,22 +29,6 @@ Data
 Functions
 ---------
 
-.. c:function:: CcMaybeBoolEnum cc_check_momentum_for_next_step( CcPieceType piece, CcTagType tag, cc_uint_t * momentum__io )
-
-    Function calculates momentum for next step, returns if there is enough of
-    it to actually make the step.
-
-    :param piece: A piece.
-    :param tag: A tag piece has.
-    :param momentum__io: *Input/output*; momentum a :c:`piece` has.
-    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
-
-        * :c:enumerator:`CC_MBE_True` if there is enough momentum for next step,
-        * :c:enumerator:`CC_MBE_False` if there is not enough momentum,
-        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
-
-    :seealso: :c:func:`cc_calc_momentum()`
-
 .. c:function:: bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt )
 
     Function checks if a piece can lose given tag.
