@@ -232,7 +232,7 @@ Losing tag functions
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 
-.. c:function:: CcLosingTagType cc_tag_to_losing( CcTagType te )
+.. c:function:: CcLosingTagType cc_convert_tag_to_losing( CcTagType te )
 
     Converts ordinary tag into lost tag.
 
@@ -242,7 +242,7 @@ Losing tag functions
     :param te: :c:type:`CcTagType` value.
     :returns: :c:type:`CcLosingTagType` value.
 
-.. c:function:: CcTagType cc_tag_from_losing( CcLosingTagType ltt )
+.. c:function:: CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt )
 
     Converts losing tag into ordinary tag.
 

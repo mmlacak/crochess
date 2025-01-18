@@ -64,9 +64,9 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
                                       bool capitalize,
                                       bool no_tag );
 
-CcLosingTagType cc_tag_to_losing( CcTagType te );
+CcLosingTagType cc_convert_tag_to_losing( CcTagType te );
 
-CcTagType cc_tag_from_losing( CcLosingTagType ltt );
+CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt );
 
 
 

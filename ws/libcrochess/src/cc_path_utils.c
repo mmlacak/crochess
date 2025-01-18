@@ -7,9 +7,9 @@
 #include "cc_path_utils.h"
 
 
-CcPathLink * cc_path_segment_single_step__new( CcChessboard * cb,
-                                               CcPosDesc pd,
-                                               CcTypedStep step ) {
+CcPathLink * cc_path_single_step__new( CcChessboard * cb,
+                                       CcPosDesc pd,
+                                       CcTypedStep step ) {
     if ( !cb ) return NULL;
 
     if ( !CC_PIECE_IS_VALID( pd.piece ) ) return NULL;
@@ -17,26 +17,34 @@ CcPathLink * cc_path_segment_single_step__new( CcChessboard * cb,
     if ( !CC_TAG_IS_ENUMERATOR( pd.tag ) ) return NULL;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
 
-    CcPos field = cc_pos_add( pd.pos, step.step, 1 );
+    CcPos field = pd.pos;
     CcPosLink * fields__t = NULL;
     CcSideEffect se = cc_side_effect_none();
 
-    while ( cc_chessboard_is_pos_on_board( cb, field.i, field.j ) ) {
-        // TODO :: check if empty field, interactions with encoutered piece --> set se
+    // TODO :: REDO
+    //
+    // while ( cc_chessboard_is_pos_on_board( cb, field.i, field.j ) ) {
+    //     // TODO :: check if empty field,
+    //     //      :: check step type, e.g. movement only -->
+    //     //      :: interactions with encoutered piece --> set se
+    //
+    //     if ( !cc_pos_link_append( &fields__t, field ) ) {
+    //         cc_pos_link_free_all( &fields__t );
+    //         return NULL;
+    //     }
+    //
+    //     field = cc_pos_add( field, step.step, 1 );
+    // }
+    //
+    // CcPathLink * segment__a = cc_path_link__new( fields__t, se );
+    // if ( !segment__a ) {
+    //     cc_pos_link_free_all( &fields__t );
+    //     return NULL;
+    // }
+    //
+    // return segment__a;
+    //
+    // TODO :: REDO
 
-        if ( !cc_pos_link_append( &fields__t, field ) ) {
-            cc_pos_link_free_all( &fields__t );
-            return NULL;
-        }
-
-        field = cc_pos_add( field, step.step, 1 );
-    }
-
-    CcPathLink * segment__a = cc_path_link__new( fields__t, se );
-    if ( !segment__a ) {
-        cc_pos_link_free_all( &fields__t );
-        return NULL;
-    }
-
-    return segment__a;
+    return NULL; // TODO :: FIX
 }

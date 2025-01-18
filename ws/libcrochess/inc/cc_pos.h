@@ -87,6 +87,19 @@ size_t cc_pos_link_len( CcPosLink * pos_link );
 char * cc_pos_link_to_string__new( CcPosLink * pos_link );
 
 //
+// Momentum usage.
+
+typedef enum CcMomentumUsageEnum {
+    CC_MUE_NotUsing = 0,
+    CC_MUE_Accumulating,
+    CC_MUE_Spending,
+} CcMomentumUsageEnum;
+
+#define CC_MOMENTUM_USAGE_IS_ENUMERATOR(mue) ( ( CC_MUE_NotUsing <= (mue) ) && ( (mue) <= CC_MUE_Spending ) )
+
+#define CC_MOMENTUM_USAGE_IS_VALID(mue) CC_MOMENTUM_USAGE_IS_ENUMERATOR(mue) // ( ( CC_MUE_NotUsing < (mue) ) && ( (mue) <= CC_MUE_Spending ) )
+
+//
 // Position descriptor.
 
 #define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None }

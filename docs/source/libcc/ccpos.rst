@@ -307,6 +307,46 @@ Linked positions
     :returns: A newly allocated, null-terminated string if successful,
               :c:data:`NULL` otherwise
 
+.. _lbl-libcc-ccpos-momentumusage:
+
+Momentum usage
+--------------
+
+.. c:enum:: CcMomentumUsageEnum
+
+    Momentum usage enumeration.
+
+    .. c:enumerator:: CC_MUE_NotUsing
+
+        Momentum is not being used for movement; equals to ``0``.
+
+    .. c:enumerator:: CC_MUE_Accumulating
+
+        Momentum is being accumulated while moving.
+
+    .. c:enumerator:: CC_MUE_Spending
+
+        Momentum is being spent while moving.
+
+    :c:`enum` is tagged with the same :c:enum:`CcMomentumUsageEnum` name.
+
+.. c:macro:: CC_MOMENTUM_USAGE_IS_ENUMERATOR(mue)
+
+    Macro to check if given step type is an enumerator, i.e. between
+    :c:enumerator:`CC_MUE_NotUsing` and :c:enumerator:`CC_STE_Alternative` values.
+
+    :param mue: Momentum usage, :c:type:`CcMomentumUsageEnum` value.
+    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+
+.. c:macro:: CC_MOMENTUM_USAGE_IS_VALID(mue)
+
+    Macro to check if given step type is a valid enumerator; it's the same as
+    :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR`, since there is no *None* value
+    in the :c:type:`CcMomentumUsageEnum` type.
+
+    :param mue: Momentum usage, :c:type:`CcMomentumUsageEnum` value.
+    :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpos-positiondescriptor:
 
 Position descriptor
