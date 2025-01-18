@@ -70,8 +70,8 @@ bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant ) {
         game__io->en_passant = CC_POS_DESC_CAST_INVALID;
 
     game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
-    game__io->starting_piece = CC_POS_DESC_CAST_INVALID;
-    game__io->starting_pos = CC_POS_CAST_INVALID;
+    game__io->current_piece = CC_POS_DESC_CAST_INVALID;
+    game__io->initial_pos = CC_POS_CAST_INVALID;
 
     return true;
 }
@@ -94,8 +94,8 @@ CcGame * cc_game_duplicate_all__new( CcGame * game ) {
 
     gm__a->en_passant = game->en_passant;
     gm__a->pawn_sacrifice = game->pawn_sacrifice;
-    gm__a->starting_piece = game->starting_piece;
-    gm__a->starting_pos = game->starting_pos;
+    gm__a->current_piece = game->current_piece;
+    gm__a->initial_pos = game->initial_pos;
 
     CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
     if ( game->moves && ( !mv__t ) ) {
@@ -170,7 +170,7 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
         int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
 
         char tag = *c;
-        CcTagType te = cc_tag_from_char( tag );
+        CcTagType te = cc_tag_from_char( tag ); // todo :: maybe :: add en passant, Pawn-sacrifice flags support (?)
 
         if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) ) {
             cc_game_free_all( &game__a );

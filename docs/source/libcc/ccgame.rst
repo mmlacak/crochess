@@ -128,14 +128,14 @@ Types
         capturing opponent's Pawns.
         Resets immediately at the end of a current move.
 
-    .. c:member:: CcPosDesc starting_piece
+    .. c:member:: CcPosDesc current_piece
 
         Flag, a piece starting a cascade, at its current position.
         Resets immediately at the end of a current move.
 
-    .. c:member:: CcPos starting_pos
+    .. c:member:: CcPos initial_pos
 
-        Flag, a starting position of a piece starting a cascade.
+        Flag, an initial position of a piece starting a cascade.
         Resets immediately at the end of a current move.
 
     .. c:member:: CcMove * moves
@@ -171,8 +171,8 @@ Functions
 
         * :c:member:`en_passant`,
         * :c:member:`pawn_sacrifice`,
-        * :c:member:`starting_piece`,
-        * :c:member:`starting_pos`.
+        * :c:member:`current_piece`,
+        * :c:member:`initial_pos`.
 
     :param game__io: Game to reset flags.
     :param reset_en_passant: Whether to reset :c:member:`en_passant` flag
@@ -209,7 +209,7 @@ Functions
 
     ``<rank>`` is any number from ``1`` to ``26``, inclusive.
 
-    ``<tag>`` is optional, if given it can be one of ``P``, ``R``, ``E``, ``C``; representing delayed promotion, rushing, en passant and castling tags.
+    ``<tag>`` is optional, if given it can be one of ``R``, ``C``, ``P``; representing rushing, castling, and delayed promotion tags.
 
     If optional, initial game setup is not given, setup string has to be preceded by variant abbreviation, i.e. use one of:
 
@@ -229,12 +229,11 @@ Functions
 
     Variant abbreviation has to be followed by ``' '`` (space).
 
-    Some examples: ``"O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11E"``, ``"o Bh5,Bd9,Wk2,Ro2"``. ``"bd1, a11,Bl1,bd9"``; the last one can only be used along with an existing game setup.
+    Some examples: ``"O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11"``, ``"o Bh5,Bd9,Wk2,Ro2"``. ``"bd1, a11,Bl1,bd9"``; the last one can only be used along with an existing game setup.
 
     :param setup: A setup string.
     :param before_setup__d: An *optional*, initial game. If given, it is
-                            copied before any modification specified by a
-                            given string is applied.
+        copied before any modification specified by a given string is applied.
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
 .. _lbl-libcc-ccgame-sourcecodeheader:

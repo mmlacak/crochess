@@ -43,8 +43,8 @@ typedef struct CcGame {
 
     CcPosDesc en_passant;
     CcPosDesc pawn_sacrifice;
-    CcPosDesc starting_piece; // Current position of a piece starting current move.
-    CcPos starting_pos; // Initial, and starting position in the current move.
+    CcPosDesc current_piece; // Current position of a piece starting current move.
+    CcPos initial_pos; // Initial (and starting) position in the current move.
 
     CcMove * moves;
 } CcGame;

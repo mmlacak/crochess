@@ -295,7 +295,6 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
     return pl_str__a;
 }
 
-
 //
 // Position descriptor.
 
