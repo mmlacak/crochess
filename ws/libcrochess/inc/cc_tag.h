@@ -9,6 +9,7 @@
 //
 // Tag enum
 
+// TODO :: warning: comparison is always true due to limited range of data type [-Wtype-limits] :: from ( CC_TE_None <= (te) )
 #define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
 
 #define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
@@ -43,6 +44,7 @@ bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 );
 //
 // Losing tag enum
 
+// TODO :: warning: comparison is always true due to limited range of data type [-Wtype-limits] :: from ( CC_LTE_NoneLost <= (ltt) )
 #define CC_LOSING_TAG_IS_ENUMERATOR(ltt) ( ( CC_LTE_NoneLost <= (ltt) ) && ( (ltt) <= CC_LTE_DelayedPromotionLost ) )
 
 #define CC_LOSING_TAG_IS_VALID(ltt) ( ( CC_LTE_NoneLost < (ltt) ) && ( (ltt) <= CC_LTE_DelayedPromotionLost ) )
