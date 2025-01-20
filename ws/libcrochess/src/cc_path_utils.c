@@ -17,9 +17,9 @@ CcPathLink * cc_path_single_step__new( CcChessboard * cb,
     if ( !CC_TAG_IS_ENUMERATOR( pd.tag ) ) return NULL;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
 
-    CcPos field = pd.pos;
-    CcPosLink * fields__t = NULL;
-    CcSideEffect se = cc_side_effect_none();
+    // CcPos field = pd.pos;
+    // CcPosLink * fields__t = NULL;
+    // CcSideEffect se = cc_side_effect_none();
 
     // TODO :: REDO
     //

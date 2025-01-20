@@ -14,28 +14,40 @@
 //
 // Linked path segments.
 
-CcPathLink * cc_path_link__new( CcPosLink * fields, CcSideEffect side_effect ) {
+CcPathLink * cc_path_link__new( CcSideEffect side_effect,
+                                CcPosLink * fields,
+                                CcPieceEnum encountered_piece,
+                                CcTagEnum encountered_tag,
+                                CcMomentum momentum ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
-    pl__t->fields = fields;
     pl__t->side_effect = side_effect;
 
-    pl__t->fork = NULL;
-    pl__t->alt = NULL;
+    pl__t->fields = fields;
+
+    pl__t->encountered_piece = encountered_piece;
+    pl__t->encountered_tag = encountered_tag;
+
+    pl__t->momentum = momentum;
 
     pl__t->back__w = NULL;
+    pl__t->fork = NULL;
+    pl__t->alt = NULL;
     pl__t->next = NULL;
 
     return pl__t;
 }
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
+                                  CcSideEffect side_effect,
                                   CcPosLink * fields,
-                                  CcSideEffect side_effect ) {
+                                  CcPieceEnum encountered_piece,
+                                  CcTagEnum encountered_tag,
+                                  CcMomentum momentum ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( fields, side_effect );
+    CcPathLink * pl__t = cc_path_link__new( side_effect, fields, encountered_piece, encountered_tag, momentum );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -154,6 +166,15 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
     if ( !_cc_path_link_steps_are_valid( pl->fields ) )
         return false;
 
+    if ( !CC_PIECE_IS_ENUMERATOR( pl->encountered_piece ) )
+        return false;
+
+    if ( !CC_TAG_IS_ENUMERATOR( pl->encountered_tag ) )
+        return false;
+
+    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( pl->momentum.usage ) )
+        return false;
+
     //
     // Check links.
 
@@ -207,7 +228,11 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
     bool result = true;
 
     while ( from ) {
-        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->fields, from->side_effect );
+        CcPathLink * pd__w = cc_path_link_append( &pl__a, from->side_effect,
+                                                          from->fields,
+                                                          from->encountered_piece,
+                                                          from->encountered_tag,
+                                                          from->momentum );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
             result = false;
@@ -332,6 +357,8 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
 
     str_size += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
 
+    // TODO :: add .encountered_piece .encountered_tag .momentum
+
     size_t unused = str_size + 1; // +1 for '\0'
 
     char * pln_str__a = malloc( unused );
@@ -340,23 +367,25 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
         return NULL;
     }
 
-    char * end_pos__w = cc_str_append_into( pln_str__a, unused, pos_str__a, CC_SIZE_BUFFER );
-    if ( !end_pos__w ) {
-        CC_FREE( pos_str__a );
-        CC_FREE( pln_str__a );
-        return NULL;
-    }
-
-    unused -= ( end_pos__w - pln_str__a );
-
-    char * end_se__w = cc_str_append_into( end_pos__w, unused, se_str, CC_SIZE_CHAR_16 );
+    char * end_se__w = cc_str_append_into( pln_str__a, unused, se_str, CC_SIZE_CHAR_16 );
     if ( !end_se__w ) {
         CC_FREE( pos_str__a );
         CC_FREE( pln_str__a );
         return NULL;
     }
 
-    // unused -= ( end_se__w - end_pos__w ); // Not needed anymore.
+    unused -= ( end_se__w - pln_str__a );
+
+    char * end_pos__w = cc_str_append_into( end_se__w, unused, pos_str__a, CC_SIZE_BUFFER );
+    if ( !end_pos__w ) {
+        CC_FREE( pos_str__a );
+        CC_FREE( pln_str__a );
+        return NULL;
+    }
+
+    // unused -= ( end_pos__w - end_se__w ); // Not needed yet.
+
+    // TODO :: add .encountered_piece .encountered_tag .momentum
 
     CC_FREE( pos_str__a );
 
