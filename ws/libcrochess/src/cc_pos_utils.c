@@ -15,25 +15,6 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
     return pd;
 }
 
-bool cc_calc_momentum( CcMomentumUsageEnum usage,
-                       cc_uint_t count,
-                       cc_uint_t * momentum__io ) {
-    if ( !momentum__io ) return false;
-
-    if ( usage == CC_MUE_Accumulating ) {
-        if ( *momentum__io > UINT_MAX - count ) return false;
-        *momentum__io += count;
-    } else if ( usage == CC_MUE_Spending ) {
-        if ( *momentum__io < CC_UNSIGNED_MIN + count ) return false;
-        *momentum__io -= count;
-    } else if ( usage == CC_MUE_NotUsing ) {
-        // If usage is CC_MUE_NotUsing, momentum stays the same, e.g. for Wave.
-    } else
-        return false; // Enums are secretly ints.
-
-    return true;
-}
-
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected__d,

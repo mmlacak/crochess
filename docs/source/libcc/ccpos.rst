@@ -416,10 +416,10 @@ Position descriptor
     :param pd_str__o: *Output*, pointer to short string array.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. _lbl-libcc-ccpos-momentumusage:
+.. _lbl-libcc-ccpos-momentum:
 
-Momentum usage
---------------
+Momentum
+--------
 
 .. c:enum:: CcMomentumUsageEnum
 
@@ -455,6 +455,50 @@ Momentum usage
 
     :param mue: Momentum usage, :c:type:`CcMomentumUsageEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_calc_momentum( CcMomentumUsageEnum usage, cc_uint_t count, cc_uint_t * momentum__io )
+
+    Function calculates next momentum value by adding or subtracting :c:var:`count`,
+    based on :c:var:`usage` argument; momentum is given, and result is returned via
+    *input/output* :c:var:`momentum__io` parameter.
+
+    Function checks if momentum calculation will over- or under-flow before
+    actual calculation takes place.
+
+    :param usage: Flag, whether momentum is accumulated, spent, or unchanged
+        while piece is moving; :c:enum:`CcMomentumUsageEnum` value.
+    :param count: Count of steps.
+    :param momentum__io: *Input/output*; momentum.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:struct:: CcMomentum
+
+    Momentum :c:`struct` holding its value and usage.
+
+    .. c:member:: cc_uint_t momentum
+
+        A momentum value.
+
+    .. c:member:: CcMomentumUsageEnum usage
+
+        Momentum usage.
+
+    :c:`struct` is tagged with the same :c:struct:`CcMomentum` name.
+
+.. c:function:: bool cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count )
+
+    Convenience function to calculates next momentum value by adding or subtracting
+    :c:var:`count`; momentum (including its usage) is given, and result is returned
+    via *input/output* :c:var:`momentum__io` parameter, :c:member:`usage` is not
+    altered.
+
+    Underlying function checks if momentum calculation will over- or under-flow
+    before actual calculation takes place.
+
+    :param momentum__io: *Input/output*; momentum.
+    :param count: Count of steps.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_calc_momentum()`
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
 

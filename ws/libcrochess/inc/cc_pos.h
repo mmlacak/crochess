@@ -126,7 +126,7 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
                             cc_char_16 * pd_str__o );
 
 //
-// Momentum usage.
+// Momentum.
 
 typedef enum CcMomentumUsageEnum {
     CC_MUE_NotUsing = 0,
@@ -137,6 +137,17 @@ typedef enum CcMomentumUsageEnum {
 #define CC_MOMENTUM_USAGE_IS_ENUMERATOR(mue) ( ( CC_MUE_NotUsing <= (mue) ) && ( (mue) <= CC_MUE_Spending ) )
 
 #define CC_MOMENTUM_USAGE_IS_VALID(mue) CC_MOMENTUM_USAGE_IS_ENUMERATOR(mue) // ( ( CC_MUE_NotUsing < (mue) ) && ( (mue) <= CC_MUE_Spending ) )
+
+bool cc_calc_momentum( CcMomentumUsageEnum usage,
+                       cc_uint_t count,
+                       cc_uint_t * momentum__io );
+
+typedef struct CcMomentum {
+    cc_uint_t momentum;
+    CcMomentumUsageEnum usage;
+} CcMomentum;
+
+bool cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count );
 
 
 #endif /* __CC_POS_H__ */
