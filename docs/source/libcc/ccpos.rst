@@ -307,6 +307,115 @@ Linked positions
     :returns: A newly allocated, null-terminated string if successful,
               :c:data:`NULL` otherwise
 
+.. _lbl-libcc-ccpos-positiondescriptor:
+
+Position descriptor
+-------------------
+
+.. c:macro:: CC_POS_DESC_INVALID
+
+    Invalid position descriptor value.
+
+.. c:macro:: CC_POS_DESC_STATIC_STEP
+
+    Static position descriptor value, i.e. no-movement position.
+
+.. c:struct:: CcPosDesc
+
+    Position descriptor; holding a position, and a piece and a tag
+    found at it.
+
+    .. c:member:: CcPos pos
+
+        A position.
+
+    .. c:member:: CcPieceType piece
+
+        Piece found at position.
+
+    .. c:member:: CcTagType tag
+
+        Tag found at position.
+
+    :c:`struct` is tagged with the same :c:struct:`CcPosDesc` name.
+
+.. c:macro:: CC_POS_DESC_CAST_INVALID
+
+    Casted invalid position descriptor value.
+
+.. c:macro:: CC_POS_DESC_CAST_STATIC_STEP
+
+    Casted static position descriptor value, i.e. no-movement step.
+
+.. c:macro:: CC_POS_DESC(int_i,int_j,piece_enum,tag_enum)
+
+    Macro which constructs position descriptor struct.
+
+    :param int_i: File, horizontal coordinate; integer.
+    :param int_j: Rank, vertical coordinate; integer.
+    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param tag_enum: A tag; :c:type:`CcTagType` value.
+    :returns: Position descriptor value.
+    :seealso: :c:struct:`CcPosDesc`
+
+.. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum)
+
+    Macro which casts position descriptor macro.
+
+    :param int_i: File, horizontal coordinate; integer.
+    :param int_j: Rank, vertical coordinate; integer.
+    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param tag_enum: A tag; :c:type:`CcTagType` value.
+    :returns: Casted position descriptor value.
+    :seealso: :c:macro:`CC_POS_DESC`
+
+.. c:macro:: CC_POS_DESC_IS_VALID(pd)
+
+    Macro to check if given position descriptor is valid.
+
+    :param pd: A position descriptor; :c:struct:`CcPosDesc` value.
+    :returns: Casted position descriptor value.
+    :seealso: :c:data:`true` if valid position descriptor, :c:data:`false` otherwise.
+
+.. c:macro:: CC_POS_DESC_IS_EQUAL(pd_1,pd_2)
+
+    Macro to check if two given position descriptors are equal.
+
+    :param pd_1: A position descriptor; :c:struct:`CcPosDesc` value.
+    :param pd_2: Another position descriptor; :c:struct:`CcPosDesc` value.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
+
+    Function checks if two position descriptor values are congruent.
+
+    For positions to be congruent, at least one set of coordinates
+    (files, or ranks) from both positions has to be valid, and the
+    same.
+
+    For pieces to be congruent, they have to be valid, and the same
+    type, e.g two Rooks, not necessarily in the same color.
+
+    For tags to be congruent, they both have to be at least enumeration;
+    if both are valid, they also have to be the same.
+
+    :param pd_1: A position descriptor.
+    :param pd_2: Another position descriptor.
+    :returns: :c:data:`true` if position descriptors are congruent,
+              :c:data:`false` otherwise.
+
+.. c:function:: bool cc_pos_desc_to_string( CcPosDesc pd, cc_char_16 * pd_str__o )
+
+    Function converts position descriptor value into a user-readable
+    ``<file char><rank number><piece>`` notation.
+
+    Coordinates outside chessboard are converted into short integers,
+    if possible, otherwise into asterisk.
+
+    :param pd: A position descriptor.
+    :param pd_str__o: *Output*, pointer to short string array.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpos-momentumusage:
 
 Momentum usage
@@ -346,129 +455,6 @@ Momentum usage
 
     :param mue: Momentum usage, :c:type:`CcMomentumUsageEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
-
-.. _lbl-libcc-ccpos-positiondescriptor:
-
-Position descriptor
--------------------
-
-.. c:macro:: CC_POS_DESC_INVALID
-
-    Invalid position descriptor value.
-
-.. c:macro:: CC_POS_DESC_STATIC_STEP
-
-    Static position descriptor value, i.e. no-movement position.
-
-.. c:struct:: CcPosDesc
-
-    Position descriptor; holding a position, and a piece and a tag
-    found at it.
-
-    .. c:member:: CcPos pos
-
-        A position.
-
-    .. c:member:: CcPieceType piece
-
-        Piece found at position.
-
-    .. c:member:: CcTagType tag
-
-        Tag found at position.
-
-    .. c:member:: cc_uint_t momentum
-
-        Momentum a piece had at this position.
-
-    .. c:member:: CcMomentumUsageEnum usage
-
-        Momentum usage.
-
-    :c:`struct` is tagged with the same :c:struct:`CcPosDesc` name.
-
-.. c:macro:: CC_POS_DESC_CAST_INVALID
-
-    Casted invalid position descriptor value.
-
-.. c:macro:: CC_POS_DESC_CAST_STATIC_STEP
-
-    Casted static position descriptor value, i.e. no-movement step.
-
-.. c:macro:: CC_POS_DESC(int_i,int_j,piece_enum,tag_enum,momentum,usage_enum)
-
-    Macro which constructs position descriptor struct.
-
-    :param int_i: File, horizontal coordinate; integer.
-    :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:type:`CcPieceType` value.
-    :param tag_enum: A tag; :c:type:`CcTagType` value.
-    :param momentum: Momentum; an unsigned integer.
-    :param usage_enum: A momentum usage; :c:type:`CcMomentumUsageEnum` value.
-    :returns: Position descriptor value.
-    :seealso: :c:struct:`CcPosDesc`
-
-.. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum,momentum,usage_enum)
-
-    Macro which casts position descriptor macro.
-
-    :param int_i: File, horizontal coordinate; integer.
-    :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:type:`CcPieceType` value.
-    :param tag_enum: A tag; :c:type:`CcTagType` value.
-    :param momentum: Momentum; an unsigned integer.
-    :param usage_enum: A momentum usage; :c:type:`CcMomentumUsageEnum` value.
-    :returns: Casted position descriptor value.
-    :seealso: :c:macro:`CC_POS_DESC`
-
-.. c:macro:: CC_POS_DESC_IS_VALID(pd)
-
-    Macro to check if given position descriptor is valid.
-
-    :param pd: A position descriptor; :c:struct:`CcPosDesc` value.
-    :returns: Casted position descriptor value.
-    :seealso: :c:data:`true` if valid position descriptor, :c:data:`false` otherwise.
-
-.. c:macro:: CC_POS_DESC_IS_EQUAL(pd_1,pd_2)
-
-    Macro to check if two given position descriptors are equal.
-
-    :param pd_1: A position descriptor; :c:struct:`CcPosDesc` value.
-    :param pd_2: Another position descriptor; :c:struct:`CcPosDesc` value.
-    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
-
-    Function checks if two position descriptor values are congruent.
-
-    For positions to be congruent, at least one set of coordinates
-    (files, or ranks) from both positions has to be valid, and the
-    same.
-
-    For pieces to be congruent, they have to be valid, and the same
-    type, e.g two Rooks, not necessarily in the same color.
-
-    For tags to be congruent, they both have to be at least enumeration;
-    if both are valid, they also have to be the same.
-
-    Momentum and its usage both has to be the same.
-
-    :param pd_1: A position descriptor.
-    :param pd_2: Another position descriptor.
-    :returns: :c:data:`true` if position descriptors are congruent,
-              :c:data:`false` otherwise.
-
-.. c:function:: bool cc_pos_desc_to_string( CcPosDesc pd, cc_char_16 * pd_str__o )
-
-    Function converts position descriptor value into a user-readable
-    ``<file char><rank number><piece>`` notation.
-
-    Coordinates outside chessboard are converted into short integers,
-    if possible, otherwise into asterisk.
-
-    :param pd: A position descriptor.
-    :param pd_str__o: *Output*, pointer to short string array.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
 
