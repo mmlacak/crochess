@@ -53,17 +53,18 @@ Path segment, tree
 ------------------
 
 Path segment is a list of all steps taken from one position to another, in order
-in which they were visited; last step can also have an interaction, i.e. a
-side-effect.
+in which they were visited; on last step one can also encountered a piece, and its
+tag.
+
+There might be a few different interactions possible with encountered piece; the
+one chosen for this path segment is stored in :c:member:`CcPathLink.side_effect`.
 
 Complete such a path tree is represented by :c:type:`CcPathLink` nodes linked via
 :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt` and :c:member:`CcPathLink.next`
-members; its :c:member:`CcPathLink.steps` contain a path segment, and
-:c:member:`CcPathLink.side_effect` what a moving piece had at the end of
-this path segment.
+members; its :c:member:`CcPathLink.steps` contain a path segment.
 
-First step in a root node is initial position of a piece. Second step either in
-root node or otherwise might be repositioning.
+First step in a root node is initial position of a piece. Second step, either in
+root node or otherwise, might be repositioning.
 
 .. _lbl-libcc-paths-segmenttree-subsequent:
 

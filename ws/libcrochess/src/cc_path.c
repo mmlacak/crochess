@@ -31,10 +31,10 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
     pl__t->momentum = momentum;
 
-    pl__t->back__w = NULL;
     pl__t->fork = NULL;
     pl__t->alt = NULL;
     pl__t->next = NULL;
+    pl__t->back__w = NULL;
 
     return pl__t;
 }
@@ -285,7 +285,7 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
         if ( pl->alt )
             result = cc_path_link_free_all( &( pl->alt ) ) && result;
 
-        // [i] pl->back__w is weak pointer, not an owner, so must not be free()-ed.
+        // <!> pl->back__w is weak pointer, not an owner, so it must not be free()-ed.
 
         tmp = pl->next;
         CC_FREE( pl );

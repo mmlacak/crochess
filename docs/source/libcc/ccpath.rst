@@ -51,18 +51,30 @@ Linked path segments
 
         :ref:`lbl-libcc-paths-segmenttree`
 
+    .. c:member:: CcSideEffect side_effect
+
+        One chosen side-effect from all possible on piece encountered in previous
+        (parent) path segment.
+
     .. c:member:: CcPosLink * fields
 
-        Linked positions, a path segment.
+        Fields visited (steps performed) by a moving piece, a path segment.
 
         Linked path :term:`segment` is a linked list of all fields visited from one
         position to another in order in which they were made; only the last step
-        in a :term:`segment` can also have side-effect (i.e. interaction with
-        encountered piece).
+        in a :term:`segment` can also have another, encountered piece and its tag.
 
-    .. c:member:: CcSideEffect side_effect
+    .. c:member:: CcPieceEnum encountered_piece
 
-        Side-effect accompanying the last step.
+        Piece encountered at the very last field in the :c:member:`fields` list.
+
+    .. c:member:: CcTagEnum encountered_tag
+
+        Tag encountered at the very last field in the :c:member:`fields` list.
+
+    .. c:member:: CcMomentum momentum
+
+        Momentum a moving piece had after all performed steps.
 
     .. c:member:: struct CcPathLink * fork
 
@@ -94,11 +106,6 @@ Linked path segments
 
             :ref:`lbl-libcc-paths-segmenttree-alternative`
 
-    .. c:member:: struct CcPathLink * back__w
-
-        Weak back-link to parent node, regardless if pointed-to by :c:member:`fork`,
-        :c:member:`alt`, or :c:member:`next`.
-
     .. c:member:: struct CcPathLink * next
 
         Link to subsequent path.
@@ -111,18 +118,26 @@ Linked path segments
 
             :ref:`lbl-libcc-paths-segmenttree-subsequent`
 
+    .. c:member:: struct CcPathLink * back__w
+
+        Weak back-link to parent node, regardless if pointed-to by :c:member:`fork`,
+        :c:member:`alt`, or :c:member:`next`.
+
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcPosLink * fields, CcSideEffect side_effect )
+.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcPosLink * fields, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
 
     Function allocates a new path link.
 
+    :param side_effect: A possible side-effect on previously encountered piece.
     :param fields: Linked positions, a path segment.
-    :param side_effect: A side-effect.
+    :param encountered_piece: Piece encountered at the very last field in the :c:var:`fields` list.
+    :param encountered_tag: Tag encountered at the very last field in the :c:var:`fields` list.
+    :param momentum: Momentum a moving piece had after all performed steps.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcPosLink * fields, CcSideEffect side_effect )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcPosLink * fields, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.
@@ -131,8 +146,11 @@ Linked path segments
     with a newly allocated path link as its only element.
 
     :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
+    :param side_effect: A possible side-effect on previously encountered piece.
     :param fields: Linked positions, a path segment.
-    :param side_effect: A side-effect.
+    :param encountered_piece: Piece encountered at the very last field in the :c:var:`fields` list.
+    :param encountered_tag: Tag encountered at the very last field in the :c:var:`fields` list.
+    :param momentum: Momentum a moving piece had after all performed steps.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
 

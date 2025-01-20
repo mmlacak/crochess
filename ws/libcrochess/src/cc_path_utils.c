@@ -26,7 +26,7 @@ CcPathLink * cc_path_single_step__new( CcChessboard * cb,
     // while ( cc_chessboard_is_pos_on_board( cb, field.i, field.j ) ) {
     //     // TODO :: check if empty field,
     //     //      :: check step type, e.g. movement only -->
-    //     //      :: interactions with encoutered piece --> set se
+    //     //      :: interactions with encountered piece --> set se
     //
     //     if ( !cc_pos_link_append( &fields__t, field ) ) {
     //         cc_pos_link_free_all( &fields__t );

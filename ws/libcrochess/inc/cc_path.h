@@ -19,31 +19,28 @@
 //
 // Linked path segments.
 
-// TODO :: DOCS
 typedef struct CcPathLink {
     CcSideEffect side_effect; /* A possible side-effect on previously encountered piece. */
 
     CcPosLink * fields; /* Steps performed, fields visited. */
 
-    CcPieceEnum encountered_piece; /* Piece encoutered at the very last field in the list above. */
-    CcTagEnum encountered_tag; /* Tag encoutered at the very last field in the list above. */
+    CcPieceEnum encountered_piece; /* Piece encountered at the very last field in the list above. */
+    CcTagEnum encountered_tag; /* Tag encountered at the very last field in the list above. */
 
-    CcMomentum momentum; /* Momentum a moving piece had after all perfomed steps. */
+    CcMomentum momentum; /* Momentum a moving piece had after all performed steps. */
 
-    struct CcPathLink * back__w; /* Back-link to parent node. */
     struct CcPathLink * fork;
     struct CcPathLink * alt;
     struct CcPathLink * next;
+    struct CcPathLink * back__w; /* Back-link to parent node. */
 } CcPathLink;
 
-// TODO :: DOCS
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
                                 CcPosLink * fields,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
                                   CcPosLink * fields,
@@ -66,7 +63,6 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
 
 bool cc_path_link_is_valid( CcPathLink * path_link );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 
 bool cc_path_link_free_all( CcPathLink ** pl__f );
@@ -75,7 +71,6 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all );
 
 size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 
-// TODO :: DOCS
 char * cc_path_link_node_to_string__new( CcPathLink * path_link_node );
 
 // TODO :: rethink (maybe?)
