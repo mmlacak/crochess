@@ -45,6 +45,22 @@ Macros
     :returns: :c:data:`true` if side-effect must be followed by a step,
               :c:data:`false` otherwise.
 
+.. c:macro:: CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete)
+
+    Macro to check if a ply can end with a given side-effect type.
+
+    :param sete: A side-effect type, integer value.
+    :returns: :c:data:`true` if side-effect can terminate a ply,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete)
+
+    Macro to check if a given side-effect type always ends a ply.
+
+    :param sete: A side-effect type, integer value.
+    :returns: :c:data:`true` if side-effect can terminate a ply,
+              :c:data:`false` otherwise.
+
 .. c:macro:: CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL
 
     Maximum length of a side-effect symbol; equals to ``3``.

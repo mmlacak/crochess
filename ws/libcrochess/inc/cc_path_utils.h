@@ -13,7 +13,7 @@
 #include "cc_typed_step_defs.h"
 #include "cc_path.h"
 
-// DOCS
+// todo :: DOCS
 
 CcPathLink * cc_path_single_step__new( CcChessboard * cb,
                                        CcPosDesc pd,

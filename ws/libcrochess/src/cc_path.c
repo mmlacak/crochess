@@ -163,8 +163,15 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
-    if ( !_cc_path_link_steps_are_valid( pl->fields ) )
-        return false;
+    if ( pl->fields ) { // If there is a path segment, it has to be valid.
+        if ( !_cc_path_link_steps_are_valid( pl->fields ) )
+            return false;
+    } else { // Final side-effect (e.g. a capture) terminating a path.
+        if ( !CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY( pl->side_effect.type ) ) return false;
+
+        // If path isn't actually terminating ...
+        if ( ( pl->fork ) || ( pl->alt ) || ( pl->next ) ) return false;
+    }
 
     if ( !CC_PIECE_IS_ENUMERATOR( pl->encountered_piece ) )
         return false;
