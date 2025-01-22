@@ -163,6 +163,11 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
+    if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( pl->side_effect.type ) ) {
+        // If path isn't actually terminating ...
+        if ( ( pl->fields ) || ( pl->fork ) || ( pl->alt ) || ( pl->next ) ) return false;
+    }
+
     if ( pl->fields ) { // If there is a path segment, it has to be valid.
         if ( !_cc_path_link_steps_are_valid( pl->fields ) )
             return false;
