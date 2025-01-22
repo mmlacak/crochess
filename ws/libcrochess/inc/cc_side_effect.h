@@ -25,7 +25,7 @@
                                                    && ( (sete) != CC_SETE_Transparency ) \
                                                    && ( (sete) != CC_SETE_Divergence ) )
 
-// All side-effects with ends a ply.
+// All side-effects which ends a ply.
 #define CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete) ( ( (sete) == CC_SETE_EnPassant ) \
                                                 || ( (sete) == CC_SETE_Castle ) \
                                                 || ( (sete) == CC_SETE_Promotion ) \
