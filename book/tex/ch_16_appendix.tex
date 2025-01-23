@@ -267,15 +267,16 @@ Only for Classical Chess \algcty{0-0} and \algcty{O-O} for King's side, \algcty{
 \label{sec:Appendix/Notation/Ply}
 
 \hyperref[sec:Terms/Ply]{Ply} is a movement of a single piece in a cascading move. Two plies
-are separated by \~{} (tilde). In the example starting with
+are separated by \textasciitilde{} (tilde). In the example starting with
 \hyperref[fig:scn_ma_15_cascading_init]{Queen activating a Pyramid}, which then activates
 another Pyramid; example is comprised of series of 4 images, each corresponding to one ply,
-while last image depicts ending state. This can be written as \alg{Qf7\~{}Ai7\~{}Ai9}.
+while last image depicts ending state. This can be written as
+\alg{Qf7\textasciitilde{}Ai7\textasciitilde{}Ai9}.
 
 In \algfmt{XAN}, the same would be written as\newline
-\alg{Qk2-f7\~{}Af7-i7\~{}Ai7-i9}. A pair of \alg{[}, \alg{]} (square brackets) can be used
-to gather each ply to help tell them apart:\newline
-\alg{[Qk2-f7]\~{}[Af7-i7]\~{}[Ai7-i9]}.
+\alg{Qk2-f7\textasciitilde{}Af7-i7\textasciitilde{}Ai7-i9}. A pair of \alg{[}, \alg{]}
+(square brackets) can be used to gather each ply to help tell them apart:\newline
+\alg{[Qk2-f7]\textasciitilde{}[Af7-i7]\textasciitilde{}[Ai7-i9]}.
 
 \subsection*{Pawn promotion}
 \addcontentsline{toc}{subsection}{Pawn promotion}
@@ -296,8 +297,9 @@ tagged for promotion in previous example would have its actual promotion written
 \alg{l14Q}, or as \alg{l14=Q}.
 
 Similarly, \hyperref[fig:scn_ma_05_promo_init]{Pawn promoted by own Pyramid} just writes
-chosen piece to promote to, after writing movement of a Pyramid, like so \alg{Ed8\~{}Ah8Q},
-or in \algfmt{XAN} as \alg{[El4-d8]\~{}[Ad8-h8=Q]}.
+chosen piece to promote to, after writing movement of a Pyramid, like so
+\alg{Ed8\textasciitilde{}Ah8Q}, or in \algfmt{XAN} as
+\alg{[El4-d8]\textasciitilde{}[Ad8-h8=Q]}.
 
 \subsection*{En passant}
 \addcontentsline{toc}{subsection}{En passant}
@@ -325,17 +327,17 @@ In \algfmt{CAN}, both en passant and its disambiguation form are written as
 Conversion is noted with \alg{\%} (percentage) after destination field. Example starting
 with \hyperref[fig:scn_ma_08_conversion_init]{Bishop activating Pyramid}, which then converts
 opponent's Rook is covered by 3 images, 2 corresponding to 2 plies, and last one is for ending
-state. This is written as \alg{Bd5\~{}Ah5\%}. Optionally, converted piece can be written after
-\alg{\%} symbol, so it would be \alg{Bd5\~{}Ah5\%R}. In \algfmt{XAN}, it would be
-\alg{Bh9-d5\~{}Ad5-h5\%}. With both plies gathered and converted piece noted it would be
-\alg{[Bh9-d5]\~{}[Ad5-h5\%R]}.
+state. This is written as \alg{Bd5\textasciitilde{}Ah5\%}. Optionally, converted piece can be
+written after \alg{\%} symbol, so it would be \alg{Bd5\textasciitilde{}Ah5\%R}. In \algfmt{XAN},
+it would be \alg{Bh9-d5\textasciitilde{}Ad5-h5\%}. With both plies gathered and converted piece
+noted it would be \alg{[Bh9-d5]\textasciitilde{}[Ad5-h5\%R]}.
 
 Starchild is immune to conversion, Pyramid attempting such a thing is
 \hyperref[sec:Terms/Oblation]{oblationed}. Failed conversion is noted with \alg{\%\%}
 (double percentage) after destination field. This example of
 \hyperref[fig:scn_o_17_starchild_conversion_immunity_init]{conversion immunity} would be
-written as \alg{Bl23\~{}Ah23\%\%}. In \algfmt{XAN}, with ply gathering, it would be
-\alg{[Bs16-l23]\~{}[Al23-h23\%\%]}.
+written as \alg{Bl23\textasciitilde{}Ah23\%\%}. In \algfmt{XAN}, with ply gathering,
+it would be \alg{[Bs16-l23]\textasciitilde{}[Al23-h23\%\%]}.
 
 \subsection*{Complex movement}
 \addcontentsline{toc}{subsection}{Complex movement}
@@ -371,9 +373,9 @@ like so \alg{Cd3.c5-p15}, while keeping path unique.
 
 Shaman can capture multiple pieces in one capturing-ply.
 \hyperref[fig:scn_cot_004_light_shaman_capture_ply]{In this example} capture-ply just above
-horizontal line would be written as \alg{H.h10*.l11*.p12\~{}Wn8}, if activated Wave is moved
-down, to the right. In \algfmt{XAN} (with starting field, captured pieces and plies gathered),
-it would be \alg{[Hd9.h10*P.l11*P.p12]\~{}[Wp12-n8]}.
+horizontal line would be written as \alg{H.h10*.l11*.p12\textasciitilde{}Wn8}, if activated
+Wave is moved down, to the right. In \algfmt{XAN} (with starting field, captured pieces and
+plies gathered), it would be \alg{[Hd9.h10*P.l11*P.p12]\textasciitilde{}[Wp12-n8]}.
 
 \subsection*{Transparency}
 \addcontentsline{toc}{subsection}{Transparency}
@@ -382,8 +384,8 @@ it would be \alg{[Hd9.h10*P.l11*P.p12]\~{}[Wp12-n8]}.
 Passing over a piece is noted by using \alg{\^{}} (caret) after a step,
 optionally followed by a piece which has been passed-over.
 
-For instance, in \hyperref[fig:scn_mv_07_wave_is_transparent]{this example} light Queen
-could capture dark Pegasus, which would be written as\newline
+For instance, in \hyperref[fig:scn_mv_07_wave_is_transparent]{this example} light
+Queen could capture dark Pegasus, which would be written as\newline
 \alg{Q..m4\^{}..j7\^{}..g10*}, or in \algfmt{XAN} as\newline
 \alg{Qo2..m4\^{}W..j7\^{}W..g10*E}.
 
@@ -431,7 +433,7 @@ or in \algfmt{XAN} as\newline
 \label{sec:Appendix/Notation/Trance-journey}
 
 Trance-journey is noted with \alg{@} (at sign), instead of normal ply separator
-\alg{\~{}} (tilde), before
+\alg{\textasciitilde{}} (tilde), before
 \hyperref[fig:scn_cot_072_entrancement_step]{entranced piece} takes off. This
 \hyperref[fig:scn_cot_086_light_light_shaman_interaction_start]{trance-journey example},
 if without any interactions with pieces on entranced Shaman's step-fields, would be
@@ -472,8 +474,8 @@ There is no step between Shaman's initial position and distant starting field of
 trance-journey, \alg{\textbackslash} (backslash) is used to separate them, like so
 \alg{He12@He12\textbackslash{}w18..q16*..k14*..c18}.
 If initial position is omitted, separator (i.e. backslash) is still written, like so
-\alg{He12@H\textbackslash{}w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered plies
-and noted captured pieces it would look like so\newline
+\alg{He12@H\textbackslash{}w18..q16*..k14*..c18}. Now, in \algfmt{XAN} with gathered
+plies and noted captured pieces it would look like so\newline
 \alg{[Hd13-e12]@[He12\textbackslash{}w18..q16*P..k14*N..c18]}.
 
 Another peculiarity of dark Shaman is dual trance-journey, which is written with \alg{@@}
@@ -502,29 +504,31 @@ step-fields are blocked, so entranced light Shaman is oblationed, which is writt
 \label{sec:Appendix/Notation/Sense-journey}
 
 Sense-journey is noted with \alg{"} (quotation mark), instead of normal ply separator
-\alg{\~{}} (tilde), before \hyperref[fig:scn_o_42_uplifting_step]{uplifted piece} takes
+\alg{\textasciitilde{}} (tilde), before \hyperref[fig:scn_o_42_uplifting_step]{uplifted piece} takes
 off. This \hyperref[fig:scn_o_45_dark_piece_sense_journey]{sense-journey example} would
-be written as \alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bn7}. In \algfmt{XAN}, it would be
-\alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"[Bc5-n7]}.
+be written as \alg{Ne1\textasciitilde{}Wc3\textasciitilde{}Hd4\textasciitilde{}Ic5"Bn7}.
+In \algfmt{XAN}, it would be
+\alg{[Nf4-e1]\textasciitilde{}[We1-c3]\textasciitilde{}[Hc3-d4]\textasciitilde{}[Id4-c5]"[Bc5-n7]}.
 
 One peculiarity of sense-journey taken by uplifted dark piece is that it starts from
 the far end of a pattern inward, towards its initial position. There is no step between
 initial position of uplifted dark piece and distant starting field of sense-journey,
 \alg{\textbackslash} (backslash) is used to separate them, like so
-\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"Bc5\textbackslash{}z11..n7}.
+\alg{Ne1\textasciitilde{}Wc3\textasciitilde{}Hd4\textasciitilde{}Ic5"Bc5\textbackslash{}z11..n7}.
 If initial position is omitted, separator (i.e. backslash) is still written, like so
-\alg{Ne1\~{}Wc3\~{}Hd4\~{}Ic5"B\textbackslash{}z11..n7}. Now, in \algfmt{XAN} with gathered plies
-and noted initial, and starting positions it would look like so\newline
-\alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"}\newline
+\alg{Ne1\textasciitilde{}Wc3\textasciitilde{}Hd4\textasciitilde{}Ic5"B\textbackslash{}z11..n7}.
+Now, in \algfmt{XAN} with gathered plies and noted initial, and starting positions it would look
+like so\newline
+\alg{[Nf4-e1]\textasciitilde{}[We1-c3]\textasciitilde{}[Hc3-d4]\textasciitilde{}[Id4-c5]"}\newline
 \alg{[Bc5\textbackslash{}z11-n7]}.
-% \alg{[Nf4-e1]\~{}[We1-c3]\~{}[Hc3-d4]\~{}[Id4-c5]"[Bc5,z11-n7]}.
+% \alg{[Nf4-e1]\textasciitilde{}[We1-c3]\textasciitilde{}[Hc3-d4]\textasciitilde{}[Id4-c5]"[Bc5,z11-n7]}.
 
 Failed sense-journey is noted with \alg{'} (single apostrophe) after uplifting a
 piece. Optionally, oblationed piece can be written after \alg{'}. In this
 \hyperref[fig:scn_o_46_sense_journey_failed]{failed sense-journey example} all
 step-fields are blocked, so uplifted dark Bishop is oblationed, which is written as
-\alg{Id4\~{}Ic5'}, and in \algfmt{XAN}, with plies gathered and oblationed piece,
-as \alg{[Ic3-d4]\~{}[Id4-c5]'B}.
+\alg{Id4\textasciitilde{}Ic5'}, and in \algfmt{XAN}, with plies gathered and oblationed
+piece, as \alg{[Ic3-d4]\textasciitilde{}[Id4-c5]'B}.
 
 \vfill
 
@@ -587,10 +591,10 @@ is fine, it just doesn't note failed intention.
 \label{sec:Appendix/Notation/Teleportation}
 
 Teleportation is noted by separating plies with \alg{|} (vertical bar) instead of
-usual \alg{\~{}} (tilde), followed by field at which piece emerged. Optionally,
-teleporting piece can be written before emerging field. If Wave teleported, vertical
-bar is followed by Wave and its destination field, or movement, optionally followed
-by activated pieces' plies, if there were any.
+usual \alg{\textasciitilde{}} (tilde), followed by field at which piece emerged.
+Optionally, teleporting piece can be written before emerging field. If Wave teleported,
+vertical bar is followed by Wave and its destination field, or movement, optionally
+followed by activated pieces' plies, if there were any.
 
 If piece teleported, but there was no empty portal-field, teleportation failed,
 and is noted with \alg{|||} (triple vertical bar), optionally followed by oblationed
@@ -606,19 +610,20 @@ written as \alg{Ra18|||}, or in \algfmt{XAN} it would be \alg{Ra13-a18|||R}.
 In this \hyperref[fig:scn_n_04_teleport_move_3]{Wave teleporting example}, followed by
 \hyperref[fig:scn_n_05_teleport_end]{Wave teleported example}, if activated Pyramid
 would move 2 fields upward, complete move would be written as\newline
-\alg{Eg15\~{}Wa18|Wl4\~{}Al6}. In \algfmt{XAN}, with plies gathering, it would be\newline
-\alg{[Ei11-g15]\~{}[Wg15-a18]|[Wr1-l4]\~{}[Al4-l6]}.
+\alg{Eg15\textasciitilde{}Wa18|Wl4\textasciitilde{}Al6}. In \algfmt{XAN}, with plies
+gathering, it would be\newline
+\alg{[Ei11-g15]\textasciitilde{}[Wg15-a18]|[Wr1-l4]\textasciitilde{}[Al4-l6]}.
 
 If previous example ended with
 \hyperref[fig:scn_n_06_teleport_wave_blocked]{teleported Wave blocked} example,
-it would be written as \alg{Eg15\~{}Wa18|||}, and in \algfmt{XAN} it would be
-\alg{[Ei11-g15]\~{}[Wg15-a18]|||W}.
+it would be written as \alg{Eg15\textasciitilde{}Wa18|||}, and in \algfmt{XAN} it
+would be \alg{[Ei11-g15]\textasciitilde{}[Wg15-a18]|||W}.
 
 This \hyperref[fig:scn_d_18_teleporting_wave_cascade]{cascading teleportation example}
-would be written by sequencing teleportations like so \alg{Eh2\~{}Wb4|Wa24|Wr4\~{}Bt6},
-if activated Bishop would take upper-right diagonal. In \algfmt{XAN}, with plies
-gathering, it would be\newline
-\alg{[Ej6-h2]\~{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\~{}}\newline
+would be written by sequencing teleportations like so
+\alg{Eh2\textasciitilde{}Wb4|Wa24|Wr4\textasciitilde{}Bt6}, if activated Bishop would
+take upper-right diagonal. In \algfmt{XAN}, with plies gathering, it would be\newline
+\alg{[Ej6-h2]\textasciitilde{}[Wh2-b4]|[Wm18-a24]|[Wx1-r4]\textasciitilde{}}\newline
 \alg{[Br4-t6]}.
 
 Starchild and Wave activated by it cannot teleport, which is written with \alg{||}
@@ -639,35 +644,35 @@ example, it would be written as \alg{Ic3|||}, or, in \algfmt{XAN} as
 \label{sec:Appendix/Notation/Pawn-sacrifice}
 
 Pawn-sacrifice is written by separating plies with \alg{;;} (double semicolon)
-instead of usual \alg{\~{}} (tilde), followed by capturing and displacing steps.
+instead of usual \alg{\textasciitilde{}} (tilde), followed by capturing and displacing steps.
 All displacing steps must be written; capturing steps can be omitted if only a
 single path exists; captured and displaced pieces are not needed, as they can
 only be Pawns.
 
 This \hyperref[fig:scn_tr_27_pawn_sacrifice_init]{Pawn-sacrifice} followed by
 \hyperref[fig:scn_tr_29_pawn_sacrifice_end]{tagged light Serpent's ply} is
-written as \alg{Sb4\~{}Ab2;;}\newline
+written as \alg{Sb4\textasciitilde{}Ab2;;}\newline
 \alg{S..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9}.\newline
 In \algfmt{XAN}, with plies gathering, it would be\newline
-\alg{[Sg3-b4]\~{}[Ab4-b2];;}\newline
+\alg{[Sg3-b4]\textasciitilde{}[Ab4-b2];;}\newline
 \alg{[Sb4..b6*..b8*.c9<c10..e9\^{}W..g9*.h8<h9]}.
 
 If there aren't enough Pawns captured or displaced to isolate only one path an
 additional, movement-only steps needs to be written as well. In previous example,
 if Serpent stopped at \alg{b8}, at least two different paths are possible. Previous
-example started with \alg{Sb4\~{}Ab2;;Sb4.c5.b6*.c7.b8*} path, other possible path
-is \alg{Sb4\~{}Ab2;;Sb4.a5.b6*.a7.b8*}. Again, for longer paths care must be taken
-to write step(s) which really differentiate paths, otherwise written path might
-inadvertently also denote others.
+example started with \alg{Sb4\textasciitilde{}Ab2;;Sb4.c5.b6*.c7.b8*} path, other
+possible path is \alg{Sb4\textasciitilde{}Ab2;;Sb4.a5.b6*.a7.b8*}. Again, for longer
+paths care must be taken to write step(s) which really differentiate paths, otherwise
+written path might inadvertently also denote others.
 
 Care must also be taken to properly use step separator \alg{.} (dot), and multiple
 step separator \alg{..} (two dots). Step separator \alg{.} is for separating two
 steps, where one step immediately follows the other. Multi-step separator \alg{..}
 is for separating two steps which have at least one unwritten step in-between.
 For instance, first, short path in previous paragraph (i.e.
-\alg{Sb4\~{}Ab2;;Sb4.c5.b6*.c7.b8*}) shouldn't be shortened to
-\alg{Sb4\~{}Ab2;;S..b6*..b8*}, as it would also denote
-\alg{Sb4\~{}Ab2;;Sb4.c3.d4.c5.d6.c7.b6*.a7.b8*}, a very different path indeed.
+\alg{Sb4\textasciitilde{}Ab2;;Sb4.c5.b6*.c7.b8*}) shouldn't be shortened to
+\alg{Sb4\textasciitilde{}Ab2;;S..b6*..b8*}, as it would also denote
+\alg{Sb4\textasciitilde{}Ab2;;Sb4.c3.d4.c5.d6.c7.b6*.a7.b8*}, a very different path indeed.
 
 \subsection*{Off-board traversal}
 \addcontentsline{toc}{subsection}{Off-board traversal}
@@ -683,26 +688,30 @@ field is on a different file and a different rank than starting field. If destin
 is on the same rank or on the same file as starting field, then first step needs to be noted
 as well. In this \hyperref[fig:scn_tr_34_serpent_activated_wave_ply]{Wave activated by Serpent}
 example, if destination field is \alg{j4}, then there is only one path leading to it, and
-it's \alg{Se5\~{}We5.f4.g5.h4.i5.j4}, so it can be noted just as \alg{Se5\~{}Wj4}.
+it's \alg{Se5\textasciitilde{}We5.f4.g5.h4.i5.j4}, so it can be noted just as
+\alg{Se5\textasciitilde{}Wj4}.
 
 If destination field is \alg{i5}, which is on the same rank as Wave's ply starting field,
-then \alg{Se5\~{}Wi5} might be interpreted as either \alg{Se5\~{}We5.f4.g5.h4.i5}, or as\newline
-\alg{Se5\~{}We5.f6.g5.h6.i5}, so first step is needed, like so \alg{Se5\~{}W.f4..i5}.
+then \alg{Se5\textasciitilde{}Wi5} might be interpreted as either
+\alg{Se5\textasciitilde{}We5.f4.g5.h4.i5}, or as\newline
+\alg{Se5\textasciitilde{}We5.f6.g5.h6.i5}, so first step is needed, like so
+\alg{Se5\textasciitilde{}W.f4..i5}.
 
 If Wave activated by Serpent is blocked from reaching destination field using only on-board
 step-fields, then only one path exists, and only destination field is needed. For instance,
 if in this
 \hyperref[fig:scn_tr_35_wave_out_of_board]{Wave off-board example} dark Knight were located at
-\alg{u9}, and destination field is \alg{v10} it would block Wave's ply \alg{Sv6\~{}W.u7.v8.u9.v10},
-and only path available to Wave would be off-board, i.e. \alg{Sv6\~{}W..v8..v10}.
+\alg{u9}, and destination field is \alg{v10} it would block Wave's ply
+\alg{Sv6\textasciitilde{}W.u7.v8.u9.v10}, and only path available to Wave would be off-board,
+i.e. \alg{Sv6\textasciitilde{}W..v8..v10}.
 
 For a Wave activated by Unicorn or Centaur, noting destination field might be enough, if
 destination field does not share file, rank or diagonal with starting field. For instance, if
 destination in this \hyperref[fig:scn_mv_30_wave_off_board]{Wave off-board example} is field 2,
-then it can be noted just as \alg{Uo3\~{}Wp12}. If, in the same example, destination is field 1,
-then original path is \alg{Uo3\~{}W.m4.p6.n7..o10}, the other available path is
-\alg{Uo3\~{}W..n6.p7.m9.o10}, so at least one other step is needed to distinguish between the
-two paths.
+then it can be noted just as \alg{Uo3\textasciitilde{}Wp12}. If, in the same example,
+destination is field 1, then original path is \alg{Uo3\textasciitilde{}W.m4.p6.n7..o10},
+the other available path is \alg{Uo3\textasciitilde{}W..n6.p7.m9.o10}, so at least one
+other step is needed to distinguish between the two paths.
 
 \subsection*{Losing tags}
 \addcontentsline{toc}{subsection}{Losing tags}
@@ -749,8 +758,8 @@ which would be denoted as \alg{Br17*P::}, and in \algfmt{XAN} it would be
 
 In this \hyperref[fig:scn_mv_36_activating_rush_pawn_init]{activating Pawns example},
 light Pawn on the left is being activated, and can capture dark Knight. This would
-be written as \alg{Re2\~{}Wc2\~{}P::b3*N}, and in \algfmt{XAN} it would be
-\alg{[Re6-e2]\~{}[We2-c2]\~{}[P::c2-b3*N]}.
+be written as \alg{Re2\textasciitilde{}Wc2\textasciitilde{}P::b3*N}, and in \algfmt{XAN}
+it would be \alg{[Re6-e2]\textasciitilde{}[We2-c2]\textasciitilde{}[P::c2-b3*N]}.
 
 \subsection*{Combining side-effects}
 \addcontentsline{toc}{subsection}{Combining side-effects}
@@ -807,12 +816,12 @@ path available.
 
 First example here can then be written as \alg{Sg3}, this would be taken as if
 \alg{Sc3.d4.e3.f4.g3} is written, i.e. light Serpent would be taking the shortest path
-available. Next example would be written as \alg{Sc7\~{}Ad7}, if Pyramid moved 1 field
-to the right; movement is assumed to be\newline
-% \alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]\~{}[Ac7-d7]},
+available. Next example would be written as \alg{Sc7\textasciitilde{}Ad7}, if Pyramid moved
+1 field to the right; movement is assumed to be\newline
+% \alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]\textasciitilde{}[Ac7-d7]},
 \alg{[Sc3.d2.e3.f2.g3.f4.g5.f6.e5.d6.c5.b6.c7]}\newline
-\alg{\~{}[Ac7-d7]}, that is, light Serpent would take the longest path available,
-since it's the first piece in a cascade.
+\alg{\textasciitilde{}[Ac7-d7]}, that is, light Serpent would take the longest path
+available, since it's the first piece in a cascade.
 
 \subsection*{Move symbols, annotations}
 \addcontentsline{toc}{subsection}{Move symbols, annotations}
@@ -967,14 +976,14 @@ more effort reader is presented with much easier to understand notation. Compare
 minimalistic notation with slightly more verbose version:
 
 \noindent
-\alg{Re2\~{}Wc2\~{}b3} vs.\newline
-\alg{Re2\~{}Wc2\~{}b3*} vs.\newline
-\alg{Re2\~{}Wc2\~{}P::b3*N},
+\alg{Re2\textasciitilde{}Wc2\textasciitilde{}b3} vs.\newline
+\alg{Re2\textasciitilde{}Wc2\textasciitilde{}b3*} vs.\newline
+\alg{Re2\textasciitilde{}Wc2\textasciitilde{}P::b3*N},
 
 \noindent
 \alg{He12@H..q16..k14..c18} vs.\newline
 \alg{He12@H..q16*..k14*..c18} vs.\newline
-\alg{He12@H,w18..q16*P..k14*N..c18},
+\alg{He12@H\textbackslash{}w18..q16*P..k14*N..c18},
 
 \noindent
 \alg{He12@@} vs.\newline
@@ -1110,28 +1119,28 @@ found in \emph{promoting} column and \emph{promotion} row.
 \begin{table}[!h]
 \centering
 \begin{tabular}{ rl }
-\toprule % =========================================================
-\textbf{Symbol}      & \textbf{Separates}                         \\
-\midrule % ---------------------------------------------------------
-\alg{.}              & single steps                               \\
-\alg{..}             & multiple steps                             \\
-\alg{-}              & steps and destination field                \\
-\alg{\textbackslash} & reposition                                 \\
-\cmidrule{1-2} % ...................................................
-\alg{\~{}}           & plies                                      \\
-\alg{|}              & teleportation                              \\
-\alg{||}             & failed teleportation, re-emergence         \\
-\alg{|||}            & failed teleportation, oblation             \\
-\alg{@}              & trance-journey                             \\
-\alg{@@}             & dual trance-journey, oblation              \\
-\alg{@@@}            & failed trance-journey, oblation            \\
-\alg{;;}             & Pawn-sacrifice                             \\
-\alg{"}              & sense-journey                              \\
-\alg{'}              & failed sense-journey, oblation             \\
-\cmidrule{1-2} % ...................................................
-\alg{,}              & items in a list                            \\
-\alg{[}, \alg{]}     & ply gathering                              \\
-\bottomrule % ======================================================
+\toprule % ============================================================
+\textbf{Symbol}         & \textbf{Separates}                         \\
+\midrule % ------------------------------------------------------------
+\alg{.}                 & single steps                               \\
+\alg{..}                & multiple steps                             \\
+\alg{-}                 & steps and destination field                \\
+\alg{\textbackslash}    & reposition                                 \\
+\cmidrule{1-2} % ......................................................
+\alg{\textasciitilde{}} & plies                                      \\
+\alg{|}                 & teleportation                              \\
+\alg{||}                & failed teleportation, re-emergence         \\
+\alg{|||}               & failed teleportation, oblation             \\
+\alg{@}                 & trance-journey                             \\
+\alg{@@}                & dual trance-journey, oblation              \\
+\alg{@@@}               & failed trance-journey, oblation            \\
+\alg{;;}                & Pawn-sacrifice                             \\
+\alg{"}                 & sense-journey                              \\
+\alg{'}                 & failed sense-journey, oblation             \\
+\cmidrule{1-2} % ......................................................
+\alg{,}                 & items in a list                            \\
+\alg{[}, \alg{]}        & ply gathering                              \\
+\bottomrule % =========================================================
 \end{tabular}
 \caption{Path separators}
 \label{tbl:Appendix/Summary/Path separators}
@@ -1139,9 +1148,9 @@ found in \emph{promoting} column and \emph{promotion} row.
 
 First 3 symbols (\alg{.}, \alg{..}, and \alg{-}) separates steps within a single ply,
 the next one (i.e. \alg{\textbackslash}) separates initial and starting positions.
-Other symbols (\alg{\~{}}, \alg{|}, \alg{@}, \alg{;;}, and \alg{"}) are separators
-between plies; or ply and \textendash{}by extension\textendash{} move terminators
-(\alg{||}, \alg{|||}, \alg{@@}, \alg{@@@}, and \alg{'}).\newline
+Other symbols (\alg{\textasciitilde{}}, \alg{|}, \alg{@}, \alg{;;}, and \alg{"}) are
+separators between plies; or ply and \textendash{}by extension\textendash{} move
+terminators (\alg{||}, \alg{|||}, \alg{@@}, \alg{@@@}, and \alg{'}).\newline
 \indent
 Items separator (\alg{,}) is used where multiple items needs to be listed for a single
 step (or a ply), e.g. pieces captured in a dark Shaman's dual trance-journey.\newline
@@ -1438,8 +1447,8 @@ One                   &     \alg{b8}  &    \alg{y19}          \\
 \label{tbl:Appendix/Summary/Monolith initial positions}
 \end{table}
 
-Table above contains initial positions of both Monoliths, one located on light side of
-chessboard, the other on dark side.
+Table above contains initial positions of both Monoliths, one located on light
+side of chessboard, the other on dark side.
 
 \clearpage % ..........................................................
 
