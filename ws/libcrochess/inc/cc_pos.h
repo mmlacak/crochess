@@ -147,6 +147,10 @@ typedef struct CcMomentum {
     CcMomentumUsageEnum usage;
 } CcMomentum;
 
+#define CC_MOMENTUM_INITIAL { .momentum = 0, .usage = CC_MUE_Accumulating }
+
+#define CC_MOMENTUM_CAST_INITIAL ( (CcMomentum)CC_MOMENTUM_INITIAL )
+
 bool cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count );
 
 

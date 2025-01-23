@@ -15,9 +15,9 @@
 
 // todo :: DOCS
 
-CcPathLink * cc_path_single_step__new( CcChessboard * cb,
-                                       CcPosDesc pd,
-                                       CcTypedStep step );
+CcPathLink * cc_path_tree_single_step__new( CcChessboard * cb,
+                                            CcPosDesc pd,
+                                            CcTypedStep step );
 
 
 #endif /* __CC_PATH_UTILS_H__ */

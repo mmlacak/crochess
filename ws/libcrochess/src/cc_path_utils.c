@@ -7,9 +7,9 @@
 #include "cc_path_utils.h"
 
 
-CcPathLink * cc_path_single_step__new( CcChessboard * cb,
-                                       CcPosDesc pd,
-                                       CcTypedStep step ) {
+CcPathLink * cc_path_tree_single_step__new( CcChessboard * cb,
+                                            CcPosDesc pd,
+                                            CcTypedStep step ) {
     if ( !cb ) return NULL;
 
     if ( !CC_PIECE_IS_VALID( pd.piece ) ) return NULL;
@@ -17,9 +17,23 @@ CcPathLink * cc_path_single_step__new( CcChessboard * cb,
     if ( !CC_TAG_IS_ENUMERATOR( pd.tag ) ) return NULL;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
 
-    // CcPos field = pd.pos;
-    // CcPosLink * fields__t = NULL;
-    // CcSideEffect se = cc_side_effect_none();
+    // [!] Piece, and its tag, might not be at pd.pos position on chessboard,
+    //     e.g. if already activated (transitioning problem); for everything
+    //     else chessboard should be correct.
+
+    CcPos field = pd.pos;
+
+    CcPosLink * fields__t = cc_pos_link__new( field );
+    if ( !fields__t ) return NULL;
+
+    CcSideEffect se = cc_side_effect_none();
+    CcMomentum m = CC_MOMENTUM_CAST_INITIAL;
+
+    CcPathLink * pl__a = cc_path_link__new( se, fields__t, pd.piece, pd.tag, m );
+    if ( !pl__a ) {
+        cc_pos_link_free_all( &fields__t );
+        return NULL;
+    }
 
     // TODO :: REDO
     //
@@ -46,5 +60,5 @@ CcPathLink * cc_path_single_step__new( CcChessboard * cb,
     //
     // TODO :: REDO
 
-    return NULL; // TODO :: FIX
+    return pl__a;
 }
