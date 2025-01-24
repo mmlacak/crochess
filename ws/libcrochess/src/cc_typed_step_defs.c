@@ -541,7 +541,7 @@ bool cc_iter_monolith_steps( cc_uint_t step_index,
 bool cc_iter_piece_steps( CcPieceType piece,
                           bool sideways_pawns,
                           bool short_step,
-                          CcMaybeBoolEnum serpent_direction,
+                          CcSerpentDiagonalEnum serpent_diagonal,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod ) {
     // No need to check args, they are either just handed over to other funcs, or covered in switch, if.
@@ -598,11 +598,11 @@ bool cc_iter_piece_steps( CcPieceType piece,
 
         case CC_PE_DarkSerpent :
         case CC_PE_LightSerpent :
-            if ( serpent_direction == CC_MBE_True ) {
+            if ( serpent_diagonal == CC_SDE_RightDiagonal ) {
                 return CC_ITER_SERPENT_RIGHT_STEPS( step__iod, filter__d );
-            } else if ( serpent_direction == CC_MBE_False ) {
+            } else if ( serpent_diagonal == CC_SDE_LeftDiagonal ) {
                 return CC_ITER_SERPENT_LEFT_STEPS( step__iod, filter__d );
-            } else if ( serpent_direction == CC_MBE_Void ) {
+            } else if ( serpent_diagonal == CC_SDE_BothDiagonals ) {
                 return CC_ITER_SERPENT_STEPS( step__iod, filter__d );
             } else
                 return false;

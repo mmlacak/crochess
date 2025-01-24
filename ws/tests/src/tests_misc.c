@@ -202,12 +202,12 @@ bool tests_iter_piece_steps( void ) {
     CcPieceType piece = CC_PE_LightCentaur;
     bool sideways_pawns = true;
     bool short_step = false;
-    CcMaybeBoolEnum serpent_direction = CC_MBE_Void;
+    CcSerpentDiagonalEnum serpent_diagonal = CC_SDE_BothDiagonals;
     CcStepTypeEnum filter = CC_STE_None;
     CcTypedStep const * step = NULL;
 
     printf( "---------------------\n" );
-    while ( cc_iter_piece_steps( piece, sideways_pawns, short_step, serpent_direction, filter, &step ) ) {
+    while ( cc_iter_piece_steps( piece, sideways_pawns, short_step, serpent_diagonal, filter, &step ) ) {
         printf( "Step: (%d, %d; %d).\n", step->step.i, step->step.j, step->type );
     }
     printf( "---------------------\n" );

@@ -317,7 +317,7 @@ bool cc_iter_monolith_steps( cc_uint_t step_index,
 bool cc_iter_piece_steps( CcPieceType piece,
                           bool sideways_pawns,
                           bool short_step,
-                          CcMaybeBoolEnum serpent_direction,
+                          CcSerpentDiagonalEnum serpent_diagonal,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod );
 

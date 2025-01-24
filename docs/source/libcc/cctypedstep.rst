@@ -12,6 +12,47 @@ Typed step
 Documents ``cc_typed_step.h`` and ``cc_typed_step.c`` files, which contain various
 position definitions, linked lists and functions.
 
+.. _lbl-libcc-cctypedstep-serpentdiagonalsenum:
+
+Serpent diagonals enum
+----------------------
+
+.. c:enum:: CcSerpentDiagonalEnum
+
+    Serpent diagonals enumeration.
+
+    .. c:enumerator:: CC_SDE_BothDiagonals
+
+        Both diagonals, i.e. left and right, equals to ``0``.
+
+    .. c:enumerator:: CC_SDE_LeftDiagonal
+
+        Left diagonal, consisting of upper-left and lower-right steps.
+
+    .. c:enumerator:: CC_SDE_RightDiagonal
+
+        Right diagonal, consisting of upper-right and lower-left steps.
+
+    :c:`enum` is tagged with the same :c:enum:`CcSerpentDiagonalEnum` name.
+
+.. c:macro:: CC_SERPENT_DIAGONAL_IS_ENUMERATOR(ste)
+
+    Macro to check if given serpent diagonal is an enumerator, i.e. between
+    :c:enumerator:`CC_SDE_BothDiagonals` and :c:enumerator:`CC_SDE_RightDiagonal` values.
+
+    :param ste: Serpent diagonal, :c:type:`CcSerpentDiagonalEnum` value.
+    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+
+.. c:macro:: CC_SERPENT_DIAGONAL_IS_VALID(ste)
+
+    Macro to check if given serpent diagonal is a valid enumerator.
+
+    Currently, there is no difference between this and :c:macro:`CC_SERPENT_DIAGONAL_IS_ENUMERATOR()`
+    macro, since :c:enum:`CcSerpentDiagonalEnum` does not define *None* value.
+
+    :param ste: Serpent diagonal, :c:type:`CcSerpentDiagonalEnum` value.
+    :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
+
 .. _lbl-libcc-cctypedstep-steptypeenum:
 
 Step type enum

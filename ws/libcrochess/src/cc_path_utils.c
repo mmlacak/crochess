@@ -12,7 +12,7 @@ CcPathLink * cc_path_tree_single_step__new( CcChessboard * cb,
                                             CcTypedStep step ) {
     if ( !cb ) return NULL;
 
-    if ( !CC_PIECE_IS_VALID( pd.piece ) ) return NULL;
+    if ( !CC_PIECE_IS_SINGLE_STEP( pd.piece ) ) return NULL; // TODO :: add Wave
     if ( !cc_chessboard_is_pos_on_board( cb, pd.pos.i, pd.pos.j ) ) return NULL;
     if ( !CC_TAG_IS_ENUMERATOR( pd.tag ) ) return NULL;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;

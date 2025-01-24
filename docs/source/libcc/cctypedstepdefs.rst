@@ -1027,7 +1027,7 @@ Step iterators
     :param step__io: *Input/output*; iteration step.
     :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_iter_piece_steps( CcPieceType piece, bool sideways_pawns, bool short_step, CcMaybeBoolEnum serpent_direction, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
+.. c:function:: bool cc_iter_piece_steps( CcPieceType piece, bool sideways_pawns, bool short_step, CcMaybeBoolEnum serpent_diagonal, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
 
     Function iterates over steps a given piece can make.
 
@@ -1035,7 +1035,7 @@ Step iterators
 
     If Unicorn or Centaur is given, :c:var:`short_step` flag determines if short or long steps are iterated over.
 
-    If Serpent was given, :c:var:`serpent_direction` flag determines which Serpent's diagonal(s) to iterate over:
+    If Serpent was given, :c:var:`serpent_diagonal` flag determines which Serpent's diagonal(s) to iterate over:
 
         * :c:enumerator:`CC_MBE_True`, only steps on right diagonal are iterated
         * :c:enumerator:`CC_MBE_False`, only steps on left diagonal are iterated
@@ -1080,7 +1080,7 @@ Step iterators
     :param piece: A piece.
     :param sideways_pawns: A flag, whether Pawns can move sideways, or not.
     :param short_step: A flag, whether Unicorns and Centaurs move over short or long steps.
-    :param serpent_direction: A flag, which Serpent's diagonal(s) to iterate over.
+    :param serpent_diagonal: A flag, which Serpent's diagonal(s) to iterate over.
     :param filter__d: *Optional*; type of steps to iterate over, can be
         :c:enumerator:`CC_STE_None`, in which case all steps would be iterated.
     :param step__iod: *Input/output*, *optional*; iteration step.

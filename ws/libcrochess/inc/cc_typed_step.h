@@ -15,6 +15,19 @@
 
 
 //
+// Serpent diagonals
+
+typedef enum CcSerpentDiagonalEnum {
+    CC_SDE_BothDiagonals = 0,
+    CC_SDE_LeftDiagonal,
+    CC_SDE_RightDiagonal,
+} CcSerpentDiagonalEnum;
+
+#define CC_SERPENT_DIAGONAL_IS_ENUMERATOR(sde) ( ( CC_SDE_BothDiagonals <= (sde) ) && ( (sde) <= CC_SDE_RightDiagonal ) )
+
+#define CC_SERPENT_DIAGONAL_IS_VALID(sde) CC_SERPENT_DIAGONAL_IS_ENUMERATOR(sde)
+
+//
 // Typed step
 
 typedef enum CcStepTypeEnum {
