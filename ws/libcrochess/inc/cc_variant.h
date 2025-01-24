@@ -90,6 +90,13 @@ typedef enum CcVariantEnum {
 
 #define CC_VARIANT_IS_VALID(ve) ( ( CC_VE_ClassicalChess <= (ve) ) && ( (ve) <= CC_VE_One ) ) // <!> Keep in-sync with CcVariantEnum.
 
+#define CC_VARIANT_HAS_SIDEWAYS_PAWNS(ve) ( ( (ve) == CC_VE_Nineteen )              \
+                                         || ( (ve) == CC_VE_HemerasDawn )           \
+                                         || ( (ve) == CC_VE_TamoanchanRevisited )   \
+                                         || ( (ve) == CC_VE_ConquestOfTlalocan )    \
+                                         || ( (ve) == CC_VE_Discovery )             \
+                                         || ( (ve) == CC_VE_One ) )
+
 extern char const * const CC_VARIANT_CLASSICAL_CHESS_SYMBOL;
 
 extern char const * const CC_VARIANT_CROATIAN_TIES_SYMBOL;
@@ -123,8 +130,6 @@ char const * cc_variant_symbol( CcVariantEnum ve );
 char const * cc_variant_label( CcVariantEnum ve );
 
 cc_uint_t cc_variant_board_size( CcVariantEnum ve );
-
-bool cc_variant_has_sideways_pawns( CcVariantEnum ve );
 
 cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
 

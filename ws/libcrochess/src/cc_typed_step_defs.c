@@ -544,7 +544,7 @@ bool cc_iter_piece_steps( CcPieceType piece,
                           CcSerpentDiagonalEnum serpent_diagonal,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod ) {
-    // No need to check args, they are either just handed over to other funcs, or covered in switch, if.
+    if ( !step__iod ) return false;
 
     switch ( piece ) {
         case CC_PE_DarkPawn :

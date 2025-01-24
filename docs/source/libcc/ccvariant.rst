@@ -247,6 +247,15 @@ Types
     :param ve: Variant (integer) value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
+.. c:macro:: CC_VARIANT_HAS_SIDEWAYS_PAWNS(ve)
+
+    Macro to check if given variant has sideways Pawns, i.e. if it's Nineteen
+    variant, or beyond.
+
+    :param ve: Variant (integer) value.
+    :returns: :c:data:`true` if variant has sideways Pawns,
+        :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccvariant-symbols:
 
 Symbols
@@ -353,13 +362,6 @@ Functions
 
     :param ve: Variant :c:`enum`.
     :returns: Size of a chessboard if successful, ``0`` otherwise.
-
-.. c:function:: bool cc_variant_has_sideways_pawns( CcVariantEnum ve )
-
-    Function returns if Pawns can move sideways in a given variant.
-
-    :param ve: Variant :c:`enum`.
-    :returns: :c:data:`true` if variant has sideways Pawns, :c:data:`false` otherwise.
 
 .. c:function:: cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light )
 

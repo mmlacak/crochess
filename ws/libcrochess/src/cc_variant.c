@@ -173,21 +173,6 @@ cc_uint_t cc_variant_board_size( CcVariantEnum ve ) {
     }
 }
 
-bool cc_variant_has_sideways_pawns( CcVariantEnum ve ) {
-    switch ( ve ) {
-        case CC_VE_Nineteen :
-        case CC_VE_HemerasDawn :
-        case CC_VE_TamoanchanRevisited :
-        case CC_VE_ConquestOfTlalocan :
-        case CC_VE_Discovery :
-        case CC_VE_One :
-            return true;
-
-        default :
-            return false;
-    }
-}
-
 cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light ) {
     if ( is_piece_light ) {
         switch ( ve ) {

@@ -8,14 +8,12 @@
 
 
 CcPathLink * cc_path_tree_single_step__new( CcChessboard * cb,
-                                            CcPosDesc pd,
-                                            CcTypedStep step ) {
+                                            CcPosDesc pd ) {
     if ( !cb ) return NULL;
 
     if ( !CC_PIECE_IS_SINGLE_STEP( pd.piece ) ) return NULL; // TODO :: add Wave
     if ( !cc_chessboard_is_pos_on_board( cb, pd.pos.i, pd.pos.j ) ) return NULL;
     if ( !CC_TAG_IS_ENUMERATOR( pd.tag ) ) return NULL;
-    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
 
     // [!] Piece, and its tag, might not be at pd.pos position on chessboard,
     //     e.g. if already activated (transitioning problem); for everything
@@ -35,30 +33,20 @@ CcPathLink * cc_path_tree_single_step__new( CcChessboard * cb,
         return NULL;
     }
 
-    // TODO :: REDO
-    //
-    // while ( cc_chessboard_is_pos_on_board( cb, field.i, field.j ) ) {
-    //     // TODO :: check if empty field,
-    //     //      :: check step type, e.g. movement only -->
-    //     //      :: interactions with encountered piece --> set se
-    //
-    //     if ( !cc_pos_link_append( &fields__t, field ) ) {
-    //         cc_pos_link_free_all( &fields__t );
-    //         return NULL;
-    //     }
-    //
-    //     field = cc_pos_add( field, step.step, 1 );
-    // }
-    //
-    // CcPathLink * segment__a = cc_path_link__new( fields__t, se );
-    // if ( !segment__a ) {
-    //     cc_pos_link_free_all( &fields__t );
-    //     return NULL;
-    // }
-    //
-    // return segment__a;
-    //
-    // TODO :: REDO
+    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( cb->type );
+    bool is_same_color = cc_pos_piece_are_same_color( field, pd.piece );
+    CcTypedStep const * step = NULL;
+
+    while ( cc_iter_piece_steps( pd.piece,
+                                 sideways_pawns,
+                                 is_same_color,
+                                 CC_SDE_BothDiagonals,
+                                 CC_STE_None,
+                                 &step ) ) {
+
+    }
+
+
 
     return pl__a;
 }
