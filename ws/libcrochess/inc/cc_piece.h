@@ -222,12 +222,25 @@
                                           && ( (activator) != CC_PE_LightCentaur )      \
                                           && ( CC_PIECE_IS_ACTIVATOR( (activator) ) ) )
 
-#define CC_PIECE_IS_TWO_STEP(pe,activator)                                                                  \
-    ( ( ( (pe) == CC_PE_DarkCentaur ) || ( (pe) == CC_PE_LightCentaur ) )                                   \
-     || ( ( ( (pe) == CC_PE_DarkWave ) || ( (pe) == CC_PE_LightWave ) )                                     \
-         && ( ( ( (activator) == CC_PE_DarkUnicorn ) || ( (activator) == CC_PE_LightUnicorn ) )             \
-             || ( ( (activator) == CC_PE_DarkCentaur ) || ( (activator) == CC_PE_LightCentaur ) )           \
-             || ( ( (activator) == CC_PE_DarkSerpent ) || ( (activator) == CC_PE_LightSerpent ) ) ) ) )
+#define CC_PIECE_IS_SINGLE_STEP(pe) ( CC_PIECE_IS_PAWN(pe)          \
+                                   || CC_PIECE_IS_KNIGHT(pe)        \
+                                   || CC_PIECE_IS_BISHOP(pe)        \
+                                   || CC_PIECE_IS_ROOK(pe)          \
+                                   || CC_PIECE_IS_QUEEN(pe)         \
+                                   || CC_PIECE_IS_KING(pe)          \
+                                   || CC_PIECE_IS_PEGASUS(pe)       \
+                                   || CC_PIECE_IS_PYRAMID(pe)       \
+                                   || CC_PIECE_IS_UNICORN(pe)       \
+                                   || CC_PIECE_IS_GRENADIER(pe)     \
+                                   || CC_PIECE_IS_SHAMAN(pe)        \
+                                   || CC_PIECE_IS_STARCHILD(pe)     \
+                                   || CC_PIECE_IS_STAR(pe) )
+
+#define CC_PIECE_IS_TWO_STEP(pe) ( CC_PIECE_IS_CENTAUR(pe) )
+
+#define CC_WAVE_IS_TWO_STEP(activator) ( CC_PIECE_IS_UNICORN(activator)   \
+                                      || CC_PIECE_IS_CENTAUR(activator)   \
+                                      || CC_PIECE_IS_SERPENT(activator) )
 
 #define CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pe)  ( ( (pe) == CC_PE_DarkSerpent )   \
                                              || ( (pe) == CC_PE_LightSerpent )  \

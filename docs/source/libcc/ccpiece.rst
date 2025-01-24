@@ -401,16 +401,19 @@ Features
     :param activator: An :term:`activator`, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if Wave can be diverged, :c:data:`false` otherwise.
 
-.. c:macro:: CC_PIECE_IS_TWO_STEP(pe,activator)
+.. c:macro:: CC_PIECE_IS_TWO_STEP(pe)
 
-    Macro to check if given piece moves in two alternating steps.
-
-    Two step pieces are Centaur, and Wave activated by Unicorn, Centaur, or Serpent.
-
-    Unicorn itself is not two-step piece, because it makes only one step in a ply,
-    and so it can choose direction independently to any previous choice.
+    Macro to check if given piece moves in two alternating steps, i.e. Centaur.
 
     :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece changes has two alternating steps,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_WAVE_IS_TWO_STEP(activator)
+
+    Macro to check if Wave moves in two alternating steps, which depends on
+    :term:`activator`, i.e. if Wave is activated by Unicorn, Centaur, or Serpent.
+
     :param activator: An :term:`activator`, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if piece changes has two alternating steps,
               :c:data:`false` otherwise.
