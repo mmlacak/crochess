@@ -152,6 +152,24 @@ Maybe bool
 
     :c:`enum` is tagged with the same :c:enum:`CcMaybeBoolEnum` name.
 
+.. c:macro:: CC_MAYBE_BOOL_IS_ENUMERATOR(mbe)
+
+    Macro to check if given piece is :c:type:`CcMaybeBoolEnum` enumerator, i.e.
+    between :c:enumerator:`CC_MBE_Void` and :c:enumerator:`CC_MBE_True` values.
+
+    :param mbe: Maybe bool, integer value.
+    :returns: :c:data:`true` if :c:type:`CcMaybeBoolEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_MAYBE_BOOL_IS_VALID(mbe)
+
+    Macro to check if given piece is a valid :c:type:`CcMaybeBoolEnum` enumerator,
+    i.e. either :c:enumerator:`CC_MBE_False` or :c:enumerator:`CC_MBE_True`.
+
+    :param mbe: Maybe bool, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcMaybeBoolEnum` enumerator,
+              :c:data:`false` otherwise.
+
 .. c:macro:: CC_BOOL_TO_MAYBE(bool_val)
 
     Macro to convert :c:`bool` value into :c:enum:`CcMaybeBoolEnum`.

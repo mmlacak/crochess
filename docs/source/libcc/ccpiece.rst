@@ -401,12 +401,28 @@ Features
     :param activator: An :term:`activator`, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if Wave can be diverged, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_IS_SINGLE_STEP(pe)
+
+    Macro to check if given piece has a single step, i.e. Knight.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece can make a single step in a ply,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_ONE_STEP(pe)
+
+    Macro to check if given piece moves in one step, i.e. Bishop.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece can choose one step in a ply,
+              :c:data:`false` otherwise.
+
 .. c:macro:: CC_PIECE_IS_TWO_STEP(pe)
 
     Macro to check if given piece moves in two alternating steps, i.e. Centaur.
 
     :param pe: A piece, :c:type:`CcPieceType` value.
-    :returns: :c:data:`true` if piece changes has two alternating steps,
+    :returns: :c:data:`true` if piece has two alternating steps,
               :c:data:`false` otherwise.
 
 .. c:macro:: CC_WAVE_IS_TWO_STEP(activator)

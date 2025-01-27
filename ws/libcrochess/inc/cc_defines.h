@@ -45,6 +45,10 @@ typedef enum CcMaybeBoolEnum {
     CC_MBE_True = 1,
 } CcMaybeBoolEnum;
 
+#define CC_MAYBE_BOOL_IS_ENUMERATOR(mbe) ( ( CC_MBE_Void <= (mbe) ) && ( (mbe) <= CC_MBE_True ) )
+
+#define CC_MAYBE_BOOL_IS_VALID(mbe) ( ( CC_MBE_Void < (mbe) ) && ( (mbe) <= CC_MBE_True ) )
+
 #define CC_BOOL_TO_MAYBE(bool_val) ( (bool_val) ? CC_MBE_True : CC_MBE_False ) // ( (CcMaybeBoolEnum)(bool_val) )
 
 

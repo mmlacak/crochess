@@ -333,25 +333,25 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
 //
 // Momentum.
 
-bool cc_calc_momentum( CcMomentumUsageEnum usage,
-                       cc_uint_t count,
-                       cc_uint_t * momentum__io ) {
-    if ( !momentum__io ) return false;
+CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
+                                  cc_uint_t count,
+                                  cc_uint_t * momentum__io ) {
+    if ( !momentum__io ) return CC_MBE_Void;
 
     if ( usage == CC_MUE_Accumulating ) {
-        if ( *momentum__io > UINT_MAX - count ) return false;
+        if ( *momentum__io > UINT_MAX - count ) return CC_MBE_False;
         *momentum__io += count;
     } else if ( usage == CC_MUE_Spending ) {
-        if ( *momentum__io < CC_UNSIGNED_MIN + count ) return false;
+        if ( *momentum__io < CC_UNSIGNED_MIN + count ) return CC_MBE_False;
         *momentum__io -= count;
     } else if ( usage == CC_MUE_NotUsing ) {
         // If usage is CC_MUE_NotUsing, momentum stays the same, e.g. for Wave.
     } else
-        return false; // Enums are secretly ints.
+        return CC_MBE_Void; // Enums are secretly ints.
 
-    return true;
+    return CC_MBE_True;
 }
 
-bool cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count ) {
+CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count ) {
     return cc_calc_momentum( momentum__io->usage, count, &( momentum__io->momentum ) );
 }

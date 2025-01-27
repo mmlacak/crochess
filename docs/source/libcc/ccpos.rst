@@ -255,7 +255,8 @@ Linked positions
         linked list of positions to which a new position is appended, inner pointer
         can be :c:data:`NULL`.
     :param pos: A position.
-    :returns: A newly allocated position link if successful, :c:data:`NULL` otherwise.
+    :returns: A weak pointer to newly allocated position link if successful,
+        :c:data:`NULL` otherwise.
 
 .. c:function:: CcPosLink * cc_pos_link_duplicate_all__new( CcPosLink * pos_link )
 
@@ -456,7 +457,7 @@ Momentum
     :param mue: Momentum usage, :c:type:`CcMomentumUsageEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_calc_momentum( CcMomentumUsageEnum usage, cc_uint_t count, cc_uint_t * momentum__io )
+.. c:function:: CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage, cc_uint_t count, cc_uint_t * momentum__io )
 
     Function calculates next momentum value by adding or subtracting :c:var:`count`,
     based on :c:var:`usage` argument; momentum is given, and result is returned via
@@ -469,7 +470,11 @@ Momentum
         while piece is moving; :c:enum:`CcMomentumUsageEnum` value.
     :param count: Count of steps.
     :param momentum__io: *Input/output*; momentum.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if new momentum value has been successfully calculated,
+        * :c:enumerator:`CC_MBE_False` if there is not enough momentum to subtract from (or, too much to add),
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:struct:: CcMomentum
 
@@ -485,7 +490,23 @@ Momentum
 
     :c:`struct` is tagged with the same :c:struct:`CcMomentum` name.
 
-.. c:function:: bool cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count )
+.. c:macro:: CC_MOMENTUM_INITIAL
+
+    Initial momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_Accumulating`.
+
+.. c:macro:: CC_MOMENTUM_STATIC
+
+    Static momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_NotUsing`.
+
+.. c:macro:: CC_MOMENTUM_CAST_INITIAL
+
+    Casted initial momentum, i.e. :c:macro:`CC_MOMENTUM_INITIAL`.
+
+.. c:macro:: CC_MOMENTUM_CAST_STATIC
+
+    Casted static momentum, i.e. :c:macro:`CC_MOMENTUM_STATIC`.
+
+.. c:function:: CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count )
 
     Convenience function to calculates next momentum value by adding or subtracting
     :c:var:`count`; momentum (including its usage) is given, and result is returned
@@ -497,7 +518,12 @@ Momentum
 
     :param momentum__io: *Input/output*; momentum.
     :param count: Count of steps.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if new momentum value has been successfully calculated,
+        * :c:enumerator:`CC_MBE_False` if there is not enough momentum to subtract from (or, too much to add),
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
     :seealso: :c:func:`cc_calc_momentum()`
 
 .. _lbl-libcc-ccpos-sourcecodeheader:

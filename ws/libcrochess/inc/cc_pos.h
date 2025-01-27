@@ -138,9 +138,9 @@ typedef enum CcMomentumUsageEnum {
 
 #define CC_MOMENTUM_USAGE_IS_VALID(mue) CC_MOMENTUM_USAGE_IS_ENUMERATOR(mue) // ( ( CC_MUE_NotUsing < (mue) ) && ( (mue) <= CC_MUE_Spending ) )
 
-bool cc_calc_momentum( CcMomentumUsageEnum usage,
-                       cc_uint_t count,
-                       cc_uint_t * momentum__io );
+CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
+                                  cc_uint_t count,
+                                  cc_uint_t * momentum__io );
 
 typedef struct CcMomentum {
     cc_uint_t momentum;
@@ -149,9 +149,13 @@ typedef struct CcMomentum {
 
 #define CC_MOMENTUM_INITIAL { .momentum = 0, .usage = CC_MUE_Accumulating }
 
+#define CC_MOMENTUM_STATIC { .momentum = 0, .usage = CC_MUE_NotUsing }
+
 #define CC_MOMENTUM_CAST_INITIAL ( (CcMomentum)CC_MOMENTUM_INITIAL )
 
-bool cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count );
+#define CC_MOMENTUM_CAST_STATIC ( (CcMomentum)CC_MOMENTUM_STATIC )
+
+CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count );
 
 
 #endif /* __CC_POS_H__ */
