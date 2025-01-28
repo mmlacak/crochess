@@ -15,14 +15,10 @@
 
 // todo :: DOCS
 
-// static CcPathLink * _cc_path_one_step__new( CcChessboard * cb,
-//                                             CcPosDesc pd,
-//                                             CcTypedStep const * step,
-//                                             CcSideEffect side_effect,
-//                                             CcMomentum momentum );
+CcSideEffect cc_path_side_effect( CcPosDesc moving, CcPosDesc encounter );
 
 CcPathLink * cc_path_tree_one_step__new( CcChessboard * cb,
-                                         CcPosDesc pd );
+                                         CcPosDesc moving );
 
 
 #endif /* __CC_PATH_UTILS_H__ */

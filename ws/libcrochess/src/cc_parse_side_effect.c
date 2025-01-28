@@ -141,7 +141,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
-                if ( !CC_PIECE_CAN_BE_DISPLACED( piece ) )
+                if ( !CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( piece ) )
                     return _cc_fail_with_msg_piece_in_side_effect( "%s cannot be displaced, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             if ( cc_piece_symbol_is_valid( *se_an ) ) ++se_an;

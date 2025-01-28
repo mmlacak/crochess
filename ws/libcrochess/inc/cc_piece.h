@@ -135,12 +135,23 @@
                                       && ( (pe) != CC_PE_Monolith )     \
                                       && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
-#define CC_PIECE_CAN_BE_DISPLACED(pe) ( ( (pe) != CC_PE_DimStar )       \
-                                     && ( (pe) != CC_PE_DarkKing )      \
-                                     && ( (pe) != CC_PE_LightKing )     \
-                                     && ( (pe) != CC_PE_BrightStar )    \
-                                     && ( (pe) != CC_PE_Monolith )      \
-                                     && ( CC_PIECE_IS_VALID( (pe) ) ) )
+#define CC_PIECE_CAN_CASTLE(pe) ( ( (pe) == CC_PE_DarkKing )        \
+                               || ( (pe) == CC_PE_DarkRook )        \
+                               || ( (pe) == CC_PE_LightRook )       \
+                               || ( (pe) == CC_PE_LightKing ) )
+
+#define CC_PIECE_CAN_DISPLACE(pe) ( ( (pe) == CC_PE_DarkSerpent )       \
+                                 || ( (pe) == CC_PE_LightSerpent ) )
+
+#define CC_PIECE_CAN_BE_DISPLACED(pe) ( ( (pe) == CC_PE_DarkPawn )      \
+                                     || ( (pe) == CC_PE_LightPawn ) )
+
+#define CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY(pe) ( ( (pe) != CC_PE_DimStar )       \
+                                                    && ( (pe) != CC_PE_DarkKing )      \
+                                                    && ( (pe) != CC_PE_LightKing )     \
+                                                    && ( (pe) != CC_PE_BrightStar )    \
+                                                    && ( (pe) != CC_PE_Monolith )      \
+                                                    && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_BE_CONVERTED(pe) ( ( (pe) != CC_PE_DimStar )       \
                                      && ( (pe) != CC_PE_DarkKing )      \

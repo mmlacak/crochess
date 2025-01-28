@@ -4,12 +4,12 @@
 #include "cc_pos_utils.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos ) {
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos ) {
     CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
 
-    if ( cb ) {
-        pd.piece = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        pd.tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+    if ( cb__d ) {
+        pd.piece = cc_chessboard_get_piece( cb__d, pos.i, pos.j );
+        pd.tag = cc_chessboard_get_tag( cb__d, pos.i, pos.j );
     }
 
     return pd;

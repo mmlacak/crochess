@@ -285,12 +285,42 @@ Features
     :param pe: A piece, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if piece can be promoted to, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_CAN_CASTLE(pe)
+
+    Macro to check if a given piece can be castle, i.e. if it's Rook or a King.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece can castle, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_CAN_DISPLACE(pe)
+
+    Macro to check if a given piece can displace Pawns, i.e. if it's Serpent.
+
+    Displacement checked here refers to one during normal ply, and not in
+    trance-journey.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece can displace Pawns, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY()`
+
 .. c:macro:: CC_PIECE_CAN_BE_DISPLACED(pe)
 
-    Macro to check if given piece can be displaced.
+    Macro to check if a given piece can be displaced by a Serpent, i.e. if it's
+    a Pawn.
+
+    Displacement checked here refers to one during normal ply, and not in
+    trance-journey.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece can be promoted to, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY(pe)
+
+    Macro to check if a given piece can be displaced during trance-journey.
 
     :param pe: A piece, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if piece can be displaced, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_PIECE_CAN_DISPLACE()`
 
 .. c:macro:: CC_PIECE_CAN_BE_CONVERTED(pe)
 

@@ -17,15 +17,15 @@ position utilities.
 Functions
 ---------
 
-.. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos )
+.. c:function:: CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos )
 
-    Function converts position to position descriptor (i.e. the one
-    containing piece, and tag at that location on a chessboard).
+    Function converts position to position descriptor (i.e. the one containing
+    piece, and tag at that location on a chessboard).
 
-    If chessboard is not given, piece and tag members are not updated,
+    If *optional* chessboard is not given, piece and tag members are not updated,
     returned value still contains a given position.
 
-    :param cb: A chessboard.
+    :param cb__d: *Optional*, a chessboard.
     :param pos: A position.
     :returns: Position descriptor.
 

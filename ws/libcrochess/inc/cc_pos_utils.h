@@ -10,7 +10,7 @@
 #include "cc_pos.h"
 
 
-CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb, CcPos pos );
+CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos );
 
 
 // TODO :: cc_iter_typed_steps() --> iter by piece, tag, step type filter, chessboard, ...
