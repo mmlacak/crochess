@@ -77,13 +77,13 @@
 // TODO :: DELETE
 
 
-static CcPathLink * _cc_path_one_step__new( CcChessboard * cb,
+static CcPathLink * _cc_path_one_step__new( CcGame * game,
                                             CcPosDesc moving,
                                             CcTypedStep step,
                                             CcSideEffect side_effect,
                                             CcMomentum momentum ) {
     if ( side_effect.type == CC_SETE_Capture ) {
-        // [i] Nothing valid, beside capture side-effect.
+        // [i] Capture is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
         CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
         return capture__a;
     }
@@ -95,7 +95,7 @@ static CcPathLink * _cc_path_one_step__new( CcChessboard * cb,
     CcTagEnum tag = CC_TE_None;
     CcMomentum m = momentum;
 
-    while ( cc_chessboard_is_pos_on_board( cb, field.i, field.j ) ) {
+    while ( cc_chessboard_is_pos_on_board( game->chessboard, field.i, field.j ) ) {
         CcMaybeBoolEnum result = cc_momentum_calc_next( &m, 1 );
 
         if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) {
@@ -111,7 +111,7 @@ static CcPathLink * _cc_path_one_step__new( CcChessboard * cb,
             return NULL;
         }
 
-        CcPosDesc encounter = cc_convert_pos_to_pos_desc( cb, field );
+        CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
 
         if ( encounter.piece == CC_PE_None ) {
             field = cc_pos_add( field, step.step, 1 );
@@ -136,12 +136,13 @@ static CcPathLink * _cc_path_one_step__new( CcChessboard * cb,
     return pl__a;
 }
 
-CcPathLink * cc_path_tree_one_step__new( CcChessboard * cb,
+CcPathLink * cc_path_tree_one_step__new( CcGame * game,
                                          CcPosDesc moving ) {
-    if ( !cb ) return NULL;
+    if ( !game ) return NULL;
+    if ( !game->chessboard ) return NULL;
 
     if ( !CC_PIECE_IS_ONE_STEP( moving.piece ) ) return NULL; // TODO :: add Wave
-    if ( !cc_chessboard_is_pos_on_board( cb, moving.pos.i, moving.pos.j ) ) return NULL;
+    if ( !cc_chessboard_is_pos_on_board( game->chessboard, moving.pos.i, moving.pos.j ) ) return NULL;
     if ( !CC_TAG_IS_ENUMERATOR( moving.tag ) ) return NULL;
 
     // [!] Piece, and its tag, might not be at moving.pos position on chessboard,
@@ -162,7 +163,7 @@ CcPathLink * cc_path_tree_one_step__new( CcChessboard * cb,
         return NULL;
     }
 
-    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( cb->type );
+    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( game->chessboard->type );
     bool is_same_color = cc_pos_piece_are_same_color( field, moving.piece );
     CcTypedStep const * step = NULL;
 

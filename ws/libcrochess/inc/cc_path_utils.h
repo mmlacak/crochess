@@ -7,7 +7,8 @@
 #include <stdbool.h>
 
 #include "cc_piece.h"
-#include "cc_chessboard.h"
+// #include "cc_chessboard.h"
+#include "cc_game.h"
 
 #include "cc_pos.h"
 #include "cc_typed_step_defs.h"
@@ -15,9 +16,13 @@
 
 // todo :: DOCS
 
-CcSideEffect cc_path_side_effect( CcPosDesc moving, CcPosDesc encounter );
+// static CcPathLink * _cc_path_one_step__new( CcGame * game,
+//                                             CcPosDesc moving,
+//                                             CcTypedStep step,
+//                                             CcSideEffect side_effect,
+//                                             CcMomentum momentum );
 
-CcPathLink * cc_path_tree_one_step__new( CcChessboard * cb,
+CcPathLink * cc_path_tree_one_step__new( CcGame * game,
                                          CcPosDesc moving );
 
 
