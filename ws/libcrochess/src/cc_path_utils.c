@@ -82,6 +82,12 @@ static CcPathLink * _cc_path_one_step__new( CcChessboard * cb,
                                             CcTypedStep step,
                                             CcSideEffect side_effect,
                                             CcMomentum momentum ) {
+    if ( side_effect.type == CC_SETE_Capture ) {
+        // [i] Nothing valid, beside capture side-effect.
+        CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
+        return capture__a;
+    }
+
     CcPos field = cc_pos_add( moving.pos, step.step, 1 );
     CcPosLink * fields__t = NULL;
 

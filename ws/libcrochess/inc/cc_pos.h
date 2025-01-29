@@ -151,9 +151,13 @@ typedef struct CcMomentum {
 
 #define CC_MOMENTUM_STATIC { .momentum = 0, .usage = CC_MUE_NotUsing }
 
+#define CC_MOMENTUM_SPENT { .momentum = 0, .usage = CC_MUE_Spending }
+
 #define CC_MOMENTUM_CAST_INITIAL ( (CcMomentum)CC_MOMENTUM_INITIAL )
 
 #define CC_MOMENTUM_CAST_STATIC ( (CcMomentum)CC_MOMENTUM_STATIC )
+
+#define CC_MOMENTUM_CAST_SPENT ( (CcMomentum)CC_MOMENTUM_SPENT )
 
 CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count );
 

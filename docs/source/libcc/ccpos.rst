@@ -498,6 +498,10 @@ Momentum
 
     Static momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_NotUsing`.
 
+.. c:macro:: CC_MOMENTUM_SPENT
+
+    Spent momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_Spending`.
+
 .. c:macro:: CC_MOMENTUM_CAST_INITIAL
 
     Casted initial momentum, i.e. :c:macro:`CC_MOMENTUM_INITIAL`.
@@ -505,6 +509,10 @@ Momentum
 .. c:macro:: CC_MOMENTUM_CAST_STATIC
 
     Casted static momentum, i.e. :c:macro:`CC_MOMENTUM_STATIC`.
+
+.. c:macro:: CC_MOMENTUM_CAST_SPENT
+
+    Casted spent momentum, i.e. :c:macro:`CC_MOMENTUM_SPENT`.
 
 .. c:function:: CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count )
 
