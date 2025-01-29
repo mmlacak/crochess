@@ -15,7 +15,7 @@
 // Linked path segments.
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
-                                CcPosLink * fields,
+                                CcPosLink * fields__d,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum ) {
@@ -24,7 +24,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
     pl__t->side_effect = side_effect;
 
-    pl__t->fields = fields;
+    pl__t->fields = fields__d;
 
     pl__t->encountered_piece = encountered_piece;
     pl__t->encountered_tag = encountered_tag;
@@ -41,13 +41,13 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
-                                  CcPosLink * fields,
+                                  CcPosLink * fields__d,
                                   CcPieceEnum encountered_piece,
                                   CcTagEnum encountered_tag,
                                   CcMomentum momentum ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( side_effect, fields, encountered_piece, encountered_tag, momentum );
+    CcPathLink * pl__t = cc_path_link__new( side_effect, fields__d, encountered_piece, encountered_tag, momentum );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {

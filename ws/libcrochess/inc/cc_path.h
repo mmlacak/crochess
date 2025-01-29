@@ -36,14 +36,14 @@ typedef struct CcPathLink {
 } CcPathLink;
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
-                                CcPosLink * fields,
+                                CcPosLink * fields__d,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum );
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
-                                  CcPosLink * fields,
+                                  CcPosLink * fields__d,
                                   CcPieceEnum encountered_piece,
                                   CcTagEnum encountered_tag,
                                   CcMomentum momentum );
