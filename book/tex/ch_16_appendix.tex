@@ -921,7 +921,7 @@ Now that all symbols have been introduced, they're gathered here according to th
 \textbf{Symbol}             & \textbf{Side-effect}          & \textbf{Mandatory?}   \\
 \midrule % ---------------------------------------------------------------------------
 \alg{*}                     & capturing                     & -                     \\
-\alg{<}                     & displacement                  & +                     \\
+\alg{<}                     & displacement                  & +\footnotemark[1]     \\
 \cmidrule{1-3} % .....................................................................
 \alg{==}                    & lost promotion tag            & -                     \\
 \alg{::}                    & lost rushing tag              & -                     \\
@@ -929,7 +929,7 @@ Now that all symbols have been introduced, they're gathered here according to th
 \cmidrule{1-3} % .....................................................................
 \alg{:}                     & en passant                    & -                     \\
 \alg{\&}                    & castling                      & -                     \\
-\alg{=}                     & promotion                     & +\footnotemark[1]     \\
+\alg{=}                     & promotion                     & +\footnotemark[2]     \\
 \alg{=}                     & tag for promotion             & +                     \\
 \alg{\%}                    & conversion                    & +                     \\
 \alg{\%\%}                  & failed conversion, oblation   & +                     \\
@@ -948,7 +948,8 @@ Now that all symbols have been introduced, they're gathered here according to th
 \label{tbl:Appendix/Summary/Side-effects}
 \end{table}
 
-\footnotetext[1]{Symbol is optional.}
+\footnotetext[1]{Displaced piece is optional.}
+\footnotetext[2]{Promotion symbol is optional.}
 
 Every side-effect is result of a single step. Most side-effects can occur only on
 a last step of a ply, these are called ply side-effects. Capturing, displacement
