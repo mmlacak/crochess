@@ -43,9 +43,9 @@ Linked path segments
         a path tree, or shared among them are not allowed, and will likely cause
         crash.
 
-    .. note::
+        .. note::
 
-        Weak back-links are fine, as they are never :c:func:`free()`\-ed.
+            Weak back-links are fine, as they are never :c:func:`free()`\-ed.
 
     .. seealso::
 

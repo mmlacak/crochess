@@ -14,7 +14,14 @@
 #include "cc_typed_step_defs.h"
 #include "cc_path.h"
 
+
 // todo :: DOCS
+
+// static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
+//                                                     CcPosDesc moving,
+//                                                     CcTypedStep step,
+//                                                     CcSideEffect side_effect,
+//                                                     CcMomentum momentum );
 
 // static CcPathLink * _cc_path_one_step__new( CcGame * game,
 //                                             CcPosDesc moving,

@@ -65,10 +65,7 @@
 //     }
 //
 //
-//
-//
 //     // TODO
-//
 //
 //
 //     return CC_MBE_Void; // TODO :: FIX
@@ -76,18 +73,11 @@
 //
 // TODO :: DELETE
 
-
-static CcPathLink * _cc_path_one_step__new( CcGame * game,
-                                            CcPosDesc moving,
-                                            CcTypedStep step,
-                                            CcSideEffect side_effect,
-                                            CcMomentum momentum ) {
-    if ( side_effect.type == CC_SETE_Capture ) {
-        // [i] Capture is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-        CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
-        return capture__a;
-    }
-
+static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
+                                                    CcPosDesc moving,
+                                                    CcTypedStep step,
+                                                    CcSideEffect side_effect,
+                                                    CcMomentum momentum ) {
     CcPos field = cc_pos_add( moving.pos, step.step, 1 );
     CcPosLink * fields__t = NULL;
 
@@ -105,24 +95,19 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
 
         if ( result == CC_MBE_False ) break; // There is not enough momentum to move any further.
 
+        CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
+
+        // TODO :: check if pieces can interact
+        if ( encounter.piece != CC_PE_None )
+            break;
+
         CcPosLink * field__w = cc_pos_link_append( &fields__t, field );
         if ( !field__w ) {
             cc_pos_link_free_all( &fields__t );
             return NULL;
         }
 
-        CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
-
-        if ( encounter.piece == CC_PE_None ) {
-            field = cc_pos_add( field, step.step, 1 );
-        } else {
-            CcSideEffect se = side_effect;
-
-            // TODO :: determine se, m(.usage) --> recursive calls
-
-
-            break;
-        }
+        field = cc_pos_add( field, step.step, 1 );
     }
 
     if ( !fields__t ) return NULL;
@@ -132,6 +117,24 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
         cc_pos_link_free_all( &fields__t );
         return NULL;
     }
+
+    return pl__a;
+}
+
+static CcPathLink * _cc_path_one_step__new( CcGame * game,
+                                            CcPosDesc moving,
+                                            CcTypedStep step,
+                                            CcSideEffect side_effect,
+                                            CcMomentum momentum ) {
+    if ( side_effect.type == CC_SETE_Capture ) {
+        // [i] Capture is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
+        CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
+        return capture__a;
+    }
+
+    CcPathLink * pl__a = _cc_path_segment_one_step__new( game, moving, step, side_effect, momentum );
+
+    // TODO :: handle side-effects @ encountered piece
 
     return pl__a;
 }
