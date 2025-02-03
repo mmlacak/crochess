@@ -412,11 +412,8 @@ Navigation
 
 .. c:macro:: CC_REWIND(ptr_var_queue)
 
-    Macro to rewind queue pointer to its first item.
-
-    .. warning::
-
-        Pointer to queue :c:`ptr_var_queue` must be valid pointer, i.e. *must* not be :c:data:`NULL`.
+    Macro to rewind queue pointer variable to its first item; if pointer is
+    :c:data:`NULL`, nothing happens.
 
     .. warning::
 
@@ -431,11 +428,8 @@ Navigation
 
 .. c:macro:: CC_FASTFORWARD(ptr_var_lst)
 
-    Macro to fast-forward list pointer to its last item.
-
-    .. warning::
-
-        Pointer to list :c:`ptr_var_lst` must be valid pointer, i.e. *must* not be :c:data:`NULL`.
+    Macro to fast-forward list pointer variable to its last item; if pointer is
+    :c:data:`NULL`, nothing happens.
 
     .. warning::
 
@@ -450,11 +444,8 @@ Navigation
 
 .. c:macro:: CC_REWIND_BY(ptr_var_seq,ptr_item)
 
-    Macro to rewind sequence pointer by one of its members.
-
-    .. warning::
-
-        Pointer to sequence :c:`ptr_var_seq` must be valid pointer, i.e. *must* not be :c:data:`NULL`.
+    Macro to rewind sequence pointer variable by one of its members; if pointer
+    is :c:data:`NULL`, nothing happens.
 
     .. warning::
 

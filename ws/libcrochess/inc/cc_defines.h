@@ -115,11 +115,26 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_DEFAULT_VALUE_STRING "?" // [?] Step link and losing tag symbols have max len of 2.
 
-#define CC_REWIND(ptr_var_queue) { while ( (ptr_var_queue)->prev__w ) (ptr_var_queue) = (ptr_var_queue)->prev__w; }
+#define CC_REWIND(ptr_var_queue)                            \
+{                                                           \
+    if ( (ptr_var_queue) )                                  \
+        while ( (ptr_var_queue)->prev__w )                  \
+            (ptr_var_queue) = (ptr_var_queue)->prev__w;     \
+}
 
-#define CC_FASTFORWARD(ptr_var_lst) { while ( (ptr_var_lst)->next ) (ptr_var_lst) = (ptr_var_lst)->next; }
+#define CC_FASTFORWARD(ptr_var_lst)                         \
+{                                                           \
+    if ( (ptr_var_lst) )                                    \
+        while ( (ptr_var_lst)->next )                       \
+            (ptr_var_lst) = (ptr_var_lst)->next;            \
+}
 
-#define CC_REWIND_BY(ptr_var_seq,ptr_item) { while ( (ptr_item) ) (ptr_var_seq) = (ptr_item); }
+#define CC_REWIND_BY(ptr_var_seq,ptr_item)                  \
+{                                                           \
+    if ( (ptr_var_seq) )                                    \
+        while ( (ptr_item) )                                \
+            (ptr_var_seq) = (ptr_item);                     \
+}
 
 // <!> Does not work for array parameters --> converted into pointers!
 //     e.g. void print_array_param( int ar[] ) --> ar array is now pointer.
