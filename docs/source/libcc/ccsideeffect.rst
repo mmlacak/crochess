@@ -45,17 +45,27 @@ Macros
     :returns: :c:data:`true` if side-effect must be followed by a step,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete)
+.. c:macro:: CC_SIDE_EFFECT_TYPE_MAY_TERMINATE_PLY(sete)
 
-    Macro to check if a ply can end with a given side-effect type.
+    Macro to check if a ply may end with a given side-effect type, i.e. if
+    side-effect is terminal in most situations, but not all.
 
     :param sete: A side-effect type, integer value.
-    :returns: :c:data:`true` if side-effect can terminate a ply,
+    :returns: :c:data:`true` if side-effect may terminate a ply,
               :c:data:`false` otherwise.
 
 .. c:macro:: CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete)
 
     Macro to check if a given side-effect type always ends a ply.
+
+    :param sete: A side-effect type, integer value.
+    :returns: :c:data:`true` if side-effect can terminate a ply,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete)
+
+    Macro to check if a given side-effect is either definitely or maybe terminating
+    a ply.
 
     :param sete: A side-effect type, integer value.
     :returns: :c:data:`true` if side-effect can terminate a ply,

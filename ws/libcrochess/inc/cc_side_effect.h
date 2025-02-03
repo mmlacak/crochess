@@ -20,21 +20,11 @@
 #define CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP(sete) ( ( (sete) == CC_SETE_Transparency ) \
                                                           || ( (sete) == CC_SETE_Divergence ) )
 
-// All side-effects with which a ply can end.
-#define CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete) ( ( (sete) == CC_SETE_Capture ) \
-                                                   || ( (sete) == CC_SETE_Displacement ) \
-                                                   || ( (sete) == CC_SETE_EnPassant ) \
-                                                   || ( (sete) == CC_SETE_Castle ) \
-                                                   || ( (sete) == CC_SETE_Promotion ) \
-                                                   || ( (sete) == CC_SETE_TagForPromotion ) \
-                                                   || ( (sete) == CC_SETE_Conversion ) \
-                                                   || ( (sete) == CC_SETE_FailedConversion ) \
-                                                   || ( (sete) == CC_SETE_DemoteToPawn ) \
-                                                   || ( (sete) == CC_SETE_Resurrection ) \
-                                                   || ( (sete) == CC_SETE_ResurrectingOpponent ) \
-                                                   || ( (sete) == CC_SETE_FailedResurrection ) )
+// All side-effects which may end a ply.
+#define CC_SIDE_EFFECT_TYPE_MAY_TERMINATE_PLY(sete) ( ( (sete) == CC_SETE_Capture ) \
+                                                   || ( (sete) == CC_SETE_Displacement ) )
 
-// All side-effects which ends a ply.
+// All side-effects which always ends a ply.
 #define CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete) ( ( (sete) == CC_SETE_EnPassant ) \
                                                 || ( (sete) == CC_SETE_Castle ) \
                                                 || ( (sete) == CC_SETE_Promotion ) \
@@ -45,6 +35,10 @@
                                                 || ( (sete) == CC_SETE_Resurrection ) \
                                                 || ( (sete) == CC_SETE_ResurrectingOpponent ) \
                                                 || ( (sete) == CC_SETE_FailedResurrection ) )
+
+// All side-effects with which a ply can end.
+#define CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete) ( CC_SIDE_EFFECT_TYPE_MAY_TERMINATE_PLY(sete) ) \
+                                                 || ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete) )
 
 #define CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL (3)
 

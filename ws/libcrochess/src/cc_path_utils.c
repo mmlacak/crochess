@@ -104,7 +104,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
         }
 
         CcPieceEnum encounter = cc_chessboard_get_piece( game->chessboard, field.i, field.j );
-        if ( encounter != CC_PE_None ) break; // TODO :: Caller (i.e. _cc_path_one_step__new()) has to check all possible interactions, including transparency.
+        if ( encounter != CC_PE_None ) break; // Caller (i.e. _cc_path_one_step__new()) checks all possible interactions, including transparency; removes field of encounter if there are none.
 
         field = cc_pos_add( field, step.step, 1 );
     }
@@ -125,37 +125,40 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
                                             CcTypedStep step,
                                             CcSideEffect side_effect,
                                             CcMomentum momentum ) {
-    if ( side_effect.type == CC_SETE_Capture ) {
-        // Capture is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-        CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
-        return capture__a;
+    if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( side_effect.type ) ) {
+        // Side-effect is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
+        CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
+        return terminal__a;
+    } else if ( side_effect.type == CC_SETE_Capture ) {
+        if ( !CC_PIECE_IS_SHAMAN( moving.piece ) ) {
+            // Capturing for pieces other than Shaman is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
+            CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
+            return capture__a;
+        }
     }
-    // TODO :: check & handle other terminal side-effects
 
     CcPathLink * pl__a = _cc_path_segment_one_step__new( game, moving, step, side_effect, momentum );
     if ( !pl__a ) return NULL;
+    if ( !pl__a->fields ) return pl__a; // Just a sanity check, should not happen.
 
     // TODO :: handle side-effects @ encountered piece
 
     CcPosLink * fields = pl__a->fields;
-    if ( !fields ) {
-        cc_path_link_free_all( &pl__a );
-        return NULL;
-    }
 
     CC_FASTFORWARD( fields );
+    CcPos last = fields->pos;
 
-    CcPos field = fields->pos;
-
-    CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
-    bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field );
+    CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, last );
+    bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, last );
     CcMomentum m = pl__a->momentum;
+
+    // TODO :: check all possible interactions, including transparency; remove field of encounter if there are none.
 
     // TODO :: if !is_blocked --> transparency
 
     // if ( ( encounter.piece == CC_PE_None ) ||
-    //         ( !cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field ) ) ) {
-    //     field__w = cc_pos_link_append( &fields__t, field );
+    //         ( !cc_check_piece_is_blocked_at( game->chessboard, moving.piece, last ) ) ) {
+    //     field__w = cc_pos_link_append( &fields__t, last );
     //     if ( !field__w ) {
     //         cc_pos_link_free_all( &fields__t );
     //         return NULL;
@@ -166,11 +169,11 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
     if ( encounter.piece != CC_PE_None ) {
         // TODO :: check if pieces can interact
 
-        if ( cc_check_piece_can_capture_at( game->chessboard, moving.piece, field ) ) {
+        if ( cc_check_piece_can_capture_at( game->chessboard, moving.piece, last ) ) {
 
         }
 
-        if ( cc_check_piece_can_diverge_at( game->chessboard, moving.piece, m.momentum, CC_PE_None, field ) ) {
+        if ( cc_check_piece_can_diverge_at( game->chessboard, moving.piece, m.momentum, CC_PE_None, last ) ) {
 
         }
 
