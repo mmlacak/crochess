@@ -40,7 +40,7 @@
 //         if ( CC_PIECE_CAN_DISPLACE( moving ) &&
 //              CC_PIECE_CAN_BE_DISPLACED( encounter ) ) return CC_MBE_True;
 //
-//         // [i] Trance-journey has to be handled separately.
+//         // Trance-journey has to be handled separately.
 //     }
 //
 //     if ( *side_effect__io == CC_SETE_Displacement ) {
@@ -98,16 +98,18 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
         if ( result == CC_MBE_False ) break; // There is not enough momentum to move any further.
 
         CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
+        bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field );
 
-        if ( ( encounter.piece == CC_PE_None ) ||
-                ( !cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field ) ) ) {
+        if ( ( encounter.piece == CC_PE_None ) || ( !is_blocked ) ) { // TODO :: check if other interactions are possible?
             field__w = cc_pos_link_append( &fields__t, field );
             if ( !field__w ) {
                 cc_pos_link_free_all( &fields__t );
                 return NULL;
             }
-        }
 
+            if ( is_blocked ) break; // Interactions other than transparency are to be forked from encountered piece.
+        } else
+            break;
 
         field = cc_pos_add( field, step.step, 1 );
     }
@@ -151,6 +153,16 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
 
     CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
     CcMomentum m = pl__a->momentum;
+
+    // if ( ( encounter.piece == CC_PE_None ) ||
+    //         ( !cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field ) ) ) {
+    //     field__w = cc_pos_link_append( &fields__t, field );
+    //     if ( !field__w ) {
+    //         cc_pos_link_free_all( &fields__t );
+    //         return NULL;
+    //     }
+    // } else
+    //     break;
 
     if ( encounter.piece != CC_PE_None ) {
         // TODO :: check if pieces can interact

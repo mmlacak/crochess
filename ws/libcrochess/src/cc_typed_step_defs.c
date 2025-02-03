@@ -617,7 +617,7 @@ bool cc_iter_piece_steps( CcPieceType piece,
         case CC_PE_DimStar :
         case CC_PE_BrightStar : return CC_ITER_STAR_STEPS( step__iod, filter__d );
 
-        case CC_PE_Monolith : return false; // [.] Use cc_iter_monolith_steps() instead.
+        case CC_PE_Monolith : return false; // Use cc_iter_monolith_steps() instead.
 
         case CC_PE_None :
         default : return false;

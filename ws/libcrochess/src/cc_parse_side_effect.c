@@ -163,7 +163,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             return true;
         } case CC_SETE_EnPassant : {
             char piece_symbol = ' ';
-            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol ); // [?] In addition to Pawns, in later variants Scouts and Grenadiers can be en passant-ed, too.
+            CcMaybeBoolEnum result = cc_fetch_piece_symbol( se_an, CC_MBE_False, &piece_symbol ); // In addition to Pawns, in later variants Scouts and Grenadiers can be en passant-ed, too.
 
             if ( result == CC_MBE_False )
                 return _cc_fail_with_msg_unrecognized_piece_symbol( piece_symbol, step_start_an, step_end_an, parse_msgs__iod );

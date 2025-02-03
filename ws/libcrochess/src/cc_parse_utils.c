@@ -309,7 +309,7 @@ char const * cc_skip_disambiguation( char const * pos_an_str ) {
         }
     }
 
-    // [?] Function returns valid pointer **only** if disambiguation has been skipped.
+    // Function returns valid pointer **only** if disambiguation has been skipped.
     return NULL; // <!> Do not return an_str!
 }
 
