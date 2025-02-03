@@ -97,19 +97,14 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
 
         if ( result == CC_MBE_False ) break; // There is not enough momentum to move any further.
 
-        CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
-        bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field );
+        field__w = cc_pos_link_append( &fields__t, field );
+        if ( !field__w ) {
+            cc_pos_link_free_all( &fields__t );
+            return NULL;
+        }
 
-        if ( ( encounter.piece == CC_PE_None ) || ( !is_blocked ) ) { // TODO :: check if other interactions are possible?
-            field__w = cc_pos_link_append( &fields__t, field );
-            if ( !field__w ) {
-                cc_pos_link_free_all( &fields__t );
-                return NULL;
-            }
-
-            if ( is_blocked ) break; // Interactions other than transparency are to be forked from encountered piece.
-        } else
-            break;
+        CcPieceEnum encounter = cc_chessboard_get_piece( game->chessboard, field.i, field.j );
+        if ( encounter != CC_PE_None ) break; // TODO :: Caller (i.e. _cc_path_one_step__new()) has to check all possible interactions, including transparency.
 
         field = cc_pos_add( field, step.step, 1 );
     }
@@ -135,6 +130,7 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
         CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
         return capture__a;
     }
+    // TODO :: check & handle other terminal side-effects
 
     CcPathLink * pl__a = _cc_path_segment_one_step__new( game, moving, step, side_effect, momentum );
     if ( !pl__a ) return NULL;
@@ -152,7 +148,10 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
     CcPos field = fields->pos;
 
     CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, field );
+    bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field );
     CcMomentum m = pl__a->momentum;
+
+    // TODO :: if !is_blocked --> transparency
 
     // if ( ( encounter.piece == CC_PE_None ) ||
     //         ( !cc_check_piece_is_blocked_at( game->chessboard, moving.piece, field ) ) ) {
