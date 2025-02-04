@@ -466,10 +466,10 @@ Features
 
 .. c:macro:: CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pe)
 
-    Macro to check if given piece changes its direction after each step.
+    Macro to check if given piece can change its direction after each step.
 
     :param pe: A piece, :c:type:`CcPieceType` value.
-    :returns: :c:data:`true` if piece changes its direction after each step,
+    :returns: :c:data:`true` if piece can change its direction after each step,
               :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpiece-types:

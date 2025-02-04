@@ -254,9 +254,9 @@
                                       || CC_PIECE_IS_CENTAUR(activator)   \
                                       || CC_PIECE_IS_SERPENT(activator) )
 
-#define CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pe)  ( ( (pe) == CC_PE_DarkSerpent )   \
-                                             || ( (pe) == CC_PE_LightSerpent )  \
-                                             || ( (pe) == CC_PE_Monolith ) )
+#define CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pe)  ( CC_PIECE_IS_SERPENT(pe)         \
+                                             || CC_PIECE_IS_SCOUT(pe)           \
+                                             || CC_PIECE_IS_MONOLITH(pe) )
 
 typedef enum CcPieceEnum {
     CC_PE_DimStar = -17,
