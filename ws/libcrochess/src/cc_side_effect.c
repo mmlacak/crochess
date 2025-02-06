@@ -7,8 +7,8 @@
 #include "cc_side_effect.h"
 
 
-char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see ) {
-    switch ( see ) {
+char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum sete ) {
+    switch ( sete ) {
         case CC_SETE_None : return ""; /* Side-effect not found, uninitialized, or error happened. */
         case CC_SETE_Capture : return "*"; /* Capturing, corresponds to * (asterisk). */
         case CC_SETE_Displacement : return "<"; /* Trance-journey displacement, corresponds to < (less-than). */
@@ -28,6 +28,27 @@ char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see ) {
         default : return CC_DEFAULT_VALUE_STRING;
     }
 }
+
+CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece,
+                                                    CcSideEffectTypeEnum sete ) {
+    if ( sete == CC_SETE_None ) return CC_MBE_False;
+
+    if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( sete ) ) return CC_MBE_True;
+
+    if ( CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP( sete ) ) return CC_MBE_False;
+
+    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( sete ) ) return CC_MBE_Void;
+    if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
+
+    if ( sete == CC_SETE_Capture )
+        return CC_BOOL_TO_MAYBE( !CC_PIECE_IS_SHAMAN( piece ) );
+
+    if ( sete == CC_SETE_Displacement )
+        return CC_BOOL_TO_MAYBE( !CC_PIECE_IS_SHAMAN( piece ) && !CC_PIECE_IS_SERPENT( piece ) );
+
+    return CC_MBE_Void;
+}
+
 
 
 CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,

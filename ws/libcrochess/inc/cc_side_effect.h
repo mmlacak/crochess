@@ -6,6 +6,7 @@
 
 #include <stddef.h>
 
+#include "cc_defines.h"
 #include "cc_str_utils.h"
 
 #include "cc_piece.h"
@@ -60,7 +61,11 @@ typedef enum CcSideEffectTypeEnum {
     CC_SETE_FailedResurrection, /* Corresponds to `$$$`. */
 } CcSideEffectTypeEnum;
 
-char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see );
+char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum sete );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece,
+                                                    CcSideEffectTypeEnum sete );
 
 
 typedef struct CcSideEffect

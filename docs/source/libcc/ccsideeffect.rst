@@ -305,14 +305,26 @@ Data
 Functions
 ---------
 
-.. c:function:: char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum see )
+.. c:function:: char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum sete )
 
     Function returns string symbol, as used in algebraic notation, for a given side-effect.
 
     Returned string is not allocated, so do not :c:func:`free()` it.
 
-    :param see: A side-effect enum.
+    :param sete: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
+
+.. c:function:: CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece, CcSideEffectTypeEnum sete )
+
+    Function returns if a given side-effect is terminating ply of a given piece.
+
+    :param piece: A piece.
+    :param sete: A side-effect enum.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if piece terminates its ply after a given side-effect,
+        * :c:enumerator:`CC_MBE_False` if piece can continue its ply after a given side-effect,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, CcPieceType piece, CcLosingTagType lost_tag, CcPos start, CcPos destination, CcPieceType promoted_to )
 
