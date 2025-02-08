@@ -9,9 +9,9 @@
 #include "cc_defines.h"
 // #include "cc_str_utils.h"
 
-// #include "cc_piece.h"
-// #include "cc_tag.h"
-// #include "cc_step.h"
+#include "cc_piece.h"
+#include "cc_tag.h"
+#include "cc_step.h"
 #include "cc_side_effect.h"
 #include "cc_pos.h"
 
@@ -19,10 +19,11 @@
 //
 // Linked path segments.
 
+// TODO :: DOCS
 typedef struct CcPathLink {
     CcSideEffect side_effect; /* A possible side-effect on previously encountered piece. */
 
-    CcPosLink * fields; /* Steps performed, fields visited. */
+    CcStep * steps; /* Steps performed, fields visited. */
 
     CcPieceEnum encountered_piece; /* Piece encountered at the very last field in the list above. */
     CcTagEnum encountered_tag; /* Tag encountered at the very last field in the list above. */
@@ -35,15 +36,17 @@ typedef struct CcPathLink {
     struct CcPathLink * back__w; /* Back-link to parent node. */
 } CcPathLink;
 
+// TODO :: DOCS
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
-                                CcPosLink * fields__d,
+                                CcStep * steps__d,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum );
 
+// TODO :: DOCS
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
-                                  CcPosLink * fields__d,
+                                  CcStep * steps__d,
                                   CcPieceEnum encountered_piece,
                                   CcTagEnum encountered_tag,
                                   CcMomentum momentum );
@@ -57,7 +60,7 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
 CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );
 
-// static bool _cc_path_link_steps_are_valid( CcPosLink * fields );
+// static bool _cc_path_link_steps_are_valid( CcStep * steps );
 
 // static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps );
 

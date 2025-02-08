@@ -63,7 +63,6 @@ typedef enum CcSideEffectTypeEnum {
 
 char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum sete );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece,
                                                     CcSideEffectTypeEnum sete );
 

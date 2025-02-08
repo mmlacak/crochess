@@ -80,26 +80,26 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
                                                     CcSideEffect side_effect,
                                                     CcMomentum momentum ) {
     CcPos field = cc_pos_add( moving.pos, step.step, 1 );
-    CcPosLink * fields__t = NULL;
+    CcStep * steps__t = NULL;
 
     CcPieceEnum piece = CC_PE_None;
     CcTagEnum tag = CC_TE_None;
     CcMomentum m = momentum;
-    CcPosLink * field__w = NULL;
+    CcStep * step__w = NULL;
 
     while ( cc_chessboard_is_pos_on_board( game->chessboard, field.i, field.j ) ) {
         CcMaybeBoolEnum result = cc_momentum_calc_next( &m, 1 );
 
         if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) { // Void --> error.
-            cc_pos_link_free_all( &fields__t );
+            cc_step_free_all( &steps__t );
             return NULL;
         }
 
         if ( result == CC_MBE_False ) break; // There is not enough momentum to move any further.
 
-        field__w = cc_pos_link_append( &fields__t, field );
-        if ( !field__w ) {
-            cc_pos_link_free_all( &fields__t );
+        step__w = cc_step_append_next_no_side_effect( &steps__t, field );
+        if ( !step__w ) {
+            cc_step_free_all( &steps__t );
             return NULL;
         }
 
@@ -109,11 +109,11 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
         field = cc_pos_add( field, step.step, 1 );
     }
 
-    if ( !fields__t ) return NULL;
+    if ( !steps__t ) return NULL;
 
-    CcPathLink * pl__a = cc_path_link__new( side_effect, fields__t, piece, tag, m );
+    CcPathLink * pl__a = cc_path_link__new( side_effect, steps__t, piece, tag, m );
     if ( !pl__a ) {
-        cc_pos_link_free_all( &fields__t );
+        cc_step_free_all( &steps__t );
         return NULL;
     }
 
@@ -139,14 +139,14 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
 
     CcPathLink * pl__a = _cc_path_segment_one_step__new( game, moving, step, side_effect, momentum );
     if ( !pl__a ) return NULL;
-    if ( !pl__a->fields ) return pl__a; // Just a sanity check, should not happen.
+    if ( !pl__a->steps ) return pl__a; // Just a sanity check, should not happen.
 
     // TODO :: handle side-effects @ encountered piece
 
-    CcPosLink * fields = pl__a->fields;
+    CcStep * steps = pl__a->steps;
 
-    CC_FASTFORWARD( fields );
-    CcPos last = fields->pos;
+    CC_FASTFORWARD( steps );
+    CcPos last = steps->field;
 
     CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, last );
     bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, last );
@@ -158,9 +158,9 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
 
     // if ( ( encounter.piece == CC_PE_None ) ||
     //         ( !cc_check_piece_is_blocked_at( game->chessboard, moving.piece, last ) ) ) {
-    //     field__w = cc_pos_link_append( &fields__t, last );
-    //     if ( !field__w ) {
-    //         cc_pos_link_free_all( &fields__t );
+    //     step__w = cc_pos_link_append( &steps__t, last );
+    //     if ( !step__w ) {
+    //         cc_step_free_all( &steps__t );
     //         return NULL;
     //     }
     // } else
@@ -197,15 +197,15 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
 
     CcPos field = moving.pos;
 
-    CcPosLink * fields__t = cc_pos_link__new( field );
-    if ( !fields__t ) return NULL;
+    CcStep * steps__t = cc_step_next_no_side_effect__new( field );
+    if ( !steps__t ) return NULL;
 
     CcSideEffect se = cc_side_effect_none();
     CcMomentum m = CC_MOMENTUM_CAST_INITIAL;
 
-    CcPathLink * pl__a = cc_path_link__new( se, fields__t, moving.piece, moving.tag, m );
+    CcPathLink * pl__a = cc_path_link__new( se, steps__t, moving.piece, moving.tag, m );
     if ( !pl__a ) {
-        cc_pos_link_free_all( &fields__t );
+        cc_step_free_all( &steps__t );
         return NULL;
     }
 

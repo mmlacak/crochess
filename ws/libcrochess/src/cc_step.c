@@ -36,7 +36,7 @@ CcStep * cc_step__new( CcStepLinkTypeEnum link,
     return step__a;
 }
 
-CcStep * cc_step_next_no_side_effects__new( CcPos field ) {
+CcStep * cc_step_next_no_side_effect__new( CcPos field ) {
     return cc_step__new( CC_SLTE_Next, field, cc_side_effect_none() );
 }
 
@@ -63,6 +63,11 @@ CcStep * cc_step_append( CcStep ** steps__iod_a,
     }
 
     return step__t; // Weak pointer.
+}
+
+CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a,
+                                             CcPos field ) {
+    return cc_step_append( steps__iod_a, CC_SLTE_Next, field, cc_side_effect_none() );
 }
 
 CcStep * cc_step_duplicate_all__new( CcStep * steps ) {

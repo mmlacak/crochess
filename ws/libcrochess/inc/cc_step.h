@@ -43,7 +43,7 @@ CcStep * cc_step__new( CcStepLinkTypeEnum link,
                        CcPos field,
                        CcSideEffect side_effect );
 
-CcStep * cc_step_next_no_side_effects__new( CcPos field );
+CcStep * cc_step_next_no_side_effect__new( CcPos field );
 
 CcStep * cc_step_next__new( CcPos field,
                             CcSideEffect side_effect );
@@ -52,6 +52,10 @@ CcStep * cc_step_append( CcStep ** steps__iod_a,
                          CcStepLinkTypeEnum link,
                          CcPos field,
                          CcSideEffect side_effect );
+
+// TODO :: DOCS
+CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a,
+                                             CcPos field );
 
 CcStep * cc_step_duplicate_all__new( CcStep * steps );
 

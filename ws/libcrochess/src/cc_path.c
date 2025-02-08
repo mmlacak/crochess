@@ -15,7 +15,7 @@
 // Linked path segments.
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
-                                CcPosLink * fields__d,
+                                CcStep * steps__d,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum ) {
@@ -24,7 +24,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
     pl__t->side_effect = side_effect;
 
-    pl__t->fields = fields__d;
+    pl__t->steps = steps__d;
 
     pl__t->encountered_piece = encountered_piece;
     pl__t->encountered_tag = encountered_tag;
@@ -41,13 +41,13 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
-                                  CcPosLink * fields__d,
+                                  CcStep * steps__d,
                                   CcPieceEnum encountered_piece,
                                   CcTagEnum encountered_tag,
                                   CcMomentum momentum ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( side_effect, fields__d, encountered_piece, encountered_tag, momentum );
+    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d, encountered_piece, encountered_tag, momentum );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -142,13 +142,13 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
-static bool _cc_path_link_steps_are_valid( CcPosLink * fields ) {
-    if ( !fields ) return false;
+static bool _cc_path_link_steps_are_valid( CcStep * steps ) {
+    if ( !steps ) return false;
 
-    CcPosLink * s = fields;
+    CcStep * s = steps;
 
     while ( s ) {
-        if ( !CC_POS_IS_VALID( s->pos ) ) return false;
+        if ( !CC_POS_IS_VALID( s->field ) ) return false;
 
         s = s->next;
     }
@@ -165,11 +165,11 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
 
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( pl->side_effect.type ) ) {
         // If path isn't actually terminating ...
-        if ( ( pl->fields ) || ( pl->fork ) || ( pl->alt ) || ( pl->next ) ) return false;
+        if ( ( pl->steps ) || ( pl->fork ) || ( pl->alt ) || ( pl->next ) ) return false;
     }
 
-    if ( pl->fields ) { // If there is a path segment, it has to be valid.
-        if ( !_cc_path_link_steps_are_valid( pl->fields ) )
+    if ( pl->steps ) { // If there is a path segment, it has to be valid.
+        if ( !_cc_path_link_steps_are_valid( pl->steps ) )
             return false;
     } else { // Final side-effect (e.g. a capture) terminating a path.
         if ( !CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY( pl->side_effect.type ) ) return false;
@@ -212,7 +212,7 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
 
     if ( links == 0 )
         return has_steps; // No links --> terminal node.
-        // If also root node, it should not be terminal, without having at least initial and terminal fields.
+        // If also root node, it should not be terminal, without having at least initial and terminal steps.
 
     return true;
 }
@@ -224,7 +224,7 @@ bool cc_path_link_is_valid( CcPathLink * path_link ) {
 
     CC_REWIND_BY( root, root->back__w );
 
-    bool has_steps = ( cc_pos_link_len( root->fields ) > 1 ); // Initial step should not be the only one, if root is the only node.
+    bool has_steps = ( cc_step_count( root->steps ) > 1 ); // Initial step should not be the only one, if root is the only node.
 
     if ( !_cc_path_link_is_valid( root, has_steps ) ) return false;
 
@@ -241,7 +241,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
 
     while ( from ) {
         CcPathLink * pd__w = cc_path_link_append( &pl__a, from->side_effect,
-                                                          from->fields,
+                                                          from->steps,
                                                           from->encountered_piece,
                                                           from->encountered_tag,
                                                           from->momentum );
@@ -289,7 +289,7 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
     bool result = true;
 
     while ( pl ) {
-        result = cc_pos_link_free_all( &( pl->fields ) ) && result;
+        result = cc_step_free_all( &( pl->steps ) ) && result;
 
         if ( pl->fork )
             result = cc_path_link_free_all( &( pl->fork ) ) && result;
@@ -362,10 +362,10 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
     if ( cc_side_effect_to_str( path_link_node->side_effect, &se_str ) )
         return NULL;
 
-    char * pos_str__a = cc_pos_link_to_string__new( path_link_node->fields );
-    if ( !pos_str__a ) return NULL;
+    char * steps_str__a = cc_step_all_to_string__new( path_link_node->steps );
+    if ( !steps_str__a ) return NULL;
 
-    size_t str_size = cc_str_len( pos_str__a, NULL, CC_SIZE_BUFFER );
+    size_t str_size = cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
 
     str_size += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
 
@@ -375,22 +375,22 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
 
     char * pln_str__a = malloc( unused );
     if ( !pln_str__a ) {
-        CC_FREE( pos_str__a );
+        CC_FREE( steps_str__a );
         return NULL;
     }
 
     char * end_se__w = cc_str_append_into( pln_str__a, unused, se_str, CC_SIZE_CHAR_16 );
     if ( !end_se__w ) {
-        CC_FREE( pos_str__a );
+        CC_FREE( steps_str__a );
         CC_FREE( pln_str__a );
         return NULL;
     }
 
     unused -= ( end_se__w - pln_str__a );
 
-    char * end_pos__w = cc_str_append_into( end_se__w, unused, pos_str__a, CC_SIZE_BUFFER );
+    char * end_pos__w = cc_str_append_into( end_se__w, unused, steps_str__a, CC_SIZE_BUFFER );
     if ( !end_pos__w ) {
-        CC_FREE( pos_str__a );
+        CC_FREE( steps_str__a );
         CC_FREE( pln_str__a );
         return NULL;
     }
@@ -399,7 +399,7 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
 
     // TODO :: add .encountered_piece .encountered_tag .momentum
 
-    CC_FREE( pos_str__a );
+    CC_FREE( steps_str__a );
 
     return pln_str__a;
 }
