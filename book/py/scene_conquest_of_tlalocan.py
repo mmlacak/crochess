@@ -870,6 +870,11 @@ class SceneConquestOfTlalocanMixin:
         return scene
 
     #
+    # Checking opponent's King
+
+
+
+    #
     # Divergence
 
     def scn_cot_030_own_shaman_is_divergent_init(self, bt=BoardType.ConquestOfTlalocan):
