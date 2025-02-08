@@ -38,4 +38,5 @@ class SceneMix( SceneMixin, \
         return  [
                     'scn_cot_024_checking_king_init', \
                     'scn_cot_025_checking_king_gap', \
+                    'scn_cot_026_checking_king_blocked', \
                 ]
