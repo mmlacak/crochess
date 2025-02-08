@@ -187,7 +187,7 @@ movement on its starting position.
 % \vspace*{-1.2\baselineskip}
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_piece_is_illegal.png}
 % \vspace*{-0.5\baselineskip}
@@ -197,7 +197,11 @@ movement on its starting position.
 Unlike
 \hyperref[fig:scn_mv_55_static_piece_is_legal_init]{previous example}, Serpent
 activated in a cascade cannot, in the same ply, end its movement on its starting
-field.
+field. \newline
+\indent
+This is because Serpent can visit each field only once in the same ply, and so it
+\hyperref[fig:scn_tr_06_serpent_loop_illegal]{cannot loop back} onto already
+visited starting field.
 
 Here, Serpent activated in a cascade cannot return to its originating field S,
 and so it cannot reactivate Wave, and force it to move over to e.g. field W.
