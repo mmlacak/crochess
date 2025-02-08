@@ -56,7 +56,7 @@ Linked path segments
         One chosen side-effect from all possible on piece encountered in previous
         (parent) path segment.
 
-    .. c:member:: CcPosLink * fields
+    .. c:member:: CcStep * steps
 
         Fields visited (steps performed) by a moving piece, a path segment.
 
@@ -66,11 +66,11 @@ Linked path segments
 
     .. c:member:: CcPieceEnum encountered_piece
 
-        Piece encountered at the very last field in the :c:member:`fields` list.
+        Piece encountered at the very last field in the :c:member:`steps` list.
 
     .. c:member:: CcTagEnum encountered_tag
 
-        Tag encountered at the very last field in the :c:member:`fields` list.
+        Tag encountered at the very last field in the :c:member:`steps` list.
 
     .. c:member:: CcMomentum momentum
 
@@ -125,7 +125,7 @@ Linked path segments
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcPosLink * fields__d, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
+.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
 
     Function allocates a new path link.
 
@@ -133,15 +133,18 @@ Linked path segments
     it's used when side-effect is terminating (like capturing), and so no more fields
     are visited.
 
+    Takes ownership of :c:`steps__d_n`, inner pointer will be set to :c:data:`NULL`,
+    if valid path link is produced.
+
     :param side_effect: A possible side-effect on previously encountered piece.
-    :param fields__d: *Optional*, linked positions, a path segment; can be :c:data:`NULL`.
-    :param encountered_piece: Piece encountered at the very last field in the :c:var:`fields__d` list.
-    :param encountered_tag: Tag encountered at the very last field in the :c:var:`fields__d` list.
+    :param steps__d_n: **Ownership transfer**, *optional*; steps performed, a path segment; can be :c:data:`NULL`.
+    :param encountered_piece: Piece encountered at the very last field in the :c:var:`steps__d_n` list.
+    :param encountered_tag: Tag encountered at the very last field in the :c:var:`steps__d_n` list.
     :param momentum: Momentum a moving piece had after all performed steps.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcPosLink * fields__d, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.
@@ -151,9 +154,9 @@ Linked path segments
 
     :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
     :param side_effect: A possible side-effect on previously encountered piece.
-    :param fields__d: *Optional*, linked positions, a path segment; can be :c:data:`NULL`.
-    :param encountered_piece: Piece encountered at the very last field in the :c:var:`fields__d` list.
-    :param encountered_tag: Tag encountered at the very last field in the :c:var:`fields__d` list.
+    :param steps__d_n: **Ownership transfer**, *optional*; steps performed, a path segment; can be :c:data:`NULL`.
+    :param encountered_piece: Piece encountered at the very last field in the :c:var:`steps__d_n` list.
+    :param encountered_tag: Tag encountered at the very last field in the :c:var:`steps__d_n` list.
     :param momentum: Momentum a moving piece had after all performed steps.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.

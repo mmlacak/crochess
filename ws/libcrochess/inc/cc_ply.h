@@ -67,13 +67,13 @@ typedef struct CcPly {
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
                      CcPieceType piece,
                      CcLosingTagType lost_tag,
-                     CcStep ** steps__n );
+                     CcStep ** steps__d_n );
 
 CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
                        CcPieceType piece,
                        CcLosingTagType lost_tag,
-                       CcStep ** steps__n );
+                       CcStep ** steps__d_n );
 
 CcPly * cc_ply_duplicate_all__new( CcPly * plies );
 

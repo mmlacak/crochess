@@ -53,7 +53,6 @@ CcStep * cc_step_append( CcStep ** steps__iod_a,
                          CcPos field,
                          CcSideEffect side_effect );
 
-// TODO :: DOCS
 CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a,
                                              CcPos field );
 

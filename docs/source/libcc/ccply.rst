@@ -212,24 +212,24 @@ Functions
     :param plte: A ply linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__n )
+.. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__d_n )
 
     Function returns newly allocated ply.
 
-    Takes ownership of :c:`steps__n`, inner pointer will be set to :c:data:`NULL`,
+    Takes ownership of :c:`steps__d_n`, inner pointer will be set to :c:data:`NULL`,
     if valid ply is produced.
 
     :param link: Link to previous ply in a cascade.
     :param piece: A piece making a ply.
     :param lost_tag: Tag lost by a moving piece.
-    :param steps__n: **Ownership transfer**; steps, linked list, inner pointer can be :c:data:`NULL`.
+    :param steps__d_n: **Ownership transfer**, *optional*; steps, linked list, inner pointer can be :c:data:`NULL`.
     :returns: A newly allocated ply if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPly * cc_ply_append( CcPly ** plies__iod_a, CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__n )
+.. c:function:: CcPly * cc_ply_append( CcPly ** plies__iod_a, CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__d_n )
 
     Appends a newly allocated ply to a given linked list.
 
-    Takes ownership of :c:`steps__n`, inner pointer will be set to :c:data:`NULL`,
+    Takes ownership of :c:`steps__d_n`, inner pointer will be set to :c:data:`NULL`,
     if valid ply is produced.
 
     If linked list :c:`*plies__iod_a` is :c:data:`NULL`, it will be initialized
@@ -241,7 +241,7 @@ Functions
     :param link: Link to previous ply in a cascade.
     :param piece: A piece making a ply.
     :param lost_tag: Tag lost by a moving piece.
-    :param steps__n: **Ownership transfer**; steps, linked list, inner pointer
+    :param steps__d_n: **Ownership transfer**, *optional*; steps, linked list, inner pointer
         can be :c:data:`NULL`.
     :returns: Weak pointer to a newly allocated ply if successful, :c:data:`NULL`
         otherwise.

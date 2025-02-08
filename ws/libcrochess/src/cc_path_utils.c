@@ -111,7 +111,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
 
     if ( !steps__t ) return NULL;
 
-    CcPathLink * pl__a = cc_path_link__new( side_effect, steps__t, piece, tag, m );
+    CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, piece, tag, m );
     if ( !pl__a ) {
         cc_step_free_all( &steps__t );
         return NULL;
@@ -203,7 +203,7 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
     CcSideEffect se = cc_side_effect_none();
     CcMomentum m = CC_MOMENTUM_CAST_INITIAL;
 
-    CcPathLink * pl__a = cc_path_link__new( se, steps__t, moving.piece, moving.tag, m );
+    CcPathLink * pl__a = cc_path_link__new( se, &steps__t, moving.piece, moving.tag, m );
     if ( !pl__a ) {
         cc_step_free_all( &steps__t );
         return NULL;

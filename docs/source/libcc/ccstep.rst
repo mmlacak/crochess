@@ -130,6 +130,7 @@ Functions
 
     :param field: A field.
     :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
+    :seealso: :c:func:`cc_step__new()`
 
 .. c:function:: CcStep * cc_step_next__new( CcPos field, CcSideEffect side_effect )
 
@@ -152,7 +153,16 @@ Functions
     :param link: Type of a link to a previous step.
     :param field: A field.
     :param side_effect: Side-effect :c:`struct`\ure.
-    :returns: A newly allocated step if successful, :c:data:`NULL` otherwise.
+    :returns: A weak pointer to newly allocated step if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a, CcPos field )
+
+    Convenience function, appends a newly allocated step to a given linked list,
+    with :c:enumerator:`CC_SLTE_Next` linkage, and no side-effect.
+
+    :param field: A field.
+    :returns: A weak pointer to newly allocated step if successful, :c:data:`NULL` otherwise.
+    :seealso: :c:func:`cc_step_append()`
 
 .. c:function:: CcStep * cc_step_duplicate_all__new( CcStep * steps )
 

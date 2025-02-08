@@ -19,7 +19,6 @@
 //
 // Linked path segments.
 
-// TODO :: DOCS
 typedef struct CcPathLink {
     CcSideEffect side_effect; /* A possible side-effect on previously encountered piece. */
 
@@ -36,17 +35,15 @@ typedef struct CcPathLink {
     struct CcPathLink * back__w; /* Back-link to parent node. */
 } CcPathLink;
 
-// TODO :: DOCS
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
-                                CcStep * steps__d,
+                                CcStep ** steps__d_n,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
-                                  CcStep * steps__d,
+                                  CcStep ** steps__d_n,
                                   CcPieceEnum encountered_piece,
                                   CcTagEnum encountered_tag,
                                   CcMomentum momentum );

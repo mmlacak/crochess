@@ -15,7 +15,7 @@
 // Linked path segments.
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
-                                CcStep * steps__d,
+                                CcStep ** steps__d_n,
                                 CcPieceEnum encountered_piece,
                                 CcTagEnum encountered_tag,
                                 CcMomentum momentum ) {
@@ -24,7 +24,11 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
     pl__t->side_effect = side_effect;
 
-    pl__t->steps = steps__d;
+    if ( steps__d_n ) {
+        pl__t->steps = *steps__d_n;
+        *steps__d_n = NULL;
+    } else
+        pl__t->steps = NULL;
 
     pl__t->encountered_piece = encountered_piece;
     pl__t->encountered_tag = encountered_tag;
@@ -41,13 +45,13 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
-                                  CcStep * steps__d,
+                                  CcStep ** steps__d_n,
                                   CcPieceEnum encountered_piece,
                                   CcTagEnum encountered_tag,
                                   CcMomentum momentum ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d, encountered_piece, encountered_tag, momentum );
+    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d_n, encountered_piece, encountered_tag, momentum );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -148,7 +152,9 @@ static bool _cc_path_link_steps_are_valid( CcStep * steps ) {
     CcStep * s = steps;
 
     while ( s ) {
+        if ( !CC_STEP_LINK_TYPE_IS_VALID( s->link ) ) return false;
         if ( !CC_POS_IS_VALID( s->field ) ) return false;
+        if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( s->side_effect.type ) ) return false;
 
         s = s->next;
     }
@@ -241,7 +247,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
 
     while ( from ) {
         CcPathLink * pd__w = cc_path_link_append( &pl__a, from->side_effect,
-                                                          from->steps,
+                                                          &from->steps,
                                                           from->encountered_piece,
                                                           from->encountered_tag,
                                                           from->momentum );

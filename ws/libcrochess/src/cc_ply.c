@@ -30,7 +30,7 @@ char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte ) {
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
                      CcPieceType piece,
                      CcLosingTagType lost_tag,
-                     CcStep ** steps__n ) {
+                     CcStep ** steps__d_n ) {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;
 
@@ -38,9 +38,9 @@ CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
     ply__a->piece = piece;
     ply__a->lost_tag = lost_tag;
 
-    if ( steps__n ) {
-        ply__a->steps = *steps__n;
-        *steps__n = NULL;
+    if ( steps__d_n ) {
+        ply__a->steps = *steps__d_n;
+        *steps__d_n = NULL;
     } else
         ply__a->steps = NULL;
 
@@ -53,10 +53,10 @@ CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
                        CcPieceType piece,
                        CcLosingTagType lost_tag,
-                       CcStep ** steps__n ) {
+                       CcStep ** steps__d_n ) {
     if ( !plies__iod_a ) return NULL;
 
-    CcPly * ply__t = cc_ply__new( link, piece, lost_tag, steps__n );
+    CcPly * ply__t = cc_ply__new( link, piece, lost_tag, steps__d_n );
     if ( !ply__t ) return NULL;
 
     if ( !*plies__iod_a ) {
