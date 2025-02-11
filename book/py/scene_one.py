@@ -1683,7 +1683,7 @@ class SceneOneMixin:
         return scene
 
     #
-    # Starchild and castling
+    # Starchild and Kings
     # Castling is not blocked
 
     def scn_o_60_king_castling_not_blocked(self, bt=BoardType.One):

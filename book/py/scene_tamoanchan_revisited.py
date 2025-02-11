@@ -195,7 +195,7 @@ class SceneTamoanchanRevisitedMixin:
         return scene
 
     #
-    # Static piece is illegal
+    # Static Serpent is illegal
 
     def scn_tr_08_static_piece_is_illegal(self, bt=BoardType.TamoanchanRevisited):
 
@@ -1180,6 +1180,73 @@ class SceneTamoanchanRevisitedMixin:
         # scene.append_arrow( *adder_S(  0,  1 ), mark_type=MarkType.Blocked ) # light Pawn displacement
 
         scene.append_field_marker( *start_S, mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
+    # Checking opponent's King
+
+    def scn_tr_31_checking_king_pawns( self, bt=BoardType.TamoanchanRevisited ):
+
+        scene = Scene( 'scn_tr_31_checking_king_pawns', bt, x=13.7, y=9.7, width=8.3, height=12.3 )
+
+        start_k = (16, 19)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        scene.board.set_piece( 15, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 16, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 17, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 18, 17, piece=-PieceType.Pawn )
+        scene.board.set_piece( 19, 17, piece=-PieceType.Pawn )
+        scene.board.set_piece( 20, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 17, 16, piece=-PieceType.Pawn )
+
+        start_S = (17, 12)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+        adder_S = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Action ) # dark Pawn
+        scene.append_arrow( *adder_S( -1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Action ) # dark Pawn
+        scene.append_arrow( *adder_S( -1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Action ) # dark Pawn
+        scene.append_arrow( *adder_S(  1,  0, do_advance=False ), mark_type=MarkType.Blocked )
+
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1, -1 ), mark_type=MarkType.Illegal ) # dark King
+
+        return scene
+
+    def scn_tr_32_checking_king_figures( self, bt=BoardType.TamoanchanRevisited ):
+
+        scene = Scene( 'scn_tr_32_checking_king_figures', bt, x=13.7, y=9.7, width=8.3, height=12.3 )
+
+        start_k = (16, 19)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        start_p1 = (15, 18)
+        scene.board.set_piece( *start_p1, piece=-PieceType.Pawn )
+
+        scene.board.set_piece( 15, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 16, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 17, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 18, 17, piece=-PieceType.Pawn )
+        scene.board.set_piece( 19, 17, piece=-PieceType.Pawn )
+        scene.board.set_piece( 20, 18, piece=-PieceType.Pawn )
+        scene.board.set_piece( 17, 16, piece=-PieceType.Pawn )
+
+
+        start_S = (17, 12)
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+
+
 
         return scene
 
