@@ -1193,6 +1193,7 @@ class SceneTamoanchanRevisitedMixin:
         start_k = (16, 19)
         scene.board.set_piece( *start_k, piece=-PieceType.King )
 
+        scene.board.set_piece( 14, 19, piece=-PieceType.Pawn )
         scene.board.set_piece( 15, 18, piece=-PieceType.Pawn )
         scene.board.set_piece( 16, 18, piece=-PieceType.Pawn )
         scene.board.set_piece( 17, 18, piece=-PieceType.Pawn )
@@ -1231,22 +1232,34 @@ class SceneTamoanchanRevisitedMixin:
         start_k = (16, 19)
         scene.board.set_piece( *start_k, piece=-PieceType.King )
 
-        start_p1 = (15, 18)
-        scene.board.set_piece( *start_p1, piece=-PieceType.Pawn )
-
-        scene.board.set_piece( 15, 18, piece=-PieceType.Pawn )
-        scene.board.set_piece( 16, 18, piece=-PieceType.Pawn )
-        scene.board.set_piece( 17, 18, piece=-PieceType.Pawn )
-        scene.board.set_piece( 18, 17, piece=-PieceType.Pawn )
-        scene.board.set_piece( 19, 17, piece=-PieceType.Pawn )
-        scene.board.set_piece( 20, 18, piece=-PieceType.Pawn )
-        scene.board.set_piece( 17, 16, piece=-PieceType.Pawn )
-
+        scene.board.set_piece( 14, 19, piece=-PieceType.Pawn )
+        scene.board.set_piece( 15, 18, piece=-PieceType.Scout )
+        scene.board.set_piece( 16, 18, piece=-PieceType.Knight )
+        scene.board.set_piece( 17, 18, piece=-PieceType.Bishop )
+        scene.board.set_piece( 18, 17, piece=-PieceType.Grenadier )
+        scene.board.set_piece( 19, 17, piece=-PieceType.Grenadier )
+        scene.board.set_piece( 20, 18, piece=-PieceType.Bishop )
+        scene.board.set_piece( 17, 16, piece=-PieceType.Scout )
 
         start_S = (17, 12)
         scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
+        adder_S = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
 
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1, -1 ), mark_type=MarkType.Illegal ) # dark King
 
         return scene
 
