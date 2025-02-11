@@ -643,21 +643,26 @@ have Pawns replaced by other figures.\newline
 Here, dark King is in check by light Serpent, after displacing dark Pawns (grey
 arrows).
 
-\vspace*{0.7\baselineskip}
+\vspace*{0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[15]{l}{0.4\textwidth}
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_32_checking_king_figures.png}
 \vspace*{-0.4\baselineskip}
 \caption{King is in check, too}
 \label{fig:scn_tr_32_checking_king_figures}
 \end{wrapfigure}
-. . .
-
-% \clearpage % ..........................................................
-%
-% \vspace*{14.7\baselineskip}
-% \TODO :: checking opponent's King --> also, not blocked by a Pawn
+Due to \hyperref[fig:scn_tr_01_serpent_diagonals]{peculiar Serpent's movement},
+replacing Pawns with other pieces might not be enough, depending on a current
+chessboard situation.\newline
+\indent
+Note that completely blocking all Serpent's paths might not be possible, or
+necessary; Serpent has \hyperref[fig:scn_tr_05_serpent_end]{limited number of steps}
+it can make in a ply, 14 in this variant.\newline
+\indent
+Here, light Serpent is able to move around dark pieces, and still find a path
+to check dark King. Should field N also contain e.g. a Knight, light Serpent
+would not be able to reach dark King in one ply.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................
