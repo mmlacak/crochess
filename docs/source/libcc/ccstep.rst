@@ -197,18 +197,18 @@ Functions
     :param steps: Linked list of steps.
     :returns: Count of steps if successful, ``0`` otherwise.
 
-.. c:function:: CcStep * cc_step_find_init( CcStep * steps )
+.. c:function:: CcStep * cc_step_fetch_initial( CcStep * steps )
 
-    Function finds step containing initial position.
+    Function returns step containing initial position.
 
     Function also checks if initial position is only present in the first step link.
 
     :param steps: Linked list of steps.
     :returns: Starting step if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcStep * cc_step_find_destination( CcStep * steps )
+.. c:function:: CcStep * cc_step_fetch_destination( CcStep * steps )
 
-    Function finds destination step.
+    Function returns destination step.
 
     Destination step returned by this function is the step preceded by
     destination separator, i.e. `-` (hyphen), or is the last
@@ -216,6 +216,14 @@ Functions
 
     :param steps: Linked list of steps.
     :returns: Destination step if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps )
+
+    Function returns side-effect of a destination step.
+
+    :param steps: Linked list of steps.
+    :returns: Side-effect if successful, :c:data:`NULL` otherwise.
+    :seealso: :c:func:`cc_step_fetch_destination()`
 
 .. c:function:: bool cc_step_free_all( CcStep ** steps__f )
 

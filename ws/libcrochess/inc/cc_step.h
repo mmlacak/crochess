@@ -63,9 +63,11 @@ CcStep * cc_step_extend( CcStep ** steps__iod_a,
 
 size_t cc_step_count( CcStep * steps );
 
-CcStep * cc_step_find_init( CcStep * steps );
+CcStep * cc_step_fetch_initial( CcStep * steps );
 
-CcStep * cc_step_find_destination( CcStep * steps );
+CcStep * cc_step_fetch_destination( CcStep * steps );
+
+CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps );
 
 bool cc_step_free_all( CcStep ** steps__f );
 

@@ -131,7 +131,7 @@ size_t cc_step_count( CcStep * steps ) {
     return count;
 }
 
-CcStep * cc_step_find_init( CcStep * steps ) {
+CcStep * cc_step_fetch_initial( CcStep * steps ) {
     if ( !steps ) return NULL;
 
     if ( steps->link == CC_SLTE_InitialPosition ) {
@@ -150,7 +150,7 @@ CcStep * cc_step_find_init( CcStep * steps ) {
     return NULL;
 }
 
-CcStep * cc_step_find_destination( CcStep * steps ) {
+CcStep * cc_step_fetch_destination( CcStep * steps ) {
     if ( !steps ) return NULL;
 
     CcStep * prev = NULL;
@@ -186,6 +186,15 @@ CcStep * cc_step_find_destination( CcStep * steps ) {
     }
 
     return NULL; // Has to be here, clang complains otherwise.
+}
+
+CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps ) {
+    if ( !steps ) return NULL;
+
+    CcStep * last = cc_step_fetch_destination( steps );
+    if ( !last ) return NULL;
+
+    return &( last->side_effect );
 }
 
 bool cc_step_free_all( CcStep ** steps__f ) {
