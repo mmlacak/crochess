@@ -63,8 +63,33 @@ Complete such a path tree is represented by :c:type:`CcPathLink` nodes linked vi
 :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt` and :c:member:`CcPathLink.next`
 members; its :c:member:`CcPathLink.steps` contain a path segment.
 
+Path node side-effect (i.e. :c:member:`CcPathLink.side_effect`) is applied to last
+step in path segment (i.e. :c:member:`CcPathLink.steps`) of a parent node, when
+complete path is built from root node down to any leaf.
+
+.. note::
+
+    If both side-effects are defined, path node side-effect will override any
+    side-effect from steps.
+
+    This is so that e.g. a Shaman can capture opponent's Starchild, continue capturing
+    opponent's pieces in the next path node (without its side-effect), and also diverge
+    from said Starchild in a forking path node (with its side-effect).
+
 First step in a root node is initial position of a piece. Second step, either in
 root node or otherwise, might be repositioning.
+
+.. warning::
+
+    Any :c:type:`CcPathLink` node with its path continued (regardless which
+    :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`
+    members are present) **must** also have path segment, i.e.
+    :c:member:`CcPathLink.steps` defined.
+
+    .. note::
+
+        Path node without path segment (i.e. if :c:member:`CcPathLink.steps` is
+        :c:data:`NULL`) is valid path node, as long as path is not continued.
 
 .. _lbl-libcc-paths-segmenttree-subsequent:
 
