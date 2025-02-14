@@ -46,7 +46,7 @@ CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece,
     if ( sete == CC_SETE_Displacement )
         return CC_BOOL_TO_MAYBE( !CC_PIECE_IS_SHAMAN( piece ) && !CC_PIECE_IS_SERPENT( piece ) );
 
-    return CC_MBE_False;
+    return CC_MBE_Void; // All valid enum values has been handled above, return error for unrecognized (new?) value.
 }
 
 

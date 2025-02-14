@@ -38,8 +38,8 @@
                                                 || ( (sete) == CC_SETE_FailedResurrection ) )
 
 // All side-effects with which a ply can end.
-#define CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete) ( CC_SIDE_EFFECT_TYPE_MAY_TERMINATE_PLY(sete) ) \
-                                                 || ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete) )
+#define CC_SIDE_EFFECT_TYPE_CAN_TERMINATE_PLY(sete) ( CC_SIDE_EFFECT_TYPE_MAY_TERMINATE_PLY(sete) \
+                                                   || CC_SIDE_EFFECT_TYPE_TERMINATES_PLY(sete) )
 
 #define CC_MAX_LEN_SIDE_EFFECT_TYPE_SYMBOL (3)
 
