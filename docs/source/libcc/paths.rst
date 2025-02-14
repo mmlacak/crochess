@@ -105,8 +105,10 @@ their respective predecessor. For instance::
     +---+           +---+          +----+
 
 Subsequent paths are used when interaction does not produce multiple alternative
-paths (e.g. when Serpent displaces own Pawns), or when path segment is continuation
-of movement in previous segment (e.g. a piece encounters transparent piece).
+paths (e.g. when Shaman displaces pieces along predetermined path in a trance-journey),
+or when path segment is continuation of movement in previous segment (e.g. a Shaman
+continues its capturing-ply, after it encountered divergent piece, opponent's
+Starchild).
 
 .. _lbl-libcc-paths-segmenttree-alternative:
 
