@@ -47,7 +47,7 @@ towards said Starchild. Even pieces with straight movement (e.g. Bishop) could
 encounter Shaman earlier in the ply, and diverge from it towards the Starchild
 above.
 
-.. _lbl-libcc-paths-segmenttree:
+.. _lbl-libcc-paths-pathsegmenttree:
 
 Path segment, tree
 ------------------
@@ -91,7 +91,7 @@ root node or otherwise, might be repositioning.
         Path node without path segment (i.e. if :c:member:`CcPathLink.steps` is
         :c:data:`NULL`) is valid path node, as long as path is not continued.
 
-.. _lbl-libcc-paths-segmenttree-subsequent:
+.. _lbl-libcc-paths-pathsegmenttree-subsequentpaths:
 
 Subsequent paths
 ^^^^^^^^^^^^^^^^
@@ -110,7 +110,7 @@ or when path segment is continuation of movement in previous segment (e.g. a Sha
 continues its capturing-ply, after it encountered divergent piece, opponent's
 Starchild).
 
-.. _lbl-libcc-paths-segmenttree-alternative:
+.. _lbl-libcc-paths-pathsegmenttree-alternativepaths:
 
 Alternative paths
 ^^^^^^^^^^^^^^^^^
@@ -131,9 +131,9 @@ path segment is meant to replace originating segment. For instance::
                                       |
                                       | alt
                                       V
-                                    +----+
-                                    | C2 |
-                                    +----+
+                                    +----+   next    +---+
+                                    | C2 |  ------>  | E |
+                                    +----+           +---+
 
 produces 3 different paths::
 
@@ -145,14 +145,91 @@ produces 3 different paths::
     | A |  ------>  | B |  ------>  | C1 |
     +---+           +---+           +----+
 
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | C2 |
-    +---+           +---+           +----+
+    +---+   next    +---+   next    +----+   next    +---+
+    | A |  ------>  | B |  ------>  | C2 |  ------>  | E |
+    +---+           +---+           +----+           +---+
 
 Alternative paths are used when there are multiple possible interactions with
 encountered piece.
 
-.. _lbl-libcc-paths-segmenttree-forking:
+.. _lbl-libcc-paths-pathsegmenttree-alternativepaths-alternativepathsideeffects:
+
+Alternative path side-effects
+"""""""""""""""""""""""""""""
+
+Alternative path side-effects are just alternative paths with only side-effect
+defined, but without path segment, and with no path continuation; i.e. only
+:c:member:`CcPathLink.side_effect` is defined, and all of :c:member:`CcPathLink.fork`,
+:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, and :c:member:`CcPathLink.steps`
+are :c:data:`NULL`.
+
+To generate alternative paths from such a tree, every alternative path side-effect
+is applied to last step of an alternative path starting node. Alternative path
+side-effects can be combined with regular alternative path nodes. For instance::
+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B0 |  ------>  | C |
+    +---+           +----+           +---+
+                      |
+                      | alt
+                      V
+                    +----+
+                    | B1 |
+                    +----+
+                      |
+                      | alt
+                      V
+                    +------+
+                    | < B2 |
+                    +------+
+                      |
+                      | alt
+                      V
+                    +----+   next    +---+
+                    | B3 |  ------>  | D |
+                    +----+           +---+
+                      |
+                      | alt
+                      V
+                    +------+
+                    | < B4 |
+                    +------+
+
+beside default path::
+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B0 |  ------>  | C |
+    +---+           +----+           +---+
+
+also produces default path with alternative side-effects::
+
+    +---+   next    +---------+   next    +---+
+    | A |  ------>  | B0 < B2 |  ------>  | C |
+    +---+           +---------+           +---+
+
+    +---+   next    +---------+   next    +---+
+    | A |  ------>  | B0 < B4 |  ------>  | C |
+    +---+           +---------+           +---+
+
+in addition to regular alternative paths::
+
+    +---+   next    +----+
+    | A |  ------>  | B1 |
+    +---+           +----+
+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B3 |  ------>  | D |
+    +---+           +----+           +---+
+
+Here, starting node of alternative paths is ``B0``. Alternative side-effects node
+``B0 < B2`` represents root node ``B0`` with side-effect of its last step overridden
+by side-effect from ``B2`` node.
+
+This is to be used primarily for displacements, when there are many possible
+displacement fields, none of which alters current path; e.g. a Shaman displacing
+pieces along predetermined path in a trance-journey.
+
+.. _lbl-libcc-paths-pathsegmenttree-forkingpaths:
 
 Forking paths
 ^^^^^^^^^^^^^
@@ -213,7 +290,7 @@ if all their path segments end with divergence.
 Forking paths are used after divergence; and also to facilitate multiple,
 independent paths from a starting position.
 
-.. _lbl-libcc-paths-segmenttree-complete:
+.. _lbl-libcc-paths-pathsegmenttree-complete:
 
 Complete paths
 ^^^^^^^^^^^^^^

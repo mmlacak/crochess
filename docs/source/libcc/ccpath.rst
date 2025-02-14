@@ -32,6 +32,12 @@ Linked path segments
     other possible :term:`path`\s after the same e.g. divergence are then linked
     by :c:member:`alt`.
 
+
+    .. todo::
+
+        back-tracking alt --> next
+
+
     .. warning::
 
         All :c:member:`fork`, :c:member:`alt`, and :c:member:`next` members are
@@ -49,7 +55,7 @@ Linked path segments
 
     .. seealso::
 
-        :ref:`lbl-libcc-paths-segmenttree`
+        :ref:`lbl-libcc-paths-pathsegmenttree`
 
     .. c:member:: CcSideEffect side_effect
 
@@ -89,7 +95,7 @@ Linked path segments
 
         .. seealso::
 
-            :ref:`lbl-libcc-paths-segmenttree-forking`
+            :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`
 
     .. c:member:: struct CcPathLink * alt
 
@@ -104,7 +110,7 @@ Linked path segments
 
         .. seealso::
 
-            :ref:`lbl-libcc-paths-segmenttree-alternative`
+            :ref:`lbl-libcc-paths-pathsegmenttree-alternativepaths`
 
     .. c:member:: struct CcPathLink * next
 
@@ -116,7 +122,7 @@ Linked path segments
 
         .. seealso::
 
-            :ref:`lbl-libcc-paths-segmenttree-subsequent`
+            :ref:`lbl-libcc-paths-pathsegmenttree-subsequentpaths`
 
     .. c:member:: struct CcPathLink * back__w
 
