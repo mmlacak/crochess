@@ -117,41 +117,90 @@ Alternative paths
 ^^^^^^^^^^^^^^^^^
 
 Alternative paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.alt`; they are "in-situ" segments, i.e. each alternative
-path segment is meant to replace originating segment. For instance::
+via :c:member:`CcPathLink.alt`; they are alternative to the originating segment.
+For instance::
 
-    +---+   next    +---+   next    +----+   next    +---+
-    | A |  ------>  | B |  ------>  | C0 |  ------>  | D |
-    +---+           +---+           +----+           +---+
-                                      |
-                                      | alt
-                                      V
-                                    +----+
-                                    | C1 |
-                                    +----+
-                                      |
-                                      | alt
-                                      V
-                                    +----+   next    +---+
-                                    | C2 |  ------>  | E |
-                                    +----+           +---+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B0 |  ------>  | C |
+    +---+           +----+           +---+
+                      |
+                      | alt
+                      V
+                    +----+
+                    | B1 |
+                    +----+
+                      |
+                      | alt
+                      V
+                    +----+   next    +---+
+                    | B2 |  ------>  | D |
+                    +----+           +---+
 
 produces 3 different paths::
 
-    +---+   next    +---+   next    +----+   next    +---+
-    | A |  ------>  | B |  ------>  | C0 |  ------>  | D |
-    +---+           +---+           +----+           +---+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B0 |  ------>  | C |
+    +---+           +----+           +---+
 
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | C1 |
-    +---+           +---+           +----+
+    +---+   next    +----+
+    | A |  ------>  | B1 |
+    +---+           +----+
 
-    +---+   next    +---+   next    +----+   next    +---+
-    | A |  ------>  | B |  ------>  | C2 |  ------>  | E |
-    +---+           +---+           +----+           +---+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B2 |  ------>  | D |
+    +---+           +----+           +---+
 
 Alternative paths are used when there are multiple possible interactions with
 encountered piece.
+
+.. _lbl-libcc-paths-pathsegmenttree-substitutepaths:
+
+Substitute paths
+^^^^^^^^^^^^^^^^
+
+Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
+via :c:member:`CcPathLink.sub`; they are "in-situ" segments, i.e. each substitute
+path segment is meant to replace just an originating segment, and continue path
+with the remainder of a path segments owned by originating path node.
+For instance::
+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B0 |  ------>  | C |
+    +---+           +----+           +---+
+                      |
+                      | sub
+                      V
+                    +----+
+                    | B1 |
+                    +----+
+                      |
+                      | sub
+                      V
+                    +----+   next    +---+
+                    | B2 |  ------>  | D |
+                    +----+           +---+
+
+produces 3 different paths::
+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B0 |  ------>  | C |
+    +---+           +----+           +---+
+
+    +---+   next    +----+   next    +---+
+    | A |  ------>  | B1 |  ------>  | C |
+    +---+           +----+           +---+
+
+    +---+   next    +----+   next    +---+   next    +---+
+    | A |  ------>  | B2 |  ------>  | D |  ------>  | C |
+    +---+           +----+           +---+           +---+
+
+Substitute paths are used when there are multiple possible interactions with
+encountered piece, but originating path has to be continued.
+
+For instance, a Shaman can capture, diverge from, or use transparency of opponent's
+Starchild, and still continue its ply; in example above, ``B0`` node could be a
+capture, while ``B1`` node would then be a transparency; divergence is covered
+later in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`.
 
 .. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 
@@ -214,7 +263,8 @@ Forking paths
 
 Forking paths are represented as a list of :c:type:`CcPathLink` nodes connected
 via :c:member:`CcPathLink.fork`; they are "post-node" segments, i.e. each forking
-path segment is meant to be concatenated to originating segment. For instance::
+path segment is meant to be concatenated to the originating segment.
+For instance::
 
     +---+   next    +---+   next    +---+
     | A |  ------>  | B |  ------>  | C |
@@ -229,9 +279,9 @@ path segment is meant to be concatenated to originating segment. For instance::
                           |
                           | alt
                           V
-                        +----+
-                        | D1 |
-                        +----+
+                        +----+   next    +---+
+                        | D1 |  ------>  | E |
+                        +----+           +---+
                           |
                           | alt
                           V
@@ -251,9 +301,9 @@ also produces::
     | A |  ------>  | B |  ------>  | D0 |
     +---+           +---+           +----+
 
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | D1 |
-    +---+           +---+           +----+
+    +---+   next    +---+   next    +----+   next    +---+
+    | A |  ------>  | B |  ------>  | D1 |  ------>  | E |
+    +---+           +---+           +----+           +---+
 
     +---+   next    +---+   next    +----+
     | A |  ------>  | B |  ------>  | D2 |
