@@ -218,7 +218,7 @@ bool cc_parse_steps( char const * steps_start_an,
 
         requires_another_step = false;
 
-        if ( CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP( step__t->side_effect.type ) )
+        if ( CC_SIDE_EFFECT_TYPE_DOES_NOT_TERMINATE_PLY( step__t->side_effect.type ) )
             requires_another_step = true;
 
         if ( !cc_step_extend( &steps__t, &step__t ) ) { // <!> step__t could contain more than one step --> use cc_step_extend(), instead of cc_step_append().

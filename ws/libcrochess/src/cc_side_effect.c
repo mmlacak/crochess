@@ -35,7 +35,7 @@ CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece,
 
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( sete ) ) return CC_MBE_True;
 
-    if ( CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP( sete ) ) return CC_MBE_False;
+    if ( CC_SIDE_EFFECT_TYPE_DOES_NOT_TERMINATE_PLY( sete ) ) return CC_MBE_False;
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( sete ) ) return CC_MBE_Void;
     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;

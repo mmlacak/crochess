@@ -18,8 +18,9 @@
 
 #define CC_SIDE_EFFECT_TYPE_IS_VALID(sete) ( ( CC_SETE_None < (sete) ) && ( (sete) <= CC_SETE_FailedResurrection ) )
 
-#define CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP(sete) ( ( (sete) == CC_SETE_Transparency ) \
-                                                          || ( (sete) == CC_SETE_Divergence ) )
+// All side-effects which must be followed by another step.
+#define CC_SIDE_EFFECT_TYPE_DOES_NOT_TERMINATE_PLY(sete) ( ( (sete) == CC_SETE_Transparency ) \
+                                                        || ( (sete) == CC_SETE_Divergence ) )
 
 // All side-effects which may end a ply.
 #define CC_SIDE_EFFECT_TYPE_MAY_TERMINATE_PLY(sete) ( ( (sete) == CC_SETE_Capture ) \

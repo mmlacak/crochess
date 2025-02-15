@@ -60,8 +60,9 @@ There might be a few different interactions possible with encountered piece; the
 one chosen for this path segment is stored in :c:member:`CcPathLink.side_effect`.
 
 Complete such a path tree is represented by :c:type:`CcPathLink` nodes linked via
-:c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt` and :c:member:`CcPathLink.next`
-members; its :c:member:`CcPathLink.steps` contain a path segment.
+:c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`
+and :c:member:`CcPathLink.aux` members; its :c:member:`CcPathLink.steps` contain
+a path segment.
 
 Path node side-effect (i.e. :c:member:`CcPathLink.side_effect`) is applied to last
 step in path segment (i.e. :c:member:`CcPathLink.steps`) of a parent node, when
@@ -82,9 +83,9 @@ root node or otherwise, might be repositioning.
 .. warning::
 
     Any :c:type:`CcPathLink` node with its path continued (regardless which
-    :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`
-    members are present) **must** also have path segment, i.e.
-    :c:member:`CcPathLink.steps` defined.
+    :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`,
+    :c:member:`CcPathLink.alt` members are present) **must** also have path segment
+    (i.e. :c:member:`CcPathLink.steps`) defined.
 
     .. note::
 
@@ -152,48 +153,35 @@ produces 3 different paths::
 Alternative paths are used when there are multiple possible interactions with
 encountered piece.
 
-.. _lbl-libcc-paths-pathsegmenttree-alternativepaths-alternativepathsideeffects:
+.. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 
-Alternative path side-effects
-"""""""""""""""""""""""""""""
+Auxiliary paths
+^^^^^^^^^^^^^^^
 
-Alternative path side-effects are just alternative paths with only side-effect
-defined, but without path segment, and with no path continuation; i.e. only
-:c:member:`CcPathLink.side_effect` is defined, and all of :c:member:`CcPathLink.fork`,
-:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, and :c:member:`CcPathLink.steps`
-are :c:data:`NULL`.
+Auxiliary paths are represented as a list of :c:type:`CcPathLink` nodes connected
+via :c:member:`CcPathLink.aux`; they only contain side-effect, but neither path
+segment, nor any path continuations (i.e. all of :c:member:`CcPathLink.fork`,
+:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, and
+:c:member:`CcPathLink.steps` are :c:data:`NULL`).
 
-To generate alternative paths from such a tree, every alternative path side-effect
-is applied to last step of an alternative path starting node. Alternative path
-side-effects can be combined with regular alternative path nodes. For instance::
+To generate complete paths from a tree containing auxiliary nodes, every auxiliary
+side-effect is applied to the last step of an starting node. For instance::
 
     +---+   next    +----+   next    +---+
     | A |  ------>  | B0 |  ------>  | C |
     +---+           +----+           +---+
                       |
-                      | alt
+                      | aux
                       V
                     +----+
                     | B1 |
                     +----+
                       |
-                      | alt
+                      | aux
                       V
-                    +------+
-                    | < B2 |
-                    +------+
-                      |
-                      | alt
-                      V
-                    +----+   next    +---+
-                    | B3 |  ------>  | D |
-                    +----+           +---+
-                      |
-                      | alt
-                      V
-                    +------+
-                    | < B4 |
-                    +------+
+                    +----+
+                    | B2 |
+                    +----+
 
 beside default path::
 
@@ -201,29 +189,19 @@ beside default path::
     | A |  ------>  | B0 |  ------>  | C |
     +---+           +----+           +---+
 
-also produces default path with alternative side-effects::
+also produces default path with auxiliary side-effects::
+
+    +---+   next    +---------+   next    +---+
+    | A |  ------>  | B0 < B1 |  ------>  | C |
+    +---+           +---------+           +---+
 
     +---+   next    +---------+   next    +---+
     | A |  ------>  | B0 < B2 |  ------>  | C |
     +---+           +---------+           +---+
 
-    +---+   next    +---------+   next    +---+
-    | A |  ------>  | B0 < B4 |  ------>  | C |
-    +---+           +---------+           +---+
-
-in addition to regular alternative paths::
-
-    +---+   next    +----+
-    | A |  ------>  | B1 |
-    +---+           +----+
-
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B3 |  ------>  | D |
-    +---+           +----+           +---+
-
-Here, starting node of alternative paths is ``B0``. Alternative side-effects node
-``B0 < B2`` represents root node ``B0`` with side-effect of its last step overridden
-by side-effect from ``B2`` node.
+Here, starting node of auxiliary paths is ``B0``. Auxiliary side-effects node
+``B0 < B2`` represents starting node ``B0`` with side-effect of its last step
+overridden by side-effect from ``B2`` node.
 
 This is to be used primarily for displacements, when there are many possible
 displacement fields, none of which alters current path; e.g. a Shaman displacing

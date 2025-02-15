@@ -36,10 +36,10 @@ Macros
     :returns: :c:data:`true` if valid :c:type:`CcSideEffectTypeEnum` enumerator,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_SIDE_EFFECT_TYPE_MUST_BE_FOLLOWED_BY_STEP(sete)
+.. c:macro:: CC_SIDE_EFFECT_TYPE_DOES_NOT_TERMINATE_PLY(sete)
 
-    Macro to check if given side-effect must be followed by at least one step,
-    i.e. if side-effect is transparency or divergence.
+    Macro to check if given side-effect does not terminate ply, and must be
+    followed by at least one step, i.e. if it's transparency or divergence.
 
     :param sete: A side-effect type, integer value.
     :returns: :c:data:`true` if side-effect must be followed by a step,
