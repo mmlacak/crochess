@@ -153,54 +153,54 @@ produces 3 different paths::
 Alternative paths are used when there are multiple possible interactions with
 encountered piece.
 
-.. _lbl-libcc-paths-pathsegmenttree-substitutepaths:
-
-Substitute paths
-^^^^^^^^^^^^^^^^
-
-Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.sub`; they are "in-situ" segments, i.e. each substitute
-path segment is meant to replace just an originating segment, and continue path
-with the remainder of a path segments owned by originating path node.
-For instance::
-
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B0 |  ------>  | C |
-    +---+           +----+           +---+
-                      |
-                      | sub
-                      V
-                    +----+
-                    | B1 |
-                    +----+
-                      |
-                      | sub
-                      V
-                    +----+   next    +---+
-                    | B2 |  ------>  | D |
-                    +----+           +---+
-
-produces 3 different paths::
-
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B0 |  ------>  | C |
-    +---+           +----+           +---+
-
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B1 |  ------>  | C |
-    +---+           +----+           +---+
-
-    +---+   next    +----+   next    +---+   next    +---+
-    | A |  ------>  | B2 |  ------>  | D |  ------>  | C |
-    +---+           +----+           +---+           +---+
-
-Substitute paths are used when there are multiple possible interactions with
-encountered piece, but originating path has to be continued.
-
-For instance, a Shaman can capture, diverge from, or use transparency of opponent's
-Starchild, and still continue its ply; in example above, ``B0`` node could be a
-capture, while ``B1`` node would then be a transparency; divergence is covered
-later in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`.
+.. .. _lbl-libcc-paths-pathsegmenttree-substitutepaths:
+..
+.. Substitute paths
+.. ^^^^^^^^^^^^^^^^
+..
+.. Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
+.. via :c:member:`CcPathLink.sub`; they are "in-situ" segments, i.e. each substitute
+.. path segment is meant to replace just an originating segment, and continue path
+.. with the remainder of a path segments owned by originating path node.
+.. For instance::
+..
+..     +---+   next    +----+   next    +---+
+..     | A |  ------>  | B0 |  ------>  | C |
+..     +---+           +----+           +---+
+..                       |
+..                       | sub
+..                       V
+..                     +----+
+..                     | B1 |
+..                     +----+
+..                       |
+..                       | sub
+..                       V
+..                     +----+   next    +---+
+..                     | B2 |  ------>  | D |
+..                     +----+           +---+
+..
+.. produces 3 different paths::
+..
+..     +---+   next    +----+   next    +---+
+..     | A |  ------>  | B0 |  ------>  | C |
+..     +---+           +----+           +---+
+..
+..     +---+   next    +----+   next    +---+
+..     | A |  ------>  | B1 |  ------>  | C |
+..     +---+           +----+           +---+
+..
+..     +---+   next    +----+   next    +---+   next    +---+
+..     | A |  ------>  | B2 |  ------>  | D |  ------>  | C |
+..     +---+           +----+           +---+           +---+
+..
+.. Substitute paths are used when there are multiple possible interactions with
+.. encountered piece, but originating path has to be continued.
+..
+.. For instance, a Shaman can capture, diverge from, or use transparency of opponent's
+.. Starchild, and still continue its ply after all those interactions; in example above,
+.. ``B0`` node could be a capture, while ``B1`` node would then be a transparency;
+.. divergence is covered later in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`.
 
 .. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 
@@ -255,6 +255,11 @@ overridden by side-effect from ``B2`` node.
 This is to be used primarily for displacements, when there are many possible
 displacement fields, none of which alters current path; e.g. a Shaman displacing
 pieces along predetermined path in a trance-journey.
+
+Another example, a Shaman can capture, diverge from, or use transparency of opponent's
+Starchild, and still continue its ply after all those interactions; in example above,
+``B0`` node could be a capture, while ``B1`` node would then be a transparency;
+divergence is covered later in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`.
 
 .. _lbl-libcc-paths-pathsegmenttree-forkingpaths:
 
