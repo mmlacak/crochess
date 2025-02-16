@@ -190,7 +190,7 @@ Linked path segments
     :returns: Weak pointer to extended portion of a resulting path segment if
         successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a, CcPathLink ** pl_fork__n )
+.. c:function:: CcPathLink * cc_path_link_add_fork( CcPathLink ** pl_step__a, CcPathLink ** pl_fork__n )
 
     Function extends forking paths of a given path step (:c:`pl_step__a`) with a
     path segment (:c:`pl_fork__n`), as an additional alternative path (i.e. appends
@@ -210,7 +210,7 @@ Linked path segments
     :returns: Weak pointer to alternative path if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
+.. c:function:: CcPathLink * cc_path_link_add_alter( CcPathLink ** pl_step__a, CcPathLink ** pl_alt__n )
 
     Function extends alternating paths of a given path step (:c:`pl_step__a`) with
     path segment (:c:`pl_alt__n`), i.e. appends to :c:`pl_step__a->alt` linked list.

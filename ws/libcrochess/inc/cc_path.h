@@ -19,6 +19,7 @@
 //
 // Linked path segments.
 
+// TODO :: DOCS
 typedef struct CcPathLink {
     CcSideEffect side_effect; /* A possible side-effect on previously encountered piece. */
 
@@ -31,6 +32,7 @@ typedef struct CcPathLink {
 
     struct CcPathLink * fork;
     struct CcPathLink * alt;
+    struct CcPathLink * sub;
     struct CcPathLink * next;
     struct CcPathLink * back__w; /* Back-link to parent node. */
 } CcPathLink;
@@ -51,11 +53,17 @@ CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );
 
-CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
-                                CcPathLink ** pl_fork__n );
+CcPathLink * cc_path_link_add_fork( CcPathLink ** pl_step__a,
+                                    CcPathLink ** pl_fork__n );
 
-CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
+CcPathLink * cc_path_link_add_alter( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n );
+
+// static CcMaybeBoolEnum _cc_path_link_subs_is_valid( CcPathLink * pl_subs );
+
+// TODO :: DOCS
+CcPathLink * cc_path_link_add_subs( CcPathLink ** pl_step__a,
+                                    CcPathLink ** pl_sub__n );
 
 // static bool _cc_path_link_steps_are_valid( CcStep * steps );
 

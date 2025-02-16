@@ -37,6 +37,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
+    pl__t->sub = NULL;
     pl__t->next = NULL;
     pl__t->back__w = NULL;
 
@@ -94,13 +95,17 @@ CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
     return last->next;
 }
 
-CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
-                                CcPathLink ** pl_fork__n ) {
+CcPathLink * cc_path_link_add_fork( CcPathLink ** pl_step__a,
+                                    CcPathLink ** pl_fork__n ) {
     if ( !pl_step__a ) return NULL;
     if ( !*pl_step__a ) return NULL;
 
     if ( !pl_fork__n ) return NULL;
     if ( !*pl_fork__n ) return NULL;
+
+    // Sanity checks, back-links shouldn't point to somewhere else ...
+    if ( ( *pl_step__a )->back__w ) return NULL;
+    if ( ( *pl_fork__n )->back__w ) return NULL;
 
     if ( ( *pl_step__a )->fork ) {
         CcPathLink * pl = ( *pl_step__a )->fork;
@@ -123,13 +128,17 @@ CcPathLink * cc_path_link_fork( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
-CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
+CcPathLink * cc_path_link_add_alter( CcPathLink ** pl_step__a,
                                      CcPathLink ** pl_alt__n ) {
     if ( !pl_step__a ) return NULL;
     if ( !*pl_step__a ) return NULL;
 
     if ( !pl_alt__n ) return NULL;
     if ( !*pl_alt__n ) return NULL;
+
+    // Sanity checks, back-links shouldn't point to somewhere else ...
+    if ( ( *pl_step__a )->back__w ) return NULL;
+    if ( ( *pl_alt__n )->back__w ) return NULL;
 
     CcPathLink * pl__w = *pl_step__a;
 
@@ -142,6 +151,63 @@ CcPathLink * cc_path_link_alternate( CcPathLink ** pl_step__a,
     ( *pl_alt__n )->back__w = pl__w;
 
     *pl_alt__n = NULL;
+
+    return pl__w;
+}
+
+static CcMaybeBoolEnum _cc_path_link_subs_is_valid( CcPathLink * pl_subs ) {
+    if ( !pl_subs ) return CC_MBE_Void;
+
+    CcPathLink * pl = pl_subs;
+    CcPathLink * old = NULL;
+
+    while ( pl ) {
+        // For 1st node ( pl == pl_subs ), checks there is no back-link ...
+        // Otherwise, checks back-link points to its parent ...
+        if ( pl->back__w != old ) return CC_MBE_Void;
+
+        if ( pl->steps ) return CC_MBE_False;
+        if ( pl->fork ) return CC_MBE_False;
+        if ( pl->alt ) return CC_MBE_False;
+        if ( pl->next ) return CC_MBE_False;
+
+        if ( pl->encountered_piece != CC_PE_None ) return CC_MBE_False;
+        if ( pl->encountered_tag != CC_TE_None ) return CC_MBE_False;
+
+        if ( !CC_SIDE_EFFECT_TYPE_IS_VALID( pl->side_effect.type ) )
+            return CC_MBE_False;
+
+        old = pl;
+        pl = pl->sub;
+    }
+
+    return CC_MBE_True;
+}
+
+CcPathLink * cc_path_link_add_subs( CcPathLink ** pl_step__a,
+                                    CcPathLink ** pl_sub__n ) {
+    if ( !pl_step__a ) return NULL;
+    if ( !*pl_step__a ) return NULL;
+
+    if ( !pl_sub__n ) return NULL;
+    if ( !*pl_sub__n ) return NULL;
+
+    // Sanity checks.
+    if ( ( *pl_step__a )->back__w ) return NULL;
+    if ( _cc_path_link_subs_is_valid( *pl_sub__n ) != CC_MBE_True )
+        return NULL;
+
+    CcPathLink * pl__w = *pl_step__a;
+
+    while ( pl__w->sub ) {
+        pl__w = pl__w->sub;
+    }
+
+    // Ownership transfer.
+    pl__w->sub = *pl_sub__n;
+    ( *pl_sub__n )->back__w = pl__w;
+
+    *pl_sub__n = NULL;
 
     return pl__w;
 }
@@ -210,6 +276,12 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
         ++links;
     }
 
+    if ( pl->sub ) {
+        if ( pl->sub->back__w != pl ) return false;
+        if ( _cc_path_link_subs_is_valid( pl->sub ) != CC_MBE_True ) return false;
+        ++links;
+    }
+
     if ( pl->next ) {
         if ( pl->next->back__w != pl ) return false;
         if ( !_cc_path_link_is_valid( pl->next, true ) ) return false;
@@ -275,6 +347,15 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
             }
         }
 
+        if ( from->sub ) {
+            if ( ( pd__w->sub = cc_path_link_duplicate_all__new( from->sub ) ) ) {
+                pd__w->sub->back__w = pd__w;
+            } else {
+                result = false;
+                break;
+            }
+        }
+
         from = from->next;
     }
 
@@ -302,6 +383,9 @@ bool cc_path_link_free_all( CcPathLink ** pl__f ) {
 
         if ( pl->alt )
             result = cc_path_link_free_all( &( pl->alt ) ) && result;
+
+        if ( pl->sub )
+            result = cc_path_link_free_all( &( pl->sub ) ) && result;
 
         // <!> pl->back__w is weak pointer, not an owner, so it must not be free()-ed.
 
@@ -331,6 +415,10 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all ) {
             if ( pl->alt ) {
                 len += cc_path_link_len( pl->alt, count_all );
             }
+
+            if ( pl->sub ) {
+                len += cc_path_link_len( pl->sub, count_all );
+            }
         }
 
         pl = pl->next;
@@ -353,6 +441,12 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
         if ( pl->alt ) {
             count += cc_path_link_count_all_seqments( pl->alt );
         }
+
+        // Substitute paths shouldn't have any segments.
+        //
+        // if ( pl->sub ) {
+        //     count += cc_path_link_count_all_seqments( pl->sub );
+        // }
 
         pl = pl->next;
     }
