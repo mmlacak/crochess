@@ -61,7 +61,7 @@ one chosen for this path segment is stored in :c:member:`CcPathLink.side_effect`
 
 Complete such a path tree is represented by :c:type:`CcPathLink` nodes linked via
 :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`
-and :c:member:`CcPathLink.aux` members; its :c:member:`CcPathLink.steps` contain
+and :c:member:`CcPathLink.sub` members; its :c:member:`CcPathLink.steps` contain
 a path segment.
 
 Path node side-effect (i.e. :c:member:`CcPathLink.side_effect`) is applied to last
@@ -84,7 +84,7 @@ root node or otherwise, might be repositioning.
 
     Any :c:type:`CcPathLink` node with its path continued (regardless which
     :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`,
-    :c:member:`CcPathLink.alt` members are present) **must** also have path segment
+    :c:member:`CcPathLink.sub` members are present) **must** also have path segment
     (i.e. :c:member:`CcPathLink.steps`) defined.
 
     .. note::
@@ -106,10 +106,10 @@ their respective predecessor. For instance::
     +---+           +---+          +----+
 
 Subsequent paths are used when interaction does not produce multiple alternative
-paths (e.g. when Shaman displaces pieces along predetermined path in a trance-journey),
-or when path segment is continuation of movement in previous segment (e.g. a Shaman
-continues its capturing-ply, after it encountered divergent piece, opponent's
-Starchild).
+paths (e.g. when Shaman keeps capturing pieces along predetermined path in a
+trance-journey), or when path segment is continuation of movement in previous
+segment (e.g. a Shaman continues its capturing-ply, after it encountered divergent
+piece, opponent's Starchild).
 
 .. _lbl-libcc-paths-pathsegmenttree-alternativepaths:
 
@@ -153,13 +153,13 @@ produces 3 different paths::
 Alternative paths are used when there are multiple possible interactions with
 encountered piece.
 
-.. .. _lbl-libcc-paths-pathsegmenttree-substitutepaths:
+.. .. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 ..
-.. Substitute paths
-.. ^^^^^^^^^^^^^^^^
+.. Auxiliary paths
+.. ^^^^^^^^^^^^^^^
 ..
-.. Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
-.. via :c:member:`CcPathLink.sub`; they are "in-situ" segments, i.e. each substitute
+.. Auxiliary paths are represented as a list of :c:type:`CcPathLink` nodes connected
+.. via :c:member:`CcPathLink.aux`; they are "in-situ" segments, i.e. each auxiliary
 .. path segment is meant to replace just an originating segment, and continue path
 .. with the remainder of a path segments owned by originating path node.
 .. For instance::
@@ -168,13 +168,13 @@ encountered piece.
 ..     | A |  ------>  | B0 |  ------>  | C |
 ..     +---+           +----+           +---+
 ..                       |
-..                       | sub
+..                       | aux
 ..                       V
 ..                     +----+
 ..                     | B1 |
 ..                     +----+
 ..                       |
-..                       | sub
+..                       | aux
 ..                       V
 ..                     +----+   next    +---+
 ..                     | B2 |  ------>  | D |
@@ -194,7 +194,7 @@ encountered piece.
 ..     | A |  ------>  | B2 |  ------>  | D |  ------>  | C |
 ..     +---+           +----+           +---+           +---+
 ..
-.. Substitute paths are used when there are multiple possible interactions with
+.. Auxiliary paths are used when there are multiple possible interactions with
 .. encountered piece, but originating path has to be continued.
 ..
 .. For instance, a Shaman can capture, diverge from, or use transparency of opponent's
@@ -202,31 +202,31 @@ encountered piece.
 .. ``B0`` node could be a capture, while ``B1`` node would then be a transparency;
 .. divergence is covered later in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`.
 
-.. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
+.. _lbl-libcc-paths-pathsegmenttree-substitutepaths:
 
-Auxiliary paths
-^^^^^^^^^^^^^^^
+Substitute paths
+^^^^^^^^^^^^^^^^
 
-Auxiliary paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.aux`; they only contain side-effect, but neither path
+Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
+via :c:member:`CcPathLink.sub`; they only contain side-effect, but neither path
 segment, nor any path continuations (i.e. all of :c:member:`CcPathLink.fork`,
-:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, and
-:c:member:`CcPathLink.steps` are :c:data:`NULL`).
+:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, :c:member:`CcPathLink.sub`,
+and :c:member:`CcPathLink.steps` are :c:data:`NULL`).
 
-To generate complete paths from a tree containing auxiliary nodes, every auxiliary
+To generate complete paths from a tree containing substitute nodes, every substitute
 side-effect is applied to the last step of an starting node. For instance::
 
     +---+   next    +----+   next    +---+
     | A |  ------>  | B0 |  ------>  | C |
     +---+           +----+           +---+
                       |
-                      | aux
+                      | sub
                       V
                     +----+
                     | B1 |
                     +----+
                       |
-                      | aux
+                      | sub
                       V
                     +----+
                     | B2 |
@@ -238,7 +238,7 @@ beside default path::
     | A |  ------>  | B0 |  ------>  | C |
     +---+           +----+           +---+
 
-also produces default path with auxiliary side-effects::
+also produces default path with substitute side-effects::
 
     +---+   next    +---------+   next    +---+
     | A |  ------>  | B0 < B1 |  ------>  | C |
@@ -248,7 +248,7 @@ also produces default path with auxiliary side-effects::
     | A |  ------>  | B0 < B2 |  ------>  | C |
     +---+           +---------+           +---+
 
-Here, starting node of auxiliary paths is ``B0``. Auxiliary side-effects node
+Here, starting node of substitute paths is ``B0``. Substitute side-effects node
 ``B0 < B2`` represents starting node ``B0`` with side-effect of its last step
 overridden by side-effect from ``B2`` node.
 
@@ -259,7 +259,7 @@ pieces along predetermined path in a trance-journey.
 Another example, a Shaman can capture, diverge from, or use transparency of opponent's
 Starchild, and still continue its ply after all those interactions; in example above,
 ``B0`` node could be a capture, while ``B1`` node would then be a transparency;
-divergence is covered later in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`.
+divergence is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
 .. _lbl-libcc-paths-pathsegmenttree-forkingpaths:
 
