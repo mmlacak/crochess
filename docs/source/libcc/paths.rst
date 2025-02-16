@@ -208,13 +208,15 @@ Substitute paths
 ^^^^^^^^^^^^^^^^
 
 Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.sub`; they only contain side-effect, but neither path
-segment, nor any path continuations (i.e. all of :c:member:`CcPathLink.fork`,
-:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, :c:member:`CcPathLink.sub`,
-and :c:member:`CcPathLink.steps` are :c:data:`NULL`).
+via :c:member:`CcPathLink.sub`; they only contain side-effect, and can contain link
+to another substitute path (i.e. :c:member:`CcPathLink.sub`), but neither path
+segment, nor any other path continuations (i.e. all of :c:member:`CcPathLink.fork`,
+:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, and
+:c:member:`CcPathLink.steps` are :c:data:`NULL`).
 
-To generate complete paths from a tree containing substitute nodes, every substitute
-side-effect is applied to the last step of an starting node. For instance::
+To generate complete paths from a tree containing substitute nodes, every side-effect
+from those nodes overrides side-effect of the last step in a starting node.
+For instance::
 
     +---+   next    +----+   next    +---+
     | A |  ------>  | B0 |  ------>  | C |
@@ -238,7 +240,7 @@ beside default path::
     | A |  ------>  | B0 |  ------>  | C |
     +---+           +----+           +---+
 
-also produces default path with substitute side-effects::
+also produces default paths with substituted side-effects::
 
     +---+   next    +---------+   next    +---+
     | A |  ------>  | B0 < B1 |  ------>  | C |
