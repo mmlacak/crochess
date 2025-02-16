@@ -32,18 +32,12 @@ Linked path segments
     other possible :term:`path`\s after the same e.g. divergence are then linked
     by :c:member:`alt`.
 
-
-    .. todo::
-
-        back-tracking alt --> next
-
-
     .. warning::
 
-        All :c:member:`fork`, :c:member:`alt`, and :c:member:`next` members are
-        owners of the remainder of a path tree they are pointing to; and must
-        always be a singular pointer (owner) within a path tree to their respective
-        forking, alternating, or subsequent path.
+        All :c:member:`fork`, :c:member:`alt`, :c:member:`sub`, and :c:member:`next`
+        members are owners of the remainder of a path tree they are pointing to; and
+        must always be a singular pointer (owner) within a path tree to their
+        respective forking, alternating, substitute, or subsequent path.
 
         Any two pointers pointing to the same node, any back-references within
         a path tree, or shared among them are not allowed, and will likely cause
@@ -111,6 +105,19 @@ Linked path segments
         .. seealso::
 
             :ref:`lbl-libcc-paths-pathsegmenttree-alternativepaths`
+
+    .. c:member:: struct CcPathLink * sub
+
+        Link to substitute side-effects to path segment of a substitute-starting
+        node.
+
+        Substitute paths are used when there are multiple possible side-effects
+        (interactions with encountered piece), which do not alter path of a
+        moving piece.
+
+        .. seealso::
+
+            :ref:`lbl-libcc-paths-pathsegmenttree-substitutepaths`
 
     .. c:member:: struct CcPathLink * next
 
@@ -229,6 +236,26 @@ Linked path segments
     :returns: Weak pointer to alternative path if successful,
         :c:data:`NULL` otherwise.
 
+.. c:function::CcPathLink * cc_path_link_add_subs( CcPathLink ** pl_step__a, CcPathLink ** pl_sub__n )
+
+    Function extends substitute paths of a given path step (:c:`pl_step__a`) with
+    path segment (:c:`pl_sub__n`), i.e. appends to :c:`pl_step__a->sub` linked list.
+
+    If a given path step doesn't have substitute path yet (i.e. if :c:`pl_step__a->sub == NULL`),
+    function initializes it with a given substitute path.
+
+    .. note::
+
+        Extending path segment :c:`pl_alt__n` has its ownership transferred to
+        path segment :c:`pl_step__a`; as a result, inner pointer :c:`*pl_alt__n`
+        is :c:data:`NULL`\ed.
+
+    :param pl_step__a: **Ownership**; a path step to which to add substitute
+        side-effect.
+    :param pl_sub__n: **Ownership transfer**; substituting path.
+    :returns: Weak pointer to substitute path if successful,
+        :c:data:`NULL` otherwise.
+
 .. c:function:: bool cc_path_link_is_valid( CcPathLink * path_link )
 
     Checks if given path segment is valid; by checking if all positions are valid
@@ -259,7 +286,7 @@ Linked path segments
 .. c:function:: size_t cc_path_link_len( CcPathLink * path_link, bool count_all )
 
     Function returns length of a given path segment; optionally also includes
-    :c:member:`fork`, :c:member:`alt` branches.
+    :c:member:`fork`, :c:member:`alt`, :c:member:`sub` branches.
 
     :param path_link: A path segment.
     :param count_all: Flag, whether to include :c:member:`fork`, :c:member:`alt`
@@ -270,7 +297,8 @@ Linked path segments
 .. c:function:: size_t cc_path_link_count_all_seqments( CcPathLink * path_link )
 
     Function returns count of all segments, including :c:member:`fork`,
-    :c:member:`alt` ones.
+    :c:member:`alt` ones; substitute paths (i.e. all nodes linked via :c:member:`sub`)
+    should not have path segments (i.e. :c:member:`steps`).
 
     :param path_link: A path segment.
     :returns: Count of all segments if successful, ``0`` otherwise.
@@ -295,6 +323,29 @@ Linked path segments
 ..     :returns: A newly allocated, null-terminated (``'\0'``) string if
 ..         successful, :c:data:`NULL` otherwise.
 ..     :seealso: :c:func:`cc_pos_to_string()`
+
+.. _lbl-libcc-ccpath-linkedpathbacktracking:
+
+Linked path backtracking
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+For a given path node, :c:member:`next` members simply concatenate to existing path;
+other members provide list of alternative, or substitute paths, and so has to find
+path node to replace, or alter; this is mostly the first node of a list of alternative,
+substitute paths.
+
+Starting node is to be found by using :c:member:`back__w`, and checking if parent
+node points to a current node, e.g. if :c:expr:`current->back__w->alt == current`
+still holds true; once it doesn't, this is starting node.
+
+If node was in a list of alternative paths, starting node is then replaced by node
+from a list, if an alternative list was started with immediate :c:member:`alt`. If
+an alternative list was started with :c:member:`fork`, then node from an alternative
+list is concatenated to starting node.
+
+Backtracking is also similar for substitute paths, except check for parent node is
+:c:expr:`current->back__w->sub == current`. Once found, side-effect of the last step
+in starting node is overridden by a side-effect from a node in a substitute list.
 
 .. _lbl-libcc-ccpath-sourcecodeheader:
 

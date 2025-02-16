@@ -19,7 +19,6 @@
 //
 // Linked path segments.
 
-// TODO :: DOCS
 typedef struct CcPathLink {
     CcSideEffect side_effect; /* A possible side-effect on previously encountered piece. */
 
@@ -61,7 +60,6 @@ CcPathLink * cc_path_link_add_alter( CcPathLink ** pl_step__a,
 
 // static CcMaybeBoolEnum _cc_path_link_subs_is_valid( CcPathLink * pl_subs );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_add_subs( CcPathLink ** pl_step__a,
                                     CcPathLink ** pl_sub__n );
 
