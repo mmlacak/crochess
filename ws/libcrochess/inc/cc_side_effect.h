@@ -167,8 +167,6 @@ CcSideEffect cc_side_effect_failed_resurrection( void );
 //
 // Linked side-effects.
 
-// TODO :: DOCS
-
 typedef struct CcSideEffectLink {
     CcSideEffect side_effect;
     struct CcSideEffectLink * next;

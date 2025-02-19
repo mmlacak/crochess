@@ -17,6 +17,13 @@
 
 // todo :: DOCS
 
+bool cc_path_side_effect( CcChessboard * cb,
+                          CcPosDesc moving,
+                          CcPosDesc encounter,
+                          bool is_trance_journey,
+                          CcPos displacement,
+                          CcSideEffectLink ** side_effect_link__o_a );
+
 // static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
 //                                                     CcGame * game,
 //                                                     CcPosDesc moving,
