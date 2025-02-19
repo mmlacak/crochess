@@ -148,7 +148,7 @@ CcPos cc_side_effect_destination( CcSideEffect se );
 bool cc_side_effect_to_str( CcSideEffect se,
                             cc_char_16 * se_str__o );
 
-
+// Convenience functions.
 CcSideEffect cc_side_effect_none( void );
 CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagType lost_tag );
 CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagType lost_tag, CcPos destination );
@@ -163,6 +163,32 @@ CcSideEffect cc_side_effect_diversion( CcPieceType piece );
 CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagType lost_tag, CcPos distant );
 CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection( void );
+
+//
+// Linked side-effects.
+
+// TODO :: DOCS
+
+typedef struct CcSideEffectLink {
+    CcSideEffect side_effect;
+    struct CcSideEffectLink * next;
+} CcSideEffectLink;
+
+CcSideEffectLink * cc_side_effect_link__new( CcSideEffect side_effect );
+
+CcSideEffectLink * cc_side_effect_link_append( CcSideEffectLink ** side_effect_link__iod_a,
+                                               CcSideEffect side_effect );
+
+CcSideEffectLink * cc_side_effect_link_duplicate_all__new( CcSideEffectLink * side_effect_link );
+
+CcSideEffectLink * cc_side_effect_link_extend( CcSideEffectLink ** side_effect_link__iod_a,
+                                CcSideEffectLink ** side_effect_link__n );
+
+bool cc_side_effect_link_free_all( CcSideEffectLink ** side_effect_link__f );
+
+size_t cc_side_effect_link_len( CcSideEffectLink * side_effect_link );
+
+// char * cc_side_effect_link_to_string__new( CcSideEffectLink * side_effect_link );
 
 
 #endif /* __CC_SIDE_EFFECT_H__ */

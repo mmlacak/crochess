@@ -17,17 +17,19 @@
 
 // todo :: DOCS
 
-// static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
+// static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
+//                                                     CcGame * game,
 //                                                     CcPosDesc moving,
-//                                                     CcTypedStep step,
-//                                                     CcSideEffect side_effect,
-//                                                     CcMomentum momentum );
+//                                                     CcPos current_pos,
+//                                                     CcMomentum momentum,
+//                                                     CcTypedStep step );
 
-// static CcPathLink * _cc_path_one_step__new( CcGame * game,
+// static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
+//                                             CcGame * game,
 //                                             CcPosDesc moving,
-//                                             CcTypedStep step,
-//                                             CcSideEffect side_effect,
-//                                             CcMomentum momentum );
+//                                             CcPos current_pos,
+//                                             CcMomentum momentum,
+//                                             CcTypedStep step );
 
 CcPathLink * cc_path_tree_one_step__new( CcGame * game,
                                          CcPosDesc moving );

@@ -74,12 +74,13 @@
 //
 // TODO :: DELETE
 
-static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
+static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
+                                                    CcGame * game,
                                                     CcPosDesc moving,
-                                                    CcTypedStep step,
-                                                    CcSideEffect side_effect,
-                                                    CcMomentum momentum ) {
-    CcPos field = cc_pos_add( moving.pos, step.step, 1 );
+                                                    CcPos current_pos,
+                                                    CcMomentum momentum,
+                                                    CcTypedStep step ) {
+    CcPos field = cc_pos_add( current_pos, step.step, 1 );
     CcStep * steps__t = NULL;
 
     CcPieceEnum piece = CC_PE_None;
@@ -104,7 +105,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
         }
 
         CcPieceEnum encounter = cc_chessboard_get_piece( game->chessboard, field.i, field.j );
-        if ( encounter != CC_PE_None ) break; // Caller (i.e. _cc_path_one_step__new()) checks all possible interactions, including transparency; removes field of encounter if there are none.
+        if ( encounter != CC_PE_None ) break; // Caller checks all possible interactions, including transparency; removes field of encounter if there are none.
 
         field = cc_pos_add( field, step.step, 1 );
     }
@@ -120,11 +121,12 @@ static CcPathLink * _cc_path_segment_one_step__new( CcGame * game,
     return pl__a;
 }
 
-static CcPathLink * _cc_path_one_step__new( CcGame * game,
+static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
+                                            CcGame * game,
                                             CcPosDesc moving,
-                                            CcTypedStep step,
-                                            CcSideEffect side_effect,
-                                            CcMomentum momentum ) {
+                                            CcPos current_pos,
+                                            CcMomentum momentum,
+                                            CcTypedStep step ) {
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( side_effect.type ) ) {
         // Side-effect is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
         CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
@@ -137,7 +139,7 @@ static CcPathLink * _cc_path_one_step__new( CcGame * game,
         }
     }
 
-    CcPathLink * pl__a = _cc_path_segment_one_step__new( game, moving, step, side_effect, momentum );
+    CcPathLink * pl__a = _cc_path_segment_one_step__new( side_effect, game, moving, current_pos, momentum, step );
     if ( !pl__a ) return NULL;
     if ( !pl__a->steps ) return pl__a; // Just a sanity check, should not happen.
 
