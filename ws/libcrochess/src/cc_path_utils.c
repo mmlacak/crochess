@@ -77,7 +77,7 @@
 bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,
                           CcPosDesc encounter,
-                          bool is_trance_journey,
+                          CcTranceJourneyTypeEnum trance_journey_type,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a ) {
     if ( !side_effect_link__o_a ) return false;
@@ -97,7 +97,8 @@ bool cc_path_side_effect( CcChessboard * cb,
 
     if ( CC_PIECE_CAN_CAPTURE( moving.piece ) &&
             CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
-            cc_piece_has_different_owner( moving.piece, encounter.piece ) ) {
+            ( CC_TRANCE_JOURNEY_TYPE_IS_ANY_CAPTURE( trance_journey_type ) ||
+            ( cc_piece_has_different_owner( moving.piece, encounter.piece ) ) ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece, ltt );
         CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
         if ( !se__w ) {
@@ -108,7 +109,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 
     if ( !cc_chessboard_is_pos_on_board( cb, displacement.i, displacement.j ) ) return false;
 
-    if ( is_trance_journey ) { // TODO :: enum --> none, displacement, capture, double trance-journey
+    if ( trance_journey_type == CC_TJTE_Displacement ) {
         if ( !CC_PIECE_IS_SHAMAN( moving.piece ) ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
@@ -122,13 +123,15 @@ bool cc_path_side_effect( CcChessboard * cb,
                 return false;
             }
         }
-    } else if ( CC_PIECE_CAN_DISPLACE( moving.piece ) &&
+    } else if ( trance_journey_type == CC_TJTE_None ) {
+        if ( CC_PIECE_CAN_DISPLACE( moving.piece ) &&
                 CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
-        CcSideEffect se = cc_side_effect_displacement( encounter.piece, ltt, displacement );
-        CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
-        if ( !se__w ) {
-            cc_side_effect_link_free_all( side_effect_link__o_a );
-            return false;
+            CcSideEffect se = cc_side_effect_displacement( encounter.piece, ltt, displacement );
+            CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
+            if ( !se__w ) {
+                cc_side_effect_link_free_all( side_effect_link__o_a );
+                return false;
+            }
         }
     }
 

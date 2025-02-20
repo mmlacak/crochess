@@ -14,13 +14,15 @@
 #include "cc_typed_step_defs.h"
 #include "cc_path.h"
 
+#include "cc_rules_defs.h"
+
 
 // todo :: DOCS
 
 bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,
                           CcPosDesc encounter,
-                          bool is_trance_journey,
+                          CcTranceJourneyTypeEnum trance_journey_type,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a );
 
