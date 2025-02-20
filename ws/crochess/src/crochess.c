@@ -22,14 +22,13 @@
 #include "cc_piece.h"
 #include "cc_chessboard.h"
 #include "cc_game.h"
-#include "cc_rules.h"
 #include "cc_parse_msg.h"
 
 #include "hlp_msgs.h"
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.125:1304+20250220.214912"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.126:1305+20250220.215650"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
