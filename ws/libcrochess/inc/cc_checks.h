@@ -4,16 +4,23 @@
 #ifndef __CC_CHECKS_H__
 #define __CC_CHECKS_H__
 
+#include <stdbool.h>
+
 #include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
 
 #include "cc_pos.h"
 #include "cc_chessboard.h"
+#include "cc_move.h"
+#include "cc_game.h"
 
 
 #define CC_CHECK_STEPS_NO_LIMIT (0)
 
+
+bool cc_check_valid_draw_offer_exists( CcMove * moves,
+                                       CcGameStatusEnum gse );
 
 bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt );
 

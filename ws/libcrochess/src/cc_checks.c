@@ -6,6 +6,31 @@
 #include "cc_checks.h"
 
 
+bool cc_check_valid_draw_offer_exists( CcMove * moves,
+                                       CcGameStatusEnum gse ) {
+    if ( !moves ) return false;
+    if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false;
+
+    CcMove * m = moves;
+    CC_FASTFORWARD( m );
+
+    while ( m ) {
+        if ( CC_MOVE_STATUS_IS_DRAW_OFFER_REVOKED( m->status ) )
+            return false;
+        else if ( CC_MOVE_STATUS_IS_DRAW_OFFER( m->status ) )
+            return true;
+
+        // Skip two moves, because draw offer is made by one player.
+        m = m->prev__w;
+        if ( m )
+            m = m->prev__w;
+        else
+            break;
+    }
+
+    return false;
+}
+
 bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt ) {
     if ( ltt == CC_LTE_NoneLost ) {
         return true;
