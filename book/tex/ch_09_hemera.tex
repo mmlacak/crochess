@@ -325,7 +325,7 @@ dark Scout up-left, up-right diagonals.
 \begin{wrapfigure}[7]{l}{0.41\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_16_scout_capturing.png}
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Scout capturing}
 \label{fig:scn_hd_16_scout_capturing}
 \end{wrapfigure}
@@ -345,7 +345,7 @@ first step, but cannot capture dark Bishop after it made 3 steps to the right.
 \begin{wrapfigure}[14]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_17_scout_forking_steps.png}
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Forking steps}
 \label{fig:scn_hd_17_scout_forking_steps}
 \end{wrapfigure}
@@ -369,24 +369,23 @@ forking step after left, down, or right steps.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.41\textwidth}
+\begin{wrapfigure}[7]{l}{0.41\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_20_scout_rerouting.png}
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Rerouting Scout}
 \label{fig:scn_hd_20_scout_rerouting}
 \end{wrapfigure}
-Scout's horizontal and vertical steps can be blocked by any non-transparent piece,
-i.e. any but Wave. When step is blocked, Scout can choose one of associated diagonal,
+When Scout's step-fields are not empty, Scout can choose one of associated diagonal,
 forking step to move around obstacle. Then, Scout has to continue its movement in
 the same direction it was moving before rerouting.
 
-\vspace*{-0.7\baselineskip}
+\vspace*{0.9\baselineskip}
 \noindent
 \begin{wrapfigure}[9]{l}{0.41\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_21_scout_rerouting_first_step.png}
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Rerouting first step}
 \label{fig:scn_hd_21_scout_rerouting_first_step}
 \end{wrapfigure}
@@ -402,7 +401,7 @@ after rerouting is the blocked one.
 \begin{wrapfigure}[10]{l}{0.41\textwidth} % 10 = enough
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_22_scout_rerouting_pawn_wall.png}
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.5\baselineskip}
 \caption{Continuous rerouting}
 \label{fig:scn_hd_22_scout_rerouting_pawn_wall}
 \end{wrapfigure}
@@ -413,8 +412,8 @@ again. Each choice of forking step is independent from any previous choice.\newl
 Here, each time Scout is blocked by any Pawn (own or opponent's), it can choose
 between equally valid right-down or right-up forking steps, regardless of any
 previous choices.
-Dark Wave is transparent, non-blocking piece; so, light Scout does not get to
-choose any forking steps, and can only step over dark Wave.
+Dark Wave is transparent piece; so, light Scout can also step over dark Wave (and
+reach destination field A), in addition to choosing between two forking steps.
 
 \clearpage % ..........................................................
 

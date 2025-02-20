@@ -671,11 +671,15 @@ class SceneHemerasDawnMixin:
         scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
 
         # scene.append_arrow( *adder( 1,  0, do_advance=False ), mark_type=MarkType.Blocked )
-        # scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
-        # scene.append_arrow( *adder( 1,  1, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder( 1, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder( 1,  1, do_advance=False ), mark_type=MarkType.Action )
         scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
+        # scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Blocked )
 
-        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder( 1,  0, do_advance=True ), mark_type=MarkType.Legal )
+
+        end_O = GS.add_rel( start_w, 1, 0 )
+        scene.append_text( "A", *end_O, corner=Corner.UpperRight, mark_type=MarkType.Legal )
 
         return scene
 
