@@ -1,4 +1,4 @@
-.. Copyright (c) 2021, 2022, 2024 Mario Mlačak, mmlacak@gmail.com
+.. Copyright (c) 2025 Mario Mlačak, mmlacak@gmail.com
    This text is Public Domain work, under CC0 1.0 Universal Public Domain Dedication. See accompanying LICENSING, COPYING files for details.
    Included source code files are licensed under GNU GPL v3+ license. See LICENSING, COPYING files in root folder of the project for details.
 
