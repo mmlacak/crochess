@@ -16,9 +16,6 @@
 // #include "cc_game.h"
 
 
-// TODO :: DOCS
-
-
 #define CC_TRANCE_JOURNEY_TYPE_IS_ENUMERATOR(tjte) ( ( CC_TJTE_None <= (tjte) ) && ( (tjte) <= CC_TJTE_DoubleCapture ) )
 
 #define CC_TRANCE_JOURNEY_TYPE_IS_VALID(tjte) ( ( CC_TJTE_None < (tjte) ) && ( (tjte) <= CC_TJTE_DoubleCapture ) )
@@ -32,8 +29,6 @@ typedef enum CcTranceJourneyTypeEnum {
     CC_TJTE_Capture,
     CC_TJTE_DoubleCapture,
 } CcTranceJourneyTypeEnum;
-
-
 
 
 #endif /* __CC_RULES_DEFS_H__ */

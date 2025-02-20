@@ -83,6 +83,7 @@ Library contents
     ccparsemove
 
     ccgame
+    ccrulesdefs
 
     ccstrutils
     ccstrings
