@@ -50,7 +50,6 @@ typedef struct CcPos {
 
 bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
-// TODO :: DOCS
 CcPos cc_pos_add( CcPos pos, int i, int j );
 
 CcPos cc_pos_add_steps( CcPos pos, CcPos step, int count );

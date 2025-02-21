@@ -93,6 +93,21 @@ Functions
         * :c:enumerator:`CC_MBE_False` if no castling is possible,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
+.. c:function:: CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game, CcPieceType piece, CcPos destination, CcPieceType * target_piece__o, CcPos * target_pos__o )
+
+    Function finds a private captured by en passant, and its location.
+
+    :param game: A game.
+    :param piece: A moving piece.
+    :param destination: Destination field.
+    :param target_piece__o: An *output*; target piece, if found.
+    :param pos: An *output*; target position, if found.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if a private and its position were found,
+        * :c:enumerator:`CC_MBE_False` if en passant capture is not possible,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
 .. _lbl-libcc-ccchecks-sourcecodeheader:
 
 Header file

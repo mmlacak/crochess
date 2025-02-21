@@ -139,16 +139,38 @@ Functions
     :param pos_2: Another position.
     :returns: :c:data:`true` if positions are congruent, :c:data:`false` otherwise.
 
+.. c:function:: CcPos cc_pos_add( CcPos pos, int i, int j )
+
+    Function adds relative coordinates to a given position.
+
+    Function adds valid coordinates, if :c:`pos` is one of:
+
+        * valid positions
+        * file disambiguations
+        * rank disambiguations
+
+    and corresponding relative coordinate (:c:`i`, :c:`j`, or both) are valid.
+
+    If arguments have no common valid coordinates, result is invalid position,
+    e.g. if a rank disambiguation (:c:`pos`) is added to a file disambiguation
+    (if :c:`i` is valid, but :c:`j` is not).
+
+    :param pos: A position to add to.
+    :param i: File, horizontal coordinate.
+    :param j: Rank, vertical coordinate.
+    :returns: A position with added relative coordinates if successful,
+              :c:macro:`CC_POS_INVALID` otherwise.
+
 .. c:function:: CcPos cc_pos_add_steps( CcPos pos, CcPos step, int count )
 
-    Function adds step to position.
+    Function adds step(s) to a given position.
 
     Function adds valid coordinates, if both :c:`pos` and :c:`step`
     arguments are one of:
 
-    * valid positions
-    * file disambiguations
-    * rank disambiguations.
+        * valid positions
+        * file disambiguations
+        * rank disambiguations.
 
     If :c:`pos` and :c:`step` have no common valid coordinates,
     result is invalid position, e.g. if a rank disambiguation is
@@ -166,9 +188,9 @@ Functions
 
     Function subtracts valid coordinates, if both positions are one of:
 
-    * valid positions
-    * file disambiguations
-    * rank disambiguations.
+        * valid positions
+        * file disambiguations
+        * rank disambiguations.
 
     If given positions have no common valid coordinates, result is
     invalid position, e.g. if a rank disambiguation is subtracted
