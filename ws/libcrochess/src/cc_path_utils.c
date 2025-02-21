@@ -155,7 +155,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
                                                     CcPos current_pos,
                                                     CcMomentum momentum,
                                                     CcTypedStep step ) {
-    CcPos field = cc_pos_add( current_pos, step.step, 1 );
+    CcPos field = cc_pos_add_steps( current_pos, step.step, 1 );
     CcStep * steps__t = NULL;
 
     CcPieceEnum piece = CC_PE_None;
@@ -182,7 +182,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
         CcPieceEnum encounter = cc_chessboard_get_piece( game->chessboard, field.i, field.j );
         if ( encounter != CC_PE_None ) break; // Caller checks all possible interactions, including transparency; removes field of encounter if there are none.
 
-        field = cc_pos_add( field, step.step, 1 );
+        field = cc_pos_add_steps( field, step.step, 1 );
     }
 
     if ( !steps__t ) return NULL;

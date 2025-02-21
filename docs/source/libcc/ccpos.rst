@@ -139,7 +139,7 @@ Functions
     :param pos_2: Another position.
     :returns: :c:data:`true` if positions are congruent, :c:data:`false` otherwise.
 
-.. c:function:: CcPos cc_pos_add( CcPos pos, CcPos step, int count )
+.. c:function:: CcPos cc_pos_add_steps( CcPos pos, CcPos step, int count )
 
     Function adds step to position.
 

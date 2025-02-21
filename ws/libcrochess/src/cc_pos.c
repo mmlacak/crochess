@@ -30,7 +30,20 @@ bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 ) {
     return is_file || is_rank;
 }
 
-CcPos cc_pos_add( CcPos pos, CcPos step, int count ) {
+CcPos cc_pos_add( CcPos pos, int i, int j ) {
+    int _i = CC_INVALID_COORD;
+    int _j = CC_INVALID_COORD;
+
+    if ( CC_IS_COORD_VALID( pos.i ) && CC_IS_COORD_VALID( i ) )
+        _i = pos.i + i;
+
+    if ( CC_IS_COORD_VALID( pos.j ) && CC_IS_COORD_VALID( j ) )
+        _j = pos.j + j;
+
+    return CC_POS_CAST( _i, _j );
+}
+
+CcPos cc_pos_add_steps( CcPos pos, CcPos step, int count ) {
     int i = CC_INVALID_COORD;
     int j = CC_INVALID_COORD;
 

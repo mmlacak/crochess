@@ -149,7 +149,7 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     bool is_queen_side = ( king_start.i > rook_start.i );
     CcPos king_step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
 
-    CcPos current = cc_pos_add( king_start, king_step, 1 );
+    CcPos current = cc_pos_add_steps( king_start, king_step, 1 );
     cc_uint_t momentum = 1;
 
     do {
@@ -158,10 +158,61 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
         if ( cc_check_piece_is_blocked_at( cb, king, current ) == CC_MBE_True )
             return CC_MBE_False;
 
-        current = cc_pos_add( current, king_step, 1 );
+        current = cc_pos_add_steps( current, king_step, 1 );
 
         ++momentum;
     } while ( !CC_POS_IS_EQUAL( rook_dest, current ) );
 
     return CC_MBE_True;
+}
+
+CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
+                                           CcPieceType piece,
+                                           CcPos destination,
+                                           CcPieceType * target_piece__o,
+                                           CcPos * target_pos__o ) {
+    if ( !game ) return CC_MBE_Void;
+    if ( !game->chessboard ) return CC_MBE_Void;
+    if ( !target_piece__o ) return CC_MBE_Void;
+    if ( !target_pos__o ) return CC_MBE_Void;
+
+    CcChessboard * cb = game->chessboard;
+
+    // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.
+    if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return CC_MBE_False;
+
+    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece ) ) return CC_MBE_False;
+
+    bool is_piece_light = cc_piece_is_light( piece );
+
+    if ( is_piece_light ) { // En passant can only be done on opposite side of a chessboard.
+        if ( cc_chessboard_is_field_on_light_side( cb, destination.j ) ) return CC_MBE_False;
+    } else {
+        if ( cc_chessboard_is_field_on_dark_side( cb, destination.j ) ) return CC_MBE_False;
+    }
+
+    CcPieceType empty = cc_chessboard_get_piece( cb, destination.i, destination.j );
+    if ( empty != CC_PE_None ) return CC_MBE_False;
+
+    CcPos pos = destination;
+    int diff = is_piece_light ? 1 : -1;
+    CcPieceType target = CC_PE_None;
+
+    do {
+        pos = cc_pos_add( pos, 0, diff );
+        target = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    } while ( ( target == CC_PE_None ) &&
+              cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) );
+
+    if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) &&
+            cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) &&
+            ( target == game->en_passant.piece ) &&
+            ( game->en_passant.tag == CC_TE_None ) &&
+            ( CC_POS_IS_EQUAL( pos, game->en_passant.pos ) ) ) {
+        *target_piece__o = target;
+        *target_pos__o = pos;
+        return CC_MBE_True;
+    }
+
+    return CC_MBE_False;
 }
