@@ -128,14 +128,14 @@ Types
         capturing opponent's Pawns.
         Resets immediately at the end of a current move.
 
-    .. c:member:: CcPosDesc current_piece
+    .. c:member:: CcPosDesc initial_piece
 
-        Flag, a piece starting a cascade, at its current position.
+        Flag, a piece starting current move, its initial position and tag.
         Resets immediately at the end of a current move.
 
-    .. c:member:: CcPos initial_pos
+    .. c:member:: CcPos current_pos
 
-        Flag, an initial position of a piece starting a cascade.
+        Flag, current position of a piece starting a move.
         Resets immediately at the end of a current move.
 
     .. c:member:: CcMove * moves
@@ -171,8 +171,8 @@ Functions
 
         * :c:member:`en_passant`,
         * :c:member:`pawn_sacrifice`,
-        * :c:member:`current_piece`,
-        * :c:member:`initial_pos`.
+        * :c:member:`initial_piece`,
+        * :c:member:`current_pos`.
 
     :param game__io: Game to reset flags.
     :param reset_en_passant: Whether to reset :c:member:`en_passant` flag

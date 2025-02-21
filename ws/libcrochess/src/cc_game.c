@@ -70,8 +70,8 @@ bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant ) {
         game__io->en_passant = CC_POS_DESC_CAST_INVALID;
 
     game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
-    game__io->current_piece = CC_POS_DESC_CAST_INVALID;
-    game__io->initial_pos = CC_POS_CAST_INVALID;
+    game__io->initial_piece = CC_POS_DESC_CAST_INVALID;
+    game__io->current_pos = CC_POS_CAST_INVALID;
 
     return true;
 }
@@ -94,8 +94,8 @@ CcGame * cc_game_duplicate_all__new( CcGame * game ) {
 
     gm__a->en_passant = game->en_passant;
     gm__a->pawn_sacrifice = game->pawn_sacrifice;
-    gm__a->current_piece = game->current_piece;
-    gm__a->initial_pos = game->initial_pos;
+    gm__a->initial_piece = game->initial_piece;
+    gm__a->current_pos = game->current_pos;
 
     CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
     if ( game->moves && ( !mv__t ) ) {
