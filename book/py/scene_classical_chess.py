@@ -210,3 +210,51 @@ class SceneClassicalChessMixin:
         scene.append_field_marker( *start_P, mark_type=MarkType.Action )
 
         return scene
+
+
+    # TODO :: DEBUG :: MOVE
+
+    def scn_hd_60_multiple_rushes_init( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_60_multiple_rushes_init', bt, width=7.3, height=10.3 )
+
+        start_P = (1, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (1, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_O = (3, 4)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_p = (0, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_g = (4, 6)
+        scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
+
+        # P --> W
+        coords_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_P_W() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> O
+        coords_W_O = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( coords_W_O() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # O -->
+        coords_O_ = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_O_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+        scene.append_field_marker( *start_O, mark_type=MarkType.Action )
+
+        return scene
+
+    # TODO :: DEBUG :: MOVE

@@ -55,6 +55,8 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 
 bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant );
 
+// TODO :: func --> copy game except moves, update chessboard, reset pawn_sacrifice
+
 CcGame * cc_game_duplicate_all__new( CcGame * game );
 
 bool cc_game_free_all( CcGame ** game__f );
