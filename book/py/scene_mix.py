@@ -37,4 +37,5 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     'scn_hd_60_multiple_rushes_init', \
+                    'scn_hd_61_multiple_rushes_end', \
                 ]

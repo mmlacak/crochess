@@ -248,12 +248,46 @@ class SceneClassicalChessMixin:
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         # O -->
-        coords_O_ = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=3 )
+        coords_O_ = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=4 )
         for i, arrow in enumerate( coords_O_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
         scene.append_field_marker( *start_P, mark_type=MarkType.Action )
         scene.append_field_marker( *start_O, mark_type=MarkType.Action )
+
+        return scene
+
+
+    def scn_hd_61_multiple_rushes_end( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_61_multiple_rushes_end', bt, width=7.3, height=10.3 )
+
+        prev_P = (1, 1)
+        prev_W = (1, 4)
+        prev_O = (3, 4)
+        prev_p = (0, 3)
+        prev_g = (4, 6)
+
+        start_P = prev_W
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = prev_O
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_O = (3, 8)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_p = prev_p
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_g = prev_g
+        scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
+
+        scene.append_arrow( *GS.append_pos_rel( prev_p, 1, -1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( prev_g, -1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+        scene.append_field_marker( *start_O, mark_type=MarkType.Legal )
 
         return scene
 
