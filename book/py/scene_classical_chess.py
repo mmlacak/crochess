@@ -214,80 +214,152 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
-    def scn_hd_60_multiple_rushes_init( self, bt=BoardType.HemerasDawn ):
+    # def scn_hd_60_multiple_rushes_init( self, bt=BoardType.HemerasDawn ):
+    #
+    #     scene = Scene( 'scn_hd_60_multiple_rushes_init', bt, width=7.3, height=10.3 )
+    #
+    #     start_P = (1, 1)
+    #     scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+    #
+    #     start_W = (1, 4)
+    #     scene.board.set_piece( *start_W, piece=PieceType.Wave )
+    #
+    #     start_O = (3, 4)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
+    #
+    #     start_p = (0, 3)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #
+    #     start_g = (4, 6)
+    #     scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
+    #
+    #     # P --> W
+    #     coords_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=3 )
+    #     for i, arrow in enumerate( coords_P_W() ):
+    #         mark_type = MarkType.Action if i == 2 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
+    #
+    #     # W --> O
+    #     coords_W_O = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( coords_W_O() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
+    #
+    #     # O -->
+    #     coords_O_ = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=3 )
+    #     for i, arrow in enumerate( coords_O_() ):
+    #         scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+    #
+    #     scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+    #     scene.append_field_marker( *start_O, mark_type=MarkType.Action )
+    #
+    #     return scene
+    #
+    #
+    # def scn_hd_61_multiple_rushes_end( self, bt=BoardType.HemerasDawn ):
+    #
+    #     scene = Scene( 'scn_hd_61_multiple_rushes_end', bt, width=7.3, height=10.3 )
+    #
+    #     prev_P = (1, 1)
+    #     prev_W = (1, 4)
+    #     prev_O = (3, 4)
+    #     prev_p = (0, 3)
+    #     prev_g = (4, 6)
+    #
+    #     start_P = prev_W
+    #     scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+    #
+    #     start_W = prev_O
+    #     scene.board.set_piece( *start_W, piece=PieceType.Wave )
+    #
+    #     start_O = (3, 7)
+    #     scene.board.set_piece( *start_O, piece=PieceType.Scout )
+    #
+    #     start_p = prev_p
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #
+    #     start_g = prev_g
+    #     scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
+    #
+    #     scene.append_arrow( *GS.append_pos_rel( prev_p, 1, -1 ), mark_type=MarkType.Action )
+    #     scene.append_arrow( *GS.append_pos_rel( prev_g, -1, -1 ), mark_type=MarkType.Action )
+    #
+    #     scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+    #     scene.append_field_marker( *start_O, mark_type=MarkType.Legal )
+    #
+    #     return scene
 
-        scene = Scene( 'scn_hd_60_multiple_rushes_init', bt, width=7.3, height=10.3 )
 
-        start_P = (1, 1)
-        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+    def scn_n_31_multiple_rushes_init( self, bt=BoardType.Nineteen ):
 
-        start_W = (1, 4)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+        scene = Scene( 'scn_n_31_multiple_rushes_init', bt ) # , height=7.3, width=6.3 )
 
-        start_O = (3, 4)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+        start_P_A = (2, 1)
+        scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
 
-        start_p = (0, 3)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+        start_P_B = (6, 1)
+        scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_g = (4, 6)
-        scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
+        start_P_C = (10, 1)
+        scene.board.set_piece( *start_P_C, piece=PieceType.Pawn )
 
-        # P --> W
-        coords_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=3 )
-        for i, arrow in enumerate( coords_P_W() ):
-            mark_type = MarkType.Action if i == 2 else \
+        start_W_A = (2, 8)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (6, 8)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_W_C = (6, 4)
+        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+
+        start_W_D = (10, 4)
+        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
+
+        start_p_A = (1, 5)
+        scene.board.set_piece( *start_p_A, piece=-PieceType.Pawn )
+
+        start_p_B = (7, 3)
+        scene.board.set_piece( *start_p_B, piece=-PieceType.Pawn )
+
+        start_p_C = (11, 4)
+        scene.board.set_piece( *start_p_C, piece=-PieceType.Pawn )
+
+        # P(A) --> W(A)
+        coords_PA_WA = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=7 )
+        for i, arrow in enumerate( coords_PA_WA() ):
+            mark_type = MarkType.Action if i == 6 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W --> O
-        coords_W_O = GS.gen_steps( start=start_W, rels=[ (1, 0), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( coords_W_O() ):
-            mark_type = MarkType.Action if i == 1 else \
+        # W(A) --> W(B)
+        coords_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (1, 0), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_WA_WB() ):
+            mark_type = MarkType.Action if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # O -->
-        coords_O_ = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( coords_O_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+        # W(B) --> P(B)
+        coords_WB_PB = GS.gen_steps( start=start_W_B, rels=[ (0, -1), ], include_prev=True, count=7 )
+        for i, arrow in enumerate( coords_WB_PB() ):
+            mark_type = MarkType.Blocked if i == 3 else \
+                        MarkType.Action if i == 6 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
-        scene.append_field_marker( *start_O, mark_type=MarkType.Action )
+        scene.append_text( "A", *start_P_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_P_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "C", *start_P_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
 
-        return scene
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_W_C, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "D", *start_W_D, corner=Corner.UpperRight, mark_type=MarkType.Legal )
 
-
-    def scn_hd_61_multiple_rushes_end( self, bt=BoardType.HemerasDawn ):
-
-        scene = Scene( 'scn_hd_61_multiple_rushes_end', bt, width=7.3, height=10.3 )
-
-        prev_P = (1, 1)
-        prev_W = (1, 4)
-        prev_O = (3, 4)
-        prev_p = (0, 3)
-        prev_g = (4, 6)
-
-        start_P = prev_W
-        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
-
-        start_W = prev_O
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_O = (3, 8)
-        scene.board.set_piece( *start_O, piece=PieceType.Scout )
-
-        start_p = prev_p
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
-        start_g = prev_g
-        scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
-
-        scene.append_arrow( *GS.append_pos_rel( prev_p, 1, -1 ), mark_type=MarkType.Action )
-        scene.append_arrow( *GS.append_pos_rel( prev_g, -1, -1 ), mark_type=MarkType.Action )
-
-        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
-        scene.append_field_marker( *start_O, mark_type=MarkType.Legal )
+        scene.append_field_marker( *start_P_A, mark_type=MarkType.Legal )
+        scene.append_field_marker( *start_P_B, mark_type=MarkType.Legal )
+        scene.append_field_marker( *start_P_C, mark_type=MarkType.Legal )
 
         return scene
 

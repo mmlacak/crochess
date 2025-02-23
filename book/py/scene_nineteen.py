@@ -1157,6 +1157,11 @@ class SceneNineteenMixin:
         return scene
 
     #
+    # Multiple rushes
+
+    # TODO :: scn_n_30_multiple_rushes_init(), ...
+
+    #
     # Castling
 
     def scn_n_32_new_castling_init( self, bt=BoardType.Nineteen ):
