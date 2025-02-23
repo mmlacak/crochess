@@ -27,6 +27,8 @@
 typedef enum CcTagEnum {
     CC_TE_None = 0, /* No tag applies. */
 
+// TODO :: remove en-passant tag from CcGame, reintroduce it here
+
     CC_TE_CanRush, /* Pawn can rush, persistent tag. */
     CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
     CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
@@ -49,6 +51,8 @@ bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 );
 
 typedef enum CcLosingTagEnum {
     CC_LTE_NoneLost = CC_TE_None, /* No tag has been lost. */
+
+// TODO :: remove en-passant tag from CcGame, reintroduce it here
 
     CC_LTE_RushingTagLost = CC_TE_CanRush, /* Pawn lost its ability to rush. */
     CC_LTE_CastlingTagLost = CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */

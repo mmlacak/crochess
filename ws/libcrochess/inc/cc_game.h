@@ -41,6 +41,8 @@ typedef struct CcGame {
     CcGameStatusEnum status;
     CcChessboard * chessboard;
 
+// TODO :: remove en-passant tag from CcGame, reintroduce it in tags
+
     CcPosDesc en_passant;
     CcPosDesc pawn_sacrifice;
     CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.

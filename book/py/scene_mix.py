@@ -36,8 +36,10 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_n_31_multiple_rushes_init', \
-                    'scn_n_32_multiple_rushes_2nd_pawn', \
-                    'scn_n_33_multiple_rushes_3rd_pawn', \
-                    'scn_n_34_multiple_rushes_end', \
+                    # 'scn_n_31_multiple_rushes_init', \
+                    # 'scn_n_32_multiple_rushes_2nd_pawn', \
+                    # 'scn_n_33_multiple_rushes_3rd_pawn', \
+                    # 'scn_n_34_multiple_rushes_end', \
+                    'scn_hd_60_multiple_rushes_init', \
+                    'scn_hd_61_multiple_rushes_end', \
                 ]
