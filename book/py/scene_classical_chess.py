@@ -278,5 +278,44 @@ class SceneClassicalChessMixin:
 
         return scene
 
+    def scn_mv_65_en_passant_denied_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_65_en_passant_denied_init', bt, height=7.3, width=6.3 )
+
+        field_E = (3, 3)
+
+        start_P = (3, 1)
+        end_P = (3, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W_A = end_P
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = (1, 5)
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_p = (4, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P --> W(A)
+        start_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_P_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> W(B)
+        start_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (-1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_WA_WB() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "R", *end_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
