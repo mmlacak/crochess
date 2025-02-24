@@ -1335,28 +1335,34 @@ rushing Pawn, and a figure onto en passant capture-field.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_63_activation_after_en_passant_init.png}
 \vspace*{-1.4\baselineskip}
-\caption{Rushing cascade}
+\caption{Rushing light Pawn}
 \label{fig:scn_mv_63_activation_after_en_passant_init}
 \end{wrapfigure}
-...
+Opponent's Wave is also transparent to a rushing Pawn; while Pawn cannot interact
+with opponent's Wave on its step-fields, Pawn can step over Wave, and continue
+rushing.
 
-\vspace*{10.3\baselineskip}
+Here, light Pawn is rushing from field P, over dark Wave, onto its destination
+field R.
+
+\vspace*{1.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_64_activation_after_en_passant_end.png}
 \vspace*{-1.4\baselineskip}
-\caption{Setting-up a figure}
+\caption{Activation after en passant}
 \label{fig:scn_mv_64_activation_after_en_passant_end}
 \end{wrapfigure}
-...
+Activating a piece does not prevent a Pawn from capturing another en passant, since
+activation is continuation of a cascade, not side-effect of a movement.
 
-\vspace*{10.3\baselineskip}
-\TODO :: fix --> en passant does not prevent activation of own Wave (and vice-versa)
+Here, dark Pawn is about to activate dark Wave on its en passant capture-field,
+light Pawn would be captured, and dark Wave would continue a cascade.
 
 \clearpage % ..........................................................
 
