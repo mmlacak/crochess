@@ -210,3 +210,73 @@ class SceneClassicalChessMixin:
         scene.append_field_marker( *start_P, mark_type=MarkType.Action )
 
         return scene
+
+
+    # TODO :: DEBUG :: MOVE
+
+    def scn_mv_63_activation_after_en_passant_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_63_activation_after_en_passant_init', bt, height=6.3, width=6.3 ) # , height=7.3, width=6.3 )
+
+        field_E = (3, 3)
+
+        start_P = (3, 1)
+        end_P = (3, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (4, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w = field_E
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # P --> w -->
+        start_P_w_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_P_w_() ):
+            mark_type = MarkType.Blocked if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "R", *end_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_mv_64_activation_after_en_passant_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_64_activation_after_en_passant_end', bt, height=6.3, width=6.3 ) # , height=7.3, width=6.3 )
+
+        field_E = (3, 3)
+
+        start_P = (3, 1)
+        end_P = (3, 5)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_p = (4, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w = field_E
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        # P --> w -->
+        start_P_w_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( start_P_w_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # p --> [P]
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Action )
+
+        # w -->
+        start_w_ = GS.gen_steps( start=start_w, rels=[ (1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_w_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "P", *start_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "R", *end_P, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
+
+    # TODO :: DEBUG :: MOVE

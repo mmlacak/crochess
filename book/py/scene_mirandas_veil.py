@@ -2866,6 +2866,16 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Activation after en passant
+
+    # TODO
+
+    #
+    # En passant denied
+
+    # TODO
+
+    #
     # Converting opponent's pieces
 
     def scn_mv_63_converting_opponents_piece_init( self, bt=BoardType.MirandasVeil ):
