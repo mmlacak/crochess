@@ -351,5 +351,37 @@ class SceneClassicalChessMixin:
 
         return scene
 
+    def scn_mv_67_en_passant_denied_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_67_en_passant_denied_end', bt, height=7.3, width=6.3 )
+
+        prev_P = (3, 1)
+        prev_W_B = (1, 5)
+
+        start_P = (3, 5)
+        end_P = (3, 6)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_W_A = prev_W_B
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_W_B = start_P
+        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+
+        start_p = (4, 4)
+        end_p = (3, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P -->
+        scene.append_arrow( *( start_P + end_P ), mark_type=MarkType.Blocked )
+
+        # p -->
+        scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
