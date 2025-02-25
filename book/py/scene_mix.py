@@ -39,6 +39,7 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_63_activation_after_en_passant_init', \
                     # 'scn_mv_64_activation_after_en_passant_end', \
                     'scn_mv_65_en_passant_denied_init', \
+                    'scn_mv_66_en_passant_denied_pawn_activated', \
                     # 'scn_n_31_multiple_rushes_init', \
                     # 'scn_n_32_multiple_rushes_end', \
                     # 'scn_hd_60_multiple_rushes_init', \
