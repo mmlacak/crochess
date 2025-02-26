@@ -1620,7 +1620,7 @@ since that is positioned on its capture-field.
 
 % \clearpage % ..........................................................
 
-% \vspace*{-2.1\baselineskip}
+\vspace*{1.7\baselineskip}
 \noindent
 \begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
@@ -1651,7 +1651,7 @@ rushing Pawn, and a figure onto en passant capture-field.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_84_activation_after_en_passant_init.png}
 \vspace*{-1.4\baselineskip}
@@ -1659,13 +1659,13 @@ rushing Pawn, and a figure onto en passant capture-field.
 \label{fig:scn_mv_84_activation_after_en_passant_init}
 \end{wrapfigure}
 Opponent's Wave is also transparent to a rushing Pawn; while Pawn cannot interact
-with opponent's Wave on its step-fields, Pawn can step over Wave, and continue
+with opponent's Wave on its step-fields, Pawn can step over it, and continue
 rushing.
 
 Here, light Pawn is rushing from field P, over dark Wave, onto its destination
 field R.
 
-\vspace*{1.7\baselineskip}
+\vspace*{2.7\baselineskip}
 \noindent
 \begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
@@ -1678,54 +1678,8 @@ Activating a piece does not prevent a Pawn from capturing another en passant, si
 activation is continuation of a cascade, not side-effect of a movement.
 
 Here, dark Pawn is about to activate dark Wave on its en passant capture-field,
-light Pawn would be captured, and dark Wave would continue a cascade.
+light Pawn would be captured en passant, and dark Wave would continue a cascade.
 
-\clearpage % ..........................................................
-% En passant denied ...................................................
-
-\subsubsection*{En passant denied}
-\addcontentsline{toc}{subsubsection}{En passant denied}
-\label{sec:Miranda's veil/Wave/En passant/En passant denied}
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_86_en_passant_denied_init.png}
-\vspace*{-1.4\baselineskip}
-\caption{Rushing light Pawn}
-\label{fig:scn_mv_86_en_passant_denied_init}
-\end{wrapfigure}
-. . .
-
-\vspace*{11.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_87_en_passant_denied_pawn_activated.png}
-\vspace*{-1.4\baselineskip}
-\caption{Light Pawn activated}
-\label{fig:scn_mv_87_en_passant_denied_pawn_activated}
-\end{wrapfigure}
-. . .
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_88_en_passant_denied_end.png}
-\vspace*{-1.4\baselineskip}
-\caption{En passant denied}
-\label{fig:scn_mv_88_en_passant_denied_end}
-\end{wrapfigure}
-. . .
-
-\vspace*{12.7\baselineskip}
-\TODO :: En passant denied by reactivating rushed Pawn
-
-% ................................................... En passant denied
 \clearpage % ..........................................................
 
 \subsubsection*{En passant possible}
@@ -1821,6 +1775,52 @@ been activated; only momentum gathered has to be enough to also drive rushing
 Pawn.
 
 % .................................................. En passant blocked
+\clearpage % ..........................................................
+% En passant denied ...................................................
+
+\subsubsection*{En passant denied}
+\addcontentsline{toc}{subsubsection}{En passant denied}
+\label{sec:Miranda's veil/Wave/En passant/En passant denied}
+
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_96_en_passant_denied_init.png}
+\vspace*{-1.4\baselineskip}
+\caption{Rushing light Pawn}
+\label{fig:scn_mv_96_en_passant_denied_init}
+\end{wrapfigure}
+. . .
+
+\vspace*{11.7\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_97_en_passant_denied_pawn_activated.png}
+\vspace*{-1.4\baselineskip}
+\caption{Activating light Pawn}
+\label{fig:scn_mv_97_en_passant_denied_pawn_activated}
+\end{wrapfigure}
+. . .
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_98_en_passant_denied_end.png}
+\vspace*{-1.4\baselineskip}
+\caption{En passant denied}
+\label{fig:scn_mv_98_en_passant_denied_end}
+\end{wrapfigure}
+. . .
+
+\vspace*{12.7\baselineskip}
+\TODO :: En passant denied by reactivating rushed Pawn
+
+% ................................................... En passant denied
 \clearpage % ..........................................................
 % Remote en passant ...................................................
 
