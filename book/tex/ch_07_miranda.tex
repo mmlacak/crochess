@@ -1530,7 +1530,31 @@ activate any other Wave, regardless of colors.
 \addcontentsline{toc}{subsection}{En passant}
 \label{sec:Miranda's veil/Wave/En passant}
 
-% \clearpage % ..........................................................
+Until this variant the only difference from Classical Chess was the possibility
+for a Pawn to rush for more than two fields; otherwise, rush and en passant were
+the same as in Classical Chess, and with the same rules still in place:\newline
+\href{https://en.wikipedia.org/wiki/En\_passant}{https://en.wikipedia.org/wiki/En\_passant}.
+
+Now, due to transparency of Waves, ability to cascade own and opponent's pieces, it's
+possible for a Pawn capturing en passant to encounter pieces on its capture-field,
+and between a capture-field and a rushed Pawn, immediately after opponent's cascade
+has finished.
+
+En passant turns into ordinary capture if a piece on Pawn's capture-field can be
+captured, in which case rushed Pawn can't be captured en passant anymore.
+En passant is blocked if a piece on a capture-field can't be captured, e.g. if
+it's in the same color as capturing Pawn. En passant is denied if rushed Pawn was
+(re)activated and moved away from its rushing destination, in the very same
+cascade.
+
+In all other cases en passant is still possible; for instance, if a piece on a
+capture-field can be activated, or if there are pieces between a capture-field
+and a rushed Pawn.
+
+Note, capturing Pawn can take en passant opportunity only if it started a move,
+in the very first ply of a cascade, and cannot if (re)activated.
+
+\clearpage % ..........................................................
 % En passant turned capture ...........................................
 
 \subsubsection*{En passant turned capture}
@@ -1549,17 +1573,17 @@ activate any other Wave, regardless of colors.
 Rushing Pawn can start a cascade in which other own piece is placed onto opponent's
 en passant capture-field.
 Opponent's Pawn can then capture a piece, but cannot capture rushing Pawn en passant
-anymore.
-
+anymore.\newline
+\indent
 On the left, dark Pawn is positioned so that it would gain en passant opportunity,
 should light Pawn rush over field E. Rushing Pawn is about to start a cascade by
 activating light Wave, which can then activate Bishop, which can then activate
 Pyramid.
 
 % \TODO :: fix lmodern
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
+% \vspace*{-2.1\baselineskip}
 \noindent
 \begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
@@ -1574,10 +1598,9 @@ show first part of the cascade, which is already done.\newline
 Here, activated light Pyramid (now "in the air") is about to move to its destination
 field E.
 
-% \clearpage % ..........................................................
+\clearpage % ..........................................................
 
-% \vspace*{-2.1\baselineskip}
-\vspace*{5.1\baselineskip}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
@@ -1595,9 +1618,9 @@ since that is positioned on its capture-field.
 
 % \TODO :: fix lmodern
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
+% \vspace*{-2.1\baselineskip}
 \noindent
 \begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
@@ -1798,6 +1821,16 @@ been activated; only momentum gathered has to be enough to also drive rushing
 Pawn.
 
 % .................................................. En passant blocked
+\clearpage % ..........................................................
+% Remote en passant ...................................................
+
+\subsubsection*{Remote en passant denied}
+\addcontentsline{toc}{subsubsection}{Remote en passant denied}
+\label{sec:Miranda's veil/Wave/En passant/Remote en passant denied}
+
+\TODO :: Remote en passant denied --> (re)activated capturing Pawn cannot make use of en passant tag on opponent's Pawn; only capturing Pawn if it's started a move (1st ply in a cascade)
+
+% ................................................... Remote en passant
 % ---------------------------------------------------------- En passant
 % **************************************************************** Wave
 \clearpage % ..........................................................
