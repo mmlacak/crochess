@@ -1644,53 +1644,6 @@ rushing Pawn, and a figure onto en passant capture-field.
 
 % ........................................... En passant turned capture
 \clearpage % ..........................................................
-
-\subsubsection*{Activation after en passant}
-\addcontentsline{toc}{subsubsection}{Activation after en passant}
-\label{sec:Miranda's veil/Wave/En passant/Activation after en passant}
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_84_activation_after_en_passant_init.png}
-\vspace*{-1.4\baselineskip}
-\caption{Rushing light Pawn}
-\label{fig:scn_mv_84_activation_after_en_passant_init}
-\end{wrapfigure}
-Opponent's Wave is also transparent to a rushing Pawn; while Pawn cannot interact
-with opponent's Wave on its step-fields, Pawn can step over it, and continue
-rushing.
-
-Here, light Pawn is rushing from field P, over dark Wave, onto its destination
-field R.
-
-\vspace*{2.7\baselineskip}
-\noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_85_activation_after_en_passant_end.png}
-\vspace*{-1.4\baselineskip}
-\caption{Activation after en passant}
-\label{fig:scn_mv_85_activation_after_en_passant_end}
-\end{wrapfigure}
-Activating a piece does not prevent a Pawn from capturing another en passant, since
-activation is continuation of a cascade, not side-effect of a movement.
-
-Here, dark Pawn is about to activate dark Wave on its en passant capture-field,
-light Pawn would be captured en passant, and dark Wave would continue a cascade.
-
-\clearpage % ..........................................................
-
-\subsubsection*{En passant possible}
-\addcontentsline{toc}{subsubsection}{En passant possible}
-\label{sec:Miranda's veil/Wave/En passant/En passant possible}
-
-\TODO :: better title
-
-\TODO :: En passant possible, even when activated figures placed between capture-field and rushed Pawn, in a cascade similar to Pyramid on capture-field example
-
-\clearpage % ..........................................................
 % En passant blocked ..................................................
 
 \subsubsection*{En passant blocked}
@@ -1701,10 +1654,10 @@ light Pawn would be captured en passant, and dark Wave would continue a cascade.
 \noindent
 \begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_92_rushing_cascade_opponent.png}
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_84_rushing_cascade_opponent.png}
 \vspace*{-1.4\baselineskip}
 \caption{Rushing cascade}
-\label{fig:scn_mv_92_rushing_cascade_opponent}
+\label{fig:scn_mv_84_rushing_cascade_opponent}
 \end{wrapfigure}
 Rushing Pawn can start a cascade in which opponent's piece is placed onto opponent's
 Pawn capture-field.
@@ -1722,10 +1675,10 @@ with dark Rook.
 \noindent
 \begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_93_blocking_en_passant.png}
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_85_blocking_en_passant.png}
 \vspace*{-1.4\baselineskip}
 \caption{Blocking en passant}
-\label{fig:scn_mv_93_blocking_en_passant}
+\label{fig:scn_mv_85_blocking_en_passant}
 \end{wrapfigure}
 Grey arrows show path traveled over by a piece they point to; taken together they
 show first part of the cascade, which is already done.\newline
@@ -1739,45 +1692,23 @@ field E.
 \noindent
 \begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_94_blocked_en_passant.png}
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_86_blocked_en_passant.png}
 \vspace*{-1.4\baselineskip}
 \caption{Blocked en passant}
-\label{fig:scn_mv_94_blocked_en_passant}
+\label{fig:scn_mv_86_blocked_en_passant}
 \end{wrapfigure}
 On the left, since activated Rook has settled onto field E, rushing light Pawn
-cascade has finished, and now it's dark player's turn.\newline
-\indent
+cascade has finished, and now it's dark player's turn.
+
 Even though it rushed over field E on the very previous turn, light Pawn cannot
 be captured en passant, because dark Pawn is blocked by its own dark Rook, and
 so it cannot move to its capture-field.
 
-\vspace*{3.7\baselineskip}
-\noindent
-\begin{wrapfigure}[13]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_95_en_passant_blocked_by_wave.png}
-\vspace*{-1.4\baselineskip}
-\caption{Blocked by Wave}
-\label{fig:scn_mv_95_en_passant_blocked_by_wave}
-\end{wrapfigure}
-Since \hyperref[fig:scn_mv_07_wave_is_transparent]{Wave is transparent} to all pieces,
-own or opponent's; rushing Pawn can step over opponent's Wave, and can continue rushing
-further. Any piece blocking opponent's Pawn capture-field also prevents rushing Pawn to
-be captured en passant.
-
-In a new example on the left similar to previous one, grey arrows show path traveled
-over by rushing light Pawn, from its starting field P. Now on dark player's turn,
-dark Pawn cannot capture rushing Pawn en passant, since dark Wave is blocking its
-capture-field E.
-
-The same blocking prevents en passant also applies to rushing Pawns which has
-been activated; only momentum gathered has to be enough to also drive rushing
-Pawn.
-
 % .................................................. En passant blocked
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 % En passant denied ...................................................
 
+\vspace*{3.1\baselineskip}
 \subsubsection*{En passant denied}
 \addcontentsline{toc}{subsubsection}{En passant denied}
 \label{sec:Miranda's veil/Wave/En passant/En passant denied}
@@ -1786,10 +1717,10 @@ Pawn.
 \noindent
 \begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_96_en_passant_denied_init.png}
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_87_en_passant_denied_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Rushing light Pawn}
-\label{fig:scn_mv_96_en_passant_denied_init}
+\label{fig:scn_mv_87_en_passant_denied_init}
 \end{wrapfigure}
 Rushing Pawn can be (re)activated and moved away from its rushing destination, all
 in the very same cascade, thus denying en passant opportunity to opponent.
@@ -1797,14 +1728,17 @@ in the very same cascade, thus denying en passant opportunity to opponent.
 Here, light Pawn is about to rush forward and activate light Wave A, which would
 then activate light Bishop, which would activate light Wave C.
 
-\vspace*{1.7\baselineskip}
+\clearpage % ..........................................................
+
+% \vspace*{1.7\baselineskip}
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{wrapfigure}[13]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_97_en_passant_denied_pawn_activated.png}
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_88_en_passant_denied_pawn_activated.png}
 \vspace*{-1.4\baselineskip}
 \caption{Activating light Pawn}
-\label{fig:scn_mv_97_en_passant_denied_pawn_activated}
+\label{fig:scn_mv_88_en_passant_denied_pawn_activated}
 \end{wrapfigure}
 Rushed Pawn is \hyperref[fig:scn_cc_09_tags_rushing]{tagged as en passant opportunity}
 immediately after its rushing ply is finished. Tag is a link between a piece and its
@@ -1814,16 +1748,16 @@ Here, light Pawn has rushed in previous ply, now is tagged as en passant opportu
 Activated light Wave C (now "in-the-air") is about to activate light Pawn, which would
 then move a field forward.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\vspace*{-2.1\baselineskip}
+% \vspace*{-2.1\baselineskip}
 \noindent
 \begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_98_en_passant_denied_end.png}
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_89_en_passant_denied_end.png}
 \vspace*{-1.4\baselineskip}
 \caption{En passant denied}
-\label{fig:scn_mv_98_en_passant_denied_end}
+\label{fig:scn_mv_89_en_passant_denied_end}
 \end{wrapfigure}
 Here, light Pawn has moved away from its rushing destination, and so it also lost
 en passant opportunity tag, all in a previous light player's cascade.
@@ -1832,6 +1766,53 @@ Now is dark player's turn, but it's illegal for a dark Pawn to try capture light
 Pawn en passant, since it doesn't have its tag anymore.
 
 % ................................................... En passant denied
+\clearpage % ..........................................................
+
+\subsubsection*{Activation after en passant}
+\addcontentsline{toc}{subsubsection}{Activation after en passant}
+\label{sec:Miranda's veil/Wave/En passant/Activation after en passant}
+
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_90_activation_after_en_passant_init.png}
+\vspace*{-1.4\baselineskip}
+\caption{Rushing light Pawn}
+\label{fig:scn_mv_90_activation_after_en_passant_init}
+\end{wrapfigure}
+Opponent's Wave is also transparent to a rushing Pawn; while Pawn cannot interact
+with opponent's Wave on its step-fields, Pawn can step over it, and continue
+rushing.
+
+Here, light Pawn is rushing from field P, over dark Wave, onto its destination
+field R.
+
+\vspace*{2.7\baselineskip}
+\noindent
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_91_activation_after_en_passant_end.png}
+\vspace*{-1.4\baselineskip}
+\caption{Activation after en passant}
+\label{fig:scn_mv_91_activation_after_en_passant_end}
+\end{wrapfigure}
+Activating a piece does not prevent a Pawn from capturing another en passant, since
+activation is continuation of a cascade, not side-effect of a movement.
+
+Here, dark Pawn is about to activate dark Wave on its en passant capture-field,
+light Pawn would be captured en passant, and dark Wave would continue a cascade.
+
+\clearpage % ..........................................................
+
+\subsubsection*{En passant possible}
+\addcontentsline{toc}{subsubsection}{En passant possible}
+\label{sec:Miranda's veil/Wave/En passant/En passant possible}
+
+\TODO :: better title
+
+\TODO :: En passant possible, even when activated figures placed between capture-field and rushed Pawn, in a cascade similar to Pyramid on capture-field example
+
 \clearpage % ..........................................................
 % Remote en passant ...................................................
 
