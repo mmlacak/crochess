@@ -270,6 +270,12 @@ class SceneClassicalChessMixin:
 
         scene = Scene( 'scn_mv_97_en_passant_denied_pawn_activated', bt, height=7.3, width=6.3 )
 
+        prev_P = (3, 1)
+        prev_W_A = (3, 5)
+        prev_B = (2, 6)
+        prev_W_B = (1, 5)
+        prev_W_C = (2, 4)
+
         field_E = (3, 3)
 
         start_P = (3, 5)
@@ -290,6 +296,20 @@ class SceneClassicalChessMixin:
 
         start_p = (4, 4)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # # P --> W(A)
+        # start_P_WA = GS.gen_steps( start=prev_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        # for i, arrow in enumerate( start_P_WA() ):
+        #     scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+        #
+        # # W(A) --> B
+        # scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
+        #
+        # # B --> W(B)
+        # scene.append_arrow( *( prev_B + prev_W_B ), mark_type=MarkType.Blocked )
+        #
+        # # W(B) --> W(C)
+        # scene.append_arrow( *( prev_W_B + prev_W_C ), mark_type=MarkType.Blocked )
 
         # W(C) --> P
         scene.append_arrow( *( start_W_C + start_P ), mark_type=MarkType.Action )
