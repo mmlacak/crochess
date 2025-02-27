@@ -1811,41 +1811,52 @@ light Pawn would be captured en passant, and dark Wave would continue a cascade.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_92_en_passant_not_blocked_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Rushing cascade}
 \label{fig:scn_mv_92_en_passant_not_blocked_init}
 \end{wrapfigure}
-. . .
+Pieces on fields other than en passant capture-field do not block capture, regardless
+if light or dark.
 
-\vspace*{11.7\baselineskip}
+Here, light Pawn is about to rush forward and activate light Wave, which would
+then activate light Bishop, which would activate light Pyramid.
+
+\vspace*{3.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_93_en_passant_not_blocked_step_2.png}
 \vspace*{-1.4\baselineskip}
-\caption{Rushing cascade}
+\caption{Continuing cascade}
 \label{fig:scn_mv_93_en_passant_not_blocked_step_2}
 \end{wrapfigure}
-. . .
+Here, light Pawn rushed forward in the very first ply, after which it has been
+tagged as en passant opportunity (green marker). Other pieces have advanced in
+their plies, too; grey arrows now show path traveled over by a piece they point
+to.
+
+Light Pyramid (now "in-the-air") is about to land on a field between rushed light
+Pawn and en passant capture-field E.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_94_en_passant_not_blocked_end.png}
 \vspace*{-1.4\baselineskip}
-\caption{Rushing cascade}
+\caption{En passant not blocked}
 \label{fig:scn_mv_94_en_passant_not_blocked_end}
 \end{wrapfigure}
-. . .
+Here, light player's cascade has been finished, now it's dark player turn. Rushed
+light Pawn hasn't been moved from its destination, so it retains its tag.
 
-\vspace*{14.7\baselineskip}
-\TODO :: En passant possible, even when activated figures placed between capture-field and rushed Pawn, in a cascade similar to Pyramid on capture-field example
+Dark Pawn can capture light Pawn en passant, regardless of light Pyramid in-between
+its capture-field E and light Pawn.
 
 \clearpage % ..........................................................
 % Remote en passant ...................................................
