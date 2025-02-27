@@ -266,5 +266,44 @@ class SceneClassicalChessMixin:
 
         return scene
 
+    def scn_mv_96_en_passant_illegal_pawn_activated( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_96_en_passant_illegal_pawn_activated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
+
+        end_P = (1, 7)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_p = (2, 8)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w_A = (3, 7)
+        scene.board.set_piece( *start_w_A, piece=-PieceType.Wave )
+
+        start_w_B = (2, 7)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_w_C = (2, 6)
+        # scene.board.set_piece( *start_w_C, piece=-PieceType.Wave )
+
+        start_q = (2, 6)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
+        # w(C) --> p
+        start_wC_p = GS.gen_steps( start=start_w_C, rels=[ (0, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_wC_p() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+
+        scene.append_text( "A", *start_w_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_w_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+
+        scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
+        scene.append_field_marker( *start_p, mark_type=MarkType.Legal )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
