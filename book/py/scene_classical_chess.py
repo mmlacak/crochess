@@ -214,5 +214,134 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
+    #
+    # En passant not blocked
+
+    def scn_mv_92_en_passant_not_blocked_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_92_en_passant_not_blocked_init', bt, height=7.3, width=6.3 )
+
+        start_P = (3, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (4, 3)
+        end_p = (3, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = (3, 5) # 7)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = (3, 6)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_A = (1, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # P --> W(A)
+        start_P_WA = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=4 ) # 6 )
+        for i, arrow in enumerate( start_P_WA() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W(A) --> B
+        scene.append_arrow( *( start_W_A + start_B ), mark_type=MarkType.Action )
+
+        # B --> A
+        start_B_A = GS.gen_steps( start=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_B_A() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_mv_93_en_passant_not_blocked_step_2( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_93_en_passant_not_blocked_step_2', bt, height=7.3, width=6.3 )
+
+        prev_P = (3, 1)
+        prev_p = (4, 5)
+        prev_W_A = (3, 5)
+        prev_B = (3, 6)
+        prev_A = (1, 4)
+
+        start_P = (3, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (4, 3)
+        end_p = (3, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = (3, 6)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        # start_A = (3, 4)
+        # scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # P --> W(A)
+        start_P_WA = GS.gen_steps( end=start_P, rels=[ (0, 1), ], include_prev=True, count=4 ) # 6 )
+        for i, arrow in enumerate( start_P_WA() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W(A) --> B
+        scene.append_arrow( *( prev_W_A + prev_B ), mark_type=MarkType.Blocked )
+
+        # B --> A
+        start_B_A = GS.gen_steps( end=start_B, rels=[ (-1, -1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_B_A() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # A -->
+        start_A_ = GS.gen_steps( start=prev_A, rels=[ (1, 0), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_A_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_mv_94_en_passant_not_blocked_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_94_en_passant_not_blocked_end', bt, height=7.3, width=6.3 )
+
+        prev_P = (3, 1)
+        prev_p = (4, 5)
+        prev_W_A = (3, 5)
+        prev_B = (3, 6)
+        prev_A = (1, 4)
+
+        start_P = (3, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_p = (4, 3)
+        end_p = (3, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_W_A = (3, 6)
+        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+
+        start_B = (1, 4)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_A = (3, 4)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        # p --> *
+        scene.append_arrow( *( start_p + end_p ), mark_type=MarkType.Action )
+
+        scene.append_text( "E", *end_p, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
