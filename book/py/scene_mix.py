@@ -47,7 +47,8 @@ class SceneMix( SceneMixin, \
                     \
                     # 'scn_mv_95_en_passant_illegal_init', \
                     # 'scn_mv_96_en_passant_illegal_pawn_activated', \
-                    'scn_mv_97_en_passant_illegal_queen_reactivated', \
+                    # 'scn_mv_97_en_passant_illegal_queen_reactivated', \
+                    'scn_mv_98_en_passant_illegal_pawn_reactivated', \
                     \
                     # 'scn_n_31_multiple_rushes_init', \
                     # 'scn_n_32_multiple_rushes_end', \

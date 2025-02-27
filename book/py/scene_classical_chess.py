@@ -344,5 +344,45 @@ class SceneClassicalChessMixin:
 
         return scene
 
+    def scn_mv_98_en_passant_illegal_pawn_reactivated( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_98_en_passant_illegal_pawn_reactivated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
+
+        field_E = (1, 6)
+
+        end_P = (1, 7)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_p = (2, 7)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w_A = (3, 7)
+        # scene.board.set_piece( *start_w_A, piece=-PieceType.Wave )
+
+        start_w_B = (2, 6)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_w_C = (2, 8)
+        scene.board.set_piece( *start_w_C, piece=-PieceType.Wave )
+
+        start_q = (3, 7)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
+        # w(A) --> p
+        scene.append_arrow( *( start_w_A + start_p ), mark_type=MarkType.Action )
+
+        # p --> *
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Illegal )
+
+        # scene.append_text( "A", *start_w_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_w_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+
+        scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
