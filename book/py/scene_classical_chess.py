@@ -214,5 +214,57 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
+    #
+    # En passant illegal
+
+    def scn_mv_95_en_passant_illegal_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_95_en_passant_illegal_init', bt, width=6.3 ) # , height=7.3, width=6.3 )
+
+        start_P = (1, 1)
+        end_P = (1, 7)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_p = (2, 14)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w_A = (2, 8)
+        scene.board.set_piece( *start_w_A, piece=-PieceType.Wave )
+
+        start_w_B = (2, 7)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_w_C = (2, 6)
+        scene.board.set_piece( *start_w_C, piece=-PieceType.Wave )
+
+        start_q = (3, 7)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
+        # P -->
+        start_P_ = GS.gen_steps( end=end_P, rels=[ (0, 1), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( start_P_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # p -->
+        start_p_ = GS.gen_steps( start=start_p, rels=[ (0, -1), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( start_p_() ):
+            mark_type = MarkType.Action if i == 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w(A) --> q
+        scene.append_arrow( *( start_w_A + start_q ), mark_type=MarkType.Action )
+
+        # q --> w(C)
+        scene.append_arrow( *( start_q + start_w_C ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_w_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_w_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+
+        scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
