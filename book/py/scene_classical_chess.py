@@ -298,10 +298,49 @@ class SceneClassicalChessMixin:
 
         scene.append_text( "A", *start_w_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
         scene.append_text( "B", *start_w_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
-        scene.append_text( "C", *start_w_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        # scene.append_text( "C", *start_w_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
 
         scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
         scene.append_field_marker( *start_p, mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_mv_97_en_passant_illegal_queen_reactivated( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_97_en_passant_illegal_queen_reactivated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
+
+        end_P = (1, 7)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_p = (2, 8)
+        # scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_w_A = (3, 7)
+        scene.board.set_piece( *start_w_A, piece=-PieceType.Wave )
+
+        start_w_B = (2, 7)
+        scene.board.set_piece( *start_w_B, piece=-PieceType.Wave )
+
+        start_w_C = (2, 8)
+        scene.board.set_piece( *start_w_C, piece=-PieceType.Wave )
+
+        start_q = (2, 6)
+        scene.board.set_piece( *start_q, piece=-PieceType.Queen )
+
+        # p --> w(B)
+        scene.append_arrow( *( start_p + start_w_B ), mark_type=MarkType.Action )
+
+        # w(B) --> q
+        scene.append_arrow( *( start_w_B + start_q ), mark_type=MarkType.Action )
+
+        # q --> w(A)
+        scene.append_arrow( *( start_q + start_w_A ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_w_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "B", *start_w_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_w_C, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+
+        scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
 
         return scene
 
