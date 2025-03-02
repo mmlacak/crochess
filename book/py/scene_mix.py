@@ -45,12 +45,12 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_93_en_passant_not_blocked_step_2', \
                     # 'scn_mv_94_en_passant_not_blocked_end', \
                     \
-                    # 'scn_mv_95_en_passant_illegal_init', \
-                    # 'scn_mv_96_en_passant_illegal_pawn_activated', \
-                    # 'scn_mv_97_en_passant_illegal_queen_reactivated', \
-                    # 'scn_mv_98_en_passant_illegal_pawn_reactivated', \
-                    'scn_mv_99_en_passant_legal_init', \
-                    'scn_mv_100_en_passant_legal_end', \
+                    # 'scn_mv_97_en_passant_illegal_init', \
+                    # 'scn_mv_98_en_passant_illegal_pawn_activated', \
+                    # 'scn_mv_99_en_passant_illegal_queen_reactivated', \
+                    # 'scn_mv_100_en_passant_illegal_pawn_reactivated', \
+                    # # 'scn_mv_95_en_passant_legal_init', \
+                    'scn_mv_96_en_passant_legal_end', \
                     \
                     # 'scn_n_31_multiple_rushes_init', \
                     # 'scn_n_32_multiple_rushes_end', \

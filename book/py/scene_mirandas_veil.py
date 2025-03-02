@@ -4100,11 +4100,92 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # En passant legal
+
+    # todo :: not used
+    # def scn_mv_95_en_passant_legal_init( self, bt=BoardType.MirandasVeil ):
+    #
+    #     scene = Scene( 'scn_mv_95_en_passant_legal_init', bt, height=8.3, width=6.3 )
+    #
+    #     start_P = (1, 1)
+    #     end_P = (1, 7)
+    #     scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+    #
+    #     start_b = (3, 0)
+    #     scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+    #
+    #     start_w = (5, 2)
+    #     scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+    #
+    #     start_p = (2, 5)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #
+    #     field_E = (1, 4)
+    #
+    #     # P -->
+    #     start_P_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=6 )
+    #     for i, arrow in enumerate( start_P_() ):
+    #         scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+    #
+    #     scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+    #
+    #     scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+    #
+    #     return scene
+
+    def scn_mv_96_en_passant_legal_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_96_en_passant_legal_end', bt, height=8.3, width=6.3 )
+
+        start_P = (1, 1)
+        end_P = (1, 7)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        start_b = (3, 0)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_w = (5, 2)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_p = (2, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        field_E = (1, 4)
+
+        # P -->
+        start_P_ = GS.gen_steps( end=end_P, rels=[ (0, 1), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( start_P_() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # b --> w
+        start_b_w = GS.gen_steps( start=start_b, rels=[ (1, 1), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( start_b_w() ):
+            mark_type = MarkType.Action if i == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w --> p
+        start_w_p = GS.gen_steps( start=start_w, rels=[ (-1, 1), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( start_w_p() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # p --> *
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Action )
+
+        scene.append_text( "E", *field_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+
+        scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
+
+        return scene
+
+    #
     # En passant illegal
 
-    def scn_mv_95_en_passant_illegal_init( self, bt=BoardType.MirandasVeil ):
+    def scn_mv_97_en_passant_illegal_init( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_95_en_passant_illegal_init', bt, width=6.3 ) # , height=7.3, width=6.3 )
+        scene = Scene( 'scn_mv_97_en_passant_illegal_init', bt, width=6.3 ) # , height=7.3, width=6.3 )
 
         start_P = (1, 1)
         end_P = (1, 7)
@@ -4151,9 +4232,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_96_en_passant_illegal_pawn_activated( self, bt=BoardType.MirandasVeil ):
+    def scn_mv_98_en_passant_illegal_pawn_activated( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_96_en_passant_illegal_pawn_activated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
+        scene = Scene( 'scn_mv_98_en_passant_illegal_pawn_activated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
 
         end_P = (1, 7)
         scene.board.set_piece( *end_P, piece=PieceType.Pawn )
@@ -4190,9 +4271,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_97_en_passant_illegal_queen_reactivated( self, bt=BoardType.MirandasVeil ):
+    def scn_mv_99_en_passant_illegal_queen_reactivated( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_97_en_passant_illegal_queen_reactivated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
+        scene = Scene( 'scn_mv_99_en_passant_illegal_queen_reactivated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
 
         end_P = (1, 7)
         scene.board.set_piece( *end_P, piece=PieceType.Pawn )
@@ -4229,9 +4310,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_98_en_passant_illegal_pawn_reactivated( self, bt=BoardType.MirandasVeil ):
+    def scn_mv_100_en_passant_illegal_pawn_reactivated( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_98_en_passant_illegal_pawn_reactivated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
+        scene = Scene( 'scn_mv_100_en_passant_illegal_pawn_reactivated', bt, y=5.7, height=3.6, width=6.3 ) # , height=7.3, width=6.3 )
 
         field_E = (1, 6)
 
