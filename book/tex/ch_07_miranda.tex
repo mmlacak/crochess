@@ -1869,54 +1869,74 @@ its capture-field E and light Pawn.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[23]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_95_en_passant_illegal_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Dark Pawn rushing after light one}
 \label{fig:scn_mv_95_en_passant_illegal_init}
 \end{wrapfigure}
-. . .
+Again, Pawn can capture another en passant only if it started a move, and cannot
+if it's (re)activated. So, capturing Pawn has to be the only piece moving in a
+turn, or it has to capture en passant in the very first ply of a cascade.
 
-% \vspace*{23.7\baselineskip}
+Here, light Pawn has rushed to its destination, and now is tagged as en passant
+opportunity (green marker), grey arrows show path traveled over by the Pawn. Now
+it's dark player turn, dark Pawn is about to rush forward and activate dark Wave
+A, which would then activate dark Queen, which would activate dark Wave C.
+
+Next images of development in the example here will show only middle part of an
+chessboard, since there is nothing interesting elsewhere.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_96_en_passant_illegal_pawn_activated.png}
 \vspace*{-1.4\baselineskip}
 \caption{Activating dark Pawn}
 \label{fig:scn_mv_96_en_passant_illegal_pawn_activated}
 \end{wrapfigure}
-. . .
+In the first ply dark Pawn has rushed, after which it was tagged as en passant
+opportunity (also, green marker).\newline
+\indent
+Here, activated dark Wave C (now "in-the-air") is about to step over dark Wave B
+and activate dark Pawn, with 5 momentum.
 
-\vspace*{6.7\baselineskip}
+\vspace*{-0.3\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_97_en_passant_illegal_queen_reactivated.png}
 \vspace*{-1.4\baselineskip}
 \caption{Reactivating dark Queen}
 \label{fig:scn_mv_97_en_passant_illegal_queen_reactivated}
 \end{wrapfigure}
-. . .
+Here, activated dark Pawn (now "in-the-air") has lost its en passant opportunity
+tag (and, green marker), and is about to activate dark Wave B, which would
+activate dark Queen, which would activate dark Wave A.
 
-\vspace*{6.7\baselineskip}
+\vspace*{0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_98_en_passant_illegal_pawn_reactivated.png}
 \vspace*{-1.4\baselineskip}
 \caption{Reactivating dark Pawn}
 \label{fig:scn_mv_98_en_passant_illegal_pawn_reactivated}
 \end{wrapfigure}
-. . .
+Here, activated dark Wave A (now "in-the-air") is activating dark Pawn, with 4
+momentum.\newline
+\indent
+Even though dark Pawn is about to be activated with enough momentum and can reach
+en passant capture-field E, it cannot capture light Pawn en passant anymore since
+dark Pawn was activated, and so that ply is not the very first one in the move.
 
-\vspace*{9.7\baselineskip}
-\TODO :: Remote en passant denied --> (re)activated capturing Pawn cannot make use of en passant tag on opponent's Pawn; only capturing Pawn if it's started a move (1st ply in a cascade)
+As shown here, if activated Pawn could capture en passant, it would be possible
+for a Pawn to capture from its initial position; that certainly would not be
+"in passing".
 
 % .................................................. En passant illegal
 % ---------------------------------------------------------- En passant
