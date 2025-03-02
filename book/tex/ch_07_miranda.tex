@@ -1847,7 +1847,7 @@ Pawn and en passant capture-field E.
 
 \vspace*{-2.1\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_94_en_passant_not_blocked_end.png}
 \vspace*{-1.4\baselineskip}
@@ -1861,6 +1861,31 @@ Dark Pawn can capture light Pawn en passant, regardless of light Pyramid in-betw
 its capture-field E and light Pawn.
 
 % .............................................. En passant not blocked
+% \clearpage % ..........................................................
+
+\vspace*{2.7\baselineskip}
+\subsubsection*{En passant legal}
+\addcontentsline{toc}{subsubsection}{En passant legal}
+\label{sec:Miranda's veil/Wave/En passant/En passant legal}
+
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[13]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_100_en_passant_legal_end.png}
+\vspace*{-1.4\baselineskip}
+\caption{Activated Dark Pawn capturing en passant}
+\label{fig:scn_mv_100_en_passant_legal_end}
+\end{wrapfigure}
+Pawn can be activated, and capture opponent's Pawn en passant on its first ply
+in a cascade.
+
+Here, light Pawn has rushed in previous turn, and it's tagged as en passant
+opportunity (green marker); grey arrows show path traveled over by the Pawn.\newline
+\indent
+Now it's dark player's turn; dark Bishop is about to activate dark Wave, which
+will then activate dark Pawn, which can capture light Pawn en passant.
+
 \clearpage % ..........................................................
 % En passant illegal ..................................................
 
@@ -1942,41 +1967,11 @@ Even though dark Pawn is about to be activated with enough momentum and can reac
 en passant capture-field E, it cannot capture light Pawn en passant anymore since
 dark Pawn was activated, and so that ply is not the very first one in the move.
 
-As shown here, if activated Pawns could capture en passant, it would be possible
-to capture from their initial positions; that certainly would not be "in passing".
+As shown here, if Pawns already moved in a cascade could capture en passant in their
+second, third, ... ply, it would be possible to capture from their initial positions;
+that certainly would not be "in passing".
 
 % .................................................. En passant illegal
-\clearpage % ..........................................................
-
-\subsubsection*{En passant legal}
-\addcontentsline{toc}{subsubsection}{En passant legal}
-\label{sec:Miranda's veil/Wave/En passant/En passant legal}
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_99_en_passant_legal_init.png}
-\vspace*{-1.4\baselineskip}
-\caption{Light Pawn rushing}
-\label{fig:scn_mv_99_en_passant_legal_init}
-\end{wrapfigure}
-. . .
-
-\vspace*{12.7\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_100_en_passant_legal_end.png}
-\vspace*{-1.4\baselineskip}
-\caption{Activated Dark Pawn capturing en passant}
-\label{fig:scn_mv_100_en_passant_legal_end}
-\end{wrapfigure}
-. . .
-
-\vspace*{13.7\baselineskip}
-\TODO :: en passant legal
-
 % ---------------------------------------------------------- En passant
 % **************************************************************** Wave
 \clearpage % ..........................................................
