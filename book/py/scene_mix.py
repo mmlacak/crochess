@@ -36,21 +36,21 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_mv_87_en_passant_denied_init', \
-                    # 'scn_mv_88_en_passant_denied_pawn_activated', \
-                    # 'scn_mv_89_en_passant_denied_end', \
-                    # 'scn_mv_90_activation_after_en_passant_init', \
-                    # 'scn_mv_91_activation_after_en_passant_end', \
-                    # 'scn_mv_92_en_passant_not_blocked_init', \
-                    # 'scn_mv_93_en_passant_not_blocked_step_2', \
-                    # 'scn_mv_94_en_passant_not_blocked_end', \
+                    # 'scn_mv_087_en_passant_denied_init', \
+                    # 'scn_mv_088_en_passant_denied_pawn_activated', \
+                    # 'scn_mv_089_en_passant_denied_end', \
+                    # 'scn_mv_090_activation_after_en_passant_init', \
+                    # 'scn_mv_091_activation_after_en_passant_end', \
+                    # 'scn_mv_092_en_passant_not_blocked_init', \
+                    # 'scn_mv_093_en_passant_not_blocked_step_2', \
+                    # 'scn_mv_094_en_passant_not_blocked_end', \
                     \
-                    # 'scn_mv_97_en_passant_illegal_init', \
-                    # 'scn_mv_98_en_passant_illegal_pawn_activated', \
-                    # 'scn_mv_99_en_passant_illegal_queen_reactivated', \
+                    # 'scn_mv_097_en_passant_illegal_init', \
+                    # 'scn_mv_098_en_passant_illegal_pawn_activated', \
+                    # 'scn_mv_099_en_passant_illegal_queen_reactivated', \
                     # 'scn_mv_100_en_passant_illegal_pawn_reactivated', \
-                    # # 'scn_mv_95_en_passant_legal_init', \
-                    'scn_mv_96_en_passant_legal_end', \
+                    # # 'scn_mv_095_en_passant_legal_init', \
+                    'scn_mv_096_en_passant_legal_end', \
                     \
                     # 'scn_n_31_multiple_rushes_init', \
                     # 'scn_n_32_multiple_rushes_end', \

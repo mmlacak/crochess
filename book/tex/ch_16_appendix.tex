@@ -242,7 +242,7 @@ In \algfmt{CAN}, the same move would be written as \algcty{Exg4}. Note, FIDE han
 captures made by Pawn to contain starting file, \algcty{x}, and then destination field; see
 \algfmt{FIDE~C.9.3}.\newline
 \indent
-If \hyperref[fig:scn_mv_23_wave_activation_by_capture_pawn]{Wave activated by Pawn example} had
+If \hyperref[fig:scn_mv_023_wave_activation_by_capture_pawn]{Wave activated by Pawn example} had
 dark Wave instead of light one, light Pawn would be able to capture it, which in \algfmt{CAN}
 would be written as \algcty{exf4}. The same move in new notation is written as \alg{f4*}, and
 if captured piece is also written \alg{f4*W}.
@@ -384,7 +384,7 @@ plies gathered), it would be \alg{[Hd9.h10*P.l11*P.p12]\textasciitilde{}[Wp12-n8
 Passing over a piece is noted by using \alg{\^{}} (caret) after a step,
 optionally followed by a piece which has been passed-over.
 
-For instance, in \hyperref[fig:scn_mv_07_wave_is_transparent]{this example} light
+For instance, in \hyperref[fig:scn_mv_007_wave_is_transparent]{this example} light
 Queen could capture dark Pegasus, which would be written as\newline
 \alg{Q..m4\^{}..j7\^{}..g10*}, or in \algfmt{XAN} as\newline
 \alg{Qo2..m4\^{}W..j7\^{}W..g10*E}.
@@ -707,7 +707,7 @@ i.e. \alg{Sv6\textasciitilde{}W..v8..v10}.
 
 For a Wave activated by Unicorn or Centaur, noting destination field might be enough, if
 destination field does not share file, rank or diagonal with starting field. For instance, if
-destination in this \hyperref[fig:scn_mv_30_wave_off_board]{Wave off-board example} is field 2,
+destination in this \hyperref[fig:scn_mv_030_wave_off_board]{Wave off-board example} is field 2,
 then it can be noted just as \alg{Uo3\textasciitilde{}Wp12}. If, in the same example,
 destination is field 1, then original path is \alg{Uo3\textasciitilde{}W.m4.p6.n7..o10},
 the other available path is \alg{Uo3\textasciitilde{}W..n6.p7.m9.o10}, so at least one
@@ -756,7 +756,7 @@ failed teleportation, light Bishop could capture dark Pawn on its initial positi
 which would be denoted as \alg{Br17*P::}, and in \algfmt{XAN} it would be
 \alg{Bq18-r17*P::}.
 
-In this \hyperref[fig:scn_mv_36_activating_rush_pawn_init]{activating Pawns example},
+In this \hyperref[fig:scn_mv_036_activating_rush_pawn_init]{activating Pawns example},
 light Pawn on the left is being activated, and can capture dark Knight. This would
 be written as \alg{Re2\textasciitilde{}Wc2\textasciitilde{}P::b3*N}, and in \algfmt{XAN}
 it would be \alg{[Re6-e2]\textasciitilde{}[We2-c2]\textasciitilde{}[P::c2-b3*N]}.
@@ -1630,7 +1630,7 @@ Starchild                           & transparent                   & all       
 
 \footnotetext[1]{Material is any piece, except Wave.}
 
-A stationary \hyperref[fig:scn_mv_07_wave_is_transparent]{piece is transparent}
+A stationary \hyperref[fig:scn_mv_007_wave_is_transparent]{piece is transparent}
 if moving piece is not blocked by it, and can continue movement past it; otherwise,
 it's opaque. Transparency does not define if a moving piece can interact in any
 other way with stationary piece, or not.
@@ -1737,7 +1737,7 @@ single step. For instance, Wave activated by Knight moves like a Pegasus.
 Activated Wave generally has the same initial steps as activating piece starting
 a new ply. Once direction is chosen, Wave cannot change its heading for the
 remainder of its ply. For instance,
-\hyperref[fig:scn_mv_20_wave_activated_by_king]{Wave activated by King} cannot
+\hyperref[fig:scn_mv_020_wave_activated_by_king]{Wave activated by King} cannot
 change its movement to horizontal once it started moving diagonally.
 
 Wave can take any initial step, even those activating piece could not. For instance,
@@ -1745,7 +1745,7 @@ Wave can take any initial step, even those activating piece could not. For insta
 can take diagonal step, even if Scout itself would not be able to because diagonal
 field does not host opponent's piece.
 
-\hyperref[fig:scn_mv_27_wave_activation_by_unicorn_first_step]{Wave activated by Unicorn}
+\hyperref[fig:scn_mv_027_wave_activation_by_unicorn_first_step]{Wave activated by Unicorn}
 moves similar to Centaur, it has to keep alternating between two initially chosen
 steps. Unlike Centaur, Wave is not restricted in choosing second step based on a
 choice of the first one. Wave can choose any two consecutive steps Unicorn could
@@ -1768,9 +1768,9 @@ activator has been moving over their capture-fields; other Waves between the two
 can move over their step-fields.\newline
 \indent
 For instance,
-\hyperref[fig:scn_mv_24_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-field}
+\hyperref[fig:scn_mv_024_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-field}
 has the same initial steps as
-\hyperref[fig:scn_mv_22_wave_activated_by_step_pawn]{Wave activated by Pawn on its step-field};
+\hyperref[fig:scn_mv_022_wave_activated_by_step_pawn]{Wave activated by Pawn on its step-field};
 but, only the former can activate Pyramids, if moving diagonally, over its
 capture-fields.
 
