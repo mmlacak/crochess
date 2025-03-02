@@ -3584,7 +3584,6 @@ class SceneMirandasVeilMixin:
     #
     # En passant blocked
 
-    # TODO :: check if needed
     def scn_mv_84_rushing_cascade_opponent( self, bt=BoardType.MirandasVeil ):
 
         scene = Scene( 'scn_mv_84_rushing_cascade_opponent', bt, height=8.3, width=6.3 )
@@ -3642,7 +3641,6 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    # TODO :: check if needed
     def scn_mv_85_blocking_en_passant( self, bt=BoardType.MirandasVeil ):
 
         scene = Scene( 'scn_mv_85_blocking_en_passant', bt, height=8.3, width=6.3 )
@@ -3709,7 +3707,6 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    # TODO :: check if needed
     def scn_mv_86_blocked_en_passant( self, bt=BoardType.MirandasVeil ):
 
         scene = Scene( 'scn_mv_86_blocked_en_passant', bt, height=8.3, width=6.3 )
