@@ -1551,8 +1551,9 @@ In all other cases en passant is still possible; for instance, if a piece on a
 capture-field can be activated, or if there are pieces between a capture-field
 and a rushed Pawn.
 
-Note, capturing Pawn can take en passant opportunity only if it started a move,
-in the very first ply of a cascade, and cannot if (re)activated.
+Note, Pawn can capture en passant if it started a move, or on its first ply in a
+cascade, if activated. Pawn cannot capture en passant if reactivated, i.e. if it
+has already moved in the same cascade.
 
 \clearpage % ..........................................................
 % En passant turned capture ...........................................
@@ -1869,18 +1870,22 @@ its capture-field E and light Pawn.
 
 \vspace*{-0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[22]{l}{0.4\textwidth}
+\begin{wrapfigure}[25]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_95_en_passant_illegal_init.png}
 \vspace*{-1.4\baselineskip}
 \caption{Dark Pawn rushing after light one}
 \label{fig:scn_mv_95_en_passant_illegal_init}
 \end{wrapfigure}
-Again, Pawn can capture another en passant only if it started a move, and cannot
-if it's (re)activated.\newline
+Again, Pawn can capture another en passant only on its first ply in a move
+regardless if it started a move, or was activated.\newline
+\indent
+Pawn cannot capture en passant if it was reactivated, i.e. if it has already
+moved in the same cascade.\newline
 \indent
 So, capturing Pawn has to be the only piece moving in a turn, or it has to capture
-en passant in the very first ply of a cascade.
+en passant on its first ply in a move; and cannot capture on its second, third,
+... ply in the same cascade.
 
 Here, light Pawn has rushed to its destination, and now is tagged as en passant
 opportunity (green marker), grey arrows show path traveled over by the Pawn.\newline
@@ -1941,6 +1946,14 @@ As shown here, if activated Pawns could capture en passant, it would be possible
 to capture from their initial positions; that certainly would not be "in passing".
 
 % .................................................. En passant illegal
+\clearpage % ..........................................................
+
+\subsubsection*{En passant legal}
+\addcontentsline{toc}{subsubsection}{En passant legal}
+\label{sec:Miranda's veil/Wave/En passant/En passant legal}
+
+\TODO :: en passant legal
+
 % ---------------------------------------------------------- En passant
 % **************************************************************** Wave
 \clearpage % ..........................................................
