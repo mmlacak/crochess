@@ -1962,7 +1962,7 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
-    # Multiple rushes
+    # Cascading rushes, en passants
 
     def scn_hd_60_multiple_rushes_init( self, bt=BoardType.HemerasDawn ):
 

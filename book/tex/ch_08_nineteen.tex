@@ -604,17 +604,17 @@ forward.
 
 \clearpage % ..........................................................
 
-\subsection*{Multiple rushes}
-\addcontentsline{toc}{subsection}{Multiple rushes}
-\label{sec:Nineteen/Rush, en passant/Multiple rushes}
+\subsection*{Cascading rushes, en passants}
+\addcontentsline{toc}{subsection}{Cascading rushes, en passants}
+\label{sec:Nineteen/Rush, en passant/Cascading rushes, en passants}
 
 \vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_31_multiple_rushes_init.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_31_cascading_rushes_en_passants_init.png}
 \vspace*{-1.4\baselineskip}
-\caption{Start of multiple rushes}
-\label{fig:scn_n_31_multiple_rushes_init}
+\caption{Start of Cascading rushes, en passants}
+\label{fig:scn_n_31_cascading_rushes_en_passants_init}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
@@ -624,37 +624,33 @@ in the same cascade, due to
 \hyperref[fig:scn_n_17_sideways_pawn_activated_wave]{Waves they activate}.\newline
 \indent
 Here, both light Pawns A and B are in their initial position, still tagged for
-rushing (blue markers). Pawn A is about to rush forwards and activate Wave A,
-which would activate light Bishop, which would activate Wave B, which would then
-activate Pawn B, which would rush to its destination field D.
+rushing (blue markers). Pawn A is about to rush forwards and activate Wave C,
+which would activate light Bishop, which would activate Wave D, which would then
+activate Pawn B, which would rush to its destination field G.
 
 \clearpage % ..........................................................
 
 \vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_32_multiple_rushes_end.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_32_cascading_rushes_en_passants_end.png}
 \vspace*{-1.4\baselineskip}
-\caption{Multiple rushes end}
-\label{fig:scn_n_32_multiple_rushes_end}
+\caption{Cascading rushes, en passants end}
+\label{fig:scn_n_32_cascading_rushes_en_passants_end}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-En passant captures cannot be cascaded, because they're
-% \hyperref[fig:scn_mv_087_en_passant_blocked_by_wave]{blocked by any piece}
-blocked by any piece
-(own or opponent's, including Waves) standing on a destination field of a capturing
-Pawn. So, even though multiple Pawns can be rushed in a single cascade, only one
-can be captured en passant.\newline
+En passant captures can be cascaded, since
+\hyperref[fig:scn_mv_091_activation_after_en_passant_end]{activating a Wave does not block}
+capture en passant. So, multiple Pawns can be rushed, and captured en passant,
+in a single cascade.\newline
 \indent
 Here, both light Pawns has been rushed, grey arrows show path traveled over by a
-Pawn they point to. Now, both light Pawns are subject to en passant capture (green
-markers); but, only one can be captured.
+Pawn they point to. Now, both light Pawns are tagged as en passant opportunity
+(green markers). Dark Pawn E is about to capture en passant and activate dark Wave,
+which would then activate dark Pawn F, which would also capture light Pawn en passant.
 
-\TODO :: fix --> en passant does not prevent activation of own Wave (and vice-versa)
-
-\TODO :: Stars on fields other than en passant capture-field do not block capture, regardless
-if light or dark.
+% \TODO :: fix --> en passant does not prevent activation of own Wave (and vice-versa)
 
 % **************************************************** Rush, en passant
 \clearpage % ..........................................................

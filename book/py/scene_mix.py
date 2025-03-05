@@ -50,10 +50,10 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_099_en_passant_illegal_queen_reactivated', \
                     # 'scn_mv_100_en_passant_illegal_pawn_reactivated', \
                     # # 'scn_mv_095_en_passant_legal_init', \
-                    'scn_mv_096_en_passant_legal_end', \
+                    # 'scn_mv_096_en_passant_legal_end', \
                     \
-                    # 'scn_n_31_multiple_rushes_init', \
-                    # 'scn_n_32_multiple_rushes_end', \
+                    'scn_n_31_cascading_rushes_en_passants_init', \
+                    'scn_n_32_cascading_rushes_en_passants_end', \
                     # 'scn_hd_60_multiple_rushes_init', \
                     # 'scn_hd_61_multiple_rushes_end', \
                 ]

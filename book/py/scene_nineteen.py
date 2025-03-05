@@ -1157,11 +1157,11 @@ class SceneNineteenMixin:
         return scene
 
     #
-    # Multiple rushes
+    # Cascading rushes, en passants
 
-    def scn_n_31_multiple_rushes_init( self, bt=BoardType.Nineteen ):
+    def scn_n_31_cascading_rushes_en_passants_init( self, bt=BoardType.Nineteen ):
 
-        scene = Scene( 'scn_n_31_multiple_rushes_init', bt ) # , width=7.2, height=9.3 )
+        scene = Scene( 'scn_n_31_cascading_rushes_en_passants_init', bt ) # , width=7.2, height=9.3 )
 
         start_P_A = (1, 1)
         scene.board.set_piece( *start_P_A, piece=PieceType.Pawn )
@@ -1179,8 +1179,11 @@ class SceneNineteenMixin:
         end_P_B = (5, 4)
         scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_p_A = (2, 5)
+        start_p_A = (2, 4)
         scene.board.set_piece( *start_p_A, piece=-PieceType.Pawn )
+
+        start_w = (1, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         start_p_B = (4, 3)
         scene.board.set_piece( *start_p_B, piece=-PieceType.Pawn )
@@ -1188,7 +1191,8 @@ class SceneNineteenMixin:
         # P(A) --> W(A)
         coords_PA_WA = GS.gen_steps( start=start_P_A, rels=[ (0, 1), ], include_prev=True, count=6 )
         for i, arrow in enumerate( coords_PA_WA() ):
-            mark_type = MarkType.Action if i == 5 else \
+            mark_type = MarkType.Blocked if i == 2 else \
+                        MarkType.Action if i == 5 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -1220,26 +1224,29 @@ class SceneNineteenMixin:
 
         scene.append_text( "A", *start_P_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
         scene.append_text( "B", *start_P_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Action )
-        scene.append_text( "D", *end_P_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
+        scene.append_text( "G", *end_P_B, corner=Corner.UpperRight, mark_type=MarkType.Action )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "D", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *start_p_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "F", *start_p_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
 
         scene.append_field_marker( *start_P_A, mark_type=MarkType.Action )
         scene.append_field_marker( *start_P_B, mark_type=MarkType.Action )
 
         return scene
 
-    def scn_n_32_multiple_rushes_end( self, bt=BoardType.Nineteen ):
+    def scn_n_32_cascading_rushes_en_passants_end( self, bt=BoardType.Nineteen ):
 
-        scene = Scene( 'scn_n_32_multiple_rushes_end', bt ) # , width=7.2, height=9.3 )
+        scene = Scene( 'scn_n_32_cascading_rushes_en_passants_end', bt ) # , width=7.2, height=9.3 )
 
         # prev_P_A = (1, 1)
         prev_W_A = (1, 7)
         prev_B = (5, 7)
         prev_W_B = (8, 4)
         prev_P_B = (5, 1)
-        # prev_p_A = (2, 5)
+        # prev_p_A = (2, 4)
         # prev_p_B = (4, 3)
 
         start_P_A = prev_W_A
@@ -1257,8 +1264,11 @@ class SceneNineteenMixin:
         start_P_B = (5, 4)
         scene.board.set_piece( *start_P_B, piece=PieceType.Pawn )
 
-        start_p_A = (2, 5)
+        start_p_A = (2, 4)
         scene.board.set_piece( *start_p_A, piece=-PieceType.Pawn )
+
+        start_w = (1, 3)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         start_p_B = (4, 3)
         scene.board.set_piece( *start_p_B, piece=-PieceType.Pawn )
@@ -1273,8 +1283,15 @@ class SceneNineteenMixin:
         for i, arrow in enumerate( coords_PB_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
 
-        # p(A) --> *
+        # p(A) --> w
         scene.append_arrow( *GS.append_pos_rel( start_p_A, -1, -1 ), mark_type=MarkType.Action )
+
+        # w --> p(B)
+        coords_w_pB = GS.gen_steps( start=start_w, rels=[ (1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_w_pB() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
 
         # p(B) --> *
         scene.append_arrow( *GS.append_pos_rel( start_p_B, 1, -1 ), mark_type=MarkType.Action )
@@ -1282,8 +1299,11 @@ class SceneNineteenMixin:
         scene.append_text( "A", *start_P_A, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
         scene.append_text( "B", *start_P_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "C", *start_W_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "D", *start_W_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *start_p_A, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "F", *start_p_B, corner=Corner.UpperRight, mark_type=MarkType.Legal )
 
         scene.append_field_marker( *start_P_A, mark_type=MarkType.Legal )
         scene.append_field_marker( *start_P_B, mark_type=MarkType.Legal )
