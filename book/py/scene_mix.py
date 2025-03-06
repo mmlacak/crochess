@@ -56,6 +56,6 @@ class SceneMix( SceneMixin, \
                     # 'scn_n_32_cascading_rushes_en_passants_end', \
                     # 'scn_hd_59_en_passant_grenadier_in_close_quarters', \
                     'scn_hd_60_en_passant_grenadier_activated_in_close_quarters', \
-                    # 'scn_hd_60_multiple_rushes_init', \
-                    # 'scn_hd_61_multiple_rushes_end', \
+                    # 'scn_hd_62_multiple_rushes_init', \
+                    # 'scn_hd_63_multiple_rushes_end', \
                 ]
