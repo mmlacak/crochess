@@ -947,7 +947,7 @@ light Pyramid A cannot be activated, as it's located on Grenadier's step-field.
 
 \vspace*{-1.1\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.41\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_57_grenadier_en_passant.png}
 \vspace*{-1.4\baselineskip}
@@ -958,9 +958,13 @@ Image on the left contains two examples in parallel; to the left, and on the rig
 \indent
 Grenadier can capture rushing Pawn by en passant with its diagonal capture-step (here,
 Grenadier A). If there is opponent's piece on its grenadier-field, it can also use
-forked capture-step, after one or more steps (here, Grenadier B).
+forked capture-step, after one or more steps (here, Grenadier B).\newline
+\indent
+\hyperref[fig:scn_mv_097_en_passant_illegal_init]{Just like Pawn},
+Grenadier can capture another private en passant only on its first ply in a move
+regardless if it started a move, or was activated.
 
-\vspace*{3.1\baselineskip}
+\vspace*{-0.7\baselineskip}
 \noindent
 \begin{wrapfigure}[15]{l}{0.4\textwidth}
 \centering
@@ -977,37 +981,6 @@ Pawn can end its rush onto a grenadier-field of opponent's Grenadier. This grant
 Grenadier close quarters movement, which can now also make a step parallel to Pawn's
 rush, before capturing it en passant, in addition to base diagonal capture-steps
 (Grenadier A in previous example).
-
-\clearpage % ..........................................................
-
-\subsubsection*{... in close quarters}
-\addcontentsline{toc}{subsubsection}{... in close quarters}
-\label{sec:Hemera's Dawn/Grenadier/En passant/... in close quarters}
-
-\vspace*{-1.1\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.41\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_59_en_passant_grenadier_in_close_quarters.png}
-\vspace*{-1.4\baselineskip}
-\caption{Close quarters en passant}
-\label{fig:scn_hd_59_en_passant_grenadier_in_close_quarters}
-\end{wrapfigure}
-...
-
-\vspace*{13.1\baselineskip}
-\noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.41\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_60_en_passant_grenadier_activated_in_close_quarters.png}
-\vspace*{-1.4\baselineskip}
-\caption{Activated in close quarters en passant}
-\label{fig:scn_hd_60_en_passant_grenadier_activated_in_close_quarters}
-\end{wrapfigure}
-...
-
-\vspace*{13.7\baselineskip}
-\TODO :: add Grenadier long-range en passant example, from close quarters
 
 % ---------------------------------------------------------- En passant
 \clearpage % ..........................................................
