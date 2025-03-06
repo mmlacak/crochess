@@ -1794,7 +1794,6 @@ class SceneOneMixin:
             mark_type = MarkType.Blocked if i == 5 else \
                         MarkType.Illegal if i == 6 else \
                         MarkType.Legal
-
             scene.append_arrow( *step, mark_type=mark_type )
 
         scene.append_text( "K", *prev_K, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
@@ -1802,6 +1801,10 @@ class SceneOneMixin:
         scene.append_text( "B", *prev_R_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
+
+    #
+    # Rush, en passant / ... and Stars
+
 
 
     #
