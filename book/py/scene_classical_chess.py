@@ -324,6 +324,58 @@ class SceneClassicalChessMixin:
 
         return scene
 
+    def scn_o_65_en_passant_not_blocked_by_star_end(self, bt=BoardType.One):
+
+        scene = Scene( 'scn_o_65_en_passant_not_blocked_by_star_end', bt, width=10.3, height=6.3 )
+
+        field_E = (6, 3)
+
+        start_P = (6, 5)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (3, 5)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_I_A = (4, 3)
+        scene.board.set_piece( *start_I_A, piece=PieceType.Starchild )
+
+        start_I_B = (5, 3)
+        scene.board.set_piece( *start_I_B, piece=PieceType.Starchild )
+
+        start_T = (6, 4)
+        scene.board.set_piece( *start_T, piece=PieceType.Star )
+
+        start_p = (7, 4)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P --> W
+        gen_P_W = GS.gen_steps( end=start_P, rels=[ (0, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( gen_P_W() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W --> I(A)
+        gen_W_IA = GS.gen_steps( end=start_W, rels=[ (-1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( gen_W_IA() ):
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # I(A) --> I(B)
+        scene.append_arrow( *( start_I_A + start_I_B ), mark_type=MarkType.Blocked )
+
+        # I(B) --> T
+        scene.append_arrow( *( start_I_B + start_T ), mark_type=MarkType.Blocked )
+
+        # p --> *
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_I_A, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_I_B, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Action )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+
+        return scene
+
+
 
 
 
