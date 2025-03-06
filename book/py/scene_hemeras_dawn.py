@@ -1899,6 +1899,9 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # ... in close quarters
+
+    #
     # Grenadier/Initial positions
 
     def scn_hd_59_grenadier_initial_positions(self, bt=BoardType.HemerasDawn):

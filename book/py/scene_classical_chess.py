@@ -214,5 +214,42 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
+    #
+    # ... in close quarters
+
+    def scn_hd_59_en_passant_grenadier_in_close_quarters(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_59_en_passant_grenadier_in_close_quarters', bt, width=8, height=10.3 )
+
+        start_P = (1, 1)
+        end_P = (1, 9)
+        scene.board.set_piece( *end_P, piece=PieceType.Pawn )
+
+        # P -->
+        gen_P_ = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=8 )
+        for i, arr in enumerate( gen_P_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Blocked )
+
+        start_g = (5, 3)
+        fork_g = (2, 3)
+        scene.board.set_piece( *start_g, piece=-PieceType.Grenadier )
+
+        scene.board.set_piece( 5, 4, piece=PieceType.Knight )
+        scene.board.set_piece( 6, 3, piece=PieceType.Bishop )
+        scene.board.set_piece( 4, 2, piece=PieceType.Wave )
+        scene.board.set_piece( 6, 2, piece=PieceType.Wave )
+
+        # g --> ...
+        gen_g_ = GS.gen_steps( start=start_g, rels=[ (-1, 0), ], include_prev=True, count=3 )
+        for i, arr in enumerate( gen_g_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+        # ... --> *
+        scene.append_arrow( *GS.append_pos_rel( fork_g, -1,  1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( fork_g, -1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_field_marker( *end_P, mark_type=MarkType.Legal )
+
+        return scene
+
 
     # TODO :: DEBUG :: MOVE
