@@ -214,6 +214,64 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
+    #
+    # En passant turned divergence
+
+    def scn_cot_111_en_passant_turned_divergence_init( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_111_en_passant_turned_divergence_init', bt, width=9.3, height=9.3 )
+
+        field_E = (7, 4)
+
+        start_P = (7, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (7, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (4, 8)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_h = (1, 8)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_p = (8, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P --> W
+        gen_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=7 )
+        for i, arrow in enumerate( gen_P_W() ):
+            mark_type = MarkType.Action if i == 6 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> w
+        gen_W_w = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( gen_W_w() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w --> h
+        gen_w_h = GS.gen_steps( start=start_w, rels=[ (-1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( gen_w_h() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # h --> [E]
+        gen_h_ = GS.gen_steps( start=start_h, rels=[ (3, -2), ], include_prev=True, count=2 )
+        for i, arrow in enumerate( gen_h_() ):
+            # mark_type = MarkType.Action if i == 2 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Blocked )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+
+        return scene
+
 
 
 

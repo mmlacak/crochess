@@ -3863,6 +3863,10 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    #
+    # En passant turned divergence
+
+
 
     #
     # Trance-journey cannot be blocked.
