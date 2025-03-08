@@ -298,12 +298,44 @@ class SceneClassicalChessMixin:
         scene.append_arrow( *adder(  0, -1, do_advance=False ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder(  1,  0, do_advance=False ), mark_type=MarkType.Legal )
 
-        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Blocked )
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Illegal )
 
         scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
 
         return scene
 
+    #
+    # En passant not blocked
+
+    def scn_cot_113_en_passant_not_blocked( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_113_en_passant_not_blocked', bt, width=9.3, height=9.3 )
+
+        field_E = (7, 2)
+
+        start_P = (7, 8)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (4, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (1, 8)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_h = (7, 4)
+        scene.board.set_piece( *start_h, piece=-PieceType.Shaman )
+
+        start_p = (8, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # p --> *
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Action )
+
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Action )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+
+        return scene
 
 
 
