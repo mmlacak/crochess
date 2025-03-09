@@ -258,6 +258,37 @@ class SceneClassicalChessMixin:
 
         return scene
 
+    def scn_o_67_en_passant_turned_divergence_end( self, bt=BoardType.One ):
+
+        scene = Scene( 'scn_o_67_en_passant_turned_divergence_end', bt, width=10.3, height=9.3 )
+
+        field_E = (7, 4)
+
+        start_P = (7, 8)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (2, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_I = (7, 4)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_p = (8, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # p --> @I -- * -->
+        adder = GS.adder( start_p, include_prev=True )
+        scene.append_arrow( *adder( -1, -1, do_advance=True ), mark_type=MarkType.Action )
+        scene.append_arrow( *adder( -1,  0, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder(  0, -1, do_advance=False ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder(  1,  0, do_advance=False ), mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Illegal )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+
+        return scene
+
     #
     # Rush, en passant / En passant turned divergence / En passant not blocked
 
