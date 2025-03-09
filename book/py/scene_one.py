@@ -1916,7 +1916,7 @@ class SceneOneMixin:
         return scene
 
     #
-    # Rush, en passant / En passant not blocked
+    # Rush, en passant / En passant turned teleportation / En passant not blocked
 
     def scn_o_65_en_passant_not_blocked_by_star_end(self, bt=BoardType.One):
 
@@ -1971,6 +1971,12 @@ class SceneOneMixin:
         scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
 
         return scene
+
+    #
+    # Rush, en passant / En passant turned divergence
+
+    #
+    # Rush, en passant / En passant turned divergence / En passant not blocked
 
 
     #

@@ -214,6 +214,54 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
+    #
+    # Rush, en passant / En passant turned divergence
+
+    def scn_o_66_en_passant_turned_divergence_init( self, bt=BoardType.One ):
+
+        scene = Scene( 'scn_o_66_en_passant_turned_divergence_init', bt, width=10.3, height=9.3 )
+
+        field_E = (7, 4)
+
+        start_P = (7, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (7, 8)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_I = (2, 8)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_p = (8, 5)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # P --> W
+        gen_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=7 )
+        for i, arrow in enumerate( gen_P_W() ):
+            mark_type = MarkType.Action if i == 6 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> I
+        gen_W_I = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( gen_W_I() ):
+            mark_type = MarkType.Action if i == 4 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # I --> [E]
+        scene.append_arrow( *( start_I + field_E ), mark_type=MarkType.Legal )
+
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Blocked )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+
+        return scene
+
+    #
+    # Rush, en passant / En passant turned divergence / En passant not blocked
+
+
 
 
     # TODO :: DEBUG :: MOVE
