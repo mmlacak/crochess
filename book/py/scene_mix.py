@@ -36,10 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_cot_111_en_passant_turned_divergence_init', \
-                    # 'scn_cot_112_en_passant_turned_divergence_end', \
-                    # 'scn_cot_113_en_passant_not_blocked', \
-                    'scn_o_66_en_passant_turned_divergence_init', \
-                    'scn_o_67_en_passant_turned_divergence_end', \
-                    'scn_o_68_en_passant_not_blocked__by_starchild', \
+                    'scn_tr_31_checking_king_pawns', \
+                    'scn_cot_024_checking_king_init', \
                 ]

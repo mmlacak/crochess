@@ -1222,7 +1222,7 @@ class SceneTamoanchanRevisitedMixin:
 
         scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
-        scene.append_arrow( *adder_S( -1, -1 ), mark_type=MarkType.Illegal ) # dark King
+        scene.append_arrow( *adder_S( -1, -1 ), mark_type=MarkType.Blocked ) # dark King
 
         return scene
 

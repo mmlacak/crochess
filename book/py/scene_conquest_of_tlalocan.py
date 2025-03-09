@@ -899,7 +899,7 @@ class SceneConquestOfTlalocanMixin:
 
         for i, arrow in enumerate( coords_H_() ):
             mark_type = MarkType.Action if i < 4 else \
-                        MarkType.Illegal
+                        MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
         return scene
