@@ -39,6 +39,7 @@ class SceneMix( SceneMixin, \
                     # 'scn_cot_111_en_passant_turned_divergence_init', \
                     # 'scn_cot_112_en_passant_turned_divergence_end', \
                     # 'scn_cot_113_en_passant_not_blocked', \
-                    # 'scn_o_66_en_passant_turned_divergence_init', \
+                    'scn_o_66_en_passant_turned_divergence_init', \
                     'scn_o_67_en_passant_turned_divergence_end', \
+                    'scn_o_68_en_passant_not_blocked__by_starchild', \
                 ]

@@ -219,26 +219,26 @@ class SceneClassicalChessMixin:
 
     def scn_o_66_en_passant_turned_divergence_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_66_en_passant_turned_divergence_init', bt, width=10.3, height=9.3 )
+        scene = Scene( 'scn_o_66_en_passant_turned_divergence_init', bt, width=10.3, height=7.3 )
 
-        field_E = (7, 4)
+        field_E = (7, 2)
 
         start_P = (7, 1)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        start_W = (7, 8)
+        start_W = (7, 6)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_I = (2, 8)
+        start_I = (2, 6)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_p = (8, 5)
+        start_p = (8, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         # P --> W
-        gen_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=7 )
+        gen_P_W = GS.gen_steps( start=start_P, rels=[ (0, 1), ], include_prev=True, count=5 )
         for i, arrow in enumerate( gen_P_W() ):
-            mark_type = MarkType.Action if i == 6 else \
+            mark_type = MarkType.Action if i == 4 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -260,20 +260,20 @@ class SceneClassicalChessMixin:
 
     def scn_o_67_en_passant_turned_divergence_end( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_67_en_passant_turned_divergence_end', bt, width=10.3, height=9.3 )
+        scene = Scene( 'scn_o_67_en_passant_turned_divergence_end', bt, width=10.3, height=7.3 )
 
-        field_E = (7, 4)
+        field_E = (7, 2)
 
-        start_P = (7, 8)
+        start_P = (7, 6)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        start_W = (2, 8)
+        start_W = (2, 6)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_I = (7, 4)
+        start_I = (7, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_p = (8, 5)
+        start_p = (8, 3)
         scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
         # p --> @I -- * -->
@@ -291,6 +291,37 @@ class SceneClassicalChessMixin:
 
     #
     # Rush, en passant / En passant turned divergence / En passant not blocked
+
+    def scn_o_68_en_passant_not_blocked__by_starchild( self, bt=BoardType.One ):
+
+        scene = Scene( 'scn_o_68_en_passant_not_blocked__by_starchild', bt, width=10.3, height=7.3 )
+
+        field_E = (7, 2)
+
+        start_P = (7, 6)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (2, 6)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        prev_I = (2, 6)
+        start_I = (7, 4)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        start_p = (8, 3)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        # I --> []
+        scene.append_arrow( *( prev_I + start_I ), mark_type=MarkType.Blocked )
+
+        # p --> @I -- * -->
+        scene.append_arrow( *( start_p + field_E ), mark_type=MarkType.Blocked )
+
+        scene.append_text( "E", *field_E, corner=Corner.LowerRight, mark_type=MarkType.Legal )
+
+        scene.append_field_marker( *start_P, mark_type=MarkType.Legal )
+
+        return scene
 
 
 
