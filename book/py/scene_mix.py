@@ -37,5 +37,6 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     'scn_tr_31_checking_king_pawns', \
+                    'scn_tr_32_checking_king_figures', \
                     'scn_cot_024_checking_king_init', \
                 ]

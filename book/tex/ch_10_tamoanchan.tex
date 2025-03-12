@@ -629,45 +629,40 @@ and so two distant Pawns are now out of reach.
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_31_checking_king_pawns.png}
 \vspace*{-0.7\baselineskip}
-\caption{King is in check}
+\caption{King is not in check}
 \label{fig:scn_tr_31_checking_king_pawns}
 \end{wrapfigure}
-\hyperref[fig:scn_tr_19_displacement_init]{Serpent can displace Pawns} in its wake,
-opponent's King reasonably safe from other pieces is not safe from Serpent.\newline
+Whether King is in check (or checkmated) is determined only
+\hyperref[fig:scn_mv_051_cascaded_piece_check_init]{after a move (player's turn)}
+has finished, and before other player's turn is started.\newline
 \indent
-Here, dark King is in check by light Serpent, after displacing dark Pawns (grey
-arrows).\newline
+King is in check if all capture-fields between it and attacking piece are empty,
+or host Wave; Wave cannot block check, since
+\hyperref[fig:scn_mv_007_wave_is_transparent]{it's transparent}. If there is material
+(non-Wave) piece on a capture-field of attacking piece, King is not in check.\newline
 \indent
-To prevent Serpent checking a King, all of
-\hyperref[fig:scn_tr_20_displacement_step_1]{Pawn's displacement fields} must not be
-empty; any own or opponent's piece will do, including Waves. Other possibility is to
-have Pawns replaced by other figures, which cannot be displaced by Serpent.
+Here, dark King is not in check by light Serpent, since it still had
+\hyperref[fig:scn_tr_19_displacement_init]{Pawns to displace} (grey arrows) at
+the start of its turn.
 
-\vspace*{-0.3\baselineskip}
+% \vspace*{-0.3\baselineskip}
 \noindent
 \begin{wrapfigure}[16]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_32_checking_king_figures.png}
 \vspace*{-0.7\baselineskip}
-\caption{King is in check, too}
+\caption{King is in check}
 \label{fig:scn_tr_32_checking_king_figures}
 \end{wrapfigure}
-Due to \hyperref[fig:scn_tr_01_serpent_diagonals]{peculiar Serpent's movement},
-replacing Pawns with other pieces might not be enough, depending on a current
-chessboard situation.\newline
+Due to \hyperref[fig:scn_tr_01_serpent_diagonals]{its peculiar movement},
+Serpent can find unobstructed path to check opponent's King.\newline
 \indent
 Note that completely blocking all Serpent's paths might not be possible, or
 necessary; Serpent has \hyperref[fig:scn_tr_05_serpent_end]{limited number of steps}
 it can make in a ply, 14 in this variant.\newline
 \indent
-Here, light Serpent is able to move around dark pieces, and still find a path
-to check dark King. Should field N also contain e.g. a Knight, light Serpent
-would not be able to reach dark King in one ply; thus dark King would not be in
-check.
-
-\clearpage % ..........................................................
-
-\TODO :: Serpent does not check opponent's King, if Pawns are encountered on its step-field, and has to be displaced
+Here, light Serpent is able to move around dark pieces, and find a path to check
+dark King.
 
 % ------------------------------------------------------------ Movement
 \clearpage % ..........................................................

@@ -1263,7 +1263,7 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Legal )
         scene.append_arrow( *adder_S( -1, -1 ), mark_type=MarkType.Illegal ) # dark King
 
-        scene.append_text( "N", 19, 16, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        # scene.append_text( "N", 19, 16, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
         return scene
 
