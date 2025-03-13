@@ -469,22 +469,43 @@ opportunity to rush on initial move; the same as in
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_024_checking_king_init.png}
 \vspace*{-1.5\baselineskip}
-\caption{Dark King is in check}
+\caption{Dark King is not in check}
 \label{fig:scn_cot_024_checking_king_init}
 \end{figure}
 
 \vspace*{-0.7\baselineskip}
+\hyperref[fig:scn_tr_31_checking_king_pawns]{Again}, if King is in check (or,
+checkmated) is determined after a move has finished, but before next one starts.\newline
+\indent
+King is in check only if there are no material pieces between a King and an attacking
+piece on its capture-fields; Waves cannot block check, since
+\hyperref[fig:scn_mv_007_wave_is_transparent]{they're transparent}.\newline
+\indent
 Shaman can \hyperref[fig:scn_cot_004_light_shaman_capture_ply]{capture multiple pieces}
 in one ply, if they're aligned on it's capture-fields; King participating in such an
-alignment is also in check.
+alignment behind a material piece is still not in check.
 
 \vspace*{-1.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_025_checking_king_gap.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_025_checking_king_immediate.png}
+\vspace*{-1.5\baselineskip}
+\caption{Dark King is in check}
+\label{fig:scn_cot_025_checking_king_immediate}
+\end{figure}
+
+\vspace*{-0.7\baselineskip}
+...
+
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_026_checking_king_gap.png}
 \vspace*{-1.5\baselineskip}
 \caption{Dark King not in check, by gap}
-\label{fig:scn_cot_025_checking_king_gap}
+\label{fig:scn_cot_026_checking_king_gap}
 \end{figure}
 
 \vspace*{-0.7\baselineskip}
@@ -493,19 +514,20 @@ Shaman cannot cross over empty capture-fields; so, dark King here is not in chec
 \vspace*{-1.1\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_026_checking_king_blocked.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_027_checking_king_blocked.png}
 \vspace*{-1.5\baselineskip}
 \caption{Dark King not in check, by block}
-\label{fig:scn_cot_026_checking_king_blocked}
+\label{fig:scn_cot_027_checking_king_blocked}
 \end{figure}
 
 \vspace*{-0.7\baselineskip}
 Shaman is also \hyperref[fig:scn_cot_005_light_shaman_capture_ply_passives]{blocked from moving any further}
-by own pieces, even if they can be activated; here, dark King is also not in check.
+by own pieces, even if they can be activated; here, dark King is also not in check,
+because light Pyramid is blocking light Shaman's path.
 
-\clearpage % ..........................................................
+% \clearpage % ..........................................................
 
-\TODO :: Shaman does not check opponent's King, even if in alignement over capture-fields; only if directly on the very first capture-field
+% \TODO :: Shaman does not check opponent's King, even if in alignement over capture-fields; only if directly on the very first capture-field
 
 % ------------------------------------------------------------ Movement
 % ************************************************************** Shaman
