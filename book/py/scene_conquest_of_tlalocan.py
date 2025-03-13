@@ -903,40 +903,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_025_checking_king_immediate( self, bt=BoardType.ConquestOfTlalocan ):
+    def scn_cot_025_checking_king_gap( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_025_checking_king_immediate', bt, height=6.3 )
-
-        start_H = (1, 0)
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
-
-        start_w = (5, 1)
-        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
-
-        start_W = (9, 2)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_k = (13, 3)
-        scene.board.set_piece( *start_k, piece=-PieceType.King )
-
-        start_b = (17, 4)
-        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
-
-        start_n = (21, 5)
-        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
-
-        # H -->
-        coords_H_ = GS.gen_steps( start=start_H, rels=[ (4, 1), ], include_prev=True, count=5 )
-        for i, arrow in enumerate( coords_H_() ):
-            mark_type = MarkType.Action if i <= 1 else \
-                        MarkType.Blocked
-            scene.append_arrow( *arrow, mark_type=mark_type )
-
-        return scene
-
-    def scn_cot_026_checking_king_gap( self, bt=BoardType.ConquestOfTlalocan ):
-
-        scene = Scene( 'scn_cot_026_checking_king_gap', bt, height=6.3 )
+        scene = Scene( 'scn_cot_025_checking_king_gap', bt, height=6.3 )
 
         start_H = (1, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
@@ -965,9 +934,9 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
-    def scn_cot_027_checking_king_blocked( self, bt=BoardType.ConquestOfTlalocan ):
+    def scn_cot_026_checking_king_blocked( self, bt=BoardType.ConquestOfTlalocan ):
 
-        scene = Scene( 'scn_cot_027_checking_king_blocked', bt, height=6.3 )
+        scene = Scene( 'scn_cot_026_checking_king_blocked', bt, height=6.3 )
 
         start_H = (1, 0)
         scene.board.set_piece( *start_H, piece=PieceType.Shaman )
@@ -991,6 +960,37 @@ class SceneConquestOfTlalocanMixin:
         coords_H_ = GS.gen_steps( start=start_H, rels=[ (4, 1), ], include_prev=True, count=5 )
         for i, arrow in enumerate( coords_H_() ):
             mark_type = MarkType.Action if i < 4 else \
+                        MarkType.Blocked
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        return scene
+
+    def scn_cot_027_checking_king_immediate( self, bt=BoardType.ConquestOfTlalocan ):
+
+        scene = Scene( 'scn_cot_027_checking_king_immediate', bt, height=6.3 )
+
+        start_H = (1, 0)
+        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+
+        start_w = (5, 1)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_W = (9, 2)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_k = (13, 3)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        start_b = (17, 4)
+        scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
+
+        start_n = (21, 5)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        # H -->
+        coords_H_ = GS.gen_steps( start=start_H, rels=[ (4, 1), ], include_prev=True, count=5 )
+        for i, arrow in enumerate( coords_H_() ):
+            mark_type = MarkType.Action if i <= 1 else \
                         MarkType.Blocked
             scene.append_arrow( *arrow, mark_type=mark_type )
 
