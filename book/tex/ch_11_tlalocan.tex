@@ -469,7 +469,7 @@ opportunity to rush on initial move; the same as in
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_024_checking_king_init.png}
 \vspace*{-1.5\baselineskip}
-\caption{Dark King is not in check}
+\caption{Dark King is checked}
 \label{fig:scn_cot_024_checking_king_init}
 \end{figure}
 
@@ -477,29 +477,19 @@ opportunity to rush on initial move; the same as in
 \hyperref[fig:scn_tr_31_checking_king_pawns]{Again}, if King is in check (or,
 checkmated) is determined after a move has finished, but before next one starts.\newline
 \indent
-King is in check only if there are no material pieces between a King and an attacking
-piece on its capture-fields; Waves cannot block check, since
-\hyperref[fig:scn_mv_007_wave_is_transparent]{they're transparent}.\newline
+King is in check if opponent's piece could capture it, should it be opponent's
+turn; King is checkmated, if it could be captured and it is opponent's turn.\newline
+\indent
+For all attacking pieces other than Shaman, that means King is in check only if
+there are no material (non-Wave) pieces between a King and an attacking piece on
+its capture-fields; Waves cannot block check, since
+\hyperref[fig:scn_mv_007_wave_is_transparent]{they’re transparent}.\newline
 \indent
 Shaman can \hyperref[fig:scn_cot_004_light_shaman_capture_ply]{capture multiple pieces}
-in one ply, if they're aligned on it's capture-fields; King participating in such an
-alignment behind a material piece is still not in check.
+in one ply; captured pieces has to be aligned on Shaman's capture-fields, King
+participating in such an alignment is in check.
 
 \vspace*{-1.1\baselineskip}
-\noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_025_checking_king_immediate.png}
-\vspace*{-1.5\baselineskip}
-\caption{Dark King is in check}
-\label{fig:scn_cot_025_checking_king_immediate}
-\end{figure}
-
-\vspace*{-0.7\baselineskip}
-...
-
-\clearpage % ..........................................................
-
-\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_026_checking_king_gap.png}
@@ -509,9 +499,12 @@ alignment behind a material piece is still not in check.
 \end{figure}
 
 \vspace*{-0.7\baselineskip}
-Shaman cannot cross over empty capture-fields; so, dark King here is not in check.
+Any interuption of capturing also ends Shaman's capturing ply. Shaman cannot cross
+over empty capture-fields; so, dark King here is not in check.
 
-\vspace*{-1.1\baselineskip}
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_027_checking_king_blocked.png}
@@ -521,9 +514,28 @@ Shaman cannot cross over empty capture-fields; so, dark King here is not in chec
 \end{figure}
 
 \vspace*{-0.7\baselineskip}
-Shaman is also \hyperref[fig:scn_cot_005_light_shaman_capture_ply_passives]{blocked from moving any further}
+Any
+\hyperref[fig:scn_cot_005_light_shaman_capture_ply_passives]{interaction other than capturing},
+ends Shaman's capturing ply. So, Shaman is also blocked from capturing any further
 by own pieces, even if they can be activated; here, dark King is also not in check,
 because light Pyramid is blocking light Shaman's path.
+
+\vspace*{-1.1\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/18_cot/scn_cot_025_checking_king_immediate.png}
+\vspace*{-1.5\baselineskip}
+\caption{Dark King is not in check}
+\label{fig:scn_cot_025_checking_king_immediate}
+\end{figure}
+
+\vspace*{-0.7\baselineskip}
+Any lack of interaction (i.e. transparency) also ends Shaman's capturing ply.
+So, Shaman cannot use Wave's transparency to move over, and continue capturing
+afterwards; King beyond the end of such a ply is not in check.\newline
+\indent
+Here, light Shaman can capture dark Wave, and activate light Wave; dark King is
+still not in check.
 
 % \clearpage % ..........................................................
 
