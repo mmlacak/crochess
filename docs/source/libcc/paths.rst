@@ -136,11 +136,13 @@ For instance::
                     | B2 |  ------>  | D |
                     +----+           +---+
 
-produces 3 different paths::
+beside default path::
 
     +---+   next    +----+   next    +---+
     | A |  ------>  | B0 |  ------>  | C |
     +---+           +----+           +---+
+
+also produces 2 additional, alternative paths::
 
     +---+   next    +----+
     | A |  ------>  | B1 |
@@ -152,6 +154,11 @@ produces 3 different paths::
 
 Alternative paths are used when there are multiple possible interactions with
 encountered piece.
+
+For instance, a Bishop encounters opponent's Starchild on its capture-field; it
+can capture Starchild, use transparency to continue moving along a diagonal.
+Bishop can also diverge from a Starchild, but this is covered in
+:ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
 .. .. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 ..
@@ -256,12 +263,13 @@ overridden by side-effect from ``B2`` node.
 
 This is to be used primarily for displacements, when there are many possible
 displacement fields, none of which alters current path; e.g. a Shaman displacing
-pieces along predetermined path in a trance-journey.
+pieces along predetermined path in a trance-journey. Another example, a Serpent
+displacing Pawns encountered on its path.
 
-Another example, a Shaman can capture, diverge from, or use transparency of opponent's
-Starchild, and still continue its ply after all those interactions; in example above,
-``B0`` node could be a capture, while ``B1`` node would then be a transparency;
-divergence is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
+.. Another example, a Shaman can capture, or diverge from opponent's Starchild, and
+.. still continue its ply after all those interactions; in example above,
+.. ``B0`` node could be a capture, while ``B1`` node would then be a transparency;
+.. divergence is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
 .. _lbl-libcc-paths-pathsegmenttree-forkingpaths:
 
