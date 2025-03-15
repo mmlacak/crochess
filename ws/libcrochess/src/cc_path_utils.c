@@ -80,6 +80,8 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcTranceJourneyTypeEnum trance_journey_type,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a ) {
+    if ( !cb ) return false;
+
     if ( !side_effect_link__o_a ) return false;
     if ( *side_effect_link__o_a ) return false;
 
@@ -97,8 +99,8 @@ bool cc_path_side_effect( CcChessboard * cb,
 
     if ( CC_PIECE_CAN_CAPTURE( moving.piece ) &&
             CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
-            ( CC_TRANCE_JOURNEY_TYPE_IS_ANY_CAPTURE( trance_journey_type ) ||
-            ( cc_piece_has_different_owner( moving.piece, encounter.piece ) ) ) ) {
+            ( cc_piece_has_different_owner( moving.piece, encounter.piece ) ||
+              CC_TRANCE_JOURNEY_TYPE_IS_ANY_CAPTURE( trance_journey_type ) ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece, ltt );
         CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
         if ( !se__w ) {
@@ -137,10 +139,9 @@ bool cc_path_side_effect( CcChessboard * cb,
 
     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving.piece ) &&
             ( encounter.piece == CC_PE_None ) ) {
-         // CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( encounter.piece ) &&
-         // cc_piece_has_different_owner( moving.piece, encounter.piece ) ) {
-
-        // TODO :: find distant private with en-passant tag
+        // TODO :: find distant private with en-passant tag & then test these:
+        // CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( encounter.piece ) &&
+        // cc_piece_has_different_owner( moving.piece, encounter.piece ) ) {
 
     }
 

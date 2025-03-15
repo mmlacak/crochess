@@ -176,12 +176,12 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
     if ( !target_piece__o ) return CC_MBE_Void;
     if ( !target_pos__o ) return CC_MBE_Void;
 
+    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece ) ) return CC_MBE_False;
+
     CcChessboard * cb = game->chessboard;
 
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.
     if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return CC_MBE_False;
-
-    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece ) ) return CC_MBE_False;
 
     bool is_piece_light = cc_piece_is_light( piece );
 
@@ -195,15 +195,19 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
     if ( empty != CC_PE_None ) return CC_MBE_False;
 
     CcPos pos = destination;
-    int diff = is_piece_light ? 1 : -1;
+    int diff = is_piece_light ? -1 : 1;
     CcPieceType target = CC_PE_None;
 
+// TODO :: check target, it might be not blocking en passant (if activatable piece), or blocking (if not activatable)
+
+// TODO :: REDO :: en passant not blocked by intervening pieces
     do {
         pos = cc_pos_add( pos, 0, diff );
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
     } while ( ( target == CC_PE_None ) &&
               cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) );
 
+// TODO :: REDO :: after turn en-passant into 2 lists: current move tags, previous move tags
     if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) &&
             cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) &&
             ( target == game->en_passant.piece ) &&
