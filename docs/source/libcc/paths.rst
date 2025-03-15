@@ -156,9 +156,9 @@ Alternative paths are used when there are multiple possible interactions with
 encountered piece.
 
 For instance, a Bishop encounters opponent's Starchild on its capture-field; it
-can capture Starchild, use transparency to continue moving along a diagonal.
-Bishop can also diverge from a Starchild, but this is covered in
-:ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
+can capture Starchild (e.g. ``A --> B1``), or use transparency to continue moving
+along a diagonal (e.g. ``A --> B0 --> C``). Bishop can also diverge from a Starchild,
+but this is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
 .. .. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 ..
