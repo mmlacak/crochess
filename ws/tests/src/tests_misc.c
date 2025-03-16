@@ -214,9 +214,45 @@ bool tests_iter_piece_steps( void ) {
     return result;
 }
 
+bool tests_pos_desc_link( void ) {
+    CcPosDescLink * pdl = NULL;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_LightBishop, .pos = (CcPos){ .i = 1, .j = 2 }, .tag = CC_TE_None } ) )
+        return false;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_LightGrenadier, .pos = (CcPos){ .i = 11, .j = 7 }, .tag = CC_TE_None } ) )
+        return false;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_DarkRook, .pos = (CcPos){ .i = 5, .j = 21 }, .tag = CC_TE_CanCastle } ) )
+        return false;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_DarkPawn, .pos = (CcPos){ .i = 17, .j = 22 }, .tag = CC_TE_CanRush } ) )
+        return false;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_LightKnight, .pos = (CcPos){ .i = 23, .j = 3 }, .tag = CC_TE_None } ) )
+        return false;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_DarkPawn, .pos = (CcPos){ .i = 19, .j = 5 }, .tag = CC_TE_DelayedPromotion } ) )
+        return false;
+
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PE_LightScout, .pos = (CcPos){ .i = 3, .j = 11 }, .tag = CC_TE_None } ) )
+        return false;
+
+    printf( "---------------------\n" );
+    char * str = cc_pos_desc_link_to_string__new( pdl );
+    if ( str ) {
+        printf( "%s\n", str ); // Bb3 ,Gl8 ,rf22C,pr23R,Nx4 ,pt6P,Od12
+    } else {
+        printf( "NULL\n" );
+    }
+    printf( "---------------------\n" );
+
+    return (bool)( str );
+}
+
 
 bool tests_misc( int test_number ) {
-    if ( ( test_number < 0 ) || ( 6 < test_number ) ) {
+    if ( ( test_number < 0 ) || ( 7 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false; }
 
@@ -240,6 +276,9 @@ bool tests_misc( int test_number ) {
 
     if ( ( test_number == 6 ) || do_all_tests )
         result = tests_iter_piece_steps() && result;
+
+    if ( ( test_number == 7 ) || do_all_tests )
+        result = tests_pos_desc_link() && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;
