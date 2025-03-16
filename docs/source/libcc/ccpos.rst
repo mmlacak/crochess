@@ -439,6 +439,100 @@ Position descriptor
     :param pd_str__o: *Output*, pointer to short string array.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. _lbl-libcc-ccpos-linkedpositiondescriptors:
+
+Linked position descriptors
+---------------------------
+
+.. c:struct:: CcPosDescLink
+
+    Linked position descriptors :c:`struct`\ure, linked list.
+
+    .. c:member:: CcPosDesc pd
+
+        A position descriptor.
+
+    .. c:member:: struct CcPosDescLink * next
+
+        Next position descriptor in a linked list.
+
+    :c:`struct` is tagged with the same :c:struct:`CcPosDescLink` name.
+
+.. c:function:: CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd )
+
+    Returns a newly allocated position descriptor link.
+
+    :param pd: A position descriptor.
+    :returns: A newly allocated position descriptor link if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a, CcPosDesc pd )
+
+    Appends a newly allocated position descriptor link to a given linked list.
+
+    If linked list :c:`*pd_link__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated position descriptor link as its only element.
+
+    :param pd_link__iod_a: **Ownership**, *optional* *input/output* parameter;
+        linked list of position descriptors to which a new position descriptor
+        is appended, inner pointer can be :c:data:`NULL`.
+    :param pd: A position descriptor.
+    :returns: A weak pointer to newly allocated position descriptor link if successful,
+        :c:data:`NULL` otherwise.
+
+.. c:function:: CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link )
+
+    Duplicates all given position descriptors into a newly allocated linked list.
+
+    :param pd_link: Linked list to duplicate.
+    :returns: A newly allocated linked list if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a, CcPosDescLink ** pd_link__n )
+
+    Extends given linked list of position descriptors with another.
+
+    If linked list to extend (:c:`pd_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`pd_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`pd_link__n` has its ownership transferred to
+        extended linked list :c:`pd_link__iod_a`; as a result, inner pointer
+        :c:`*pd_link__n` is :c:data:`NULL`\ed.
+
+    :param pd_link__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
+    :param pd_link__n: **Ownership transfer**, *optional*; linked list to extend existing position descriptors.
+    :returns: Weak pointer to extended portion of a linked list if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f )
+
+    Frees all position descriptors in a linked list.
+
+    :param pd_link__f: Linked list of position descriptors.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: size_t cc_pos_desc_link_len( CcPosDescLink * pd_link )
+
+    Function returning length of linked list of position descriptors.
+
+    :param pd_link: Linked list of position descriptors.
+    :returns: Length if successful, ``0`` otherwise.
+
+.. c:function:: char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link )
+
+    .. todo::
+
+        Currently, this is not implemented.
+
+    Function returns a newly allocated string, containing user-readable
+    representation of position descriptors in a given linked list, separated by
+    ``','`` (comma); e.g. ``"Bb8,Rc10C,Pd12R,Se14"``.
+
+    :param pd_link: Linked list of position descriptors.
+    :returns: A newly allocated, null-terminated string if successful,
+              :c:data:`NULL` otherwise
+
 .. _lbl-libcc-ccpos-momentum:
 
 Momentum
