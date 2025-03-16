@@ -128,6 +128,34 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
                             cc_char_16 * pd_str__o );
 
 //
+// Linked position descriptor.
+
+// TODO :: DOCS :: +++
+
+typedef struct CcPosDescLink {
+    CcPosDesc pd;
+    struct CcPosDescLink * next;
+} CcPosDescLink;
+
+CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd );
+
+CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDesc pd );
+
+CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link );
+
+CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDescLink ** pd_link__n );
+
+bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f );
+
+size_t cc_pos_desc_link_len( CcPosDescLink * pd_link );
+
+char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link );
+
+// TODO :: DOCS :: ---
+
+//
 // Momentum.
 
 typedef enum CcMomentumUsageEnum {

@@ -344,6 +344,116 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
 }
 
 //
+// Linked position descriptor.
+
+CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
+    CcPosDescLink * pdl__t = malloc( sizeof( CcPosDescLink ) );
+    if ( !pdl__t ) return NULL;
+
+    pdl__t->pd = pd;
+    pdl__t->next = NULL;
+
+    return pdl__t;
+}
+
+CcPosDescLink * cc_pos_desc_link_append( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDesc pd ) {
+    if ( !pd_link__iod_a ) return NULL;
+
+    CcPosDescLink * pdl__t = cc_pos_desc_link__new( pd );
+    if ( !pdl__t ) return NULL;
+
+    if ( !*pd_link__iod_a ) {
+        *pd_link__iod_a = pdl__t; // Ownership transfer.
+    } else {
+        CcPosDescLink * pdl = *pd_link__iod_a;
+        CC_FASTFORWARD( pdl );
+        pdl->next = pdl__t; // Append + ownership transfer.
+    }
+
+    return pdl__t; // Weak pointer.
+}
+
+CcPosDescLink * cc_pos_desc_link_duplicate_all__new( CcPosDescLink * pd_link ) {
+    if ( !pd_link ) return NULL;
+
+    CcPosDescLink * pd_link__a = NULL;
+    CcPosDescLink * from = pd_link;
+
+    while ( from ) {
+        CcPosDescLink * pdl__w = cc_pos_desc_link_append( &pd_link__a, from->pd );
+        if ( !pdl__w ) { // Failed append --> ownership not transferred ...
+            cc_pos_desc_link_free_all( &pd_link__a );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return pd_link__a;
+}
+
+CcPosDescLink * cc_pos_desc_link_extend( CcPosDescLink ** pd_link__iod_a,
+                                         CcPosDescLink ** pd_link__n ) {
+    if ( !pd_link__iod_a ) return NULL;
+    if ( !pd_link__n ) return NULL;
+
+    if ( !*pd_link__n ) return *pd_link__iod_a;
+
+    if ( !*pd_link__iod_a ) {
+        // Ownership transfer.
+        *pd_link__iod_a = *pd_link__n;
+        *pd_link__n = NULL;
+
+        return *pd_link__iod_a;
+    }
+
+    CcPosDescLink * last = *pd_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *pd_link__n;
+    *pd_link__n = NULL;
+
+    return last->next;
+}
+
+bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f ) {
+    if ( !pd_link__f ) return false;
+    if ( !*pd_link__f ) return true;
+
+    CcPosDescLink * pdl = *pd_link__f;
+    CcPosDescLink * tmp = NULL;
+
+    while ( pdl ) {
+        tmp = pdl->next;
+        CC_FREE( pdl );
+        pdl = tmp;
+    }
+
+    *pd_link__f = NULL;
+    return true;
+}
+
+size_t cc_pos_desc_link_len( CcPosDescLink * pd_link ) {
+    if ( !pd_link ) return 0;
+
+    size_t len = 0;
+    CcPosDescLink * pdl = pd_link;
+
+    while ( pdl ) {
+        ++len;
+        pdl = pdl->next;
+    }
+
+    return len;
+}
+
+char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link ) {
+    return NULL; // TODO :: FIX
+}
+
+//
 // Momentum.
 
 CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
