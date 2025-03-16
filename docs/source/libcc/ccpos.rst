@@ -521,10 +521,6 @@ Linked position descriptors
 
 .. c:function:: char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link )
 
-    .. todo::
-
-        Currently, this is not implemented.
-
     Function returns a newly allocated string, containing user-readable
     representation of position descriptors in a given linked list, separated by
     ``','`` (comma); e.g. ``"Bb8,Rc10C,Pd12R,Se14"``.

@@ -130,8 +130,6 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
 //
 // Linked position descriptor.
 
-// TODO :: DOCS :: +++
-
 typedef struct CcPosDescLink {
     CcPosDesc pd;
     struct CcPosDescLink * next;
@@ -152,8 +150,6 @@ bool cc_pos_desc_link_free_all( CcPosDescLink ** pd_link__f );
 size_t cc_pos_desc_link_len( CcPosDescLink * pd_link );
 
 char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link );
-
-// TODO :: DOCS :: ---
 
 //
 // Momentum.
