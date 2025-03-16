@@ -167,56 +167,61 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
 }
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
-                                           CcPieceType piece,
+                                           CcChessboard * cb__d,
+                                           CcPieceType private,
                                            CcPos destination,
-                                           CcPieceType * target_piece__o,
+                                           CcPieceType * target_private__o,
                                            CcPos * target_pos__o ) {
     if ( !game ) return CC_MBE_Void;
     if ( !game->chessboard ) return CC_MBE_Void;
-    if ( !target_piece__o ) return CC_MBE_Void;
+    if ( !target_private__o ) return CC_MBE_Void;
     if ( !target_pos__o ) return CC_MBE_Void;
 
-    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( piece ) ) return CC_MBE_False;
+    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( private ) ) return CC_MBE_Void;
 
-    CcChessboard * cb = game->chessboard;
+    CcChessboard * cb = cb__d ? cb__d
+                              : game->chessboard;
 
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.
-    if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return CC_MBE_False;
+    if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return CC_MBE_Void;
 
-    bool is_piece_light = cc_piece_is_light( piece );
+    bool is_piece_light = cc_piece_is_light( private );
 
     if ( is_piece_light ) { // En passant can only be done on opposite side of a chessboard.
-        if ( cc_chessboard_is_field_on_light_side( cb, destination.j ) ) return CC_MBE_False;
+        if ( cc_chessboard_is_field_on_light_side( cb, destination.j ) ) return CC_MBE_Void;
     } else {
-        if ( cc_chessboard_is_field_on_dark_side( cb, destination.j ) ) return CC_MBE_False;
+        if ( cc_chessboard_is_field_on_dark_side( cb, destination.j ) ) return CC_MBE_Void;
     }
 
-    CcPieceType empty = cc_chessboard_get_piece( cb, destination.i, destination.j );
-    if ( empty != CC_PE_None ) return CC_MBE_False;
+    // Checking target, it might be not blocking en passant (if activatable piece), or blocking (if not activatable).
+    CcPieceType target = cc_chessboard_get_piece( cb, destination.i, destination.j );
+    if ( !( ( target == CC_PE_None ) ||
+            ( CC_PIECE_CAN_BE_ACTIVATED( target ) &&
+              cc_piece_has_same_owner( private, target ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave activations.
+        return CC_MBE_False;
 
     CcPos pos = destination;
     int diff = is_piece_light ? -1 : 1;
-    CcPieceType target = CC_PE_None;
+    bool found = false;
 
-// TODO :: check target, it might be not blocking en passant (if activatable piece), or blocking (if not activatable)
-
-// TODO :: REDO :: en passant not blocked by intervening pieces
     do {
         pos = cc_pos_add( pos, 0, diff );
+        if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;
+
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    } while ( ( target == CC_PE_None ) &&
-              cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) );
+        if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) )
+            found = true;
+    } while ( !found );
 
 // TODO :: REDO :: after turn en-passant into 2 lists: current move tags, previous move tags
-    if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) &&
-            cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) &&
+    if ( found &&
             ( target == game->en_passant.piece ) &&
             ( game->en_passant.tag == CC_TE_None ) &&
             ( CC_POS_IS_EQUAL( pos, game->en_passant.pos ) ) ) {
-        *target_piece__o = target;
+        *target_private__o = target;
         *target_pos__o = pos;
         return CC_MBE_True;
     }
 
-    return CC_MBE_False;
+    return CC_MBE_Void;
 }

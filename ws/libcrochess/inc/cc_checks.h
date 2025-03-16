@@ -45,9 +45,10 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos rook_dest );
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
-                                           CcPieceType piece,
+                                           CcChessboard * cb__d,
+                                           CcPieceType private,
                                            CcPos destination,
-                                           CcPieceType * target_piece__o,
+                                           CcPieceType * target_private__o,
                                            CcPos * target_pos__o );
 
 

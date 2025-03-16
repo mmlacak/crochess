@@ -49,6 +49,18 @@
 
 #define CC_PIECE_IS_STARCHILD(pe) ( ( (pe) == CC_PE_LightStarchild ) || ( (pe) == CC_PE_DarkStarchild ) )
 
+#define CC_PIECE_IS_TROOPER(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
+                               || ( (pe) == CC_PE_DarkScout )           \
+                               || ( (pe) == CC_PE_LightScout )          \
+                               || ( (pe) == CC_PE_LightGrenadier ) )
+
+#define CC_PIECE_IS_PRIVATE(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
+                               || ( (pe) == CC_PE_DarkScout )           \
+                               || ( (pe) == CC_PE_DarkPawn )            \
+                               || ( (pe) == CC_PE_LightPawn )           \
+                               || ( (pe) == CC_PE_LightScout )          \
+                               || ( (pe) == CC_PE_LightGrenadier ) )
+
 
 #define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )              \
                               && ( (pe) != CC_PE_BrightStar )           \
@@ -79,19 +91,9 @@
                                 && ( (pe) != CC_PE_Monolith )           \
                                 && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
-#define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
-                                           || ( (pe) == CC_PE_DarkScout )           \
-                                           || ( (pe) == CC_PE_DarkPawn )            \
-                                           || ( (pe) == CC_PE_LightPawn )           \
-                                           || ( (pe) == CC_PE_LightScout )          \
-                                           || ( (pe) == CC_PE_LightGrenadier ) )
+#define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pe) ( CC_PIECE_IS_PRIVATE( (pe) ) )
 
-#define CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT(pe) ( ( (pe) == CC_PE_DarkGrenadier )       \
-                                               || ( (pe) == CC_PE_DarkScout )           \
-                                               || ( (pe) == CC_PE_DarkPawn )            \
-                                               || ( (pe) == CC_PE_LightPawn )           \
-                                               || ( (pe) == CC_PE_LightScout )          \
-                                               || ( (pe) == CC_PE_LightGrenadier ) )
+#define CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT(pe) ( CC_PIECE_IS_PRIVATE( (pe) ) )
 
 #define CC_PIECE_IS_PASIVE(pe) ( ( (pe) == CC_PE_DimStar )              \
                               || ( (pe) == CC_PE_DarkWave )             \

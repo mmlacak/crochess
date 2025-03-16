@@ -189,6 +189,20 @@ Values
     :param pe: A piece, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if piece is a Starchild, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_IS_TROOPER(pe)
+
+    Macro to check if given piece is a trooper, i.e. Scout or Grenadier.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece is a trooper, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_PRIVATE(pe)
+
+    Macro to check if given piece is a private, i.e. Pawn, Scout, or Grenadier.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece is a private, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpiece-features:
 
 Features
