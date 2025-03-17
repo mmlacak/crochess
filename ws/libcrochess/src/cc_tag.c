@@ -15,6 +15,9 @@ char cc_tag_as_char( CcTagType ct ) {
         case CC_TE_CanCastle : return CC_TAG_CHAR_CAN_CASTLE;
         case CC_TE_DelayedPromotion : return CC_TAG_CHAR_DELAYED_PROMOTION;
 
+        case CC_TE_EnPassant_Previous : return CC_TAG_CHAR_EN_PASSANT_PREVIOUS;
+        case CC_TE_EnPassant_Current : return CC_TAG_CHAR_EN_PASSANT_CURRENT;
+
         default : return CC_TAG_CHAR_INVALID;
     }
 }
@@ -27,6 +30,9 @@ CcTagType cc_tag_from_char( char c ) {
         case CC_TAG_CHAR_CAN_CASTLE : return CC_TE_CanCastle;
         case CC_TAG_CHAR_DELAYED_PROMOTION : return CC_TE_DelayedPromotion;
 
+        case CC_TAG_CHAR_EN_PASSANT_PREVIOUS : return CC_TE_EnPassant_Previous;
+        case CC_TAG_CHAR_EN_PASSANT_CURRENT : return CC_TE_EnPassant_Current;
+
         default : return CC_TE_None;
     }
 }
@@ -35,9 +41,8 @@ bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 ) {
     if ( !CC_TAG_IS_ENUMERATOR( ct_1 ) ) return false;
     if ( !CC_TAG_IS_ENUMERATOR( ct_2 ) ) return false;
 
-    if ( ( ct_1 != CC_TE_None ) && ( ct_2 != CC_TE_None ) && ( ct_1 != ct_2 ) )
-        // Both tags are valid, but different ...
-        return false;
+    if ( ct_1 != ct_2 )
+        return ( ( ct_1 == CC_TE_None ) || ( ct_2 == CC_TE_None ) );
 
     return true;
 }

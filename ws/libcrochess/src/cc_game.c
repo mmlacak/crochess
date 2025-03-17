@@ -53,7 +53,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
         return NULL;
     }
 
-    if ( !cc_game_reset_flags( gm__a, true ) ) {
+    if ( !cc_game_reset_flags( gm__a ) ) {
         CC_FREE( gm__a );
         return NULL;
     }
@@ -63,11 +63,8 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     return gm__a;
 }
 
-bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant ) {
+bool cc_game_reset_flags( CcGame * game__io ) {
     if ( !game__io ) return false;
-
-    if ( reset_en_passant )
-        game__io->en_passant = CC_POS_DESC_CAST_INVALID;
 
     game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
     game__io->initial_piece = CC_POS_DESC_CAST_INVALID;
@@ -92,7 +89,6 @@ CcGame * cc_game_duplicate_all__new( CcGame * game ) {
 
     gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
 
-    gm__a->en_passant = game->en_passant;
     gm__a->pawn_sacrifice = game->pawn_sacrifice;
     gm__a->initial_piece = game->initial_piece;
     gm__a->current_pos = game->current_pos;

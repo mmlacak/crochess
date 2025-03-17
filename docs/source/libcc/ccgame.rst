@@ -117,11 +117,6 @@ Types
 
         Current position on a chessboard.
 
-    .. c:member:: CcPosDesc en_passant
-
-        Flag, a private at its destination after rushing.
-        Resets after the very next move.
-
     .. c:member:: CcPosDesc pawn_sacrifice
 
         Flag, a Serpent at its current position, after Pawn-sacrifice, before
@@ -163,20 +158,17 @@ Functions
                      or from manually set-up position (:c:data:`false`).
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant )
+.. c:function:: bool cc_game_reset_flags( CcGame * game__io )
 
     Resets flags in a given game.
 
     Flags in a :c:struct:`CcGame` are:
 
-        * :c:member:`en_passant`,
-        * :c:member:`pawn_sacrifice`,
-        * :c:member:`initial_piece`,
-        * :c:member:`current_pos`.
+        * :c:member:`CcGame.pawn_sacrifice`,
+        * :c:member:`CcGame.initial_piece`,
+        * :c:member:`CcGame.current_pos`.
 
     :param game__io: Game to reset flags.
-    :param reset_en_passant: Whether to reset :c:member:`en_passant` flag
-        (if :c:data:`true`), or not (if :c:data:`false`).
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: CcGame * cc_game_duplicate_all__new( CcGame * game )

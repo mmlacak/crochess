@@ -213,11 +213,11 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
             found = true;
     } while ( !found );
 
-// TODO :: REDO :: after turn en-passant into 2 lists: current move tags, previous move tags
-    if ( found &&
+// TODO :: REDO :: use en-passant tags
+    if ( found /* &&
             ( target == game->en_passant.piece ) &&
             ( game->en_passant.tag == CC_TE_None ) &&
-            ( CC_POS_IS_EQUAL( pos, game->en_passant.pos ) ) ) {
+            ( CC_POS_IS_EQUAL( pos, game->en_passant.pos ) ) */ ) {
         *target_private__o = target;
         *target_pos__o = pos;
         return CC_MBE_True;

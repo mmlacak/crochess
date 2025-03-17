@@ -41,9 +41,6 @@ typedef struct CcGame {
     CcGameStatusEnum status;
     CcChessboard * chessboard;
 
-// TODO :: turn en-passant into 2 lists: current move tags, previous move tags
-    CcPosDesc en_passant;
-
     CcPosDesc pawn_sacrifice;
     CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.
     CcPos current_pos; // Current position of a piece starting a move.
@@ -55,7 +52,8 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
                        bool do_setup );
 
-bool cc_game_reset_flags( CcGame * game__io, bool reset_en_passant );
+// TODO :: DOCS
+bool cc_game_reset_flags( CcGame * game__io );
 
 // TODO :: func --> copy game except moves, update chessboard, reset pawn_sacrifice
 

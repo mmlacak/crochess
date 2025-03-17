@@ -87,6 +87,14 @@ console.
 
     Equals to ``'P'``.
 
+.. c:macro:: CC_TAG_CHAR_EN_PASSANT_PREVIOUS
+
+    Equals to :c:`'E'`.
+
+.. c:macro:: CC_TAG_CHAR_EN_PASSANT_CURRENT
+
+    Equals to :c:`'e'`.
+
 .. _lbl-libcc-cctags-types:
 
 Types
@@ -112,6 +120,19 @@ Types
     .. c:enumerator:: CC_TE_DelayedPromotion
 
         Pawn delayed promotion. Persistent :term:`tag`, equals to ``3``.
+
+    .. c:enumerator:: CC_TE_EnPassant_Previous
+
+        A private rushed in previous turn, this is its en passant opportunity tag;
+        deleted at the start of the very next move.
+        Semi-persistent :term:`tag`, equals to ``4``.
+
+    .. c:enumerator:: CC_TE_EnPassant_Current
+
+        A private rushed in current turn (in a previous ply), this is its en passant
+        opportunity tag; becomes :c:enumerator:`CC_TE_EnPassant_Previous` at the
+        start of the very next move.
+        Semi-persistent :term:`tag`, equals to ``5``.
 
     :c:`enum` is tagged with the same :c:enum:`CcTagEnum` name.
 

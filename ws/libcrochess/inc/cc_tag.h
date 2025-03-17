@@ -9,9 +9,9 @@
 //
 // Tag enum
 
-#define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
+#define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_EnPassant_Current ) )
 
-#define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_DelayedPromotion ) )
+#define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_EnPassant_Current ) )
 
 #define CC_TAG_IS_PERSISTENT(te) ( ( (te) == CC_TE_CanRush )               \
                                 || ( (te) == CC_TE_CanCastle )             \
@@ -24,12 +24,18 @@
 #define CC_TAG_CHAR_CAN_CASTLE 'C'
 #define CC_TAG_CHAR_DELAYED_PROMOTION 'P'
 
+#define CC_TAG_CHAR_EN_PASSANT_PREVIOUS 'E'
+#define CC_TAG_CHAR_EN_PASSANT_CURRENT 'e'
+
 typedef enum CcTagEnum {
     CC_TE_None = 0, /* No tag applies. */
 
     CC_TE_CanRush, /* Pawn can rush, persistent tag. */
     CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
     CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
+
+    CC_TE_EnPassant_Previous, /* A private rushed in previous turn, this is en passant opportunity tag. */
+    CC_TE_EnPassant_Current, /* A private rushed in current turn (in a previous ply), this will become en passant opportunity for opponent in the very next turn. */
 } CcTagEnum;
 
 typedef unsigned char CcTagType;
@@ -53,6 +59,8 @@ typedef enum CcLosingTagEnum {
     CC_LTE_RushingTagLost = CC_TE_CanRush, /* Pawn lost its ability to rush. */
     CC_LTE_CastlingTagLost = CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */
     CC_LTE_DelayedPromotionLost = CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
+
+    /* En passant tags are semi-permanent, they last for a turn, and are removed simply by playing another move. */
 } CcLosingTagEnum;
 
 #define CC_MAX_LEN_LOSING_TAG_SYMBOL (2)
