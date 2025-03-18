@@ -93,15 +93,11 @@ Functions
         * :c:enumerator:`CC_MBE_False` if no castling is possible,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game, CcChessboard * cb__d, CcPieceType private, CcPos destination, CcPosDesc * target__o )
+.. c:function:: CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb, CcPieceType private, CcPos destination, CcPosDesc * target__o )
 
     Function finds a private to be captured by en passant, its location and tag.
 
-    Current chessboard can optionally be supplied (e.g. after a ply in a cascade);
-    otherwise, the one supplied within :c:var:`game` argument will be used.
-
-    :param game: A game.
-    :param cb__d: *Optional*, current chessboard; can be :c:data:`NULL`.
+    :param cb: Current chessboard.
     :param private: A moving private, capturing en passant.
     :param destination: Destination field.
     :param target__o: An *output*; target private to be captured en passant, its position and tag; if found.

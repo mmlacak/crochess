@@ -166,19 +166,14 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     return CC_MBE_True;
 }
 
-CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
-                                           CcChessboard * cb__d,
+CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
                                            CcPieceType private,
                                            CcPos destination,
                                            CcPosDesc * target__o ) {
-    if ( !game ) return CC_MBE_Void;
-    if ( !game->chessboard ) return CC_MBE_Void;
+    if ( !cb ) return CC_MBE_Void;
     if ( !target__o ) return CC_MBE_Void;
 
     if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( private ) ) return CC_MBE_Void;
-
-    CcChessboard * cb = cb__d ? cb__d
-                              : game->chessboard;
 
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.
     if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return CC_MBE_Void;
