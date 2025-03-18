@@ -13,9 +13,12 @@
 
 #define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_EnPassant_Current ) )
 
-#define CC_TAG_IS_PERSISTENT(te) ( ( (te) == CC_TE_CanRush )               \
-                                || ( (te) == CC_TE_CanCastle )             \
+#define CC_TAG_IS_PERSISTENT(te) ( ( (te) == CC_TE_CanRush )                \
+                                || ( (te) == CC_TE_CanCastle )              \
                                 || ( (te) == CC_TE_DelayedPromotion ) )
+
+#define CC_TAG_IS_EN_PASSANT(te) ( ( (te) == CC_TE_EnPassant_Previous )     \
+                                || ( (te) == CC_TE_EnPassant_Current ) )
 
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'

@@ -209,15 +209,14 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;
 
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) )
-            found = true;
+        if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) ) {
+            CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+            if ( CC_TAG_IS_EN_PASSANT( tag ) )
+                found = true;
+        }
     } while ( !found );
 
-// TODO :: REDO :: use en-passant tags
-    if ( found /* &&
-            ( target == game->en_passant.piece ) &&
-            ( game->en_passant.tag == CC_TE_None ) &&
-            ( CC_POS_IS_EQUAL( pos, game->en_passant.pos ) ) */ ) {
+    if ( found ) {
         *target_private__o = target;
         *target_pos__o = pos;
         return CC_MBE_True;
