@@ -170,12 +170,10 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
                                            CcChessboard * cb__d,
                                            CcPieceType private,
                                            CcPos destination,
-                                           CcPieceType * target_private__o,
-                                           CcPos * target_pos__o ) {
+                                           CcPosDesc * target__o ) {
     if ( !game ) return CC_MBE_Void;
     if ( !game->chessboard ) return CC_MBE_Void;
-    if ( !target_private__o ) return CC_MBE_Void;
-    if ( !target_pos__o ) return CC_MBE_Void;
+    if ( !target__o ) return CC_MBE_Void;
 
     if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( private ) ) return CC_MBE_Void;
 
@@ -202,6 +200,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
 
     CcPos pos = destination;
     int diff = is_piece_light ? -1 : 1;
+    CcTagEnum tag = CC_TE_None;
     bool found = false;
 
     do {
@@ -210,15 +209,14 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
 
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) ) {
-            CcTagEnum tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
+            tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
             if ( CC_TAG_IS_EN_PASSANT( tag ) )
                 found = true;
         }
     } while ( !found );
 
     if ( found ) {
-        *target_private__o = target;
-        *target_pos__o = pos;
+        *target__o = (CcPosDesc){ .piece = target, .pos = pos, .tag = tag };
         return CC_MBE_True;
     }
 

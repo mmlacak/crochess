@@ -44,12 +44,12 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos rook_start,
                                                CcPos rook_dest );
 
+// TODO :: DOCS
 CcMaybeBoolEnum cc_find_en_passant_target( CcGame * game,
                                            CcChessboard * cb__d,
                                            CcPieceType private,
                                            CcPos destination,
-                                           CcPieceType * target_private__o,
-                                           CcPos * target_pos__o );
+                                           CcPosDesc * target__o );
 
 
 #endif /* __CC_CHECKS_H__ */
