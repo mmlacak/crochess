@@ -105,13 +105,17 @@ typedef struct CcPosDesc {
 
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
-#define CC_POS_DESC(int_i,int_j,piece_enum,tag_enum)    \
-    { .pos = CC_POS_CAST( (int_i), (int_j) ),           \
-      .piece = (CcPieceType)(piece_enum),               \
+#define CC_POS_DESC_COORDS(int_i,int_j,piece_enum,tag_enum)         \
+    { .pos = CC_POS_CAST( (int_i), (int_j) ),                       \
+      .piece = (CcPieceType)(piece_enum),                           \
       .tag = (CcTagType)(tag_enum) }
 
-#define CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum)   \
-    ( (CcPosDesc)CC_POS_DESC( (int_i), (int_j), (piece_enum), (tag_enum) ) )
+#define CC_POS_DESC_COORDS_CAST(int_i,int_j,piece_enum,tag_enum)    \
+    ( (CcPosDesc)CC_POS_DESC_COORDS( (int_i), (int_j), (piece_enum), (tag_enum) ) )
+
+#define CC_POS_DESC(pos,piece_enum,tag_enum) { .pos = (pos), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum) }
+
+#define CC_POS_DESC_CAST(pos,piece_enum,tag_enum) ( (CcPosDesc){ .pos = (pos), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum) } )
 
 #define CC_POS_DESC_IS_VALID(pd) \
     ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )

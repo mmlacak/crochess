@@ -370,7 +370,7 @@ Position descriptor
 
     Casted static position descriptor value, i.e. no-movement step.
 
-.. c:macro:: CC_POS_DESC(int_i,int_j,piece_enum,tag_enum)
+.. c:macro:: CC_POS_DESC_COORDS(int_i,int_j,piece_enum,tag_enum)
 
     Macro which constructs position descriptor struct.
 
@@ -381,12 +381,32 @@ Position descriptor
     :returns: Position descriptor value.
     :seealso: :c:struct:`CcPosDesc`
 
-.. c:macro:: CC_POS_DESC_CAST(int_i,int_j,piece_enum,tag_enum)
+.. c:macro:: CC_POS_DESC_COORDS_CAST(int_i,int_j,piece_enum,tag_enum)
 
     Macro which casts position descriptor macro.
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
+    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param tag_enum: A tag; :c:type:`CcTagType` value.
+    :returns: Casted position descriptor value.
+    :seealso: :c:macro:`CC_POS_DESC_COORDS`
+
+.. c:macro:: CC_POS_DESC(pos,piece_enum,tag_enum)
+
+    Macro which constructs position descriptor struct.
+
+    :param pos: A position; :c:type:`CcPos` value.
+    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param tag_enum: A tag; :c:type:`CcTagType` value.
+    :returns: Position descriptor value.
+    :seealso: :c:struct:`CcPosDesc`
+
+.. c:macro:: CC_POS_DESC_CAST(pos,piece_enum,tag_enum)
+
+    Macro which casts position descriptor macro.
+
+    :param pos: A position; :c:type:`CcPos` value.
     :param piece_enum: A piece; :c:type:`CcPieceType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
     :returns: Casted position descriptor value.

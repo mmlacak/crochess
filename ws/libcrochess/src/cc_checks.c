@@ -211,7 +211,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     } while ( !found );
 
     if ( found ) {
-        *target__o = (CcPosDesc){ .piece = target, .pos = pos, .tag = tag };
+        *target__o = (CcPosDesc){ .pos = pos, .piece = target, .tag = tag };
         return CC_MBE_True;
     }
 
