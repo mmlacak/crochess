@@ -64,11 +64,11 @@ Linked path segments
         position to another in order in which they were made; only the last step
         in a :term:`segment` can also have another, encountered piece and its tag.
 
-    .. c:member:: CcPieceEnum encountered_piece
+    .. c:member:: CcPieceType encountered_piece
 
         Piece encountered at the very last field in the :c:member:`steps` list.
 
-    .. c:member:: CcTagEnum encountered_tag
+    .. c:member:: CcTagType encountered_tag
 
         Tag encountered at the very last field in the :c:member:`steps` list.
 
@@ -138,7 +138,7 @@ Linked path segments
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
+.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentum momentum )
 
     Function allocates a new path link.
 
@@ -157,7 +157,7 @@ Linked path segments
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceEnum encountered_piece, CcTagEnum encountered_tag, CcMomentum momentum )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentum momentum )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.

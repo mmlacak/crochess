@@ -190,12 +190,12 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     CcPieceType target = cc_chessboard_get_piece( cb, destination.i, destination.j );
     if ( !( ( target == CC_PE_None ) ||
             ( CC_PIECE_CAN_BE_ACTIVATED( target ) &&
-              cc_piece_has_same_owner( private, target ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave activations.
+              cc_piece_has_same_owner( private, target ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave, Starchild --> Starchild activations.
         return CC_MBE_False;
 
     CcPos pos = destination;
     int diff = is_piece_light ? -1 : 1;
-    CcTagEnum tag = CC_TE_None;
+    CcTagType tag = CC_TE_None;
     bool found = false;
 
     do {
@@ -210,7 +210,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
         }
     } while ( !found );
 
-    if ( found ) {
+    if ( found && cc_piece_has_different_owner( private, target ) ) {
         *target__o = (CcPosDesc){ .pos = pos, .piece = target, .tag = tag };
         return CC_MBE_True;
     }

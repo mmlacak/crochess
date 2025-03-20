@@ -138,11 +138,17 @@ bool cc_path_side_effect( CcChessboard * cb,
     }
 
     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving.piece ) &&
-            ( encounter.piece == CC_PE_None ) ) {
-        // TODO :: find distant private with en-passant tag & then test these:
-        // CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( encounter.piece ) &&
-        // cc_piece_has_different_owner( moving.piece, encounter.piece ) ) {
-
+            ( encounter.piece == CC_PE_None ) ) { // TODO :: or encountered piece can be activated
+        CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
+        CcMaybeBoolEnum result = cc_find_en_passant_target( cb, moving.piece, encounter.pos, &en_passant );
+        if ( result == CC_MBE_True ) {
+            CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
+            CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
+            if ( !se__w ) {
+                cc_side_effect_link_free_all( side_effect_link__o_a );
+                return false;
+            }
+        }
     }
 
 
@@ -159,8 +165,8 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
     CcPos field = cc_pos_add_steps( current_pos, step.step, 1 );
     CcStep * steps__t = NULL;
 
-    CcPieceEnum piece = CC_PE_None;
-    CcTagEnum tag = CC_TE_None;
+    CcPieceType piece = CC_PE_None;
+    CcTagType tag = CC_TE_None;
     CcMomentum m = momentum;
     CcStep * step__w = NULL;
 
@@ -180,7 +186,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
             return NULL;
         }
 
-        CcPieceEnum encounter = cc_chessboard_get_piece( game->chessboard, field.i, field.j );
+        CcPieceType encounter = cc_chessboard_get_piece( game->chessboard, field.i, field.j );
         if ( encounter != CC_PE_None ) break; // Caller checks all possible interactions, including transparency; removes field of encounter if there are none.
 
         field = cc_pos_add_steps( field, step.step, 1 );

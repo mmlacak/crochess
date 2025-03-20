@@ -16,8 +16,8 @@
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
-                                CcPieceEnum encountered_piece,
-                                CcTagEnum encountered_tag,
+                                CcPieceType encountered_piece,
+                                CcTagType encountered_tag,
                                 CcMomentum momentum ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
@@ -47,8 +47,8 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
                                   CcStep ** steps__d_n,
-                                  CcPieceEnum encountered_piece,
-                                  CcTagEnum encountered_tag,
+                                  CcPieceType encountered_piece,
+                                  CcTagType encountered_tag,
                                   CcMomentum momentum ) {
     if ( !pl__iod_a ) return NULL;
 

@@ -314,7 +314,7 @@ Functions
     :param sete: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceEnum piece, CcSideEffectTypeEnum sete )
+.. c:function:: CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceType piece, CcSideEffectTypeEnum sete )
 
     Function returns if a given side-effect is terminating ply of a given piece.
 
