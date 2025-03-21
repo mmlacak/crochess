@@ -61,6 +61,11 @@
                                || ( (pe) == CC_PE_LightScout )          \
                                || ( (pe) == CC_PE_LightGrenadier ) )
 
+// TODO :: DOCS
+#define CC_PIECE_IS_MATERIAL(pe) ( ( (pe) != CC_PE_DarkWave )           \
+                                && ( (pe) != CC_PE_LightWave )          \
+                                && ( CC_PIECE_IS_VALID( (pe) ) ) )
+
 
 #define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )              \
                               && ( (pe) != CC_PE_BrightStar )           \
@@ -77,7 +82,7 @@
 #define CC_PIECE_CAN_ACTIVATE(pe) ( ( (pe) != CC_PE_DimStar )           \
                                  && ( (pe) != CC_PE_BrightStar )        \
                                  && ( (pe) != CC_PE_Monolith )          \
-                                 && ( CC_PIECE_IS_VALID( (pe) ) )
+                                 && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
 #define CC_PIECE_CAN_ACTIVATE_STAR(pe) ( ( (pe) == CC_PE_DarkStarchild )        \
                                       || ( (pe) == CC_PE_LightStarchild ) )

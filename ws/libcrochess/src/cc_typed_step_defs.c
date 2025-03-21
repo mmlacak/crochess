@@ -373,7 +373,7 @@ CcStepTypeEnum cc_get_step_type( CcPos step,
                                  CcTypedStep const steps[],
                                  size_t steps_len__d ) {
     if ( !steps ) return CC_STE_None;
-    if ( !CC_STEP_TYPE_IS_ENUMERATOR( filter__d ) ) return false;
+    if ( !CC_STEP_TYPE_IS_ENUMERATOR( filter__d ) ) return CC_STE_None;
 
     bool no_filter = ( filter__d == CC_STE_None );
 

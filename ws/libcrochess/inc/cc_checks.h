@@ -15,6 +15,9 @@
 #include "cc_move.h"
 #include "cc_game.h"
 
+#include "cc_typed_step.h"
+#include "cc_typed_step_defs.h"
+
 
 #define CC_CHECK_STEPS_NO_LIMIT (0)
 
@@ -43,6 +46,18 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos king_dest,
                                                CcPos rook_start,
                                                CcPos rook_dest );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType piece,
+                                             CcPieceType encounter,
+                                             bool at_capture_miracle_fields );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
+                                                CcPieceType piece,
+                                                cc_uint_t momentum,
+                                                CcPieceType activator,
+                                                CcPos pos );
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
                                            CcPieceType private,
