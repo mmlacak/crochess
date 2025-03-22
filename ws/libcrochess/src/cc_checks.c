@@ -194,13 +194,15 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
 
     if ( !same_owner ) return CC_MBE_False;
 
+    if ( CC_PIECE_IS_PYRAMID( encounter ) ) {
+        return ( at_capture_miracle_fields
+                 && positive_momentum ) ? CC_MBE_True
+                                        : CC_MBE_False;
+    }
+
     if ( wave_moving || wave_encounter ) return CC_MBE_True;
 
     if ( starchild_moving && starchild_encounter ) return CC_MBE_True;
-
-    if ( CC_PIECE_IS_PYRAMID( encounter ) &&
-         at_capture_miracle_fields &&
-         positive_momentum ) return CC_MBE_True;
 
     return CC_MBE_False;
 }
