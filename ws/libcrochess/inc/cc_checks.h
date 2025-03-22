@@ -47,8 +47,10 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos rook_start,
                                                CcPos rook_dest );
 
+// TODO :: DOCS
 CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
                                              CcPieceType encounter,
+                                             cc_uint_t momentum,
                                              bool at_capture_miracle_fields );
 
 // TODO :: DOCS

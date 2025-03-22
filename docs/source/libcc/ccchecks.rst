@@ -93,14 +93,15 @@ Functions
         * :c:enumerator:`CC_MBE_False` if no castling is possible,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving, CcPieceType encounter, bool at_capture_miracle_fields )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving, CcPieceType encounter, cc_uint_t momentum, bool at_capture_miracle_fields )
 
     Function checks if moving piece can activate stationary one, given
-    :c:var:`at_capture_miracle_fields` flag.
+    :c:var:`momentum` and :c:var:`at_capture_miracle_fields` flag.
 
     :param moving: A moving piece.
     :param encounter: A static, encountered piece.
-    :param at_capture_miracle_fields: A flag, whether activation takes place on capture- (or miracle-) fields, or not.
+    :param momentum: Momentum.
+    :param at_capture_miracle_fields: A flag, whether activation takes place on a capture- (or miracle-) fields, or not.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if moving piece can activate encountered one,
