@@ -166,38 +166,41 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     return CC_MBE_True;
 }
 
-CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType piece,
+CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
                                              CcPieceType encounter,
                                              bool at_capture_miracle_fields ) {
-    if ( !CC_PIECE_CAN_ACTIVATE( piece ) ) return CC_MBE_Void;
+    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_Void;
     if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_Void;
 
-    if ( CC_PIECE_IS_WAVE( piece ) && CC_PIECE_IS_WAVE( encounter ) ) return CC_MBE_True;
+    if ( CC_PIECE_IS_WAVE( moving ) && CC_PIECE_IS_WAVE( encounter ) ) return CC_MBE_True;
 
-    if ( CC_PIECE_IS_STARCHILD( piece ) && at_capture_miracle_fields ) {
-        if ( CC_PIECE_IS_STARCHILD( encounter ) || CC_PIECE_IS_STAR( encounter ) ) return CC_MBE_True;
+    if ( CC_PIECE_IS_STARCHILD( moving ) && at_capture_miracle_fields ) {
+        if ( CC_PIECE_IS_STARCHILD( encounter ) ||
+             CC_PIECE_IS_STAR( encounter ) ||
+             cc_piece_has_same_owner( moving, encounter ) ) return CC_MBE_True;
     }
 
-    if ( cc_piece_has_different_owner( piece, encounter ) ) return CC_MBE_False;
+    if ( cc_piece_has_different_owner( moving, encounter ) ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_WAVE( encounter ) ) return CC_MBE_True;
 
     if ( CC_PIECE_IS_PYRAMID( encounter ) && at_capture_miracle_fields ) return CC_MBE_True;
 
-    if ( CC_PIECE_IS_STARCHILD( piece ) && CC_PIECE_IS_STARCHILD( encounter ) ) return CC_MBE_True;
+    if ( CC_PIECE_IS_STARCHILD( moving ) &&
+         ( CC_PIECE_IS_STARCHILD( encounter ) || CC_PIECE_IS_WAVE( encounter ) ) ) return CC_MBE_True;
 
-    if ( ( CC_PIECE_IS_WAVE( piece ) ) || ( CC_PIECE_IS_WAVE( encounter ) ) ) return CC_MBE_True;
+    if ( ( CC_PIECE_IS_WAVE( moving ) ) || ( CC_PIECE_IS_WAVE( encounter ) ) ) return CC_MBE_True;
 
     return CC_MBE_False;
 }
 
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
-                                                CcPieceType piece,
+                                                CcPieceType moving,
                                                 cc_uint_t momentum,
                                                 CcPieceType activator,
                                                 CcPos pos ) {
     if ( !cb ) return CC_MBE_Void;
-    if ( !CC_PIECE_CAN_ACTIVATE( piece ) ) return CC_MBE_Void;
+    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_Void;
     if ( !CC_PIECE_IS_ENUMERATOR( activator ) ) return CC_MBE_Void;
     if ( !CC_POS_IS_VALID( pos ) ) return CC_MBE_Void;
 
