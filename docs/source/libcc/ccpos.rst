@@ -628,21 +628,21 @@ Momentum
 
 .. c:macro:: CC_MOMENTUM_INITIAL
 
-    Initial momentum, :c:struct:`CcMomentumUsage` value; :c:member:`activator` value
-    is :c:enumerator:`CC_PE_None`, :c:member:`momentum` value is ``0``,
-    and :c:member:`usage` is :c:enumerator:`CC_MUE_Accumulating`.
+    Initial momentum, :c:struct:`CcMomentumUsage` value; :c:member:`CcMomentumUsage.activator`
+    value is :c:enumerator:`CC_PE_None`, :c:member:`CcMomentumUsage.momentum` value is ``0``,
+    and :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_Accumulating`.
 
 .. c:macro:: CC_MOMENTUM_STATIC
 
-    Static momentum, :c:struct:`CcMomentumUsage` value; :c:member:`activator` value is
-    :c:enumerator:`CC_PE_None`, :c:member:`momentum` value is ``0``, and
-    :c:member:`usage` is :c:enumerator:`CC_MUE_NotUsing`.
+    Static momentum, :c:struct:`CcMomentumUsage` value; :c:member:`CcMomentumUsage.activator`
+    value is :c:enumerator:`CC_PE_None`, :c:member:`CcMomentumUsage.momentum` value is ``0``,
+    and :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_NotUsing`.
 
 .. c:macro:: CC_MOMENTUM_SPENT
 
-    Spent momentum, :c:struct:`CcMomentumUsage` value; :c:member:`activator` value is
-    :c:enumerator:`CC_PE_None`, :c:member:`momentum` value is ``0``, and
-    :c:member:`usage` is :c:enumerator:`CC_MUE_Spending`.
+    Spent momentum, :c:struct:`CcMomentumUsage` value; :c:member:`CcMomentumUsage.activator`
+    value is :c:enumerator:`CC_PE_None`, :c:member:`CcMomentumUsage.momentum` value is ``0``,
+    and :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_Spending`.
 
 .. c:macro:: CC_MOMENTUM_CAST_INITIAL
 
@@ -660,17 +660,16 @@ Momentum
 
     Function checks if a given momentum usage :c:`struct`\ure is valid.
 
-    Only enumeration members (:c:member:`activator` and :c:member:`usage`) are checked.
+    Only enumeration members (:c:member:`CcMomentumUsage.activator` and :c:member:`CcMomentumUsage.usage`) are checked.
 
     :param momentum: A momentum usage.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if both enum values in momentum usage are valid enumerations,
-        * :c:enumerator:`CC_MBE_False` if at least one enum value in momentum usage is not a valid enumeration (i.e. :c:member:`activator` is :c:enumerator:`CC_PE_None`, or :c:member:`usage` is :c:enumerator:`CC_MUE_NotUsing`),
+        * :c:enumerator:`CC_MBE_False` if at least one enum value in momentum usage is not a valid enumeration (i.e. :c:member:`CcMomentumUsage.activator` is :c:enumerator:`CC_PE_None`, or :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_NotUsing`),
         * :c:enumerator:`CC_MBE_Void` in at least one enum value in momentum usage is not an enumeration.
 
-    :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_MOMENTUM_USAGE_IS_VALID()`,
-        :c:macro:`CC_PIECE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_VALID()`,
+    :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
 
 .. c:function:: CcMaybeBoolEnum cc_momentum_calc_next( CcMomentumUsage * momentum__io, cc_uint_t count )
 
