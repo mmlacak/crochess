@@ -537,6 +537,8 @@ CcMaybeBoolEnum cc_momentum_usage_is_valid( CcMomentumUsage momentum ) {
     // if ( !CC_PIECE_IS_VALID( momentum.activator ) ) return CC_MBE_False;
     if ( momentum.activator == CC_PE_None ) return CC_MBE_False;
 
+    if ( momentum.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
+
     // if ( !CC_MOMENTUM_USAGE_IS_VALID( momentum.usage ) ) return CC_MBE_False;
     if ( momentum.usage == CC_MUE_NotUsing ) return CC_MBE_False;
 

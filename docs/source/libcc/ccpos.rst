@@ -660,14 +660,12 @@ Momentum
 
     Function checks if a given momentum usage :c:`struct`\ure is valid.
 
-    Only enumeration members (:c:member:`CcMomentumUsage.activator` and :c:member:`CcMomentumUsage.usage`) are checked.
-
     :param momentum: A momentum usage.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
-        * :c:enumerator:`CC_MBE_True` if both enum values in momentum usage are valid enumerations,
-        * :c:enumerator:`CC_MBE_False` if at least one enum value in momentum usage is not a valid enumeration (i.e. :c:member:`CcMomentumUsage.activator` is :c:enumerator:`CC_PE_None`, or :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_NotUsing`),
-        * :c:enumerator:`CC_MBE_Void` in at least one enum value in momentum usage is not an enumeration.
+        * :c:enumerator:`CC_MBE_True` if both enum values in momentum usage are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
+        * :c:enumerator:`CC_MBE_False` if at least one enum value in momentum usage is not a valid enumeration (i.e. :c:member:`CcMomentumUsage.activator` is :c:enumerator:`CC_PE_None`, or :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcMomentumUsage.momentum` is too big (equal to, or larger than maximum board size),
+        * :c:enumerator:`CC_MBE_Void` if at least one enum value in momentum usage is not an enumeration.
 
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
 
