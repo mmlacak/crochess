@@ -608,7 +608,12 @@ Momentum
         * :c:enumerator:`CC_MBE_False` if there is not enough momentum to subtract from (or, too much to add),
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:struct:: CcMomentumUsage
+.. _lbl-libcc-ccpos-activationdescriptor:
+
+Activation descriptor
+---------------------
+
+.. c:struct:: CcActivationDesc
 
     Momentum :c:`struct` holding its value and usage.
 
@@ -624,62 +629,62 @@ Momentum
 
         Momentum usage.
 
-    :c:`struct` is tagged with the same :c:struct:`CcMomentumUsage` name.
+    :c:`struct` is tagged with the same :c:struct:`CcActivationDesc` name.
 
-.. c:macro:: CC_MOMENTUM_INITIAL
+.. c:macro:: CC_ACTIVATION_DESC_INITIAL
 
-    Initial momentum, :c:struct:`CcMomentumUsage` value; :c:member:`CcMomentumUsage.activator`
-    value is :c:enumerator:`CC_PE_None`, :c:member:`CcMomentumUsage.momentum` value is ``0``,
-    and :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_Accumulating`.
+    Initial momentum, :c:struct:`CcActivationDesc` value; :c:member:`CcActivationDesc.activator`
+    value is :c:enumerator:`CC_PE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
+    and :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_Accumulating`.
 
-.. c:macro:: CC_MOMENTUM_STATIC
+.. c:macro:: CC_ACTIVATION_DESC_STATIC
 
-    Static momentum, :c:struct:`CcMomentumUsage` value; :c:member:`CcMomentumUsage.activator`
-    value is :c:enumerator:`CC_PE_None`, :c:member:`CcMomentumUsage.momentum` value is ``0``,
-    and :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_NotUsing`.
+    Static momentum, :c:struct:`CcActivationDesc` value; :c:member:`CcActivationDesc.activator`
+    value is :c:enumerator:`CC_PE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
+    and :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`.
 
-.. c:macro:: CC_MOMENTUM_SPENT
+.. c:macro:: CC_ACTIVATION_DESC_SPENT
 
-    Spent momentum, :c:struct:`CcMomentumUsage` value; :c:member:`CcMomentumUsage.activator`
-    value is :c:enumerator:`CC_PE_None`, :c:member:`CcMomentumUsage.momentum` value is ``0``,
-    and :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_Spending`.
+    Spent momentum, :c:struct:`CcActivationDesc` value; :c:member:`CcActivationDesc.activator`
+    value is :c:enumerator:`CC_PE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
+    and :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_Spending`.
 
-.. c:macro:: CC_MOMENTUM_CAST_INITIAL
+.. c:macro:: CC_ACTIVATION_DESC_CAST_INITIAL
 
-    Casted initial momentum, i.e. :c:macro:`CC_MOMENTUM_INITIAL`.
+    Casted initial momentum, i.e. :c:macro:`CC_ACTIVATION_DESC_INITIAL`.
 
-.. c:macro:: CC_MOMENTUM_CAST_STATIC
+.. c:macro:: CC_ACTIVATION_DESC_CAST_STATIC
 
-    Casted static momentum, i.e. :c:macro:`CC_MOMENTUM_STATIC`.
+    Casted static momentum, i.e. :c:macro:`CC_ACTIVATION_DESC_STATIC`.
 
-.. c:macro:: CC_MOMENTUM_CAST_SPENT
+.. c:macro:: CC_ACTIVATION_DESC_CAST_SPENT
 
-    Casted spent momentum, i.e. :c:macro:`CC_MOMENTUM_SPENT`.
+    Casted spent momentum, i.e. :c:macro:`CC_ACTIVATION_DESC_SPENT`.
 
-.. c:function:: CcMaybeBoolEnum cc_momentum_usage_is_valid( CcMomentumUsage momentum )
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc )
 
-    Function checks if a given momentum usage :c:`struct`\ure is valid.
+    Function checks if a given activation descriptor is valid.
 
-    :param momentum: A momentum usage.
+    :param act_desc: A momentum usage.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
-        * :c:enumerator:`CC_MBE_True` if both enum values in momentum usage are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
-        * :c:enumerator:`CC_MBE_False` if at least one enum value in momentum usage is not a valid enumeration (i.e. :c:member:`CcMomentumUsage.activator` is :c:enumerator:`CC_PE_None`, or :c:member:`CcMomentumUsage.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcMomentumUsage.momentum` is too big (equal to, or larger than maximum board size),
-        * :c:enumerator:`CC_MBE_Void` if at least one enum value in momentum usage is not an enumeration.
+        * :c:enumerator:`CC_MBE_True` if both enum values are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
+        * :c:enumerator:`CC_MBE_False` if at least one enum value is not a valid enumeration (i.e. :c:member:`CcActivationDesc.activator` is :c:enumerator:`CC_PE_None`, or :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcActivationDesc.momentum` is too big (equal to, or larger than maximum board size),
+        * :c:enumerator:`CC_MBE_Void` if at least one enum value is not an enumeration.
 
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
 
-.. c:function:: CcMaybeBoolEnum cc_momentum_calc_next( CcMomentumUsage * momentum__io, cc_uint_t count )
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count )
 
-    Convenience function to calculates next momentum value by adding or subtracting
+    Convenience function to calculate next momentum value by adding or subtracting
     :c:var:`count`; momentum (including its usage) is given, and result is returned
-    via *input/output* :c:var:`momentum__io` parameter, :c:member:`usage` is not
-    altered.
+    via *input/output* :c:var:`act_desc__io` parameter; :c:member:`CcActivationDesc.activator`
+    and :c:member:`CcActivationDesc.usage` are not altered.
 
     Underlying function checks if momentum calculation will over- or under-flow
     before actual calculation takes place.
 
-    :param momentum__io: *Input/output*; momentum.
+    :param act_desc__io: *Input/output*; momentum.
     :param count: Count of steps.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 

@@ -72,9 +72,10 @@ Linked path segments
 
         Tag encountered at the very last field in the :c:member:`steps` list.
 
-    .. c:member:: CcMomentumUsage momentum
+    .. c:member:: CcActivationDesc act_desc
 
-        Momentum a moving piece had after all performed steps.
+        Activation descriptor for a moving piece; its activator, momentum usage
+        and momentum it had after all performed steps.
 
     .. c:member:: struct CcPathLink * fork
 
@@ -138,7 +139,7 @@ Linked path segments
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentumUsage momentum )
+.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcActivationDesc act_desc )
 
     Function allocates a new path link.
 
@@ -153,11 +154,11 @@ Linked path segments
     :param steps__d_n: **Ownership transfer**, *optional*; steps performed, a path segment; can be :c:data:`NULL`.
     :param encountered_piece: Piece encountered at the very last field in the :c:var:`steps__d_n` list.
     :param encountered_tag: Tag encountered at the very last field in the :c:var:`steps__d_n` list.
-    :param momentum: Momentum a moving piece had after all performed steps.
+    :param act_desc: Activation descriptor for a moving piece, momentum it had after all performed steps.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentumUsage momentum )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcActivationDesc act_desc )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.
@@ -170,7 +171,7 @@ Linked path segments
     :param steps__d_n: **Ownership transfer**, *optional*; steps performed, a path segment; can be :c:data:`NULL`.
     :param encountered_piece: Piece encountered at the very last field in the :c:var:`steps__d_n` list.
     :param encountered_tag: Tag encountered at the very last field in the :c:var:`steps__d_n` list.
-    :param momentum: Momentum a moving piece had after all performed steps.
+    :param act_desc: Activation descriptor for a moving piece, momentum it had after all performed steps.
     :returns: A weak pointer to a newly allocated linked position
               if successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_path_link__new()`

@@ -172,27 +172,30 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
                                   cc_uint_t count,
                                   cc_uint_t * momentum__io );
 
-typedef struct CcMomentumUsage {
+//
+// Activation descriptor.
+
+typedef struct CcActivationDesc {
     CcPieceType activator;
     cc_uint_t momentum;
     CcMomentumUsageEnum usage;
-} CcMomentumUsage;
+} CcActivationDesc;
 
-#define CC_MOMENTUM_INITIAL { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_Accumulating }
+#define CC_ACTIVATION_DESC_INITIAL { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_Accumulating }
 
-#define CC_MOMENTUM_STATIC { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_NotUsing }
+#define CC_ACTIVATION_DESC_STATIC { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_NotUsing }
 
-#define CC_MOMENTUM_SPENT { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_Spending }
+#define CC_ACTIVATION_DESC_SPENT { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_Spending }
 
-#define CC_MOMENTUM_CAST_INITIAL ( (CcMomentumUsage)CC_MOMENTUM_INITIAL )
+#define CC_ACTIVATION_DESC_CAST_INITIAL ( (CcActivationDesc)CC_ACTIVATION_DESC_INITIAL )
 
-#define CC_MOMENTUM_CAST_STATIC ( (CcMomentumUsage)CC_MOMENTUM_STATIC )
+#define CC_ACTIVATION_DESC_CAST_STATIC ( (CcActivationDesc)CC_ACTIVATION_DESC_STATIC )
 
-#define CC_MOMENTUM_CAST_SPENT ( (CcMomentumUsage)CC_MOMENTUM_SPENT )
+#define CC_ACTIVATION_DESC_CAST_SPENT ( (CcActivationDesc)CC_ACTIVATION_DESC_SPENT )
 
-CcMaybeBoolEnum cc_momentum_usage_is_valid( CcMomentumUsage momentum );
+CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc );
 
-CcMaybeBoolEnum cc_momentum_calc_next( CcMomentumUsage * momentum__io, cc_uint_t count );
+CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count );
 
 
 #endif /* __CC_POS_H__ */

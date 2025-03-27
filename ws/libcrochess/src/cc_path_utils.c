@@ -160,18 +160,18 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
                                                     CcGame * game,
                                                     CcPosDesc moving,
                                                     CcPos current_pos,
-                                                    CcMomentumUsage momentum,
+                                                    CcActivationDesc act_desc,
                                                     CcTypedStep step ) {
     CcPos field = cc_pos_add_steps( current_pos, step.step, 1 );
     CcStep * steps__t = NULL;
 
     CcPieceType piece = CC_PE_None;
     CcTagType tag = CC_TE_None;
-    CcMomentumUsage m = momentum;
+    CcActivationDesc ad = act_desc;
     CcStep * step__w = NULL;
 
     while ( cc_chessboard_is_pos_on_board( game->chessboard, field.i, field.j ) ) {
-        CcMaybeBoolEnum result = cc_momentum_calc_next( &m, 1 );
+        CcMaybeBoolEnum result = cc_activation_desc_calc_next_momentum( &ad, 1 );
 
         if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) { // Void --> error.
             cc_step_free_all( &steps__t );
@@ -194,7 +194,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
 
     if ( !steps__t ) return NULL;
 
-    CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, piece, tag, m );
+    CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, piece, tag, ad );
     if ( !pl__a ) {
         cc_step_free_all( &steps__t );
         return NULL;
@@ -207,21 +207,21 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
                                             CcGame * game,
                                             CcPosDesc moving,
                                             CcPos current_pos,
-                                            CcMomentumUsage momentum,
+                                            CcActivationDesc act_desc,
                                             CcTypedStep step ) {
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( side_effect.type ) ) {
         // Side-effect is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-        CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
+        CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
         return terminal__a;
     } else if ( side_effect.type == CC_SETE_Capture ) {
         if ( !CC_PIECE_IS_SHAMAN( moving.piece ) ) {
             // Capturing for pieces other than Shaman is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-            CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_MOMENTUM_CAST_SPENT );
+            CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
             return capture__a;
         }
     }
 
-    CcPathLink * pl__a = _cc_path_segment_one_step__new( side_effect, game, moving, current_pos, momentum, step );
+    CcPathLink * pl__a = _cc_path_segment_one_step__new( side_effect, game, moving, current_pos, act_desc, step );
     if ( !pl__a ) return NULL;
     if ( !pl__a->steps ) return pl__a; // Just a sanity check, should not happen.
 
@@ -234,7 +234,7 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
 
     CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, last );
     bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, last );
-    CcMomentumUsage m = pl__a->momentum;
+    CcActivationDesc ad = pl__a->act_desc;
 
     // TODO :: check all possible interactions, including transparency; remove field of encounter if there are none.
 
@@ -257,7 +257,7 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
 
         }
 
-        if ( cc_check_piece_can_diverge_at( game->chessboard, moving.piece, m.momentum, CC_PE_None, last ) ) {
+        if ( cc_check_piece_can_diverge_at( game->chessboard, moving.piece, ad.momentum, CC_PE_None, last ) ) {
 
         }
 
@@ -285,9 +285,9 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
     if ( !steps__t ) return NULL;
 
     CcSideEffect se = cc_side_effect_none();
-    CcMomentumUsage m = CC_MOMENTUM_CAST_INITIAL;
+    CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL;
 
-    CcPathLink * pl__a = cc_path_link__new( se, &steps__t, moving.piece, moving.tag, m );
+    CcPathLink * pl__a = cc_path_link__new( se, &steps__t, moving.piece, moving.tag, ad );
     if ( !pl__a ) {
         cc_step_free_all( &steps__t );
         return NULL;

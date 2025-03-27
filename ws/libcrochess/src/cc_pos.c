@@ -530,21 +530,24 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
     return CC_MBE_True;
 }
 
-CcMaybeBoolEnum cc_momentum_usage_is_valid( CcMomentumUsage momentum ) {
-    if ( !CC_PIECE_IS_ENUMERATOR( momentum.activator ) ) return CC_MBE_Void;
-    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( momentum.usage ) ) return CC_MBE_Void;
+//
+// Activation descriptor.
 
-    // if ( !CC_PIECE_IS_VALID( momentum.activator ) ) return CC_MBE_False;
-    if ( momentum.activator == CC_PE_None ) return CC_MBE_False;
+CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc ) {
+    if ( !CC_PIECE_IS_ENUMERATOR( act_desc.activator ) ) return CC_MBE_Void;
+    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( act_desc.usage ) ) return CC_MBE_Void;
 
-    if ( momentum.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
+    // if ( !CC_PIECE_IS_VALID( act_desc.activator ) ) return CC_MBE_False;
+    if ( act_desc.activator == CC_PE_None ) return CC_MBE_False;
 
-    // if ( !CC_MOMENTUM_USAGE_IS_VALID( momentum.usage ) ) return CC_MBE_False;
-    if ( momentum.usage == CC_MUE_NotUsing ) return CC_MBE_False;
+    if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
+
+    // if ( !CC_MOMENTUM_USAGE_IS_VALID( act_desc.usage ) ) return CC_MBE_False;
+    if ( act_desc.usage == CC_MUE_NotUsing ) return CC_MBE_False;
 
     return CC_MBE_True;
 }
 
-CcMaybeBoolEnum cc_momentum_calc_next( CcMomentumUsage * momentum__io, cc_uint_t count ) {
-    return cc_calc_momentum( momentum__io->usage, count, &( momentum__io->momentum ) );
+CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count ) {
+    return cc_calc_momentum( act_desc__io->usage, count, &( act_desc__io->momentum ) );
 }

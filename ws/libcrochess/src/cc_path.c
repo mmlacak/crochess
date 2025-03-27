@@ -18,7 +18,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
                                 CcPieceType encountered_piece,
                                 CcTagType encountered_tag,
-                                CcMomentumUsage momentum ) {
+                                CcActivationDesc act_desc ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
 
@@ -33,7 +33,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
     pl__t->encountered_piece = encountered_piece;
     pl__t->encountered_tag = encountered_tag;
 
-    pl__t->momentum = momentum;
+    pl__t->act_desc = act_desc;
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
@@ -49,10 +49,10 @@ CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcStep ** steps__d_n,
                                   CcPieceType encountered_piece,
                                   CcTagType encountered_tag,
-                                  CcMomentumUsage momentum ) {
+                                  CcActivationDesc act_desc ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d_n, encountered_piece, encountered_tag, momentum );
+    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d_n, encountered_piece, encountered_tag, act_desc );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -256,7 +256,7 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
     if ( !CC_TAG_IS_ENUMERATOR( pl->encountered_tag ) )
         return false;
 
-    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( pl->momentum.usage ) )
+    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( pl->act_desc.usage ) )
         return false;
 
     //
@@ -322,7 +322,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
                                                           &from->steps,
                                                           from->encountered_piece,
                                                           from->encountered_tag,
-                                                          from->momentum );
+                                                          from->act_desc );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
             result = false;
