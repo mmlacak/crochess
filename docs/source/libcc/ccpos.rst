@@ -608,7 +608,7 @@ Momentum
         * :c:enumerator:`CC_MBE_False` if there is not enough momentum to subtract from (or, too much to add),
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:struct:: CcMomentum
+.. c:struct:: CcMomentumUsage
 
     Momentum :c:`struct` holding its value and usage.
 
@@ -620,19 +620,19 @@ Momentum
 
         Momentum usage.
 
-    :c:`struct` is tagged with the same :c:struct:`CcMomentum` name.
+    :c:`struct` is tagged with the same :c:struct:`CcMomentumUsage` name.
 
 .. c:macro:: CC_MOMENTUM_INITIAL
 
-    Initial momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_Accumulating`.
+    Initial momentum, :c:struct:`CcMomentumUsage` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_Accumulating`.
 
 .. c:macro:: CC_MOMENTUM_STATIC
 
-    Static momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_NotUsing`.
+    Static momentum, :c:struct:`CcMomentumUsage` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_NotUsing`.
 
 .. c:macro:: CC_MOMENTUM_SPENT
 
-    Spent momentum, :c:struct:`CcMomentum` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_Spending`.
+    Spent momentum, :c:struct:`CcMomentumUsage` value; :c:member:`momentum` value is ``0``, and :c:member:`usage` is :c:enumerator:`CC_MUE_Spending`.
 
 .. c:macro:: CC_MOMENTUM_CAST_INITIAL
 
@@ -646,7 +646,7 @@ Momentum
 
     Casted spent momentum, i.e. :c:macro:`CC_MOMENTUM_SPENT`.
 
-.. c:function:: CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count )
+.. c:function:: CcMaybeBoolEnum cc_momentum_calc_next( CcMomentumUsage * momentum__io, cc_uint_t count )
 
     Convenience function to calculates next momentum value by adding or subtracting
     :c:var:`count`; momentum (including its usage) is given, and result is returned

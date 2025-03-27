@@ -530,6 +530,16 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
     return CC_MBE_True;
 }
 
-CcMaybeBoolEnum cc_momentum_calc_next( CcMomentum * momentum__io, cc_uint_t count ) {
+CcMaybeBoolEnum cc_momentum_usage_is_valid( CcMomentumUsage momentum ) {
+    if ( !CC_PIECE_IS_ENUMERATOR( momentum.activator ) ) return CC_MBE_Void;
+    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( momentum.usage ) ) return CC_MBE_Void;
+
+    if ( !CC_PIECE_IS_VALID( momentum.activator ) ) return CC_MBE_False;
+    if ( !CC_MOMENTUM_USAGE_IS_VALID( momentum.usage ) ) return CC_MBE_Void;
+
+    return CC_MBE_True;
+}
+
+CcMaybeBoolEnum cc_momentum_calc_next( CcMomentumUsage * momentum__io, cc_uint_t count ) {
     return cc_calc_momentum( momentum__io->usage, count, &( momentum__io->momentum ) );
 }

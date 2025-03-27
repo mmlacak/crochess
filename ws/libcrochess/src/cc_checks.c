@@ -212,12 +212,12 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 cc_uint_t momentum,
                                                 CcPieceType activator,
                                                 CcPos pos ) {
+// TODO :: replace CcPieceTypes with descriptors :: add step (or calc from pos - posdesc)
+
     if ( !cb ) return CC_MBE_Void;
     if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_Void;
     if ( !CC_PIECE_IS_ENUMERATOR( activator ) ) return CC_MBE_Void;
     if ( !CC_POS_IS_VALID( pos ) ) return CC_MBE_Void;
-
-// TODO
 
     return CC_MBE_Void; // TODO :: FIX
 }
@@ -242,15 +242,16 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
         if ( cc_chessboard_is_field_on_dark_side( cb, destination.j ) ) return CC_MBE_Void;
     }
 
-    // Checking target, it might be not blocking en passant (if activatable piece), or blocking (if not activatable).
-    CcPieceType target = cc_chessboard_get_piece( cb, destination.i, destination.j );
-    if ( !( ( target == CC_PE_None ) ||
-            ( CC_PIECE_CAN_BE_ACTIVATED( target ) &&
-              cc_piece_has_same_owner( private, target ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave, Starchild --> Starchild activations.
+    // Checking encountered piece, it might be not blocking en passant (if it can be activated), or blocking (if it can't).
+    CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
+    if ( !( ( encounter == CC_PE_None ) ||
+            ( CC_PIECE_CAN_BE_ACTIVATED( encounter ) &&
+              cc_piece_has_same_owner( private, encounter ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave, Starchild --> Starchild activations.
         return CC_MBE_False;
 
-    CcPos pos = destination;
     int diff = is_piece_light ? -1 : 1;
+    CcPos pos = destination;
+    CcPieceType target = CC_PE_None;
     CcTagType tag = CC_TE_None;
     bool found = false;
 

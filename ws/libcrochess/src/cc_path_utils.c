@@ -160,14 +160,14 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
                                                     CcGame * game,
                                                     CcPosDesc moving,
                                                     CcPos current_pos,
-                                                    CcMomentum momentum,
+                                                    CcMomentumUsage momentum,
                                                     CcTypedStep step ) {
     CcPos field = cc_pos_add_steps( current_pos, step.step, 1 );
     CcStep * steps__t = NULL;
 
     CcPieceType piece = CC_PE_None;
     CcTagType tag = CC_TE_None;
-    CcMomentum m = momentum;
+    CcMomentumUsage m = momentum;
     CcStep * step__w = NULL;
 
     while ( cc_chessboard_is_pos_on_board( game->chessboard, field.i, field.j ) ) {
@@ -207,7 +207,7 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
                                             CcGame * game,
                                             CcPosDesc moving,
                                             CcPos current_pos,
-                                            CcMomentum momentum,
+                                            CcMomentumUsage momentum,
                                             CcTypedStep step ) {
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( side_effect.type ) ) {
         // Side-effect is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
@@ -234,7 +234,7 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
 
     CcPosDesc encounter = cc_convert_pos_to_pos_desc( game->chessboard, last );
     bool is_blocked = cc_check_piece_is_blocked_at( game->chessboard, moving.piece, last );
-    CcMomentum m = pl__a->momentum;
+    CcMomentumUsage m = pl__a->momentum;
 
     // TODO :: check all possible interactions, including transparency; remove field of encounter if there are none.
 
@@ -285,7 +285,7 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
     if ( !steps__t ) return NULL;
 
     CcSideEffect se = cc_side_effect_none();
-    CcMomentum m = CC_MOMENTUM_CAST_INITIAL;
+    CcMomentumUsage m = CC_MOMENTUM_CAST_INITIAL;
 
     CcPathLink * pl__a = cc_path_link__new( se, &steps__t, moving.piece, moving.tag, m );
     if ( !pl__a ) {

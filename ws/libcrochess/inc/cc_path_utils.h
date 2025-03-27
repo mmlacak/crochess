@@ -30,14 +30,14 @@ bool cc_path_side_effect( CcChessboard * cb,
 //                                                     CcGame * game,
 //                                                     CcPosDesc moving,
 //                                                     CcPos current_pos,
-//                                                     CcMomentum momentum,
+//                                                     CcMomentumUsage momentum,
 //                                                     CcTypedStep step );
 
 // static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
 //                                             CcGame * game,
 //                                             CcPosDesc moving,
 //                                             CcPos current_pos,
-//                                             CcMomentum momentum,
+//                                             CcMomentumUsage momentum,
 //                                             CcTypedStep step );
 
 CcPathLink * cc_path_tree_one_step__new( CcGame * game,

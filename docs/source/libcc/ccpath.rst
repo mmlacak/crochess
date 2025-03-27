@@ -72,7 +72,7 @@ Linked path segments
 
         Tag encountered at the very last field in the :c:member:`steps` list.
 
-    .. c:member:: CcMomentum momentum
+    .. c:member:: CcMomentumUsage momentum
 
         Momentum a moving piece had after all performed steps.
 
@@ -138,7 +138,7 @@ Linked path segments
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathLink` name.
 
-.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentum momentum )
+.. c:function:: CcPathLink * cc_path_link__new( CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentumUsage momentum )
 
     Function allocates a new path link.
 
@@ -157,7 +157,7 @@ Linked path segments
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentum momentum )
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceType encountered_piece, CcTagType encountered_tag, CcMomentumUsage momentum )
 
     Function appends a newly allocated path link to a given path segment,
     as its :c:member:`next` member.

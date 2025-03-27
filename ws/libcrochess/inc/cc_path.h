@@ -27,7 +27,7 @@ typedef struct CcPathLink {
     CcPieceType encountered_piece; /* Piece encountered at the very last field in the list above. */
     CcTagType encountered_tag; /* Tag encountered at the very last field in the list above. */
 
-    CcMomentum momentum; /* Momentum a moving piece had after all performed steps. */
+    CcMomentumUsage momentum; /* Momentum a moving piece had after all performed steps. */
 
     struct CcPathLink * fork;
     struct CcPathLink * alt;
@@ -40,14 +40,14 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
                                 CcPieceType encountered_piece,
                                 CcTagType encountered_tag,
-                                CcMomentum momentum );
+                                CcMomentumUsage momentum );
 
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
                                   CcStep ** steps__d_n,
                                   CcPieceType encountered_piece,
                                   CcTagType encountered_tag,
-                                  CcMomentum momentum );
+                                  CcMomentumUsage momentum );
 
 CcPathLink * cc_path_link_extend( CcPathLink ** pl__iod_a,
                                   CcPathLink ** pl__n );
