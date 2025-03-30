@@ -46,6 +46,10 @@ typedef enum CcStepTypeEnum {
 
 #define CC_STEP_TYPE_IS_VALID(ste) ( ( CC_STE_None < (ste) ) && ( (ste) <= CC_STE_Miracle ) )
 
+#define CC_STEP_TYPE_IS_MOVEMENT(ste) ( ( (ste) == CC_STE_MovementOnly ) || ( (ste) == CC_STE_CaptureOrMovement ) )
+
+#define CC_STEP_TYPE_IS_CAPTURE(ste) ( ( (ste) == CC_STE_CaptureOrMovement ) || ( (ste) == CC_STE_CaptureOnly ) )
+
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
 
 #define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_None }

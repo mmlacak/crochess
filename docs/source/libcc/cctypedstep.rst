@@ -117,6 +117,22 @@ Step type enum
     :param ste: Step type, :c:type:`CcStepTypeEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
+.. c:macro:: CC_STEP_TYPE_IS_MOVEMENT(ste)
+
+    Macro to check if given step type is a movement, i.e. either
+    :c:enumerator:`CC_STE_MovementOnly` or :c:enumerator:`CC_STE_CaptureOrMovement`.
+
+    :param ste: Step type, :c:type:`CcStepTypeEnum` value.
+    :returns: :c:data:`true` if movement, :c:data:`false` otherwise.
+
+.. c:macro:: CC_STEP_TYPE_IS_CAPTURE(ste)
+
+    Macro to check if given step type is a movement, i.e. either
+    :c:enumerator:`CC_STE_CaptureOrMovement` or :c:enumerator:`CC_STE_CaptureOnly`.
+
+    :param ste: Step type, :c:type:`CcStepTypeEnum` value.
+    :returns: :c:data:`true` if capture, :c:data:`false` otherwise.
+
 .. _lbl-libcc-cctypedstep-typedstepmacros:
 
 Typed step, macros

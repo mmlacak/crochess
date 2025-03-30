@@ -170,6 +170,8 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
                                              CcPieceType encounter,
                                              cc_uint_t momentum,
                                              bool at_capture_miracle_fields ) {
+// TODO :: replace at_capture_miracle_fields with CcStepTypeEnum
+
     if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_Void;
     if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_Void;
 
