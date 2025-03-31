@@ -88,67 +88,37 @@ class SceneOneMixin:
         return scene
 
     #
-    # Activating on miracle-fields
-
-    def scn_o_06_starchild_activating_on_miracle_fields(self, bt=BoardType.One):
-
-        scene = Scene('scn_o_06_starchild_activating_on_miracle_fields', bt, width=5, height=5)
-
-        start_I = (2, 2)
-        start_b = (2, 3)
-        start_E = (3, 1)
-        start_K = (1, 1)
-
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
-        scene.board.set_piece(*start_b, piece=-PieceType.Bishop)
-        scene.board.set_piece(*start_E, piece=PieceType.Pyramid)
-        scene.board.set_piece(*start_K, piece=PieceType.King)
-
-        scene.append_arrow( *(start_I + start_E), mark_type=MarkType.Action )
-        scene.append_arrow( *(start_I + start_K), mark_type=MarkType.Illegal )
-        scene.append_arrow( *(start_I + start_b), mark_type=MarkType.Illegal )
-
-        gen = GS.gen_multi_steps( GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_I, count=1 )
-        for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Action if index == 7 else \
-                        MarkType.Illegal if index in [2, 5] else \
-                        MarkType.Blocked
-            scene.append_text( str(index + 1), *coords, mark_type=mark_type )
-
-        return scene
-
-    #
     # Starchild cannot teleport
 
-    def scn_o_07_starchild_not_moving_monolith_init(self, bt=BoardType.One):
+    def scn_o_07_starchild_not_moving_monolith_init( self, bt=BoardType.One ):
 
-        scene = Scene('scn_o_07_starchild_not_moving_monolith_init', bt, width=9, height=9)
+        scene = Scene( 'scn_o_07_starchild_not_moving_monolith_init', bt, width=7.3, height=6.3 )
 
         start_I = (5, 4)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
         start_M = (2, 2)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
 
-        scene.board.set_piece(2, 1, piece=PieceType.Knight)
-        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
+        scene.board.set_piece( 2, 1, piece=PieceType.Knight )
+        scene.board.set_piece( 1, 3, piece=PieceType.Bishop )
 
         scene.append_arrow( *(start_I + start_M), mark_type=MarkType.Action )
 
         return scene
 
-    def scn_o_08_starchild_not_moving_monolith_end(self, bt=BoardType.One):
+    def scn_o_08_starchild_not_moving_monolith_end( self, bt=BoardType.One ):
 
-        scene = Scene('scn_o_08_starchild_not_moving_monolith_end', bt, width=9, height=9)
+        scene = Scene( 'scn_o_08_starchild_not_moving_monolith_end', bt, width=7.3, height=6.3 )
 
         start_I = (1, 2)
-        scene.board.set_piece(*start_I, piece=PieceType.Starchild)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
         start_M = (2, 2)
-        scene.board.set_piece(*start_M, piece=PieceType.Monolith)
+        scene.board.set_piece( *start_M, piece=PieceType.Monolith )
 
-        scene.board.set_piece(2, 1, piece=PieceType.Knight)
-        scene.board.set_piece(1, 3, piece=PieceType.Bishop)
+        scene.board.set_piece( 2, 1, piece=PieceType.Knight )
+        scene.board.set_piece( 1, 3, piece=PieceType.Bishop )
 
         scene.append_arrow( *(start_M + start_I), mark_type=MarkType.Action )
 
