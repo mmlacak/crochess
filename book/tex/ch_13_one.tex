@@ -41,11 +41,11 @@ Starchild can be demoted to Pawn.
 
 Starchild cannot be converted. Starchild can diverge pieces the same as Shaman.
 Starchild can activate own Waves and Starchilds on its step-fields. Starchild can
-activate any own piece (except King), opponent's Starchild and any Star on its
-miracle-fields. Activated Starchild does not use momentum while moving.
+activate any Star on its miracle-fields. Activated Starchild does not use momentum
+while moving.
 
 \noindent
-\begin{wrapfigure}[12]{l}{0.4\textwidth}
+\begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{pieces/star/22_one.png}
 \caption{Star}
@@ -53,8 +53,8 @@ miracle-fields. Activated Starchild does not use momentum while moving.
 \end{wrapfigure}
 Starchild can't teleport. In a single ply, Starchild can make only one step, from
 its starting field to destination in opposite color, without interacting with any
-piece on chessboard.\newline
-\indent
+piece on chessboard.
+
 Starchild can resurrect any captured or oblationed piece, except Kings, Stars,
 Monoliths. Waves and Starchilds can be resurrected without resurrecting Starchild
 being oblationed. Starchild can take any own piece, except Kings, Waves, Stars,
@@ -331,41 +331,44 @@ chessboard; conversioning Pyramid is still oblationed.
 \clearpage % ..........................................................
 % Activating Wave -----------------------------------------------------
 
-% \vspace*{-0.1\baselineskip}
 \subsection*{Activating Wave}
 \addcontentsline{toc}{subsection}{Activating Wave}
 \label{sec:One/Starchild/Activating Wave}
 
-\TODO :: remove excess activations from Wave
+\vspace*{-0.4\baselineskip}
+\noindent
+\begin{wrapfigure}[3]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.280769231\textwidth, keepaspectratio=true]{examples/22_o/scn_o_18_starchild_cannot_activate_wave_on_miracle_fields.png}
+\vspace*{-0.4\baselineskip}
+\caption{Activating Wave}
+\label{fig:scn_o_18_starchild_cannot_activate_wave_on_miracle_fields}
+\end{wrapfigure}
+Wave cannot be activated by Starchild on its miracle-fields; thus, Wave cannot
+activate a Star.
 
-% \vspace*{-0.9\baselineskip}
+\vspace*{4.1\baselineskip}
+\subsubsection*{... only on step-fields}
+\addcontentsline{toc}{subsubsection}{... only on step-fields}
+\label{sec:One/Starchild/Activating Wave/... only on step-fields}
+
+\vspace*{-0.7\baselineskip}
 \noindent
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_18_starchild_activating_wave_on_miracle_fields.png}
-\caption{Activating Wave}
-\label{fig:scn_o_18_starchild_activating_wave_on_miracle_fields}
-\end{wrapfigure}
-Wave activated by Starchild on its miracle-fields can activate a piece, with
-1 momentum; any own piece (except King), and opponent's Waves can be activated.
-
-Wave can also move to any empty miracle-field, regardless of color.
-
-\subsubsection*{Wave cannot move a Star}
-\addcontentsline{toc}{subsubsection}{Wave cannot move a Star}
-\label{sec:One/Starchild/Activating Wave/Wave cannot move a Star}
-
-\noindent
-\begin{wrapfigure}[9]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.192307692\textwidth, keepaspectratio=true]{examples/22_o/scn_o_19_starchild_activated_wave_not_moving_a_star.png}
+\includegraphics[width=0.280769231\textwidth, keepaspectratio=true]{examples/22_o/scn_o_19_starchild_activating_wave_on_step_field.png}
+\vspace*{-0.4\baselineskip}
 \caption{Not moving a Star}
-\label{fig:scn_o_19_starchild_activated_wave_not_moving_a_star}
+\label{fig:scn_o_19_starchild_activating_wave_on_step_field}
 \end{wrapfigure}
-Wave cannot move a Star, even if activated by Starchild on its miracle-field.
-Instead, Wave would emerge on any empty portal-field around a Star which it tried
-to activate (here, fields 1 and 2). If there is no empty portal-field, Wave is
-oblationed.
+Note, Starchild can activate Wave on its step-fields, which are
+\hyperref[fig:scn_o_01_starchild_movement]{all fields in opposite color}
+to Starchild's starting field; this includes fields immediately to the right,
+up, left, and down from Starchild's position.
+
+Wave activated by a Starchild on its neighboring step-field cannot activate
+a Star, and can only
+\hyperref[fig:scn_o_03_starchild_activating_own_wave]{activate own Starchilds, own and opponent's Waves}.
 
 \clearpage % ..........................................................
 
