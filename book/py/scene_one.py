@@ -874,26 +874,6 @@ class SceneOneMixin:
         scene.append_text( "A", *start_I_A, mark_type=MarkType.Action, corner=Corner.UpperRight )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
-        # miracle-field
-
-        start_I_C = (7, 6)
-        scene.board.set_piece( *start_I_C, piece=PieceType.Starchild )
-
-        start_W_D = (6, 5)
-        scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
-
-        start_H_2 = (6, 4)
-        scene.board.set_piece( *start_H_2, piece=PieceType.Shaman )
-
-        # I(C) --> W(D)
-        scene.append_arrow( *( start_I_C + start_W_D ), mark_type=MarkType.Action )
-
-        # W(D) --> H(2)
-        scene.append_arrow( *( start_W_D + start_H_2 ), mark_type=MarkType.Illegal )
-
-        scene.append_text( "C", *start_I_C, mark_type=MarkType.Action, corner=Corner.UpperRight )
-        scene.append_text( "D", *start_W_D, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
-
         return scene
 
 
