@@ -170,47 +170,43 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
                                              CcPieceType encounter,
                                              cc_uint_t momentum,
                                              CcStepTypeEnum step_type ) {
-    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_Void;
-    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_Void; // [1]
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return CC_MBE_Void;
+
+    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_False;
+    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_False; // [1]
 
     bool wave_moving = CC_PIECE_IS_WAVE( moving );
     bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
 
     if ( wave_moving && wave_encounter ) return CC_MBE_True;
 
-    bool shaman_moving = CC_PIECE_IS_SHAMAN( moving );
-    bool shaman_encounter = CC_PIECE_IS_SHAMAN( encounter );
     bool starchild_moving = CC_PIECE_IS_STARCHILD( moving );
     bool starchild_encounter = CC_PIECE_IS_STARCHILD( encounter );
-    bool same_owner = cc_piece_has_same_owner( moving, encounter );
     bool positive_momentum = ( momentum > 0 );
-    bool is_step_capture = CC_STEP_TYPE_IS_CAPTURE( step_type );
 
-    if ( ( step_type == CC_STE_Miracle ) && starchild_moving ) {
-        return ( CC_PIECE_IS_STAR( encounter ) && positive_momentum ) ? CC_MBE_True
-                                                                      : CC_MBE_False;
-    } else
-        return CC_MBE_Void;
+    if ( starchild_moving ) {
+        if ( step_type == CC_STE_Miracle ) {
+            return ( CC_PIECE_IS_STAR( encounter ) && positive_momentum ) ? CC_MBE_True
+                                                                          : CC_MBE_False;
+        } else if ( step_type == CC_STE_Uplifting ) {
+            // Kings and Monoliths can't be activated at all, already filtered-out at [1].
+            return ( !CC_PIECE_IS_WAVE( encounter ) && !CC_PIECE_IS_STAR( encounter ) ) ? CC_MBE_True
+                                                                                        : CC_MBE_False;
+        }
+    }
 
-    if ( ( step_type == CC_STE_Entrancement ) && shaman_moving ) {
-        return ( shaman_encounter || starchild_encounter ) ? CC_MBE_True
-                                                           : CC_MBE_False;
-    } else
-        return CC_MBE_Void;
+    if ( CC_PIECE_IS_SHAMAN( moving ) ) {
+        if ( step_type == CC_STE_Entrancement ) {
+            return ( CC_PIECE_IS_SHAMAN( encounter ) || starchild_encounter ) ? CC_MBE_True
+                                                                              : CC_MBE_False;
+        }
+    }
 
-    if ( ( step_type == CC_STE_Uplifting ) && starchild_moving ) {
-        // Kings and Monoliths can't be activated at all, already filtered-out at [1].
-        return ( !CC_PIECE_IS_WAVE( encounter ) && !CC_PIECE_IS_STAR( encounter ) ) ? CC_MBE_True
-                                                                                    : CC_MBE_False;
-    } else
-        return CC_MBE_Void;
-
-    if ( !same_owner ) return CC_MBE_False;
+    if ( !cc_piece_has_same_owner( moving, encounter ) ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_PYRAMID( encounter ) ) {
-        return ( is_step_capture && positive_momentum ) ? CC_MBE_True
-                                                        : CC_MBE_False;
+        return ( CC_STEP_TYPE_IS_CAPTURE( step_type ) && positive_momentum ) ? CC_MBE_True
+                                                                             : CC_MBE_False;
     }
 
     if ( wave_moving || wave_encounter ) return CC_MBE_True; // King encounter already filtered-out at [1].
@@ -222,15 +218,28 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
 
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcPieceType moving,
-                                                cc_uint_t momentum,
-                                                CcPieceType activator,
-                                                CcPos pos ) {
-// TODO :: replace CcPieceTypes with descriptors :: add step (or calc from pos - posdesc)
-
+                                                CcActivationDesc act_desc,
+                                                CcPos pos,
+                                                CcStepTypeEnum step_type ) {
     if ( !cb ) return CC_MBE_Void;
-    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_Void;
-    if ( !CC_PIECE_IS_ENUMERATOR( activator ) ) return CC_MBE_Void;
     if ( !CC_POS_IS_VALID( pos ) ) return CC_MBE_Void;
+    if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return CC_MBE_Void;
+
+    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_False;
+    if ( step_type == CC_STE_None ) return CC_MBE_False;
+
+    CcMaybeBoolEnum is_act_desc_valid = cc_activation_desc_is_valid( act_desc );
+    if ( is_act_desc_valid != CC_MBE_True ) return is_act_desc_valid;
+
+    CcPieceType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_False; // [1]
+
+// TODO :: encounter <--> momentum
+
+    CcMaybeBoolEnum can_activate = cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type );
+    if ( can_activate != CC_MBE_True ) return can_activate;
+
+
 
     return CC_MBE_Void; // TODO :: FIX
 }
@@ -258,7 +267,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     // Checking encountered piece, it might be not blocking en passant (if it can be activated), or blocking (if it can't).
     CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
     if ( !( ( encounter == CC_PE_None ) ||
-            ( CC_PIECE_CAN_BE_ACTIVATED( encounter ) &&
+            ( CC_PIECE_CAN_BE_ACTIVATED( encounter ) && // TODO :: replace with cc_check_piece_can_activate_at()
               cc_piece_has_same_owner( private, encounter ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave, Starchild --> Starchild activations.
         return CC_MBE_False;
 

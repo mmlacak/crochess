@@ -542,8 +542,8 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc ) {
 
     if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
 
-    // if ( !CC_MOMENTUM_USAGE_IS_VALID( act_desc.usage ) ) return CC_MBE_False;
-    if ( act_desc.usage == CC_MUE_NotUsing ) return CC_MBE_False;
+    // .usage is valid, if it's CC_MUE_NotUsing.
+    // if ( act_desc.usage == CC_MUE_NotUsing ) return CC_MBE_False;
 
     return CC_MBE_True;
 }
