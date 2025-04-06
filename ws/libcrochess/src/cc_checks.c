@@ -171,9 +171,11 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
                                              cc_uint_t momentum,
                                              CcStepTypeEnum step_type ) {
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return CC_MBE_Void;
+    if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return CC_MBE_Void;
 
     if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_False;
     if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_False; // [1]
+    if ( step_type == CC_STE_None ) return CC_MBE_False;
 
     bool wave_moving = CC_PIECE_IS_WAVE( moving );
     bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
@@ -223,25 +225,21 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcStepTypeEnum step_type ) {
     if ( !cb ) return CC_MBE_Void;
     if ( !CC_POS_IS_VALID( pos ) ) return CC_MBE_Void;
-    if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return CC_MBE_Void;
 
-    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return CC_MBE_False;
-    if ( step_type == CC_STE_None ) return CC_MBE_False;
+    CcPieceType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+
+    // Function checks its arguments, and -by extension- ours moving, step_type.
+    CcMaybeBoolEnum can_activate = cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type );
+    if ( can_activate != CC_MBE_True ) return can_activate;
 
     CcMaybeBoolEnum is_act_desc_valid = cc_activation_desc_is_valid( act_desc );
     if ( is_act_desc_valid != CC_MBE_True ) return is_act_desc_valid;
 
-    CcPieceType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return CC_MBE_False; // [1]
-
-// TODO :: encounter <--> momentum
-
-    CcMaybeBoolEnum can_activate = cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type );
-    if ( can_activate != CC_MBE_True ) return can_activate;
-
-
-
-    return CC_MBE_Void; // TODO :: FIX
+    if ( CC_PIECE_IS_WEIGHTLESS( encounter ) )
+        return CC_MBE_True;
+    else
+        return ( act_desc.momentum > 0 ) ? CC_MBE_True
+                                         : CC_MBE_False;
 }
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
@@ -266,10 +264,13 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
 
     // Checking encountered piece, it might be not blocking en passant (if it can be activated), or blocking (if it can't).
     CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
-    if ( !( ( encounter == CC_PE_None ) ||
-            ( CC_PIECE_CAN_BE_ACTIVATED( encounter ) && // TODO :: replace with cc_check_piece_can_activate_at()
-              cc_piece_has_same_owner( private, encounter ) ) ) ) // No need to check for different owners, as it only applies to Wave --> Wave, Starchild --> Starchild activations.
-        return CC_MBE_False;
+    if ( encounter != CC_PE_None ) {
+        // Activator is none, since privates are active pieces; momentum > 0 is enough; usage is not checked.
+        CcActivationDesc act_desc = { .activator = CC_PE_None, .momentum = 1, .usage = CC_MUE_Spending }; // TODO :: maybe put in arguments?
+
+        CcMaybeBoolEnum can_activate = cc_check_piece_can_activate_at( cb, private, act_desc, destination, CC_STE_CaptureOnly );
+        if ( can_activate != CC_MBE_True ) return can_activate;
+    }
 
     int diff = is_piece_light ? -1 : 1;
     CcPos pos = destination;
