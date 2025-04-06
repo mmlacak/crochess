@@ -27,8 +27,8 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `version` command. \
 The latest versions are:
 
-Application: 0.0.1.150:1329+20250331.210254 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
-Library: 0.0.1.150:1329+20250331.210254 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
+Application: 0.0.1.151:1330+20250406.003314 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
+Library: 0.0.1.151:1330+20250406.003314 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
 Versioning used is [Natural Versioning 1.2](https://croatian-chess.blogspot.com/p/natver.html),
 with meta data containing the same format as the book version.
