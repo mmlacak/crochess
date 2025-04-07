@@ -76,6 +76,7 @@
 
 bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,
+                          CcActivationDesc act_desc,
                           CcPosDesc encounter,
                           CcTranceJourneyTypeEnum trance_journey_type,
                           CcPos displacement,
@@ -140,7 +141,7 @@ bool cc_path_side_effect( CcChessboard * cb,
     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving.piece ) &&
             ( encounter.piece == CC_PE_None ) ) { // TODO :: or encountered piece can be activated
         CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
-        CcMaybeBoolEnum result = cc_find_en_passant_target( cb, moving.piece, encounter.pos, &en_passant );
+        CcMaybeBoolEnum result = cc_find_en_passant_target( cb, moving.piece, act_desc, encounter.pos, &en_passant );
         if ( result == CC_MBE_True ) {
             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
             CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );

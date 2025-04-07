@@ -60,8 +60,10 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcPos pos,
                                                 CcStepTypeEnum step_type );
 
+// TODO :: DOCS
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
                                            CcPieceType private,
+                                           CcActivationDesc act_desc,
                                            CcPos destination,
                                            CcPosDesc * target__o );
 

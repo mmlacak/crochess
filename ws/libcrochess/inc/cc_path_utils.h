@@ -21,6 +21,7 @@
 
 bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,
+                          CcActivationDesc act_desc,
                           CcPosDesc encounter,
                           CcTranceJourneyTypeEnum trance_journey_type,
                           CcPos displacement,

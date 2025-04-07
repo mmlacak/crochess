@@ -244,6 +244,7 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
                                            CcPieceType private,
+                                           CcActivationDesc act_desc,
                                            CcPos destination,
                                            CcPosDesc * target__o ) {
     if ( !cb ) return CC_MBE_Void;
@@ -265,9 +266,6 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     // Checking encountered piece, it might be not blocking en passant (if it can be activated), or blocking (if it can't).
     CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
     if ( encounter != CC_PE_None ) {
-        // Activator is none, since privates are active pieces; momentum > 0 is enough; usage is not checked.
-        CcActivationDesc act_desc = { .activator = CC_PE_None, .momentum = 1, .usage = CC_MUE_Spending }; // TODO :: maybe put in arguments?
-
         CcMaybeBoolEnum can_activate = cc_check_piece_can_activate_at( cb, private, act_desc, destination, CC_STE_CaptureOnly );
         if ( can_activate != CC_MBE_True ) return can_activate;
     }
