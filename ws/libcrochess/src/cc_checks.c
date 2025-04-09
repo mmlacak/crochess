@@ -232,7 +232,7 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
     CcMaybeBoolEnum can_activate = cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type );
     if ( can_activate != CC_MBE_True ) return can_activate;
 
-    CcMaybeBoolEnum is_act_desc_valid = cc_activation_desc_is_valid( act_desc );
+    CcMaybeBoolEnum is_act_desc_valid = cc_activation_desc_is_valid( act_desc, true ); // true --> ignore if activator is none.
     if ( is_act_desc_valid != CC_MBE_True ) return is_act_desc_valid;
 
     if ( CC_PIECE_IS_WEIGHTLESS( encounter ) )

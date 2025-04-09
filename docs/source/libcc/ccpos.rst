@@ -661,15 +661,16 @@ Activation descriptor
 
     Casted spent momentum, i.e. :c:macro:`CC_ACTIVATION_DESC_SPENT`.
 
-.. c:function:: CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc )
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply )
 
     Function checks if a given activation descriptor is valid.
 
     :param act_desc: An activation descriptor.
+    :param is_first_ply: Flag, if current ply is first in a cascade.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if both enum values are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
-        * :c:enumerator:`CC_MBE_False` if at least one enum value is not a valid enumeration (i.e. :c:member:`CcActivationDesc.activator` is :c:enumerator:`CC_PE_None`, or :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcActivationDesc.momentum` is too big (equal to, or larger than maximum board size),
+        * :c:enumerator:`CC_MBE_False` if at least one enum value is not a valid enumeration (i.e. :c:member:`CcActivationDesc.activator` is :c:enumerator:`CC_PE_None` in a ply after first, or :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcActivationDesc.momentum` is too big (equal to, or larger than maximum board size),
         * :c:enumerator:`CC_MBE_Void` if at least one enum value is not an enumeration.
 
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`

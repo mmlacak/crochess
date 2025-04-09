@@ -193,7 +193,7 @@ typedef struct CcActivationDesc {
 
 #define CC_ACTIVATION_DESC_CAST_SPENT ( (CcActivationDesc)CC_ACTIVATION_DESC_SPENT )
 
-CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc );
+CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply );
 
 CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count );
 
