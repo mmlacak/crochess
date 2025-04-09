@@ -12,6 +12,7 @@
 
 #include "cc_pos.h"
 #include "cc_typed_step_defs.h"
+#include "cc_path_defs.h"
 #include "cc_path.h"
 
 #include "cc_rules_defs.h"

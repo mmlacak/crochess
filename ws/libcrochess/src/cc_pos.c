@@ -537,8 +537,8 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc ) {
     if ( !CC_PIECE_IS_ENUMERATOR( act_desc.activator ) ) return CC_MBE_Void;
     if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( act_desc.usage ) ) return CC_MBE_Void;
 
-    // if ( !CC_PIECE_IS_VALID( act_desc.activator ) ) return CC_MBE_False;
-    if ( act_desc.activator == CC_PE_None ) return CC_MBE_False;
+    // Activator can be CC_PE_None, for piece starting a move.
+    // if ( act_desc.activator == CC_PE_None ) return CC_MBE_False;
 
     if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
 
@@ -550,4 +550,18 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc ) {
 
 CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count ) {
     return cc_calc_momentum( act_desc__io->usage, count, &( act_desc__io->momentum ) );
+}
+
+CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece ) {
+    if ( !act_desc__io ) return CC_MBE_Void;
+    if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return CC_MBE_Void;
+
+    CcMaybeBoolEnum is_valid = cc_activation_desc_is_valid( *act_desc__io );
+    if ( is_valid != CC_MBE_True ) return is_valid;
+
+    if ( CC_PIECE_IS_ACTIVATOR( piece ) ) {
+        act_desc__io->activator = piece;
+        return CC_MBE_True;
+    } else
+        return CC_MBE_False;
 }
