@@ -57,7 +57,7 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcPieceType moving,
                                                 CcActivationDesc act_desc,
-                                                CcPos pos,
+                                                CcPos destination,
                                                 CcStepTypeEnum step_type );
 
 // TODO :: DOCS

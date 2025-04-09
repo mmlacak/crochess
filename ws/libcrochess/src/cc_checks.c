@@ -221,12 +221,12 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcPieceType moving,
                                                 CcActivationDesc act_desc,
-                                                CcPos pos,
+                                                CcPos destination,
                                                 CcStepTypeEnum step_type ) {
     if ( !cb ) return CC_MBE_Void;
-    if ( !CC_POS_IS_VALID( pos ) ) return CC_MBE_Void;
+    if ( !CC_POS_IS_VALID( destination ) ) return CC_MBE_Void;
 
-    CcPieceType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
     // Function checks its arguments, and -by extension- ours moving, step_type.
     CcMaybeBoolEnum can_activate = cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type );
