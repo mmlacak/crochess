@@ -665,7 +665,7 @@ Activation descriptor
 
     Function checks if a given activation descriptor is valid.
 
-    :param act_desc: A momentum usage.
+    :param act_desc: An activation descriptor.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if both enum values are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
@@ -684,7 +684,7 @@ Activation descriptor
     Underlying function checks if momentum calculation will over- or under-flow
     before actual calculation takes place.
 
-    :param act_desc__io: *Input/output*; momentum.
+    :param act_desc__io: *Input/output*; an activation descriptor.
     :param count: Count of steps.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
@@ -693,6 +693,19 @@ Activation descriptor
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
     :seealso: :c:func:`cc_calc_momentum()`
+
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece )
+
+    Function updates :c:member:`CcActivationDesc.activator` of an *input/output*
+    :c:var:`act_desc__io` parameter with a given :c:var:`piece`.
+
+    :param act_desc__io: *Input/output*; an activation descriptor.
+    :param piece: A piece.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if activator has been successfully updated,
+        * :c:enumerator:`CC_MBE_False` if a given piece is not an activator,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient, or invalid data given.
 
 .. _lbl-libcc-ccpos-sourcecodeheader:
 

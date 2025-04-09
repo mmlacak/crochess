@@ -557,7 +557,7 @@ CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc
     if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return CC_MBE_Void;
 
     CcMaybeBoolEnum is_valid = cc_activation_desc_is_valid( *act_desc__io );
-    if ( is_valid != CC_MBE_True ) return is_valid;
+    if ( is_valid != CC_MBE_True ) return CC_MBE_Void;
 
     if ( CC_PIECE_IS_ACTIVATOR( piece ) ) {
         act_desc__io->activator = piece;

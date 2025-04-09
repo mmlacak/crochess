@@ -61,7 +61,6 @@
                                || ( (pe) == CC_PE_LightScout )          \
                                || ( (pe) == CC_PE_LightGrenadier ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_MATERIAL(pe) ( ( (pe) != CC_PE_DarkWave )           \
                                 && ( (pe) != CC_PE_LightWave )          \
                                 && ( CC_PIECE_IS_VALID( (pe) ) ) )

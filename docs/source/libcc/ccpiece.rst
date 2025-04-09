@@ -203,6 +203,13 @@ Values
     :param pe: A piece, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if piece is a private, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_IS_MATERIAL(pe)
+
+    Macro to check if given piece is a valid material piece, i.e. not Wave.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece is material, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpiece-features:
 
 Features

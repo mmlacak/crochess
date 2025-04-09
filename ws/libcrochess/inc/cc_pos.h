@@ -197,7 +197,6 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc );
 
 CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece );
 
 
