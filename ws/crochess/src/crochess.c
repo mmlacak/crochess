@@ -28,7 +28,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.157:1336+20250409.021313"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.158:1337+20250410.051806"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
@@ -106,14 +106,14 @@ int main( void ) {
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
-                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_BUFFER );
-                if ( !an_str )
+                char * an_str__a = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_BUFFER );
+                if ( !an_str__a )
                     continue;
 
                 CcParseMsg * pm__a = NULL;
 
 // todo
-                // if ( cc_apply_move( an_str, game__a, &pm__a ) )
+                // if ( cc_apply_move( an_str__a, game__a, &pm__a ) )
                 // {
                 //     // todo :: TEMP :: uncomment (?)
                 //     // cc_chessboard_print( game__a->chessboard, true );
@@ -130,6 +130,7 @@ int main( void ) {
 // todo
 
                 cc_parse_msg_free_all( &pm__a );
+                CC_FREE( an_str__a );
             }
         } else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) ) {
             bool is_code = false;

@@ -37,7 +37,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.157:1336+20250409.021313"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.158:1337+20250410.051806"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -182,14 +182,14 @@ int main( void ) {
         } else if ( cc_str_is_equal( token_start, token_end, "m", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "move", NULL, BUFSIZ ) ) {
             if ( cc_iter_token( line, CC_TOKEN_SEPARATORS_WHITESPACE, &token_start, &token_end ) ) {
-                char * an_str = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_BUFFER );
-                if ( !an_str ) continue;
+                char * an_str__a = cc_str_copy__new( token_start, token_end, CC_MAX_LEN_BUFFER );
+                if ( !an_str__a ) continue;
 
                 CcParseMsg * pm__a = NULL;
                 CcMove * move__a = NULL;
 
 // todo :: parse --> do apply
-                if ( cc_parse_move( an_str, game__a, &move__a, &pm__a ) ) {
+                if ( cc_parse_move( an_str__a, game__a, &move__a, &pm__a ) ) {
                     printf( "Move: '%s'.\n", move__a->notation );
 
                     // TEMP :: DEBUG :: un/comment (?)
@@ -205,6 +205,7 @@ int main( void ) {
 
                 cc_move_free_all( &move__a );
                 cc_parse_msg_free_all( &pm__a );
+                CC_FREE( an_str__a );
             }
         } else if ( cc_str_is_equal( token_start, token_end, "p", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "player", NULL, BUFSIZ ) ) {
