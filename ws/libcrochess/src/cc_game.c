@@ -70,8 +70,65 @@ bool cc_game_reset_flags( CcGame * game__io, bool reset_only_pawn_sacrifice ) {
 
     if ( !reset_only_pawn_sacrifice ) {
         game__io->initial_piece = CC_POS_DESC_CAST_INVALID;
+        game__io->starting_pos = CC_POS_CAST_INVALID;
         game__io->current_pos = CC_POS_CAST_INVALID;
     }
+
+    return true;
+}
+
+bool cc_game_init_move( CcGame * game__io, CcPosDesc initial_piece ) {
+    if ( !game__io ) return false;
+
+    if ( !CC_POS_DESC_IS_VALID( initial_piece ) ) return false;
+
+    if ( !game__io->chessboard ) return false;
+
+    if ( !cc_chessboard_is_pos_on_board( game__io->chessboard, initial_piece.pos.i, initial_piece.pos.j ) ) return false;
+
+    game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
+    game__io->initial_piece = initial_piece;
+    game__io->starting_pos = initial_piece.pos;
+    game__io->current_pos = initial_piece.pos;
+
+    return true;
+}
+
+bool cc_game_update_pawn_sacrifice( CcGame * game__io, CcPosDesc pawn_sacrifice ) {
+    if ( !game__io ) return false;
+
+    if ( !CC_POS_DESC_IS_VALID( pawn_sacrifice ) ) return false;
+
+    if ( !game__io->chessboard ) return false;
+
+    if ( !cc_chessboard_is_pos_on_board( game__io->chessboard, pawn_sacrifice.pos.i, pawn_sacrifice.pos.j ) ) return false;
+
+    game__io->pawn_sacrifice = pawn_sacrifice;
+    game__io->current_pos = pawn_sacrifice.pos;
+
+    return true;
+}
+
+bool cc_game_update_starting_pos( CcGame * game__io, CcPos starting_pos ) {
+    if ( !game__io ) return false;
+    if ( !game__io->chessboard ) return false;
+
+    if ( !cc_chessboard_is_pos_on_board( game__io->chessboard, starting_pos.i, starting_pos.j ) ) return false;
+
+    game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
+    game__io->starting_pos = starting_pos;
+    game__io->current_pos = starting_pos;
+
+    return true;
+}
+
+bool cc_game_update_current_pos( CcGame * game__io, CcPos current_pos ) {
+    if ( !game__io ) return false;
+    if ( !game__io->chessboard ) return false;
+
+    if ( !cc_chessboard_is_pos_on_board( game__io->chessboard, current_pos.i, current_pos.j ) ) return false;
+
+    game__io->current_pos = current_pos;
 
     return true;
 }
@@ -94,6 +151,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
 
     gm__a->pawn_sacrifice = game->pawn_sacrifice;
     gm__a->initial_piece = game->initial_piece;
+    gm__a->starting_pos = game->starting_pos;
     gm__a->current_pos = game->current_pos;
 
     if ( copy_history ) {
