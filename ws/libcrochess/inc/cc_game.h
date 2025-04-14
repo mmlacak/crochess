@@ -43,8 +43,8 @@ typedef struct CcGame {
 
     CcPosDesc pawn_sacrifice;
     CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.
-    CcPos starting_pos; // Starting position, if different from initial, i.e. in case of repositioning. // TODO :: DOCS
-    CcPos current_pos; // Current position of a piece starting a move.
+    CcPos starting_pos; // Starting position, if different from initial, i.e. in case of repositioning.
+    CcPos current_pos; // Current position of a piece which started current move.
 
     CcMove * moves;
 } CcGame;
@@ -53,28 +53,19 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
                        bool do_setup );
 
-// TODO :: DOCS
 bool cc_game_reset_flags( CcGame * game__io, bool reset_only_pawn_sacrifice );
 
-// TODO :: DOCS
 bool cc_game_init_move( CcGame * game__io, CcPosDesc initial_piece );
 
-// TODO :: DOCS
 bool cc_game_update_pawn_sacrifice( CcGame * game__io, CcPosDesc pawn_sacrifice );
 
-// TODO :: DOCS
 bool cc_game_update_starting_pos( CcGame * game__io, CcPos starting_pos );
 
-// TODO :: DOCS
 bool cc_game_update_current_pos( CcGame * game__io, CcPos current_pos );
 
-// TODO :: DOCS
-CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history );
-
-// TODO :: DOCS
 bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl );
 
-// TODO :: funcs --> set/reset pawn sacrifice flag
+CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history );
 
 bool cc_game_free_all( CcGame ** game__f );
 

@@ -128,9 +128,15 @@ Types
         Flag, a piece starting current move, its initial position and tag.
         Resets immediately at the end of a current move.
 
+    .. c:member:: CcPos starting_pos
+
+        Flag, starting position, if different from initial, i.e. in case piece
+        starting a move has been repositioned.
+        Resets immediately at the end of a current move.
+
     .. c:member:: CcPos current_pos
 
-        Flag, current position of a piece starting a move.
+        Flag, current position of a piece which started current move.
         Resets immediately at the end of a current move.
 
     .. c:member:: CcMove * moves
@@ -158,7 +164,7 @@ Functions
                      or from manually set-up position (:c:data:`false`).
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_game_reset_flags( CcGame * game__io )
+.. c:function:: bool cc_game_reset_flags( CcGame * game__io, bool reset_only_pawn_sacrifice )
 
     Resets flags in a given game.
 
@@ -166,16 +172,63 @@ Functions
 
         * :c:member:`CcGame.pawn_sacrifice`,
         * :c:member:`CcGame.initial_piece`,
+        * :c:member:`CcGame.starting_pos`.
         * :c:member:`CcGame.current_pos`.
 
     :param game__io: Game to reset flags.
+    :param reset_only_pawn_sacrifice: Flag, whether to reset only :c:member:`CcGame.pawn_sacrifice`, or all flags.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: CcGame * cc_game_duplicate_all__new( CcGame * game )
+.. c:function:: bool cc_game_init_move( CcGame * game__io, CcPosDesc initial_piece )
+
+    Function resets flags as preparation for a new move; :c:member:`CcGame.pawn_sacrifice`
+    flag is reset, others are set according to a given :c:var:`initial_piece`.
+
+    :param game__io: Game to reset, update flags.
+    :param initial_piece: A piece starting current move, its initial position and tag.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_game_update_pawn_sacrifice( CcGame * game__io, CcPosDesc pawn_sacrifice )
+
+    Function sets :c:member:`CcGame.pawn_sacrifice` flag, and also :c:member:`CcGame.current_pos`.
+
+    :param game__io: Game to update flags.
+    :param pawn_sacrifice: A Serpent at its current position, after Pawn-sacrifice,
+        but before capturing opponent's Pawns.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_game_update_starting_pos( CcGame * game__io, CcPos starting_pos )
+
+    Function sets :c:member:`CcGame.starting_pos` flag, and also :c:member:`CcGame.current_pos`,
+    but resets :c:member:`CcGame.pawn_sacrifice` flag.
+
+    :param game__io: Game to reset, update flags.
+    :param starting_pos: Starting position, could be different from initial, i.e.
+        in case of repositioning.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_game_update_current_pos( CcGame * game__io, CcPos current_pos )
+
+    Function sets :c:member:`CcGame.current_pos` flag.
+
+    :param game__io: Game to update flags.
+    :param current_pos: Current position of a piece which started current move.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl )
+
+    Function updates chessboard of a given game.
+
+    :param game__io: Game to update chessboard.
+    :param pdl: Linked list of positions to update with corresponding piece and tag.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history )
 
     Duplicates a given game into a newly allocated one.
 
     :param game: Game to duplicate.
+    :param copy_history: Flag, whether to copy list of moves played so far.
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: bool cc_game_free_all( CcGame ** game__f )

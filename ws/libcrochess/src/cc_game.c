@@ -133,6 +133,39 @@ bool cc_game_update_current_pos( CcGame * game__io, CcPos current_pos ) {
     return true;
 }
 
+bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl ) {
+    if ( !game__io ) return false;
+    if ( !game__io->chessboard ) return false;
+    if ( !pdl ) return false;
+
+    CcChessboard * cb__t = cc_chessboard_duplicate__new( game__io->chessboard );
+    if ( !cb__t ) return false;
+
+    CcPosDescLink * _pdl = pdl;
+    CcPos pos = CC_POS_CAST_INVALID;
+    CcPieceType pt = CC_PE_None;
+    CcTagType tt = CC_TE_None;
+
+    while ( _pdl ) {
+        pos = _pdl->pd.pos;
+        pt = _pdl->pd.piece;
+        tt = _pdl->pd.tag;
+
+        if ( !cc_chessboard_set_piece_tag( cb__t, pos.i, pos.j, pt, tt ) ) {
+            CC_FREE( cb__t );
+            return false;
+        }
+
+        _pdl = _pdl->next;
+    }
+
+    CC_FREE( game__io->chessboard );
+    game__io->chessboard = cb__t; // Ownership transfer.
+    CC_FREE( cb__t );
+
+    return true;
+}
+
 CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
     if ( !game ) return NULL;
 
@@ -165,39 +198,6 @@ CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
     }
 
     return gm__a;
-}
-
-bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl ) {
-    if ( !game__io ) return false;
-    if ( !game__io->chessboard ) return false;
-    if ( !pdl ) return false;
-
-    CcChessboard * cb__t = cc_chessboard_duplicate__new( game__io->chessboard );
-    if ( !cb__t ) return false;
-
-    CcPosDescLink * _pdl = pdl;
-    CcPos pos = CC_POS_CAST_INVALID;
-    CcPieceType pt = CC_PE_None;
-    CcTagType tt = CC_TE_None;
-
-    while ( _pdl ) {
-        pos = _pdl->pd.pos;
-        pt = _pdl->pd.piece;
-        tt = _pdl->pd.tag;
-
-        if ( !cc_chessboard_set_piece_tag( cb__t, pos.i, pos.j, pt, tt ) ) {
-            CC_FREE( cb__t );
-            return false;
-        }
-
-        _pdl = _pdl->next;
-    }
-
-    CC_FREE( game__io->chessboard );
-    game__io->chessboard = cb__t; // Ownership transfer.
-    CC_FREE( cb__t );
-
-    return true;
 }
 
 bool cc_game_free_all( CcGame ** game__f ) {
