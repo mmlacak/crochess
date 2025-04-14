@@ -62,13 +62,13 @@ CcTagType cc_chessboard_get_tag( CcChessboard * cb, int i, int j );
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  CcPieceType pe,
+                                  CcPieceType pt,
                                   CcTagType ct );
 
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              CcPieceType pe );
+                              CcPieceType pt );
 
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,

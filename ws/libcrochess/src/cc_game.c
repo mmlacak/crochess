@@ -53,7 +53,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
         return NULL;
     }
 
-    if ( !cc_game_reset_flags( gm__a ) ) {
+    if ( !cc_game_reset_flags( gm__a, false ) ) {
         CC_FREE( gm__a );
         return NULL;
     }
@@ -63,17 +63,20 @@ CcGame * cc_game__new( CcGameStatusEnum status,
     return gm__a;
 }
 
-bool cc_game_reset_flags( CcGame * game__io ) {
+bool cc_game_reset_flags( CcGame * game__io, bool reset_only_pawn_sacrifice ) {
     if ( !game__io ) return false;
 
     game__io->pawn_sacrifice = CC_POS_DESC_CAST_INVALID;
-    game__io->initial_piece = CC_POS_DESC_CAST_INVALID;
-    game__io->current_pos = CC_POS_CAST_INVALID;
+
+    if ( !reset_only_pawn_sacrifice ) {
+        game__io->initial_piece = CC_POS_DESC_CAST_INVALID;
+        game__io->current_pos = CC_POS_CAST_INVALID;
+    }
 
     return true;
 }
 
-CcGame * cc_game_duplicate_all__new( CcGame * game ) {
+CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
     if ( !game ) return NULL;
 
     CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
@@ -93,15 +96,50 @@ CcGame * cc_game_duplicate_all__new( CcGame * game ) {
     gm__a->initial_piece = game->initial_piece;
     gm__a->current_pos = game->current_pos;
 
-    CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
-    if ( game->moves && ( !mv__t ) ) {
-        cc_game_free_all( &gm__a );
-        return NULL;
+    if ( copy_history ) {
+        CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
+        if ( game->moves && ( !mv__t ) ) {
+            cc_game_free_all( &gm__a );
+            return NULL;
+        }
+
+        gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
     }
 
-    gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
-
     return gm__a;
+}
+
+bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl ) {
+    if ( !game__io ) return false;
+    if ( !game__io->chessboard ) return false;
+    if ( !pdl ) return false;
+
+    CcChessboard * cb__t = cc_chessboard_duplicate__new( game__io->chessboard );
+    if ( !cb__t ) return false;
+
+    CcPosDescLink * _pdl = pdl;
+    CcPos pos = CC_POS_CAST_INVALID;
+    CcPieceType pt = CC_PE_None;
+    CcTagType tt = CC_TE_None;
+
+    while ( _pdl ) {
+        pos = _pdl->pd.pos;
+        pt = _pdl->pd.piece;
+        tt = _pdl->pd.tag;
+
+        if ( !cc_chessboard_set_piece_tag( cb__t, pos.i, pos.j, pt, tt ) ) {
+            CC_FREE( cb__t );
+            return false;
+        }
+
+        _pdl = _pdl->next;
+    }
+
+    CC_FREE( game__io->chessboard );
+    game__io->chessboard = cb__t; // Ownership transfer.
+    CC_FREE( cb__t );
+
+    return true;
 }
 
 bool cc_game_free_all( CcGame ** game__f ) {
@@ -132,7 +170,7 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
     CcGame * game__a = NULL;
 
     if ( before_setup__d ) {
-        game__a = cc_game_duplicate_all__new( before_setup__d );
+        game__a = cc_game_duplicate_all__new( before_setup__d, false );
     } else {
         size_t len = cc_variant_from_symbol( s, &ve );
         gse = islower( *s ) ? CC_GSE_Turn_Dark : CC_GSE_Turn_Light;

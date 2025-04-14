@@ -240,15 +240,17 @@ CcTagType cc_chessboard_get_tag( CcChessboard * cb,
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  CcPieceType pe,
+                                  CcPieceType pt,
                                   CcTagType tt ) {
     if ( !cb__io ) return false;
+    if ( !CC_PIECE_IS_ENUMERATOR( pt ) ) return false;
+    if ( !CC_TAG_IS_ENUMERATOR( tt ) ) return false;
 
     if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {
-        cb__io->board[ i ][ j ] = pe;
+        cb__io->board[ i ][ j ] = pt;
         cb__io->tags[ i ][ j ] = tt;
 
-        return  ( ( cb__io->board[ i ][ j ] == pe ) &&
+        return  ( ( cb__io->board[ i ][ j ] == pt ) &&
                   ( cb__io->tags[ i ][ j ] == tt ) );
     }
 
@@ -258,8 +260,8 @@ bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              CcPieceType pe ) {
-    return cc_chessboard_set_piece_tag( cb__io, i, j, pe, CC_TE_None );
+                              CcPieceType pt ) {
+    return cc_chessboard_set_piece_tag( cb__io, i, j, pt, CC_TE_None );
 }
 
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
@@ -267,6 +269,7 @@ bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int j,
                             CcTagType tt ) {
     if ( !cb__io ) return false;
+    if ( !CC_TAG_IS_ENUMERATOR( tt ) ) return false;
 
     if ( cc_chessboard_is_pos_on_board( cb__io, i, j ) ) {
         cb__io->tags[ i ][ j ] = tt;

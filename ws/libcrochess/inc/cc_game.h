@@ -53,11 +53,15 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        bool do_setup );
 
 // TODO :: DOCS
-bool cc_game_reset_flags( CcGame * game__io );
+bool cc_game_reset_flags( CcGame * game__io, bool reset_only_pawn_sacrifice );
 
-// TODO :: func --> copy game except moves, update chessboard, reset pawn_sacrifice
+// TODO :: DOCS
+CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history );
 
-CcGame * cc_game_duplicate_all__new( CcGame * game );
+// TODO :: DOCS
+bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl );
+
+// TODO :: funcs --> start a move, update current pos, set flags, set/reset pawn sacrifice flag
 
 bool cc_game_free_all( CcGame ** game__f );
 
