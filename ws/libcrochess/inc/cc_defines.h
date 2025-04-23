@@ -8,6 +8,12 @@
 #include <ctype.h>
 #include <limits.h>
 
+#ifdef __CC_DEBUG__
+
+    #include <stdio.h> // printf()
+
+#endif // __CC_DEBUG__
+
 
 typedef signed char cc_schar_t;
 typedef signed short cc_sshort_t;
@@ -143,6 +149,19 @@ typedef enum CcMaybeBoolEnum {
 //
 // https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 #define CC_ARRAY_SIZE(array) ( (size_t)( sizeof(array) / sizeof( (array)[ 0 ] ) ) )
+
+
+#ifdef __CC_DEBUG__
+
+    // TODO :: DOCS
+    #define CC_PRINTF(fmt,...) printf( fmt __VA_OPT__(,) __VA_ARGS__ )
+
+#else // __CC_DEBUG__
+
+    // TODO :: DOCS
+    #define CC_PRINTF(...) {}
+
+#endif // __CC_DEBUG__
 
 
 #endif /* __CC_DEFINES_H__ */

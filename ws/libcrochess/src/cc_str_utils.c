@@ -570,7 +570,7 @@ char * cc_str_append_fmt__new( char ** str__d_f,
 }
 
 
-#ifdef __CC_STR_PRINT_INFO__
+#ifdef __CC_DEBUG__
 
     // todo :: (?) move / return newly allocated string (?)
     bool cc_str_print( char const * start,
@@ -612,8 +612,8 @@ char * cc_str_append_fmt__new( char ** str__d_f,
     }
     // todo :: (?) move / return newly allocated string (?)
 
-// #else // __CC_STR_PRINT_INFO__
+// #else // __CC_DEBUG__
 
     // return true;
 
-#endif // __CC_STR_PRINT_INFO__
+#endif // __CC_DEBUG__

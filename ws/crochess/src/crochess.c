@@ -28,7 +28,7 @@
 #include "crochess.h"
 
 
-char const CROCHESS_VERSION[] = "0.0.1.161:1340+20250423.231554"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_VERSION[] = "0.0.1.162:1341+20250423.235930"; // source-new-crochess-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_HISTORY_FILE_NAME[] = "history_crochess.txt";
@@ -181,7 +181,7 @@ int main( void ) {
                 else if ( cc_str_is_equal( token_start, token_end, "new", NULL, BUFSIZ ) )
                     print_help_new();
                 else
-                    CC_STR_PRINT_IF_INFO( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_BUFFER, NULL ); }
+                    CC_STR_PRINT( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_BUFFER, NULL ); }
             else
                 print_help();
         } else {

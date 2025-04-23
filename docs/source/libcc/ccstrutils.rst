@@ -552,7 +552,7 @@ Debug
     variadic input.
 
     Compile-time constant which controls definition of this function is
-    :c:macro:`__CC_STR_PRINT_INFO__`.
+    :c:macro:`__CC_DEBUG__`.
 
     .. note::
 
@@ -576,7 +576,7 @@ Debug
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_str_fmt_va__new()`
 
-.. c:macro:: CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)
+.. c:macro:: CC_STR_PRINT(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)
 
     .. todo::
 
@@ -587,7 +587,7 @@ Debug
     constant.
 
     Compile-time constant which controls definition of this macro is
-    :c:macro:`__CC_STR_PRINT_INFO__`.
+    :c:macro:`__CC_DEBUG__`.
 
     :param start: A string to print first.
     :param end__d: *Optional*, pointer to the end of a (sub-)string.

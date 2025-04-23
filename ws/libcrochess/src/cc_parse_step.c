@@ -1,8 +1,6 @@
 // Copyright (c) 2022 Mario Mlačak, mmlacak@gmail.com
 // Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
-#include <stdio.h> // printf :: DEBUG :: DELETE
-
 #include "cc_setup_misc.h"
 #include "cc_side_effect.h"
 
@@ -134,13 +132,13 @@ bool cc_parse_steps( char const * steps_start_an,
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * step__t = NULL; // <!> Could contain more than one step!
 
-        CC_STR_PRINT_IF_INFO( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL );
+        CC_STR_PRINT( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL );
 
         if ( !_cc_parse_step( step_start_an, step_end_an, steps_end_an, is_turn_light, board_size,
                               ( index == 0 ), // is_first_step,
                               &step__t,
                               parse_msgs__iod ) ) {
-            printf( "!_cc_parse_step\n" );  // DEBUG :: DELETE
+            CC_PRINTF( "!_cc_parse_step\n" );
 
             cc_step_free_all( &step__t );
             cc_step_free_all( &steps__t );
@@ -238,15 +236,15 @@ bool cc_parse_steps( char const * steps_start_an,
         return false;
     }
 
-
-    { // DEBUG :: DELETE
+    #ifdef __CC_DEBUG__
+    {
         char * step_str__a = cc_step_all_to_string__new( steps__t );
 
-        CC_STR_PRINT_IF_INFO( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
+        CC_STR_PRINT( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 
         CC_FREE( step_str__a );
-    } // DEBUG :: DELETE
-
+    }
+    #endif // __CC_DEBUG__
 
     *steps__o = steps__t; // Ownership transfer.
     // steps__t = NULL; // Not needed.

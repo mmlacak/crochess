@@ -169,22 +169,22 @@ bool cc_parse_plies( char const * move_an,
             cc_ply_free_all( &ply__t );
             cc_ply_free_all( &plies__t );
 
-            printf( "!_cc_parse_ply( ... )\n" ); // DEBUG :: DELETE
+            CC_PRINTF( "!_cc_parse_ply( ... )\n" );
 
             return false;
         }
 
-
-        { // DEBUG :: DELETE
+        #ifdef __CC_DEBUG__
+        {
             char * plies_str__a = cc_ply_all_to_string__new( ply__t );
 
-            // CC_STR_PRINT_IF_INFO( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
-            printf( "Ply: '%s'.\n", plies_str__a );
-            printf( "...\n" );
+            // CC_STR_PRINT( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
+            CC_PRINTF( "Ply: '%s'.\n", plies_str__a );
+            CC_PRINTF( "...\n" );
 
             CC_FREE( plies_str__a );
-        } // DEBUG :: DELETE
-
+        }
+        #endif // __CC_DEBUG__
 
         if ( !cc_ply_extend( &plies__t, &ply__t ) ) {
             cc_ply_free_all( &ply__t );
@@ -195,16 +195,16 @@ bool cc_parse_plies( char const * move_an,
         is_first_ply = false;
     }
 
-
-    { // DEBUG :: DELETE
+    #ifdef __CC_DEBUG__
+    {
         char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
-        CC_STR_PRINT_IF_INFO( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
-        printf( "---\n" );
+        CC_STR_PRINT( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+        CC_PRINTF( "---\n" );
 
         CC_FREE( plies_str__a );
-    } // DEBUG :: DELETE
-
+    }
+    #endif // __CC_DEBUG__
 
     *plies__o = plies__t; // Ownership transfer.
     // plies__t = NULL; // Not needed.

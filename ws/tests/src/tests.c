@@ -37,7 +37,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.161:1340+20250423.231554"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.162:1341+20250423.235930"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -372,7 +372,7 @@ int main( void ) {
                           cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) )
                     print_help_setup();
                 else
-                    CC_STR_PRINT_IF_INFO( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_BUFFER, NULL );
+                    CC_STR_PRINT( token_start, token_end, BUFSIZ, "No help entry: '%s'.\n", CC_MAX_LEN_BUFFER, NULL );
             } else
                 print_help();
         } else {

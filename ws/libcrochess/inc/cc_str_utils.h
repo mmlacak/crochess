@@ -294,8 +294,11 @@ char * cc_str_append_fmt__new( char ** str__d_f,
                                size_t max_len__d,
                                char const * fmt, ... );
 
-#ifdef __CC_STR_PRINT_INFO__
+
+#ifdef __CC_DEBUG__
+
     // todo :: rethink :: (?) move / return newly allocated string (?)
+    // TODO :: DOCS
     bool cc_str_print( char const * start,
                        char const * end__d,
                        size_t max_len__d,
@@ -304,11 +307,16 @@ char * cc_str_append_fmt__new( char ** str__d_f,
                        char const * fmt__d, ... );
     // todo :: rethink :: (?) move / return newly allocated string (?)
 
-    #define CC_STR_PRINT_IF_INFO(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)                   \
+    // TODO :: DOCS
+    #define CC_STR_PRINT(start,end__d,max_len__d,fmt_str,fmt_len__d,fmt__d,...)                   \
         cc_str_print( start, end__d, max_len__d, fmt_str, fmt_len__d, fmt__d __VA_OPT__(,) __VA_ARGS__ )
-#else // __CC_STR_PRINT_INFO__
-    #define CC_STR_PRINT_IF_INFO(...) {} // start,end__d,max_len__d,fmt_str,fmt__d,...)
-#endif // __CC_STR_PRINT_INFO__
+
+#else // __CC_DEBUG__
+
+    // TODO :: DOCS
+    #define CC_STR_PRINT(...) {}
+
+#endif // __CC_DEBUG__
 
 
 #endif /* __CC_STR_UTILS_H__ */

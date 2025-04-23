@@ -217,15 +217,15 @@ bool cc_parse_move( char const * move_an,
         return false;
     }
 
+    #ifdef __CC_DEBUG__
+    {
+        char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
-    // { // DEBUG :: DELETE
-    //     char * plies_str__a = cc_ply_all_to_string__new( plies__t );
+        CC_STR_PRINT( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
 
-    //     CC_STR_PRINT_IF_INFO( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
-
-    //     CC_FREE( plies_str__a );
-    // } // DEBUG :: DELETE
-
+        CC_FREE( plies_str__a );
+    }
+    #endif // __CC_DEBUG__
 
     move__t->plies = plies__t; // Ownership transfer.
     // plies__t = NULL; // Not really needed.
