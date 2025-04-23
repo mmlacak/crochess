@@ -134,7 +134,7 @@ bool cc_parse_steps( char const * steps_start_an,
     while ( cc_iter_step( steps_start_an, steps_end_an, &step_start_an, &step_end_an ) ) {
         CcStep * step__t = NULL; // <!> Could contain more than one step!
 
-        cc_str_print( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL ); // DEBUG :: DELETE
+        CC_STR_PRINT_IF_INFO( step_start_an, step_end_an, 0, "Step: '%s'.\n", 0, NULL );
 
         if ( !_cc_parse_step( step_start_an, step_end_an, steps_end_an, is_turn_light, board_size,
                               ( index == 0 ), // is_first_step,
@@ -242,7 +242,7 @@ bool cc_parse_steps( char const * steps_start_an,
     { // DEBUG :: DELETE
         char * step_str__a = cc_step_all_to_string__new( steps__t );
 
-        cc_str_print( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
+        CC_STR_PRINT_IF_INFO( step_str__a, NULL, 0, "Steps: '%s'.\n", 0, NULL );
 
         CC_FREE( step_str__a );
     } // DEBUG :: DELETE

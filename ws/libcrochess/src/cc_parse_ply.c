@@ -178,7 +178,7 @@ bool cc_parse_plies( char const * move_an,
         { // DEBUG :: DELETE
             char * plies_str__a = cc_ply_all_to_string__new( ply__t );
 
-            // cc_str_print( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
+            // CC_STR_PRINT_IF_INFO( plies_str__a, NULL, 0, "Ply: '%s'.\n", 0, NULL );
             printf( "Ply: '%s'.\n", plies_str__a );
             printf( "...\n" );
 
@@ -199,7 +199,7 @@ bool cc_parse_plies( char const * move_an,
     { // DEBUG :: DELETE
         char * plies_str__a = cc_ply_all_to_string__new( plies__t );
 
-        cc_str_print( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
+        CC_STR_PRINT_IF_INFO( plies_str__a, NULL, 0, "Plies: '%s'.\n", 0, NULL );
         printf( "---\n" );
 
         CC_FREE( plies_str__a );

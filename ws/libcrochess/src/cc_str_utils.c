@@ -569,52 +569,51 @@ char * cc_str_append_fmt__new( char ** str__d_f,
     return str__a;
 }
 
-// todo :: (?) move / return newly allocated string (?)
-bool cc_str_print( char const * start,
-                   char const * end__d,
-                   size_t max_len__d,
-                   char const * fmt_str,
-                   size_t fmt_len__d,
-                   char const * fmt__d, ... ) {
 
 #ifdef __CC_STR_PRINT_INFO__
 
-    if ( !start ) return false;
-    if ( !fmt_str ) return false;
+    // todo :: (?) move / return newly allocated string (?)
+    bool cc_str_print( char const * start,
+                       char const * end__d,
+                       size_t max_len__d,
+                       char const * fmt_str,
+                       size_t fmt_len__d,
+                       char const * fmt__d, ... ) {
+        if ( !start ) return false;
+        if ( !fmt_str ) return false;
 
-    char * str__a = cc_str_copy__new( start, end__d, max_len__d );
-    if ( !str__a ) return false;
+        char * str__a = cc_str_copy__new( start, end__d, max_len__d );
+        if ( !str__a ) return false;
 
-    int result = printf( fmt_str, str__a );
+        int result = printf( fmt_str, str__a );
 
-    CC_FREE( str__a );
+        CC_FREE( str__a );
 
-    if ( result < 0 ) return false;
+        if ( result < 0 ) return false;
 
-    bool has_fmt = ( fmt__d && ( *fmt__d != '\0' ) );
-    if ( !has_fmt ) return true;
+        bool has_fmt = ( fmt__d && ( *fmt__d != '\0' ) );
+        if ( !has_fmt ) return true;
 
-    va_list args;
-    va_start( args, fmt__d );
+        va_list args;
+        va_start( args, fmt__d );
 
-    char * fmt__a = cc_str_fmt_va__new( fmt_len__d, fmt__d, args );
-    if ( !fmt__a ) {
+        char * fmt__a = cc_str_fmt_va__new( fmt_len__d, fmt__d, args );
+        if ( !fmt__a ) {
+            va_end( args );
+            return false;
+        }
+
+        result = printf( "%s", fmt__a );
+
+        CC_FREE( fmt__a );
         va_end( args );
-        return false;
+
+        return ( result >= 0 );
     }
+    // todo :: (?) move / return newly allocated string (?)
 
-    result = printf( "%s", fmt__a );
+// #else // __CC_STR_PRINT_INFO__
 
-    CC_FREE( fmt__a );
-    va_end( args );
-
-    return ( result >= 0 );
-
-#else // __CC_STR_PRINT_INFO__
-
-    return true;
+    // return true;
 
 #endif // __CC_STR_PRINT_INFO__
-
-}
-// todo :: (?) move / return newly allocated string (?)
