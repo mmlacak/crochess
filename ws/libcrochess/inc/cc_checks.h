@@ -47,20 +47,17 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos rook_start,
                                                CcPos rook_dest );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
                                              CcPieceType encounter,
                                              cc_uint_t momentum,
                                              CcStepTypeEnum step_type );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcPieceType moving,
                                                 CcActivationDesc act_desc,
                                                 CcPos destination,
                                                 CcStepTypeEnum step_type );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
                                            CcPieceType private,
                                            CcActivationDesc act_desc,
