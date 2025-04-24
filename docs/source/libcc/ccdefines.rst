@@ -128,6 +128,18 @@ Macros
     :param ptr_ptr: A pointer to pointer to allocated storage.
     :returns: Nothing.
 
+.. c:macro:: CC_PRINTF(fmt,...)
+
+    Macro to call :c:func:`printf()`, depending on a compile-time constant.
+
+    Compile-time constant which controls definition of this macro is :c:macro:`__CC_DEBUG__`.
+
+    :param fmt: Format string.
+    :param ...: Variadic input for a string format.
+    :returns: An integer; number of characters written to output stream, or
+        negative value if an error occurred.
+    :seealso: :c:func:`printf()`
+
 .. _lbl-libcc-ccdefines-maybebool:
 
 Maybe bool
@@ -488,18 +500,6 @@ Navigation
 
     :param array: An array variable.
     :returns: :c:type:`size_t` value, size of a given array.
-
-.. c:macro:: CC_PRINTF(fmt,...)
-
-    Macro to call :c:func:`printf()`, depending on a compile-time constant.
-
-    Compile-time constant which controls definition of this macro is :c:macro:`__CC_DEBUG__`.
-
-    :param fmt: Format string.
-    :param ...: Variadic input for a string format.
-    :returns: An integer; number of characters written to output stream, or
-        negative value if an error occurred.
-    :seealso: :c:func:`printf()`
 
 .. _lbl-libcc-ccdefines-sourcecodeheader:
 

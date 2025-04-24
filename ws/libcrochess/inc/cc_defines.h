@@ -45,6 +45,19 @@ typedef unsigned long long cc_ull_t;
 }
 
 
+#ifdef __CC_DEBUG__
+
+    // TODO :: DOCS
+    #define CC_PRINTF(fmt,...) printf( fmt __VA_OPT__(,) __VA_ARGS__ )
+
+#else // __CC_DEBUG__
+
+    // TODO :: DOCS
+    #define CC_PRINTF(...) {}
+
+#endif // __CC_DEBUG__
+
+
 typedef enum CcMaybeBoolEnum {
     CC_MBE_Void = -1,
     CC_MBE_False = 0,
@@ -149,19 +162,6 @@ typedef enum CcMaybeBoolEnum {
 //
 // https://stackoverflow.com/questions/37538/how-do-i-determine-the-size-of-my-array-in-c
 #define CC_ARRAY_SIZE(array) ( (size_t)( sizeof(array) / sizeof( (array)[ 0 ] ) ) )
-
-
-#ifdef __CC_DEBUG__
-
-    // TODO :: DOCS
-    #define CC_PRINTF(fmt,...) printf( fmt __VA_OPT__(,) __VA_ARGS__ )
-
-#else // __CC_DEBUG__
-
-    // TODO :: DOCS
-    #define CC_PRINTF(...) {}
-
-#endif // __CC_DEBUG__
 
 
 #endif /* __CC_DEFINES_H__ */
