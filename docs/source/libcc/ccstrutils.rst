@@ -548,11 +548,9 @@ Debug
         Move out of library / return newly allocated, formatted string.
         Remove library dependecy on ``<stdio.h>``.
 
-    Function prints given (sub-)string, optionally followed by formatted
-    variadic input.
+    Function prints given (sub-)string, optionally followed by formatted variadic input.
 
-    Compile-time constant which controls definition of this function is
-    :c:macro:`__CC_DEBUG__`.
+    Compile-time constant under which this function is defined is :c:macro:`__CC_DEBUG__`.
 
     .. note::
 
@@ -583,11 +581,9 @@ Debug
         Move out of library / return newly allocated, formatted string.
         Remove library dependecy on ``<stdio.h>``.
 
-    Macro to call :c:func:`cc_str_print()`, depending on a compile-time
-    constant.
+    Macro to call :c:func:`cc_str_print()`, depending on a compile-time constant.
 
-    Compile-time constant which controls definition of this macro is
-    :c:macro:`__CC_DEBUG__`.
+    Compile-time constant which controls definition of this macro is :c:macro:`__CC_DEBUG__`.
 
     :param start: A string to print first.
     :param end__d: *Optional*, pointer to the end of a (sub-)string.
