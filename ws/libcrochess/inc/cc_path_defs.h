@@ -15,22 +15,24 @@
 // todo :: DOCS
 
 //
-// Path context.
+// Move context.
 
 typedef struct CcMoveContext {
-    CcPosDesc pawn_sacrifice_serpent;
     CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.
     CcPos starting_pos; // Starting position, if different from initial, i.e. in case of repositioning.
     CcPos current_pos; // Current position of a piece which started current move.
+    CcPosDesc pawn_sacrifice_serpent; // Serpent and its position where it initiated Pawn-sacrifice.
 } CcMoveContext;
 
-#define CC_MOVE_CONTEXT_INVALID { .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID,   \
-                                  .initial_piece = CC_POS_DESC_CAST_INVALID,            \
+#define CC_MOVE_CONTEXT_INVALID { .initial_piece = CC_POS_DESC_CAST_INVALID,            \
                                   .starting_pos = CC_POS_CAST_INVALID,                  \
-                                  .current_pos = CC_POS_CAST_INVALID }
+                                  .current_pos = CC_POS_CAST_INVALID,                   \
+                                  .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID }
 
 #define CC_MOVE_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_MOVE_CONTEXT_INVALID )
 
+//
+// Ply context.
 
 typedef struct CcPlyContext {
     CcPosDesc initial;

@@ -123,6 +123,26 @@ Data
     :param pos_2: Another position, i.e. :c:struct:`CcPos` value.
     :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
+.. c:macro:: CC_POS_IS_LEGAL(pos,board_size)
+
+    Macro to check if given position is legal, i.e. if both coordinates are legal.
+
+    Coordinate is legal if it's within board boundaries, i.e. between ``0`` and a
+    given :c:var:`board_size`.
+
+    :param pos: A position, i.e. :c:struct:`CcPos` value.
+    :param board_size: Board size, integer.
+    :returns: :c:data:`true` if legal position, :c:data:`false` otherwise.
+
+.. c:macro:: CC_POS_IS_LEGAL_DISAMBIGUATION(pos,board_size)
+
+    Macro to check if given position is legal disambiguation, i.e. if at least one
+    coordinate is legal.
+
+    :param pos: A position, i.e. :c:struct:`CcPos` value.
+    :param board_size: Board size, integer.
+    :returns: :c:data:`true` if legal disambiguation, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpos-functions:
 
 Functions
@@ -417,8 +437,17 @@ Position descriptor
     Macro to check if given position descriptor is valid.
 
     :param pd: A position descriptor; :c:struct:`CcPosDesc` value.
-    :returns: Casted position descriptor value.
-    :seealso: :c:data:`true` if valid position descriptor, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if valid position descriptor, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_POS_IS_VALID`
+
+.. c:macro:: CC_POS_DESC_IS_LEGAL(pd,board_size)
+
+    Macro to check if given position descriptor is legal.
+
+    :param pd: A position descriptor; :c:struct:`CcPosDesc` value.
+    :param board_size: Board size, an integer.
+    :returns: :c:data:`true` if legal position descriptor, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_POS_IS_LEGAL`
 
 .. c:macro:: CC_POS_DESC_IS_EQUAL(pd_1,pd_2)
 

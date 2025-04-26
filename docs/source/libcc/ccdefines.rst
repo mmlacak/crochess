@@ -138,7 +138,7 @@ Macros
     :param ...: Variadic input for a string format.
     :returns: An integer; number of characters written to output stream, or
         negative value if an error occurred.
-    :seealso: :c:func:`printf()`
+    :seealso: https://en.cppreference.com/w/c/io/fprintf
 
 .. _lbl-libcc-ccdefines-maybebool:
 

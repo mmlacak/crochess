@@ -90,6 +90,14 @@ Functions
     :returns: :c:data:`true` if chessboard is successfully set up,
               :c:data:`false` otherwise.
 
+.. c:function:: cc_uint_t cc_chessboard_get_size( CcChessboard * cb )
+
+    Function returns the size of a given chessboard.
+
+    :param cb: A chessboard.
+    :returns: Size of a given chessboard is successful, ``0`` otherwise.
+    :seealso: :c:func:`cc_variant_board_size()`
+
 .. c:function:: bool cc_chessboard_copy( CcChessboard * into__io, CcChessboard * from )
 
     Copies a chessboard to another one.
