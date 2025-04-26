@@ -268,6 +268,8 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
 }
 
 CcPathLink * cc_path_tree_one_step__new( CcGame * game,
+                                         CcMoveContext move_ctx,
+                                         CcPlyContext ply_ctx,
                                          CcPosDesc moving ) {
     if ( !game ) return NULL;
     if ( !game->chessboard ) return NULL;

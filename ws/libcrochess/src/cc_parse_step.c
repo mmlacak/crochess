@@ -197,7 +197,7 @@ bool cc_parse_steps( char const * steps_start_an,
         }
 
         if ( step__t->link == CC_SLTE_InitialPosition ) {
-            if ( !CC_POS_IS_DISAMBIGUATION( step__t->field ) ) {
+            if ( !CC_POS_IS_LEGAL_DISAMBIGUATION( step__t->field, board_size ) ) {
                 _cc_fail_with_msg_in_step( "Initial position has to be a valid disambiguation, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );
@@ -205,7 +205,7 @@ bool cc_parse_steps( char const * steps_start_an,
                 return false;
             }
         } else {
-            if ( !CC_POS_IS_VALID( step__t->field ) && ( step__t->side_effect.type != CC_SETE_Castle ) ) { // For castling it's enough to have just files.
+            if ( !CC_POS_IS_LEGAL( step__t->field, board_size ) && ( step__t->side_effect.type != CC_SETE_Castle ) ) { // For castling it's enough to have just files.
                 _cc_fail_with_msg_in_step( "All steps has to specify complete position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );

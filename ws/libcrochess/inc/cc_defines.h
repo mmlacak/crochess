@@ -47,12 +47,10 @@ typedef unsigned long long cc_ull_t;
 
 #ifdef __CC_DEBUG__
 
-    // TODO :: DOCS
     #define CC_PRINTF(fmt,...) printf( fmt __VA_OPT__(,) __VA_ARGS__ )
 
 #else // __CC_DEBUG__
 
-    // TODO :: DOCS
     #define CC_PRINTF(...) {}
 
 #endif // __CC_DEBUG__

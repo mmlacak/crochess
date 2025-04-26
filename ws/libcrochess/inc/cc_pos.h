@@ -47,6 +47,12 @@ typedef struct CcPos {
 
 #define CC_POS_IS_EQUAL(pos_1,pos_2) ( ( (pos_1).i == (pos_2).i ) && ( (pos_1).j == (pos_2).j ) )
 
+// TODO :: DOCS
+#define CC_POS_IS_LEGAL(pos,board_size) ( CC_IS_POS_ON_BOARD( (board_size), (pos).i, (pos).j ) )
+
+// TODO :: DOCS
+#define CC_POS_IS_LEGAL_DISAMBIGUATION(pos,board_size) ( CC_IS_DISAMBIGUATION_ON_BOARD( (board_size), (pos).i, (pos).j ) )
+
 
 bool cc_pos_is_congruent( CcPos pos_1, CcPos pos_2 );
 
@@ -119,7 +125,12 @@ typedef struct CcPosDesc {
 
 #define CC_POS_DESC_IS_VALID(pd) \
     ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
-    // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(), having no piece, tag is still valid position descriptor!
+    // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(); having no piece, tag is still valid position descriptor!
+
+// TODO :: DOCS
+#define CC_POS_DESC_IS_LEGAL(pd) \
+    ( CC_POS_IS_LEGAL( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
+    // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(); having no piece, tag is still valid position descriptor!
 
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2)                 \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) &&      \

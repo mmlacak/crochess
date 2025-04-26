@@ -43,6 +43,8 @@ bool cc_path_side_effect( CcChessboard * cb,
 //                                             CcTypedStep step );
 
 CcPathLink * cc_path_tree_one_step__new( CcGame * game,
+                                         CcMoveContext move_ctx,
+                                         CcPlyContext ply_ctx,
                                          CcPosDesc moving );
 
 

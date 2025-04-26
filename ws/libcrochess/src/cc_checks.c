@@ -224,7 +224,7 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
                                                 CcPos destination,
                                                 CcStepTypeEnum step_type ) {
     if ( !cb ) return CC_MBE_Void;
-    if ( !CC_POS_IS_VALID( destination ) ) return CC_MBE_Void;
+    if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return CC_MBE_Void;
 
     CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
 

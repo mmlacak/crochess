@@ -88,6 +88,11 @@ bool cc_chessboard_setup( CcChessboard * cb__io ) {
     return true;
 }
 
+cc_uint_t cc_chessboard_get_size( CcChessboard * cb ) {
+    if ( !cb ) return 0;
+    return cc_variant_board_size( cb->type );
+}
+
 
 bool cc_chessboard_copy( CcChessboard * into__io,
                          CcChessboard * from ) {

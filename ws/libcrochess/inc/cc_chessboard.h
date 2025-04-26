@@ -31,6 +31,9 @@ bool cc_chessboard_clear( CcChessboard * cb__io );
 
 bool cc_chessboard_setup( CcChessboard * cb__io );
 
+// TODO :: DOCS
+cc_uint_t cc_chessboard_get_size( CcChessboard * cb );
+
 
 bool cc_chessboard_copy( CcChessboard * into__io,
                          CcChessboard * from );
