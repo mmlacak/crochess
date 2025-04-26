@@ -10,6 +10,7 @@
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 #include "cc_move.h"
+// #include "cc_path_defs.h"
 
 
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];
@@ -40,12 +41,6 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse );
 typedef struct CcGame {
     CcGameStatusEnum status;
     CcChessboard * chessboard;
-
-    CcPosDesc pawn_sacrifice;
-    CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.
-    CcPos starting_pos; // Starting position, if different from initial, i.e. in case of repositioning.
-    CcPos current_pos; // Current position of a piece which started current move.
-
     CcMove * moves;
 } CcGame;
 
@@ -53,17 +48,8 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
                        bool do_setup );
 
-bool cc_game_reset_flags( CcGame * game__io, bool reset_only_pawn_sacrifice );
-
-bool cc_game_init_move( CcGame * game__io, CcPosDesc initial_piece );
-
-bool cc_game_update_pawn_sacrifice( CcGame * game__io, CcPosDesc pawn_sacrifice );
-
-bool cc_game_update_starting_pos( CcGame * game__io, CcPos starting_pos );
-
-bool cc_game_update_current_pos( CcGame * game__io, CcPos current_pos );
-
-bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl );
+// TODO :: FIX :: CcPosDescLink * pdl --> CcChessboard * cb
+// bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl );
 
 CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history );
 

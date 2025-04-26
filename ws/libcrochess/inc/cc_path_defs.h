@@ -17,6 +17,21 @@
 //
 // Path context.
 
+typedef struct CcMoveContext {
+    CcPosDesc pawn_sacrifice_serpent;
+    CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.
+    CcPos starting_pos; // Starting position, if different from initial, i.e. in case of repositioning.
+    CcPos current_pos; // Current position of a piece which started current move.
+} CcMoveContext;
+
+#define CC_MOVE_CONTEXT_INVALID { .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID,   \
+                                  .initial_piece = CC_POS_DESC_CAST_INVALID,            \
+                                  .starting_pos = CC_POS_CAST_INVALID,                  \
+                                  .current_pos = CC_POS_CAST_INVALID }
+
+#define CC_MOVE_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_MOVE_CONTEXT_INVALID )
+
+
 typedef struct CcPlyContext {
     CcPosDesc initial;
     CcPos starting;
