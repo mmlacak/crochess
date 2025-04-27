@@ -97,5 +97,7 @@ CcPathContext * cc_path_context__new( CcGameStatusEnum status,
                                       CcVariantEnum ve,
                                       bool do_setup );
 
+bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
+
 
 #endif /* __CC_PATH_DEFS_H__ */

@@ -27,3 +27,18 @@ CcPathContext * cc_path_context__new( CcGameStatusEnum status,
 
     return px__a;
 }
+
+bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
+    if ( !path_ctx__f ) return false;
+    if ( !*path_ctx__f ) return true;
+
+    bool result = true;
+
+    result = cc_game_free_all( &((*path_ctx__f)->game) ) && result;
+    // result = cc_chessboard_free_all( &((*path_ctx__f)->cb_old) ) && result;
+    result = cc_chessboard_free_all( &((*path_ctx__f)->cb_current) ) && result;
+
+    CC_FREE_AND_NULL( path_ctx__f );
+
+    return result;
+}
