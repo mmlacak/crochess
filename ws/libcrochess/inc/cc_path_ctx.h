@@ -34,6 +34,18 @@ typedef struct CcMoveContext {
 
 #define CC_MOVE_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_MOVE_CONTEXT_INVALID )
 
+#define CC_MOVE_CONTEXT_IS_VALID(move_ctx)                                      \
+    ( CC_POS_DESC_IS_VALID( (move_ctx).initial ) &&                             \
+      CC_POS_IS_VALID( (move_ctx).starting ) &&                                 \
+      CC_POS_IS_VALID( (move_ctx).current ) &&                                  \
+      CC_POS_DESC_IS_VALID( (move_ctx).pawn_sacrifice_serpent ) )
+
+#define CC_MOVE_CONTEXT_IS_LEGAL(move_ctx,board_size)                           \
+    ( CC_POS_DESC_IS_LEGAL( (move_ctx).initial, (board_size) ) &&               \
+      CC_POS_IS_LEGAL( (move_ctx).starting, (board_size) ) &&                   \
+      CC_POS_IS_LEGAL( (move_ctx).current, (board_size) ) &&                    \
+      CC_POS_DESC_IS_LEGAL( (move_ctx).pawn_sacrifice_serpent, (board_size) ) )
+
 //
 // Ply context.
 
@@ -54,6 +66,20 @@ typedef struct CcPlyContext {
                                  .is_first = false }
 
 #define CC_PLY_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_PLY_CONTEXT_INVALID )
+
+#define CC_PLY_CONTEXT_IS_VALID(ply_ctx)                                            \
+    ( CC_POS_DESC_IS_VALID( (ply_ctx).initial ) &&                                  \
+      CC_POS_IS_VALID( (ply_ctx).starting ) &&                                      \
+      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) &&    \
+      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_1 ) &&                                 \
+      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_2 ) )
+
+#define CC_PLY_CONTEXT_IS_LEGAL(ply_ctx,board_size)                                 \
+    ( CC_POS_DESC_IS_LEGAL( (ply_ctx).initial, (board_size) ) &&                    \
+      CC_POS_IS_LEGAL( (ply_ctx).starting, (board_size) ) &&                        \
+      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) &&    \
+      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_1 ) &&                                 \
+      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_2 ) )
 
 //
 // Path context.
