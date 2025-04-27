@@ -32,7 +32,7 @@ typedef struct CcMoveContext {
                                   .current = CC_POS_CAST_INVALID,                       \
                                   .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID }
 
-#define CC_MOVE_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_MOVE_CONTEXT_INVALID )
+#define CC_MOVE_CONTEXT_CAST_INVALID ( (CcMoveContext)CC_MOVE_CONTEXT_INVALID )
 
 #define CC_MOVE_CONTEXT_IS_VALID(move_ctx)                                      \
     ( CC_POS_DESC_IS_VALID( (move_ctx).initial ) &&                             \
@@ -92,6 +92,10 @@ typedef struct CcPathContext {
     CcMoveContext move_ctx;
     CcPlyContext ply_ctx;
 } CcPathContext;
+
+CcPathContext * cc_path_context__new( CcGameStatusEnum status,
+                                      CcVariantEnum ve,
+                                      bool do_setup );
 
 
 #endif /* __CC_PATH_DEFS_H__ */

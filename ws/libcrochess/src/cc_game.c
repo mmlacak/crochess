@@ -42,6 +42,9 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse ) {
 CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantEnum ve,
                        bool do_setup ) {
+    if ( !CC_GAME_STATUS_IS_VALID( status ) ) return NULL;
+    if ( !CC_VARIANT_IS_VALID( ve) ) return NULL;
+
     CcGame * gm__a = malloc( sizeof( CcGame ) );
     if ( !gm__a ) return NULL;
 
