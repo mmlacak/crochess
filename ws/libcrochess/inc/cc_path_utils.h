@@ -12,8 +12,8 @@
 
 #include "cc_pos.h"
 #include "cc_typed_step_defs.h"
-#include "cc_path_defs.h"
 #include "cc_path.h"
+#include "cc_path_ctx.h"
 
 #include "cc_rules_defs.h"
 
@@ -29,22 +29,20 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcSideEffectLink ** side_effect_link__o_a );
 
 // static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
-//                                                     CcGame * game,
+//                                                     CcPathContext * path_ctx,
 //                                                     CcPosDesc moving,
 //                                                     CcPos current_pos,
 //                                                     CcActivationDesc act_desc,
 //                                                     CcTypedStep step );
 
 // static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
-//                                             CcGame * game,
+//                                             CcPathContext * path_ctx,
 //                                             CcPosDesc moving,
 //                                             CcPos current_pos,
 //                                             CcActivationDesc act_desc,
 //                                             CcTypedStep step );
 
-CcPathLink * cc_path_tree_one_step__new( CcGame * game,
-                                         CcMoveContext move_ctx,
-                                         CcPlyContext ply_ctx,
+CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
                                          CcPosDesc moving );
 
 

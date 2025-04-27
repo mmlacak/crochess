@@ -10,7 +10,6 @@
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 #include "cc_move.h"
-// #include "cc_path_defs.h"
 
 
 extern char const CC_GAME_SEPARATORS_SETUP_FROM_STRING[];

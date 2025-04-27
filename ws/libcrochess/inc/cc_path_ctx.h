@@ -9,8 +9,11 @@
 #include "cc_defines.h"
 #include "cc_piece.h"
 #include "cc_tag.h"
+
 #include "cc_pos.h"
 #include "cc_typed_step.h"
+#include "cc_chessboard.h"
+#include "cc_game.h"
 
 // todo :: DOCS
 
@@ -18,15 +21,15 @@
 // Move context.
 
 typedef struct CcMoveContext {
-    CcPosDesc initial_piece; // A piece starting current move, its initial position and tag.
-    CcPos starting_pos; // Starting position, if different from initial, i.e. in case of repositioning.
-    CcPos current_pos; // Current position of a piece which started current move.
+    CcPosDesc initial; // A piece starting current move, its initial position and tag.
+    CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
+    CcPos current; // Current position of a piece which started current move.
     CcPosDesc pawn_sacrifice_serpent; // Serpent and its position where it initiated Pawn-sacrifice.
 } CcMoveContext;
 
-#define CC_MOVE_CONTEXT_INVALID { .initial_piece = CC_POS_DESC_CAST_INVALID,            \
-                                  .starting_pos = CC_POS_CAST_INVALID,                  \
-                                  .current_pos = CC_POS_CAST_INVALID,                   \
+#define CC_MOVE_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,                  \
+                                  .starting = CC_POS_CAST_INVALID,                      \
+                                  .current = CC_POS_CAST_INVALID,                       \
                                   .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID }
 
 #define CC_MOVE_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_MOVE_CONTEXT_INVALID )
@@ -51,5 +54,18 @@ typedef struct CcPlyContext {
                                  .is_first = false }
 
 #define CC_PLY_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_PLY_CONTEXT_INVALID )
+
+//
+// Path context.
+
+typedef struct CcPathContext {
+    CcGame * game;
+    // CcChessboard * cb_old;
+    CcChessboard * cb_current;
+
+    CcMoveContext move_ctx;
+    CcPlyContext ply_ctx;
+} CcPathContext;
+
 
 #endif /* __CC_PATH_DEFS_H__ */
