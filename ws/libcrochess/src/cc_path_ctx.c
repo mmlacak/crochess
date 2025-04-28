@@ -75,3 +75,31 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
 
     return px__a;
 }
+
+CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx ) {
+    if ( !path_ctx ) return CC_MBE_Void;
+    if ( !path_ctx->game ) return CC_MBE_Void;
+    if ( !path_ctx->game->chessboard ) return CC_MBE_Void;
+
+    if ( path_ctx->cb_current ) {
+        if ( path_ctx->cb_current->type != path_ctx->game->chessboard->type ) return CC_MBE_False;
+    }
+
+    cc_uint_t board_size = cc_chessboard_get_size( path_ctx->game->chessboard );
+    bool has_moves_played = (bool)(path_ctx->game->moves);
+
+    if ( has_moves_played ) {
+        if ( !CC_MOVE_CONTEXT_IS_LEGAL( path_ctx->move_ctx, board_size ) ) return CC_MBE_False;
+    }
+
+    bool has_plies_played = (bool)(path_ctx->cb_current);
+
+    if ( has_plies_played ) {
+        if ( !CC_PLY_CONTEXT_IS_LEGAL( path_ctx->ply_ctx, board_size ) ) return CC_MBE_False;
+    }
+
+    if ( !has_moves_played && has_plies_played )
+        return CC_MBE_False;
+
+    return CC_MBE_True;
+}

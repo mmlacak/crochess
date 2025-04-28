@@ -102,5 +102,11 @@ bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
                                                     bool copy_history );
 
+CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx );
+
+// TODO :: cc_path_context_init_move()
+
+// TODO :: cc_path_context_init_ply()
+
 
 #endif /* __CC_PATH_DEFS_H__ */

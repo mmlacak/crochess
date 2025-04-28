@@ -269,10 +269,14 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
 
 CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
                                          CcPosDesc moving ) {
-    if ( !path_ctx ) return NULL;
-    if ( !path_ctx->game ) return NULL;
-    if ( !path_ctx->game->chessboard ) return NULL;
-    if ( !path_ctx->cb_current ) return NULL;
+    if ( cc_path_context_is_legal( path_ctx ) != CC_MBE_True ) return NULL;
+
+    // TODO :: initiate move, ply contexts
+
+    if ( !path_ctx->cb_current ) {
+        path_ctx->cb_current = cc_chessboard_duplicate__new( path_ctx->game->chessboard );
+        if ( !path_ctx->cb_current ) return NULL;
+    }
 
     if ( !CC_PIECE_IS_ONE_STEP( moving.piece ) ) return NULL; // TODO :: add Wave
     if ( !cc_chessboard_is_pos_on_board( path_ctx->game->chessboard, moving.pos.i, moving.pos.j ) ) return NULL;
@@ -288,7 +292,11 @@ CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
     if ( !steps__t ) return NULL;
 
     CcSideEffect se = cc_side_effect_none();
-    CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL;
+    CcActivationDesc ad =
+        cc_activation_desc_is_valid( path_ctx->ply_ctx.activation,
+                                     path_ctx->ply_ctx.is_first )
+            ? path_ctx->ply_ctx.activation
+            : CC_ACTIVATION_DESC_CAST_INITIAL;
 
     CcPathLink * pl__a = cc_path_link__new( se, &steps__t, moving.piece, moving.tag, ad );
     if ( !pl__a ) {
