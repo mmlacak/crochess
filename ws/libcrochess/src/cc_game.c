@@ -96,35 +96,6 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 // }
 // TODO :: FIX :: CcPosDescLink * pdl --> CcChessboard * cb
 
-CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
-    if ( !game ) return NULL;
-
-    CcVariantEnum ve = game->chessboard ? game->chessboard->type : CC_VE_One;
-
-    CcGame * gm__a = cc_game__new( game->status, ve, false );
-    if ( !gm__a ) return NULL;
-
-    CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
-    if ( game->chessboard && ( !cb__t ) ) {
-        cc_game_free_all( &gm__a );
-        return NULL;
-    }
-
-    gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
-
-    if ( copy_history ) {
-        CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
-        if ( game->moves && ( !mv__t ) ) {
-            cc_game_free_all( &gm__a );
-            return NULL;
-        }
-
-        gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
-    }
-
-    return gm__a;
-}
-
 bool cc_game_free_all( CcGame ** game__f ) {
     if ( !game__f ) return false;
     if ( !*game__f ) return true;
@@ -140,6 +111,36 @@ bool cc_game_free_all( CcGame ** game__f ) {
     CC_FREE_AND_NULL( game__f );
 
     return result;
+}
+
+CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
+    if ( !game ) return NULL;
+    if ( !game->chessboard ) return NULL;
+
+    CcVariantEnum ve = game->chessboard->type;
+
+    CcGame * gm__a = cc_game__new( game->status, ve, false );
+    if ( !gm__a ) return NULL;
+
+    CcChessboard * cb__t = cc_chessboard_duplicate__new( game->chessboard );
+    if ( !cb__t ) {
+        cc_game_free_all( &gm__a );
+        return NULL;
+    }
+
+    gm__a->chessboard = cb__t; // Ownership transfer --> cb__t is now weak pointer.
+
+    if ( copy_history && game->moves ) {
+        CcMove * mv__t = cc_move_duplicate_all__new( game->moves );
+        if ( !mv__t ) {
+            cc_game_free_all( &gm__a );
+            return NULL;
+        }
+
+        gm__a->moves = mv__t; // Ownership transfer --> mv__t is now weak pointer.
+    }
+
+    return gm__a;
 }
 
 CcGame * cc_game_setup_from_string__new( char const * setup,

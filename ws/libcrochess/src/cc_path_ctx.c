@@ -42,3 +42,36 @@ bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
 
     return result;
 }
+
+CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
+                                                    bool copy_history ) {
+    if ( !from ) return NULL;
+    if ( !from->game ) return NULL;
+    if ( !from->game->chessboard ) return NULL;
+
+    CcGameStatusEnum status = from->game->status;
+    CcVariantEnum ve = from->game->chessboard->type;
+
+    CcPathContext * px__a = cc_path_context__new( status, ve, false );
+    if ( !px__a ) return NULL;
+
+    px__a->game = cc_game_duplicate_all__new( from->game, copy_history );
+    if ( !px__a->game ) {
+        cc_path_context_free_all( &px__a );
+        return NULL;
+    }
+
+    if ( from->cb_current ) {
+        px__a->cb_current = cc_chessboard_duplicate__new( from->cb_current );
+        if ( !px__a->cb_current ) {
+            cc_path_context_free_all( &px__a );
+            return NULL;
+        }
+    } else
+        px__a->cb_current = NULL;
+
+    px__a->move_ctx = from->move_ctx;
+    px__a->ply_ctx = from->ply_ctx;
+
+    return px__a;
+}

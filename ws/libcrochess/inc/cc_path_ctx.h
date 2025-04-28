@@ -99,5 +99,8 @@ CcPathContext * cc_path_context__new( CcGameStatusEnum status,
 
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 
+CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
+                                                    bool copy_history );
+
 
 #endif /* __CC_PATH_DEFS_H__ */

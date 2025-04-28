@@ -50,12 +50,11 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 // TODO :: FIX :: CcPosDescLink * pdl --> CcChessboard * cb
 // bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl );
 
-CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history );
-
 bool cc_game_free_all( CcGame ** game__f );
+
+CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history );
 
 CcGame * cc_game_setup_from_string__new( char const * setup,
                                          CcGame * before_setup__d );
-
 
 #endif /* __CC_GAME_H__ */

@@ -151,6 +151,13 @@ Functions
 ..     :param pdl: Linked list of positions to update with corresponding piece and tag.
 ..     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_game_free_all( CcGame ** game__f )
+
+    :c:func:`free()`\s game, and all owned resources (chessboard, moves).
+
+    :param game__f: A game to free.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. c:function:: CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history )
 
     Duplicates a given game into a newly allocated one.
@@ -158,13 +165,6 @@ Functions
     :param game: Game to duplicate.
     :param copy_history: Flag, whether to copy list of moves played so far.
     :returns: A newly allocated game if successful, :c:data:`NULL` otherwise.
-
-.. c:function:: bool cc_game_free_all( CcGame ** game__f )
-
-    :c:func:`free()`\s game, and all owned resources (chessboard, moves).
-
-    :param game__f: A game to free.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: CcGame * cc_game_setup_from_string__new( char const * setup, CcGame * before_setup__d )
 
