@@ -3,21 +3,16 @@
 
 #include "cc_path_ctx.h"
 
-
-CcPathContext * cc_path_context__new( CcGameStatusEnum status,
-                                      CcVariantEnum ve,
-                                      bool do_setup ) {
-    if ( !CC_GAME_STATUS_IS_VALID( status ) ) return NULL;
-    if ( !CC_VARIANT_IS_VALID( ve) ) return NULL;
+CcPathContext * cc_path_context__new( CcGame ** game__n ) {
+    if ( !game__n ) return NULL;
+    if ( !*game__n ) return NULL;
 
     CcPathContext * px__a = malloc( sizeof( CcPathContext ) );
     if ( !px__a ) return NULL;
 
-    px__a->game = cc_game__new( status, ve, do_setup );
-    if ( !px__a->game ) {
-        CC_FREE( px__a );
-        return NULL;
-    }
+    // Ownership transfer.
+    px__a->game = *game__n;
+    *game__n = NULL;
 
     // px__a->cb_old = NULL;
     px__a->cb_current = NULL;
@@ -26,6 +21,18 @@ CcPathContext * cc_path_context__new( CcGameStatusEnum status,
     px__a->ply_ctx = CC_PLY_CONTEXT_CAST_INVALID;
 
     return px__a;
+}
+
+CcPathContext * cc_path_context_init__new( CcGameStatusEnum status,
+                                           CcVariantEnum ve,
+                                           bool do_setup ) {
+    if ( !CC_GAME_STATUS_IS_VALID( status ) ) return NULL;
+    if ( !CC_VARIANT_IS_VALID( ve) ) return NULL;
+
+    CcGame * game__t = cc_game__new( status, ve, do_setup );
+    if ( !game__t ) return NULL;
+
+    return cc_path_context__new( &game__t );
 }
 
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
@@ -49,15 +56,12 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
     if ( !from->game ) return NULL;
     if ( !from->game->chessboard ) return NULL;
 
-    CcGameStatusEnum status = from->game->status;
-    CcVariantEnum ve = from->game->chessboard->type;
+    CcGame * game__t = cc_game_duplicate_all__new( from->game, copy_history );
+    if ( !game__t ) return NULL;
 
-    CcPathContext * px__a = cc_path_context__new( status, ve, false );
-    if ( !px__a ) return NULL;
-
-    px__a->game = cc_game_duplicate_all__new( from->game, copy_history );
-    if ( !px__a->game ) {
-        cc_path_context_free_all( &px__a );
+    CcPathContext * px__a = cc_path_context__new( &game__t ); // Game ownership transferred here.
+    if ( !px__a ) {
+        cc_game_free_all( &game__t );
         return NULL;
     }
 
@@ -67,8 +71,7 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
             cc_path_context_free_all( &px__a );
             return NULL;
         }
-    } else
-        px__a->cb_current = NULL;
+    }
 
     px__a->move_ctx = from->move_ctx;
     px__a->ply_ctx = from->ply_ctx;

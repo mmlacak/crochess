@@ -93,9 +93,11 @@ typedef struct CcPathContext {
     CcPlyContext ply_ctx;
 } CcPathContext;
 
-CcPathContext * cc_path_context__new( CcGameStatusEnum status,
-                                      CcVariantEnum ve,
-                                      bool do_setup );
+CcPathContext * cc_path_context__new( CcGame ** game__n );
+
+CcPathContext * cc_path_context_init__new( CcGameStatusEnum status,
+                                           CcVariantEnum ve,
+                                           bool do_setup );
 
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 
