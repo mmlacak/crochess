@@ -288,7 +288,7 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
 
 
 
-    // [!] Piece, and its tag, might not be at moving.pos position on chessboard,
+    // <!> Piece, and its tag, might not be at moving.pos position on chessboard,
     //     e.g. if already activated (transitioning problem); for everything
     //     else chessboard should be correct.
 

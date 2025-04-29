@@ -111,18 +111,22 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
 
 bool cc_path_context_init_move( CcPathContext * path_ctx__io,
                                 CcPosDesc move_init ) {
+    if ( !CC_PIECE_IS_VALID( move_init.piece ) ) return false; // [1]
     if ( !cc_path_context_is_legal( path_ctx__io, false, false ) ) return false;
 
     CcChessboard * cb = path_ctx__io->game->chessboard;
 
-    cc_uint_t board_size = cc_chessboard_get_size( cb );
-    if ( !CC_POS_DESC_IS_LEGAL( move_init, board_size ) ) return false;
+    // <?> Not needed, get_piece() returns None for positions outside chessboard; here, piece is certainly not None [1], and check is done at [2].
+    // cc_uint_t board_size = cc_chessboard_get_size( cb );
+    // if ( !CC_POS_DESC_IS_LEGAL( move_init, board_size ) ) return false;
 
+    // Checking piece and its tag are still on declared position generaly does not hold, except at the very beginning of a move.
     CcPieceType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
-    if ( piece != move_init.piece ) return false;
+    if ( piece != move_init.piece ) return false; // [2]
 
     CcTagType tag = cc_chessboard_get_tag( cb, move_init.pos.i, move_init.pos.j );
     if ( tag != move_init.tag ) return false;
+
 
     if ( path_ctx__io->cb_current )
         cc_chessboard_free_all( &(path_ctx__io->cb_current) );
@@ -134,7 +138,44 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
                                               .starting = move_init.pos,
                                               .current = move_init.pos,
                                               .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID };
-    path_ctx__io->ply_ctx = CC_PLY_CONTEXT_CAST_INVALID;
+
+    path_ctx__io->ply_ctx = (CcPlyContext){ .initial = move_init,
+                                            .starting = move_init.pos,
+                                            .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
+                                            .step_1 = CC_TYPED_STEP_CAST_INVALID,
+                                            .step_2 = CC_TYPED_STEP_CAST_INVALID,
+                                            .is_first = true };
+
+    return true;
+}
+
+bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
+                               CcPosDesc ply_init,
+                               CcTypedStep step_1,
+                               CcTypedStep step_2 ) {
+    if ( !CC_PIECE_IS_VALID( ply_init.piece ) ) return false;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false;
+
+    CcChessboard * cb = path_ctx__io->game->chessboard;
+
+    // <!> Do not remove; piece and its tag are not at declared position, at the start of a ply; see cc_path_context_init_move().
+    cc_uint_t board_size = cc_chessboard_get_size( cb );
+    if ( !CC_POS_DESC_IS_LEGAL( ply_init, board_size ) ) return false;
+
+    if ( !path_ctx__io->cb_current ) {
+        path_ctx__io->cb_current = cc_chessboard_duplicate__new( cb );
+        if ( !path_ctx__io->cb_current ) return false;
+    }
+
+    bool is_first = CC_POS_DESC_IS_EQUAL( path_ctx__io->move_ctx.initial, ply_init );
+
+    // TODO :: FIX
+    path_ctx__io->ply_ctx = (CcPlyContext){ .initial = ply_init,
+                                            .starting = ply_init.pos,
+                                            // .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
+                                            .step_1 = step_1,
+                                            .step_2 = step_2,
+                                            .is_first = is_first };
 
     return true;
 }

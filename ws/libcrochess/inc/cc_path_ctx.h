@@ -111,7 +111,10 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
 bool cc_path_context_init_move( CcPathContext * path_ctx__io,
                                 CcPosDesc move_init );
 
-// TODO :: cc_path_context_init_ply()
+bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
+                               CcPosDesc ply_init,
+                               CcTypedStep step_1,
+                               CcTypedStep step_2 );
 
 
 #endif /* __CC_PATH_DEFS_H__ */
