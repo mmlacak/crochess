@@ -267,20 +267,26 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
     return pl__a;
 }
 
-CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
+CcPathLink * cc_path_tree_one_step__new( CcGame * game,
                                          CcPosDesc moving ) {
-    if ( cc_path_context_is_legal( path_ctx ) != CC_MBE_True ) return NULL;
-
-    // TODO :: initiate move, ply contexts
-
-    if ( !path_ctx->cb_current ) {
-        path_ctx->cb_current = cc_chessboard_duplicate__new( path_ctx->game->chessboard );
-        if ( !path_ctx->cb_current ) return NULL;
-    }
+    if ( !game ) return NULL;
 
     if ( !CC_PIECE_IS_ONE_STEP( moving.piece ) ) return NULL; // TODO :: add Wave
-    if ( !cc_chessboard_is_pos_on_board( path_ctx->game->chessboard, moving.pos.i, moving.pos.j ) ) return NULL;
+    if ( !cc_chessboard_is_pos_on_board( game->chessboard, moving.pos.i, moving.pos.j ) ) return NULL;
     if ( !CC_TAG_IS_ENUMERATOR( moving.tag ) ) return NULL;
+
+    CcGame * game__t = cc_game_duplicate_all__new( game, false );
+    if ( !game__t ) return NULL;
+
+    CcPathContext * path_ctx__a = cc_path_context__new( &game__t ); // Game ownership transferred here.
+    if ( !path_ctx__a ) {
+        cc_game_free_all( &game__t );
+        return NULL;
+    }
+
+    // TODO :: initiate chessboard; move, ply contexts
+
+
 
     // [!] Piece, and its tag, might not be at moving.pos position on chessboard,
     //     e.g. if already activated (transitioning problem); for everything
@@ -289,22 +295,26 @@ CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
     CcPos field = moving.pos;
 
     CcStep * steps__t = cc_step_next_no_side_effect__new( field );
-    if ( !steps__t ) return NULL;
+    if ( !steps__t ) {
+        cc_path_context_free_all( &path_ctx__a );
+        return NULL;
+    }
 
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad =
-        cc_activation_desc_is_valid( path_ctx->ply_ctx.activation,
-                                     path_ctx->ply_ctx.is_first )
-            ? path_ctx->ply_ctx.activation
+        cc_activation_desc_is_valid( path_ctx__a->ply_ctx.activation,
+                                     path_ctx__a->ply_ctx.is_first )
+            ? path_ctx__a->ply_ctx.activation
             : CC_ACTIVATION_DESC_CAST_INITIAL;
 
     CcPathLink * pl__a = cc_path_link__new( se, &steps__t, moving.piece, moving.tag, ad );
     if ( !pl__a ) {
+        cc_path_context_free_all( &path_ctx__a );
         cc_step_free_all( &steps__t );
         return NULL;
     }
 
-    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx->game->chessboard->type );
+    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx__a->game->chessboard->type );
     bool is_same_color = cc_pos_piece_are_same_color( field, moving.piece );
     CcTypedStep const * step = NULL;
 
@@ -318,6 +328,7 @@ CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
     }
 
 
+    cc_path_context_free_all( &path_ctx__a );
 
     return pl__a;
 }

@@ -42,7 +42,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 //                                             CcActivationDesc act_desc,
 //                                             CcTypedStep step );
 
-CcPathLink * cc_path_tree_one_step__new( CcPathContext * path_ctx,
+CcPathLink * cc_path_tree_one_step__new( CcGame * game,
                                          CcPosDesc moving );
 
 
