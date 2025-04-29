@@ -23,9 +23,9 @@ CcPathContext * cc_path_context__new( CcGame ** game__n ) {
     return px__a;
 }
 
-CcPathContext * cc_path_context_init__new( CcGameStatusEnum status,
-                                           CcVariantEnum ve,
-                                           bool do_setup ) {
+CcPathContext * cc_path_context_init_game__new( CcGameStatusEnum status,
+                                                CcVariantEnum ve,
+                                                bool do_setup ) {
     if ( !CC_GAME_STATUS_IS_VALID( status ) ) return NULL;
     if ( !CC_VARIANT_IS_VALID( ve) ) return NULL;
 
@@ -79,7 +79,9 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
     return px__a;
 }
 
-CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx ) {
+CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
+                                          bool do_check_move_ctx,
+                                          bool do_check_ply_ctx ) {
     if ( !path_ctx ) return CC_MBE_Void;
     if ( !path_ctx->game ) return CC_MBE_Void;
     if ( !path_ctx->game->chessboard ) return CC_MBE_Void;
@@ -91,13 +93,13 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx ) {
     cc_uint_t board_size = cc_chessboard_get_size( path_ctx->game->chessboard );
     bool has_moves_played = (bool)(path_ctx->game->moves);
 
-    if ( has_moves_played ) {
+    if ( do_check_move_ctx || has_moves_played ) {
         if ( !CC_MOVE_CONTEXT_IS_LEGAL( path_ctx->move_ctx, board_size ) ) return CC_MBE_False;
     }
 
     bool has_plies_played = (bool)(path_ctx->cb_current);
 
-    if ( has_plies_played ) {
+    if ( do_check_ply_ctx || has_plies_played ) {
         if ( !CC_PLY_CONTEXT_IS_LEGAL( path_ctx->ply_ctx, board_size ) ) return CC_MBE_False;
     }
 
@@ -105,4 +107,34 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx ) {
         return CC_MBE_False;
 
     return CC_MBE_True;
+}
+
+bool cc_path_context_init_move( CcPathContext * path_ctx__io,
+                                CcPosDesc move_init ) {
+    if ( !cc_path_context_is_legal( path_ctx__io, false, false ) ) return false;
+
+    CcChessboard * cb = path_ctx__io->game->chessboard;
+
+    cc_uint_t board_size = cc_chessboard_get_size( cb );
+    if ( !CC_POS_DESC_IS_LEGAL( move_init, board_size ) ) return false;
+
+    CcPieceType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
+    if ( piece != move_init.piece ) return false;
+
+    CcTagType tag = cc_chessboard_get_tag( cb, move_init.pos.i, move_init.pos.j );
+    if ( tag != move_init.tag ) return false;
+
+    if ( path_ctx__io->cb_current )
+        cc_chessboard_free_all( &(path_ctx__io->cb_current) );
+
+    path_ctx__io->cb_current = cc_chessboard_duplicate__new( cb );
+    if ( !path_ctx__io->cb_current ) return false;
+
+    path_ctx__io->move_ctx = (CcMoveContext){ .initial = move_init,
+                                              .starting = move_init.pos,
+                                              .current = move_init.pos,
+                                              .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID };
+    path_ctx__io->ply_ctx = CC_PLY_CONTEXT_CAST_INVALID;
+
+    return true;
 }

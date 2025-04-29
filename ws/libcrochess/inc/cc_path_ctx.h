@@ -95,18 +95,21 @@ typedef struct CcPathContext {
 
 CcPathContext * cc_path_context__new( CcGame ** game__n );
 
-CcPathContext * cc_path_context_init__new( CcGameStatusEnum status,
-                                           CcVariantEnum ve,
-                                           bool do_setup );
+CcPathContext * cc_path_context_init_game__new( CcGameStatusEnum status,
+                                                CcVariantEnum ve,
+                                                bool do_setup );
 
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 
 CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
                                                     bool copy_history );
 
-CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx );
+CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
+                                          bool do_check_move_ctx,
+                                          bool do_check_ply_ctx );
 
-// TODO :: cc_path_context_init_move()
+bool cc_path_context_init_move( CcPathContext * path_ctx__io,
+                                CcPosDesc move_init );
 
 // TODO :: cc_path_context_init_ply()
 
