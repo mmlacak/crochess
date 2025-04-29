@@ -167,15 +167,29 @@ bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
         if ( !path_ctx__io->cb_current ) return false;
     }
 
+    // Move-initiating piece cannot return to its origin, so this comparison always holds true.
     bool is_first = CC_POS_DESC_IS_EQUAL( path_ctx__io->move_ctx.initial, ply_init );
 
-    // TODO :: FIX
-    path_ctx__io->ply_ctx = (CcPlyContext){ .initial = ply_init,
-                                            .starting = ply_init.pos,
-                                            // .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
-                                            .step_1 = step_1,
-                                            .step_2 = step_2,
-                                            .is_first = is_first };
+    CcPlyContext * _ctx = &(path_ctx__io->ply_ctx);
+
+    if ( !is_first ) {
+        if ( CC_PIECE_IS_ACTIVATOR( _ctx->initial.piece ) ) {
+            _ctx->activation.activator = _ctx->initial.piece;
+        }
+    }
+
+    _ctx->initial = ply_init;
+    _ctx->starting = ply_init.pos;
+
+    // _ctx->activation = CC_ACTIVATION_DESC_CAST_INITIAL;
+    if ( CC_PIECE_IS_WEIGHTLESS( ply_init.piece ) )
+        _ctx->activation.usage = CC_MUE_NotUsing;
+    else
+        _ctx->activation.usage = is_first ? CC_MUE_Accumulating : CC_MUE_Spending;
+
+    _ctx->step_1 = step_1;
+    _ctx->step_2 = step_2;
+    _ctx->is_first = is_first;
 
     return true;
 }
