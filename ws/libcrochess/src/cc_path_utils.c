@@ -171,7 +171,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
     CcActivationDesc ad = act_desc;
     CcStep * step__w = NULL;
 
-    while ( cc_chessboard_is_pos_on_board( path_ctx->game->chessboard, field.i, field.j ) ) {
+    while ( cc_chessboard_is_pos_on_board( path_ctx->game__w->chessboard, field.i, field.j ) ) {
         CcMaybeBoolEnum result = cc_activation_desc_calc_next_momentum( &ad, 1 );
 
         if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) { // Void --> error.
@@ -187,7 +187,7 @@ static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
             return NULL;
         }
 
-        CcPieceType encounter = cc_chessboard_get_piece( path_ctx->game->chessboard, field.i, field.j );
+        CcPieceType encounter = cc_chessboard_get_piece( path_ctx->game__w->chessboard, field.i, field.j );
         if ( encounter != CC_PE_None ) break; // Caller checks all possible interactions, including transparency; removes field of encounter if there are none.
 
         field = cc_pos_add_steps( field, step.step, 1 );
@@ -233,8 +233,8 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
     CC_FASTFORWARD( steps );
     CcPos last = steps->field;
 
-    CcPosDesc encounter = cc_convert_pos_to_pos_desc( path_ctx->game->chessboard, last );
-    bool is_blocked = cc_check_piece_is_blocked_at( path_ctx->game->chessboard, moving.piece, last );
+    CcPosDesc encounter = cc_convert_pos_to_pos_desc( path_ctx->game__w->chessboard, last );
+    bool is_blocked = cc_check_piece_is_blocked_at( path_ctx->game__w->chessboard, moving.piece, last );
     CcActivationDesc ad = pl__a->act_desc;
 
     // TODO :: check all possible interactions, including transparency; remove field of encounter if there are none.
@@ -242,7 +242,7 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
     // TODO :: if !is_blocked --> transparency
 
     // if ( ( encounter.piece == CC_PE_None ) ||
-    //         ( !cc_check_piece_is_blocked_at( path_ctx->game->chessboard, moving.piece, last ) ) ) {
+    //         ( !cc_check_piece_is_blocked_at( path_ctx->game__w->chessboard, moving.piece, last ) ) ) {
     //     step__w = cc_pos_link_append( &steps__t, last );
     //     if ( !step__w ) {
     //         cc_step_free_all( &steps__t );
@@ -254,11 +254,11 @@ static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
     if ( encounter.piece != CC_PE_None ) {
         // TODO :: check if pieces can interact
 
-        if ( cc_check_piece_can_capture_at( path_ctx->game->chessboard, moving.piece, last ) ) {
+        if ( cc_check_piece_can_capture_at( path_ctx->game__w->chessboard, moving.piece, last ) ) {
 
         }
 
-        if ( cc_check_piece_can_diverge_at( path_ctx->game->chessboard, moving.piece, ad.momentum, CC_PE_None, last ) ) {
+        if ( cc_check_piece_can_diverge_at( path_ctx->game__w->chessboard, moving.piece, ad.momentum, CC_PE_None, last ) ) {
 
         }
 
@@ -275,17 +275,14 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
     if ( !cc_chessboard_is_pos_on_board( game->chessboard, moving.pos.i, moving.pos.j ) ) return NULL;
     if ( !CC_TAG_IS_ENUMERATOR( moving.tag ) ) return NULL;
 
-    CcGame * game__t = cc_game_duplicate_all__new( game, false );
-    if ( !game__t ) return NULL;
-
-    CcPathContext * path_ctx__a = cc_path_context__new( &game__t ); // Game ownership transferred here.
-    if ( !path_ctx__a ) {
-        cc_game_free_all( &game__t );
-        return NULL;
-    }
+    CcPathContext * path_ctx__a = cc_path_context__new( game ); // Game ownership has not been transferred here.
+    if ( !path_ctx__a ) return NULL;
 
     // TODO :: initiate chessboard; move, ply contexts
-
+    if ( !cc_path_context_init_move( path_ctx__a, moving ) ) {
+        cc_path_context_free_all( &path_ctx__a );
+        return NULL;
+    }
 
 
     // <!> Piece, and its tag, might not be at moving.pos position on chessboard,
@@ -314,7 +311,7 @@ CcPathLink * cc_path_tree_one_step__new( CcGame * game,
         return NULL;
     }
 
-    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx__a->game->chessboard->type );
+    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx__a->game__w->chessboard->type );
     bool is_same_color = cc_pos_piece_are_same_color( field, moving.piece );
     CcTypedStep const * step = NULL;
 

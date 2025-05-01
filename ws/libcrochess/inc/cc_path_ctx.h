@@ -85,7 +85,7 @@ typedef struct CcPlyContext {
 // Path context.
 
 typedef struct CcPathContext {
-    CcGame * game;
+    CcGame * game__w;
     // CcChessboard * cb_old;
     CcChessboard * cb_current;
 
@@ -93,16 +93,17 @@ typedef struct CcPathContext {
     CcPlyContext ply_ctx;
 } CcPathContext;
 
-CcPathContext * cc_path_context__new( CcGame ** game__n );
+CcPathContext * cc_path_context__new( CcGame * game );
 
-CcPathContext * cc_path_context_init_game__new( CcGameStatusEnum status,
-                                                CcVariantEnum ve,
-                                                bool do_setup );
+// TODO :: DELETE
+// CcPathContext * cc_path_context_init_game__new( CcGameStatusEnum status,
+//                                                 CcVariantEnum ve,
+//                                                 bool do_setup );
+// TODO :: DELETE
 
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 
-CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from,
-                                                    bool copy_history );
+CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from );
 
 CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
                                           bool do_check_move_ctx,
