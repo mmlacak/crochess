@@ -173,7 +173,7 @@ Outtakes:
 * [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
 * [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
 * [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
-* [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=FuELLd3Ec4U)
+* [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=PBA8R4o81Fw)
 * [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
 
 YouTube playlist featuring all listed songs + outtakes: [Croatian Chess soundtrack + outtakes](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPqG2NZhkRy0CO68jH7MDXdg).
