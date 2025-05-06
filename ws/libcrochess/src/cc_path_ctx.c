@@ -115,7 +115,6 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     if ( !path_ctx__io->cb_current ) return false;
 
     path_ctx__io->move_ctx = (CcMoveContext){ .initial = move_init,
-                                              .starting = move_init.pos,
                                               .current = move_init.pos,
                                               .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID };
 

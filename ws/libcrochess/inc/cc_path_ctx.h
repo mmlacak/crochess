@@ -22,13 +22,11 @@
 
 typedef struct CcMoveContext {
     CcPosDesc initial; // A piece starting current move, its initial position and tag.
-    CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
     CcPos current; // Current position of a piece which started current move.
     CcPosDesc pawn_sacrifice_serpent; // Serpent and its position where it initiated Pawn-sacrifice.
 } CcMoveContext;
 
 #define CC_MOVE_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,                  \
-                                  .starting = CC_POS_CAST_INVALID,                      \
                                   .current = CC_POS_CAST_INVALID,                       \
                                   .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID }
 
@@ -36,13 +34,11 @@ typedef struct CcMoveContext {
 
 #define CC_MOVE_CONTEXT_IS_VALID(move_ctx)                                      \
     ( CC_POS_DESC_IS_VALID( (move_ctx).initial ) &&                             \
-      CC_POS_IS_VALID( (move_ctx).starting ) &&                                 \
       CC_POS_IS_VALID( (move_ctx).current ) &&                                  \
       CC_POS_DESC_IS_VALID( (move_ctx).pawn_sacrifice_serpent ) )
 
 #define CC_MOVE_CONTEXT_IS_LEGAL(move_ctx,board_size)                           \
     ( CC_POS_DESC_IS_LEGAL( (move_ctx).initial, (board_size) ) &&               \
-      CC_POS_IS_LEGAL( (move_ctx).starting, (board_size) ) &&                   \
       CC_POS_IS_LEGAL( (move_ctx).current, (board_size) ) &&                    \
       CC_POS_DESC_IS_LEGAL( (move_ctx).pawn_sacrifice_serpent, (board_size) ) )
 
@@ -51,7 +47,7 @@ typedef struct CcMoveContext {
 
 typedef struct CcPlyContext {
     CcPosDesc initial;
-    CcPos starting;
+    CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
     CcActivationDesc activation;
     CcTypedStep step_1;
     CcTypedStep step_2;
