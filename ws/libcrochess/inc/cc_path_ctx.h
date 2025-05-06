@@ -95,12 +95,6 @@ typedef struct CcPathContext {
 
 CcPathContext * cc_path_context__new( CcGame * game );
 
-// TODO :: DELETE
-// CcPathContext * cc_path_context_init_game__new( CcGameStatusEnum status,
-//                                                 CcVariantEnum ve,
-//                                                 bool do_setup );
-// TODO :: DELETE
-
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 
 CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from );

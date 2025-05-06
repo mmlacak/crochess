@@ -21,20 +21,6 @@ CcPathContext * cc_path_context__new( CcGame * game ) {
     return px__a;
 }
 
-// TODO :: DELETE
-// CcPathContext * cc_path_context_init_game__new( CcGameStatusEnum status,
-//                                                 CcVariantEnum ve,
-//                                                 bool do_setup ) {
-//     if ( !CC_GAME_STATUS_IS_VALID( status ) ) return NULL;
-//     if ( !CC_VARIANT_IS_VALID( ve ) ) return NULL;
-//
-//     CcGame * game__t = cc_game__new( status, ve, do_setup );
-//     if ( !game__t ) return NULL;
-//
-//     return cc_path_context__new( game__t );
-// }
-// TODO :: DELETE
-
 bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
     if ( !path_ctx__f ) return false;
     if ( !*path_ctx__f ) return true;
@@ -109,7 +95,8 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
 
     CcChessboard * cb = path_ctx__io->game__w->chessboard;
 
-    // <?> Not needed, get_piece() returns None for positions outside chessboard; here, piece is certainly not None [1], and check is done at [2].
+    // <!> Not needed, get_piece() returns None for positions outside chessboard;
+    //     here, piece is certainly not None [1], and check is done at [2].
     // cc_uint_t board_size = cc_chessboard_get_size( cb );
     // if ( !CC_POS_DESC_IS_LEGAL( move_init, board_size ) ) return false;
 
@@ -160,7 +147,7 @@ bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
         if ( !path_ctx__io->cb_current ) return false;
     }
 
-    // Move-initiating piece cannot return to its origin, so this comparison always holds true.
+    // Move-initiating piece cannot return to its origin, so this comparison is always correct.
     bool is_first = CC_POS_DESC_IS_EQUAL( path_ctx__io->move_ctx.initial, ply_init );
 
     CcPlyContext * _ctx = &(path_ctx__io->ply_ctx);
