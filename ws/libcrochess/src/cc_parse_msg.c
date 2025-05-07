@@ -104,7 +104,7 @@ bool cc_parse_msg_free_all( CcParseMsg ** parse_msgs__f ) {
 CcParseMsg * cc_parse_msg_get_last( CcParseMsg * parse_msgs ) {
     if ( !parse_msgs ) return NULL;
 
-    CcParseMsg * pm__w = (CcParseMsg *)parse_msgs;
+    CcParseMsg * pm__w = parse_msgs;
 
     while ( pm__w->next )
         pm__w = pm__w->next;

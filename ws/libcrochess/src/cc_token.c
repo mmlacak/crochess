@@ -16,7 +16,7 @@ char const CC_TOKEN_SEPARATORS_PUNCTUATION[] = "!\"#$%%&'()*+,-./";
 bool cc_char_in( char c, char const * seps ) {
     if ( !seps ) return false;
 
-    for ( char const * x = (char *)seps; *x != '\0'; ++x )
+    for ( char const * x = seps; *x != '\0'; ++x )
         if ( c == *x ) return true;
 
     return false;
