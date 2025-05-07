@@ -65,6 +65,12 @@
                                 && ( (pe) != CC_PE_LightWave )          \
                                 && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
+#define CC_PIECE_IS_CELESTIAL(pe) ( ( (pe) == CC_PE_DarkStarchild )     \
+                                 || ( (pe) == CC_PE_DarkWave )          \
+                                 || ( (pe) == CC_PE_LightWave )         \
+                                 || ( (pe) == CC_PE_LightStarchild )    \
+                                 || ( (pe) == CC_PE_Monolith ) )
+
 
 #define CC_PIECE_HAS_OWNER(pe) ( ( (pe) != CC_PE_DimStar )              \
                               && ( (pe) != CC_PE_BrightStar )           \
@@ -114,8 +120,8 @@
                               && ( (pe) != CC_PE_BrightStar )           \
                               && ( CC_PIECE_IS_VALID( (pe) ) ) )
 
-#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_DarkStarchild )   \
-                                  || ( (pe) == CC_PE_DarkWave )    \
+#define CC_PIECE_IS_WEIGHTLESS(pe) ( ( (pe) == CC_PE_DarkStarchild )    \
+                                  || ( (pe) == CC_PE_DarkWave )         \
                                   || ( (pe) == CC_PE_LightWave )        \
                                   || ( (pe) == CC_PE_LightStarchild ) )
 

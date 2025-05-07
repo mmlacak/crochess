@@ -210,6 +210,14 @@ Values
     :param pe: A piece, :c:type:`CcPieceType` value.
     :returns: :c:data:`true` if piece is material, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_IS_CELESTIAL(pe)
+
+    Macro to check if given piece is a valid celestial piece, i.e. a Star,
+    Starchild or Monolith.
+
+    :param pe: A piece, :c:type:`CcPieceType` value.
+    :returns: :c:data:`true` if piece is celestial, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpiece-features:
 
 Features

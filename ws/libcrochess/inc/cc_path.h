@@ -20,7 +20,7 @@
 // Linked path segments.
 
 typedef struct CcPathLink {
-    CcSideEffect side_effect; /* A possible side-effect on previously encountered piece. */
+    CcSideEffect side_effect; /* A possible side-effect on previous step, mostly on previously encountered piece. */
 
     CcStep * steps; /* Steps performed, fields visited. */
 
