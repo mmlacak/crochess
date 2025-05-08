@@ -133,7 +133,7 @@ bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
                                CcTypedStep step_1,
                                CcTypedStep step_2 ) {
     if ( !CC_PIECE_IS_VALID( ply_init.piece ) ) return false;
-    if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false; // true --> even before the very 1st ply of a cascade, 1st move context has to be initialized.
 
     CcChessboard * cb = path_ctx__io->game__w->chessboard;
 

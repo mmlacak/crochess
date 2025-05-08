@@ -96,6 +96,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 CcPathLink * cc_path_tree__new( CcGame * game,
                                 CcPosDesc moving ) {
     if ( !game ) return NULL;
+    if ( !game->chessboard ) return NULL;
 
     if ( !CC_PIECE_IS_ACTIVE( moving.piece ) ) return NULL;
     if ( !cc_chessboard_is_pos_on_board( game->chessboard, moving.pos.i, moving.pos.j ) ) return NULL;
