@@ -537,10 +537,15 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_
     if ( !CC_PIECE_IS_ENUMERATOR( act_desc.activator ) ) return CC_MBE_Void;
     if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( act_desc.usage ) ) return CC_MBE_Void;
 
-    // Activator can be CC_PE_None, for piece starting a move.
-    if ( !is_first_ply && ( act_desc.activator == CC_PE_None ) ) return CC_MBE_False;
-
     if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
+
+    if ( is_first_ply ) {
+        // Activator has to be CC_PE_None, for piece starting a move.
+        if ( act_desc.activator != CC_PE_None ) return CC_MBE_False;
+    } else {
+        // Otherwise, actvateor has to be valid.
+        if ( !CC_PIECE_IS_ACTIVATOR( act_desc.activator ) ) return CC_MBE_False;
+    }
 
     // .usage is valid, if it's CC_MUE_NotUsing.
     // if ( act_desc.usage == CC_MUE_NotUsing ) return CC_MBE_False;
@@ -564,4 +569,15 @@ CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc
         return CC_MBE_True;
     } else
         return CC_MBE_False;
+}
+
+CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply ) {
+    CcMaybeBoolEnum result = cc_activation_desc_is_valid( act_desc, is_first_ply );
+    if ( result != CC_MBE_True ) return result;
+
+    if ( act_desc.usage == CC_MUE_Spending )
+        return ( act_desc.momentum > 0 ) ? CC_MBE_True
+                                         : CC_MBE_False;
+
+    return CC_MBE_True;
 }

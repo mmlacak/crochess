@@ -93,6 +93,52 @@ bool cc_path_side_effect( CcChessboard * cb,
 }
 
 
+bool cc_path_segment_one_step( CcSideEffect side_effect,
+                               CcPosDesc moving_from,
+                               CcPathContext * path_ctx__io,
+                               CcPathLink * pl__io ) {
+    if ( !path_ctx__io ) return false;
+    if ( !pl__io ) return false;
+
+    if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
+    if ( cc_path_context_is_legal( path_ctx__io, true, true ) != CC_MBE_True ) return false;
+
+    CcPos pos = moving_from.pos;
+    if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
+
+    CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
+    CcStep * steps__t =
+        path_ctx__io->ply_ctx.is_first ? cc_step_initial_no_side_effect__new( pos )
+                                       : cc_step_next_no_side_effect__new( pos );
+    if ( !steps__t ) return false;
+
+    #define STEP_COUNT 1
+
+    do {
+        if ( cc_activation_desc_calc_next_momentum( &act_desc, STEP_COUNT ) != CC_MBE_True )
+            break;
+
+        pos = cc_pos_add_steps( pos, path_ctx__io->ply_ctx.step_1.step, STEP_COUNT );
+        if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
+            CcPieceType encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
+            if ( CC_PIECE_IS_NONE( encounter ) ) {
+                CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
+                if ( !steps__w ) {
+                    cc_step_free_all( &steps__t );
+                    return false;
+                }
+            } else
+                break;
+        } else
+            break;
+
+    } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
+
+
+
+    return false; // TODO :: FIX
+}
+
 bool cc_path_tree( CcSideEffect side_effect,
                    CcPosDesc moving_from,
                    CcPathContext * path_ctx__io,
@@ -109,8 +155,8 @@ bool cc_path_tree( CcSideEffect side_effect,
     if ( CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) {
         while ( cc_iter_piece_steps( moving_from.piece,
                                      sideways_pawns,
-                                     is_same_color, // Only for Unicorn, Centaur is not single-step piece.
-                                     CC_SDE_BothDiagonals, // Just a filler, Serpent is not single-step piece.
+                                     is_same_color, // Filler, Unicorn and Centaur are not one-step pieces.
+                                     CC_SDE_BothDiagonals, // Filler, Serpent is not one-step piece.
                                      CC_STE_None, // No filtering by step types.
                                      &step ) ) {
 

@@ -28,6 +28,11 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a );
 
+bool cc_path_segment_one_step( CcSideEffect side_effect,
+                               CcPosDesc moving_from,
+                               CcPathContext * path_ctx__io,
+                               CcPathLink * pl__io );
+
 bool cc_path_tree( CcSideEffect side_effect,
                    CcPosDesc moving,
                    CcPathContext * path_ctx__io,

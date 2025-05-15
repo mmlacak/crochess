@@ -36,6 +36,15 @@ CcStep * cc_step__new( CcStepLinkTypeEnum link,
     return step__a;
 }
 
+CcStep * cc_step_initial_no_side_effect__new( CcPos field ) {
+    return cc_step__new( CC_SLTE_InitialPosition, field, cc_side_effect_none() );
+}
+
+CcStep * cc_step_initial__new( CcPos field,
+                               CcSideEffect side_effect ) {
+    return cc_step__new( CC_SLTE_InitialPosition, field, side_effect );
+}
+
 CcStep * cc_step_next_no_side_effect__new( CcPos field ) {
     return cc_step__new( CC_SLTE_Next, field, cc_side_effect_none() );
 }
