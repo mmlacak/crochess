@@ -737,6 +737,21 @@ Activation descriptor
         * :c:enumerator:`CC_MBE_False` if a given piece is not an activator,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient, or invalid data given.
 
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply )
+
+    Function checks if a given activation descriptor is valid and usable for at
+    least one step.
+
+    :param act_desc: An activation descriptor.
+    :param is_first_ply: Flag, if current ply is first in a cascade.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if activation descriptor is valid and usable
+        * :c:enumerator:`CC_MBE_False` if activation descriptor is valid but not usable
+        * :c:enumerator:`CC_MBE_Void` if activation descriptor is not valid.
+
+    :seealso: :c:func:`cc_activation_desc_is_valid()`
+
 .. _lbl-libcc-ccpos-sourcecodeheader:
 
 Header file

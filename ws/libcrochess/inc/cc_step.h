@@ -43,10 +43,8 @@ CcStep * cc_step__new( CcStepLinkTypeEnum link,
                        CcPos field,
                        CcSideEffect side_effect );
 
-// TODO :: DOCS
 CcStep * cc_step_initial_no_side_effect__new( CcPos field );
 
-// TODO :: DOCS
 CcStep * cc_step_initial__new( CcPos field,
                                CcSideEffect side_effect );
 

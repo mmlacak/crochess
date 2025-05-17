@@ -207,7 +207,6 @@ CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_de
 
 CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply );
 
 
