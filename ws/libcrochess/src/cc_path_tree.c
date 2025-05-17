@@ -144,6 +144,8 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
         return false;
     }
 
+    path_ctx__io->ply_ctx.activation = act_desc;
+
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub
 
