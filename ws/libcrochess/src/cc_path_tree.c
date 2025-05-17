@@ -106,11 +106,14 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     CcPos pos = moving_from.pos;
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
 
-    CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
     CcStep * steps__t =
         path_ctx__io->ply_ctx.is_first ? cc_step_initial_no_side_effect__new( pos )
                                        : cc_step_next_no_side_effect__new( pos );
     if ( !steps__t ) return false;
+
+    CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
+    CcPieceType encounter = CC_PE_None;
+    CcTagType tag = CC_TE_None;
 
     #define STEP_COUNT 1
 
@@ -119,24 +122,32 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
             break;
 
         pos = cc_pos_add_steps( pos, path_ctx__io->ply_ctx.step_1.step, STEP_COUNT );
+
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
-            CcPieceType encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
-            if ( CC_PIECE_IS_NONE( encounter ) ) {
-                CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
-                if ( !steps__w ) {
-                    cc_step_free_all( &steps__t );
-                    return false;
-                }
-            } else
-                break;
+            encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
+            tag = cc_chessboard_get_tag( path_ctx__io->cb_current, pos.i, pos.j );
+
+            CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
+            if ( !steps__w ) {
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+
+            if ( !CC_PIECE_IS_NONE( encounter ) ) break;
         } else
             break;
-
     } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
 
+    CcPathLink * pl__w = cc_path_link_append( &pl__io, side_effect, &steps__t, encounter, tag, act_desc );
+    if ( !pl__w ) {
+        cc_step_free_all( &steps__t );
+        return false;
+    }
 
+    // if ( !CC_PIECE_IS_NONE( encounter ) )
+    //     break; // TODO :: side-effect --> fork | alt | sub
 
-    return false; // TODO :: FIX
+    return true;
 }
 
 bool cc_path_tree( CcSideEffect side_effect,
