@@ -37,4 +37,5 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     'scn_mv_070_cascade_double_checkmate_init', \
+                    'scn_mv_071_cascade_double_checkmate_end', \
                 ]

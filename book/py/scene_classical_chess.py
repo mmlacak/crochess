@@ -234,6 +234,7 @@ class SceneClassicalChessMixin:
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         start_r = (11, 5)
+        end_r = (14, 5)
         scene.board.set_piece( *start_r, piece=-PieceType.Rook )
 
         start_K = (14, 3)
@@ -263,9 +264,77 @@ class SceneClassicalChessMixin:
         # r -->
         coords_r_ = GS.gen_steps( start=start_r, rels=[(1, 0), ], include_prev=True, count=3 )
         for i, arrow in enumerate( coords_r_() ):
+            mark_type = MarkType.Action if i == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # labels
+        scene.append_text( "Q", *start_Q, corner=Corner.UpperRight, mark_type=MarkType.Legal )
+        scene.append_text( "R", *end_r, corner=Corner.UpperRight, mark_type=MarkType.Action )
+
+        return scene
+
+    def scn_mv_071_cascade_double_checkmate_end( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_071_cascade_double_checkmate_end', bt )
+
+        start_k = (0, 1)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        start_E = (5, 3)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+
+        prev_Q = (1, 14)
+        prev_W = (1, 1)
+        prev_w = (7, 1)
+        prev_r = (11, 5)
+
+        end_Q = prev_W
+        scene.board.set_piece( *end_Q, piece=PieceType.Queen )
+
+        end_W = prev_w
+        scene.board.set_piece( *end_W, piece=PieceType.Wave )
+
+        end_w = prev_r
+        scene.board.set_piece( *end_w, piece=-PieceType.Wave )
+
+        end_r = (14, 5)
+        scene.board.set_piece( *end_r, piece=-PieceType.Rook )
+
+        start_K = (14, 3)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( end=end_Q, rels=[(0, -1), ], include_prev=True, count=13 )
+        for i, arrow in enumerate( coords_Q_W() ):
+            # mark_type = MarkType.Action if i == 12 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # W --> w
+        coords_W_w = GS.gen_steps( end=end_W, rels=[(1, 0), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( coords_W_w() ):
+            # mark_type = MarkType.Action if i == 5 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # w --> r
+        coords_w_r = GS.gen_steps( end=end_w, rels=[(1, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_w_r() ):
+            # mark_type = MarkType.Action if i == 3 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # r -->
+        coords_r_ = GS.gen_steps( end=end_r, rels=[(1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_r_() ):
             # mark_type = MarkType.Action if i == 1 else \
             #             MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+            scene.append_arrow( *arrow, mark_type=MarkType.Blocked )
+
+        # labels
+        scene.append_text( "Q", *prev_Q, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
+        scene.append_text( "R", *end_r, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
 
         return scene
 
