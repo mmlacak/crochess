@@ -214,6 +214,61 @@ class SceneClassicalChessMixin:
 
     # TODO :: DEBUG :: MOVE
 
+    def scn_mv_070_cascade_double_checkmate_init( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_070_cascade_double_checkmate_init', bt )
+
+        start_k = (0, 1)
+        scene.board.set_piece( *start_k, piece=-PieceType.King )
+
+        start_E = (5, 3)
+        scene.board.set_piece( *start_E, piece=PieceType.Pegasus )
+
+        start_Q = (1, 14)
+        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+
+        start_W = (1, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_w = (7, 1)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_r = (11, 5)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_K = (14, 3)
+        scene.board.set_piece( *start_K, piece=PieceType.King )
+
+        # Q --> W
+        coords_Q_W = GS.gen_steps( start=start_Q, rels=[(0, -1), ], include_prev=True, count=13 )
+        for i, arrow in enumerate( coords_Q_W() ):
+            mark_type = MarkType.Action if i == 12 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # W --> w
+        coords_W_w = GS.gen_steps( start=start_W, rels=[(1, 0), ], include_prev=True, count=6 )
+        for i, arrow in enumerate( coords_W_w() ):
+            mark_type = MarkType.Action if i == 5 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # w --> r
+        coords_w_r = GS.gen_steps( start=start_w, rels=[(1, 1), ], include_prev=True, count=4 )
+        for i, arrow in enumerate( coords_w_r() ):
+            mark_type = MarkType.Action if i == 3 else \
+                        MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=mark_type )
+
+        # r -->
+        coords_r_ = GS.gen_steps( start=start_r, rels=[(1, 0), ], include_prev=True, count=3 )
+        for i, arrow in enumerate( coords_r_() ):
+            # mark_type = MarkType.Action if i == 1 else \
+            #             MarkType.Legal
+            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+
+        return scene
+
 
 
     # TODO :: DEBUG :: MOVE

@@ -36,7 +36,5 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_o_18_starchild_cannot_activate_wave_on_miracle_fields', \
-                    # 'scn_o_19_starchild_activating_wave_on_step_field', \
-                    'scn_o_35_wave_cannot_diverge', \
+                    'scn_mv_070_cascade_double_checkmate_init', \
                 ]

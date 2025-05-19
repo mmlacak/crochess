@@ -3091,6 +3091,11 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Double checkmate
+
+    # \TODO :: double checkmate in a single move
+
+    #
     # Wave blocked
 
     def scn_mv_070_wave_blocked_init(self, bt=BoardType.MirandasVeil):
