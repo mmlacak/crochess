@@ -1378,6 +1378,7 @@ and own King can't be removed from check.
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_069_cascade_self_checkmate_end.png}
+\vspace*{-1.4\baselineskip}
 \caption{Cascaded self-checkmate}
 \label{fig:scn_mv_069_cascade_self_checkmate_end}
 \end{figure}
@@ -1406,9 +1407,14 @@ light King can't be moved out of a check, this is immediate self-checkmate.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-...
-
-\TODO :: double checkmate in a single move
+Again, King is checkmated only
+\hyperref[fig:scn_mv_051_cascaded_piece_check_init]{after move has finished}, and
+all pieces have settled onto their final destinations. In a single turn player can
+checkmate self in addition to checkmating opponent; the result is a draw.\newline
+\indent
+Here, it's light player's turn; which is about to move light Queen and activate
+light Wave, dark King isn't checkmated yet since the move is still ongoing. Light
+Wave would then activate dark Wave, which would activate dark Rook.
 
 \clearpage % ..........................................................
 
@@ -1422,9 +1428,14 @@ light King can't be moved out of a check, this is immediate self-checkmate.
 \end{figure}
 
 \vspace*{-0.4\baselineskip}
-...
+Here, light player's move has finished, now it's dark player's turn; grey arrows
+show path traveled over by a piece they point to. Both Kings are checkmated;
+light King since it's in check and it's dark player's turn; dark King since there
+are no more legal moves left. % \newline
+% \indent
 
-\TODO :: double checkmate in a single move
+The result of double checkmate is a draw, regardless of which player made a move,
+regardless which King was first put under attack in a cascade.
 
 % .................................................... Double checkmate
 \clearpage % ..........................................................
@@ -1434,14 +1445,16 @@ light King can't be moved out of a check, this is immediate self-checkmate.
 \addcontentsline{toc}{subsubsection}{Wave blocked}
 \label{sec:Miranda's veil/Wave/Cascading opponent/Wave blocked}
 
-\vspace*{-1.4\baselineskip}
+\vspace*{-1.5\baselineskip}
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_072_wave_blocked_init.png}
+\vspace*{-1.4\baselineskip}
 \caption{Activating Wave}
 \label{fig:scn_mv_072_wave_blocked_init}
 \end{figure}
 
+\vspace*{-0.4\baselineskip}
 Wave cannot activate opponent's pieces, except for Waves. Activated Wave which movement
 is completely blocked is oblationed, i.e. is removed from chessboard as if captured by
 opponent.
@@ -1454,10 +1467,12 @@ Here, dark Wave B is about to be activated with one momentum.
 \noindent
 \begin{figure}[h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_073_wave_blocked_end.png}
+\vspace*{-1.4\baselineskip}
 \caption{Activated Wave blocked}
 \label{fig:scn_mv_073_wave_blocked_end}
 \end{figure}
 
+\vspace*{-0.4\baselineskip}
 Here, dark Wave B is activated without committing its movement yet (it's "in the air").
 All accessible step-fields are blocked by opponent's light pieces, which cannot be
 activated by dark Wave, even though it has one momentum.
