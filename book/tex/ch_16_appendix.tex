@@ -877,22 +877,30 @@ move, like so:
 \algcyc{79.}{Bc7+()}{...}{Light player cancels draw offer.}
 \algcycparend
 
-Forced draw, i.e. draw by rules, is written with \alg{(===)} (three equal signs in
-brackets) as a complete move, this also ends a game, like so:
+Draw by rules (which ends a game) is written as \alg{(===)} (three equal signs in
+brackets) after a complete move, like so:
 
 \algcycpar
-\algcyc{82.}{...}{(===)}{Draw forced, by the rules.}
+\algcyc{81.}{Qb2\textasciitilde{}Wh2\textasciitilde{}Wl6\textasciitilde{}Ro6(===)}{}{Draw by the rules, \hyperref[fig:scn_mv_071_cascade_double_checkmate_end]{both Kings are checkmated} by light player.}
+\algcycparend
+
+Forced draw (also ends a game) is written with \alg{(===)} (three equal signs in
+brackets) as a complete move, like so:
+
+\algcycpar
+\algcyc{82.}{...}{(===)}{Draw forced, by arbiters.}
 \algcycparend
 
 In \algfmt{NAN} checks are optional; checkmates, self-checkmates, resigns, accepted
-and forced draws are all mandatory, to set game score end. Draw offers, cancelations
-are mandatory to set limits within which draw offer is valid, and can be accepted by
+and draws are all mandatory, to set game score end. Draw offers, cancelations are
+mandatory to set limits within which draw offer is valid, and can be accepted by
 the opponent.
 
 Annotations are written at the end of a complete move, draw offer, e.g. \alg{ef8*!},
 \alg{Nb3(=)=}. It is recommended to use \alg{\_} (underscore) to separate \algfmt{AN}
 and annotations, like so \alg{ef8*\_!}, \alg{Nb3(=)\_=}. Usage of underscore is
-mandatory when annotation can be confused for a regular chess \algfmt{AN}.
+mandatory when annotation can be confused for a regular chess \algfmt{AN}. % \newline
+% \indent
 
 For instance, \alg{e8=} might be Pawn tagged for promotion, or both players have equal
 chances of winning, see\newline
