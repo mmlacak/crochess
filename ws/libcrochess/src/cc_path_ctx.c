@@ -203,6 +203,7 @@ CcPathContext * cc_path_context__new( CcGame * game ) {
     px__a->cb_current = NULL;
 
     px__a->move_ctx = CC_MOVE_CONTEXT_CAST_INVALID;
+    px__a->piece_ctx = NULL;
     px__a->ply_ctx = CC_PLY_CONTEXT_CAST_INVALID;
 
     return px__a;
@@ -217,6 +218,8 @@ bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
     // result = cc_game_free_all( &((*path_ctx__f)->game__w) ) && result; // Weak pointer is not to be free()-ed.
     // result = cc_chessboard_free_all( &((*path_ctx__f)->cb_old) ) && result;
     result = cc_chessboard_free_all( &((*path_ctx__f)->cb_current) ) && result;
+
+    result = cc_piece_ctx_link_free_all( &((*path_ctx__f)->piece_ctx) ) && result;
 
     CC_FREE_AND_NULL( path_ctx__f );
 
@@ -234,6 +237,15 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from ) {
     if ( from->cb_current ) {
         px__a->cb_current = cc_chessboard_duplicate__new( from->cb_current );
         if ( !px__a->cb_current ) {
+            cc_path_context_free_all( &px__a );
+            return NULL;
+        }
+    }
+
+    if ( from->piece_ctx ) {
+        cc_uint_t board_size = cc_chessboard_get_size( from->game__w->chessboard );
+        px__a->piece_ctx = cc_piece_ctx_link_duplicate_all__new( from->piece_ctx, board_size );
+        if ( !px__a->piece_ctx ) {
             cc_path_context_free_all( &px__a );
             return NULL;
         }

@@ -128,6 +128,7 @@ typedef struct CcPathContext {
     CcChessboard * cb_current;
 
     CcMoveContext move_ctx;
+    CcPieceContextLink * piece_ctx;
     CcPlyContext ply_ctx;
 } CcPathContext;
 
