@@ -113,6 +113,61 @@ size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link ) {
     return len;
 }
 
+CcPieceContextLink * cc_piece_ctx_link_find_unique_initial( CcPieceContextLink * piece_ctx_link,
+                                                            CcPosDesc initial ) {
+    if ( !piece_ctx_link ) return NULL;
+
+    CcPieceContextLink * pcl = piece_ctx_link;
+    CcPieceContextLink * found = NULL;
+
+    while ( pcl ) {
+        if ( CC_POS_DESC_IS_EQUAL( pcl->initial, initial ) ) {
+            if ( !found )
+                found = pcl;
+            else
+                return NULL;
+        }
+
+        pcl = pcl->next;
+    }
+
+    return found;
+}
+
+CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
+                                                    CcPos current ) {
+    if ( !piece_ctx_link ) return NULL;
+
+    CcPieceContextLink * pcl = piece_ctx_link;
+    CcPieceContextLink * found = NULL;
+
+    while ( pcl ) {
+        if ( CC_POS_IS_EQUAL( pcl->current, current ) ) {
+            if ( !found )
+                found = pcl;
+            else
+                return NULL;
+        }
+
+        pcl = pcl->next;
+    }
+
+    return found;
+}
+
+CcMaybeBoolEnum cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
+                                                 CcPos current,
+                                                 CcPos destination ) {
+    if ( !piece_ctx_link__io ) return CC_MBE_Void;
+
+    CcPieceContextLink * pcl = cc_piece_ctx_link_find_unique( piece_ctx_link__io, current );
+    if ( !pcl ) return CC_MBE_False;
+
+    pcl->current = destination;
+
+    return CC_MBE_True;
+}
+
 //
 // Path context.
 

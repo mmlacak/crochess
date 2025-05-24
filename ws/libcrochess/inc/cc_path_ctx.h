@@ -81,7 +81,7 @@ typedef struct CcPlyContext {
 // Piece context.
 
 typedef struct CcPieceContextLink {
-    CcPosDesc initial; // A piece, its initial position and tag.
+    CcPosDesc initial; // A piece, its initial position and tag at the start of a move.
     CcPos current; // Current position of a piece.
 
     struct CcPieceContextLink * next;
@@ -102,9 +102,15 @@ bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f );
 
 size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link );
 
-// TODO :: find piece by initial position
+CcPieceContextLink * cc_piece_ctx_link_find_unique_initial( CcPieceContextLink * piece_ctx_link,
+                                                            CcPosDesc initial );
 
-// TODO :: update current position
+CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
+                                                    CcPos current );
+
+CcMaybeBoolEnum cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
+                                                 CcPos current,
+                                                 CcPos destination );
 
 //
 // Path context.
