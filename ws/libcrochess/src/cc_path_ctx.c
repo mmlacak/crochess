@@ -155,6 +155,15 @@ CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_c
     return found;
 }
 
+bool cc_piece_ctx_link_update_current( CcPieceContextLink * piece_ctx_link__io,
+                                       CcPos destination ) {
+    if ( !piece_ctx_link__io ) return false;
+
+    piece_ctx_link__io->current = destination;
+
+    return true;
+}
+
 CcMaybeBoolEnum cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
                                                  CcPos current,
                                                  CcPos destination ) {
