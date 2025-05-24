@@ -164,17 +164,17 @@ bool cc_piece_ctx_link_update_current( CcPieceContextLink * piece_ctx_link__io,
     return true;
 }
 
-CcMaybeBoolEnum cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
-                                                 CcPos current,
-                                                 CcPos destination ) {
-    if ( !piece_ctx_link__io ) return CC_MBE_Void;
+bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
+                                      CcPos current,
+                                      CcPos destination ) {
+    if ( !piece_ctx_link__io ) return false;
 
     CcPieceContextLink * pcl = cc_piece_ctx_link_find_unique( piece_ctx_link__io, current );
-    if ( !pcl ) return CC_MBE_False;
+    if ( !pcl ) return false;
 
     pcl->current = destination;
 
-    return CC_MBE_True;
+    return true;
 }
 
 //

@@ -111,9 +111,9 @@ CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_c
 bool cc_piece_ctx_link_update_current( CcPieceContextLink * piece_ctx_link__io,
                                        CcPos destination );
 
-CcMaybeBoolEnum cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
-                                                 CcPos current,
-                                                 CcPos destination );
+bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
+                                      CcPos current,
+                                      CcPos destination );
 
 //
 // Path context.
