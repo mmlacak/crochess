@@ -78,6 +78,35 @@ typedef struct CcPlyContext {
       CC_TYPED_STEP_IS_VALID( (ply_ctx).step_2 ) )
 
 //
+// Piece context.
+
+typedef struct CcPieceContextLink {
+    CcPosDesc initial; // A piece, its initial position and tag.
+    CcPos current; // Current position of a piece.
+
+    struct CcPieceContextLink * next;
+} CcPieceContextLink;
+
+CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial, CcPos current );
+
+CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
+                                               CcPosDesc initial,
+                                               CcPos current );
+
+CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link );
+
+CcPieceContextLink * cc_piece_ctx_link_extend( CcPieceContextLink ** piece_ctx_link__iod_a,
+                                               CcPieceContextLink ** piece_ctx_link__n );
+
+bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f );
+
+size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link );
+
+// TODO :: find piece by initial position
+
+// TODO :: update current position
+
+//
 // Path context.
 
 typedef struct CcPathContext {

@@ -3,6 +3,119 @@
 
 #include "cc_path_ctx.h"
 
+//
+// Piece context.
+
+CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial, CcPos current ) {
+    CcPieceContextLink * pcl__t = malloc( sizeof( CcPieceContextLink ) );
+    if ( !pcl__t ) return NULL;
+
+    pcl__t->initial = initial;
+    pcl__t->current = current;
+    pcl__t->next = NULL;
+
+    return pcl__t;
+}
+
+CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
+                                               CcPosDesc initial,
+                                               CcPos current ) {
+    if ( !piece_ctx_link__iod_a ) return NULL;
+
+    CcPieceContextLink * pcl__t = cc_piece_ctx_link__new( initial, current );
+    if ( !pcl__t ) return NULL;
+
+    if ( !*piece_ctx_link__iod_a ) {
+        *piece_ctx_link__iod_a = pcl__t; // Ownership transfer.
+    } else {
+        CcPieceContextLink * pcl = *piece_ctx_link__iod_a;
+        CC_FASTFORWARD( pcl );
+        pcl->next = pcl__t; // Append + ownership transfer.
+    }
+
+    return pcl__t; // Weak pointer.
+}
+
+CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link ) {
+    if ( !piece_ctx_link ) return NULL;
+
+    CcPieceContextLink * piece_ctx_link__a = NULL;
+    CcPieceContextLink * from = piece_ctx_link;
+
+    while ( from ) {
+        CcPieceContextLink * pcl__w = cc_piece_ctx_link_append( &piece_ctx_link__a,
+                                                                from->initial,
+                                                                from->current );
+        if ( !pcl__w ) { // Failed append --> ownership not transferred ...
+            cc_piece_ctx_link_free_all( &piece_ctx_link__a );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return piece_ctx_link__a;
+}
+
+CcPieceContextLink * cc_piece_ctx_link_extend( CcPieceContextLink ** piece_ctx_link__iod_a,
+                                               CcPieceContextLink ** piece_ctx_link__n ) {
+    if ( !piece_ctx_link__iod_a ) return NULL;
+    if ( !piece_ctx_link__n ) return NULL;
+
+    if ( !*piece_ctx_link__n ) return *piece_ctx_link__iod_a;
+
+    if ( !*piece_ctx_link__iod_a ) {
+        // Ownership transfer.
+        *piece_ctx_link__iod_a = *piece_ctx_link__n;
+        *piece_ctx_link__n = NULL;
+
+        return *piece_ctx_link__iod_a;
+    }
+
+    CcPieceContextLink * last = *piece_ctx_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *piece_ctx_link__n;
+    *piece_ctx_link__n = NULL;
+
+    return last->next;
+}
+
+bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f ) {
+    if ( !piece_ctx_link__f ) return false;
+    if ( !*piece_ctx_link__f ) return true;
+
+    CcPieceContextLink * pcl = *piece_ctx_link__f;
+    CcPieceContextLink * tmp = NULL;
+
+    while ( pcl ) {
+        tmp = pcl->next;
+        CC_FREE( pcl );
+        pcl = tmp;
+    }
+
+    *piece_ctx_link__f = NULL;
+    return true;
+}
+
+size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link ) {
+    if ( !piece_ctx_link ) return 0;
+
+    size_t len = 0;
+    CcPieceContextLink * pcl = piece_ctx_link;
+
+    while ( pcl ) {
+        ++len;
+        pcl = pcl->next;
+    }
+
+    return len;
+}
+
+//
+// Path context.
+
 CcPathContext * cc_path_context__new( CcGame * game ) {
     if ( !game ) return NULL;
 
