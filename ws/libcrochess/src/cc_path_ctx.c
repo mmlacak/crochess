@@ -6,12 +6,19 @@
 //
 // Piece context.
 
-CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial, CcPos current ) {
+CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial,
+                                             CcPos current,
+                                             cc_uint_t board_size ) {
+    if ( !CC_POS_DESC_IS_LEGAL( initial, board_size ) ) return NULL;
+
+    CcPos curr = ( CC_POS_IS_LEGAL( current, board_size ) ) ? current
+                                                            : initial.pos;
+
     CcPieceContextLink * pcl__t = malloc( sizeof( CcPieceContextLink ) );
     if ( !pcl__t ) return NULL;
 
     pcl__t->initial = initial;
-    pcl__t->current = current;
+    pcl__t->current = curr;
     pcl__t->next = NULL;
 
     return pcl__t;
@@ -19,10 +26,11 @@ CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial, CcPos current ) 
 
 CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
                                                CcPosDesc initial,
-                                               CcPos current ) {
+                                               CcPos current,
+                                               cc_uint_t board_size ) {
     if ( !piece_ctx_link__iod_a ) return NULL;
 
-    CcPieceContextLink * pcl__t = cc_piece_ctx_link__new( initial, current );
+    CcPieceContextLink * pcl__t = cc_piece_ctx_link__new( initial, current, board_size );
     if ( !pcl__t ) return NULL;
 
     if ( !*piece_ctx_link__iod_a ) {
@@ -36,7 +44,8 @@ CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_l
     return pcl__t; // Weak pointer.
 }
 
-CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link ) {
+CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link,
+                                                           cc_uint_t board_size ) {
     if ( !piece_ctx_link ) return NULL;
 
     CcPieceContextLink * piece_ctx_link__a = NULL;
@@ -45,7 +54,8 @@ CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * 
     while ( from ) {
         CcPieceContextLink * pcl__w = cc_piece_ctx_link_append( &piece_ctx_link__a,
                                                                 from->initial,
-                                                                from->current );
+                                                                from->current,
+                                                                board_size );
         if ( !pcl__w ) { // Failed append --> ownership not transferred ...
             cc_piece_ctx_link_free_all( &piece_ctx_link__a );
             return NULL;

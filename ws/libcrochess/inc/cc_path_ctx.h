@@ -87,13 +87,17 @@ typedef struct CcPieceContextLink {
     struct CcPieceContextLink * next;
 } CcPieceContextLink;
 
-CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial, CcPos current );
+CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial,
+                                             CcPos current,
+                                             cc_uint_t board_size );
 
 CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
                                                CcPosDesc initial,
-                                               CcPos current );
+                                               CcPos current,
+                                               cc_uint_t board_size );
 
-CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link );
+CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link,
+                                                           cc_uint_t board_size );
 
 CcPieceContextLink * cc_piece_ctx_link_extend( CcPieceContextLink ** piece_ctx_link__iod_a,
                                                CcPieceContextLink ** piece_ctx_link__n );
