@@ -28,7 +28,7 @@ Data
 Functions
 ---------
 
-.. c:function:: int cc_find_initial_figure_file( CcVariantEnum ve, CcPieceType pe, bool search_queen_side_first )
+.. c:function:: int cc_find_initial_figure_file( CcVariantType ve, CcPieceType pe, bool search_queen_side_first )
 
     Function returns file of a figure in an initial setup of a chessboard,
     for a given variant.
@@ -46,7 +46,7 @@ Functions
     :returns: Initial file of figure if found,
         :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: int cc_get_kings_max_castling_distance( CcVariantEnum ve )
+.. c:function:: int cc_get_kings_max_castling_distance( CcVariantType ve )
 
     Function returns maximum castling distance Kings can make in a
     given variant.
@@ -55,7 +55,7 @@ Functions
     :returns: Maximum Kng's castling distance if valid variant is given,
         :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: bool cc_check_pos_is_king_castling_step( CcVariantEnum ve, CcPieceType king, int pos_i, int pos_j, bool * is_queen_side__o, int * min_i__o, int * max_i__o )
+.. c:function:: bool cc_check_pos_is_king_castling_step( CcVariantType ve, CcPieceType king, int pos_i, int pos_j, bool * is_queen_side__o, int * min_i__o, int * max_i__o )
 
     Function checks if position is valid step-field for castling King.
 

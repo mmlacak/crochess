@@ -40,7 +40,7 @@ CcGameStatusEnum cc_game_resign( CcGameStatusEnum gse ) {
 
 
 CcGame * cc_game__new( CcGameStatusEnum status,
-                       CcVariantEnum ve,
+                       CcVariantType ve,
                        bool do_setup ) {
     if ( !CC_GAME_STATUS_IS_VALID( status ) ) return NULL;
     if ( !CC_VARIANT_IS_VALID( ve) ) return NULL;
@@ -117,7 +117,7 @@ CcGame * cc_game_duplicate_all__new( CcGame * game, bool copy_history ) {
     if ( !game ) return NULL;
     if ( !game->chessboard ) return NULL;
 
-    CcVariantEnum ve = game->chessboard->type;
+    CcVariantType ve = game->chessboard->type;
 
     CcGame * gm__a = cc_game__new( game->status, ve, false );
     if ( !gm__a ) return NULL;
@@ -147,7 +147,7 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
                                          CcGame * before_setup__d ) {
     if ( !setup ) return NULL;
 
-    CcVariantEnum ve = CC_VE_One;
+    CcVariantType ve = CC_VE_One;
     CcGameStatusEnum gse = CC_GSE_Turn_Light;
 
     char const * s = setup + ( ( *setup == '\"' ) ? 1 : 0 );

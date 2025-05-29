@@ -7,7 +7,7 @@
 #include "cc_setup_misc.h"
 
 
-int cc_find_initial_figure_file( CcVariantEnum ve,
+int cc_find_initial_figure_file( CcVariantType ve,
                                  CcPieceType pe,
                                  bool search_queen_side_first ) {
     if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
@@ -43,7 +43,7 @@ int cc_find_initial_figure_file( CcVariantEnum ve,
     return CC_INVALID_COORD;
 }
 
-int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
+int cc_get_kings_max_castling_distance( CcVariantType ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return 2;
         case CC_VE_CroatianTies : return 3;
@@ -61,7 +61,7 @@ int cc_get_kings_max_castling_distance( CcVariantEnum ve ) {
     }
 }
 
-bool cc_check_pos_is_king_castling_step( CcVariantEnum ve,
+bool cc_check_pos_is_king_castling_step( CcVariantType ve,
                                          CcPieceType king,
                                          int pos_i,
                                          int pos_j,

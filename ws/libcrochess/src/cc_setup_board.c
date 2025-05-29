@@ -280,7 +280,7 @@ CcPieceType const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BO
 };
 
 
-CcPieceType const * cc_setup_board_get( CcVariantEnum ve ) {
+CcPieceType const * cc_setup_board_get( CcVariantType ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return (CcPieceType const *)CC_SETUP_BOARD_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return (CcPieceType const *)CC_SETUP_BOARD_CROATIAN_TIES;
@@ -299,7 +299,7 @@ CcPieceType const * cc_setup_board_get( CcVariantEnum ve ) {
 }
 
 
-bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceType pe ) {
+bool cc_setup_board_has_piece( CcVariantType ve, CcPieceType pe ) {
     CcPieceType const * su = cc_setup_board_get( ve );
     if ( !su ) return false;
 

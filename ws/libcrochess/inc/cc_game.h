@@ -44,7 +44,7 @@ typedef struct CcGame {
 } CcGame;
 
 CcGame * cc_game__new( CcGameStatusEnum status,
-                       CcVariantEnum ve,
+                       CcVariantType ve,
                        bool do_setup );
 
 // TODO :: FIX :: CcPosDescLink * pdl --> CcChessboard * cb

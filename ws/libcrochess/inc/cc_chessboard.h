@@ -14,17 +14,17 @@ extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
 
 
 typedef struct CcChessboard {
-    CcVariantEnum type;
+    CcVariantType type;
 
     CcPieceType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
     CcTagType tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
 } CcChessboard;
 
 
-CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup );
+CcChessboard * cc_chessboard__new( CcVariantType ve, bool do_setup );
 
 bool cc_chessboard_init( CcChessboard * cb__io,
-                         CcVariantEnum ve,
+                         CcVariantType ve,
                          bool do_setup );
 
 bool cc_chessboard_clear( CcChessboard * cb__io );

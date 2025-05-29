@@ -242,7 +242,7 @@ CcTagType const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD
 };
 
 
-CcTagType const * cc_setup_tags_get( CcVariantEnum ve ) {
+CcTagType const * cc_setup_tags_get( CcVariantType ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return (CcTagType const *)CC_SETUP_TAGS_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return (CcTagType const *)CC_SETUP_TAGS_CROATIAN_TIES;

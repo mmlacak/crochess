@@ -37,7 +37,7 @@ char const * const CC_VARIANT_SYMBOLS[] = {
 
 
 size_t cc_variant_from_symbol( char const * str,
-                               CcVariantEnum * ve__o ) {
+                               CcVariantType * ve__o ) {
     if ( !str ) return CC_LEN_VARIANT_SYMBOL_INVALID;
     if ( !ve__o ) return CC_LEN_VARIANT_SYMBOL_INVALID;
 
@@ -112,14 +112,14 @@ size_t cc_variant_from_symbol( char const * str,
         if ( isalnum( *++s ) )
             return CC_LEN_VARIANT_SYMBOL_INVALID;
 
-        *ve__o = (CcVariantEnum)ve;
+        *ve__o = (CcVariantType)ve;
         return len;
     }
 
     return CC_LEN_VARIANT_SYMBOL_INVALID;
 }
 
-char const * cc_variant_symbol( CcVariantEnum ve ) {
+char const * cc_variant_symbol( CcVariantType ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return CC_VARIANT_CLASSICAL_CHESS_SYMBOL;
         case CC_VE_CroatianTies : return CC_VARIANT_CROATIAN_TIES_SYMBOL;
@@ -137,7 +137,7 @@ char const * cc_variant_symbol( CcVariantEnum ve ) {
     }
 }
 
-char const * cc_variant_label( CcVariantEnum ve ) {
+char const * cc_variant_label( CcVariantType ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return "Classical Chess";
         case CC_VE_CroatianTies : return "Croatian Ties";
@@ -155,7 +155,7 @@ char const * cc_variant_label( CcVariantEnum ve ) {
     }
 }
 
-cc_uint_t cc_variant_board_size( CcVariantEnum ve ) {
+cc_uint_t cc_variant_board_size( CcVariantType ve ) {
     switch ( ve ) {
         case CC_VE_ClassicalChess : return CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS;
         case CC_VE_CroatianTies : return CC_VARIANT_BOARD_SIZE_CROATIAN_TIES;
@@ -173,7 +173,7 @@ cc_uint_t cc_variant_board_size( CcVariantEnum ve ) {
     }
 }
 
-cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light ) {
+cc_uint_t cc_variant_rush_rank_limit( CcVariantType ve, bool is_piece_light ) {
     if ( is_piece_light ) {
         switch ( ve ) {
             case CC_VE_ClassicalChess : return CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_LIGHT;
@@ -209,7 +209,7 @@ cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light ) {
     }
 }
 
-bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
+bool cc_variant_is_rank_in_rush_limits( CcVariantType ve,
                                         bool is_piece_light,
                                         int rank ) {
     if ( is_piece_light ) {
@@ -228,7 +228,7 @@ bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
     }
 }
 
-int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light ) {
+int cc_variant_promoting_rank( CcVariantType ve, bool is_light ) {
     if ( !is_light ) return 0;
     if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 
@@ -236,7 +236,7 @@ int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light ) {
     return (int)( size - 1 );
 }
 
-int cc_variant_initial_figure_rank( CcVariantEnum ve, bool is_light ) {
+int cc_variant_initial_figure_rank( CcVariantType ve, bool is_light ) {
     if ( is_light ) return 0;
     if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 

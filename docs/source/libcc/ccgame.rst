@@ -128,7 +128,7 @@ Types
 Functions
 ---------
 
-.. c:function:: CcGame * cc_game__new( CcGameStatusEnum status, CcVariantEnum ve, bool do_setup )
+.. c:function:: CcGame * cc_game__new( CcGameStatusEnum status, CcVariantType ve, bool do_setup )
 
     Function returns next game status, based on current player
     resignation.

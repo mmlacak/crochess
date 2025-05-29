@@ -66,14 +66,14 @@ Data
 Functions
 ---------
 
-.. c:function:: CcPieceType const * cc_setup_board_get( CcVariantEnum ve )
+.. c:function:: CcPieceType const * cc_setup_board_get( CcVariantType ve )
 
     Function returning setup for a board, based on a given variant.
 
     :param ve: A variant.
     :returns: Pointer to setup if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceType pe )
+.. c:function:: bool cc_setup_board_has_piece( CcVariantType ve, CcPieceType pe )
 
     Function checks if piece is present in an initial setup of a chessboard
     for a given variant.

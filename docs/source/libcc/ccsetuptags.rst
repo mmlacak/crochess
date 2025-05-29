@@ -66,7 +66,7 @@ Data
 Functions
 ---------
 
-.. c:function:: CcTagType const * cc_setup_tags_get( CcVariantEnum ve )
+.. c:function:: CcTagType const * cc_setup_tags_get( CcVariantType ve )
 
     Function returning setup for a tags, based on a given variant.
 

@@ -31,9 +31,9 @@ extern CcPieceType const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVE
 extern CcPieceType const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ];
 
 
-CcPieceType const * cc_setup_board_get( CcVariantEnum ve );
+CcPieceType const * cc_setup_board_get( CcVariantType ve );
 
-bool cc_setup_board_has_piece( CcVariantEnum ve, CcPieceType pe );
+bool cc_setup_board_has_piece( CcVariantType ve, CcPieceType pe );
 
 
 #endif /* __CC_SETUP_BOARD_H__ */

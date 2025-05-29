@@ -228,6 +228,11 @@ Types
 
     :c:`enum` is tagged with the same :c:enum:`CcVariantEnum` name.
 
+.. c:type:: unsigned char CcVariantType
+
+    Actual storage type, as used in :c:struct:`CcChessboard` :c:member:`type`;
+    contains only enumerations from :c:enum:`CcVariantEnum`.
+
 .. c:macro:: CC_VARIANT_IS_ENUMERATOR(ve)
 
     Macro to check if given variant value is an enumerator, i.e. between
@@ -242,7 +247,7 @@ Types
     :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_One` values.
 
     This macro is the same as :c:macro:`CC_VARIANT_IS_ENUMERATOR`, since
-    :c:enum:`CcVariantEnum` does not feature *null* (or *void*, or *empty*) value.
+    :c:enum:`CcVariantType` does not feature *null* (or *void*, or *empty*) value.
 
     :param ve: Variant (integer) value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
@@ -325,16 +330,16 @@ Abbreviated variant names, used to e.g. select variant to play.
 Functions
 ---------
 
-.. c:function:: size_t cc_variant_from_symbol( char const * str, CcVariantEnum * ve__o )
+.. c:function:: size_t cc_variant_from_symbol( char const * str, CcVariantType * ve__o )
 
     Function returns variant :c:`enum`, based on a string.
 
     :param str: A string.
-    :param ve__o: *Output*, variant :c:`enum`.
+    :param ve__o: *Output*, variant :c:`enum` type.
     :returns: Size of a symbol found in string if successful,
         :c:macro:`CC_LEN_VARIANT_SYMBOL_INVALID` otherwise.
 
-.. c:function:: char const * cc_variant_symbol( CcVariantEnum ve )
+.. c:function:: char const * cc_variant_symbol( CcVariantType ve )
 
     Function returning variant symbol, i.e. lowercase abbreviation of a variant name.
 
@@ -342,10 +347,10 @@ Functions
 
         Returned string is not allocated, do not :c:func:`free()` it.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :returns: Variant symbol string if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: char const * cc_variant_label( CcVariantEnum ve )
+.. c:function:: char const * cc_variant_label( CcVariantType ve )
 
     Function returning variant label, i.e. capitalized name of a variant.
 
@@ -353,49 +358,49 @@ Functions
 
         Returned string is not allocated, do not :c:func:`free()` it.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :returns: Variant label string if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: cc_uint_t cc_variant_board_size( CcVariantEnum ve )
+.. c:function:: cc_uint_t cc_variant_board_size( CcVariantType ve )
 
     Function returning size of a board for a given variant.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :returns: Size of a chessboard if successful, ``0`` otherwise.
 
-.. c:function:: cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light )
+.. c:function:: cc_uint_t cc_variant_rush_rank_limit( CcVariantType ve, bool is_piece_light )
 
     Function returns rush limit, either maximum rank for light privates,
     or minimum rank for dark privates.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :param is_piece_light: Flag, whether piece is light (:c:data:`true`) or dark (:c:data:`false`).
     :returns: Rush limit for known variants, ``0`` otherwise.
 
-.. c:function:: bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve, bool is_piece_light, int rank )
+.. c:function:: bool cc_variant_is_rank_in_rush_limits( CcVariantType ve, bool is_piece_light, int rank )
 
     Function checks if given rank is within rush limits;
     both upper and lower rush limits are checked.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :param is_piece_light: Flag, whether piece is light (:c:data:`true`) or dark (:c:data:`false`).
     :param rank: Rank, position along vertical axis.
     :returns: :c:data:`true` if within rush limits, :c:data:`false` otherwise.
 
-.. c:function:: int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light )
+.. c:function:: int cc_variant_promoting_rank( CcVariantType ve, bool is_light )
 
     Function returns rank of a promoting row.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :param is_light: Flag, whether it is for light or dark player.
     :returns: Rank of a promoting row if successful,
               :c:macro:`CC_INVALID_COORD` otherwise.
 
-.. c:function:: int cc_variant_initial_figure_rank( CcVariantEnum ve, bool is_light )
+.. c:function:: int cc_variant_initial_figure_rank( CcVariantType ve, bool is_light )
 
     Function returns rank of a figure row.
 
-    :param ve: Variant :c:`enum`.
+    :param ve: Variant :c:`enum` type.
     :param is_light: Flag, whether it is for light or dark player.
     :returns: Rank of a figure row if successful,
               :c:macro:`CC_INVALID_COORD` otherwise.

@@ -81,6 +81,8 @@ typedef enum CcVariantEnum {
     CC_VE_One,
 } CcVariantEnum;
 
+typedef unsigned char CcVariantType;
+
 
 #define CC_MAX_LEN_VARIANT_SYMBOL (3)
 
@@ -123,23 +125,23 @@ extern char const * const CC_VARIANT_SYMBOLS[];
 
 
 size_t cc_variant_from_symbol( char const * str,
-                               CcVariantEnum * ve__o );
+                               CcVariantType * ve__o );
 
-char const * cc_variant_symbol( CcVariantEnum ve );
+char const * cc_variant_symbol( CcVariantType ve );
 
-char const * cc_variant_label( CcVariantEnum ve );
+char const * cc_variant_label( CcVariantType ve );
 
-cc_uint_t cc_variant_board_size( CcVariantEnum ve );
+cc_uint_t cc_variant_board_size( CcVariantType ve );
 
-cc_uint_t cc_variant_rush_rank_limit( CcVariantEnum ve, bool is_piece_light );
+cc_uint_t cc_variant_rush_rank_limit( CcVariantType ve, bool is_piece_light );
 
-bool cc_variant_is_rank_in_rush_limits( CcVariantEnum ve,
+bool cc_variant_is_rank_in_rush_limits( CcVariantType ve,
                                         bool is_piece_light,
                                         int rank );
 
-int cc_variant_promoting_rank( CcVariantEnum ve, bool is_light );
+int cc_variant_promoting_rank( CcVariantType ve, bool is_light );
 
-int cc_variant_initial_figure_rank( CcVariantEnum ve, bool is_light );
+int cc_variant_initial_figure_rank( CcVariantType ve, bool is_light );
 
 
 #endif /* __CC_VARIANT_H__ */

@@ -30,7 +30,7 @@ Types
 
     Chessboard :c:`struct`\ure, used for all variants.
 
-    .. c:member:: CcVariantEnum type
+    .. c:member:: CcVariantType type
 
         Chess variant to play.
 
@@ -53,7 +53,7 @@ Types
 Functions
 ---------
 
-.. c:function:: CcChessboard * cc_chessboard__new( CcVariantEnum ve, bool do_setup )
+.. c:function:: CcChessboard * cc_chessboard__new( CcVariantType ve, bool do_setup )
 
     Function returns a newly allocated chessboard, optionally initialized
     for a given variant.
@@ -63,7 +63,7 @@ Functions
                      If :c:data:`false`, chessboard returned is empty.
     :returns: A newly allocated chessboard if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_chessboard_init( CcChessboard * cb__io, CcVariantEnum ve, bool do_setup )
+.. c:function:: bool cc_chessboard_init( CcChessboard * cb__io, CcVariantType ve, bool do_setup )
 
     (Re-)initializes a chessboard with initial setup, for a given variant.
 

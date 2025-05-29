@@ -31,7 +31,7 @@ extern CcTagType const CC_SETUP_TAGS_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY 
 extern CcTagType const CC_SETUP_TAGS_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ];
 
 
-CcTagType const * cc_setup_tags_get( CcVariantEnum ve );
+CcTagType const * cc_setup_tags_get( CcVariantType ve );
 
 
 #endif /* __CC_SETUP_TAGS_H__ */
