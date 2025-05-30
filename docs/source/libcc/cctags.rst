@@ -97,11 +97,11 @@ console.
 
     Equals to ``'P'``.
 
-.. c:macro:: CC_TAG_CHAR_EN_PASSANT_PREVIOUS
+.. c:macro:: CC_TAG_CHAR_RUSHED_PREVIOUS
 
     Equals to :c:`'E'`.
 
-.. c:macro:: CC_TAG_CHAR_EN_PASSANT_CURRENT
+.. c:macro:: CC_TAG_CHAR_RUSHED_CURRENT
 
     Equals to :c:`'e'`.
 

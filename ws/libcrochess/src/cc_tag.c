@@ -12,14 +12,15 @@ char cc_tag_as_char( CcPieceTagType ptt ) {
     else if ( CC_TAG_IS_CAN_RUSH( ptt ) ) return CC_TAG_CHAR_CAN_RUSH;
     else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_TAG_CHAR_CAN_CASTLE;
     else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_TAG_CHAR_DELAYED_PROMOTION;
-    else if ( CC_TAG_IS_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_EN_PASSANT_PREVIOUS;
-    else if ( CC_TAG_IS_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_EN_PASSANT_CURRENT;
+    else if ( CC_TAG_IS_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_RUSHED_PREVIOUS;
+    else if ( CC_TAG_IS_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_RUSHED_CURRENT;
     else return CC_TAG_CHAR_INVALID;
 }
 
-CcPieceTagType cc_tag_from_char( char c ) { // TODO :: add CcPieceTagType ptt
-    return CC_PTE_None; // TODO :: FIX
-}
+// TODO :: DELETE : DOCS
+// CcPieceTagType cc_tag_from_char( char c ) { // TODO :: FIX cc_piece_from_char()
+//     return CC_PTE_None; // TODO :: FIX
+// }
 
 bool cc_tag_is_congruent( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) { // TODO :: FIX
     if ( !CC_TAG_IS_ENUMERATOR( ptt_1 ) ) return false;

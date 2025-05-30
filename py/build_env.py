@@ -50,15 +50,15 @@ OBJECT_FILE_EXTENSIONS = ['.o', '.obj', ]
 BUILD_BIN_FOLDER = 'bin'
 
 
-OPTIONS_GCC_DEBUG = [ '-Wall', '-pedantic', '-O0', '-ggdb', ]
-OPTIONS_GCC_RELEASE = [ '-Wall', '-pedantic', '-O3', ]
+OPTIONS_GCC_DEBUG = [ '-Wall', '-pedantic', '-O0', '-ggdb', '-Wfatal-errors', ] # TEMP :: -Wfatal-errors (?) # -fmax-errors=N (?)
+OPTIONS_GCC_RELEASE = [ '-Wall', '-pedantic', '-O3', '-Wfatal-errors', ] # TEMP :: -Wfatal-errors (?) # -fmax-errors=N (?)
 OPTIONS_GCC_EXTRA_WARNINGS = [ '-Wextra', ] # '-fdiagnostics-show-option'
 OPTIONS_GCC_SILENCE = [ '-Wno-return-type', '-Wno-comment', '-Wno-type-limits', ]
 OPTIONS_GCC_DEBUG_CONSTS = [ '-D__CC_DEBUG__', ]
 OPTIONS_GCC_RELEASE_CONSTS = [] # [ '-D__CC_DEBUG__', ]
 
-OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', ]
-OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', ]
+OPTIONS_CLANG_DEBUG = ['-Wall', '-pedantic', '-O0', '-ggdb', '-Wfatal-errors', ] # TEMP :: -Wfatal-errors (?) # -fmax-errors=N (?)
+OPTIONS_CLANG_RELEASE = ['-Wall', '-pedantic', '-O3', '-Wfatal-errors', ] # TEMP :: -Wfatal-errors (?) # -fmax-errors=N (?)
 OPTIONS_CLANG_EXTRA_WARNINGS = [ '-Wextra', ] # '-fdiagnostics-show-option'
 OPTIONS_CLANG_SILENCE = [ '-Wno-format-security', '-Wno-gnu-zero-variadic-macro-arguments', ]
 OPTIONS_CLANG_DEBUG_CONSTS = [ '-D__CC_DEBUG__', ]

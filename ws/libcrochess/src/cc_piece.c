@@ -162,42 +162,122 @@ char cc_piece_as_char( CcPieceTagType pe ) {
     }
 }
 
-CcPieceTagType cc_piece_from_char( char piece ) {
+CcPieceTagType cc_piece_from_char( char piece, char tag ) {
     switch ( piece ) {
         case 't' : return CC_PTE_DimStar;
 
         case 'i' : return CC_PTE_DarkStarchild;
         case 'h' : return CC_PTE_DarkShaman;
         case 's' : return CC_PTE_DarkSerpent;
-        case 'g' : return CC_PTE_DarkGrenadier;
-        case 'o' : return CC_PTE_DarkScout;
+
+        case 'g' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_RUSH : return CC_PTE_DarkGrenadier_CanRush;
+                case CC_TAG_CHAR_RUSHED_PREVIOUS : return CC_PTE_DarkGrenadier_RushedPrevious;
+                case CC_TAG_CHAR_RUSHED_CURRENT : return CC_PTE_DarkGrenadier_RushedCurrent;
+                default : return CC_PTE_DarkGrenadier;
+            }
+        }
+
+        case 'o' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_RUSH : return CC_PTE_DarkScout_CanRush;
+                case CC_TAG_CHAR_RUSHED_PREVIOUS : return CC_PTE_DarkScout_RushedPrevious;
+                case CC_TAG_CHAR_RUSHED_CURRENT : return CC_PTE_DarkScout_RushedCurrent;
+                default : return CC_PTE_DarkScout;
+            }
+        }
+
         case 'c' : return CC_PTE_DarkCentaur;
         case 'w' : return CC_PTE_DarkWave;
         case 'u' : return CC_PTE_DarkUnicorn;
         case 'a' : return CC_PTE_DarkPyramid;
         case 'e' : return CC_PTE_DarkPegasus;
-        case 'k' : return CC_PTE_DarkKing;
+
+        case 'k' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_CASTLE : return CC_PTE_DarkKing_CanCastle;
+                default : return CC_PTE_DarkKing;
+            }
+        }
+
         case 'q' : return CC_PTE_DarkQueen;
-        case 'r' : return CC_PTE_DarkRook;
+
+        case 'r' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_CASTLE : return CC_PTE_DarkRook_CanCastle;
+                default : return CC_PTE_DarkRook;
+            }
+        }
+
         case 'b' : return CC_PTE_DarkBishop;
         case 'n' : return CC_PTE_DarkKnight;
-        case 'p' : return CC_PTE_DarkPawn;
+
+        case 'p' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_RUSH : return CC_PTE_DarkPawn_CanRush;
+                case CC_TAG_CHAR_DELAYED_PROMOTION : return CC_PTE_DarkPawn_DelayedPromotion;
+                case CC_TAG_CHAR_RUSHED_PREVIOUS : return CC_PTE_DarkPawn_RushedPrevious;
+                case CC_TAG_CHAR_RUSHED_CURRENT : return CC_PTE_DarkPawn_RushedCurrent;
+                default : return CC_PTE_DarkPawn;
+            }
+        }
 
         case ' ' : return CC_PTE_None;
 
-        case 'P' : return CC_PTE_LightPawn;
+        case 'P' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_RUSH : return CC_PTE_LightPawn_CanRush;
+                case CC_TAG_CHAR_DELAYED_PROMOTION : return CC_PTE_LightPawn_DelayedPromotion;
+                case CC_TAG_CHAR_RUSHED_PREVIOUS : return CC_PTE_LightPawn_RushedPrevious;
+                case CC_TAG_CHAR_RUSHED_CURRENT : return CC_PTE_LightPawn_RushedCurrent;
+                default : return CC_PTE_LightPawn;
+            }
+        }
+
         case 'N' : return CC_PTE_LightKnight;
         case 'B' : return CC_PTE_LightBishop;
-        case 'R' : return CC_PTE_LightRook;
+
+        case 'R' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_CASTLE : return CC_PTE_LightRook_CanCastle;
+                default : return CC_PTE_LightRook;
+            }
+        }
+
         case 'Q' : return CC_PTE_LightQueen;
-        case 'K' : return CC_PTE_LightKing;
+
+        case 'K' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_CASTLE : return CC_PTE_LightKing_CanCastle;
+                default : return CC_PTE_LightKing;
+            }
+        }
+
         case 'E' : return CC_PTE_LightPegasus;
         case 'A' : return CC_PTE_LightPyramid;
         case 'U' : return CC_PTE_LightUnicorn;
         case 'W' : return CC_PTE_LightWave;
         case 'C' : return CC_PTE_LightCentaur;
-        case 'O' : return CC_PTE_LightScout;
-        case 'G' : return CC_PTE_LightGrenadier;
+
+        case 'O' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_RUSH : return CC_PTE_LightScout_CanRush;
+                case CC_TAG_CHAR_RUSHED_PREVIOUS : return CC_PTE_LightScout_RushedPrevious;
+                case CC_TAG_CHAR_RUSHED_CURRENT : return CC_PTE_LightScout_RushedCurrent;
+                default : return CC_PTE_LightScout;
+            }
+        }
+
+        case 'G' : {
+            switch ( tag ) {
+                case CC_TAG_CHAR_CAN_RUSH : return CC_PTE_LightGrenadier_CanRush;
+                case CC_TAG_CHAR_RUSHED_PREVIOUS : return CC_PTE_LightGrenadier_RushedPrevious;
+                case CC_TAG_CHAR_RUSHED_CURRENT : return CC_PTE_LightGrenadier_RushedCurrent;
+                default : return CC_PTE_LightGrenadier;
+            }
+        }
+
         case 'S' : return CC_PTE_LightSerpent;
         case 'H' : return CC_PTE_LightShaman;
         case 'I' : return CC_PTE_LightStarchild;

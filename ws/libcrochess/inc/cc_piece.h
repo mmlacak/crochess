@@ -333,11 +333,7 @@ typedef enum CcPieceTagEnum {
     CC_PTE_LightPyramid,
     CC_PTE_LightUnicorn,
     CC_PTE_LightWave,
-
     CC_PTE_LightCentaur,
-    CC_PTE_LightCentaur_CanRush,
-    CC_PTE_LightCentaur_RushedPrevious,
-    CC_PTE_LightCentaur_RushedCurrent,
 
     CC_PTE_LightScout,
     CC_PTE_LightScout_CanRush,
@@ -345,6 +341,10 @@ typedef enum CcPieceTagEnum {
     CC_PTE_LightScout_RushedCurrent,
 
     CC_PTE_LightGrenadier,
+    CC_PTE_LightGrenadier_CanRush,
+    CC_PTE_LightGrenadier_RushedPrevious,
+    CC_PTE_LightGrenadier_RushedCurrent,
+
     CC_PTE_LightSerpent,
     CC_PTE_LightShaman,
     CC_PTE_LightStarchild,
@@ -374,7 +374,8 @@ CcPieceTagType cc_piece_opposite( CcPieceTagType pe );
 
 char cc_piece_as_char( CcPieceTagType pe );
 
-CcPieceTagType cc_piece_from_char( char piece );
+// TODO :: DOCS
+CcPieceTagType cc_piece_from_char( char piece, char tag );
 
 char const * cc_piece_label( CcPieceTagType pe, bool capitalize, bool empty_field );
 

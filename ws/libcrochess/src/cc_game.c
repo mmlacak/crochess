@@ -176,7 +176,6 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
         char const * c = start;
 
         char piece_chr = *c++;
-        CcPieceTagType pe = cc_piece_from_char( piece_chr );
 
         char file_chr = *c++;
         int file = CC_CONVERT_FILE_CHAR_INTO_NUM( file_chr );
@@ -188,9 +187,9 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
         int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
 
         char tag = *c;
-        CcTagType te = cc_tag_from_char( tag ); // todo :: maybe :: add en passant, Pawn-sacrifice flags support (?)
+        CcPieceTagType pe = cc_piece_from_char( piece_chr, tag ); // todo :: maybe :: Pawn-sacrifice flags support (?)
 
-        if ( !cc_chessboard_set_piece_tag( game__a->chessboard, file, rank, pe, te ) ) {
+        if ( !cc_chessboard_set_piece( game__a->chessboard, file, rank, pe ) ) {
             cc_game_free_all( &game__a );
             return NULL;
         }

@@ -74,12 +74,12 @@
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'
 
-#define CC_TAG_CHAR_CAN_RUSH 'R'
-#define CC_TAG_CHAR_CAN_CASTLE 'C'
-#define CC_TAG_CHAR_DELAYED_PROMOTION 'P'
+#define CC_TAG_CHAR_CAN_RUSH '*'
+#define CC_TAG_CHAR_CAN_CASTLE '&'
+#define CC_TAG_CHAR_DELAYED_PROMOTION '='
 
-#define CC_TAG_CHAR_EN_PASSANT_PREVIOUS 'E'
-#define CC_TAG_CHAR_EN_PASSANT_CURRENT 'e'
+#define CC_TAG_CHAR_RUSHED_PREVIOUS ':'
+#define CC_TAG_CHAR_RUSHED_CURRENT ';'
 
 // TODO :: DELETE :: DOCS
 // typedef enum CcTagEnum {
@@ -98,7 +98,7 @@
 
 char cc_tag_as_char( CcPieceTagType ptt );
 
-CcPieceTagType cc_tag_from_char( char c );
+// CcPieceTagType cc_tag_from_char( char c ); // TODO :: DELETE : DOCS
 
 bool cc_tag_is_congruent( CcPieceTagType ct_1, CcPieceTagType ct_2 );
 
@@ -110,18 +110,18 @@ bool cc_tag_is_congruent( CcPieceTagType ct_1, CcPieceTagType ct_2 );
 #define CC_LOSING_TAG_IS_VALID(ltt) ( ( CC_LTE_NoneLost < (ltt) ) && ( (ltt) <= CC_LTE_DelayedPromotionLost ) )
 
 typedef enum CcLosingTagEnum {
-    CC_LTE_NoneLost = CC_TE_None, /* No tag has been lost. */
+    CC_LTE_NoneLost = 0, // CC_TE_None, /* No tag has been lost. */
 
-    CC_LTE_RushingTagLost = CC_TE_CanRush, /* Pawn lost its ability to rush. */
-    CC_LTE_CastlingTagLost = CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */
-    CC_LTE_DelayedPromotionLost = CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
+    CC_LTE_RushingTagLost = 1, // CC_TE_CanRush, /* Pawn lost its ability to rush. */
+    CC_LTE_CastlingTagLost = 2, // CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */
+    CC_LTE_DelayedPromotionLost = 3, // CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
 
     /* En passant tags are semi-permanent, they last for a turn, and are removed simply by playing another move. */
 } CcLosingTagEnum;
 
 #define CC_MAX_LEN_LOSING_TAG_SYMBOL (2)
 
-typedef CcTagType CcLosingTagType; // unsigned char
+typedef unsigned char CcLosingTagType; // == CcTagType
 
 char const * cc_losing_tag_symbol( CcLosingTagType ltt );
 
