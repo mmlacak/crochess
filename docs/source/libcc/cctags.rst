@@ -59,7 +59,7 @@ Values
     :param te: :c:type:`CcTagEnum` value.
     :returns: :c:`bool` value.
 
-.. c:macro:: CC_TAG_IS_EN_PASSANT(te)
+.. c:macro:: CC_TAG_IS_RUSHED(te)
 
     Macro to check if given :term:`tag` is en passant, i.e. either
     :c:enumerator:`CC_TE_EnPassant_Previous` or

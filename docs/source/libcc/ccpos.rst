@@ -240,7 +240,7 @@ Functions
     :param destination: Destination field.
     :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_pos_piece_are_same_color( CcPos pos, CcPieceType piece )
+.. c:function:: bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece )
 
     Function checks if piece and a field are in the same color.
 
@@ -372,7 +372,7 @@ Position descriptor
 
         A position.
 
-    .. c:member:: CcPieceType piece
+    .. c:member:: CcPieceTagType piece
 
         Piece found at position.
 
@@ -396,7 +396,7 @@ Position descriptor
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param piece_enum: A piece; :c:type:`CcPieceTagType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
     :returns: Position descriptor value.
     :seealso: :c:struct:`CcPosDesc`
@@ -407,7 +407,7 @@ Position descriptor
 
     :param int_i: File, horizontal coordinate; integer.
     :param int_j: Rank, vertical coordinate; integer.
-    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param piece_enum: A piece; :c:type:`CcPieceTagType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
     :returns: Casted position descriptor value.
     :seealso: :c:macro:`CC_POS_DESC_COORDS`
@@ -417,7 +417,7 @@ Position descriptor
     Macro which constructs position descriptor struct.
 
     :param pos: A position; :c:type:`CcPos` value.
-    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param piece_enum: A piece; :c:type:`CcPieceTagType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
     :returns: Position descriptor value.
     :seealso: :c:struct:`CcPosDesc`
@@ -427,7 +427,7 @@ Position descriptor
     Macro which casts position descriptor macro.
 
     :param pos: A position; :c:type:`CcPos` value.
-    :param piece_enum: A piece; :c:type:`CcPieceType` value.
+    :param piece_enum: A piece; :c:type:`CcPieceTagType` value.
     :param tag_enum: A tag; :c:type:`CcTagType` value.
     :returns: Casted position descriptor value.
     :seealso: :c:macro:`CC_POS_DESC`
@@ -646,7 +646,7 @@ Activation descriptor
 
     Momentum :c:`struct` holding its value and usage.
 
-    .. c:member:: CcPieceType activator
+    .. c:member:: CcPieceTagType activator
 
         An activator.
 
@@ -663,19 +663,19 @@ Activation descriptor
 .. c:macro:: CC_ACTIVATION_DESC_INITIAL
 
     Initial momentum, :c:struct:`CcActivationDesc` value; :c:member:`CcActivationDesc.activator`
-    value is :c:enumerator:`CC_PE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
+    value is :c:enumerator:`CC_PTE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
     and :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_Accumulating`.
 
 .. c:macro:: CC_ACTIVATION_DESC_STATIC
 
     Static momentum, :c:struct:`CcActivationDesc` value; :c:member:`CcActivationDesc.activator`
-    value is :c:enumerator:`CC_PE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
+    value is :c:enumerator:`CC_PTE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
     and :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`.
 
 .. c:macro:: CC_ACTIVATION_DESC_SPENT
 
     Spent momentum, :c:struct:`CcActivationDesc` value; :c:member:`CcActivationDesc.activator`
-    value is :c:enumerator:`CC_PE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
+    value is :c:enumerator:`CC_PTE_None`, :c:member:`CcActivationDesc.momentum` value is ``0``,
     and :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_Spending`.
 
 .. c:macro:: CC_ACTIVATION_DESC_CAST_INITIAL
@@ -699,7 +699,7 @@ Activation descriptor
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if both enum values are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
-        * :c:enumerator:`CC_MBE_False` if at least one enum value is not a valid enumeration (i.e. :c:member:`CcActivationDesc.activator` is :c:enumerator:`CC_PE_None` in a ply after first, or :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcActivationDesc.momentum` is too big (equal to, or larger than maximum board size),
+        * :c:enumerator:`CC_MBE_False` if at least one enum value is not a valid enumeration (i.e. :c:member:`CcActivationDesc.activator` is :c:enumerator:`CC_PTE_None` in a ply after first, or :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcActivationDesc.momentum` is too big (equal to, or larger than maximum board size),
         * :c:enumerator:`CC_MBE_Void` if at least one enum value is not an enumeration.
 
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
@@ -724,7 +724,7 @@ Activation descriptor
 
     :seealso: :c:func:`cc_calc_momentum()`
 
-.. c:function:: CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece )
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece )
 
     Function updates :c:member:`CcActivationDesc.activator` of an *input/output*
     :c:var:`act_desc__io` parameter with a given :c:var:`piece`.

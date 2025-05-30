@@ -12,13 +12,13 @@
 
 
 int cc_find_initial_figure_file( CcVariantType ve,
-                                 CcPieceType pe,
+                                 CcPieceTagType pe,
                                  bool search_queen_side_first );
 
 int cc_get_kings_max_castling_distance( CcVariantType ve );
 
 bool cc_check_pos_is_king_castling_step( CcVariantType ve,
-                                         CcPieceType king,
+                                         CcPieceTagType king,
                                          int pos_i,
                                          int pos_j,
                                          bool * is_queen_side__o,

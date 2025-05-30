@@ -300,7 +300,7 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     // if ( !CC_POS_DESC_IS_LEGAL( move_init, board_size ) ) return false;
 
     // Checking piece and its tag are still on declared position generaly does not hold, except at the very beginning of a move.
-    CcPieceType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
+    CcPieceTagType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
     if ( piece != move_init.piece ) return false; // [2]
 
     CcTagType tag = cc_chessboard_get_tag( cb, move_init.pos.i, move_init.pos.j );

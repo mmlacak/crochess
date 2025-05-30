@@ -94,7 +94,7 @@ bool cc_pos_are_same_color( CcPos start, CcPos destination ) {
     return false;
 }
 
-bool cc_pos_piece_are_same_color( CcPos pos, CcPieceType piece ) {
+bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece ) {
     if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
         return true;
 
@@ -540,8 +540,8 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_
     if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
 
     if ( is_first_ply ) {
-        // Activator has to be CC_PE_None, for piece starting a move.
-        if ( act_desc.activator != CC_PE_None ) return CC_MBE_False;
+        // Activator has to be CC_PTE_None, for piece starting a move.
+        if ( act_desc.activator != CC_PTE_None ) return CC_MBE_False;
     } else {
         // Otherwise, actvateor has to be valid.
         if ( !CC_PIECE_IS_ACTIVATOR( act_desc.activator ) ) return CC_MBE_False;
@@ -557,7 +557,7 @@ CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_de
     return cc_calc_momentum( act_desc__io->usage, count, &( act_desc__io->momentum ) );
 }
 
-CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece ) {
+CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece ) {
     if ( !act_desc__io ) return CC_MBE_Void;
     if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return CC_MBE_Void;
 

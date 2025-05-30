@@ -29,7 +29,7 @@ Data
 Functions
 ---------
 
-.. c:function:: bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt )
+.. c:function:: bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt )
 
     Function checks if a piece can lose given tag.
 
@@ -37,7 +37,7 @@ Functions
     :param ltt: :c:type:`CcLosingTagType` value.
     :returns: :c:data:`true` if piece can lose given tag, :c:data:`false` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceType piece, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceTagType piece, CcPos pos )
 
     Function checks if piece is blocked at given position.
 
@@ -50,7 +50,7 @@ Functions
         * :c:enumerator:`CC_MBE_False` if piece is not blocked,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceType piece, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceTagType piece, CcPos pos )
 
     Function checks if a piece can capture at given position.
 
@@ -63,7 +63,7 @@ Functions
         * :c:enumerator:`CC_MBE_False` if no capture is possible,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb, CcPieceType piece, cc_uint_t momentum, CcPieceType activator, CcPos pos )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb, CcPieceTagType piece, cc_uint_t momentum, CcPieceTagType activator, CcPos pos )
 
     Function checks if a piece can diverge from given position.
 
@@ -93,7 +93,7 @@ Functions
         * :c:enumerator:`CC_MBE_False` if no castling is possible,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving, CcPieceType encounter, cc_uint_t momentum, CcStepTypeEnum step_type )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceTagType moving, CcPieceTagType encounter, cc_uint_t momentum, CcStepTypeEnum step_type )
 
     Function checks if moving piece can activate stationary one, given
     :c:var:`momentum` and :c:var:`step_type` arguments.
@@ -108,7 +108,7 @@ Functions
         * :c:enumerator:`CC_MBE_False` if moving piece cannot activate encountered piece,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient, or incorrect data given.
 
-.. c:function:: CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb, CcPieceType moving, CcActivationDesc act_desc, CcPos destination, CcStepTypeEnum step_type )
+.. c:function:: CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb, CcPieceTagType moving, CcActivationDesc act_desc, CcPos destination, CcStepTypeEnum step_type )
 
     Function checks if moving piece can activate piece encountered at :c:var:`destination`.
 
@@ -125,7 +125,7 @@ Functions
 
     :seealso: :c:func:`cc_check_piece_can_activate()`
 
-.. c:function:: CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb, CcPieceType private, CcActivationDesc act_desc, CcPos destination, CcPosDesc * target__o )
+.. c:function:: CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb, CcPieceTagType private, CcActivationDesc act_desc, CcPos destination, CcPosDesc * target__o )
 
     Function finds a private to be captured by en passant, its location and tag.
 

@@ -31,7 +31,7 @@ static bool _cc_fail_with_msg_in_step( char const * msg_fmt,
 }
 
 static bool _cc_fail_with_msg_piece_in_side_effect( char const * msg_fmt,
-                                                    CcPieceType piece,
+                                                    CcPieceTagType piece,
                                                     bool capitalize,
                                                     bool empty_field,
                                                     char const * start_an,
@@ -81,7 +81,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_CAPTURED( piece ) )
@@ -109,7 +109,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result_pts != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType promoted_to = cc_piece_from_symbol( promoted_to_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType promoted_to = cc_piece_from_symbol( promoted_to_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( promoted_to ) ) // Promoted-to piece is optional.
                 if ( !CC_PAWN_CAN_BE_PROMOTED_TO( promoted_to ) )
@@ -138,7 +138,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( piece ) )
@@ -170,7 +170,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( piece ) )
@@ -203,7 +203,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light );
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_turn_light );
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_IS_ROOK( piece ) )
@@ -239,18 +239,18 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PAWN_CAN_BE_PROMOTED_TO( piece ) ) // Piece is not optional here, so no need to check if it's valid.
                 return _cc_fail_with_msg_piece_in_side_effect( "Pawns can't be promoted to %s, in step '%s'.\n", piece, false, true, step_start_an, step_end_an, parse_msgs__iod );
 
             if ( cc_piece_symbol_is_valid( *se_an ) ) ++se_an;
 
-            *side_effect__o = cc_side_effect_promote( CC_PE_None, CC_LTE_NoneLost, piece );
+            *side_effect__o = cc_side_effect_promote( CC_PTE_None, CC_LTE_NoneLost, piece );
             *side_effect_end_an__o = se_an;
             return true;
         } case CC_SETE_TagForPromotion : {
-            *side_effect__o = cc_side_effect_tag_for_promotion( CC_PE_None, CC_LTE_NoneLost );
+            *side_effect__o = cc_side_effect_tag_for_promotion( CC_PTE_None, CC_LTE_NoneLost );
             *side_effect_end_an__o = side_effect_an;
             return true;
         } case CC_SETE_Conversion : {
@@ -262,7 +262,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_opponent_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_CONVERTED( piece ) )
@@ -289,7 +289,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( CC_PIECE_IS_OPAQUE( piece ) )
@@ -309,7 +309,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_IS_DIVERGENT( piece ) )
@@ -329,7 +329,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             else if ( result != CC_MBE_True ) // == CC_MBE_Void (or, some garbage)
                 return false;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_turn_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_IS_NONE( piece ) ) // Piece is optional.
                 if ( !CC_PIECE_CAN_BE_DEMOTED( piece ) )
@@ -373,7 +373,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             bool is_light = ( sete == CC_SETE_ResurrectingOpponent ) ? is_opponent_light
                                                                      : is_turn_light;
 
-            CcPieceType piece = cc_piece_from_symbol( piece_symbol, is_light ); // If piece symbol was not found, piece is none.
+            CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_light ); // If piece symbol was not found, piece is none.
 
             if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) // Piece is not optional here, so no need to check if it's valid.
                 return _cc_fail_with_msg_piece_in_side_effect( "%s can't be resurrected, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );

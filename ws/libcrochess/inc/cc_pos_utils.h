@@ -17,7 +17,7 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos );
 //         similar to cc_calc_momentum()
 //
 // bool cc_iter_piece_steps( CcChessboard * cb,
-//                           CcPieceType piece,
+//                           CcPieceTagType piece,
 //                           CcTagType tag,
 //                           cc_uint_t momentum,
 //                           CcStepTypeEnum filter__d,
@@ -25,7 +25,7 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos );
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected__d,
-                        CcPieceType piece,
+                        CcPieceTagType piece,
                         bool include_opponent,
                         CcPos * pos__io );
 

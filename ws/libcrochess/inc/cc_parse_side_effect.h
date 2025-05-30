@@ -21,7 +21,7 @@
 //                                        CcParseMsg ** parse_msgs__iod );
 
 // static bool _cc_fail_with_msg_piece_in_side_effect( char const * msg_fmt,
-//                                                     CcPieceType piece,
+//                                                     CcPieceTagType piece,
 //                                                     bool capitalize,
 //                                                     bool empty_field,
 //                                                     char const * start_an,

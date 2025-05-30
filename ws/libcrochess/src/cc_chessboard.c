@@ -52,7 +52,7 @@ bool cc_chessboard_clear( CcChessboard * cb__io ) {
 
     for ( int i = 0; i < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++i ) {
         for ( int j = 0; j < CC_VARIANT_BOARD_SIZE_MAXIMUM; ++j ) {
-            cb__io->board[ i ][ j ] = CC_PE_None;
+            cb__io->board[ i ][ j ] = CC_PTE_None;
             cb__io->tags[ i ][ j ] = CC_TE_None;
         }
     }
@@ -65,7 +65,7 @@ bool cc_chessboard_setup( CcChessboard * cb__io ) {
 
     if ( !cc_chessboard_clear( cb__io ) ) return false;
 
-    CcPieceType const * su = cc_setup_board_get( cb__io->type );
+    CcPieceTagType const * su = cc_setup_board_get( cb__io->type );
     if ( !su ) return false;
 
     CcTagType const * tu = cc_setup_tags_get( cb__io->type );
@@ -222,13 +222,13 @@ bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j ) {
     return CC_IS_FIELD_ON_DARK_SIDE( size, j );
 }
 
-CcPieceType cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
-    if ( !cb ) return CC_PE_None;
+CcPieceTagType cc_chessboard_get_piece( CcChessboard * cb, int i, int j ) {
+    if ( !cb ) return CC_PTE_None;
 
     if ( cc_chessboard_is_pos_on_board( cb, i, j ) )
         return cb->board[ i ][ j ];
 
-    return CC_PE_None;
+    return CC_PTE_None;
 }
 
 CcTagType cc_chessboard_get_tag( CcChessboard * cb,
@@ -245,7 +245,7 @@ CcTagType cc_chessboard_get_tag( CcChessboard * cb,
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  CcPieceType pt,
+                                  CcPieceTagType pt,
                                   CcTagType tt ) {
     if ( !cb__io ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( pt ) ) return false;
@@ -265,7 +265,7 @@ bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              CcPieceType pt ) {
+                              CcPieceTagType pt ) {
     return cc_chessboard_set_piece_tag( cb__io, i, j, pt, CC_TE_None );
 }
 
@@ -484,7 +484,7 @@ CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb,
             rank_c8[ 1 ] = *c++;
         int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
 
-        if ( !cc_chessboard_set_piece_tag( cb__a, file, rank, CC_PE_None, CC_TE_None ) ) {
+        if ( !cc_chessboard_set_piece_tag( cb__a, file, rank, CC_PTE_None, CC_TE_None ) ) {
             cc_chessboard_free_all( &cb__a );
             return NULL;
         }

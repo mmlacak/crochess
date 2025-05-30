@@ -16,7 +16,7 @@ extern char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[];
 typedef struct CcChessboard {
     CcVariantType type;
 
-    CcPieceType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
+    CcPieceTagType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
     CcTagType tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
 } CcChessboard;
 
@@ -56,20 +56,20 @@ bool cc_chessboard_is_field_on_light_side( CcChessboard * cb, int j );
 
 bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j );
 
-CcPieceType cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
+CcPieceTagType cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
 
 CcTagType cc_chessboard_get_tag( CcChessboard * cb, int i, int j );
 
 bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
                                   int i,
                                   int j,
-                                  CcPieceType pt,
+                                  CcPieceTagType pt,
                                   CcTagType ct );
 
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
-                              CcPieceType pt );
+                              CcPieceTagType pt );
 
 bool cc_chessboard_set_tag( CcChessboard * cb__io,
                             int i,

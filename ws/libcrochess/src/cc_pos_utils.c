@@ -5,7 +5,7 @@
 
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos ) {
-    CcPosDesc pd = { .pos = pos, .piece = CC_PE_None, .tag = CC_TE_None };
+    CcPosDesc pd = { .pos = pos, .piece = CC_PTE_None, .tag = CC_TE_None };
 
     if ( cb__d ) {
         pd.piece = cc_chessboard_get_piece( cb__d, pos.i, pos.j );
@@ -18,7 +18,7 @@ CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos ) {
 
 bool cc_iter_piece_pos( CcChessboard * cb,
                         CcPos expected__d,
-                        CcPieceType piece,
+                        CcPieceTagType piece,
                         bool include_opponent,
                         CcPos * pos__io ) {
     if ( !cb ) return false;
@@ -41,7 +41,7 @@ bool cc_iter_piece_pos( CcChessboard * cb,
 
     for ( int i = pos.i; i < (int)size; ++i ) {
         for ( int j = pos.j; j < (int)size; ++j ) {
-            CcPieceType pe = cc_chessboard_get_piece( cb, i, j );
+            CcPieceTagType pe = cc_chessboard_get_piece( cb, i, j );
 
             if ( ( pe == piece ) ||
                     ( include_opponent && cc_piece_is_opposite( pe, piece ) ) ) {

@@ -162,7 +162,7 @@ Data
 
             Capture.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece which has been captured.
 
@@ -174,7 +174,7 @@ Data
 
             Displacement, used during light Shaman's trance-journey.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece which has been displaced.
 
@@ -190,7 +190,7 @@ Data
 
             En passant.
 
-            .. c:member:: CcPieceType pawn
+            .. c:member:: CcPieceTagType pawn
 
                 Pawn which has been captured.
 
@@ -202,7 +202,7 @@ Data
 
             Castling.
 
-            .. c:member:: CcPieceType rook
+            .. c:member:: CcPieceTagType rook
 
                 Rook which castled.
 
@@ -218,7 +218,7 @@ Data
 
             Promotion.
 
-            .. c:member:: CcPieceType captured
+            .. c:member:: CcPieceTagType captured
 
                 Piece which has been captured, if any.
 
@@ -226,7 +226,7 @@ Data
 
                 Tag lost by captured piece.
 
-            .. c:member:: CcPieceType promoted_to
+            .. c:member:: CcPieceTagType promoted_to
 
                 Piece to which Pawn has been promoted.
 
@@ -234,7 +234,7 @@ Data
 
             Tag for promotion.
 
-            .. c:member:: CcPieceType captured
+            .. c:member:: CcPieceTagType captured
 
                 Piece which has been captured, if any.
 
@@ -246,7 +246,7 @@ Data
 
             Conversion.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece which has been converted.
 
@@ -258,7 +258,7 @@ Data
 
             Transparency.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece which has been "passed-over".
 
@@ -266,7 +266,7 @@ Data
 
             Divergence.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece from which currently moving piece diverted.
 
@@ -274,7 +274,7 @@ Data
 
             Demoting.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece which has been demoted to Pawn.
 
@@ -290,7 +290,7 @@ Data
 
             Resurrection.
 
-            .. c:member:: CcPieceType piece
+            .. c:member:: CcPieceTagType piece
 
                 Piece which has been resurrected.
 
@@ -314,7 +314,7 @@ Functions
     :param sete: A side-effect enum.
     :returns: String symbol if side-effect enum is valid, ``"?"`` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceType piece, CcSideEffectTypeEnum sete )
+.. c:function:: CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceTagType piece, CcSideEffectTypeEnum sete )
 
     Function returns if a given side-effect is terminating ply of a given piece.
 
@@ -326,7 +326,7 @@ Functions
         * :c:enumerator:`CC_MBE_False` if piece can continue its ply after a given side-effect,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, CcPieceType piece, CcLosingTagType lost_tag, CcPos start, CcPos destination, CcPieceType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, CcPieceTagType piece, CcLosingTagType lost_tag, CcPos start, CcPos destination, CcPieceTagType promoted_to )
 
     Function returns step side-effect :c:`struct`\ure.
 
@@ -338,7 +338,7 @@ Functions
     :param promoted_to: Piece to which Pawn has been promoted.
     :returns: Step side-effect :c:`struct`\ure.
 
-.. c:function:: CcPieceType cc_side_effect_piece( CcSideEffect se )
+.. c:function:: CcPieceTagType cc_side_effect_piece( CcSideEffect se )
 
     Function returns piece affected by a given side-effect.
 
@@ -374,29 +374,29 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_none( void )
 
-.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagType lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceTagType piece, CcLosingTagType lost_tag )
 
-.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagType lost_tag, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos destination )
 
-.. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceType pawn, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant )
 
-.. c:function:: CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcLosingTagType lost_tag, CcPieceTagType promoted_to )
 
-.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagType lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured, CcLosingTagType lost_tag )
 
-.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagType lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceTagType piece, CcLosingTagType lost_tag )
 
 .. c:function:: CcSideEffect cc_side_effect_failed_conversion( void )
 
-.. c:function:: CcSideEffect cc_side_effect_transparency( CcPieceType piece )
+.. c:function:: CcSideEffect cc_side_effect_transparency( CcPieceTagType piece )
 
-.. c:function:: CcSideEffect cc_side_effect_diversion( CcPieceType piece )
+.. c:function:: CcSideEffect cc_side_effect_diversion( CcPieceTagType piece )
 
-.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagType lost_tag, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos distant )
 
-.. c:function:: CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_resurrect( CcPieceTagType piece, CcPos destination )
 
 .. c:function:: CcSideEffect cc_side_effect_failed_resurrection( void )
 

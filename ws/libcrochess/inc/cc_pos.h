@@ -64,7 +64,7 @@ CcPos cc_pos_calc_step( CcPos start, CcPos destination );
 
 bool cc_pos_are_same_color( CcPos start, CcPos destination );
 
-bool cc_pos_piece_are_same_color( CcPos pos, CcPieceType piece );
+bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece );
 
 bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 
@@ -95,13 +95,13 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link );
 //
 // Position descriptor.
 
-#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PE_None, .tag = CC_TE_None }
+#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PTE_None, .tag = CC_TE_None }
 
-#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PE_None, .tag = CC_TE_None }
+#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PTE_None, .tag = CC_TE_None }
 
 typedef struct CcPosDesc {
     CcPos pos; /* A position. */
-    CcPieceType piece; /* Piece found at position. */
+    CcPieceTagType piece; /* Piece found at position. */
     CcTagType tag; /* Tag found at position. */
 } CcPosDesc;
 
@@ -111,15 +111,15 @@ typedef struct CcPosDesc {
 
 #define CC_POS_DESC_COORDS(int_i,int_j,piece_enum,tag_enum)         \
     { .pos = CC_POS_CAST( (int_i), (int_j) ),                       \
-      .piece = (CcPieceType)(piece_enum),                           \
+      .piece = (CcPieceTagType)(piece_enum),                           \
       .tag = (CcTagType)(tag_enum) }
 
 #define CC_POS_DESC_COORDS_CAST(int_i,int_j,piece_enum,tag_enum)    \
     ( (CcPosDesc)CC_POS_DESC_COORDS( (int_i), (int_j), (piece_enum), (tag_enum) ) )
 
-#define CC_POS_DESC(pos,piece_enum,tag_enum) { .pos = (pos), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum) }
+#define CC_POS_DESC(pos,piece_enum,tag_enum) { .pos = (pos), .piece = (CcPieceTagType)(piece_enum), .tag = (CcTagType)(tag_enum) }
 
-#define CC_POS_DESC_CAST(pos,piece_enum,tag_enum) ( (CcPosDesc){ .pos = (pos), .piece = (CcPieceType)(piece_enum), .tag = (CcTagType)(tag_enum) } )
+#define CC_POS_DESC_CAST(pos,piece_enum,tag_enum) ( (CcPosDesc){ .pos = (pos), .piece = (CcPieceTagType)(piece_enum), .tag = (CcTagType)(tag_enum) } )
 
 #define CC_POS_DESC_IS_VALID(pd) \
     ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
@@ -184,16 +184,16 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
 // Activation descriptor.
 
 typedef struct CcActivationDesc {
-    CcPieceType activator;
+    CcPieceTagType activator;
     cc_uint_t momentum;
     CcMomentumUsageEnum usage;
 } CcActivationDesc;
 
-#define CC_ACTIVATION_DESC_INITIAL { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_Accumulating }
+#define CC_ACTIVATION_DESC_INITIAL { .activator = CC_PTE_None, .momentum = 0, .usage = CC_MUE_Accumulating }
 
-#define CC_ACTIVATION_DESC_STATIC { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_NotUsing }
+#define CC_ACTIVATION_DESC_STATIC { .activator = CC_PTE_None, .momentum = 0, .usage = CC_MUE_NotUsing }
 
-#define CC_ACTIVATION_DESC_SPENT { .activator = CC_PE_None, .momentum = 0, .usage = CC_MUE_Spending }
+#define CC_ACTIVATION_DESC_SPENT { .activator = CC_PTE_None, .momentum = 0, .usage = CC_MUE_Spending }
 
 #define CC_ACTIVATION_DESC_CAST_INITIAL ( (CcActivationDesc)CC_ACTIVATION_DESC_INITIAL )
 
@@ -205,7 +205,7 @@ CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_
 
 CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count );
 
-CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceType piece );
+CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece );
 
 CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply );
 

@@ -75,7 +75,7 @@ bool cc_path_side_effect( CcChessboard * cb,
     }
 
     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
-            ( encounter.piece == CC_PE_None ) ) { // TODO :: or encountered piece can be activated
+            ( encounter.piece == CC_PTE_None ) ) { // TODO :: or encountered piece can be activated
         CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
         CcMaybeBoolEnum result = cc_find_en_passant_target( cb, moving_from.piece, act_desc, encounter.pos, &en_passant );
         if ( result == CC_MBE_True ) {
@@ -112,7 +112,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     if ( !steps__t ) return false;
 
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
-    CcPieceType encounter = CC_PE_None;
+    CcPieceTagType encounter = CC_PTE_None;
     CcTagType tag = CC_TE_None;
 
     #define STEP_COUNT 1

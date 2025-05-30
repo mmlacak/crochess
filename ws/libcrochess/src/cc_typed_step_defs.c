@@ -538,7 +538,7 @@ bool cc_iter_monolith_steps( cc_uint_t step_index,
     return true;
 }
 
-bool cc_iter_piece_steps( CcPieceType piece,
+bool cc_iter_piece_steps( CcPieceTagType piece,
                           bool sideways_pawns,
                           bool short_step,
                           CcSerpentDiagonalEnum serpent_diagonal,
@@ -547,57 +547,57 @@ bool cc_iter_piece_steps( CcPieceType piece,
     if ( !step__iod ) return false;
 
     switch ( piece ) {
-        case CC_PE_DarkPawn :
+        case CC_PTE_DarkPawn :
             return sideways_pawns ? CC_ITER_DARK_SIDEWAYS_PAWN_STEPS( step__iod, filter__d )
                                   : CC_ITER_DARK_PAWN_STEPS( step__iod, filter__d );
 
-        case CC_PE_LightPawn :
+        case CC_PTE_LightPawn :
             return sideways_pawns ? CC_ITER_LIGHT_SIDEWAYS_PAWN_STEPS( step__iod, filter__d )
                                   : CC_ITER_LIGHT_PAWN_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkKnight :
-        case CC_PE_LightKnight : return CC_ITER_KNIGHT_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkKnight :
+        case CC_PTE_LightKnight : return CC_ITER_KNIGHT_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkBishop :
-        case CC_PE_LightBishop : return CC_ITER_BISHOP_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkBishop :
+        case CC_PTE_LightBishop : return CC_ITER_BISHOP_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkRook :
-        case CC_PE_LightRook : return CC_ITER_ROOK_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkRook :
+        case CC_PTE_LightRook : return CC_ITER_ROOK_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkQueen :
-        case CC_PE_LightQueen : return CC_ITER_QUEEN_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkQueen :
+        case CC_PTE_LightQueen : return CC_ITER_QUEEN_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkKing :
-        case CC_PE_LightKing : return CC_ITER_KING_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkKing :
+        case CC_PTE_LightKing : return CC_ITER_KING_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkPegasus :
-        case CC_PE_LightPegasus : return CC_ITER_PEGASUS_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkPegasus :
+        case CC_PTE_LightPegasus : return CC_ITER_PEGASUS_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkPyramid :
-        case CC_PE_LightPyramid : return CC_ITER_PYRAMID_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkPyramid :
+        case CC_PTE_LightPyramid : return CC_ITER_PYRAMID_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkUnicorn :
-        case CC_PE_LightUnicorn :
+        case CC_PTE_DarkUnicorn :
+        case CC_PTE_LightUnicorn :
             return short_step ? CC_ITER_UNICORN_SHORT_STEPS( step__iod, filter__d )
                               : CC_ITER_UNICORN_LONG_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkWave :
-        case CC_PE_LightWave : return false; // todo :: activator (?), new function (?)
+        case CC_PTE_DarkWave :
+        case CC_PTE_LightWave : return false; // todo :: activator (?), new function (?)
 
-        case CC_PE_DarkCentaur :
-        case CC_PE_LightCentaur :
+        case CC_PTE_DarkCentaur :
+        case CC_PTE_LightCentaur :
             return short_step ? CC_ITER_CENTAUR_SHORT_STEPS( step__iod, filter__d )
                               : CC_ITER_CENTAUR_LONG_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkScout : return CC_ITER_DARK_SCOUT_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkScout : return CC_ITER_DARK_SCOUT_STEPS( step__iod, filter__d );
 
-        case CC_PE_LightScout : return CC_ITER_LIGHT_SCOUT_STEPS( step__iod, filter__d );
+        case CC_PTE_LightScout : return CC_ITER_LIGHT_SCOUT_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkGrenadier :
-        case CC_PE_LightGrenadier : return CC_ITER_GRENADIER_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkGrenadier :
+        case CC_PTE_LightGrenadier : return CC_ITER_GRENADIER_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkSerpent :
-        case CC_PE_LightSerpent :
+        case CC_PTE_DarkSerpent :
+        case CC_PTE_LightSerpent :
             if ( serpent_diagonal == CC_SDE_RightDiagonal ) {
                 return CC_ITER_SERPENT_RIGHT_STEPS( step__iod, filter__d );
             } else if ( serpent_diagonal == CC_SDE_LeftDiagonal ) {
@@ -607,19 +607,19 @@ bool cc_iter_piece_steps( CcPieceType piece,
             } else
                 return false;
 
-        case CC_PE_DarkShaman : return CC_ITER_DARK_SHAMAN_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkShaman : return CC_ITER_DARK_SHAMAN_STEPS( step__iod, filter__d );
 
-        case CC_PE_LightShaman : return CC_ITER_LIGHT_SHAMAN_STEPS( step__iod, filter__d );
+        case CC_PTE_LightShaman : return CC_ITER_LIGHT_SHAMAN_STEPS( step__iod, filter__d );
 
-        case CC_PE_DarkStarchild :
-        case CC_PE_LightStarchild : return CC_ITER_STARCHILD_MIRACLE_STEPS( step__iod, filter__d );
+        case CC_PTE_DarkStarchild :
+        case CC_PTE_LightStarchild : return CC_ITER_STARCHILD_MIRACLE_STEPS( step__iod, filter__d );
 
-        case CC_PE_DimStar :
-        case CC_PE_BrightStar : return CC_ITER_STAR_STEPS( step__iod, filter__d );
+        case CC_PTE_DimStar :
+        case CC_PTE_BrightStar : return CC_ITER_STAR_STEPS( step__iod, filter__d );
 
-        case CC_PE_Monolith : return false; // Use cc_iter_monolith_steps() instead.
+        case CC_PTE_Monolith : return false; // Use cc_iter_monolith_steps() instead.
 
-        case CC_PE_None :
+        case CC_PTE_None :
         default : return false;
     }
 }

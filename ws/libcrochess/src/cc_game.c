@@ -72,7 +72,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 //
 //     CcPosDescLink * _pdl = pdl;
 //     CcPos pos = CC_POS_CAST_INVALID;
-//     CcPieceType pt = CC_PE_None;
+//     CcPieceTagType pt = CC_PTE_None;
 //     CcTagType tt = CC_TE_None;
 //
 //     while ( _pdl ) {
@@ -176,7 +176,7 @@ CcGame * cc_game_setup_from_string__new( char const * setup,
         char const * c = start;
 
         char piece_chr = *c++;
-        CcPieceType pe = cc_piece_from_char( piece_chr );
+        CcPieceTagType pe = cc_piece_from_char( piece_chr );
 
         char file_chr = *c++;
         int file = CC_CONVERT_FILE_CHAR_INTO_NUM( file_chr );

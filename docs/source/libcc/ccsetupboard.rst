@@ -17,47 +17,47 @@ board setup definitions and functions.
 Data
 ----
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ]
 
     Classical Chess setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_CROATIAN_TIES[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES ]
 
     Croatian Ties setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_MAYAN_ASCENDANCY[ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ][ CC_VARIANT_BOARD_SIZE_MAYAN_ASCENDANCY ]
 
     Mayan Ascendancy setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_AGE_OF_AQUARIUS[ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ][ CC_VARIANT_BOARD_SIZE_AGE_OF_AQUARIUS ]
 
     Age of Aquarius setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_MIRANDAS_VEIL[ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ][ CC_VARIANT_BOARD_SIZE_MIRANDAS_VEIL ]
 
     Miranda's Veil setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_NINETEEN[ CC_VARIANT_BOARD_SIZE_NINETEEN ][ CC_VARIANT_BOARD_SIZE_NINETEEN ]
 
     Nineteen setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_HEMERAS_DAWN[ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ][ CC_VARIANT_BOARD_SIZE_HEMERAS_DAWN ]
 
     Hemera's Dawn setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_TAMOANCHAN_REVISITED[ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ][ CC_VARIANT_BOARD_SIZE_TAMOANCHAN_REVISITED ]
 
     Tamoanchan Revisited setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_CONQUEST_OF_TLALOCAN[ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ][ CC_VARIANT_BOARD_SIZE_CONQUEST_OF_TLALOCAN ]
 
     Conquest of Tlalocan setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_DISCOVERY[ CC_VARIANT_BOARD_SIZE_DISCOVERY ][ CC_VARIANT_BOARD_SIZE_DISCOVERY ]
 
     Discovery setup.
 
-.. c:type:: CcPieceType const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ]
+.. c:type:: CcPieceTagType const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT_BOARD_SIZE_ONE ]
 
     One setup.
 
@@ -66,14 +66,14 @@ Data
 Functions
 ---------
 
-.. c:function:: CcPieceType const * cc_setup_board_get( CcVariantType ve )
+.. c:function:: CcPieceTagType const * cc_setup_board_get( CcVariantType ve )
 
     Function returning setup for a board, based on a given variant.
 
     :param ve: A variant.
     :returns: Pointer to setup if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_setup_board_has_piece( CcVariantType ve, CcPieceType pe )
+.. c:function:: bool cc_setup_board_has_piece( CcVariantType ve, CcPieceTagType pe )
 
     Function checks if piece is present in an initial setup of a chessboard
     for a given variant.

@@ -7,42 +7,26 @@
 //
 // Tag enum
 
-char cc_tag_as_char( CcTagType ct ) {
-    switch ( ct ) {
-        case CC_TE_None : return CC_TAG_CHAR_NONE;
-
-        case CC_TE_CanRush : return CC_TAG_CHAR_CAN_RUSH;
-        case CC_TE_CanCastle : return CC_TAG_CHAR_CAN_CASTLE;
-        case CC_TE_DelayedPromotion : return CC_TAG_CHAR_DELAYED_PROMOTION;
-
-        case CC_TE_EnPassant_Previous : return CC_TAG_CHAR_EN_PASSANT_PREVIOUS;
-        case CC_TE_EnPassant_Current : return CC_TAG_CHAR_EN_PASSANT_CURRENT;
-
-        default : return CC_TAG_CHAR_INVALID;
-    }
+char cc_tag_as_char( CcPieceTagType ptt ) {
+    if ( ptt == CC_PTE_None ) return CC_TAG_CHAR_NONE;
+    else if ( CC_TAG_IS_CAN_RUSH( ptt ) ) return CC_TAG_CHAR_CAN_RUSH;
+    else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_TAG_CHAR_CAN_CASTLE;
+    else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_TAG_CHAR_DELAYED_PROMOTION;
+    else if ( CC_TAG_IS_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_EN_PASSANT_PREVIOUS;
+    else if ( CC_TAG_IS_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_EN_PASSANT_CURRENT;
+    else return CC_TAG_CHAR_INVALID;
 }
 
-CcTagType cc_tag_from_char( char c ) {
-    switch ( c ) {
-        case CC_TAG_CHAR_NONE : return CC_TE_None;
-
-        case CC_TAG_CHAR_CAN_RUSH : return CC_TE_CanRush;
-        case CC_TAG_CHAR_CAN_CASTLE : return CC_TE_CanCastle;
-        case CC_TAG_CHAR_DELAYED_PROMOTION : return CC_TE_DelayedPromotion;
-
-        case CC_TAG_CHAR_EN_PASSANT_PREVIOUS : return CC_TE_EnPassant_Previous;
-        case CC_TAG_CHAR_EN_PASSANT_CURRENT : return CC_TE_EnPassant_Current;
-
-        default : return CC_TE_None;
-    }
+CcPieceTagType cc_tag_from_char( char c ) { // TODO :: add CcPieceTagType ptt
+    return CC_PTE_None; // TODO :: FIX
 }
 
-bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 ) {
-    if ( !CC_TAG_IS_ENUMERATOR( ct_1 ) ) return false;
-    if ( !CC_TAG_IS_ENUMERATOR( ct_2 ) ) return false;
+bool cc_tag_is_congruent( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) { // TODO :: FIX
+    if ( !CC_TAG_IS_ENUMERATOR( ptt_1 ) ) return false;
+    if ( !CC_TAG_IS_ENUMERATOR( ptt_2 ) ) return false;
 
-    if ( ct_1 != ct_2 )
-        return ( ( ct_1 == CC_TE_None ) || ( ct_2 == CC_TE_None ) );
+    if ( ptt_1 != ptt_2 )
+        return ( ( ptt_1 == CC_TE_None ) || ( ptt_2 == CC_TE_None ) );
 
     return true;
 }

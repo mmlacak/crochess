@@ -118,7 +118,7 @@ Data
 
         Type of link, of this ply, related to previous ply in a cascade.
 
-    .. c:member:: CcPieceType piece
+    .. c:member:: CcPieceTagType piece
 
         A piece being moved.
 
@@ -212,7 +212,7 @@ Functions
     :param plte: A ply linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__d_n )
+.. c:function:: CcPly * cc_ply__new( CcPlyLinkTypeEnum link, CcPieceTagType piece, CcLosingTagType lost_tag, CcStep ** steps__d_n )
 
     Function returns newly allocated ply.
 
@@ -225,7 +225,7 @@ Functions
     :param steps__d_n: **Ownership transfer**, *optional*; steps, linked list, inner pointer can be :c:data:`NULL`.
     :returns: A newly allocated ply if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPly * cc_ply_append( CcPly ** plies__iod_a, CcPlyLinkTypeEnum link, CcPieceType piece, CcLosingTagType lost_tag, CcStep ** steps__d_n )
+.. c:function:: CcPly * cc_ply_append( CcPly ** plies__iod_a, CcPlyLinkTypeEnum link, CcPieceTagType piece, CcLosingTagType lost_tag, CcStep ** steps__d_n )
 
     Appends a newly allocated ply to a given linked list.
 
@@ -292,7 +292,7 @@ Functions
     :param ply: A ply.
     :returns: :c:data:`true` if any step has side-effects, :c:data:`false` otherwise.
 
-.. c:function:: CcPieceType cc_ply_find_activator( CcPly * plies, CcPly * ply__d )
+.. c:function:: CcPieceTagType cc_ply_find_activator( CcPly * plies, CcPly * ply__d )
 
     Function finds :term:`activator` in a given linked list of plies.
 
@@ -302,11 +302,11 @@ Functions
     .. note::
 
         If a ply is specified, but does not belong to a given linked list of
-        plies, :c:enumerator:`CC_PE_None` is returned instead, indicating failure.
+        plies, :c:enumerator:`CC_PTE_None` is returned instead, indicating failure.
 
     :param plies: A linked list of plies.
     :param ply__d: *Optional*; a ply within given linked list, can be :c:data:`NULL`.
-    :returns: :term:`Activator` if successful, :c:enumerator:`CC_PE_None` otherwise.
+    :returns: :term:`Activator` if successful, :c:enumerator:`CC_PTE_None` otherwise.
 
 .. c:function:: char * cc_ply_all_to_string__new( CcPly * plies )
 

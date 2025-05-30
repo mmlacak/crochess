@@ -29,7 +29,7 @@ char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum sete ) {
     }
 }
 
-CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceType piece,
+CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceTagType piece,
                                                     CcSideEffectTypeEnum sete ) {
     if ( sete == CC_SETE_None ) return CC_MBE_False;
 
@@ -52,20 +52,20 @@ CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceType piece,
 
 
 CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
-                             CcPieceType piece,
+                             CcPieceTagType piece,
                              CcLosingTagType lost_tag,
                              CcPos start,
                              CcPos destination,
-                             CcPieceType promoted_to ) {
+                             CcPieceTagType promoted_to ) {
     CcSideEffect sse = { .type = type, };
 
     // Nothing more to do if type == CC_SETE_None.
     if ( sse.type == CC_SETE_Capture ) {
         sse.capture.piece = piece;
-        sse.capture.lost_tag = lost_tag;
+        // sse.capture.lost_tag = lost_tag; // TODO :: DELETE
     } else if ( sse.type == CC_SETE_Displacement ) {
         sse.displacement.piece = piece;
-        sse.displacement.lost_tag = lost_tag;
+        // sse.displacement.lost_tag = lost_tag; // TODO :: DELETE
         sse.displacement.destination = destination;
     } else if ( sse.type == CC_SETE_EnPassant ) {
         sse.en_passant.pawn = piece;
@@ -76,14 +76,14 @@ CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
         sse.castle.destination = destination;
     } else if ( sse.type == CC_SETE_Promotion ) {
         sse.promote.captured = piece;
-        sse.promote.lost_tag = lost_tag;
+        // sse.promote.lost_tag = lost_tag; // TODO :: DELETE
         sse.promote.promoted_to = promoted_to;
     } else if ( sse.type == CC_SETE_TagForPromotion ) {
         sse.tag_for_promotion.captured = piece;
-        sse.tag_for_promotion.lost_tag = lost_tag;
+        // sse.tag_for_promotion.lost_tag = lost_tag; // TODO :: DELETE
     } else if ( sse.type == CC_SETE_Conversion ) {
         sse.convert.piece = piece;
-        sse.convert.lost_tag = lost_tag;
+        // sse.convert.lost_tag = lost_tag; // TODO :: DELETE
     // Nothing more to do if type == CC_SETE_FailedConversion.
     } else if ( sse.type == CC_SETE_Transparency ) {
         sse.transparency.piece = piece;
@@ -102,17 +102,17 @@ CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
     return sse;
 }
 
-CcPieceType cc_side_effect_piece( CcSideEffect se ) {
+CcPieceTagType cc_side_effect_piece( CcSideEffect se ) {
     switch ( se.type ) {
-        case CC_SETE_None : return CC_PE_None;
+        case CC_SETE_None : return CC_PTE_None;
         case CC_SETE_Capture : return se.capture.piece;
         case CC_SETE_Displacement : return se.displacement.piece;
         case CC_SETE_EnPassant : return se.en_passant.pawn;
         case CC_SETE_Castle : return se.castle.rook;
         case CC_SETE_Promotion : return se.promote.promoted_to;
-        case CC_SETE_TagForPromotion : return CC_PE_None;
+        case CC_SETE_TagForPromotion : return CC_PTE_None;
         case CC_SETE_Conversion : return se.convert.piece;
-        case CC_SETE_FailedConversion : return CC_PE_None;
+        case CC_SETE_FailedConversion : return CC_PTE_None;
         case CC_SETE_Transparency : return se.transparency.piece;
         case CC_SETE_Divergence : return se.diversion.piece;
         case CC_SETE_DemoteToPawn : return se.demote.piece;
@@ -121,9 +121,9 @@ CcPieceType cc_side_effect_piece( CcSideEffect se ) {
         case CC_SETE_ResurrectingOpponent :
             return se.resurrect.piece;
 
-        case CC_SETE_FailedResurrection : return CC_PE_None;
+        case CC_SETE_FailedResurrection : return CC_PTE_None;
 
-        default : return CC_PE_None;
+        default : return CC_PTE_None;
     }
 }
 
@@ -170,15 +170,15 @@ bool cc_side_effect_to_str( CcSideEffect se,
     char * se_p = (char *)(se_str__o);
     size_t copied = 0;
 
-    CcPieceType captured = CC_PE_None;
+    CcPieceTagType captured = CC_PTE_None;
     CcLosingTagType ltt = CC_LTE_NoneLost;
 
     if ( se.type == CC_SETE_Promotion ) {
         captured = se.promote.captured;
-        ltt = se.promote.lost_tag;
+        // ltt = se.promote.lost_tag; // TODO :: FIX
     } else if ( se.type == CC_SETE_TagForPromotion ) {
         captured = se.tag_for_promotion.captured;
-        ltt = se.tag_for_promotion.lost_tag;
+        // ltt = se.tag_for_promotion.lost_tag; // TODO :: FIX
     }
 
     if ( !CC_PIECE_IS_NONE( captured ) ) {
@@ -202,7 +202,7 @@ bool cc_side_effect_to_str( CcSideEffect se,
     if ( copied != see_str_len ) return false;
     se_p += copied;
 
-    CcPieceType pe = cc_side_effect_piece( se );
+    CcPieceTagType pe = cc_side_effect_piece( se );
     char piece = cc_piece_symbol( pe );
     *se_p++ = piece;
 
@@ -223,101 +223,101 @@ bool cc_side_effect_to_str( CcSideEffect se,
 // conveniences
 
 CcSideEffect cc_side_effect_none( void ) {
-    return cc_side_effect( CC_SETE_None, CC_PE_None, CC_LTE_NoneLost,
+    return cc_side_effect( CC_SETE_None, CC_PTE_None, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_capture( CcPieceType piece, CcLosingTagType lost_tag ) {
+CcSideEffect cc_side_effect_capture( CcPieceTagType piece, CcLosingTagType lost_tag ) {
     return cc_side_effect( CC_SETE_Capture, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_displacement( CcPieceType piece, CcLosingTagType lost_tag, CcPos destination ) {
+CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos destination ) {
     return cc_side_effect( CC_SETE_Displacement, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            destination,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_en_passant( CcPieceType pawn, CcPos distant ) {
+CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant ) {
     return cc_side_effect( CC_SETE_EnPassant, pawn, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            distant,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_castle( CcPieceType rook, CcPos start, CcPos destination ) {
+CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination ) {
     return cc_side_effect( CC_SETE_Castle, rook, CC_LTE_NoneLost,
                            start,
                            destination,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_promote( CcPieceType captured, CcLosingTagType lost_tag, CcPieceType promoted_to ) {
+CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcLosingTagType lost_tag, CcPieceTagType promoted_to ) {
     return cc_side_effect( CC_SETE_Promotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            promoted_to );
 }
 
-CcSideEffect cc_side_effect_tag_for_promotion( CcPieceType captured, CcLosingTagType lost_tag ) {
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured, CcLosingTagType lost_tag ) {
     return cc_side_effect( CC_SETE_TagForPromotion, captured, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_convert( CcPieceType piece, CcLosingTagType lost_tag ) {
+CcSideEffect cc_side_effect_convert( CcPieceTagType piece, CcLosingTagType lost_tag ) {
     return cc_side_effect( CC_SETE_Conversion, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
 CcSideEffect cc_side_effect_failed_conversion( void ) {
-    return cc_side_effect( CC_SETE_FailedConversion, CC_PE_None, CC_LTE_NoneLost,
+    return cc_side_effect( CC_SETE_FailedConversion, CC_PTE_None, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_transparency( CcPieceType piece ) {
+CcSideEffect cc_side_effect_transparency( CcPieceTagType piece ) {
     return cc_side_effect( CC_SETE_Transparency, piece, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_diversion( CcPieceType piece ) {
+CcSideEffect cc_side_effect_diversion( CcPieceTagType piece ) {
     return cc_side_effect( CC_SETE_Divergence, piece, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_demote( CcPieceType piece, CcLosingTagType lost_tag, CcPos distant ) {
+CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos distant ) {
     return cc_side_effect( CC_SETE_DemoteToPawn, piece, lost_tag,
                            CC_POS_CAST_INVALID,
                            distant,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_resurrect( CcPieceType piece, CcPos destination ) {
+CcSideEffect cc_side_effect_resurrect( CcPieceTagType piece, CcPos destination ) {
     return cc_side_effect( CC_SETE_Resurrection, piece, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            destination,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
 CcSideEffect cc_side_effect_failed_resurrection( void ) {
-    return cc_side_effect( CC_SETE_FailedResurrection, CC_PE_None, CC_LTE_NoneLost,
+    return cc_side_effect( CC_SETE_FailedResurrection, CC_PTE_None, CC_LTE_NoneLost,
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
-                           CC_PE_None );
+                           CC_PTE_None );
 }
 
 

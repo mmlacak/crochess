@@ -19,7 +19,7 @@
 //     CcPos field = cc_pos_add_steps( current_pos, step.step, 1 );
 //     CcStep * steps__t = NULL;
 //
-//     CcPieceType piece = CC_PE_None;
+//     CcPieceTagType piece = CC_PTE_None;
 //     CcTagType tag = CC_TE_None;
 //     CcActivationDesc ad = act_desc;
 //     CcStep * step__w = NULL;
@@ -40,8 +40,8 @@
 //             return NULL;
 //         }
 //
-//         CcPieceType encounter = cc_chessboard_get_piece( path_ctx->game__w->chessboard, field.i, field.j );
-//         if ( encounter != CC_PE_None ) break; // Caller checks all possible interactions, including transparency; removes field of encounter if there are none.
+//         CcPieceTagType encounter = cc_chessboard_get_piece( path_ctx->game__w->chessboard, field.i, field.j );
+//         if ( encounter != CC_PTE_None ) break; // Caller checks all possible interactions, including transparency; removes field of encounter if there are none.
 //
 //         field = cc_pos_add_steps( field, step.step, 1 );
 //     }
@@ -67,12 +67,12 @@
 //                                             CcTypedStep step ) {
 //     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( side_effect.type ) ) {
 //         // Side-effect is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-//         CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
+//         CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PTE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
 //         return terminal__a;
 //     } else if ( side_effect.type == CC_SETE_Capture ) {
 //         if ( !CC_PIECE_IS_SHAMAN( moving.piece ) ) {
 //             // Capturing for pieces other than Shaman is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-//             CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
+//             CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PTE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
 //             return capture__a;
 //         }
 //     }
@@ -96,7 +96,7 @@
 //
 //     // TODO :: if !is_blocked --> transparency
 //
-//     // if ( ( encounter.piece == CC_PE_None ) ||
+//     // if ( ( encounter.piece == CC_PTE_None ) ||
 //     //         ( !cc_check_piece_is_blocked_at( path_ctx->game__w->chessboard, moving.piece, last ) ) ) {
 //     //     step__w = cc_pos_link_append( &steps__t, last );
 //     //     if ( !step__w ) {
@@ -106,14 +106,14 @@
 //     // } else
 //     //     break;
 //
-//     if ( encounter.piece != CC_PE_None ) {
+//     if ( encounter.piece != CC_PTE_None ) {
 //         // TODO :: check if pieces can interact
 //
 //         if ( cc_check_piece_can_capture_at( path_ctx->game__w->chessboard, moving.piece, last ) ) {
 //
 //         }
 //
-//         if ( cc_check_piece_can_diverge_at( path_ctx->game__w->chessboard, moving.piece, ad.momentum, CC_PE_None, last ) ) {
+//         if ( cc_check_piece_can_diverge_at( path_ctx->game__w->chessboard, moving.piece, ad.momentum, CC_PTE_None, last ) ) {
 //
 //         }
 //

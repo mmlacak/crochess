@@ -1027,7 +1027,7 @@ Step iterators
     :param step__io: *Input/output*; iteration step.
     :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_iter_piece_steps( CcPieceType piece, bool sideways_pawns, bool short_step, CcMaybeBoolEnum serpent_diagonal, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
+.. c:function:: bool cc_iter_piece_steps( CcPieceTagType piece, bool sideways_pawns, bool short_step, CcMaybeBoolEnum serpent_diagonal, CcStepTypeEnum filter__d, CcTypedStep const ** step__iod )
 
     Function iterates over steps a given piece can make.
 

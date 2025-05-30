@@ -34,29 +34,29 @@ Validity
 
 .. c:macro:: CC_PIECE_IS_ENUMERATOR(pe)
 
-    Macro to check if given piece is :c:type:`CcPieceType` enumerator, i.e. between
-    :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith` values.
+    Macro to check if given piece is :c:type:`CcPieceTagType` enumerator, i.e. between
+    :c:enumerator:`CC_PTE_DimStar` and :c:enumerator:`CC_PTE_Monolith` values.
 
     :param pe: A piece, integer value.
-    :returns: :c:data:`true` if :c:type:`CcPieceType` enumerator,
+    :returns: :c:data:`true` if :c:type:`CcPieceTagType` enumerator,
               :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_VALID(pe)
 
-    Macro to check if given piece is a valid :c:type:`CcPieceType` enumerator,
-    i.e. between :c:enumerator:`CC_PE_DimStar` and :c:enumerator:`CC_PE_Monolith`
-    values, but not :c:enumerator:`CC_PE_None`.
+    Macro to check if given piece is a valid :c:type:`CcPieceTagType` enumerator,
+    i.e. between :c:enumerator:`CC_PTE_DimStar` and :c:enumerator:`CC_PTE_Monolith`
+    values, but not :c:enumerator:`CC_PTE_None`.
 
     :param pe: A piece, integer value.
-    :returns: :c:data:`true` if valid :c:type:`CcPieceType` enumerator,
+    :returns: :c:data:`true` if valid :c:type:`CcPieceTagType` enumerator,
               :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_NONE(pe)
 
-    Macro to check if given piece is :c:enumerator:`CC_PE_None`.
+    Macro to check if given piece is :c:enumerator:`CC_PTE_None`.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
-    :returns: :c:data:`true` if piece is :c:enumerator:`CC_PE_None`, :c:data:`false` otherwise.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is :c:enumerator:`CC_PTE_None`, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpiece-values:
 
@@ -67,147 +67,147 @@ Values
 
     Macro to check if given piece is a Pawn.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Pawn, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_KNIGHT(pe)
 
     Macro to check if given piece is a Knight.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Knight, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_BISHOP(pe)
 
     Macro to check if given piece is a Bishop.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Bishop, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_ROOK(pe)
 
     Macro to check if given piece is a Rook.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Rook, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_QUEEN(pe)
 
     Macro to check if given piece is a Queen.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Queen, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_KING(pe)
 
     Macro to check if given piece is a King.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a King, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_PEGASUS(pe)
 
     Macro to check if given piece is a Pegasus.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Pegasus, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_PYRAMID(pe)
 
     Macro to check if given piece is a Pyramid.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Pyramid, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_UNICORN(pe)
 
     Macro to check if given piece is a Unicorn.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Unicorn, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_WAVE(pe)
 
     Macro to check if given piece is a Wave.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Wave, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_STAR(pe)
 
     Macro to check if given piece is a Star.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Star, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_CENTAUR(pe)
 
     Macro to check if given piece is a Centaur.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Centaur, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SCOUT(pe)
 
     Macro to check if given piece is a Scout.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Scout, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_GRENADIER(pe)
 
     Macro to check if given piece is a Grenadier.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Grenadier, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SERPENT(pe)
 
     Macro to check if given piece is a Serpent.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Serpent, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SHAMAN(pe)
 
     Macro to check if given piece is a Shaman.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Shaman, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_MONOLITH(pe)
 
     Macro to check if given piece is a Monolith.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Monolith, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_STARCHILD(pe)
 
     Macro to check if given piece is a Starchild.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Starchild, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_TROOPER(pe)
 
     Macro to check if given piece is a trooper, i.e. Scout or Grenadier.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a trooper, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_PRIVATE(pe)
 
     Macro to check if given piece is a private, i.e. Pawn, Scout, or Grenadier.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a private, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_MATERIAL(pe)
 
     Macro to check if given piece is a valid material piece, i.e. not Wave.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is material, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_CELESTIAL(pe)
@@ -215,7 +215,7 @@ Values
     Macro to check if given piece is a valid celestial piece, i.e. a Star,
     Starchild or Monolith.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is celestial, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccpiece-features:
@@ -227,98 +227,98 @@ Features
 
     Macro to check if given piece has owner, i.e. if it's light or dark piece.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece has owner, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_ACTIVATOR(pe)
 
     Macro to check if given piece is :term:`activator`.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is :term:`activator`, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_ACTIVATE(pe)
 
     Macro to check if given piece can activate other piece.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can activate other piece, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_ACTIVATE_STAR(pe)
 
     Macro to check if given piece can activate a Star.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can activate a Star, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_CAPTURE(pe)
 
     Macro to check if given piece can capture opponent's pieces.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can capture, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_CAPTURE_EN_PASSANT(pe)
 
     Macro to check if given piece can capture opponent's :term:`private`\s en passant.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can capture en passant, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT(pe)
 
     Macro to check if given piece can be captured en passant.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be captured en passant, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_PASIVE(pe)
 
     Macro to check if given piece is passive.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is passive, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_ACTIVE(pe)
 
     Macro to check if given piece is active.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is active, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_WEIGHTLESS(pe)
 
     Macro to check if given piece is a :term:`weightless piece`.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is weightless, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_ACTIVATED(pe)
 
     Macro to check if given piece can be actived.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be actived, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_CAPTURED(pe)
 
     Macro to check if given piece can be captured.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be captured, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PAWN_CAN_BE_PROMOTED_TO(pe)
 
     Macro to check if Pawn can be promoted to a given piece.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be promoted to, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_CASTLE(pe)
 
     Macro to check if a given piece can be castle, i.e. if it's Rook or a King.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can castle, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_DISPLACE(pe)
@@ -328,7 +328,7 @@ Features
     Displacement checked here refers to one during normal ply, and not in
     trance-journey.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can displace Pawns, :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY()`
 
@@ -340,14 +340,14 @@ Features
     Displacement checked here refers to one during normal ply, and not in
     trance-journey.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be promoted to, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY(pe)
 
     Macro to check if a given piece can be displaced during trance-journey.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be displaced, :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_PIECE_CAN_DISPLACE()`
 
@@ -356,35 +356,35 @@ Features
     Macro to check if given piece can be converted, i.e. if piece can
     change its owner.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be converted, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_DEMOTED(pe)
 
     Macro to check if given piece can be demoted to a Pawn.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be demoted, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_RESURRECTED(pe)
 
     Macro to check if given piece can be resurrected.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be resurrected, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_TELEPORTER(pe)
 
     Macro to check if given piece can teleport other pieces.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can teleport other pieces, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_TELEPORTED(pe)
 
     Macro to check if given piece can be teleported.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be teleported, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_COMPLETELY_TRANSPARENT(pe)
@@ -392,21 +392,21 @@ Features
     Macro to check if given piece is completely transparent to other pieces,
     including to Monolith.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is completely transparent, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_TRANSPARENT(pe)
 
     Macro to check if given piece is transparent to any other semi-transparent piece.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is transparent, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SEMI_TRANSPARENT(pe)
 
     Macro to check if given piece is transparent to Wave.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is transparent to Wave, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SEMI_OPAQUE(pe)
@@ -414,21 +414,21 @@ Features
     Macro to check if given piece is transparent to Wave, but
     not transparent to other semi-transparent (non-Wave) pieces.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is semi-opaque, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_OPAQUE(pe)
 
     Macro to check if given piece is opaque.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is opaque, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_DIVERGENT(pe)
 
     Macro to check if given piece is divergent, i.e. can be diverged from.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is divergent, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_DIVERGED(pe)
@@ -446,7 +446,7 @@ Features
         For instance, Rook normally can diverge, except if it has no momentum
         when it encounters own Shaman.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be diverged, :c:data:`false` otherwise.
 
 .. c:macro:: CC_WAVE_CAN_BE_DIVERGED(activator)
@@ -457,14 +457,14 @@ Features
 
         Wave can be diverged only if it's not activated by Unicorn, Centaur, or Serpent.
 
-    :param activator: An :term:`activator`, :c:type:`CcPieceType` value.
+    :param activator: An :term:`activator`, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if Wave can be diverged, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SINGLE_STEP(pe)
 
     Macro to check if given piece has a single step, i.e. Knight.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can make a single step in a ply,
               :c:data:`false` otherwise.
 
@@ -472,7 +472,7 @@ Features
 
     Macro to check if given piece moves in one step, i.e. Bishop.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can choose one step in a ply,
               :c:data:`false` otherwise.
 
@@ -480,7 +480,7 @@ Features
 
     Macro to check if given piece moves in two alternating steps, i.e. Centaur.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece has two alternating steps,
               :c:data:`false` otherwise.
 
@@ -489,7 +489,7 @@ Features
     Macro to check if Wave moves in two alternating steps, which depends on
     :term:`activator`, i.e. if Wave is activated by Unicorn, Centaur, or Serpent.
 
-    :param activator: An :term:`activator`, :c:type:`CcPieceType` value.
+    :param activator: An :term:`activator`, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece changes has two alternating steps,
               :c:data:`false` otherwise.
 
@@ -497,7 +497,7 @@ Features
 
     Macro to check if given piece can change its direction after each step.
 
-    :param pe: A piece, :c:type:`CcPieceType` value.
+    :param pe: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can change its direction after each step,
               :c:data:`false` otherwise.
 
@@ -511,76 +511,76 @@ Light pieces belong to light player, dark pieces to dark player.
 Dim, bright, and pieces with no color designation (i.e. Stars,
 Monoliths) do not belong to any player.
 
-.. c:enum:: CcPieceEnum
+.. c:enum:: CcPieceTagEnum
 
     Enumerates all pieces, used in all variants.
 
-    .. c:enumerator:: CC_PE_DimStar
+    .. c:enumerator:: CC_PTE_DimStar
 
         Equals to :c:`-17`.
 
-    .. c:enumerator:: CC_PE_DarkStarchild
-    .. c:enumerator:: CC_PE_DarkShaman
-    .. c:enumerator:: CC_PE_DarkSerpent
-    .. c:enumerator:: CC_PE_DarkGrenadier
-    .. c:enumerator:: CC_PE_DarkScout
-    .. c:enumerator:: CC_PE_DarkCentaur
-    .. c:enumerator:: CC_PE_DarkWave
-    .. c:enumerator:: CC_PE_DarkUnicorn
-    .. c:enumerator:: CC_PE_DarkPyramid
-    .. c:enumerator:: CC_PE_DarkPegasus
-    .. c:enumerator:: CC_PE_DarkKing
-    .. c:enumerator:: CC_PE_DarkQueen
-    .. c:enumerator:: CC_PE_DarkRook
-    .. c:enumerator:: CC_PE_DarkBishop
-    .. c:enumerator:: CC_PE_DarkKnight
-    .. c:enumerator:: CC_PE_DarkPawn
+    .. c:enumerator:: CC_PTE_DarkStarchild
+    .. c:enumerator:: CC_PTE_DarkShaman
+    .. c:enumerator:: CC_PTE_DarkSerpent
+    .. c:enumerator:: CC_PTE_DarkGrenadier
+    .. c:enumerator:: CC_PTE_DarkScout
+    .. c:enumerator:: CC_PTE_DarkCentaur
+    .. c:enumerator:: CC_PTE_DarkWave
+    .. c:enumerator:: CC_PTE_DarkUnicorn
+    .. c:enumerator:: CC_PTE_DarkPyramid
+    .. c:enumerator:: CC_PTE_DarkPegasus
+    .. c:enumerator:: CC_PTE_DarkKing
+    .. c:enumerator:: CC_PTE_DarkQueen
+    .. c:enumerator:: CC_PTE_DarkRook
+    .. c:enumerator:: CC_PTE_DarkBishop
+    .. c:enumerator:: CC_PTE_DarkKnight
+    .. c:enumerator:: CC_PTE_DarkPawn
 
-    .. c:enumerator:: CC_PE_None
+    .. c:enumerator:: CC_PTE_None
 
         No piece present, equals to ``0``.
         Used for e.g. empty on-board fields, any off-board field.
 
-    .. c:enumerator:: CC_PE_LightPawn
-    .. c:enumerator:: CC_PE_LightKnight
-    .. c:enumerator:: CC_PE_LightBishop
-    .. c:enumerator:: CC_PE_LightRook
-    .. c:enumerator:: CC_PE_LightQueen
-    .. c:enumerator:: CC_PE_LightKing
-    .. c:enumerator:: CC_PE_LightPegasus
-    .. c:enumerator:: CC_PE_LightPyramid
-    .. c:enumerator:: CC_PE_LightUnicorn
-    .. c:enumerator:: CC_PE_LightWave
-    .. c:enumerator:: CC_PE_LightCentaur
-    .. c:enumerator:: CC_PE_LightScout
-    .. c:enumerator:: CC_PE_LightGrenadier
-    .. c:enumerator:: CC_PE_LightSerpent
-    .. c:enumerator:: CC_PE_LightShaman
-    .. c:enumerator:: CC_PE_LightStarchild
+    .. c:enumerator:: CC_PTE_LightPawn
+    .. c:enumerator:: CC_PTE_LightKnight
+    .. c:enumerator:: CC_PTE_LightBishop
+    .. c:enumerator:: CC_PTE_LightRook
+    .. c:enumerator:: CC_PTE_LightQueen
+    .. c:enumerator:: CC_PTE_LightKing
+    .. c:enumerator:: CC_PTE_LightPegasus
+    .. c:enumerator:: CC_PTE_LightPyramid
+    .. c:enumerator:: CC_PTE_LightUnicorn
+    .. c:enumerator:: CC_PTE_LightWave
+    .. c:enumerator:: CC_PTE_LightCentaur
+    .. c:enumerator:: CC_PTE_LightScout
+    .. c:enumerator:: CC_PTE_LightGrenadier
+    .. c:enumerator:: CC_PTE_LightSerpent
+    .. c:enumerator:: CC_PTE_LightShaman
+    .. c:enumerator:: CC_PTE_LightStarchild
 
-    .. c:enumerator:: CC_PE_BrightStar
+    .. c:enumerator:: CC_PTE_BrightStar
 
         Equals to ``17``.
 
-    .. c:enumerator:: CC_PE_Monolith
+    .. c:enumerator:: CC_PTE_Monolith
 
-    :c:`enum` is tagged with the same :c:enum:`CcPieceEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcPieceTagEnum` name.
 
-.. c:type:: signed char CcPieceType
+.. c:type:: signed char CcPieceTagType
 
     Actual storage type, as used in :c:struct:`CcChessboard` :c:member:`board`;
-    contains only enumerations from :c:enum:`CcPieceEnum`.
+    contains only enumerations from :c:enum:`CcPieceTagEnum`.
 
 .. _lbl-libcc-ccpiece-interfaces:
 
 Interfaces
 ----------
 
-.. c:type:: char (*cc_piece_fp_char_value_t)( CcPieceType pe )
+.. c:type:: char (*cc_piece_fp_char_value_t)( CcPieceTagType pe )
 
     Function interface, i.e. function pointer type.
 
-    :param pe: :c:type:`CcPieceType` value.
+    :param pe: :c:type:`CcPieceTagType` value.
     :returns: Char, either a piece symbol, or a piece char.
 
 .. _lbl-libcc-ccpiece-functions:
@@ -588,13 +588,13 @@ Interfaces
 Functions
 ---------
 
-.. c:function:: CcPieceType cc_piece_from_symbol( char symbol, bool is_light )
+.. c:function:: CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light )
 
     Function returning chess piece, based on a piece symbol, and a flag.
 
     :param symbol: Piece symbol, uppercase char. It is taken verbatim, i.e. not converted to uppercase char.
     :param is_light: Whether piece is light/bright (:c:data:`true`), or dark/dim (:c:data:`false`).
-    :returns: Piece enum if valid piece symbol passed, otherwise :c:enumerator:`CC_PE_None`.
+    :returns: Piece enum if valid piece symbol passed, otherwise :c:enumerator:`CC_PTE_None`.
 
 .. c:function:: bool cc_piece_symbol_is_valid( char c )
 
@@ -603,7 +603,7 @@ Functions
     :param c: A character.
     :returns: :c:data:`true` if given character is a valid chess piece symbol, :c:data:`false` otherwise.
 
-.. c:function:: CcPieceType cc_piece_opposite( CcPieceType pe )
+.. c:function:: CcPieceTagType cc_piece_opposite( CcPieceTagType pe )
 
     Function returning piece in opposite color (owner) to given piece.
 
@@ -615,7 +615,7 @@ Functions
     :param pe: A piece.
     :returns: A given piece converted to its opposite color.
 
-.. c:function:: char cc_piece_as_char( CcPieceType pe )
+.. c:function:: char cc_piece_as_char( CcPieceTagType pe )
 
     Function returning piece char, based on piece enum.
 
@@ -624,14 +624,14 @@ Functions
 
     Monoliths are always returned uppercase.
 
-    If there is no piece (i.e. :c:enumerator:`CC_PE_None` was given) space is returned.
+    If there is no piece (i.e. :c:enumerator:`CC_PTE_None` was given) space is returned.
 
     In case no valid piece enum was given, question mark (:c:`'?'`) is returned.
 
     :param pe: A piece.
     :returns: A piece character.
 
-.. c:function:: CcPieceType cc_piece_from_char( char piece )
+.. c:function:: CcPieceTagType cc_piece_from_char( char piece )
 
     Function returning chess piece, based on a piece character.
 
@@ -639,12 +639,12 @@ Functions
 
     Monolith is returned only for uppercase ``'M'`` :c:`char`.
 
-    Space, unrecognized characters all yield :c:enumerator:`CC_PE_None`.
+    Space, unrecognized characters all yield :c:enumerator:`CC_PTE_None`.
 
     :param piece: A character.
-    :returns: Piece enum if valid piece char passed, otherwise :c:enumerator:`CC_PE_None`.
+    :returns: Piece enum if valid piece char passed, otherwise :c:enumerator:`CC_PTE_None`.
 
-.. c:function:: char const * cc_piece_label( CcPieceType pe, bool capitalize, bool empty_field )
+.. c:function:: char const * cc_piece_label( CcPieceTagType pe, bool capitalize, bool empty_field )
 
     Function returns a piece label.
 
@@ -652,7 +652,7 @@ Functions
 
     Piece label is the same for dark (dim) and light (bright) pieces.
 
-    For :c:enumerator:`CC_PE_None` piece, label depends on :c:var:`capitalize`
+    For :c:enumerator:`CC_PTE_None` piece, label depends on :c:var:`capitalize`
     and :c:var:`empty_field` flags.
 
     All returned strings are null-terminated.
@@ -663,11 +663,11 @@ Functions
 
     :param pe: A piece.
     :param capitalize: Flag, whether to return capitalized string; affects only
-        :c:enumerator:`CC_PE_None` piece, i.e. empty field.
+        :c:enumerator:`CC_PTE_None` piece, i.e. empty field.
     :param empty_field: Flag, whether to return :c:`"empty field"`, or empty string.
     :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_VALUE_STRING` otherwise.
 
-.. c:function:: char cc_piece_symbol( CcPieceType pe )
+.. c:function:: char cc_piece_symbol( CcPieceTagType pe )
 
     Function returns a piece symbol, i.e. an uppercase :c:`char` for chess pieces.
 
@@ -675,63 +675,63 @@ Functions
     :returns: A piece symbol if chess piece, space otherwise.
     :seealso: :c:func:`cc_piece_as_char()`
 
-.. c:function:: CcPieceType cc_piece_demoting_to( CcPieceType pe )
+.. c:function:: CcPieceTagType cc_piece_demoting_to( CcPieceTagType pe )
 
     Function returns a Pawn to which given piece can be demoted to,
-    or :c:enumerator:`CC_PE_None` if piece can't be demoted.
+    or :c:enumerator:`CC_PTE_None` if piece can't be demoted.
 
     Dark pieces can be demoted to dark Pawn, similarly light pieces can be
     demoted to light Pawn.
 
     Stars, Monoliths (which don't have an owner) cannot be demoted to a Pawn,
-    so :c:enumerator:`CC_PE_None` is returned instead.
+    so :c:enumerator:`CC_PTE_None` is returned instead.
 
     :param pe: A piece.
-    :returns: Pawn to which given piece can be demoted to, otherwise :c:enumerator:`CC_PE_None`.
+    :returns: Pawn to which given piece can be demoted to, otherwise :c:enumerator:`CC_PTE_None`.
 
-.. c:function:: bool cc_piece_is_dark( CcPieceType pe )
+.. c:function:: bool cc_piece_is_dark( CcPieceTagType pe )
 
     Function checks if given chess piece is dark.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece is dark, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_is_light( CcPieceType pe )
+.. c:function:: bool cc_piece_is_light( CcPieceTagType pe )
 
     Function checks if given chess piece is light.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece is light, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_color( CcPieceType pe )
+.. c:function:: bool cc_piece_has_color( CcPieceTagType pe )
 
     Function checks if given chess piece has color, i.e. if it's either light, or dark.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece has color, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_shade( CcPieceType pe )
+.. c:function:: bool cc_piece_has_shade( CcPieceTagType pe )
 
     Function checks if given chess piece has shade, i.e. if it's either bright, or dim.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece has shade, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_prefix( CcPieceType pe )
+.. c:function:: bool cc_piece_has_prefix( CcPieceTagType pe )
 
     Function checks if given chess piece has prefix, i.e. if it has either a color, or a shade.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece has prefix, :c:data:`false` otherwise.
 
-.. c:function:: char const * cc_piece_prefix( CcPieceType pe, bool capitalize )
+.. c:function:: char const * cc_piece_prefix( CcPieceTagType pe, bool capitalize )
 
     Function returns prefix of a given chess piece.
 
     Piece prefix is either a color, or a shade of a given piece,
     depending what it has.
 
-    For pieces without neither color nor shade (:c:enumerator:`CC_PE_None`, and Monolith),
+    For pieces without neither color nor shade (:c:enumerator:`CC_PTE_None`, and Monolith),
     prefix is empty string.
 
     .. warning::
@@ -742,7 +742,7 @@ Functions
     :param capitalize: Flag, whether to return capitalized prefix.
     :returns: Pointer to string if successful, :c:macro:`CC_DEFAULT_VALUE_STRING` otherwise.
 
-.. c:function:: bool cc_piece_has_congruent_type( char symbol, CcPieceType pe )
+.. c:function:: bool cc_piece_has_congruent_type( char symbol, CcPieceTagType pe )
 
     Function checks if given piece has the same type as a piece symbol.
 
@@ -750,7 +750,7 @@ Functions
     :param pe: A piece.
     :returns: :c:data:`true` if the same type, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_is_equal( char symbol, bool is_light, CcPieceType pe )
+.. c:function:: bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType pe )
 
     Function checks if given piece is equal to one produced by a piece symbol, and a flag.
 
@@ -759,7 +759,7 @@ Functions
     :param pe: A piece.
     :returns: :c:data:`true` if the same, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_same_type( CcPieceType pe_1, CcPieceType pe_2 )
+.. c:function:: bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 )
 
     Function checks if two given pieces are the same type.
 
@@ -767,7 +767,7 @@ Functions
     :param pe_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same type, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_same_color( CcPieceType pe_1, CcPieceType pe_2 )
+.. c:function:: bool cc_piece_has_same_color( CcPieceTagType pe_1, CcPieceTagType pe_2 )
 
     Function checks if two given pieces are the same color, i.e. if
     both are light or dark.
@@ -780,7 +780,7 @@ Functions
     :param pe_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same color, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_same_shade( CcPieceType pe_1, CcPieceType pe_2 )
+.. c:function:: bool cc_piece_has_same_shade( CcPieceTagType pe_1, CcPieceTagType pe_2 )
 
     Function checks if two given pieces are the same shade, i.e. if
     both are bright or dim.
@@ -792,13 +792,13 @@ Functions
     :param pe_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same shade, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_is_opposite( CcPieceType pe_1, CcPieceType pe_2 )
+.. c:function:: bool cc_piece_is_opposite( CcPieceTagType pe_1, CcPieceTagType pe_2 )
 
     Function checks if two given pieces of the same type are in opposite
     color (dark, light), or shade (dim, bright) to each other.
 
     Pieces with no color and no shade always return :c:data:`false`;
-    these are empty fields (i.e. :c:enumerator:`CC_PE_None`), Monolith pieces.
+    these are empty fields (i.e. :c:enumerator:`CC_PTE_None`), Monolith pieces.
 
     Shades and colors belong to different types of pieces, so will always
     yield :c:data:`false`.
@@ -807,49 +807,49 @@ Functions
     :param pe_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same type, but opposite color or shade, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_same_owner( CcPieceType pe_1, CcPieceType pe_2 )
+.. c:function:: bool cc_piece_has_same_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 )
 
     Function checks if two given pieces have the same owner, i.e.
     if pieces are of the same color (dark, or light), not necessarily
     the same type.
 
     If any given piece is without owner (i.e. with no color) it'll always
-    return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PE_None`),
+    return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PTE_None`),
     Monolith, and Stars.
 
     :param pe_1: A piece.
     :param pe_2: The other piece.
     :returns: :c:data:`true` if given pieces are both dark or light, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_different_owner( CcPieceType pe_1, CcPieceType pe_2 )
+.. c:function:: bool cc_piece_has_different_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 )
 
     Function checks if two given pieces belongs to different players,
     i.e. if pieces are in opposite colors (one is light, the other is dark),
     not necessarily the same type.
 
     If any given piece is without owner (i.e. with no color) it'll always
-    return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PE_None`),
+    return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PTE_None`),
     Monolith, and Stars.
 
     :param pe_1: A piece.
     :param pe_2: The other piece.
     :returns: :c:data:`true` if given pieces are in opposite color, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_is_owned_figure( CcPieceType pe )
+.. c:function:: bool cc_piece_is_owned_figure( CcPieceTagType pe )
 
     Function checks if given piece is an owned :term:`figure`.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece is an owned :term:`figure`, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_is_figure( CcPieceType pe )
+.. c:function:: bool cc_piece_is_figure( CcPieceTagType pe )
 
     Function checks if given piece is a :term:`figure`.
 
     :param pe: A piece.
     :returns: :c:data:`true` if given piece is a :term:`figure`, :c:data:`false` otherwise.
 
-.. c:function:: char const * cc_piece_as_string( CcPieceType pe, bool capitalize, bool empty_field )
+.. c:function:: char const * cc_piece_as_string( CcPieceTagType pe, bool capitalize, bool empty_field )
 
     Function returns string, containing piece prefix and label.
 

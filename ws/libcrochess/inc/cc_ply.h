@@ -57,7 +57,7 @@ char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte );
 
 typedef struct CcPly {
     CcPlyLinkTypeEnum link;
-    CcPieceType piece;
+    CcPieceTagType piece;
     CcLosingTagType lost_tag;
     CcStep * steps;
 
@@ -65,13 +65,13 @@ typedef struct CcPly {
 } CcPly;
 
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
-                     CcPieceType piece,
+                     CcPieceTagType piece,
                      CcLosingTagType lost_tag,
                      CcStep ** steps__d_n );
 
 CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
-                       CcPieceType piece,
+                       CcPieceTagType piece,
                        CcLosingTagType lost_tag,
                        CcStep ** steps__d_n );
 
@@ -86,7 +86,7 @@ size_t cc_ply_steps_count( CcPly * ply );
 
 bool cc_ply_contains_side_effects( CcPly * ply );
 
-CcPieceType cc_ply_find_activator( CcPly * plies,
+CcPieceTagType cc_ply_find_activator( CcPly * plies,
                                    CcPly * ply__d );
 
 char * cc_ply_all_to_string__new( CcPly * plies );

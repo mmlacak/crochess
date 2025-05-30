@@ -47,7 +47,7 @@ static bool _cc_fail_with_msg_invalid_piece_symbol( char piece_symbol,
     return false;
 }
 
-static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceType piece,
+static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceTagType piece,
                                                      CcLosingTagType ltt,
                                                      char const * ply_start_an,
                                                      char const * ply_end_an,
@@ -100,7 +100,7 @@ static bool _cc_parse_ply( char const * ply_start_an,
     if ( cc_fetch_piece_symbol( c_an, CC_MBE_True, &piece_symbol ) != CC_MBE_True )
         return _cc_fail_with_msg_invalid_piece_symbol( *c_an, ply_start_an, ply_end_an, parse_msgs__iod );
 
-    CcPieceType pt_an = cc_piece_from_symbol( piece_symbol, is_turn_light ); // Piece type should be correct, but color (owner) might not be, if activating opponent's pieces (if not first ply).
+    CcPieceTagType pt_an = cc_piece_from_symbol( piece_symbol, is_turn_light ); // Piece type should be correct, but color (owner) might not be, if activating opponent's pieces (if not first ply).
 
     if ( cc_piece_symbol_is_valid( *c_an ) ) ++c_an;
 

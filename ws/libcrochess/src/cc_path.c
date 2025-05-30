@@ -16,7 +16,7 @@
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
-                                CcPieceType encountered_piece,
+                                CcPieceTagType encountered_piece,
                                 CcTagType encountered_tag,
                                 CcActivationDesc act_desc ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
@@ -47,7 +47,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
                                   CcStep ** steps__d_n,
-                                  CcPieceType encountered_piece,
+                                  CcPieceTagType encountered_piece,
                                   CcTagType encountered_tag,
                                   CcActivationDesc act_desc ) {
     if ( !pl__iod_a ) return NULL;
@@ -171,7 +171,7 @@ static CcMaybeBoolEnum _cc_path_link_subs_is_valid( CcPathLink * pl_subs ) {
         if ( pl->alt ) return CC_MBE_False;
         if ( pl->next ) return CC_MBE_False;
 
-        if ( pl->encountered_piece != CC_PE_None ) return CC_MBE_False;
+        if ( pl->encountered_piece != CC_PTE_None ) return CC_MBE_False;
         if ( pl->encountered_tag != CC_TE_None ) return CC_MBE_False;
 
         if ( !CC_SIDE_EFFECT_TYPE_IS_VALID( pl->side_effect.type ) )

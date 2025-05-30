@@ -25,20 +25,20 @@
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse );
 
-bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt );
+bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt );
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              CcPieceType piece,
+                                              CcPieceTagType piece,
                                               CcPos pos );
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               CcPieceType piece,
+                                               CcPieceTagType piece,
                                                CcPos pos );
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                               CcPieceType piece,
+                                               CcPieceTagType piece,
                                                cc_uint_t momentum,
-                                               CcPieceType activator,
+                                               CcPieceTagType activator,
                                                CcPos pos );
 
 CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
@@ -47,19 +47,19 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos rook_start,
                                                CcPos rook_dest );
 
-CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
-                                             CcPieceType encounter,
+CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceTagType moving,
+                                             CcPieceTagType encounter,
                                              cc_uint_t momentum,
                                              CcStepTypeEnum step_type );
 
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
-                                                CcPieceType moving,
+                                                CcPieceTagType moving,
                                                 CcActivationDesc act_desc,
                                                 CcPos destination,
                                                 CcStepTypeEnum step_type );
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
-                                           CcPieceType private,
+                                           CcPieceTagType private,
                                            CcActivationDesc act_desc,
                                            CcPos destination,
                                            CcPosDesc * target__o );

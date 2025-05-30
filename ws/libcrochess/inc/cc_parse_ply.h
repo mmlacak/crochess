@@ -25,7 +25,7 @@
 //                                                     char const * ply_end_an,
 //                                                     CcParseMsg ** parse_msgs__iod );
 
-// static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceType piece,
+// static bool _cc_fail_with_msg_piece_cannot_lose_tag( CcPieceTagType piece,
 //                                                      CcLosingTagType ltt,
 //                                                      char const * ply_start_an,
 //                                                      char const * ply_end_an,

@@ -28,7 +28,7 @@ char const * cc_ply_link_type_symbol( CcPlyLinkTypeEnum plte ) {
 
 
 CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
-                     CcPieceType piece,
+                     CcPieceTagType piece,
                      CcLosingTagType lost_tag,
                      CcStep ** steps__d_n ) {
     CcPly * ply__a = malloc( sizeof( CcPly ) );
@@ -51,7 +51,7 @@ CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
 
 CcPly * cc_ply_append( CcPly ** plies__iod_a,
                        CcPlyLinkTypeEnum link,
-                       CcPieceType piece,
+                       CcPieceTagType piece,
                        CcLosingTagType lost_tag,
                        CcStep ** steps__d_n ) {
     if ( !plies__iod_a ) return NULL;
@@ -175,20 +175,20 @@ bool cc_ply_contains_side_effects( CcPly * ply ) {
     return false;
 }
 
-CcPieceType cc_ply_find_activator( CcPly * plies,
+CcPieceTagType cc_ply_find_activator( CcPly * plies,
                                    CcPly * ply__d ) {
-    if ( !plies ) return CC_PE_None;
+    if ( !plies ) return CC_PTE_None;
 
     if ( plies == ply__d ) // First ply in a linked list.
         return CC_PIECE_IS_ACTIVE( plies->piece ) ? plies->piece
-                                                  : CC_PE_None;
+                                                  : CC_PTE_None;
 
     // <!> Shadows issue if ply is not contained in plies.
     //
     // if ( ply__d && CC_PIECE_IS_ACTIVE( ply__d->piece ) )
     //     return ply__d->piece;
 
-    CcPieceType activator = CC_PE_None;
+    CcPieceTagType activator = CC_PTE_None;
     bool ply_encountered = false;
     CcPly * p = plies;
 
@@ -205,7 +205,7 @@ CcPieceType cc_ply_find_activator( CcPly * plies,
     }
 
     if ( ply__d && !ply_encountered )
-        return CC_PE_None;
+        return CC_PTE_None;
     else
         return activator;
 }

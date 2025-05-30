@@ -6,19 +6,70 @@
 
 #include <stdbool.h>
 
+#include "cc_piece.h"
+
 //
 // Tag enum
 
-#define CC_TAG_IS_ENUMERATOR(te) ( ( CC_TE_None <= (te) ) && ( (te) <= CC_TE_EnPassant_Current ) )
+// TODO :: DOCS
+#define CC_TAG_IS_CAN_RUSH(pte) ( ( (pte) == CC_PTE_DarkGrenadier_CanRush )           \
+                               || ( (pte) == CC_PTE_DarkScout_CanRush )               \
+                               || ( (pte) == CC_PTE_DarkPawn_CanRush )                \
+                               || ( (pte) == CC_PTE_LightPawn_CanRush )               \
+                               || ( (pte) == CC_PTE_LightCentaur_CanRush )            \
+                               || ( (pte) == CC_PTE_LightScout_CanRush ) )
 
-#define CC_TAG_IS_VALID(te) ( ( CC_TE_None < (te) ) && ( (te) <= CC_TE_EnPassant_Current ) )
+// TODO :: DOCS
+#define CC_TAG_IS_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )    \
+                                      || ( (pte) == CC_PTE_DarkScout_RushedPrevious )        \
+                                      || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )         \
+                                      || ( (pte) == CC_PTE_LightPawn_RushedPrevious )        \
+                                      || ( (pte) == CC_PTE_LightCentaur_RushedPrevious )     \
+                                      || ( (pte) == CC_PTE_LightScout_RushedPrevious ) )
 
-#define CC_TAG_IS_PERSISTENT(te) ( ( (te) == CC_TE_CanRush )                \
-                                || ( (te) == CC_TE_CanCastle )              \
-                                || ( (te) == CC_TE_DelayedPromotion ) )
+// TODO :: DOCS
+#define CC_TAG_IS_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent )     \
+                                     || ( (pte) == CC_PTE_DarkScout_RushedCurrent )         \
+                                     || ( (pte) == CC_PTE_DarkPawn_RushedCurrent )          \
+                                     || ( (pte) == CC_PTE_LightPawn_RushedCurrent )         \
+                                     || ( (pte) == CC_PTE_LightCentaur_RushedCurrent )      \
+                                     || ( (pte) == CC_PTE_LightScout_RushedCurrent ) )
 
-#define CC_TAG_IS_EN_PASSANT(te) ( ( (te) == CC_TE_EnPassant_Previous )     \
-                                || ( (te) == CC_TE_EnPassant_Current ) )
+// #define CC_TAG_IS_RUSHED(pte) ( ( (pte) == CC_TE_EnPassant_Previous )     \
+//                                  || ( (pte) == CC_TE_EnPassant_Current ) )
+// TODO :: DOCS
+#define CC_TAG_IS_RUSHED(pte) ( ( CC_TAG_IS_RUSHED_PREVIOUS(pte) )     \
+                             || ( CC_TAG_IS_RUSHED_CURRENT(pte) ) )
+
+// TODO :: DOCS
+#define CC_TAG_IS_DELAYED_PROMOTION(pte) ( ( (pte) == CC_PTE_DarkPawn_DelayedPromotion )       \
+                                        || ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) )
+
+// TODO :: DOCS
+#define CC_TAG_IS_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing_CanCastle )              \
+                                 || ( (pte) == CC_PTE_DarkRook_CanCastle )              \
+                                 || ( (pte) == CC_PTE_LightRook_CanCastle )             \
+                                 || ( (pte) == CC_PTE_LightKing_CanCastle ) )
+
+// #define CC_TAG_IS_VALID(pte) ( ( CC_TE_None < (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
+// TODO :: DOCS
+#define CC_TAG_IS_VALID(pte) ( ( CC_TAG_IS_CAN_RUSH(pte) )              \
+                            || ( CC_TAG_IS_RUSHED(pte) )                \
+                            || ( CC_TAG_IS_DELAYED_PROMOTION(pte) )     \
+                            || ( CC_TAG_IS_CAN_CASTLE(pte) ) )
+
+// #define CC_TAG_IS_ENUMERATOR(pte) ( ( CC_TE_None <= (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
+// TODO :: DOCS
+#define CC_TAG_IS_ENUMERATOR(pte) ( ( (pte) == CC_PTE_None )     \
+                                 || ( CC_TAG_IS_VALID(pte) ) )
+
+// #define CC_TAG_IS_PERSISTENT(pte) ( ( (pte) == CC_TE_CanRush )                \
+//                                  || ( (pte) == CC_TE_CanCastle )              \
+//                                  || ( (pte) == CC_TE_DelayedPromotion ) )
+// TODO :: DOCS
+#define CC_TAG_IS_PERSISTENT(pte) ( ( CC_TAG_IS_CAN_RUSH(pte) )                \
+                                 || ( CC_TAG_IS_CAN_CASTLE(pte) )              \
+                                 || ( CC_TAG_IS_DELAYED_PROMOTION(pte) ) )
 
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'
@@ -30,24 +81,26 @@
 #define CC_TAG_CHAR_EN_PASSANT_PREVIOUS 'E'
 #define CC_TAG_CHAR_EN_PASSANT_CURRENT 'e'
 
-typedef enum CcTagEnum {
-    CC_TE_None = 0, /* No tag applies. */
+// TODO :: DELETE :: DOCS
+// typedef enum CcTagEnum {
+//     CC_TE_None = 0, /* No tag applies. */
+//
+//     CC_TE_CanRush, /* Pawn can rush, persistent tag. */
+//     CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
+//     CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
+//
+//     CC_TE_EnPassant_Previous, /* A private rushed in previous turn, this is en passant opportunity tag. */
+//     CC_TE_EnPassant_Current, /* A private rushed in current turn (in a previous ply), this will become en passant opportunity for opponent in the very next turn. */
+// } CcTagEnum;
 
-    CC_TE_CanRush, /* Pawn can rush, persistent tag. */
-    CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
-    CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
+// TODO :: DELETE :: DOCS
+// typedef unsigned char CcTagType;
 
-    CC_TE_EnPassant_Previous, /* A private rushed in previous turn, this is en passant opportunity tag. */
-    CC_TE_EnPassant_Current, /* A private rushed in current turn (in a previous ply), this will become en passant opportunity for opponent in the very next turn. */
-} CcTagEnum;
+char cc_tag_as_char( CcPieceTagType ptt );
 
-typedef unsigned char CcTagType;
+CcPieceTagType cc_tag_from_char( char c );
 
-char cc_tag_as_char( CcTagType ct );
-
-CcTagType cc_tag_from_char( char c );
-
-bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 );
+bool cc_tag_is_congruent( CcPieceTagType ct_1, CcPieceTagType ct_2 );
 
 //
 // Losing tag enum

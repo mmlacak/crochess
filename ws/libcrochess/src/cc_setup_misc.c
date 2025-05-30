@@ -8,7 +8,7 @@
 
 
 int cc_find_initial_figure_file( CcVariantType ve,
-                                 CcPieceType pe,
+                                 CcPieceTagType pe,
                                  bool search_queen_side_first ) {
     if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
 
@@ -20,7 +20,7 @@ int cc_find_initial_figure_file( CcVariantType ve,
             ( CC_PIECE_IS_MONOLITH( pe ) ) )
         return CC_INVALID_COORD;
 
-    CcPieceType const * su = cc_setup_board_get( ve );
+    CcPieceTagType const * su = cc_setup_board_get( ve );
     if ( !su ) return CC_INVALID_COORD;
 
     size_t size = cc_variant_board_size( ve );
@@ -30,7 +30,7 @@ int cc_find_initial_figure_file( CcVariantType ve,
     int step = search_queen_side_first ? 1 : -1;
 
     int rank =
-        cc_piece_is_light( pe ) || ( pe == CC_PE_BrightStar ) ? (int)(size - 1)
+        cc_piece_is_light( pe ) || ( pe == CC_PTE_BrightStar ) ? (int)(size - 1)
                                                               : 0;
 
     for ( int j = start; (0 <= j) && (j < (int)size); j += step ) {
@@ -62,7 +62,7 @@ int cc_get_kings_max_castling_distance( CcVariantType ve ) {
 }
 
 bool cc_check_pos_is_king_castling_step( CcVariantType ve,
-                                         CcPieceType king,
+                                         CcPieceTagType king,
                                          int pos_i,
                                          int pos_j,
                                          bool * is_queen_side__o,

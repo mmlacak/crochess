@@ -31,7 +31,7 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
     return false;
 }
 
-bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt ) {
+bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt ) {
     if ( ltt == CC_LTE_NoneLost ) {
         return true;
     } else if ( CC_PIECE_IS_PAWN( piece ) ) {
@@ -43,12 +43,12 @@ bool cc_check_piece_can_lose_tag( CcPieceType piece, CcLosingTagType ltt ) {
 }
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              CcPieceType piece,
+                                              CcPieceTagType piece,
                                               CcPos pos ) {
     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
     if ( !cb ) return CC_MBE_Void;
 
-    CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceTagType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
 
     if ( CC_PIECE_IS_WAVE( piece ) ) {
@@ -71,7 +71,7 @@ CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               CcPieceType piece,
+                                               CcPieceTagType piece,
                                                CcPos pos ) {
     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
 
@@ -79,16 +79,16 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
 
     if ( !cb ) return CC_MBE_Void;
 
-    CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceTagType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return CC_MBE_False; // Also weeds out other pieces without owner.
 
     return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, pe ) );
 }
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                               CcPieceType piece,
+                                               CcPieceTagType piece,
                                                cc_uint_t momentum,
-                                               CcPieceType activator,
+                                               CcPieceTagType activator,
                                                CcPos pos ) {
     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
 
@@ -105,7 +105,7 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
 
     if ( !cb ) return CC_MBE_Void;
 
-    CcPieceType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    CcPieceTagType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
     if ( CC_PIECE_IS_STARCHILD( pe ) ) return CC_MBE_True;
 
     if ( CC_PIECE_IS_SHAMAN( pe ) ) {
@@ -126,10 +126,10 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
 
     if ( king_start.j != rook_start.j ) return CC_MBE_False;
 
-    CcPieceType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
+    CcPieceTagType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
     if ( !CC_PIECE_IS_KING( king ) ) return CC_MBE_False;
 
-    CcPieceType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
+    CcPieceTagType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
     if ( !CC_PIECE_IS_ROOK( rook ) ) return CC_MBE_False;
 
     if ( !cc_piece_has_same_color( king, rook ) ) return CC_MBE_False;
@@ -140,10 +140,10 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     CcTagType rook_tag = cc_chessboard_get_tag( cb, rook_start.i, rook_start.j );
     if ( rook_tag != CC_TE_CanCastle ) return CC_MBE_False;
 
-    CcPieceType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
+    CcPieceTagType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
     if ( !CC_PIECE_IS_NONE( empty_for_king ) ) return CC_MBE_False;
 
-    CcPieceType empty_for_rook = cc_chessboard_get_piece( cb, rook_dest.i, rook_dest.j );
+    CcPieceTagType empty_for_rook = cc_chessboard_get_piece( cb, rook_dest.i, rook_dest.j );
     if ( !CC_PIECE_IS_NONE( empty_for_rook ) ) return CC_MBE_False;
 
     bool is_queen_side = ( king_start.i > rook_start.i );
@@ -166,8 +166,8 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
     return CC_MBE_True;
 }
 
-CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
-                                             CcPieceType encounter,
+CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceTagType moving,
+                                             CcPieceTagType encounter,
                                              cc_uint_t momentum,
                                              CcStepTypeEnum step_type ) {
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return CC_MBE_Void;
@@ -219,14 +219,14 @@ CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceType moving,
 }
 
 CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
-                                                CcPieceType moving,
+                                                CcPieceTagType moving,
                                                 CcActivationDesc act_desc,
                                                 CcPos destination,
                                                 CcStepTypeEnum step_type ) {
     if ( !cb ) return CC_MBE_Void;
     if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return CC_MBE_Void;
 
-    CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
+    CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
     // Function checks its arguments, and -by extension- ours moving, step_type.
     CcMaybeBoolEnum can_activate = cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type );
@@ -243,7 +243,7 @@ CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
 }
 
 CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
-                                           CcPieceType private,
+                                           CcPieceTagType private,
                                            CcActivationDesc act_desc,
                                            CcPos destination,
                                            CcPosDesc * target__o ) {
@@ -264,8 +264,8 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     }
 
     // Checking encountered piece, it might be not blocking en passant (if it can be activated), or blocking (if it can't).
-    CcPieceType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
-    if ( encounter != CC_PE_None ) {
+    CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
+    if ( encounter != CC_PTE_None ) {
         // Function checks its arguments, and -by extension- ours act_desc.
         CcMaybeBoolEnum can_activate = cc_check_piece_can_activate_at( cb, private, act_desc, destination, CC_STE_CaptureOnly );
         if ( can_activate != CC_MBE_True ) return can_activate;
@@ -273,7 +273,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
 
     int diff = is_piece_light ? -1 : 1;
     CcPos pos = destination;
-    CcPieceType target = CC_PE_None;
+    CcPieceTagType target = CC_PTE_None;
     CcTagType tag = CC_TE_None;
     bool found = false;
 
@@ -284,7 +284,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) ) {
             tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-            if ( CC_TAG_IS_EN_PASSANT( tag ) )
+            if ( CC_TAG_IS_RUSHED( tag ) )
                 found = true;
         }
     } while ( !found );
