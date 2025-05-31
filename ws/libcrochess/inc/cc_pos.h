@@ -95,46 +95,51 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link );
 //
 // Position descriptor.
 
-#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PTE_None, .tag = CC_TE_None }
+#define CC_POS_DESC_INVALID { .pos = CC_POS_INVALID, .piece = CC_PTE_None }
 
-#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PTE_None, .tag = CC_TE_None }
+#define CC_POS_DESC_STATIC_STEP { .pos = CC_POS_STATIC_STEP, .piece = CC_PTE_None }
 
 typedef struct CcPosDesc {
     CcPos pos; /* A position. */
     CcPieceTagType piece; /* Piece found at position. */
-    CcTagType tag; /* Tag found at position. */
+    // CcTagType tag; /* Tag found at position. */ // TODO :: DELETE :: DOCS
 } CcPosDesc;
 
 #define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
 
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
-#define CC_POS_DESC_COORDS(int_i,int_j,piece_enum,tag_enum)         \
+// TODO :: DOCS
+#define CC_POS_DESC_COORDS(int_i,int_j,piece_enum)                  \
     { .pos = CC_POS_CAST( (int_i), (int_j) ),                       \
-      .piece = (CcPieceTagType)(piece_enum),                           \
-      .tag = (CcTagType)(tag_enum) }
+      .piece = (CcPieceTagType)(piece_enum) }
 
-#define CC_POS_DESC_COORDS_CAST(int_i,int_j,piece_enum,tag_enum)    \
-    ( (CcPosDesc)CC_POS_DESC_COORDS( (int_i), (int_j), (piece_enum), (tag_enum) ) )
+// TODO :: DOCS
+#define CC_POS_DESC_COORDS_CAST(int_i,int_j,piece_enum)             \
+    ( (CcPosDesc)CC_POS_DESC_COORDS( (int_i), (int_j), (piece_enum) ) )
 
-#define CC_POS_DESC(pos,piece_enum,tag_enum) { .pos = (pos), .piece = (CcPieceTagType)(piece_enum), .tag = (CcTagType)(tag_enum) }
+// TODO :: DOCS
+#define CC_POS_DESC(pos,piece_enum) { .pos = (pos), .piece = (CcPieceTagType)(piece_enum) }
 
-#define CC_POS_DESC_CAST(pos,piece_enum,tag_enum) ( (CcPosDesc){ .pos = (pos), .piece = (CcPieceTagType)(piece_enum), .tag = (CcTagType)(tag_enum) } )
+// TODO :: DOCS
+#define CC_POS_DESC_CAST(pos,piece_enum) ( (CcPosDesc){ .pos = (pos), .piece = (CcPieceTagType)(piece_enum) } )
 
+// TODO :: DOCS
 #define CC_POS_DESC_IS_VALID(pd) \
-    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
-    // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(); having no piece, tag is still valid position descriptor!
+    ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) ) )
+    // <!> Do not use CC_PIECE_IS_VALID(); having no piece, tag is still valid position descriptor!
 
+// TODO :: DOCS
 #define CC_POS_DESC_IS_LEGAL(pd,board_size) \
-    ( CC_POS_IS_LEGAL( (pd).pos, board_size ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) && ( CC_TAG_IS_ENUMERATOR( (pd).tag ) ) )
-    // <!> Do not use CC_PIECE_IS_VALID(), CC_TAG_IS_VALID(); having no piece, tag is still valid position descriptor!
+    ( CC_POS_IS_LEGAL( (pd).pos, board_size ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) )
+    // <!> Do not use CC_PIECE_IS_VALID(); having no piece, tag is still valid position descriptor!
 
+// TODO :: DOCS
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2)                 \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) &&      \
-      ( (pd_1).piece == (pd_2).piece ) &&               \
-      ( (pd_1).tag == (pd_2).tag ) )
+      ( (pd_1).piece == (pd_2).piece ) )
 
-bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 );
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ); // TODO :: FIX
 
 bool cc_pos_desc_to_string( CcPosDesc pd,
                             cc_char_16 * pd_str__o );

@@ -64,24 +64,11 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
     }
 }
 
-CcLosingTagType cc_convert_tag_to_losing( CcTagType te ) {
-    switch ( te ) {
-        case CC_TE_DelayedPromotion : return CC_LTE_DelayedPromotionLost;
-        case CC_TE_CanRush : return CC_LTE_RushingTagLost;
-        case CC_TE_CanCastle : return CC_LTE_CastlingTagLost;
-
-        default : return CC_LTE_NoneLost;
-    }
-}
-
-CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt ) {
-    switch ( ltt ) {
-        case CC_LTE_DelayedPromotionLost : return CC_TE_DelayedPromotion;
-        case CC_LTE_RushingTagLost : return CC_TE_CanRush;
-        case CC_LTE_CastlingTagLost : return CC_TE_CanCastle;
-
-        default : return CC_TE_None;
-    }
+CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt ) {
+    if ( CC_TAG_IS_CAN_RUSH( ptt ) ) return CC_LTE_RushingTagLost;
+    else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_LTE_DelayedPromotionLost;
+    else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_LTE_CastlingTagLost;
+    else return CC_LTE_NoneLost;
 }
 
 bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 ) {

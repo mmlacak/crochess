@@ -16,7 +16,7 @@
                                || ( (pte) == CC_PTE_DarkScout_CanRush )               \
                                || ( (pte) == CC_PTE_DarkPawn_CanRush )                \
                                || ( (pte) == CC_PTE_LightPawn_CanRush )               \
-                               || ( (pte) == CC_PTE_LightCentaur_CanRush )            \
+                               || ( (pte) == CC_PTE_LightGrenadier_CanRush )          \
                                || ( (pte) == CC_PTE_LightScout_CanRush ) )
 
 // TODO :: DOCS
@@ -24,7 +24,7 @@
                                       || ( (pte) == CC_PTE_DarkScout_RushedPrevious )        \
                                       || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )         \
                                       || ( (pte) == CC_PTE_LightPawn_RushedPrevious )        \
-                                      || ( (pte) == CC_PTE_LightCentaur_RushedPrevious )     \
+                                      || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious )   \
                                       || ( (pte) == CC_PTE_LightScout_RushedPrevious ) )
 
 // TODO :: DOCS
@@ -32,7 +32,7 @@
                                      || ( (pte) == CC_PTE_DarkScout_RushedCurrent )         \
                                      || ( (pte) == CC_PTE_DarkPawn_RushedCurrent )          \
                                      || ( (pte) == CC_PTE_LightPawn_RushedCurrent )         \
-                                     || ( (pte) == CC_PTE_LightCentaur_RushedCurrent )      \
+                                     || ( (pte) == CC_PTE_LightGrenadier_RushedCurrent )    \
                                      || ( (pte) == CC_PTE_LightScout_RushedCurrent ) )
 
 // #define CC_TAG_IS_RUSHED(pte) ( ( (pte) == CC_TE_EnPassant_Previous )     \
@@ -115,8 +115,6 @@ typedef enum CcLosingTagEnum {
     CC_LTE_RushingTagLost = 1, // CC_TE_CanRush, /* Pawn lost its ability to rush. */
     CC_LTE_CastlingTagLost = 2, // CC_TE_CanCastle, /* Rook (King) lost its ability to castle. */
     CC_LTE_DelayedPromotionLost = 3, // CC_TE_DelayedPromotion, /* Pawn lost its delayed promotion opportunity. */
-
-    /* En passant tags are semi-permanent, they last for a turn, and are removed simply by playing another move. */
 } CcLosingTagEnum;
 
 #define CC_MAX_LEN_LOSING_TAG_SYMBOL (2)
@@ -129,9 +127,10 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
                                       bool capitalize,
                                       bool no_tag );
 
-CcLosingTagType cc_convert_tag_to_losing( CcTagType te );
+// TODO :: DOCS
+CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt );
 
-CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt );
+// CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt ); // TODO :: DELELTE :: DOCS
 
 bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 );
 

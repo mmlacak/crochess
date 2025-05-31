@@ -25,10 +25,7 @@ bool cc_path_side_effect( CcChessboard * cb,
     if ( !CC_PIECE_IS_VALID( moving_from.piece ) ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false;
 
-    if ( !CC_TAG_IS_ENUMERATOR( moving_from.tag ) ) return false;
-    if ( !CC_TAG_IS_ENUMERATOR( encounter.tag ) ) return false;
-
-    CcLosingTagType ltt = cc_convert_tag_to_losing( encounter.tag );
+    CcLosingTagType ltt = cc_convert_tag_to_losing( encounter.piece );
     if ( !cc_check_piece_can_lose_tag( encounter.piece, ltt ) ) return false;
 
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;

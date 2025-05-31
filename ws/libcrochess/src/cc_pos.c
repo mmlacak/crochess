@@ -311,7 +311,7 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
 //
 // Position descriptor.
 
-bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) { // TODO :: FIX
     if ( !cc_pos_is_congruent( pd_1.pos, pd_2.pos ) ) return false;
 
     if ( CC_PIECE_IS_NONE( pd_1.piece ) ||
