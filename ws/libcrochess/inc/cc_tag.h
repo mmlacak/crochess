@@ -100,7 +100,7 @@ char cc_tag_as_char( CcPieceTagType ptt );
 
 // CcPieceTagType cc_tag_from_char( char c ); // TODO :: DELETE : DOCS
 
-bool cc_tag_is_congruent( CcPieceTagType ct_1, CcPieceTagType ct_2 );
+// bool cc_tag_is_congruent( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ); // TODO :: DELETE : DOCS
 
 //
 // Losing tag enum
@@ -132,7 +132,7 @@ CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt );
 
 // CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt ); // TODO :: DELELTE :: DOCS
 
-bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 );
+// bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 ); // TODO :: DELELTE :: DOCS
 
 
 

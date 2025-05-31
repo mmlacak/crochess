@@ -15,7 +15,6 @@
 #include "cc_tag.h"
 #include "cc_variant.h"
 #include "cc_setup_board.h"
-#include "cc_setup_tags.h"
 #include "cc_chessboard.h"
 
 
@@ -490,7 +489,7 @@ CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb,
             rank_c8[ 1 ] = *c++;
         int rank = CC_CONVERT_RANK_STR_INTO_NUM( rank_c8 );
 
-        if ( !cc_chessboard_set_piece_tag( cb__a, file, rank, CC_PTE_None, CC_TE_None ) ) {
+        if ( !cc_chessboard_set_piece( cb__a, file, rank, CC_PTE_None ) ) {
             cc_chessboard_free_all( &cb__a );
             return NULL;
         }

@@ -303,9 +303,6 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     CcPieceTagType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
     if ( piece != move_init.piece ) return false; // [2]
 
-    CcTagType tag = cc_chessboard_get_tag( cb, move_init.pos.i, move_init.pos.j );
-    if ( tag != move_init.tag ) return false;
-
 
     if ( path_ctx__io->cb_current )
         cc_chessboard_free_all( &(path_ctx__io->cb_current) );

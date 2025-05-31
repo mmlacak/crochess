@@ -17,21 +17,6 @@ char cc_tag_as_char( CcPieceTagType ptt ) {
     else return CC_TAG_CHAR_INVALID;
 }
 
-// TODO :: DELETE : DOCS
-// CcPieceTagType cc_tag_from_char( char c ) { // TODO :: FIX cc_piece_from_char()
-//     return CC_PTE_None; // TODO :: FIX
-// }
-
-bool cc_tag_is_congruent( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) { // TODO :: FIX
-    if ( !CC_TAG_IS_ENUMERATOR( ptt_1 ) ) return false;
-    if ( !CC_TAG_IS_ENUMERATOR( ptt_2 ) ) return false;
-
-    if ( ptt_1 != ptt_2 )
-        return ( ( ptt_1 == CC_TE_None ) || ( ptt_2 == CC_TE_None ) );
-
-    return true;
-}
-
 //
 // Losing tag enum
 
@@ -69,15 +54,4 @@ CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt ) {
     else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_LTE_DelayedPromotionLost;
     else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_LTE_CastlingTagLost;
     else return CC_LTE_NoneLost;
-}
-
-bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 ) {
-    if ( !CC_LOSING_TAG_IS_ENUMERATOR( ltt_1 ) ) return false;
-    if ( !CC_LOSING_TAG_IS_ENUMERATOR( ltt_2 ) ) return false;
-
-    if ( ( ltt_1 != CC_TE_None ) && ( ltt_2 != CC_TE_None ) && ( ltt_1 != ltt_2 ) )
-        // Both losing tags are valid, but different ...
-        return false;
-
-    return true;
 }

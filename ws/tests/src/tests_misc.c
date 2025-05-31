@@ -217,25 +217,25 @@ bool tests_iter_piece_steps( void ) {
 bool tests_pos_desc_link( void ) {
     CcPosDescLink * pdl = NULL;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightBishop, .pos = (CcPos){ .i = 1, .j = 2 }, .tag = CC_TE_None } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightBishop, .pos = (CcPos){ .i = 1, .j = 2 } } ) )
         return false;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightGrenadier, .pos = (CcPos){ .i = 11, .j = 7 }, .tag = CC_TE_None } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightGrenadier, .pos = (CcPos){ .i = 11, .j = 7 } } ) )
         return false;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_DarkRook, .pos = (CcPos){ .i = 5, .j = 21 }, .tag = CC_TE_CanCastle } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_DarkRook_CanCastle, .pos = (CcPos){ .i = 5, .j = 21 } } ) )
         return false;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_DarkPawn, .pos = (CcPos){ .i = 17, .j = 22 }, .tag = CC_TE_CanRush } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_DarkPawn_CanRush, .pos = (CcPos){ .i = 17, .j = 22 } } ) )
         return false;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightKnight, .pos = (CcPos){ .i = 23, .j = 3 }, .tag = CC_TE_None } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightKnight, .pos = (CcPos){ .i = 23, .j = 3 } } ) )
         return false;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_DarkPawn, .pos = (CcPos){ .i = 19, .j = 5 }, .tag = CC_TE_DelayedPromotion } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_DarkPawn_DelayedPromotion, .pos = (CcPos){ .i = 19, .j = 5 } } ) )
         return false;
 
-    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightScout, .pos = (CcPos){ .i = 3, .j = 11 }, .tag = CC_TE_None } ) )
+    if ( !cc_pos_desc_link_append( &pdl, (CcPosDesc){ .piece = CC_PTE_LightScout, .pos = (CcPos){ .i = 3, .j = 11 } } ) )
         return false;
 
     printf( "---------------------\n" );

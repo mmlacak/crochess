@@ -5,11 +5,10 @@
 
 
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos ) {
-    CcPosDesc pd = { .pos = pos, .piece = CC_PTE_None, .tag = CC_TE_None };
+    CcPosDesc pd = { .pos = pos, .piece = CC_PTE_None };
 
     if ( cb__d ) {
         pd.piece = cc_chessboard_get_piece( cb__d, pos.i, pos.j );
-        pd.tag = cc_chessboard_get_tag( cb__d, pos.i, pos.j );
     }
 
     return pd;

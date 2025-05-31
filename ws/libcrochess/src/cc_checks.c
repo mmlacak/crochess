@@ -128,17 +128,13 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
 
     CcPieceTagType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
     if ( !CC_PIECE_IS_KING( king ) ) return CC_MBE_False;
+    if ( !CC_TAG_IS_CAN_CASTLE( king ) ) return CC_MBE_False;
 
     CcPieceTagType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
     if ( !CC_PIECE_IS_ROOK( rook ) ) return CC_MBE_False;
+    if ( !CC_TAG_IS_CAN_CASTLE( rook ) ) return CC_MBE_False;
 
     if ( !cc_piece_has_same_color( king, rook ) ) return CC_MBE_False;
-
-    CcTagType king_tag = cc_chessboard_get_tag( cb, king_start.i, king_start.j );
-    if ( king_tag != CC_TE_CanCastle ) return CC_MBE_False;
-
-    CcTagType rook_tag = cc_chessboard_get_tag( cb, rook_start.i, rook_start.j );
-    if ( rook_tag != CC_TE_CanCastle ) return CC_MBE_False;
 
     CcPieceTagType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
     if ( !CC_PIECE_IS_NONE( empty_for_king ) ) return CC_MBE_False;
@@ -274,7 +270,6 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     int diff = is_piece_light ? -1 : 1;
     CcPos pos = destination;
     CcPieceTagType target = CC_PTE_None;
-    CcTagType tag = CC_TE_None;
     bool found = false;
 
     do {
@@ -283,14 +278,13 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
 
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) ) {
-            tag = cc_chessboard_get_tag( cb, pos.i, pos.j );
-            if ( CC_TAG_IS_RUSHED( tag ) )
+            if ( CC_TAG_IS_RUSHED( target ) )
                 found = true;
         }
     } while ( !found );
 
     if ( found && cc_piece_has_different_owner( private, target ) ) {
-        *target__o = (CcPosDesc){ .pos = pos, .piece = target, .tag = tag };
+        *target__o = (CcPosDesc){ .pos = pos, .piece = target };
         return CC_MBE_True;
     }
 

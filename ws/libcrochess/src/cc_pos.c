@@ -311,17 +311,17 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
 //
 // Position descriptor.
 
-bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) { // TODO :: FIX
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
     if ( !cc_pos_is_congruent( pd_1.pos, pd_2.pos ) ) return false;
 
     if ( CC_PIECE_IS_NONE( pd_1.piece ) ||
          CC_PIECE_IS_NONE( pd_2.piece ) ) return false;
 
-    if ( !cc_piece_has_same_type( pd_1.piece, pd_2.piece ) ) return false;
+    CcPieceTagType opposite = cc_piece_opposite( pd_2.piece );
 
-    if ( !cc_tag_is_congruent( pd_1.tag, pd_2.tag ) ) return false;
+    if ( pd_1.piece == pd_2.piece || pd_1.piece == opposite ) return true;
 
-    return true;
+    return false;
 }
 
 bool cc_pos_desc_to_string( CcPosDesc pd,
@@ -498,7 +498,7 @@ char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link ) {
         pdl_str = pdl_end;
 
         // Tag.
-        *pdl_str++ = cc_tag_as_char( pdl->pd.tag );
+        *pdl_str++ = cc_tag_as_char( pdl->pd.piece );
         *pdl_str = '\0';
         --unused;
 

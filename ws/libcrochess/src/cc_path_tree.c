@@ -110,7 +110,6 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
 
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
     CcPieceTagType encounter = CC_PTE_None;
-    CcTagType tag = CC_TE_None;
 
     #define STEP_COUNT 1
 
@@ -122,7 +121,6 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
 
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
             encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
-            tag = cc_chessboard_get_tag( path_ctx__io->cb_current, pos.i, pos.j );
 
             CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
             if ( !steps__w ) {
@@ -135,7 +133,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
             break;
     } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
 
-    CcPathLink * pl__w = cc_path_link_append( &pl__io, side_effect, &steps__t, encounter, tag, act_desc );
+    CcPathLink * pl__w = cc_path_link_append( &pl__io, side_effect, &steps__t, encounter, act_desc );
     if ( !pl__w ) {
         cc_step_free_all( &steps__t );
         return false;
@@ -192,7 +190,6 @@ bool cc_path_tree_init__new( CcGame * game,
 
     if ( !CC_PIECE_IS_ACTIVE( moving_from.piece ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( game->chessboard, moving_from.pos.i, moving_from.pos.j ) ) return false;
-    if ( !CC_TAG_IS_ENUMERATOR( moving_from.tag ) ) return false;
 
     *path_ctx__iod_a = cc_path_context__new( game ); // Game ownership has not been transferred here.
     if ( !*path_ctx__iod_a ) return false;
@@ -215,7 +212,7 @@ bool cc_path_tree_init__new( CcGame * game,
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
 
-    *path_link__iod_a = cc_path_link__new( se, &steps__t, moving_from.piece, moving_from.tag, ad );
+    *path_link__iod_a = cc_path_link__new( se, &steps__t, moving_from.piece, ad );
     if ( !*path_link__iod_a ) {
         cc_path_context_free_all( path_ctx__iod_a );
         cc_step_free_all( &steps__t );

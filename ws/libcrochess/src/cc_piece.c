@@ -8,6 +8,7 @@
 #include "cc_defines.h"
 #include "cc_str_utils.h"
 #include "cc_piece.h"
+#include "cc_tag.h"
 
 
 CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light ) {
