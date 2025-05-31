@@ -74,6 +74,9 @@
                                   || ( (ptt) == CC_PTE_Monolith ) )
 
 
+// TODO :: DOCS
+#define CC_PIECE_HAS_OPPOSITE(ptt) ( ( (ptt) != CC_PTE_None ) && ( CC_PTE_DimStar <= (ptt) ) && ( (ptt) < CC_PTE_Monolith ) )
+
 #define CC_PIECE_HAS_OWNER(ptt) ( ( (ptt) != CC_PTE_DimStar )              \
                                && ( (ptt) != CC_PTE_BrightStar )           \
                                && ( (ptt) != CC_PTE_Monolith )             \

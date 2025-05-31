@@ -68,16 +68,12 @@ bool cc_piece_symbol_is_valid( char c ) {
 }
 
 CcPieceTagType cc_piece_opposite( CcPieceTagType ptt ) {
-    if ( CC_PIECE_IS_ENUMERATOR( ptt ) ) {
-        if ( ptt == CC_PTE_None )
-            return CC_PTE_None;
-        else if ( ptt == CC_PTE_Monolith )
-            return CC_PTE_Monolith;
-        else
-            return ( -ptt );
-    }
-
-    return CC_PTE_None;
+    if ( CC_PIECE_HAS_OPPOSITE( ptt ) )
+        return ( -ptt );
+    else if ( ptt == CC_PTE_Monolith )
+        return CC_PTE_Monolith;
+    else
+        return CC_PTE_None;
 }
 
 char cc_piece_as_char( CcPieceTagType ptt ) {
