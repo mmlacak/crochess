@@ -67,90 +67,95 @@ bool cc_piece_symbol_is_valid( char c ) {
     }
 }
 
-CcPieceTagType cc_piece_opposite( CcPieceTagType pe ) {
-    switch ( pe ) {
-        case CC_PTE_DimStar : return CC_PTE_BrightStar;
-
-        case CC_PTE_DarkStarchild : return CC_PTE_LightStarchild;
-        case CC_PTE_DarkShaman : return CC_PTE_LightShaman;
-        case CC_PTE_DarkSerpent : return CC_PTE_LightSerpent;
-        case CC_PTE_DarkGrenadier : return CC_PTE_LightGrenadier;
-        case CC_PTE_DarkScout : return CC_PTE_LightScout;
-        case CC_PTE_DarkCentaur : return CC_PTE_LightCentaur;
-        case CC_PTE_DarkWave : return CC_PTE_LightWave;
-        case CC_PTE_DarkUnicorn : return CC_PTE_LightUnicorn;
-        case CC_PTE_DarkPyramid : return CC_PTE_LightPyramid;
-        case CC_PTE_DarkPegasus : return CC_PTE_LightPegasus;
-        case CC_PTE_DarkKing : return CC_PTE_LightKing;
-        case CC_PTE_DarkQueen : return CC_PTE_LightQueen;
-        case CC_PTE_DarkRook : return CC_PTE_LightRook;
-        case CC_PTE_DarkBishop : return CC_PTE_LightBishop;
-        case CC_PTE_DarkKnight : return CC_PTE_LightKnight;
-        case CC_PTE_DarkPawn : return CC_PTE_LightPawn;
-
-        case CC_PTE_None : return CC_PTE_None;
-
-        case CC_PTE_LightPawn : return CC_PTE_DarkPawn;
-        case CC_PTE_LightKnight : return CC_PTE_DarkKnight;
-        case CC_PTE_LightBishop : return CC_PTE_DarkBishop;
-        case CC_PTE_LightRook : return CC_PTE_DarkRook;
-        case CC_PTE_LightQueen : return CC_PTE_DarkQueen;
-        case CC_PTE_LightKing : return CC_PTE_DarkPegasus;
-        case CC_PTE_LightPegasus : return CC_PTE_DarkPegasus;
-        case CC_PTE_LightPyramid : return CC_PTE_DarkPyramid;
-        case CC_PTE_LightUnicorn : return CC_PTE_DarkUnicorn;
-        case CC_PTE_LightWave : return CC_PTE_DarkWave;
-        case CC_PTE_LightCentaur : return CC_PTE_DarkCentaur;
-        case CC_PTE_LightScout : return CC_PTE_DarkScout;
-        case CC_PTE_LightGrenadier : return CC_PTE_DarkGrenadier;
-        case CC_PTE_LightSerpent : return CC_PTE_DarkSerpent;
-        case CC_PTE_LightShaman : return CC_PTE_DarkShaman;
-        case CC_PTE_LightStarchild : return CC_PTE_DarkStarchild;
-
-        case CC_PTE_BrightStar : return CC_PTE_DimStar;
-
-        case CC_PTE_Monolith : return CC_PTE_Monolith;
-
-        default : return CC_PTE_None;
+CcPieceTagType cc_piece_opposite( CcPieceTagType ptt ) {
+    if ( CC_PIECE_IS_ENUMERATOR( ptt ) ) {
+        if ( ptt == CC_PTE_None )
+            return CC_PTE_None;
+        else if ( ptt == CC_PTE_Monolith )
+            return CC_PTE_Monolith;
+        else
+            return ( -ptt );
     }
+
+    return CC_PTE_None;
 }
 
-char cc_piece_as_char( CcPieceTagType pe ) {
-    switch ( pe ) {
+char cc_piece_as_char( CcPieceTagType ptt ) {
+    switch ( ptt ) {
         case CC_PTE_DimStar : return 't';
 
         case CC_PTE_DarkStarchild : return 'i';
         case CC_PTE_DarkShaman : return 'h';
         case CC_PTE_DarkSerpent : return 's';
+
+        case CC_PTE_DarkGrenadier_RushedCurrent :
+        case CC_PTE_DarkGrenadier_RushedPrevious :
+        case CC_PTE_DarkGrenadier_CanRush :
         case CC_PTE_DarkGrenadier : return 'g';
+
+        case CC_PTE_DarkScout_RushedCurrent :
+        case CC_PTE_DarkScout_RushedPrevious :
+        case CC_PTE_DarkScout_CanRush :
         case CC_PTE_DarkScout : return 'o';
+
         case CC_PTE_DarkCentaur : return 'c';
         case CC_PTE_DarkWave : return 'w';
         case CC_PTE_DarkUnicorn : return 'u';
         case CC_PTE_DarkPyramid : return 'a';
         case CC_PTE_DarkPegasus : return 'e';
+
+        case CC_PTE_DarkKing_CanCastle :
         case CC_PTE_DarkKing : return 'k';
+
         case CC_PTE_DarkQueen : return 'q';
+
+        case CC_PTE_DarkRook_CanCastle :
         case CC_PTE_DarkRook : return 'r';
+
         case CC_PTE_DarkBishop : return 'b';
         case CC_PTE_DarkKnight : return 'n';
+
+        case CC_PTE_DarkPawn_DelayedPromotion :
+        case CC_PTE_DarkPawn_RushedCurrent :
+        case CC_PTE_DarkPawn_RushedPrevious :
+        case CC_PTE_DarkPawn_CanRush :
         case CC_PTE_DarkPawn : return 'p';
 
         case CC_PTE_None : return ' ';
 
-        case CC_PTE_LightPawn : return 'P';
+        case CC_PTE_LightPawn :
+        case CC_PTE_LightPawn_CanRush :
+        case CC_PTE_LightPawn_RushedPrevious :
+        case CC_PTE_LightPawn_RushedCurrent :
+        case CC_PTE_LightPawn_DelayedPromotion : return 'P';
+
         case CC_PTE_LightKnight : return 'N';
         case CC_PTE_LightBishop : return 'B';
-        case CC_PTE_LightRook : return 'R';
+
+        case CC_PTE_LightRook :
+        case CC_PTE_LightRook_CanCastle : return 'R';
+
         case CC_PTE_LightQueen : return 'Q';
-        case CC_PTE_LightKing : return 'K';
+
+        case CC_PTE_LightKing :
+        case CC_PTE_LightKing_CanCastle : return 'K';
+
         case CC_PTE_LightPegasus : return 'E';
         case CC_PTE_LightPyramid : return 'A';
         case CC_PTE_LightUnicorn : return 'U';
         case CC_PTE_LightWave : return 'W';
         case CC_PTE_LightCentaur : return 'C';
-        case CC_PTE_LightScout : return 'O';
-        case CC_PTE_LightGrenadier : return 'G';
+
+        case CC_PTE_LightScout :
+        case CC_PTE_LightScout_CanRush :
+        case CC_PTE_LightScout_RushedPrevious :
+        case CC_PTE_LightScout_RushedCurrent : return 'O';
+
+        case CC_PTE_LightGrenadier :
+        case CC_PTE_LightGrenadier_CanRush :
+        case CC_PTE_LightGrenadier_RushedPrevious :
+        case CC_PTE_LightGrenadier_RushedCurrent : return 'G';
+
         case CC_PTE_LightSerpent : return 'S';
         case CC_PTE_LightShaman : return 'H';
         case CC_PTE_LightStarchild : return 'I';
@@ -291,8 +296,8 @@ CcPieceTagType cc_piece_from_char( char piece, char tag ) {
     }
 }
 
-char const * cc_piece_label( CcPieceTagType pe, bool capitalize, bool empty_field ) {
-    switch ( pe ) {
+char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: FIX
+    switch ( ptt ) {
         case CC_PTE_DimStar :
         case CC_PTE_BrightStar : return "Star";
 
@@ -355,18 +360,18 @@ char const * cc_piece_label( CcPieceTagType pe, bool capitalize, bool empty_fiel
     }
 }
 
-char cc_piece_symbol( CcPieceTagType pe ) {
-    return toupper( cc_piece_as_char( pe ) );
+char cc_piece_symbol( CcPieceTagType ptt ) {
+    return toupper( cc_piece_as_char( ptt ) );
 }
 
-CcPieceTagType cc_piece_demoting_to( CcPieceTagType pe ) {
-    if ( cc_piece_is_dark( pe ) ) return CC_PTE_DarkPawn;
-    if ( cc_piece_is_light( pe ) ) return CC_PTE_LightPawn;
+CcPieceTagType cc_piece_demoting_to( CcPieceTagType ptt ) {
+    if ( cc_piece_is_dark( ptt ) ) return CC_PTE_DarkPawn;
+    if ( cc_piece_is_light( ptt ) ) return CC_PTE_LightPawn;
     return CC_PTE_None;
 }
 
-bool cc_piece_is_dark( CcPieceTagType pe ) {
-    switch ( pe ) {
+bool cc_piece_is_dark( CcPieceTagType ptt ) {
+    switch ( ptt ) {
         case CC_PTE_DarkStarchild :
         case CC_PTE_DarkShaman :
         case CC_PTE_DarkSerpent :
@@ -390,8 +395,8 @@ bool cc_piece_is_dark( CcPieceTagType pe ) {
     }
 }
 
-bool cc_piece_is_light( CcPieceTagType pe ) {
-    switch ( pe ) {
+bool cc_piece_is_light( CcPieceTagType ptt ) {
+    switch ( ptt ) {
         case CC_PTE_LightPawn :
         case CC_PTE_LightKnight :
         case CC_PTE_LightBishop :
@@ -415,20 +420,20 @@ bool cc_piece_is_light( CcPieceTagType pe ) {
     }
 }
 
-bool cc_piece_has_color( CcPieceTagType pe ) {
-    return cc_piece_is_light( pe ) || cc_piece_is_dark( pe );
+bool cc_piece_has_color( CcPieceTagType ptt ) {
+    return cc_piece_is_light( ptt ) || cc_piece_is_dark( ptt );
 }
 
-bool cc_piece_has_shade( CcPieceTagType pe ) {
-    return CC_PIECE_IS_STAR( pe );
+bool cc_piece_has_shade( CcPieceTagType ptt ) {
+    return CC_PIECE_IS_STAR( ptt );
 }
 
-bool cc_piece_has_prefix( CcPieceTagType pe ) {
-    return cc_piece_has_color( pe ) || cc_piece_has_shade( pe );
+bool cc_piece_has_prefix( CcPieceTagType ptt ) {
+    return cc_piece_has_color( ptt ) || cc_piece_has_shade( ptt );
 }
 
-char const * cc_piece_prefix( CcPieceTagType pe, bool capitalize ) {
-    switch ( pe ) {
+char const * cc_piece_prefix( CcPieceTagType ptt, bool capitalize ) {
+    switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim" : "dim";
 
         case CC_PTE_DarkStarchild :
@@ -475,14 +480,14 @@ char const * cc_piece_prefix( CcPieceTagType pe, bool capitalize ) {
     }
 }
 
-bool cc_piece_has_congruent_type( char symbol, CcPieceTagType pe ) {
-    char ps = cc_piece_symbol( pe );
+bool cc_piece_has_congruent_type( char symbol, CcPieceTagType ptt ) {
+    char ps = cc_piece_symbol( ptt );
     return ( symbol == ps );
 }
 
-bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType pe ) {
+bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt ) {
     CcPieceTagType piece = cc_piece_from_symbol( symbol, is_light );
-    return ( piece == pe );
+    return ( piece == ptt );
 }
 
 bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
@@ -527,22 +532,22 @@ bool cc_piece_has_different_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
     return false;
 }
 
-bool cc_piece_is_owned_figure( CcPieceTagType pe ) {
-    if ( CC_PIECE_IS_PAWN( pe ) ) return false;
-    if ( cc_piece_is_light( pe ) ) return true;
-    if ( cc_piece_is_dark( pe ) ) return true;
+bool cc_piece_is_owned_figure( CcPieceTagType ptt ) {
+    if ( CC_PIECE_IS_PAWN( ptt ) ) return false;
+    if ( cc_piece_is_light( ptt ) ) return true;
+    if ( cc_piece_is_dark( ptt ) ) return true;
     return false;
 }
 
-bool cc_piece_is_figure( CcPieceTagType pe ) {
-    if ( CC_PIECE_IS_STAR( pe ) ) return true;
-    if ( CC_PIECE_IS_MONOLITH( pe ) ) return true;
+bool cc_piece_is_figure( CcPieceTagType ptt ) {
+    if ( CC_PIECE_IS_STAR( ptt ) ) return true;
+    if ( CC_PIECE_IS_MONOLITH( ptt ) ) return true;
 
-    return cc_piece_is_owned_figure( pe );
+    return cc_piece_is_owned_figure( ptt );
 }
 
-char const * cc_piece_as_string( CcPieceTagType pe, bool capitalize, bool empty_field ) {
-    switch ( pe ) {
+char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) {
+    switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim Star" : "dim Star";
         case CC_PTE_BrightStar : return capitalize ? "Bright Star" : "bright Star";
 

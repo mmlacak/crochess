@@ -12,28 +12,28 @@
 // Tag enum
 
 // TODO :: DOCS
-#define CC_TAG_IS_CAN_RUSH(pte) ( ( (pte) == CC_PTE_DarkGrenadier_CanRush )           \
-                               || ( (pte) == CC_PTE_DarkScout_CanRush )               \
-                               || ( (pte) == CC_PTE_DarkPawn_CanRush )                \
-                               || ( (pte) == CC_PTE_LightPawn_CanRush )               \
-                               || ( (pte) == CC_PTE_LightGrenadier_CanRush )          \
-                               || ( (pte) == CC_PTE_LightScout_CanRush ) )
+#define CC_TAG_IS_CAN_RUSH(pte) ( ( (pte) == CC_PTE_DarkGrenadier_CanRush )         \
+                               || ( (pte) == CC_PTE_DarkScout_CanRush )             \
+                               || ( (pte) == CC_PTE_DarkPawn_CanRush )              \
+                               || ( (pte) == CC_PTE_LightPawn_CanRush )             \
+                               || ( (pte) == CC_PTE_LightScout_CanRush )            \
+                               || ( (pte) == CC_PTE_LightGrenadier_CanRush ) )
 
 // TODO :: DOCS
-#define CC_TAG_IS_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )    \
-                                      || ( (pte) == CC_PTE_DarkScout_RushedPrevious )        \
-                                      || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )         \
-                                      || ( (pte) == CC_PTE_LightPawn_RushedPrevious )        \
-                                      || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious )   \
-                                      || ( (pte) == CC_PTE_LightScout_RushedPrevious ) )
+#define CC_TAG_IS_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )       \
+                                      || ( (pte) == CC_PTE_DarkScout_RushedPrevious )           \
+                                      || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )            \
+                                      || ( (pte) == CC_PTE_LightPawn_RushedPrevious )           \
+                                      || ( (pte) == CC_PTE_LightScout_RushedPrevious )          \
+                                      || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
 
 // TODO :: DOCS
-#define CC_TAG_IS_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent )     \
-                                     || ( (pte) == CC_PTE_DarkScout_RushedCurrent )         \
-                                     || ( (pte) == CC_PTE_DarkPawn_RushedCurrent )          \
-                                     || ( (pte) == CC_PTE_LightPawn_RushedCurrent )         \
-                                     || ( (pte) == CC_PTE_LightGrenadier_RushedCurrent )    \
-                                     || ( (pte) == CC_PTE_LightScout_RushedCurrent ) )
+#define CC_TAG_IS_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent )         \
+                                     || ( (pte) == CC_PTE_DarkScout_RushedCurrent )             \
+                                     || ( (pte) == CC_PTE_DarkPawn_RushedCurrent )              \
+                                     || ( (pte) == CC_PTE_LightPawn_RushedCurrent )             \
+                                     || ( (pte) == CC_PTE_LightScout_RushedCurrent )            \
+                                     || ( (pte) == CC_PTE_LightGrenadier_RushedCurrent ) )
 
 // #define CC_TAG_IS_RUSHED(pte) ( ( (pte) == CC_TE_EnPassant_Previous )     \
 //                                  || ( (pte) == CC_TE_EnPassant_Current ) )
@@ -46,9 +46,9 @@
                                         || ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) )
 
 // TODO :: DOCS
-#define CC_TAG_IS_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing_CanCastle )              \
-                                 || ( (pte) == CC_PTE_DarkRook_CanCastle )              \
-                                 || ( (pte) == CC_PTE_LightRook_CanCastle )             \
+#define CC_TAG_IS_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing_CanCastle )      \
+                                 || ( (pte) == CC_PTE_DarkRook_CanCastle )      \
+                                 || ( (pte) == CC_PTE_LightRook_CanCastle )     \
                                  || ( (pte) == CC_PTE_LightKing_CanCastle ) )
 
 // #define CC_TAG_IS_VALID(pte) ( ( CC_TE_None < (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
@@ -73,6 +73,7 @@
 
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'
+#define CC_TAG_CHAR_PIECE '!'
 
 #define CC_TAG_CHAR_CAN_RUSH '*'
 #define CC_TAG_CHAR_CAN_CASTLE '&'

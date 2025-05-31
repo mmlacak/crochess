@@ -9,40 +9,42 @@
 #include "cc_setup_board.h"
 
 
+// a b c D e F g h i J k L m n o p q r s t u V w X Y Z
+
 static const CcPieceTagType t = CC_PTE_DimStar;
 
 static const CcPieceTagType i = CC_PTE_DarkStarchild;
 static const CcPieceTagType h = CC_PTE_DarkShaman;
 static const CcPieceTagType s = CC_PTE_DarkSerpent;
-static const CcPieceTagType g = CC_PTE_DarkGrenadier;
-static const CcPieceTagType o = CC_PTE_DarkScout;
+static const CcPieceTagType g = CC_PTE_DarkGrenadier_CanRush; // CC_PTE_DarkGrenadier;
+static const CcPieceTagType o = CC_PTE_DarkScout_CanRush; // CC_PTE_DarkScout;
 static const CcPieceTagType c = CC_PTE_DarkCentaur;
 static const CcPieceTagType w = CC_PTE_DarkWave;
 static const CcPieceTagType u = CC_PTE_DarkUnicorn;
 static const CcPieceTagType a = CC_PTE_DarkPyramid;
 static const CcPieceTagType e = CC_PTE_DarkPegasus;
-static const CcPieceTagType k = CC_PTE_DarkKing;
+static const CcPieceTagType k = CC_PTE_DarkKing_CanCastle; // CC_PTE_DarkKing;
 static const CcPieceTagType q = CC_PTE_DarkQueen;
-static const CcPieceTagType r = CC_PTE_DarkRook;
+static const CcPieceTagType r = CC_PTE_DarkRook_CanCastle; // CC_PTE_DarkRook;
 static const CcPieceTagType b = CC_PTE_DarkBishop;
 static const CcPieceTagType n = CC_PTE_DarkKnight;
-static const CcPieceTagType p = CC_PTE_DarkPawn;
+static const CcPieceTagType p = CC_PTE_DarkPawn_CanRush; // CC_PTE_DarkPawn;
 
 static const CcPieceTagType x = CC_PTE_None;
 
-static const CcPieceTagType P = CC_PTE_LightPawn;
+static const CcPieceTagType P = CC_PTE_LightPawn_CanRush; // CC_PTE_LightPawn;
 static const CcPieceTagType N = CC_PTE_LightKnight;
 static const CcPieceTagType B = CC_PTE_LightBishop;
-static const CcPieceTagType R = CC_PTE_LightRook;
+static const CcPieceTagType R = CC_PTE_LightRook_CanCastle; // CC_PTE_LightRook;
 static const CcPieceTagType Q = CC_PTE_LightQueen;
-static const CcPieceTagType K = CC_PTE_LightKing;
+static const CcPieceTagType K = CC_PTE_LightKing_CanCastle; // CC_PTE_LightKing;
 static const CcPieceTagType E = CC_PTE_LightPegasus;
 static const CcPieceTagType A = CC_PTE_LightPyramid;
 static const CcPieceTagType U = CC_PTE_LightUnicorn;
 static const CcPieceTagType W = CC_PTE_LightWave;
 static const CcPieceTagType C = CC_PTE_LightCentaur;
-static const CcPieceTagType O = CC_PTE_LightScout;
-static const CcPieceTagType G = CC_PTE_LightGrenadier;
+static const CcPieceTagType O = CC_PTE_LightScout_CanRush; // CC_PTE_LightScout;
+static const CcPieceTagType G = CC_PTE_LightGrenadier_CanRush; // CC_PTE_LightGrenadier;
 static const CcPieceTagType S = CC_PTE_LightSerpent;
 static const CcPieceTagType H = CC_PTE_LightShaman;
 static const CcPieceTagType I = CC_PTE_LightStarchild;
@@ -50,6 +52,8 @@ static const CcPieceTagType I = CC_PTE_LightStarchild;
 static const CcPieceTagType T = CC_PTE_BrightStar;
 
 static const CcPieceTagType M = CC_PTE_Monolith;
+
+// a b c D e F g h i J k L m n o p q r s t u V w X Y Z
 
 
 CcPieceTagType const CC_SETUP_BOARD_CLASSICAL_CHESS[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS ] = {

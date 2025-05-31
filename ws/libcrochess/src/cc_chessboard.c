@@ -421,8 +421,7 @@ char * cc_chessboard_as_string__new( CcChessboard * cb,
             if ( is_board_or_tag )
                 ch = cc_piece_as_char( cb->board[ x ][ y ] );
             else
-                // ch = cc_tag_as_char( cb->tags[ x ][ y ] ); // TODO :: FIX
-                ch = cc_piece_as_char( cb->board[ x ][ y ] );
+                ch = cc_tag_as_char( cb->board[ x ][ y ] );
 
             if ( ch == ' ' ) {
                 if ( CC_IS_FIELD_LIGHT( x, y ) ) ch = '.';

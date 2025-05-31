@@ -14,7 +14,9 @@ char cc_tag_as_char( CcPieceTagType ptt ) {
     else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_TAG_CHAR_DELAYED_PROMOTION;
     else if ( CC_TAG_IS_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_RUSHED_PREVIOUS;
     else if ( CC_TAG_IS_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_RUSHED_CURRENT;
-    else return CC_TAG_CHAR_INVALID;
+    else
+        return ( CC_PIECE_IS_VALID( ptt ) ) ? CC_TAG_CHAR_PIECE
+                                            : CC_TAG_CHAR_INVALID;
 }
 
 //
