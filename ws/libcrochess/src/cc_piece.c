@@ -292,7 +292,7 @@ CcPieceTagType cc_piece_from_char( char piece, char tag ) {
     }
 }
 
-char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: FIX
+char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_field ) {
     switch ( ptt ) {
         case CC_PTE_DimStar :
         case CC_PTE_BrightStar : return "Star";
@@ -306,11 +306,23 @@ char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_fie
         case CC_PTE_DarkSerpent :
         case CC_PTE_LightSerpent : return "Serpent";
 
+        case CC_PTE_DarkGrenadier_RushedCurrent :
+        case CC_PTE_DarkGrenadier_RushedPrevious :
+        case CC_PTE_DarkGrenadier_CanRush :
         case CC_PTE_DarkGrenadier :
-        case CC_PTE_LightGrenadier : return "Grenadier";
+        case CC_PTE_LightGrenadier :
+        case CC_PTE_LightGrenadier_CanRush :
+        case CC_PTE_LightGrenadier_RushedPrevious :
+        case CC_PTE_LightGrenadier_RushedCurrent : return "Grenadier";
 
+        case CC_PTE_DarkScout_RushedCurrent :
+        case CC_PTE_DarkScout_RushedPrevious :
+        case CC_PTE_DarkScout_CanRush :
         case CC_PTE_DarkScout :
-        case CC_PTE_LightScout : return "Scout";
+        case CC_PTE_LightScout :
+        case CC_PTE_LightScout_CanRush :
+        case CC_PTE_LightScout_RushedPrevious :
+        case CC_PTE_LightScout_RushedCurrent : return "Scout";
 
         case CC_PTE_DarkCentaur :
         case CC_PTE_LightCentaur : return "Centaur";
@@ -327,14 +339,18 @@ char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_fie
         case CC_PTE_DarkPegasus :
         case CC_PTE_LightPegasus : return "Pegasus";
 
+        case CC_PTE_DarkKing_CanCastle :
         case CC_PTE_DarkKing :
-        case CC_PTE_LightKing : return "King";
+        case CC_PTE_LightKing :
+        case CC_PTE_LightKing_CanCastle : return "King";
 
         case CC_PTE_DarkQueen :
         case CC_PTE_LightQueen : return "Queen";
 
+        case CC_PTE_DarkRook_CanCastle :
         case CC_PTE_DarkRook :
-        case CC_PTE_LightRook : return "Rook";
+        case CC_PTE_LightRook :
+        case CC_PTE_LightRook_CanCastle : return "Rook";
 
         case CC_PTE_DarkBishop :
         case CC_PTE_LightBishop : return "Bishop";
@@ -342,8 +358,16 @@ char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_fie
         case CC_PTE_DarkKnight :
         case CC_PTE_LightKnight : return "Knight";
 
+        case CC_PTE_DarkPawn_DelayedPromotion :
+        case CC_PTE_DarkPawn_RushedCurrent :
+        case CC_PTE_DarkPawn_RushedPrevious :
+        case CC_PTE_DarkPawn_CanRush :
         case CC_PTE_DarkPawn :
-        case CC_PTE_LightPawn : return "Pawn";
+        case CC_PTE_LightPawn :
+        case CC_PTE_LightPawn_CanRush :
+        case CC_PTE_LightPawn_RushedPrevious :
+        case CC_PTE_LightPawn_RushedCurrent :
+        case CC_PTE_LightPawn_DelayedPromotion : return "Pawn";
 
         case CC_PTE_None :
             return empty_field ? ( capitalize ? "Empty field"
@@ -366,7 +390,7 @@ CcPieceTagType cc_piece_demoting_to( CcPieceTagType ptt ) {
     return CC_PTE_None;
 }
 
-bool cc_piece_is_dark( CcPieceTagType ptt ) {
+bool cc_piece_is_dark( CcPieceTagType ptt ) { // TODO :: FIX
     switch ( ptt ) {
         case CC_PTE_DarkStarchild :
         case CC_PTE_DarkShaman :
@@ -391,7 +415,7 @@ bool cc_piece_is_dark( CcPieceTagType ptt ) {
     }
 }
 
-bool cc_piece_is_light( CcPieceTagType ptt ) {
+bool cc_piece_is_light( CcPieceTagType ptt ) { // TODO :: FIX
     switch ( ptt ) {
         case CC_PTE_LightPawn :
         case CC_PTE_LightKnight :
@@ -428,7 +452,7 @@ bool cc_piece_has_prefix( CcPieceTagType ptt ) {
     return cc_piece_has_color( ptt ) || cc_piece_has_shade( ptt );
 }
 
-char const * cc_piece_prefix( CcPieceTagType ptt, bool capitalize ) {
+char const * cc_piece_prefix( CcPieceTagType ptt, bool capitalize ) { // TODO :: FIX
     switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim" : "dim";
 
@@ -542,7 +566,7 @@ bool cc_piece_is_figure( CcPieceTagType ptt ) {
     return cc_piece_is_owned_figure( ptt );
 }
 
-char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) {
+char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: FIX
     switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim Star" : "dim Star";
         case CC_PTE_BrightStar : return capitalize ? "Bright Star" : "bright Star";
