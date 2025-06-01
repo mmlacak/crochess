@@ -402,52 +402,12 @@ bool cc_piece_has_prefix( CcPieceTagType ptt ) {
     return cc_piece_has_color( ptt ) || cc_piece_has_shade( ptt );
 }
 
-char const * cc_piece_prefix( CcPieceTagType ptt, bool capitalize ) { // TODO :: FIX
-    switch ( ptt ) {
-        case CC_PTE_DimStar : return capitalize ? "Dim" : "dim";
-
-        case CC_PTE_DarkStarchild :
-        case CC_PTE_DarkShaman :
-        case CC_PTE_DarkSerpent :
-        case CC_PTE_DarkGrenadier :
-        case CC_PTE_DarkScout :
-        case CC_PTE_DarkCentaur :
-        case CC_PTE_DarkWave :
-        case CC_PTE_DarkUnicorn :
-        case CC_PTE_DarkPyramid :
-        case CC_PTE_DarkPegasus :
-        case CC_PTE_DarkKing :
-        case CC_PTE_DarkQueen :
-        case CC_PTE_DarkRook :
-        case CC_PTE_DarkBishop :
-        case CC_PTE_DarkKnight :
-        case CC_PTE_DarkPawn : return capitalize ? "Dark" : "dark";
-
-        case CC_PTE_None : return "";
-
-        case CC_PTE_LightPawn :
-        case CC_PTE_LightKnight :
-        case CC_PTE_LightBishop :
-        case CC_PTE_LightRook :
-        case CC_PTE_LightQueen :
-        case CC_PTE_LightKing :
-        case CC_PTE_LightPegasus :
-        case CC_PTE_LightPyramid :
-        case CC_PTE_LightUnicorn :
-        case CC_PTE_LightWave :
-        case CC_PTE_LightCentaur :
-        case CC_PTE_LightScout :
-        case CC_PTE_LightGrenadier :
-        case CC_PTE_LightSerpent :
-        case CC_PTE_LightShaman :
-        case CC_PTE_LightStarchild : return capitalize ? "Light" : "light";
-
-        case CC_PTE_BrightStar : return capitalize ? "Bright" : "bright";
-
-        case CC_PTE_Monolith : return "";
-
-        default : return CC_DEFAULT_VALUE_STRING;
-    }
+char const * cc_piece_prefix( CcPieceTagType ptt, bool capitalize ) {
+    if ( CC_PIECE_IS_DARK( ptt ) ) return capitalize ? "Dark" : "dark";
+    else if ( CC_PIECE_IS_LIGHT( ptt ) ) return capitalize ? "Light" : "light";
+    else if ( ptt == CC_PTE_DimStar ) return capitalize ? "Dim" : "dim";
+    else if ( ptt == CC_PTE_BrightStar ) return capitalize ? "Bright" : "bright";
+    else return "";
 }
 
 bool cc_piece_has_congruent_type( char symbol, CcPieceTagType ptt ) {
