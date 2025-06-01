@@ -385,63 +385,13 @@ char cc_piece_symbol( CcPieceTagType ptt ) {
 }
 
 CcPieceTagType cc_piece_demoting_to( CcPieceTagType ptt ) {
-    if ( cc_piece_is_dark( ptt ) ) return CC_PTE_DarkPawn;
-    if ( cc_piece_is_light( ptt ) ) return CC_PTE_LightPawn;
+    if ( CC_PIECE_IS_DARK( ptt ) ) return CC_PTE_DarkPawn;
+    if ( CC_PIECE_IS_LIGHT( ptt ) ) return CC_PTE_LightPawn;
     return CC_PTE_None;
 }
 
-bool cc_piece_is_dark( CcPieceTagType ptt ) { // TODO :: FIX
-    switch ( ptt ) {
-        case CC_PTE_DarkStarchild :
-        case CC_PTE_DarkShaman :
-        case CC_PTE_DarkSerpent :
-        case CC_PTE_DarkGrenadier :
-        case CC_PTE_DarkScout :
-        case CC_PTE_DarkCentaur :
-        case CC_PTE_DarkWave :
-        case CC_PTE_DarkUnicorn :
-        case CC_PTE_DarkPyramid :
-        case CC_PTE_DarkPegasus :
-        case CC_PTE_DarkKing :
-        case CC_PTE_DarkQueen :
-        case CC_PTE_DarkRook :
-        case CC_PTE_DarkBishop :
-        case CC_PTE_DarkKnight :
-        case CC_PTE_DarkPawn :
-            return true;
-
-        default :
-            return false;
-    }
-}
-
-bool cc_piece_is_light( CcPieceTagType ptt ) { // TODO :: FIX
-    switch ( ptt ) {
-        case CC_PTE_LightPawn :
-        case CC_PTE_LightKnight :
-        case CC_PTE_LightBishop :
-        case CC_PTE_LightRook :
-        case CC_PTE_LightQueen :
-        case CC_PTE_LightKing :
-        case CC_PTE_LightPegasus :
-        case CC_PTE_LightPyramid :
-        case CC_PTE_LightUnicorn :
-        case CC_PTE_LightWave :
-        case CC_PTE_LightCentaur :
-        case CC_PTE_LightScout :
-        case CC_PTE_LightGrenadier :
-        case CC_PTE_LightSerpent :
-        case CC_PTE_LightShaman :
-        case CC_PTE_LightStarchild :
-            return true;
-
-        default :
-            return false;
-    }
-}
-
 bool cc_piece_has_color( CcPieceTagType ptt ) {
-    return cc_piece_is_light( ptt ) || cc_piece_is_dark( ptt );
+    return CC_PIECE_IS_LIGHT( ptt ) || CC_PIECE_IS_DARK( ptt );
 }
 
 bool cc_piece_has_shade( CcPieceTagType ptt ) {
@@ -517,10 +467,10 @@ bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
 }
 
 bool cc_piece_has_same_color( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) )
+    if ( CC_PIECE_IS_LIGHT( pe_1 ) && CC_PIECE_IS_LIGHT( pe_2 ) )
         return true;
 
-    if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) )
+    if ( CC_PIECE_IS_DARK( pe_1 ) && CC_PIECE_IS_DARK( pe_2 ) )
         return true;
 
     return false;
@@ -539,23 +489,23 @@ bool cc_piece_is_opposite( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
 }
 
 bool cc_piece_has_same_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( cc_piece_is_light( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
-    if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
+    if ( CC_PIECE_IS_LIGHT( pe_1 ) && CC_PIECE_IS_LIGHT( pe_2 ) ) return true;
+    if ( CC_PIECE_IS_DARK( pe_1 ) && CC_PIECE_IS_DARK( pe_2 ) ) return true;
 
     return false;
 }
 
 bool cc_piece_has_different_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( cc_piece_is_light( pe_1 ) && cc_piece_is_dark( pe_2 ) ) return true;
-    if ( cc_piece_is_dark( pe_1 ) && cc_piece_is_light( pe_2 ) ) return true;
+    if ( CC_PIECE_IS_LIGHT( pe_1 ) && CC_PIECE_IS_DARK( pe_2 ) ) return true;
+    if ( CC_PIECE_IS_DARK( pe_1 ) && CC_PIECE_IS_LIGHT( pe_2 ) ) return true;
 
     return false;
 }
 
 bool cc_piece_is_owned_figure( CcPieceTagType ptt ) {
     if ( CC_PIECE_IS_PAWN( ptt ) ) return false;
-    if ( cc_piece_is_light( ptt ) ) return true;
-    if ( cc_piece_is_dark( ptt ) ) return true;
+    if ( CC_PIECE_IS_LIGHT( ptt ) ) return true;
+    if ( CC_PIECE_IS_DARK( ptt ) ) return true;
     return false;
 }
 

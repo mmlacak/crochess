@@ -30,7 +30,7 @@ int cc_find_initial_figure_file( CcVariantType ve,
     int step = search_queen_side_first ? 1 : -1;
 
     int rank =
-        cc_piece_is_light( pe ) || ( pe == CC_PTE_BrightStar ) ? (int)(size - 1)
+        CC_PIECE_IS_LIGHT( pe ) || ( pe == CC_PTE_BrightStar ) ? (int)(size - 1)
                                                               : 0;
 
     for ( int j = start; (0 <= j) && (j < (int)size); j += step ) {
@@ -82,7 +82,7 @@ bool cc_check_pos_is_king_castling_step( CcVariantType ve,
 
     if ( pos_i == init_i ) return false;
 
-    bool is_light = cc_piece_is_light( king );
+    bool is_light = CC_PIECE_IS_LIGHT( king );
     int init_j = cc_variant_initial_figure_rank( ve, is_light );
     if ( !CC_IS_COORD_ON_BOARD( size, init_j ) ) return false;
 

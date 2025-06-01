@@ -95,10 +95,10 @@ bool cc_pos_are_same_color( CcPos start, CcPos destination ) {
 }
 
 bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece ) {
-    if ( cc_piece_is_light( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
+    if ( CC_PIECE_IS_LIGHT( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
         return true;
 
-    if ( cc_piece_is_dark( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
+    if ( CC_PIECE_IS_DARK( piece ) && CC_IS_FIELD_DARK( pos.i, pos.j ) )
         return true;
 
     return false;

@@ -251,7 +251,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.
     if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return CC_MBE_Void;
 
-    bool is_piece_light = cc_piece_is_light( private );
+    bool is_piece_light = CC_PIECE_IS_LIGHT( private );
 
     if ( is_piece_light ) { // En passant can only be done on opposite side of a chessboard.
         if ( cc_chessboard_is_field_on_light_side( cb, destination.j ) ) return CC_MBE_Void;

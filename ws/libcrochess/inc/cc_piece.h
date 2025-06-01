@@ -73,6 +73,12 @@
                                   || ( (ptt) == CC_PTE_LightStarchild )    \
                                   || ( (ptt) == CC_PTE_Monolith ) )
 
+// TODO :: DOCS
+#define CC_PIECE_IS_DARK(ptt) ( ( CC_PTE_DarkStarchild <= (ptt) ) && ( (ptt) <= CC_PTE_DarkPawn ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_LIGHT(ptt) ( ( CC_PTE_LightPawn <= (ptt) ) && ( (ptt) <= CC_PTE_LightStarchild ) )
+
 
 // TODO :: DOCS
 #define CC_PIECE_HAS_OPPOSITE(ptt) ( ( (ptt) != CC_PTE_None ) && ( CC_PTE_DimStar <= (ptt) ) && ( (ptt) < CC_PTE_Monolith ) )
@@ -388,9 +394,11 @@ char cc_piece_symbol( CcPieceTagType ptt );
 
 CcPieceTagType cc_piece_demoting_to( CcPieceTagType ptt );
 
-bool cc_piece_is_dark( CcPieceTagType ptt );
+// TODO :: DELETE :: DOCS
+// bool cc_piece_is_dark( CcPieceTagType ptt );
 
-bool cc_piece_is_light( CcPieceTagType ptt );
+// TODO :: DELETE :: DOCS
+// bool cc_piece_is_light( CcPieceTagType ptt );
 
 bool cc_piece_has_color( CcPieceTagType ptt );
 
