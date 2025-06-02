@@ -50,8 +50,7 @@ CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceTagType piece,
 }
 
 
-
-CcSideEffect cc_side_effect( CcSideEffectTypeEnum type, // TODO :: FIX :: delete lost_tag everywhere
+CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
                              CcPieceTagType piece,
                              CcPos start,
                              CcPos destination,

@@ -57,3 +57,109 @@ CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt ) {
     else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_LTE_CastlingTagLost;
     else return CC_LTE_NoneLost;
 }
+
+CcPieceTagType cc_set_piece_tag_from_losing( CcPieceTagType ptt,
+                                             CcLosingTagType ltt,
+                                             bool override_conflicting_tag ) {
+    switch ( ltt ) {
+        case CC_LTE_RushingTagLost : {
+            switch ( ptt ) {
+                case CC_PTE_DarkGrenadier_RushedCurrent :
+                case CC_PTE_DarkGrenadier_RushedPrevious :
+                    return override_conflicting_tag ? CC_PTE_DarkGrenadier_CanRush
+                                                    : ptt;
+
+                case CC_PTE_DarkGrenadier_CanRush :
+                case CC_PTE_DarkGrenadier : return CC_PTE_DarkGrenadier_CanRush;
+
+                case CC_PTE_DarkScout_RushedCurrent :
+                case CC_PTE_DarkScout_RushedPrevious :
+                    return override_conflicting_tag ? CC_PTE_DarkScout_CanRush
+                                                    : ptt;
+
+                case CC_PTE_DarkScout_CanRush :
+                case CC_PTE_DarkScout : return CC_PTE_DarkScout_CanRush;
+
+                case CC_PTE_DarkPawn_DelayedPromotion :
+                case CC_PTE_DarkPawn_RushedCurrent :
+                case CC_PTE_DarkPawn_RushedPrevious :
+                    return override_conflicting_tag ? CC_PTE_DarkPawn_CanRush
+                                                    : ptt;
+
+                case CC_PTE_DarkPawn_CanRush :
+                case CC_PTE_DarkPawn : return CC_PTE_DarkPawn_CanRush;
+
+                case CC_PTE_LightPawn :
+                case CC_PTE_LightPawn_CanRush : return CC_PTE_LightPawn_CanRush;
+
+                case CC_PTE_LightPawn_RushedPrevious :
+                case CC_PTE_LightPawn_RushedCurrent :
+                case CC_PTE_LightPawn_DelayedPromotion :
+                    return override_conflicting_tag ? CC_PTE_LightPawn_CanRush
+                                                    : ptt;
+
+                case CC_PTE_LightScout :
+                case CC_PTE_LightScout_CanRush : return CC_PTE_LightScout_CanRush;
+
+                case CC_PTE_LightScout_RushedPrevious :
+                case CC_PTE_LightScout_RushedCurrent :
+                    return override_conflicting_tag ? CC_PTE_LightScout_CanRush
+                                                    : ptt;
+
+                case CC_PTE_LightGrenadier :
+                case CC_PTE_LightGrenadier_CanRush : return CC_PTE_LightGrenadier_CanRush;
+
+                case CC_PTE_LightGrenadier_RushedPrevious :
+                case CC_PTE_LightGrenadier_RushedCurrent :
+                    return override_conflicting_tag ? CC_PTE_LightGrenadier_CanRush
+                                                    : ptt;
+
+                default : return ptt;
+            }
+        }
+
+        case CC_LTE_CastlingTagLost : {
+            switch ( ptt ) {
+                case CC_PTE_DarkKing_CanCastle :
+                case CC_PTE_DarkKing : return CC_PTE_DarkKing_CanCastle;
+
+                case CC_PTE_DarkRook_CanCastle :
+                case CC_PTE_DarkRook : return CC_PTE_DarkRook_CanCastle;
+
+                case CC_PTE_LightRook :
+                case CC_PTE_LightRook_CanCastle : return CC_PTE_LightRook_CanCastle;
+
+                case CC_PTE_LightKing :
+                case CC_PTE_LightKing_CanCastle : return CC_PTE_LightKing;
+
+                default : return ptt;
+            }
+        }
+
+        case CC_LTE_DelayedPromotionLost : {
+            switch ( ptt ) {
+                case CC_PTE_DarkPawn_DelayedPromotion :
+                case CC_PTE_DarkPawn : return CC_PTE_DarkPawn_DelayedPromotion;
+
+                case CC_PTE_DarkPawn_RushedCurrent :
+                case CC_PTE_DarkPawn_RushedPrevious :
+                case CC_PTE_DarkPawn_CanRush :
+                    return override_conflicting_tag ? CC_PTE_DarkPawn_DelayedPromotion
+                                                    : ptt;
+
+                case CC_PTE_LightPawn_CanRush :
+                case CC_PTE_LightPawn_RushedPrevious :
+                case CC_PTE_LightPawn_RushedCurrent :
+                    return override_conflicting_tag ? CC_PTE_LightPawn_DelayedPromotion
+                                                    : ptt;
+
+                case CC_PTE_LightPawn_DelayedPromotion :
+                case CC_PTE_LightPawn : return CC_PTE_LightPawn_DelayedPromotion;
+
+                default : return ptt;
+            }
+        }
+
+        default : return ptt;
+    }
+}

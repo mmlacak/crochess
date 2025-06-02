@@ -31,17 +31,6 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
     return false;
 }
 
-bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt ) {
-    if ( ltt == CC_LTE_NoneLost ) {
-        return true;
-    } else if ( CC_PIECE_IS_PAWN( piece ) ) {
-        return ( ( ltt == CC_LTE_RushingTagLost ) || ( ltt == CC_LTE_DelayedPromotionLost ) );
-    } else if ( CC_PIECE_IS_ROOK( piece ) || CC_PIECE_IS_KING( piece ) ) {
-        return ( ltt == CC_LTE_CastlingTagLost );
-    } else
-        return false;
-}
-
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceTagType piece,
                                               CcPos pos ) {

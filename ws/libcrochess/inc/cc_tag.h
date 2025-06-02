@@ -131,9 +131,13 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
 // TODO :: DOCS
 CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt );
 
-// CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt ); // TODO :: DELELTE :: DOCS
+// CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt );
+// TODO :: FIX :: DOCS
+CcPieceTagType cc_set_piece_tag_from_losing( CcPieceTagType ptt,
+                                             CcLosingTagType ltt,
+                                             bool override_conflicting_tag );
 
-// bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 ); // TODO :: DELELTE :: DOCS
+// bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 ); // TODO :: DELETE :: DOCS
 
 
 

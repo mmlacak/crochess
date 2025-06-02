@@ -109,8 +109,9 @@ static bool _cc_parse_ply( char const * ply_start_an,
 
     CcLosingTagType ltt_an = cc_parse_losing_tag( c_an );
 
-    if ( !cc_check_piece_can_lose_tag( pt_an, ltt_an ) )
-        return _cc_fail_with_msg_piece_cannot_lose_tag( pt_an, ltt_an, ply_start_an, ply_end_an, parse_msgs__iod );
+    // TODO :: FIX :: piece + lost tag ---> piece with tag
+    // if ( !cc_check_piece_can_lose_tag( pt_an, ltt_an ) )
+    //     return _cc_fail_with_msg_piece_cannot_lose_tag( pt_an, ltt_an, ply_start_an, ply_end_an, parse_msgs__iod );
 
     c_an += cc_losing_tag_len( ltt_an );
 
