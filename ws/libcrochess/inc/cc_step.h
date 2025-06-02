@@ -82,13 +82,11 @@ char * cc_step_all_to_string__new( CcStep * steps );
 CcStep * cc_step_none__new( CcStepLinkTypeEnum link, CcPos field );
 
 CcStep * cc_step_capture__new( CcStepLinkTypeEnum link, CcPos field,
-                               CcPieceTagType piece,
-                               CcLosingTagType lost_tag );
+                               CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field,
                                     CcPieceTagType piece,
-                                    CcLosingTagType lost_tag,
-                                    CcPos destination );
+                                    CcPos destination ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field,
                                   CcPieceTagType pawn,
@@ -101,23 +99,19 @@ CcStep * cc_step_castle__new( CcStepLinkTypeEnum link, CcPos field,
 
 CcStep * cc_step_promote__new( CcStepLinkTypeEnum link, CcPos field,
                                CcPieceTagType captured,
-                               CcLosingTagType lost_tag,
-                               CcPieceTagType promoted_to );
+                               CcPieceTagType promoted_to ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_tag_for_promotion__new( CcStepLinkTypeEnum link, CcPos field,
-                                         CcPieceTagType captured,
-                                         CcLosingTagType lost_tag );
+                                         CcPieceTagType captured ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_convert__new( CcStepLinkTypeEnum link, CcPos field,
-                               CcPieceTagType piece,
-                               CcLosingTagType lost_tag );
+                               CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_failed_conversion__new( CcStepLinkTypeEnum link, CcPos field );
 
 CcStep * cc_step_demote__new( CcStepLinkTypeEnum link, CcPos field,
                               CcPieceTagType piece,
-                              CcLosingTagType lost_tag,
-                              CcPos distant );
+                              CcPos distant ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_resurrect__new( CcStepLinkTypeEnum link, CcPos field,
                                  CcPieceTagType piece,
@@ -133,15 +127,13 @@ CcStep * cc_step_none_append( CcStep ** steps__iod_a,
 CcStep * cc_step_capture_append( CcStep ** steps__iod_a,
                                  CcStepLinkTypeEnum link,
                                  CcPos field,
-                                 CcPieceTagType piece,
-                                 CcLosingTagType lost_tag );
+                                 CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_displacement_append( CcStep ** steps__iod_a,
                                       CcStepLinkTypeEnum link,
                                       CcPos field,
                                       CcPieceTagType piece,
-                                      CcLosingTagType lost_tag,
-                                      CcPos destination );
+                                      CcPos destination ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a,
                                     CcStepLinkTypeEnum link,
@@ -160,20 +152,17 @@ CcStep * cc_step_promote_append( CcStep ** steps__iod_a,
                                  CcStepLinkTypeEnum link,
                                  CcPos field,
                                  CcPieceTagType captured,
-                                 CcLosingTagType lost_tag,
-                                 CcPieceTagType promoted_to );
+                                 CcPieceTagType promoted_to ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_tag_for_promotion_append( CcStep ** steps__iod_a,
                                            CcStepLinkTypeEnum link,
                                            CcPos field,
-                                           CcPieceTagType captured,
-                                           CcLosingTagType lost_tag );
+                                           CcPieceTagType captured ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_convert_append( CcStep ** steps__iod_a,
                                  CcStepLinkTypeEnum link,
                                  CcPos field,
-                                 CcPieceTagType piece,
-                                 CcLosingTagType lost_tag );
+                                 CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_failed_conversion_append( CcStep ** steps__iod_a,
                                            CcStepLinkTypeEnum link,
@@ -183,8 +172,7 @@ CcStep * cc_step_demote_append( CcStep ** steps__iod_a,
                                 CcStepLinkTypeEnum link,
                                 CcPos field,
                                 CcPieceTagType piece,
-                                CcLosingTagType lost_tag,
-                                CcPos distant );
+                                CcPos distant ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 
 CcStep * cc_step_resurrect_append( CcStep ** steps__iod_a,
                                    CcStepLinkTypeEnum link,

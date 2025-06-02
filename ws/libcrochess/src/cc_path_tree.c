@@ -25,9 +25,6 @@ bool cc_path_side_effect( CcChessboard * cb,
     if ( !CC_PIECE_IS_VALID( moving_from.piece ) ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false;
 
-    CcLosingTagType ltt = cc_convert_tag_to_losing( encounter.piece );
-    if ( !cc_check_piece_can_lose_tag( encounter.piece, ltt ) ) return false;
-
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
@@ -35,7 +32,7 @@ bool cc_path_side_effect( CcChessboard * cb,
             CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
             ( cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ||
               CC_TRANCE_JOURNEY_TYPE_IS_ANY_CAPTURE( trance_journey_type ) ) ) {
-        CcSideEffect se = cc_side_effect_capture( encounter.piece, ltt );
+        CcSideEffect se = cc_side_effect_capture( encounter.piece );
         CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
         if ( !se__w ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
@@ -52,7 +49,7 @@ bool cc_path_side_effect( CcChessboard * cb,
         }
 
         if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
-            CcSideEffect se = cc_side_effect_displacement( encounter.piece, ltt, displacement );
+            CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
             CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
@@ -62,7 +59,7 @@ bool cc_path_side_effect( CcChessboard * cb,
     } else if ( trance_journey_type == CC_TJTE_None ) {
         if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
                 CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
-            CcSideEffect se = cc_side_effect_displacement( encounter.piece, ltt, displacement );
+            CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
             CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );

@@ -11,7 +11,7 @@
 #include "cc_tag.h"
 
 
-CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light ) {
+CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light ) { // TODO :: FIX :: add losing tag
     switch ( symbol ) {
         case ' ' : return CC_PTE_None;
 

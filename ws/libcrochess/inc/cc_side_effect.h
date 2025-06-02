@@ -134,7 +134,6 @@ typedef struct CcSideEffect
 
 CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
                              CcPieceTagType piece,
-                             CcLosingTagType lost_tag,
                              CcPos start,
                              CcPos destination,
                              CcPieceTagType promoted_to );
@@ -150,17 +149,17 @@ bool cc_side_effect_to_str( CcSideEffect se,
 
 // Convenience functions.
 CcSideEffect cc_side_effect_none( void );
-CcSideEffect cc_side_effect_capture( CcPieceTagType piece, CcLosingTagType lost_tag );
-CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos destination );
+CcSideEffect cc_side_effect_capture( CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
+CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destination ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant );
 CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination );
-CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcLosingTagType lost_tag, CcPieceTagType promoted_to );
-CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured, CcLosingTagType lost_tag );
-CcSideEffect cc_side_effect_convert( CcPieceTagType piece, CcLosingTagType lost_tag );
+CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcPieceTagType promoted_to ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
+CcSideEffect cc_side_effect_convert( CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 CcSideEffect cc_side_effect_failed_conversion( void );
 CcSideEffect cc_side_effect_transparency( CcPieceTagType piece );
 CcSideEffect cc_side_effect_diversion( CcPieceTagType piece );
-CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos distant );
+CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcPos distant ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
 CcSideEffect cc_side_effect_resurrect( CcPieceTagType piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection( void );
 
