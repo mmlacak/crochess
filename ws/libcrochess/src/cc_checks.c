@@ -31,15 +31,26 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
     return false;
 }
 
-bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt ) { // TODO :: FIX
-    if ( ltt == CC_LTE_NoneLost ) {
-        return true;
-    } else if ( CC_PIECE_IS_PAWN( piece ) ) {
-        return ( ( ltt == CC_LTE_RushingTagLost ) || ( ltt == CC_LTE_DelayedPromotionLost ) );
-    } else if ( CC_PIECE_IS_ROOK( piece ) || CC_PIECE_IS_KING( piece ) ) {
-        return ( ltt == CC_LTE_CastlingTagLost );
-    } else
-        return false;
+bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
+                                  CcLosingTagType ltt,
+                                  bool compare_tag_and_losing_tag ) {
+    if ( ltt == CC_LTE_NoneLost ) return true;
+
+    if ( compare_tag_and_losing_tag ) {
+        switch ( ltt ) {
+            case CC_LTE_RushingTagLost : return CC_TAG_IS_CAN_RUSH( ptt );
+            case CC_LTE_CastlingTagLost : return CC_TAG_IS_CAN_CASTLE( ptt );
+            case CC_LTE_DelayedPromotionLost : return CC_TAG_IS_DELAYED_PROMOTION( ptt );
+        }
+    } else {
+        switch ( ltt ) {
+            case CC_LTE_RushingTagLost : return CC_PIECE_IS_PAWN( ptt ) || CC_PIECE_IS_SCOUT( ptt ) || CC_PIECE_IS_GRENADIER( ptt );
+            case CC_LTE_CastlingTagLost : return CC_PIECE_IS_ROOK( ptt ) || CC_PIECE_IS_KING( ptt );
+            case CC_LTE_DelayedPromotionLost : return CC_PIECE_IS_PAWN( ptt );
+        }
+    }
+
+    return false;
 }
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,

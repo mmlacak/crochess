@@ -25,7 +25,9 @@
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse );
 
-bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt ); // TODO :: FIX
+bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
+                                  CcLosingTagType ltt,
+                                  bool compare_tag_and_losing_tag );
 
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceTagType piece,
