@@ -476,7 +476,7 @@ bool cc_piece_is_figure( CcPieceTagType ptt ) {
     return cc_piece_is_owned_figure( ptt );
 }
 
-char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) {
+char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: convert to allocated string
     switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim Star" : "dim Star";
         case CC_PTE_BrightStar : return capitalize ? "Bright Star" : "bright Star";
@@ -490,23 +490,23 @@ char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty
         case CC_PTE_DarkSerpent : return capitalize ? "Dark Serpent" : "dark Serpent";
         case CC_PTE_LightSerpent : return capitalize ? "Light Serpent" : "light Serpent";
 
-        case CC_PTE_DarkGrenadier_RushedCurrent :
-        case CC_PTE_DarkGrenadier_RushedPrevious :
-        case CC_PTE_DarkGrenadier_CanRush :
+        case CC_PTE_DarkGrenadier_RushedCurrent : return capitalize ? "Dark Grenadier (rushed in current turn)" : "dark Grenadier (rushed in current turn)";
+        case CC_PTE_DarkGrenadier_RushedPrevious : return capitalize ? "Dark Grenadier (rushed in previous turn)" : "dark Grenadier (rushed in previous turn)";
+        case CC_PTE_DarkGrenadier_CanRush : return capitalize ? "Dark Grenadier (can rush)" : "dark Grenadier (can rush)";
         case CC_PTE_DarkGrenadier : return capitalize ? "Dark Grenadier" : "dark Grenadier";
-        case CC_PTE_LightGrenadier :
-        case CC_PTE_LightGrenadier_CanRush :
-        case CC_PTE_LightGrenadier_RushedPrevious :
-        case CC_PTE_LightGrenadier_RushedCurrent : return capitalize ? "Light Grenadier" : "light Grenadier";
+        case CC_PTE_LightGrenadier : return capitalize ? "Light Grenadier" : "light Grenadier";
+        case CC_PTE_LightGrenadier_CanRush : return capitalize ? "Light Grenadier (can rush)" : "light Grenadier (can rush)";
+        case CC_PTE_LightGrenadier_RushedPrevious : return capitalize ? "Light Grenadier (rushed in previous turn)" : "light Grenadier (rushed in previous turn)";
+        case CC_PTE_LightGrenadier_RushedCurrent : return capitalize ? "Light Grenadier (rushed in current turn)" : "light Grenadier (rushed in current turn)";
 
-        case CC_PTE_DarkScout_RushedCurrent :
-        case CC_PTE_DarkScout_RushedPrevious :
-        case CC_PTE_DarkScout_CanRush :
+        case CC_PTE_DarkScout_RushedCurrent : return capitalize ? "Dark Scout" : "dark Scout";
+        case CC_PTE_DarkScout_RushedPrevious : return capitalize ? "Dark Scout" : "dark Scout";
+        case CC_PTE_DarkScout_CanRush : return capitalize ? "Dark Scout (can rush)" : "dark Scout (can rush)";
         case CC_PTE_DarkScout : return capitalize ? "Dark Scout" : "dark Scout";
-        case CC_PTE_LightScout :
-        case CC_PTE_LightScout_CanRush :
-        case CC_PTE_LightScout_RushedPrevious :
-        case CC_PTE_LightScout_RushedCurrent : return capitalize ? "Light Scout" : "light Scout";
+        case CC_PTE_LightScout : return capitalize ? "Light Scout" : "light Scout";
+        case CC_PTE_LightScout_CanRush : return capitalize ? "Light Scout (can rush)" : "light Scout (can rush)";
+        case CC_PTE_LightScout_RushedPrevious : return capitalize ? "Light Scout (rushed in previous turn)" : "light Scout (rushed in previous turn)";
+        case CC_PTE_LightScout_RushedCurrent : return capitalize ? "Light Scout (rushed in current turn)" : "light Scout (rushed in current turn)";
 
         case CC_PTE_DarkCentaur : return capitalize ? "Dark Centaur" : "dark Centaur";
         case CC_PTE_LightCentaur : return capitalize ? "Light Centaur" : "light Centaur";
@@ -523,18 +523,18 @@ char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty
         case CC_PTE_DarkPegasus : return capitalize ? "Dark Pegasus" : "dark Pegasus";
         case CC_PTE_LightPegasus : return capitalize ? "Light Pegasus" : "light Pegasus";
 
-        case CC_PTE_DarkKing_CanCastle :
+        case CC_PTE_DarkKing_CanCastle : return capitalize ? "Dark King (can castle)" : "dark King (can castle)";
         case CC_PTE_DarkKing : return capitalize ? "Dark King" : "dark King";
-        case CC_PTE_LightKing :
-        case CC_PTE_LightKing_CanCastle : return capitalize ? "Light King" : "light King";
+        case CC_PTE_LightKing : return capitalize ? "Light King" : "light King";
+        case CC_PTE_LightKing_CanCastle : return capitalize ? "Light King (can castle)" : "light King (can castle)";
 
         case CC_PTE_DarkQueen : return capitalize ? "Dark Queen" : "dark Queen";
         case CC_PTE_LightQueen : return capitalize ? "Light Queen" : "light Queen";
 
-        case CC_PTE_DarkRook_CanCastle :
+        case CC_PTE_DarkRook_CanCastle : return capitalize ? "Dark Rook (can castle)" : "dark Rook (can castle)";
         case CC_PTE_DarkRook : return capitalize ? "Dark Rook" : "dark Rook";
-        case CC_PTE_LightRook :
-        case CC_PTE_LightRook_CanCastle : return capitalize ? "Light Rook" : "light Rook";
+        case CC_PTE_LightRook : return capitalize ? "Light Rook" : "light Rook";
+        case CC_PTE_LightRook_CanCastle : return capitalize ? "Light Rook (can castle)" : "light Rook (can castle)";
 
         case CC_PTE_DarkBishop : return capitalize ? "Dark Bishop" : "dark Bishop";
         case CC_PTE_LightBishop : return capitalize ? "Light Bishop" : "light Bishop";

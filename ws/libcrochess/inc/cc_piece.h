@@ -428,7 +428,7 @@ bool cc_piece_is_owned_figure( CcPieceTagType ptt );
 
 bool cc_piece_is_figure( CcPieceTagType ptt );
 
-char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field );
+char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ); // TODO :: convert to allocated string
 
 
 #endif /* __CC_PIECE_H__ */
