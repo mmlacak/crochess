@@ -15,17 +15,51 @@
 
 #define CC_PIECE_IS_NONE(pte) ( (pte) == CC_PTE_None )
 
-#define CC_PIECE_IS_PAWN(pte) ( ( (pte) == CC_PTE_LightPawn ) || ( (pte) == CC_PTE_DarkPawn ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_JUST_PAWN(pte) ( ( (pte) == CC_PTE_LightPawn ) || ( (pte) == CC_PTE_DarkPawn ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_PAWN_CAN_RUSH(pte) ( ( (pte) == CC_PTE_LightPawn_CanRush ) || ( (pte) == CC_PTE_DarkPawn_CanRush ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_PAWN_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_LightPawn_RushedPrevious ) || ( (pte) == CC_PTE_DarkPawn_RushedPrevious ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_PAWN_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightPawn_RushedCurrent ) || ( (pte) == CC_PTE_DarkPawn_RushedCurrent ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_PAWN_DELAYED_PROMOTION(pte) ( ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) || ( (pte) == CC_PTE_DarkPawn_DelayedPromotion ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_PAWN(pte) ( CC_PIECE_IS_JUST_PAWN( (pte) ) ||                               \
+                                CC_PIECE_IS_PAWN_CAN_RUSH( (pte) ) ||                           \
+                                CC_PIECE_IS_PAWN_RUSHED_PREVIOUS( (pte) ) ||                    \
+                                CC_PIECE_IS_PAWN_RUSHED_CURRENT( (pte) ) )
 
 #define CC_PIECE_IS_KNIGHT(pte) ( ( (pte) == CC_PTE_LightKnight ) || ( (pte) == CC_PTE_DarkKnight ) )
 
 #define CC_PIECE_IS_BISHOP(pte) ( ( (pte) == CC_PTE_LightBishop ) || ( (pte) == CC_PTE_DarkBishop ) )
 
-#define CC_PIECE_IS_ROOK(pte) ( ( (pte) == CC_PTE_LightRook ) || ( (pte) == CC_PTE_DarkRook ) )
+// TODO :: DOCS
+#define CC_PIECE_IS_JUST_ROOK(pte) ( ( (pte) == CC_PTE_LightRook ) || ( (pte) == CC_PTE_DarkRook ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_ROOK_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_LightRook_CanCastle ) || ( (pte) == CC_PTE_DarkRook_CanCastle ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_ROOK(pte) ( CC_PIECE_IS_JUST_ROOK( (pte) ) || CC_PIECE_IS_ROOK_CAN_CASTLE( (pte) ) )
 
 #define CC_PIECE_IS_QUEEN(pte) ( ( (pte) == CC_PTE_LightQueen ) || ( (pte) == CC_PTE_DarkQueen ) )
 
-#define CC_PIECE_IS_KING(pte) ( ( (pte) == CC_PTE_LightKing ) || ( (pte) == CC_PTE_DarkKing ) )
+// TODO :: DOCS
+#define CC_PIECE_IS_JUST_KING(pte) ( ( (pte) == CC_PTE_LightKing ) || ( (pte) == CC_PTE_DarkKing ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_KING_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_LightKing_CanCastle ) || ( (pte) == CC_PTE_DarkKing_CanCastle ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_KING(pte) ( CC_PIECE_IS_JUST_KING( (pte) ) || CC_PIECE_IS_KING_CAN_CASTLE( (pte) ) )
 
 #define CC_PIECE_IS_PEGASUS(pte) ( ( (pte) == CC_PTE_LightPegasus ) || ( (pte) == CC_PTE_DarkPegasus ) )
 
@@ -39,9 +73,41 @@
 
 #define CC_PIECE_IS_CENTAUR(pte) ( ( (pte) == CC_PTE_LightCentaur ) || ( (pte) == CC_PTE_DarkCentaur ) )
 
-#define CC_PIECE_IS_SCOUT(pte) ( ( (pte) == CC_PTE_LightScout ) || ( (pte) == CC_PTE_DarkScout ) )
+// TODO :: DOCS
+#define CC_PIECE_IS_JUST_SCOUT(pte) ( ( (pte) == CC_PTE_LightScout ) || ( (pte) == CC_PTE_DarkScout ) )
 
-#define CC_PIECE_IS_GRENADIER(pte) ( ( (pte) == CC_PTE_LightGrenadier ) || ( (pte) == CC_PTE_DarkGrenadier ) )
+// TODO :: DOCS
+#define CC_PIECE_IS_SCOUT_CAN_RUSH(pte) ( ( (pte) == CC_PTE_LightScout_CanRush ) || ( (pte) == CC_PTE_DarkScout_CanRush ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_LightScout_RushedPrevious ) || ( (pte) == CC_PTE_DarkScout_RushedPrevious ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_SCOUT_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightScout_RushedCurrent ) || ( (pte) == CC_PTE_DarkScout_RushedCurrent ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_SCOUT(pte) ( CC_PIECE_IS_JUST_SCOUT( (pte) ) ||                             \
+                                 CC_PIECE_IS_SCOUT_CAN_RUSH( (pte) ) ||                         \
+                                 CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS( (pte) ) ||                  \
+                                 CC_PIECE_IS_SCOUT_RUSHED_CURRENT( (pte) ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_JUST_GRENADIER(pte) ( ( (pte) == CC_PTE_LightGrenadier ) || ( (pte) == CC_PTE_DarkGrenadier ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_GRENADIER_CAN_RUSH(pte) ( ( (pte) == CC_PTE_LightGrenadier_CanRush ) || ( (pte) == CC_PTE_DarkGrenadier_CanRush ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) || ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_GRENADIER_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightGrenadier_RushedCurrent ) || ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent ) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_GRENADIER(pte) ( CC_PIECE_IS_JUST_GRENADIER( (pte) ) ||                     \
+                                     CC_PIECE_IS_GRENADIER_CAN_RUSH( (pte) ) ||                 \
+                                     CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS( (pte) ) ||          \
+                                     CC_PIECE_IS_GRENADIER_RUSHED_CURRENT( (pte) ) )
 
 #define CC_PIECE_IS_SERPENT(pte) ( ( (pte) == CC_PTE_LightSerpent ) || ( (pte) == CC_PTE_DarkSerpent ) )
 
@@ -51,17 +117,10 @@
 
 #define CC_PIECE_IS_STARCHILD(pte) ( ( (pte) == CC_PTE_LightStarchild ) || ( (pte) == CC_PTE_DarkStarchild ) )
 
-#define CC_PIECE_IS_TROOPER(pte) ( ( (pte) == CC_PTE_DarkGrenadier )       \
-                                || ( (pte) == CC_PTE_DarkScout )           \
-                                || ( (pte) == CC_PTE_LightScout )          \
-                                || ( (pte) == CC_PTE_LightGrenadier ) )
 
-#define CC_PIECE_IS_PRIVATE(pte) ( ( (pte) == CC_PTE_DarkGrenadier )       \
-                                || ( (pte) == CC_PTE_DarkScout )           \
-                                || ( (pte) == CC_PTE_DarkPawn )            \
-                                || ( (pte) == CC_PTE_LightPawn )           \
-                                || ( (pte) == CC_PTE_LightScout )          \
-                                || ( (pte) == CC_PTE_LightGrenadier ) )
+#define CC_PIECE_IS_TROOPER(pte) ( CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
+
+#define CC_PIECE_IS_PRIVATE(pte) ( CC_PIECE_IS_PAWN( (pte) ) || CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
 
 #define CC_PIECE_IS_MATERIAL(pte) ( ( (pte) != CC_PTE_DarkWave )           \
                                  && ( (pte) != CC_PTE_LightWave )          \
@@ -158,16 +217,16 @@
                                        && ( (pte) != CC_PTE_Monolith )     \
                                        && ( CC_PIECE_IS_VALID( (pte) ) ) )
 
-#define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing )        \
-                                || ( (pte) == CC_PTE_DarkRook )        \
-                                || ( (pte) == CC_PTE_LightRook )       \
-                                || ( (pte) == CC_PTE_LightKing ) )
+// TODO :: DELETE :: DOCS
+// #define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing )        \
+//                                 || ( (pte) == CC_PTE_DarkRook )        \
+//                                 || ( (pte) == CC_PTE_LightRook )       \
+//                                 || ( (pte) == CC_PTE_LightKing ) )
 
 #define CC_PIECE_CAN_DISPLACE(pte) ( ( (pte) == CC_PTE_DarkSerpent )       \
                                   || ( (pte) == CC_PTE_LightSerpent ) )
 
-#define CC_PIECE_CAN_BE_DISPLACED(pte) ( ( (pte) == CC_PTE_DarkPawn )      \
-                                      || ( (pte) == CC_PTE_LightPawn ) )
+#define CC_PIECE_CAN_BE_DISPLACED(pte) ( CC_PIECE_IS_PAWN( (pte) ) )
 
 #define CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY(pte) ( ( (pte) != CC_PTE_DimStar )       \
                                                      && ( (pte) != CC_PTE_DarkKing )      \
@@ -280,6 +339,7 @@
 #define CC_PIECE_HAS_NEW_STEP_AFTER_EACH(pte)  ( CC_PIECE_IS_SERPENT(pte)         \
                                               || CC_PIECE_IS_SCOUT(pte)           \
                                               || CC_PIECE_IS_MONOLITH(pte) )
+
 
 typedef enum CcPieceTagEnum {
     CC_PTE_DimStar = -29,
