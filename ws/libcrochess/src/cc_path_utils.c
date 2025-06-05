@@ -53,8 +53,8 @@
 //     if ( *side_effect__io == CC_SETE_EnPassant ) {
 //         *side_effect__io = CC_SETE_Castle;
 //
-//         if ( CC_PIECE_CAN_CASTLE( moving ) &&
-//              CC_PIECE_CAN_CASTLE( encounter ) ) return CC_MBE_True;
+//         if ( CC_TAG_IS_CAN_CASTLE( moving ) &&
+//              CC_TAG_IS_CAN_CASTLE( encounter ) ) return CC_MBE_True;
 //     }
 //
 //     if ( *side_effect__io == CC_SETE_Castle ) {
