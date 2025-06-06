@@ -212,25 +212,20 @@
                                      && ( (pte) != CC_PTE_Monolith )                \
                                      && ( CC_PIECE_IS_VALID( (pte) ) ) )
 
-// TODO :: FIX
-#define CC_PAWN_CAN_BE_PROMOTED_TO(pte) ( ( (pte) != CC_PTE_DimStar )                       \
-                                       && ( (pte) != CC_PTE_DarkKing_CanCastle )            \
-                                       && ( (pte) != CC_PTE_DarkKing )                      \
-                                       && ( (pte) != CC_PTE_DarkPawn_DelayedPromotion )     \
-                                       && ( (pte) != CC_PTE_DarkPawn_RushedCurrent )        \
-                                       && ( (pte) != CC_PTE_DarkPawn_RushedPrevious )       \
-                                       && ( (pte) != CC_PTE_DarkPawn_CanRush )              \
-                                       && ( (pte) != CC_PTE_DarkPawn )                      \
-                                       && ( (pte) != CC_PTE_LightPawn )                     \
-                                       && ( (pte) != CC_PTE_LightPawn_CanRush )             \
-                                       && ( (pte) != CC_PTE_LightPawn_RushedPrevious )      \
-                                       && ( (pte) != CC_PTE_LightPawn_RushedCurrent )       \
-                                       && ( (pte) != CC_PTE_LightPawn_DelayedPromotion )    \
-                                       && ( (pte) != CC_PTE_LightKing )                     \
-                                       && ( (pte) != CC_PTE_LightKing_CanCastle )           \
-                                       && ( (pte) != CC_PTE_BrightStar )                    \
-                                       && ( (pte) != CC_PTE_Monolith )                      \
-                                       && ( CC_PIECE_IS_VALID( (pte) ) ) )
+#define CC_PAWN_CAN_BE_PROMOTED_TO(pte) ( CC_PIECE_IS_KNIGHT( (pte) )           \
+                                       || CC_PIECE_IS_BISHOP( (pte) )           \
+                                       || CC_PIECE_IS_JUST_ROOK( (pte) )        \
+                                       || CC_PIECE_IS_QUEEN( (pte) )            \
+                                       || CC_PIECE_IS_PEGASUS( (pte) )          \
+                                       || CC_PIECE_IS_PYRAMID( (pte) )          \
+                                       || CC_PIECE_IS_UNICORN( (pte) )          \
+                                       || CC_PIECE_IS_WAVE( (pte) )             \
+                                       || CC_PIECE_IS_CENTAUR( (pte) )          \
+                                       || CC_PIECE_IS_JUST_SCOUT( (pte) )       \
+                                       || CC_PIECE_IS_JUST_GRENADIER( (pte) )   \
+                                       || CC_PIECE_IS_SERPENT( (pte) )          \
+                                       || CC_PIECE_IS_SHAMAN( (pte) )           \
+                                       || CC_PIECE_IS_STARCHILD( (pte) ) )
 
 // TODO :: DELETE :: DOCS
 // #define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing )        \
