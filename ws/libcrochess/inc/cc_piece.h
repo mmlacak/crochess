@@ -312,21 +312,19 @@
                                   || ( (pte) == CC_PTE_LightShaman )       \
                                   || ( (pte) == CC_PTE_LightStarchild ) )
 
-#define CC_PIECE_CAN_BE_DIVERGED(pte) ( ( (pte) != CC_PTE_DimStar )                 \
-                                     && ( (pte) != CC_PTE_DarkStarchild )           \
-                                     && ( (pte) != CC_PTE_DarkCentaur )             \
-                                     && ( (pte) != CC_PTE_DarkSerpent )             \
-                                     && ( (pte) != CC_PTE_DarkKing_CanCastle )      \
-                                     && ( (pte) != CC_PTE_DarkKing )                \
-                                     && ( (pte) != CC_PTE_None )                    \
-                                     && ( (pte) != CC_PTE_LightKing )               \
-                                     && ( (pte) != CC_PTE_LightKing_CanCastle )     \
-                                     && ( (pte) != CC_PTE_LightSerpent )            \
-                                     && ( (pte) != CC_PTE_LightCentaur )            \
-                                     && ( (pte) != CC_PTE_LightStarchild )          \
-                                     && ( (pte) != CC_PTE_BrightStar )              \
-                                     && ( (pte) != CC_PTE_Monolith )                \
-                                     && ( CC_PIECE_IS_VALID( (pte) ) ) )
+// TODO :: MAYBE :: Scout, Grenadier cannot diverge
+#define CC_PIECE_CAN_BE_DIVERGED(pte)   ( CC_PIECE_IS_PAWN( (pte) )             \
+                                       || CC_PIECE_IS_KNIGHT( (pte) )           \
+                                       || CC_PIECE_IS_BISHOP( (pte) )           \
+                                       || CC_PIECE_IS_ROOK( (pte) )             \
+                                       || CC_PIECE_IS_QUEEN( (pte) )            \
+                                       || CC_PIECE_IS_PEGASUS( (pte) )          \
+                                       || CC_PIECE_IS_PYRAMID( (pte) )          \
+                                       || CC_PIECE_IS_UNICORN( (pte) )          \
+                                       || CC_PIECE_IS_WAVE( (pte) )             \
+                                       || CC_PIECE_IS_SCOUT( (pte) )            \
+                                       || CC_PIECE_IS_GRENADIER( (pte) )        \
+                                       || CC_PIECE_IS_SHAMAN( (pte) ) )
 
 #define CC_WAVE_CAN_BE_DIVERGED(activator) ( ( (activator) != CC_PTE_DarkCentaur )       \
                                           && ( (activator) != CC_PTE_DarkSerpent )       \
