@@ -467,6 +467,7 @@ bool cc_chessboard_print( CcChessboard * cb,
 CcChessboard * cc_chessboard_clear_from_string__new( CcChessboard * cb,
                                                      char const * setup ) {
     if ( !cb ) return NULL;
+    if ( !setup ) return NULL;
 
     CcChessboard * cb__a = cc_chessboard_duplicate__new( cb );
     if ( !cb__a ) return NULL;
