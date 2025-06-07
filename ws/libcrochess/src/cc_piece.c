@@ -476,7 +476,7 @@ bool cc_piece_is_figure( CcPieceTagType ptt ) {
     return cc_piece_is_owned_figure( ptt );
 }
 
-char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: convert to allocated string
+char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: MAYBE :: convert to allocated string (?)
     switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim Star" : "dim Star";
         case CC_PTE_BrightStar : return capitalize ? "Bright Star" : "bright Star";
@@ -499,8 +499,8 @@ char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty
         case CC_PTE_LightGrenadier_RushedPrevious : return capitalize ? "Light Grenadier (rushed in previous turn)" : "light Grenadier (rushed in previous turn)";
         case CC_PTE_LightGrenadier_RushedCurrent : return capitalize ? "Light Grenadier (rushed in current turn)" : "light Grenadier (rushed in current turn)";
 
-        case CC_PTE_DarkScout_RushedCurrent : return capitalize ? "Dark Scout" : "dark Scout";
-        case CC_PTE_DarkScout_RushedPrevious : return capitalize ? "Dark Scout" : "dark Scout";
+        case CC_PTE_DarkScout_RushedCurrent : return capitalize ? "Dark Scout (rushed in current turn)" : "dark Scout (rushed in current turn)";
+        case CC_PTE_DarkScout_RushedPrevious : return capitalize ? "Dark Scout (rushed in previous turn)" : "dark Scout (rushed in previous turn)";
         case CC_PTE_DarkScout_CanRush : return capitalize ? "Dark Scout (can rush)" : "dark Scout (can rush)";
         case CC_PTE_DarkScout : return capitalize ? "Dark Scout" : "dark Scout";
         case CC_PTE_LightScout : return capitalize ? "Light Scout" : "light Scout";
@@ -542,8 +542,16 @@ char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty
         case CC_PTE_DarkKnight : return capitalize ? "Dark Knight" : "dark Knight";
         case CC_PTE_LightKnight : return capitalize ? "Light Knight" : "light Knight";
 
+        case CC_PTE_DarkPawn_DelayedPromotion : return capitalize ? "Dark Pawn (delayed promotion)" : "dark Pawn (delayed promotion)";
+        case CC_PTE_DarkPawn_RushedCurrent : return capitalize ? "Dark Pawn (rushed in current turn)" : "dark Pawn (rushed in current turn)";
+        case CC_PTE_DarkPawn_RushedPrevious : return capitalize ? "Dark Pawn (rushed in previous turn)" : "dark Pawn (rushed in previous turn)";
+        case CC_PTE_DarkPawn_CanRush : return capitalize ? "Dark Pawn (can rush)" : "dark Pawn (can rush)";
         case CC_PTE_DarkPawn : return capitalize ? "Dark Pawn" : "dark Pawn";
         case CC_PTE_LightPawn : return capitalize ? "Light Pawn" : "light Pawn";
+        case CC_PTE_LightPawn_CanRush : return capitalize ? "Light Pawn (can rush)" : "light Pawn (can rush)";
+        case CC_PTE_LightPawn_RushedPrevious : return capitalize ? "Light Pawn (rushed in previous turn)" : "light Pawn (rushed in previous turn)";
+        case CC_PTE_LightPawn_RushedCurrent : return capitalize ? "Light Pawn (rushed in current turn)" : "light Pawn (rushed in current turn)";
+        case CC_PTE_LightPawn_DelayedPromotion : return capitalize ? "Light Pawn (delayed promotion)" : "light Pawn (delayed promotion)";
 
         case CC_PTE_None :
             return empty_field ? ( capitalize ? "Empty field"
