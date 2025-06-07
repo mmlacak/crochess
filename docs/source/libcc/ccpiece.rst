@@ -846,8 +846,8 @@ Functions
     Tag characters are described in :ref:`lbl-libcc-cctags-characters`.
     Used tag :c:`char`\s are :c:macro:`CC_TAG_CHAR_CAN_RUSH`,
     :c:macro:`CC_TAG_CHAR_CAN_CASTLE`, :c:macro:`CC_TAG_CHAR_DELAYED_PROMOTION`,
-    :c:macro:`CC_TAG_CHAR_RUSHED_PREVIOUS` and :c:macro:`CC_TAG_CHAR_RUSHED_CURRENT`;
-    depending on a piece given, all other values yields just a piece, with no tag.
+    :c:macro:`CC_TAG_CHAR_RUSHED_PREVIOUS` and :c:macro:`CC_TAG_CHAR_RUSHED_CURRENT`,
+    depending on a piece given; all other values yield just a piece, with no tag.
 
     :param piece: A piece character.
     :param tag: A tag character.
@@ -898,20 +898,6 @@ Functions
 
     :param ptt: A piece.
     :returns: Pawn to which given piece can be demoted to, otherwise :c:enumerator:`CC_PTE_None`.
-
-.. c:function:: bool cc_piece_is_dark( CcPieceTagType ptt )
-
-    Function checks if given chess piece is dark.
-
-    :param ptt: A piece.
-    :returns: :c:data:`true` if given piece is dark, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_piece_is_light( CcPieceTagType ptt )
-
-    Function checks if given chess piece is light.
-
-    :param ptt: A piece.
-    :returns: :c:data:`true` if given piece is light, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_has_color( CcPieceTagType ptt )
 

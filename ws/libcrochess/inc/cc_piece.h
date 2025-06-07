@@ -418,13 +418,6 @@ typedef enum CcPieceTagEnum {
     CC_PTE_Monolith,
 } CcPieceTagEnum;
 
-// CC_TE_CanRush, /* Pawn can rush, persistent tag. */
-// CC_TE_CanCastle, /* Rooks, Kings can castle, persistent tag. */
-// CC_TE_DelayedPromotion, /* Pawn delayed promotion, persistent tag. */
-//
-// CC_TE_EnPassant_Previous, /* A private rushed in previous turn, this is en passant opportunity tag. */
-// CC_TE_EnPassant_Current, /* A private rushed in current turn (in a previous ply), this will become en passant opportunity for opponent in the very next turn. */
-
 typedef signed char CcPieceTagType;
 
 
@@ -445,12 +438,6 @@ char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_fie
 char cc_piece_symbol( CcPieceTagType ptt );
 
 CcPieceTagType cc_piece_demoting_to( CcPieceTagType ptt );
-
-// TODO :: DELETE :: DOCS
-// bool cc_piece_is_dark( CcPieceTagType ptt );
-
-// TODO :: DELETE :: DOCS
-// bool cc_piece_is_light( CcPieceTagType ptt );
 
 bool cc_piece_has_color( CcPieceTagType ptt );
 
