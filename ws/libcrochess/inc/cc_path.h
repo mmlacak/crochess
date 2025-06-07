@@ -24,8 +24,7 @@ typedef struct CcPathLink {
 
     CcStep * steps; /* Steps performed, fields visited. */
 
-    CcPieceTagType encountered_piece; /* Piece encountered at the very last field in the list above. */
-    // CcTagType encountered_tag; /* Tag encountered at the very last field in the list above. */ // TODO :: DELETE :: DOCS
+    CcPieceTagType encountered_piece; /* Piece encountered at the very last field in the list above, and its tag. */
 
     CcActivationDesc act_desc; /* Activation descriptor for a moving piece, its momentum usage and momentum it had after all performed steps. */
 

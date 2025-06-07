@@ -66,11 +66,8 @@ Linked path segments
 
     .. c:member:: CcPieceTagType encountered_piece
 
-        Piece encountered at the very last field in the :c:member:`steps` list.
-
-    .. c:member:: CcTagType encountered_tag
-
-        Tag encountered at the very last field in the :c:member:`steps` list.
+        Piece encountered at the very last field in the :c:member:`steps` list,
+        and its tag.
 
     .. c:member:: CcActivationDesc act_desc
 
