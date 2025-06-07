@@ -7,8 +7,6 @@
 #include <stdbool.h>
 
 
-// TODO :: DOCS :: param: pe --> pte, ptt
-
 #define CC_PIECE_IS_ENUMERATOR(pte) ( ( CC_PTE_DimStar <= (pte) ) && ( (pte) <= CC_PTE_Monolith ) )
 
 #define CC_PIECE_IS_VALID(pte) ( ( (pte) != CC_PTE_None ) && ( CC_PTE_DimStar <= (pte) ) && ( (pte) <= CC_PTE_Monolith ) )
@@ -16,22 +14,16 @@
 #define CC_PIECE_IS_NONE(pte) ( (pte) == CC_PTE_None )
 
 
-// TODO :: DOCS
 #define CC_PIECE_IS_JUST_PAWN(pte) ( ( (pte) == CC_PTE_LightPawn ) || ( (pte) == CC_PTE_DarkPawn ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_PAWN_CAN_RUSH(pte) ( ( (pte) == CC_PTE_LightPawn_CanRush ) || ( (pte) == CC_PTE_DarkPawn_CanRush ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_PAWN_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_LightPawn_RushedPrevious ) || ( (pte) == CC_PTE_DarkPawn_RushedPrevious ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_PAWN_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightPawn_RushedCurrent ) || ( (pte) == CC_PTE_DarkPawn_RushedCurrent ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_PAWN_DELAYED_PROMOTION(pte) ( ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) || ( (pte) == CC_PTE_DarkPawn_DelayedPromotion ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_PAWN(pte) ( CC_PIECE_IS_JUST_PAWN( (pte) ) ||                               \
                                 CC_PIECE_IS_PAWN_CAN_RUSH( (pte) ) ||                           \
                                 CC_PIECE_IS_PAWN_RUSHED_PREVIOUS( (pte) ) ||                    \
@@ -41,24 +33,18 @@
 
 #define CC_PIECE_IS_BISHOP(pte) ( ( (pte) == CC_PTE_LightBishop ) || ( (pte) == CC_PTE_DarkBishop ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_JUST_ROOK(pte) ( ( (pte) == CC_PTE_LightRook ) || ( (pte) == CC_PTE_DarkRook ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_ROOK_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_LightRook_CanCastle ) || ( (pte) == CC_PTE_DarkRook_CanCastle ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_ROOK(pte) ( CC_PIECE_IS_JUST_ROOK( (pte) ) || CC_PIECE_IS_ROOK_CAN_CASTLE( (pte) ) )
 
 #define CC_PIECE_IS_QUEEN(pte) ( ( (pte) == CC_PTE_LightQueen ) || ( (pte) == CC_PTE_DarkQueen ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_JUST_KING(pte) ( ( (pte) == CC_PTE_LightKing ) || ( (pte) == CC_PTE_DarkKing ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_KING_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_LightKing_CanCastle ) || ( (pte) == CC_PTE_DarkKing_CanCastle ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_KING(pte) ( CC_PIECE_IS_JUST_KING( (pte) ) || CC_PIECE_IS_KING_CAN_CASTLE( (pte) ) )
 
 #define CC_PIECE_IS_PEGASUS(pte) ( ( (pte) == CC_PTE_LightPegasus ) || ( (pte) == CC_PTE_DarkPegasus ) )
@@ -227,11 +213,11 @@
                                        || CC_PIECE_IS_SHAMAN( (pte) )           \
                                        || CC_PIECE_IS_STARCHILD( (pte) ) )
 
-// TODO :: DELETE :: DOCS
-// #define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing )        \
-//                                 || ( (pte) == CC_PTE_DarkRook )        \
-//                                 || ( (pte) == CC_PTE_LightRook )       \
-//                                 || ( (pte) == CC_PTE_LightKing ) )
+// TODO :: FIX :: DOCS
+#define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing )        \
+                                || ( (pte) == CC_PTE_DarkRook )        \
+                                || ( (pte) == CC_PTE_LightRook )       \
+                                || ( (pte) == CC_PTE_LightKing ) )
 
 #define CC_PIECE_CAN_DISPLACE(pte) ( ( (pte) == CC_PTE_DarkSerpent )       \
                                   || ( (pte) == CC_PTE_LightSerpent ) )
