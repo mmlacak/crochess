@@ -936,8 +936,8 @@ Now that all symbols have been introduced, they're gathered here according to th
 \alg{\&\&}                  & lost castling tag             & -                     \\
 \cmidrule{1-3} % .....................................................................
 \alg{:}                     & en passant                    & -                     \\
-\alg{\&}                    & castling                      & -                     \\
-\alg{=}                     & promotion                     & +\footnotemark[2]     \\
+\alg{\&}                    & castling                      & +\footnotemark[2]     \\
+\alg{=}                     & promotion                     & +\footnotemark[3]     \\
 \alg{=}                     & tag for promotion             & +                     \\
 \alg{\%}                    & conversion                    & +                     \\
 \alg{\%\%}                  & failed conversion, oblation   & +                     \\
@@ -957,7 +957,8 @@ Now that all symbols have been introduced, they're gathered here according to th
 \end{table}
 
 \footnotetext[1]{Displaced piece is optional.}
-\footnotetext[2]{Promotion symbol is optional.}
+\footnotetext[2]{Rook destination is optional.}
+\footnotetext[3]{Promotion symbol is optional.}
 
 Every side-effect is result of a single step. Most side-effects can occur only on
 a last step of a ply, these are called ply side-effects. Capturing, displacement
@@ -2144,21 +2145,22 @@ step onto step-field, not miracle-field.
 \begin{table}[!h]
 \centering
 \begin{tabular}{ ll }
-\toprule % ===============================================================
-\textbf{Entity}             & \textbf{Meaning}                          \\
-\midrule % ---------------------------------------------------------------
-\algfmt{< >}                & named entity, to be substituted           \\
-\algfmt{|}                  & choice between 2 values, can be chained   \\
-\algfmt{[ ]}                & optional item(s)                          \\
-\algfmt{( )}                & grouping item(s), scope                   \\
-\algfmt{\{ \}}              & repeating item(s), one or more times      \\
-% \algfmt{\#number}           & numbered reference                        \\
-\algfmti{\$}                & line comment                              \\
-% \algfmt{?}                  & empty value                               \\
-\alg{\_}                    & space                                     \\
-\alg{value}                 & verbatim \algfmt{AN} value                \\
-\algcty{value}              & compatibility value, for \algfmt{CAN}     \\
-\bottomrule % ============================================================
+\toprule % ===================================================================
+\textbf{Entity}                 & \textbf{Meaning}                          \\
+\midrule % -------------------------------------------------------------------
+\algfmt{< >}                    & named entity, to be substituted           \\
+\algfmt{|}                      & choice between 2 values, can be chained   \\
+\algfmt{[ ]}                    & optional item(s)                          \\
+\algfmt{( )}                    & grouping item(s), scope                   \\
+\algfmt{\{ \}}                  & repeating item(s), one or more times      \\
+% \algfmt{\#number}               & numbered reference                        \\
+\algfmti{\$}                    & line comment                              \\
+% \algfmt{?}                      & empty value                               \\
+\alg{\_}                        & space                                     \\
+\alg{value}                     & verbatim \algfmt{AN} value                \\
+\algfmt{`}\alg{value}\algfmt{`} & same as above, enclosed for clarity       \\
+\algcty{value}                  & compatibility value, for \algfmt{CAN}     \\
+\bottomrule % ================================================================
 \end{tabular}
 \caption{Grammar}
 \label{tbl:Appendix/Grammar}
@@ -2170,7 +2172,8 @@ are not covered, as they are short-hand for non-standardized commentary.
 Verbatim values (e.g. \alg{x}) are as they appear in \algfmt{AN}, compatibility
 values (e.g. \algcty{x}) are used exclusively for \algfmt{CAN}. Empty value is
 represented just with an empty group, i.e. \algfmt{()}; it's used to denote when
-there is no special move status, like check or checkmate.
+there is no special move status, like check or checkmate. Verbatim value can be
+enclosed in pair of back-ticks, for clarity (e.g. \algfmt{`}\alg{x}\algfmt{`}).
 
 Value separator \algfmt{|} is used to present choice between 2 values, e.g.
 \alg{a} \algfmt{|} \alg{b}. Choices can be chained, as in
@@ -2287,6 +2290,10 @@ i.e. it's just a shorthand for
 
 \clearpage % ..........................................................
 
+% \TODO :: FIX :: REWRITE :: difference between optional notation and
+%       status present sometimes --> see <losing-promotion-tag> vs.
+%       <delayed-promotion-side-effect>
+
 Empty value is represented with an empty group \algfmt{()}, like so
 \begin{alltt}
 <abc> = () | \alg{d}
@@ -2400,7 +2407,7 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <active-piece-losing-tag> =
   <active-figure-losing-tag>
-| <pawn><losing-pawn-tag>
+| <pawn>[<losing-pawn-tag>]
 
 <capturing-active-figure-losing-tag> =
   <capturing-active-figure>
@@ -2408,7 +2415,7 @@ teleporting piece (Star) is introduced.
 
 <capturing-active-piece-losing-tag> =
   <capturing-active-figure-losing-tag>
-| <pawn><losing-pawn-tag>
+| <pawn>[<losing-pawn-tag>]
 
 <capturing-piece-losing-tag> =
   <capturing-active-piece-losing-tag>
@@ -2420,7 +2427,7 @@ teleporting piece (Star) is introduced.
 
 <activateable-piece-losing-tag> =
   <activateable-figure-losing-tag>
-| <pawn><losing-pawn-tag>
+| <pawn>[<losing-pawn-tag>]
 
 <disposable-figure-losing-tag> =
   <disposable-figure>
@@ -2428,7 +2435,7 @@ teleporting piece (Star) is introduced.
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
-| <pawn><losing-pawn-tag>
+| <pawn>[<losing-pawn-tag>]
 
 <capturing-side-effect> =
   [\alg{*}[<disposable-piece-losing-tag>]]
@@ -2441,19 +2448,19 @@ teleporting piece (Star) is introduced.
   [\alg{:}[[<private>](<rank> | <field>)]]
 
 <castling-side-effect> =
-  [\alg{&}[[\alg{R}](<file> | <field>)]]
+  \alg{&}[[\alg{R}](<file> | <field>)]
 
 <promoting-side-effect> =
   [\alg{=}]<promote-to-figure>
 
-<delayed-promotion-side-effect> = [\alg{=}]
+<delayed-promotion-side-effect> = `\alg{=}`
 
 <converting-side-effect> =
   \alg{%}[<disposable-piece-losing-tag>]
 | \alg{%%}
 
 <pawn-displacement-side-effect> =
-  \alg{<}<pawn><losing-pawn-tag><disambiguation>
+  \alg{<}<pawn>[<losing-pawn-tag>]<disambiguation>
 
 <displacement-side-effect> =
   \alg{<}[<disposable-piece-losing-tag>]<field>
@@ -2520,12 +2527,12 @@ teleporting piece (Star) is introduced.
   (<step> | \alg{-}<field>)
 
 <pawn-promotion-ply> =
-  <pawn><losing-promotion-tag><stepping>
+  <pawn>[<losing-promotion-tag>]<stepping>
   (<promoting-side-effect>
    | <delayed-promotion-side-effect>)
 
 <capturing-pawn-promotion-ply> =
-  <pawn><losing-promotion-tag><stepping>
+  <pawn>[<losing-promotion-tag>]<stepping>
   [<capturing-side-effect>]
   <promoting-side-effect>
 
