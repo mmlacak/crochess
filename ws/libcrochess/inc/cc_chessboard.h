@@ -17,7 +17,6 @@ typedef struct CcChessboard {
     CcVariantType type;
 
     CcPieceTagType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ];
-    // CcTagType tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]; // TODO :: DELETE :: DOCS
 } CcChessboard;
 
 
@@ -58,26 +57,10 @@ bool cc_chessboard_is_field_on_dark_side( CcChessboard * cb, int j );
 
 CcPieceTagType cc_chessboard_get_piece( CcChessboard * cb, int i, int j );
 
-// TODO :: DELETE :: DOCS
-// CcTagType cc_chessboard_get_tag( CcChessboard * cb, int i, int j );
-
-// TODO :: DELETE :: DOCS
-// bool cc_chessboard_set_piece_tag( CcChessboard * cb__io,
-//                                   int i,
-//                                   int j,
-//                                   CcPieceTagType pt,
-//                                   CcTagType ct );
-
 bool cc_chessboard_set_piece( CcChessboard * cb__io,
                               int i,
                               int j,
                               CcPieceTagType pt );
-
-// TODO :: DELETE :: DOCS
-// bool cc_chessboard_set_tag( CcChessboard * cb__io,
-//                             int i,
-//                             int j,
-//                             CcTagType tt );
 
 
 bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 );

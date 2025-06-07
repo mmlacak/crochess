@@ -62,7 +62,6 @@ Library contents
     ccvariant
     ccchessboard
     ccsetupboard
-    ccsetuptags
     ccsetupmisc
 
     ccpos

@@ -40,11 +40,7 @@ Types
 
     .. c:member:: CcPieceTagType board[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
 
-        Holds pieces.
-
-    .. c:member:: CcTagType tags[ CC_VARIANT_BOARD_SIZE_MAXIMUM ][ CC_VARIANT_BOARD_SIZE_MAXIMUM ]
-
-        Holds tags for pieces at their respective position.
+        Holds pieces, and their tags.
 
     :c:`struct` is tagged with the same :c:struct:`CcChessboard` name.
 
@@ -215,26 +211,6 @@ Functions
     :param j: Rank, position along vertical axis.
     :returns: Piece if position is on-board, :c:enumerator:`CC_PTE_None` otherwise.
 
-.. c:function:: CcTagType cc_chessboard_get_tag( CcChessboard * cb, int i, int j )
-
-    Function returning tag at a given position.
-
-    :param cb: A chessboard.
-    :param i: File, position along horizontal axis.
-    :param j: Rank, position along vertical axis.
-    :returns: Tag if position is on-board, :c:enumerator:`CC_TE_None` otherwise.
-
-.. c:function:: bool cc_chessboard_set_piece_tag( CcChessboard * cb__io, int i, int j, CcPieceTagType pe, CcTagType ct )
-
-    Function sets piece and tag at a given position.
-
-    :param cb__io: *Input/output*, a chessboard.
-    :param i: File, position along horizontal axis.
-    :param j: Rank, position along vertical axis.
-    :param pe: Piece to set.
-    :param ct: Tag to set.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-
 .. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, CcPieceTagType pe )
 
     Function sets piece at a given position.
@@ -247,20 +223,6 @@ Functions
     :param i: File, position along horizontal axis.
     :param j: Rank, position along vertical axis.
     :param pe: Piece to set.
-    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_chessboard_set_tag( CcChessboard * cb__io, int i, int j, CcTagType tt )
-
-    Function sets tag at a given position.
-
-    .. note::
-
-        Function does not alter piece at the same position.
-
-    :param cb__io: *Input/output*, a chessboard.
-    :param i: File, position along horizontal axis.
-    :param j: Rank, position along vertical axis.
-    :param tt: Tag to set.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_chessboard_is_equal( CcChessboard * cb, CcChessboard * cb_2 )
