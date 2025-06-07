@@ -217,19 +217,81 @@ Values
     :param pte: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is a Centaur, :c:data:`false` otherwise.
 
-.. c:macro:: CC_PIECE_IS_SCOUT(pte)
+.. c:macro:: CC_PIECE_IS_JUST_SCOUT(pte)
 
-    Macro to check if given piece is a Scout.
+    Macro to check if given piece is just a Scout, without any tag.
 
     :param pte: A piece, :c:type:`CcPieceTagType` value.
-    :returns: :c:data:`true` if piece is a Scout, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if piece is just a Scout, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_SCOUT_CAN_RUSH(pte)
+
+    Macro to check if given piece is a Scout, which can also rush.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is a Scout which can rush, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS(pte)
+
+    Macro to check if given piece is a Scout, which rushed in a previous turn.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is a Scout which rushed in a previous turn,
+        :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_SCOUT_RUSHED_CURRENT(pte)
+
+    Macro to check if given piece is a Scout, which rushed in a current turn.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is a Scout which rushed in a current turn,
+        :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_SCOUT(pte)
+
+    Macro to check if given piece is any Scout, with or without a tag.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is any Scout, regardless of its tag,
+        :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_JUST_GRENADIER(pte)
+
+    Macro to check if given piece is just a Grenadier, without any tag.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is just a Grenadier, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_GRENADIER_CAN_RUSH(pte)
+
+    Macro to check if given piece is a Grenadier, which can also rush.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is a Grenadier which can rush, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS(pte)
+
+    Macro to check if given piece is a Grenadier, which rushed in a previous turn.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is a Grenadier, which rushed in a previous turn,
+        :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_GRENADIER_RUSHED_CURRENT(pte)
+
+    Macro to check if given piece is a Grenadier, which rushed in current turn.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is a Grenadier, which rushed in current turn,
+        :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_GRENADIER(pte)
 
-    Macro to check if given piece is a Grenadier.
+    Macro to check if given piece is any Grenadier, with or without a tag.
 
     :param pte: A piece, :c:type:`CcPieceTagType` value.
-    :returns: :c:data:`true` if piece is a Grenadier, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if piece is a Grenadier, regardless of its tag,
+        :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_SERPENT(pte)
 
@@ -288,10 +350,32 @@ Values
     :param pte: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece is celestial, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_IS_DARK(pte)
+
+    Macro to check if given piece is a dark piece.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is dark, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_LIGHT(pte)
+
+    Macro to check if given piece is a light piece.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece is light, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpiece-features:
 
 Features
 --------
+
+.. c:macro:: CC_PIECE_HAS_OPPOSITE(pte)
+
+    Macro to check if given piece has its opposite, i.e. a piece in opposite
+    (light or dark) color.
+
+    :param pte: A piece, :c:type:`CcPieceTagType` value.
+    :returns: :c:data:`true` if piece has opposite, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_HAS_OWNER(pte)
 
@@ -381,6 +465,10 @@ Features
 
     Macro to check if Pawn can be promoted to a given piece.
 
+    .. note::
+
+        Pawn can only be promoted to a piece without any tags.
+
     :param pte: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can be promoted to, :c:data:`false` otherwise.
 
@@ -388,7 +476,7 @@ Features
 
     .. todo::
 
-        TODO :: FIX
+        TODO :: FIX :: DOCS :: also check CC_TAG_IS_CAN_CASTLE
 
     Macro to check if a given piece can be castle, i.e. if it's Rook or a King.
 
@@ -745,9 +833,9 @@ Functions
     :param ptt: A piece.
     :returns: A piece character.
 
-.. c:function:: CcPieceTagType cc_piece_from_char( char piece )
+.. c:function:: CcPieceTagType cc_piece_from_char( char piece, char tag )
 
-    Function returning chess piece, based on a piece character.
+    Function returning chess piece, based on a given piece and tag characters.
 
     For lowercase :c:`char` dark/dim piece is returned, otherwise light/bright one.
 
@@ -755,8 +843,16 @@ Functions
 
     Space, unrecognized characters all yield :c:enumerator:`CC_PTE_None`.
 
-    :param piece: A character.
-    :returns: Piece enum if valid piece char passed, otherwise :c:enumerator:`CC_PTE_None`.
+    Tag characters are described in :ref:`lbl-libcc-cctags-characters`.
+    Used tag :c:`char`\s are :c:macro:`CC_TAG_CHAR_CAN_RUSH`,
+    :c:macro:`CC_TAG_CHAR_CAN_CASTLE`, :c:macro:`CC_TAG_CHAR_DELAYED_PROMOTION`,
+    :c:macro:`CC_TAG_CHAR_RUSHED_PREVIOUS` and :c:macro:`CC_TAG_CHAR_RUSHED_CURRENT`;
+    depending on a piece given, all other values yields just a piece, with no tag.
+
+    :param piece: A piece character.
+    :param tag: A tag character.
+    :returns: Piece enumeration if valid piece and tag :c:`char`\s are given,
+        otherwise :c:enumerator:`CC_PTE_None`.
 
 .. c:function:: char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_field )
 

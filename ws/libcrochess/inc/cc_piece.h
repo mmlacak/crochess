@@ -59,37 +59,27 @@
 
 #define CC_PIECE_IS_CENTAUR(pte) ( ( (pte) == CC_PTE_LightCentaur ) || ( (pte) == CC_PTE_DarkCentaur ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_JUST_SCOUT(pte) ( ( (pte) == CC_PTE_LightScout ) || ( (pte) == CC_PTE_DarkScout ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_SCOUT_CAN_RUSH(pte) ( ( (pte) == CC_PTE_LightScout_CanRush ) || ( (pte) == CC_PTE_DarkScout_CanRush ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_LightScout_RushedPrevious ) || ( (pte) == CC_PTE_DarkScout_RushedPrevious ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_SCOUT_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightScout_RushedCurrent ) || ( (pte) == CC_PTE_DarkScout_RushedCurrent ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_SCOUT(pte) ( CC_PIECE_IS_JUST_SCOUT( (pte) ) ||                             \
                                  CC_PIECE_IS_SCOUT_CAN_RUSH( (pte) ) ||                         \
                                  CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS( (pte) ) ||                  \
                                  CC_PIECE_IS_SCOUT_RUSHED_CURRENT( (pte) ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_JUST_GRENADIER(pte) ( ( (pte) == CC_PTE_LightGrenadier ) || ( (pte) == CC_PTE_DarkGrenadier ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_GRENADIER_CAN_RUSH(pte) ( ( (pte) == CC_PTE_LightGrenadier_CanRush ) || ( (pte) == CC_PTE_DarkGrenadier_CanRush ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) || ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_GRENADIER_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightGrenadier_RushedCurrent ) || ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_GRENADIER(pte) ( CC_PIECE_IS_JUST_GRENADIER( (pte) ) ||                     \
                                      CC_PIECE_IS_GRENADIER_CAN_RUSH( (pte) ) ||                 \
                                      CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS( (pte) ) ||          \
@@ -118,14 +108,11 @@
                                   || ( (pte) == CC_PTE_LightStarchild )    \
                                   || ( (pte) == CC_PTE_Monolith ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_DARK(pte) ( ( CC_PTE_DarkStarchild <= (pte) ) && ( (pte) <= CC_PTE_DarkPawn ) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_LIGHT(pte) ( ( CC_PTE_LightPawn <= (pte) ) && ( (pte) <= CC_PTE_LightStarchild ) )
 
 
-// TODO :: DOCS
 #define CC_PIECE_HAS_OPPOSITE(pte) ( ( (pte) != CC_PTE_None ) && ( CC_PTE_DimStar <= (pte) ) && ( (pte) < CC_PTE_Monolith ) )
 
 #define CC_PIECE_HAS_OWNER(pte) ( ( (pte) != CC_PTE_DimStar )              \
@@ -213,7 +200,7 @@
                                        || CC_PIECE_IS_SHAMAN( (pte) )           \
                                        || CC_PIECE_IS_STARCHILD( (pte) ) )
 
-// TODO :: FIX :: DOCS
+// TODO :: FIX :: DOCS :: also check CC_TAG_IS_CAN_CASTLE
 #define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing )        \
                                 || ( (pte) == CC_PTE_DarkRook )        \
                                 || ( (pte) == CC_PTE_LightRook )       \
@@ -451,7 +438,6 @@ CcPieceTagType cc_piece_opposite( CcPieceTagType ptt );
 
 char cc_piece_as_char( CcPieceTagType ptt );
 
-// TODO :: DOCS
 CcPieceTagType cc_piece_from_char( char piece, char tag );
 
 char const * cc_piece_label( CcPieceTagType ptt, bool capitalize, bool empty_field );

@@ -85,25 +85,29 @@ console.
 
     Equals to :c:`'?'`.
 
+.. c:macro:: CC_TAG_CHAR_PIECE
+
+    Equals to :c:`'!'`.
+
 .. c:macro:: CC_TAG_CHAR_CAN_RUSH
 
-    Equals to ``'R'``.
+    Equals to ``'^'``.
 
 .. c:macro:: CC_TAG_CHAR_CAN_CASTLE
 
-    Equals to ``'C'``.
+    Equals to ``'&'``.
 
 .. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
 
-    Equals to ``'P'``.
+    Equals to ``'='``.
 
 .. c:macro:: CC_TAG_CHAR_RUSHED_PREVIOUS
 
-    Equals to :c:`'E'`.
+    Equals to :c:`':'`.
 
 .. c:macro:: CC_TAG_CHAR_RUSHED_CURRENT
 
-    Equals to :c:`'e'`.
+    Equals to :c:`';'`.
 
 .. _lbl-libcc-cctags-types:
 
