@@ -2290,7 +2290,7 @@ i.e. it's just a shorthand for
 
 \clearpage % ..........................................................
 
-Empty value is represented with an empty group \algfmt{()}, like so:
+Empty value is represented with an empty scope group \algfmt{()}, like so:
 \begin{alltt}
 <abc> = () | \alg{d}
 \end{alltt}
@@ -2309,15 +2309,16 @@ Which notation is used depends on context. For instance, move status is mandator
 (except for checks), but most of the time there is no move status to write; so,
 first form (empty value) notation is used.
 
-Optional value is used when notation is optional; for instance, most of the time
-Pawn is not written, but it's completely fine if it is.
+Optional value is used when notation is optional; for instance, when writing
+movement Pawn is not written, but it would be completely fine if it is.
 
 Optional entity represents part of notation that may be present sometimes, but
-not always; e.g. demoting to Pawn side-effect is mandatory to write, often
-Monolith's movement does not initiate that kind of syzygy.
+not always. For instance, demoting-to-Pawn side-effect is mandatory to write,
+but Monoliths are only occasionally initiating that kind of syzygy.
 
-Note, that optional entity might also contain optional value; e.g. pieces can
-loose their tags only sometimes, losing tag notation is also completely optional.
+Note, optional entity might also contain optional value. For instance, pieces
+loose their tags when e.g. captured, but most of the time they don't have any;
+writing losing tag is also completely optional.
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
