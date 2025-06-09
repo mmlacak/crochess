@@ -121,11 +121,11 @@ bool cc_parse_side_effect( char const * side_effect_an,
             // Capture turned into side-side-effect, if tag or promotion.
 
             if ( CC_PIECE_IS_VALID( promoted_to ) ) {
-                *side_effect__o = cc_side_effect_promote( piece, promoted_to ); // TODO :: DELETE :: , ltt
+                *side_effect__o = cc_side_effect_promote( piece, promoted_to );
             } else if ( is_tag_or_promo ) {
-                *side_effect__o = cc_side_effect_tag_for_promotion( piece ); // TODO :: DELETE :: , ltt
+                *side_effect__o = cc_side_effect_tag_for_promotion( piece );
             } else
-                *side_effect__o = cc_side_effect_capture( piece ); // TODO :: DELETE :: , ltt
+                *side_effect__o = cc_side_effect_capture( piece );
 
             *side_effect_end_an__o = se_an;
             return true;
@@ -158,7 +158,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             if ( !CC_IS_POS_ON_BOARD( board_size, pos.i, pos.j ) )
                 return _cc_fail_with_msg_in_step( "Displacement destination has to be complete (not a disambiguation), in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            *side_effect__o = cc_side_effect_displacement( piece, pos ); // TODO :: DELETE :: ltt,
+            *side_effect__o = cc_side_effect_displacement( piece, pos );
             *side_effect_end_an__o = pos_end_an;
             return true;
         } case CC_SETE_EnPassant : {
@@ -273,7 +273,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
             CcLosingTagType ltt = cc_parse_losing_tag( se_an );
             se_an += cc_losing_tag_len( ltt );
 
-            *side_effect__o = cc_side_effect_convert( piece ); // TODO :: DELETE :: ltt,
+            *side_effect__o = cc_side_effect_convert( piece );
             *side_effect_end_an__o = se_an;
             return true;
         } case CC_SETE_FailedConversion : {
@@ -354,7 +354,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
                     CC_IS_DISAMBIGUATION_ON_BOARD( board_size, pos.i, pos.j ) ) ) // Either piece or demoting disambiguation has to be given.
                 return _cc_fail_with_msg_in_step( "For demoting either piece or disambiguation has to be given, in step '%s'.\n", step_start_an, step_end_an, parse_msgs__iod );
 
-            *side_effect__o = cc_side_effect_demote( piece, pos ); // TODO :: DELETE :: ltt,
+            *side_effect__o = cc_side_effect_demote( piece, pos );
             *side_effect_end_an__o = se_an;
             return true;
         } case CC_SETE_Resurrection : // Intentional fall-through ...

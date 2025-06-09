@@ -474,11 +474,8 @@ Features
 
 .. c:macro:: CC_PIECE_CAN_CASTLE(pte)
 
-    .. todo::
-
-        TODO :: FIX :: DOCS :: also check CC_TAG_IS_CAN_CASTLE
-
-    Macro to check if a given piece can be castle, i.e. if it's Rook or a King.
+    Macro to check if a given piece can castle, i.e. if it's Rook or a King,
+    with a "can castle" tag.
 
     :param pte: A piece, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if piece can castle, :c:data:`false` otherwise.

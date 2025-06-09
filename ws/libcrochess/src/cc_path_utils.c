@@ -60,9 +60,9 @@
 //     if ( *side_effect__io == CC_SETE_Castle ) {
 //         *side_effect__io = CC_SETE_Promotion;
 //
-//         if ( CC_PIECE_CAN_BE_PROMOTED( moving ) ) return CC_MBE_True;
+//         if ( CC_PAWN_CAN_BE_PROMOTED( moving ) ) return CC_MBE_True;
 //         else if ( CC_PIECE_CAN_PROMOTE( moving ) &&
-//                   CC_PIECE_CAN_BE_PROMOTED( encounter ) ) return CC_MBE_True;
+//                   CC_PAWN_CAN_BE_PROMOTED( encounter ) ) return CC_MBE_True;
 //     }
 //
 //
