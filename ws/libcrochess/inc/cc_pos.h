@@ -102,39 +102,31 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link );
 typedef struct CcPosDesc {
     CcPos pos; /* A position. */
     CcPieceTagType piece; /* Piece found at position. */
-    // CcTagType tag; /* Tag found at position. */ // TODO :: DELETE :: DOCS
 } CcPosDesc;
 
 #define CC_POS_DESC_CAST_INVALID ( (CcPosDesc)CC_POS_DESC_INVALID )
 
 #define CC_POS_DESC_CAST_STATIC_STEP ( (CcPosDesc)CC_POS_DESC_STATIC_STEP )
 
-// TODO :: DOCS
 #define CC_POS_DESC_COORDS(int_i,int_j,piece_enum)                  \
     { .pos = CC_POS_CAST( (int_i), (int_j) ),                       \
       .piece = (CcPieceTagType)(piece_enum) }
 
-// TODO :: DOCS
 #define CC_POS_DESC_COORDS_CAST(int_i,int_j,piece_enum)             \
     ( (CcPosDesc)CC_POS_DESC_COORDS( (int_i), (int_j), (piece_enum) ) )
 
-// TODO :: DOCS
 #define CC_POS_DESC(pos,piece_enum) { .pos = (pos), .piece = (CcPieceTagType)(piece_enum) }
 
-// TODO :: DOCS
 #define CC_POS_DESC_CAST(pos,piece_enum) ( (CcPosDesc){ .pos = (pos), .piece = (CcPieceTagType)(piece_enum) } )
 
-// TODO :: DOCS
 #define CC_POS_DESC_IS_VALID(pd) \
     ( CC_POS_IS_VALID( (pd).pos ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) ) )
     // <!> Do not use CC_PIECE_IS_VALID(); having no piece, tag is still valid position descriptor!
 
-// TODO :: DOCS
 #define CC_POS_DESC_IS_LEGAL(pd,board_size) \
     ( CC_POS_IS_LEGAL( (pd).pos, board_size ) && CC_PIECE_IS_ENUMERATOR( (pd).piece ) )
     // <!> Do not use CC_PIECE_IS_VALID(); having no piece, tag is still valid position descriptor!
 
-// TODO :: DOCS
 #define CC_POS_DESC_IS_EQUAL(pd_1,pd_2)                 \
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) &&      \
       ( (pd_1).piece == (pd_2).piece ) )

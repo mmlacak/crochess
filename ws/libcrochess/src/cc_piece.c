@@ -67,6 +67,10 @@ bool cc_piece_symbol_is_valid( char c ) {
     }
 }
 
+// TODO :: TODO :: (losing) tag optional --> return only just a piece!
+// CcPieceTagType cc_piece_type( CcPieceTagType ptt );
+
+// TODO :: FIX :: (losing) tag optional --> add option to return only just a piece!
 CcPieceTagType cc_piece_opposite( CcPieceTagType ptt ) {
     if ( CC_PIECE_HAS_OPPOSITE( ptt ) )
         return ( -ptt );
@@ -420,6 +424,7 @@ bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt ) {
     return ( piece == ptt );
 }
 
+// TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
 bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
     if ( pe_1 == pe_2 ) return true;
     if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;

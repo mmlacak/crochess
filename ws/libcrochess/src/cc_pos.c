@@ -317,7 +317,7 @@ bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
     if ( CC_PIECE_IS_NONE( pd_1.piece ) ||
          CC_PIECE_IS_NONE( pd_2.piece ) ) return false;
 
-    CcPieceTagType opposite = cc_piece_opposite( pd_2.piece );
+    CcPieceTagType opposite = cc_piece_opposite( pd_2.piece ); // TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
 
     if ( pd_1.piece == pd_2.piece || pd_1.piece == opposite ) return true;
 

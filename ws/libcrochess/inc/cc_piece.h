@@ -427,6 +427,10 @@ CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light );
 
 bool cc_piece_symbol_is_valid( char c );
 
+// TODO :: TODO :: (losing) tag optional --> return only just a piece!
+// CcPieceTagType cc_piece_type( CcPieceTagType ptt );
+
+// TODO :: FIX :: (losing) tag optional --> add option to return only just a piece!
 CcPieceTagType cc_piece_opposite( CcPieceTagType ptt );
 
 char cc_piece_as_char( CcPieceTagType ptt );
@@ -451,6 +455,7 @@ bool cc_piece_has_congruent_type( char symbol, CcPieceTagType ptt );
 
 bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt );
 
+// TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
 bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 );
 
 bool cc_piece_has_same_color( CcPieceTagType pe_1, CcPieceTagType pe_2 );
