@@ -2316,9 +2316,13 @@ Optional entity represents part of notation that may be present sometimes, but
 not always. For instance, demoting-to-Pawn side-effect is mandatory to write,
 but Monoliths are only occasionally initiating that kind of syzygy.
 
-Note, optional entity might also contain optional value. For instance, pieces
-loose their tags when e.g. captured, but most of the time they don't have any;
-writing losing tag is also completely optional.
+Optional entity might also contain optional value, e.g.:
+\begin{alltt}
+<abc> = [ \alg{d} ]
+<def> = \alg{g} [ <abc> ]
+\end{alltt}
+For instance, pieces loose their tags when e.g. captured, but most of the time
+they don't have any; writing losing tag is also completely optional.
 
 Grammar is written without context, to determine which pieces, files and ranks
 are available for a particular variant see
