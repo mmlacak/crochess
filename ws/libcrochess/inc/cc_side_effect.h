@@ -74,13 +74,11 @@ typedef struct CcSideEffect
 
     union {
         struct {
-            CcPieceTagType piece; /* Piece which has been captured. */
-            // CcLosingTagType lost_tag; /* Flag, whether captured piece has lost its tag. */ // TODO :: DELETE :: DOCS
+            CcPieceTagType piece; /* Piece which has been captured, and its (lost) tag. */
         } capture; /* Capture. */
 
         struct {
-            CcPieceTagType piece; /* Piece which has been displaced. */
-            // CcLosingTagType lost_tag; /* Flag, whether displaced piece has lost its tag. */ // TODO :: DELETE :: DOCS
+            CcPieceTagType piece; /* Piece which has been displaced, and its (lost) tag. */
             CcPos destination; /* Displacement destination. */
         } displacement; /* Displacement, used during light Shaman's trance-journey. */
 
@@ -96,19 +94,16 @@ typedef struct CcSideEffect
         } castle; /* Castling. */
 
         struct {
-            CcPieceTagType captured; /* Piece which has been captured, if any. */
-            // CcLosingTagType lost_tag; /* Flag, whether captured piece has lost its tag. */ // TODO :: DELETE :: DOCS
+            CcPieceTagType captured; /* Piece which has been captured, if any, and its (lost) tag. */
             CcPieceTagType promoted_to; /* Piece to which Pawn has been promoted. */
         } promote; /* Promotion. */
 
         struct {
-            CcPieceTagType captured; /* Piece which has been captured, if any. */
-            // CcLosingTagType lost_tag; /* Flag, whether captured piece has lost its tag. */ // TODO :: DELETE :: DOCS
+            CcPieceTagType captured; /* Piece which has been captured, if any, and its (lost) tag. */
         } tag_for_promotion; /* Tag for promotion. */
 
         struct {
-            CcPieceTagType piece; /* Piece which has been converted. */
-            // CcLosingTagType lost_tag; /* Flag, if converted piece has lost its tag. */ // TODO :: DELETE :: DOCS
+            CcPieceTagType piece; /* Piece which has been converted, and its (lost) tag. */
         } convert; /* Conversion. */
 
         struct {
@@ -120,8 +115,7 @@ typedef struct CcSideEffect
         } diversion; /* Divergence. */
 
         struct {
-            CcPieceTagType piece; /* Piece which has been demoted to Pawn. */
-            // CcLosingTagType lost_tag; /* Flag, whether demoted piece has lost its tag. */ // TODO :: DELETE :: DOCS
+            CcPieceTagType piece; /* Piece which has been demoted to Pawn, and its (lost) tag. */
             CcPos distant; /* Position at which piece has been demoted. */
         } demote; /* Demoting. */
 
@@ -149,17 +143,17 @@ bool cc_side_effect_to_str( CcSideEffect se,
 
 // Convenience functions.
 CcSideEffect cc_side_effect_none( void );
-CcSideEffect cc_side_effect_capture( CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
-CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destination ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
+CcSideEffect cc_side_effect_capture( CcPieceTagType piece );
+CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destination );
 CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant );
 CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination );
-CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcPieceTagType promoted_to ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
-CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
-CcSideEffect cc_side_effect_convert( CcPieceTagType piece ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
+CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcPieceTagType promoted_to );
+CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured );
+CcSideEffect cc_side_effect_convert( CcPieceTagType piece );
 CcSideEffect cc_side_effect_failed_conversion( void );
 CcSideEffect cc_side_effect_transparency( CcPieceTagType piece );
 CcSideEffect cc_side_effect_diversion( CcPieceTagType piece );
-CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcPos distant ); // TODO :: DELETE :: DOCS :: CcLosingTagType lost_tag
+CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcPos distant );
 CcSideEffect cc_side_effect_resurrect( CcPieceTagType piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection( void );
 

@@ -164,11 +164,7 @@ Data
 
             .. c:member:: CcPieceTagType piece
 
-                Piece which has been captured.
-
-            .. c:member:: CcLosingTagType lost_tag
-
-                Tag lost by captured piece.
+                Piece which has been captured, and its (lost) tag.
 
         .. c:struct:: displacement
 
@@ -176,11 +172,7 @@ Data
 
             .. c:member:: CcPieceTagType piece
 
-                Piece which has been displaced.
-
-            .. c:member:: CcLosingTagType lost_tag
-
-                Tag lost by displaced piece.
+                Piece which has been displaced, and its (lost) tag.
 
             .. c:member:: CcPos destination
 
@@ -220,11 +212,7 @@ Data
 
             .. c:member:: CcPieceTagType captured
 
-                Piece which has been captured, if any.
-
-            .. c:member:: CcLosingTagType lost_tag
-
-                Tag lost by captured piece.
+                Piece which has been captured, if any, and its (lost) tag.
 
             .. c:member:: CcPieceTagType promoted_to
 
@@ -236,11 +224,7 @@ Data
 
             .. c:member:: CcPieceTagType captured
 
-                Piece which has been captured, if any.
-
-            .. c:member:: CcLosingTagType lost_tag
-
-                Tag lost by captured piece.
+                Piece which has been captured, if any, and its (lost) tag.
 
         .. c:struct:: convert
 
@@ -248,11 +232,7 @@ Data
 
             .. c:member:: CcPieceTagType piece
 
-                Piece which has been converted.
-
-            .. c:member:: CcLosingTagType lost_tag
-
-                Tag lost by converted piece.
+                Piece which has been converted, and its (lost) tag.
 
         .. c:struct:: transparency
 
@@ -276,11 +256,7 @@ Data
 
             .. c:member:: CcPieceTagType piece
 
-                Piece which has been demoted to Pawn.
-
-            .. c:member:: CcLosingTagType lost_tag
-
-                Tag lost by demoted piece.
+                Piece which has been demoted to Pawn, and its (lost) tag.
 
             .. c:member:: CcPos distant
 
@@ -374,19 +350,19 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_none( void )
 
-.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceTagType piece, CcLosingTagType lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_capture( CcPieceTagType piece )
 
-.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos destination )
+.. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destination )
 
 .. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant )
 
 .. c:function:: CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination )
 
-.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcLosingTagType lost_tag, CcPieceTagType promoted_to )
+.. c:function:: CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcPieceTagType promoted_to )
 
-.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured, CcLosingTagType lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured )
 
-.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceTagType piece, CcLosingTagType lost_tag )
+.. c:function:: CcSideEffect cc_side_effect_convert( CcPieceTagType piece )
 
 .. c:function:: CcSideEffect cc_side_effect_failed_conversion( void )
 
@@ -394,7 +370,7 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_diversion( CcPieceTagType piece )
 
-.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcLosingTagType lost_tag, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcPos distant )
 
 .. c:function:: CcSideEffect cc_side_effect_resurrect( CcPieceTagType piece, CcPos destination )
 
