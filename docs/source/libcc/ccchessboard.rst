@@ -204,7 +204,7 @@ Functions
 
 .. c:function:: CcPieceTagType cc_chessboard_get_piece( CcChessboard * cb, int i, int j )
 
-    Function returning piece at a given position.
+    Function returning piece and its tag at a given position.
 
     :param cb: A chessboard.
     :param i: File, position along horizontal axis.
@@ -213,11 +213,7 @@ Functions
 
 .. c:function:: bool cc_chessboard_set_piece( CcChessboard * cb__io, int i, int j, CcPieceTagType pe )
 
-    Function sets piece at a given position.
-
-    .. note::
-
-        Function resets tag on the same position to :c:enumerator:`CC_TE_None`.
+    Function sets piece and its tag at a given position.
 
     :param cb__io: *Input/output*, a chessboard.
     :param i: File, position along horizontal axis.

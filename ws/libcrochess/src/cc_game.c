@@ -78,9 +78,8 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 //     while ( _pdl ) {
 //         pos = _pdl->pd.pos;
 //         pt = _pdl->pd.piece;
-//         tt = _pdl->pd.tag;
 //
-//         if ( !cc_chessboard_set_piece_tag( cb__t, pos.i, pos.j, pt, tt ) ) {
+//         if ( !cc_chessboard_set_piece( cb__t, pos.i, pos.j, pt ) ) {
 //             CC_FREE( cb__t );
 //             return false;
 //         }
