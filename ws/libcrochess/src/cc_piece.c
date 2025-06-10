@@ -509,44 +509,44 @@ bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt ) {
 }
 
 // TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
-bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( pe_1 == pe_2 ) return true;
-    if ( pe_1 == cc_piece_opposite( pe_2 ) ) return true;
+bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( ptt_1 == ptt_2 ) return true;
+    if ( ptt_1 == cc_piece_opposite( ptt_2 ) ) return true;
     return false;
 }
 
-bool cc_piece_has_same_color( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( CC_PIECE_IS_LIGHT( pe_1 ) && CC_PIECE_IS_LIGHT( pe_2 ) )
+bool cc_piece_has_same_color( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( CC_PIECE_IS_LIGHT( ptt_1 ) && CC_PIECE_IS_LIGHT( ptt_2 ) )
         return true;
 
-    if ( CC_PIECE_IS_DARK( pe_1 ) && CC_PIECE_IS_DARK( pe_2 ) )
+    if ( CC_PIECE_IS_DARK( ptt_1 ) && CC_PIECE_IS_DARK( ptt_2 ) )
         return true;
 
     return false;
 }
 
-bool cc_piece_has_same_shade( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( ( pe_1 == CC_PTE_BrightStar ) && ( pe_2 == CC_PTE_BrightStar ) ) return true;
-    if ( ( pe_1 == CC_PTE_DimStar ) && ( pe_2 == CC_PTE_DimStar ) ) return true;
+bool cc_piece_has_same_shade( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( ( ptt_1 == CC_PTE_BrightStar ) && ( ptt_2 == CC_PTE_BrightStar ) ) return true;
+    if ( ( ptt_1 == CC_PTE_DimStar ) && ( ptt_2 == CC_PTE_DimStar ) ) return true;
     return false;
 }
 
-bool cc_piece_is_opposite( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( ( !CC_PIECE_HAS_OWNER( pe_1 ) ) || ( !CC_PIECE_HAS_OWNER( pe_2 ) ) ) return false;
+bool cc_piece_is_opposite( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( ( !CC_PIECE_HAS_OWNER( ptt_1 ) ) || ( !CC_PIECE_HAS_OWNER( ptt_2 ) ) ) return false;
 
-    return ( pe_1 == cc_piece_opposite( pe_2 ) );
+    return ( ptt_1 == cc_piece_opposite( ptt_2 ) );
 }
 
-bool cc_piece_has_same_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( CC_PIECE_IS_LIGHT( pe_1 ) && CC_PIECE_IS_LIGHT( pe_2 ) ) return true;
-    if ( CC_PIECE_IS_DARK( pe_1 ) && CC_PIECE_IS_DARK( pe_2 ) ) return true;
+bool cc_piece_has_same_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( CC_PIECE_IS_LIGHT( ptt_1 ) && CC_PIECE_IS_LIGHT( ptt_2 ) ) return true;
+    if ( CC_PIECE_IS_DARK( ptt_1 ) && CC_PIECE_IS_DARK( ptt_2 ) ) return true;
 
     return false;
 }
 
-bool cc_piece_has_different_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 ) {
-    if ( CC_PIECE_IS_LIGHT( pe_1 ) && CC_PIECE_IS_DARK( pe_2 ) ) return true;
-    if ( CC_PIECE_IS_DARK( pe_1 ) && CC_PIECE_IS_LIGHT( pe_2 ) ) return true;
+bool cc_piece_has_different_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( CC_PIECE_IS_LIGHT( ptt_1 ) && CC_PIECE_IS_DARK( ptt_2 ) ) return true;
+    if ( CC_PIECE_IS_DARK( ptt_1 ) && CC_PIECE_IS_LIGHT( ptt_2 ) ) return true;
 
     return false;
 }

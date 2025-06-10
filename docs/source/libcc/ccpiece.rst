@@ -872,7 +872,6 @@ Functions
 
     Dark pieces are converted to light ones, and vice versa.
     The same applies to dim, bright pieces, i.e. Stars.
-
     Monolith is returned unmodified.
 
     :param ptt: A piece.

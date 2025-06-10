@@ -490,17 +490,17 @@ bool cc_piece_has_congruent_type( char symbol, CcPieceTagType ptt );
 bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt );
 
 // TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
-bool cc_piece_has_same_type( CcPieceTagType pe_1, CcPieceTagType pe_2 );
+bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 
-bool cc_piece_has_same_color( CcPieceTagType pe_1, CcPieceTagType pe_2 );
+bool cc_piece_has_same_color( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 
-bool cc_piece_has_same_shade( CcPieceTagType pe_1, CcPieceTagType pe_2 );
+bool cc_piece_has_same_shade( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 
-bool cc_piece_is_opposite( CcPieceTagType pe_1, CcPieceTagType pe_2 );
+bool cc_piece_is_opposite( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 
-bool cc_piece_has_same_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 );
+bool cc_piece_has_same_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 
-bool cc_piece_has_different_owner( CcPieceTagType pe_1, CcPieceTagType pe_2 );
+bool cc_piece_has_different_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 
 bool cc_piece_is_owned_figure( CcPieceTagType ptt );
 
