@@ -1020,8 +1020,8 @@ Functions
 
     Function checks if two given pieces are the same type.
 
-    :param pe_1: A piece.
-    :param pe_2: The other piece.
+    :param ptt_1: A piece.
+    :param ptt_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same type, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_has_same_color( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
@@ -1033,8 +1033,8 @@ Functions
     neither color, nor shade; so, this function returns :c:data:`false`
     if any given piece is a Star, or a Monolith.
 
-    :param pe_1: A piece.
-    :param pe_2: The other piece.
+    :param ptt_1: A piece.
+    :param ptt_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same color, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_has_same_shade( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
@@ -1045,8 +1045,8 @@ Functions
     Stars have shade (bright, dim); if any given piece is not a Star
     function returns :c:data:`false`.
 
-    :param pe_1: A piece.
-    :param pe_2: The other piece.
+    :param ptt_1: A piece.
+    :param ptt_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same shade, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_is_opposite( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
@@ -1060,8 +1060,8 @@ Functions
     Shades and colors belong to different types of pieces, so will always
     yield :c:data:`false`.
 
-    :param pe_1: A piece.
-    :param pe_2: The other piece.
+    :param ptt_1: A piece.
+    :param ptt_2: The other piece.
     :returns: :c:data:`true` if given pieces have the same type, but opposite color or shade, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_has_same_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
@@ -1074,8 +1074,8 @@ Functions
     return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PTE_None`),
     Monolith, and Stars.
 
-    :param pe_1: A piece.
-    :param pe_2: The other piece.
+    :param ptt_1: A piece.
+    :param ptt_2: The other piece.
     :returns: :c:data:`true` if given pieces are both dark or light, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_has_different_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
@@ -1088,8 +1088,8 @@ Functions
     return :c:data:`false`; these are empty fields (i.e. :c:enumerator:`CC_PTE_None`),
     Monolith, and Stars.
 
-    :param pe_1: A piece.
-    :param pe_2: The other piece.
+    :param ptt_1: A piece.
+    :param ptt_2: The other piece.
     :returns: :c:data:`true` if given pieces are in opposite color, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_is_owned_figure( CcPieceTagType ptt )

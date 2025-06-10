@@ -508,10 +508,14 @@ bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt ) {
     return ( piece == ptt );
 }
 
-// TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
 bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
     if ( ptt_1 == ptt_2 ) return true;
     if ( ptt_1 == cc_piece_opposite( ptt_2 ) ) return true;
+
+    CcPieceTagType p_1 = cc_piece_strip_tag( ptt_1 );
+    CcPieceTagType p_2 = cc_piece_strip_tag( ptt_2 );
+    if ( p_1 == p_2 ) return true;
+
     return false;
 }
 
