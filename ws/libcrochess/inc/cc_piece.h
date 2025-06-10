@@ -463,8 +463,8 @@ CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light );
 
 bool cc_piece_symbol_is_valid( char c );
 
-// TODO :: TODO :: (losing) tag optional --> return only just a piece!
-// CcPieceTagType cc_piece_type( CcPieceTagType ptt );
+// TODO :: DOCS
+CcPieceTagType cc_piece_strip_tag( CcPieceTagType ptt );
 
 // TODO :: FIX :: (losing) tag optional --> add option to return only just a piece!
 CcPieceTagType cc_piece_opposite( CcPieceTagType ptt );

@@ -857,6 +857,14 @@ Functions
     :param c: A character.
     :returns: :c:data:`true` if given character is a valid chess piece symbol, :c:data:`false` otherwise.
 
+.. c:function:: CcPieceTagType cc_piece_strip_tag( CcPieceTagType ptt )
+
+    Function strips tag from a given piece.
+
+    :param ptt: A piece.
+    :returns: Piece without a tag if a valid piece was given,
+        :c:data:`CC_PTE_None` otherwise.
+
 .. c:function:: CcPieceTagType cc_piece_opposite( CcPieceTagType ptt )
 
     Function returning piece in opposite color (owner) to given piece.

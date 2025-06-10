@@ -67,8 +67,93 @@ bool cc_piece_symbol_is_valid( char c ) {
     }
 }
 
-// TODO :: TODO :: (losing) tag optional --> return only just a piece!
-// CcPieceTagType cc_piece_type( CcPieceTagType ptt );
+CcPieceTagType cc_piece_strip_tag( CcPieceTagType ptt ) {
+    switch ( ptt ) {
+        case CC_PTE_DarkGrenadier_RushedCurrent :
+        case CC_PTE_DarkGrenadier_RushedPrevious :
+        case CC_PTE_DarkGrenadier_CanRush :
+        case CC_PTE_DarkGrenadier : return CC_PTE_DarkGrenadier;
+
+        case CC_PTE_DarkScout_RushedCurrent :
+        case CC_PTE_DarkScout_RushedPrevious :
+        case CC_PTE_DarkScout_CanRush :
+        case CC_PTE_DarkScout : return CC_PTE_DarkScout;
+
+        case CC_PTE_DarkKing_CanCastle :
+        case CC_PTE_DarkKing : return CC_PTE_DarkKing;
+
+        case CC_PTE_DarkRook_CanCastle :
+        case CC_PTE_DarkRook : return CC_PTE_DarkRook;
+
+        case CC_PTE_DarkPawn_DelayedPromotion :
+        case CC_PTE_DarkPawn_RushedCurrent :
+        case CC_PTE_DarkPawn_RushedPrevious :
+        case CC_PTE_DarkPawn_CanRush :
+        case CC_PTE_DarkPawn : return CC_PTE_DarkPawn;
+
+        case CC_PTE_LightPawn :
+        case CC_PTE_LightPawn_CanRush :
+        case CC_PTE_LightPawn_RushedPrevious :
+        case CC_PTE_LightPawn_RushedCurrent :
+        case CC_PTE_LightPawn_DelayedPromotion : return CC_PTE_LightPawn;
+
+        case CC_PTE_LightRook :
+        case CC_PTE_LightRook_CanCastle : return CC_PTE_LightRook;
+
+        case CC_PTE_LightKing :
+        case CC_PTE_LightKing_CanCastle : return CC_PTE_LightKing;
+
+        case CC_PTE_LightScout :
+        case CC_PTE_LightScout_CanRush :
+        case CC_PTE_LightScout_RushedPrevious :
+        case CC_PTE_LightScout_RushedCurrent : return CC_PTE_LightScout;
+
+        case CC_PTE_LightGrenadier :
+        case CC_PTE_LightGrenadier_CanRush :
+        case CC_PTE_LightGrenadier_RushedPrevious :
+        case CC_PTE_LightGrenadier_RushedCurrent : return CC_PTE_LightGrenadier;
+
+        case CC_PTE_DimStar : // Intentional fall-through.
+
+        case CC_PTE_DarkStarchild :
+        case CC_PTE_DarkShaman :
+        case CC_PTE_DarkSerpent :
+
+        case CC_PTE_DarkCentaur :
+        case CC_PTE_DarkWave :
+        case CC_PTE_DarkUnicorn :
+        case CC_PTE_DarkPyramid :
+        case CC_PTE_DarkPegasus :
+
+        case CC_PTE_DarkQueen :
+
+        case CC_PTE_DarkBishop :
+        case CC_PTE_DarkKnight :
+
+        case CC_PTE_None :
+
+        case CC_PTE_LightKnight :
+        case CC_PTE_LightBishop :
+
+        case CC_PTE_LightQueen :
+
+        case CC_PTE_LightPegasus :
+        case CC_PTE_LightPyramid :
+        case CC_PTE_LightUnicorn :
+        case CC_PTE_LightWave :
+        case CC_PTE_LightCentaur :
+
+        case CC_PTE_LightSerpent :
+        case CC_PTE_LightShaman :
+        case CC_PTE_LightStarchild :
+
+        case CC_PTE_BrightStar :
+
+        case CC_PTE_Monolith : return ptt;
+
+        default : return CC_PTE_None;
+    }
+}
 
 // TODO :: FIX :: (losing) tag optional --> add option to return only just a piece!
 CcPieceTagType cc_piece_opposite( CcPieceTagType ptt ) {
