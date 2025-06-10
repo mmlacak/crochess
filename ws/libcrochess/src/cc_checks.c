@@ -38,9 +38,9 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
 
     if ( compare_tag_and_losing_tag ) {
         switch ( ltt ) {
-            case CC_LTE_RushingTagLost : return CC_TAG_IS_CAN_RUSH( ptt );
-            case CC_LTE_CastlingTagLost : return CC_TAG_IS_CAN_CASTLE( ptt );
-            case CC_LTE_DelayedPromotionLost : return CC_TAG_IS_DELAYED_PROMOTION( ptt );
+            case CC_LTE_RushingTagLost : return CC_PIECE_CAN_RUSH( ptt );
+            case CC_LTE_CastlingTagLost : return CC_PIECE_CAN_CASTLE( ptt );
+            case CC_LTE_DelayedPromotionLost : return CC_PIECE_IS_TAGGED_FOR_PROMOTION( ptt );
         }
     } else {
         switch ( ltt ) {
@@ -139,11 +139,11 @@ CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
 
     CcPieceTagType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
     if ( !CC_PIECE_IS_KING( king ) ) return CC_MBE_False;
-    if ( !CC_TAG_IS_CAN_CASTLE( king ) ) return CC_MBE_False;
+    if ( !CC_PIECE_CAN_CASTLE( king ) ) return CC_MBE_False;
 
     CcPieceTagType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
     if ( !CC_PIECE_IS_ROOK( rook ) ) return CC_MBE_False;
-    if ( !CC_TAG_IS_CAN_CASTLE( rook ) ) return CC_MBE_False;
+    if ( !CC_PIECE_CAN_CASTLE( rook ) ) return CC_MBE_False;
 
     if ( !cc_piece_has_same_color( king, rook ) ) return CC_MBE_False;
 
@@ -289,7 +289,7 @@ CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
 
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
         if ( CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( target ) ) {
-            if ( CC_TAG_IS_RUSHED( target ) )
+            if ( CC_PIECE_RUSHED( target ) )
                 found = true;
         }
     } while ( !found );

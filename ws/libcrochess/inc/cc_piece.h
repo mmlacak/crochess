@@ -201,42 +201,48 @@
                                        || CC_PIECE_IS_STARCHILD( (pte) ) )
 
 // TODO :: DOCS
-#define CC_PRIVATE_CAN_RUSH(pte)  ( ( (pte) == CC_PTE_DarkGrenadier_CanRush )       \
-                                 || ( (pte) == CC_PTE_DarkScout_CanRush )           \
-                                 || ( (pte) == CC_PTE_DarkPawn_CanRush )            \
-                                 || ( (pte) == CC_PTE_LightPawn_CanRush )           \
-                                 || ( (pte) == CC_PTE_LightScout_CanRush )          \
-                                 || ( (pte) == CC_PTE_LightGrenadier_CanRush ) )
+#define CC_PIECE_CAN_RUSH(pte) ( ( (pte) == CC_PTE_DarkGrenadier_CanRush )       \
+                              || ( (pte) == CC_PTE_DarkScout_CanRush )           \
+                              || ( (pte) == CC_PTE_DarkPawn_CanRush )            \
+                              || ( (pte) == CC_PTE_LightPawn_CanRush )           \
+                              || ( (pte) == CC_PTE_LightScout_CanRush )          \
+                              || ( (pte) == CC_PTE_LightGrenadier_CanRush ) )
 
 // TODO :: DOCS
-#define CC_PRIVATE_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )          \
-                                       || ( (pte) == CC_PTE_DarkScout_RushedPrevious )              \
-                                       || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )               \
-                                       || ( (pte) == CC_PTE_LightPawn_RushedPrevious )              \
-                                       || ( (pte) == CC_PTE_LightScout_RushedPrevious )             \
-                                       || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
+#define CC_PIECE_RUSHED_PREVIOUS(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )          \
+                                     || ( (pte) == CC_PTE_DarkScout_RushedPrevious )              \
+                                     || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )               \
+                                     || ( (pte) == CC_PTE_LightPawn_RushedPrevious )              \
+                                     || ( (pte) == CC_PTE_LightScout_RushedPrevious )             \
+                                     || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
 
 // TODO :: DOCS
-#define CC_PRIVATE_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )           \
-                                      || ( (pte) == CC_PTE_DarkScout_RushedPrevious )               \
-                                      || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )                \
-                                      || ( (pte) == CC_PTE_LightPawn_RushedPrevious )               \
-                                      || ( (pte) == CC_PTE_LightScout_RushedPrevious )              \
-                                      || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
+#define CC_PIECE_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )           \
+                                    || ( (pte) == CC_PTE_DarkScout_RushedPrevious )               \
+                                    || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )                \
+                                    || ( (pte) == CC_PTE_LightPawn_RushedPrevious )               \
+                                    || ( (pte) == CC_PTE_LightScout_RushedPrevious )              \
+                                    || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
 
 // TODO :: DOCS
-#define CC_PRIVATE_RUSHED(pte) ( ( CC_PRIVATE_RUSHED_PREVIOUS( (pte) ) )        \
-                              || ( CC_PRIVATE_RUSHED_CURRENT( (pte) ) ) )
+#define CC_PIECE_RUSHED(pte) ( ( CC_PIECE_RUSHED_PREVIOUS( (pte) ) )        \
+                            || ( CC_PIECE_RUSHED_CURRENT( (pte) ) ) )
 
 // TODO :: DOCS
-#define CC_PAWN_CAN_BE_PROMOTED(pte) ( ( (pte) == CC_PTE_DarkPawn_DelayedPromotion )                \
-                                    || ( (pte) == CC_PTE_DarkPawn )                                 \
-                                    || ( (pte) == CC_PTE_LightPawn )                                \
-                                    || ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) )
+#define CC_PIECE_CAN_BE_PROMOTED(pte) ( ( (pte) == CC_PTE_DarkPawn_DelayedPromotion )                \
+                                     || ( (pte) == CC_PTE_DarkPawn )                                 \
+                                     || ( (pte) == CC_PTE_LightPawn )                                \
+                                     || ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) )
 
 // TODO :: DOCS
-#define CC_PAWN_IS_TAGGED_FOR_PROMOTION(pte) ( ( (pte) == CC_PTE_DarkPawn_DelayedPromotion )        \
-                                            || ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) )
+#define CC_PIECE_IS_TAGGED_FOR_PROMOTION(pte) ( ( (pte) == CC_PTE_DarkPawn_DelayedPromotion )        \
+                                             || ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) )
+
+// TODO :: DOCS
+#define CC_PIECE_HAS_TAG(pte) ( ( CC_PIECE_CAN_RUSH( (pte) ) )                  \
+                             || ( CC_PIECE_RUSHED_PREVIOUS( (pte) ) )           \
+                             || ( CC_PIECE_RUSHED_CURRENT( (pte) ) )            \
+                             || ( CC_PIECE_IS_TAGGED_FOR_PROMOTION( (pte) ) ) )
 
 #define CC_PIECE_CAN_CASTLE(pte) ( ( (pte) == CC_PTE_DarkKing_CanCastle )       \
                                 || ( (pte) == CC_PTE_DarkRook_CanCastle )       \

@@ -21,9 +21,6 @@
 //     if ( !CC_PIECE_IS_VALID( moving.piece ) ) return CC_MBE_Void;
 //     if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return CC_MBE_Void;
 //
-//     if ( !CC_TAG_IS_ENUMERATOR( moving.tag ) ) return CC_MBE_Void;
-//     if ( !CC_TAG_IS_ENUMERATOR( encounter.tag ) ) return CC_MBE_Void;
-//
 //     if ( !cc_chessboard_is_pos_on_board( cb, moving.pos.i, moving.pos.j ) ) return CC_MBE_Void;
 //     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return CC_MBE_Void;
 //
@@ -53,16 +50,16 @@
 //     if ( *side_effect__io == CC_SETE_EnPassant ) {
 //         *side_effect__io = CC_SETE_Castle;
 //
-//         if ( CC_TAG_IS_CAN_CASTLE( moving ) &&
-//              CC_TAG_IS_CAN_CASTLE( encounter ) ) return CC_MBE_True;
+//         if ( CC_PIECE_CAN_CASTLE( moving ) &&
+//              CC_PIECE_CAN_CASTLE( encounter ) ) return CC_MBE_True;
 //     }
 //
 //     if ( *side_effect__io == CC_SETE_Castle ) {
 //         *side_effect__io = CC_SETE_Promotion;
 //
-//         if ( CC_PAWN_CAN_BE_PROMOTED( moving ) ) return CC_MBE_True;
+//         if ( CC_PIECE_CAN_BE_PROMOTED( moving ) ) return CC_MBE_True;
 //         else if ( CC_PIECE_CAN_PROMOTE( moving ) &&
-//                   CC_PAWN_CAN_BE_PROMOTED( encounter ) ) return CC_MBE_True;
+//                   CC_PIECE_CAN_BE_PROMOTED( encounter ) ) return CC_MBE_True;
 //     }
 //
 //

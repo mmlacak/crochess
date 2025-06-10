@@ -9,11 +9,11 @@
 
 char cc_tag_as_char( CcPieceTagType ptt ) {
     if ( ptt == CC_PTE_None ) return CC_TAG_CHAR_NONE;
-    else if ( CC_TAG_IS_CAN_RUSH( ptt ) ) return CC_TAG_CHAR_CAN_RUSH;
-    else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_TAG_CHAR_CAN_CASTLE;
-    else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_TAG_CHAR_DELAYED_PROMOTION;
-    else if ( CC_TAG_IS_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_RUSHED_PREVIOUS;
-    else if ( CC_TAG_IS_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_RUSHED_CURRENT;
+    else if ( CC_PIECE_CAN_RUSH( ptt ) ) return CC_TAG_CHAR_CAN_RUSH;
+    else if ( CC_PIECE_CAN_CASTLE( ptt ) ) return CC_TAG_CHAR_CAN_CASTLE;
+    else if ( CC_PIECE_IS_TAGGED_FOR_PROMOTION( ptt ) ) return CC_TAG_CHAR_DELAYED_PROMOTION;
+    else if ( CC_PIECE_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_RUSHED_PREVIOUS;
+    else if ( CC_PIECE_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_RUSHED_CURRENT;
     else
         return ( CC_PIECE_IS_VALID( ptt ) ) ? CC_TAG_CHAR_PIECE
                                             : CC_TAG_CHAR_INVALID;
@@ -52,9 +52,9 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
 }
 
 CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt ) {
-    if ( CC_TAG_IS_CAN_RUSH( ptt ) ) return CC_LTE_RushingTagLost;
-    else if ( CC_TAG_IS_DELAYED_PROMOTION( ptt ) ) return CC_LTE_DelayedPromotionLost;
-    else if ( CC_TAG_IS_CAN_CASTLE( ptt ) ) return CC_LTE_CastlingTagLost;
+    if ( CC_PIECE_CAN_RUSH( ptt ) ) return CC_LTE_RushingTagLost;
+    else if ( CC_PIECE_IS_TAGGED_FOR_PROMOTION( ptt ) ) return CC_LTE_DelayedPromotionLost;
+    else if ( CC_PIECE_CAN_CASTLE( ptt ) ) return CC_LTE_CastlingTagLost;
     else return CC_LTE_NoneLost;
 }
 

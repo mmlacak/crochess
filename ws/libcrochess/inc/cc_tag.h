@@ -51,25 +51,25 @@
 //                                  || ( (pte) == CC_PTE_LightRook_CanCastle )     \
 //                                  || ( (pte) == CC_PTE_LightKing_CanCastle ) )
 
-// #define CC_TAG_IS_VALID(pte) ( ( CC_TE_None < (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
-// TODO :: DOCS :: MOVE to pieces :: DELETE
-#define CC_TAG_IS_VALID(pte) ( ( CC_TAG_IS_CAN_RUSH( (pte) ) )                  \
-                            || ( CC_TAG_IS_RUSHED( (pte) ) )                    \
-                            || ( CC_TAG_IS_DELAYED_PROMOTION( (pte) ) )         \
-                            || ( CC_TAG_IS_CAN_CASTLE( (pte) ) ) )
+// // #define CC_TAG_IS_VALID(pte) ( ( CC_TE_None < (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
+// // TODO :: DOCS :: DELETE
+// #define CC_TAG_IS_VALID(pte) ( ( CC_TAG_IS_CAN_RUSH( (pte) ) )                  \
+//                             || ( CC_TAG_IS_RUSHED( (pte) ) )                    \
+//                             || ( CC_TAG_IS_DELAYED_PROMOTION( (pte) ) )         \
+//                             || ( CC_TAG_IS_CAN_CASTLE( (pte) ) ) )
 
-// #define CC_TAG_IS_ENUMERATOR(pte) ( ( CC_TE_None <= (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
-// TODO :: DOCS :: MOVE to pieces :: DELETE
-#define CC_TAG_IS_ENUMERATOR(pte) ( ( (pte) == CC_PTE_None )     \
-                                 || ( CC_TAG_IS_VALID( (pte) ) ) )
+// // #define CC_TAG_IS_ENUMERATOR(pte) ( ( CC_TE_None <= (pte) ) && ( (pte) <= CC_TE_EnPassant_Current ) )
+// // TODO :: DOCS :: DELETE
+// #define CC_TAG_IS_ENUMERATOR(pte) ( ( (pte) == CC_PTE_None )     \
+//                                  || ( CC_TAG_IS_VALID( (pte) ) ) )
 
-// #define CC_TAG_IS_PERSISTENT(pte) ( ( (pte) == CC_TE_CanRush )                \
-//                                  || ( (pte) == CC_TE_CanCastle )              \
-//                                  || ( (pte) == CC_TE_DelayedPromotion ) )
-// TODO :: DOCS :: MOVE to pieces :: DELETE
-#define CC_TAG_IS_PERSISTENT(pte) ( ( CC_TAG_IS_CAN_RUSH( (pte) ) )             \
-                                 || ( CC_TAG_IS_CAN_CASTLE( (pte) ) )           \
-                                 || ( CC_TAG_IS_DELAYED_PROMOTION( (pte) ) ) )
+// // #define CC_TAG_IS_PERSISTENT(pte) ( ( (pte) == CC_TE_CanRush )                \
+// //                                  || ( (pte) == CC_TE_CanCastle )              \
+// //                                  || ( (pte) == CC_TE_DelayedPromotion ) )
+// // TODO :: DOCS :: DELETE
+// #define CC_TAG_IS_PERSISTENT(pte) ( ( CC_TAG_IS_CAN_RUSH( (pte) ) )             \
+//                                  || ( CC_TAG_IS_CAN_CASTLE( (pte) ) )           \
+//                                  || ( CC_TAG_IS_DELAYED_PROMOTION( (pte) ) ) )
 
 
 #define CC_TAG_CHAR_NONE ' '
