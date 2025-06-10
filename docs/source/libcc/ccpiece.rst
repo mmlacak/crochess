@@ -867,15 +867,17 @@ Functions
 
 .. c:function:: CcPieceTagType cc_piece_opposite( CcPieceTagType ptt )
 
-    Function returning piece in opposite color (owner) to given piece.
+    Function returns piece in opposite color (shade) to a given piece.
+    Tag, if piece has any, is carried over unaltered.
 
     Dark pieces are converted to light ones, and vice versa.
     The same applies to dim, bright pieces, i.e. Stars.
 
-    If piece has no owner, function returns given piece back unmodified.
+    Monolith is returned unmodified.
 
     :param ptt: A piece.
-    :returns: A given piece converted to its opposite color.
+    :returns: A piece converted to its opposite color (shade) if a valid piece
+        was given, :c:data:`CC_PTE_None` otherwise.
 
 .. c:function:: char cc_piece_as_char( CcPieceTagType ptt )
 
