@@ -20,7 +20,6 @@
 //     CcStep * steps__t = NULL;
 //
 //     CcPieceTagType piece = CC_PTE_None;
-//     CcTagType tag = CC_TE_None;
 //     CcActivationDesc ad = act_desc;
 //     CcStep * step__w = NULL;
 //
@@ -48,7 +47,7 @@
 //
 //     if ( !steps__t ) return NULL;
 //
-//     CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, piece, tag, ad );
+//     CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, piece, ad );
 //     if ( !pl__a ) {
 //         cc_step_free_all( &steps__t );
 //         return NULL;

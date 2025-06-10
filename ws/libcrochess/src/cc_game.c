@@ -73,7 +73,6 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 //     CcPosDescLink * _pdl = pdl;
 //     CcPos pos = CC_POS_CAST_INVALID;
 //     CcPieceTagType pt = CC_PTE_None;
-//     CcTagType tt = CC_TE_None;
 //
 //     while ( _pdl ) {
 //         pos = _pdl->pd.pos;

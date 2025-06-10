@@ -130,7 +130,7 @@ CcPieceTagType cc_set_piece_tag_from_losing( CcPieceTagType ptt,
                 case CC_PTE_LightRook_CanCastle : return CC_PTE_LightRook_CanCastle;
 
                 case CC_PTE_LightKing :
-                case CC_PTE_LightKing_CanCastle : return CC_PTE_LightKing;
+                case CC_PTE_LightKing_CanCastle : return CC_PTE_LightKing_CanCastle;
 
                 default : return ptt;
             }

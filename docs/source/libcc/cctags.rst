@@ -22,53 +22,6 @@ demoted (if figure), promoted (if Pawn).
 Values enumerated in losing tag are the same as in ordinary :c:term:`tag`,
 but only for :c:term:`tag`\s that can be lost.
 
-.. _lbl-libcc-cctags-validity:
-
-Validity
---------
-
-.. c:macro:: CC_TAG_IS_ENUMERATOR(te)
-
-    Macro to check if given :term:`tag` is enumeration in :c:enum:`CcTagEnum`,
-    i.e. between :c:enumerator:`CC_TE_None` and :c:enumerator:`CC_TE_DelayedPromotion`
-    values.
-
-    :param te: A tag, integer value.
-    :returns: :c:data:`true` if :c:type:`CcTagEnum` enumerator,
-              :c:data:`false` otherwise.
-
-.. c:macro:: CC_TAG_IS_VALID(te)
-
-    Macro to check if given :term:`tag` is valid :c:enum:`CcTagEnum` enumerator,
-    and not :c:enumerator:`CC_TE_None`.
-
-    :param te: A tag, integer value.
-    :returns: :c:data:`true` if valid :c:type:`CcTagEnum` enumerator,
-              :c:data:`false` otherwise.
-
-.. _lbl-libcc-cctags-values:
-
-Values
-------
-
-.. c:macro:: CC_TAG_IS_PERSISTENT(te)
-
-    Macro to check if given :term:`tag` is persistent,
-    i.e. if it lasts until used or lost.
-
-    :param te: :c:type:`CcTagEnum` value.
-    :returns: :c:`bool` value.
-
-.. c:macro:: CC_TAG_IS_RUSHED(te)
-
-    Macro to check if given :term:`tag` is en passant, i.e. either
-    :c:enumerator:`CC_TE_EnPassant_Previous` or
-    :c:enumerator:`CC_TE_EnPassant_Current`.
-
-    :param te: :c:type:`CcTagEnum` value.
-    :returns: :c:`bool` value, :c:data:`true` if en passant tag, :c:data:`false`
-        otherwise.
-
 .. _lbl-libcc-cctags-characters:
 
 Characters
@@ -109,86 +62,17 @@ console.
 
     Equals to :c:`';'`.
 
-.. _lbl-libcc-cctags-types:
-
-Types
------
-
-.. c:enum:: CcTagEnum
-
-    Enumerates all :term:`tag`\s, used in all variants.
-
-    .. c:enumerator:: CC_TE_None
-
-        No :term:`tag` applies, equals to ``0``.
-        Used for e.g. empty on-board fields, any off-board field.
-
-    .. c:enumerator:: CC_TE_CanRush
-
-        Pawn can rush. Persistent :term:`tag`, equals to ``1``.
-
-    .. c:enumerator:: CC_TE_CanCastle
-
-        Rooks, Kings can castle. Persistent :term:`tag`, equals to ``2``.
-
-    .. c:enumerator:: CC_TE_DelayedPromotion
-
-        Pawn delayed promotion. Persistent :term:`tag`, equals to ``3``.
-
-    .. c:enumerator:: CC_TE_EnPassant_Previous
-
-        A private rushed in previous turn, this is its en passant opportunity tag;
-        deleted at the start of the very next move.
-        Semi-persistent :term:`tag`, equals to ``4``.
-
-    .. c:enumerator:: CC_TE_EnPassant_Current
-
-        A private rushed in current turn (in a previous ply), this is its en passant
-        opportunity tag; becomes :c:enumerator:`CC_TE_EnPassant_Previous` at the
-        start of the very next move.
-        Semi-persistent :term:`tag`, equals to ``5``.
-
-    :c:`enum` is tagged with the same :c:enum:`CcTagEnum` name.
-
-.. c:type:: unsigned char CcTagType
-
-    Actual storage type, as used in :c:struct:`CcChessboard` :c:member:`tags`;
-    contains only enumerations from :c:enum:`CcTagEnum`.
-
 .. _lbl-libcc-cctags-functions:
 
 Functions
 ---------
 
-.. c:function:: char cc_tag_as_char( CcTagType ct )
+.. c:function:: char cc_tag_as_char( CcPieceTagType ptt )
 
     Function returning :term:`tag` char, based on tag enum.
 
-    :param ct: :c:type:`CcTagType` value.
+    :param ptt: :c:type:`CcPieceTagType` value.
     :returns: Tag char, one of :c:`CC_TAG_CHAR_*` constants.
-
-.. c:function:: CcTagType cc_tag_from_char( char c )
-
-    Function returning :term:`tag` enum, based on :term:`tag` char.
-
-    :param c: A char, expected to be one of :c:`CC_TAG_CHAR_*` constants.
-    :returns: :c:type:`CcTagType` value if valid :term:`tag` character was given,
-              :c:enumerator:`CC_TE_None` otherwise.
-
-.. c:function:: bool cc_tag_is_congruent( CcTagType ct_1, CcTagType ct_2 )
-
-    Function checks if two tags are congruent.
-
-    For tags to be congruent, at least both has to be enumerations.
-    If both are valid enumerations, they also have to be the same.
-
-    So, if any tag is :c:enumerator:`CC_TE_None`, the other just have
-    to be any :c:type:`CcTagType` enumeration.
-
-    :param ct_1: A tag, :c:type:`CcTagType` value.
-    :param ct_2: Other tag, :c:type:`CcTagType` value.
-    :returns: :c:data:`true` if tags are congruent, :c:data:`false` otherwise.
-    :seealso: :c:macro:`CC_TAG_IS_ENUMERATOR()`, :c:macro:`CC_TAG_IS_VALID()`
 
 .. _lbl-libcc-cctags-losingtagvalidity:
 
@@ -251,10 +135,9 @@ Losing tag types
 
     Maximum length of a losing-tag symbol, equals to ``2``.
 
-.. c:type:: CcTagType CcLosingTagType
+.. c:type:: unsigned char CcLosingTagType
 
-    Actual (storage) type, used for :c:enum:`CcLosingTagEnum` values;
-    equals to :c:`unsigned char`.
+    Actual (storage) type, used for :c:enum:`CcLosingTagEnum` values.
 
 .. _lbl-libcc-cctags-losingtagfunctions:
 
@@ -265,7 +148,7 @@ Losing tag functions
 
     Function returns losing tag symbol as used in :term:`AN`, based on lost tag.
 
-    :param ltt: :c:type:`CcLosingTagType` value.
+    :param ltt: A lost tag, :c:type:`CcLosingTagType` value.
     :returns: Valid pointer to null-terminated string literal,
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
@@ -275,44 +158,36 @@ Losing tag functions
     Function returning descriptive string as used in user messages,
     based on lost tag.
 
-    :param ltt: :c:type:`CcLosingTagType` value.
+    :param ltt: A lost tag, :c:type:`CcLosingTagType` value.
     :param capitalize: Flag, whether string should be capitalized.
     :param no_tag: Flag, whether should also describe no-tag value.
     :returns: Valid pointer to null-terminated string literal,
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 
-.. c:function:: CcLosingTagType cc_convert_tag_to_losing( CcTagType te )
+.. c:function:: CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt )
 
-    Converts ordinary tag into lost tag.
+    Converts ordinary tag accompanying a given piece into a lost tag.
 
     Ordinary tag values without equivalent losing tag value are converted
     into :c:enumerator:`CC_LTE_NoneLost` instead.
 
-    :param te: :c:type:`CcTagType` value.
+    :param ptt: A piece and its tag, :c:type:`CcPieceTagType` value.
     :returns: :c:type:`CcLosingTagType` value.
 
-.. c:function:: CcTagType cc_convert_tag_from_losing( CcLosingTagType ltt )
+.. c:function:: CcPieceTagType cc_set_piece_tag_from_losing( CcPieceTagType ptt, CcLosingTagType ltt, bool override_conflicting_tag )
 
-    Converts losing tag into ordinary tag.
+    Sets ordinary tag to a given piece, based on a given lost tag.
 
-    :param ltt: :c:type:`CcLosingTagType` value.
-    :returns: :c:type:`CcTagType` value.
+    A given piece can have its tag already set, flag :c:var:`override_conflicting_tag`
+    controls whether a given tag would be overwritten.
 
-.. c:function:: bool cc_losing_tag_is_congruent( CcLosingTagType ltt_1, CcLosingTagType ltt_2 )
-
-    Function checks if two losing tags are congruent.
-
-    For losing tags to be congruent, at least both has to be enumerations.
-    If both are valid enumerations, they also have to be the same.
-
-    So, if any losing tag is :c:enumerator:`CC_LTE_NoneLost`, the other just have
-    to be any :c:type:`CcLosingTagType` enumeration.
-
-    :param ltt_1: A losing tag, :c:type:`CcLosingTagType` value.
-    :param ltt_2: Other losing tag, :c:type:`CcLosingTagType` value.
-    :returns: :c:data:`true` if losing tags are congruent, :c:data:`false` otherwise.
-    :seealso: :c:macro:`CC_LOSING_TAG_IS_ENUMERATOR()`, :c:macro:`CC_LOSING_TAG_IS_VALID()`
+    :param ptt: A piece and its tag, :c:type:`CcPieceTagType` value.
+    :param ltt: A lost tag, :c:type:`CcLosingTagType` value.
+    :param override_conflicting_tag: Flag, whether to also override any conflicting tag,
+        if it exists.
+    :returns: A piece with its new tag set if successful, a given piece (and its
+        original tag) otherwise.
 
 .. _lbl-libcc-cctags-sourcecodeheader:
 

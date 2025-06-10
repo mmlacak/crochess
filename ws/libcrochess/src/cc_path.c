@@ -16,7 +16,7 @@
 
 CcPathLink * cc_path_link__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
-                                CcPieceTagType encountered_piece,
+                                CcPieceTagType encounter,
                                 CcActivationDesc act_desc ) {
     CcPathLink * pl__t = malloc( sizeof( CcPathLink ) );
     if ( !pl__t ) return NULL;
@@ -29,7 +29,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
     } else
         pl__t->steps = NULL;
 
-    pl__t->encountered_piece = encountered_piece;
+    pl__t->encounter = encounter;
 
     pl__t->act_desc = act_desc;
 
@@ -45,11 +45,11 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 CcPathLink * cc_path_link_append( CcPathLink ** pl__iod_a,
                                   CcSideEffect side_effect,
                                   CcStep ** steps__d_n,
-                                  CcPieceTagType encountered_piece,
+                                  CcPieceTagType encounter,
                                   CcActivationDesc act_desc ) {
     if ( !pl__iod_a ) return NULL;
 
-    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d_n, encountered_piece, act_desc );
+    CcPathLink * pl__t = cc_path_link__new( side_effect, steps__d_n, encounter, act_desc );
     if ( !pl__t ) return NULL;
 
     if ( !*pl__iod_a ) {
@@ -168,7 +168,7 @@ static CcMaybeBoolEnum _cc_path_link_subs_is_valid( CcPathLink * pl_subs ) {
         if ( pl->alt ) return CC_MBE_False;
         if ( pl->next ) return CC_MBE_False;
 
-        if ( pl->encountered_piece != CC_PTE_None ) return CC_MBE_False;
+        if ( pl->encounter != CC_PTE_None ) return CC_MBE_False;
 
         if ( !CC_SIDE_EFFECT_TYPE_IS_VALID( pl->side_effect.type ) )
             return CC_MBE_False;
@@ -246,7 +246,7 @@ static bool _cc_path_link_is_valid( CcPathLink * path_link, bool has_steps ) {
         if ( ( pl->fork ) || ( pl->alt ) || ( pl->next ) ) return false;
     }
 
-    if ( !CC_PIECE_IS_ENUMERATOR( pl->encountered_piece ) )
+    if ( !CC_PIECE_IS_ENUMERATOR( pl->encounter ) )
         return false;
 
     if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( pl->act_desc.usage ) )
@@ -314,7 +314,7 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link ) {
         CcPathLink * pd__w = cc_path_link_append( &pl__a,
                                                   from->side_effect,
                                                   &from->steps,
-                                                  from->encountered_piece,
+                                                  from->encounter,
                                                   from->act_desc );
 
         if ( !pd__w ) { // Failed append --> ownership not transferred ...
@@ -462,7 +462,7 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
 
     str_size += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
 
-    // TODO :: add .encountered_piece, .momentum
+    // TODO :: add .encounter, .momentum
 
     size_t unused = str_size + 1; // +1 for '\0'
 
@@ -490,7 +490,7 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
 
     // unused -= ( end_pos__w - end_se__w ); // Not needed yet.
 
-    // TODO :: add .encountered_piece, .momentum
+    // TODO :: add .encounter, .momentum
 
     CC_FREE( steps_str__a );
 

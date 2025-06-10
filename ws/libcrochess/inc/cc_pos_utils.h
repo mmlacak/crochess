@@ -13,12 +13,11 @@
 CcPosDesc cc_convert_pos_to_pos_desc( CcChessboard * cb__d, CcPos pos );
 
 
-// TODO :: cc_iter_typed_steps() --> iter by piece, tag, step type filter, chessboard, ...
+// TODO :: cc_iter_typed_steps() --> iter by piece, step type filter, chessboard, ...
 //         similar to cc_calc_momentum()
 //
 // bool cc_iter_piece_steps( CcChessboard * cb,
 //                           CcPieceTagType piece,
-//                           CcTagType tag,
 //                           cc_uint_t momentum,
 //                           CcStepTypeEnum filter__d,
 //                           CcTypedStep const ** step__iod );
