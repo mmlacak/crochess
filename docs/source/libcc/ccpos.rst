@@ -449,7 +449,7 @@ Position descriptor
     :param pd_2: Another position descriptor; :c:struct:`CcPosDesc` value.
     :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 )
+.. c:function:: bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2, bool compare_only_piece_types )
 
     Function checks if two position descriptor values are congruent.
 
@@ -460,11 +460,15 @@ Position descriptor
     For pieces to be congruent, they have to be valid, and the same
     type, e.g two Rooks, not necessarily in the same color.
 
-    For tags to be congruent, they both have to be at least enumeration;
-    if both are valid, they also have to be the same.
+    For pieces which can have tags (e.g. Pawns), flag :c:var:`compare_only_piece_types`
+    controls whether pieces are stripped of their tags before comparison, or not.
+    If tags are stripped then e.g. Pawn with delayed promotion tag is congruent
+    to a Pawn which just rushed; otherwise, tags have to be the same.
 
     :param pd_1: A position descriptor.
     :param pd_2: Another position descriptor.
+    :param compare_only_piece_types: Flag, whether pieces are stripped of their
+        tags before comparison, or not.
     :returns: :c:data:`true` if position descriptors are congruent,
               :c:data:`false` otherwise.
 

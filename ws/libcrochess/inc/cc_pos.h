@@ -131,7 +131,7 @@ typedef struct CcPosDesc {
     ( CC_POS_IS_EQUAL( (pd_1).pos, (pd_2).pos ) &&      \
       ( (pd_1).piece == (pd_2).piece ) )
 
-bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ); // TODO :: FIX
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2, bool compare_only_piece_types );
 
 bool cc_pos_desc_to_string( CcPosDesc pd,
                             cc_char_16 * pd_str__o );

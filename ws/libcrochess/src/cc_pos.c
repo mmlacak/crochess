@@ -311,15 +311,25 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
 //
 // Position descriptor.
 
-bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2 ) {
+bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2, bool compare_only_piece_types ) {
     if ( !cc_pos_is_congruent( pd_1.pos, pd_2.pos ) ) return false;
 
     if ( CC_PIECE_IS_NONE( pd_1.piece ) ||
          CC_PIECE_IS_NONE( pd_2.piece ) ) return false;
 
-    CcPieceTagType opposite = cc_piece_opposite( pd_2.piece ); // TODO :: FIX :: (losing) tag optional --> add option to compare only by piece types!
+    CcPieceTagType p_1 =
+        compare_only_piece_types ? cc_piece_strip_tag( pd_1.piece )
+                                 : pd_1.piece;
 
-    if ( pd_1.piece == pd_2.piece || pd_1.piece == opposite ) return true;
+    CcPieceTagType p_2 =
+        compare_only_piece_types ? cc_piece_strip_tag( pd_2.piece )
+                                 : pd_2.piece;
+
+    if ( p_1 == p_2 ) return true;
+
+    CcPieceTagType opposite = cc_piece_opposite( p_2 );
+
+    if ( p_1 == opposite ) return true;
 
     return false;
 }

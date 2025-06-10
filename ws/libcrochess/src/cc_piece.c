@@ -11,7 +11,7 @@
 #include "cc_tag.h"
 
 
-CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light ) { // TODO :: FIX :: add losing tag
+CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light ) {
     switch ( symbol ) {
         case ' ' : return CC_PTE_None;
 
@@ -569,7 +569,7 @@ bool cc_piece_is_figure( CcPieceTagType ptt ) {
     return cc_piece_is_owned_figure( ptt );
 }
 
-char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) { // TODO :: MAYBE :: convert to allocated string (?)
+char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) {
     switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim Star" : "dim Star";
         case CC_PTE_BrightStar : return capitalize ? "Bright Star" : "bright Star";
