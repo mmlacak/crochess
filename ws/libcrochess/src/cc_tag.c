@@ -51,7 +51,7 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
     }
 }
 
-CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt ) {
+CcLosingTagType cc_losing_tag_from_piece( CcPieceTagType ptt ) {
     if ( CC_PIECE_CAN_RUSH( ptt ) ) return CC_LTE_RushingTagLost;
     else if ( CC_PIECE_IS_TAGGED_FOR_PROMOTION( ptt ) ) return CC_LTE_DelayedPromotionLost;
     else if ( CC_PIECE_CAN_CASTLE( ptt ) ) return CC_LTE_CastlingTagLost;

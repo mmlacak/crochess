@@ -49,7 +49,7 @@ char const * cc_losing_tag_as_string( CcLosingTagType ltt,
                                       bool capitalize,
                                       bool no_tag );
 
-CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt );
+CcLosingTagType cc_losing_tag_from_piece( CcPieceTagType ptt );
 
 CcPieceTagType cc_set_piece_tag_from_losing( CcPieceTagType ptt,
                                              CcLosingTagType ltt,

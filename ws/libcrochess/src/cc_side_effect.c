@@ -168,10 +168,10 @@ bool cc_side_effect_to_str( CcSideEffect se,
 
     if ( se.type == CC_SETE_Promotion ) {
         captured = se.promote.captured;
-        // ltt = se.promote.lost_tag; // TODO :: FIX
+        ltt = cc_losing_tag_from_piece( captured );
     } else if ( se.type == CC_SETE_TagForPromotion ) {
         captured = se.tag_for_promotion.captured;
-        // ltt = se.tag_for_promotion.lost_tag; // TODO :: FIX
+        ltt = cc_losing_tag_from_piece( captured );
     }
 
     if ( !CC_PIECE_IS_NONE( captured ) ) {

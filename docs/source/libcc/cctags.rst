@@ -165,7 +165,7 @@ Losing tag functions
               do not try to :c:func:`free()` it.
               String can be empty, if tag cannot be lost.
 
-.. c:function:: CcLosingTagType cc_convert_tag_to_losing( CcPieceTagType ptt )
+.. c:function:: CcLosingTagType cc_losing_tag_from_piece( CcPieceTagType ptt )
 
     Converts ordinary tag accompanying a given piece into a lost tag.
 
