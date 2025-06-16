@@ -80,6 +80,9 @@ Library contents
     ccparsemsg
     ccparseutils
     ccparsemove
+    ccparseply
+    ccparsestep
+    ccparsesideeffect
 
     ccgame
     ccrulesdefs

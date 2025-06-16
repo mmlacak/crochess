@@ -19,17 +19,14 @@ Functions
 
 .. c:function:: bool cc_parse_move( char const * move_an, CcGame * game, CcMove ** move__o, CcParseMsg ** parse_msgs__iod )
 
-    .. todo::
+    Function parses complete move notation, results are returned via output
+    parameters, if successful; otherwise, just messages from parser.
 
-        DOCS
-
-    ..  Function ...
-
-    ..  :param move_an:
-    ..  :param game:
-    ..  :param move__o:
-    ..  :param parse_msgs__iod:
-    ..  :returns:
+    :param move_an: Move notation; null-terminated, :term:`AN` string.
+    :param game: Game in progress.
+    :param move__o: _Output_, parsed move.
+    :param parse_msgs__iod: *Optional* *input/output* parameter, linked list.
+    :returns:
 
 .. _lbl-libcc-ccparsemove-sourcecodeheader:
 
