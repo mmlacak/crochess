@@ -120,8 +120,9 @@ static bool _cc_parse_ply( char const * ply_start_an,
     // Steps.
 
     CcStep * steps__t = NULL;
+    char const * steps_end_an = cc_rewind_ply_end_to_steps( ply_end_an );
 
-    if ( !cc_parse_steps( c_an, ply_end_an, is_turn_light, board_size, &steps__t, parse_msgs__iod ) ) {
+    if ( !cc_parse_steps( c_an, steps_end_an, is_turn_light, board_size, &steps__t, parse_msgs__iod ) ) {
         cc_step_free_all( &steps__t );
         return false;
     }

@@ -23,7 +23,7 @@
 //                                               CcParseMsg ** parse_msgs__iod );
 
 
-// DOCS
+// TODO :: DOCS
 bool cc_parse_move( char const * move_an,
                     CcGame * game,
                     CcMove ** move__o,

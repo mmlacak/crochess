@@ -59,6 +59,8 @@ bool cc_parse_pos( char const * pos_an_str,
 
 char const * cc_skip_disambiguation( char const * pos_an_str );
 
+char const * cc_rewind_ply_end_to_steps( char const * ply_end_an_str );
+
 CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an,
                                            char const * end_an,
                                            bool check_intermediate_steps,

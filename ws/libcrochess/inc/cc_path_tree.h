@@ -18,7 +18,7 @@
 #include "cc_rules_defs.h"
 
 
-// todo :: DOCS
+// DOCS
 
 bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,

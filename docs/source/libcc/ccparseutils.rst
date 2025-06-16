@@ -229,6 +229,18 @@ Functions
     :returns: Valid pointer if disambiguation has been skipped,
         :c:data:`NULL` otherwise.
 
+.. c:function:: char const * cc_rewind_ply_end_to_steps( char const * ply_end_an_str )
+
+    Function returns pointer to end of steps notation, by rewinding ply end notation.
+
+    Steps end is the same as ply end, except if it contains ply gathering end
+    :c:`char` (i.e. :c:`]`); in which case steps end with that
+    :c:`char`, and ply ends with ply linkage, or string terminator.
+
+    :param ply_end_an_str: End of ply notation; null-terminated, :term:`AN` string.
+
+    :returns: Valid pointer to end of steps :term:`AN` notation.
+
 .. c:function:: CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an, char const * end_an, bool check_intermediate_steps, bool check_destination_step )
 
     Function checks if :term:`AN` string contains step separators, i.e. one of ``'.'``, ``'\'``, ``'-'``.

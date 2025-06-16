@@ -44,7 +44,7 @@
 //                            CcParseMsg ** parse_msgs__iod );
 
 
-// DOCS
+// TODO :: DOCS
 bool cc_parse_plies( char const * move_an,
                      bool is_turn_light,
                      cc_uint_t board_size,
