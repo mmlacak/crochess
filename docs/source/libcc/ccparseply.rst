@@ -19,17 +19,15 @@ Functions
 
 .. c:function:: bool cc_parse_plies( char const * move_an, bool is_turn_light, cc_uint_t board_size, CcPly ** plies__o, CcParseMsg ** parse_msgs__iod )
 
-    .. todo::
+    Function parses all plies in a given move notation, results are returned via
+    output parameters, if successful; otherwise, just messages from parser.
 
-        DOCS
-
-    ..  Function ...
-
-    ..  :param move_an:
-    ..  :param game:
-    ..  :param move__o:
-    ..  :param parse_msgs__iod:
-    ..  :returns:
+    :param move_an: Move notation; null-terminated, :term:`AN` string.
+    :param is_turn_light: Flag, whether it's light player turn, or dark one's.
+    :param board_size: Size of a chessboard being played.
+    :param plies__o: _Output_, parsed plies.
+    :param parse_msgs__iod: *Optional* *input/output* parameter, linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccparseply-sourcecodeheader:
 

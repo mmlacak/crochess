@@ -26,7 +26,7 @@ Functions
     :param game: Game in progress.
     :param move__o: _Output_, parsed move.
     :param parse_msgs__iod: *Optional* *input/output* parameter, linked list.
-    :returns:
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccparsemove-sourcecodeheader:
 
