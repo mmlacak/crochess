@@ -172,9 +172,11 @@ Functions
     string, and optionally initial :c:struct:`CcGame`, containing starting
     positions, game status, and moves.
 
-    Setup string contains list of ``<piece><file><rank>[<tag>]`` items, separated by ``,`` (comma). ``<tag>`` is optional.
+    Setup string contains list of ``<piece><file><rank>[<tag>]`` items, separated
+    by ``,`` (comma). ``<tag>`` is optional.
 
-    ``<piece>`` is usual piece symbol, as used in AN; dark/dim pieces are represented by lower-case letter, e.g. dark Bishop would be ``b``, instead of usual ``B``.
+    ``<piece>`` is usual piece symbol, as used in AN; dark/dim pieces are represented
+    by lower-case letter, e.g. dark Bishop would be ``b``, instead of usual ``B``.
 
     If a particular field has to be cleared, ``' '`` (space) is used for ``<piece>``.
 
@@ -182,9 +184,12 @@ Functions
 
     ``<rank>`` is any number from ``1`` to ``26``, inclusive.
 
-    ``<tag>`` is optional, if given it can be one of ``R``, ``C``, ``P``; representing rushing, castling, and delayed promotion tags.
+    ``<tag>`` is optional, if given it can be one of ``^``, ``&``, ``=``, ``:``, ``;``;
+    representing rushing, castling, delayed promotion, rushed in previous turn, and
+    rushed in current turn tags, see :ref:`lbl-libcc-cctags-characters` for details.
 
-    If optional, initial game setup is not given, setup string has to be preceded by variant abbreviation, i.e. use one of:
+    If optional, initial game setup is not given, setup string has to be preceded
+    by variant abbreviation, i.e. use one of:
 
         * cc  --> Classical Chess
         * ct  --> Croatian Ties
@@ -202,7 +207,8 @@ Functions
 
     Variant abbreviation has to be followed by ``' '`` (space).
 
-    Some examples: ``"O Ra1C,Pa2R,Pb23P,bc24,Pc7,pd8,Pf11"``, ``"o Bh5,Bd9,Wk2,Ro2"``. ``"bd1, a11,Bl1,bd9"``; the last one can only be used along with an existing game setup.
+    Some examples: ``"O Ra1&,Pa2^,Pb23=,bc24,Pc7,pd8,Pf11"``, ``"o Bh5,Bd9,Wk2,Ro2"``. ``"bd1, a11,Bl1,bd9"``;
+    the last one can only be used along with an existing game setup.
 
     :param setup: A setup string.
     :param before_setup__d: An *optional*, initial game. If given, it is

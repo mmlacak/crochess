@@ -32,35 +32,42 @@ console.
 
 .. c:macro:: CC_TAG_CHAR_NONE
 
-    Equals to :c:`' '`.
+    Equals to :c:`' '`, used when there is no tag. When displaying tags, it's used
+    for empty fields.
 
 .. c:macro:: CC_TAG_CHAR_INVALID
 
-    Equals to :c:`'?'`.
+    Equals to :c:`'?'`, used for displaying chessboard, if invalid piece and/or
+    tag encountered.
 
 .. c:macro:: CC_TAG_CHAR_PIECE
 
-    Equals to :c:`'!'`.
+    Equals to :c:`'!'`; when displaying tags, used to denote piece without tag.
 
 .. c:macro:: CC_TAG_CHAR_CAN_RUSH
 
-    Equals to ``'^'``.
+    Equals to ``'^'``, sets-up private which can rush. When displaying tags, it's
+    used for privates with can rush tag.
 
 .. c:macro:: CC_TAG_CHAR_CAN_CASTLE
 
-    Equals to ``'&'``.
+    Equals to ``'&'``, sets-up Rook or King which can castle. When displaying tags,
+    it's used for Rooks and Kings which can castle.
 
 .. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
 
-    Equals to ``'='``.
+    Equals to ``'='``, sets-up Pawn which can be promoted later. When displaying
+    tags, it's used for Pawn with delayed promotion tag.
 
 .. c:macro:: CC_TAG_CHAR_RUSHED_PREVIOUS
 
-    Equals to :c:`':'`.
+    Equals to :c:`':'`, sets-up private which rushed in previous turn. When
+    displaying tags, it's used for privates with rushed in previous turn tag.
 
 .. c:macro:: CC_TAG_CHAR_RUSHED_CURRENT
 
-    Equals to :c:`';'`.
+    Equals to :c:`';'`, sets-up private which rushed in current turn. When
+    displaying tags, it's used for privates with rushed in current turn tag.
 
 .. _lbl-libcc-cctags-functions:
 
