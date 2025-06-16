@@ -19,17 +19,16 @@ Functions
 
 .. c:function:: bool cc_parse_steps( char const * steps_start_an, char const * steps_end_an, bool is_turn_light, cc_uint_t board_size, CcStep ** steps__o, CcParseMsg ** parse_msgs__iod )
 
-    .. todo::
+    Function parses all steps in a given ply notation, results are returned via
+    output parameters, if successful; otherwise, just messages from parser.
 
-        DOCS
-
-    ..  Function ...
-
-    ..  :param move_an:
-    ..  :param game:
-    ..  :param move__o:
-    ..  :param parse_msgs__iod:
-    ..  :returns:
+    :param steps_start_an: Start of steps notation; null-terminated, :term:`AN` string.
+    :param steps_end_an: End of steps notation; null-terminated, :term:`AN` string.
+    :param is_turn_light: Flag, whether it's light player turn, or dark one's.
+    :param board_size: Size of a chessboard being played.
+    :param steps__o: _Output_, parsed steps.
+    :param parse_msgs__iod: *Optional* *input/output* parameter, linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccparsestep-sourcecodeheader:
 
