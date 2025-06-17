@@ -101,7 +101,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
 
     CcStep * steps__t =
-        path_ctx__io->ply_ctx.is_first ? cc_step_initial_no_side_effect__new( pos )
+        path_ctx__io->ply_ctx.is_first ? cc_step_initial_no_side_effect__new( pos ) // TODO :: FIX :: used flag is first ply (in a move), what is needed is first step (in a ply).
                                        : cc_step_next_no_side_effect__new( pos );
     if ( !steps__t ) return false;
 
@@ -125,7 +125,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
                 return false;
             }
 
-            if ( !CC_PIECE_IS_NONE( encounter ) ) break;
+            if ( encounter != CC_PTE_None ) break;
         } else
             break;
     } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
@@ -137,6 +137,8 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     }
 
     path_ctx__io->ply_ctx.activation = act_desc;
+
+    // TODO :: fill-in path_ctx__io->piece_ctx with moving_from; check piece originates from that position
 
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub
