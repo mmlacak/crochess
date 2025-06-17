@@ -101,8 +101,8 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
 
     CcStep * steps__t =
-        path_ctx__io->ply_ctx.is_first ? cc_step_initial_no_side_effect__new( pos ) // TODO :: FIX :: used flag is first ply (in a move), what is needed is first step (in a ply).
-                                       : cc_step_next_no_side_effect__new( pos );
+        path_ctx__io->ply_ctx.is_first_step ? cc_step_initial_no_side_effect__new( pos )
+                                            : cc_step_next_no_side_effect__new( pos );
     if ( !steps__t ) return false;
 
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
@@ -124,6 +124,8 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
                 cc_step_free_all( &steps__t );
                 return false;
             }
+
+            path_ctx__io->ply_ctx.is_first_step = false;
 
             if ( encounter != CC_PTE_None ) break;
         } else

@@ -52,6 +52,7 @@ typedef struct CcPlyContext {
     CcTypedStep step_1;
     CcTypedStep step_2;
     bool is_first;
+    bool is_first_step;
 } CcPlyContext;
 
 #define CC_PLY_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,               \
@@ -59,7 +60,8 @@ typedef struct CcPlyContext {
                                  .activation = CC_ACTIVATION_DESC_CAST_SPENT,       \
                                  .step_1 = CC_TYPED_STEP_CAST_INVALID,              \
                                  .step_2 = CC_TYPED_STEP_CAST_INVALID,              \
-                                 .is_first = false }
+                                 .is_first = false,                                 \
+                                 .is_first_step = false }
 
 #define CC_PLY_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_PLY_CONTEXT_INVALID )
 
