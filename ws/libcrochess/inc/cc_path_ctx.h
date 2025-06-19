@@ -108,17 +108,15 @@ bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f );
 
 size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link );
 
-CcPieceContextLink * cc_piece_ctx_link_find_unique_initial( CcPieceContextLink * piece_ctx_link,
-                                                            CcPosDesc initial );
-
 CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
-                                                    CcPos current );
-
-bool cc_piece_ctx_link_update_current( CcPieceContextLink * piece_ctx_link__io,
-                                       CcPos destination );
+                                                    CcPieceTagType piece,
+                                                    CcPos pos,
+                                                    bool find_current );
 
 bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
-                                      CcPos current,
+                                      CcPieceTagType piece,
+                                      CcPos pos,
+                                      bool find_current,
                                       CcPos destination );
 
 //

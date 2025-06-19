@@ -105,6 +105,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
                                             : cc_step_next_no_side_effect__new( pos );
     if ( !steps__t ) return false;
 
+    bool is_starting_pos = path_ctx__io->ply_ctx.is_first && path_ctx__io->ply_ctx.is_first_step;
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
     CcPieceTagType encounter = CC_PTE_None;
 
@@ -141,6 +142,8 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     path_ctx__io->ply_ctx.activation = act_desc;
 
     // TODO :: fill-in path_ctx__io->piece_ctx with moving_from; check piece originates from that position
+    // if ( is_starting_pos )
+    //     path_ctx__io->piece_ctx
 
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub

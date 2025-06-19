@@ -123,36 +123,23 @@ size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link ) {
     return len;
 }
 
-CcPieceContextLink * cc_piece_ctx_link_find_unique_initial( CcPieceContextLink * piece_ctx_link,
-                                                            CcPosDesc initial ) {
-    if ( !piece_ctx_link ) return NULL;
-
-    CcPieceContextLink * pcl = piece_ctx_link;
-    CcPieceContextLink * found = NULL;
-
-    while ( pcl ) {
-        if ( CC_POS_DESC_IS_EQUAL( pcl->initial, initial ) ) {
-            if ( !found )
-                found = pcl;
-            else
-                return NULL;
-        }
-
-        pcl = pcl->next;
-    }
-
-    return found;
-}
-
 CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
-                                                    CcPos current ) {
+                                                    CcPieceTagType piece,
+                                                    CcPos pos,
+                                                    bool find_current ) {
     if ( !piece_ctx_link ) return NULL;
 
     CcPieceContextLink * pcl = piece_ctx_link;
     CcPieceContextLink * found = NULL;
+    bool is_found = false;
 
     while ( pcl ) {
-        if ( CC_POS_IS_EQUAL( pcl->current, current ) ) {
+        is_found = find_current ? CC_POS_IS_EQUAL( pcl->current, pos ) 
+                                : CC_POS_IS_EQUAL( pcl->initial.pos, pos );
+
+        is_found = is_found && ( pcl->initial.piece == piece );
+
+        if ( is_found ) {
             if ( !found )
                 found = pcl;
             else
@@ -163,23 +150,16 @@ CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_c
     }
 
     return found;
-}
-
-bool cc_piece_ctx_link_update_current( CcPieceContextLink * piece_ctx_link__io,
-                                       CcPos destination ) {
-    if ( !piece_ctx_link__io ) return false;
-
-    piece_ctx_link__io->current = destination;
-
-    return true;
 }
 
 bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
-                                      CcPos current,
+                                      CcPieceTagType piece,
+                                      CcPos pos,
+                                      bool find_current,
                                       CcPos destination ) {
     if ( !piece_ctx_link__io ) return false;
 
-    CcPieceContextLink * pcl = cc_piece_ctx_link_find_unique( piece_ctx_link__io, current );
+    CcPieceContextLink * pcl = cc_piece_ctx_link_find_unique( piece_ctx_link__io, piece, pos, find_current );
     if ( !pcl ) return false;
 
     pcl->current = destination;
