@@ -6,166 +6,168 @@
 //
 // Piece context.
 
-CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial,
-                                             CcPos current,
-                                             cc_uint_t board_size ) {
-    if ( !CC_POS_DESC_IS_LEGAL( initial, board_size ) ) return NULL;
+// TODO :: rethink, maybe not needed (?)
+// CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial,
+//                                              CcPos current,
+//                                              cc_uint_t board_size ) {
+//     if ( !CC_POS_DESC_IS_LEGAL( initial, board_size ) ) return NULL;
 
-    CcPos curr = ( CC_POS_IS_LEGAL( current, board_size ) ) ? current
-                                                            : initial.pos;
+//     CcPos curr = ( CC_POS_IS_LEGAL( current, board_size ) ) ? current
+//                                                             : initial.pos;
 
-    CcPieceContextLink * pcl__t = malloc( sizeof( CcPieceContextLink ) );
-    if ( !pcl__t ) return NULL;
+//     CcPieceContextLink * pcl__t = malloc( sizeof( CcPieceContextLink ) );
+//     if ( !pcl__t ) return NULL;
 
-    pcl__t->initial = initial;
-    pcl__t->current = curr;
-    pcl__t->next = NULL;
+//     pcl__t->initial = initial;
+//     pcl__t->current = curr;
+//     pcl__t->next = NULL;
 
-    return pcl__t;
-}
+//     return pcl__t;
+// }
 
-CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
-                                               CcPosDesc initial,
-                                               CcPos current,
-                                               cc_uint_t board_size ) {
-    if ( !piece_ctx_link__iod_a ) return NULL;
+// CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
+//                                                CcPosDesc initial,
+//                                                CcPos current,
+//                                                cc_uint_t board_size ) {
+//     if ( !piece_ctx_link__iod_a ) return NULL;
 
-    CcPieceContextLink * pcl__t = cc_piece_ctx_link__new( initial, current, board_size );
-    if ( !pcl__t ) return NULL;
+//     CcPieceContextLink * pcl__t = cc_piece_ctx_link__new( initial, current, board_size );
+//     if ( !pcl__t ) return NULL;
 
-    if ( !*piece_ctx_link__iod_a ) {
-        *piece_ctx_link__iod_a = pcl__t; // Ownership transfer.
-    } else {
-        CcPieceContextLink * pcl = *piece_ctx_link__iod_a;
-        CC_FASTFORWARD( pcl );
-        pcl->next = pcl__t; // Append + ownership transfer.
-    }
+//     if ( !*piece_ctx_link__iod_a ) {
+//         *piece_ctx_link__iod_a = pcl__t; // Ownership transfer.
+//     } else {
+//         CcPieceContextLink * pcl = *piece_ctx_link__iod_a;
+//         CC_FASTFORWARD( pcl );
+//         pcl->next = pcl__t; // Append + ownership transfer.
+//     }
 
-    return pcl__t; // Weak pointer.
-}
+//     return pcl__t; // Weak pointer.
+// }
 
-CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link,
-                                                           cc_uint_t board_size ) {
-    if ( !piece_ctx_link ) return NULL;
+// CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link,
+//                                                            cc_uint_t board_size ) {
+//     if ( !piece_ctx_link ) return NULL;
 
-    CcPieceContextLink * piece_ctx_link__a = NULL;
-    CcPieceContextLink * from = piece_ctx_link;
+//     CcPieceContextLink * piece_ctx_link__a = NULL;
+//     CcPieceContextLink * from = piece_ctx_link;
 
-    while ( from ) {
-        CcPieceContextLink * pcl__w = cc_piece_ctx_link_append( &piece_ctx_link__a,
-                                                                from->initial,
-                                                                from->current,
-                                                                board_size );
-        if ( !pcl__w ) { // Failed append --> ownership not transferred ...
-            cc_piece_ctx_link_free_all( &piece_ctx_link__a );
-            return NULL;
-        }
+//     while ( from ) {
+//         CcPieceContextLink * pcl__w = cc_piece_ctx_link_append( &piece_ctx_link__a,
+//                                                                 from->initial,
+//                                                                 from->current,
+//                                                                 board_size );
+//         if ( !pcl__w ) { // Failed append --> ownership not transferred ...
+//             cc_piece_ctx_link_free_all( &piece_ctx_link__a );
+//             return NULL;
+//         }
 
-        from = from->next;
-    }
+//         from = from->next;
+//     }
 
-    return piece_ctx_link__a;
-}
+//     return piece_ctx_link__a;
+// }
 
-CcPieceContextLink * cc_piece_ctx_link_extend( CcPieceContextLink ** piece_ctx_link__iod_a,
-                                               CcPieceContextLink ** piece_ctx_link__n ) {
-    if ( !piece_ctx_link__iod_a ) return NULL;
-    if ( !piece_ctx_link__n ) return NULL;
+// CcPieceContextLink * cc_piece_ctx_link_extend( CcPieceContextLink ** piece_ctx_link__iod_a,
+//                                                CcPieceContextLink ** piece_ctx_link__n ) {
+//     if ( !piece_ctx_link__iod_a ) return NULL;
+//     if ( !piece_ctx_link__n ) return NULL;
 
-    if ( !*piece_ctx_link__n ) return *piece_ctx_link__iod_a;
+//     if ( !*piece_ctx_link__n ) return *piece_ctx_link__iod_a;
 
-    if ( !*piece_ctx_link__iod_a ) {
-        // Ownership transfer.
-        *piece_ctx_link__iod_a = *piece_ctx_link__n;
-        *piece_ctx_link__n = NULL;
+//     if ( !*piece_ctx_link__iod_a ) {
+//         // Ownership transfer.
+//         *piece_ctx_link__iod_a = *piece_ctx_link__n;
+//         *piece_ctx_link__n = NULL;
 
-        return *piece_ctx_link__iod_a;
-    }
+//         return *piece_ctx_link__iod_a;
+//     }
 
-    CcPieceContextLink * last = *piece_ctx_link__iod_a;
-    CC_FASTFORWARD( last );
+//     CcPieceContextLink * last = *piece_ctx_link__iod_a;
+//     CC_FASTFORWARD( last );
 
-    // Ownership transfer.
-    last->next = *piece_ctx_link__n;
-    *piece_ctx_link__n = NULL;
+//     // Ownership transfer.
+//     last->next = *piece_ctx_link__n;
+//     *piece_ctx_link__n = NULL;
 
-    return last->next;
-}
+//     return last->next;
+// }
 
-bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f ) {
-    if ( !piece_ctx_link__f ) return false;
-    if ( !*piece_ctx_link__f ) return true;
+// bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f ) {
+//     if ( !piece_ctx_link__f ) return false;
+//     if ( !*piece_ctx_link__f ) return true;
 
-    CcPieceContextLink * pcl = *piece_ctx_link__f;
-    CcPieceContextLink * tmp = NULL;
+//     CcPieceContextLink * pcl = *piece_ctx_link__f;
+//     CcPieceContextLink * tmp = NULL;
 
-    while ( pcl ) {
-        tmp = pcl->next;
-        CC_FREE( pcl );
-        pcl = tmp;
-    }
+//     while ( pcl ) {
+//         tmp = pcl->next;
+//         CC_FREE( pcl );
+//         pcl = tmp;
+//     }
 
-    *piece_ctx_link__f = NULL;
-    return true;
-}
+//     *piece_ctx_link__f = NULL;
+//     return true;
+// }
 
-size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link ) {
-    if ( !piece_ctx_link ) return 0;
+// size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link ) {
+//     if ( !piece_ctx_link ) return 0;
 
-    size_t len = 0;
-    CcPieceContextLink * pcl = piece_ctx_link;
+//     size_t len = 0;
+//     CcPieceContextLink * pcl = piece_ctx_link;
 
-    while ( pcl ) {
-        ++len;
-        pcl = pcl->next;
-    }
+//     while ( pcl ) {
+//         ++len;
+//         pcl = pcl->next;
+//     }
 
-    return len;
-}
+//     return len;
+// }
 
-CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
-                                                    CcPieceTagType piece,
-                                                    CcPos pos,
-                                                    bool find_current ) {
-    if ( !piece_ctx_link ) return NULL;
+// CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
+//                                                     CcPieceTagType piece,
+//                                                     CcPos pos,
+//                                                     bool find_current ) {
+//     if ( !piece_ctx_link ) return NULL;
 
-    CcPieceContextLink * pcl = piece_ctx_link;
-    CcPieceContextLink * found = NULL;
-    bool is_found = false;
+//     CcPieceContextLink * pcl = piece_ctx_link;
+//     CcPieceContextLink * found = NULL;
+//     bool is_found = false;
 
-    while ( pcl ) {
-        is_found = find_current ? CC_POS_IS_EQUAL( pcl->current, pos ) 
-                                : CC_POS_IS_EQUAL( pcl->initial.pos, pos );
+//     while ( pcl ) {
+//         is_found = find_current ? CC_POS_IS_EQUAL( pcl->current, pos ) 
+//                                 : CC_POS_IS_EQUAL( pcl->initial.pos, pos );
 
-        is_found = is_found && ( pcl->initial.piece == piece );
+//         is_found = is_found && ( pcl->initial.piece == piece );
 
-        if ( is_found ) {
-            if ( !found )
-                found = pcl;
-            else
-                return NULL;
-        }
+//         if ( is_found ) {
+//             if ( !found )
+//                 found = pcl;
+//             else
+//                 return NULL;
+//         }
 
-        pcl = pcl->next;
-    }
+//         pcl = pcl->next;
+//     }
 
-    return found;
-}
+//     return found;
+// }
 
-bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
-                                      CcPieceTagType piece,
-                                      CcPos pos,
-                                      bool find_current,
-                                      CcPos destination ) {
-    if ( !piece_ctx_link__io ) return false;
+// bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
+//                                       CcPieceTagType piece,
+//                                       CcPos pos,
+//                                       bool find_current,
+//                                       CcPos destination ) {
+//     if ( !piece_ctx_link__io ) return false;
 
-    CcPieceContextLink * pcl = cc_piece_ctx_link_find_unique( piece_ctx_link__io, piece, pos, find_current );
-    if ( !pcl ) return false;
+//     CcPieceContextLink * pcl = cc_piece_ctx_link_find_unique( piece_ctx_link__io, piece, pos, find_current );
+//     if ( !pcl ) return false;
 
-    pcl->current = destination;
+//     pcl->current = destination;
 
-    return true;
-}
+//     return true;
+// }
+// TODO :: rethink, maybe not needed (?)
 
 //
 // Path context.
@@ -183,7 +185,7 @@ CcPathContext * cc_path_context__new( CcGame * game ) {
     px__a->cb_current = NULL;
 
     px__a->move_ctx = CC_MOVE_CONTEXT_CAST_INVALID;
-    px__a->piece_ctx = NULL;
+    // px__a->piece_ctx = NULL; // TODO :: rethink, maybe not needed (?)
     px__a->ply_ctx = CC_PLY_CONTEXT_CAST_INVALID;
 
     return px__a;
@@ -199,7 +201,7 @@ bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
     // result = cc_chessboard_free_all( &((*path_ctx__f)->cb_old) ) && result;
     result = cc_chessboard_free_all( &((*path_ctx__f)->cb_current) ) && result;
 
-    result = cc_piece_ctx_link_free_all( &((*path_ctx__f)->piece_ctx) ) && result;
+    // result = cc_piece_ctx_link_free_all( &((*path_ctx__f)->piece_ctx) ) && result; // TODO :: rethink, maybe not needed (?)
 
     CC_FREE_AND_NULL( path_ctx__f );
 
@@ -222,14 +224,16 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from ) {
         }
     }
 
-    if ( from->piece_ctx ) {
-        cc_uint_t board_size = cc_chessboard_get_size( from->game__w->chessboard );
-        px__a->piece_ctx = cc_piece_ctx_link_duplicate_all__new( from->piece_ctx, board_size );
-        if ( !px__a->piece_ctx ) {
-            cc_path_context_free_all( &px__a );
-            return NULL;
-        }
-    }
+    // TODO :: rethink, maybe not needed (?)
+    // if ( from->piece_ctx ) { 
+    //     cc_uint_t board_size = cc_chessboard_get_size( from->game__w->chessboard );
+    //     px__a->piece_ctx = cc_piece_ctx_link_duplicate_all__new( from->piece_ctx, board_size );
+    //     if ( !px__a->piece_ctx ) {
+    //         cc_path_context_free_all( &px__a );
+    //         return NULL;
+    //     }
+    // }
+    // TODO :: rethink, maybe not needed (?)
 
     px__a->move_ctx = from->move_ctx;
     px__a->ply_ctx = from->ply_ctx;
