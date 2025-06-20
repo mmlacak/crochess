@@ -167,88 +167,6 @@ class SceneTamoanchanRevisitedMixin:
 
         return scene
 
-    # TODO :: DELETE
-    #
-    # Static move is illegal
-
-    # def scn_tr_07_static_move_is_illegal(self, bt=BoardType.TamoanchanRevisited):
-
-    #     scene = Scene('scn_tr_07_static_move_is_illegal', bt, width=8, height=8)
-
-    #     start_S = (3, 3)
-    #     scene.board.set_piece(*start_S, piece=PieceType.Serpent)
-
-    #     pos_1 = (2, 4)
-    #     pos_2 = (3, 5)
-    #     pos_3 = (4, 4)
-
-    #     scene.append_arrow( *( start_S + pos_1 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( pos_1 + pos_2 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( pos_2 + pos_3 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( pos_3 + start_S ), mark_type=MarkType.Illegal )
-
-    #     scene.append_text( "1", *pos_1, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-    #     scene.append_text( "2", *pos_2, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-    #     scene.append_text( "3", *pos_3, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-
-    #     scene.append_text( "S", *start_S, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
-
-    #     return scene
-
-    #
-    # Static Serpent is illegal
-
-    # def scn_tr_08_static_piece_is_illegal(self, bt=BoardType.TamoanchanRevisited):
-
-    #     scene = Scene('scn_tr_08_static_piece_is_illegal', bt, width=8, height=8)
-
-    #     start_Q = (5, 6)
-    #     scene.board.set_piece(*start_Q, piece=PieceType.Queen)
-
-    #     start_W = (5, 1)
-    #     end_W = (1, 3)
-    #     scene.board.set_piece(*start_W, piece=PieceType.Wave)
-
-    #     start_S = (2, 4)
-    #     scene.board.set_piece(*start_S, piece=PieceType.Serpent)
-
-    #     # Q --> W
-    #     coords_Q_W = GS.gen_steps( start=start_Q, rels=[(0, -1), ], include_prev=True, count=5 ) # bounds=scene.board_view.get_position_limits() )
-
-    #     for i, arrow in enumerate( coords_Q_W() ):
-    #         mark_type = MarkType.Action if i == 4 else \
-    #                     MarkType.Legal
-    #         scene.append_arrow( *arrow, mark_type=mark_type )
-
-    #     # W --> S
-    #     coords_W_S = GS.gen_steps( start=start_W, rels=[(-1, 1), ], include_prev=True, count=3 ) # bounds=scene.board_view.get_position_limits() )
-
-    #     for i, arrow in enumerate( coords_W_S() ):
-    #         mark_type = MarkType.Action if i == 2 else \
-    #                     MarkType.Legal
-    #         scene.append_arrow( *arrow, mark_type=mark_type )
-
-    #     pos_1 = (1, 5)
-    #     pos_2 = (2, 6)
-    #     pos_3 = (3, 5)
-
-    #     scene.append_arrow( *( start_S + pos_1 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( pos_1 + pos_2 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( pos_2 + pos_3 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *( pos_3 + start_S ), mark_type=MarkType.Illegal )
-
-    #     scene.append_arrow( *( start_S + end_W ), mark_type=MarkType.Illegal )
-
-    #     scene.append_text( "1", *pos_1, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-    #     scene.append_text( "2", *pos_2, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-    #     scene.append_text( "3", *pos_3, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker)
-
-    #     scene.append_text( "S", *start_S, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
-    #     scene.append_text( "W", *end_W, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker)
-
-    #     return scene
-    # TODO :: DELETE
-
     #
     # Revisiting fields, loops
 
@@ -307,8 +225,6 @@ class SceneTamoanchanRevisitedMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        # scene.append_text( "Q", *start_Q, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker ) # TODO :: DELETE
-        # scene.append_text( "S", *start_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker ) # TODO :: DELETE
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "C", *start_W_C, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
@@ -389,8 +305,6 @@ class SceneTamoanchanRevisitedMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        # scene.append_text( "Q", *prev_Q, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker ) # TODO :: DELETE
-        # scene.append_text( "S", *prev_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker ) # TODO :: DELETE
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
         # scene.append_text( "C", *start_W_C, mark_type=MarkType.Legal, corner=Corner.UpperRightFieldMarker )
@@ -445,8 +359,6 @@ class SceneTamoanchanRevisitedMixin:
         scene.append_arrow( *adr_S(1, -1), mark_type=MarkType.Legal )
         scene.append_arrow( *adr_S(1, 1), mark_type=MarkType.Action )
 
-        # scene.append_text( "Q", *prev_Q, mark_type=MarkType.Illegal, corner=Corner.UpperLeftFieldMarker ) # TODO :: DELETE
-        # scene.append_text( "S", *prev_S, mark_type=MarkType.Legal, corner=Corner.UpperLeftFieldMarker ) # TODO :: DELETE
         scene.append_text( "A", *start_W_A, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "B", *start_W_B, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
         scene.append_text( "C", *start_W_C, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
