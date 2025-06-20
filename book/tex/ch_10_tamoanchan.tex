@@ -154,57 +154,59 @@ Fields visited in a previous ply (or, in a previous move) are accessible
 without any limitations. So, loops within a single move are legal, if they
 are closed in a ply other than starting ply of that loop.
 
-\clearpage % ..........................................................
-
-\subsubsection*{Static move is illegal}
-\addcontentsline{toc}{subsubsection}{Static move is illegal}
-\label{sec:Tamoanchan Revisited/Serpent/Movement/Static move is illegal}
-
-% \vspace*{-1.2\baselineskip}
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[8]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_static_move_is_illegal.png}
-% \vspace*{-0.5\baselineskip}
-\caption{Static move}
-\label{fig:scn_tr_07_static_move_is_illegal}
-\end{wrapfigure}
-Static move is one in which a piece ends in the same position as it was at the
-beginning of that same move. The same as in
-\hyperref[fig:scn_mv_053_static_move_is_illegal_init]{previous example}, it's
-illegal for a single Serpent in a move, or one starting a cascade, to end its
-movement on its starting position.
-
+% TODO :: DELETE
 % \clearpage % ..........................................................
 
-% \vspace*{0.4\baselineskip}
-\vspace*{1.7\baselineskip}
-\subsubsection*{Static Serpent is illegal}
-\addcontentsline{toc}{subsubsection}{Static Serpent is illegal}
-\label{sec:Tamoanchan Revisited/Serpent/Movement/Static Serpent is illegal}
+% \subsubsection*{Static move is illegal}
+% \addcontentsline{toc}{subsubsection}{Static move is illegal}
+% \label{sec:Tamoanchan Revisited/Serpent/Movement/Static move is illegal}
 
-% \vspace*{-1.2\baselineskip}
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[13]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_piece_is_illegal.png}
-% \vspace*{-0.5\baselineskip}
-\caption{Static Serpent}
-\label{fig:scn_tr_08_static_piece_is_illegal}
-\end{wrapfigure}
-Unlike
-\hyperref[fig:scn_mv_055_static_piece_is_legal_init]{previous example}, Serpent
-activated in a cascade cannot, in the same ply, end its movement on its starting
-field. \newline
-\indent
-This is because Serpent can visit each field only once in the same ply, and so it
-\hyperref[fig:scn_tr_06_serpent_loop_illegal]{cannot loop back} onto already
-visited starting field.
+% % \vspace*{-1.2\baselineskip}
+% \vspace*{-0.7\baselineskip}
+% \noindent
+% \begin{wrapfigure}[8]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_07_static_move_is_illegal.png}
+% % \vspace*{-0.5\baselineskip}
+% \caption{Static move}
+% \label{fig:scn_tr_07_static_move_is_illegal}
+% \end{wrapfigure}
+% Static move is one in which a piece ends in the same position as it was at the
+% beginning of that same move. The same as in
+% \hyperref[fig:scn_mv_053_static_move_is_illegal_init]{previous example}, it's
+% illegal for a single Serpent in a move, or one starting a cascade, to end its
+% movement on its starting position.
 
-Here, Serpent activated in a cascade cannot return to its originating field S,
-and so it cannot reactivate Wave, and force it to move over to e.g. field W.
+% % \clearpage % ..........................................................
+
+% % \vspace*{0.4\baselineskip}
+% \vspace*{1.7\baselineskip}
+% \subsubsection*{Static Serpent is illegal}
+% \addcontentsline{toc}{subsubsection}{Static Serpent is illegal}
+% \label{sec:Tamoanchan Revisited/Serpent/Movement/Static Serpent is illegal}
+
+% % \vspace*{-1.2\baselineskip}
+% \vspace*{-0.7\baselineskip}
+% \noindent
+% \begin{wrapfigure}[13]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.363636363636\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_08_static_piece_is_illegal.png}
+% % \vspace*{-0.5\baselineskip}
+% \caption{Static Serpent}
+% \label{fig:scn_tr_08_static_piece_is_illegal}
+% \end{wrapfigure}
+% Unlike
+% \hyperref[fig:scn_mv_055_static_piece_is_legal_init]{previous example}, Serpent
+% activated in a cascade cannot, in the same ply, end its movement on its starting
+% field. \newline
+% \indent
+% This is because Serpent can visit each field only once in the same ply, and so it
+% \hyperref[fig:scn_tr_06_serpent_loop_illegal]{cannot loop back} onto already
+% visited starting field.
+
+% Here, Serpent activated in a cascade cannot return to its originating field S,
+% and so it cannot reactivate Wave, and force it to move over to e.g. field W.
+% TODO :: DELETE
 
 \clearpage % ..........................................................
 
@@ -241,9 +243,11 @@ Here, first part of cascade has been played out; grey arrows show path traveled
 over by a piece they point to. Wave C is now "in the air", about to reactivate
 light Serpent with remaining 13 momentum.
 
-Note, light Queen cannot return to its starting field Q, even if reactivated with
-enough momentum, since it's
-\hyperref[fig:scn_mv_053_static_move_is_illegal_init]{the very first piece in a cascade}.
+% TODO :: DELETE
+% Note, light Queen cannot return to its starting field Q, even if reactivated with
+% enough momentum, since it's
+% \hyperref[fig:scn_mv_053_static_move_is_illegal_init]{the very first piece in a cascade}.
+% TODO :: DELETE
 
 \clearpage % ..........................................................
 
@@ -256,10 +260,14 @@ enough momentum, since it's
 \end{figure}
 
 Here, reactivated light Serpent (now "in the air") can revisit enumerated fields
-it traveled over in a previous ply, and e.g. activate light Pyramid.\newline
-\indent
-Unlike Queen, Serpent can also settle onto own starting field S, since it didn't
-started cascade.
+it traveled over in a previous ply, and e.g. activate light Pyramid.
+
+% TODO :: DELETE
+% \newline
+% \indent
+% Unlike Queen, Serpent can also settle onto own starting field S, since it didn't
+% started cascade.
+% TODO :: DELETE
 
 \clearpage % ..........................................................
 

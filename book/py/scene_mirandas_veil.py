@@ -2448,266 +2448,268 @@ class SceneMirandasVeilMixin:
 
         return scene
 
+    # TODO :: DELETE
     #
     # Static move is illegal
 
-    def scn_mv_053_static_move_is_illegal_init(self, bt=BoardType.MirandasVeil):
+    # def scn_mv_053_static_move_is_illegal_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_053_static_move_is_illegal_init', bt, height=9.3) # , y=0.7, height=12.5)
-        rect = (0.05, 0.8, 0.65, 0.1)
+    #     scene = Scene('scn_mv_053_static_move_is_illegal_init', bt, height=9.3) # , y=0.7, height=12.5)
+    #     rect = (0.05, 0.8, 0.65, 0.1)
 
-        start_Q = (7, 2)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     start_Q = (7, 2)
+    #     scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_W_A = (3, 2)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+    #     start_W_A = (3, 2)
+    #     scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_W_B = (3, 6)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+    #     start_W_B = (3, 6)
+    #     scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        # Q --> W(A)
-        coords_Q_WA = GS.gen_steps( start=start_Q, rels=[ (-1, 0), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( coords_Q_WA() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # Q --> W(A)
+    #     coords_Q_WA = GS.gen_steps( start=start_Q, rels=[ (-1, 0), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( coords_Q_WA() ):
+    #         mark_type = MarkType.Action if i == 3 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> W(B)
-        coords_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (0, 1), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( coords_WA_WB() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # W(A) --> W(B)
+    #     coords_WA_WB = GS.gen_steps( start=start_W_A, rels=[ (0, 1), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( coords_WA_WB() ):
+    #         mark_type = MarkType.Action if i == 3 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
-        return scene
+    #     return scene
 
-    def scn_mv_054_static_move_is_illegal_end(self, bt=BoardType.MirandasVeil):
+    # def scn_mv_054_static_move_is_illegal_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_054_static_move_is_illegal_end', bt, height=9.3) # , y=0.7, height=12.5)
-        rect = (0.05, 0.8, 0.65, 0.1)
+    #     scene = Scene('scn_mv_054_static_move_is_illegal_end', bt, height=9.3) # , y=0.7, height=12.5)
+    #     rect = (0.05, 0.8, 0.65, 0.1)
 
-        start_Q = (7, 2)
-        end_Q = (3, 2)
-        scene.board.set_piece( *end_Q, piece=PieceType.Queen )
+    #     start_Q = (7, 2)
+    #     end_Q = (3, 2)
+    #     scene.board.set_piece( *end_Q, piece=PieceType.Queen )
 
-        start_W_A = (3, 6) # (3, 2)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+    #     start_W_A = (3, 6) # (3, 2)
+    #     scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_W_B = (3, 6)
-        # scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+    #     start_W_B = (3, 6)
+    #     # scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        # W(B) --> Q
-        coords_WB_Q = GS.gen_steps( start=start_W_B, rels=[ (0, -1), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( coords_WB_Q() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # W(B) --> Q
+    #     coords_WB_Q = GS.gen_steps( start=start_W_B, rels=[ (0, -1), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( coords_WB_Q() ):
+    #         mark_type = MarkType.Action if i == 3 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # Q -->
-        coords_Q_ = GS.gen_steps( start=end_Q, rels=[ (1, 0), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( coords_Q_() ):
-            mark_type = MarkType.Illegal if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # Q -->
+    #     coords_Q_ = GS.gen_steps( start=end_Q, rels=[ (1, 0), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( coords_Q_() ):
+    #         mark_type = MarkType.Illegal if i == 3 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        # scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+    #     scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     # scene.append_text( "B", *start_W_B, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
 
-        return scene
+    #     return scene
 
     #
     # Static piece is legal
 
-    def scn_mv_055_static_piece_is_legal_init(self, bt=BoardType.MirandasVeil):
+    # def scn_mv_055_static_piece_is_legal_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_055_static_piece_is_legal_init', bt) # , height=9.3) # , y=0.7, height=12.5)
-        rect = (0.05, 0.8, 0.65, 0.1)
+    #     scene = Scene('scn_mv_055_static_piece_is_legal_init', bt) # , height=9.3) # , y=0.7, height=12.5)
+    #     rect = (0.05, 0.8, 0.65, 0.1)
 
-        # pinned Bishop
+    #     # pinned Bishop
 
-        start_e = (9, 9)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+    #     start_e = (9, 9)
+    #     scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
-        start_B = (7, 5)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+    #     start_B = (7, 5)
+    #     scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_K = (5, 1)
-        scene.board.set_piece( *start_K, piece=PieceType.King )
+    #     start_K = (5, 1)
+    #     scene.board.set_piece( *start_K, piece=PieceType.King )
 
-        # initial cascade
+    #     # initial cascade
 
-        start_Q_A = (3, 12)
-        scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
+    #     start_Q_A = (3, 12)
+    #     scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
 
-        start_W_A = (3, 1)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+    #     start_W_A = (3, 1)
+    #     scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        start_W_B = (9, 3)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+    #     start_W_B = (9, 3)
+    #     scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        start_Q_B = (11, 5)
-        scene.board.set_piece( *start_Q_B, piece=PieceType.Queen )
+    #     start_Q_B = (11, 5)
+    #     scene.board.set_piece( *start_Q_B, piece=PieceType.Queen )
 
-        start_W_C = (9, 7)
-        scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+    #     start_W_C = (9, 7)
+    #     scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        # Q(A) --> W(A)
-        start_QA_WA = GS.gen_steps( start=start_Q_A, rels=[ (0, -1), ], include_prev=True, count=11 )
-        for i, arrow in enumerate( start_QA_WA() ):
-            mark_type = MarkType.Action if i == 10 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # Q(A) --> W(A)
+    #     start_QA_WA = GS.gen_steps( start=start_Q_A, rels=[ (0, -1), ], include_prev=True, count=11 )
+    #     for i, arrow in enumerate( start_QA_WA() ):
+    #         mark_type = MarkType.Action if i == 10 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> B
-        start_WA_B = GS.gen_steps( start=start_W_A, rels=[ (1, 1), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( start_WA_B() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # W(A) --> B
+    #     start_WA_B = GS.gen_steps( start=start_W_A, rels=[ (1, 1), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( start_WA_B() ):
+    #         mark_type = MarkType.Action if i == 3 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # B --> W(B)
-        start_B_WB = GS.gen_steps( start=start_B, rels=[ (1, -1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( start_B_WB() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # B --> W(B)
+    #     start_B_WB = GS.gen_steps( start=start_B, rels=[ (1, -1), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( start_B_WB() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(B) --> Q(B)
-        start_WB_QB = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( start_WB_QB() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # W(B) --> Q(B)
+    #     start_WB_QB = GS.gen_steps( start=start_W_B, rels=[ (1, 1), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( start_WB_QB() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # Q(B) --> W(C)
-        start_QB_WC = GS.gen_steps( start=start_Q_B, rels=[ (-1, 1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( start_QB_WC() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # Q(B) --> W(C)
+    #     start_QB_WC = GS.gen_steps( start=start_Q_B, rels=[ (-1, 1), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( start_QB_WC() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # pinning
+    #     # pinning
 
-        # # g --> B --> K
-        # start_g_B_K = GS.gen_steps( start=start_e, rels=[ (-1, -2), ], include_prev=True, count=4 )
-        # for i, arrow in enumerate( start_g_B_K() ):
-        #     mark_type = MarkType.Illegal if i == 3 else \
-        #                 MarkType.Blocked
-        #     scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # # g --> B --> K
+    #     # start_g_B_K = GS.gen_steps( start=start_e, rels=[ (-1, -2), ], include_prev=True, count=4 )
+    #     # for i, arrow in enumerate( start_g_B_K() ):
+    #     #     mark_type = MarkType.Illegal if i == 3 else \
+    #     #                 MarkType.Blocked
+    #     #     scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+    #     scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
-        scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+    #     scene.append_text( "C", *start_W_C, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
 
-        return scene
+    #     return scene
 
-    def scn_mv_056_static_piece_is_legal_end(self, bt=BoardType.MirandasVeil):
+    # def scn_mv_056_static_piece_is_legal_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_056_static_piece_is_legal_end', bt) # , height=9.3) # , y=0.7, height=12.5)
-        rect = (0.05, 0.8, 0.65, 0.1)
+    #     scene = Scene('scn_mv_056_static_piece_is_legal_end', bt) # , height=9.3) # , y=0.7, height=12.5)
+    #     rect = (0.05, 0.8, 0.65, 0.1)
 
-        # pinned Bishop
+    #     # pinned Bishop
 
-        start_e = (9, 9)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+    #     start_e = (9, 9)
+    #     scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
-        prev_B = (7, 5)
-        start_B = (9, 3)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+    #     prev_B = (7, 5)
+    #     start_B = (9, 3)
+    #     scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        start_K = (5, 1)
-        scene.board.set_piece( *start_K, piece=PieceType.King )
+    #     start_K = (5, 1)
+    #     scene.board.set_piece( *start_K, piece=PieceType.King )
 
-        # initial cascade
+    #     # initial cascade
 
-        prev_Q_A = (3, 11)
-        start_Q_A = (3, 1)
-        scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
+    #     prev_Q_A = (3, 11)
+    #     start_Q_A = (3, 1)
+    #     scene.board.set_piece( *start_Q_A, piece=PieceType.Queen )
 
-        prev_W_A = (3, 1)
-        start_W_A = (7, 5)
-        scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
+    #     prev_W_A = (3, 1)
+    #     start_W_A = (7, 5)
+    #     scene.board.set_piece( *start_W_A, piece=PieceType.Wave )
 
-        prev_W_B = (9, 3)
-        start_W_B = (11, 5)
-        scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
+    #     prev_W_B = (9, 3)
+    #     start_W_B = (11, 5)
+    #     scene.board.set_piece( *start_W_B, piece=PieceType.Wave )
 
-        prev_Q_B = (12, 5)
-        start_Q_B = (9, 7)
-        scene.board.set_piece( *start_Q_B, piece=PieceType.Queen )
+    #     prev_Q_B = (12, 5)
+    #     start_Q_B = (9, 7)
+    #     scene.board.set_piece( *start_Q_B, piece=PieceType.Queen )
 
-        prev_W_C = (9, 7)
-        # scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
+    #     prev_W_C = (9, 7)
+    #     # scene.board.set_piece( *start_W_C, piece=PieceType.Wave )
 
-        # W(C) @ Q(B) --> B
-        start_WC_QB_B = GS.gen_steps( start=start_Q_B, rels=[ (0, -1), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( start_WC_QB_B() ):
-            mark_type = MarkType.Action if i == 3 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # W(C) @ Q(B) --> B
+    #     start_WC_QB_B = GS.gen_steps( start=start_Q_B, rels=[ (0, -1), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( start_WC_QB_B() ):
+    #         mark_type = MarkType.Action if i == 3 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # B --> W(A)
-        start_B_WA = GS.gen_steps( start=start_B, rels=[ (-1, 1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( start_B_WA() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # B --> W(A)
+    #     start_B_WA = GS.gen_steps( start=start_B, rels=[ (-1, 1), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( start_B_WA() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W(A) --> |
-        start_WA_ = GS.gen_steps( start=start_W_A, rels=[ (-1, 0), ], include_prev=True, count=4 )
-        for i, arrow in enumerate( start_WA_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Legal )
+    #     # W(A) --> |
+    #     start_WA_ = GS.gen_steps( start=start_W_A, rels=[ (-1, 0), ], include_prev=True, count=4 )
+    #     for i, arrow in enumerate( start_WA_() ):
+    #         scene.append_arrow( *arrow, mark_type=MarkType.Legal )
 
-        # pinning
+    #     # pinning
 
-        # # e --> B --> K
-        # start_e_B_K = GS.gen_steps( start=start_e, rels=[ (-1, -2), ], include_prev=True, count=4 )
-        # for i, arrow in enumerate( start_e_B_K() ):
-        #     mark_type = MarkType.Illegal if i == 3 else \
-        #                 MarkType.Blocked
-        #     scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # # e --> B --> K
+    #     # start_e_B_K = GS.gen_steps( start=start_e, rels=[ (-1, -2), ], include_prev=True, count=4 )
+    #     # for i, arrow in enumerate( start_e_B_K() ):
+    #     #     mark_type = MarkType.Illegal if i == 3 else \
+    #     #                 MarkType.Blocked
+    #     #     scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *prev_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
-        scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+    #     scene.append_text( "Q", *prev_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+    #     scene.append_text( "A", *start_Q_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "B", *start_Q_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
 
-        scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
-        scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
+    #     scene.append_text( "A", *start_W_A, corner=Corner.UpperLeft, mark_type=MarkType.Legal )
+    #     scene.append_text( "B", *start_W_B, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Legal )
 
-        return scene
+    #     return scene
 
     #
     # Delayed promotion is legal
 
-    def scn_mv_057_delayed_promotion_is_legal_init(self, bt=BoardType.MirandasVeil):
+    # def scn_mv_057_delayed_promotion_is_legal_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_057_delayed_promotion_is_legal_init', bt, y=10.7, height=3.3)
+    #     scene = Scene('scn_mv_057_delayed_promotion_is_legal_init', bt, y=10.7, height=3.3)
 
-        start_P = (11, 12)
-        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+    #     start_P = (11, 12)
+    #     scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-        scene.append_field_marker( *start_P, mark_type=MarkType.Action )
+    #     scene.append_field_marker( *start_P, mark_type=MarkType.Action )
 
-        return scene
+    #     return scene
 
-    def scn_mv_058_delayed_promotion_is_legal_end(self, bt=BoardType.MirandasVeil):
+    # def scn_mv_058_delayed_promotion_is_legal_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_058_delayed_promotion_is_legal_end', bt, y=10.7, height=3.3)
+    #     scene = Scene('scn_mv_058_delayed_promotion_is_legal_end', bt, y=10.7, height=3.3)
 
-        start_Q = (11, 12)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     start_Q = (11, 12)
+    #     scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        scene.append_field_marker( *start_Q, mark_type=MarkType.Blocked )
+    #     scene.append_field_marker( *start_Q, mark_type=MarkType.Blocked )
 
-        return scene
+    #     return scene
+    # TODO :: DELETE
 
     #
     # Converting opponent's pieces

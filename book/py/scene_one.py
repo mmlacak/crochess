@@ -696,55 +696,57 @@ class SceneOneMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        # scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRight ) # TODO :: DELETE
 
         return scene
 
-    def scn_o_31_starchild_divergence_end(self, bt=BoardType.One):
+    # TODO :: DELETE
+    # def scn_o_31_starchild_divergence_end(self, bt=BoardType.One):
 
-        scene = Scene('scn_o_31_starchild_divergence_end', bt, height=10.3)
+    #     scene = Scene('scn_o_31_starchild_divergence_end', bt, height=10.3)
 
-        start_Q = (14, 1)
-        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     start_Q = (14, 1)
+    #     # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_i_1 = (12, 3)
-        scene.board.set_piece( *start_i_1, piece=-PieceType.Starchild )
+    #     start_i_1 = (12, 3)
+    #     scene.board.set_piece( *start_i_1, piece=-PieceType.Starchild )
 
-        start_i_2 = (10, 5)
-        scene.board.set_piece( *start_i_2, piece=-PieceType.Starchild )
+    #     start_i_2 = (10, 5)
+    #     scene.board.set_piece( *start_i_2, piece=-PieceType.Starchild )
 
-        start_e = (12, 7)
-        scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
+    #     start_e = (12, 7)
+    #     scene.board.set_piece( *start_e, piece=-PieceType.Pegasus )
 
-        start_p = (7, 2)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+    #     start_p = (7, 2)
+    #     scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
 
-        # <-- Q --> @ W
+    #     # <-- Q --> @ W
 
-        for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_W__Q = GS.gen_steps( start=start_i_2, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
+    #     for rel in GS.DEFAULT_KING_REL_MOVES:
+    #         coords_W__Q = GS.gen_steps( start=start_i_2, rels=[ rel, ], include_prev=True, bounds=scene.board.get_position_limits() ) # scene.board_view # deliberately
 
-            for i, arrow in enumerate( coords_W__Q() ):
-                if rel == (-1, -1):
-                    mark_type = MarkType.Action if i == 2 else \
-                                MarkType.Legal if i < 2 else \
-                                MarkType.Blocked
-                elif rel == (1, 1):
-                    mark_type = MarkType.Action if i == 1 else \
-                                MarkType.Legal if i < 1 else \
-                                MarkType.Blocked
-                elif rel == (1, -1):
-                    mark_type = MarkType.Illegal if i == 3 else \
-                                MarkType.Legal if i < 4 else \
-                                MarkType.Blocked
-                else:
-                    mark_type = MarkType.Legal if i < 4 else \
-                                MarkType.Blocked
-                scene.append_arrow( *arrow, mark_type=mark_type )
+    #         for i, arrow in enumerate( coords_W__Q() ):
+    #             if rel == (-1, -1):
+    #                 mark_type = MarkType.Action if i == 2 else \
+    #                             MarkType.Legal if i < 2 else \
+    #                             MarkType.Blocked
+    #             elif rel == (1, 1):
+    #                 mark_type = MarkType.Action if i == 1 else \
+    #                             MarkType.Legal if i < 1 else \
+    #                             MarkType.Blocked
+    #             elif rel == (1, -1):
+    #                 mark_type = MarkType.Illegal if i == 3 else \
+    #                             MarkType.Legal if i < 4 else \
+    #                             MarkType.Blocked
+    #             else:
+    #                 mark_type = MarkType.Legal if i < 4 else \
+    #                             MarkType.Blocked
+    #             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+    #     scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
-        return scene
+    #     return scene
+    # TODO :: DELETE
 
     #
     # Diverging limits

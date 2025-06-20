@@ -1035,7 +1035,7 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
+        # scene.append_text( "Q", *start_Q, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker ) # TODO :: DELETE
 
         return scene
 
@@ -1070,15 +1070,15 @@ class SceneConquestOfTlalocanMixin:
                                 MarkType.Legal if i < 2 else \
                                 MarkType.Blocked
                 elif rel == (1, -1):
-                    mark_type = MarkType.Illegal if i == 4 else \
-                                MarkType.Legal if i < 5 else \
+                    # mark_type = MarkType.Illegal if i == 4 else # TODO :: DELETE
+                    mark_type = MarkType.Legal if i < 5 else \
                                 MarkType.Blocked
                 else:
                     mark_type = MarkType.Legal if i < 5 else \
                                 MarkType.Blocked
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
+        # scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker ) # TODO :: DELETE
 
         return scene
 
@@ -2051,7 +2051,7 @@ class SceneConquestOfTlalocanMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Legal, corner=Corner.UpperRight )
+        # scene.append_text( "Q", *start_Q, mark_type=MarkType.Legal, corner=Corner.UpperRight ) # TODO :: DELETE
 
         return scene
 
@@ -2101,7 +2101,7 @@ class SceneConquestOfTlalocanMixin:
                     mark_type = MarkType.Legal
                 scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
+        # scene.append_text( "Q", *start_Q, mark_type=MarkType.Illegal, corner=Corner.UpperRight ) # TODO :: DELETE
 
         return scene
 
@@ -2342,143 +2342,145 @@ class SceneConquestOfTlalocanMixin:
 
         return scene
 
+    # TODO :: DELETE
     #
     # Diverging to start
     # ... illegal, if first in cascade
 
-    def scn_cot_059_diverging_first_piece(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_059_diverging_first_piece(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_059_diverging_first_piece', bt, width=8, height=8 )
+    #     scene = Scene( 'scn_cot_059_diverging_first_piece', bt, width=8, height=8 )
 
-        start_Q = (1, 1)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     start_Q = (1, 1)
+    #     scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_H = (3, 3)
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+    #     start_H = (3, 3)
+    #     scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        # Q --> H
-        coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, 1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( coords_Q_H() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # Q --> H
+    #     coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, 1), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( coords_Q_H() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+    #     scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
-        return scene
+    #     return scene
 
-    def scn_cot_060_diverged_first_piece_illegal(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_060_diverged_first_piece_illegal(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_060_diverged_first_piece_illegal', bt, width=8, height=8 )
+    #     scene = Scene( 'scn_cot_060_diverged_first_piece_illegal', bt, width=8, height=8 )
 
-        prev_Q = (1, 1)
-        prev_H = (3, 3)
+    #     prev_Q = (1, 1)
+    #     prev_H = (3, 3)
 
-        # start_Q = prev_H
-        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     # start_Q = prev_H
+    #     # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_H = prev_H
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+    #     start_H = prev_H
+    #     scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        # Q @ H --> Q
-        for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_Q_H__Q = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, count=2 )
+    #     # Q @ H --> Q
+    #     for rel in GS.DEFAULT_KING_REL_MOVES:
+    #         coords_Q_H__Q = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, count=2 )
 
-            for i, arrow in enumerate( coords_Q_H__Q() ):
-                if rel == (-1, -1):
-                    mark_type = MarkType.Illegal if i == 1 else \
-                                MarkType.Legal if i < 2 else \
-                                MarkType.Blocked
-                else:
-                    mark_type = MarkType.Legal if i < 2 else \
-                                MarkType.Blocked
-                scene.append_arrow( *arrow, mark_type=mark_type )
+    #         for i, arrow in enumerate( coords_Q_H__Q() ):
+    #             if rel == (-1, -1):
+    #                 mark_type = MarkType.Illegal if i == 1 else \
+    #                             MarkType.Legal if i < 2 else \
+    #                             MarkType.Blocked
+    #             else:
+    #                 mark_type = MarkType.Legal if i < 2 else \
+    #                             MarkType.Blocked
+    #             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *prev_Q, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
+    #     scene.append_text( "Q", *prev_Q, corner=Corner.UpperLeft, mark_type=MarkType.Illegal )
 
-        return scene
+    #     return scene
 
     # ... legal, if activated
 
-    def scn_cot_061_diverging_activated_piece(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_061_diverging_activated_piece(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_061_diverging_activated_piece', bt, width=8, height=8 )
+    #     scene = Scene( 'scn_cot_061_diverging_activated_piece', bt, width=8, height=8 )
 
-        start_R = (6, 6)
-        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+    #     start_R = (6, 6)
+    #     scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_W = (6, 1)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+    #     start_W = (6, 1)
+    #     scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_Q = (1, 1)
-        scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     start_Q = (1, 1)
+    #     scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_H = (3, 3)
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+    #     start_H = (3, 3)
+    #     scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        # R --> W
-        coords_R_W = GS.gen_steps( start=start_R, rels=[ (0, -1), ], include_prev=True, count=5 )
-        for i, arrow in enumerate( coords_R_W() ):
-            mark_type = MarkType.Action if i == 4 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # R --> W
+    #     coords_R_W = GS.gen_steps( start=start_R, rels=[ (0, -1), ], include_prev=True, count=5 )
+    #     for i, arrow in enumerate( coords_R_W() ):
+    #         mark_type = MarkType.Action if i == 4 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W --> Q
-        coords_W_Q = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, count=5 )
-        for i, arrow in enumerate( coords_W_Q() ):
-            mark_type = MarkType.Action if i == 4 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # W --> Q
+    #     coords_W_Q = GS.gen_steps( start=start_W, rels=[ (-1, 0), ], include_prev=True, count=5 )
+    #     for i, arrow in enumerate( coords_W_Q() ):
+    #         mark_type = MarkType.Action if i == 4 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # Q --> H
-        coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, 1), ], include_prev=True, count=2 )
-        for i, arrow in enumerate( coords_Q_H() ):
-            mark_type = MarkType.Action if i == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *arrow, mark_type=mark_type )
+    #     # Q --> H
+    #     coords_Q_H = GS.gen_steps( start=start_Q, rels=[ (1, 1), ], include_prev=True, count=2 )
+    #     for i, arrow in enumerate( coords_Q_H() ):
+    #         mark_type = MarkType.Action if i == 1 else \
+    #                     MarkType.Legal
+    #         scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+    #     scene.append_text( "Q", *start_Q, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
-        return scene
+    #     return scene
 
-    def scn_cot_062_diverged_activated_piece_legal(self, bt=BoardType.ConquestOfTlalocan):
+    # def scn_cot_062_diverged_activated_piece_legal(self, bt=BoardType.ConquestOfTlalocan):
 
-        scene = Scene( 'scn_cot_062_diverged_activated_piece_legal', bt, width=8, height=8 )
+    #     scene = Scene( 'scn_cot_062_diverged_activated_piece_legal', bt, width=8, height=8 )
 
-        prev_R = (6, 6)
-        prev_W = (6, 1)
-        prev_Q = (1, 1)
-        prev_H = (3, 3)
+    #     prev_R = (6, 6)
+    #     prev_W = (6, 1)
+    #     prev_Q = (1, 1)
+    #     prev_H = (3, 3)
 
-        start_R = prev_W
-        scene.board.set_piece( *start_R, piece=PieceType.Rook )
+    #     start_R = prev_W
+    #     scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_W = prev_Q
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+    #     start_W = prev_Q
+    #     scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_Q = prev_H
-        # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
+    #     start_Q = prev_H
+    #     # scene.board.set_piece( *start_Q, piece=PieceType.Queen )
 
-        start_H = prev_H
-        scene.board.set_piece( *start_H, piece=PieceType.Shaman )
+    #     start_H = prev_H
+    #     scene.board.set_piece( *start_H, piece=PieceType.Shaman )
 
-        # Q @ H --> Q
-        for rel in GS.DEFAULT_KING_REL_MOVES:
-            coords_Q_H__Q = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, count=3 )
+    #     # Q @ H --> Q
+    #     for rel in GS.DEFAULT_KING_REL_MOVES:
+    #         coords_Q_H__Q = GS.gen_steps( start=start_H, rels=[ rel, ], include_prev=True, count=3 )
 
-            for i, arrow in enumerate( coords_Q_H__Q() ):
-                if rel == (-1, -1):
-                    mark_type = MarkType.Action if i == 1 else \
-                                MarkType.Legal if i < 3 else \
-                                MarkType.Blocked
-                else:
-                    mark_type = MarkType.Legal if i < 3 else \
-                                MarkType.Blocked
-                scene.append_arrow( *arrow, mark_type=mark_type )
+    #         for i, arrow in enumerate( coords_Q_H__Q() ):
+    #             if rel == (-1, -1):
+    #                 mark_type = MarkType.Action if i == 1 else \
+    #                             MarkType.Legal if i < 3 else \
+    #                             MarkType.Blocked
+    #             else:
+    #                 mark_type = MarkType.Legal if i < 3 else \
+    #                             MarkType.Blocked
+    #             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "Q", *prev_Q, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+    #     scene.append_text( "Q", *prev_Q, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
-        return scene
+    #     return scene
+    # TODO :: DELETE
 
     #
     # Diverging check, checkmate
