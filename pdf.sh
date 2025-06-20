@@ -6,6 +6,8 @@
 cd book
 
 rm -rfv *.aux
+rm -rfv *.fdb_latexmk
+rm -rfv *.fls
 rm -rfv *.lof
 rm -rfv *.log
 rm -rfv *.lot

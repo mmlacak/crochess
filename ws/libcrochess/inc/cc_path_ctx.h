@@ -46,7 +46,7 @@ typedef struct CcMoveContext {
 // Ply context.
 
 typedef struct CcPlyContext {
-    CcPosDesc initial;
+    CcPosDesc initial; // Initial position, piece (and its tag), at the start of a ply.
     CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
     CcActivationDesc activation;
     CcTypedStep step_1;

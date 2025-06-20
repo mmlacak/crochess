@@ -141,7 +141,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
 
     path_ctx__io->ply_ctx.activation = act_desc;
 
-    // TODO :: fill-in path_ctx__io->piece_ctx with moving_from; check piece originates from that position
+    // TODO :: maybe not (?) <-- fill-in path_ctx__io->piece_ctx with moving_from; check piece originates from that position
     // if ( is_starting_pos )
     //     path_ctx__io->piece_ctx
 

@@ -11,6 +11,8 @@ temp/
 *.lot
 *.out
 *.toc
+*.fdb_latexmk
+*.fls
 book/*.pdf
 gfx/*.png
 book/gfx/boards/
