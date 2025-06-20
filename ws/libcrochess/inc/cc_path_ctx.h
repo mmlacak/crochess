@@ -80,48 +80,6 @@ typedef struct CcPlyContext {
       CC_TYPED_STEP_IS_VALID( (ply_ctx).step_2 ) )
 
 //
-// Piece context.
-
-// TODO :: rethink, maybe not needed (?)
-// typedef struct CcPieceContextLink {
-//     CcPosDesc initial; // A piece, its initial position and tag at the start of a move.
-//     CcPos current; // Current position of a piece.
-
-//     struct CcPieceContextLink * next;
-// } CcPieceContextLink;
-
-// CcPieceContextLink * cc_piece_ctx_link__new( CcPosDesc initial,
-//                                              CcPos current,
-//                                              cc_uint_t board_size );
-
-// CcPieceContextLink * cc_piece_ctx_link_append( CcPieceContextLink ** piece_ctx_link__iod_a,
-//                                                CcPosDesc initial,
-//                                                CcPos current,
-//                                                cc_uint_t board_size );
-
-// CcPieceContextLink * cc_piece_ctx_link_duplicate_all__new( CcPieceContextLink * piece_ctx_link,
-//                                                            cc_uint_t board_size );
-
-// CcPieceContextLink * cc_piece_ctx_link_extend( CcPieceContextLink ** piece_ctx_link__iod_a,
-//                                                CcPieceContextLink ** piece_ctx_link__n );
-
-// bool cc_piece_ctx_link_free_all( CcPieceContextLink ** piece_ctx_link__f );
-
-// size_t cc_piece_ctx_link_len( CcPieceContextLink * piece_ctx_link );
-
-// CcPieceContextLink * cc_piece_ctx_link_find_unique( CcPieceContextLink * piece_ctx_link,
-//                                                     CcPieceTagType piece,
-//                                                     CcPos pos,
-//                                                     bool find_current );
-
-// bool cc_piece_ctx_link_update_unique( CcPieceContextLink * piece_ctx_link__io,
-//                                       CcPieceTagType piece,
-//                                       CcPos pos,
-//                                       bool find_current,
-//                                       CcPos destination );
-// TODO :: rethink, maybe not needed (?)
-
-//
 // Path context.
 
 typedef struct CcPathContext {
@@ -130,7 +88,6 @@ typedef struct CcPathContext {
     CcChessboard * cb_current;
 
     CcMoveContext move_ctx;
-    // CcPieceContextLink * piece_ctx; // TODO :: rethink, maybe not needed (?)
     CcPlyContext ply_ctx;
 } CcPathContext;
 
