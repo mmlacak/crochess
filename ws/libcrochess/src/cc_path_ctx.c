@@ -8,6 +8,7 @@
 
 CcPathContext * cc_path_context__new( CcGame * game ) {
     if ( !game ) return NULL;
+    if ( !game->chessboard ) return NULL;
 
     CcPathContext * px__a = malloc( sizeof( CcPathContext ) );
     if ( !px__a ) return NULL;
@@ -16,7 +17,7 @@ CcPathContext * cc_path_context__new( CcGame * game ) {
     px__a->game__w = game;
 
     // px__a->cb_old = NULL;
-    px__a->cb_current = NULL;
+    px__a->cb_current = cc_chessboard_duplicate__new( game->chessboard );
 
     px__a->move_ctx = CC_MOVE_CONTEXT_CAST_INVALID;
     px__a->ply_ctx = CC_PLY_CONTEXT_CAST_INVALID;
@@ -30,7 +31,7 @@ bool cc_path_context_free_all( CcPathContext ** path_ctx__f ) {
 
     bool result = true;
 
-    // result = cc_game_free_all( &((*path_ctx__f)->game__w) ) && result; // Weak pointer is not to be free()-ed.
+    // result = cc_game_free_all( &((*path_ctx__f)->game__w) ) && result; // <!> Weak pointer is not to be free()-ed.
     // result = cc_chessboard_free_all( &((*path_ctx__f)->cb_old) ) && result;
     result = cc_chessboard_free_all( &((*path_ctx__f)->cb_current) ) && result;
 
@@ -67,10 +68,10 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
     if ( !path_ctx ) return CC_MBE_Void;
     if ( !path_ctx->game__w ) return CC_MBE_Void;
     if ( !path_ctx->game__w->chessboard ) return CC_MBE_Void;
+    if ( !path_ctx->cb_current ) return CC_MBE_Void;
 
-    if ( path_ctx->cb_current ) {
-        if ( path_ctx->cb_current->type != path_ctx->game__w->chessboard->type ) return CC_MBE_False;
-    }
+    if ( path_ctx->cb_current->type != path_ctx->game__w->chessboard->type )
+        return CC_MBE_False;
 
     cc_uint_t board_size = cc_chessboard_get_size( path_ctx->game__w->chessboard );
     bool has_moves_played = (bool)(path_ctx->game__w->moves);
@@ -107,12 +108,11 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     CcPieceTagType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
     if ( piece != move_init.piece ) return false; // [2]
 
-
-    if ( path_ctx__io->cb_current )
+    if ( !cc_chessboard_is_equal( path_ctx__io->cb_current, cb ) ) {
         cc_chessboard_free_all( &(path_ctx__io->cb_current) );
-
-    path_ctx__io->cb_current = cc_chessboard_duplicate__new( cb );
-    if ( !path_ctx__io->cb_current ) return false;
+        path_ctx__io->cb_current = cc_chessboard_duplicate__new( cb );
+        if ( !path_ctx__io->cb_current ) return false;
+    }
 
     path_ctx__io->move_ctx = (CcMoveContext){ .initial = move_init,
                                               .current = move_init.pos,
@@ -121,7 +121,8 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     path_ctx__io->ply_ctx = (CcPlyContext){ .initial = move_init,
                                             .starting = move_init.pos,
                                             .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
-                                            .is_first = true };
+                                            .is_first = true,
+                                            .is_first_step = true };
 
     return true;
 }
@@ -163,6 +164,7 @@ bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
         _ctx->activation.usage = is_first ? CC_MUE_Accumulating : CC_MUE_Spending;
 
     _ctx->is_first = is_first;
+    _ctx->is_first_step = true;
 
     return true;
 }
