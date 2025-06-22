@@ -30,6 +30,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 
 bool cc_path_segment_one_step( CcSideEffect side_effect,
                                CcPosDesc moving_from,
+                               CcTypedStep step,
                                CcPathContext * path_ctx__io,
                                CcPathLink * pl__io );
 

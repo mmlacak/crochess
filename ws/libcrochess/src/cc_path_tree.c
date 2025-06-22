@@ -89,13 +89,18 @@ bool cc_path_side_effect( CcChessboard * cb,
 
 bool cc_path_segment_one_step( CcSideEffect side_effect,
                                CcPosDesc moving_from,
+                               CcTypedStep step,
                                CcPathContext * path_ctx__io,
                                CcPathLink * pl__io ) {
     if ( !path_ctx__io ) return false;
     if ( !pl__io ) return false;
 
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
+    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
     if ( cc_path_context_is_legal( path_ctx__io, true, true ) != CC_MBE_True ) return false;
+
+    cc_uint_t board_size = cc_variant_board_size( path_ctx__io->game__w->chessboard->type );
+    if ( !CC_POS_IS_LEGAL( moving_from.pos, board_size ) ) return false;
 
     CcPos pos = moving_from.pos;
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
@@ -111,11 +116,13 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
 
     #define STEP_COUNT 1
 
+    path_ctx__io->ply_ctx.is_first_step = false;
+
     do {
         if ( cc_activation_desc_calc_next_momentum( &act_desc, STEP_COUNT ) != CC_MBE_True )
             break;
 
-        pos = cc_pos_add_steps( pos, path_ctx__io->ply_ctx.step_1.step, STEP_COUNT );
+        pos = cc_pos_add_steps( pos, step.step, STEP_COUNT );
 
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
             encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
@@ -125,8 +132,6 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
                 cc_step_free_all( &steps__t );
                 return false;
             }
-
-            path_ctx__io->ply_ctx.is_first_step = false;
 
             if ( encounter != CC_PTE_None ) break;
         } else
@@ -140,10 +145,6 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     }
 
     path_ctx__io->ply_ctx.activation = act_desc;
-
-    // TODO :: maybe not (?) <-- fill-in path_ctx__io->piece_ctx with moving_from; check piece originates from that position
-    // if ( is_starting_pos )
-    //     path_ctx__io->piece_ctx
 
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub

@@ -21,8 +21,8 @@
 // Move context.
 
 typedef struct CcMoveContext {
-    CcPosDesc initial; // A piece starting current move, its initial position and tag.
-    CcPos current; // Current position of a piece which started current move.
+    CcPosDesc initial; // A piece starting current move, its initial position and tag. // TODO :: not really needed
+    CcPos current; // Current position of a piece which started current move. // TODO :: not really needed
     CcPosDesc pawn_sacrifice_serpent; // Serpent and its position where it initiated Pawn-sacrifice.
 } CcMoveContext;
 
@@ -49,8 +49,6 @@ typedef struct CcPlyContext {
     CcPosDesc initial; // Initial position, piece (and its tag), at the start of a ply.
     CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
     CcActivationDesc activation;
-    CcTypedStep step_1;
-    CcTypedStep step_2;
     bool is_first;
     bool is_first_step;
 } CcPlyContext;
@@ -58,8 +56,6 @@ typedef struct CcPlyContext {
 #define CC_PLY_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,               \
                                  .starting = CC_POS_CAST_INVALID,                   \
                                  .activation = CC_ACTIVATION_DESC_CAST_SPENT,       \
-                                 .step_1 = CC_TYPED_STEP_CAST_INVALID,              \
-                                 .step_2 = CC_TYPED_STEP_CAST_INVALID,              \
                                  .is_first = false,                                 \
                                  .is_first_step = false }
 
@@ -68,16 +64,12 @@ typedef struct CcPlyContext {
 #define CC_PLY_CONTEXT_IS_VALID(ply_ctx)                                            \
     ( CC_POS_DESC_IS_VALID( (ply_ctx).initial ) &&                                  \
       CC_POS_IS_VALID( (ply_ctx).starting ) &&                                      \
-      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) &&    \
-      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_1 ) &&                                 \
-      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_2 ) )
+      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) )
 
 #define CC_PLY_CONTEXT_IS_LEGAL(ply_ctx,board_size)                                 \
     ( CC_POS_DESC_IS_LEGAL( (ply_ctx).initial, (board_size) ) &&                    \
       CC_POS_IS_LEGAL( (ply_ctx).starting, (board_size) ) &&                        \
-      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) &&    \
-      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_1 ) &&                                 \
-      CC_TYPED_STEP_IS_VALID( (ply_ctx).step_2 ) )
+      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) )
 
 //
 // Path context.
@@ -105,9 +97,7 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
                                 CcPosDesc move_init );
 
 bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
-                               CcPosDesc ply_init,
-                               CcTypedStep step_1,
-                               CcTypedStep step_2 );
+                               CcPosDesc ply_init );
 
 
 #endif /* __CC_PATH_DEFS_H__ */

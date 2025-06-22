@@ -121,17 +121,13 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     path_ctx__io->ply_ctx = (CcPlyContext){ .initial = move_init,
                                             .starting = move_init.pos,
                                             .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
-                                            .step_1 = CC_TYPED_STEP_CAST_INVALID,
-                                            .step_2 = CC_TYPED_STEP_CAST_INVALID,
                                             .is_first = true };
 
     return true;
 }
 
 bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
-                               CcPosDesc ply_init,
-                               CcTypedStep step_1,
-                               CcTypedStep step_2 ) {
+                               CcPosDesc ply_init ) {
     if ( !CC_PIECE_IS_VALID( ply_init.piece ) ) return false;
     if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false; // true --> even before the very 1st ply of a cascade, 1st move context has to be initialized.
 
@@ -166,8 +162,6 @@ bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
     else
         _ctx->activation.usage = is_first ? CC_MUE_Accumulating : CC_MUE_Spending;
 
-    _ctx->step_1 = step_1;
-    _ctx->step_2 = step_2;
     _ctx->is_first = is_first;
 
     return true;
