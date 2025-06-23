@@ -230,17 +230,19 @@ char * cc_ply_all_to_string__new( CcPly * plies ) {
     //
     // Calc max string size, allocate.
 
-    size_t step_size = CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2;
-                       // CC_MAX_LEN_CHAR_8, for position
-                       // + CC_MAX_LEN_CHAR_16, for side-effect
-                       // + 2, for step links, e.g. ".." before step
+    size_t step_len = CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2;
+                      // CC_MAX_LEN_CHAR_8, for position
+                      // + CC_MAX_LEN_CHAR_16, for side-effect
+                      // + 2, for step links, e.g. ".." before step
 
-    size_t unused_size = ( count_plies * CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL )
-                       + ( count_steps * step_size )
-                       + 1; // +1, for '\0'
+    size_t plies_size = ( count_plies * CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL )
+                      + ( count_steps * step_len )
+                      + 1; // +1, for '\0'
 
-    char * plies_str__a = calloc( unused_size, sizeof( char ) );
+    char * plies_str__a = calloc( plies_size, sizeof( char ) );
     if ( !plies_str__a ) return NULL;
+
+    char const * plies_end__w = plies_str__a + plies_size;
 
     //
     // Collect ply string, append to result.
@@ -252,15 +254,12 @@ char * cc_ply_all_to_string__new( CcPly * plies ) {
         // Append ply link symbol.
 
         char const * pl = cc_ply_link_type_symbol( p->link );
-        char * end_ple = cc_str_append_into( s, unused_size, pl, CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL );
-
-        if ( !end_ple ) {
+        char const * ple_end__w = cc_str_append_into( s, plies_end__w, CC_SIZE_IGNORE, pl, NULL, CC_MAX_LEN_PLY_LINK_TYPE_SYMBOL );
+        if ( !ple_end__w ) {
             CC_FREE( plies_str__a );
             return NULL;
         }
-
-        unused_size -= ( end_ple - s );
-        s = end_ple;
+        s = (char *)ple_end__w;
 
         // Append piece symbol, lost tag.
 
@@ -268,35 +267,28 @@ char * cc_ply_all_to_string__new( CcPly * plies ) {
         *s++ = piece_symbol;
 
         char const * lte_str = cc_losing_tag_symbol( p->lost_tag );
-        char * end_lte = cc_str_append_into( s, unused_size, lte_str, CC_MAX_LEN_LOSING_TAG_SYMBOL );
-
-        if ( !lte_str ) {
+        char const * lte_end__w = cc_str_append_into( s, plies_end__w, CC_SIZE_IGNORE, lte_str, NULL, CC_MAX_LEN_LOSING_TAG_SYMBOL );
+        if ( !lte_end__w ) {
             CC_FREE( plies_str__a );
             return NULL;
         }
-
-        unused_size -= ( end_lte - s );
-        s = end_lte;
+        s = (char *)lte_end__w;
 
         // Append steps.
 
         char * steps_str__a = cc_step_all_to_string__new( p->steps );
-
         if ( !steps_str__a ) {
             CC_FREE( plies_str__a );
             return NULL;
         }
 
-        char * end_steps = cc_str_append_into( s, unused_size, steps_str__a, CC_MAX_LEN_BUFFER );
-
-        if ( !end_steps ) {
+        char const * steps_end__w = cc_str_append_into( s, plies_end__w, CC_SIZE_IGNORE, steps_str__a, NULL, CC_MAX_LEN_BUFFER );
+        if ( !steps_end__w ) {
             CC_FREE( steps_str__a );
             CC_FREE( plies_str__a );
             return NULL;
         }
-
-        unused_size -= ( end_steps - s );
-        s = end_steps;
+        s = (char *)steps_end__w;
 
         CC_FREE( steps_str__a );
         p = p->next;

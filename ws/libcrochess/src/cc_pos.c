@@ -267,22 +267,25 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
     if ( !pos_link ) return NULL;
 
     // unused len is certainly > 0, because pos_link != NULL
-    signed int unused = cc_pos_link_len( pos_link ) *
-                        ( CC_MAX_LEN_CHAR_8 + 1 );
-                        // CC_MAX_LEN_CHAR_8, for position
-                        // +1, for separator '.' between positions
+    size_t pl_len = cc_pos_link_len( pos_link ) * ( CC_MAX_LEN_CHAR_8 + 1 );
+                    // CC_MAX_LEN_CHAR_8, for position
+                    // +1, for separator '.' between positions
 
-    char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
+    size_t pl_size = pl_len + 1; // +1, for '\0'
+
+    char * pl_str__a = malloc( pl_size );
     if ( !pl_str__a ) return NULL;
+
+    char const * pl_end__w = pl_str__a + pl_size;
 
     *pl_str__a = '\0';
 
     char * pl_str = pl_str__a;
-    char * pl_end = pl_str;
+    // char * pl_end = pl_str;
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     CcPosLink * pl = pos_link;
 
-    while ( pl && ( unused > 0 ) ) {
+    while ( pl ) {
         if ( pl != pos_link ) { // Not 1st pos ...
             *pl_str++ = '.';
             *pl_str = '\0';
@@ -293,14 +296,12 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-        if ( !pl_end ) {
+        char const * pos_end__w = cc_str_append_into( pl_str, pl_end__w, CC_SIZE_IGNORE, pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+        if ( !pos_end__w ) {
             CC_FREE( pl_str__a );
             return NULL;
         }
-
-        unused -= ( pl_end - pl_str );
-        pl_str = pl_end;
+        pl_str = (char *)pos_end__w;
 
         pl = pl->next;
     }
@@ -463,34 +464,35 @@ char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link ) {
     if ( !pd_link ) return NULL;
 
     // unused len is certainly > 0, because pd_link != NULL
-    signed int unused = cc_pos_desc_link_len( pd_link ) *
-                        ( 1 + CC_MAX_LEN_CHAR_8 + 1 + 1 );
-                        // 1 +, for piece symbol
-                        // CC_MAX_LEN_CHAR_8, for position
-                        // + 1, for tag symbol
-                        // + 1, for separator ',' between position descriptors
+    size_t pdl_len = cc_pos_desc_link_len( pd_link ) * ( 1 + CC_MAX_LEN_CHAR_8 + 1 + 1 );
+                     // 1 +, for piece symbol
+                     // CC_MAX_LEN_CHAR_8, for position
+                     // + 1, for tag symbol
+                     // + 1, for separator ',' between position descriptors
 
-    char * pdl_str__a = malloc( unused + 1 ); // +1, for '\0'
+    size_t pdl_size = pdl_len + 1; // +1, for '\0'
+
+    char * pdl_str__a = malloc( pdl_size );
     if ( !pdl_str__a ) return NULL;
+
+    char const * pdl_end__w = pdl_str__a + pdl_size;
 
     *pdl_str__a = '\0';
 
     char * pdl_str = pdl_str__a;
-    char * pdl_end = pdl_str;
+    // char * pdl_end = pdl_str;
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     CcPosDescLink * pdl = pd_link;
 
-    while ( pdl && ( unused > 0 ) ) {
+    while ( pdl ) {
         if ( pdl != pd_link ) { // Not 1st pos desc ...
             *pdl_str++ = ',';
             *pdl_str = '\0';
-            --unused;
         }
 
         // Piece as char, i.e. lower-case for dark/dim pieces.
         *pdl_str++ = cc_piece_as_char( pdl->pd.piece );
         *pdl_str = '\0';
-        --unused;
 
         // Position.
         if ( !cc_pos_to_string( pdl->pd.pos, &pos_c8 ) ) {
@@ -498,19 +500,16 @@ char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link ) {
             return NULL;
         }
 
-        pdl_end = cc_str_append_into( pdl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-        if ( !pdl_end ) {
+        char const * pos_end__w = cc_str_append_into( pdl_str, pdl_end__w, CC_SIZE_IGNORE, pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+        if ( !pos_end__w ) {
             CC_FREE( pdl_str__a );
             return NULL;
         }
-
-        unused -= ( pdl_end - pdl_str );
-        pdl_str = pdl_end;
+        pdl_str = (char *)pos_end__w;
 
         // Tag.
         *pdl_str++ = cc_tag_as_char( pdl->pd.piece );
         *pdl_str = '\0';
-        --unused;
 
         pdl = pdl->next;
     }

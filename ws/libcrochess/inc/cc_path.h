@@ -74,7 +74,34 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all );
 
 size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 
-char * cc_path_link_node_to_string__new( CcPathLink * path_link_node );
+// TODO :: DOCS
+typedef enum CcPathLinkNodeLinkageEnum {
+    CC_PLNLE_NoLinkage,
+    CC_PLNLE_Fork,
+    CC_PLNLE_Alt,
+    CC_PLNLE_Sub,
+    CC_PLNLE_Next,
+} CcPathLinkNodeLinkageEnum;
+
+// TODO :: DOCS
+#define CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR(plnle) ( ( CC_PLNLE_NoLinkage <= (plnle) ) && ( (plnle) <= CC_PLNLE_Next ) ) // <!> Keep in-sync with CcPathLinkNodeLinkageEnum.
+
+// TODO :: DOCS
+#define CC_PATH_LINK_NODE_LINKAGE_IS_VALID(plnle) CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR( (plnle) ) // All enumerations are also valid.
+
+// TODO :: DOCS
+#define CC_MAX_LEN_PATH_LINK_NODE_LINKAGE_STRING (4)
+
+// TODO :: DOCS
+#define CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING (CC_MAX_LEN_PATH_LINK_NODE_LINKAGE_STRING + 1)
+
+// TODO :: DOCS
+char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle );
+
+// TODO :: DOCS
+char * cc_path_link_node_to_string__new( cc_uchar_t tabs,
+                                         CcPathLinkNodeLinkageEnum pnle,
+                                         CcPathLink * path_link_node );
 
 // TODO :: rethink (maybe?)
 // char * cc_path_link_to_string__new( CcPathLink * path_link );

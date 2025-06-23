@@ -38,12 +38,14 @@ void test_pos_step( int i1, int j1, int i2, int j2 ) {
 }
 
 char * test_str_append_into( char const * buffer,
-                             char * str__io,
+                             char * start_str__io,
+                             char const * end_str__d,
                              size_t size_dest__d,
-                             char const * str,
+                             char const * start_sub_str,
+                             char const * end_sub_str__d,
                              size_t max_len__d ) {
     printf( "Before: %s\n", buffer );
-    char * io = cc_str_append_into( str__io, size_dest__d, str, max_len__d );
+    char * io = cc_str_append_into( start_str__io, end_str__d, size_dest__d, start_sub_str, end_sub_str__d, max_len__d );
     printf( "After: %s\n", buffer );
     return io;
 }
@@ -121,21 +123,21 @@ bool tests_str_append_into( void ) {
     *p = '\0';
 
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, BUFSIZ, "foo", 11 );
+    p = test_str_append_into( x, p, NULL, BUFSIZ, "foo", NULL, 11 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, BUFSIZ, " Hello, World!", 12 );
+    p = test_str_append_into( x, p, NULL, BUFSIZ, " Hello, World!", NULL, 12 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, BUFSIZ, " bar", CC_MAX_LEN_BUFFER );
+    p = test_str_append_into( x, p, NULL, BUFSIZ, " bar", NULL, CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, CC_SIZE_BUFFER, " Goodbye, World!", CC_MAX_LEN_BUFFER );
+    p = test_str_append_into( x, p, NULL, CC_SIZE_BUFFER, " Goodbye, World!", NULL, CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, CC_SIZE_BUFFER, " baz", 11 );
+    p = test_str_append_into( x, p, NULL, CC_SIZE_BUFFER, " baz", NULL, 11 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, 99, " zaz", 11 );
+    p = test_str_append_into( x, p, NULL, 99, " zaz", NULL, 11 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, 10, " Hello, again!", 12 );
+    p = test_str_append_into( x, p, NULL, 10, " Hello, again!", NULL, 12 );
     printf( "---------------------\n" );
-    p = test_str_append_into( x, p, 12, " Goodbye, again!", CC_MAX_LEN_BUFFER );
+    p = test_str_append_into( x, p, NULL, 12, " Goodbye, again!", NULL, CC_MAX_LEN_BUFFER );
     printf( "---------------------\n" );
 
     return (bool)( p );

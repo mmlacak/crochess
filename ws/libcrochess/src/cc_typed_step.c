@@ -115,22 +115,26 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
     if ( !ts_link ) return NULL;
 
     // unused len is certainly > 0, because ts_link != NULL
-    signed int unused = cc_typed_step_link_len( ts_link ) *
+    size_t ts_len = cc_typed_step_link_len( ts_link ) *
                         ( CC_MAX_LEN_CHAR_8 + 1 );
                         // CC_MAX_LEN_CHAR_8, for position + piece
                         // +1, for separator '.' between positions
 
-    char * pl_str__a = malloc( unused + 1 ); // +1, for '\0'
+    size_t ts_size = ts_len + 1; // +1, for '\0'
+
+    char * pl_str__a = calloc( ts_size, sizeof( char ) );
     if ( !pl_str__a ) return NULL;
 
     *pl_str__a = '\0';
 
+    char const * pl_end__w = pl_str__a + ts_size;
+
     char * pl_str = pl_str__a;
-    char * pl_end = pl_str;
+    // char * pl_end = pl_str;
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     CcTypedStepLink * tsl = ts_link;
 
-    while ( tsl && ( unused > 0 ) ) {
+    while ( tsl ) {
         if ( tsl != ts_link ) { // Not 1st pos ...
             *pl_str++ = '.';
             *pl_str = '\0';
@@ -141,14 +145,12 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
             return NULL;
         }
 
-        pl_end = cc_str_append_into( pl_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-        if ( !pl_end ) {
+        char const * pos_end__w = cc_str_append_into( pl_str, pl_end__w, CC_SIZE_IGNORE, pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+        if ( !pos_end__w ) {
             CC_FREE( pl_str__a );
             return NULL;
         }
-
-        unused -= ( pl_end - pl_str );
-        pl_str = pl_end;
+        pl_str = (char *)pos_end__w;
 
         tsl = tsl->next;
     }

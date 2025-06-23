@@ -226,39 +226,35 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
     if ( !steps ) return NULL;
 
     // unused len is certainly > 0, because steps != NULL
-    size_t unused = cc_step_count( steps ) *
-                    ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) + 1; // +1, for '\0'
-                    // CC_MAX_LEN_CHAR_8, for position
-                    // + CC_MAX_LEN_CHAR_16, for side-effect
-                    // + 2, for step links, e.g. ".." before step
+    size_t steps_len = cc_step_count( steps ) *
+                       ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
+                       // CC_MAX_LEN_CHAR_8, for position
+                       // + CC_MAX_LEN_CHAR_16, for side-effect
+                       // + 2, for step links, e.g. ".." before step
 
-    char * steps_str__a = malloc( unused );
+    size_t steps_size = steps_len + 1; // +1, for '\0'
+
+    char * steps_str__a = calloc( steps_size, sizeof( char ) );
     if ( !steps_str__a ) return NULL;
 
-    // Must be null-terminated.
-    if ( !cc_str_clear( steps_str__a, unused ) ) {
-        CC_FREE( steps_str__a );
-        return NULL;
-    }
+    char const * steps_end__w = steps_str__a + steps_size;
 
     char * steps_str = steps_str__a;
-    char * steps_end = steps_str;
+    // char * steps_end = steps_str;
     cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
     cc_char_16 se_c16 = CC_CHAR_16_EMPTY;
     CcStep * s = steps;
 
-    while ( s && ( unused > 1 ) ) { // 1, reserved for '\0'
+    while ( s ) { // 1, reserved for '\0'
         char const * sle_str = cc_step_link_type_symbol( s->link );
 
         if ( sle_str ) {
-            char * sle_end = cc_str_append_into( steps_str, unused, sle_str, CC_MAX_LEN_STEP_LINK_TYPE_SYMBOL );
-            if ( !sle_end ) {
+            char const * sle_end__w = cc_str_append_into( steps_str, steps_end__w, CC_SIZE_IGNORE, sle_str, NULL, CC_MAX_LEN_STEP_LINK_TYPE_SYMBOL );
+            if ( !sle_end__w ) {
                 CC_FREE( steps_str__a );
                 return NULL;
             }
-
-            unused -= ( sle_end - steps_str );
-            steps_str = sle_end;
+            steps_str = (char *)sle_end__w;
         }
 
         if ( !cc_pos_to_string( s->field, &pos_c8 ) ) {
@@ -266,28 +262,24 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
             return NULL;
         }
 
-        steps_end = cc_str_append_into( steps_str, unused, pos_c8, CC_MAX_LEN_CHAR_8 );
-        if ( !steps_end ) {
+        char const * pos_end__w = cc_str_append_into( steps_str, steps_end__w, CC_SIZE_IGNORE, pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+        if ( !pos_end__w ) {
             CC_FREE( steps_str__a );
             return NULL;
         }
-
-        unused -= ( steps_end - steps_str );
-        steps_str = steps_end;
+        steps_str = (char *)pos_end__w;
 
         if ( !cc_side_effect_to_str( s->side_effect, &se_c16 ) ) {
             CC_FREE( steps_str__a );
             return NULL;
         }
 
-        steps_end = cc_str_append_into( steps_str, unused, se_c16, CC_MAX_LEN_CHAR_16 );
-        if ( !steps_end ) {
+        char const * se_end__w = cc_str_append_into( steps_str, steps_end__w, CC_SIZE_IGNORE, se_c16, NULL, CC_MAX_LEN_CHAR_16 );
+        if ( !se_end__w ) {
             CC_FREE( steps_str__a );
             return NULL;
         }
-
-        unused -= ( steps_end - steps_str );
-        steps_str = steps_end;
+        steps_str = (char *)se_end__w;
 
         s = s->next;
     }

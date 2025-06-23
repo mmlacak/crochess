@@ -9,9 +9,11 @@ void test_gcd( int x, int y );
 void test_pos_step( int i1, int j1, int i2, int j2 );
 
 char * test_str_append_into( char const * buffer,
-                             char * str__io,
+                             char * start_str__io,
+                             char const * end_str__d,
                              size_t size_dest__d,
-                             char const * str,
+                             char const * start_sub_str,
+                             char const * end_sub_str,
                              size_t max_len__d );
 
 

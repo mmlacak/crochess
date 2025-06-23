@@ -411,18 +411,23 @@ char * cc_str_duplicate__new( char const * str,
     return str__a;
 }
 
-char * cc_str_append_into( char * str__io,
+char * cc_str_append_into( char * start_str__io,
+                           char const * end_str__d,
                            size_t size_dest__d,
-                           char const * str,
+                           char const * start_sub_str,
+                           char const * end_sub_str__d,
                            size_t max_len__d ) {
-    if ( !str__io ) return NULL;
-    if ( !str ) return NULL;
+    if ( !start_str__io ) return NULL;
+    if ( !start_sub_str ) return NULL;
+
+    if ( end_str__d && ( end_str__d < start_str__io ) ) return NULL;
+    if ( end_sub_str__d && ( end_sub_str__d < start_sub_str ) ) return NULL;
 
     bool if_ignore_size = ( size_dest__d == CC_SIZE_IGNORE );
     bool if_zero_terminated = ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED );
 
     size_t count = 0;
-    char * io__w = str__io;
+    char * io__w = start_str__io;
 
     while ( *io__w != '\0' ) {
         if ( if_ignore_size || ( count < size_dest__d ) ) {
@@ -434,11 +439,13 @@ char * cc_str_append_into( char * str__io,
 
     count += 1; // +1, to leave room for '\0'
     size_t appended = 0;
-    char const * s = str;
+    char const * s = start_sub_str;
 
     while ( *s != '\0' ) {
         if ( ( if_ignore_size || ( count < size_dest__d ) ) &&
-                ( if_zero_terminated || ( appended < max_len__d ) ) ) {
+                ( if_zero_terminated || ( appended < max_len__d ) ) &&
+                ( !end_str__d || ( io__w < end_str__d ) ) &&
+                ( !end_sub_str__d || ( s < end_sub_str__d ) ) ) {
             *io__w++ = *s++;
 
             ++appended;

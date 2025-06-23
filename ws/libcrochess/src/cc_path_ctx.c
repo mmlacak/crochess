@@ -99,14 +99,14 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
 
     CcChessboard * cb = path_ctx__io->game__w->chessboard;
 
-    // <!> Not needed, get_piece() returns None for positions outside chessboard;
-    //     here, piece is certainly not None [1], and check is done at [2].
+    // <!> Not needed, get_piece() (here, at [2]) returns None for positions outside
+    //     chessboard; here, piece is certainly not None [1], and check is done at [3].
     // cc_uint_t board_size = cc_chessboard_get_size( cb );
     // if ( !CC_POS_DESC_IS_LEGAL( move_init, board_size ) ) return false;
 
     // Checking piece and its tag are still on declared position generaly does not hold, except at the very beginning of a move.
-    CcPieceTagType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j );
-    if ( piece != move_init.piece ) return false; // [2]
+    CcPieceTagType piece = cc_chessboard_get_piece( cb, move_init.pos.i, move_init.pos.j ); // [2]
+    if ( piece != move_init.piece ) return false; // [3]
 
     if ( !cc_chessboard_is_equal( path_ctx__io->cb_current, cb ) ) {
         cc_chessboard_free_all( &(path_ctx__io->cb_current) );

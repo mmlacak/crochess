@@ -447,8 +447,27 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
     return count;
 }
 
-char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
+char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle ) {
+    switch ( plnle ) {
+        case CC_PLNLE_NoLinkage : return "";
+        case CC_PLNLE_Fork : return "* ";
+        case CC_PLNLE_Alt : return "& ";
+        case CC_PLNLE_Sub : return "~ ";
+        case CC_PLNLE_Next : return "> ";
+        default : return "? ";
+    }
+}
+
+char * cc_path_link_node_to_string__new( cc_uchar_t tabs,
+                                         CcPathLinkNodeLinkageEnum plnle,
+                                         CcPathLink * path_link_node ) {
     if ( !path_link_node ) return NULL;
+
+    cc_uint_t tabs_len = 2 * tabs; // Tab --> 2-spaces.
+    char * tabs_str__a = cc_str_pad__new( ' ', tabs_len );
+    if ( !tabs_str__a ) return NULL;
+
+    char const * plnle_str = cc_path_link_node_linkage_as_string( plnle );
 
     cc_char_16 se_str = CC_CHAR_16_EMPTY;
 
@@ -456,42 +475,69 @@ char * cc_path_link_node_to_string__new( CcPathLink * path_link_node ) {
         return NULL;
 
     char * steps_str__a = cc_step_all_to_string__new( path_link_node->steps );
-    if ( !steps_str__a ) return NULL;
+    if ( !steps_str__a ) {
+        CC_FREE( tabs_str__a );
+        return NULL;
+    }
 
-    size_t str_size = cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
+    size_t str_len = cc_str_len( tabs_str__a, NULL, tabs_len );
+    str_len += cc_str_len( plnle_str, NULL, CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING );
+    str_len += cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
+    str_len += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
 
-    str_size += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
+    // TODO :: add .encounter, .act_desc
 
-    // TODO :: add .encounter, .momentum
+    size_t str_size = str_len + 1; // +1 for '\0'
 
-    size_t unused = str_size + 1; // +1 for '\0'
-
-    char * pln_str__a = malloc( unused );
+    char * pln_str__a = malloc( str_size );
     if ( !pln_str__a ) {
+        CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
         return NULL;
     }
 
-    char * end_se__w = cc_str_append_into( pln_str__a, unused, se_str, CC_SIZE_CHAR_16 );
-    if ( !end_se__w ) {
+    char * pln_str = pln_str__a;
+    char const * pln_end__w = pln_str__a + str_size;
+
+    char const * end_tabs_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, tabs_str__a, NULL, tabs_len );
+    if ( !end_tabs_str__w ) {
+        CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
         CC_FREE( pln_str__a );
         return NULL;
     }
+    pln_str = (char *)end_tabs_str__w;
 
-    unused -= ( end_se__w - pln_str__a );
+    char const * end_plnle_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, plnle_str, NULL, CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING );
+    if ( !end_plnle_str__w ) {
+        CC_FREE( tabs_str__a );
+        CC_FREE( steps_str__a );
+        CC_FREE( pln_str__a );
+        return NULL;
+    }
+    pln_str = (char *)end_plnle_str__w;
 
-    char * end_pos__w = cc_str_append_into( end_se__w, unused, steps_str__a, CC_SIZE_BUFFER );
+    char const * end_se_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, se_str, NULL, CC_SIZE_CHAR_16 );
+    if ( !end_se_str__w ) {
+        CC_FREE( tabs_str__a );
+        CC_FREE( steps_str__a );
+        CC_FREE( pln_str__a );
+        return NULL;
+    }
+    pln_str = (char *)end_se_str__w;
+
+    char const * end_pos__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, steps_str__a, NULL, CC_SIZE_BUFFER );
     if ( !end_pos__w ) {
+        CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
         CC_FREE( pln_str__a );
         return NULL;
     }
+    pln_str = (char *)end_pos__w;
 
-    // unused -= ( end_pos__w - end_se__w ); // Not needed yet.
+    // TODO :: add .encounter, .act_desc
 
-    // TODO :: add .encounter, .momentum
-
+    CC_FREE( tabs_str__a );
     CC_FREE( steps_str__a );
 
     return pln_str__a;
