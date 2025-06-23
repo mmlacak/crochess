@@ -116,9 +116,9 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
 
     // unused len is certainly > 0, because ts_link != NULL
     size_t ts_len = cc_typed_step_link_len( ts_link ) *
-                        ( CC_MAX_LEN_CHAR_8 + 1 );
-                        // CC_MAX_LEN_CHAR_8, for position + piece
-                        // +1, for separator '.' between positions
+                    ( CC_MAX_LEN_CHAR_8 + 1 );
+                    // CC_MAX_LEN_CHAR_8, for position + piece
+                    // +1, for separator '.' between positions
 
     size_t ts_size = ts_len + 1; // +1, for '\0'
 

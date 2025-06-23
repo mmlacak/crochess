@@ -272,7 +272,6 @@ char * cc_str_duplicate__new( char const * str,
                               bool do_reverse,
                               size_t max_len__d );
 
-// TODO :: DOCS
 char * cc_str_append_into( char * start_str__io,
                            char const * end_str__d,
                            size_t size_dest__d,

@@ -436,32 +436,45 @@ Functions
     :param max_len__d: *Optional*, maximum length to duplicate; can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
     :returns: A newly allocated, duplicated string if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: char * cc_str_append_into( char * str__io, size_t size_dest__d, char const * str, size_t max_len__d )
+.. c:function:: char * cc_str_append_into( char * start_str__io, char const * end_str__d, size_t size_dest__d, char const * start_sub_str, char const * end_sub_str__d, size_t max_len__d )
 
-    Function appends second string into a first one, in-place.
+    Appends second string into a buffer, in-place.
+
+    Function skips all :c:`char`\s found in a buffer until null-terminating :c:`char`
+    (``'\0'``) is reached, before it starts appending substring :c:var:`start_sub_str`.
 
     .. warning::
 
-        Destination buffer :c:`str__io` must always be null-terminated (``'\0'``),
+        Destination buffer :c:var:`start_str__io` must always be null-terminated (``'\0'``),
         so that function can determine from where to start appending given string
-        :c:`str`.
+        :c:var:`start_sub_str`.
+
+    Either *optional* :c:var:`end_str__d` or :c:var:`size_dest__d` (or both) can be given;
+    if so they limit how much of a given buffer :c:var:`start_str__io` will be used,
+    whichever is encountered first.
+
+    .. note::
+
+        At least one of *optional* parameters :c:var:`end_str__d` and :c:var:`size_dest__d`
+        has to be given, if both are not (they are :c:`NULL` and :c:macro:`CC_SIZE_IGNORE`,
+        respectively) operation is aborted, and :c:`NULL` is returned.
+
+    Either *optional* :c:var:`end_sub_str__d` or :c:var:`max_len__d` (or both) can be given;
+    if so they limit how much of a given substring :c:var:`start_sub_str` will be copied,
+    whichever is encountered first.
 
     .. warning::
 
-        Rest of a destination buffer :c:`str__io`, behind that null-terminating
-        :c:`char` found earlier, must be large enough to store appending
-        string :c:`str`; taking into account :c:`size_dest__d` and :c:`max_len__d`,
-        if given.
+        If both *optional* parameters are not given (:c:var:`end_sub_str__d` is :c:`NULL`,
+        and :c:var:`max_len__d` is :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`), substring
+        :c:`start_sub_str` must be null-terminated (``'\0'``), and is appended in its entirety.
 
-    *Optional* :c:`max_len__d` can be  :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`,
-    if so string :c:`str` must be null-terminated, and is appended in its entirety.
-
-    Destination :c:`str__io` after appending string is always null-terminated.
+    Destination :c:`start_str__io` after appending string is always null-terminated (``'\0'``).
     Function returns weak pointer to that null-terminating :c:`char`.
 
     Walking pointer over destination buffer can be used in succession, or in a
     loop. This is so because function seeks null-terminating :c:`char` in
-    a given destination :c:`str__io`, and returns a weak pointer to the new
+    a given destination :c:`start_str__io`, and returns a weak pointer to the new
     null-terminating :c:`char` after appending in that same destination
     buffer.
 
@@ -476,16 +489,18 @@ Functions
 
         char * walking = buffer__a;
 
-        while ( iter( ... ) ) {
+        do {
             walking = cc_str_append_into( walking, ... );
-            if ( !walking ) break;
-        }
+        } while ( walking );
 
-    :param str__io: *Input/output*, a string into which to append.
+    :param start_str__io: *Input/output*, a string into which to append.
+    :param end_str__d: *Optional*, *input/output*, an end pointer to a string into which to append.
     :param size_dest__d: *Optional*, size of a destination; can be :c:macro:`CC_SIZE_IGNORE`.
-    :param str: A string to append.
+    :param start_sub_str: A string to append.
+    :param end_sub_str__d: *Optional*, an end pointer of a string to append.
     :param max_len__d: *Optional*, maximum length of resulting string; can be :c:macro:`CC_MAX_LEN_ZERO_TERMINATED`.
-    :returns: A weak pointer to null-terminating char if successful, :c:data:`NULL` otherwise.
+    :returns: A weak pointer to null-terminating char inside a given buffer :c:var:`start_str__io`
+        if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: char * cc_str_append__new( char const * str_1__d, char const * str_2__d, size_t max_len__d )
 

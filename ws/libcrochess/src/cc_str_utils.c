@@ -424,13 +424,17 @@ char * cc_str_append_into( char * start_str__io,
     if ( end_sub_str__d && ( end_sub_str__d < start_sub_str ) ) return NULL;
 
     bool if_ignore_size = ( size_dest__d == CC_SIZE_IGNORE );
+
+    if ( !end_str__d && if_ignore_size ) return NULL; // <!> Buffer has to have its limits specified.
+
     bool if_zero_terminated = ( max_len__d == CC_MAX_LEN_ZERO_TERMINATED );
 
     size_t count = 0;
     char * io__w = start_str__io;
 
     while ( *io__w != '\0' ) {
-        if ( if_ignore_size || ( count < size_dest__d ) ) {
+        if ( ( if_ignore_size || ( count < size_dest__d ) ) &&
+                ( !end_str__d || ( io__w < end_str__d ) ) ) {
             ++io__w;
             ++count;
         } else
