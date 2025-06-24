@@ -383,6 +383,13 @@ Node linkage
     :returns: Pointer to a non-allocated, null-terminated (``'\0'``) string if successful,
         :c:data:`NULL` otherwise.
 
+.. c:function:: CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node )
+
+    Function returns linkage of a given path node.
+
+    :param path_link_node: A path node.
+    :returns: Path node linkage, :c:enum:`CcPathLinkNodeLinkageEnum` value.
+
 .. _lbl-libcc-ccpath-linkedpathbacktracking:
 
 Linked path backtracking

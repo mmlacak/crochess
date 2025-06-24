@@ -458,8 +458,26 @@ char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnl
     }
 }
 
+CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node ) {
+    if ( !path_link_node ) return CC_PLNLE_NoLinkage;
+
+    CcPathLink * pln = path_link_node->back__w;
+
+    if ( !pln ) return CC_PLNLE_NoLinkage;
+
+    if ( pln->fork == path_link_node )
+        return CC_PLNLE_Fork;
+    else if ( pln->alt == path_link_node )
+        return CC_PLNLE_Alt;
+    else if ( pln->sub == path_link_node )
+        return CC_PLNLE_Sub;
+    else if ( pln->next == path_link_node )
+        return CC_PLNLE_Next;
+    else
+        return CC_PLNLE_NoLinkage;
+}
+
 char * cc_path_link_node_to_string__new( cc_uchar_t tabs,
-                                         CcPathLinkNodeLinkageEnum plnle,
                                          CcPathLink * path_link_node ) {
     if ( !path_link_node ) return NULL;
 
@@ -467,6 +485,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t tabs,
     char * tabs_str__a = cc_str_pad__new( ' ', tabs_len );
     if ( !tabs_str__a ) return NULL;
 
+    CcPathLinkNodeLinkageEnum plnle = cc_path_link_node_linkage( path_link_node );
     char const * plnle_str = cc_path_link_node_linkage_as_string( plnle );
 
     cc_char_16 se_str = CC_CHAR_16_EMPTY;

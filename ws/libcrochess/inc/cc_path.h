@@ -96,8 +96,10 @@ typedef enum CcPathLinkNodeLinkageEnum {
 char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle );
 
 // TODO :: DOCS
+CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node );
+
+// TODO :: DOCS
 char * cc_path_link_node_to_string__new( cc_uchar_t tabs,
-                                         CcPathLinkNodeLinkageEnum pnle,
                                          CcPathLink * path_link_node );
 
 // TODO :: rethink (maybe?)
