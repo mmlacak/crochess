@@ -320,6 +320,69 @@ Linked path segments
 ..         successful, :c:data:`NULL` otherwise.
 ..     :seealso: :c:func:`cc_pos_to_string()`
 
+.. _lbl-libcc-ccpath-nodelinkage:
+
+Node linkage
+^^^^^^^^^^^^
+
+.. c:enum:: CcPathLinkNodeLinkageEnum
+
+    Enumerates all node links in a path node, i.e. all different pointers a node
+    can use to have a link to another node, see :c:struct:`CcPathLink`.
+
+    .. c:enumerator:: CC_PLNLE_NoLinkage
+
+    .. c:enumerator:: CC_PLNLE_Fork
+
+    .. c:enumerator:: CC_PLNLE_Alt
+
+    .. c:enumerator:: CC_PLNLE_Sub
+
+    .. c:enumerator:: CC_PLNLE_Next
+
+    :c:`enum` is tagged with the same :c:enum:`CcPathLinkNodeLinkageEnum` name.
+
+.. c:macro:: CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR(plnle)
+
+    Macro to check if given variant value is an enumerator, i.e. between
+    :c:enumerator:`CC_PLNLE_NoLinkage` and :c:enumerator:`CC_PLNLE_Next` values.
+
+    :param plnle: Variant (integer) value.
+    :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PATH_LINK_NODE_LINKAGE_IS_VALID(plnle)
+
+    Macro to check if given variant value is a valid enumerator, i.e. between
+    :c:enumerator:`CC_PLNLE_NoLinkage` and :c:enumerator:`CC_PLNLE_Next` values.
+
+    This macro is the same as :c:macro:`CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR`, since
+    :c:enum:`CcPathLinkNodeLinkageEnum` does not feature *null* (or *void*, or *empty*) value.
+
+    :param plnle: Variant (integer) value.
+    :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
+
+.. c:macro:: CC_MAX_LEN_PATH_LINK_NODE_LINKAGE_STRING
+
+    Maximum length a node linkage string can be, equals to ``4``.
+
+.. c:macro:: CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING
+
+    Maximum size a node linkage string can be, equals to
+    :c:macro:`CC_MAX_LEN_PATH_LINK_NODE_LINKAGE_STRING` + ``1``.
+
+.. c:function:: char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle )
+
+    Function returns string containing user-readable representation of a given
+    path node linkage.
+
+    .. note::
+
+        Returned string is not :c:func:`alloc()`\ated, do not :c:func:`free()` it.
+
+    :param plnle: A node linkage, :c:enum:`CcPathLinkNodeLinkageEnum` value.
+    :returns: Pointer to a non-allocated, null-terminated (``'\0'``) string if successful,
+        :c:data:`NULL` otherwise.
+
 .. _lbl-libcc-ccpath-linkedpathbacktracking:
 
 Linked path backtracking
