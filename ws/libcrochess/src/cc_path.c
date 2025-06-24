@@ -447,36 +447,6 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
     return count;
 }
 
-char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle ) {
-    switch ( plnle ) {
-        case CC_PLNLE_NoLinkage : return "";
-        case CC_PLNLE_Fork : return "* ";
-        case CC_PLNLE_Alt : return "& ";
-        case CC_PLNLE_Sub : return "~ ";
-        case CC_PLNLE_Next : return "> ";
-        default : return "? ";
-    }
-}
-
-CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node ) {
-    if ( !path_link_node ) return CC_PLNLE_NoLinkage;
-
-    CcPathLink * pln = path_link_node->back__w;
-
-    if ( !pln ) return CC_PLNLE_NoLinkage;
-
-    if ( pln->fork == path_link_node )
-        return CC_PLNLE_Fork;
-    else if ( pln->alt == path_link_node )
-        return CC_PLNLE_Alt;
-    else if ( pln->sub == path_link_node )
-        return CC_PLNLE_Sub;
-    else if ( pln->next == path_link_node )
-        return CC_PLNLE_Next;
-    else
-        return CC_PLNLE_NoLinkage;
-}
-
 char * cc_path_link_node_to_string__new( cc_uchar_t depth,
                                          CcPathLink * path_link_node ) {
     if ( !path_link_node ) return NULL;
@@ -560,4 +530,37 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     CC_FREE( steps_str__a );
 
     return pln_str__a;
+}
+
+//
+// Node linkage.
+
+char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle ) {
+    switch ( plnle ) {
+        case CC_PLNLE_NoLinkage : return "";
+        case CC_PLNLE_Fork : return "* ";
+        case CC_PLNLE_Alt : return "& ";
+        case CC_PLNLE_Sub : return "~ ";
+        case CC_PLNLE_Next : return "> ";
+        default : return "? ";
+    }
+}
+
+CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node ) {
+    if ( !path_link_node ) return CC_PLNLE_NoLinkage;
+
+    CcPathLink * pln = path_link_node->back__w;
+
+    if ( !pln ) return CC_PLNLE_NoLinkage;
+
+    if ( pln->fork == path_link_node )
+        return CC_PLNLE_Fork;
+    else if ( pln->alt == path_link_node )
+        return CC_PLNLE_Alt;
+    else if ( pln->sub == path_link_node )
+        return CC_PLNLE_Sub;
+    else if ( pln->next == path_link_node )
+        return CC_PLNLE_Next;
+    else
+        return CC_PLNLE_NoLinkage;
 }

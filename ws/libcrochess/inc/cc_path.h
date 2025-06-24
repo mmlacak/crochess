@@ -74,6 +74,12 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all );
 
 size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
 
+char * cc_path_link_node_to_string__new( cc_uchar_t depth,
+                                         CcPathLink * path_link_node );
+
+// TODO :: rethink (maybe?)
+// char * cc_path_link_to_string__new( CcPathLink * path_link );
+
 //
 // Node linkage.
 
@@ -96,12 +102,6 @@ typedef enum CcPathLinkNodeLinkageEnum {
 char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle );
 
 CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node );
-
-char * cc_path_link_node_to_string__new( cc_uchar_t depth,
-                                         CcPathLink * path_link_node );
-
-// TODO :: rethink (maybe?)
-// char * cc_path_link_to_string__new( CcPathLink * path_link );
 
 
 #endif /* __CC_PATH_H__ */
