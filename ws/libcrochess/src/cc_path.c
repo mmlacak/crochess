@@ -477,11 +477,11 @@ CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node
         return CC_PLNLE_NoLinkage;
 }
 
-char * cc_path_link_node_to_string__new( cc_uchar_t tabs,
+char * cc_path_link_node_to_string__new( cc_uchar_t depth,
                                          CcPathLink * path_link_node ) {
     if ( !path_link_node ) return NULL;
 
-    cc_uint_t tabs_len = 2 * tabs; // Tab --> 2-spaces.
+    cc_uint_t tabs_len = 2 * depth; // Depth --> 2-spaces.
     char * tabs_str__a = cc_str_pad__new( ' ', tabs_len );
     if ( !tabs_str__a ) return NULL;
 

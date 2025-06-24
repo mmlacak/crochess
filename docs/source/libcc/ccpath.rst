@@ -299,11 +299,18 @@ Linked path segments
     :param path_link: A path segment.
     :returns: Count of all segments if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_path_link_node_to_string__new( CcPathLink * path_link_node )
+.. c:function:: char * cc_path_link_node_to_string__new( cc_uchar_t depth, CcPathLink * path_link_node )
 
     Function returns string containing user-readable representation of a given
     path node.
 
+    Path node depth is used to preface returned string with space-padding, which
+    corresponds to depth of a given node in a path hierarcy.
+
+    Depth is increased after a fork, but not for alternative, substitute paths,
+    or after continuing current path (by taking next node).
+
+    :param depth: Path node depth.
     :param path_link_node: A path segment.
     :returns: A newly allocated, null-terminated (``'\0'``) string if
         successful, :c:data:`NULL` otherwise.
