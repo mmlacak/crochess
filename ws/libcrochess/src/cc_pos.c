@@ -539,6 +539,17 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
     return CC_MBE_True;
 }
 
+char cc_momentum_usage_as_char( CcMomentumUsageEnum usage ) {
+    if ( usage == CC_MUE_Accumulating ) {
+        return '+';
+    } else if ( usage == CC_MUE_Spending ) {
+        return '-';
+    } else if ( usage == CC_MUE_NotUsing ) {
+        return '=';
+    } else
+        return ' '; // Enums are secretly ints.
+}
+
 //
 // Activation descriptor.
 
@@ -589,4 +600,24 @@ CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is
                                          : CC_MBE_False;
 
     return CC_MBE_True;
+}
+
+bool cc_activation_desc_as_string( CcActivationDesc act_desc,
+                                   cc_char_32 * act_dest_str__io ) {
+    if ( !act_dest_str__io ) return false;
+
+    char piece_symbol = cc_piece_symbol( act_desc.activator );
+    char tag_chr = cc_tag_as_char( act_desc.activator );
+    char usage_chr = cc_momentum_usage_as_char( act_desc.usage );
+
+    int result = snprintf( *act_dest_str__io,
+                           CC_SIZE_CHAR_32,
+                           "%c%c#%d%c",
+                           piece_symbol,
+                           tag_chr,
+                           act_desc.momentum,
+                           usage_chr );
+
+    return ( result > 0 ) ? true
+                          : false;
 }

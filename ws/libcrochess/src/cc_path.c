@@ -474,8 +474,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     str_len += cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
     str_len += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
     str_len += 2 + 1 + 1; // For .encounter (i.e. CcPieceTagType); +2 for ' @', +1 for piece symbol, +1 for tag char.
-
-    // TODO :: add .act_desc
+    str_len += 3 + CC_SIZE_CHAR_32; // For .act_desc (i.e. CcActivationDesc); +3 for ' #' preceeding act desc.
 
     size_t str_size = str_len + 1; // +1 for '\0'
 
@@ -539,7 +538,27 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     *pln_str++ = tag_chr;
     *pln_str = '\0';
 
-    // TODO :: add .act_desc
+    // Activation descriptor.
+    cc_char_32 act_desc_str = CC_CHAR_32_EMPTY;
+    if ( !cc_activation_desc_as_string( path_link_node->act_desc, &act_desc_str ) ) {
+        CC_FREE( tabs_str__a );
+        CC_FREE( steps_str__a );
+        CC_FREE( pln_str__a );
+        return NULL;
+    }
+
+    *pln_str++ = ' ';
+    *pln_str++ = '#';
+    *pln_str = '\0';
+
+    char const * end_act_desc__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, act_desc_str, NULL, CC_SIZE_CHAR_32 );
+    if ( !end_act_desc__w ) {
+        CC_FREE( tabs_str__a );
+        CC_FREE( steps_str__a );
+        CC_FREE( pln_str__a );
+        return NULL;
+    }
+    // pln_str = (char *)end_act_desc__w; // Not needed anymore.
 
     CC_FREE( tabs_str__a );
     CC_FREE( steps_str__a );

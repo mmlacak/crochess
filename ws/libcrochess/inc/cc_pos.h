@@ -177,6 +177,9 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
                                   cc_uint_t count,
                                   cc_uint_t * momentum__io );
 
+// TODO :: DOCS
+char cc_momentum_usage_as_char( CcMomentumUsageEnum usage );
+
 //
 // Activation descriptor.
 
@@ -205,6 +208,10 @@ CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_de
 CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece );
 
 CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply );
+
+// TODO :: DOCS
+bool cc_activation_desc_as_string( CcActivationDesc act_desc,
+                                   cc_char_32 * act_dest_str__io );
 
 
 #endif /* __CC_POS_H__ */
