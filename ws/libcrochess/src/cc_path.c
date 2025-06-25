@@ -473,8 +473,9 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     str_len += cc_str_len( plnle_str, NULL, CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING );
     str_len += cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
     str_len += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
+    str_len += 2 + 1 + 1; // For .encounter (i.e. CcPieceTagType); +2 for ' @', +1 for piece symbol, +1 for tag char.
 
-    // TODO :: add .encounter, .act_desc
+    // TODO :: add .act_desc
 
     size_t str_size = str_len + 1; // +1 for '\0'
 
@@ -488,6 +489,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     char * pln_str = pln_str__a;
     char const * pln_end__w = pln_str__a + str_size;
 
+    // Tabs.
     char const * end_tabs_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, tabs_str__a, NULL, tabs_len );
     if ( !end_tabs_str__w ) {
         CC_FREE( tabs_str__a );
@@ -497,6 +499,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     }
     pln_str = (char *)end_tabs_str__w;
 
+    // Node linkage.
     char const * end_plnle_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, plnle_str, NULL, CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING );
     if ( !end_plnle_str__w ) {
         CC_FREE( tabs_str__a );
@@ -506,6 +509,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     }
     pln_str = (char *)end_plnle_str__w;
 
+    // Side-effect.
     char const * end_se_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, se_str, NULL, CC_SIZE_CHAR_16 );
     if ( !end_se_str__w ) {
         CC_FREE( tabs_str__a );
@@ -515,16 +519,27 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     }
     pln_str = (char *)end_se_str__w;
 
-    char const * end_pos__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, steps_str__a, NULL, CC_SIZE_BUFFER );
-    if ( !end_pos__w ) {
+    // Steps.
+    char const * end_steps__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, steps_str__a, NULL, CC_SIZE_BUFFER );
+    if ( !end_steps__w ) {
         CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
         CC_FREE( pln_str__a );
         return NULL;
     }
-    pln_str = (char *)end_pos__w;
+    pln_str = (char *)end_steps__w;
 
-    // TODO :: add .encounter, .act_desc
+    // Encountered piece and its tag.
+    char piece_symbol = cc_piece_symbol( path_link_node->encounter );
+    char tag_chr = cc_tag_as_char( path_link_node->encounter );
+
+    *pln_str++ = ' ';
+    *pln_str++ = '@';
+    *pln_str++ = piece_symbol;
+    *pln_str++ = tag_chr;
+    *pln_str = '\0';
+
+    // TODO :: add .act_desc
 
     CC_FREE( tabs_str__a );
     CC_FREE( steps_str__a );
