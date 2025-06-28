@@ -29,7 +29,6 @@
 //                                                     CcParseMsg ** parse_msgs__iod );
 
 
-// TODO :: DOCS
 bool cc_parse_side_effect( char const * side_effect_an,
                            char const * step_start_an,
                            char const * step_end_an,
