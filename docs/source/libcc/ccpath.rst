@@ -397,6 +397,20 @@ Node linkage
     :param path_link_node: A path node.
     :returns: Path node linkage, :c:enum:`CcPathLinkNodeLinkageEnum` value.
 
+.. c:function:: char const * cc_path_link_node_linkage_to_string( CcPathLink * path_link_node )
+
+    Function returns string containing user-readable linkage representation
+    of a given path node.
+
+    .. note::
+
+        Returned string is not :c:func:`alloc()`\ated, do not :c:func:`free()` it.
+
+    :param path_link_node: A path node.
+    :returns: Pointer to a non-allocated, null-terminated (``'\0'``) string if successful,
+        :c:data:`NULL` otherwise.
+    :seealso: :c:func:`cc_path_link_node_linkage_as_string()`
+
 .. _lbl-libcc-ccpath-linkedpathbacktracking:
 
 Linked path backtracking

@@ -103,5 +103,7 @@ char const * cc_path_link_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnl
 
 CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node );
 
+char const * cc_path_link_node_linkage_to_string( CcPathLink * path_link_node );
+
 
 #endif /* __CC_PATH_H__ */
