@@ -208,9 +208,8 @@ CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc
 
 CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply );
 
-// TODO :: DOCS
 bool cc_activation_desc_as_string( CcActivationDesc act_desc,
-                                   cc_char_32 * act_dest_str__io );
+                                   cc_char_32 * act_dest_str__o );
 
 
 #endif /* __CC_POS_H__ */

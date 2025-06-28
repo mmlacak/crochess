@@ -760,6 +760,15 @@ Activation descriptor
 
     :seealso: :c:func:`cc_activation_desc_is_valid()`
 
+.. c:function:: bool cc_activation_desc_as_string( CcActivationDesc act_desc, cc_char_32 * act_dest_str__o )
+
+    Function returns string representation of a given activation descriptor,
+    via given *output* :c:`char` array.
+
+    :param act_desc: An activation descriptor.
+    :param act_dest_str__o: *Output*, pointer to :c:`char` array, size ``32``.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccpos-sourcecodeheader:
 
 Header file
