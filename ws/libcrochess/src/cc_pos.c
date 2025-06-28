@@ -540,14 +540,13 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
 }
 
 char cc_momentum_usage_as_char( CcMomentumUsageEnum usage ) {
-    if ( usage == CC_MUE_Accumulating ) {
-        return '+';
-    } else if ( usage == CC_MUE_Spending ) {
-        return '-';
-    } else if ( usage == CC_MUE_NotUsing ) {
-        return '=';
-    } else
-        return ' '; // Enums are secretly ints.
+    switch ( usage ) {
+        case CC_MUE_NotUsing : return '+';
+        case CC_MUE_Accumulating : return '-';
+        case CC_MUE_Spending : return '=';
+
+        default : return ' '; // Enums are secretly ints.
+    }
 }
 
 //

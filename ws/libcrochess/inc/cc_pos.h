@@ -177,7 +177,6 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
                                   cc_uint_t count,
                                   cc_uint_t * momentum__io );
 
-// TODO :: DOCS
 char cc_momentum_usage_as_char( CcMomentumUsageEnum usage );
 
 //

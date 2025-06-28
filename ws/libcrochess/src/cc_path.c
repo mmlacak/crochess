@@ -540,6 +540,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
 
     // Activation descriptor.
     cc_char_32 act_desc_str = CC_CHAR_32_EMPTY;
+
     if ( !cc_activation_desc_as_string( path_link_node->act_desc, &act_desc_str ) ) {
         CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );

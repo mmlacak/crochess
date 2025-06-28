@@ -633,6 +633,18 @@ Momentum
         * :c:enumerator:`CC_MBE_False` if there is not enough momentum to subtract from (or, too much to add),
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
+.. c:function:: char cc_momentum_usage_as_char( CcMomentumUsageEnum usage )
+
+    Function returns :c:`char` representing given usage:
+
+        * :c:enumerator:`CC_MUE_NotUsing` returns :c:`'='`,
+        * :c:enumerator:`CC_MUE_Accumulating` returns :c:`'+'`,
+        * :c:enumerator:`CC_MUE_Spending` returns :c:`'-'`,
+
+    :param usage: Flag, whether momentum is accumulated, spent, or unchanged
+        while piece is moving; :c:enum:`CcMomentumUsageEnum` value.
+    :returns: :c:`char` as described if given valid enumerator, :c:`' '` otherwise.
+
 .. _lbl-libcc-ccpos-activationdescriptor:
 
 Activation descriptor
