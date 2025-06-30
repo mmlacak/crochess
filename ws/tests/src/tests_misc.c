@@ -254,9 +254,10 @@ bool tests_pos_desc_link( void ) {
 
 
 bool tests_misc( int test_number ) {
-    if ( ( test_number < 0 ) || ( 7 < test_number ) ) {
+    if ( ( test_number < TEST_ALL_MOVES ) || ( 7 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
-        return false; }
+        return false;
+    }
 
     bool do_all_tests = ( test_number == TEST_ALL_MOVES );
     bool result = true;

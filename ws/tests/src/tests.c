@@ -33,11 +33,12 @@
 #include "test_args.h"
 #include "tests_misc.h"
 #include "tests_parse.h"
+#include "tests_path.h"
 #include "tests_move.h"
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.238:1417+20250628.192153"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.239:1418+20250630.032938"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -331,6 +332,10 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
             tests_misc( test_number );
+        } else if ( cc_str_is_equal( token_start, token_end, "ta", NULL, BUFSIZ ) ||
+                    cc_str_is_equal( token_start, token_end, "test_path", NULL, BUFSIZ ) ) {
+            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            tests_path( test_number );
 #ifdef __WITH_LINE_NOISE__
         } else if ( cc_str_is_equal( token_start, token_end, "kc", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "key_codes", NULL, BUFSIZ ) ) {
