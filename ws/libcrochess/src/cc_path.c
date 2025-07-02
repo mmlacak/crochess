@@ -458,7 +458,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     char const * plnle_str = cc_path_link_node_linkage_to_string( path_link_node );
     cc_char_16 se_str = CC_CHAR_16_EMPTY;
 
-    if ( cc_side_effect_to_str( path_link_node->side_effect, &se_str ) )
+    if ( !cc_side_effect_to_str( path_link_node->side_effect, &se_str ) )
         return NULL;
 
     char * steps_str__a = cc_step_all_to_string__new( path_link_node->steps );
@@ -480,6 +480,13 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     if ( !pln_str__a ) {
         CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
+        return NULL;
+    }
+
+    if ( !cc_str_clear( pln_str__a, str_size ) ) { // TODO :: DEBUG :: not really needed
+        CC_FREE( tabs_str__a );
+        CC_FREE( steps_str__a );
+        CC_FREE( pln_str__a );
         return NULL;
     }
 

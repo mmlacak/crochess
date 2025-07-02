@@ -119,12 +119,12 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     path_ctx__io->ply_ctx.is_first_step = false;
 
     do {
-        if ( cc_activation_desc_calc_next_momentum( &act_desc, STEP_COUNT ) != CC_MBE_True )
-            break;
-
         pos = cc_pos_add_steps( pos, step.step, STEP_COUNT );
 
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
+            if ( cc_activation_desc_calc_next_momentum( &act_desc, STEP_COUNT ) != CC_MBE_True )
+                break;
+
             encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
 
             CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
