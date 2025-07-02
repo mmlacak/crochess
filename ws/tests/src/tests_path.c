@@ -109,7 +109,7 @@ bool test_bishop_simple( void ) {
     CcPosDesc move_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
     CcPosDesc ply_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
     CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_CaptureOrMovement );
-    char const * setup = "O Bc6";
+    char const * setup = "O Bd6";
 
     return test_path( se, move_from, ply_from, step, setup );
 }

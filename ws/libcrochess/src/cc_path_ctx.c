@@ -74,17 +74,25 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
     cc_uint_t board_size = cc_chessboard_get_size( path_ctx->game__w->chessboard );
     bool has_moves_played = (bool)(path_ctx->game__w->moves);
 
-    if ( do_check_move_ctx || has_moves_played ) {
-        if ( !CC_MOVE_CONTEXT_IS_LEGAL( path_ctx->move_ctx, board_size ) ) return CC_MBE_False;
+    if ( do_check_move_ctx ) {
+        if ( has_moves_played ) {
+            if ( !CC_MOVE_CONTEXT_IS_LEGAL( path_ctx->move_ctx, board_size ) )
+                return CC_MBE_False;
+        }
     }
 
     bool has_plies_played = ( !path_ctx->ply_ctx.is_first );
 
-    if ( do_check_ply_ctx || has_plies_played ) {
-        if ( !CC_PLY_CONTEXT_IS_LEGAL( path_ctx->ply_ctx, board_size ) ) return CC_MBE_False;
+    if ( do_check_ply_ctx ) {
+        if ( has_plies_played ) {
+            if ( !CC_PLY_CONTEXT_IS_LEGAL( path_ctx->ply_ctx, board_size ) )
+                return CC_MBE_False;
+        }
     }
 
-    if ( !has_moves_played && has_plies_played )
+    if ( do_check_move_ctx &&
+            do_check_ply_ctx &&
+            ( !has_moves_played && has_plies_played ) )
         return CC_MBE_False;
 
     return CC_MBE_True;
