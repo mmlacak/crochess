@@ -51,17 +51,17 @@ bool test_path( CcSideEffect side_effect,
         return false;
     }
 
-    if ( !cc_path_context_init_move( path_ctx__a, move_from ) ) {
+    if ( !cc_path_context_init( path_ctx__a, move_from, true ) ) {
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
         return false;
     }
 
-    if ( !cc_path_context_init_ply( path_ctx__a, ply_from ) ) {
-        cc_path_context_free_all( &path_ctx__a );
-        cc_game_free_all( &game__a );
-        return false;
-    }
+    // if ( !cc_path_context_init( path_ctx__a, ply_from, false ) ) { // Only for 2nd, 3rd, ... ply in a cascade
+    //     cc_path_context_free_all( &path_ctx__a );
+    //     cc_game_free_all( &game__a );
+    //     return false;
+    // }
 
     CcStep * steps__t = cc_step_next_no_side_effect__new( move_from.pos );
     if ( !steps__t ) {

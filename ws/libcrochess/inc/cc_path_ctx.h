@@ -93,11 +93,16 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
                                           bool do_check_move_ctx,
                                           bool do_check_ply_ctx );
 
-bool cc_path_context_init_move( CcPathContext * path_ctx__io,
-                                CcPosDesc move_init );
+// static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,
+//                                         CcPosDesc move_init );
 
-bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
-                               CcPosDesc ply_init );
+// static bool _cc_path_context_init_ply( CcPathContext * path_ctx__io,
+//                                        CcPosDesc ply_init );
+
+// TODO :: DOCS :: either init move or init ply; but not both!
+bool cc_path_context_init( CcPathContext * path_ctx__io,
+                           CcPosDesc init_pos,
+                           bool init_move_or_ply );
 
 
 #endif /* __CC_PATH_DEFS_H__ */

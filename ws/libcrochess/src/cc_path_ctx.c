@@ -13,9 +13,7 @@ CcPathContext * cc_path_context__new( CcGame * game ) {
     CcPathContext * px__a = malloc( sizeof( CcPathContext ) );
     if ( !px__a ) return NULL;
 
-    // No ownership transferred.
-    px__a->game__w = game;
-
+    px__a->game__w = game; // Weak pointer, no ownership transferred.
     // px__a->cb_old = NULL;
     px__a->cb_current = cc_chessboard_duplicate__new( game->chessboard );
 
@@ -80,7 +78,7 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
         if ( !CC_MOVE_CONTEXT_IS_LEGAL( path_ctx->move_ctx, board_size ) ) return CC_MBE_False;
     }
 
-    bool has_plies_played = (bool)(path_ctx->cb_current);
+    bool has_plies_played = ( !path_ctx->ply_ctx.is_first );
 
     if ( do_check_ply_ctx || has_plies_played ) {
         if ( !CC_PLY_CONTEXT_IS_LEGAL( path_ctx->ply_ctx, board_size ) ) return CC_MBE_False;
@@ -92,8 +90,8 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
     return CC_MBE_True;
 }
 
-bool cc_path_context_init_move( CcPathContext * path_ctx__io,
-                                CcPosDesc move_init ) {
+static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,
+                                        CcPosDesc move_init ) {
     if ( !CC_PIECE_IS_VALID( move_init.piece ) ) return false; // [1]
     if ( !cc_path_context_is_legal( path_ctx__io, false, false ) ) return false;
 
@@ -127,14 +125,14 @@ bool cc_path_context_init_move( CcPathContext * path_ctx__io,
     return true;
 }
 
-bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
-                               CcPosDesc ply_init ) {
+static bool _cc_path_context_init_ply( CcPathContext * path_ctx__io,
+                                       CcPosDesc ply_init ) {
     if ( !CC_PIECE_IS_VALID( ply_init.piece ) ) return false;
     if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false; // true --> even before the very 1st ply of a cascade, 1st move context has to be initialized.
 
     CcChessboard * cb = path_ctx__io->game__w->chessboard;
 
-    // <!> Do not remove; piece and its tag are not at declared position, at the start of a ply; see cc_path_context_init_move().
+    // <!> Do not remove; piece and its tag are not at declared position, at the start of a ply; see _cc_path_context_init_move().
     cc_uint_t board_size = cc_chessboard_get_size( cb );
     if ( !CC_POS_DESC_IS_LEGAL( ply_init, board_size ) ) return false;
 
@@ -143,28 +141,31 @@ bool cc_path_context_init_ply( CcPathContext * path_ctx__io,
         if ( !path_ctx__io->cb_current ) return false;
     }
 
-    // Move-initiating piece cannot return to its origin, so this comparison is always correct.
-    bool is_first = CC_POS_DESC_IS_EQUAL( path_ctx__io->move_ctx.initial, ply_init );
-
     CcPlyContext * _ctx = &(path_ctx__io->ply_ctx);
 
-    if ( !is_first ) {
-        if ( CC_PIECE_IS_ACTIVATOR( _ctx->initial.piece ) ) {
-            _ctx->activation.activator = _ctx->initial.piece;
-        }
+    if ( CC_PIECE_IS_ACTIVATOR( _ctx->initial.piece ) ) {
+        _ctx->activation.activator = _ctx->initial.piece;
     }
 
     _ctx->initial = ply_init;
     _ctx->starting = ply_init.pos;
 
-    // _ctx->activation = CC_ACTIVATION_DESC_CAST_INITIAL;
     if ( CC_PIECE_IS_WEIGHTLESS( ply_init.piece ) )
         _ctx->activation.usage = CC_MUE_NotUsing;
     else
-        _ctx->activation.usage = is_first ? CC_MUE_Accumulating : CC_MUE_Spending;
+        _ctx->activation.usage = CC_MUE_Spending;
 
-    _ctx->is_first = is_first;
+    _ctx->is_first = false;
     _ctx->is_first_step = true;
 
     return true;
+}
+
+bool cc_path_context_init( CcPathContext * path_ctx__io,
+                           CcPosDesc init_pos,
+                           bool init_move_or_ply ) {
+    if ( !path_ctx__io ) return false;
+
+    return init_move_or_ply ? _cc_path_context_init_move( path_ctx__io, init_pos )
+                            : _cc_path_context_init_ply( path_ctx__io, init_pos );
 }

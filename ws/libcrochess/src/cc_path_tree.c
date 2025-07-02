@@ -199,7 +199,7 @@ bool cc_path_tree_init__new( CcGame * game,
     *path_ctx__iod_a = cc_path_context__new( game ); // Game ownership has not been transferred here.
     if ( !*path_ctx__iod_a ) return false;
 
-    if ( !cc_path_context_init_move( *path_ctx__iod_a, moving_from ) ) {
+    if ( !cc_path_context_init( *path_ctx__iod_a, moving_from, true ) ) {
         cc_path_context_free_all( path_ctx__iod_a );
         return false;
     }
