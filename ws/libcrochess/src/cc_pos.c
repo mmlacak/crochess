@@ -545,7 +545,7 @@ char cc_momentum_usage_as_char( CcMomentumUsageEnum usage ) {
         case CC_MUE_Accumulating : return '+';
         case CC_MUE_Spending : return '-';
 
-        default : return ' '; // Enums are secretly ints.
+        default : return '?'; // Enums are secretly ints.
     }
 }
 

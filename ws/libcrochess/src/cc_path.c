@@ -537,7 +537,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     char piece_symbol = cc_piece_symbol( path_link_node->encounter );
     char tag_chr = cc_tag_as_char( path_link_node->encounter );
 
-    *pln_str++ = ' ';
+    *pln_str++ = '|';
     *pln_str++ = '@';
     *pln_str++ = piece_symbol;
     *pln_str++ = tag_chr;
@@ -553,8 +553,8 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
         return NULL;
     }
 
-    *pln_str++ = ' ';
-    *pln_str++ = '#';
+    *pln_str++ = '|';
+    // *pln_str++ = '#';
     *pln_str = '\0';
 
     char const * end_act_desc__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, act_desc_str, NULL, CC_SIZE_CHAR_32 );
