@@ -23,7 +23,7 @@ CcPathLink * cc_path_link__new( CcSideEffect side_effect,
 
     pl__t->side_effect = side_effect;
 
-    if ( steps__d_n ) {
+    if ( steps__d_n && *steps__d_n ) {
         pl__t->steps = *steps__d_n;
         *steps__d_n = NULL;
     } else

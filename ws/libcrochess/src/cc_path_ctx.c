@@ -127,8 +127,7 @@ static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,
     path_ctx__io->ply_ctx = (CcPlyContext){ .initial = move_init,
                                             .starting = move_init.pos,
                                             .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
-                                            .is_first = true,
-                                            .is_first_step = true };
+                                            .is_first = true };
 
     return true;
 }
@@ -164,7 +163,6 @@ static bool _cc_path_context_init_ply( CcPathContext * path_ctx__io,
         _ctx->activation.usage = CC_MUE_Spending;
 
     _ctx->is_first = false;
-    _ctx->is_first_step = true;
 
     return true;
 }

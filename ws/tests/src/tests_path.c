@@ -43,7 +43,7 @@ bool test_path( CcSideEffect side_effect,
 
     // TEMP :: DEBUG :: un/comment (?)
     cc_chessboard_print( game__a->chessboard, true );
-    cc_chessboard_print( game__a->chessboard, false );
+    // cc_chessboard_print( game__a->chessboard, false );
 
     CcPathContext * path_ctx__a = cc_path_context__new( game__a );
     if ( !path_ctx__a ) {
@@ -63,20 +63,12 @@ bool test_path( CcSideEffect side_effect,
     //     return false;
     // }
 
-    CcStep * steps__t = cc_step_next_no_side_effect__new( move_from.pos );
-    if ( !steps__t ) {
-        cc_path_context_free_all( &path_ctx__a );
-        cc_game_free_all( &game__a );
-        return false;
-    }
-
     bool result = true;
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
 
-    CcPathLink * pl__a = cc_path_link__new( se, &steps__t, ply_from.piece, ad );
+    CcPathLink * pl__a = cc_path_link__new( se, NULL, ply_from.piece, ad );
     if ( !pl__a ) {
-        cc_step_free_all( &steps__t );
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
     }
@@ -97,7 +89,6 @@ bool test_path( CcSideEffect side_effect,
     printf( "-----------------------------------------------------------------------\n" );
 
     cc_path_link_free_all( &pl__a );
-    cc_step_free_all( &steps__t );
     cc_path_context_free_all( &path_ctx__a );
     cc_game_free_all( &game__a );
 

@@ -94,6 +94,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
                                CcPathLink * pl__io ) {
     if ( !path_ctx__io ) return false;
     if ( !pl__io ) return false;
+    if ( pl__io->steps ) return false;
 
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
@@ -105,18 +106,14 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     CcPos pos = moving_from.pos;
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
 
-    CcStep * steps__t =
-        path_ctx__io->ply_ctx.is_first_step ? cc_step_initial_no_side_effect__new( pos )
-                                            : cc_step_next_no_side_effect__new( pos );
+    CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
     if ( !steps__t ) return false;
 
-    bool is_starting_pos = path_ctx__io->ply_ctx.is_first && path_ctx__io->ply_ctx.is_first_step;
+    bool is_starting_pos = path_ctx__io->ply_ctx.is_first; // TODO :: FIX // && path_ctx__io->ply_ctx.is_first_step;
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
     CcPieceTagType encounter = CC_PTE_None;
 
     #define STEP_COUNT 1
-
-    path_ctx__io->ply_ctx.is_first_step = false;
 
     do {
         pos = cc_pos_add_steps( pos, step.step, STEP_COUNT );
@@ -138,11 +135,8 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
             break;
     } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
 
-    CcPathLink * pl__w = cc_path_link_append( &pl__io, side_effect, &steps__t, encounter, act_desc );
-    if ( !pl__w ) {
-        cc_step_free_all( &steps__t );
-        return false;
-    }
+    pl__io->steps = steps__t; // <!> Ownership transferred; do not free steps__t.
+    // steps__t = NULL; // Do not use steps__t anymore. // Not needed yet.
 
     path_ctx__io->ply_ctx.activation = act_desc;
 
@@ -208,19 +202,12 @@ bool cc_path_tree_init__new( CcGame * game,
     //     e.g. if already activated (transitioning problem); for everything
     //     else chessboard should be correct.
 
-    CcStep * steps__t = cc_step_next_no_side_effect__new( moving_from.pos );
-    if ( !steps__t ) {
-        cc_path_context_free_all( path_ctx__iod_a );
-        return false;
-    }
-
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
 
-    *path_link__iod_a = cc_path_link__new( se, &steps__t, moving_from.piece, ad );
+    *path_link__iod_a = cc_path_link__new( se, NULL, moving_from.piece, ad );
     if ( !*path_link__iod_a ) {
         cc_path_context_free_all( path_ctx__iod_a );
-        cc_step_free_all( &steps__t );
         return false;
     }
 

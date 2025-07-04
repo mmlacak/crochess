@@ -50,14 +50,12 @@ typedef struct CcPlyContext {
     CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
     CcActivationDesc activation;
     bool is_first;
-    bool is_first_step;
 } CcPlyContext;
 
 #define CC_PLY_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,               \
                                  .starting = CC_POS_CAST_INVALID,                   \
                                  .activation = CC_ACTIVATION_DESC_CAST_SPENT,       \
-                                 .is_first = false,                                 \
-                                 .is_first_step = false }
+                                 .is_first = false }
 
 #define CC_PLY_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_PLY_CONTEXT_INVALID )
 
