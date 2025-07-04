@@ -138,6 +138,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     pl__io->steps = steps__t; // <!> Ownership transferred; do not free steps__t.
     // steps__t = NULL; // Do not use steps__t anymore. // Not needed yet.
 
+    pl__io->act_desc = act_desc;
     path_ctx__io->ply_ctx.activation = act_desc;
 
     // if ( !CC_PIECE_IS_NONE( encounter ) )

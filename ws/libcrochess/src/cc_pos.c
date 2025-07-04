@@ -541,9 +541,9 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
 
 char cc_momentum_usage_as_char( CcMomentumUsageEnum usage ) {
     switch ( usage ) {
-        case CC_MUE_NotUsing : return '+';
-        case CC_MUE_Accumulating : return '-';
-        case CC_MUE_Spending : return '=';
+        case CC_MUE_NotUsing : return '=';
+        case CC_MUE_Accumulating : return '+';
+        case CC_MUE_Spending : return '-';
 
         default : return ' '; // Enums are secretly ints.
     }
