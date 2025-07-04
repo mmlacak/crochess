@@ -643,7 +643,7 @@ Momentum
 
     :param usage: Flag, whether momentum is accumulated, spent, or unchanged
         while piece is moving; :c:enum:`CcMomentumUsageEnum` value.
-    :returns: :c:`char` as described if given valid enumerator, :c:`' '` otherwise.
+    :returns: :c:`char` as described if given valid enumerator, :c:`'?'` otherwise.
 
 .. _lbl-libcc-ccpos-activationdescriptor:
 
