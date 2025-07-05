@@ -26,7 +26,7 @@ typedef struct CcPathLink {
 
     CcPieceTagType encounter; /* Piece encountered at the very last field in the list above, and its tag. */
 
-    CcActivationDesc act_desc; /* Activation descriptor for a moving piece, its momentum usage and momentum it had after all performed steps. */
+    CcActivationDesc act_desc; /* <i> Non-cached, stored data of CcPlyContext->act_desc as move, its plies progresses. */ /* Activation descriptor for a moving piece, its momentum usage and momentum it had after all performed steps. */
 
     struct CcPathLink * fork;
     struct CcPathLink * alt;

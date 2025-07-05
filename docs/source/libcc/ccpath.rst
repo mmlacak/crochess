@@ -74,6 +74,9 @@ Linked path segments
         Activation descriptor for a moving piece; its activator, momentum usage
         and momentum it had after all performed steps.
 
+        This is non-cached, stored data of :c:member:`CcPlyContext.act_desc` as move,
+        its plies progresses.
+
     .. c:member:: struct CcPathLink * fork
 
         Link to forking paths.

@@ -48,7 +48,10 @@ typedef struct CcMoveContext {
 typedef struct CcPlyContext {
     CcPosDesc initial; // Initial position, piece (and its tag), at the start of a ply.
     CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
-    CcActivationDesc act_desc;
+
+    // TODO :: DOCS :: Cached, reference data to be stored in CcPathLink->act_desc while move, plies progresses.
+    CcActivationDesc act_desc; // <i> Cached, reference data to be stored in CcPathLink->act_desc while move, plies progresses.
+
     bool is_first;
 } CcPlyContext;
 
