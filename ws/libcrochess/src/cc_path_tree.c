@@ -87,7 +87,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 }
 
 
-bool cc_path_segment_one_step( CcSideEffect side_effect,
+bool cc_path_segment_one_step( CcSideEffect side_effect, // TODO :: FIX :: side_effect --> what for?
                                CcPosDesc moving_from,
                                CcTypedStep step,
                                CcPathContext * path_ctx__io,
@@ -95,6 +95,9 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     if ( !path_ctx__io ) return false;
     if ( !pl__io ) return false;
     if ( pl__io->steps ) return false;
+
+    if ( !CC_ACTIVATION_DESC_IS_EQUAL( path_ctx__io->ply_ctx.act_desc, pl__io->act_desc ) ) return false;
+    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, path_ctx__io->ply_ctx.is_first ) ) return false;
 
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
@@ -110,7 +113,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     if ( !steps__t ) return false;
 
     bool is_starting_pos = path_ctx__io->ply_ctx.is_first; // TODO :: FIX // && path_ctx__io->ply_ctx.is_first_step;
-    CcActivationDesc act_desc = path_ctx__io->ply_ctx.activation;
+    CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
     CcPieceTagType encounter = CC_PTE_None;
 
     #define STEP_COUNT 1
@@ -139,7 +142,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect,
     // steps__t = NULL; // Do not use steps__t anymore. // Not needed yet.
 
     pl__io->act_desc = act_desc;
-    path_ctx__io->ply_ctx.activation = act_desc;
+    path_ctx__io->ply_ctx.act_desc = act_desc;
 
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub

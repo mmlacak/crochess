@@ -126,7 +126,7 @@ static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,
 
     path_ctx__io->ply_ctx = (CcPlyContext){ .initial = move_init,
                                             .starting = move_init.pos,
-                                            .activation = CC_ACTIVATION_DESC_CAST_INITIAL,
+                                            .act_desc = CC_ACTIVATION_DESC_CAST_INITIAL,
                                             .is_first = true };
 
     return true;
@@ -151,16 +151,16 @@ static bool _cc_path_context_init_ply( CcPathContext * path_ctx__io,
     CcPlyContext * _ctx = &(path_ctx__io->ply_ctx);
 
     if ( CC_PIECE_IS_ACTIVATOR( _ctx->initial.piece ) ) {
-        _ctx->activation.activator = _ctx->initial.piece;
+        _ctx->act_desc.activator = _ctx->initial.piece;
     }
 
     _ctx->initial = ply_init;
     _ctx->starting = ply_init.pos;
 
     if ( CC_PIECE_IS_WEIGHTLESS( ply_init.piece ) )
-        _ctx->activation.usage = CC_MUE_NotUsing;
+        _ctx->act_desc.usage = CC_MUE_NotUsing;
     else
-        _ctx->activation.usage = CC_MUE_Spending;
+        _ctx->act_desc.usage = CC_MUE_Spending;
 
     _ctx->is_first = false;
 

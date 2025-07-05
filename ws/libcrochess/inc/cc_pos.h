@@ -200,6 +200,11 @@ typedef struct CcActivationDesc {
 
 #define CC_ACTIVATION_DESC_CAST_SPENT ( (CcActivationDesc)CC_ACTIVATION_DESC_SPENT )
 
+// TODO :: DOCS
+#define CC_ACTIVATION_DESC_IS_EQUAL(ad_1,ad_2) ( ( (ad_1).activator == (ad_2).activator ) && \
+                                                 ( (ad_1).momentum == (ad_2).momentum ) && \
+                                                 ( (ad_1).usage == (ad_2).usage ))
+
 CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply );
 
 CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count );

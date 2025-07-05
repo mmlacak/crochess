@@ -48,13 +48,13 @@ typedef struct CcMoveContext {
 typedef struct CcPlyContext {
     CcPosDesc initial; // Initial position, piece (and its tag), at the start of a ply.
     CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
-    CcActivationDesc activation;
+    CcActivationDesc act_desc;
     bool is_first;
 } CcPlyContext;
 
 #define CC_PLY_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,               \
                                  .starting = CC_POS_CAST_INVALID,                   \
-                                 .activation = CC_ACTIVATION_DESC_CAST_SPENT,       \
+                                 .act_desc = CC_ACTIVATION_DESC_CAST_SPENT,       \
                                  .is_first = false }
 
 #define CC_PLY_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_PLY_CONTEXT_INVALID )
@@ -62,12 +62,12 @@ typedef struct CcPlyContext {
 #define CC_PLY_CONTEXT_IS_VALID(ply_ctx)                                            \
     ( CC_POS_DESC_IS_VALID( (ply_ctx).initial ) &&                                  \
       CC_POS_IS_VALID( (ply_ctx).starting ) &&                                      \
-      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) )
+      cc_activation_desc_is_valid( (ply_ctx).act_desc, (ply_ctx).is_first ) )
 
 #define CC_PLY_CONTEXT_IS_LEGAL(ply_ctx,board_size)                                 \
     ( CC_POS_DESC_IS_LEGAL( (ply_ctx).initial, (board_size) ) &&                    \
       CC_POS_IS_LEGAL( (ply_ctx).starting, (board_size) ) &&                        \
-      cc_activation_desc_is_valid( (ply_ctx).activation, (ply_ctx).is_first ) )
+      cc_activation_desc_is_valid( (ply_ctx).act_desc, (ply_ctx).is_first ) )
 
 //
 // Path context.
