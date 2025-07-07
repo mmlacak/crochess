@@ -51,29 +51,18 @@ bool test_path( CcSideEffect side_effect,
         return false;
     }
 
-    if ( !cc_path_context_init( path_ctx__a, move_from, true ) ) {
+    bool is_first_ply = CC_POS_DESC_IS_EQUAL( move_from, ply_from );
+
+    if ( !cc_path_context_init( path_ctx__a, move_from, is_first_ply ) ) {
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
         return false;
     }
 
-    // if ( !cc_path_context_init( path_ctx__a, ply_from, false ) ) { // Only for 2nd, 3rd, ... ply in a cascade
-    //     cc_path_context_free_all( &path_ctx__a );
-    //     cc_game_free_all( &game__a );
-    //     return false;
-    // }
-
     bool result = true;
-    CcSideEffect se = cc_side_effect_none();
-    CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
+    CcPathLink * pl__a = cc_path_segment_one_step__new( side_effect, ply_from, step, path_ctx__a );
 
-    CcPathLink * pl__a = cc_path_link__new( se, NULL, ply_from.piece, ad );
-    if ( !pl__a ) {
-        cc_path_context_free_all( &path_ctx__a );
-        cc_game_free_all( &game__a );
-    }
-
-    if ( cc_path_segment_one_step( side_effect, ply_from, step, path_ctx__a, pl__a ) ) {
+    if ( pl__a ) {
         char * pl_str__a = cc_path_link_node_to_string__new( 0, pl__a );
         printf( "Path link '%s' test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );

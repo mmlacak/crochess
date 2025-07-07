@@ -87,32 +87,27 @@ bool cc_path_side_effect( CcChessboard * cb,
 }
 
 
-bool cc_path_segment_one_step( CcSideEffect side_effect, // TODO :: FIX :: side_effect --> what for?
-                               CcPosDesc moving_from,
-                               CcTypedStep step,
-                               CcPathContext * path_ctx__io,
-                               CcPathLink * pl__io ) {
-    if ( !path_ctx__io ) return false;
-    if ( !pl__io ) return false;
-    if ( pl__io->steps ) return false;
+CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
+                                            CcPosDesc moving_from,
+                                            CcTypedStep step,
+                                            CcPathContext * path_ctx__io ) {
+    if ( !path_ctx__io ) return NULL;
 
-    if ( !CC_ACTIVATION_DESC_IS_EQUAL( path_ctx__io->ply_ctx.act_desc, pl__io->act_desc ) ) return false;
-    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, path_ctx__io->ply_ctx.is_first ) ) return false;
-
-    if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
-    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
-    if ( cc_path_context_is_legal( path_ctx__io, true, true ) != CC_MBE_True ) return false;
+    if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return NULL;
+    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
+    if ( cc_path_context_is_legal( path_ctx__io, true, true ) != CC_MBE_True ) return NULL;
+    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, path_ctx__io->ply_ctx.is_first ) ) return NULL;
 
     cc_uint_t board_size = cc_variant_board_size( path_ctx__io->game__w->chessboard->type );
-    if ( !CC_POS_IS_LEGAL( moving_from.pos, board_size ) ) return false;
+    if ( !CC_POS_IS_LEGAL( moving_from.pos, board_size ) ) return NULL;
 
     CcPos pos = moving_from.pos;
-    if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return false;
+    if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) return NULL;
 
     CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
-    if ( !steps__t ) return false;
+    if ( !steps__t ) return NULL;
 
-    bool is_starting_pos = path_ctx__io->ply_ctx.is_first; // TODO :: FIX // && path_ctx__io->ply_ctx.is_first_step;
+    bool is_starting_pos = path_ctx__io->ply_ctx.is_first;
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
     CcPieceTagType encounter = CC_PTE_None;
 
@@ -130,7 +125,7 @@ bool cc_path_segment_one_step( CcSideEffect side_effect, // TODO :: FIX :: side_
             CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
             if ( !steps__w ) {
                 cc_step_free_all( &steps__t );
-                return false;
+                return NULL;
             }
 
             if ( encounter != CC_PTE_None ) break;
@@ -138,16 +133,18 @@ bool cc_path_segment_one_step( CcSideEffect side_effect, // TODO :: FIX :: side_
             break;
     } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
 
-    pl__io->steps = steps__t; // <!> Ownership transferred; do not free steps__t.
-    // steps__t = NULL; // Do not use steps__t anymore. // Not needed yet.
+    CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
+    if ( !pl__a ) {
+        cc_step_free_all( &steps__t );
+        return NULL;
+    }
 
-    pl__io->act_desc = act_desc;
     path_ctx__io->ply_ctx.act_desc = act_desc;
 
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub
 
-    return true;
+    return pl__a;
 }
 
 bool cc_path_tree( CcSideEffect side_effect,
