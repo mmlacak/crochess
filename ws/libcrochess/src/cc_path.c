@@ -534,7 +534,7 @@ char * cc_path_link_node_to_string__new( cc_uchar_t depth,
     pln_str = (char *)end_steps__w;
 
     // Encountered piece and its tag.
-    char piece_symbol = cc_piece_symbol( path_link_node->encounter );
+    char piece_symbol = cc_piece_as_char( path_link_node->encounter );
     char tag_chr = cc_tag_as_char( path_link_node->encounter );
 
     *pln_str++ = '|';

@@ -605,7 +605,7 @@ bool cc_activation_desc_as_string( CcActivationDesc act_desc,
                                    cc_char_32 * act_dest_str__o ) {
     if ( !act_dest_str__o ) return false;
 
-    char piece_symbol = cc_piece_symbol( act_desc.activator );
+    char piece_symbol = cc_piece_as_char( act_desc.activator );
     char tag_chr = cc_tag_as_char( act_desc.activator );
     char usage_chr = cc_momentum_usage_as_char( act_desc.usage );
 

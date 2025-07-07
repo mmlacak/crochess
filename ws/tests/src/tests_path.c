@@ -84,18 +84,18 @@ bool test_path( CcSideEffect side_effect,
     return result;
 }
 
-bool test_bishop_simple( void ) {
+bool test_bishop_simple( char const * setup ) {
     CcSideEffect se = cc_side_effect_none();
     CcPosDesc move_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
     CcPosDesc ply_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
     CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_CaptureOrMovement );
-    char const * setup = "O Bd6";
+    // char const * setup = "O Bd6";
 
     return test_path( se, move_from, ply_from, step, setup );
 }
 
 bool tests_path( int test_number ) {
-    if ( ( test_number < TEST_ALL_MOVES ) || ( 1 < test_number ) ) {
+    if ( ( test_number < TEST_ALL_MOVES ) || ( 3 < test_number ) ) {
         printf( "No such a path test: '%d'.\n", test_number );
         return false;
     }
@@ -104,7 +104,13 @@ bool tests_path( int test_number ) {
     bool result = true;
 
     if ( ( test_number == 1 ) || do_all_tests )
-        result = test_bishop_simple() && result;
+        result = test_bishop_simple( "O Bd6" ) && result; // Bd6.e5.f4.g3.h2.i1
+
+    if ( ( test_number == 2 ) || do_all_tests )
+        result = test_bishop_simple( "O Bd6,Ng3" ) && result;
+
+    if ( ( test_number == 3 ) || do_all_tests )
+        result = test_bishop_simple( "O Bd6,ng3" ) && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;

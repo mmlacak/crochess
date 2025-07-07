@@ -16,7 +16,7 @@ bool test_path( CcSideEffect side_effect,
                 CcTypedStep step,
                 char const * setup );
 
-bool test_bishop_simple( void );
+bool test_bishop_simple( char const * setup );
 
 bool tests_path( int test_number );
 
