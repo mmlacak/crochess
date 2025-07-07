@@ -97,6 +97,7 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
     if ( !path_ctx__io->cb_current ) return NULL;
 
     if ( path_ctx__io->game__w->chessboard->type != path_ctx__io->cb_current->type ) return NULL;
+    if ( !CC_VARIANT_IS_VALID( path_ctx__io->cb_current->type ) ) return NULL;
 
     cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
     if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return NULL;
