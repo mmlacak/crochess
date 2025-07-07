@@ -109,6 +109,7 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
 
     bool is_starting_pos = path_ctx__io->ply_ctx.is_first;
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
+    CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
 
     #define STEP_COUNT 1
@@ -117,20 +118,23 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
         pos = cc_pos_add_steps( pos, step.step, STEP_COUNT );
 
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
-            if ( cc_activation_desc_calc_next_momentum( &act_desc, STEP_COUNT ) != CC_MBE_True )
+            if ( cc_activation_desc_calc_next_momentum( &ad, STEP_COUNT ) != CC_MBE_True )
                 break;
 
             encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );
 
-            CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
-            if ( !steps__w ) {
-                cc_step_free_all( &steps__t );
-                return NULL;
-            }
-
-            if ( encounter != CC_PTE_None ) break;
+            if ( encounter == CC_PTE_None ) {
+                CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
+                if ( !steps__w ) {
+                    cc_step_free_all( &steps__t );
+                    return NULL;
+                }
+            } else
+                break; // TODO :: add side-effects here
         } else
             break;
+
+        act_desc = ad;
     } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
 
     CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
