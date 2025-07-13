@@ -441,6 +441,9 @@ bool cc_iter_typed_steps( CcTypedStep const steps[],
 
     bool check_len = ( steps_len__d != CC_STEPS_LEN_GUARD_DATA_TERMINATED );
 
+    if ( check_len && *step__iod )
+        if ( steps + steps_len__d < *step__iod ) return false;
+
     if ( !*step__iod ) {
         *step__iod = steps;
     } else {
