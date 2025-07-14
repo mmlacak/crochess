@@ -53,6 +53,63 @@ Serpent diagonals enum
     :param ste: Serpent diagonal, :c:type:`CcSerpentDiagonalEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
+.. _lbl-libcc-cctypedstep-journeytypesenum:
+
+Journey types enum
+------------------
+
+.. c:enum:: CcJourneyTypeEnum
+
+    Journey type enumeration, both for trance- and sense-journey.
+
+    .. c:enumerator:: CC_JTE_None
+
+        No journey.
+
+    .. c:enumerator:: CC_JTE_Displacement
+
+        Displacement trance-journey.
+
+    .. c:enumerator:: CC_JTE_Capture
+
+        Capturing trance-journey.
+
+    .. c:enumerator:: CC_JTE_DoubleCapture
+
+        Double capturing trance-journey.
+
+    .. c:enumerator:: CC_JTE_Viewing
+
+        Sense-journey.
+
+    :c:`enum` is tagged with the same :c:enum:`CcJourneyTypeEnum` name.
+
+.. c:macro:: CC_JOURNEY_TYPE_IS_ENUMERATOR(jte)
+
+    Macro to check if given journey type is enumeration in :c:enum:`CcJourneyTypeEnum`,
+    i.e. between :c:enumerator:`CC_JTE_None` and :c:enumerator:`CC_JTE_Viewing` values.
+
+    :param jte: A journey type enumeration, integer value.
+    :returns: :c:data:`true` if :c:type:`CcJourneyTypeEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_JOURNEY_TYPE_IS_VALID(jte)
+
+    Macro to check if given trance-journey type is :c:enum:`CcJourneyTypeEnum` enumerator,
+    but not :c:enumerator:`CC_JTE_None`.
+
+    :param jte: A journey type enumeration, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcJourneyTypeEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_JOURNEY_TYPE_IS_ANY_CAPTURE(jte)
+
+    Macro to check if given trance-journey is a capturing one, or a double trance-journey.
+
+    :param jte: A journey type enumeration, integer value.
+    :returns: :c:data:`true` if trance-journey is capturing,
+              :c:data:`false` otherwise.
+
 .. _lbl-libcc-cctypedstep-steptypeenum:
 
 Step type enum

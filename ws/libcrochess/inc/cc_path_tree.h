@@ -15,8 +15,6 @@
 #include "cc_path_ctx.h"
 #include "cc_path.h"
 
-#include "cc_rules_defs.h"
-
 
 // todo :: DOCS
 
@@ -24,7 +22,7 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,
                           CcActivationDesc act_desc,
                           CcPosDesc encounter,
-                          CcTranceJourneyTypeEnum trance_journey_type,
+                          CcJourneyTypeEnum trance_journey_type,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a );
 

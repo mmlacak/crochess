@@ -28,6 +28,24 @@ typedef enum CcSerpentDiagonalEnum {
 #define CC_SERPENT_DIAGONAL_IS_VALID(sde) CC_SERPENT_DIAGONAL_IS_ENUMERATOR(sde)
 
 //
+// Journey types
+
+typedef enum CcJourneyTypeEnum {
+    CC_JTE_None,
+    CC_JTE_Displacement, // trance-journey, light Shaman
+    CC_JTE_Capture, // trance-journey, dark Shaman
+    CC_JTE_DoubleCapture, // trance-journey, two dark Shamans
+    CC_JTE_Viewing, // sense-journey
+} CcJourneyTypeEnum;
+
+#define CC_JOURNEY_TYPE_IS_ENUMERATOR(jte) ( ( CC_JTE_None <= (jte) ) && ( (jte) <= CC_JTE_Viewing ) )
+
+#define CC_JOURNEY_TYPE_IS_VALID(jte) ( ( CC_JTE_None < (jte) ) && ( (jte) <= CC_JTE_Viewing ) )
+
+#define CC_JOURNEY_TYPE_IS_ANY_CAPTURE(jte) ( ( (jte) == CC_JTE_Capture ) \
+                                           || ( (jte) == CC_JTE_DoubleCapture ) )
+
+//
 // Typed step
 
 typedef enum CcStepTypeEnum {

@@ -72,6 +72,7 @@ Library contents
     cctypedstepdefs
     ccpath
 
+    ccgame
     ccmove
     ccply
     ccstep
@@ -83,9 +84,6 @@ Library contents
     ccparseply
     ccparsestep
     ccparsesideeffect
-
-    ccgame
-    ccrulesdefs
 
     ccstrutils
     ccstrings
