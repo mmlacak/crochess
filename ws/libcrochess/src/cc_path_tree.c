@@ -14,7 +14,7 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving_from,
                           CcActivationDesc act_desc,
                           CcPosDesc encounter,
-                          CcJourneyTypeEnum trance_journey_type,
+                          CcJourneyTypeEnum journey_type,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a ) {
     if ( !cb ) return false;
@@ -31,7 +31,7 @@ bool cc_path_side_effect( CcChessboard * cb,
     if ( CC_PIECE_CAN_CAPTURE( moving_from.piece ) &&
             CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
             ( cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ||
-              CC_JOURNEY_TYPE_IS_ANY_CAPTURE( trance_journey_type ) ) ) {
+              CC_JOURNEY_TYPE_IS_ANY_CAPTURE( journey_type ) ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
         CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
         if ( !se__w ) {
@@ -42,7 +42,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 
     if ( !cc_chessboard_is_pos_on_board( cb, displacement.i, displacement.j ) ) return false;
 
-    if ( trance_journey_type == CC_JTE_Displacement ) {
+    if ( journey_type == CC_JTE_Displacement ) {
         if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
@@ -56,7 +56,7 @@ bool cc_path_side_effect( CcChessboard * cb,
                 return false;
             }
         }
-    } else if ( trance_journey_type == CC_JTE_None ) {
+    } else if ( journey_type == CC_JTE_None ) {
         if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
                 CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
             CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );

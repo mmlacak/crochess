@@ -22,7 +22,7 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc moving,
                           CcActivationDesc act_desc,
                           CcPosDesc encounter,
-                          CcJourneyTypeEnum trance_journey_type,
+                          CcJourneyTypeEnum journey_type,
                           CcPos displacement,
                           CcSideEffectLink ** side_effect_link__o_a );
 
