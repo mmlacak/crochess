@@ -19,8 +19,8 @@
 
 typedef enum CcSerpentDiagonalEnum {
     CC_SDE_BothDiagonals = 0,
-    CC_SDE_LeftDiagonal,
-    CC_SDE_RightDiagonal,
+    CC_SDE_LeftDiagonal, // left == \ (upper-left <--> lower-right)
+    CC_SDE_RightDiagonal, // right == / (upper-right <--> lower-left)
 } CcSerpentDiagonalEnum;
 
 #define CC_SERPENT_DIAGONAL_IS_ENUMERATOR(sde) ( ( CC_SDE_BothDiagonals <= (sde) ) && ( (sde) <= CC_SDE_RightDiagonal ) )

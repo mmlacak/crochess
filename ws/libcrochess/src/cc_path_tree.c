@@ -16,7 +16,7 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc encounter,
                           CcJourneyTypeEnum journey_type,
                           CcPos displacement,
-                          CcSideEffectLink ** side_effect_link__o_a ) {
+                          CcPathSideEffectLink ** side_effect_link__o_a ) {
     if ( !cb ) return false;
 
     if ( !side_effect_link__o_a ) return false;
@@ -33,7 +33,7 @@ bool cc_path_side_effect( CcChessboard * cb,
             ( cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ||
               CC_JOURNEY_TYPE_IS_ANY_CAPTURE( journey_type ) ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
-        CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
+        CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
         if ( !se__w ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
@@ -50,7 +50,7 @@ bool cc_path_side_effect( CcChessboard * cb,
 
         if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
             CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-            CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
+            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
                 return false;
@@ -60,7 +60,7 @@ bool cc_path_side_effect( CcChessboard * cb,
         if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
                 CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
             CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-            CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
+            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
                 return false;
@@ -74,7 +74,7 @@ bool cc_path_side_effect( CcChessboard * cb,
         CcMaybeBoolEnum result = cc_find_en_passant_target( cb, moving_from.piece, act_desc, encounter.pos, &en_passant );
         if ( result == CC_MBE_True ) {
             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
-            CcSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, se );
+            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
                 return false;

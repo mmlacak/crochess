@@ -609,3 +609,113 @@ char const * cc_path_link_node_linkage_to_string( CcPathLink * path_link_node ) 
     CcPathLinkNodeLinkageEnum plnle = cc_path_link_node_linkage( path_link_node );
     return cc_path_link_node_linkage_as_string( plnle );
 }
+
+
+//
+// Linked side-effects.
+
+CcPathSideEffectLink * cc_side_effect_link__new( CcPathLinkNodeLinkageEnum link,
+                                                 CcSideEffect side_effect ) {
+    CcPathSideEffectLink * se__t = malloc( sizeof( CcPathSideEffectLink ) );
+    if ( !se__t ) return NULL;
+
+    se__t->link = link;
+    se__t->side_effect = side_effect;
+    se__t->next = NULL;
+
+    return se__t;
+}
+
+CcPathSideEffectLink * cc_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a,
+                                                   CcPathLinkNodeLinkageEnum link,
+                                                   CcSideEffect se ) {
+    if ( !side_effect_link__iod_a ) return NULL;
+
+    CcPathSideEffectLink * se__t = cc_side_effect_link__new( link, se );
+    if ( !se__t ) return NULL;
+
+    if ( !*side_effect_link__iod_a ) {
+        *side_effect_link__iod_a = se__t; // Ownership transfer.
+    } else {
+        CcPathSideEffectLink * se = *side_effect_link__iod_a;
+        CC_FASTFORWARD( se );
+        se->next = se__t; // Append + ownership transfer.
+    }
+
+    return se__t; // Weak pointer.
+}
+
+CcPathSideEffectLink * cc_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link ) {
+    if ( !side_effect_link ) return NULL;
+
+    CcPathSideEffectLink * side_effect_link__a = NULL;
+    CcPathSideEffectLink * from = side_effect_link;
+
+    while ( from ) {
+        CcPathSideEffectLink * se__w = cc_side_effect_link_append( &side_effect_link__a, from->link, from->side_effect );
+        if ( !se__w ) { // Failed append --> ownership not transferred ...
+            cc_side_effect_link_free_all( &side_effect_link__a );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return side_effect_link__a;
+}
+
+CcPathSideEffectLink * cc_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a,
+                                                   CcPathSideEffectLink ** side_effect_link__n ) {
+    if ( !side_effect_link__iod_a ) return NULL;
+    if ( !side_effect_link__n ) return NULL;
+
+    if ( !*side_effect_link__n ) return *side_effect_link__iod_a;
+
+    if ( !*side_effect_link__iod_a ) {
+        // Ownership transfer.
+        *side_effect_link__iod_a = *side_effect_link__n;
+        *side_effect_link__n = NULL;
+
+        return *side_effect_link__iod_a;
+    }
+
+    CcPathSideEffectLink * last = *side_effect_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *side_effect_link__n;
+    *side_effect_link__n = NULL;
+
+    return last->next;
+}
+
+bool cc_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f ) {
+    if ( !side_effect_link__f ) return false;
+    if ( !*side_effect_link__f ) return true;
+
+    CcPathSideEffectLink * se = *side_effect_link__f;
+    CcPathSideEffectLink * tmp = NULL;
+
+    while ( se ) {
+        tmp = se->next;
+        CC_FREE( se );
+        se = tmp;
+    }
+
+    *side_effect_link__f = NULL;
+    return true;
+}
+
+size_t cc_side_effect_link_len( CcPathSideEffectLink * side_effect_link ) {
+    if ( !side_effect_link ) return 0;
+
+    size_t len = 0;
+    CcPathSideEffectLink * se = side_effect_link;
+
+    while ( se ) {
+        ++len;
+        se = se->next;
+    }
+
+    return len;
+}

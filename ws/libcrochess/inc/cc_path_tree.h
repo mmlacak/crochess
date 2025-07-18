@@ -24,7 +24,7 @@ bool cc_path_side_effect( CcChessboard * cb,
                           CcPosDesc encounter,
                           CcJourneyTypeEnum journey_type,
                           CcPos displacement,
-                          CcSideEffectLink ** side_effect_link__o_a );
+                          CcPathSideEffectLink ** side_effect_link__o_a );
 
 CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
                                             CcPosDesc moving_from,

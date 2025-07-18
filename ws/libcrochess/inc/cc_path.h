@@ -105,5 +105,32 @@ CcPathLinkNodeLinkageEnum cc_path_link_node_linkage( CcPathLink * path_link_node
 
 char const * cc_path_link_node_linkage_to_string( CcPathLink * path_link_node );
 
+//
+// Linked side-effects.
+
+typedef struct CcPathSideEffectLink {
+    CcPathLinkNodeLinkageEnum link;
+    CcSideEffect side_effect;
+    struct CcPathSideEffectLink * next;
+} CcPathSideEffectLink;
+
+CcPathSideEffectLink * cc_side_effect_link__new( CcPathLinkNodeLinkageEnum link,
+                                                 CcSideEffect side_effect );
+
+CcPathSideEffectLink * cc_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a,
+                                                   CcPathLinkNodeLinkageEnum link,
+                                                   CcSideEffect side_effect );
+
+CcPathSideEffectLink * cc_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link );
+
+CcPathSideEffectLink * cc_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a,
+                                                   CcPathSideEffectLink ** side_effect_link__n );
+
+bool cc_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f );
+
+size_t cc_side_effect_link_len( CcPathSideEffectLink * side_effect_link );
+
+// char * cc_side_effect_link_to_string__new( CcPathSideEffectLink * side_effect_link );
+
 
 #endif /* __CC_PATH_H__ */

@@ -437,6 +437,92 @@ Backtracking is also similar for substitute paths, except check for parent node 
 :c:expr:`current->back__w->sub == current`. Once found, side-effect of the last step
 in starting node is overridden by a side-effect from a node in a substitute list.
 
+.. _lbl-libcc-ccpath-linkedpathsideeffects:
+
+Linked path side-effects
+------------------------
+
+.. c:struct:: CcPathSideEffectLink
+
+    Linked side-effects :c:`struct`\ure, linked list.
+
+    .. c:member:: CcPathLinkNodeLinkageEnum link
+
+        Type of path linkage.
+
+    .. c:member:: CcSideEffect side_effect
+
+        A side-effects.
+
+    .. c:member:: struct CcPathSideEffectLink * next
+
+        Next side-effect in a linked list.
+
+    :c:`struct` is tagged with the same :c:struct:`CcPathSideEffectLink` name.
+
+.. c:function:: CcPathSideEffectLink * cc_side_effect_link__new( CcPathLinkNodeLinkageEnum link, CcSideEffect side_effect )
+
+    Returns a newly allocated side-effect link.
+
+    :param link: Type of path linkage.
+    :param side_effect: A side-effect.
+    :returns: A newly allocated side-effect link if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathSideEffectLink * cc_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a, CcPathLinkNodeLinkageEnum link, CcSideEffect side_effect )
+
+    Appends a newly allocated side-effect link to a given linked list.
+
+    If linked list :c:`*side_effect_link__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated side-effect link as its only element.
+
+    :param side_effect_link__iod_a: **Ownership**, *optional* *input/output* parameter;
+        linked list of side-effects to which a new side-effect is appended, inner pointer
+        can be :c:data:`NULL`.
+    :param link: Type of path linkage.
+    :param side_effect: A side-effect.
+    :returns: A weak pointer to newly allocated side-effect link if successful,
+        :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathSideEffectLink * cc_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link )
+
+    Duplicates all given side-effects into a newly allocated linked list.
+
+    :param side_effect_link: Linked list to duplicate.
+    :returns: A newly allocated linked list if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathSideEffectLink * cc_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a, CcPathSideEffectLink ** side_effect_link__n )
+
+    Extends given linked list of side-effects with another.
+
+    If linked list to extend (:c:`side_effect_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`side_effect_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`side_effect_link__n` has its ownership transferred to
+        extended linked list :c:`side_effect_link__iod_a`; as a result, inner pointer
+        :c:`*side_effect_link__n` is :c:data:`NULL`\ed.
+
+    :param side_effect_link__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
+    :param side_effect_link__n: **Ownership transfer**, *optional*; linked list to extend existing side-effects.
+    :returns: Weak pointer to extended portion of a linked list if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f )
+
+    Frees all side-effects in a linked list.
+
+    :param side_effect_link__f: Linked list of side-effects.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: size_t cc_side_effect_link_len( CcPathSideEffectLink * side_effect_link )
+
+    Function returning length of linked list of side-effects.
+
+    :param side_effect_link: Linked list of side-effects.
+    :returns: Length if successful, ``0`` otherwise.
+
 .. _lbl-libcc-ccpath-sourcecodeheader:
 
 Header file
