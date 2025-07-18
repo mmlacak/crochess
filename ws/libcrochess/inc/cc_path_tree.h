@@ -18,12 +18,9 @@
 
 // todo :: DOCS
 
-bool cc_path_side_effect( CcChessboard * cb,
-                          CcPosDesc moving,
-                          CcActivationDesc act_desc,
+bool cc_path_side_effect( CcPosDesc moving_from,
                           CcPosDesc encounter,
-                          CcJourneyTypeEnum journey_type,
-                          CcPos displacement,
+                          CcPathContext * path_ctx,
                           CcPathSideEffectLink ** side_effect_link__o_a );
 
 CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,

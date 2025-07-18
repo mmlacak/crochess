@@ -57,7 +57,7 @@ typedef struct CcPlyContext {
 
 #define CC_PLY_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,               \
                                  .starting = CC_POS_CAST_INVALID,                   \
-                                 .act_desc = CC_ACTIVATION_DESC_CAST_SPENT,       \
+                                 .act_desc = CC_ACTIVATION_DESC_CAST_SPENT,         \
                                  .is_first = false }
 
 #define CC_PLY_CONTEXT_CAST_INVALID ( (CcPlyContext)CC_PLY_CONTEXT_INVALID )

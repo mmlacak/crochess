@@ -10,17 +10,20 @@
 #include "cc_path_tree.h"
 
 
-bool cc_path_side_effect( CcChessboard * cb,
-                          CcPosDesc moving_from,
-                          CcActivationDesc act_desc,
+bool cc_path_side_effect( CcPosDesc moving_from,
                           CcPosDesc encounter,
-                          CcJourneyTypeEnum journey_type,
-                          CcPos displacement,
+                          CcPathContext * path_ctx,
                           CcPathSideEffectLink ** side_effect_link__o_a ) {
-    if ( !cb ) return false;
+    if ( !path_ctx ) return false;
 
     if ( !side_effect_link__o_a ) return false;
     if ( *side_effect_link__o_a ) return false;
+
+    CcChessboard * cb = path_ctx->cb_current;
+    if ( !cb ) return false;
+
+    CcActivationDesc act_desc = path_ctx->ply_ctx.act_desc;
+    CcJourneyTypeEnum journey_type; // TODO :: FIX
 
     if ( !CC_PIECE_IS_VALID( moving_from.piece ) ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false;
@@ -30,27 +33,28 @@ bool cc_path_side_effect( CcChessboard * cb,
 
     if ( CC_PIECE_CAN_CAPTURE( moving_from.piece ) &&
             CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
-            ( cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ||
-              CC_JOURNEY_TYPE_IS_ANY_CAPTURE( journey_type ) ) ) {
+            cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
-        CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
+        CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
         if ( !se__w ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
         }
     }
 
-    if ( !cc_chessboard_is_pos_on_board( cb, displacement.i, displacement.j ) ) return false;
-
-    if ( journey_type == CC_JTE_Displacement ) {
+    if ( CC_JOURNEY_TYPE_IS_ANY_CAPTURE( journey_type ) ) {
+        // TODO
+    } else if ( journey_type == CC_JTE_Displacement ) {
         if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
         }
 
+        CcPos displacement; // TODO :: FIX
+
         if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
             CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
+            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
                 return false;
@@ -59,8 +63,10 @@ bool cc_path_side_effect( CcChessboard * cb,
     } else if ( journey_type == CC_JTE_None ) {
         if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
                 CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
+            CcPos displacement; // TODO :: FIX
+
             CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
+            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
                 return false;
@@ -74,7 +80,7 @@ bool cc_path_side_effect( CcChessboard * cb,
         CcMaybeBoolEnum result = cc_find_en_passant_target( cb, moving_from.piece, act_desc, encounter.pos, &en_passant );
         if ( result == CC_MBE_True ) {
             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
-            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX
+            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
             if ( !se__w ) {
                 cc_side_effect_link_free_all( side_effect_link__o_a );
                 return false;
