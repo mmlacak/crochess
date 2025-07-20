@@ -53,61 +53,92 @@ Serpent diagonals enum
     :param ste: Serpent diagonal, :c:type:`CcSerpentDiagonalEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
-.. _lbl-libcc-cctypedstep-journeytypesenum:
+.. _lbl-libcc-cctypedstep-multistageplytypesenum:
 
-Journey types enum
-------------------
+Multi-stage ply type enum
+-------------------------
 
 .. c:enum:: CcMultiStagePlyTypeEnum
 
-    Journey type enumeration, both for trance- and sense-journey.
+    Multi-stage ply type enumeration, used for Pawn-sacrifice, trance- and sense-journey.
 
     .. c:enumerator:: CC_MSPTE_None
 
-        No journey.
+        No multi-stage ply.
+
+    .. c:enumerator:: CC_MSPTE_Entranced
+
+        Trance-journey stage, second Shaman has been entranced.
 
     .. c:enumerator:: CC_MSPTE_Displacing
 
-        Displacement trance-journey.
+        Trance-journey stage, entranced Shaman is displacing pieces.
 
     .. c:enumerator:: CC_MSPTE_Capturing
 
-        Capturing trance-journey.
+        Trance-journey stage, entranced Shaman is capturing pieces.
 
     .. c:enumerator:: CC_MSPTE_DoubleCapturing
 
-        Double capturing trance-journey.
+        Trance-journey stage, dark entranced dark Shaman is capturing all pieces in its paths.
+
+    .. c:enumerator:: CC_MSPTE_Initiated
+
+        Sense-journey stage, Starchild has been initated.
 
     .. c:enumerator:: CC_MSPTE_Viewing
 
-        Sense-journey.
+        Sense-journey stage, piece activated by initiated Starchild goes sight-seeing.
+
+    .. c:enumerator:: CC_MSPTE_RitualStarted
+
+        Pawn-sacrifice stage, Serpent activated a Pyramid.
+
+    .. c:enumerator:: CC_MSPTE_Sacrificed
+
+        Pawn-sacrifice stage, own Pawn has been sacrificed.
+
+    .. c:enumerator:: CC_MSPTE_CapturingPawns
+
+        Pawn-sacrifice stage, Serpent is now capturing opponent's Pawns.
 
     :c:`enum` is tagged with the same :c:enum:`CcMultiStagePlyTypeEnum` name.
 
-.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(jte)
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(mspte)
 
-    Macro to check if given journey type is enumeration in :c:enum:`CcMultiStagePlyTypeEnum`,
-    i.e. between :c:enumerator:`CC_MSPTE_None` and :c:enumerator:`CC_MSPTE_Viewing` values.
+    Macro to check if given multi-stage type is enumeration in :c:enum:`CcMultiStagePlyTypeEnum`,
+    i.e. between :c:enumerator:`CC_MSPTE_None` and :c:enumerator:`CC_MSPTE_CapturingPawns` values.
 
-    :param jte: A journey type enumeration, integer value.
+    :param mspte: A journey type enumeration, integer value.
     :returns: :c:data:`true` if :c:type:`CcMultiStagePlyTypeEnum` enumerator,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_VALID(jte)
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_VALID(mspte)
 
-    Macro to check if given trance-journey type is :c:enum:`CcMultiStagePlyTypeEnum` enumerator,
+    Macro to check if given multi-stage type is :c:enum:`CcMultiStagePlyTypeEnum` enumerator,
     but not :c:enumerator:`CC_MSPTE_None`.
 
-    :param jte: A journey type enumeration, integer value.
+    :param mspte: A multi-stage type enumeration, integer value.
     :returns: :c:data:`true` if valid :c:type:`CcMultiStagePlyTypeEnum` enumerator,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(jte)
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_JOURNEY(mspte)
 
-    Macro to check if given trance-journey is a capturing one, or a double trance-journey.
+    Macro to check if given multi-stage type is either displacing or capturing trance-journey.
 
-    :param jte: A journey type enumeration, integer value.
-    :returns: :c:data:`true` if trance-journey is capturing,
+    Preparation stage (entrancing second Shaman) is not included.
+
+    :param mspte: A multi-stage type enumeration, integer value.
+    :returns: :c:data:`true` if a trance-journey,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(mspte)
+
+    Macro to check if given multi-stage type is a capturing trance-journey,
+    or a double trance-journey.
+
+    :param mspte: A multi-stage type enumeration, integer value.
+    :returns: :c:data:`true` if capturing trance-journey,
               :c:data:`false` otherwise.
 
 .. _lbl-libcc-cctypedstep-steptypeenum:

@@ -28,7 +28,7 @@ typedef enum CcSerpentDiagonalEnum {
 #define CC_SERPENT_DIAGONAL_IS_VALID(sde) CC_SERPENT_DIAGONAL_IS_ENUMERATOR(sde)
 
 //
-// Journey types // TODO :: DOCS
+// Journey types
 
 typedef enum CcMultiStagePlyTypeEnum {
     CC_MSPTE_None,
@@ -44,21 +44,21 @@ typedef enum CcMultiStagePlyTypeEnum {
     CC_MSPTE_Viewing, // a piece goes sight-seeing
 
     // Pawn-sacrifice
-    CC_MSPTE_RitualStarted, // a Pyramid is activated
+    CC_MSPTE_RitualStarted, // Serpent activated a Pyramid is activated
     CC_MSPTE_Sacrificed, // a Pawn was sacrificed
     CC_MSPTE_CapturingPawns, // Serpent can capture (a few) opponent's Pawns
 } CcMultiStagePlyTypeEnum;
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(jte) ( ( CC_MSPTE_None <= (jte) ) && ( (jte) <= CC_MSPTE_Viewing ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(mspte) ( ( CC_MSPTE_None <= (mspte) ) && ( (mspte) <= CC_MSPTE_CapturingPawns ) )
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_VALID(jte) ( ( CC_MSPTE_None < (jte) ) && ( (jte) <= CC_MSPTE_Viewing ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_VALID(mspte) ( ( CC_MSPTE_None < (mspte) ) && ( (mspte) <= CC_MSPTE_CapturingPawns ) )
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_JOURNEY(jte) ( ( (jte) == CC_MSPTE_Displacing ) \
-                                                      || ( (jte) == CC_MSPTE_Capturing ) \
-                                                      || ( (jte) == CC_MSPTE_DoubleCapturing ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_JOURNEY(mspte) ( ( (mspte) == CC_MSPTE_Displacing )           \
+                                                        || ( (mspte) == CC_MSPTE_Capturing )            \
+                                                        || ( (mspte) == CC_MSPTE_DoubleCapturing ) )
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(jte) ( ( (jte) == CC_MSPTE_Capturing ) \
-                                                      || ( (jte) == CC_MSPTE_DoubleCapturing ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(mspte) ( ( (mspte) == CC_MSPTE_Capturing )            \
+                                                      || ( (mspte) == CC_MSPTE_DoubleCapturing ) )
 
 //
 // Typed step
