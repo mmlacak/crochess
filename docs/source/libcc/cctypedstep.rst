@@ -66,39 +66,39 @@ Multi-stage ply type enum
 
         No multi-stage ply.
 
-    .. c:enumerator:: CC_MSPTE_Entranced
+    .. c:enumerator:: CC_MSPTE_TJ_Entranced
 
         Trance-journey stage, second Shaman has been entranced.
 
-    .. c:enumerator:: CC_MSPTE_Displacing
+    .. c:enumerator:: CC_MSPTE_TJ_Displacing
 
         Trance-journey stage, entranced Shaman is displacing pieces.
 
-    .. c:enumerator:: CC_MSPTE_Capturing
+    .. c:enumerator:: CC_MSPTE_TJ_Capturing
 
         Trance-journey stage, entranced Shaman is capturing pieces.
 
-    .. c:enumerator:: CC_MSPTE_DoubleCapturing
+    .. c:enumerator:: CC_MSPTE_TJ_DoubleCapturing
 
         Trance-journey stage, dark entranced dark Shaman is capturing all pieces in its paths.
 
-    .. c:enumerator:: CC_MSPTE_Initiated
+    .. c:enumerator:: CC_MSPTE_SJ_Initiated
 
         Sense-journey stage, Starchild has been initated.
 
-    .. c:enumerator:: CC_MSPTE_Viewing
+    .. c:enumerator:: CC_MSPTE_SJ_Viewing
 
         Sense-journey stage, piece activated by initiated Starchild goes sight-seeing.
 
-    .. c:enumerator:: CC_MSPTE_RitualStarted
+    .. c:enumerator:: CC_MSPTE_PS_RitualStarted
 
         Pawn-sacrifice stage, Serpent activated a Pyramid.
 
-    .. c:enumerator:: CC_MSPTE_Sacrificed
+    .. c:enumerator:: CC_MSPTE_PS_Sacrificed
 
         Pawn-sacrifice stage, own Pawn has been sacrificed.
 
-    .. c:enumerator:: CC_MSPTE_CapturingPawns
+    .. c:enumerator:: CC_MSPTE_PS_CapturingPawns
 
         Pawn-sacrifice stage, Serpent is now capturing opponent's Pawns.
 
@@ -107,7 +107,7 @@ Multi-stage ply type enum
 .. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(mspte)
 
     Macro to check if given multi-stage type is enumeration in :c:enum:`CcMultiStagePlyTypeEnum`,
-    i.e. between :c:enumerator:`CC_MSPTE_None` and :c:enumerator:`CC_MSPTE_CapturingPawns` values.
+    i.e. between :c:enumerator:`CC_MSPTE_None` and :c:enumerator:`CC_MSPTE_PS_CapturingPawns` values.
 
     :param mspte: A journey type enumeration, integer value.
     :returns: :c:data:`true` if :c:type:`CcMultiStagePlyTypeEnum` enumerator,

@@ -33,32 +33,34 @@ typedef enum CcSerpentDiagonalEnum {
 typedef enum CcMultiStagePlyTypeEnum {
     CC_MSPTE_None,
 
-    // trance-journey
-    CC_MSPTE_Entranced, // 2nd Shaman is entranced
-    CC_MSPTE_Displacing, // light Shaman
-    CC_MSPTE_Capturing, // dark Shaman
-    CC_MSPTE_DoubleCapturing, // 2nd dark Shaman entranced
+    // Trance-journey stages.
+    CC_MSPTE_TJ_Entranced, // 2nd Shaman is entranced
+    CC_MSPTE_TJ_Displacing, // light Shaman
+    CC_MSPTE_TJ_Capturing, // dark Shaman
+    CC_MSPTE_TJ_DoubleCapturing, // 2nd dark Shaman entranced
 
-    // sense-journey
-    CC_MSPTE_Initiated, // (2nd) Starchild is initiated
-    CC_MSPTE_Viewing, // a piece goes sight-seeing
+    // Sense-journey stages.
+    CC_MSPTE_SJ_Initiated, // (2nd) Starchild is initiated
+    CC_MSPTE_SJ_Viewing, // a piece goes sight-seeing
 
-    // Pawn-sacrifice
-    CC_MSPTE_RitualStarted, // Serpent activated a Pyramid is activated
-    CC_MSPTE_Sacrificed, // a Pawn was sacrificed
-    CC_MSPTE_CapturingPawns, // Serpent can capture (a few) opponent's Pawns
+    // Pawn-sacrifice stages.
+    CC_MSPTE_PS_RitualStarted, // Serpent activated a Pyramid is activated
+    CC_MSPTE_PS_Sacrificed, // a Pawn was sacrificed
+    CC_MSPTE_PS_CapturingPawns, // Serpent can capture (a few) opponent's Pawns
 } CcMultiStagePlyTypeEnum;
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(mspte) ( ( CC_MSPTE_None <= (mspte) ) && ( (mspte) <= CC_MSPTE_CapturingPawns ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(mspte) ( ( CC_MSPTE_None <= (mspte) )                         \
+                                                    && ( (mspte) <= CC_MSPTE_PS_CapturingPawns ) )
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_VALID(mspte) ( ( CC_MSPTE_None < (mspte) ) && ( (mspte) <= CC_MSPTE_CapturingPawns ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_VALID(mspte) ( ( CC_MSPTE_None < (mspte) )                               \
+                                               && ( (mspte) <= CC_MSPTE_PS_CapturingPawns ) )
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_JOURNEY(mspte) ( ( (mspte) == CC_MSPTE_Displacing )           \
-                                                        || ( (mspte) == CC_MSPTE_Capturing )            \
-                                                        || ( (mspte) == CC_MSPTE_DoubleCapturing ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_JOURNEY(mspte) ( ( (mspte) == CC_MSPTE_TJ_Displacing )            \
+                                                        || ( (mspte) == CC_MSPTE_TJ_Capturing )             \
+                                                        || ( (mspte) == CC_MSPTE_TJ_DoubleCapturing ) )
 
-#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(mspte) ( ( (mspte) == CC_MSPTE_Capturing )            \
-                                                      || ( (mspte) == CC_MSPTE_DoubleCapturing ) )
+#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(mspte) ( ( (mspte) == CC_MSPTE_TJ_Capturing )             \
+                                                        || ( (mspte) == CC_MSPTE_TJ_DoubleCapturing ) )
 
 //
 // Typed step

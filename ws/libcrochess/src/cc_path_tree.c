@@ -32,6 +32,40 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
+    // TODO :: FIX
+    // if ( CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE( ms ) ) {
+    //     // TODO
+    // } else if ( ms == CC_MSPTE_TJ_Displacing ) {
+    //     if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
+    //         cc_side_effect_link_free_all( side_effect_link__o_a );
+    //         return false;
+    //     }
+
+    //     CcPos displacement; // TODO :: FIX
+
+    //     if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
+    //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
+    //         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
+    //         if ( !se__w ) {
+    //             cc_side_effect_link_free_all( side_effect_link__o_a );
+    //             return false;
+    //         }
+    //     }
+    // } else if ( ms == CC_MSPTE_None ) {
+    //     if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
+    //             CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
+    //         CcPos displacement; // TODO :: FIX
+
+    //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
+    //         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
+    //         if ( !se__w ) {
+    //             cc_side_effect_link_free_all( side_effect_link__o_a );
+    //             return false;
+    //         }
+    //     }
+    // }
+    // TODO :: FIX
+
     if ( CC_PIECE_CAN_CAPTURE( moving_from.piece ) &&
             CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
             cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ) {
@@ -40,38 +74,6 @@ bool cc_path_side_effect( CcPosDesc moving_from,
         if ( !se__w ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
-        }
-    }
-
-    if ( CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE( ms ) ) {
-        // TODO
-    } else if ( ms == CC_MSPTE_Displacing ) {
-        if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
-            cc_side_effect_link_free_all( side_effect_link__o_a );
-            return false;
-        }
-
-        CcPos displacement; // TODO :: FIX
-
-        if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
-            CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
-            if ( !se__w ) {
-                cc_side_effect_link_free_all( side_effect_link__o_a );
-                return false;
-            }
-        }
-    } else if ( ms == CC_MSPTE_None ) {
-        if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
-                CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
-            CcPos displacement; // TODO :: FIX
-
-            CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
-            if ( !se__w ) {
-                cc_side_effect_link_free_all( side_effect_link__o_a );
-                return false;
-            }
         }
     }
 
