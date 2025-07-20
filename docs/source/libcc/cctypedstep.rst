@@ -58,51 +58,51 @@ Serpent diagonals enum
 Journey types enum
 ------------------
 
-.. c:enum:: CcJourneyTypeEnum
+.. c:enum:: CcMultiStagePlyTypeEnum
 
     Journey type enumeration, both for trance- and sense-journey.
 
-    .. c:enumerator:: CC_JTE_None
+    .. c:enumerator:: CC_MSPTE_None
 
         No journey.
 
-    .. c:enumerator:: CC_JTE_Displacement
+    .. c:enumerator:: CC_MSPTE_Displacing
 
         Displacement trance-journey.
 
-    .. c:enumerator:: CC_JTE_Capture
+    .. c:enumerator:: CC_MSPTE_Capturing
 
         Capturing trance-journey.
 
-    .. c:enumerator:: CC_JTE_DoubleCapture
+    .. c:enumerator:: CC_MSPTE_DoubleCapturing
 
         Double capturing trance-journey.
 
-    .. c:enumerator:: CC_JTE_Viewing
+    .. c:enumerator:: CC_MSPTE_Viewing
 
         Sense-journey.
 
-    :c:`enum` is tagged with the same :c:enum:`CcJourneyTypeEnum` name.
+    :c:`enum` is tagged with the same :c:enum:`CcMultiStagePlyTypeEnum` name.
 
-.. c:macro:: CC_JOURNEY_TYPE_IS_ENUMERATOR(jte)
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(jte)
 
-    Macro to check if given journey type is enumeration in :c:enum:`CcJourneyTypeEnum`,
-    i.e. between :c:enumerator:`CC_JTE_None` and :c:enumerator:`CC_JTE_Viewing` values.
-
-    :param jte: A journey type enumeration, integer value.
-    :returns: :c:data:`true` if :c:type:`CcJourneyTypeEnum` enumerator,
-              :c:data:`false` otherwise.
-
-.. c:macro:: CC_JOURNEY_TYPE_IS_VALID(jte)
-
-    Macro to check if given trance-journey type is :c:enum:`CcJourneyTypeEnum` enumerator,
-    but not :c:enumerator:`CC_JTE_None`.
+    Macro to check if given journey type is enumeration in :c:enum:`CcMultiStagePlyTypeEnum`,
+    i.e. between :c:enumerator:`CC_MSPTE_None` and :c:enumerator:`CC_MSPTE_Viewing` values.
 
     :param jte: A journey type enumeration, integer value.
-    :returns: :c:data:`true` if valid :c:type:`CcJourneyTypeEnum` enumerator,
+    :returns: :c:data:`true` if :c:type:`CcMultiStagePlyTypeEnum` enumerator,
               :c:data:`false` otherwise.
 
-.. c:macro:: CC_JOURNEY_TYPE_IS_ANY_CAPTURE(jte)
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_VALID(jte)
+
+    Macro to check if given trance-journey type is :c:enum:`CcMultiStagePlyTypeEnum` enumerator,
+    but not :c:enumerator:`CC_MSPTE_None`.
+
+    :param jte: A journey type enumeration, integer value.
+    :returns: :c:data:`true` if valid :c:type:`CcMultiStagePlyTypeEnum` enumerator,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(jte)
 
     Macro to check if given trance-journey is a capturing one, or a double trance-journey.
 

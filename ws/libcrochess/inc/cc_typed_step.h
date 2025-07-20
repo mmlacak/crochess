@@ -28,22 +28,37 @@ typedef enum CcSerpentDiagonalEnum {
 #define CC_SERPENT_DIAGONAL_IS_VALID(sde) CC_SERPENT_DIAGONAL_IS_ENUMERATOR(sde)
 
 //
-// Journey types
+// Journey types // TODO :: DOCS
 
-typedef enum CcJourneyTypeEnum {
-    CC_JTE_None,
-    CC_JTE_Displacement, // trance-journey, light Shaman
-    CC_JTE_Capture, // trance-journey, dark Shaman
-    CC_JTE_DoubleCapture, // trance-journey, two dark Shamans
-    CC_JTE_Viewing, // sense-journey
-} CcJourneyTypeEnum;
+typedef enum CcMultiStagePlyTypeEnum {
+    CC_MSPTE_None,
 
-#define CC_JOURNEY_TYPE_IS_ENUMERATOR(jte) ( ( CC_JTE_None <= (jte) ) && ( (jte) <= CC_JTE_Viewing ) )
+    // trance-journey
+    CC_MSPTE_Entranced, // 2nd Shaman is entranced
+    CC_MSPTE_Displacing, // light Shaman
+    CC_MSPTE_Capturing, // dark Shaman
+    CC_MSPTE_DoubleCapturing, // 2nd dark Shaman entranced
 
-#define CC_JOURNEY_TYPE_IS_VALID(jte) ( ( CC_JTE_None < (jte) ) && ( (jte) <= CC_JTE_Viewing ) )
+    // sense-journey
+    CC_MSPTE_Initiated, // (2nd) Starchild is initiated
+    CC_MSPTE_Viewing, // a piece goes sight-seeing
 
-#define CC_JOURNEY_TYPE_IS_ANY_CAPTURE(jte) ( ( (jte) == CC_JTE_Capture ) \
-                                           || ( (jte) == CC_JTE_DoubleCapture ) )
+    // Pawn-sacrifice
+    CC_MSPTE_RitualStarted, // a Pyramid is activated
+    CC_MSPTE_Sacrificed, // a Pawn was sacrificed
+    CC_MSPTE_CapturingPawns, // Serpent can capture (a few) opponent's Pawns
+} CcMultiStagePlyTypeEnum;
+
+#define CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR(jte) ( ( CC_MSPTE_None <= (jte) ) && ( (jte) <= CC_MSPTE_Viewing ) )
+
+#define CC_MULTI_STAGE_PLY_TYPE_IS_VALID(jte) ( ( CC_MSPTE_None < (jte) ) && ( (jte) <= CC_MSPTE_Viewing ) )
+
+#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_JOURNEY(jte) ( ( (jte) == CC_MSPTE_Displacing ) \
+                                                      || ( (jte) == CC_MSPTE_Capturing ) \
+                                                      || ( (jte) == CC_MSPTE_DoubleCapturing ) )
+
+#define CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE(jte) ( ( (jte) == CC_MSPTE_Capturing ) \
+                                                      || ( (jte) == CC_MSPTE_DoubleCapturing ) )
 
 //
 // Typed step

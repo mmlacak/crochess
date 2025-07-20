@@ -19,8 +19,9 @@
 // todo :: DOCS
 
 bool cc_path_side_effect( CcPosDesc moving_from,
+                          CcTypedStep last_step,
                           CcPosDesc encounter,
-                          CcPathContext * path_ctx,
+                          CcPathContext * path_ctx__io,
                           CcPathSideEffectLink ** side_effect_link__o_a );
 
 CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,

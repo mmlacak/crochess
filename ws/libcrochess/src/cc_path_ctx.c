@@ -122,6 +122,7 @@ static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,
 
     path_ctx__io->move_ctx = (CcMoveContext){ .initial = move_init,
                                               .current = move_init.pos,
+                                              .multi_stage = CC_MSPTE_None,
                                               .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID };
 
     path_ctx__io->ply_ctx = (CcPlyContext){ .initial = move_init,

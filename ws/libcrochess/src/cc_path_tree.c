@@ -11,19 +11,20 @@
 
 
 bool cc_path_side_effect( CcPosDesc moving_from,
+                          CcTypedStep last_step,
                           CcPosDesc encounter,
-                          CcPathContext * path_ctx,
+                          CcPathContext * path_ctx__io,
                           CcPathSideEffectLink ** side_effect_link__o_a ) {
-    if ( !path_ctx ) return false;
+    if ( !path_ctx__io ) return false;
 
     if ( !side_effect_link__o_a ) return false;
     if ( *side_effect_link__o_a ) return false;
 
-    CcChessboard * cb = path_ctx->cb_current;
+    CcChessboard * cb = path_ctx__io->cb_current;
     if ( !cb ) return false;
 
-    CcActivationDesc act_desc = path_ctx->ply_ctx.act_desc;
-    CcJourneyTypeEnum journey_type; // TODO :: FIX
+    CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
+    CcMultiStagePlyTypeEnum ms = path_ctx__io->move_ctx.multi_stage;
 
     if ( !CC_PIECE_IS_VALID( moving_from.piece ) ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false;
@@ -42,9 +43,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
         }
     }
 
-    if ( CC_JOURNEY_TYPE_IS_ANY_CAPTURE( journey_type ) ) {
+    if ( CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE( ms ) ) {
         // TODO
-    } else if ( journey_type == CC_JTE_Displacement ) {
+    } else if ( ms == CC_MSPTE_Displacing ) {
         if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
             cc_side_effect_link_free_all( side_effect_link__o_a );
             return false;
@@ -60,7 +61,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
                 return false;
             }
         }
-    } else if ( journey_type == CC_JTE_None ) {
+    } else if ( ms == CC_MSPTE_None ) {
         if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
                 CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
             CcPos displacement; // TODO :: FIX

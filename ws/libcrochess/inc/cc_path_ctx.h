@@ -23,11 +23,13 @@
 typedef struct CcMoveContext {
     CcPosDesc initial; // A piece starting current move, its initial position and tag. // TODO :: not really needed
     CcPos current; // Current position of a piece which started current move. // TODO :: not really needed
+    CcMultiStagePlyTypeEnum multi_stage; // Current stage in multi-stage (sub-)cascade.
     CcPosDesc pawn_sacrifice_serpent; // Serpent and its position where it initiated Pawn-sacrifice.
 } CcMoveContext;
 
 #define CC_MOVE_CONTEXT_INVALID { .initial = CC_POS_DESC_CAST_INVALID,                  \
                                   .current = CC_POS_CAST_INVALID,                       \
+                                  .multi_stage = CC_MSPTE_None,                         \
                                   .pawn_sacrifice_serpent = CC_POS_DESC_CAST_INVALID }
 
 #define CC_MOVE_CONTEXT_CAST_INVALID ( (CcMoveContext)CC_MOVE_CONTEXT_INVALID )
@@ -35,11 +37,13 @@ typedef struct CcMoveContext {
 #define CC_MOVE_CONTEXT_IS_VALID(move_ctx)                                      \
     ( CC_POS_DESC_IS_VALID( (move_ctx).initial ) &&                             \
       CC_POS_IS_VALID( (move_ctx).current ) &&                                  \
+      CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR( (move_ctx).multi_stage ) &&        \
       CC_POS_DESC_IS_VALID( (move_ctx).pawn_sacrifice_serpent ) )
 
 #define CC_MOVE_CONTEXT_IS_LEGAL(move_ctx,board_size)                           \
     ( CC_POS_DESC_IS_LEGAL( (move_ctx).initial, (board_size) ) &&               \
       CC_POS_IS_LEGAL( (move_ctx).current, (board_size) ) &&                    \
+      CC_MULTI_STAGE_PLY_TYPE_IS_ENUMERATOR( (move_ctx).multi_stage ) &&        \
       CC_POS_DESC_IS_LEGAL( (move_ctx).pawn_sacrifice_serpent, (board_size) ) )
 
 //
