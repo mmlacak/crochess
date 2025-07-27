@@ -36,5 +36,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_tr_27_ritual_starting_fields', \
+                    # 'scn_tr_30_ritual_starting_fields', \
+                    'scn_tr_31_pawn_sacrifice_init', \
                 ]
