@@ -580,7 +580,7 @@ Serpent can make at most 14 steps in a single ply.
 
 % \vspace*{0.7\baselineskip}
 \noindent
-\begin{wrapfigure}[17]{l}{0.4\textwidth}
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_32_pawn_sacrifice_steps_1.png}
 \vspace*{-0.4\baselineskip}
@@ -592,11 +592,10 @@ In a new ply, Serpent can interact only with Pawns, either capture or
 opponent's Pawns. In the same ply, Serpent can move over empty fields, or pieces
 which are transparent to Serpent.\newline
 \indent
-Note, in a new ply Serpent is accumulating momentum, even though the ply is not
-the first one in a cascade, since Serpent was not activated.\newline
-\indent
-Here, tagged Serpent cannot capture dark Bishop; but can use Wave transparency to
-reach own, light Pawn C.
+Note, all momentum Serpent had before the new ply is lost, regardless if Serpent
+was activated, or not. In a new ply Serpent is accumulating momentum (even though
+that ply is not the first one in a cascade), because Serpent was not activated after
+sacrificing own Pawn.
 
 \clearpage % ..........................................................
 
