@@ -36,12 +36,5 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_tr_09_serpent_loop_init', \
-                    'scn_tr_10_serpent_loop_step', \
-                    'scn_tr_11_serpent_loop_end', \
-                    'scn_cot_030_own_shaman_is_divergent_init', \
-                    'scn_cot_031_own_shaman_is_divergent_end', \
-                    'scn_cot_052_wave_divergence_init', \
-                    'scn_o_30_starchild_divergence_init', \
-                    # 'scn_o_31_starchild_divergence_end',
+                    'scn_tr_27_ritual_starting_fields', \
                 ]

@@ -479,87 +479,6 @@ compared to previous example.
 
 \clearpage % ..........................................................
 
-\subsubsection*{Pawn-sacrifice move}
-\addcontentsline{toc}{subsubsection}{Pawn-sacrifice move}
-\label{sec:Tamoanchan Revisited/Serpent/Movement/Pawn-sacrifice move}
-
-\vspace*{-0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[14]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_27_pawn_sacrifice_init.png}
-\vspace*{-0.4\baselineskip}
-\caption{Pawn-sacrifice start}
-\label{fig:scn_tr_27_pawn_sacrifice_init}
-\end{wrapfigure}
-Pawn-sacrifice is a move initiated by Serpent activating Pyramid, which then
-captures field at which own Pawn is located. Pawn is then
-\hyperref[sec:Terms/Oblation]{oblationed}, and Serpent gets Pawn-sacrifice
-tag. Any received momentum (if Serpent was activated) is lost. Any of pieces
-involved can be on any side of chessboard, own or opponent's.\newline
-\indent
-Here, light Serpent is about to activate Pyramid, which will then oblation
-own Pawn, thus granting Pawn-sacrifice tag to Serpent.
-
-\vspace*{0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[17]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_28_pawn_sacrifice_steps_1.png}
-\vspace*{-0.4\baselineskip}
-\caption{Pawn-sacrifice steps}
-\label{fig:scn_tr_28_pawn_sacrifice_steps_1}
-\end{wrapfigure}
-Initiating Serpent receives its tag on a field at which it activated Pyramid.
-From there, Serpent can start a new ply in the same move in which tag was obtained;
-otherwise, tag is lost after move finishes. New ply is limited by
-\hyperref[fig:scn_tr_15_serpent_step_limit]{Serpent's step limit}, in this variant
-Serpent can make at most 14 steps in a single ply.\newline
-\indent
-In a new ply, Serpent can interact only with Pawns, either capture or
-\hyperref[fig:scn_tr_20_displacement_step_1]{displace them}, regardless if own or
-opponent's Pawns. In the same ply, Serpent can move over empty fields, or pieces
-which are transparent to Serpent.
-
-\clearpage % ..........................................................
-
-\vspace*{-1.7\baselineskip}
-\noindent
-\begin{wrapfigure}[15]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_29_pawn_sacrifice_end.png}
-\vspace*{-0.4\baselineskip}
-\caption{Pawn-sacrifice end}
-\label{fig:scn_tr_29_pawn_sacrifice_end}
-\end{wrapfigure}
-In previous example, tagged light Serpent could interact only with Pawns, both light
-and dark ones, and  could not capture neither dark Bishop nor dark Wave. Dark Wave
-is transparent to a Serpent, so tagged Serpent could move over it, just like it can
-move over an empty field.\newline
-\indent
-Here, completed path of tagged Serpent is shown; it displaced a light Pawn and a dark
-Pawn. Note, tagged Serpent captured one own, light Pawn in addition to two opponent's,
-dark Pawns.
-
-% \vspace*{0.7\baselineskip}
-\noindent
-\begin{wrapfigure}[15]{l}{0.4\textwidth}
-\centering
-\includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_30_pawn_sacrifice_alt_end.png}
-\vspace*{-0.4\baselineskip}
-\caption{Pawn-sacrifice activation}
-\label{fig:scn_tr_30_pawn_sacrifice_alt_end}
-\end{wrapfigure}
-Serpent can end its Pawn-sacrifice ply by interactions other than capturing or
-displacing Pawns, by activating own Wave or Pyramid, or by teleporting. If activating
-a piece, momentum is counted from a field at which Pawn-sacrifice tag was granted.\newline
-\indent
-Here, light Pyramid is placed instead of a dark Wave, tagged light Serpent can
-activate it, and transfer to it 7 momentum. This ends Serpent's Pawn-sacrifice ply,
-and so two distant Pawns are now out of reach.
-
-\clearpage % ..........................................................
-
 \subsubsection*{Checking opponent's King}
 \addcontentsline{toc}{subsubsection}{Checking opponent's King}
 \label{sec:Tamoanchan Revisited/Serpent/Movement/Checking opponent's King}
@@ -606,6 +525,115 @@ Here, light Serpent is able to move around dark pieces, and find a path to check
 dark King.
 
 % ------------------------------------------------------------ Movement
+\clearpage % ..........................................................
+% Pawn-sacrifice move -------------------------------------------------
+
+\subsection*{Pawn-sacrifice move}
+\addcontentsline{toc}{subsection}{Pawn-sacrifice move}
+\label{sec:Tamoanchan Revisited/Serpent/Pawn-sacrifice move}
+
+Pawn-sacrifice is a move initiated by Serpent activating own Pyramid on its
+ritual-starting fields; Pyramid then captures field at which own Pawn is located.
+Pawn is then \hyperref[sec:Terms/Oblation]{oblationed}, and Serpent gets
+Pawn-sacrifice tag allowing it to capture one or more opponent's Pawns in the
+following ply. Any of pieces involved can be on either side of a chessboard,
+own or opponent's.
+
+\subsubsection*{Ritual-starting fields}
+\addcontentsline{toc}{subsubsection}{Ritual-starting fields}
+\label{sec:Tamoanchan Revisited/Serpent/Pawn-sacrifice move/Ritual-starting fields}
+
+\vspace*{-0.9\baselineskip}
+\noindent
+\begin{wrapfigure}[5]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.227272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_27_ritual_starting_fields.png}
+\vspace*{-0.4\baselineskip}
+\caption{Ritual-starting fields}
+\label{fig:scn_tr_27_ritual_starting_fields}
+\end{wrapfigure}
+Ritual-starting fields are all fields immediately neighboring Serpent horizontally,
+vertically, and diagonally. They are the same fields as step-fields of a King.
+
+% \vspace*{2.3\baselineskip}
+
+
+% \vspace*{-0.7\baselineskip}
+% \noindent
+% \begin{wrapfigure}[14]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_27_pawn_sacrifice_init.png}
+% \vspace*{-0.4\baselineskip}
+% \caption{Pawn-sacrifice start}
+% \label{fig:scn_tr_27_pawn_sacrifice_init}
+% \end{wrapfigure}
+% Pawn-sacrifice is a move initiated by Serpent activating Pyramid, which then
+% captures field at which own Pawn is located. Pawn is then
+% \hyperref[sec:Terms/Oblation]{oblationed}, and Serpent gets Pawn-sacrifice
+% tag. Any received momentum (if Serpent was activated) is lost. Any of pieces
+% involved can be on any side of chessboard, own or opponent's.\newline
+% \indent
+% Here, light Serpent is about to activate Pyramid, which will then oblation
+% own Pawn, thus granting Pawn-sacrifice tag to Serpent.
+
+% \vspace*{0.7\baselineskip}
+% \noindent
+% \begin{wrapfigure}[17]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_28_pawn_sacrifice_steps_1.png}
+% \vspace*{-0.4\baselineskip}
+% \caption{Pawn-sacrifice steps}
+% \label{fig:scn_tr_28_pawn_sacrifice_steps_1}
+% \end{wrapfigure}
+% Initiating Serpent receives its tag on a field at which it activated Pyramid.
+% From there, Serpent can start a new ply in the same move in which tag was obtained;
+% otherwise, tag is lost after move finishes. New ply is limited by
+% \hyperref[fig:scn_tr_15_serpent_step_limit]{Serpent's step limit}, in this variant
+% Serpent can make at most 14 steps in a single ply.\newline
+% \indent
+% In a new ply, Serpent can interact only with Pawns, either capture or
+% \hyperref[fig:scn_tr_20_displacement_step_1]{displace them}, regardless if own or
+% opponent's Pawns. In the same ply, Serpent can move over empty fields, or pieces
+% which are transparent to Serpent.
+
+\clearpage % ..........................................................
+
+% \vspace*{-1.7\baselineskip}
+% \noindent
+% \begin{wrapfigure}[15]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_29_pawn_sacrifice_end.png}
+% \vspace*{-0.4\baselineskip}
+% \caption{Pawn-sacrifice end}
+% \label{fig:scn_tr_29_pawn_sacrifice_end}
+% \end{wrapfigure}
+% In previous example, tagged light Serpent could interact only with Pawns, both light
+% and dark ones, and  could not capture neither dark Bishop nor dark Wave. Dark Wave
+% is transparent to a Serpent, so tagged Serpent could move over it, just like it can
+% move over an empty field.\newline
+% \indent
+% Here, completed path of tagged Serpent is shown; it displaced a light Pawn and a dark
+% Pawn. Note, tagged Serpent captured one own, light Pawn in addition to two opponent's,
+% dark Pawns.
+
+% % \vspace*{0.7\baselineskip}
+% \noindent
+% \begin{wrapfigure}[15]{l}{0.4\textwidth}
+% \centering
+% \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_30_pawn_sacrifice_alt_end.png}
+% \vspace*{-0.4\baselineskip}
+% \caption{Pawn-sacrifice activation}
+% \label{fig:scn_tr_30_pawn_sacrifice_alt_end}
+% \end{wrapfigure}
+% Serpent can end its Pawn-sacrifice ply by interactions other than capturing or
+% displacing Pawns, by activating own Wave or Pyramid, or by teleporting. If activating
+% a piece, momentum is counted from a field at which Pawn-sacrifice tag was granted.\newline
+% \indent
+% Here, light Pyramid is placed instead of a dark Wave, tagged light Serpent can
+% activate it, and transfer to it 7 momentum. This ends Serpent's Pawn-sacrifice ply,
+% and so two distant Pawns are now out of reach.
+
+% ------------------------------------------------- Pawn-sacrifice move
 \clearpage % ..........................................................
 % Activating Wave -----------------------------------------------------
 
