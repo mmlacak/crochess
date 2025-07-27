@@ -38,4 +38,5 @@ class SceneMix( SceneMixin, \
         return  [
                     # 'scn_tr_30_ritual_starting_fields', \
                     'scn_tr_31_pawn_sacrifice_init', \
+                    'scn_tr_32_pawn_sacrifice_steps_1', \
                 ]

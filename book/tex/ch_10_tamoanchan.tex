@@ -561,7 +561,7 @@ vertically, and diagonally. They are the same fields as step-fields of a King.
 
 \vspace*{-1.7\baselineskip}
 \noindent
-\begin{wrapfigure}[11]{l}{0.4\textwidth}
+\begin{wrapfigure}[16]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_31_pawn_sacrifice_init.png}
 \vspace*{-0.4\baselineskip}
@@ -572,28 +572,31 @@ Here, light Serpent is about to activate own Pyramid on its ritual-starting fiel
 Pyramid is activated with one momentum, so it can oblation own Pawn only if it's
 reachable after one step.\newline
 \indent
-Sacrificing Pawn grants tag to initiating Serpent; in the following ply, that
-Serpent can capture or displace one or more Pawns, both own or opponent's.
+Initiating Serpent receives its tag on a field at which it activated Pyramid.
+From there, Serpent can start a new ply in the same move in which tag was obtained;
+otherwise, tag is lost after move finishes. New ply is limited by
+\hyperref[fig:scn_tr_15_serpent_step_limit]{Serpent's step limit}, in this variant
+Serpent can make at most 14 steps in a single ply.
 
 % \vspace*{0.7\baselineskip}
-% \noindent
-% \begin{wrapfigure}[17]{l}{0.4\textwidth}
-% \centering
-% \includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_32_pawn_sacrifice_steps_1.png}
-% \vspace*{-0.4\baselineskip}
-% \caption{Pawn-sacrifice steps}
-% \label{fig:scn_tr_32_pawn_sacrifice_steps_1}
-% \end{wrapfigure}
-% Initiating Serpent receives its tag on a field at which it activated Pyramid.
-% From there, Serpent can start a new ply in the same move in which tag was obtained;
-% otherwise, tag is lost after move finishes. New ply is limited by
-% \hyperref[fig:scn_tr_15_serpent_step_limit]{Serpent's step limit}, in this variant
-% Serpent can make at most 14 steps in a single ply.\newline
-% \indent
-% In a new ply, Serpent can interact only with Pawns, either capture or
-% \hyperref[fig:scn_tr_20_displacement_step_1]{displace them}, regardless if own or
-% opponent's Pawns. In the same ply, Serpent can move over empty fields, or pieces
-% which are transparent to Serpent.
+\noindent
+\begin{wrapfigure}[17]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.377272727\textwidth, keepaspectratio=true]{examples/16_tr/scn_tr_32_pawn_sacrifice_steps_1.png}
+\vspace*{-0.4\baselineskip}
+\caption{Pawn-sacrifice steps}
+\label{fig:scn_tr_32_pawn_sacrifice_steps_1}
+\end{wrapfigure}
+In a new ply, Serpent can interact only with Pawns, either capture or
+\hyperref[fig:scn_tr_20_displacement_step_1]{displace them}, regardless if own or
+opponent's Pawns. In the same ply, Serpent can move over empty fields, or pieces
+which are transparent to Serpent.\newline
+\indent
+Note, in a new ply Serpent is accumulating momentum, even though the ply is not
+the first one in a cascade, since Serpent was not activated.\newline
+\indent
+Here, tagged Serpent cannot capture dark Bishop; but can use Wave transparency to
+reach own, light Pawn C.
 
 \clearpage % ..........................................................
 
