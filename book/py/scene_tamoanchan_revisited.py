@@ -1019,7 +1019,7 @@ class SceneTamoanchanRevisitedMixin:
         adder( 1,  1 ) # empty field
         scene.board.set_piece( *adder(  1, -1 ), piece=-PieceType.Pawn )
         scene.board.set_piece( *adder(  1, -1 ), piece=PieceType.Pawn ) # light Pawn B
-        scene.append_text( "C", *adder( 0, 0 ), corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "C", *adder( 0, 0 ), corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         scene.append_arrow( *( start_S + start_A ), mark_type=MarkType.Action )
 
@@ -1063,7 +1063,7 @@ class SceneTamoanchanRevisitedMixin:
         adder( 1,  1 ) # empty field
         scene.board.set_piece( *adder(  1, -1 ), piece=-PieceType.Pawn )
         scene.board.set_piece( *adder(  1, -1 ), piece=PieceType.Pawn ) # light Pawn B
-        scene.append_text( "C", *adder( 0, 0 ), corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "C", *adder( 0, 0 ), corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         #
         # arrows
@@ -1135,67 +1135,77 @@ class SceneTamoanchanRevisitedMixin:
 
         scene.append_arrow( *adder_S( 0, 1 ), mark_type=MarkType.Action ) # light Pawn displacement
         scene.board.set_piece( *end( adder_S( 0, 0, do_advance=False ) ), piece=PieceType.Pawn ) # light Pawn C
-        scene.append_text( "C", *end( adder_S( 0, 0, do_advance=False ) ), corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "C", *end( adder_S( 0, 0, do_advance=False ) ), corner=Corner.UpperRight, mark_type=MarkType.Action )
 
         scene.append_field_marker( *prev_S, mark_type=MarkType.Blocked )
 
         return scene
 
-    # def scn_tr_34_pawn_sacrifice_alt_end( self, bt=BoardType.TamoanchanRevisited ):
+    def scn_tr_34_pawn_sacrifice_alt_end( self, bt=BoardType.TamoanchanRevisited ):
 
-    #     scene = Scene( 'scn_tr_34_pawn_sacrifice_alt_end', bt, width=8.3, height=12.3 )
+        scene = Scene( 'scn_tr_34_pawn_sacrifice_alt_end', bt, width=8.3, height=12.3 )
 
-    #     prev_S = (6, 2)
-    #     prev_A = (1, 3)
-    #     prev_P = (1, 1)
+        # prev_S = (6, 2)
+        # prev_A = (1, 3)
+        # prev_P = (1, 1)
+        prev_S = (2, 3)
+        prev_A = (1, 3)
+        prev_P = (1, 2)
 
-    #     start_S = prev_A
-    #     scene.board.set_piece( *start_S, piece=PieceType.Serpent )
+        #
+        # placements
 
-    #     start_A = prev_P
-    #     scene.board.set_piece( *start_A, piece=PieceType.Pyramid ) # A
+        start_S = prev_A
+        scene.board.set_piece( *start_S, piece=PieceType.Serpent )
 
-    #     # start_P = (1, 1)
-    #     # scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+        start_A = prev_P
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid ) # A
 
-    #     adder = GS.adder( start_S, include_prev=False )
-    #     adder( 1, 1 ) # empty field
-    #     scene.board.set_piece( *adder( -1,  1 ), piece=PieceType.Pawn ) # light Pawn A
-    #     scene.append_text( "A", *adder( 0, 0 ), corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        # start_P = (1, 1)
+        # scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
-    #     adder( 1, 1 ) # empty field
-    #     scene.board.set_piece( *adder( -1,  1 ), piece=-PieceType.Pawn )
-    #     scene.board.set_piece( *adder(  1,  1 ), piece=-PieceType.Pawn )
-    #     scene.board.set_piece( *adder( -1,  1, do_advance=False ), piece=-PieceType.Bishop )
+        adder = GS.adder( start_S, include_prev=False )
+        adder( 1, 1 ) # empty field
+        scene.board.set_piece( *adder( -1,  1 ), piece=PieceType.Pawn ) # light Pawn A
+        scene.append_text( "A", *adder( 0, 0 ), corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
-    #     adder( 1,  1 ) # empty field
-    #     scene.board.set_piece( *adder( 1, -1 ), piece=PieceType.Pyramid )
-    #     adder( 1,  1 ) # empty field
-    #     scene.board.set_piece( *adder(  1, -1 ), piece=-PieceType.Pawn )
-    #     scene.board.set_piece( *adder(  1, -1 ), piece=PieceType.Pawn ) # light Pawn B
-    #     scene.append_text( "B", *adder( 0, 0 ), corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        adder( 1, 1 ) # empty field
+        scene.board.set_piece( *adder( -1,  1 ), piece=-PieceType.Pawn )
+        scene.board.set_piece( *adder(  1,  1 ), piece=-PieceType.Pawn )
+        scene.append_text( "B", *adder( 0, 0 ), corner=Corner.UpperRight, mark_type=MarkType.Blocked )
+        scene.board.set_piece( *adder( -1,  1, do_advance=False ), piece=-PieceType.Bishop )
 
-    #     adder_S = GS.adder( start_S, include_prev=True )
-    #     scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Action ) # light Pawn
-    #     # scene.append_arrow( *adder_S( -1,  0, do_advance=False ), mark_type=MarkType.Action ) # light Pawn displacement
+        adder( 1,  1 ) # empty field
+        scene.board.set_piece( *adder( 1, -1 ), piece=PieceType.Pyramid )
+        adder( 1,  1 ) # empty field
+        scene.board.set_piece( *adder(  1, -1 ), piece=-PieceType.Pawn )
+        scene.board.set_piece( *adder(  1, -1 ), piece=PieceType.Pawn ) # light Pawn B
+        scene.append_text( "C", *adder( 0, 0 ), corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
-    #     scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Action ) # dark Pawn
-    #     scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Action ) # dark Pawn
-    #     scene.append_arrow( *adder_S( -1,  1, do_advance=False ), mark_type=MarkType.Illegal ) # dark Bishop
+        #
+        # arrows
 
-    #     scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Legal )
-    #     scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Action ) # light Pyramid B
+        adder_S = GS.adder( start_S, include_prev=True )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Action ) # light Pawn
+        # scene.append_arrow( *adder_S( -1,  0, do_advance=False ), mark_type=MarkType.Action ) # light Pawn displacement
 
-    #     scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Blocked )
-    #     scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Blocked ) # dark Pawn
-    #     scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Blocked ) # light Pawn
-    #     # scene.append_arrow( *adder_S(  0,  1 ), mark_type=MarkType.Blocked ) # light Pawn displacement
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S( -1,  1 ), mark_type=MarkType.Action ) # dark Pawn
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Action ) # dark Pawn
+        scene.append_arrow( *adder_S( -1,  1, do_advance=False ), mark_type=MarkType.Illegal ) # dark Bishop
 
-    #     scene.append_field_marker( *start_S, mark_type=MarkType.Illegal )
+        scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Legal )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Action ) # light Pyramid B
 
-    #     return scene
+        scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Blocked )
+        scene.append_arrow( *adder_S(  1,  1 ), mark_type=MarkType.Blocked ) # dark Pawn
+        scene.append_arrow( *adder_S(  1, -1 ), mark_type=MarkType.Blocked ) # light Pawn
+        # scene.append_arrow( *adder_S(  0,  1 ), mark_type=MarkType.Blocked ) # light Pawn displacement
+
+        scene.append_field_marker( *start_S, mark_type=MarkType.Illegal )
+
+        return scene
 
     #
     # Activating Wave
