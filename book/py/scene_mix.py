@@ -37,6 +37,7 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     # 'scn_tr_30_ritual_starting_fields', \
-                    'scn_tr_31_pawn_sacrifice_init', \
-                    'scn_tr_32_pawn_sacrifice_steps_1', \
+                    # 'scn_tr_31_pawn_sacrifice_init', \
+                    # 'scn_tr_32_pawn_sacrifice_steps_1', \
+                    'scn_tr_33_pawn_sacrifice_end', \
                 ]
