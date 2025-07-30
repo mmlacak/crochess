@@ -33,9 +33,10 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
 bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType still );
 
 
-CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              CcPieceTagType piece,
-                                              CcPos pos );
+// TODO :: DOCS
+bool cc_check_piece_is_blocked_at( CcChessboard * cb,
+                                   CcPieceTagType piece,
+                                   CcPos pos );
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
                                                CcPieceTagType piece,

@@ -61,32 +61,31 @@ bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType sti
 }
 
 
-CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                              CcPieceTagType piece,
-                                              CcPos pos ) {
-    if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
-    if ( !cb ) return CC_MBE_Void;
+bool cc_check_piece_is_blocked_at( CcChessboard * cb,
+                                   CcPieceTagType piece,
+                                   CcPos pos ) {
+    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
+    if ( !cb ) return false;
 
-    CcPieceTagType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( CC_PIECE_IS_NONE( pe ) ) return CC_MBE_False;
+    CcPieceTagType still = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( !CC_PIECE_IS_VALID( still ) ) return false;
 
-    if ( CC_PIECE_IS_WAVE( piece ) ) {
-        return CC_BOOL_TO_MAYBE( CC_PIECE_IS_OPAQUE( pe ) );
-    }
+    if ( CC_PIECE_IS_WAVE( piece ) )
+        return CC_PIECE_IS_OPAQUE( still );
 
-    if ( CC_PIECE_IS_OPAQUE( pe ) )
+    if ( CC_PIECE_IS_OPAQUE( still ) )
         if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( piece ) )
-            return CC_MBE_True;
+            return true;
 
     if ( CC_PIECE_IS_OPAQUE( piece ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( pe ) )
-            return CC_MBE_True;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( still ) )
+            return true;
 
     if ( CC_PIECE_IS_SEMI_OPAQUE( piece ) )
-        if ( CC_PIECE_IS_SEMI_OPAQUE( pe ) )
-            return CC_MBE_True;
+        if ( CC_PIECE_IS_SEMI_OPAQUE( still ) )
+            return true;
 
-    return CC_MBE_False;
+    return false;
 }
 
 CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
@@ -98,10 +97,10 @@ CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
 
     if ( !cb ) return CC_MBE_Void;
 
-    CcPieceTagType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( !CC_PIECE_CAN_BE_CAPTURED( pe ) ) return CC_MBE_False; // Also weeds out other pieces without owner.
+    CcPieceTagType still = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( !CC_PIECE_CAN_BE_CAPTURED( still ) ) return CC_MBE_False; // Also weeds out other pieces without owner.
 
-    return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, pe ) );
+    return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, still ) );
 }
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
@@ -124,14 +123,14 @@ CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
 
     if ( !cb ) return CC_MBE_Void;
 
-    CcPieceTagType pe = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( CC_PIECE_IS_STARCHILD( pe ) ) return CC_MBE_True;
+    CcPieceTagType still = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( CC_PIECE_IS_STARCHILD( still ) ) return CC_MBE_True;
 
-    if ( CC_PIECE_IS_SHAMAN( pe ) ) {
+    if ( CC_PIECE_IS_SHAMAN( still ) ) {
         if ( CC_PIECE_IS_SHAMAN( piece ) )
             return CC_MBE_True;
         else
-            return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, pe ) );
+            return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, still ) );
     } else
         return CC_MBE_False;
 }
