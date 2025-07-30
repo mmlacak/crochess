@@ -38,9 +38,10 @@ bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    CcPieceTagType piece,
                                    CcPos pos );
 
-CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               CcPieceTagType piece,
-                                               CcPos pos );
+// TODO :: DOCS
+bool cc_check_piece_can_capture_at( CcChessboard * cb,
+                                    CcPieceTagType piece,
+                                    CcPos pos );
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
                                                CcPieceTagType piece,

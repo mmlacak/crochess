@@ -88,19 +88,17 @@ bool cc_check_piece_is_blocked_at( CcChessboard * cb,
     return false;
 }
 
-CcMaybeBoolEnum cc_check_piece_can_capture_at( CcChessboard * cb,
-                                               CcPieceTagType piece,
-                                               CcPos pos ) {
-    if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
+bool cc_check_piece_can_capture_at( CcChessboard * cb,
+                                    CcPieceTagType piece,
+                                    CcPos pos ) {
+    if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return false; // This weeds out invalid pieces, and those without owner.
 
-    if ( !CC_PIECE_CAN_CAPTURE( piece ) ) return CC_MBE_False; // This weeds out pieces without owner.
-
-    if ( !cb ) return CC_MBE_Void;
+    if ( !cb ) return false;
 
     CcPieceTagType still = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( !CC_PIECE_CAN_BE_CAPTURED( still ) ) return CC_MBE_False; // Also weeds out other pieces without owner.
+    if ( !CC_PIECE_CAN_BE_CAPTURED( still ) ) return false; // Also weeds out invalid pieces, and those without owner.
 
-    return CC_BOOL_TO_MAYBE( cc_piece_has_different_owner( piece, still ) );
+    return cc_piece_has_different_owner( piece, still );
 }
 
 CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
