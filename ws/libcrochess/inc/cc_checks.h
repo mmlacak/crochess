@@ -43,11 +43,12 @@ bool cc_check_piece_can_capture_at( CcChessboard * cb,
                                     CcPieceTagType piece,
                                     CcPos pos );
 
-CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                               CcPieceTagType piece,
-                                               cc_uint_t momentum,
-                                               CcPieceTagType activator,
-                                               CcPos pos );
+// TODO :: DOCS
+bool cc_check_piece_can_diverge_at( CcChessboard * cb,
+                                    CcPieceTagType piece,
+                                    cc_uint_t momentum,
+                                    CcPieceTagType activator,
+                                    CcPos pos );
 
 CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
                                                CcPos king_start,

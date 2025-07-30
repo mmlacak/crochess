@@ -54,8 +54,8 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
 }
 
 bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType still ) {
-    if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false;
-    if ( !CC_PIECE_CAN_BE_CAPTURED( still ) ) return false;
+    if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false; // This weeds out invalid pieces, and those without owner.
+    if ( !CC_PIECE_CAN_BE_CAPTURED( still ) ) return false; // Also weeds out invalid pieces, and those without owner.
     if ( !cc_piece_has_different_owner( moving, still ) ) return false;
     return true;
 }
@@ -101,36 +101,36 @@ bool cc_check_piece_can_capture_at( CcChessboard * cb,
     return cc_piece_has_different_owner( piece, still );
 }
 
-CcMaybeBoolEnum cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                               CcPieceTagType piece,
-                                               cc_uint_t momentum,
-                                               CcPieceTagType activator,
-                                               CcPos pos ) {
-    if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
+bool cc_check_piece_can_diverge_at( CcChessboard * cb,
+                                    CcPieceTagType piece,
+                                    cc_uint_t momentum,
+                                    CcPieceTagType activator,
+                                    CcPos pos ) {
+    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
 
-    if ( momentum == 0 ) return CC_MBE_False;
+    if ( momentum == 0 ) return false;
 
     if ( CC_PIECE_IS_WAVE( piece ) ) {
         // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
-        // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return CC_MBE_False;
+        // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
 
-        if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return CC_MBE_False;
+        if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return false;
     } else {
-        if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return CC_MBE_False;
+        if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return false;
     }
 
-    if ( !cb ) return CC_MBE_Void;
+    if ( !cb ) return false;
 
     CcPieceTagType still = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( CC_PIECE_IS_STARCHILD( still ) ) return CC_MBE_True;
+    if ( CC_PIECE_IS_STARCHILD( still ) ) return true;
 
     if ( CC_PIECE_IS_SHAMAN( still ) ) {
         if ( CC_PIECE_IS_SHAMAN( piece ) )
-            return CC_MBE_True;
+            return true;
         else
-            return CC_BOOL_TO_MAYBE( cc_piece_has_same_owner( piece, still ) );
+            return cc_piece_has_same_owner( piece, still );
     } else
-        return CC_MBE_False;
+        return false;
 }
 
 CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
