@@ -53,6 +53,14 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
     return false;
 }
 
+bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType still ) {
+    if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false;
+    if ( !CC_PIECE_CAN_BE_CAPTURED( still ) ) return false;
+    if ( !cc_piece_has_different_owner( moving, still ) ) return false;
+    return true;
+}
+
+
 CcMaybeBoolEnum cc_check_piece_is_blocked_at( CcChessboard * cb,
                                               CcPieceTagType piece,
                                               CcPos pos ) {

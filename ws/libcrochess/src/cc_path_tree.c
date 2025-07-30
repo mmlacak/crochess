@@ -66,9 +66,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     // }
     // TODO :: FIX
 
-    if ( CC_PIECE_CAN_CAPTURE( moving_from.piece ) &&
-            CC_PIECE_CAN_BE_CAPTURED( encounter.piece ) &&
-            cc_piece_has_different_owner( moving_from.piece, encounter.piece ) ) {
+    if ( cc_check_piece_can_capture_other( moving_from.piece, encounter.piece ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
         if ( !se__w ) {
