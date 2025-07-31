@@ -29,48 +29,40 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
                                   CcLosingTagType ltt,
                                   bool compare_tag_and_losing_tag );
 
-// TODO :: DOCS
-bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType still );
+bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType encounter );
 
 
-// TODO :: DOCS
 bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    CcPieceTagType piece,
                                    CcPos pos );
 
-// TODO :: DOCS
 bool cc_check_piece_can_capture_at( CcChessboard * cb,
                                     CcPieceTagType piece,
                                     CcPos pos );
 
-// TODO :: DOCS
 bool cc_check_piece_can_diverge_at( CcChessboard * cb,
                                     CcPieceTagType piece,
                                     cc_uint_t momentum,
                                     CcPieceTagType activator,
                                     CcPos pos );
 
-// TODO :: DOCS
 bool cc_check_castling_step_fields( CcChessboard * cb,
                                     CcPos king_start,
                                     CcPos king_dest,
                                     CcPos rook_start,
                                     CcPos rook_dest );
 
-// TODO :: DOCS
 bool cc_check_piece_can_activate( CcPieceTagType moving,
                                   CcPieceTagType encounter,
                                   cc_uint_t momentum,
                                   CcStepTypeEnum step_type );
 
-// TODO :: DOCS
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcPieceTagType moving,
                                      CcActivationDesc act_desc,
                                      CcPos destination,
                                      CcStepTypeEnum step_type );
 
-// TODO :: DOCS
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType private,
                                 CcActivationDesc act_desc,
