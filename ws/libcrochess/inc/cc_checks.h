@@ -50,28 +50,32 @@ bool cc_check_piece_can_diverge_at( CcChessboard * cb,
                                     CcPieceTagType activator,
                                     CcPos pos );
 
-CcMaybeBoolEnum cc_check_castling_step_fields( CcChessboard * cb,
-                                               CcPos king_start,
-                                               CcPos king_dest,
-                                               CcPos rook_start,
-                                               CcPos rook_dest );
+// TODO :: DOCS
+bool cc_check_castling_step_fields( CcChessboard * cb,
+                                    CcPos king_start,
+                                    CcPos king_dest,
+                                    CcPos rook_start,
+                                    CcPos rook_dest );
 
-CcMaybeBoolEnum cc_check_piece_can_activate( CcPieceTagType moving,
-                                             CcPieceTagType encounter,
-                                             cc_uint_t momentum,
-                                             CcStepTypeEnum step_type );
+// TODO :: DOCS
+bool cc_check_piece_can_activate( CcPieceTagType moving,
+                                  CcPieceTagType encounter,
+                                  cc_uint_t momentum,
+                                  CcStepTypeEnum step_type );
 
-CcMaybeBoolEnum cc_check_piece_can_activate_at( CcChessboard * cb,
-                                                CcPieceTagType moving,
-                                                CcActivationDesc act_desc,
-                                                CcPos destination,
-                                                CcStepTypeEnum step_type );
+// TODO :: DOCS
+bool cc_check_piece_can_activate_at( CcChessboard * cb,
+                                     CcPieceTagType moving,
+                                     CcActivationDesc act_desc,
+                                     CcPos destination,
+                                     CcStepTypeEnum step_type );
 
-CcMaybeBoolEnum cc_find_en_passant_target( CcChessboard * cb,
-                                           CcPieceTagType private,
-                                           CcActivationDesc act_desc,
-                                           CcPos destination,
-                                           CcPosDesc * target__o );
+// TODO :: DOCS
+bool cc_find_en_passant_target( CcChessboard * cb,
+                                CcPieceTagType private,
+                                CcActivationDesc act_desc,
+                                CcPos destination,
+                                CcPosDesc * target__o );
 
 
 #endif /* __CC_CHECKS_H__ */

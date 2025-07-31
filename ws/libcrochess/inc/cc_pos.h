@@ -205,13 +205,13 @@ typedef struct CcActivationDesc {
                                                  ( (ad_1).momentum == (ad_2).momentum ) && \
                                                  ( (ad_1).usage == (ad_2).usage ))
 
-CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply );
+CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply ); // TODO :: simplify (?)
 
-CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count );
+CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count ); // TODO :: simplify (?)
 
-CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece );
+CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece ); // TODO :: simplify (?)
 
-CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply );
+CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply ); // TODO :: simplify (?)
 
 bool cc_activation_desc_as_string( CcActivationDesc act_desc,
                                    cc_char_32 * act_dest_str__o );
