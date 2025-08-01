@@ -157,7 +157,7 @@ bool cc_parse_steps( char const * steps_start_an,
             had_just_destination = true;
         } else if ( step__t->link == CC_SLTE_InitialPosition ) {
             if ( had_just_destination || had_initial_pos || index != 0 ) { // == true --> bug
-                if ( had_initial_pos && cc_an_has_separated_steps( steps_start_an, steps_end_an, true, true ) )
+                if ( had_initial_pos && ( cc_an_has_separated_steps( steps_start_an, steps_end_an, true, true ) == CC_MBE_True ) )
                     _cc_fail_with_msg_in_step( "Disambiguation may not be followed by initial position, in steps '%s'.\n", steps_start_an, NULL, steps_end_an, parse_msgs__iod );
 
                 cc_step_free_all( &step__t );

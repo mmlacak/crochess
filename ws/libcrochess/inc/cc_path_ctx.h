@@ -94,9 +94,9 @@ bool cc_path_context_free_all( CcPathContext ** path_ctx__f );
 
 CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from );
 
-CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
-                                          bool do_check_move_ctx,
-                                          bool do_check_ply_ctx );
+bool cc_path_context_is_legal( CcPathContext * path_ctx,
+                               bool do_check_move_ctx,
+                               bool do_check_ply_ctx );
 
 // static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,
 //                                         CcPosDesc move_init );

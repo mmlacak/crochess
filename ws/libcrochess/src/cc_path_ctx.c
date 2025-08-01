@@ -60,16 +60,16 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from ) {
     return px__a;
 }
 
-CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
-                                          bool do_check_move_ctx,
-                                          bool do_check_ply_ctx ) {
-    if ( !path_ctx ) return CC_MBE_Void;
-    if ( !path_ctx->game__w ) return CC_MBE_Void;
-    if ( !path_ctx->game__w->chessboard ) return CC_MBE_Void;
-    if ( !path_ctx->cb_current ) return CC_MBE_Void;
+bool cc_path_context_is_legal( CcPathContext * path_ctx,
+                               bool do_check_move_ctx,
+                               bool do_check_ply_ctx ) {
+    if ( !path_ctx ) return false;
+    if ( !path_ctx->game__w ) return false;
+    if ( !path_ctx->game__w->chessboard ) return false;
+    if ( !path_ctx->cb_current ) return false;
 
     if ( path_ctx->cb_current->type != path_ctx->game__w->chessboard->type )
-        return CC_MBE_False;
+        return false;
 
     cc_uint_t board_size = cc_chessboard_get_size( path_ctx->game__w->chessboard );
     bool has_moves_played = (bool)(path_ctx->game__w->moves);
@@ -77,7 +77,7 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
     if ( do_check_move_ctx ) {
         if ( has_moves_played ) {
             if ( !CC_MOVE_CONTEXT_IS_LEGAL( path_ctx->move_ctx, board_size ) )
-                return CC_MBE_False;
+                return false;
         }
     }
 
@@ -86,16 +86,16 @@ CcMaybeBoolEnum cc_path_context_is_legal( CcPathContext * path_ctx,
     if ( do_check_ply_ctx ) {
         if ( has_plies_played ) {
             if ( !CC_PLY_CONTEXT_IS_LEGAL( path_ctx->ply_ctx, board_size ) )
-                return CC_MBE_False;
+                return false;
         }
     }
 
     if ( do_check_move_ctx &&
             do_check_ply_ctx &&
             ( !has_moves_played && has_plies_played ) )
-        return CC_MBE_False;
+        return false;
 
-    return CC_MBE_True;
+    return true;
 }
 
 static bool _cc_path_context_init_move( CcPathContext * path_ctx__io,

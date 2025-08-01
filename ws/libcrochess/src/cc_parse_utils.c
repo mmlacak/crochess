@@ -329,6 +329,7 @@ CcMaybeBoolEnum cc_an_has_separated_steps( char const * start_an,
                                            bool check_destination_step ) {
     if ( !start_an ) return CC_MBE_Void;
     if ( !end_an ) return CC_MBE_Void;
+    if ( end_an < start_an ) return CC_MBE_Void;
 
     // if ( cc_skip_disambiguation( start_an ) )
     //     return CC_MBE_True;

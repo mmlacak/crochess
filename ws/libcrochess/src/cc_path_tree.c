@@ -111,7 +111,7 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return NULL;
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return NULL;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
-    if ( cc_path_context_is_legal( path_ctx__io, true, true ) != CC_MBE_True ) return NULL;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return NULL;
     if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, path_ctx__io->ply_ctx.is_first ) ) return NULL;
 
     CcPos pos = moving_from.pos;
@@ -169,7 +169,7 @@ bool cc_path_tree( CcSideEffect side_effect,
     if ( !path_ctx__io ) return false;
     if ( !pl__io ) return false;
 
-    if ( cc_path_context_is_legal( path_ctx__io, true, false ) != CC_MBE_True ) return false;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false;
 
     bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx__io->game__w->chessboard->type );
     bool is_same_color = cc_pos_piece_are_same_color( moving_from.pos, moving_from.piece );
