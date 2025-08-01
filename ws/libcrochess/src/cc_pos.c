@@ -552,53 +552,52 @@ char cc_momentum_usage_as_char( CcMomentumUsageEnum usage ) {
 //
 // Activation descriptor.
 
-CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply ) {
-    if ( !CC_PIECE_IS_ENUMERATOR( act_desc.activator ) ) return CC_MBE_Void;
-    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( act_desc.usage ) ) return CC_MBE_Void;
+bool cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply ) {
+    if ( !CC_PIECE_IS_ENUMERATOR( act_desc.activator ) ) return false;
+    if ( !CC_MOMENTUM_USAGE_IS_ENUMERATOR( act_desc.usage ) ) return false;
 
-    if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return CC_MBE_False;
+    if ( act_desc.momentum >= CC_MAX_BOARD_SIZE ) return false;
 
     if ( is_first_ply ) {
         // Activator has to be CC_PTE_None, for piece starting a move.
-        if ( act_desc.activator != CC_PTE_None ) return CC_MBE_False;
+        if ( act_desc.activator != CC_PTE_None ) return false;
     } else {
         // Otherwise, actvateor has to be valid.
-        if ( !CC_PIECE_IS_ACTIVATOR( act_desc.activator ) ) return CC_MBE_False;
+        if ( !CC_PIECE_IS_ACTIVATOR( act_desc.activator ) ) return false;
     }
 
     // .usage is valid, if it's CC_MUE_NotUsing.
-    // if ( act_desc.usage == CC_MUE_NotUsing ) return CC_MBE_False;
+    // if ( act_desc.usage == CC_MUE_NotUsing ) return false;
 
-    return CC_MBE_True;
+    return true;
 }
 
 CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count ) {
     return cc_calc_momentum( act_desc__io->usage, count, &( act_desc__io->momentum ) );
 }
 
-CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece ) {
-    if ( !act_desc__io ) return CC_MBE_Void;
-    if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return CC_MBE_Void;
+bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece ) {
+    if ( !act_desc__io ) return false;
+    if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false;
 
-    CcMaybeBoolEnum is_valid = cc_activation_desc_is_valid( *act_desc__io, true ); // true --> ignore if old activator is none.
-    if ( is_valid != CC_MBE_True ) return CC_MBE_Void;
+    // 2nd arg == true --> ignore if old activator is none.
+    if ( !cc_activation_desc_is_valid( *act_desc__io, true ) ) return false;
 
     if ( CC_PIECE_IS_ACTIVATOR( piece ) ) {
         act_desc__io->activator = piece;
-        return CC_MBE_True;
-    } else
-        return CC_MBE_False;
+        return true;
+    }
+
+    return false;
 }
 
-CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply ) {
-    CcMaybeBoolEnum result = cc_activation_desc_is_valid( act_desc, is_first_ply );
-    if ( result != CC_MBE_True ) return result;
+bool cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply ) {
+    if ( !cc_activation_desc_is_valid( act_desc, is_first_ply ) ) return false;
 
     if ( act_desc.usage == CC_MUE_Spending )
-        return ( act_desc.momentum > 0 ) ? CC_MBE_True
-                                         : CC_MBE_False;
+        return ( act_desc.momentum > 0 );
 
-    return CC_MBE_True;
+    return true;
 }
 
 bool cc_activation_desc_as_string( CcActivationDesc act_desc,
@@ -617,6 +616,5 @@ bool cc_activation_desc_as_string( CcActivationDesc act_desc,
                            act_desc.momentum,
                            usage_chr );
 
-    return ( result > 0 ) ? true
-                          : false;
+    return ( result > 0 );
 }

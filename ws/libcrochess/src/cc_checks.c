@@ -242,8 +242,8 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
     // Function checks its arguments, and -by extension- ours moving, step_type.
     if ( !cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type ) ) return false;
 
-    CcMaybeBoolEnum is_act_desc_valid = cc_activation_desc_is_valid( act_desc, true ); // true --> ignore if activator is none.
-    if ( is_act_desc_valid != CC_MBE_True ) return false;
+    // 2nd arg == true --> ignore if activator is none.
+    if ( !cc_activation_desc_is_valid( act_desc, true ) ) return false;
 
     if ( CC_PIECE_IS_WEIGHTLESS( encounter ) )
         return true;
