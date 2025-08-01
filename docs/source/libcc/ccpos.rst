@@ -698,18 +698,23 @@ Activation descriptor
 
     Casted spent momentum, i.e. :c:macro:`CC_ACTIVATION_DESC_SPENT`.
 
-.. c:function:: CcMaybeBoolEnum cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply )
+.. c:macro:: CC_ACTIVATION_DESC_IS_EQUAL(ad_1,ad_2)
+
+    Macro to check if given activation descriptors are equal.
+
+    :param ad_1: Activation descriptor, :c:type:`CcActivationDesc` value.
+    :param ad_2: Activation descriptor, :c:type:`CcActivationDesc` value.
+    :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply )
 
     Function checks if a given activation descriptor is valid.
 
     :param act_desc: An activation descriptor.
     :param is_first_ply: Flag, if current ply is first in a cascade.
-    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
-
-        * :c:enumerator:`CC_MBE_True` if both enum values are valid enumerations, and momentum value is smaller than the largest board size (i.e. :c:macro:`CC_MAX_BOARD_SIZE`)
-        * :c:enumerator:`CC_MBE_False` if at least one enum value is not a valid enumeration (i.e. :c:member:`CcActivationDesc.activator` is :c:enumerator:`CC_PTE_None` in a ply after first, or :c:member:`CcActivationDesc.usage` is :c:enumerator:`CC_MUE_NotUsing`), or :c:member:`CcActivationDesc.momentum` is too big (equal to, or larger than maximum board size),
-        * :c:enumerator:`CC_MBE_Void` if at least one enum value is not an enumeration.
-
+    :returns: :c:data:`true` if both enum values are valid enumerations,
+        and momentum value is smaller than the largest board size (i.e.
+        :c:macro:`CC_MAX_BOARD_SIZE`), :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
 
 .. c:function:: CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count )
@@ -732,32 +737,23 @@ Activation descriptor
 
     :seealso: :c:func:`cc_calc_momentum()`
 
-.. c:function:: CcMaybeBoolEnum cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece )
+.. c:function:: bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece )
 
     Function updates :c:member:`CcActivationDesc.activator` of an *input/output*
     :c:var:`act_desc__io` parameter with a given :c:var:`piece`.
 
     :param act_desc__io: *Input/output*; an activation descriptor.
     :param piece: A piece.
-    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+    :returns: :c:data:`true` if activator has been successfully updated, :c:data:`false` otherwise.
 
-        * :c:enumerator:`CC_MBE_True` if activator has been successfully updated,
-        * :c:enumerator:`CC_MBE_False` if a given piece is not an activator,
-        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient, or invalid data given.
-
-.. c:function:: CcMaybeBoolEnum cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply )
+.. c:function:: bool cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply )
 
     Function checks if a given activation descriptor is valid and usable for at
     least one step.
 
     :param act_desc: An activation descriptor.
     :param is_first_ply: Flag, if current ply is first in a cascade.
-    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
-
-        * :c:enumerator:`CC_MBE_True` if activation descriptor is valid and usable
-        * :c:enumerator:`CC_MBE_False` if activation descriptor is valid but not usable
-        * :c:enumerator:`CC_MBE_Void` if activation descriptor is not valid.
-
+    :returns: :c:data:`true` if activation descriptor is valid and usable, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_activation_desc_is_valid()`
 
 .. c:function:: bool cc_activation_desc_as_string( CcActivationDesc act_desc, cc_char_32 * act_dest_str__o )
