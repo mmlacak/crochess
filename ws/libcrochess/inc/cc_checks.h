@@ -48,10 +48,11 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
 //
 // Positional checks
 
-// TODO :: DOCS :: CcPieceTagType moving, CcActivationDesc act_desc
+// TODO :: DOCS :: CcPieceTagType moving, CcActivationDesc act_desc, bool is_first_ply,
 bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    CcPieceTagType moving,
                                    CcActivationDesc act_desc,
+                                   bool is_first_ply,
                                    CcPos pos );
 
 // TODO :: DOCS :: CcPieceTagType moving

@@ -143,30 +143,38 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
 bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    CcPieceTagType moving,
                                    CcActivationDesc act_desc,
+                                   bool is_first_ply,
                                    CcPos pos ) {
     if ( !cb ) return false;
-    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
 
-    // TODO :: check moving piece can have act_desc.usage here, and in all places where it's used (in this file)
+    if ( !cc_activation_desc_is_valid( act_desc, moving, is_first_ply ) ) return false;
+
+    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
 
     return cc_check_piece_is_blocked( moving, encounter, act_desc.momentum );
 }
 
 bool cc_check_piece_can_capture_at( CcChessboard * cb,
-                                    CcPieceTagType moving, // TODO :: add CcActivationDesc act_desc,
+                                    CcPieceTagType moving, // TODO :: add CcActivationDesc act_desc, bool is_first_ply,
                                     CcPos pos ) {
     if ( !cb ) return false;
+
+    // TODO :: check act_desc is valid
+
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+
     return cc_check_piece_can_capture( moving, encounter );
 }
 
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
-                                     CcPieceTagType moving, // TODO :: add bool is_first_ply
-                                     CcActivationDesc act_desc,
+                                     CcPieceTagType moving,
+                                     CcActivationDesc act_desc, // TODO :: add bool is_first_ply
                                      CcPos destination,
                                      CcStepTypeEnum step_type ) {
     if ( !cb ) return false;
     if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return false;
+
+    // TODO :: check act_desc is valid
 
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
@@ -184,10 +192,12 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
 
 bool cc_check_piece_can_diverge_at( CcChessboard * cb,
                                     CcPieceTagType moving,
-                                    cc_uint_t momentum,
+                                    cc_uint_t momentum, // TODO :: use CcActivationDesc act_desc, bool is_first_ply, instead momentum, activator
                                     CcPieceTagType activator,
                                     CcPos pos ) {
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+
+    // TODO :: check act_desc is valid
 
     if ( momentum == 0 ) return false;
 
@@ -249,7 +259,7 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
     do {
         // Rook is semi-opaque just like King, so it's enough to check only King
         //     against all fields in-between the two.
-        if ( cc_check_piece_is_blocked_at( cb, king, ad, current ) )
+        if ( cc_check_piece_is_blocked_at( cb, king, ad, true, current ) ) // true --> King cannot be activated, all its movement is strictly in the first ply.
             return false;
 
         current = cc_pos_add_steps( current, king_step, 1 );
