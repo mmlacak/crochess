@@ -29,6 +29,8 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     if ( !CC_PIECE_IS_VALID( moving_from.piece ) ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false;
 
+    if ( !cc_activation_desc_is_valid( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
+
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
@@ -66,7 +68,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     // }
     // TODO :: FIX
 
-    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
+    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
         if ( !se__w ) {
