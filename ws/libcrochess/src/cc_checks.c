@@ -168,21 +168,19 @@ bool cc_check_piece_can_capture_at( CcChessboard * cb,
 
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcPieceTagType moving,
-                                     CcActivationDesc act_desc, // TODO :: add bool is_first_ply
+                                     CcActivationDesc act_desc,
+                                     bool is_first_ply,
                                      CcPos destination,
                                      CcStepTypeEnum step_type ) {
     if ( !cb ) return false;
     if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return false;
 
-    // TODO :: check act_desc is valid
+    if ( !cc_activation_desc_is_valid( act_desc, moving, is_first_ply ) ) return false;
 
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
 
     // Function checks its arguments, and -by extension- ours moving, step_type.
     if ( !cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type ) ) return false;
-
-    // 2nd arg == true --> ignore if activator is none.
-    if ( !cc_activation_desc_is_valid( act_desc, moving, true ) ) return false; // TODO :: true --> is_first_ply
 
     if ( CC_PIECE_IS_WEIGHTLESS( encounter ) )
         return true;
@@ -273,6 +271,7 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType private,
                                 CcActivationDesc act_desc,
+                                bool is_first_ply,
                                 CcPos destination,
                                 CcPosDesc * target__o ) {
     if ( !cb ) return false;
@@ -295,7 +294,7 @@ bool cc_find_en_passant_target( CcChessboard * cb,
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
     if ( encounter != CC_PTE_None ) {
         // Function checks its arguments, and -by extension- ours act_desc.
-        if ( !cc_check_piece_can_activate_at( cb, private, act_desc, destination, CC_STE_CaptureOnly ) ) return false;
+        if ( !cc_check_piece_can_activate_at( cb, private, act_desc, is_first_ply, destination, CC_STE_CaptureOnly ) ) return false;
     }
 
     int diff = is_piece_light ? -1 : 1;

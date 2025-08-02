@@ -78,7 +78,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
             ( encounter.piece == CC_PTE_None ) ) { // TODO :: or encountered piece can be activated
         CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
-        if ( cc_find_en_passant_target( cb, moving_from.piece, act_desc, encounter.pos, &en_passant ) ) {
+        if ( cc_find_en_passant_target( cb, moving_from.piece, act_desc, path_ctx__io->ply_ctx.is_first, encounter.pos, &en_passant ) ) {
             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
             CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
             if ( !se__w ) {

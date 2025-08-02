@@ -60,10 +60,11 @@ bool cc_check_piece_can_capture_at( CcChessboard * cb,
                                     CcPieceTagType moving,
                                     CcPos pos );
 
-// TODO :: DOCS :: moved
+// TODO :: DOCS :: moved + bool is_first_ply,
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcPieceTagType moving,
                                      CcActivationDesc act_desc,
+                                     bool is_first_ply,
                                      CcPos destination,
                                      CcStepTypeEnum step_type );
 
@@ -80,9 +81,11 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
                                     CcPos rook_start,
                                     CcPos rook_dest );
 
+// TODO :: DOCS :: bool is_first_ply,
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType private,
                                 CcActivationDesc act_desc,
+                                bool is_first_ply,
                                 CcPos destination,
                                 CcPosDesc * target__o );
 
