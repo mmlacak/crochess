@@ -69,12 +69,12 @@ typedef struct CcPlyContext {
 #define CC_PLY_CONTEXT_IS_VALID(ply_ctx)                                            \
     ( CC_POS_DESC_IS_VALID( (ply_ctx).initial ) &&                                  \
       CC_POS_IS_VALID( (ply_ctx).starting ) &&                                      \
-      cc_activation_desc_is_valid( (ply_ctx).act_desc, (ply_ctx).is_first ) )
+      cc_activation_desc_is_valid( (ply_ctx).act_desc, (ply_ctx).initial.piece, (ply_ctx).is_first ) )
 
 #define CC_PLY_CONTEXT_IS_LEGAL(ply_ctx,board_size)                                 \
     ( CC_POS_DESC_IS_LEGAL( (ply_ctx).initial, (board_size) ) &&                    \
       CC_POS_IS_LEGAL( (ply_ctx).starting, (board_size) ) &&                        \
-      cc_activation_desc_is_valid( (ply_ctx).act_desc, (ply_ctx).is_first ) )
+      cc_activation_desc_is_valid( (ply_ctx).act_desc, (ply_ctx).initial.piece, (ply_ctx).is_first ) )
 
 //
 // Path context.

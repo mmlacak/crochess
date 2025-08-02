@@ -112,7 +112,7 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return NULL;
     if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
     if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return NULL;
-    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, path_ctx__io->ply_ctx.is_first ) ) return NULL;
+    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return NULL;
 
     CcPos pos = moving_from.pos;
     CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
@@ -146,7 +146,7 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
             break;
 
         act_desc = ad;
-    } while ( cc_activation_desc_is_usable( act_desc, path_ctx__io->ply_ctx.is_first ) );
+    } while ( cc_activation_desc_is_usable( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) );
 
     CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
     if ( !pl__a ) {

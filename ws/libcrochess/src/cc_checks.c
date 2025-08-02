@@ -161,7 +161,7 @@ bool cc_check_piece_can_capture_at( CcChessboard * cb,
 }
 
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
-                                     CcPieceTagType moving,
+                                     CcPieceTagType moving, // TODO :: add bool is_first_ply
                                      CcActivationDesc act_desc,
                                      CcPos destination,
                                      CcStepTypeEnum step_type ) {
@@ -174,7 +174,7 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
     if ( !cc_check_piece_can_activate( moving, encounter, act_desc.momentum, step_type ) ) return false;
 
     // 2nd arg == true --> ignore if activator is none.
-    if ( !cc_activation_desc_is_valid( act_desc, true ) ) return false;
+    if ( !cc_activation_desc_is_valid( act_desc, moving, true ) ) return false; // TODO :: true --> is_first_ply
 
     if ( CC_PIECE_IS_WEIGHTLESS( encounter ) )
         return true;
@@ -244,7 +244,7 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
 
     CcActivationDesc ad = CC_ACTIVATION_DESC_INITIAL;
     CcPos current = cc_pos_add_steps( king_start, king_step, 1 );
-    if ( cc_activation_desc_step_momentum( &ad ) != CC_MBE_True ) return false;
+    if ( cc_activation_desc_calc_momentum( &ad, 1 ) != CC_MBE_True ) return false;
 
     do {
         // Rook is semi-opaque just like King, so it's enough to check only King
@@ -254,7 +254,7 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
 
         current = cc_pos_add_steps( current, king_step, 1 );
 
-        if ( cc_activation_desc_step_momentum( &ad ) != CC_MBE_True ) return false;
+        if ( cc_activation_desc_calc_momentum( &ad, 1 ) != CC_MBE_True ) return false;
     } while ( !CC_POS_IS_EQUAL( rook_dest, current ) );
 
     return true;

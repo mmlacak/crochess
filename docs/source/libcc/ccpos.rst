@@ -737,13 +737,13 @@ Activation descriptor
 
     :seealso: :c:func:`cc_calc_momentum()`
 
-.. c:function:: bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece )
+.. c:function:: bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType new_activator )
 
     Function updates :c:member:`CcActivationDesc.activator` of an *input/output*
-    :c:var:`act_desc__io` parameter with a given :c:var:`piece`.
+    :c:var:`act_desc__io` parameter with a given :c:var:`new_activator`.
 
     :param act_desc__io: *Input/output*; an activation descriptor.
-    :param piece: A piece.
+    :param new_activator: New activator, a piece.
     :returns: :c:data:`true` if activator has been successfully updated, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply )
