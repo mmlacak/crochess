@@ -39,7 +39,7 @@ Functions
 
 .. c:function:: bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType encounter )
 
-    Function checks if a moving piece can can capture encoutered piece.
+    Function checks if a moving piece can capture encoutered piece.
 
     :param moving: A moving piece.
     :param encounter: An encountered piece.
