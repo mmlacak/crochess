@@ -717,7 +717,7 @@ Activation descriptor
         :c:macro:`CC_MAX_BOARD_SIZE`), :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
 
-.. c:function:: CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count )
+.. c:function:: CcMaybeBoolEnum cc_activation_desc_calc_momentum( CcActivationDesc * act_desc__io, cc_uint_t count )
 
     Convenience function to calculate next momentum value by adding or subtracting
     :c:var:`count`; momentum (including its usage) is given, and result is returned

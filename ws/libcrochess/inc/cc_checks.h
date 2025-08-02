@@ -21,6 +21,8 @@
 
 #define CC_CHECK_STEPS_NO_LIMIT (0)
 
+//
+// Piece checks
 
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse );
@@ -29,23 +31,44 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
                                   CcLosingTagType ltt,
                                   bool compare_tag_and_losing_tag );
 
-bool cc_check_piece_is_blocked_by_other( CcPieceTagType moving,
-                                         CcPieceTagType encounter );
+// TODO :: DOCS :: cc_uint_t momentum
+bool cc_check_piece_is_blocked( CcPieceTagType moving,
+                                CcPieceTagType encounter,
+                                cc_uint_t momentum );
 
-bool cc_check_piece_can_capture_other( CcPieceTagType moving,
-                                       CcPieceTagType encounter );
+// TODO :: DOCS :: moved
+bool cc_check_piece_can_capture( CcPieceTagType moving,
+                                 CcPieceTagType encounter );
 
+bool cc_check_piece_can_activate( CcPieceTagType moving,
+                                  CcPieceTagType encounter,
+                                  cc_uint_t momentum,
+                                  CcStepTypeEnum step_type );
 
+//
+// Positional checks
+
+// TODO :: DOCS :: CcPieceTagType moving, CcActivationDesc act_desc
 bool cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                   CcPieceTagType piece,
+                                   CcPieceTagType moving,
+                                   CcActivationDesc act_desc,
                                    CcPos pos );
 
+// TODO :: DOCS :: CcPieceTagType moving
 bool cc_check_piece_can_capture_at( CcChessboard * cb,
-                                    CcPieceTagType piece,
+                                    CcPieceTagType moving,
                                     CcPos pos );
 
+// TODO :: DOCS :: moved
+bool cc_check_piece_can_activate_at( CcChessboard * cb,
+                                     CcPieceTagType moving,
+                                     CcActivationDesc act_desc,
+                                     CcPos destination,
+                                     CcStepTypeEnum step_type );
+
+// TODO :: DOCS :: CcPieceTagType moving
 bool cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                    CcPieceTagType piece,
+                                    CcPieceTagType moving,
                                     cc_uint_t momentum,
                                     CcPieceTagType activator,
                                     CcPos pos );
@@ -55,17 +78,6 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
                                     CcPos king_dest,
                                     CcPos rook_start,
                                     CcPos rook_dest );
-
-bool cc_check_piece_can_activate( CcPieceTagType moving,
-                                  CcPieceTagType encounter,
-                                  cc_uint_t momentum,
-                                  CcStepTypeEnum step_type );
-
-bool cc_check_piece_can_activate_at( CcChessboard * cb,
-                                     CcPieceTagType moving,
-                                     CcActivationDesc act_desc,
-                                     CcPos destination,
-                                     CcStepTypeEnum step_type );
 
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType private,

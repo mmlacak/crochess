@@ -572,8 +572,12 @@ bool cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply )
     return true;
 }
 
-CcMaybeBoolEnum cc_activation_desc_calc_next_momentum( CcActivationDesc * act_desc__io, cc_uint_t count ) {
+CcMaybeBoolEnum cc_activation_desc_calc_momentum( CcActivationDesc * act_desc__io, cc_uint_t count ) {
     return cc_calc_momentum( act_desc__io->usage, count, &( act_desc__io->momentum ) );
+}
+
+CcMaybeBoolEnum cc_activation_desc_step_momentum( CcActivationDesc * act_desc__io ) {
+    return cc_calc_momentum( act_desc__io->usage, 1, &( act_desc__io->momentum ) );
 }
 
 bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType piece ) {

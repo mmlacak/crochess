@@ -6,6 +6,9 @@
 #include "cc_checks.h"
 
 
+//
+// Piece checks
+
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse ) {
     if ( !moves ) return false;
@@ -53,8 +56,9 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
     return false;
 }
 
-bool cc_check_piece_is_blocked_by_other( CcPieceTagType moving,
-                                         CcPieceTagType encounter ) {
+bool cc_check_piece_is_blocked( CcPieceTagType moving,
+                                CcPieceTagType encounter,
+                                cc_uint_t momentum ) {
     if ( CC_PIECE_IS_WAVE( moving ) )
         return CC_PIECE_IS_OPAQUE( encounter );
 
@@ -68,110 +72,17 @@ bool cc_check_piece_is_blocked_by_other( CcPieceTagType moving,
 
     if ( CC_PIECE_IS_SEMI_OPAQUE( moving ) )
         if ( CC_PIECE_IS_SEMI_OPAQUE( encounter ) )
-            return true;
+            if ( momentum > 1 )
+                return true;
 
     return false;
 }
 
-bool cc_check_piece_can_capture_other( CcPieceTagType moving,
-                                       CcPieceTagType encounter ) {
+bool cc_check_piece_can_capture( CcPieceTagType moving,
+                                 CcPieceTagType encounter ) {
     if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false; // This weeds out invalid pieces, and those without owner.
     if ( !CC_PIECE_CAN_BE_CAPTURED( encounter ) ) return false; // Also weeds out invalid pieces, and those without owner.
     if ( !cc_piece_has_different_owner( moving, encounter ) ) return false;
-    return true;
-}
-
-
-bool cc_check_piece_is_blocked_at( CcChessboard * cb,
-                                   CcPieceTagType piece,
-                                   CcPos pos ) {
-    if ( !cb ) return false;
-    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    return cc_check_piece_is_blocked_by_other( piece, encounter );
-}
-
-bool cc_check_piece_can_capture_at( CcChessboard * cb,
-                                    CcPieceTagType piece,
-                                    CcPos pos ) {
-    if ( !cb ) return false;
-    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    return cc_check_piece_can_capture_other( piece, encounter );
-}
-
-bool cc_check_piece_can_diverge_at( CcChessboard * cb,
-                                    CcPieceTagType piece,
-                                    cc_uint_t momentum,
-                                    CcPieceTagType activator,
-                                    CcPos pos ) {
-    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
-
-    if ( momentum == 0 ) return false;
-
-    if ( CC_PIECE_IS_WAVE( piece ) ) {
-        // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
-        // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
-
-        if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return false;
-    } else {
-        if ( !CC_PIECE_CAN_BE_DIVERGED( piece ) ) return false;
-    }
-
-    if ( !cb ) return false;
-
-    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
-    if ( CC_PIECE_IS_STARCHILD( encounter ) ) return true;
-
-    if ( CC_PIECE_IS_SHAMAN( encounter ) ) {
-        if ( CC_PIECE_IS_SHAMAN( piece ) )
-            return true;
-        else
-            return cc_piece_has_same_owner( piece, encounter );
-    } else
-        return false;
-}
-
-bool cc_check_castling_step_fields( CcChessboard * cb,
-                                    CcPos king_start,
-                                    CcPos king_dest,
-                                    CcPos rook_start,
-                                    CcPos rook_dest ) {
-    if ( !cb ) return false;
-
-    if ( king_start.j != rook_start.j ) return false;
-
-    CcPieceTagType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
-    if ( !CC_PIECE_IS_KING( king ) ) return false;
-    if ( !CC_PIECE_CAN_CASTLE( king ) ) return false;
-
-    CcPieceTagType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
-    if ( !CC_PIECE_IS_ROOK( rook ) ) return false;
-    if ( !CC_PIECE_CAN_CASTLE( rook ) ) return false;
-
-    if ( !cc_piece_has_same_color( king, rook ) ) return false;
-
-    CcPieceTagType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
-    if ( !CC_PIECE_IS_NONE( empty_for_king ) ) return false;
-
-    CcPieceTagType empty_for_rook = cc_chessboard_get_piece( cb, rook_dest.i, rook_dest.j );
-    if ( !CC_PIECE_IS_NONE( empty_for_rook ) ) return false;
-
-    bool is_queen_side = ( king_start.i > rook_start.i );
-    CcPos king_step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
-
-    CcPos current = cc_pos_add_steps( king_start, king_step, 1 );
-    cc_uint_t momentum = 1;
-
-    do {
-        // Rook is semi-opaque just like King, so it's enough to check only King
-        //     against all fields in-between the two.
-        if ( cc_check_piece_is_blocked_at( cb, king, current ) )
-            return false;
-
-        current = cc_pos_add_steps( current, king_step, 1 );
-
-        ++momentum;
-    } while ( !CC_POS_IS_EQUAL( rook_dest, current ) );
-
     return true;
 }
 
@@ -226,6 +137,29 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     return false;
 }
 
+//
+// Positional checks
+
+bool cc_check_piece_is_blocked_at( CcChessboard * cb,
+                                   CcPieceTagType moving,
+                                   CcActivationDesc act_desc,
+                                   CcPos pos ) {
+    if ( !cb ) return false;
+    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+
+    // TODO :: check moving piece can have act_desc.usage here, and in all places where it's used (in this file)
+
+    return cc_check_piece_is_blocked( moving, encounter, act_desc.momentum );
+}
+
+bool cc_check_piece_can_capture_at( CcChessboard * cb,
+                                    CcPieceTagType moving, // TODO :: add CcActivationDesc act_desc,
+                                    CcPos pos ) {
+    if ( !cb ) return false;
+    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    return cc_check_piece_can_capture( moving, encounter );
+}
+
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcPieceTagType moving,
                                      CcActivationDesc act_desc,
@@ -246,6 +180,84 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
         return true;
     else
         return ( act_desc.momentum > 0 );
+}
+
+bool cc_check_piece_can_diverge_at( CcChessboard * cb,
+                                    CcPieceTagType moving,
+                                    cc_uint_t momentum,
+                                    CcPieceTagType activator,
+                                    CcPos pos ) {
+    if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+
+    if ( momentum == 0 ) return false;
+
+    if ( CC_PIECE_IS_WAVE( moving ) ) {
+        // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
+        // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
+
+        if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return false;
+    } else {
+        if ( !CC_PIECE_CAN_BE_DIVERGED( moving ) ) return false;
+    }
+
+    if ( !cb ) return false;
+
+    CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+    if ( CC_PIECE_IS_STARCHILD( encounter ) ) return true;
+
+    if ( CC_PIECE_IS_SHAMAN( encounter ) ) {
+        if ( CC_PIECE_IS_SHAMAN( moving ) )
+            return true;
+        else
+            return cc_piece_has_same_owner( moving, encounter );
+    } else
+        return false;
+}
+
+bool cc_check_castling_step_fields( CcChessboard * cb,
+                                    CcPos king_start,
+                                    CcPos king_dest,
+                                    CcPos rook_start,
+                                    CcPos rook_dest ) {
+    if ( !cb ) return false;
+
+    if ( king_start.j != rook_start.j ) return false;
+
+    CcPieceTagType king = cc_chessboard_get_piece( cb, king_start.i, king_start.j );
+    if ( !CC_PIECE_IS_KING( king ) ) return false;
+    if ( !CC_PIECE_CAN_CASTLE( king ) ) return false;
+
+    CcPieceTagType rook = cc_chessboard_get_piece( cb, rook_start.i, rook_start.j );
+    if ( !CC_PIECE_IS_ROOK( rook ) ) return false;
+    if ( !CC_PIECE_CAN_CASTLE( rook ) ) return false;
+
+    if ( !cc_piece_has_same_color( king, rook ) ) return false;
+
+    CcPieceTagType empty_for_king = cc_chessboard_get_piece( cb, king_dest.i, king_dest.j );
+    if ( !CC_PIECE_IS_NONE( empty_for_king ) ) return false;
+
+    CcPieceTagType empty_for_rook = cc_chessboard_get_piece( cb, rook_dest.i, rook_dest.j );
+    if ( !CC_PIECE_IS_NONE( empty_for_rook ) ) return false;
+
+    bool is_queen_side = ( king_start.i > rook_start.i );
+    CcPos king_step = is_queen_side ? CC_POS_CAST( -1, 0 ) : CC_POS_CAST( 1, 0 );
+
+    CcActivationDesc ad = CC_ACTIVATION_DESC_INITIAL;
+    CcPos current = cc_pos_add_steps( king_start, king_step, 1 );
+    if ( cc_activation_desc_step_momentum( &ad ) != CC_MBE_True ) return false;
+
+    do {
+        // Rook is semi-opaque just like King, so it's enough to check only King
+        //     against all fields in-between the two.
+        if ( cc_check_piece_is_blocked_at( cb, king, ad, current ) )
+            return false;
+
+        current = cc_pos_add_steps( current, king_step, 1 );
+
+        if ( cc_activation_desc_step_momentum( &ad ) != CC_MBE_True ) return false;
+    } while ( !CC_POS_IS_EQUAL( rook_dest, current ) );
+
+    return true;
 }
 
 bool cc_find_en_passant_target( CcChessboard * cb,

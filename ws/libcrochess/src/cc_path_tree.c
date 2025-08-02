@@ -66,7 +66,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     // }
     // TODO :: FIX
 
-    if ( cc_check_piece_can_capture_other( moving_from.piece, encounter.piece ) ) {
+    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
         if ( !se__w ) {
@@ -129,7 +129,7 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
         pos = cc_pos_add_steps( pos, step.step, STEP_COUNT );
 
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
-            if ( cc_activation_desc_calc_next_momentum( &ad, STEP_COUNT ) != CC_MBE_True )
+            if ( cc_activation_desc_calc_momentum( &ad, STEP_COUNT ) != CC_MBE_True )
                 break;
 
             encounter = cc_chessboard_get_piece( path_ctx__io->cb_current, pos.i, pos.j );

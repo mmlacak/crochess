@@ -24,7 +24,7 @@
 //     CcStep * step__w = NULL;
 //
 //     while ( cc_chessboard_is_pos_on_board( path_ctx->game__w->chessboard, field.i, field.j ) ) {
-//         CcMaybeBoolEnum result = cc_activation_desc_calc_next_momentum( &ad, 1 );
+//         CcMaybeBoolEnum result = cc_activation_desc_calc_momentum( &ad, 1 );
 //
 //         if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) { // Void --> error.
 //             cc_step_free_all( &steps__t );
