@@ -29,7 +29,6 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
                                   CcLosingTagType ltt,
                                   bool compare_tag_and_losing_tag );
 
-// TODO :: DOCS
 bool cc_check_piece_is_blocked_by_other( CcPieceTagType moving,
                                          CcPieceTagType encounter );
 

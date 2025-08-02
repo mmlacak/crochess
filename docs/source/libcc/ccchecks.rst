@@ -37,9 +37,17 @@ Functions
     :param ltt: :c:type:`CcLosingTagType` value.
     :returns: :c:data:`true` if piece can lose given tag, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_check_piece_is_blocked_by_other( CcPieceTagType moving, CcPieceTagType encounter )
+
+    Function checks if piece is blocked by encountered piece.
+
+    :param moving: A moving piece.
+    :param encounter: An encountered piece.
+    :returns: :c:data:`true` if encountered piece is blocking, :c:data:`false` otherwise.
+
 .. c:function:: bool cc_check_piece_can_capture_other( CcPieceTagType moving, CcPieceTagType encounter )
 
-    Function checks if a moving piece can capture encoutered piece.
+    Function checks if a moving piece can capture encountered piece.
 
     :param moving: A moving piece.
     :param encounter: An encountered piece.
