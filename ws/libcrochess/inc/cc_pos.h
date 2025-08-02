@@ -212,9 +212,10 @@ bool cc_activation_desc_is_valid( CcActivationDesc act_desc,
 CcMaybeBoolEnum cc_activation_desc_calc_momentum( CcActivationDesc * act_desc__io,
                                                   cc_uint_t count );
 
-// TODO :: DOCS :: CcPieceTagType piece
+// TODO :: DOCS :: CcPieceTagType piece, bool is_first_ply
 bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io,
-                                          CcPieceTagType piece, // TODO :: add bool is_first_ply
+                                          CcPieceTagType piece,
+                                          bool is_first_ply,
                                           CcPieceTagType new_activator );
 
 bool cc_activation_desc_is_usable( CcActivationDesc act_desc,

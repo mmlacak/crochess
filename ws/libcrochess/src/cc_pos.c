@@ -572,6 +572,9 @@ bool cc_activation_desc_is_valid( CcActivationDesc act_desc,
     if ( act_desc.usage == CC_MUE_NotUsing )
         return ( CC_PIECE_IS_WEIGHTLESS( piece ) );
 
+    if ( piece == CC_PTE_Monolith )
+        return ( act_desc.usage == CC_MUE_Accumulating );
+
     return true;
 }
 
@@ -581,13 +584,13 @@ CcMaybeBoolEnum cc_activation_desc_calc_momentum( CcActivationDesc * act_desc__i
 }
 
 bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io,
-                                          CcPieceTagType piece, // TODO :: add bool is_first_ply
+                                          CcPieceTagType piece,
+                                          bool is_first_ply,
                                           CcPieceTagType new_activator ) {
     if ( !act_desc__io ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( new_activator ) ) return false;
 
-    // 2nd arg == true --> ignore if old activator is none.
-    if ( !cc_activation_desc_is_valid( *act_desc__io, piece, true ) ) return false; // TODO :: true --> is_first_ply
+    if ( !cc_activation_desc_is_valid( *act_desc__io, piece, is_first_ply ) ) return false;
 
     if ( CC_PIECE_IS_ACTIVATOR( new_activator ) ) {
         act_desc__io->activator = new_activator;
