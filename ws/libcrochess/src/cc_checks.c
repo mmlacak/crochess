@@ -79,11 +79,9 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
 }
 
 bool cc_check_piece_can_capture( CcPieceTagType moving,
-                                 CcPieceTagType encounter,
-                                 cc_uint_t momentum ) {
+                                 CcPieceTagType encounter ) {
     if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false; // This weeds out invalid pieces, and those without owner.
     if ( !CC_PIECE_CAN_BE_CAPTURED( encounter ) ) return false; // Also weeds out invalid pieces, and those without owner.
-    if ( momentum < 1 ) return false; // Weightless pieces (Waves, Starchilds) cannot capture, others has to have momentum.
     if ( !cc_piece_has_different_owner( moving, encounter ) ) return false;
     return true;
 }
@@ -157,17 +155,11 @@ bool cc_check_piece_is_blocked_at( CcChessboard * cb,
 }
 
 bool cc_check_piece_can_capture_at( CcChessboard * cb,
-                                    CcPieceTagType moving, // TODO :: add CcActivationDesc act_desc, bool is_first_ply,
-                                    CcActivationDesc act_desc,
-                                    bool is_first_ply,
+                                    CcPieceTagType moving,
                                     CcPos pos ) {
     if ( !cb ) return false;
-
-    if ( !cc_activation_desc_is_valid( act_desc, moving, is_first_ply ) ) return false;
-
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
-
-    return cc_check_piece_can_capture( moving, encounter, act_desc.momentum );
+    return cc_check_piece_can_capture( moving, encounter );
 }
 
 bool cc_check_piece_can_activate_at( CcChessboard * cb,

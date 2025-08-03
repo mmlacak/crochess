@@ -36,10 +36,9 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
                                 CcPieceTagType encounter,
                                 cc_uint_t momentum );
 
-// TODO :: DOCS :: moved + cc_uint_t momentum
+// TODO :: DOCS :: moved
 bool cc_check_piece_can_capture( CcPieceTagType moving,
-                                 CcPieceTagType encounter,
-                                 cc_uint_t momentum );
+                                 CcPieceTagType encounter );
 
 bool cc_check_piece_can_activate( CcPieceTagType moving,
                                   CcPieceTagType encounter,
@@ -56,11 +55,9 @@ bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    bool is_first_ply,
                                    CcPos pos );
 
-// TODO :: DOCS :: CcPieceTagType moving + CcActivationDesc act_desc, + bool is_first_ply,
+// TODO :: DOCS :: CcPieceTagType moving
 bool cc_check_piece_can_capture_at( CcChessboard * cb,
                                     CcPieceTagType moving,
-                                    CcActivationDesc act_desc,
-                                    bool is_first_ply,
                                     CcPos pos );
 
 // TODO :: DOCS :: moved + bool is_first_ply,
