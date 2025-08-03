@@ -95,30 +95,47 @@ Piece checks
 Positional checks
 ^^^^^^^^^^^^^^^^^
 
-.. c:function:: bool cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceTagType piece, CcPos pos )
+.. c:function:: bool cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceTagType moving, CcActivationDesc act_desc, bool is_first_ply, CcPos pos )
 
     Function checks if piece is blocked at given position.
 
-    :param cb: Chessboard.
-    :param piece: A piece.
+    :param cb: A chessboard.
+    :param moving: A moving piece.
+    :param act_desc: An activation descriptor.
+    :param is_first_ply: Flag, if current ply is first in a cascade.
     :param pos: A position.
     :returns: :c:data:`true` if piece is blocked at given position, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_check_piece_is_blocked()`
 
-.. c:function:: bool cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceTagType piece, CcPos pos )
+.. c:function:: bool cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceTagType moving, CcPos pos )
 
     Function checks if a piece can capture at given position.
 
-    :param cb: Chessboard.
-    :param piece: A piece.
+    :param cb: A chessboard.
+    :param moving: A moving piece.
     :param pos: A position.
     :returns: :c:data:`true` if a piece can capture at given position, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_check_piece_can_capture()`
 
-.. c:function:: bool cc_check_piece_can_diverge_at( CcChessboard * cb, CcPieceTagType piece, cc_uint_t momentum, CcPieceTagType activator, CcPos pos )
+.. c:function:: bool cc_check_piece_can_activate_at( CcChessboard * cb, CcPieceTagType moving, CcActivationDesc act_desc, bool is_first_ply, CcPos destination, CcStepTypeEnum step_type )
+
+    Function checks if moving piece can activate piece encountered at :c:var:`destination`.
+
+    :param cb: Current chessboard.
+    :param moving: A moving piece.
+    :param act_desc: An activation descriptor.
+    :param is_first_ply: Flag, if current ply is first in a cascade.
+    :param destination: Destination field.
+    :param step_type: Type of an activation step, e.g. to differentiate between capture-step and just movement.
+    :returns: :c:data:`true` if moving piece can activate encountered piece, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_check_piece_can_activate()`
+
+.. c:function:: bool cc_check_piece_can_diverge_at( CcChessboard * cb, CcPieceTagType moving, cc_uint_t momentum, CcPieceTagType activator, CcPos pos )
 
     Function checks if a piece can diverge from given position.
 
-    :param cb: Chessboard.
-    :param piece: A piece.
+    :param cb: A chessboard.
+    :param moving: A moving piece.
     :param momentum: Momentum.
     :param activator: An :term:`activator`.
     :param pos: A position.
@@ -128,37 +145,24 @@ Positional checks
 
     Function checks if pieces can castle from their given positions.
 
-    :param cb: Chessboard.
+    :param cb: A chessboard.
     :param king_start: King's initial position.
     :param king_dest: King's destination field after castling.
     :param rook_start: Rook's initial position.
     :param rook_dest: Rook's destination field after castling.
     :returns: :c:data:`true` if pieces can castle from given position, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_check_piece_can_activate_at( CcChessboard * cb, CcPieceTagType moving, CcActivationDesc act_desc, CcPos destination, CcStepTypeEnum step_type )
-
-    Function checks if moving piece can activate piece encountered at :c:var:`destination`.
-
-    :param cb: Current chessboard.
-    :param moving: A moving piece.
-    :param act_desc: An activation descriptor.
-    :param destination: Destination field.
-    :param step_type: Type of an activation step, e.g. to differentiate between capture-step and just movement.
-    :returns: :c:data:`true` if moving piece can activate encountered piece, :c:data:`false` otherwise.
-
-    :seealso: :c:func:`cc_check_piece_can_activate()`
-
-.. c:function:: bool cc_find_en_passant_target( CcChessboard * cb, CcPieceTagType private, CcActivationDesc act_desc, CcPos destination, CcPosDesc * target__o )
+.. c:function:: bool cc_find_en_passant_target( CcChessboard * cb, CcPieceTagType private, CcActivationDesc act_desc, bool is_first_ply, CcPos destination, CcPosDesc * target__o )
 
     Function finds a private to be captured by en passant, its location and tag.
 
     :param cb: Current chessboard.
     :param private: A moving private, capturing en passant.
     :param act_desc: An activation descriptor.
+    :param is_first_ply: Flag, if current ply is first in a cascade.
     :param destination: Destination of a :c:var:`private`, where activation takes place.
     :param target__o: An *output*; target private to be captured en passant, its position and tag; if found.
     :returns: :c:data:`true` if a private to be captured en passant, its position and tag were found, :c:data:`false` otherwise.
-
     :seealso: :c:func:`cc_check_piece_can_activate_at()`
 
 .. _lbl-libcc-ccchecks-sourcecodeheader:

@@ -47,19 +47,16 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
 //
 // Positional checks
 
-// TODO :: DOCS :: CcPieceTagType moving, CcActivationDesc act_desc, bool is_first_ply,
 bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    CcPieceTagType moving,
                                    CcActivationDesc act_desc,
                                    bool is_first_ply,
                                    CcPos pos );
 
-// TODO :: DOCS :: CcPieceTagType moving
 bool cc_check_piece_can_capture_at( CcChessboard * cb,
                                     CcPieceTagType moving,
                                     CcPos pos );
 
-// TODO :: DOCS :: moved + bool is_first_ply,
 bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcPieceTagType moving,
                                      CcActivationDesc act_desc,
@@ -67,7 +64,6 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcPos destination,
                                      CcStepTypeEnum step_type );
 
-// TODO :: DOCS :: CcPieceTagType moving
 bool cc_check_piece_can_diverge_at( CcChessboard * cb,
                                     CcPieceTagType moving,
                                     cc_uint_t momentum,
@@ -80,7 +76,6 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
                                     CcPos rook_start,
                                     CcPos rook_dest );
 
-// TODO :: DOCS :: bool is_first_ply,
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType private,
                                 CcActivationDesc act_desc,
