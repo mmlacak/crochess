@@ -706,15 +706,15 @@ Activation descriptor
     :param ad_2: Activation descriptor, :c:type:`CcActivationDesc` value.
     :returns: :c:data:`true` if equal, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_activation_desc_is_valid( CcActivationDesc act_desc, bool is_first_ply )
+.. c:function:: bool cc_activation_desc_is_valid( CcActivationDesc act_desc, CcPieceTagType moving, bool is_first_ply )
 
-    Function checks if a given activation descriptor is valid.
+    Function checks if a given activation descriptor is valid,
+    for a given piece and its ply within cascade.
 
     :param act_desc: An activation descriptor.
+    :param moving: A moving piece, to which activation descriptor applies.
     :param is_first_ply: Flag, if current ply is first in a cascade.
-    :returns: :c:data:`true` if both enum values are valid enumerations,
-        and momentum value is smaller than the largest board size (i.e.
-        :c:macro:`CC_MAX_BOARD_SIZE`), :c:data:`false` otherwise.
+    :returns: :c:data:`true` if valid activation descriptor, :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_MOMENTUM_USAGE_IS_ENUMERATOR()`, :c:macro:`CC_PIECE_IS_ENUMERATOR()`
 
 .. c:function:: CcMaybeBoolEnum cc_activation_desc_calc_momentum( CcActivationDesc * act_desc__io, cc_uint_t count )
@@ -737,21 +737,24 @@ Activation descriptor
 
     :seealso: :c:func:`cc_calc_momentum()`
 
-.. c:function:: bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType new_activator )
+.. c:function:: bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io, CcPieceTagType moving, bool is_first_ply, CcPieceTagType new_activator )
 
     Function updates :c:member:`CcActivationDesc.activator` of an *input/output*
     :c:var:`act_desc__io` parameter with a given :c:var:`new_activator`.
 
     :param act_desc__io: *Input/output*; an activation descriptor.
+    :param moving: A moving piece, to which activation descriptor applies.
+    :param is_first_ply: Flag, if current ply is first in a cascade.
     :param new_activator: New activator, a piece.
     :returns: :c:data:`true` if activator has been successfully updated, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_activation_desc_is_usable( CcActivationDesc act_desc, bool is_first_ply )
+.. c:function:: bool cc_activation_desc_is_usable( CcActivationDesc act_desc, CcPieceTagType moving, bool is_first_ply )
 
     Function checks if a given activation descriptor is valid and usable for at
     least one step.
 
     :param act_desc: An activation descriptor.
+    :param moving: A moving piece, to which activation descriptor applies.
     :param is_first_ply: Flag, if current ply is first in a cascade.
     :returns: :c:data:`true` if activation descriptor is valid and usable, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_activation_desc_is_valid()`
