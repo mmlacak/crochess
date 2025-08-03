@@ -21,11 +21,12 @@
 
 #define CC_CHECK_STEPS_NO_LIMIT (0)
 
-//
-// Piece checks
 
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse );
+
+//
+// Piece checks
 
 bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
                                   CcLosingTagType ltt,

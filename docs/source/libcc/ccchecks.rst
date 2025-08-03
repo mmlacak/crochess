@@ -29,6 +29,22 @@ Data
 Functions
 ---------
 
+.. c:function:: bool cc_check_valid_draw_offer_exists( CcMove * moves, CcGameStatusEnum gse )
+
+    Function checks if valid draw offer exists.
+
+    Function searches for last draw offer by an opponent, which is valid if it's still pending
+    (i.e. not cancelled).
+
+    :param moves: Moves played so far, a queue.
+    :param gse: Game status, :c:type:`CcGameStatusEnum` value.
+    :returns: :c:data:`true` if valid draw offer exists, :c:data:`false` otherwise.
+
+.. _lbl-libcc-ccchecks-functions-piecechecks:
+
+Piece checks
+^^^^^^^^^^^^
+
 .. c:function:: bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt )
 
     Function checks if a piece can lose given tag.
@@ -103,6 +119,11 @@ Functions
     :param momentum: Momentum.
     :param step_type: Type of an activation step, e.g. to differentiate between capture-step and just movement.
     :returns: :c:data:`true` if moving piece can activate encountered one, :c:data:`false` otherwise.
+
+.. _lbl-libcc-ccchecks-functions-positionalchecks:
+
+Positional checks
+^^^^^^^^^^^^^^^^^
 
 .. c:function:: bool cc_check_piece_can_activate_at( CcChessboard * cb, CcPieceTagType moving, CcActivationDesc act_desc, CcPos destination, CcStepTypeEnum step_type )
 
