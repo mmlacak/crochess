@@ -53,13 +53,23 @@ Piece checks
     :param ltt: :c:type:`CcLosingTagType` value.
     :returns: :c:data:`true` if piece can lose given tag, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_check_piece_is_blocked( CcPieceTagType moving, CcPieceTagType encounter )
+.. c:function:: bool cc_check_piece_is_blocked( CcPieceTagType moving, CcPieceTagType encounter, cc_uint_t momentum )
 
-    Function checks if piece is blocked by encountered piece.
+    Function checks if moving piece is blocked by encountered piece,
+    and can't move any further.
+
+    .. todo::
+
+        * returned :c:data:`false` does not mean transparency can be used,
+          since it's also used for invalid enums
+        * add section in Concepts, describe single answer (bool) vs.
+          full answer (maybe bool)
 
     :param moving: A moving piece.
     :param encounter: An encountered piece.
-    :returns: :c:data:`true` if encountered piece is blocking, :c:data:`false` otherwise.
+    :param momentum: Momentum a moving piece had when another piece was encountered.
+    :returns: :c:data:`true` if encountered piece is blocking,
+        :c:data:`false` otherwise, or in case of error (invalid data).
 
 .. c:function:: bool cc_check_piece_can_capture( CcPieceTagType moving, CcPieceTagType encounter )
 
@@ -68,6 +78,22 @@ Piece checks
     :param moving: A moving piece.
     :param encounter: An encountered piece.
     :returns: :c:data:`true` if encountered piece can be captured, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_check_piece_can_activate( CcPieceTagType moving, CcPieceTagType encounter, cc_uint_t momentum, CcStepTypeEnum step_type )
+
+    Function checks if moving piece can activate stationary one, given
+    :c:var:`momentum` and :c:var:`step_type` arguments.
+
+    :param moving: A moving piece.
+    :param encounter: A static, encountered piece.
+    :param momentum: Momentum.
+    :param step_type: Type of an activation step, e.g. to differentiate between capture-step and just movement.
+    :returns: :c:data:`true` if moving piece can activate encountered one, :c:data:`false` otherwise.
+
+.. _lbl-libcc-ccchecks-functions-positionalchecks:
+
+Positional checks
+^^^^^^^^^^^^^^^^^
 
 .. c:function:: bool cc_check_piece_is_blocked_at( CcChessboard * cb, CcPieceTagType piece, CcPos pos )
 
@@ -108,22 +134,6 @@ Piece checks
     :param rook_start: Rook's initial position.
     :param rook_dest: Rook's destination field after castling.
     :returns: :c:data:`true` if pieces can castle from given position, :c:data:`false` otherwise.
-
-.. c:function:: bool cc_check_piece_can_activate( CcPieceTagType moving, CcPieceTagType encounter, cc_uint_t momentum, CcStepTypeEnum step_type )
-
-    Function checks if moving piece can activate stationary one, given
-    :c:var:`momentum` and :c:var:`step_type` arguments.
-
-    :param moving: A moving piece.
-    :param encounter: A static, encountered piece.
-    :param momentum: Momentum.
-    :param step_type: Type of an activation step, e.g. to differentiate between capture-step and just movement.
-    :returns: :c:data:`true` if moving piece can activate encountered one, :c:data:`false` otherwise.
-
-.. _lbl-libcc-ccchecks-functions-positionalchecks:
-
-Positional checks
-^^^^^^^^^^^^^^^^^
 
 .. c:function:: bool cc_check_piece_can_activate_at( CcChessboard * cb, CcPieceTagType moving, CcActivationDesc act_desc, CcPos destination, CcStepTypeEnum step_type )
 
