@@ -59,21 +59,49 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
 bool cc_check_piece_is_blocked( CcPieceTagType moving,
                                 CcPieceTagType encounter,
                                 cc_uint_t momentum ) {
+
+// TODO :: FIX
+
     if ( CC_PIECE_IS_WAVE( moving ) )
         return CC_PIECE_IS_OPAQUE( encounter );
 
     if ( CC_PIECE_IS_OPAQUE( encounter ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) )
-            return true;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) ) // Not-condition does not check for validity!
+            if ( CC_PIECE_IS_VALID( moving ) )
+                return true;
 
     if ( CC_PIECE_IS_OPAQUE( moving ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) )
-            return true;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) ) // Not-condition does not check for validity!
+            if ( CC_PIECE_IS_VALID( encounter ) )
+                return true;
 
     if ( CC_PIECE_IS_SEMI_OPAQUE( moving ) )
         if ( CC_PIECE_IS_SEMI_OPAQUE( encounter ) )
-            if ( momentum > 1 )
-                return true;
+            return ( momentum < 1 );
+
+    return false;
+}
+
+bool cc_check_piece_can_step_over( CcPieceTagType moving,
+                                   CcPieceTagType encounter,
+                                   cc_uint_t momentum ) {
+
+// TODO :: FIX
+
+    if ( CC_PIECE_IS_WAVE( moving ) )
+        return CC_PIECE_IS_SEMI_TRANSPARENT( encounter );
+
+    bool has_enough_momentum = ( momentum > 1 );
+
+    if ( CC_PIECE_IS_WAVE( encounter ) )
+        return has_enough_momentum && CC_PIECE_IS_SEMI_TRANSPARENT( moving );
+
+    if ( CC_PIECE_IS_OPAQUE( encounter ) )
+        if ( CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) )
+            return true;
+
+    if ( CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) )
+        return has_enough_momentum || CC_PIECE_IS_WEIGHTLESS( moving );
 
     return false;
 }
