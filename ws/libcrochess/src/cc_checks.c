@@ -118,6 +118,8 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
                                   CcPieceTagType encounter,
                                   cc_uint_t momentum,
                                   CcStepTypeEnum step_type ) {
+    if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+    if ( !CC_PIECE_IS_ENUMERATOR( encounter ) ) return false;
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
     if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return false;
 
