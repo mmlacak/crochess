@@ -218,6 +218,7 @@ bool cc_check_piece_can_diverge_at( CcChessboard * cb,
                                     CcPieceTagType activator,
                                     CcPos pos ) {
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+    if ( !CC_PIECE_IS_VALID( activator ) ) return false;
 
     // TODO :: check act_desc is valid
 

@@ -122,8 +122,7 @@
                                   && ( (pte) != CC_PTE_DarkWave )          \
                                   && ( (pte) != CC_PTE_LightWave )         \
                                   && ( (pte) != CC_PTE_BrightStar )        \
-                                  && ( (pte) != CC_PTE_Monolith )          \
-                                  && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                  && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_ACTIVATE(pte) ( ( (pte) != CC_PTE_DimStar )           \
                                   && ( (pte) != CC_PTE_BrightStar )        \

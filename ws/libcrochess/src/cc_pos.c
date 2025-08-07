@@ -565,7 +565,7 @@ bool cc_activation_desc_is_valid( CcActivationDesc act_desc,
         // Activator has to be CC_PTE_None, for piece starting a move.
         if ( act_desc.activator != CC_PTE_None ) return false;
     } else {
-        // Otherwise, actvateor has to be valid.
+        // Otherwise, activator has to be valid.
         if ( !CC_PIECE_IS_ACTIVATOR( act_desc.activator ) ) return false;
     }
 

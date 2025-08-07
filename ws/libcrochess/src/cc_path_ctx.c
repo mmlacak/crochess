@@ -150,6 +150,7 @@ static bool _cc_path_context_init_ply( CcPathContext * path_ctx__io,
     }
 
     CcPlyContext * _ctx = &(path_ctx__io->ply_ctx);
+    if ( !CC_PIECE_IS_VALID( _ctx->initial.piece ) ) return false;
 
     if ( CC_PIECE_IS_ACTIVATOR( _ctx->initial.piece ) ) {
         _ctx->act_desc.activator = _ctx->initial.piece;
