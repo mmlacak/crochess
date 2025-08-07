@@ -99,8 +99,7 @@
 #define CC_PIECE_IS_PRIVATE(pte) ( CC_PIECE_IS_PAWN( (pte) ) || CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
 
 #define CC_PIECE_IS_MATERIAL(pte) ( ( (pte) != CC_PTE_DarkWave )           \
-                                 && ( (pte) != CC_PTE_LightWave )          \
-                                 && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                 && ( (pte) != CC_PTE_LightWave ) )
 
 #define CC_PIECE_IS_CELESTIAL(pte) ( ( (pte) == CC_PTE_DarkStarchild )     \
                                   || ( (pte) == CC_PTE_DarkWave )          \
@@ -117,8 +116,7 @@
 
 #define CC_PIECE_HAS_OWNER(pte) ( ( (pte) != CC_PTE_DimStar )              \
                                && ( (pte) != CC_PTE_BrightStar )           \
-                               && ( (pte) != CC_PTE_Monolith )             \
-                               && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                               && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_IS_ACTIVATOR(pte) ( ( (pte) != CC_PTE_DimStar )           \
                                   && ( (pte) != CC_PTE_DarkWave )          \
@@ -298,7 +296,7 @@
 
 // TODO :: FIX :: all piece macros --> remove validation
 
-// TODO :: DOCS :: add section to Concepts, explain e.g. CC_PIECE_IS_COMPLETELY_TRANSPARENT( -99 )
+// TODO :: DOCS :: add section to Concepts, explain e.g. !CC_PIECE_IS_COMPLETELY_TRANSPARENT( -99 )
 
 #define CC_PIECE_IS_COMPLETELY_TRANSPARENT(pte)  ( ( (pte) == CC_PTE_DarkStarchild )    \
                                                 || ( (pte) == CC_PTE_LightStarchild ) )

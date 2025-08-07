@@ -536,6 +536,9 @@ bool cc_piece_has_same_shade( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
 }
 
 bool cc_piece_is_opposite( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    if ( !CC_PIECE_IS_VALID( ptt_1 ) ) return false;
+    if ( !CC_PIECE_IS_VALID( ptt_2 ) ) return false;
+
     if ( ( !CC_PIECE_HAS_OWNER( ptt_1 ) ) || ( !CC_PIECE_HAS_OWNER( ptt_2 ) ) ) return false;
 
     return ( ptt_1 == cc_piece_opposite( ptt_2 ) );
