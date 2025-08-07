@@ -162,13 +162,12 @@
                                    || ( (pte) == CC_PTE_LightWave )        \
                                    || ( (pte) == CC_PTE_LightStarchild ) )
 
-#define CC_PIECE_CAN_BE_ACTIVATED(pte) ( ( (pte) != CC_PTE_None )                   \
-                                      && ( (pte) != CC_PTE_DarkKing_CanCastle )     \
+#define CC_PIECE_CAN_BE_ACTIVATED(pte) ( ( (pte) != CC_PTE_DarkKing_CanCastle )     \
                                       && ( (pte) != CC_PTE_DarkKing )               \
+                                      && ( (pte) != CC_PTE_None )                   \
                                       && ( (pte) != CC_PTE_LightKing )              \
                                       && ( (pte) != CC_PTE_LightKing_CanCastle )    \
-                                      && ( (pte) != CC_PTE_Monolith )               \
-                                      && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                      && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_BE_CAPTURED(pte) ( ( (pte) != CC_PTE_DimStar )                 \
                                      && ( (pte) != CC_PTE_DarkKing_CanCastle )      \
