@@ -245,8 +245,7 @@
                                                      && ( (pte) != CC_PTE_LightKing )               \
                                                      && ( (pte) != CC_PTE_LightKing_CanCastle )     \
                                                      && ( (pte) != CC_PTE_BrightStar )              \
-                                                     && ( (pte) != CC_PTE_Monolith )                \
-                                                     && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                                     && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_BE_CONVERTED(pte) ( ( (pte) != CC_PTE_DimStar )                \
                                       && ( (pte) != CC_PTE_DarkKing_CanCastle )     \
@@ -254,8 +253,7 @@
                                       && ( (pte) != CC_PTE_LightKing )              \
                                       && ( (pte) != CC_PTE_LightKing_CanCastle )    \
                                       && ( (pte) != CC_PTE_BrightStar )             \
-                                      && ( (pte) != CC_PTE_Monolith )               \
-                                      && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                      && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_BE_DEMOTED(pte) ( ( (pte) != CC_PTE_DimStar )                  \
                                     && ( (pte) != CC_PTE_DarkKing_CanCastle )       \
@@ -263,8 +261,7 @@
                                     && ( (pte) != CC_PTE_LightKing )                \
                                     && ( (pte) != CC_PTE_LightKing_CanCastle )      \
                                     && ( (pte) != CC_PTE_BrightStar )               \
-                                    && ( (pte) != CC_PTE_Monolith )                 \
-                                    && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                    && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_BE_RESURRECTED(pte) ( ( (pte) != CC_PTE_DimStar )              \
                                         && ( (pte) != CC_PTE_DarkKing_CanCastle )   \
@@ -272,8 +269,7 @@
                                         && ( (pte) != CC_PTE_LightKing )            \
                                         && ( (pte) != CC_PTE_LightKing_CanCastle )  \
                                         && ( (pte) != CC_PTE_BrightStar )           \
-                                        && ( (pte) != CC_PTE_Monolith )             \
-                                        && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                        && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_IS_TELEPORTER(pte) ( ( (pte) == CC_PTE_DimStar )               \
                                    || ( (pte) == CC_PTE_BrightStar )            \
@@ -285,8 +281,7 @@
                                        && ( (pte) != CC_PTE_LightKing )             \
                                        && ( (pte) != CC_PTE_LightKing_CanCastle )   \
                                        && ( (pte) != CC_PTE_BrightStar )            \
-                                       && ( (pte) != CC_PTE_Monolith )              \
-                                       && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                       && ( (pte) != CC_PTE_Monolith ) )
 
 // TODO :: FIX :: all piece macros --> remove validation
 

@@ -375,7 +375,7 @@ bool cc_parse_side_effect( char const * side_effect_an,
 
             CcPieceTagType piece = cc_piece_from_symbol( piece_symbol, is_light ); // If piece symbol was not found, piece is none.
 
-            if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) // Piece is not optional here, so no need to check if it's valid.
+            if ( !CC_PIECE_CAN_BE_RESURRECTED( piece ) ) // Piece is not optional here, so no need to check if it's valid (not none).
                 return _cc_fail_with_msg_piece_in_side_effect( "%s can't be resurrected, in step '%s'.\n", piece, true, true, step_start_an, step_end_an, parse_msgs__iod );
 
             if ( cc_piece_symbol_is_valid( *se_an ) ) ++se_an;
