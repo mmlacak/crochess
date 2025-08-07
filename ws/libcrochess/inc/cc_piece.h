@@ -175,8 +175,7 @@
                                      && ( (pte) != CC_PTE_LightKing )               \
                                      && ( (pte) != CC_PTE_LightKing_CanCastle )     \
                                      && ( (pte) != CC_PTE_BrightStar )              \
-                                     && ( (pte) != CC_PTE_Monolith )                \
-                                     && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                     && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PAWN_CAN_BE_PROMOTED_TO(pte) ( CC_PIECE_IS_KNIGHT( (pte) )           \
                                        || CC_PIECE_IS_BISHOP( (pte) )           \
