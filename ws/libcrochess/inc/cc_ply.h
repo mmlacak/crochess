@@ -86,8 +86,7 @@ size_t cc_ply_steps_count( CcPly * ply );
 
 bool cc_ply_contains_side_effects( CcPly * ply );
 
-CcPieceTagType cc_ply_find_activator( CcPly * plies,
-                                   CcPly * ply__d );
+CcPieceTagType cc_ply_find_activator( CcPly * plies, CcPly * ply__d );
 
 char * cc_ply_all_to_string__new( CcPly * plies );
 

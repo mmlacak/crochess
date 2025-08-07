@@ -175,9 +175,10 @@ bool cc_ply_contains_side_effects( CcPly * ply ) {
     return false;
 }
 
-CcPieceTagType cc_ply_find_activator( CcPly * plies,
-                                   CcPly * ply__d ) {
+CcPieceTagType cc_ply_find_activator( CcPly * plies, CcPly * ply__d ) {
     if ( !plies ) return CC_PTE_None;
+
+    if ( !CC_PIECE_IS_VALID( plies->piece ) ) return CC_PTE_None;
 
     if ( plies == ply__d ) // First ply in a linked list.
         return CC_PIECE_IS_ACTIVE( plies->piece ) ? plies->piece
@@ -186,13 +187,17 @@ CcPieceTagType cc_ply_find_activator( CcPly * plies,
     // <!> Shadows issue if ply is not contained in plies.
     //
     // if ( ply__d && CC_PIECE_IS_ACTIVE( ply__d->piece ) )
-    //     return ply__d->piece;
+    //     return CC_PIECE_IS_VALID( ply__d->piece ) ? ply__d->piece
+    //                                               : CC_PTE_None;
 
     CcPieceTagType activator = CC_PTE_None;
     bool ply_encountered = false;
     CcPly * p = plies;
 
     while ( p ) {
+        if ( !CC_PIECE_IS_VALID( p->piece ) )
+            return CC_PTE_None;
+
         if ( CC_PIECE_IS_ACTIVE( p->piece ) )
             activator = p->piece;
 

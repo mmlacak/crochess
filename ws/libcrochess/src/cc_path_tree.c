@@ -199,6 +199,9 @@ bool cc_path_tree_init__new( CcGame * game,
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
 
+    cc_uint_t board_size = cc_chessboard_get_size( game->chessboard );
+    if ( !CC_POS_DESC_IS_LEGAL( moving_from, board_size ) ) return false;
+
     if ( !path_ctx__iod_a ) return false;
     if ( *path_ctx__iod_a ) return false;
 

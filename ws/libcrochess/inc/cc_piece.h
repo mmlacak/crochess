@@ -155,8 +155,7 @@
                                && ( (pte) != CC_PTE_DarkPyramid )          \
                                && ( (pte) != CC_PTE_LightPyramid )         \
                                && ( (pte) != CC_PTE_LightWave )            \
-                               && ( (pte) != CC_PTE_BrightStar )           \
-                               && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                               && ( (pte) != CC_PTE_BrightStar ) )
 
 #define CC_PIECE_IS_WEIGHTLESS(pte) ( ( (pte) == CC_PTE_DarkStarchild )    \
                                    || ( (pte) == CC_PTE_DarkWave )         \
