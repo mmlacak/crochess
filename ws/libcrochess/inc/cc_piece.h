@@ -137,8 +137,7 @@
                                  && ( (pte) != CC_PTE_LightWave )          \
                                  && ( (pte) != CC_PTE_BrightStar )         \
                                  && ( (pte) != CC_PTE_LightStarchild )     \
-                                 && ( (pte) != CC_PTE_Monolith )           \
-                                 && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                 && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pte) ( CC_PIECE_IS_PRIVATE( (pte) ) )
 
