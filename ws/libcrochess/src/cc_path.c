@@ -420,7 +420,7 @@ size_t cc_path_link_len( CcPathLink * path_link, bool count_all ) {
     return len;
 }
 
-size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
+size_t cc_path_link_count_all_segments( CcPathLink * path_link ) {
     if ( !path_link ) return 0;
 
     size_t count = 1; // = 1, for this path segment
@@ -428,17 +428,17 @@ size_t cc_path_link_count_all_seqments( CcPathLink * path_link ) {
 
     while ( pl ) {
         if ( pl->fork ) {
-            count += cc_path_link_count_all_seqments( pl->fork );
+            count += cc_path_link_count_all_segments( pl->fork );
         }
 
         if ( pl->alt ) {
-            count += cc_path_link_count_all_seqments( pl->alt );
+            count += cc_path_link_count_all_segments( pl->alt );
         }
 
         // Substitute paths shouldn't have any segments.
         //
         // if ( pl->sub ) {
-        //     count += cc_path_link_count_all_seqments( pl->sub );
+        //     count += cc_path_link_count_all_segments( pl->sub );
         // }
 
         pl = pl->next;

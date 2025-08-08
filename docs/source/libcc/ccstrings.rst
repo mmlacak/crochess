@@ -51,7 +51,7 @@ Functions
     If linked list :c:`*strings__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated string link as its only element.
 
-    :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
+    :param strings__iod_a: **Ownership**, *optional* *input/output*; linked list of strings.
     :param str: A string to copy, and initialize allocated link.
     :param max_len__d: *Optional*, maximum length to copy.
     :returns: Weak pointer to a newly allocated string if successful, :c:data:`NULL` otherwise.
@@ -63,7 +63,7 @@ Functions
     If linked list :c:`*strings__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated string link as its only element.
 
-    :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
+    :param strings__iod_a: **Ownership**, *optional* *input/output*; linked list of strings.
     :param max_len__d: *Optional*, maximum length to copy.
     :param fmt: Formatting string, as defined for :c:func:`printf()`.
     :param args: Variadic input list for a string format.
@@ -77,7 +77,7 @@ Functions
     If linked list :c:`*strings__iod_a` is :c:data:`NULL`, it will be initialized
     with a newly allocated string link as its only element.
 
-    :param strings__iod_a: **Ownership**, *optional* *input/ouptut*; linked list of strings.
+    :param strings__iod_a: **Ownership**, *optional* *input/output*; linked list of strings.
     :param max_len__d: *Optional*, maximum length to copy.
     :param fmt: Formatting string, as defined for :c:func:`printf()`.
     :param ...: Variadic input for a string format.

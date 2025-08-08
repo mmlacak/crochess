@@ -11,13 +11,13 @@
     " for paragraphs
 
 
-.. Useage:
+.. Usage:
 .. In Python, :py:`1 + 2` is equal to :py:`3`.
 
 .. role:: py(code)
     :language: python
 
-.. Useage:
+.. Usage:
 .. In C, :c:`printf("%d", 1 + 2);` prints ``3``.
 
 .. role:: c(code)
