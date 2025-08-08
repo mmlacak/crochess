@@ -384,7 +384,7 @@ static void refreshLineWithCompletion(struct linenoiseState *ls, linenoiseComple
  * If the function returns non-zero, the caller should handle the
  * returned value as a byte read from the standard input, and process
  * it as usually: this basically means that the function may return a byte
- * read from the termianl but not processed. Otherwise, if zero is returned,
+ * read from the terminal but not processed. Otherwise, if zero is returned,
  * the input was consumed by the completeLine() function to navigate the
  * possible completions, and the caller should read for the next characters
  * from stdin. */
@@ -663,7 +663,7 @@ static void refreshMultiLine(struct linenoiseState *l, int flags) {
         rpos2 = (plen+l->pos+l->cols)/l->cols; /* Current cursor relative row */
         lndebug("rpos2 %d", rpos2);
 
-        /* Go up till we reach the expected positon. */
+        /* Go up till we reach the expected position. */
         if (rows-rpos2 > 0) {
             lndebug("go-up %d", rows-rpos2);
             snprintf(seq,64,"\x1b[%dA", rows-rpos2);
@@ -828,7 +828,7 @@ void linenoiseEditBackspace(struct linenoiseState *l) {
     }
 }
 
-/* Delete the previosu word, maintaining the cursor at the start of the
+/* Delete the previous word, maintaining the cursor at the start of the
  * current word. */
 void linenoiseEditDeletePrevWord(struct linenoiseState *l) {
     size_t old_pos = l->pos;
@@ -855,7 +855,7 @@ void linenoiseEditDeletePrevWord(struct linenoiseState *l) {
  *    each time there is some data arriving in the standard input.
  *
  * The user can also call linenoiseEditHide() and linenoiseEditShow() if it
- * is required to show some input arriving asyncronously, without mixing
+ * is required to show some input arriving asynchronously, without mixing
  * it with the currently edited line.
  *
  * When linenoiseEditFeed() returns non-NULL, the user finished with the
@@ -1097,7 +1097,7 @@ void linenoiseEditStop(struct linenoiseState *l) {
 }
 
 /* This just implements a blocking loop for the multiplexed API.
- * In many applications that are not event-drivern, we can just call
+ * In many applications that are not event-driven, we can just call
  * the blocking linenoise API, wait for the user to complete the editing
  * and return the buffer. */
 static char *linenoiseBlockingEdit(int stdin_fd, int stdout_fd, char *buf, size_t buflen, const char *prompt)
