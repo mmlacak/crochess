@@ -283,10 +283,6 @@
                                        && ( (pte) != CC_PTE_BrightStar )            \
                                        && ( (pte) != CC_PTE_Monolith ) )
 
-// TODO :: FIX :: all piece macros --> remove validation
-
-// TODO :: DOCS :: add section to Concepts, explain e.g. !CC_PIECE_IS_COMPLETELY_TRANSPARENT( -99 )
-
 #define CC_PIECE_IS_COMPLETELY_TRANSPARENT(pte)  ( ( (pte) == CC_PTE_DarkStarchild )    \
                                                 || ( (pte) == CC_PTE_LightStarchild ) )
 

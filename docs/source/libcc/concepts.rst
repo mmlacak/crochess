@@ -10,9 +10,9 @@ Concepts
 
 Explanation of some concepts, design choices in ``libcrochess``.
 
-.. _lbl-libcc-concepts-validity:
+.. _lbl-libcc-concepts-integers:
 
-Validity
+Integers
 --------
 
 For :c:`int`\eger values, one is designated to be invalid, all the others are
@@ -22,13 +22,64 @@ This is mostly relevant to coordiantes, various positions, steps, etc. where one
 value (in this case, :c:macro:`CC_INVALID_COORD`) is invalid, all the other are
 valid, even if a coordinate may be way off-board.
 
-For :c:`enum`\s, first :c:`macro` checks if a given value is enumerated within
-the :c:`enum`; this macro is named ``"is enumerator?"``, e.g.
-:c:enumerator:`CC_STEP_LINK_TYPE_IS_ENUMERATOR`.
+.. _lbl-libcc-concepts-enumerations:
 
-Second :c:`macro` also checks if given value is different from pre-designed
+Enumerations
+------------
+
+Each :c:`enum` has defined :c:`macro` which checks if a given value is enumerated
+within the :c:`enum`; this macro is named ``"is enumerator?"``, e.g.
+:c:macro:`CC_PIECE_IS_ENUMERATOR()` checks if :c:type:`CcPieceTagType`,
+:c:type:`CcPieceTagEnum`, or any given :c:`int` value is present within
+:c:enum:`CcPieceTagEnum` enumeration.
+
+Another :c:`macro` also checks if given value is different from pre-designed
 :c:`None` (or :c:`Void`, or :c:`Empty`) enumeration value; this macro is named
-``"is valid?"``, e.g. :c:enumerator:`CC_STEP_LINK_TYPE_IS_VALID`.
+``"is valid?"``, e.g. :c:macro:`CC_PIECE_IS_VALID()` also checks that a given
+value is not :c:enumerator:`CC_PTE_None`, in addition to checking that it's
+within :c:enum:`CcPieceTagEnum` enumeration.
+
+One of those :c:`macro`\s has to be used in functions on all parameters of its
+:c:`enum` types, because all other :c:`macro`\s defined for the same :c:`enum`
+might not return correct result otherwise. Both these :c:`macro`\s can be safely
+negated, e.g.::
+
+    if ( !CC_PIECE_IS_VALID( piece ) ) ...
+
+is fine. For instance, function :c:func:`cc_check_piece_can_capture()`
+has to check both :c:`enum` parameters for validity before any other
+:c:enum:`CcPieceTagEnum` :c:`macro` used can return correct result, e.g.
+like so::
+
+    bool cc_check_piece_can_capture( CcPieceTagType moving,
+                                     CcPieceTagType encounter ) {
+        if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+        if ( !CC_PIECE_IS_ENUMERATOR( encounter ) ) return false;
+
+        // This might not produce correct result, if validation above is omitted!
+        if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false;
+
+        // --- ditto ---
+        if ( !CC_PIECE_CAN_BE_CAPTURED( encounter ) ) return false;
+
+        /// ... omitted code ...
+    }
+
+This is due to optimizations (to avoid duplicating the same validations) and
+`De Morgan's laws <https://en.wikipedia.org/wiki/De_Morgan%27s_laws>`_.
+Any :c:`macro` which has embedded validation, after negating it would also
+contain negated validation. For instance, given a :c:`macro` like so::
+
+    #define FOO(p) ( <conditions ...> && FOO_IS_VALID(p) )
+
+whatever :c:`<conditions ...>` might be, usage of negated :c:macro:`FOO()` will
+turn into::
+
+    !FOO(p) --> ( !<conditions ...> || !FOO_IS_VALID(p) )
+
+which validates any value *outside* of enumerated values; which is not correct,
+if :c:`!FOO()` is anything other then check if a given parameter is *not*
+present among enumerated values.
 
 .. _lbl-libcc-concepts-positionssteps:
 
