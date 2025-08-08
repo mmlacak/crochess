@@ -301,8 +301,7 @@
                                     && ( (pte) != CC_PTE_DarkWave )          \
                                     && ( (pte) != CC_PTE_LightWave )         \
                                     && ( (pte) != CC_PTE_DarkStarchild )     \
-                                    && ( (pte) != CC_PTE_LightStarchild )    \
-                                    && ( CC_PIECE_IS_VALID( (pte) ) ) )
+                                    && ( (pte) != CC_PTE_LightStarchild ) )
 
 #define CC_PIECE_IS_OPAQUE(pte) ( (pte) == CC_PTE_Monolith )
 
