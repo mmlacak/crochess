@@ -295,8 +295,7 @@
                                      || ( (pte) == CC_PTE_DarkStarchild )      \
                                      || ( (pte) == CC_PTE_LightStarchild ) )
 
-#define CC_PIECE_IS_SEMI_TRANSPARENT(pte) ( ( (pte) != CC_PTE_Monolith )      \
-                                         && ( CC_PIECE_IS_VALID( (pte) ) ) )
+#define CC_PIECE_IS_SEMI_TRANSPARENT(pte) ( (pte) != CC_PTE_Monolith )
 
 #define CC_PIECE_IS_SEMI_OPAQUE(pte) ( ( (pte) != CC_PTE_Monolith )          \
                                     && ( (pte) != CC_PTE_DarkWave )          \

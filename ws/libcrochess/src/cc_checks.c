@@ -59,6 +59,8 @@ bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
 bool cc_check_piece_is_blocked( CcPieceTagType moving,
                                 CcPieceTagType encounter,
                                 cc_uint_t momentum ) {
+    if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+    if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
 
 // TODO :: FIX
 
@@ -85,6 +87,8 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
 bool cc_check_piece_can_step_over( CcPieceTagType moving,
                                    CcPieceTagType encounter,
                                    cc_uint_t momentum ) {
+    if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+    if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
 
 // TODO :: FIX
 
