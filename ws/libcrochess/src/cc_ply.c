@@ -178,28 +178,29 @@ bool cc_ply_contains_side_effects( CcPly * ply ) {
 CcPieceTagType cc_ply_find_activator( CcPly * plies, CcPly * ply__d ) {
     if ( !plies ) return CC_PTE_None;
 
-    if ( !CC_PIECE_IS_VALID( plies->piece ) ) return CC_PTE_None; // TODO :: RETHINK :: not checking data in structs ??? was original test, maybe it's also some other logic ?
+    if ( plies == ply__d ) { // First ply in a linked list.
+        CcPieceTagType ptt = plies->piece;
 
-    if ( plies == ply__d ) // First ply in a linked list.
-        return CC_PIECE_IS_ACTIVE( plies->piece ) ? plies->piece
-                                                  : CC_PTE_None;
+        if ( CC_PIECE_IS_VALID( ptt ) && CC_PIECE_IS_ACTIVE( ptt ) )
+            return ptt;
+        else
+            return CC_PTE_None;
+    }
 
     // <!> Shadows issue if ply is not contained in plies.
     //
     // if ( ply__d && CC_PIECE_IS_ACTIVE( ply__d->piece ) )
-    //     return CC_PIECE_IS_VALID( ply__d->piece ) ? ply__d->piece
-    //                                               : CC_PTE_None;
+    //     return ply__d->piece;
 
     CcPieceTagType activator = CC_PTE_None;
     bool ply_encountered = false;
     CcPly * p = plies;
 
     while ( p ) {
-        if ( !CC_PIECE_IS_VALID( p->piece ) ) // TODO :: RETHINK :: not checking data in structs ???
-            return CC_PTE_None;
+        CcPieceTagType ptt = p->piece;
 
-        if ( CC_PIECE_IS_ACTIVE( p->piece ) )
-            activator = p->piece;
+        if ( CC_PIECE_IS_VALID( ptt ) && CC_PIECE_IS_ACTIVE( ptt ) )
+            activator = ptt;
 
         if ( p == ply__d ) {
             ply_encountered = true;
