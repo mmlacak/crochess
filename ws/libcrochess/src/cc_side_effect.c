@@ -37,7 +37,7 @@ CcMaybeBoolEnum cc_side_effect_type_is_terminating( CcPieceTagType piece,
 
     if ( CC_SIDE_EFFECT_TYPE_DOES_NOT_TERMINATE_PLY( sete ) ) return CC_MBE_False;
 
-    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( sete ) ) return CC_MBE_Void;
+    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( sete ) ) return CC_MBE_Void; // Order is fine, above macros checks select SE types.
     if ( !CC_PIECE_IS_VALID( piece ) ) return CC_MBE_Void;
 
     if ( sete == CC_SETE_Capture )

@@ -12,7 +12,7 @@
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse ) {
     if ( !moves ) return false;
-    if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false;
+    if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false; // No need to check validity here, everything except turns is filtered out.
 
     CcMove * m = moves;
     CC_FASTFORWARD( m );
@@ -127,11 +127,9 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
-    if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return false;
 
     if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false;
     if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // [1]
-    if ( step_type == CC_STE_None ) return false;
 
     bool wave_moving = CC_PIECE_IS_WAVE( moving );
     bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
@@ -310,6 +308,7 @@ bool cc_find_en_passant_target( CcChessboard * cb,
     if ( !cb ) return false;
     if ( !target__o ) return false;
 
+    if ( !CC_PIECE_IS_VALID( private ) ) return false;
     if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( private ) ) return false;
 
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.

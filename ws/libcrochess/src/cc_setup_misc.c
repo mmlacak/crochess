@@ -11,6 +11,7 @@ int cc_find_initial_figure_file( CcVariantType ve,
                                  CcPieceTagType pe,
                                  bool search_queen_side_first ) {
     if ( !CC_VARIANT_IS_VALID( ve ) ) return CC_INVALID_COORD;
+    if ( !CC_PIECE_IS_VALID( pe ) ) return CC_INVALID_COORD;
 
     // Not figure row pieces.
     if ( ( CC_PIECE_IS_NONE( pe ) ) ||
@@ -69,7 +70,7 @@ bool cc_check_pos_is_king_castling_step( CcVariantType ve,
                                          int * min_i__o,
                                          int * max_i__o ) {
     if ( !CC_VARIANT_IS_VALID( ve ) ) return false;
-    if ( !CC_PIECE_IS_KING( king ) ) return false;
+    if ( !CC_PIECE_IS_KING( king ) ) return false; // No need to check validity, anything but Kings are filtered out.
     if ( !is_queen_side__o ) return false;
     if ( !min_i__o ) return false;
     if ( !max_i__o ) return false;
