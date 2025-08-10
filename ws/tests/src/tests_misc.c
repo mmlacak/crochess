@@ -259,8 +259,10 @@ bool tests_transparencies( void ) {
 
     CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
 
+    bool result = true;
+
     printf( "---------------------\n" );
-    printf( "moving -> encounter: block 0, 1, step over 0, 1.\n" );
+    printf( "moving -> encounter: block 0, 1, step over 0, 1 --> result.\n" );
     for ( int i = 0; i < PIECES_SIZE; ++i ) {
         printf( ".....................\n" );
 
@@ -276,40 +278,82 @@ bool tests_transparencies( void ) {
 
             char moving_chr = cc_piece_as_char( moving );
             char encounter_chr = cc_piece_as_char( encounter );
+            bool r = true;
 
-            printf( "%c -> %c: %d, %d, %d, %d.\n", moving_chr, encounter_chr, is_blocking_0, is_blocking_1, is_step_over_0, is_step_over_1 );
+            if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_LightBishop )
+                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
+            else if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_LightWave )
+                r = is_blocking_0 && !is_blocking_1 && !is_step_over_0 && is_step_over_1;
+            else if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_Monolith )
+                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
+            else if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_LightStarchild )
+                r = is_blocking_0 && !is_blocking_1 && !is_step_over_0 && is_step_over_1;
 
-            // TODO :: check results vs. expected
+            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_LightBishop )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_LightWave )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_Monolith )
+                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
+            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_LightStarchild )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+
+            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_LightBishop )
+                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
+            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_LightWave )
+                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
+            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_Monolith )
+                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
+            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_LightStarchild )
+                r = is_blocking_0 && !is_blocking_1 && !is_step_over_0 && is_step_over_1;
+
+            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_LightBishop )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_LightWave )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_Monolith )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_LightStarchild )
+                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            else {
+                printf( "Unhandled test case: %c --> %c.\n", moving_chr, encounter_chr );
+                result = false;
+                break;
+            }
+
+            printf( "%c -> %c: %d, %d, %d, %d --> %d.\n", moving_chr, encounter_chr, is_blocking_0, is_blocking_1, is_step_over_0, is_step_over_1, r );
+
+            result = r && result;
         }
     }
     printf( "---------------------\n" );
 
     // TODO :: FIX
     // ---------------------
-    // moving -> encounter: block 0, 1, step over 0, 1.
+    // moving -> encounter: block 0, 1, step over 0, 1 --> result.
     // .....................
-    // B -> B: 1, 1, 0, 0.
-    // B -> W: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
-    // B -> M: 1, 1, 0, 0.
-    // B -> I: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // B -> B: 1, 1, 0, 0 --> 1.
+    // B -> W: 1, 0, 0, 0 --> 0. // TODO :: 1, 0, 0, 1
+    // B -> M: 1, 1, 0, 0 --> 1.
+    // B -> I: 1, 0, 0, 0 --> 0. // TODO :: 1, 0, 0, 1
     // .....................
-    // W -> B: 0, 0, 1, 1.
-    // W -> W: 0, 0, 1, 1.
-    // W -> M: 1, 1, 0, 0.
-    // W -> I: 0, 0, 1, 1.
+    // W -> B: 0, 0, 1, 1 --> 1.
+    // W -> W: 0, 0, 1, 1 --> 1.
+    // W -> M: 1, 1, 0, 0 --> 1.
+    // W -> I: 0, 0, 1, 1 --> 1.
     // .....................
-    // M -> B: 1, 1, 0, 0.
-    // M -> W: 1, 1, 0, 0.
-    // M -> M: 1, 1, 0, 0.
-    // M -> I: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // M -> B: 1, 1, 0, 0 --> 1.
+    // M -> W: 1, 1, 0, 0 --> 1.
+    // M -> M: 1, 1, 0, 0 --> 1.
+    // M -> I: 1, 0, 0, 0 --> 0. // TODO :: 1, 0, 0, 1
     // .....................
-    // I -> B: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
-    // I -> W: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
-    // I -> M: 0, 0, 1, 1.
-    // I -> I: 0, 0, 1, 1.
+    // I -> B: 0, 0, 0, 0 --> 0. // TODO :: 0, 0, 1, 1
+    // I -> W: 0, 0, 0, 0 --> 0. // TODO :: 0, 0, 1, 1
+    // I -> M: 0, 0, 1, 1 --> 1.
+    // I -> I: 0, 0, 1, 1 --> 1.
     // ---------------------
 
-    return true;
+    return result;
 }
 
 
