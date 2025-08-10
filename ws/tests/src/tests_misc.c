@@ -22,6 +22,8 @@
 #include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
 
+#include "cc_checks.h"
+
 #include "hlp_msgs.h"
 #include "test_msgs.h"
 #include "test_args.h"
@@ -252,9 +254,40 @@ bool tests_pos_desc_link( void ) {
     return (bool)( str );
 }
 
+bool tests_transparencies( void ) {
+    #define PIECES_SIZE (4)
+
+    CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
+
+    printf( "---------------------\n" );
+    printf( "* -> *: block: 0, 1, step over: 0, 1.\n" );
+    for ( int i = 0; i < PIECES_SIZE; ++i ) {
+        printf( ".....................\n" );
+
+        for ( int j = 0; j < PIECES_SIZE; ++j ) {
+            CcPieceTagType moving = PIECES[ i ];
+            CcPieceTagType encounter = PIECES[ j ];
+
+            bool is_blocking_0 = cc_check_piece_is_blocked( moving, encounter, 0 );
+            bool is_blocking_1 = cc_check_piece_is_blocked( moving, encounter, 1 );
+
+            bool is_step_over_0 = cc_check_piece_can_step_over( moving, encounter, 0 );
+            bool is_step_over_1 = cc_check_piece_can_step_over( moving, encounter, 1 );
+
+            char moving_chr = cc_piece_as_char( moving );
+            char encounter_chr = cc_piece_as_char( encounter );
+
+            printf( "%c -> %c: %d, %d, %d, %d.\n", moving_chr, encounter_chr, is_blocking_0, is_blocking_1, is_step_over_0, is_step_over_1 );
+        }
+    }
+    printf( "---------------------\n" );
+
+    return true; // TODO :: FIX
+}
+
 
 bool tests_misc( int test_number ) {
-    if ( ( test_number < TEST_ALL_MOVES ) || ( 7 < test_number ) ) {
+    if ( ( test_number < TEST_ALL_MOVES ) || ( 8 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false;
     }
@@ -282,6 +315,9 @@ bool tests_misc( int test_number ) {
 
     if ( ( test_number == 7 ) || do_all_tests )
         result = tests_pos_desc_link() && result;
+
+    if ( ( test_number == 8 ) || do_all_tests )
+        result = tests_transparencies() && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;
