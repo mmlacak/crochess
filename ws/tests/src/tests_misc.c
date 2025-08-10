@@ -259,10 +259,36 @@ bool tests_transparencies( void ) {
 
     CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
 
+    #define EXPECTED_SIZE (PIECES_SIZE * PIECES_SIZE)
+    #define RESULTS_SIZE (2 + PIECES_SIZE)
+
+    int const EXPECTED[ EXPECTED_SIZE ][ RESULTS_SIZE ] = {
+        { CC_PTE_LightBishop, CC_PTE_LightBishop, true, true, false, false },
+        { CC_PTE_LightBishop, CC_PTE_LightWave, true, false, false, true },
+        { CC_PTE_LightBishop, CC_PTE_Monolith, true, true, false, false },
+        { CC_PTE_LightBishop, CC_PTE_LightStarchild, true, false, false, true },
+
+        { CC_PTE_LightWave, CC_PTE_LightBishop, false, false, true, true },
+        { CC_PTE_LightWave, CC_PTE_LightWave, false, false, true, true },
+        { CC_PTE_LightWave, CC_PTE_Monolith, true, true, false, false },
+        { CC_PTE_LightWave, CC_PTE_LightStarchild, false, false, true, true },
+
+        { CC_PTE_Monolith, CC_PTE_LightBishop, true, true, false, false },
+        { CC_PTE_Monolith, CC_PTE_LightWave, true, true, false, false },
+        { CC_PTE_Monolith, CC_PTE_Monolith, true, true, false, false },
+        { CC_PTE_Monolith, CC_PTE_LightStarchild, true, false, false, true },
+
+        { CC_PTE_LightStarchild, CC_PTE_LightBishop, false, false, true, true },
+        { CC_PTE_LightStarchild, CC_PTE_LightWave, false, false, true, true },
+        { CC_PTE_LightStarchild, CC_PTE_Monolith, false, false, true, true },
+        { CC_PTE_LightStarchild, CC_PTE_LightStarchild, false, false, true, true },
+    };
+
     bool result = true;
+    bool found = false;
 
     printf( "---------------------\n" );
-    printf( "moving -> encounter: block 0, 1, step over 0, 1 --> result.\n" );
+    printf( "moving -> encounter: results block 0, 1, step over 0, 1 <-- expected block 0, 1, step over 0, 1 == result.\n" );
     for ( int i = 0; i < PIECES_SIZE; ++i ) {
         printf( ".....................\n" );
 
@@ -272,85 +298,71 @@ bool tests_transparencies( void ) {
 
             bool is_blocking_0 = cc_check_piece_is_blocked( moving, encounter, 0 );
             bool is_blocking_1 = cc_check_piece_is_blocked( moving, encounter, 1 );
-
             bool is_step_over_0 = cc_check_piece_can_step_over( moving, encounter, 0 );
             bool is_step_over_1 = cc_check_piece_can_step_over( moving, encounter, 1 );
 
             char moving_chr = cc_piece_as_char( moving );
             char encounter_chr = cc_piece_as_char( encounter );
-            bool r = true;
 
-            if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_LightBishop )
-                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
-            else if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_LightWave )
-                r = is_blocking_0 && !is_blocking_1 && !is_step_over_0 && is_step_over_1;
-            else if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_Monolith )
-                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
-            else if ( moving == CC_PTE_LightBishop && encounter == CC_PTE_LightStarchild )
-                r = is_blocking_0 && !is_blocking_1 && !is_step_over_0 && is_step_over_1;
+            bool expect_blocking_0 = false;
+            bool expect_blocking_1 = false;
+            bool expect_step_over_0 = false;
+            bool expect_step_over_1 = false;
 
-            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_LightBishop )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
-            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_LightWave )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
-            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_Monolith )
-                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
-            else if ( moving == CC_PTE_LightWave && encounter == CC_PTE_LightStarchild )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
+            for ( int z = 0; z < EXPECTED_SIZE; ++z ) {
+                CcPieceTagType m = EXPECTED[ z ][ 0 ];
+                CcPieceTagType e = EXPECTED[ z ][ 1 ];
 
-            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_LightBishop )
-                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
-            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_LightWave )
-                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
-            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_Monolith )
-                r = is_blocking_0 && is_blocking_1 && !is_step_over_0 && !is_step_over_1;
-            else if ( moving == CC_PTE_Monolith && encounter == CC_PTE_LightStarchild )
-                r = is_blocking_0 && !is_blocking_1 && !is_step_over_0 && is_step_over_1;
+                if ( m == moving && e == encounter ) {
+                    expect_blocking_0 = EXPECTED[ z ][ 2 ];
+                    expect_blocking_1 = EXPECTED[ z ][ 3 ];
 
-            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_LightBishop )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
-            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_LightWave )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
-            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_Monolith )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
-            else if ( moving == CC_PTE_LightStarchild && encounter == CC_PTE_LightStarchild )
-                r = !is_blocking_0 && !is_blocking_1 && is_step_over_0 && is_step_over_1;
-            else {
+                    expect_step_over_0 = EXPECTED[ z ][ 4 ];
+                    expect_step_over_1 = EXPECTED[ z ][ 5 ];
+
+                    found = true;
+                }
+            };
+
+            if ( found ) {
+                bool r = ( is_blocking_0 == expect_blocking_0 ) &&
+                         ( is_blocking_1 == expect_blocking_1 ) &&
+                         ( is_step_over_0 == expect_step_over_0 ) &&
+                         ( is_step_over_1 == expect_step_over_1 );
+
+                printf( "%c --> %c: %d, %d, %d, %d <-- %d, %d, %d, %d == %d.\n", moving_chr, encounter_chr, is_blocking_0, is_blocking_1, is_step_over_0, is_step_over_1, expect_blocking_0, expect_blocking_1, expect_step_over_0, expect_step_over_1, r );
+                result = r && result;
+            } else {
                 printf( "Unhandled test case: %c --> %c.\n", moving_chr, encounter_chr );
                 result = false;
-                break;
             }
-
-            printf( "%c -> %c: %d, %d, %d, %d --> %d.\n", moving_chr, encounter_chr, is_blocking_0, is_blocking_1, is_step_over_0, is_step_over_1, r );
-
-            result = r && result;
         }
     }
     printf( "---------------------\n" );
 
     // TODO :: FIX
     // ---------------------
-    // moving -> encounter: block 0, 1, step over 0, 1 --> result.
+    // moving -> encounter: results block 0, 1, step over 0, 1 <-- expected block 0, 1, step over 0, 1 == result.
     // .....................
-    // B -> B: 1, 1, 0, 0 --> 1.
-    // B -> W: 1, 0, 0, 0 --> 0. // TODO :: 1, 0, 0, 1
-    // B -> M: 1, 1, 0, 0 --> 1.
-    // B -> I: 1, 0, 0, 0 --> 0. // TODO :: 1, 0, 0, 1
+    // B --> B: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // B --> W: 1, 0, 0, 0 <-- 1, 0, 0, 1 == 0. // TODO :: 1, 0, 0, 1
+    // B --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // B --> I: 1, 0, 0, 0 <-- 1, 0, 0, 1 == 0. // TODO :: 1, 0, 0, 1
     // .....................
-    // W -> B: 0, 0, 1, 1 --> 1.
-    // W -> W: 0, 0, 1, 1 --> 1.
-    // W -> M: 1, 1, 0, 0 --> 1.
-    // W -> I: 0, 0, 1, 1 --> 1.
+    // W --> B: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
+    // W --> W: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
+    // W --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // W --> I: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // .....................
-    // M -> B: 1, 1, 0, 0 --> 1.
-    // M -> W: 1, 1, 0, 0 --> 1.
-    // M -> M: 1, 1, 0, 0 --> 1.
-    // M -> I: 1, 0, 0, 0 --> 0. // TODO :: 1, 0, 0, 1
+    // M --> B: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // M --> W: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // M --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // M --> I: 1, 0, 0, 0 <-- 1, 0, 0, 1 == 0. // TODO :: 1, 0, 0, 1
     // .....................
-    // I -> B: 0, 0, 0, 0 --> 0. // TODO :: 0, 0, 1, 1
-    // I -> W: 0, 0, 0, 0 --> 0. // TODO :: 0, 0, 1, 1
-    // I -> M: 0, 0, 1, 1 --> 1.
-    // I -> I: 0, 0, 1, 1 --> 1.
+    // I --> B: 0, 0, 0, 0 <-- 0, 0, 1, 1 == 0. // TODO :: 0, 0, 1, 1
+    // I --> W: 0, 0, 0, 0 <-- 0, 0, 1, 1 == 0. // TODO :: 0, 0, 1, 1
+    // I --> M: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
+    // I --> I: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // ---------------------
 
     return result;
