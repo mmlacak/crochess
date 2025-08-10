@@ -278,18 +278,20 @@ bool tests_transparencies( void ) {
             char encounter_chr = cc_piece_as_char( encounter );
 
             printf( "%c -> %c: %d, %d, %d, %d.\n", moving_chr, encounter_chr, is_blocking_0, is_blocking_1, is_step_over_0, is_step_over_1 );
+
+            // TODO :: check results vs. expected
         }
     }
     printf( "---------------------\n" );
 
     // TODO :: FIX
     // ---------------------
-    // * -> *: block: 0, 1, step over: 0, 1.
+    // moving -> encounter: block 0, 1, step over 0, 1.
     // .....................
-    // B -> B: 1, 0, 0, 0. // TODO :: 1, 1, 0, 0
-    // B -> W: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // B -> B: 1, 1, 0, 0.
+    // B -> W: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
     // B -> M: 1, 1, 0, 0.
-    // B -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // B -> I: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
     // .....................
     // W -> B: 0, 0, 1, 1.
     // W -> W: 0, 0, 1, 1.
@@ -299,12 +301,12 @@ bool tests_transparencies( void ) {
     // M -> B: 1, 1, 0, 0.
     // M -> W: 1, 1, 0, 0.
     // M -> M: 1, 1, 0, 0.
-    // M -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // M -> I: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
     // .....................
     // I -> B: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
     // I -> W: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
-    // I -> M: 0, 0, 1, 1. // TODO :: 1, 1, 0, 0
-    // I -> I: 0, 0, 1, 1. // TODO :: 0, 0, 1, 1
+    // I -> M: 0, 0, 1, 1.
+    // I -> I: 0, 0, 1, 1.
     // ---------------------
 
     return true;

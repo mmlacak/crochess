@@ -62,23 +62,23 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
 
-// TODO :: FIX
-
     if ( CC_PIECE_IS_WAVE( moving ) )
         return CC_PIECE_IS_OPAQUE( encounter );
 
     if ( CC_PIECE_IS_OPAQUE( encounter ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) ) // Not-condition does not check for validity!
-            if ( CC_PIECE_IS_VALID( moving ) )
-                return true;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) )
+            return true;
 
     if ( CC_PIECE_IS_OPAQUE( moving ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) ) // Not-condition does not check for validity!
-            if ( CC_PIECE_IS_VALID( encounter ) )
-                return true;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) )
+            return true;
 
     if ( CC_PIECE_IS_SEMI_OPAQUE( moving ) )
         if ( CC_PIECE_IS_SEMI_OPAQUE( encounter ) )
+            return true;
+
+    if ( CC_PIECE_IS_TRANSPARENT( encounter ) )
+        if ( !CC_PIECE_IS_WEIGHTLESS( moving ) )
             return ( momentum < 1 );
 
     return false;
@@ -86,12 +86,12 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
 
 // TODO :: FIX
 // ---------------------
-// * -> *: block: 0, 1, step over: 0, 1.
+// moving -> encounter: block 0, 1, step over 0, 1.
 // .....................
-// B -> B: 1, 0, 0, 0. // TODO :: 1, 1, 0, 0
-// B -> W: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+// B -> B: 1, 1, 0, 0.
+// B -> W: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
 // B -> M: 1, 1, 0, 0.
-// B -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+// B -> I: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
 // .....................
 // W -> B: 0, 0, 1, 1.
 // W -> W: 0, 0, 1, 1.
@@ -101,12 +101,12 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
 // M -> B: 1, 1, 0, 0.
 // M -> W: 1, 1, 0, 0.
 // M -> M: 1, 1, 0, 0.
-// M -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+// M -> I: 1, 0, 0, 0. // TODO :: 1, 0, 0, 1
 // .....................
 // I -> B: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
 // I -> W: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
-// I -> M: 0, 0, 1, 1. // TODO :: 1, 1, 0, 0
-// I -> I: 0, 0, 1, 1. // TODO :: 0, 0, 1, 1
+// I -> M: 0, 0, 1, 1.
+// I -> I: 0, 0, 1, 1.
 // ---------------------
 
 bool cc_check_piece_can_step_over( CcPieceTagType moving,
