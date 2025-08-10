@@ -84,6 +84,31 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
     return false;
 }
 
+// TODO :: FIX
+// ---------------------
+// * -> *: block: 0, 1, step over: 0, 1.
+// .....................
+// B -> B: 1, 0, 0, 0. // TODO :: 1, 1, 0, 0
+// B -> W: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+// B -> M: 1, 1, 0, 0.
+// B -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+// .....................
+// W -> B: 0, 0, 1, 1.
+// W -> W: 0, 0, 1, 1.
+// W -> M: 1, 1, 0, 0.
+// W -> I: 0, 0, 1, 1.
+// .....................
+// M -> B: 1, 1, 0, 0.
+// M -> W: 1, 1, 0, 0.
+// M -> M: 1, 1, 0, 0.
+// M -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+// .....................
+// I -> B: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
+// I -> W: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
+// I -> M: 0, 0, 1, 1. // TODO :: 1, 1, 0, 0
+// I -> I: 0, 0, 1, 1. // TODO :: 0, 0, 1, 1
+// ---------------------
+
 bool cc_check_piece_can_step_over( CcPieceTagType moving,
                                    CcPieceTagType encounter,
                                    cc_uint_t momentum ) {

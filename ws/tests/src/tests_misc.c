@@ -260,7 +260,7 @@ bool tests_transparencies( void ) {
     CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
 
     printf( "---------------------\n" );
-    printf( "* -> *: block: 0, 1, step over: 0, 1.\n" );
+    printf( "moving -> encounter: block 0, 1, step over 0, 1.\n" );
     for ( int i = 0; i < PIECES_SIZE; ++i ) {
         printf( ".....................\n" );
 
@@ -282,7 +282,32 @@ bool tests_transparencies( void ) {
     }
     printf( "---------------------\n" );
 
-    return true; // TODO :: FIX
+    // TODO :: FIX
+    // ---------------------
+    // * -> *: block: 0, 1, step over: 0, 1.
+    // .....................
+    // B -> B: 1, 0, 0, 0. // TODO :: 1, 1, 0, 0
+    // B -> W: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // B -> M: 1, 1, 0, 0.
+    // B -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // .....................
+    // W -> B: 0, 0, 1, 1.
+    // W -> W: 0, 0, 1, 1.
+    // W -> M: 1, 1, 0, 0.
+    // W -> I: 0, 0, 1, 1.
+    // .....................
+    // M -> B: 1, 1, 0, 0.
+    // M -> W: 1, 1, 0, 0.
+    // M -> M: 1, 1, 0, 0.
+    // M -> I: 0, 0, 0, 0. // TODO :: 1, 0, 0, 1
+    // .....................
+    // I -> B: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
+    // I -> W: 0, 0, 0, 0. // TODO :: 0, 0, 1, 1
+    // I -> M: 0, 0, 1, 1. // TODO :: 1, 1, 0, 0
+    // I -> I: 0, 0, 1, 1. // TODO :: 0, 0, 1, 1
+    // ---------------------
+
+    return true;
 }
 
 
