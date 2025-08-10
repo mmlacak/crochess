@@ -12,7 +12,7 @@
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse ) {
     if ( !moves ) return false;
-    if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false;
+    if ( !CC_GAME_STATUS_IS_TURN( gse ) ) return false; // No need to check validity here, everything except turns is filtered out.
 
     CcMove * m = moves;
     CC_FASTFORWARD( m );
@@ -62,23 +62,23 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
 
-// TODO :: FIX
-
     if ( CC_PIECE_IS_WAVE( moving ) )
         return CC_PIECE_IS_OPAQUE( encounter );
 
     if ( CC_PIECE_IS_OPAQUE( encounter ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) ) // Not-condition does not check for validity!
-            if ( CC_PIECE_IS_VALID( moving ) )
-                return true;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) )
+            return true;
 
     if ( CC_PIECE_IS_OPAQUE( moving ) )
-        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) ) // Not-condition does not check for validity!
-            if ( CC_PIECE_IS_VALID( encounter ) )
-                return true;
+        if ( !CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) )
+            return true;
 
     if ( CC_PIECE_IS_SEMI_OPAQUE( moving ) )
         if ( CC_PIECE_IS_SEMI_OPAQUE( encounter ) )
+            return true;
+
+    if ( CC_PIECE_IS_TRANSPARENT( encounter ) )
+        if ( !CC_PIECE_IS_WEIGHTLESS( moving ) )
             return ( momentum < 1 );
 
     return false;
@@ -90,19 +90,21 @@ bool cc_check_piece_can_step_over( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
 
-// TODO :: FIX
-
     if ( CC_PIECE_IS_WAVE( moving ) )
         return CC_PIECE_IS_SEMI_TRANSPARENT( encounter );
 
-    bool has_enough_momentum = ( momentum > 1 );
+    bool has_enough_momentum = ( momentum > 0 );
 
     if ( CC_PIECE_IS_WAVE( encounter ) )
-        return has_enough_momentum && CC_PIECE_IS_SEMI_TRANSPARENT( moving );
+        if ( CC_PIECE_IS_SEMI_TRANSPARENT( moving ) )
+            return has_enough_momentum || CC_PIECE_IS_WEIGHTLESS( moving );
 
     if ( CC_PIECE_IS_OPAQUE( encounter ) )
         if ( CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) )
             return true;
+
+    if ( CC_PIECE_IS_COMPLETELY_TRANSPARENT( moving ) )
+        return true;
 
     if ( CC_PIECE_IS_COMPLETELY_TRANSPARENT( encounter ) )
         return has_enough_momentum || CC_PIECE_IS_WEIGHTLESS( moving );
@@ -127,11 +129,9 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( moving ) ) return false;
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
-    if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return false;
 
     if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false;
     if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // [1]
-    if ( step_type == CC_STE_None ) return false;
 
     bool wave_moving = CC_PIECE_IS_WAVE( moving );
     bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
@@ -310,6 +310,7 @@ bool cc_find_en_passant_target( CcChessboard * cb,
     if ( !cb ) return false;
     if ( !target__o ) return false;
 
+    if ( !CC_PIECE_IS_VALID( private ) ) return false;
     if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( private ) ) return false;
 
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.

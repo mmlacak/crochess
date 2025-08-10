@@ -156,7 +156,7 @@ CcPieceTagType cc_piece_strip_tag( CcPieceTagType ptt ) {
 }
 
 CcPieceTagType cc_piece_opposite( CcPieceTagType ptt ) {
-    if ( CC_PIECE_HAS_OPPOSITE( ptt ) )
+    if ( CC_PIECE_HAS_OPPOSITE( ptt ) ) // No need to check validity here, CC_PIECE_HAS_OPPOSITE() just excludes Monolith, in addition to None.
         return ( -ptt );
     else if ( ptt == CC_PTE_Monolith )
         return CC_PTE_Monolith;
@@ -473,6 +473,7 @@ char cc_piece_symbol( CcPieceTagType ptt ) {
 }
 
 CcPieceTagType cc_piece_demoting_to( CcPieceTagType ptt ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range.
     if ( CC_PIECE_IS_DARK( ptt ) ) return CC_PTE_DarkPawn;
     if ( CC_PIECE_IS_LIGHT( ptt ) ) return CC_PTE_LightPawn;
     return CC_PTE_None;
@@ -491,6 +492,7 @@ bool cc_piece_has_prefix( CcPieceTagType ptt ) {
 }
 
 char const * cc_piece_prefix( CcPieceTagType ptt, bool capitalize ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range.
     if ( CC_PIECE_IS_DARK( ptt ) ) return capitalize ? "Dark" : "dark";
     else if ( CC_PIECE_IS_LIGHT( ptt ) ) return capitalize ? "Light" : "light";
     else if ( ptt == CC_PTE_DimStar ) return capitalize ? "Dim" : "dim";
@@ -520,6 +522,7 @@ bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
 }
 
 bool cc_piece_has_same_color( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range.
     if ( CC_PIECE_IS_LIGHT( ptt_1 ) && CC_PIECE_IS_LIGHT( ptt_2 ) )
         return true;
 
@@ -545,6 +548,7 @@ bool cc_piece_is_opposite( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
 }
 
 bool cc_piece_has_same_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range.
     if ( CC_PIECE_IS_LIGHT( ptt_1 ) && CC_PIECE_IS_LIGHT( ptt_2 ) ) return true;
     if ( CC_PIECE_IS_DARK( ptt_1 ) && CC_PIECE_IS_DARK( ptt_2 ) ) return true;
 
@@ -552,6 +556,7 @@ bool cc_piece_has_same_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
 }
 
 bool cc_piece_has_different_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range.
     if ( CC_PIECE_IS_LIGHT( ptt_1 ) && CC_PIECE_IS_DARK( ptt_2 ) ) return true;
     if ( CC_PIECE_IS_DARK( ptt_1 ) && CC_PIECE_IS_LIGHT( ptt_2 ) ) return true;
 
@@ -559,6 +564,7 @@ bool cc_piece_has_different_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) 
 }
 
 bool cc_piece_is_owned_figure( CcPieceTagType ptt ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range; IS_PAWN() checks selected pieces.
     if ( CC_PIECE_IS_PAWN( ptt ) ) return false;
     if ( CC_PIECE_IS_LIGHT( ptt ) ) return true;
     if ( CC_PIECE_IS_DARK( ptt ) ) return true;

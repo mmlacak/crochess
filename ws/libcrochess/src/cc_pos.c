@@ -95,6 +95,7 @@ bool cc_pos_are_same_color( CcPos start, CcPos destination ) {
 }
 
 bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece ) {
+    // No need to check validity here; IS_DARK(), IS_LIGHT() each check proper range.
     if ( CC_PIECE_IS_LIGHT( piece ) && CC_IS_FIELD_LIGHT( pos.i, pos.j ) )
         return true;
 
@@ -315,8 +316,8 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
 bool cc_pos_desc_is_congruent( CcPosDesc pd_1, CcPosDesc pd_2, bool compare_only_piece_types ) {
     if ( !cc_pos_is_congruent( pd_1.pos, pd_2.pos ) ) return false;
 
-    if ( CC_PIECE_IS_NONE( pd_1.piece ) ||
-         CC_PIECE_IS_NONE( pd_2.piece ) ) return false;
+    if ( !CC_PIECE_IS_VALID( pd_1.piece ) ) return false;
+    if ( !CC_PIECE_IS_VALID( pd_2.piece ) ) return false;
 
     CcPieceTagType p_1 =
         compare_only_piece_types ? cc_piece_strip_tag( pd_1.piece )
@@ -566,6 +567,7 @@ bool cc_activation_desc_is_valid( CcActivationDesc act_desc,
         if ( act_desc.activator != CC_PTE_None ) return false;
     } else {
         // Otherwise, activator has to be valid.
+        if ( !CC_PIECE_IS_VALID( act_desc.activator ) ) return false;
         if ( !CC_PIECE_IS_ACTIVATOR( act_desc.activator ) ) return false;
     }
 
