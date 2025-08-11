@@ -46,7 +46,7 @@ To compile book yourself, you'll need to generate images, and then compile text 
 To make images used in the book, install these:
 * [Python 3](https://www.python.org/) (3.10.12)
 * [pycairo](https://pypi.org/project/pycairo/) (1.20.1)
-* [cairo](<https://cairographics.org/) (1.16.0)
+* [cairo](https://cairographics.org/) (1.16.0)
 
 Versions in brackets are those I was using, newer versions also work. \
 Older versions should work, since nothing too fancy was used from those dependencies.
