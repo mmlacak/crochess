@@ -24,9 +24,7 @@ Or, you could just unpack downloaded zip file into a folder.
 Build docs
 ----------
 
-.. _lbl-howto-builddocs-prerequsites:
-
-To build docs, open terminal in folder where you've cloned/unzipped repository, then type::
+To build docs, open terminal in root folder of cloned/unzipped repository, then type::
 
     ./build.py --html
 
@@ -34,15 +32,89 @@ In case of error(s) (e.g. after upgrading Sphinx version), you can force complet
 
     ./build.py --clean --html
 
-If everything goes well, now there should be `index.html` created under `docs/build/html/` subfolder.
+If everything goes well, now there should be ``index.html`` created under ``docs/build/html/`` subfolder.
+
+.. _lbl-howto-buildthebook:
+
+Build the book
+--------------
+
+Open terminal in root folder of cloned/unzipped repository, and type::
+
+    ./gfx.sh
+
+This will generate all the images used in the book.
+
+Next, compile PDF file::
+
+    ./pdf.sh
+
+If everything goes well, the new book will be created under ``book`` folder.
+
+.. _lbl-howto-contribute:
+
+Contribute
+----------
+
+After you changed files in cloned repository, use ``push.py`` script in root folder of the project,
+instead of committing your changes directly via ``git``; this is to ensure new version is set in
+the book and the library, and then propagated to (console) applications, documentation and ``README.md``.
+
+You'll need ``Python 3`` installed and access to GitHub via console ``git`` command (it should also be
+in your ``PATH``); there is a `GitHub document <https://docs.github.com/en/get-started/git-basics/set-up-git>`_
+which describes how to set it up.
+
+Options to use with ``push.py``::
+
+    ./push.py <script options> -*- <git commit options> -*- <git push options>
+
+For ``<script options>`` use:
+
+    * ``--book`` (or, just ``-b``) when updating anything other then comments in LaTeX, Python files for the book
+    * ``--docs`` (``-d``) when updating Sphinx documentation (not comments)
+    * ``--commit`` (``-c``) when updating C source code, regardless if in library or in console apps (again, not comments)
+    * ``--feature`` (``-f``) when feature is finished in updated C source code
+    * ``--minor`` (``-m``) when minor work is finished
+    * ``--major`` (``-M``) when major work is finished
+    * ``--meta`` (``-meta``) when updating only comments in C source files; this is optional, and not needed if any other
+      C source code option is used
+
+For debugging use following ``<script options>``:
+
+    * ``--dry-run`` (``-n``) does not update versions, nor commit changes
+    * ``--wet-run`` (``-w``) updates versions, but does not commit changes
+    * ``--verbose`` (``-v``) prints project root folder, time-stamps found and generated
+    * ``--debug-script`` (``-DS``) prints updated versions, ``git`` arguments, etc.
+
+Options can be mixed and matched as you please, order is not important.
+More significant C source code option will override lesser ones, e.g. ``-minor`` will override ``--feature``.
+Do not forget to ``git --add`` if you add/delete file(s) before running the script.
+
+After ``push.py`` script has finished updating versions, ``git`` is spawned thrice as a separate process,
+first with ``add`` arguments::
+
+    git add -- <auto-updated files>
+
+where ``<auto-updated files>`` are all files which had its version updated, e.g. ``README.md``, ``version.c``, etc.;
+obviously, this depends on ``<script options>`` used.
+
+``git`` is then spawned with ``commit`` arguments::
+
+    git commit <git commit options>
+
+and finally with ``push`` arguments::
+
+    git push <git push options>
+
+.. _lbl-howto-dependecies:
 
 Dependecies
 -----------
 
 Install these:
 
-    * `Python 3 <https://www.python.org/>`_ (3.10.12)
-    * `Sphinx <https://www.sphinx-doc.org/en/master/>`_ (8.1.3)
-    * `Read the Docs theme <https://github.com/readthedocs/sphinx_rtd_theme>`_ (3.0.2)
+    * `Python 3 <https://www.python.org/>`_ (3.10.12) (docs, book, contributing)
+    * `Sphinx <https://www.sphinx-doc.org/en/master/>`_ (8.1.3) (docs)
+    * `Read the Docs theme <https://github.com/readthedocs/sphinx_rtd_theme>`_ (3.0.2) (docs)
 
-Versions in brackets are those I currently use, but nothing too fancy was used, so older versions should also work.
+Versions in brackets are those I currently use, but nothing too fancy was used, so older versions might also work.
