@@ -116,5 +116,7 @@ Install these:
     * `Python 3 <https://www.python.org/>`_ (3.10.12) (docs, book, contributing)
     * `Sphinx <https://www.sphinx-doc.org/en/master/>`_ (8.1.3) (docs)
     * `Read the Docs theme <https://github.com/readthedocs/sphinx_rtd_theme>`_ (3.0.2) (docs)
+    * `pycairo <https://pypi.org/project/pycairo/>`_ (1.20.1) (book)
+    * `cairo <https://cairographics.org/>`_ (1.16.0) (book)
 
 Versions in brackets are those I currently use, but nothing too fancy was used, so older versions might also work.
