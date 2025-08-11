@@ -42,40 +42,52 @@ within :c:enum:`CcPieceTagEnum` enumeration.
 One of those :c:`macro`\s has to be used in functions on all parameters of its
 :c:`enum` types, because all other :c:`macro`\s defined for the same :c:`enum`
 might not return correct result otherwise. Both these :c:`macro`\s can be safely
-negated, e.g.::
+negated, e.g.:
 
-    if ( !CC_PIECE_IS_VALID( piece ) ) ...
+    .. code-block:: C
+        :force:
+
+        if ( !CC_PIECE_IS_VALID( piece ) ) ...
 
 is fine. For instance, function :c:func:`cc_check_piece_can_capture()`
 has to check both :c:`enum` parameters for validity before any other
 :c:enum:`CcPieceTagEnum` :c:`macro` used can return correct result, e.g.
-like so::
+like so:
 
-    bool cc_check_piece_can_capture( CcPieceTagType moving,
-                                     CcPieceTagType encounter ) {
-        if ( !CC_PIECE_IS_VALID( moving ) ) return false;
-        if ( !CC_PIECE_IS_ENUMERATOR( encounter ) ) return false;
+    .. code-block:: C
+        :force:
 
-        // This might not produce correct result, if validation above is omitted!
-        if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false;
+        bool cc_check_piece_can_capture( CcPieceTagType moving,
+                                        CcPieceTagType encounter ) {
+            if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+            if ( !CC_PIECE_IS_ENUMERATOR( encounter ) ) return false;
 
-        // --- ditto ---
-        if ( !CC_PIECE_CAN_BE_CAPTURED( encounter ) ) return false;
+            // This might not produce correct result, if validation above is omitted!
+            if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false;
 
-        /// ... omitted code ...
-    }
+            // --- ditto ---
+            if ( !CC_PIECE_CAN_BE_CAPTURED( encounter ) ) return false;
+
+            /// ... omitted code ...
+        }
 
 This is due to optimizations (to avoid duplicating the same validations) and
 `De Morgan's laws <https://en.wikipedia.org/wiki/De_Morgan%27s_laws>`_.
 Any :c:`macro` which has embedded validation, after negating it would also
-contain negated validation. For instance, given a :c:`macro` like so::
+contain negated validation. For instance, given a :c:`macro` like so:
 
-    #define FOO(p) ( <conditions ...> && FOO_IS_VALID(p) )
+    .. code-block:: C
+        :force:
+
+        #define FOO(p) ( <conditions ...> && FOO_IS_VALID(p) )
 
 whatever :c:`<conditions ...>` might be, usage of negated :c:macro:`FOO()` will
-turn into::
+turn into:
 
-    !FOO(p) --> ( !<conditions ...> || !FOO_IS_VALID(p) )
+    .. code-block:: C
+        :force:
+
+        !FOO(p) == ( !<conditions ...> || !FOO_IS_VALID(p) )
 
 which validates any value *outside* of enumerated values; which is not correct,
 if :c:`!FOO()` is anything other then check if a given parameter is *not*
