@@ -19,7 +19,7 @@ chess and growing ever more complex with each new variant.
 **Book version** can be seen in a colophon (4th page), under *Source* section. \
 The most recent book version is:
 
-Version: 20250729.034138 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
+Version: 20250812.140938 <!--- readme-new-book-version-squished-utc-date-time-place-marker -->
 
 Large number is actually date and time of the last commit,
 converted to UTC for easier comparison.
@@ -44,9 +44,9 @@ To compile book yourself, you'll need to generate images, and then compile text 
 ### Prerequisites
 
 To make images used in the book, install these:
-- Python 3 (3.8.5)
-- pycairo (1.18.2)
-- GTK+ cairo (1.16.0)
+* [Python 3](https://www.python.org/) (3.10.12)
+* [pycairo](https://pypi.org/project/pycairo/) (1.20.1)
+* [cairo](https://cairographics.org/) (1.16.0)
 
 Versions in brackets are those I was using, newer versions also work. \
 Older versions should work, since nothing too fancy was used from those dependencies.
