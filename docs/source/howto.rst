@@ -5,19 +5,23 @@
 
 .. _lbl-howto:
 
-How to
-======
+How to ...
+==========
 
 .. _lbl-howto-clonerepository:
 
 Clone repository
 ----------------
 
-Go to `Croatian Chess repository <https://github.com/mmlacak/crochess>`_, then clone it with::
+Open terminal in a folder of your choice, then clone repository with::
 
     git clone https://github.com/mmlacak/crochess.git
 
-Or, you could just unpack downloaded zip file into a folder.
+for details, see
+`GitHub on-line documentation <https://docs.github.com/en/get-started/git-basics/about-remote-repositories>`_.
+
+If you don't plan to contribute to the project, you can just unpack downloaded ``ZIP`` file
+from `Croatian Chess repository <https://github.com/mmlacak/crochess>`_ into a folder.
 
 .. _lbl-howto-builddocs:
 
@@ -43,9 +47,7 @@ Open terminal in root folder of cloned/unzipped repository, and type::
 
     ./gfx.sh
 
-This will generate all the images used in the book.
-
-Next, compile PDF file::
+This will generate all the images used in the book. Next, compile ``PDF`` file::
 
     ./pdf.sh
 
@@ -119,4 +121,8 @@ Install these:
     * `pycairo <https://pypi.org/project/pycairo/>`_ (1.20.1) (book)
     * `cairo <https://cairographics.org/>`_ (1.16.0) (book)
 
-Versions in brackets are those I currently use, but nothing too fancy was used, so older versions might also work.
+Versions in brackets are those I currently use, but nothing too fancy was used,
+so older versions might also work.
+
+Subprojects are listed in a second brackets; so, for instance, if you'd like to
+compile the book yourself, you do need ``cairo``, but do not need ``Sphinx``.
