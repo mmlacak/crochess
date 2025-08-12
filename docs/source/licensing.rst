@@ -30,7 +30,7 @@ Included copyright file is ``COPYING`` in ``book`` folder.
 Source code
 -----------
 
-Source code (C and Python files throughtout all of the project) is licensed under GNU GPL v3+.
+Source code is licensed under GNU GPL v3+; this includes C and Python files throughtout all of the project.
 
 Included license file is ``LICENSING`` in root folder of the project.
 
