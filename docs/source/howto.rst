@@ -115,14 +115,28 @@ Dependecies
 
 Install these:
 
-    * `Python 3 <https://www.python.org/>`_ (3.10.12) (docs, book, contributing)
-    * `Sphinx <https://www.sphinx-doc.org/en/master/>`_ (8.1.3) (docs)
-    * `Read the Docs theme <https://github.com/readthedocs/sphinx_rtd_theme>`_ (3.0.2) (docs)
-    * `pycairo <https://pypi.org/project/pycairo/>`_ (1.20.1) (book)
-    * `cairo <https://cairographics.org/>`_ (1.16.0) (book)
+    * `Python 3 <https://www.python.org/>`_ (3.10.12) for docs, book, contributing
+    * `Sphinx <https://www.sphinx-doc.org/en/master/>`_ (8.1.3) for docs
+    * `Read the Docs theme <https://github.com/readthedocs/sphinx_rtd_theme>`_ (3.0.2) for docs
+    * `pycairo <https://pypi.org/project/pycairo/>`_ (1.20.1) for book
+    * `cairo <https://cairographics.org/>`_ (1.16.0) for book
+    * `LaTeX <https://www.latex-project.org/get/>`_ \
+      (3.141592653-2.6-1.40.22) for book; minimal installation should suffice, with following packages:
+
+        - inputenc
+        - charter
+        - helvet
+        - geometry
+        - graphicx
+        - wrapfig
+        - hyperref
+        - multirow
+        - booktabs
+        - alltt
 
 Versions in brackets are those I currently use, but nothing too fancy was used,
 so older versions might also work.
 
-Subprojects are listed in a second brackets; so, for instance, if you'd like to
-compile the book yourself, you do need ``cairo``, but do not need ``Sphinx``.
+Subprojects which needs them are listed for each dependency; so, for instance,
+if you'd like to compile the book yourself, you do need ``cairo``, but do not need
+``Sphinx``.
