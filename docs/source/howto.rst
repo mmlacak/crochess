@@ -89,7 +89,7 @@ For debugging use following ``<script options>``:
     * ``--debug-script`` (``-DS``) prints updated versions, ``git`` arguments, etc.
 
 Options can be mixed and matched as you please, order is not important.
-More significant C source code option will override lesser ones, e.g. ``-minor`` will override ``--feature``.
+More significant C source code option will override lesser ones, e.g. ``-minor`` will override ``--feature`` and ``--commit``.
 Do not forget to ``git --add`` if you add/delete file(s) before running the script.
 
 After ``push.py`` script has finished updating versions, ``git`` is spawned thrice as a separate process,

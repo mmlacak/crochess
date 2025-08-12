@@ -30,6 +30,7 @@ Contents
 
     howto
     libcc/libcrochess
+    licensing
 
 
 .. _lbl-index-documentation-indices:
