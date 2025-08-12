@@ -68,7 +68,7 @@ which describes how to set it up.
 
 Options to use with ``push.py``::
 
-    ./push.py <script options> -*- <git commit options> -*- <git push options>
+    ./push.py <script options> [ -*- <git commit options> [ -*- <git push options> ] ]
 
 For ``<script options>`` use:
 
@@ -107,6 +107,11 @@ obviously, this depends on ``<script options>`` used.
 and finally with ``push`` arguments::
 
     git push <git push options>
+
+Both ``git`` options (i.e. ``<git commit options>`` and ``<git push options>``) are optional;
+if not given, then corresponding ``git`` command is not executed. Note that even if options are
+given, ``git commit`` and ``git push`` are not executed, if either ``--dry-run`` or ``--wet-run``
+are specified.
 
 .. _lbl-howto-dependecies:
 
