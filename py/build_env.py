@@ -33,7 +33,7 @@ import py.paths as P
 class Target(E.Enum):
     NONE = 0
     LIB_CROCHESS = 1
-    LIB_LINENOISE = 2
+    # LIB_LINENOISE = 2
     EXE_CROCHESS = 3
     EXE_TESTS = 4
 
@@ -137,8 +137,8 @@ def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROC
             return OPTIONS_GCC_EXECUTABLE
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_GCC_LIBRARY
-        elif target == Target.LIB_LINENOISE:
-            return OPTIONS_GCC_LIBRARY_LINENOISE
+        # elif target == Target.LIB_LINENOISE:
+        #     return OPTIONS_GCC_LIBRARY_LINENOISE
         else:
             raise RuntimeError("Unknown target '%s'." % str(target))
     elif compiler == COMPILER_CLANG:
@@ -146,8 +146,8 @@ def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROC
             return OPTIONS_CLANG_EXECUTABLE
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_CLANG_LIBRARY
-        elif target == Target.LIB_LINENOISE:
-            return OPTIONS_CLANG_LIBRARY_LINENOISE
+        # elif target == Target.LIB_LINENOISE:
+        #     return OPTIONS_CLANG_LIBRARY_LINENOISE
         else:
             raise RuntimeError("Unknown target '%s'." % str(target))
     else:
@@ -159,8 +159,8 @@ def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB
             return OPTIONS_GCC_EXECUTABLE_DEPENDENCIES
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_GCC_LIBRARY_DEPENDENCIES
-        elif target == Target.LIB_LINENOISE:
-            return OPTIONS_GCC_LIBRARY_LINENOISE_DEPENDENCIES
+        # elif target == Target.LIB_LINENOISE:
+        #     return OPTIONS_GCC_LIBRARY_LINENOISE_DEPENDENCIES
         else:
             raise RuntimeError("Unknown target '%s'." % str(target))
     elif compiler == COMPILER_CLANG:
@@ -168,8 +168,8 @@ def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB
             return OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES
         elif target == Target.LIB_CROCHESS:
             return OPTIONS_CLANG_LIBRARY_DEPENDENCIES
-        elif target == Target.LIB_LINENOISE:
-            return OPTIONS_CLANG_LIBRARY_LINENOISE_DEPENDENCIES
+        # elif target == Target.LIB_LINENOISE:
+        #     return OPTIONS_CLANG_LIBRARY_LINENOISE_DEPENDENCIES
         else:
             raise RuntimeError("Unknown target '%s'." % str(target))
     else:
@@ -211,14 +211,14 @@ def get_lib_header_dir(root_path):
     return os.path.join(get_lib_dir(root_path), SOURCE_LIB_HEADER_FOLDER)
 
 
-def get_lib_ln_dir(root_path):
-    return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_LN_FOLDER)
+# def get_lib_ln_dir(root_path):
+#     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_LN_FOLDER)
 
-def get_lib_ln_src_dir(root_path):
-    return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_SRC_FOLDER)
+# def get_lib_ln_src_dir(root_path):
+#     return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_SRC_FOLDER)
 
-def get_lib_ln_header_dir(root_path):
-    return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_HEADER_FOLDER)
+# def get_lib_ln_header_dir(root_path):
+#     return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_HEADER_FOLDER)
 
 
 def get_tests_dir(root_path):
@@ -242,17 +242,18 @@ def get_source_path_list(cwd_cmd, src_dir, target=Target.LIB_CROCHESS):
     full_path = os.path.join(cwd_cmd, src_dir)
     file_lst = os.listdir(full_path)
 
-    if target == Target.LIB_LINENOISE:
-        new_lst  = [ P.get_combed_path( os.path.join(src_dir, f) ) for f in file_lst
-                        if SOURCE_IGNORE_FILE_PATH not in f
-                            and os.path.isfile( os.path.join(full_path, f) )
-                            and os.path.splitext( os.path.basename(f) )[ 0 ] in SOURCE_LIB_LN_SRC_FILE_NAMES
-                            and os.path.splitext(f)[ 1 ] == SOURCE_FILE_EXT ]
-    else:
-        new_lst  = [ P.get_combed_path( os.path.join(src_dir, f) ) for f in file_lst
-                        if SOURCE_IGNORE_FILE_PATH not in f
-                            and os.path.isfile( os.path.join(full_path, f) )
-                            and os.path.splitext(f)[ 1 ] == SOURCE_FILE_EXT ]
+    # if target == Target.LIB_LINENOISE:
+    #     new_lst  = [ P.get_combed_path( os.path.join(src_dir, f) ) for f in file_lst
+    #                     if SOURCE_IGNORE_FILE_PATH not in f
+    #                         and os.path.isfile( os.path.join(full_path, f) )
+    #                         and os.path.splitext( os.path.basename(f) )[ 0 ] in SOURCE_LIB_LN_SRC_FILE_NAMES
+    #                         and os.path.splitext(f)[ 1 ] == SOURCE_FILE_EXT ]
+    # else:
+    new_lst  = [ P.get_combed_path( os.path.join(src_dir, f) ) for f in file_lst
+                    if SOURCE_IGNORE_FILE_PATH not in f
+                        and os.path.isfile( os.path.join(full_path, f) )
+                        and os.path.splitext(f)[ 1 ] == SOURCE_FILE_EXT ]
+
     return new_lst
 
 
