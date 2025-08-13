@@ -18,7 +18,7 @@ Integers
 For :c:`int`\eger values, one is designated to be invalid, all the others are
 then considered valid.
 
-This is mostly relevant to coordiantes, various positions, steps, etc. where one
+This is mostly relevant to coordinates, various positions, steps, etc. where one
 value (in this case, :c:macro:`CC_INVALID_COORD`) is invalid, all the other are
 valid, even if a coordinate may be way off-board.
 
