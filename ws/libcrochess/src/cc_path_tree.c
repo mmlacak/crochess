@@ -34,6 +34,15 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
+    if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
+        CcSideEffect se = cc_side_effect_transparency( encounter.piece );
+        CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
+        if ( !se__w ) {
+            cc_side_effect_link_free_all( side_effect_link__o_a );
+            return false;
+        }
+    }
+
     // TODO :: FIX
     // if ( CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE( ms ) ) {
     //     // TODO
