@@ -34,12 +34,49 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
+    CcPathLinkNodeLinkageEnum plnle = CC_PLNLE_NoLinkage; // CC_PLNLE_Next;
+
+    if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
+        CcSideEffect se = cc_side_effect_transparency( encounter.piece );
+        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
+        if ( !se__w ) {
+            cc_path_side_effect_link_free_all( side_effect_link__o_a );
+            return false;
+        }
+        plnle = CC_PLNLE_Fork;
+    }
+
+    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
+        CcSideEffect se = cc_side_effect_capture( encounter.piece );
+        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
+        if ( !se__w ) {
+            cc_path_side_effect_link_free_all( side_effect_link__o_a );
+            return false;
+        }
+        plnle = CC_PLNLE_Fork;
+    }
+
+    if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
+            ( encounter.piece == CC_PTE_None ) ) { // TODO :: or encountered piece can be activated
+        CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
+        if ( cc_find_en_passant_target( cb, moving_from.piece, act_desc, path_ctx__io->ply_ctx.is_first, encounter.pos, &en_passant ) ) {
+            CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
+            CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
+            if ( !se__w ) {
+                cc_path_side_effect_link_free_all( side_effect_link__o_a );
+                return false;
+            }
+            plnle = CC_PLNLE_Fork;
+        }
+    }
+
+
     // TODO :: FIX
     // if ( CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE( ms ) ) {
     //     // TODO
     // } else if ( ms == CC_MSPTE_TJ_Displacing ) {
     //     if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
-    //         cc_side_effect_link_free_all( side_effect_link__o_a );
+    //         cc_path_side_effect_link_free_all( side_effect_link__o_a );
     //         return false;
     //     }
 
@@ -47,9 +84,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
 
     //     if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-    //         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
+    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
     //         if ( !se__w ) {
-    //             cc_side_effect_link_free_all( side_effect_link__o_a );
+    //             cc_path_side_effect_link_free_all( side_effect_link__o_a );
     //             return false;
     //         }
     //     }
@@ -59,37 +96,14 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     //         CcPos displacement; // TODO :: FIX
 
     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-    //         CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
+    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
     //         if ( !se__w ) {
-    //             cc_side_effect_link_free_all( side_effect_link__o_a );
+    //             cc_path_side_effect_link_free_all( side_effect_link__o_a );
     //             return false;
     //         }
     //     }
     // }
     // TODO :: FIX
-
-    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
-        CcSideEffect se = cc_side_effect_capture( encounter.piece );
-        CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
-        if ( !se__w ) {
-            cc_side_effect_link_free_all( side_effect_link__o_a );
-            return false;
-        }
-    }
-
-    if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
-            ( encounter.piece == CC_PTE_None ) ) { // TODO :: or encountered piece can be activated
-        CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
-        if ( cc_find_en_passant_target( cb, moving_from.piece, act_desc, path_ctx__io->ply_ctx.is_first, encounter.pos, &en_passant ) ) {
-            CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
-            CcPathSideEffectLink * se__w = cc_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Fork, se ); // TODO :: FIX :: CC_PLNLE_Fork
-            if ( !se__w ) {
-                cc_side_effect_link_free_all( side_effect_link__o_a );
-                return false;
-            }
-        }
-    }
-
 
     return false; // TODO :: FIX
 }

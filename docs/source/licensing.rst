@@ -18,11 +18,13 @@ The book and related texts, images in ``book`` subfolder of the project are in P
 Included license file is ``LICENSING`` in ``book`` folder.
 
 .. literalinclude:: ../../book/LICENSING
+    :language: none
     :linenos:
 
 Included copyright file is ``COPYING`` in ``book`` folder.
 
 .. literalinclude:: ../../book/COPYING
+    :language: none
     :linenos:
 
 .. _lbl-licensing-sourcecode:
@@ -35,11 +37,13 @@ Source code is licensed under GNU GPL v3+; this includes C and Python files thro
 Included license file is ``LICENSING`` in root folder of the project.
 
 .. literalinclude:: ../../LICENSING
+    :language: none
     :linenos:
 
 Included copyright file is ``COPYING`` in root folder of the project.
 
 .. literalinclude:: ../../COPYING
+    :language: none
     :linenos:
 
 .. _lbl-licensing-documentation:
@@ -52,11 +56,13 @@ Documentation and related texts in ``docs`` subfolder of the project is in Publi
 Included license file is ``LICENSING`` in ``docs`` folder.
 
 .. literalinclude:: ../../docs/LICENSING
+    :language: none
     :linenos:
 
 Included copyright file is ``COPYING`` in ``docs`` folder.
 
 .. literalinclude:: ../../docs/COPYING
+    :language: none
     :linenos:
 
 .. _lbl-licensing-dependecies:
@@ -75,4 +81,5 @@ Linenoise is licensed under 2-clause BSD license, see
 Included license file is ``LICENSE_LINENOISE`` in root folder of the project.
 
 .. literalinclude:: ../../LICENSE_LINENOISE
+    :language: none
     :linenos:

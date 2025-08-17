@@ -17,7 +17,7 @@ details.
 Documentation, in this legal agreement, refers to all RST source files.
 All related materials refers to all other files that are distributed
 together with RST files, namely icons (ICO files), and Python scripts
-(PY files).
+(PY files) accompanying documentation, in documentation (sub)folders.
 
 You should have received a copy of the CC0 1.0 Universal Public Domain
 Dedication along with this book. If not, see

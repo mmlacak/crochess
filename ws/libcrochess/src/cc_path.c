@@ -614,8 +614,8 @@ char const * cc_path_link_node_linkage_to_string( CcPathLink * path_link_node ) 
 //
 // Linked side-effects.
 
-CcPathSideEffectLink * cc_side_effect_link__new( CcPathLinkNodeLinkageEnum link,
-                                                 CcSideEffect side_effect ) {
+CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathLinkNodeLinkageEnum link,
+                                                      CcSideEffect side_effect ) {
     CcPathSideEffectLink * se__t = malloc( sizeof( CcPathSideEffectLink ) );
     if ( !se__t ) return NULL;
 
@@ -626,12 +626,12 @@ CcPathSideEffectLink * cc_side_effect_link__new( CcPathLinkNodeLinkageEnum link,
     return se__t;
 }
 
-CcPathSideEffectLink * cc_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a,
-                                                   CcPathLinkNodeLinkageEnum link,
-                                                   CcSideEffect se ) {
+CcPathSideEffectLink * cc_path_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a,
+                                                        CcPathLinkNodeLinkageEnum link,
+                                                        CcSideEffect se ) {
     if ( !side_effect_link__iod_a ) return NULL;
 
-    CcPathSideEffectLink * se__t = cc_side_effect_link__new( link, se );
+    CcPathSideEffectLink * se__t = cc_path_side_effect_link__new( link, se );
     if ( !se__t ) return NULL;
 
     if ( !*side_effect_link__iod_a ) {
@@ -645,16 +645,16 @@ CcPathSideEffectLink * cc_side_effect_link_append( CcPathSideEffectLink ** side_
     return se__t; // Weak pointer.
 }
 
-CcPathSideEffectLink * cc_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link ) {
+CcPathSideEffectLink * cc_path_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link ) {
     if ( !side_effect_link ) return NULL;
 
     CcPathSideEffectLink * side_effect_link__a = NULL;
     CcPathSideEffectLink * from = side_effect_link;
 
     while ( from ) {
-        CcPathSideEffectLink * se__w = cc_side_effect_link_append( &side_effect_link__a, from->link, from->side_effect );
+        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &side_effect_link__a, from->link, from->side_effect );
         if ( !se__w ) { // Failed append --> ownership not transferred ...
-            cc_side_effect_link_free_all( &side_effect_link__a );
+            cc_path_side_effect_link_free_all( &side_effect_link__a );
             return NULL;
         }
 
@@ -664,8 +664,8 @@ CcPathSideEffectLink * cc_side_effect_link_duplicate_all__new( CcPathSideEffectL
     return side_effect_link__a;
 }
 
-CcPathSideEffectLink * cc_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a,
-                                                   CcPathSideEffectLink ** side_effect_link__n ) {
+CcPathSideEffectLink * cc_path_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a,
+                                                        CcPathSideEffectLink ** side_effect_link__n ) {
     if ( !side_effect_link__iod_a ) return NULL;
     if ( !side_effect_link__n ) return NULL;
 
@@ -689,7 +689,7 @@ CcPathSideEffectLink * cc_side_effect_link_extend( CcPathSideEffectLink ** side_
     return last->next;
 }
 
-bool cc_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f ) {
+bool cc_path_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f ) {
     if ( !side_effect_link__f ) return false;
     if ( !*side_effect_link__f ) return true;
 
@@ -706,7 +706,7 @@ bool cc_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f )
     return true;
 }
 
-size_t cc_side_effect_link_len( CcPathSideEffectLink * side_effect_link ) {
+size_t cc_path_side_effect_link_len( CcPathSideEffectLink * side_effect_link ) {
     if ( !side_effect_link ) return 0;
 
     size_t len = 0;

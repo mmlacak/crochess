@@ -460,7 +460,7 @@ Linked path side-effects
 
     :c:`struct` is tagged with the same :c:struct:`CcPathSideEffectLink` name.
 
-.. c:function:: CcPathSideEffectLink * cc_side_effect_link__new( CcPathLinkNodeLinkageEnum link, CcSideEffect side_effect )
+.. c:function:: CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathLinkNodeLinkageEnum link, CcSideEffect side_effect )
 
     Returns a newly allocated side-effect link.
 
@@ -468,7 +468,7 @@ Linked path side-effects
     :param side_effect: A side-effect.
     :returns: A newly allocated side-effect link if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathSideEffectLink * cc_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a, CcPathLinkNodeLinkageEnum link, CcSideEffect side_effect )
+.. c:function:: CcPathSideEffectLink * cc_path_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a, CcPathLinkNodeLinkageEnum link, CcSideEffect side_effect )
 
     Appends a newly allocated side-effect link to a given linked list.
 
@@ -483,14 +483,14 @@ Linked path side-effects
     :returns: A weak pointer to newly allocated side-effect link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathSideEffectLink * cc_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link )
+.. c:function:: CcPathSideEffectLink * cc_path_side_effect_link_duplicate_all__new( CcPathSideEffectLink * side_effect_link )
 
     Duplicates all given side-effects into a newly allocated linked list.
 
     :param side_effect_link: Linked list to duplicate.
     :returns: A newly allocated linked list if successful, :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathSideEffectLink * cc_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a, CcPathSideEffectLink ** side_effect_link__n )
+.. c:function:: CcPathSideEffectLink * cc_path_side_effect_link_extend( CcPathSideEffectLink ** side_effect_link__iod_a, CcPathSideEffectLink ** side_effect_link__n )
 
     Extends given linked list of side-effects with another.
 
@@ -509,14 +509,14 @@ Linked path side-effects
     :returns: Weak pointer to extended portion of a linked list if successful,
               :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f )
+.. c:function:: bool cc_path_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link__f )
 
     Frees all side-effects in a linked list.
 
     :param side_effect_link__f: Linked list of side-effects.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: size_t cc_side_effect_link_len( CcPathSideEffectLink * side_effect_link )
+.. c:function:: size_t cc_path_side_effect_link_len( CcPathSideEffectLink * side_effect_link )
 
     Function returning length of linked list of side-effects.
 
