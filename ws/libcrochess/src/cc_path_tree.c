@@ -36,18 +36,28 @@ bool cc_path_side_effect( CcPosDesc moving_from,
 
     CcPathLinkNodeLinkageEnum plnle = CC_PLNLE_NoLinkage; // CC_PLNLE_Next;
 
-    if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
-        CcSideEffect se = cc_side_effect_transparency( encounter.piece );
+    //
+    // Terminal side-effects.
+
+    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
+        CcSideEffect se = cc_side_effect_capture( encounter.piece );
         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
         if ( !se__w ) {
             cc_path_side_effect_link_free_all( side_effect_link__o_a );
             return false;
         }
-        plnle = CC_PLNLE_Fork;
+        plnle = CC_PLNLE_Next;
     }
 
-    if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
-        CcSideEffect se = cc_side_effect_capture( encounter.piece );
+    // TODO :: other terminating side-effects
+
+    //
+    // Non-terminal side-effects.
+
+    plnle = CC_PLNLE_Next;
+
+    if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
+        CcSideEffect se = cc_side_effect_transparency( encounter.piece );
         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
         if ( !se__w ) {
             cc_path_side_effect_link_free_all( side_effect_link__o_a );
@@ -104,6 +114,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     //     }
     // }
     // TODO :: FIX
+
+
+    // TODO :: other non-terminating side-effects
 
     return false; // TODO :: FIX
 }
