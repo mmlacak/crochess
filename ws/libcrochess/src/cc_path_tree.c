@@ -157,6 +157,7 @@ bool cc_path_segment_one_step__new( CcSideEffect side_effect,
     if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 
     CcPos pos = moving_from.pos;
+    CcPathSideEffectLink * sel__t = NULL;
     CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
     if ( !steps__t ) return false;
 
@@ -164,7 +165,6 @@ bool cc_path_segment_one_step__new( CcSideEffect side_effect,
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
     CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
-    CcPathSideEffectLink * sel__t = NULL;
 
     #define STEP_COUNT 1
 
@@ -186,13 +186,13 @@ bool cc_path_segment_one_step__new( CcSideEffect side_effect,
             } else {
                 CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
 
-                if ( !cc_path_side_effect( moving_from, step, encounter_pd, path_ctx__io, &sel__t ) || !sel__t ) {
-                    cc_path_side_effect_link_free_all( &sel__t );
+                if ( !cc_path_side_effect( moving_from, step, encounter_pd, path_ctx__io, &sel__t ) ) {
                     cc_step_free_all( &steps__t );
+                    cc_path_side_effect_link_free_all( &sel__t );
                     return false;
                 }
 
-                break; // TODO :: add side-effects here
+                break;
             }
         } else
             break;
@@ -203,6 +203,7 @@ bool cc_path_segment_one_step__new( CcSideEffect side_effect,
     CcPathLink * pl__t = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
     if ( !pl__t ) {
         cc_step_free_all( &steps__t );
+        cc_path_side_effect_link_free_all( &sel__t );
         return false;
     }
 

@@ -130,7 +130,7 @@ bool cc_path_side_effect_link_free_all( CcPathSideEffectLink ** side_effect_link
 
 size_t cc_path_side_effect_link_len( CcPathSideEffectLink * side_effect_link );
 
-// // TODO :: DOCS
+// TODO // TODO :: DOCS
 // char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effect_link );
 
 
