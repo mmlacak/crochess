@@ -60,7 +60,16 @@ bool test_path( CcSideEffect side_effect,
     }
 
     bool result = true;
-    CcPathLink * pl__a = cc_path_segment_one_step__new( side_effect, ply_from, step, path_ctx__a );
+    CcPathLink * pl__a = NULL;
+    CcPathSideEffectLink * sel__a = NULL;
+
+    if ( !cc_path_segment_one_step__new( side_effect, ply_from, step, path_ctx__a, &pl__a, &sel__a ) ) {
+        cc_path_side_effect_link_free_all( &sel__a );
+        cc_path_link_free_all( &pl__a );
+        cc_path_context_free_all( &path_ctx__a );
+        cc_game_free_all( &game__a );
+        return false;
+    };
 
     if ( pl__a ) {
         char * pl_str__a = cc_path_link_node_to_string__new( 0, pl__a );
@@ -75,8 +84,18 @@ bool test_path( CcSideEffect side_effect,
         }
     }
 
+    // TODO :: printf( sel__a );
+    if ( sel__a ) {
+        printf( "We got some side-effects ... :D\n" );
+    } else {
+        result = false;
+
+        printf( "We got no side-effects ... :/\n" );
+    }
+
     printf( "-----------------------------------------------------------------------\n" );
 
+    cc_path_side_effect_link_free_all( &sel__a );
     cc_path_link_free_all( &pl__a );
     cc_path_context_free_all( &path_ctx__a );
     cc_game_free_all( &game__a );

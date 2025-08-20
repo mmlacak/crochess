@@ -34,6 +34,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
+    CcPathSideEffectLink * sel__t = NULL;
     CcPathLinkNodeLinkageEnum plnle = CC_PLNLE_NoLinkage; // CC_PLNLE_Next;
 
     //
@@ -41,9 +42,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
 
     if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
-        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
+        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, plnle, se );
         if ( !se__w ) {
-            cc_path_side_effect_link_free_all( side_effect_link__o_a );
+            cc_path_side_effect_link_free_all( &sel__t );
             return false;
         }
         plnle = CC_PLNLE_Next;
@@ -58,9 +59,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
 
     if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
         CcSideEffect se = cc_side_effect_transparency( encounter.piece );
-        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
+        CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, plnle, se );
         if ( !se__w ) {
-            cc_path_side_effect_link_free_all( side_effect_link__o_a );
+            cc_path_side_effect_link_free_all( &sel__t );
             return false;
         }
         plnle = CC_PLNLE_Fork;
@@ -71,9 +72,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
         CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
         if ( cc_find_en_passant_target( cb, moving_from.piece, act_desc, path_ctx__io->ply_ctx.is_first, encounter.pos, &en_passant ) ) {
             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
-            CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, plnle, se );
+            CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, plnle, se );
             if ( !se__w ) {
-                cc_path_side_effect_link_free_all( side_effect_link__o_a );
+                cc_path_side_effect_link_free_all( &sel__t );
                 return false;
             }
             plnle = CC_PLNLE_Fork;
@@ -86,7 +87,7 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     //     // TODO
     // } else if ( ms == CC_MSPTE_TJ_Displacing ) {
     //     if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
-    //         cc_path_side_effect_link_free_all( side_effect_link__o_a );
+    //         cc_path_side_effect_link_free_all( &sel__t );
     //         return false;
     //     }
 
@@ -94,9 +95,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
 
     //     if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
+    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PLNLE_Sub, se );
     //         if ( !se__w ) {
-    //             cc_path_side_effect_link_free_all( side_effect_link__o_a );
+    //             cc_path_side_effect_link_free_all( &sel__t );
     //             return false;
     //         }
     //     }
@@ -106,9 +107,9 @@ bool cc_path_side_effect( CcPosDesc moving_from,
     //         CcPos displacement; // TODO :: FIX
 
     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( side_effect_link__o_a, CC_PLNLE_Sub, se );
+    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PLNLE_Sub, se );
     //         if ( !se__w ) {
-    //             cc_path_side_effect_link_free_all( side_effect_link__o_a );
+    //             cc_path_side_effect_link_free_all( &sel__t );
     //             return false;
     //         }
     //     }
@@ -118,39 +119,52 @@ bool cc_path_side_effect( CcPosDesc moving_from,
 
     // TODO :: other non-terminating side-effects
 
-    return false; // TODO :: FIX
+
+
+    *side_effect_link__o_a = sel__t; // Ownership transfer, do not free( sel__t ).
+
+    return true;
 }
 
 
-CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
-                                            CcPosDesc moving_from,
-                                            CcTypedStep step,
-                                            CcPathContext * path_ctx__io ) {
-    if ( !path_ctx__io ) return NULL;
-    if ( !path_ctx__io->game__w ) return NULL;
-    if ( !path_ctx__io->game__w->chessboard ) return NULL;
-    if ( !path_ctx__io->cb_current ) return NULL;
+bool cc_path_segment_one_step__new( CcSideEffect side_effect,
+                                    CcPosDesc moving_from,
+                                    CcTypedStep step,
+                                    CcPathContext * path_ctx__io,
+                                    CcPathLink ** path_link__o_a,
+                                    CcPathSideEffectLink ** side_effect_link__o_a ) {
+    if ( !path_ctx__io ) return false;
+    if ( !path_ctx__io->game__w ) return false;
+    if ( !path_ctx__io->game__w->chessboard ) return false;
+    if ( !path_ctx__io->cb_current ) return false;
 
-    if ( path_ctx__io->game__w->chessboard->type != path_ctx__io->cb_current->type ) return NULL;
-    if ( !CC_VARIANT_IS_VALID( path_ctx__io->cb_current->type ) ) return NULL;
+    if ( !path_link__o_a ) return false;
+    if ( *path_link__o_a ) return false;
+
+    if ( !side_effect_link__o_a ) return false;
+    if ( *side_effect_link__o_a ) return false;
+
+    if ( path_ctx__io->game__w->chessboard->type != path_ctx__io->cb_current->type ) return false;
+    if ( !CC_VARIANT_IS_VALID( path_ctx__io->cb_current->type ) ) return false;
 
     cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
-    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return NULL;
+    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
 
-    if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return NULL;
-    if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return NULL;
-    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return NULL;
-    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return NULL;
-    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return NULL;
+    if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
+    if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return false;
+    if ( !CC_TYPED_STEP_IS_VALID( step ) ) return false;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
+    if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 
     CcPos pos = moving_from.pos;
     CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
-    if ( !steps__t ) return NULL;
+    if ( !steps__t ) return false;
 
     bool is_starting_pos = path_ctx__io->ply_ctx.is_first;
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
     CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
+    CcPathSideEffectLink * sel__t = NULL;
 
     #define STEP_COUNT 1
 
@@ -167,20 +181,29 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
                 CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
                 if ( !steps__w ) {
                     cc_step_free_all( &steps__t );
-                    return NULL;
+                    return false;
                 }
-            } else
+            } else {
+                CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
+
+                if ( !cc_path_side_effect( moving_from, step, encounter_pd, path_ctx__io, &sel__t ) || !sel__t ) {
+                    cc_path_side_effect_link_free_all( &sel__t );
+                    cc_step_free_all( &steps__t );
+                    return false;
+                }
+
                 break; // TODO :: add side-effects here
+            }
         } else
             break;
 
         act_desc = ad;
     } while ( cc_activation_desc_is_usable( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) );
 
-    CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
-    if ( !pl__a ) {
+    CcPathLink * pl__t = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
+    if ( !pl__t ) {
         cc_step_free_all( &steps__t );
-        return NULL;
+        return false;
     }
 
     path_ctx__io->ply_ctx.act_desc = act_desc;
@@ -188,7 +211,10 @@ CcPathLink * cc_path_segment_one_step__new( CcSideEffect side_effect,
     // if ( !CC_PIECE_IS_NONE( encounter ) )
     //     break; // TODO :: side-effect --> fork | alt | sub
 
-    return pl__a;
+    *path_link__o_a = pl__t; // Ownership transfer, do not free( pl__t ).
+    *side_effect_link__o_a = sel__t; // Ownership transfer, do not free( sel__t ).
+
+    return true;
 }
 
 bool cc_path_tree( CcSideEffect side_effect,
