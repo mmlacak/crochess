@@ -84,13 +84,12 @@ bool test_path( CcSideEffect side_effect,
         }
     }
 
-    // TODO :: printf( sel__a );
     if ( sel__a ) {
-        printf( "We got some side-effects ... :D\n" );
+        char * sel_str__a = cc_path_side_effect_link_to_string__new( sel__a );
+        printf( "Side-effects: %s.\n", sel_str__a );
+        CC_FREE( sel_str__a );
     } else {
-        result = false;
-
-        printf( "We got no side-effects ... :/\n" );
+        printf( "Side-effects: none.\n" );
     }
 
     printf( "-----------------------------------------------------------------------\n" );
