@@ -60,6 +60,7 @@ Piece checks
 
     .. todo::
 
+        * TODO :: DOCS
         * returned :c:data:`false` does not mean transparency can be used,
           since it's also used for invalid enums
         * add section in Concepts, describe single answer (bool) vs.
@@ -69,6 +70,24 @@ Piece checks
     :param encounter: An encountered piece.
     :param momentum: Momentum a moving piece had when another piece was encountered.
     :returns: :c:data:`true` if encountered piece is blocking,
+        :c:data:`false` otherwise, or in case of error (invalid data).
+
+.. c:function:: bool cc_check_piece_can_step_over( CcPieceTagType moving, CcPieceTagType encounter, cc_uint_t momentum )
+
+    Function checks if moving piece can step over encountered piece.
+
+    .. todo::
+
+        * TODO :: DOCS
+        * returned :c:data:`false` does not mean moving piece is blocked,
+          since it's also used for invalid enums
+        * add section in Concepts, describe single answer (bool) vs.
+          full answer (maybe bool)
+
+    :param moving: A moving piece.
+    :param encounter: An encountered piece.
+    :param momentum: Momentum a moving piece had when another piece was encountered.
+    :returns: :c:data:`true` if encountered piece can be step over,
         :c:data:`false` otherwise, or in case of error (invalid data).
 
 .. c:function:: bool cc_check_piece_can_capture( CcPieceTagType moving, CcPieceTagType encounter )

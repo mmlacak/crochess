@@ -15,7 +15,7 @@
 #include "cc_chessboard.h"
 #include "cc_game.h"
 
-// TODO :: DOCS
+// todo :: DOCS
 
 //
 // Move context.

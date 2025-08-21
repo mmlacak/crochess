@@ -36,7 +36,6 @@ bool cc_check_piece_is_blocked( CcPieceTagType moving,
                                 CcPieceTagType encounter,
                                 cc_uint_t momentum );
 
-// TODO :: DOCS
 bool cc_check_piece_can_step_over( CcPieceTagType moving,
                                    CcPieceTagType encounter,
                                    cc_uint_t momentum );

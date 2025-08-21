@@ -328,6 +328,13 @@ Functions
     :param se: A side-effect.
     :returns: A position affected by a side-effect.
 
+.. c:function:: bool cc_side_effect_has_destination( CcSideEffect se )
+
+    Function returns if a given side-effect has a destination.
+
+    :param se: A side-effect.
+    :returns: :c:data:`true` if destination is present, :c:data:`false` otherwise.
+
 .. c:function:: bool cc_side_effect_to_str( CcSideEffect se, cc_char_16 * se_str__o )
 
     Function returns string, containing user-readable representation

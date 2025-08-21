@@ -523,6 +523,13 @@ Linked path side-effects
     :param side_effect_link: Linked list of side-effects.
     :returns: Length if successful, ``0`` otherwise.
 
+.. c:function:: char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effect_link )
+
+    Function returns a newly allocated string representing a given linked list of side-effects.
+
+    :param side_effect_link: Linked list of side-effects.
+    :returns: Valid pointer if successful, :c:data:`NULL` otherwise.
+
 .. _lbl-libcc-ccpath-sourcecodeheader:
 
 Header file
