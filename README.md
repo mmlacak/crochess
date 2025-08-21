@@ -182,3 +182,42 @@ Outtakes:
 YouTube playlist featuring all listed songs + outtakes: [Croatian Chess soundtrack + outtakes](https://www.youtube.com/watch?v=WQYN2P3E06s&list=PLcLt6RezizPqG2NZhkRy0CO68jH7MDXdg).
 
 [^rv96]: Unfortunately, complete concerto (which also works on Linux) is not available anymore.
+
+<!--
+## Playlist
+
+* Main theme: [Christopher Tin - Sogno di Volare ("The Dream of Flight")](https://www.youtube.com/watch?v=WQYN2P3E06s)
+* Introduction:
+    * [A. Marcello - Oboe Concerto in d minor (Marcel Ponseele, baroque oboe / Il Gardellino)](https://www.youtube.com/watch?v=vE2O_yfgtBU)
+    * [Renaissance - Wanderer](https://www.youtube.com/watch?v=AwJugy5Soto)
+* Prerequisites:
+    * [Albinoni - Oboe Concerto #2 in D Minor Op. 9](https://www.youtube.com/watch?v=LjgndGuy77o)
+    * [Johann Sebastian Bach - Bouree In E Minor](https://www.youtube.com/watch?v=APNI2CC0k6A)
+* Classical Chess: [Radetzky Marsch [Austrian march]](https://www.youtube.com/watch?v=pZ0894xyaYI)
+* Croatian Ties: [Ride of the Valkyries (by Wagner)](https://www.youtube.com/watch?v=UCO8DQ9ocos)
+* Mayan Ascendancy:
+    * [Carl Orff - O Fortuna ~ Carmina Burana](https://www.youtube.com/watch?v=GXFSK0ogeg4)
+    * [Mozart Lacrimosa](https://www.youtube.com/watch?v=t6Hz6oscEPc)
+* Age of Aquarius: [Handel - La Réjouissance](https://www.youtube.com/watch?v=KMslsg-NWWU)
+* Miranda’s veil: [Vangelis - La petite fille de la mer](https://www.youtube.com/watch?v=UdPOCQGYwrk)
+* Nineteen: [L'Achéron - Muy Linda, Anthony Holborne](https://www.youtube.com/watch?v=-3wgZZ9qu34)
+* Hemera’s Dawn:
+    * [Tiësto - Elements Of Life (Live In Copenhagen)](https://www.youtube.com/watch?v=r0lvZuZeEMw)
+    * [Jean-Michel Jarre - Oxygene, Pt. 4](https://www.youtube.com/watch?v=kSIMVnPA994)
+* Tamoanchan Revisited:
+    * [The Atlantics - Adventures In Paradise](https://www.youtube.com/watch?v=J9c8acZnfnQ)
+    * [The Tornados - Telstar](https://www.youtube.com/watch?v=SQdDjy1UtW4)
+* Conquest of Tlalocan: [The Ecstasy of Gold - Ennio Morricone (The Good, the Bad and the Ugly)](https://www.youtube.com/watch?v=PYI09PMNazw)
+* Discovery:
+    * [The Doors - Break On Through (To The Other Side)](https://www.youtube.com/watch?v=-r679Hhs9Zs)
+    * [György Ligeti: Lux Aeterna](https://www.youtube.com/watch?v=-iVYu5lyX5M)
+* One: [Vangelis - L'enfant](https://www.youtube.com/watch?v=VwLtjnNIS9M)
+* Outro:
+    * [Andreas Waldetoft - To The Ends of the Galaxy](https://www.youtube.com/watch?v=PBA8R4o81Fw)
+    * [Chris Christodoulou - Coalescence | Risk of Rain (2013)](https://www.youtube.com/watch?v=ysPtBjY8o_A)
+    * [Vivaldi - Chamber Concerto in D Minor, RV 96: I. Allegro](https://www.youtube.com/watch?v=sQOegZhWJmI) [^rv96]
+
+Outtakes:
+
+* [La bourrée d'Avignon - Philidor (Ens. Le Banquet du Roy)](https://www.youtube.com/watch?v=GrtryY5xZjM)
+-->
