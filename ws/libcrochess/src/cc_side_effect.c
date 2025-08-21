@@ -213,8 +213,8 @@ bool cc_side_effect_to_str( CcSideEffect se,
     char piece = cc_piece_symbol( pe );
     *se_p++ = piece;
 
-    CcPos destination = cc_side_effect_destination( se );
     if ( cc_side_effect_has_destination( se ) ) {
+        CcPos destination = cc_side_effect_destination( se );
         cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
         if ( !cc_pos_to_string( destination, &pos_c8 ) )
             return false;
