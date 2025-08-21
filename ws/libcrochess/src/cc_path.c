@@ -719,3 +719,64 @@ size_t cc_path_side_effect_link_len( CcPathSideEffectLink * side_effect_link ) {
 
     return len;
 }
+
+char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effect_link ) {
+    if ( !side_effect_link ) return NULL;
+
+    size_t len = cc_path_side_effect_link_len( side_effect_link );
+
+    size_t size = len * (1 + 1 + CC_SIZE_CHAR_16 + 1) + 1;
+    //   1 --> { (separator)
+    // + 1 --> CcPathLinkNodeLinkageEnum char
+    // + CC_SIZE_CHAR_16 --> size of side-effect string
+    // + 1 --> } (separator)
+    // + 1 --> '\0'
+
+    char * str__a = malloc( size );
+    if ( !str__a ) return NULL;
+
+    if ( !cc_str_clear( str__a, size ) ) {
+        CC_FREE( str__a );
+        return NULL;
+    }
+
+    char * s = str__a;
+    CcPathSideEffectLink * sdl = side_effect_link;
+
+    while ( sdl ) {
+        *s++ = '{';
+
+        switch ( sdl->link ) {
+            case CC_PLNLE_NoLinkage : *s++ = '.'; break;
+            case CC_PLNLE_Fork : *s++ = '<'; break;
+            case CC_PLNLE_Alt : *s++ = '^'; break;
+            case CC_PLNLE_Sub : *s++ = '%'; break;
+            case CC_PLNLE_Next : *s++ = '~'; break;
+            default : *s++ = '?'; break;
+        }
+
+        if ( s >= str__a + size - CC_SIZE_CHAR_16 - 1 ) {
+            // - CC_SIZE_CHAR_16 --> size of side-effect string
+            // - 1 --> final '\0'
+
+            CC_FREE( str__a );
+            return NULL;
+        }
+
+        if ( !cc_side_effect_to_str( sdl->side_effect, (cc_char_16 *)s ) ) {
+            CC_FREE( str__a );
+            return NULL;
+        }
+
+        while ( *s != '\0' ) ++s;
+        if ( s >= str__a + size ) {
+            CC_FREE( str__a );
+            return NULL;
+        }
+
+        *s++ = '}';
+        sdl = sdl->next;
+    }
+
+    return str__a;
+}

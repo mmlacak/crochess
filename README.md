@@ -1,6 +1,7 @@
 <span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-EC1C24.svg?logo=adobe-acrobat-reader&style=for-the-badge" alt="Download the book!" /></a></span>
 <span class="github"><a href="https://github.com/sponsors/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/GitHub-Thank_you!-F5F5F5.svg?logo=github&style=for-the-badge" alt="Thank you for your donations!" /></a></span>
-<span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Read it all on the blog!"><img src="https://img.shields.io/badge/Blogger-Read_it_all!-FF5722.svg?logo=blogger&style=for-the-badge" alt="Read it all on the blog!" /></a></span>
+<span class="badge-blogger"><a href="https://croatian-chess.blogspot.com/" title="Read the blog!"><img src="https://img.shields.io/badge/Blogger-Read!-FF5722.svg?logo=blogger&style=for-the-badge" alt="Read the blog!" /></a></span>
+<span class="badge-linkedin"><a href="https://www.linkedin.com/groups/8989938/" title="Join the group!"><img src="https://img.shields.io/badge/LinkedIN-Join!-0A66C2.svg?logo=linkedin&style=for-the-badge" alt="Join the group!" /></a></span>
 <!-- span class="badge-patreon"><a href="https://patreon.com/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/Patreon-Thank_you!-F96854.svg?logo=patreon&style=for-the-badge" alt="Thank you for your donations!" /></a></span -->
 
 <!-- span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-EC1C24.svg?logo=adobe-acrobat-reader&style=flat-square" alt="Download the book!" /></a></span -->
@@ -27,8 +28,8 @@ converted to UTC for easier comparison.
 **Application** and **library versions** can be seen in an application, using `version` command. \
 The latest versions are:
 
-Application: 0.0.1.295:1474+20250819.000620 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
-Library: 0.0.1.295:1474+20250819.000620 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
+Application: 0.0.1.300:1479+20250821.030150 <!--- readme-new-app-version-major-minor-feature-commit+meta~breaks-place-marker --> \
+Library: 0.0.1.300:1479+20250821.030150 <!--- readme-new-lib-version-major-minor-feature-commit+meta~breaks-place-marker -->
 
 Versioning used is [Natural Versioning 1.2](https://croatian-chess.blogspot.com/p/natver.html),
 with meta data containing the same format as the book version.
@@ -115,6 +116,8 @@ For non-monetary contributions, please contact me via email first.
 <!-- [Discord](https://discord.gg/PJ2dtRa5AU) -->
 
 [Croatian Chess Blog](https://croatian-chess.blogspot.com)
+
+[LinkedIN](https://www.linkedin.com/groups/8989938/)
 
 ## License
 

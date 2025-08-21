@@ -145,6 +145,20 @@ CcPos cc_side_effect_destination( CcSideEffect se ) {
     }
 }
 
+bool cc_side_effect_has_destination( CcSideEffect se ) {
+    switch ( se.type ) {
+        case CC_SETE_Displacement : // Intentional fall-through.
+        case CC_SETE_EnPassant :
+        case CC_SETE_Castle :
+        case CC_SETE_DemoteToPawn :
+        case CC_SETE_Resurrection :
+        case CC_SETE_ResurrectingOpponent :
+            return true;
+
+        default : return false;
+    }
+}
+
 
 //
 // User-readable representation of a side-effect.
@@ -199,15 +213,17 @@ bool cc_side_effect_to_str( CcSideEffect se,
     char piece = cc_piece_symbol( pe );
     *se_p++ = piece;
 
-    CcPos destination = cc_side_effect_destination( se );
-    cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
-    if ( !cc_pos_to_string( destination, &pos_c8 ) )
-        return false;
+    if ( cc_side_effect_has_destination( se ) ) {
+        CcPos destination = cc_side_effect_destination( se );
+        cc_char_8 pos_c8 = CC_CHAR_8_EMPTY;
+        if ( !cc_pos_to_string( destination, &pos_c8 ) )
+            return false;
 
-    size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
-    copied = cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
-    if ( copied != pos_len ) return false;
-    // se_p += copied;
+        size_t pos_len = cc_str_len( pos_c8, NULL, CC_MAX_LEN_CHAR_8 );
+        copied = cc_str_copy( pos_c8, NULL, pos_len, se_p, se_end, CC_MAX_LEN_CHAR_16 );
+        if ( copied != pos_len ) return false;
+        // se_p += copied;
+    }
 
     return true;
 }
