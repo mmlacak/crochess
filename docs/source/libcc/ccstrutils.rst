@@ -246,7 +246,7 @@ Functions
     Function returns a pointer to character found in a (sub-)string.
 
     If both optional arguments (:c:`end__d`, :c:`max_len__d`) are given, together
-    they limit search to first condition met (end of (sub-)string, or maximum legth,
+    they limit search to first condition met (end of (sub-)string, or maximum length,
     respectively).
 
     .. note::
@@ -304,7 +304,7 @@ Functions
 
     If both optional arguments (:c:`end__d`, :c:`max_len__d`) are given, together
     they limit traversing to first condition met (end of (sub-)string, or maximum
-    legth, respectively).
+    length, respectively).
 
     .. note::
 
@@ -323,7 +323,7 @@ Functions
 
     If both optional arguments (:c:`end__d`, :c:`max_len__d`) are given, together
     they limit traversing to first condition met (end of (sub-)string, or maximum
-    legth, respectively).
+    length, respectively).
 
     .. note::
 
@@ -561,7 +561,7 @@ Debug
     .. todo::
 
         Move out of library / return newly allocated, formatted string.
-        Remove library dependecy on ``<stdio.h>``.
+        Remove library dependency on ``<stdio.h>``.
 
     Function prints given (sub-)string, optionally followed by formatted variadic input.
 
@@ -594,7 +594,7 @@ Debug
     .. todo::
 
         Move out of library / return newly allocated, formatted string.
-        Remove library dependecy on ``<stdio.h>``.
+        Remove library dependency on ``<stdio.h>``.
 
     Macro to call :c:func:`cc_str_print()`, depending on a compile-time constant.
 
