@@ -97,7 +97,7 @@ bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f ) {
     return true;
 }
 
-bool cc_typed_step_link_is_valid( CcTypedStepLink * ts_link ) {
+bool cc_typed_step_link_are_all_valid( CcTypedStepLink * ts_link ) {
     if ( !ts_link ) return false;
 
     CcTypedStepLink * tsl = ts_link;
