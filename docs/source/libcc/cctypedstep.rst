@@ -375,6 +375,13 @@ Linked typed steps
     :param ts_link__f: Linked list of typed steps.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_typed_step_link_are_all_valid( CcTypedStepLink * ts_link )
+
+    Function checks if all typed steps in a given linked list are valid.
+
+    :param ts_link: A linked list of typed steps.
+    :returns: :c:data:`true` if all typed steps are valid, :c:data:`false` otherwise.
+
 .. c:function:: size_t cc_typed_step_link_len( CcTypedStepLink * ts_link )
 
     Function returns length of a linked list.
