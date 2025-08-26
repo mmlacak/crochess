@@ -97,6 +97,19 @@ bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f ) {
     return true;
 }
 
+bool cc_typed_step_link_is_valid( CcTypedStepLink * ts_link ) {
+    if ( !ts_link ) return false;
+
+    CcTypedStepLink * tsl = ts_link;
+
+    while ( tsl ) {
+        if ( !CC_TYPED_STEP_IS_VALID( tsl->step ) ) return false;
+        tsl = tsl->next;
+    }
+
+    return false; // TODO :: FIX
+}
+
 size_t cc_typed_step_link_len( CcTypedStepLink * ts_link ) {
     if ( !ts_link ) return 0;
 

@@ -128,6 +128,9 @@ CcTypedStepLink * cc_typed_step_link_extend( CcTypedStepLink ** ts_link__iod_a,
 
 bool cc_typed_step_link_free_all( CcTypedStepLink ** ts_link__f );
 
+// TODO :: DOCS
+bool cc_typed_step_link_is_valid( CcTypedStepLink * ts_link );
+
 size_t cc_typed_step_link_len( CcTypedStepLink * ts_link );
 
 char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link );
