@@ -28,6 +28,17 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
 //
 // Piece checks
 
+// TODO :: DOCS
+bool cc_piece_is_one_step( CcPieceTagType piece,
+                                 CcPieceTagType activator );
+
+// TODO :: DOCS
+bool cc_piece_is_two_step( CcPieceTagType piece,
+                                 CcPieceTagType activator );
+
+// TODO :: DOCS
+bool cc_piece_is_many_steps( CcPieceTagType piece );
+
 bool cc_check_piece_can_lose_tag( CcPieceTagType piece,
                                   CcLosingTagType ltt,
                                   bool compare_tag_and_losing_tag );

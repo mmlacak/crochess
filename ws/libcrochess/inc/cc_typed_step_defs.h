@@ -132,6 +132,12 @@ bool cc_is_typed_step_valid( CcTypedStep step,
                              CcTypedStep const steps[],
                              size_t steps_len__d );
 
+// TODO :: DOCS
+bool cc_typed_step_is_short_jump( CcTypedStep step );
+
+// TODO :: DOCS
+bool cc_typed_step_is_long_jump( CcTypedStep step );
+
 
 #define CC_GET_LIGHT_PAWN_STEP_TYPE(step) \
     ( cc_get_step_type( (step), CC_STE_None, CC_STEPS_LIGHT_PAWN, CC_STEPS_PAWN_LEN ) )
@@ -320,6 +326,15 @@ bool cc_iter_piece_steps( CcPieceTagType piece,
                           CcSerpentDiagonalEnum serpent_diagonal,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod );
+
+// TODO :: DOCS
+bool cc_fetch_piece_step( CcPieceTagType piece,
+                          CcPos pos,
+                          CcPieceTagType activator,
+                          cc_uint_t board_size,
+                          CcTypedStepLink * steps,
+                          size_t step_index,
+                          CcTypedStep * step__o );
 
 
 #endif /* __CC_TYPED_STEP_DEFS_H__ */

@@ -381,6 +381,7 @@ Linked typed steps
 
     :param ts_link: A linked list of typed steps.
     :returns: :c:data:`true` if all typed steps are valid, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_TYPED_STEP_IS_VALID()`
 
 .. c:function:: size_t cc_typed_step_link_len( CcTypedStepLink * ts_link )
 

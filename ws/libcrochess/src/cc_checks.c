@@ -6,9 +6,6 @@
 #include "cc_checks.h"
 
 
-//
-// Piece checks
-
 bool cc_check_valid_draw_offer_exists( CcMove * moves,
                                        CcGameStatusEnum gse ) {
     if ( !moves ) return false;
@@ -33,6 +30,9 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
 
     return false;
 }
+
+//
+// Piece checks
 
 bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
                                   CcLosingTagType ltt,
