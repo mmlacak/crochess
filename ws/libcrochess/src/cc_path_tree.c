@@ -258,13 +258,18 @@ bool cc_path_segment__new( CcSideEffect side_effect,
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
     CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
+    CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
+    size_t step_index = 0;
 
     #define STEP_COUNT 1
 
-    CcTypedStep step = CC_TYPED_STEP_CAST_INVALID; // TODO :: FIX
-
     do {
-        pos = cc_pos_add_steps( pos, step.step, STEP_COUNT ); // TODO :: FIX
+        if ( !cc_fetch_piece_step( moving_from.piece, pos, ad.activator, board_size, steps, step_index, &step ) ) { // TODO :: Serpent
+            cc_step_free_all( &steps__t );
+            return false;
+        }
+
+        pos = cc_pos_add_steps( pos, step.step, STEP_COUNT );
 
         if ( cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, pos.i, pos.j ) ) {
             if ( cc_activation_desc_calc_momentum( &ad, STEP_COUNT ) != CC_MBE_True )
@@ -281,7 +286,7 @@ bool cc_path_segment__new( CcSideEffect side_effect,
             } else {
                 CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
 
-                if ( !cc_path_side_effect( moving_from, step, encounter_pd, path_ctx__io, &sel__t ) ) { // TODO :: FIX
+                if ( !cc_path_side_effect( moving_from, step, encounter_pd, path_ctx__io, &sel__t ) ) {
                     cc_step_free_all( &steps__t );
                     cc_path_side_effect_link_free_all( &sel__t );
                     return false;
@@ -293,6 +298,7 @@ bool cc_path_segment__new( CcSideEffect side_effect,
             break;
 
         act_desc = ad;
+        ++step_index;
     } while ( cc_activation_desc_is_usable( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) );
 
     CcPathLink * pl__t = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
