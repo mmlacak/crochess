@@ -266,6 +266,7 @@ bool cc_path_segment__new( CcSideEffect side_effect,
     do {
         if ( !cc_fetch_piece_step( moving_from.piece, pos, ad.activator, board_size, steps, step_index, &step ) ) { // TODO :: Serpent
             cc_step_free_all( &steps__t );
+            // cc_path_side_effect_link_free_all( &sel__t ); // Not needed, first time side-effect is allocated, the loop is exited at [1].
             return false;
         }
 
@@ -281,6 +282,7 @@ bool cc_path_segment__new( CcSideEffect side_effect,
                 CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
                 if ( !steps__w ) {
                     cc_step_free_all( &steps__t );
+                    // cc_path_side_effect_link_free_all( &sel__t ); // Not needed, first time side-effect is allocated, the loop is exited at [1].
                     return false;
                 }
             } else {
@@ -292,7 +294,7 @@ bool cc_path_segment__new( CcSideEffect side_effect,
                     return false;
                 }
 
-                break;
+                break; // [1]
             }
         } else
             break;

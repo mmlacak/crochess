@@ -66,6 +66,12 @@ bool cc_pos_are_same_color( CcPos start, CcPos destination );
 
 bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece );
 
+// TODO :: DOCS
+bool cc_pos_step_is_short_jump( CcPos step );
+
+// TODO :: DOCS
+bool cc_pos_step_is_long_jump( CcPos step );
+
 bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o );
 
 //

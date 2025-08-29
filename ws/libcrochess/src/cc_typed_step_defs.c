@@ -430,24 +430,6 @@ bool cc_convert_typed_steps_to_links( CcTypedStep const steps[],
     return true;
 }
 
-bool cc_typed_step_is_short_jump( CcTypedStep step ) {
-    int i = step.step.i;
-    int j = step.step.j;
-
-    return ( ( ( ( i == 2 ) || ( i == -2 ) ) && ( ( j == 1 ) || ( j == -1 ) ) )
-          || ( ( ( j == 2 ) || ( j == -2 ) ) && ( ( i == 1 ) || ( i == -1 ) ) ) );
-}
-
-bool cc_typed_step_is_long_jump( CcTypedStep step ) {
-    int i = step.step.i;
-    int j = step.step.j;
-
-    return ( ( ( ( i == 4 ) || ( i == -4 ) ) && ( ( j == 1 ) || ( j == -1 ) ) )
-          || ( ( ( i == 3 ) || ( i == -3 ) ) && ( ( j == 2 ) || ( j == -2 ) ) )
-          || ( ( ( i == 2 ) || ( i == -2 ) ) && ( ( j == 3 ) || ( j == -3 ) ) )
-          || ( ( ( j == 1 ) || ( j == -1 ) ) && ( ( i == 4 ) || ( i == -4 ) ) ) );
-}
-
 bool cc_iter_typed_steps( CcTypedStep const steps[],
                           size_t steps_len__d,
                           CcStepTypeEnum filter__d,
@@ -674,19 +656,19 @@ bool cc_fetch_piece_step( CcPieceTagType piece,
         CcTypedStep step_2 = ( steps[ 1 ] ).step;
 
         if ( cc_pos_piece_are_same_color( pos, piece ) ) {
-            if ( cc_typed_step_is_short_jump( step_1 ) ) {
+            if ( cc_pos_step_is_short_jump( step_1.step ) ) {
                 *step__o = step_1;
                 return true;
-            } else if ( cc_typed_step_is_short_jump( step_2 ) ) {
+            } else if ( cc_pos_step_is_short_jump( step_2.step ) ) {
                 *step__o = step_2;
                 return true;
             } else
                 return false;
         } else {
-            if ( cc_typed_step_is_long_jump( step_1 ) ) {
+            if ( cc_pos_step_is_long_jump( step_1.step ) ) {
                 *step__o = step_1;
                 return true;
-            } else if ( cc_typed_step_is_long_jump( step_2 ) ) {
+            } else if ( cc_pos_step_is_long_jump( step_2.step ) ) {
                 *step__o = step_2;
                 return true;
             } else
