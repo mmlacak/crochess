@@ -181,7 +181,7 @@ Step type enum
 
     .. c:enumerator:: CC_STE_Uplifting
 
-        Starchild's upliftng step.
+        Starchild's uplifting step.
 
     .. c:enumerator:: CC_STE_Miracle
 
