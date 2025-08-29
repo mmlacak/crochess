@@ -64,7 +64,8 @@ the book and the library, and then propagated to (console) applications, documen
 
 You'll need ``Python 3`` installed and access to GitHub via console ``git`` command (it should also be
 in your ``PATH``); there is a `GitHub document <https://docs.github.com/en/get-started/git-basics/set-up-git>`_
-which describes how to set it up.
+which describes how to set it up. In case you'd prefer to commit and push your changes through e.g. IDE
+or GitHub web-site, you can use ``--wet-run`` to update versions before committing.
 
 Options to use with ``push.py``::
 

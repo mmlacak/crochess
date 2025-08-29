@@ -105,6 +105,24 @@ bool cc_pos_piece_are_same_color( CcPos pos, CcPieceTagType piece ) {
     return false;
 }
 
+bool cc_pos_step_is_short_jump( CcPos step ) {
+    int i = step.i;
+    int j = step.j;
+
+    return ( ( ( ( i == 2 ) || ( i == -2 ) ) && ( ( j == 1 ) || ( j == -1 ) ) )
+          || ( ( ( j == 2 ) || ( j == -2 ) ) && ( ( i == 1 ) || ( i == -1 ) ) ) );
+}
+
+bool cc_pos_step_is_long_jump( CcPos step ) {
+    int i = step.i;
+    int j = step.j;
+
+    return ( ( ( ( i == 4 ) || ( i == -4 ) ) && ( ( j == 1 ) || ( j == -1 ) ) )
+          || ( ( ( i == 3 ) || ( i == -3 ) ) && ( ( j == 2 ) || ( j == -2 ) ) )
+          || ( ( ( i == 2 ) || ( i == -2 ) ) && ( ( j == 3 ) || ( j == -3 ) ) )
+          || ( ( ( j == 1 ) || ( j == -1 ) ) && ( ( i == 4 ) || ( i == -4 ) ) ) );
+}
+
 bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o ) {
     if ( !pos_str__o ) return false;
 

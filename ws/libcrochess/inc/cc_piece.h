@@ -329,12 +329,14 @@
                                           && ( (activator) != CC_PTE_LightCentaur )      \
                                           && ( CC_PIECE_IS_ACTIVATOR( (activator) ) ) )
 
-#define CC_PIECE_IS_SINGLE_STEP (pte) ( CC_PIECE_IS_PAWN(pte)             \
-                                     || CC_PIECE_IS_KNIGHT(pte)           \
-                                     || CC_PIECE_IS_KING(pte)             \
-                                     || CC_PIECE_IS_UNICORN(pte)          \
-                                     || CC_PIECE_IS_STARCHILD(pte)        \
-                                     || CC_PIECE_IS_STAR(pte) )
+#define CC_PIECE_IS_SINGLE_STEP(pte) ( CC_PIECE_IS_PAWN(pte)             \
+                                    || CC_PIECE_IS_KNIGHT(pte)           \
+                                    || CC_PIECE_IS_KING(pte)             \
+                                    || CC_PIECE_IS_STARCHILD(pte)        \
+                                    || CC_PIECE_IS_STAR(pte) )
+
+// TODO :: DOCS
+#define CC_PIECE_IS_SINGLE_STEP_ALTERNATING(pte) ( CC_PIECE_IS_UNICORN(pte) )
 
 #define CC_PIECE_IS_ONE_STEP(pte) ( CC_PIECE_IS_BISHOP(pte)        \
                                  || CC_PIECE_IS_ROOK(pte)          \
@@ -489,6 +491,15 @@ bool cc_piece_has_different_owner( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 bool cc_piece_is_owned_figure( CcPieceTagType ptt );
 
 bool cc_piece_is_figure( CcPieceTagType ptt );
+
+// TODO :: DOCS
+bool cc_piece_is_one_step( CcPieceTagType piece, CcPieceTagType activator );
+
+// TODO :: DOCS
+bool cc_piece_is_two_step( CcPieceTagType piece, CcPieceTagType activator );
+
+// TODO :: DOCS
+bool cc_piece_is_many_steps( CcPieceTagType piece );
 
 char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field );
 

@@ -626,3 +626,62 @@ bool cc_iter_piece_steps( CcPieceTagType piece,
         default : return false;
     }
 }
+
+bool cc_fetch_piece_step( CcPieceTagType piece,
+                          CcPos pos,
+                          CcPieceTagType activator,
+                          cc_uint_t board_size,
+                          CcTypedStepLink * steps,
+                          size_t step_index,
+                          CcTypedStep * step__o ) {
+    if ( !steps ) return false;
+    if ( !step__o ) return false;
+
+    if ( !CC_PIECE_IS_ENUMERATOR( piece ) ) return false;
+    if ( !CC_POS_IS_LEGAL( pos, board_size ) ) return false;
+
+    size_t len = cc_typed_step_link_len( steps );
+    if ( len == 0 ) return false;
+
+    if ( cc_piece_is_one_step( piece, activator ) ) {
+        if ( len != 1 ) return false;
+        *step__o = ( steps[ 0 ] ).step;
+        return true;
+    }
+
+    if ( cc_piece_is_two_step( piece, activator ) ) {
+        if ( len != 2 ) return false;
+
+        CcTypedStep step_1 = ( steps[ 0 ] ).step;
+        CcTypedStep step_2 = ( steps[ 1 ] ).step;
+
+        if ( cc_pos_piece_are_same_color( pos, piece ) ) {
+            if ( cc_pos_step_is_short_jump( step_1.step ) ) {
+                *step__o = step_1;
+                return true;
+            } else if ( cc_pos_step_is_short_jump( step_2.step ) ) {
+                *step__o = step_2;
+                return true;
+            } else
+                return false;
+        } else {
+            if ( cc_pos_step_is_long_jump( step_1.step ) ) {
+                *step__o = step_1;
+                return true;
+            } else if ( cc_pos_step_is_long_jump( step_2.step ) ) {
+                *step__o = step_2;
+                return true;
+            } else
+                return false;
+        }
+    }
+
+    if ( cc_piece_is_many_steps( piece ) ) {
+        if ( len <= step_index ) return false;
+
+        *step__o = ( steps[ step_index ] ).step;
+        return true;
+    }
+
+    return false;
+}

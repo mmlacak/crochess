@@ -578,6 +578,25 @@ bool cc_piece_is_figure( CcPieceTagType ptt ) {
     return cc_piece_is_owned_figure( ptt );
 }
 
+bool cc_piece_is_one_step( CcPieceTagType piece, CcPieceTagType activator ) {
+    CcPieceTagType ptt = CC_PIECE_IS_WAVE( piece ) ? activator : piece;
+    return CC_PIECE_IS_SINGLE_STEP( ptt ) || CC_PIECE_IS_ONE_STEP( ptt );
+}
+
+bool cc_piece_is_two_step( CcPieceTagType piece, CcPieceTagType activator ) {
+    if ( CC_PIECE_IS_WAVE( piece ) ) {
+        return CC_WAVE_IS_TWO_STEP( activator );
+    } else {
+        return CC_PIECE_IS_TWO_STEP( piece ) ||
+               CC_PIECE_IS_SINGLE_STEP_ALTERNATING( piece );
+    }
+}
+
+bool cc_piece_is_many_steps( CcPieceTagType piece ) {
+    if ( CC_PIECE_IS_WAVE( piece ) ) return false;
+    return CC_PIECE_HAS_NEW_STEP_AFTER_EACH( piece );
+}
+
 char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field ) {
     switch ( ptt ) {
         case CC_PTE_DimStar : return capitalize ? "Dim Star" : "dim Star";

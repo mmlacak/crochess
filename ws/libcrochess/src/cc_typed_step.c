@@ -107,7 +107,7 @@ bool cc_typed_step_link_are_all_valid( CcTypedStepLink * ts_link ) {
         tsl = tsl->next;
     }
 
-    return false; // TODO :: FIX
+    return true;
 }
 
 size_t cc_typed_step_link_len( CcTypedStepLink * ts_link ) {
@@ -170,3 +170,82 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
 
     return pl_str__a;
 }
+
+// TODO :: DELETE
+// //
+// // Typed step definition
+
+// bool cc_typed_step_def( CcTypedStep step__d,
+//                         CcTypedStep step_2__d,
+//                         CcTypedStepLink ** steps__d_n,
+//                         CcTypedStepDef * step_def__o ) {
+//     if ( !step_def__o ) return false;
+
+//     if ( CC_TYPED_STEP_IS_VALID( step__d ) ) {
+//         if ( steps__d_n ) return false;
+
+//         if CC_TYPED_STEP_IS_VALID( step_2__d ) {
+//             step_def__o->step_1 = step__d;
+//             step_def__o->step_2 = step_2__d;
+//             step_def__o->type = CC_TSDE_Two;
+//             return true;
+//         } else {
+//             step_def__o->step_1 = step__d;
+//             step_def__o->type = CC_TSDE_One;
+//             return true;
+//         }
+//     }
+
+//     if ( steps__d_n && *steps__d_n ) {
+//         if ( CC_TYPED_STEP_IS_VALID( step__d ) ||
+//              CC_TYPED_STEP_IS_VALID( step_2__d ) )
+//                 return false;
+
+//         step_def__o->steps = *steps__d_n; // Ownership transfer.
+//         *steps__d_n = NULL;
+//         return true;
+//     }
+
+//     return false;
+// }
+
+// bool cc_typed_step_def_unpack( CcTypedStepDef * step_def,
+//                                CcTypedStep * step__o,
+//                                CcTypedStep * step_2__o,
+//                                CcTypedStepLink ** steps__o_w ) {
+//     if ( !step_def ) return false;
+
+//     if ( step_def->type == CC_TSDE_One ) {
+//         if ( !step__o ) return false;
+
+//         *step__o = step_def->step;
+//         return true;
+//     } else if ( step_def->type == CC_TSDE_Two ) {
+//         if ( !step__o || !step_2__o ) return false;
+
+//         *step__o = step_def->step_1;
+//         *step_2__o = step_def->step_2;
+//         return true;
+//     } else if ( step_def->type == CC_TSDE_Many ) {
+//         if ( !steps__o_w || *steps__o_w ) return false;
+
+//         *steps__o_w = step_def->steps; // Weak output pointer, no ownership transfer.
+//         return true;
+//     }
+
+//     return false;
+// }
+
+// // Convenience functions.
+// bool cc_typed_step_def_one( CcTypedStep step, CcTypedStepDef * step_def__o ) {
+//     return cc_typed_step_def( step, CC_TYPED_STEP_CAST_INVALID, NULL, step_def__o );
+// }
+
+// bool cc_typed_step_def_two( CcTypedStep step, CcTypedStep step_2, CcTypedStepDef * step_def__o ) {
+//     return cc_typed_step_def( step, step_2, NULL, step_def__o );
+// }
+
+// bool cc_typed_step_def_many( CcTypedStepLink ** steps__n, CcTypedStepDef * step_def__o ) {
+//     return cc_typed_step_def( CC_TYPED_STEP_CAST_INVALID, CC_TYPED_STEP_CAST_INVALID, steps__n, step_def__o );
+// }
+// TODO :: DELETE
