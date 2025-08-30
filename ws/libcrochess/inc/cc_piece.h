@@ -335,7 +335,6 @@
                                     || CC_PIECE_IS_STARCHILD(pte)        \
                                     || CC_PIECE_IS_STAR(pte) )
 
-// TODO :: DOCS
 #define CC_PIECE_IS_SINGLE_STEP_ALTERNATING(pte) ( CC_PIECE_IS_UNICORN(pte) )
 
 #define CC_PIECE_IS_ONE_STEP(pte) ( CC_PIECE_IS_BISHOP(pte)        \
@@ -492,13 +491,10 @@ bool cc_piece_is_owned_figure( CcPieceTagType ptt );
 
 bool cc_piece_is_figure( CcPieceTagType ptt );
 
-// TODO :: DOCS
 bool cc_piece_is_one_step( CcPieceTagType piece, CcPieceTagType activator );
 
-// TODO :: DOCS
 bool cc_piece_is_two_step( CcPieceTagType piece, CcPieceTagType activator );
 
-// TODO :: DOCS
 bool cc_piece_is_many_steps( CcPieceTagType piece );
 
 char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field );

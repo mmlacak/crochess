@@ -676,10 +676,18 @@ Features
 
 .. c:macro:: CC_PIECE_IS_SINGLE_STEP(pte)
 
-    Macro to check if given piece has a single step, i.e. Knight.
+    Macro to check if given piece has a single step, e.g. Knight.
 
     :param pte: A piece, :c:type:`CcPieceTagEnum` value.
     :returns: :c:data:`true` if piece can make a single step in a ply,
+              :c:data:`false` otherwise.
+
+.. c:macro:: CC_PIECE_IS_SINGLE_STEP_ALTERNATING(pte)
+
+    Macro to check if given piece has an alternating single step, i.e. Unicorn.
+
+    :param pte: A piece, :c:type:`CcPieceTagEnum` value.
+    :returns: :c:data:`true` if piece with alternating single step,
               :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_IS_ONE_STEP(pte)
@@ -1105,6 +1113,31 @@ Functions
 
     :param ptt: A piece.
     :returns: :c:data:`true` if given piece is a :term:`figure`, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_one_step( CcPieceTagType piece, CcPieceTagType activator )
+
+    Function checks if given piece is a single-step or one-step piece, or a Wave activated
+    by such a piece; e.g. Bishop or Knight.
+
+    :param piece: A piece.
+    :param activator: A piece, an activator.
+    :returns: :c:data:`true` if given piece is one step, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_two_step( CcPieceTagType piece, CcPieceTagType activator )
+
+    Function checks if given piece is a two-step or alternating single-step piece,
+    or a Wave activated by such a piece; e.g. Unicorn or Centaur.
+
+    :param piece: A piece.
+    :param activator: A piece, an activator.
+    :returns: :c:data:`true` if given piece is two step, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_piece_is_many_steps( CcPieceTagType piece )
+
+    Function checks if given piece is a multi-step, e.g. Serpent or Monolith.
+
+    :param piece: A piece.
+    :returns: :c:data:`true` if given piece is a multi-step, :c:data:`false` otherwise.
 
 .. c:function:: char const * cc_piece_as_string( CcPieceTagType ptt, bool capitalize, bool empty_field )
 

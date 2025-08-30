@@ -248,6 +248,20 @@ Functions
     :param piece: A piece.
     :returns: :c:data:`true` if in the same color, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_pos_step_is_short_jump( CcPos step )
+
+    Function checks if a given step is short jump, e.g. one that Knight might make.
+
+    :param step: A step, relative position.
+    :returns: :c:data:`true` if short jump, :c:data:`false` otherwise.
+
+.. c:function:: bool cc_pos_step_is_long_jump( CcPos step )
+
+    Function checks if a given step is long jump, e.g. one that Unicorn might make.
+
+    :param step: A step, relative position.
+    :returns: :c:data:`true` if long jump, :c:data:`false` otherwise.
+
 .. c:function:: bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o )
 
     Function converts position into a user-readable :c:`<file char><rank number>` notation.

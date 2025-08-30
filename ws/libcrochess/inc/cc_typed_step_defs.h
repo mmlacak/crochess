@@ -321,7 +321,6 @@ bool cc_iter_piece_steps( CcPieceTagType piece,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod );
 
-// TODO :: DOCS
 bool cc_fetch_piece_step( CcPieceTagType piece,
                           CcPos pos,
                           CcPieceTagType activator,

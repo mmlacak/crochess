@@ -1087,6 +1087,28 @@ Step iterators
     :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_iter_typed_steps()`, :c:func:`cc_iter_monolith_steps()`
 
+.. c:function:: bool cc_fetch_piece_step( CcPieceTagType piece, CcPos pos, CcPieceTagType activator, cc_uint_t board_size, CcTypedStepLink * steps, size_t step_index, CcTypedStep * step__o )
+
+    Function retrieves next step for a given piece based on its activator and current position.
+
+    For one-step pieces, function just returns the one step that was given; or,
+    fails if more then one step is contained in a given linked list.
+
+    For two-step pieces, function finds alternating step based on current position; or,
+    fails if two steps are not contained in a given linked list.
+
+    For many-step pieces, function returns next step based on a given index.
+
+    :param piece: A piece.
+    :param pos: Current position.
+    :param activator: A piece, an activator.
+    :param board_size: Board size.
+    :param steps: Steps, linked list.
+    :param step_index: Step index.
+    :param step__o: *Output*; a step.
+    :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_piece_is_one_step()`, :c:func:`cc_piece_is_two_step()`, :c:func:`cc_piece_is_many_steps()`,
+
 .. _lbl-libcc-cctypedstepdefs-sourcecodeheader:
 
 Header file
