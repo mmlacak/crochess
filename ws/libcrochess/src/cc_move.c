@@ -150,7 +150,7 @@ size_t cc_move_all_notations_size( CcMove * move, bool is_score ) {
     }
 
     if ( is_score ) {
-        // Game score migth look like this:
+        // Game score might look like this:
         //      ___previous moves___
         // 123. <move_light> <move_dark>
         // 124. <move_light> ...
@@ -167,7 +167,7 @@ size_t cc_move_all_notations_size( CcMove * move, bool is_score ) {
         // last +1 == '\0'
         size += ( 3 + cc_count_of_digits( cycles ) + 1 ) * cycles + 3 + 1;
     } else {
-        // List of moves migth look like this:
+        // List of moves might look like this:
         //      ___previous moves___
         // <move_light>
         // <move_dark>

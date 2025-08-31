@@ -72,7 +72,7 @@ bool cc_path_link_free_all( CcPathLink ** pl__f );
 
 size_t cc_path_link_len( CcPathLink * path_link, bool count_all );
 
-size_t cc_path_link_count_all_seqments( CcPathLink * path_link );
+size_t cc_path_link_count_all_segments( CcPathLink * path_link );
 
 char * cc_path_link_node_to_string__new( cc_uchar_t depth,
                                          CcPathLink * path_link_node );

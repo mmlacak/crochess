@@ -293,7 +293,7 @@ Linked path segments
         without branching (if :c:data:`false`).
     :returns: Length of a given path segment if successful, ``0`` otherwise.
 
-.. c:function:: size_t cc_path_link_count_all_seqments( CcPathLink * path_link )
+.. c:function:: size_t cc_path_link_count_all_segments( CcPathLink * path_link )
 
     Function returns count of all segments, including :c:member:`fork`,
     :c:member:`alt` ones; substitute paths (i.e. all nodes linked via :c:member:`sub`)
@@ -308,7 +308,7 @@ Linked path segments
     path node.
 
     Path node depth is used to preface returned string with space-padding, which
-    corresponds to depth of a given node in a path hierarcy.
+    corresponds to depth of a given node in a path hierarchy.
 
     Depth is increased after a fork, but not for alternative, substitute paths,
     or after continuing current path (by taking next node).

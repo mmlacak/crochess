@@ -124,8 +124,8 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS( "H.g10*P.k9*P.o8*P.s7~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ),
     TEST_ARGS( "H.g10*.k9*.o8*-s7~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ),
 
-    TEST_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // TODO :: should fail, but currenty does not check pathing.
-    TEST_ARGS( "H.g10*.k9*.o8*-u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // TODO :: should fail, but currenty does not check pathing.
+    TEST_ARGS( "H.g10*P.k9*P.o8*P.u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // TODO :: should fail, but currently does not check pathing.
+    TEST_ARGS( "H.g10*.k9*.o8*-u6~As9", _setup_shaman, NULL, _end_shaman, TEST_OK ), // TODO :: should fail, but currently does not check pathing.
 
     // castling
     TEST_ARGS( "Ke1&f", _setup_castling, NULL, "o Ke1,Rf1,Wk1,Nr1,Ry1&,rb26&,wi26,kn26&,nt26,ry26&", TEST_OK ),
