@@ -151,4 +151,16 @@ class MarkDef(dict):
                                             arrow_def=AD(12.0, 1.5), \
                                             field_mark_def=FMD(5.0) )
 
+        self[ BoardType.Croatian_14 ] = MDI( font_def=FD('sans bold', 5.0), \
+                                             arrow_def=AD(12.0, 1.5), \
+                                             field_mark_def=FMD(5.0) )
+
+        self[ BoardType.Croatian_20 ] = MDI( font_def=FD('sans bold', 5.0), \
+                                             arrow_def=AD(12.0, 1.5), \
+                                             field_mark_def=FMD(5.0) )
+
+        self[ BoardType.Croatian_26 ] = MDI( font_def=FD('sans bold', 5.0), \
+                                             arrow_def=AD(12.0, 1.5), \
+                                             field_mark_def=FMD(5.0) )
+
 MarkDef = MarkDef()

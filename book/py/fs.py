@@ -26,6 +26,9 @@ SUBFOLDERS =    [   \
                     'castlings/24_c14', \
                     'castlings/26_c20', \
                     'castlings/28_c26', \
+                    'castlings/30_ct14', \
+                    'castlings/32_ct20', \
+                    'castlings/34_ct26', \
                     \
                     'en_passants', \
                     \
@@ -44,6 +47,9 @@ SUBFOLDERS =    [   \
                     'examples/24_c14', \
                     'examples/26_c20', \
                     'examples/28_c26', \
+                    'examples/30_ct14', \
+                    'examples/32_ct20', \
+                    'examples/34_ctt26', \
                     \
                     'pieces', \
                     'pieces/bishop', \
@@ -66,6 +72,9 @@ SUBFOLDERS =    [   \
                     'isa/24_c14', \
                     'isa/26_c20', \
                     'isa/28_c26', \
+                    'isa/30_ct14', \
+                    'isa/32_ct20', \
+                    'isa/34_ct26', \
                     \
                     'test', \
                 ]

@@ -234,7 +234,7 @@ class SaveScene:
 
         sc = SceneCommon()
 
-        for bt in BoardType.iter():
+        for bt in BoardType.iter( include_simple=False ): # TODO :: FIX :: --> include_simple=True --> DELETE
             king_moves = []
 
             if isinstance(move_king, int):

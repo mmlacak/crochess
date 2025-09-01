@@ -410,6 +410,12 @@ class Colors( dict ):
 
         self[ BoardType.Classic_26 ] = self[ BoardType.Classical ]
 
+        self[ BoardType.Croatian_14 ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Croatian_20 ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Croatian_26 ] = self[ BoardType.CroatianTies ]
+
         # CP = ColorsPair.from_tuple # (<interior>, <outline>)
         # CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
         # CM = ColorsMark.from_tuple # ( <legal light interior>, <legal light outline>, <legal dark interior>, <legal dark outline>, \

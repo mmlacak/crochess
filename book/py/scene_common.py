@@ -87,7 +87,7 @@ class SceneCommon:
 
     def intro_en_passant(self, bt):
         bt = BoardType(bt)
-        is_classic = BoardType.is_classical( bt, include_old=True, include_new=True )
+        is_classic = BoardType.is_simple( bt, include_old=True, include_new=True )
 
         width = 3.3 if is_classic else \
                 None if bt > BoardType.Nineteen else \
