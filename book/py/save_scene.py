@@ -8,7 +8,7 @@
 from consts import  DEFAULT_LINE_WIDTH, \
                     DEFAULT_IMAGE_FOLDER_REL_PATH, \
                     DEFAULT_FILE_EXT
-from utils import iterate, xor
+from utils import iterate
 
 from pixel_math import assert_floor_2
 from colors import Colors
@@ -265,9 +265,7 @@ class SaveScene:
     def get_castling_file_path( self, board_type, path_prefix=None, file_ext=None, move_king=0, rook_file_init=None ):
         bt = BoardType( board_type )
         assert isinstance( move_king, int )
-        assert isinstance( rook_file_init, (int, type(None)) )
-        assert xor( ( move_king == 0 ) and ( rook_file_init is None ), \
-                    ( move_king != 0 ) and ( rook_file_init is not None ) )
+        assert isinstance( rook_file_init, int )
 
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
@@ -303,26 +301,36 @@ class SaveScene:
             king_moves = []
 
             file_king, files_rooks_l, files_rooks_r = Board.get_castling_files( bt )
+
+            for fr in files_rooks_l:
+                diff_min, diff_max = Board.get_castling_limits( bt, file_rook_init=fr )
+
+                file_path = self.get_castling_file_path( bt, path_prefix=path_prefix, move_king=0, rook_file_init=fr )
+                print( file_path )
+
+                if self.rendering_size.needs_rendering():
+                    scene = sc.intro_castling( bt, move_king=0, rook_file_init=fr )
+                    self.save_scene( scene, file_path )
+
             files_rooks = files_rooks_l[ : ]
             files_rooks.extend( files_rooks_r )
 
             for fr in files_rooks:
                 diff_min, diff_max = Board.get_castling_limits( bt, file_rook_init=fr )
 
-                king_moves = list( range( diff_min, diff_max+1 ) )
-                king_moves.append( 0 )
-                king_moves.extend( list( range( -diff_min, -diff_max-1, -1 ) ) )
+                if file_king < fr:
+                    king_moves = list( range( diff_min, diff_max+1 ) )
+                elif fr < file_king:
+                    king_moves = list( range( -diff_min, -diff_max-1, -1 ) )
 
                 king_moves.sort()
 
                 for mk in king_moves:
-                    frx = fr if mk != 0 else None
-
-                    file_path = self.get_castling_file_path( bt, path_prefix=path_prefix, move_king=mk, rook_file_init=frx )
+                    file_path = self.get_castling_file_path( bt, path_prefix=path_prefix, move_king=mk, rook_file_init=fr )
                     print( file_path )
 
                     if self.rendering_size.needs_rendering():
-                        scene = sc.intro_castling( bt, move_king=mk, rook_file_init=frx )
+                        scene = sc.intro_castling( bt, move_king=mk, rook_file_init=fr )
                         self.save_scene( scene, file_path )
 
         print( "Finished." )

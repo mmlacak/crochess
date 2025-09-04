@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-from utils import in_range, iterate, xor
+from utils import in_range, iterate
 from piece import PieceType
 from board import BoardType, Board
 from mark import MarkType
@@ -91,9 +91,7 @@ class SceneCommon:
 
     def intro_castling(self, bt, move_king=0, rook_file_init=None):
         assert isinstance( move_king, int )
-        assert isinstance( rook_file_init, (int, type(None)) )
-        assert xor( ( move_king == 0 ) and ( rook_file_init is None ), \
-                    ( move_king != 0 ) and ( rook_file_init is not None ) )
+        assert isinstance( rook_file_init, int )
 
         bt = BoardType(bt)
 
@@ -169,8 +167,8 @@ class SceneCommon:
             scene.append_text("K", file_king_init, 0, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
 
         mt = MarkType.Blocked if king_moved else MarkType.Legal
-        diff_max = file_king_init - rook_file_init - 2 if king_moved_left else \
-                   rook_file_init - file_king_init - 1 if king_moved_right else \
+        diff_max = file_king_init - rook_file_init - 2 if king_moved_left or ( rook_file_init < file_king_init ) else \
+                   rook_file_init - file_king_init - 1 if king_moved_right or ( file_king_init < rook_file_init ) else \
                    0
         # file_min = rook_file_init if king_moved_left else files_rooks_l_init[ -1 ]
         # file_max = rook_file_init if king_moved_right else files_rooks_r_init[ 0 ]
