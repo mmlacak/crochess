@@ -75,9 +75,12 @@ tr   - Tamoanchan Revisited
 cot  - Conquest Of Tlalocan
 d    - Discovery
 o    - One
-c14  - Classical 14 Chess
-c20  - Classical 20 Chess
-c26  - Classical 26 Chess
+c14  - Classical Chess 14
+c20  - Classical Chess 20
+c26  - Classical Chess 26
+ct14 - Croatian Ties 14
+ct20 - Croatian Ties 20
+ct26 - Croatian Ties 26
 
 Any combination will work, multiple options separate by space, like so:
 $ python3 main.py -d -x ct ma

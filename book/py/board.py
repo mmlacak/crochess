@@ -368,19 +368,62 @@ class Board:
         w = self.get_width() - 1
         return ( (0, 0), (w, h) )
 
+    # TODO :: OLD :: DELETE
+    #
+    # @staticmethod
+    # def get_castling_limits( board_type ):
+    #     bt = BoardType( board_type )
+
+    #     if bt == BoardType.none:
+    #         return (0, 0)
+
+    #     light_pieces = Board.get_light_row( bt )
+
+    #     pos_king = just_count( get_indexes( light_pieces, piece=PT.King ) )
+    #     pos_rook_l, pos_rook_r = just_count( get_indexes( light_pieces, piece=PT.Rook ), count=2 )
+
+    #     diff_l, diff_r = abs( pos_king - pos_rook_l ), abs( pos_rook_r - pos_king )
+    #     diff = min( diff_l, diff_r ) - 1
+
+    #     return (2, diff)
+    #
+    # TODO :: OLD :: DELETE
+
     @staticmethod
-    def get_castling_limits( board_type ):
+    def get_castling_files( board_type ):
         bt = BoardType( board_type )
 
         if bt == BoardType.none:
-            return (0, 0)
+            return (0, [], [])
 
         light_pieces = Board.get_light_row( bt )
 
         pos_king = just_count( get_indexes( light_pieces, piece=PT.King ) )
-        pos_rook_l, pos_rook_r = just_count( get_indexes( light_pieces, piece=PT.Rook ), count=2 )
+        pos_rook = get_indexes( light_pieces, piece=PT.Rook )
+        pos_rook_l = [ pr for pr in pos_rook if pr < pos_king ]
+        pos_rook_r = [ pr for pr in pos_rook if pr > pos_king ]
 
-        diff_l, diff_r = abs( pos_king - pos_rook_l ), abs( pos_rook_r - pos_king )
+        return (pos_king, pos_rook_l, pos_rook_r)
+
+    @staticmethod
+    def get_castling_limits( board_type, file_rook_init=None ):
+        bt = BoardType( board_type )
+        assert isinstance( file_rook_init, (int, type(None)) )
+
+        if bt == BoardType.none:
+            return (0, 0)
+
+        file_king, files_rooks_l, files_rooks_r = Board.get_castling_files( bt )
+        assert ( file_rook_init is None ) or ( file_rook_init in files_rooks_l ) or ( file_rook_init in files_rooks_r )
+
+        file_rook_l = max( [ fr for fr in files_rooks_l if fr <= file_rook_init ] ) \
+                      if file_rook_init is not None and file_rook_init < file_king \
+                      else files_rooks_l[ -1 ]
+        file_rook_r = min( [ fr for fr in files_rooks_r if file_rook_init <= fr ] ) \
+                      if file_rook_init is not None and file_king < file_rook_init \
+                      else files_rooks_r[ 0 ]
+
+        diff_l, diff_r = abs( file_king - file_rook_l ), abs( file_rook_r - file_king )
         diff = min( diff_l, diff_r ) - 1
 
         return (2, diff)
@@ -1079,7 +1122,7 @@ def test_2():
     print()
     print( b.get_position_limits() )
     print()
-    print( b.get_castling_limits( bt ) )
+    print( b.get_castling_files( bt ) )
     print()
     print( str( b ) )
     print()
@@ -1099,7 +1142,7 @@ def test_4():
         b = Board( bt )
         b.setup()
 
-        print( bt.get_name(), b.get_position_limits(), Board.get_castling_limits( bt ) )
+        print( bt.get_name(), b.get_position_limits(), Board.get_castling_files( bt ) )
 
     print()
 

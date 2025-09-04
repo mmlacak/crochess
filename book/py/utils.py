@@ -66,7 +66,7 @@ def gen_next( gen, default=None ):
     return _gen_next
 
 
-def xor(a, b, default=None):
+def xor( a, b, default=None ):
     if a and not b:
         return a
     elif b and not a:
@@ -75,7 +75,7 @@ def xor(a, b, default=None):
         return default
 
 
-def in_range(v, min_v, max_v, include_min=True, include_max=True):
+def in_range( v, min_v, max_v, include_min=True, include_max=True ):
     assert isinstance(include_min, bool)
     assert isinstance(include_max, bool)
 

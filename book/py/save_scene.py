@@ -8,7 +8,7 @@
 from consts import  DEFAULT_LINE_WIDTH, \
                     DEFAULT_IMAGE_FOLDER_REL_PATH, \
                     DEFAULT_FILE_EXT
-from utils import iterate
+from utils import iterate, xor
 
 from pixel_math import assert_floor_2
 from colors import Colors
@@ -203,9 +203,71 @@ class SaveScene:
     #
     # castling
 
-    def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None, move_king=0):
-        bt = BoardType(board_type)
-        assert isinstance(move_king, int)
+    # TODO :: OLD :: DELETE
+    #
+    # def get_castling_file_path(self, board_type, path_prefix=None, file_ext=None, move_king=0):
+    #     bt = BoardType(board_type)
+    #     assert isinstance(move_king, int)
+
+    #     path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
+    #     file_ext = file_ext or DEFAULT_FILE_EXT
+
+    #     mk_str = ""
+    #     if move_king < 0:
+    #         mk_str = "left"
+    #     elif move_king > 0:
+    #         mk_str = "right"
+
+    #     if move_king != 0:
+    #         mk_str += "_%02d" % abs(move_king)
+
+    #     name = bt.get_name()
+    #     sf_name = "%02d_%s" % (bt, bt.get_label())
+    #     sanitized = sanitize(name)
+
+    #     if move_king == 0:
+    #         return '%s/castlings/%s/%s_castling%s' % (path_prefix, sf_name, sanitized, file_ext)
+    #     else:
+    #         return '%s/castlings/%s/%s_castling_%s%s' % (path_prefix, sf_name, sanitized, mk_str, file_ext)
+
+    # def render_all_castling_scenes(self, move_king=None, path_prefix=None):
+    #     print()
+    #     print( "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings." )
+
+    #     sc = SceneCommon()
+
+    #     for bt in BoardType.iter( include_simple=False ): # TODO :: FIX :: --> include_simple=True --> DELETE
+    #         king_moves = []
+
+    #         if isinstance(move_king, int):
+    #             king_moves = [move_king]
+    #         else:
+    #             diff_min, diff_max = Board.get_castling_limits(bt) # TODO :: FIX :: return list
+
+    #             king_moves = list(range(diff_min, diff_max+1))
+    #             king_moves.append(0)
+    #             king_moves.extend( list(range(-diff_min, -diff_max-1, -1)) )
+
+    #             king_moves.sort()
+
+    #         for mk in king_moves:
+    #             file_path = self.get_castling_file_path(bt, path_prefix=path_prefix, move_king=mk)
+    #             print( file_path )
+
+    #             if self.rendering_size.needs_rendering():
+    #                 scene = sc.intro_castling(bt, move_king=mk) # TODO :: FIX :: add Rook initial position
+    #                 self.save_scene(scene, file_path)
+
+    #     print( "Finished." )
+    #
+    # TODO :: OLD :: DELETE
+
+    def get_castling_file_path( self, board_type, path_prefix=None, file_ext=None, move_king=0, rook_file_init=None ):
+        bt = BoardType( board_type )
+        assert isinstance( move_king, int )
+        assert isinstance( rook_file_init, (int, type(None)) )
+        assert xor( ( move_king == 0 ) and ( rook_file_init is None ), \
+                    ( move_king != 0 ) and ( rook_file_init is not None ) )
 
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
@@ -219,6 +281,9 @@ class SaveScene:
         if move_king != 0:
             mk_str += "_%02d" % abs(move_king)
 
+        if rook_file_init is not None:
+            mk_str += "_%02d" % abs(rook_file_init)
+
         name = bt.get_name()
         sf_name = "%02d_%s" % (bt, bt.get_label())
         sanitized = sanitize(name)
@@ -228,33 +293,37 @@ class SaveScene:
         else:
             return '%s/castlings/%s/%s_castling_%s%s' % (path_prefix, sf_name, sanitized, mk_str, file_ext)
 
-    def render_all_castling_scenes(self, move_king=None, path_prefix=None):
+    def render_all_castling_scenes(self, path_prefix=None):
         print()
         print( "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings." )
 
         sc = SceneCommon()
 
-        for bt in BoardType.iter( include_simple=False ): # TODO :: FIX :: --> include_simple=True --> DELETE
+        for bt in BoardType.iter():
             king_moves = []
 
-            if isinstance(move_king, int):
-                king_moves = [move_king]
-            else:
-                diff_min, diff_max = Board.get_castling_limits(bt)
+            file_king, files_rooks_l, files_rooks_r = Board.get_castling_files( bt )
+            files_rooks = files_rooks_l[ : ]
+            files_rooks.extend( files_rooks_r )
 
-                king_moves = list(range(diff_min, diff_max+1))
-                king_moves.append(0)
-                king_moves.extend( list(range(-diff_min, -diff_max-1, -1)) )
+            for fr in files_rooks:
+                diff_min, diff_max = Board.get_castling_limits( bt, file_rook_init=fr )
+
+                king_moves = list( range( diff_min, diff_max+1 ) )
+                king_moves.append( 0 )
+                king_moves.extend( list( range( -diff_min, -diff_max-1, -1 ) ) )
 
                 king_moves.sort()
 
-            for mk in king_moves:
-                file_path = self.get_castling_file_path(bt, path_prefix=path_prefix, move_king=mk)
-                print( file_path )
+                for mk in king_moves:
+                    frx = fr if mk != 0 else None
 
-                if self.rendering_size.needs_rendering():
-                    scene = sc.intro_castling(bt, move_king=mk)
-                    self.save_scene(scene, file_path)
+                    file_path = self.get_castling_file_path( bt, path_prefix=path_prefix, move_king=mk, rook_file_init=frx )
+                    print( file_path )
+
+                    if self.rendering_size.needs_rendering():
+                        scene = sc.intro_castling( bt, move_king=mk, rook_file_init=frx )
+                        self.save_scene( scene, file_path )
 
         print( "Finished." )
 
@@ -412,9 +481,10 @@ def test_rush():
 
 def test_castling_init():
     ss = SaveScene(RenderingSizeEnum.Draft)
-    ss.render_all_castling_scenes(path_prefix='temp/', move_king=0)
-    ss.render_all_castling_scenes(path_prefix='temp/', move_king=-2)
-    ss.render_all_castling_scenes(path_prefix='temp/', move_king=2)
+    # ss.render_all_castling_scenes(path_prefix='temp/', move_king=0)
+    # ss.render_all_castling_scenes(path_prefix='temp/', move_king=-2)
+    # ss.render_all_castling_scenes(path_prefix='temp/', move_king=2)
+    ss.render_all_castling_scenes( path_prefix='temp/' )
 
 def test_scene_examples():
     ss = SaveScene(RenderingSizeEnum.Draft)
@@ -426,5 +496,5 @@ if __name__ == '__main__':
     # test_pieces()
     # test_en_passant()
     # test_rush()
-    # test_castling_init()
-    test_scene_examples()
+    test_castling_init()
+    # test_scene_examples()
