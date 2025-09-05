@@ -276,11 +276,11 @@ class SaveScene:
         elif move_king > 0:
             mk_str = "_right"
 
-        if move_king != 0:
-            mk_str += "_%02d" % abs( move_king )
-
         if rook_file_init is not None:
             mk_str += "_%02d" % abs( rook_file_init )
+
+        if move_king != 0:
+            mk_str += "_%02d" % abs( move_king )
 
         name = bt.get_name()
         sf_name = "%02d_%s" % ( bt, bt.get_label() )

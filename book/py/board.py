@@ -419,6 +419,7 @@ class Board:
         file_rook_l = max( [ fr for fr in files_rooks_l if fr <= file_rook_init ] ) \
                       if file_rook_init < file_king \
                       else files_rooks_l[ 0 ]
+        file_rook_l += 1
 
         file_rook_r = min( [ fr for fr in files_rooks_r if file_rook_init <= fr ] ) \
                       if file_king < file_rook_init \
