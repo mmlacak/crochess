@@ -89,40 +89,26 @@ class SceneCommon:
     #
     # TODO :: OLD :: DELETE
 
-    def intro_castling(self, bt, move_king=0, rook_file_init=None):
+    def intro_castling( self, bt, move_king=0, rook_file_init=None ):
         assert isinstance( move_king, int )
         assert isinstance( rook_file_init, int )
 
         bt = BoardType(bt)
 
-        # if move_king != 0:
-        #     diff_min, diff_max = Board.get_castling_limits( bt, rook_file_init )
-        #     assert in_range( abs(move_king), diff_min, diff_max )
-
-        # offset = 1 if bt.does_contain(PieceType.Star) else 0
-
-        # pos_king_init = bt.get_size() // 2
-        # pos_rook_l_init = offset
-        # pos_rook_r_init = bt.get_size() - 1 - offset
         file_king_init, files_rooks_l_init, files_rooks_r_init = Board.get_castling_files( bt )
+
         rook_moved_left = rook_file_init in files_rooks_l_init
         rook_moved_right = rook_file_init in files_rooks_r_init
-        # assert xor( rook_moved_left, rook_moved_right )
+        assert rook_moved_left or rook_moved_right
 
-        file_min = files_rooks_l_init[ 0 ] + 2
-        file_max = files_rooks_r_init[ -1 ] - 1
-
-        # if move_king != 0:
-        #     assert ( move_king <= -2 ) or ( 2 <= move_king )
+        # file_min = files_rooks_l_init[ 0 ] + 2
+        # file_max = files_rooks_r_init[ -1 ] - 1
 
         scene = Scene( 'intro_castling', bt, width=bt.get_size(), height=1.3 )
 
         king_moved = (move_king != 0)
         king_moved_left = (move_king < 0)
         king_moved_right = (move_king > 0)
-        # assert ( ( not king_moved ) and ( rook_file_init is None ) or \
-        #          ( king_moved_left and rook_moved_left ) or \
-        #          ( king_moved_right and rook_moved_right ) )
 
         file_king = file_king_init + move_king
         file_rook_l_init = rook_file_init
@@ -134,17 +120,13 @@ class SceneCommon:
         elif king_moved_right:
             file_rook_l_init = bt.get_size() - rook_file_init + 1
             file_rook_r_init += 3
-
-        # assert ( ( file_rook_l_init is None ) or ( file_rook_l_init in files_rooks_l_init ) ) and \
-        #        ( ( file_rook_r_init is None ) or ( file_rook_r_init in files_rooks_r_init ) )
+        elif rook_file_init < file_king_init:
+            file_rook_r_init = bt.get_size() - rook_file_init - 1
+        elif file_king_init < rook_file_init:
+            file_rook_l_init = bt.get_size() - rook_file_init + 1
 
         files_rooks_l = [ fr for fr in files_rooks_l_init if file_rook_l_init is None or fr <= file_rook_l_init ]
         files_rooks_r = [ fr for fr in files_rooks_r_init if file_rook_r_init is None or file_rook_r_init <= fr ]
-
-        # files_rooks_l = [ file_king + 1 if fr == rook_file_init else fr for fr in files_rooks_l if fr <= file_king ] \
-        #                 if king_moved_left else files_rooks_l # file_king + 1 if king_moved_left else pos_rook_l_init
-        # files_rooks_r = [ file_king + 1 if fr == rook_file_init else fr for fr in files_rooks_r if fr >= file_king ] \
-        #                 if king_moved_right else files_rooks_r # file_king - 1 if king_moved_right else pos_rook_r_init
 
         scene.board.set_piece( file_king, 0, PieceType.King )
 
@@ -170,10 +152,6 @@ class SceneCommon:
         diff_max = file_king_init - rook_file_init - 2 if king_moved_left or ( rook_file_init < file_king_init ) else \
                    rook_file_init - file_king_init - 1 if king_moved_right or ( file_king_init < rook_file_init ) else \
                    0
-        # file_min = rook_file_init if king_moved_left else files_rooks_l_init[ -1 ]
-        # file_max = rook_file_init if king_moved_right else files_rooks_r_init[ 0 ]
-        # assert isinstance( file_min, int )
-        # assert isinstance( file_max, int )
 
         for i in range( 2, diff_max+1 ):
             # diff_max + 1, because upper boundary is not included

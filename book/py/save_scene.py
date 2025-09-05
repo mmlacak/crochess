@@ -272,24 +272,24 @@ class SaveScene:
 
         mk_str = ""
         if move_king < 0:
-            mk_str = "left"
+            mk_str = "_left"
         elif move_king > 0:
-            mk_str = "right"
+            mk_str = "_right"
 
         if move_king != 0:
-            mk_str += "_%02d" % abs(move_king)
+            mk_str += "_%02d" % abs( move_king )
 
         if rook_file_init is not None:
-            mk_str += "_%02d" % abs(rook_file_init)
+            mk_str += "_%02d" % abs( rook_file_init )
 
         name = bt.get_name()
-        sf_name = "%02d_%s" % (bt, bt.get_label())
-        sanitized = sanitize(name)
+        sf_name = "%02d_%s" % ( bt, bt.get_label() )
+        sanitized = sanitize( name )
 
-        if move_king == 0:
-            return '%s/castlings/%s/%s_castling%s' % (path_prefix, sf_name, sanitized, file_ext)
+        if mk_str == "":
+            return '%s/castlings/%s/%s_castling%s' % ( path_prefix, sf_name, sanitized, file_ext )
         else:
-            return '%s/castlings/%s/%s_castling_%s%s' % (path_prefix, sf_name, sanitized, mk_str, file_ext)
+            return '%s/castlings/%s/%s_castling%s%s' % ( path_prefix, sf_name, sanitized, mk_str, file_ext )
 
     def render_all_castling_scenes(self, path_prefix=None):
         print()
@@ -323,7 +323,7 @@ class SaveScene:
                 elif fr < file_king:
                     king_moves = list( range( -diff_min, -diff_max-1, -1 ) )
 
-                king_moves.sort()
+                # king_moves.sort()
 
                 for mk in king_moves:
                     file_path = self.get_castling_file_path( bt, path_prefix=path_prefix, move_king=mk, rook_file_init=fr )
