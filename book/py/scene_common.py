@@ -49,9 +49,6 @@ class SceneCommon:
         rook_moved_right = rook_file_init in files_rooks_r_init
         assert rook_moved_left or rook_moved_right
 
-        # file_min = files_rooks_l_init[ 0 ] + 2
-        # file_max = files_rooks_r_init[ -1 ] - 1
-
         scene = Scene( 'intro_castling', bt, width=bt.get_size(), height=1.3 )
 
         king_moved = (move_king != 0)
@@ -73,8 +70,8 @@ class SceneCommon:
         elif file_king_init < rook_file_init:
             file_rook_l_init = bt.get_size() - rook_file_init + 1
 
-        files_rooks_l = [ fr for fr in files_rooks_l_init if file_rook_l_init is None or fr <= file_rook_l_init ]
-        files_rooks_r = [ fr for fr in files_rooks_r_init if file_rook_r_init is None or file_rook_r_init <= fr ]
+        files_rooks_l = [ fr for fr in files_rooks_l_init if fr <= file_rook_l_init ]
+        files_rooks_r = [ fr for fr in files_rooks_r_init if file_rook_r_init <= fr ]
 
         scene.board.set_piece( file_king, 0, PieceType.King )
 
@@ -101,9 +98,7 @@ class SceneCommon:
                    rook_file_init - file_king_init - 1 if king_moved_right or ( file_king_init < rook_file_init ) else \
                    0
 
-        for i in range( 2, diff_max+1 ):
-            # diff_max + 1, because upper boundary is not included
-
+        for i in range( 2, diff_max+1 ): # diff_max + 1, because upper boundary is not included
             pos_l = file_king_init - i
             pos_r = file_king_init + i
 
