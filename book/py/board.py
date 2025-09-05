@@ -368,27 +368,6 @@ class Board:
         w = self.get_width() - 1
         return ( (0, 0), (w, h) )
 
-    # TODO :: OLD :: DELETE
-    #
-    # @staticmethod
-    # def get_castling_limits( board_type ):
-    #     bt = BoardType( board_type )
-
-    #     if bt == BoardType.none:
-    #         return (0, 0)
-
-    #     light_pieces = Board.get_light_row( bt )
-
-    #     pos_king = just_count( get_indexes( light_pieces, piece=PT.King ) )
-    #     pos_rook_l, pos_rook_r = just_count( get_indexes( light_pieces, piece=PT.Rook ), count=2 )
-
-    #     diff_l, diff_r = abs( pos_king - pos_rook_l ), abs( pos_rook_r - pos_king )
-    #     diff = min( diff_l, diff_r ) - 1
-
-    #     return (2, diff)
-    #
-    # TODO :: OLD :: DELETE
-
     @staticmethod
     def get_castling_files( board_type ):
         bt = BoardType( board_type )
