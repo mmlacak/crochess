@@ -297,7 +297,8 @@ class SaveScene:
 
         sc = SceneCommon()
 
-        for bt in BoardType.iter():
+        # for bt in BoardType.iter( include_even=False, include_simple=True ): # TODO :: DEBUG :: DELETE
+        for bt in BoardType.iter(): # TODO :: DEBUG :: REVERT
             king_moves = []
 
             file_king, files_rooks_l, files_rooks_r = Board.get_castling_files( bt )
@@ -318,10 +319,10 @@ class SaveScene:
             for fr in files_rooks:
                 diff_min, diff_max = Board.get_castling_limits( bt, file_rook_init=fr )
 
-                if file_king < fr:
-                    king_moves = list( range( diff_min, diff_max+1 ) )
-                elif fr < file_king:
+                if fr < file_king:
                     king_moves = list( range( -diff_min, -diff_max-1, -1 ) )
+                elif file_king < fr:
+                    king_moves = list( range( diff_min, diff_max+1 ) )
 
                 # king_moves.sort()
 

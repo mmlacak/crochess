@@ -406,23 +406,23 @@ class Board:
         return (pos_king, pos_rook_l, pos_rook_r)
 
     @staticmethod
-    def get_castling_limits( board_type, file_rook_init=None ):
+    def get_castling_limits( board_type, file_rook_init ):
         bt = BoardType( board_type )
-        assert isinstance( file_rook_init, (int, type(None)) )
+        assert isinstance( file_rook_init, int )
 
         if bt == BoardType.none:
             return (0, 0)
 
         file_king, files_rooks_l, files_rooks_r = Board.get_castling_files( bt )
-        assert ( file_rook_init is None ) or ( file_rook_init in files_rooks_l ) or ( file_rook_init in files_rooks_r )
+        assert ( file_rook_init in files_rooks_l ) or ( file_rook_init in files_rooks_r )
 
         file_rook_l = max( [ fr for fr in files_rooks_l if fr <= file_rook_init ] ) \
-                      if file_rook_init is not None and file_rook_init < file_king \
-                      else files_rooks_l[ -1 ]
+                      if file_rook_init < file_king \
+                      else files_rooks_l[ 0 ]
 
         file_rook_r = min( [ fr for fr in files_rooks_r if file_rook_init <= fr ] ) \
-                      if file_rook_init is not None and file_king < file_rook_init \
-                      else files_rooks_r[ 0 ]
+                      if file_king < file_rook_init \
+                      else files_rooks_r[ -1 ]
 
         diff_l, diff_r = abs( file_king - file_rook_l ), abs( file_rook_r - file_king )
         diff = min( diff_l, diff_r ) - 1
