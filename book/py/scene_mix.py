@@ -18,6 +18,7 @@ from scene_tamoanchan_revisited import SceneTamoanchanRevisitedMixin
 from scene_conquest_of_tlalocan import SceneConquestOfTlalocanMixin
 from scene_discovery import SceneDiscoveryMixin
 from scene_one import SceneOneMixin
+from scene_simple import SceneSimpleMixin
 
 
 class SceneMix( SceneMixin, \
@@ -31,14 +32,11 @@ class SceneMix( SceneMixin, \
                 SceneTamoanchanRevisitedMixin, \
                 SceneConquestOfTlalocanMixin, \
                 SceneDiscoveryMixin, \
-                SceneOneMixin ):
+                SceneOneMixin, \
+                SceneSimpleMixin ):
 
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_tr_30_ritual_starting_fields', \
-                    'scn_tr_31_pawn_sacrifice_init', \
-                    'scn_tr_32_pawn_sacrifice_steps_1', \
-                    'scn_tr_33_pawn_sacrifice_end', \
-                    'scn_tr_34_pawn_sacrifice_alt_end', \
+                    'scn_ct14_01_sideways_pawns', \
                 ]
