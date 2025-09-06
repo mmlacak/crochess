@@ -58,7 +58,9 @@ So, Pawn can rush up to, and including, 5 fields forward in Classical 14 Chess;
 up to (and including) 8 fields forward in Classical 20 Chess; and up to (and
 including) 11 fields forward in Classical 26 Chess.
 
-% \clearpage % ..........................................................
+\vfill{}
+
+\clearpage % ..........................................................
 
 \subsection*{Castling}
 \addcontentsline{toc}{subsection}{Castling}
@@ -70,9 +72,9 @@ except on its initial move King can now move sideways for more than just two
 fields.
 
 In all new variants, King can castle only with a Rook that is the closest to the
-King on the chosen side of castling, King's or Queen's. King can castle to any
-field towards Rook on King's side of a chessboard, and one field short on Queen's
-side.
+King on the chosen side of castling, King's or Queen's. King can castle onto any
+field towards Rook (up to, and including, the field right next to the Rook) on
+King's side of a chessboard, and one field short on Queen's side.
 
 So, King can castle up to, and including, 5 fields in Classical 14 Chess;
 up to (and including) 8 fields in Classical 20 Chess; and up to (and
@@ -86,7 +88,8 @@ including) 11 fields in Classical 26 Chess.
 \label{fig:classic14_castling_03}
 \end{figure}
 
-. . .
+Castling with Rook closest to the King is exactly the same as in Classical Chess,
+since that part is carried over.
 
 \noindent
 \begin{figure}[!h]
@@ -96,24 +99,31 @@ including) 11 fields in Classical 26 Chess.
 \label{fig:classic14_castling_00}
 \end{figure}
 
-. . .
+Castling with distant Rook just adds more destinations for King to choose from.
+
+\vfill{}
+
+\clearpage % ..........................................................
+
+In any case, after castling, Rook ends up at field right next to King; on the left
+if castling was at King's side, on the right if Queen's side.
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/26_c20/classic20_castling_00.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/24_c14/classic14_castling_right_13_02.png}
 \vspace*{-1.4\baselineskip}
-\caption{Castling long, Classical 20 Chess}
-\label{fig:classic20_castling_00}
+\caption{Castling short right, Classical 14 Chess}
+\label{fig:classic14_castling_right_13_02}
 \end{figure}
 
 . . .
 
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/28_c26/classic26_castling_00.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{castlings/24_c14/classic14_castling_left_00_05.png}
 \vspace*{-1.4\baselineskip}
-\caption{Castling long, Classical 26 Chess}
-\label{fig:classic26_castling_00}
+\caption{Castling long left, Classical 14 Chess}
+\label{fig:classic14_castling_left_00_05}
 \end{figure}
 
 . . .
