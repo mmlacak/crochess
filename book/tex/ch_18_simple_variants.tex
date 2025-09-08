@@ -383,13 +383,13 @@ All pieces used in simple variants are already covered in
 \addcontentsline{toc}{subsection}{Notation}
 \label{sec:Simple variants/Summary/Notation}
 
-Due to extended castling \hyperref[sec:Appendix/Notation]{new notation}
+Due to extended castling \hyperref[sec:Appendix/Notation/Castling]{new notation}
 has to be used. For instance, in
 \hyperref[fig:classic14_castling_left_00_05]{this example} light King is
 castling long right, which would be written as \alg{Kc\&d}.
 
 Otherwise, it's enough to just write \algfmt{<piece>} followed by its destination,
-which is comprised of \algfmt{<file>} + \algfmt{<rank>}, where \algfmt{<piece>} is
+which is comprised of \algfmt{<file>} + \algfmt{<rank>}; where \algfmt{<piece>} is
 omitted if it's Pawn, and \algfmt{<file>}s, \algfmt{<rank>}s are limited by
 \hyperref[tbl:Simple variants/Summary/Chessboards]{chessboard} size of a variant
 being played.
@@ -397,7 +397,14 @@ being played.
 For instance, this
 \hyperref[fig:24_classic14_en_passant]{rushing, en passant example} could
 be written just as \alg{b7} if light Pawn rushed to the farthest field
-possible, followed by \alg{b5:} denoting en passant capture made by dark Pawn.
+possible, followed by \alg{b5:} denoting
+\hyperref[sec:Appendix/Notation/En passant]{en passant} capture made by dark Pawn.
+
+The only other relevant interaction for new, simplified variants is
+\hyperref[sec:Appendix/Notation/Capturing]{capture}, which is written as \alg{*}
+following a capturing piece and its destination, optionally followed by captured
+piece. For instance, if in previous example light Pawn was captured by Bishop,
+it would be written as \alg{Bb5*P}.
 
 \clearpage % ..........................................................
 
@@ -515,10 +522,6 @@ examples, \hyperref[fig:classic14_castling_right_13_02]{King-side castling}
 \alg{Kj\&i} is comprised of \alg{Kh1-j1} and \alg{Rn1-i1}, while
 \hyperref[fig:classic14_castling_left_00_05]{Queen-side castling}
 \alg{Kc\&d} is a composite of \alg{Kh1-c1} and \alg{Ra1-d1}.
-
-\clearpage % ..........................................................
-
-\TODO
 
 % ************************************************************* Summary
 \clearpage % ..........................................................
