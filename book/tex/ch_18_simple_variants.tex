@@ -368,7 +368,7 @@ with maximum rank of 20, so board size for that variant is \mbox{20~$\times$~20}
 % \label{tbl:Simple variants/Summary/Pieces}
 % \end{table}
 
-% Classical Chess pieces are described in detail at:\linebreak
+% Classical Chess pieces are described in detail at:\newline
 % \href{https://en.wikipedia.org/wiki/Chess\_piece}{https://en.wikipedia.org/wiki/Chess\_piece}.
 
 % Pegasus is described in \hyperref[sec:Croatian Ties/Pegasus]{Pegasus} section
@@ -376,6 +376,28 @@ with maximum rank of 20, so board size for that variant is \mbox{20~$\times$~20}
 
 All pieces used in simple variants are already covered in
 \hyperref[sec:Appendix/Introduction/Pieces]{Pieces} section of Appendix.
+
+\clearpage % ..........................................................
+
+\subsection*{Notation}
+\addcontentsline{toc}{subsection}{Notation}
+\label{sec:Simple variants/Summary/Notation}
+
+Due to extended castling \hyperref[sec:Appendix/Notation]{new notation}
+has to be used. For instance, in
+\hyperref[fig:classic14_castling_left_00_05]{this example} light King is
+castling long right, which would be written as \alg{Kc\&d}.
+
+Otherwise, it's enough to just write \algfmt{<piece>} followed by its destination,
+which is comprised of \algfmt{<file>} + \algfmt{<rank>}, where \algfmt{<piece>} is
+omitted if it's Pawn, and \algfmt{<file>}s, \algfmt{<rank>}s are limited by
+\hyperref[tbl:Simple variants/Summary/Chessboards]{chessboard} size of a variant
+being played.
+
+For instance, this
+\hyperref[fig:24_classic14_en_passant]{rushing, en passant example} could
+be written just as \alg{b7} if light Pawn rushed to the farthest field
+possible, followed by \alg{b5:} denoting en passant capture made by dark Pawn.
 
 \clearpage % ..........................................................
 
