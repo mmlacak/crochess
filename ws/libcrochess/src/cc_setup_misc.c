@@ -7,6 +7,7 @@
 #include "cc_setup_misc.h"
 
 
+// todo :: redo :: multiple pieces on each side, e.g. 4 Rooks in CC26, CT26 variants
 int cc_find_initial_figure_file( CcVariantType ve,
                                  CcPieceTagType pe,
                                  bool search_queen_side_first ) {
@@ -57,6 +58,14 @@ int cc_get_kings_max_castling_distance( CcVariantType ve ) {
         case CC_VE_ConquestOfTlalocan : return 9;
         case CC_VE_Discovery : return 9;
         case CC_VE_One : return 10;
+
+        case CC_VE_ClassicalChess_14 : return 5;
+        case CC_VE_ClassicalChess_20 : return 8;
+        case CC_VE_ClassicalChess_26 : return 11;
+
+        case CC_VE_CroatianTies_14 : return 5;
+        case CC_VE_CroatianTies_20 : return 8;
+        case CC_VE_CroatianTies_26 : return 11;
 
         default : return CC_INVALID_COORD;
     }
