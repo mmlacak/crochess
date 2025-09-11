@@ -22,12 +22,10 @@
 #define CC_VARIANT_BOARD_SIZE_DISCOVERY (24)
 #define CC_VARIANT_BOARD_SIZE_ONE (26)
 
-// TODO :: DOCS
 #define CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_14 (14)
 #define CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_20 (20)
 #define CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_26 (26)
 
-// TODO :: DOCS
 #define CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_14 (14)
 #define CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_20 (20)
 #define CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_26 (26)
@@ -68,27 +66,21 @@
 #define CC_VARIANT_MAX_RUSH_RANK_ONE_LIGHT (12)
 #define CC_VARIANT_MIN_RUSH_RANK_ONE_DARK (13)
 
-// TODO :: DOCS
 #define CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_14_LIGHT (6)
 #define CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_14_DARK (7)
 
-// TODO :: DOCS
 #define CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_20_LIGHT (9)
 #define CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_20_DARK (10)
 
-// TODO :: DOCS
 #define CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_26_LIGHT (12)
 #define CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_26_DARK (13)
 
-// TODO :: DOCS
 #define CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_14_LIGHT (6)
 #define CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_14_DARK (7)
 
-// TODO :: DOCS
 #define CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_20_LIGHT (9)
 #define CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_20_DARK (10)
 
-// TODO :: DOCS
 #define CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_26_LIGHT (12)
 #define CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_26_DARK (13)
 
@@ -115,12 +107,10 @@ typedef enum CcVariantEnum {
     CC_VE_Discovery,
     CC_VE_One,
 
-    // TODO :: DOCS
     CC_VE_ClassicalChess_14,
     CC_VE_ClassicalChess_20,
     CC_VE_ClassicalChess_26,
 
-    // TODO :: DOCS
     CC_VE_CroatianTies_14,
     CC_VE_CroatianTies_20,
     CC_VE_CroatianTies_26,
@@ -133,13 +123,10 @@ typedef unsigned char CcVariantType;
 
 #define CC_LEN_VARIANT_SYMBOL_INVALID (0)
 
-// TODO :: DOCS
 #define CC_VARIANT_IS_ENUMERATOR(ve) ( ( CC_VE_ClassicalChess <= (ve) ) && ( (ve) <= CC_VE_CroatianTies_26 ) ) // <!> Keep in-sync with CcVariantEnum.
 
-// TODO :: DOCS
 #define CC_VARIANT_IS_VALID(ve) ( ( CC_VE_ClassicalChess <= (ve) ) && ( (ve) <= CC_VE_CroatianTies_26 ) ) // <!> Keep in-sync with CcVariantEnum.
 
-// TODO :: DOCS
 #define CC_VARIANT_HAS_SIDEWAYS_PAWNS(ve) ( ( (ve) == CC_VE_Nineteen )              \
                                          || ( (ve) == CC_VE_HemerasDawn )           \
                                          || ( (ve) == CC_VE_TamoanchanRevisited )   \
@@ -172,22 +159,16 @@ extern char const * const CC_VARIANT_DISCOVERY_SYMBOL;
 
 extern char const * const CC_VARIANT_ONE_SYMBOL;
 
-// TODO :: DOCS
 extern char const * const CC_VARIANT_CLASSICAL_CHESS_14_SYMBOL;
 
-// TODO :: DOCS
 extern char const * const CC_VARIANT_CLASSICAL_CHESS_20_SYMBOL;
 
-// TODO :: DOCS
 extern char const * const CC_VARIANT_CLASSICAL_CHESS_26_SYMBOL;
 
-// TODO :: DOCS
 extern char const * const CC_VARIANT_CROATIAN_TIES_14_SYMBOL;
 
-// TODO :: DOCS
 extern char const * const CC_VARIANT_CROATIAN_TIES_20_SYMBOL;
 
-// TODO :: DOCS
 extern char const * const CC_VARIANT_CROATIAN_TIES_26_SYMBOL;
 
 extern char const * const CC_VARIANT_SYMBOLS[];

@@ -63,6 +63,31 @@ The board sizes defined for each variant.
 
     Board size for One, equals to ``26``.
 
+.. c:macro:: CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_14
+
+    Board size for Classical Chess 14, equals to ``14``.
+
+.. c:macro:: CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_20
+
+    Board size for Classical Chess 20, equals to ``20``.
+
+.. c:macro:: CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_26
+
+    Board size for Classical Chess 26, equals to ``26``.
+
+.. c:macro:: CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_14
+
+    Board size for Croatian Ties 14, equals to ``14``.
+
+.. c:macro:: CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_20
+
+    Board size for Croatian Ties 20, equals to ``20``.
+
+.. c:macro:: CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_26
+
+    Board size for Croatian Ties 26, equals to ``26``.
+
+
 .. _lbl-libcc-ccvariant-rushlimits:
 
 :term:`Rush` limits
@@ -172,6 +197,55 @@ position of the middle line.
 
     Rush limits for One, dark player, equals to ``13``.
 
+.. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_14_LIGHT
+
+    Rush limits for Classical Chess 14, light player, equals to ``6``.
+
+.. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_14_DARK
+
+    Rush limits for Classical Chess 14, dark player, equals to ``7``.
+
+.. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_20_LIGHT
+
+    Rush limits for Classical Chess 20, light player, equals to ``9``.
+
+.. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_20_DARK
+
+    Rush limits for Classical Chess 20, dark player, equals to ``10``.
+
+.. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CLASSICAL_CHESS_26_LIGHT
+
+    Rush limits for Classical Chess 26, light player, equals to ``12``.
+
+.. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CLASSICAL_CHESS_26_DARK
+
+    Rush limits for Classical Chess 26, dark player, equals to ``13``.
+
+.. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_14_LIGHT
+
+    Rush limits for Croatian Ties 14, light player, equals to ``6``.
+
+.. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_14_DARK
+
+    Rush limits for Croatian Ties 14, dark player, equals to ``7``.
+
+
+.. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_20_LIGHT
+
+    Rush limits for Croatian Ties 20, light player, equals to ``9``.
+
+.. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_20_DARK
+
+    Rush limits for Croatian Ties 20, dark player, equals to ``10``.
+
+.. c:macro:: CC_VARIANT_MAX_RUSH_RANK_CROATIAN_TIES_26_LIGHT
+
+    Rush limits for Croatian Ties 26, light player, equals to ``12``.
+
+.. c:macro:: CC_VARIANT_MIN_RUSH_RANK_CROATIAN_TIES_26_DARK
+
+    Rush limits for Croatian Ties 26, dark player, equals to ``13``.
+
 
 .. c:macro:: CC_VARIANT_RUSH_RANK_OFFSET
 
@@ -226,6 +300,18 @@ Types
 
     .. c:enumerator:: CC_VE_One
 
+    .. c:enumerator:: CC_VE_ClassicalChess_14
+
+    .. c:enumerator:: CC_VE_ClassicalChess_20
+
+    .. c:enumerator:: CC_VE_ClassicalChess_26
+
+    .. c:enumerator:: CC_VE_CroatianTies_14
+
+    .. c:enumerator:: CC_VE_CroatianTies_20
+
+    .. c:enumerator:: CC_VE_CroatianTies_26
+
     :c:`enum` is tagged with the same :c:enum:`CcVariantEnum` name.
 
 .. c:type:: unsigned char CcVariantType
@@ -236,7 +322,8 @@ Types
 .. c:macro:: CC_VARIANT_IS_ENUMERATOR(ve)
 
     Macro to check if given variant value is an enumerator, i.e. between
-    :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_One` values.
+    :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_CroatianTies_26`
+    values.
 
     :param ve: Variant (integer) value.
     :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
@@ -244,7 +331,8 @@ Types
 .. c:macro:: CC_VARIANT_IS_VALID(ve)
 
     Macro to check if given variant value is a valid enumerator, i.e. between
-    :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_One` values.
+    :c:enumerator:`CC_VE_ClassicalChess` and :c:enumerator:`CC_VE_CroatianTies_26`
+    values.
 
     This macro is the same as :c:macro:`CC_VARIANT_IS_ENUMERATOR`, since
     :c:enum:`CcVariantType` does not feature *null* (or *void*, or *empty*) value.
@@ -255,7 +343,7 @@ Types
 .. c:macro:: CC_VARIANT_HAS_SIDEWAYS_PAWNS(ve)
 
     Macro to check if given variant has sideways Pawns, i.e. if it's Nineteen
-    variant, or beyond.
+    variant, or beyond, but not Classical Chess variant.
 
     :param ve: Variant (integer) value.
     :returns: :c:data:`true` if variant has sideways Pawns,
@@ -320,6 +408,30 @@ Abbreviated variant names, used to e.g. select variant to play.
 .. c:type:: char const * const CC_VARIANT_ONE_SYMBOL
 
     One symbol, equals to ``"o"``.
+
+.. c:type:: char const * const CC_VARIANT_CLASSICAL_CHESS_14_SYMBOL
+
+    Classical Chess 14 symbol, equals to ``"cc14"``.
+
+.. c:type:: char const * const CC_VARIANT_CLASSICAL_CHESS_20_SYMBOL
+
+    Classical Chess 20 symbol, equals to ``"cc20"``.
+
+.. c:type:: char const * const CC_VARIANT_CLASSICAL_CHESS_26_SYMBOL
+
+    Classical Chess 26 symbol, equals to ``"cc26"``.
+
+.. c:type:: char const * const CC_VARIANT_CROATIAN_TIES_14_SYMBOL
+
+    Croatian Ties 14 symbol, equals to ``"ct14"``.
+
+.. c:type:: char const * const CC_VARIANT_CROATIAN_TIES_20_SYMBOL
+
+    Croatian Ties 20 symbol, equals to ``"ct20"``.
+
+.. c:type:: char const * const CC_VARIANT_CROATIAN_TIES_26_SYMBOL
+
+    Croatian Ties 26 symbol, equals to ``"ct26"``.
 
 .. c:type:: char const * const CC_VARIANT_SYMBOLS[]
 
