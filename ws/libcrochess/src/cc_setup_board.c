@@ -283,6 +283,144 @@ CcPieceTagType const CC_SETUP_BOARD_ONE[ CC_VARIANT_BOARD_SIZE_ONE ][ CC_VARIANT
     { T, R, N, B, S, I, C, U, E, W, A, H, Q, K, H, A, W, E, U, C, I, S, B, N, R, t },
 };
 
+CcPieceTagType const CC_SETUP_BOARD_CLASSICAL_CHESS_14[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_14 ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_14 ] = {
+    { r, n, b, r, n, b, q, k, b, n, r, b, n, r },
+    { p, p, p, p, p, p, p, p, p, p, p, p, p, p },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { R, N, B, R, N, B, Q, K, B, N, R, B, N, R },
+};
+
+CcPieceTagType const CC_SETUP_BOARD_CLASSICAL_CHESS_20[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_20 ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_20 ] = {
+    { r, n, b, r, n, b, r, n, b, q, k, b, n, r, b, n, r, b, n, r },
+    { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { R, N, B, R, N, B, R, N, B, Q, K, B, N, R, B, N, R, B, N, R },
+};
+
+CcPieceTagType const CC_SETUP_BOARD_CLASSICAL_CHESS_26[ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_26 ][ CC_VARIANT_BOARD_SIZE_CLASSICAL_CHESS_26 ] = {
+    { r, n, b, r, n, b, r, n, b, r, n, b, q, k, b, n, r, b, n, r, b, n, r, b, n, r },
+    { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { R, N, B, R, N, B, R, N, B, R, N, B, Q, K, B, N, R, B, N, R, B, N, R, B, N, R },
+};
+
+CcPieceTagType const CC_SETUP_BOARD_CROATIAN_TIES_14[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_14 ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_14 ] = {
+    { r, e, b, r, e, b, q, k, b, e, r, b, e, r },
+    { p, p, p, p, p, p, p, p, p, p, p, p, p, p },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { R, E, B, R, E, B, Q, K, B, E, R, B, E, R },
+};
+
+CcPieceTagType const CC_SETUP_BOARD_CROATIAN_TIES_20[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_20 ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_20 ] = {
+    { r, e, b, r, e, b, r, e, b, q, k, b, e, r, b, e, r, b, e, r },
+    { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { R, E, B, R, E, B, R, E, B, Q, K, B, E, R, B, E, R, B, E, R },
+};
+
+CcPieceTagType const CC_SETUP_BOARD_CROATIAN_TIES_26[ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_26 ][ CC_VARIANT_BOARD_SIZE_CROATIAN_TIES_26 ] = {
+    { r, e, b, r, e, b, r, e, b, r, e, b, q, k, b, e, r, b, e, r, b, e, r, b, e, r },
+    { p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p, p },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x, x },
+    { P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P, P },
+    { R, E, B, R, E, B, R, E, B, R, E, B, Q, K, B, E, R, B, E, R, B, E, R, B, E, R },
+};
+
 
 CcPieceTagType const * cc_setup_board_get( CcVariantType ve ) {
     switch ( ve ) {
@@ -298,11 +436,20 @@ CcPieceTagType const * cc_setup_board_get( CcVariantType ve ) {
         case CC_VE_Discovery : return (CcPieceTagType const *)CC_SETUP_BOARD_DISCOVERY;
         case CC_VE_One : return (CcPieceTagType const *)CC_SETUP_BOARD_ONE;
 
+        case CC_VE_ClassicalChess_14 : return (CcPieceTagType const *)CC_SETUP_BOARD_CLASSICAL_CHESS_14;
+        case CC_VE_ClassicalChess_20 : return (CcPieceTagType const *)CC_SETUP_BOARD_CLASSICAL_CHESS_20;
+        case CC_VE_ClassicalChess_26 : return (CcPieceTagType const *)CC_SETUP_BOARD_CLASSICAL_CHESS_26;
+
+        case CC_VE_CroatianTies_14 : return (CcPieceTagType const *)CC_SETUP_BOARD_CROATIAN_TIES_14;
+        case CC_VE_CroatianTies_20 : return (CcPieceTagType const *)CC_SETUP_BOARD_CROATIAN_TIES_20;
+        case CC_VE_CroatianTies_26 : return (CcPieceTagType const *)CC_SETUP_BOARD_CROATIAN_TIES_26;
+
         default : return NULL;
     }
 }
 
 
+// TODO :: RETURN :: maybe bool
 bool cc_setup_board_has_piece( CcVariantType ve, CcPieceTagType pe ) {
     CcPieceTagType const * su = cc_setup_board_get( ve );
     if ( !su ) return false;
