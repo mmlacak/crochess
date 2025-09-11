@@ -129,7 +129,7 @@ typedef enum CcVariantEnum {
 typedef unsigned char CcVariantType;
 
 
-#define CC_MAX_LEN_VARIANT_SYMBOL (3)
+#define CC_MAX_LEN_VARIANT_SYMBOL (4)
 
 #define CC_LEN_VARIANT_SYMBOL_INVALID (0)
 

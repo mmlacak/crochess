@@ -75,12 +75,54 @@ size_t cc_variant_from_symbol( char const * str,
     } else if ( *s == 'c' ||  *s == 'C' ) {
         ++s;
 
-        if ( *s == 'c' ||  *s == 'C' ) { // "cc"
-            ve = CC_VE_ClassicalChess;
-            len = 2;
-        } else if ( *s == 't' ||  *s == 'T' ) { // "ct"
-            ve = CC_VE_CroatianTies;
-            len = 2;
+        if ( *s == 'c' ||  *s == 'C' ) {
+            ++s;
+
+            if ( *s == '1' ) {
+                ++s;
+
+                if ( *s == '4' ) { // "cc14"
+                    ve = CC_VE_ClassicalChess_14;
+                    len = 4;
+                }
+            } else if ( *s == '2' ) {
+                ++s;
+
+                if ( *s == '0' ) { // "cc20"
+                    ve = CC_VE_ClassicalChess_20;
+                    len = 4;
+                } else if ( *s == '6' ) { // "cc26"
+                    ve = CC_VE_ClassicalChess_26;
+                    len = 4;
+                }
+            } else { // "cc"
+                ve = CC_VE_ClassicalChess;
+                len = 2;
+            }
+        } else if ( *s == 't' ||  *s == 'T' ) {
+            ++s;
+
+            if ( *s == '1' ) {
+                ++s;
+
+                if ( *s == '4' ) { // "ct14"
+                    ve = CC_VE_CroatianTies_14;
+                    len = 4;
+                }
+            } else if ( *s == '2' ) {
+                ++s;
+
+                if ( *s == '0' ) { // "ct20"
+                    ve = CC_VE_CroatianTies_20;
+                    len = 4;
+                } else if ( *s == '6' ) { // "ct26"
+                    ve = CC_VE_CroatianTies_26;
+                    len = 4;
+                }
+            } else { // "ct"
+                ve = CC_VE_CroatianTies;
+                len = 2;
+            }
         } else if ( *s == 'o' ||  *s == 'O' ) {
             ++s;
 
@@ -124,7 +166,7 @@ size_t cc_variant_from_symbol( char const * str,
         }
     }
 
-    if ( ve >= 0 ) {
+    if ( CC_VARIANT_IS_VALID( ve ) ) {
         if ( isalnum( *++s ) )
             return CC_LEN_VARIANT_SYMBOL_INVALID;
 

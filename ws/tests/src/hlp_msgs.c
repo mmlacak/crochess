@@ -182,17 +182,23 @@ void print_help_version( void ) {
 }
 
 void print_help_new_code( void ) {
-    printf( "cc  -> Classical Chess\n"
-            "ct  -> Croatian Ties\n"
-            "ma  -> Mayan Ascendancy\n"
-            "aoa -> Age Of Aquarius\n"
-            "mv  -> Miranda's Veil\n"
-            "n   -> Nineteen\n"
-            "hd  -> Hemera's Dawn\n"
-            "tr  -> Tamoanchan Revisited\n"
-            "cot -> Conquest Of Tlalocan\n"
-            "d   -> Discovery\n"
-            "o   -> One\n" );
+    printf( "cc   -> Classical Chess\n"
+            "ct   -> Croatian Ties\n"
+            "ma   -> Mayan Ascendancy\n"
+            "aoa  -> Age Of Aquarius\n"
+            "mv   -> Miranda's Veil\n"
+            "n    -> Nineteen\n"
+            "hd   -> Hemera's Dawn\n"
+            "tr   -> Tamoanchan Revisited\n"
+            "cot  -> Conquest Of Tlalocan\n"
+            "d    -> Discovery\n"
+            "o    -> One\n"
+            "cc14 -> Classical Chess 14\n"
+            "cc20 -> Classical Chess 20\n"
+            "cc26 -> Classical Chess 26\n"
+            "ct14 -> Croatian Ties 14\n"
+            "ct20 -> Croatian Ties 20\n"
+            "ct26 -> Croatian Ties 26\n" );
 }
 
 void print_help_new( void ) {
