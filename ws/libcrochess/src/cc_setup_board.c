@@ -449,22 +449,21 @@ CcPieceTagType const * cc_setup_board_get( CcVariantType ve ) {
 }
 
 
-// TODO :: RETURN :: maybe bool
-bool cc_setup_board_has_piece( CcVariantType ve, CcPieceTagType pe ) {
+CcMaybeBoolEnum cc_setup_board_has_piece( CcVariantType ve, CcPieceTagType pe ) {
     CcPieceTagType const * su = cc_setup_board_get( ve );
-    if ( !su ) return false;
+    if ( !su ) return CC_MBE_Void;
 
     size_t size = cc_variant_board_size( ve );
-    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return false;
+    if ( !CC_IS_BOARD_SIZE_VALID( size ) ) return CC_MBE_Void;
 
     for ( int i = 0; i < (int)size; ++i ) {
         for ( int j = 0; j < (int)size; ++j ) {
             int z = size * i + j;
 
             if ( su[ z ] == pe )
-                return true;
+                return CC_MBE_True;
         }
     }
 
-    return false;
+    return CC_MBE_False;
 }

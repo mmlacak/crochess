@@ -51,7 +51,7 @@ extern CcPieceTagType const CC_SETUP_BOARD_CROATIAN_TIES_26[ CC_VARIANT_BOARD_SI
 
 CcPieceTagType const * cc_setup_board_get( CcVariantType ve );
 
-bool cc_setup_board_has_piece( CcVariantType ve, CcPieceTagType pe );
+CcMaybeBoolEnum cc_setup_board_has_piece( CcVariantType ve, CcPieceTagType pe );
 
 
 #endif /* __CC_SETUP_BOARD_H__ */
