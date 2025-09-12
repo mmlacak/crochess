@@ -373,26 +373,34 @@ For instance, this path in a path-tree::
       | next        | next         | next          | next
       V             V              V               V
     +----+        +----+         +----+          +----+
-    | an |        | bn |         | cn |          | dn |
+    | ai |        | bj |         | ck |          | dl |
     +----+        +----+         +----+          +----+
 
 gives a complete ply with steps ordered like so::
 
     +----+  next   +----+  next        next   +----+  next
-    | a0 | ------> | a1 | ------> ... ------> | an | ------> ...
+    | a0 | ------> | a1 | ------> ... ------> | ai | ------> ...
     +----+         +----+                     +----+
 
          next   +----+  next   +----+  next        next   +----+  next
-    ... ------> | b0 | ------> | b1 | ------> ... ------> | bn | ------> ...
+    ... ------> | b0 | ------> | b1 | ------> ... ------> | bj | ------> ...
                 +----+         +----+                     +----+
 
          next   +----+  next   +----+  next        next   +----+  next
-    ... ------> | c0 | ------> | c1 | ------> ... ------> | cn | ------> ...
+    ... ------> | c0 | ------> | c1 | ------> ... ------> | ck | ------> ...
                 +----+         +----+                     +----+
 
          next   +----+  next   +----+  next        next   +----+
-    ... ------> | d0 | ------> | d1 | ------> ... ------> | dn |
+    ... ------> | d0 | ------> | d1 | ------> ... ------> | dl |
                 +----+         +----+                     +----+
 
 First step in a complete ply is initial position of a piece; second step might
 be repositioning.
+
+When stitching nodes into one complete path, side-effect of a current node in sequence
+replaces side-effect of a last step in a previous node; i.e. :c:member:`CcPathLink.side_effect`
+of a current node replaces side-effect in last step found in :c:member:`CcPathLink.steps`
+of the previous node (i.e. the one accessed via :c:member:`CcPathLink.back__w.steps`).
+
+This is always done, regardless if next node has been linked via :c:member:`CcPathLink.fork`,
+:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, or :c:member:`CcPathLink.sub`.
