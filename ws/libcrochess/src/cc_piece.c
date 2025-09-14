@@ -584,12 +584,9 @@ bool cc_piece_is_one_step( CcPieceTagType piece, CcPieceTagType activator ) {
 }
 
 bool cc_piece_is_two_step( CcPieceTagType piece, CcPieceTagType activator ) {
-    if ( CC_PIECE_IS_WAVE( piece ) ) {
-        return CC_WAVE_IS_TWO_STEP( activator );
-    } else {
-        return CC_PIECE_IS_TWO_STEP( piece ) ||
-               CC_PIECE_IS_SINGLE_STEP_ALTERNATING( piece );
-    }
+    CcPieceTagType ptt = CC_PIECE_IS_WAVE( piece ) ? activator : piece;
+    return CC_PIECE_IS_TWO_STEP( ptt ) ||
+           CC_PIECE_IS_SINGLE_STEP_ALTERNATING( ptt );
 }
 
 bool cc_piece_is_many_steps( CcPieceTagType piece ) {
