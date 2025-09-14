@@ -321,13 +321,13 @@ bool cc_iter_piece_steps( CcPieceTagType piece,
                           CcStepTypeEnum filter__d,
                           CcTypedStep const ** step__iod );
 
-bool cc_fetch_piece_step( CcPieceTagType piece,
-                          CcPos pos,
-                          CcPieceTagType activator,
-                          cc_uint_t board_size,
-                          CcTypedStepLink * steps,
-                          size_t step_index,
-                          CcTypedStep * step__o );
+// TODO :: DOCS
+CcTypedStep cc_fetch_piece_step( CcPieceTagType piece,
+                                 CcPos pos,
+                                 CcPieceTagType activator,
+                                 cc_uint_t board_size,
+                                 CcTypedStep step_1,
+                                 CcTypedStep step_2 );
 
 
 #endif /* __CC_TYPED_STEP_DEFS_H__ */

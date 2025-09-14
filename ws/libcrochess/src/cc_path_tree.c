@@ -222,7 +222,8 @@ bool cc_path_segment_one_step__new( CcSideEffect side_effect,
 
 bool cc_path_segment__new( CcSideEffect side_effect,
                            CcPosDesc moving_from,
-                           CcTypedStepLink * steps,
+                           CcTypedStep step_1,
+                           CcTypedStep step_2,
                            CcPathContext * path_ctx__io,
                            CcPathLink ** path_link__o_a,
                            CcPathSideEffectLink ** side_effect_link__o_a ) {
@@ -245,7 +246,6 @@ bool cc_path_segment__new( CcSideEffect side_effect,
 
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return false;
-    if ( !cc_typed_step_link_are_all_valid( steps ) ) return false;
     if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
     if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 
@@ -259,12 +259,11 @@ bool cc_path_segment__new( CcSideEffect side_effect,
     CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
     CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
-    size_t step_index = 0;
 
     #define STEP_COUNT 1
 
     do {
-        if ( !cc_fetch_piece_step( moving_from.piece, pos, ad.activator, board_size, steps, step_index, &step ) ) { // TODO :: Serpent
+        if ( !CC_TYPED_STEP_IS_VALID( step = cc_fetch_piece_step( moving_from.piece, pos, ad.activator, board_size, step_1, step_2 ) ) ) {
             cc_step_free_all( &steps__t );
             // cc_path_side_effect_link_free_all( &sel__t ); // Not needed, first time side-effect is allocated, the loop is exited at [1].
             return false;
@@ -300,7 +299,6 @@ bool cc_path_segment__new( CcSideEffect side_effect,
             break;
 
         act_desc = ad;
-        ++step_index;
     } while ( cc_activation_desc_is_usable( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) );
 
     CcPathLink * pl__t = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
