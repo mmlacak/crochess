@@ -195,14 +195,14 @@ bool tests_skip_disambiguation( int test_number ) {
 bool tests_next_ply_link( int test_number ) {
     bool do_all_tests = ( test_number == TEST_ALL_MOVES );
 
-    char const * ans[] = { "b0",
-                           "Rb0",
-                           "Rb0~Wa1",
-                           "Rb0~Wa1~Ra7",
-                           "Rb0~Wa1~Ra7|Rz24",
-                           "Hb0~Ha1\"Bx7",
-                           "Hb0~Ha1@Bx7",
-                           "Hb0~Ha1@@Bx7,Pa23,Rp17,Cd3",
+    char const * ans[] = { "b1",
+                           "Rb1",
+                           "Rb1~Wa2",
+                           "Rb1~Wa2~Ra7",
+                           "Rb1~Wa2~Ra7|Rz24",
+                           "Hb1~Ha2\"Bx7",
+                           "Hb1~Ha2@Bx7",
+                           "Hb1~Ha2@@Bx7,Pa23,Rp17,Cd3",
                            "",
                            NULL };
 
