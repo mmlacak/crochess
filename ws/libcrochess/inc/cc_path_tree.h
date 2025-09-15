@@ -25,12 +25,12 @@ bool cc_path_side_effect( CcPosDesc moving_from,
                           CcPathSideEffectLink ** side_effect_link__o_a );
 
 // TODO :: DELETE
-bool cc_path_segment_one_step__new( CcSideEffect side_effect,
-                                    CcPosDesc moving_from,
-                                    CcTypedStep step,
-                                    CcPathContext * path_ctx__io,
-                                    CcPathLink ** path_link__o_a,
-                                    CcPathSideEffectLink ** side_effect_link__o_a );
+// bool cc_path_segment_one_step__new( CcSideEffect side_effect,
+//                                     CcPosDesc moving_from,
+//                                     CcTypedStep step,
+//                                     CcPathContext * path_ctx__io,
+//                                     CcPathLink ** path_link__o_a,
+//                                     CcPathSideEffectLink ** side_effect_link__o_a );
 // TODO :: DELETE
 
 bool cc_path_segment__new( CcSideEffect side_effect,
