@@ -61,10 +61,11 @@ bool test_path( CcSideEffect side_effect,
 
     bool result = true;
     CcPathLink * pl__a = NULL;
-    CcPathSideEffectLink * sel__a = NULL;
+    // CcPathSideEffectLink * sel__a = NULL;
 
-    if ( !cc_path_segment__new( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a, &sel__a ) ) {
-        cc_path_side_effect_link_free_all( &sel__a );
+    // if ( !cc_path_segment__new( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a, &sel__a ) ) {
+    if ( !cc_path_segment__new( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a ) ) {
+        // cc_path_side_effect_link_free_all( &sel__a );
         cc_path_link_free_all( &pl__a );
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
@@ -84,17 +85,17 @@ bool test_path( CcSideEffect side_effect,
         }
     }
 
-    if ( sel__a ) {
-        char * sel_str__a = cc_path_side_effect_link_to_string__new( sel__a );
-        printf( "Side-effects: %s.\n", sel_str__a );
-        CC_FREE( sel_str__a );
-    } else {
-        printf( "Side-effects: none.\n" );
-    }
+    // if ( sel__a ) {
+    //     char * sel_str__a = cc_path_side_effect_link_to_string__new( sel__a );
+    //     printf( "Side-effects: %s.\n", sel_str__a );
+    //     CC_FREE( sel_str__a );
+    // } else {
+    //     printf( "Side-effects: none.\n" );
+    // }
 
     printf( "-----------------------------------------------------------------------\n" );
 
-    cc_path_side_effect_link_free_all( &sel__a );
+    // cc_path_side_effect_link_free_all( &sel__a );
     cc_path_link_free_all( &pl__a );
     cc_path_context_free_all( &path_ctx__a );
     cc_game_free_all( &game__a );

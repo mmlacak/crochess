@@ -11,7 +11,7 @@
 
 // TODO :: DELETE
 //
-// CcMaybeBoolEnum cc_path_side_effect( CcChessboard * cb,
+// CcMaybeBoolEnum cc_path_side_effects( CcChessboard * cb,
 //                                      CcPosDesc moving,
 //                                      CcPosDesc encounter,
 //                                      CcSideEffect * side_effect__io ) {

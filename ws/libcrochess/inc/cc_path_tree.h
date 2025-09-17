@@ -18,19 +18,38 @@
 
 // todo :: DOCS
 
-bool cc_path_side_effect( CcPosDesc moving_from,
-                          CcTypedStep last_step,
-                          CcPosDesc encounter,
-                          CcPathContext * path_ctx__io,
-                          CcPathSideEffectLink ** side_effect_link__o_a );
+// TODO :: TEST :: DELETE ???
+//
+// bool cc_path_side_effects( CcPosDesc moving_from,
+//                            CcTypedStep last_step,
+//                            CcPosDesc encounter,
+//                            CcPathContext * path_ctx__io,
+//                            CcPathSideEffectLink ** side_effect_link__o_a );
+
+// bool cc_path_segment__new( CcSideEffect side_effect,
+//                            CcPosDesc moving_from,
+//                            CcTypedStep step_1,
+//                            CcTypedStep step_2,
+//                            CcPathContext * path_ctx__io,
+//                            CcPathLink ** path_link__o_a,
+//                            CcPathSideEffectLink ** side_effect_link__o_a );
+//
+// TODO :: TEST :: DELETE ???
+
+
+bool cc_path_side_effects( CcPosDesc moving_from,
+                           CcTypedStep step_1,
+                           CcTypedStep step_2,
+                           CcPosDesc encounter,
+                           CcPathContext * path_ctx__io,
+                           CcPathLink ** path_link__o_a );
 
 bool cc_path_segment__new( CcSideEffect side_effect,
                            CcPosDesc moving_from,
                            CcTypedStep step_1,
                            CcTypedStep step_2,
                            CcPathContext * path_ctx__io,
-                           CcPathLink ** path_link__o_a,
-                           CcPathSideEffectLink ** side_effect_link__o_a );
+                           CcPathLink ** path_link__o_a );
 
 bool cc_path_tree( CcSideEffect side_effect,
                    CcPosDesc moving,
