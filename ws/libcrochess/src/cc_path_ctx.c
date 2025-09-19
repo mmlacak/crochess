@@ -68,10 +68,12 @@ bool cc_path_context_is_legal( CcPathContext * path_ctx,
     if ( !path_ctx->game__w->chessboard ) return false;
     if ( !path_ctx->cb_current ) return false;
 
-    if ( path_ctx->cb_current->type != path_ctx->game__w->chessboard->type )
-        return false;
+    if ( path_ctx->cb_current->type != path_ctx->game__w->chessboard->type ) return false;
+    if ( !CC_VARIANT_IS_VALID( path_ctx->game__w->chessboard->type ) ) return false;
 
     cc_uint_t board_size = cc_chessboard_get_size( path_ctx->game__w->chessboard );
+    // if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false; // Not really needed, fetched from variant type.
+
     bool has_moves_played = (bool)(path_ctx->game__w->moves);
 
     if ( do_check_move_ctx ) {

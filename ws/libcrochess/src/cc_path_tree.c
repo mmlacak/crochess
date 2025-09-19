@@ -339,25 +339,16 @@ bool cc_path_segment( CcSideEffect side_effect,
                       CcTypedStep step_2,
                       CcPathContext * path_ctx__io,
                       CcPathLink ** path_link__o_a ) {
-    if ( !path_ctx__io ) return false;
-    if ( !path_ctx__io->game__w ) return false;
-    if ( !path_ctx__io->game__w->chessboard ) return false;
-    if ( !path_ctx__io->cb_current ) return false;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
 
     if ( !path_link__o_a ) return false;
     if ( *path_link__o_a ) return false;
 
-    if ( path_ctx__io->game__w->chessboard->type != path_ctx__io->cb_current->type ) return false;
-    if ( !CC_VARIANT_IS_VALID( path_ctx__io->cb_current->type ) ) return false;
-
-    cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
-    if ( !CC_IS_BOARD_SIZE_VALID( board_size ) ) return false;
-
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return false;
-    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
     if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 
+    cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
     CcPos pos = moving_from.pos;
     CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
     if ( !steps__t ) return false;
