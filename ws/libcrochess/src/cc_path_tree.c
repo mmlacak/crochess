@@ -245,9 +245,10 @@ bool cc_path_side_effects( CcPosDesc moving_from,
                            CcPosDesc encounter,
                            CcPathContext * path_ctx__io,
                            CcPathLink ** path_link__io_a ) {
-    if ( !path_ctx__io ) return false;
     if ( !path_link__io_a ) return false;
     if ( !*path_link__io_a ) return false;
+
+    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
 
     CcChessboard * cb = path_ctx__io->cb_current;
     if ( !cb ) return false;
@@ -339,12 +340,12 @@ bool cc_path_segment( CcSideEffect side_effect,
                       CcTypedStep step_2,
                       CcPathContext * path_ctx__io,
                       CcPathLink ** path_link__o_a ) {
-    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
-
     if ( !path_link__o_a ) return false;
     if ( *path_link__o_a ) return false;
 
     if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
+    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
+
     if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_activation_desc_is_valid( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 
