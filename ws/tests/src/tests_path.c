@@ -63,8 +63,8 @@ bool test_path( CcSideEffect side_effect,
     CcPathLink * pl__a = NULL;
     // CcPathSideEffectLink * sel__a = NULL;
 
-    // if ( !cc_path_segment__new( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a, &sel__a ) ) {
-    if ( !cc_path_segment__new( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a ) ) {
+    // if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a, &sel__a ) ) {
+    if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a ) ) {
         // cc_path_side_effect_link_free_all( &sel__a );
         cc_path_link_free_all( &pl__a );
         cc_path_context_free_all( &path_ctx__a );

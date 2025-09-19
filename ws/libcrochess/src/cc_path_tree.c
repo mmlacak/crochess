@@ -128,13 +128,13 @@
 //     return true;
 // }
 
-// bool cc_path_segment__new( CcSideEffect side_effect,
-//                            CcPosDesc moving_from,
-//                            CcTypedStep step_1,
-//                            CcTypedStep step_2,
-//                            CcPathContext * path_ctx__io,
-//                            CcPathLink ** path_link__o_a,
-//                            CcPathSideEffectLink ** side_effect_link__o_a ) {
+// bool cc_path_segment( CcSideEffect side_effect,
+//                       CcPosDesc moving_from,
+//                       CcTypedStep step_1,
+//                       CcTypedStep step_2,
+//                       CcPathContext * path_ctx__io,
+//                       CcPathLink ** path_link__o_a,
+//                       CcPathSideEffectLink ** side_effect_link__o_a ) {
 //     if ( !path_ctx__io ) return false;
 //     if ( !path_ctx__io->game__w ) return false;
 //     if ( !path_ctx__io->game__w->chessboard ) return false;
@@ -333,12 +333,12 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     return true;
 }
 
-bool cc_path_segment__new( CcSideEffect side_effect,
-                           CcPosDesc moving_from,
-                           CcTypedStep step_1,
-                           CcTypedStep step_2,
-                           CcPathContext * path_ctx__io,
-                           CcPathLink ** path_link__o_a ) {
+bool cc_path_segment( CcSideEffect side_effect,
+                      CcPosDesc moving_from,
+                      CcTypedStep step_1,
+                      CcTypedStep step_2,
+                      CcPathContext * path_ctx__io,
+                      CcPathLink ** path_link__o_a ) {
     if ( !path_ctx__io ) return false;
     if ( !path_ctx__io->game__w ) return false;
     if ( !path_ctx__io->game__w->chessboard ) return false;
