@@ -249,6 +249,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     if ( !*path_link__io_a ) return false;
 
     if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
+    if ( cc_path_link_node_is_leaf( *path_link__io_a ) != CC_MBE_True ) return false;
 
     CcChessboard * cb = path_ctx__io->cb_current;
     if ( !cb ) return false;
@@ -264,12 +265,39 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
+    CcPathLink * pl = cc_path_link_duplicate_all__new( *path_link__io_a );
+    if ( !pl ) return false;
+
+    CcMaybeBoolEnum is_last_side_effect_none = cc_path_link_node_last_step_side_effect_is_none( *path_link__io_a );
+
     //
     // Terminal side-effects.
 
     if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
         CcSideEffect se = cc_side_effect_capture( encounter.piece );
 
+        // TODO :: FIX :: should always append new step
+        // TODO :: RETHINK :: maybe not checking if last step is none, e.g. Shaman capturing ...
+        if ( is_last_side_effect_none == CC_MBE_True ) {
+            CcSideEffect * se__w = cc_path_link_node_last_step_side_effect( *path_link__io_a );
+            if ( !se__w ) {
+                cc_path_link_free_all( &pl );
+                return false;
+            }
+
+            *se__w = se;
+        } else if ( is_last_side_effect_none == CC_MBE_False ) {
+            CcStep * step__w = cc_step_append( &( pl->steps ), CC_SLTE_Next, encounter.pos, se );
+            if ( !step__w ) {
+                cc_path_link_free_all( &pl );
+                return false;
+            }
+        } else { // CC_MBE_Void --> error
+            cc_path_link_free_all( &pl );
+            return false;
+        }
+
+        is_last_side_effect_none = CC_MBE_False;
     }
 
     // TODO :: other terminating side-effects
