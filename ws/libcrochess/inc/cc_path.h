@@ -61,7 +61,10 @@ CcPathLink * cc_path_link_add_subs( CcPathLink ** pl_step__a,
                                     CcPathLink ** pl_sub__n );
 
 // TODO :: DOCS
-CcSideEffect * cc_path_link_node_last_side_effect( CcPathLink * pl );
+CcSideEffect * cc_path_link_node_last_step_side_effect( CcPathLink * pl );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_path_link_node_last_step_side_effect_is_none( CcPathLink * pl );
 
 // TODO :: DOCS
 CcMaybeBoolEnum cc_path_link_node_is_leaf( CcPathLink * pl );
