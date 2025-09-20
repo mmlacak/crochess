@@ -257,7 +257,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     CcMultiStagePlyTypeEnum ms = path_ctx__io->move_ctx.multi_stage;
 
     if ( !CC_PIECE_IS_VALID( moving_from.piece ) ) return false;
-    if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false;
+    if ( !CC_PIECE_IS_ENUMERATOR( encounter.piece ) ) return false; // Encountered piece == none, if en passant, for example.
 
     if ( !cc_activation_desc_is_valid( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 

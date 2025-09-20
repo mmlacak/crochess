@@ -208,6 +208,26 @@ CcPathLink * cc_path_link_add_subs( CcPathLink ** pl_step__a,
     return pl__w;
 }
 
+CcSideEffect * cc_path_link_node_last_side_effect( CcPathLink * pl ) {
+    if ( !pl ) return NULL;
+    if ( !pl->steps ) return NULL;
+
+    CcStep * s = pl->steps;
+
+    CC_FASTFORWARD( s );
+
+    return &( s->side_effect );
+}
+
+CcMaybeBoolEnum cc_path_link_node_is_leaf( CcPathLink * pl ) {
+    if ( !pl ) return CC_MBE_Void;
+
+    if ( pl->fork || pl->alt || pl->sub || pl->next ) return CC_MBE_False;
+
+    return CC_MBE_True;
+}
+
+
 static bool _cc_path_link_steps_are_valid( CcStep * steps ) {
     if ( !steps ) return false;
 
