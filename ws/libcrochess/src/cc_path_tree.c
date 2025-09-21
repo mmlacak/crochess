@@ -247,6 +247,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
                            CcPathLink ** path_link__io_a ) {
     if ( !path_link__io_a ) return false;
     if ( !*path_link__io_a ) return false;
+    if ( !( (*path_link__io_a)->steps ) ) return false;
 
     if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
     if ( cc_path_link_node_is_leaf( *path_link__io_a ) != CC_MBE_True ) return false;
@@ -265,39 +266,17 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, moving_from.pos.i, moving_from.pos.j ) ) return false;
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
-    CcPathLink * pl = cc_path_link_duplicate_all__new( *path_link__io_a );
-    if ( !pl ) return false;
-
-    CcMaybeBoolEnum is_last_side_effect_none = cc_path_link_node_last_step_side_effect_is_none( *path_link__io_a );
+    CcStep * steps__t = NULL;
 
     //
     // Terminal side-effects.
 
     if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
-        CcSideEffect se = cc_side_effect_capture( encounter.piece );
-
-        // TODO :: FIX :: should always append new step
-        // TODO :: RETHINK :: maybe not checking if last step is none, e.g. Shaman capturing ...
-        if ( is_last_side_effect_none == CC_MBE_True ) {
-            CcSideEffect * se__w = cc_path_link_node_last_step_side_effect( *path_link__io_a );
-            if ( !se__w ) {
-                cc_path_link_free_all( &pl );
-                return false;
-            }
-
-            *se__w = se;
-        } else if ( is_last_side_effect_none == CC_MBE_False ) {
-            CcStep * step__w = cc_step_append( &( pl->steps ), CC_SLTE_Next, encounter.pos, se );
-            if ( !step__w ) {
-                cc_path_link_free_all( &pl );
-                return false;
-            }
-        } else { // CC_MBE_Void --> error
-            cc_path_link_free_all( &pl );
+        CcStep * step__w = cc_step_capture_append( &steps__t, CC_SLTE_Next, encounter.pos, encounter.piece );
+        if ( !step__w ) {
+            cc_step_free_all( &steps__t );
             return false;
         }
-
-        is_last_side_effect_none = CC_MBE_False;
     }
 
     // TODO :: other terminating side-effects
@@ -358,6 +337,13 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     // TODO :: other non-terminating side-effects
 
 
+    if ( steps__t ) {
+        CcStep * step__w = cc_step_extend( &( (*path_link__io_a)->steps ), &steps__t );
+        if ( !step__w ) {
+            cc_step_free_all( &steps__t );
+            return false;
+        }
+    }
 
     return true;
 }
@@ -418,24 +404,15 @@ bool cc_path_segment( CcSideEffect side_effect,
                     cc_step_free_all( &steps__t );
                     return false;
                 }
-            } else {
-                CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
-
-                if ( !cc_path_side_effects( moving_from, step_1, step_2, encounter_pd, path_ctx__io, &pl__t ) ) {
-                    cc_path_link_free_all( &pl__t );
-                    cc_step_free_all( &steps__t );
-                    return false;
-                }
-
-                break; // [1]
-            }
+            } else
+                break;
         } else
             break;
 
         act_desc = ad;
     } while ( cc_activation_desc_is_usable( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) );
 
-    pl__t->steps = steps__t; // Ownership transfer.
+    pl__t->steps = steps__t; // Ownership transfer, do not free( steps__t ).
     // steps__t = NULL; // Not needed, not used anymore.
 
     pl__t->encounter = encounter;
@@ -443,8 +420,15 @@ bool cc_path_segment( CcSideEffect side_effect,
 
     path_ctx__io->ply_ctx.act_desc = act_desc;
 
-    // if ( !CC_PIECE_IS_NONE( encounter ) )
-    //     break; // TODO :: side-effect --> fork | alt | sub
+    if ( !CC_PIECE_IS_NONE( encounter ) ) {
+        CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
+
+        if ( !cc_path_side_effects( moving_from, step_1, step_2, encounter_pd, path_ctx__io, &pl__t ) ) {
+            cc_path_link_free_all( &pl__t );
+            // cc_step_free_all( &steps__t ); // Not needed, ownership already transferred.
+            return false;
+        }
+    }
 
     *path_link__o_a = pl__t; // Ownership transfer, do not free( pl__t ).
 
