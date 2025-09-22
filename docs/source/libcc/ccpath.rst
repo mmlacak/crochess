@@ -255,6 +255,52 @@ Linked path segments
     :returns: Weak pointer to substitute path if successful,
         :c:data:`NULL` otherwise.
 
+.. c:function:: CcSideEffect * cc_path_link_node_last_step_side_effect( CcPathLink * pl_node )
+
+    Function returns weak pointer to side-effect of a last step in a given path link node.
+
+    .. note::
+
+        Path link node is not traversed, i.e. none of :c:member:`CcPathLink.fork`,
+        :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.sub`, or
+        :c:member:`CcPathLink.next` links are followed.
+
+    :param pl_node: A path link node.
+    :returns: Weak pointer to side-effect if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: CcMaybeBoolEnum cc_path_link_node_last_step_side_effect_is_none( CcPathLink * pl_node )
+
+    Function checks if side-effect type of a last step in a given path link node is
+    :c:enumerator:`CC_SETE_None`.
+
+    .. note::
+
+        Path link node is not traversed, i.e. none of :c:member:`CcPathLink.fork`,
+        :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.sub`, or
+        :c:member:`CcPathLink.next` links are followed.
+
+    :param pl_node: A path link node.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if side-effect is none,
+        * :c:enumerator:`CC_MBE_False` if side-effect is not none
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
+.. c:function:: CcMaybeBoolEnum cc_path_link_node_is_leaf( CcPathLink * pl_node )
+
+    Function checks if a given path link node is a leaf node.
+
+    Leaf node is one without any of :c:member:`fork`, :c:member:`alt`,
+    :c:member:`sub`, or :c:member:`next` valid (non-:c:data:`NULL`) links.
+
+    :param pl_node: A path link node.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if given path link node is leaf,
+        * :c:enumerator:`CC_MBE_False` if given path link node is not a leaf,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
 .. c:function:: bool cc_path_link_is_valid( CcPathLink * path_link )
 
     Checks if given path segment is valid; by checking if all positions are valid
