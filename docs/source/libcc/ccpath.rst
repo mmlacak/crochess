@@ -291,8 +291,9 @@ Linked path segments
 
     Function checks if a given path link node is a leaf node.
 
-    Leaf node is one without any of :c:member:`fork`, :c:member:`alt`,
-    :c:member:`sub`, or :c:member:`next` valid (non-:c:data:`NULL`) links.
+    Leaf node is one without any of  :c:member:`CcPathLink.fork`,
+    :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.sub`, or
+    :c:member:`CcPathLink.next` valid (non-:c:data:`NULL`) links.
 
     :param pl_node: A path link node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
