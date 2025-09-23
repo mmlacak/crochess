@@ -47,6 +47,9 @@ CcPathContext * cc_path_context_duplicate_all__new( CcPathContext * from ) {
     if ( !px__a ) return NULL;
 
     if ( from->cb_current ) {
+        if ( px__a->cb_current ) // By default, game->chessboard is copied here.
+            cc_chessboard_free_all( &( px__a->cb_current ) );
+
         px__a->cb_current = cc_chessboard_duplicate__new( from->cb_current );
         if ( !px__a->cb_current ) {
             cc_path_context_free_all( &px__a );
