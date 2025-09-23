@@ -118,6 +118,7 @@ bool cc_check_piece_can_capture( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
     if ( !CC_PIECE_CAN_CAPTURE( moving ) ) return false; // This weeds out invalid pieces, and those without owner.
     if ( !CC_PIECE_CAN_BE_CAPTURED( encounter ) ) return false; // Also weeds out invalid pieces, and those without owner.
+    // All pieces that can capture also use momentum for movement, capture can be done with no momentum.
     if ( !cc_piece_has_different_owner( moving, encounter ) ) return false;
     return true;
 }

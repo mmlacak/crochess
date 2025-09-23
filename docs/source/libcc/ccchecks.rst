@@ -94,6 +94,9 @@ Piece checks
 
     Function checks if a moving piece can capture encountered piece.
 
+    All pieces that can capture also use momentum for movement.
+    Momentum is not checked because capture can be done with no momentum.
+
     :param moving: A moving piece.
     :param encounter: An encountered piece.
     :returns: :c:data:`true` if encountered piece can be captured, :c:data:`false` otherwise.
@@ -129,6 +132,9 @@ Positional checks
 .. c:function:: bool cc_check_piece_can_capture_at( CcChessboard * cb, CcPieceTagType moving, CcPos pos )
 
     Function checks if a piece can capture at given position.
+
+    All pieces that can capture also use momentum for movement.
+    Momentum is not checked because capture can be done with no momentum.
 
     :param cb: A chessboard.
     :param moving: A moving piece.
