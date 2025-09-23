@@ -114,7 +114,7 @@ bool test_bishop_simple( char const * setup ) {
 }
 
 bool tests_path( int test_number ) {
-    if ( ( test_number < TEST_ALL_MOVES ) || ( 3 < test_number ) ) {
+    if ( ( test_number < TEST_ALL_MOVES ) || ( 5 < test_number ) ) {
         printf( "No such a path test: '%d'.\n", test_number );
         return false;
     }
@@ -130,6 +130,12 @@ bool tests_path( int test_number ) {
 
     if ( ( test_number == 3 ) || do_all_tests )
         result = test_bishop_simple( "O Bd6,ng3" ) && result;
+
+    if ( ( test_number == 4 ) || do_all_tests )
+        result = test_bishop_simple( "O Bd6,Wg3" ) && result;
+
+    if ( ( test_number == 5 ) || do_all_tests )
+        result = test_bishop_simple( "O Bd6,wg3" ) && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;

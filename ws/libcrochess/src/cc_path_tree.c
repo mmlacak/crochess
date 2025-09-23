@@ -267,6 +267,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
     CcStep * steps__t = NULL;
+    CcPathLink * pl_next__t = NULL;
 
     //
     // Terminal side-effects.
@@ -286,7 +287,12 @@ bool cc_path_side_effects( CcPosDesc moving_from,
 
     if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
         CcSideEffect se = cc_side_effect_transparency( encounter.piece );
+        CcPosDesc moving_from_transparency = CC_POS_DESC_CAST( encounter.pos, moving_from.piece );
 
+        if ( !cc_path_segment( se, moving_from_transparency, step_1, step_2, path_ctx__io, &pl_next__t ) ) {
+            cc_path_link_free_all( &pl_next__t );
+            return false;
+        }
     }
 
     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
@@ -341,8 +347,15 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         CcStep * step__w = cc_step_extend( &( (*path_link__io_a)->steps ), &steps__t );
         if ( !step__w ) {
             cc_step_free_all( &steps__t );
+            cc_path_link_free_all( &pl_next__t );
             return false;
         }
+    }
+
+    if ( !cc_path_link_extend( path_link__io_a, &pl_next__t ) ) {
+        cc_step_free_all( &steps__t );
+        cc_path_link_free_all( &pl_next__t );
+        return false;
     }
 
     return true;
