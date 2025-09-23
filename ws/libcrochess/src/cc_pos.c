@@ -545,7 +545,8 @@ CcMaybeBoolEnum cc_calc_momentum( CcMomentumUsageEnum usage,
     if ( !momentum__io ) return CC_MBE_Void;
 
     if ( usage == CC_MUE_Accumulating ) {
-        if ( *momentum__io > UINT_MAX - count ) return CC_MBE_False;
+        // if ( *momentum__io > UINT_MAX - count ) return CC_MBE_False;
+        if ( *momentum__io >= CC_MAX_BOARD_SIZE ) return CC_MBE_False; // Lets keep act desc / momentum legal.
         *momentum__io += count;
     } else if ( usage == CC_MUE_Spending ) {
         if ( *momentum__io < CC_UNSIGNED_MIN + count ) return CC_MBE_False;
@@ -571,7 +572,7 @@ char cc_momentum_usage_as_char( CcMomentumUsageEnum usage ) {
 //
 // Activation descriptor.
 
-bool cc_activation_desc_is_valid( CcActivationDesc act_desc,
+bool cc_activation_desc_is_legal( CcActivationDesc act_desc,
                                   CcPieceTagType moving,
                                   bool is_first_ply ) {
     if ( !CC_PIECE_IS_ENUMERATOR( act_desc.activator ) ) return false;
@@ -610,7 +611,7 @@ bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io,
     if ( !act_desc__io ) return false;
     if ( !CC_PIECE_IS_ENUMERATOR( new_activator ) ) return false;
 
-    if ( !cc_activation_desc_is_valid( *act_desc__io, moving, is_first_ply ) ) return false;
+    if ( !cc_activation_desc_is_legal( *act_desc__io, moving, is_first_ply ) ) return false;
 
     if ( CC_PIECE_IS_ACTIVATOR( new_activator ) ) {
         act_desc__io->activator = new_activator;
@@ -623,7 +624,7 @@ bool cc_activation_desc_update_activator( CcActivationDesc * act_desc__io,
 bool cc_activation_desc_is_usable( CcActivationDesc act_desc,
                                    CcPieceTagType moving,
                                    bool is_first_ply ) {
-    if ( !cc_activation_desc_is_valid( act_desc, moving, is_first_ply ) ) return false;
+    if ( !cc_activation_desc_is_legal( act_desc, moving, is_first_ply ) ) return false;
 
     if ( act_desc.usage == CC_MUE_Spending )
         return ( act_desc.momentum > 0 );
