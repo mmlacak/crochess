@@ -184,7 +184,7 @@ bool cc_check_piece_is_blocked_at( CcChessboard * cb,
                                    CcPos pos ) {
     if ( !cb ) return false;
 
-    if ( !cc_activation_desc_is_valid( act_desc, moving, is_first_ply ) ) return false;
+    if ( !cc_activation_desc_is_legal( act_desc, moving, is_first_ply ) ) return false;
 
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
 
@@ -208,7 +208,7 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
     if ( !cb ) return false;
     if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return false;
 
-    if ( !cc_activation_desc_is_valid( act_desc, moving, is_first_ply ) ) return false;
+    if ( !cc_activation_desc_is_legal( act_desc, moving, is_first_ply ) ) return false;
 
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
 

@@ -208,7 +208,7 @@ typedef struct CcActivationDesc {
                                                  ( (ad_1).momentum == (ad_2).momentum ) && \
                                                  ( (ad_1).usage == (ad_2).usage ))
 
-bool cc_activation_desc_is_valid( CcActivationDesc act_desc,
+bool cc_activation_desc_is_legal( CcActivationDesc act_desc,
                                   CcPieceTagType moving,
                                   bool is_first_ply );
 
