@@ -190,7 +190,7 @@ In our :c:struct:`CcPos` example, some macros are:
 
     Rewrite, example are now obsolete.
 
-For instance, in ``cc_pos`` :term:`module` there is :c:`struct CcPathLink;`
+For instance, in ``cc_pos`` :term:`module` there is :c:`struct CcPathNode;`
 linked list defined, which just chains :c:`struct CcPosDesc pd;`.
 
 One of :term:`method`\s linked list has is
@@ -198,7 +198,7 @@ One of :term:`method`\s linked list has is
 .. code-block:: C
     :force:
 
-    CcPathLink * cc_path_link_append( CcPathLink ** pd_link__iod_a,
+    CcPathNode * cc_path_node_append( CcPathNode ** pd_link__iod_a,
                                              CcPosDesc pd );
 
 Note, that ``append()`` :term:`method` depends only on :term:`entity` used to
@@ -212,7 +212,7 @@ This is very different from similarly named function defined in ``cc_pos_utils``
     bool cc_append_pos_to_pos_desc_link( CcChessboard * cb,
                                          CcPos destination,
                                          cc_uint_t momentum,
-                                         CcPathLink ** pdl__iod_a );
+                                         CcPathNode ** pdl__iod_a );
 
 which depends on bunch of other stuff instead of linked list base :term:`entity`.
 

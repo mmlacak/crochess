@@ -138,7 +138,7 @@ CcPos cc_side_effect_destination( CcSideEffect se );
 
 bool cc_side_effect_has_destination( CcSideEffect se );
 
-// TODO :: check side-effect validity --> _cc_path_link_steps_are_valid()
+// TODO :: check side-effect validity --> _cc_path_node_steps_are_valid()
 
 bool cc_side_effect_to_str( CcSideEffect se,
                             cc_char_16 * se_str__o );

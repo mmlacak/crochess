@@ -57,15 +57,15 @@ in which they were visited; on last step one can also encountered a piece, and i
 tag.
 
 There might be a few different interactions possible with encountered piece; the
-one chosen for this path segment is stored in :c:member:`CcPathLink.side_effect`.
+one chosen for this path segment is stored in :c:member:`CcPathNode.side_effect`.
 
-Complete such a path tree is represented by :c:type:`CcPathLink` nodes linked via
-:c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`
-and :c:member:`CcPathLink.sub` members; its :c:member:`CcPathLink.steps` contain
+Complete such a path tree is represented by :c:type:`CcPathNode` nodes linked via
+:c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`
+and :c:member:`CcPathNode.sub` members; its :c:member:`CcPathNode.steps` contain
 a path segment.
 
-Path node side-effect (i.e. :c:member:`CcPathLink.side_effect`) is applied to last
-step in path segment (i.e. :c:member:`CcPathLink.steps`) of a parent node, when
+Path node side-effect (i.e. :c:member:`CcPathNode.side_effect`) is applied to last
+step in path segment (i.e. :c:member:`CcPathNode.steps`) of a parent node, when
 complete path is built from root node down to any leaf.
 
 .. note::
@@ -82,14 +82,14 @@ root node or otherwise, might be repositioning.
 
 .. warning::
 
-    Any :c:type:`CcPathLink` node with its path continued (regardless which
-    :c:member:`CcPathLink.fork`, :c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`,
-    :c:member:`CcPathLink.sub` members are present) **must** also have path segment
-    (i.e. :c:member:`CcPathLink.steps`) defined.
+    Any :c:type:`CcPathNode` node with its path continued (regardless which
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`,
+    :c:member:`CcPathNode.sub` members are present) **must** also have path segment
+    (i.e. :c:member:`CcPathNode.steps`) defined.
 
     .. note::
 
-        Path node without path segment (i.e. if :c:member:`CcPathLink.steps` is
+        Path node without path segment (i.e. if :c:member:`CcPathNode.steps` is
         :c:data:`NULL`) is valid path node, as long as path is not continued.
 
 .. _lbl-libcc-paths-pathsegmenttree-subsequentpaths:
@@ -97,8 +97,8 @@ root node or otherwise, might be repositioning.
 Subsequent paths
 ^^^^^^^^^^^^^^^^
 
-Subsequent paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.next`; all their path segments are to be concatenated to
+Subsequent paths are represented as a list of :c:type:`CcPathNode` nodes connected
+via :c:member:`CcPathNode.next`; all their path segments are to be concatenated to
 their respective predecessor. For instance::
 
     +---+   next    +---+   next   +----+
@@ -116,8 +116,8 @@ piece, opponent's Starchild).
 Alternative paths
 ^^^^^^^^^^^^^^^^^
 
-Alternative paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.alt`; they are alternative to the originating segment.
+Alternative paths are represented as a list of :c:type:`CcPathNode` nodes connected
+via :c:member:`CcPathNode.alt`; they are alternative to the originating segment.
 For instance::
 
     +---+   next    +----+   next    +---+
@@ -165,8 +165,8 @@ but this is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, belo
 .. Auxiliary paths
 .. ^^^^^^^^^^^^^^^
 ..
-.. Auxiliary paths are represented as a list of :c:type:`CcPathLink` nodes connected
-.. via :c:member:`CcPathLink.aux`; they are "in-situ" segments, i.e. each auxiliary
+.. Auxiliary paths are represented as a list of :c:type:`CcPathNode` nodes connected
+.. via :c:member:`CcPathNode.aux`; they are "in-situ" segments, i.e. each auxiliary
 .. path segment is meant to replace just an originating segment, and continue path
 .. with the remainder of a path segments owned by originating path node.
 .. For instance::
@@ -214,12 +214,12 @@ but this is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, belo
 Substitute paths
 ^^^^^^^^^^^^^^^^
 
-Substitute paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.sub`; they only contain side-effect, and can contain link
-to another substitute path (i.e. :c:member:`CcPathLink.sub`), but neither path
-segment, nor any other path continuations (i.e. all of :c:member:`CcPathLink.fork`,
-:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, and
-:c:member:`CcPathLink.steps` are :c:data:`NULL`).
+Substitute paths are represented as a list of :c:type:`CcPathNode` nodes connected
+via :c:member:`CcPathNode.sub`; they only contain side-effect, and can contain link
+to another substitute path (i.e. :c:member:`CcPathNode.sub`), but neither path
+segment, nor any other path continuations (i.e. all of :c:member:`CcPathNode.fork`,
+:c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`, and
+:c:member:`CcPathNode.steps` are :c:data:`NULL`).
 
 To generate complete paths from a tree containing substitute nodes, every side-effect
 from those nodes overrides side-effect of the last step in a starting node.
@@ -276,8 +276,8 @@ displacing Pawns encountered on its path.
 Forking paths
 ^^^^^^^^^^^^^
 
-Forking paths are represented as a list of :c:type:`CcPathLink` nodes connected
-via :c:member:`CcPathLink.fork`; they are "post-node" segments, i.e. each forking
+Forking paths are represented as a list of :c:type:`CcPathNode` nodes connected
+via :c:member:`CcPathNode.fork`; they are "post-node" segments, i.e. each forking
 path segment is meant to be concatenated to the originating segment.
 For instance::
 
@@ -324,10 +324,10 @@ also produces::
     | A |  ------>  | B |  ------>  | D2 |
     +---+           +---+           +----+
 
-Note that :c:member:`CcPathLink.fork` link was used only once, all other
-alternative paths after divergence are linked via :c:member:`CcPathLink.alt`.
+Note that :c:member:`CcPathNode.fork` link was used only once, all other
+alternative paths after divergence are linked via :c:member:`CcPathNode.alt`.
 
-It is possible to have subsequent nodes use :c:member:`CcPathLink.fork` link,
+It is possible to have subsequent nodes use :c:member:`CcPathNode.fork` link,
 if all their path segments end with divergence.
 
 Forking paths are used after divergence; and also to facilitate multiple,
@@ -338,7 +338,7 @@ independent paths from a starting position.
 Complete paths
 ^^^^^^^^^^^^^^
 
-A complete path is built by traversing path tree from its origin :c:type:`CcPathLink`
+A complete path is built by traversing path tree from its origin :c:type:`CcPathNode`
 node down to any terminal node; a legal ply is built by stitching path segments
 from those nodes, in order in which they were visited.
 
@@ -398,9 +398,9 @@ First step in a complete ply is initial position of a piece; second step might
 be repositioning.
 
 When stitching nodes into one complete path, side-effect of a current node in sequence
-replaces side-effect of a last step in a previous node; i.e. :c:member:`CcPathLink.side_effect`
-of a current node replaces side-effect in last step found in :c:member:`CcPathLink.steps`
-of the previous node (i.e. the one accessed via :c:member:`CcPathLink.back__w.steps`).
+replaces side-effect of a last step in a previous node; i.e. :c:member:`CcPathNode.side_effect`
+of a current node replaces side-effect in last step found in :c:member:`CcPathNode.steps`
+of the previous node (i.e. the one accessed via :c:member:`CcPathNode.back__w.steps`).
 
-This is always done, regardless if next node has been linked via :c:member:`CcPathLink.fork`,
-:c:member:`CcPathLink.alt`, :c:member:`CcPathLink.next`, or :c:member:`CcPathLink.sub`.
+This is always done, regardless if next node has been linked via :c:member:`CcPathNode.fork`,
+:c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`, or :c:member:`CcPathNode.sub`.

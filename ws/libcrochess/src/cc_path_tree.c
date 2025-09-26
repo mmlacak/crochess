@@ -133,7 +133,7 @@
 //                       CcTypedStep step_1,
 //                       CcTypedStep step_2,
 //                       CcPathContext * path_ctx__io,
-//                       CcPathLink ** path_link__o_a,
+//                       CcPathNode ** path_link__o_a,
 //                       CcPathSideEffectLink ** side_effect_link__o_a ) {
 //     if ( !path_ctx__io ) return false;
 //     if ( !path_ctx__io->game__w ) return false;
@@ -218,7 +218,7 @@
 //         act_desc = ad;
 //     } while ( cc_activation_desc_is_usable( act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) );
 
-//     CcPathLink * pl__t = cc_path_link__new( side_effect, &steps__t, encounter, act_desc );
+//     CcPathNode * pl__t = cc_path_node__new( side_effect, &steps__t, encounter, act_desc );
 //     if ( !pl__t ) {
 //         cc_step_free_all( &steps__t );
 //         cc_path_side_effect_link_free_all( &sel__t );
@@ -244,13 +244,13 @@ bool cc_path_side_effects( CcPosDesc moving_from,
                            CcTypedStep step_2,
                            CcPosDesc encounter,
                            CcPathContext * path_ctx__io,
-                           CcPathLink ** path_link__io_a ) {
+                           CcPathNode ** path_link__io_a ) {
     if ( !path_link__io_a ) return false;
     if ( !*path_link__io_a ) return false;
     if ( !( (*path_link__io_a)->steps ) ) return false;
 
     if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
-    if ( cc_path_link_node_is_leaf( *path_link__io_a ) != CC_MBE_True ) return false;
+    if ( cc_path_node_is_leaf( *path_link__io_a ) != CC_MBE_True ) return false;
 
     CcChessboard * cb = path_ctx__io->cb_current;
     if ( !cb ) return false;
@@ -272,7 +272,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     CcStep * steps__t = NULL;
     bool is_encounter_step_appended = false;
 
-    CcPathLink * pl_next__t = NULL;
+    CcPathNode * pl_next__t = NULL;
 
     #define STEP_COUNT (1)
 
@@ -319,7 +319,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         }
 
         if ( !cc_path_segment( se, moving_from_transparency, step_1, step_2, path_ctx__a, &pl_next__t ) ) {
-            cc_path_link_free_all( &pl_next__t );
+            cc_path_node_free_all( &pl_next__t );
             return false;
         }
     }
@@ -376,14 +376,14 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         CcStep * step__w = cc_step_extend( &( (*path_link__io_a)->steps ), &steps__t );
         if ( !step__w ) {
             cc_step_free_all( &steps__t );
-            cc_path_link_free_all( &pl_next__t );
+            cc_path_node_free_all( &pl_next__t );
             return false;
         }
     }
 
-    if ( !cc_path_link_extend( path_link__io_a, &pl_next__t ) ) {
+    if ( !cc_path_node_add_fork( path_link__io_a, &pl_next__t ) ) { // TODO :: FIX :: encounter tests 2, 3 fail
         cc_step_free_all( &steps__t );
-        cc_path_link_free_all( &pl_next__t );
+        cc_path_node_free_all( &pl_next__t );
         return false;
     }
 
@@ -399,7 +399,7 @@ bool cc_path_segment( CcSideEffect side_effect,
                       CcTypedStep step_1,
                       CcTypedStep step_2,
                       CcPathContext * path_ctx__io,
-                      CcPathLink ** path_link__o_a ) {
+                      CcPathNode ** path_link__o_a ) {
     if ( !path_link__o_a ) return false;
     if ( *path_link__o_a ) return false;
 
@@ -420,9 +420,9 @@ bool cc_path_segment( CcSideEffect side_effect,
     CcPieceTagType encounter = CC_PTE_None;
     CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
 
-    #define STEP_COUNT 1
+    #define STEP_COUNT (1)
 
-    CcPathLink * pl__t = cc_path_link__new( side_effect, NULL, encounter, act_desc );
+    CcPathNode * pl__t = cc_path_node__new( side_effect, NULL, encounter, act_desc );
     if ( !pl__t ) {
         cc_step_free_all( &steps__t );
         return false;
@@ -430,7 +430,7 @@ bool cc_path_segment( CcSideEffect side_effect,
 
     do {
         if ( !CC_TYPED_STEP_IS_VALID( step = cc_fetch_piece_step( moving_from.piece, pos, ad.activator, board_size, step_1, step_2 ) ) ) {
-            cc_path_link_free_all( &pl__t );
+            cc_path_node_free_all( &pl__t );
             cc_step_free_all( &steps__t );
             return false;
         }
@@ -446,7 +446,7 @@ bool cc_path_segment( CcSideEffect side_effect,
             if ( encounter == CC_PTE_None ) {
                 CcStep * steps__w = cc_step_append_next_no_side_effect( &steps__t, pos );
                 if ( !steps__w ) {
-                    cc_path_link_free_all( &pl__t );
+                    cc_path_node_free_all( &pl__t );
                     cc_step_free_all( &steps__t );
                     return false;
                 }
@@ -470,7 +470,7 @@ bool cc_path_segment( CcSideEffect side_effect,
         CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
 
         if ( !cc_path_side_effects( moving_from, step_1, step_2, encounter_pd, path_ctx__io, &pl__t ) ) {
-            cc_path_link_free_all( &pl__t );
+            cc_path_node_free_all( &pl__t );
             // cc_step_free_all( &steps__t ); // Not needed, ownership already transferred.
             return false;
         }
@@ -484,7 +484,7 @@ bool cc_path_segment( CcSideEffect side_effect,
 bool cc_path_tree( CcSideEffect side_effect,
                    CcPosDesc moving_from,
                    CcPathContext * path_ctx__io,
-                   CcPathLink * pl__io ) {
+                   CcPathNode * pl__io ) {
     if ( !path_ctx__io ) return false;
     if ( !pl__io ) return false;
 
@@ -511,7 +511,7 @@ bool cc_path_tree( CcSideEffect side_effect,
 
 bool cc_path_tree_init__new( CcGame * game,
                              CcPosDesc moving_from,
-                             CcPathLink ** path_link__iod_a,
+                             CcPathNode ** path_link__iod_a,
                              CcPathContext ** path_ctx__iod_a ) {
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
@@ -543,7 +543,7 @@ bool cc_path_tree_init__new( CcGame * game,
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
 
-    *path_link__iod_a = cc_path_link__new( se, NULL, moving_from.piece, ad );
+    *path_link__iod_a = cc_path_node__new( se, NULL, moving_from.piece, ad );
     if ( !*path_link__iod_a ) {
         cc_path_context_free_all( path_ctx__iod_a );
         return false;

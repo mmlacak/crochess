@@ -10,7 +10,7 @@
 
 
 // TODO :: DELETE
-// static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
+// static CcPathNode * _cc_path_segment_one_step__new( CcSideEffect side_effect,
 //                                                     CcPathContext * path_ctx,
 //                                                     CcPosDesc moving,
 //                                                     CcPos current_pos,
@@ -47,7 +47,7 @@
 //
 //     if ( !steps__t ) return NULL;
 //
-//     CcPathLink * pl__a = cc_path_link__new( side_effect, &steps__t, piece, ad );
+//     CcPathNode * pl__a = cc_path_node__new( side_effect, &steps__t, piece, ad );
 //     if ( !pl__a ) {
 //         cc_step_free_all( &steps__t );
 //         return NULL;
@@ -58,7 +58,7 @@
 // TODO :: DELETE
 
 // TODO :: DELETE
-// static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
+// static CcPathNode * _cc_path_one_step__new( CcSideEffect side_effect,
 //                                             CcPathContext * path_ctx,
 //                                             CcPosDesc moving,
 //                                             CcPos current_pos,
@@ -66,17 +66,17 @@
 //                                             CcTypedStep step ) {
 //     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( side_effect.type ) ) {
 //         // Side-effect is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-//         CcPathLink * terminal__a = cc_path_link__new( side_effect, NULL, CC_PTE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
+//         CcPathNode * terminal__a = cc_path_node__new( side_effect, NULL, CC_PTE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
 //         return terminal__a;
 //     } else if ( side_effect.type == CC_SETE_Capture ) {
 //         if ( !CC_PIECE_IS_SHAMAN( moving.piece ) ) {
 //             // Capturing for pieces other than Shaman is terminal, no fields are visited after this point; so path node contains nothing valid, beside side-effect.
-//             CcPathLink * capture__a = cc_path_link__new( side_effect, NULL, CC_PTE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
+//             CcPathNode * capture__a = cc_path_node__new( side_effect, NULL, CC_PTE_None, CC_TE_None, CC_ACTIVATION_DESC_CAST_SPENT );
 //             return capture__a;
 //         }
 //     }
 //
-//     CcPathLink * pl__a = _cc_path_segment_one_step__new( side_effect, path_ctx, moving, current_pos, act_desc, step );
+//     CcPathNode * pl__a = _cc_path_segment_one_step__new( side_effect, path_ctx, moving, current_pos, act_desc, step );
 //     if ( !pl__a ) return NULL;
 //     if ( !pl__a->steps ) return pl__a; // Just a sanity check, should not happen.
 //

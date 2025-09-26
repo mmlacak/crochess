@@ -17,14 +17,14 @@
 #include "cc_path.h"
 
 
-// static CcPathLink * _cc_path_segment_one_step__new( CcSideEffect side_effect,
+// static CcPathNode * _cc_path_segment_one_step__new( CcSideEffect side_effect,
 //                                                     CcPathContext * path_ctx,
 //                                                     CcPosDesc moving,
 //                                                     CcPos current_pos,
 //                                                     CcActivationDesc act_desc,
 //                                                     CcTypedStep step );
 
-// static CcPathLink * _cc_path_one_step__new( CcSideEffect side_effect,
+// static CcPathNode * _cc_path_one_step__new( CcSideEffect side_effect,
 //                                             CcPathContext * path_ctx,
 //                                             CcPosDesc moving,
 //                                             CcPos current_pos,
