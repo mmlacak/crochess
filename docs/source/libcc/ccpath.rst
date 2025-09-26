@@ -34,9 +34,9 @@ Linked path segments
 
     .. warning::
 
-        All :c:member:`fork`, :c:member:`alt`, :c:member:`sub`, and :c:member:`next`
-        members are owners of the remainder of a path tree they are pointing to; and
-        must always be a singular pointer (owner) within a path tree to their
+        All :c:member:`fork`, :c:member:`alt`, and :c:member:`sub` members are
+        owners of the remainder of a path tree they are pointing to; and must
+        always be a singular pointer (owner) within a path tree to their
         respective forking, alternating, substitute, or subsequent path.
 
         Any two pointers pointing to the same node, any back-references within
@@ -120,22 +120,10 @@ Linked path segments
 
             :ref:`lbl-libcc-paths-pathsegmenttree-substitutepaths`
 
-    .. c:member:: struct CcPathNode * next
-
-        Link to subsequent path.
-
-        Subsequent paths are used when interaction does not produce multiple alternative
-        paths (e.g. when Serpent displaces Pawns), or when path segment is continuation of
-        movement in previous segment (e.g. a piece encounters transparent piece).
-
-        .. seealso::
-
-            :ref:`lbl-libcc-paths-pathsegmenttree-subsequentpaths`
-
     .. c:member:: struct CcPathNode * back__w
 
         Weak back-link to parent node, regardless if pointed-to by :c:member:`fork`,
-        :c:member:`alt`, or :c:member:`next`.
+        or :c:member:`alt`.
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathNode` name.
 
@@ -156,45 +144,6 @@ Linked path segments
     :param act_desc: Activation descriptor for a moving piece, momentum it had after all performed steps.
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
-
-.. c:function:: CcPathNode * cc_path_node_append( CcPathNode ** pl__iod_a, CcSideEffect side_effect, CcStep ** steps__d_n, CcPieceTagType encounter, CcActivationDesc act_desc )
-
-    Function appends a newly allocated path link to a given path segment,
-    as its :c:member:`next` member.
-
-    If path segment :c:`*pl__iod_a` is :c:data:`NULL`, it will be initialized
-    with a newly allocated path link as its only element.
-
-    :param pl__iod_a: **Ownership**, *optional* *input/output*; path segment.
-    :param side_effect: A possible side-effect on previously encountered piece.
-    :param steps__d_n: **Ownership transfer**, *optional*; steps performed, a path segment; can be :c:data:`NULL`.
-    :param encounter: Piece (and its tag) encountered at the very last field in the :c:var:`steps__d_n` list.
-    :param act_desc: Activation descriptor for a moving piece, momentum it had after all performed steps.
-    :returns: A weak pointer to a newly allocated linked position
-              if successful, :c:data:`NULL` otherwise.
-    :seealso: :c:func:`cc_path_node__new()`
-
-.. c:function:: CcPathNode * cc_path_node_extend( CcPathNode ** pl__iod_a, CcPathNode ** pl__n )
-
-    Extends existing path segment with another one, as its :c:member:`next`
-    segment.
-
-    If path segment to extend (:c:`pl__iod_a`) hasn't been allocated yet,
-    this will initialize it with content of an extending path segment, i.e.
-    :c:`pl__n`.
-
-    .. note::
-
-        Extending path segment :c:`pl__n` has its ownership transferred to
-        extended path segment :c:`pl__iod_a`; as a result, inner pointer
-        :c:`*pl__n` is :c:data:`NULL`\ed.
-
-    :param pl__iod_a: **Ownership**, *optional* *input/output*; a path segment
-        to extend.
-    :param pl__n: **Ownership transfer**; path segment with which to extend
-        existing segment.
-    :returns: Weak pointer to extended portion of a resulting path segment if
-        successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcPathNode * cc_path_node_add_fork( CcPathNode ** pl_step__a, CcPathNode ** pl_fork__n )
 
@@ -262,8 +211,7 @@ Linked path segments
     .. note::
 
         Path link node is not traversed, i.e. none of :c:member:`CcPathNode.fork`,
-        :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.sub`, or
-        :c:member:`CcPathNode.next` links are followed.
+        :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub` links are followed.
 
     :param pl_node: A path link node.
     :returns: Weak pointer to side-effect if successful,
@@ -277,8 +225,7 @@ Linked path segments
     .. note::
 
         Path link node is not traversed, i.e. none of :c:member:`CcPathNode.fork`,
-        :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.sub`, or
-        :c:member:`CcPathNode.next` links are followed.
+        :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub` links are followed.
 
     :param pl_node: A path link node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
@@ -292,8 +239,8 @@ Linked path segments
     Function checks if a given path link node is a leaf node.
 
     Leaf node is one without any of  :c:member:`CcPathNode.fork`,
-    :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.sub`, or
-    :c:member:`CcPathNode.next` valid (non-:c:data:`NULL`) links.
+    :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub`
+    valid (non-:c:data:`NULL`) links.
 
     :param pl_node: A path link node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
@@ -395,14 +342,12 @@ Node linkage
 
     .. c:enumerator:: CC_PLNLE_Sub
 
-    .. c:enumerator:: CC_PLNLE_Next
-
     :c:`enum` is tagged with the same :c:enum:`CcPathLinkNodeLinkageEnum` name.
 
 .. c:macro:: CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR(plnle)
 
     Macro to check if given variant value is an enumerator, i.e. between
-    :c:enumerator:`CC_PLNLE_NoLinkage` and :c:enumerator:`CC_PLNLE_Next` values.
+    :c:enumerator:`CC_PLNLE_NoLinkage` and :c:enumerator:`CC_PLNLE_Sub` values.
 
     :param plnle: Variant (integer) value.
     :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
@@ -410,7 +355,7 @@ Node linkage
 .. c:macro:: CC_PATH_LINK_NODE_LINKAGE_IS_VALID(plnle)
 
     Macro to check if given variant value is a valid enumerator, i.e. between
-    :c:enumerator:`CC_PLNLE_NoLinkage` and :c:enumerator:`CC_PLNLE_Next` values.
+    :c:enumerator:`CC_PLNLE_NoLinkage` and :c:enumerator:`CC_PLNLE_Sub` values.
 
     This macro is the same as :c:macro:`CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR`, since
     :c:enum:`CcPathLinkNodeLinkageEnum` does not feature *null* (or *void*, or *empty*) value.
@@ -466,10 +411,10 @@ Node linkage
 Linked path backtracking
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-For a given path node, :c:member:`next` members simply concatenate to existing path;
-other members provide list of alternative, or substitute paths, and so has to find
-path node to replace, or alter; this is mostly the first node of a list of alternative,
-substitute paths.
+For a given path node, :c:member:`fork` member concatenate to existing path; other
+members provide list of alternative (:c:member:`alt`), or substitute paths
+(:c:member:`sub`), and so has to find path node to replace, or alter; this is mostly
+the first node of a list of alternative, substitute paths.
 
 Starting node is to be found by using :c:member:`back__w`, and checking if parent
 node points to a current node, e.g. if :c:expr:`current->back__w->alt == current`
@@ -483,6 +428,8 @@ list is concatenated to starting node.
 Backtracking is also similar for substitute paths, except check for parent node is
 :c:expr:`current->back__w->sub == current`. Once found, side-effect of the last step
 in starting node is overridden by a side-effect from a node in a substitute list.
+
+Root node can be found by backtracking until :c:member:`back__w` is :c:data:`NULL`.
 
 .. _lbl-libcc-ccpath-linkedpathsideeffects:
 

@@ -60,9 +60,8 @@ There might be a few different interactions possible with encountered piece; the
 one chosen for this path segment is stored in :c:member:`CcPathNode.side_effect`.
 
 Complete such a path tree is represented by :c:type:`CcPathNode` nodes linked via
-:c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`
-and :c:member:`CcPathNode.sub` members; its :c:member:`CcPathNode.steps` contain
-a path segment.
+:c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, and :c:member:`CcPathNode.sub`
+members; its :c:member:`CcPathNode.steps` contain a path segment.
 
 Path node side-effect (i.e. :c:member:`CcPathNode.side_effect`) is applied to last
 step in path segment (i.e. :c:member:`CcPathNode.steps`) of a parent node, when
@@ -83,33 +82,14 @@ root node or otherwise, might be repositioning.
 .. warning::
 
     Any :c:type:`CcPathNode` node with its path continued (regardless which
-    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`,
-    :c:member:`CcPathNode.sub` members are present) **must** also have path segment
-    (i.e. :c:member:`CcPathNode.steps`) defined.
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.sub`
+    members are present) **must** also have path segment (i.e. :c:member:`CcPathNode.steps`)
+    defined.
 
     .. note::
 
         Path node without path segment (i.e. if :c:member:`CcPathNode.steps` is
         :c:data:`NULL`) is valid path node, as long as path is not continued.
-
-.. _lbl-libcc-paths-pathsegmenttree-subsequentpaths:
-
-Subsequent paths
-^^^^^^^^^^^^^^^^
-
-Subsequent paths are represented as a list of :c:type:`CcPathNode` nodes connected
-via :c:member:`CcPathNode.next`; all their path segments are to be concatenated to
-their respective predecessor. For instance::
-
-    +---+   next    +---+   next   +----+
-    | A |  ------>  | B |  ------> | C0 |
-    +---+           +---+          +----+
-
-Subsequent paths are used when interaction does not produce multiple alternative
-paths (e.g. when Shaman keeps capturing pieces along predetermined path in a
-trance-journey), or when path segment is continuation of movement in previous
-segment (e.g. a Shaman continues its capturing-ply, after it encountered divergent
-piece, opponent's Starchild).
 
 .. _lbl-libcc-paths-pathsegmenttree-alternativepaths:
 
@@ -218,8 +198,7 @@ Substitute paths are represented as a list of :c:type:`CcPathNode` nodes connect
 via :c:member:`CcPathNode.sub`; they only contain side-effect, and can contain link
 to another substitute path (i.e. :c:member:`CcPathNode.sub`), but neither path
 segment, nor any other path continuations (i.e. all of :c:member:`CcPathNode.fork`,
-:c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`, and
-:c:member:`CcPathNode.steps` are :c:data:`NULL`).
+:c:member:`CcPathNode.alt`, and :c:member:`CcPathNode.steps` are :c:data:`NULL`).
 
 To generate complete paths from a tree containing substitute nodes, every side-effect
 from those nodes overrides side-effect of the last step in a starting node.
@@ -403,4 +382,4 @@ of a current node replaces side-effect in last step found in :c:member:`CcPathNo
 of the previous node (i.e. the one accessed via :c:member:`CcPathNode.back__w.steps`).
 
 This is always done, regardless if next node has been linked via :c:member:`CcPathNode.fork`,
-:c:member:`CcPathNode.alt`, :c:member:`CcPathNode.next`, or :c:member:`CcPathNode.sub`.
+:c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub`.

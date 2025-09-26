@@ -40,17 +40,6 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
                                 CcPieceTagType encounter,
                                 CcActivationDesc act_desc );
 
-// TODO :: DELETE :: DOCS
-// CcPathNode * cc_path_node_append( CcPathNode ** pl__iod_a,
-//                                   CcSideEffect side_effect,
-//                                   CcStep ** steps__d_n,
-//                                   CcPieceTagType encounter,
-//                                   CcActivationDesc act_desc );
-
-// TODO :: DELETE :: DOCS
-// CcPathNode * cc_path_node_extend( CcPathNode ** pl__iod_a,
-//                                   CcPathNode ** pl__n );
-
 CcPathNode * cc_path_node_add_fork( CcPathNode ** pl_step__a,
                                     CcPathNode ** pl_fork__n );
 
@@ -97,10 +86,8 @@ typedef enum CcPathLinkNodeLinkageEnum {
     CC_PLNLE_Fork,
     CC_PLNLE_Alt,
     CC_PLNLE_Sub,
-    // CC_PLNLE_Next, // TODO :: DELETE :: DOCS
 } CcPathLinkNodeLinkageEnum;
 
-// TODO :: DOCS
 #define CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR(plnle) ( ( CC_PLNLE_NoLinkage <= (plnle) ) && ( (plnle) <= CC_PLNLE_Sub ) ) // <!> Keep in-sync with CcPathLinkNodeLinkageEnum.
 
 #define CC_PATH_LINK_NODE_LINKAGE_IS_VALID(plnle) CC_PATH_LINK_NODE_LINKAGE_IS_ENUMERATOR( (plnle) ) // All enumerations are also valid.
