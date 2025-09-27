@@ -37,7 +37,7 @@
 //     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
 //     CcPathSideEffectLink * sel__t = NULL;
-//     CcPathLinkNodeLinkageEnum plnle = CC_PLNLE_NoLinkage; // CC_PLNLE_Next;
+//     CcPathNodeLinkageEnum plnle = CC_PNLE_NoLinkage; // CC_PNLE_Next;
 
 //     //
 //     // Terminal side-effects.
@@ -49,7 +49,7 @@
 //             cc_path_side_effect_link_free_all( &sel__t );
 //             return false;
 //         }
-//         plnle = CC_PLNLE_Next;
+//         plnle = CC_PNLE_Next;
 //     }
 
 //     // TODO :: other terminating side-effects
@@ -57,7 +57,7 @@
 //     //
 //     // Non-terminal side-effects.
 
-//     plnle = CC_PLNLE_Next;
+//     plnle = CC_PNLE_Next;
 
 //     if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
 //         CcSideEffect se = cc_side_effect_transparency( encounter.piece );
@@ -66,7 +66,7 @@
 //             cc_path_side_effect_link_free_all( &sel__t );
 //             return false;
 //         }
-//         plnle = CC_PLNLE_Fork;
+//         plnle = CC_PNLE_Fork;
 //     }
 
 //     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
@@ -79,7 +79,7 @@
 //                 cc_path_side_effect_link_free_all( &sel__t );
 //                 return false;
 //             }
-//             plnle = CC_PLNLE_Fork;
+//             plnle = CC_PNLE_Fork;
 //         }
 //     }
 
@@ -97,7 +97,7 @@
 
 //     //     if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
 //     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-//     //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PLNLE_Sub, se );
+//     //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PNLE_Sub, se );
 //     //         if ( !se__w ) {
 //     //             cc_path_side_effect_link_free_all( &sel__t );
 //     //             return false;
@@ -109,7 +109,7 @@
 //     //         CcPos displacement; // TODO :: FIX
 
 //     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-//     //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PLNLE_Sub, se );
+//     //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PNLE_Sub, se );
 //     //         if ( !se__w ) {
 //     //             cc_path_side_effect_link_free_all( &sel__t );
 //     //             return false;
@@ -347,7 +347,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
 
     //     if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PLNLE_Sub, se );
+    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PNLE_Sub, se );
     //         if ( !se__w ) {
     //             cc_path_side_effect_link_free_all( &sel__t );
     //             return false;
@@ -359,7 +359,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     //         CcPos displacement; // TODO :: FIX
 
     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
-    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PLNLE_Sub, se );
+    //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PNLE_Sub, se );
     //         if ( !se__w ) {
     //             cc_path_side_effect_link_free_all( &sel__t );
     //             return false;

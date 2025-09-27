@@ -41,74 +41,74 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
     return pl__t;
 }
 
-CcPathNode * cc_path_node_add_fork( CcPathNode ** pl_step__a,
-                                    CcPathNode ** pl_fork__n ) {
-    if ( !pl_step__a ) return NULL;
-    if ( !*pl_step__a ) return NULL;
+CcPathNode * cc_path_node_add_fork( CcPathNode ** pn_step__a,
+                                    CcPathNode ** pn_fork__n ) {
+    if ( !pn_step__a ) return NULL;
+    if ( !*pn_step__a ) return NULL;
 
-    if ( !pl_fork__n ) return NULL;
-    if ( !*pl_fork__n ) return NULL;
+    if ( !pn_fork__n ) return NULL;
+    if ( !*pn_fork__n ) return NULL;
 
     // Sanity checks, back-links shouldn't point to somewhere else ...
-    if ( ( *pl_step__a )->back__w ) return NULL;
-    if ( ( *pl_fork__n )->back__w ) return NULL;
+    if ( ( *pn_step__a )->back__w ) return NULL;
+    if ( ( *pn_fork__n )->back__w ) return NULL;
 
-    if ( ( *pl_step__a )->fork ) {
-        CcPathNode * pl = ( *pl_step__a )->fork;
+    if ( ( *pn_step__a )->fork ) {
+        CcPathNode * pl = ( *pn_step__a )->fork;
 
         while ( pl->alt ) {
             pl = pl->alt;
         }
 
-        pl->alt = *pl_fork__n;
-        ( *pl_fork__n )->back__w = pl;
+        pl->alt = *pn_fork__n;
+        ( *pn_fork__n )->back__w = pl;
     } else {
-        ( *pl_step__a )->fork = *pl_fork__n;
-        ( *pl_fork__n )->back__w = *pl_step__a;
+        ( *pn_step__a )->fork = *pn_fork__n;
+        ( *pn_fork__n )->back__w = *pn_step__a;
     }
 
     // Ownership transferred.
-    CcPathNode * pl__w = *pl_fork__n;
-    *pl_fork__n = NULL;
+    CcPathNode * pl__w = *pn_fork__n;
+    *pn_fork__n = NULL;
 
     return pl__w;
 }
 
-CcPathNode * cc_path_node_add_alter( CcPathNode ** pl_step__a,
-                                     CcPathNode ** pl_alt__n ) {
-    if ( !pl_step__a ) return NULL;
-    if ( !*pl_step__a ) return NULL;
+CcPathNode * cc_path_node_add_alter( CcPathNode ** pn_step__a,
+                                     CcPathNode ** pn_alt__n ) {
+    if ( !pn_step__a ) return NULL;
+    if ( !*pn_step__a ) return NULL;
 
-    if ( !pl_alt__n ) return NULL;
-    if ( !*pl_alt__n ) return NULL;
+    if ( !pn_alt__n ) return NULL;
+    if ( !*pn_alt__n ) return NULL;
 
     // Sanity checks, back-links shouldn't point to somewhere else ...
-    if ( ( *pl_step__a )->back__w ) return NULL;
-    if ( ( *pl_alt__n )->back__w ) return NULL;
+    if ( ( *pn_step__a )->back__w ) return NULL;
+    if ( ( *pn_alt__n )->back__w ) return NULL;
 
-    CcPathNode * pl__w = *pl_step__a;
+    CcPathNode * pl__w = *pn_step__a;
 
     while ( pl__w->alt ) {
         pl__w = pl__w->alt;
     }
 
     // Ownership transfer.
-    pl__w->alt = *pl_alt__n;
-    ( *pl_alt__n )->back__w = pl__w;
+    pl__w->alt = *pn_alt__n;
+    ( *pn_alt__n )->back__w = pl__w;
 
-    *pl_alt__n = NULL;
+    *pn_alt__n = NULL;
 
     return pl__w;
 }
 
-static CcMaybeBoolEnum _cc_path_node_subs_is_valid( CcPathNode * pl_subs ) {
-    if ( !pl_subs ) return CC_MBE_Void;
+static CcMaybeBoolEnum _cc_path_node_subs_is_valid( CcPathNode * pn_subs ) {
+    if ( !pn_subs ) return CC_MBE_Void;
 
-    CcPathNode * pl = pl_subs;
+    CcPathNode * pl = pn_subs;
     CcPathNode * old = NULL;
 
     while ( pl ) {
-        // For 1st node ( pl == pl_subs ), checks there is no back-link ...
+        // For 1st node ( pl == pn_subs ), checks there is no back-link ...
         // Otherwise, checks back-link points to its parent ...
         if ( pl->back__w != old ) return CC_MBE_Void;
 
@@ -128,49 +128,49 @@ static CcMaybeBoolEnum _cc_path_node_subs_is_valid( CcPathNode * pl_subs ) {
     return CC_MBE_True;
 }
 
-CcPathNode * cc_path_node_add_subs( CcPathNode ** pl_step__a,
-                                    CcPathNode ** pl_sub__n ) {
-    if ( !pl_step__a ) return NULL;
-    if ( !*pl_step__a ) return NULL;
+CcPathNode * cc_path_node_add_subs( CcPathNode ** pn_step__a,
+                                    CcPathNode ** pn_sub__n ) {
+    if ( !pn_step__a ) return NULL;
+    if ( !*pn_step__a ) return NULL;
 
-    if ( !pl_sub__n ) return NULL;
-    if ( !*pl_sub__n ) return NULL;
+    if ( !pn_sub__n ) return NULL;
+    if ( !*pn_sub__n ) return NULL;
 
     // Sanity checks.
-    if ( ( *pl_step__a )->back__w ) return NULL;
-    if ( _cc_path_node_subs_is_valid( *pl_sub__n ) != CC_MBE_True )
+    if ( ( *pn_step__a )->back__w ) return NULL;
+    if ( _cc_path_node_subs_is_valid( *pn_sub__n ) != CC_MBE_True )
         return NULL;
 
-    CcPathNode * pl__w = *pl_step__a;
+    CcPathNode * pl__w = *pn_step__a;
 
     while ( pl__w->sub ) {
         pl__w = pl__w->sub;
     }
 
     // Ownership transfer.
-    pl__w->sub = *pl_sub__n;
-    ( *pl_sub__n )->back__w = pl__w;
+    pl__w->sub = *pn_sub__n;
+    ( *pn_sub__n )->back__w = pl__w;
 
-    *pl_sub__n = NULL;
+    *pn_sub__n = NULL;
 
     return pl__w;
 }
 
-CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * pl_node ) {
-    if ( !pl_node ) return NULL;
-    if ( !pl_node->steps ) return NULL;
+CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
+    if ( !path_node->steps ) return NULL;
 
-    CcStep * s = pl_node->steps;
+    CcStep * s = path_node->steps;
 
     CC_FASTFORWARD( s );
 
     return &( s->side_effect );
 }
 
-CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * pl_node ) {
-    if ( !pl_node ) return CC_MBE_Void;
+CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_node ) {
+    if ( !path_node ) return CC_MBE_Void;
 
-    CcSideEffect * se__w = cc_path_node_last_step_side_effect( pl_node );
+    CcSideEffect * se__w = cc_path_node_last_step_side_effect( path_node );
     if ( !se__w ) return CC_MBE_Void;
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( se__w->type ) ) return CC_MBE_Void;
@@ -179,10 +179,10 @@ CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * pl_node
                                            : CC_MBE_False;
 }
 
-CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * pl_node ) {
-    if ( !pl_node ) return CC_MBE_Void;
+CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node ) {
+    if ( !path_node ) return CC_MBE_Void;
 
-    if ( pl_node->fork || pl_node->alt || pl_node->sub )
+    if ( path_node->fork || path_node->alt || path_node->sub )
         return CC_MBE_False;
 
     return CC_MBE_True;
@@ -205,10 +205,10 @@ static bool _cc_path_node_steps_are_valid( CcStep * steps ) {
     return true;
 }
 
-static bool _cc_path_node_is_valid( CcPathNode * path_link, bool has_steps ) {
-    if ( !path_link ) return false;
+static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps ) {
+    if ( !path_node ) return false;
 
-    CcPathNode * pl = path_link;
+    CcPathNode * pl = path_node;
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
@@ -263,10 +263,10 @@ static bool _cc_path_node_is_valid( CcPathNode * path_link, bool has_steps ) {
     return true;
 }
 
-bool cc_path_node_is_valid( CcPathNode * path_link ) {
-    if ( !path_link ) return false;
+bool cc_path_node_is_valid( CcPathNode * path_node ) {
+    if ( !path_node ) return false;
 
-    CcPathNode * root = path_link;
+    CcPathNode * root = path_node;
 
     CC_REWIND_BY( root, root->back__w );
 
@@ -277,12 +277,12 @@ bool cc_path_node_is_valid( CcPathNode * path_link ) {
     return true;
 }
 
-CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_link ) {
-    if ( !path_link ) return NULL;
-    if ( path_link->back__w ) return NULL;
+CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
+    if ( path_node->back__w ) return NULL;
 
     CcPathNode * pl__a = NULL;
-    CcPathNode * from = path_link;
+    CcPathNode * from = path_node;
 
     if ( from ) {
         CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
@@ -356,36 +356,36 @@ bool cc_path_node_free_all( CcPathNode ** pl__f ) {
     return result;
 }
 
-size_t cc_path_node_len( CcPathNode * path_link ) {
-    if ( !path_link ) return 0;
+size_t cc_path_node_count( CcPathNode * path_node ) {
+    if ( !path_node ) return 0;
 
-    size_t len = 0;
-    CcPathNode * pl = path_link;
+    size_t count = 0;
+    CcPathNode * pl = path_node;
 
     if ( pl ) {
-        ++len;
+        ++count;
 
         if ( pl->fork ) {
-            len += cc_path_node_len( pl->fork );
+            count += cc_path_node_count( pl->fork );
         }
 
         if ( pl->alt ) {
-            len += cc_path_node_len( pl->alt );
+            count += cc_path_node_count( pl->alt );
         }
 
         if ( pl->sub ) {
-            len += cc_path_node_len( pl->sub );
+            count += cc_path_node_count( pl->sub );
         }
     }
 
-    return len;
+    return count;
 }
 
-size_t cc_path_node_count_all_segments( CcPathNode * path_link ) {
-    if ( !path_link ) return 0;
+size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RETHINK :: ???
+    if ( !path_node ) return 0;
 
-    size_t count = 1; // = 1, for this path segment
-    CcPathNode * pl = path_link;
+    CcPathNode * pl = path_node;
+    size_t count = ( pl->steps ) ? 1 : 0;
 
     if ( pl ) {
         if ( pl->fork ) {
@@ -396,7 +396,7 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_link ) {
             count += cc_path_node_count_all_segments( pl->alt );
         }
 
-        // Substitute paths shouldn't have any segments.
+        // Substitute paths should not contain path segments.
         //
         // if ( pl->sub ) {
         //     count += cc_path_node_count_all_segments( pl->sub );
@@ -407,27 +407,27 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_link ) {
 }
 
 char * cc_path_node_to_string__new( cc_uchar_t depth,
-                                         CcPathNode * path_link_node ) {
-    if ( !path_link_node ) return NULL;
+                                         CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
 
     cc_uint_t tabs_len = 2 * depth; // Depth --> 2-spaces.
     char * tabs_str__a = cc_str_pad__new( ' ', tabs_len );
     if ( !tabs_str__a ) return NULL;
 
-    char const * plnle_str = cc_path_node_linkage_to_string( path_link_node );
+    char const * plnle_str = cc_path_node_linkage_to_string( path_node );
     cc_char_16 se_str = CC_CHAR_16_EMPTY;
 
-    if ( !cc_side_effect_to_str( path_link_node->side_effect, &se_str ) )
+    if ( !cc_side_effect_to_str( path_node->side_effect, &se_str ) )
         return NULL;
 
-    char * steps_str__a = cc_step_all_to_string__new( path_link_node->steps );
+    char * steps_str__a = cc_step_all_to_string__new( path_node->steps );
     if ( !steps_str__a ) {
         CC_FREE( tabs_str__a );
         return NULL;
     }
 
     size_t str_len = cc_str_len( tabs_str__a, NULL, tabs_len );
-    str_len += cc_str_len( plnle_str, NULL, CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING );
+    str_len += cc_str_len( plnle_str, NULL, CC_SIZE_PATH_NODE_LINKAGE_STRING );
     str_len += cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
     str_len += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
     str_len += 2 + 1 + 1; // For .encounter (i.e. CcPieceTagType); +2 for ' @', +1 for piece symbol, +1 for tag char.
@@ -463,7 +463,7 @@ char * cc_path_node_to_string__new( cc_uchar_t depth,
     pln_str = (char *)end_tabs_str__w;
 
     // Node linkage.
-    char const * end_plnle_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, plnle_str, NULL, CC_SIZE_PATH_LINK_NODE_LINKAGE_STRING );
+    char const * end_plnle_str__w = cc_str_append_into( pln_str, pln_end__w, CC_SIZE_IGNORE, plnle_str, NULL, CC_SIZE_PATH_NODE_LINKAGE_STRING );
     if ( !end_plnle_str__w ) {
         CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
@@ -493,8 +493,8 @@ char * cc_path_node_to_string__new( cc_uchar_t depth,
     pln_str = (char *)end_steps__w;
 
     // Encountered piece and its tag.
-    char piece_symbol = cc_piece_as_char( path_link_node->encounter );
-    char tag_chr = cc_tag_as_char( path_link_node->encounter );
+    char piece_symbol = cc_piece_as_char( path_node->encounter );
+    char tag_chr = cc_tag_as_char( path_node->encounter );
 
     *pln_str++ = '|';
     *pln_str++ = '@';
@@ -505,7 +505,7 @@ char * cc_path_node_to_string__new( cc_uchar_t depth,
     // Activation descriptor.
     cc_char_32 act_desc_str = CC_CHAR_32_EMPTY;
 
-    if ( !cc_activation_desc_as_string( path_link_node->act_desc, &act_desc_str ) ) {
+    if ( !cc_activation_desc_as_string( path_node->act_desc, &act_desc_str ) ) {
         CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
         CC_FREE( pln_str__a );
@@ -534,35 +534,35 @@ char * cc_path_node_to_string__new( cc_uchar_t depth,
 //
 // Node linkage.
 
-char const * cc_path_node_linkage_as_string( CcPathLinkNodeLinkageEnum plnle ) {
+char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle ) {
     switch ( plnle ) {
-        case CC_PLNLE_NoLinkage : return "";
-        case CC_PLNLE_Fork : return "* ";
-        case CC_PLNLE_Alt : return "& ";
-        case CC_PLNLE_Sub : return "~ ";
+        case CC_PNLE_NoLinkage : return "";
+        case CC_PNLE_Fork : return "* ";
+        case CC_PNLE_Alt : return "& ";
+        case CC_PNLE_Sub : return "~ ";
         default : return "? ";
     }
 }
 
-CcPathLinkNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_link_node ) {
-    if ( !path_link_node ) return CC_PLNLE_NoLinkage;
+CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
+    if ( !path_node ) return CC_PNLE_NoLinkage;
 
-    CcPathNode * pln = path_link_node->back__w;
+    CcPathNode * pln = path_node->back__w;
 
-    if ( !pln ) return CC_PLNLE_NoLinkage;
+    if ( !pln ) return CC_PNLE_NoLinkage;
 
-    if ( pln->fork == path_link_node )
-        return CC_PLNLE_Fork;
-    else if ( pln->alt == path_link_node )
-        return CC_PLNLE_Alt;
-    else if ( pln->sub == path_link_node )
-        return CC_PLNLE_Sub;
+    if ( pln->fork == path_node )
+        return CC_PNLE_Fork;
+    else if ( pln->alt == path_node )
+        return CC_PNLE_Alt;
+    else if ( pln->sub == path_node )
+        return CC_PNLE_Sub;
     else
-        return CC_PLNLE_NoLinkage;
+        return CC_PNLE_NoLinkage;
 }
 
-char const * cc_path_node_linkage_to_string( CcPathNode * path_link_node ) {
-    CcPathLinkNodeLinkageEnum plnle = cc_path_node_linkage( path_link_node );
+char const * cc_path_node_linkage_to_string( CcPathNode * path_node ) {
+    CcPathNodeLinkageEnum plnle = cc_path_node_linkage( path_node );
     return cc_path_node_linkage_as_string( plnle );
 }
 
@@ -570,7 +570,7 @@ char const * cc_path_node_linkage_to_string( CcPathNode * path_link_node ) {
 //
 // Linked side-effects.
 
-CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathLinkNodeLinkageEnum link,
+CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathNodeLinkageEnum link,
                                                       CcSideEffect side_effect ) {
     CcPathSideEffectLink * se__t = malloc( sizeof( CcPathSideEffectLink ) );
     if ( !se__t ) return NULL;
@@ -583,7 +583,7 @@ CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathLinkNodeLinkageEnum 
 }
 
 CcPathSideEffectLink * cc_path_side_effect_link_append( CcPathSideEffectLink ** side_effect_link__iod_a,
-                                                        CcPathLinkNodeLinkageEnum link,
+                                                        CcPathNodeLinkageEnum link,
                                                         CcSideEffect se ) {
     if ( !side_effect_link__iod_a ) return NULL;
 
@@ -683,7 +683,7 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
 
     size_t size = len * (1 + 1 + CC_SIZE_CHAR_16 + 1) + 1;
     //   1 --> { (separator)
-    // + 1 --> CcPathLinkNodeLinkageEnum char
+    // + 1 --> CcPathNodeLinkageEnum char
     // + CC_SIZE_CHAR_16 --> size of side-effect string
     // + 1 --> } (separator)
     // + 1 --> '\0'
@@ -703,10 +703,10 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
         *s++ = '{';
 
         switch ( sdl->link ) {
-            case CC_PLNLE_NoLinkage : *s++ = '.'; break;
-            case CC_PLNLE_Fork : *s++ = '<'; break;
-            case CC_PLNLE_Alt : *s++ = '^'; break;
-            case CC_PLNLE_Sub : *s++ = '%'; break;
+            case CC_PNLE_NoLinkage : *s++ = '.'; break;
+            case CC_PNLE_Fork : *s++ = '<'; break;
+            case CC_PNLE_Alt : *s++ = '^'; break;
+            case CC_PNLE_Sub : *s++ = '%'; break;
             default : *s++ = '?'; break;
         }
 
