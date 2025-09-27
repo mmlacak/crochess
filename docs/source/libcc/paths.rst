@@ -15,9 +15,10 @@ Describes generating all legal plies a piece can take.
 Description
 -----------
 
-Position a piece have at the very beginning of its ply is its initial position.
+Position a piece have at the very beginning of its ply (before any movement)
+is its initial position.
 
-Position from which a piece starts its ply is a starting position.
+Position from which a piece starts its ply (its movement) is a starting position.
 
 Most of the time initial and starting positions are the same, but not always;
 if not the same, a piece is repositioned from initial onto starting position,
@@ -56,89 +57,94 @@ Path segment is a list of all steps taken from one position to another, in order
 in which they were visited; on last step one can also encountered a piece, and its
 tag.
 
-There might be a few different interactions possible with encountered piece; the
-one chosen for this path segment is stored in :c:member:`CcPathNode.side_effect`.
+If there are interaction(s) possible with encountered piece, step onto that piece is
+added to path segment as the last one; then, terminal side-effect (e.g. a capture) is
+stored in this last step. All other choices are stored in :c:member:`CcPathNode.side_effect`
+in the next path nodes, either forked or substituted.
 
 Complete such a path tree is represented by :c:type:`CcPathNode` nodes linked via
 :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, and :c:member:`CcPathNode.sub`
 members; its :c:member:`CcPathNode.steps` contain a path segment.
 
-Path node side-effect (i.e. :c:member:`CcPathNode.side_effect`) is applied to last
-step in path segment (i.e. :c:member:`CcPathNode.steps`) of a parent node, when
-complete path is built from root node down to any leaf.
+Path node side-effect (i.e. :c:member:`CcPathNode.side_effect`) is applied to last step
+in path segment (i.e. :c:member:`CcPathNode.steps`) of a parent node
+(i.e. :c:member:`CcPathNode.back__w`), when complete path is built from root node down
+to any leaf.
 
 .. note::
 
     If both side-effects are defined, path node side-effect will override any
     side-effect from steps.
 
-    This is so that e.g. a Shaman can capture opponent's Starchild, continue capturing
-    opponent's pieces in the next path node (without its side-effect), and also diverge
-    from said Starchild in a forking path node (with its side-effect).
+    This is so that e.g. a Shaman capturing opponent's pieces in a single path segment
+    can end it by capturing opponent's Starchild, and still diverge from said Starchild
+    with side-effect of forking path node set to divergence.
 
 First step in a root node is initial position of a piece. Second step, either in
 root node or otherwise, might be repositioning.
 
 .. warning::
 
-    Any :c:type:`CcPathNode` node with its path continued (regardless which
-    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, :c:member:`CcPathNode.sub`
-    members are present) **must** also have path segment (i.e. :c:member:`CcPathNode.steps`)
-    defined.
+    Any :c:type:`CcPathNode` node with its path continued by :c:member:`CcPathNode.fork` or
+    :c:member:`CcPathNode.alt` members **must** also have path segment
+    (i.e. :c:member:`CcPathNode.steps`) defined.
 
-    .. note::
+.. warning::
 
-        Path node without path segment (i.e. if :c:member:`CcPathNode.steps` is
-        :c:data:`NULL`) is valid path node, as long as path is not continued.
+    Any :c:type:`CcPathNode` node with substitute path (i.e. pointed by :c:member:`CcPathNode.sub`
+    member) **must** not have path segment (i.e. :c:member:`CcPathNode.steps`) defined.
+
+.. note::
+
+    Path node without path segment (i.e. if :c:member:`CcPathNode.steps` is
+    :c:data:`NULL`) is valid path node, as long as path is not continued.
 
 .. _lbl-libcc-paths-pathsegmenttree-alternativepaths:
 
 Alternative paths
 ^^^^^^^^^^^^^^^^^
 
+Alternative paths always replace original path; they represent multiple, independent
+paths.
+
 Alternative paths are represented as a list of :c:type:`CcPathNode` nodes connected
 via :c:member:`CcPathNode.alt`; they are alternative to the originating segment.
 For instance::
 
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B0 |  ------>  | C |
-    +---+           +----+           +---+
-                      |
-                      | alt
-                      V
-                    +----+
-                    | B1 |
-                    +----+
-                      |
-                      | alt
-                      V
-                    +----+   next    +---+
-                    | B2 |  ------>  | D |
-                    +----+           +---+
+    +---+
+    | A |
+    +---+
+      |
+      | alt
+      V
+    +---+
+    | B |
+    +---+
+      |
+      | alt
+      V
+    +---+
+    | C |
+    +---+
 
 beside default path::
 
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B0 |  ------>  | C |
-    +---+           +----+           +---+
+    +---+
+    | A |
+    +---+
 
 also produces 2 additional, alternative paths::
 
-    +---+   next    +----+
-    | A |  ------>  | B1 |
-    +---+           +----+
+    +---+
+    | B |
+    +---+
 
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B2 |  ------>  | D |
-    +---+           +----+           +---+
+    +---+
+    | C |
+    +---+
 
-Alternative paths are used when there are multiple possible interactions with
-encountered piece.
-
-For instance, a Bishop encounters opponent's Starchild on its capture-field; it
-can capture Starchild (e.g. ``A --> B1``), or use transparency to continue moving
-along a diagonal (e.g. ``A --> B0 --> C``). Bishop can also diverge from a Starchild,
-but this is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
+Alternative paths are almost never used alone, but together with
+:ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
 .. .. _lbl-libcc-paths-pathsegmenttree-auxiliarypaths:
 ..
@@ -194,60 +200,62 @@ but this is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, belo
 Substitute paths
 ^^^^^^^^^^^^^^^^
 
-Substitute paths are represented as a list of :c:type:`CcPathNode` nodes connected
-via :c:member:`CcPathNode.sub`; they only contain side-effect, and can contain link
-to another substitute path (i.e. :c:member:`CcPathNode.sub`), but neither path
-segment, nor any other path continuations (i.e. all of :c:member:`CcPathNode.fork`,
-:c:member:`CcPathNode.alt`, and :c:member:`CcPathNode.steps` are :c:data:`NULL`).
+Substitute paths are used to replace side-effect of an origin node, without altering
+path (its segment) in any other way. As such, substitute paths don't contain path
+segment on their own; they also don't continue path, except to another substitute
+path.
 
-To generate complete paths from a tree containing substitute nodes, every side-effect
-from those nodes overrides side-effect of the last step in a starting node.
-For instance::
-
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B0 |  ------>  | C |
-    +---+           +----+           +---+
-                      |
-                      | sub
-                      V
-                    +----+
-                    | B1 |
-                    +----+
-                      |
-                      | sub
-                      V
-                    +----+
-                    | B2 |
-                    +----+
-
-beside default path::
-
-    +---+   next    +----+   next    +---+
-    | A |  ------>  | B0 |  ------>  | C |
-    +---+           +----+           +---+
-
-also produces default paths with substituted side-effects::
-
-    +---+   next    +---------+   next    +---+
-    | A |  ------>  | B0 < B1 |  ------>  | C |
-    +---+           +---------+           +---+
-
-    +---+   next    +---------+   next    +---+
-    | A |  ------>  | B0 < B2 |  ------>  | C |
-    +---+           +---------+           +---+
-
-Here, starting node of substitute paths is ``B0``. Substitute side-effects node
-``B0 < B2`` represents starting node ``B0`` with side-effect of its last step
-overridden by side-effect from ``B2`` node.
-
-This is to be used primarily for displacements, when there are many possible
+Substitute paths are used primarily for displacements, when there are many possible
 displacement fields, none of which alters current path; e.g. a Shaman displacing
 pieces along predetermined path in a trance-journey. Another example, a Serpent
 displacing Pawns encountered on its path.
 
-.. Another example, a Shaman can capture, or diverge from opponent's Starchild, and
-.. still continue its ply after all those interactions; in example above,
-.. ``B0`` node could be a capture, while ``B1`` node would then be a transparency;
+Substitute paths are represented as a list of :c:type:`CcPathNode` nodes connected
+via :c:member:`CcPathNode.sub`; they only contain side-effect, and can contain link
+to another substitute path (i.e. :c:member:`CcPathNode.sub`), but neither path
+segment (i.e. :c:member:`CcPathNode.steps`), nor any other path continuations (i.e.
+any of :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`).
+
+To generate complete paths from a tree containing substitute nodes, every side-effect
+from those nodes overrides side-effect of the last step in a originating node.
+For instance::
+
+    +---+
+    | A |
+    +---+
+      |
+      | sub
+      V
+    +---+
+    | B |
+    +---+
+      |
+      | sub
+      V
+    +---+
+    | C |
+    +---+
+
+beside default path::
+
+    +---+
+    | A |
+    +---+
+
+also produces default paths with substituted side-effects::
+
+    +-------+
+    | A < B |
+    +-------+
+
+    +-------+
+    | A < C |
+    +-------+
+
+Here, starting node of substitute paths is ``A``. Substitute side-effects node
+``A < B`` represents starting node ``A`` with side-effect of its last step
+overridden by side-effect from ``B`` node.
+
 .. divergence is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
 .. _lbl-libcc-paths-pathsegmenttree-forkingpaths:
@@ -255,62 +263,65 @@ displacing Pawns encountered on its path.
 Forking paths
 ^^^^^^^^^^^^^
 
+Forking paths are used to represent multiple, independent paths from a common
+position, e.g. after divergence, or from a starting position. Forking paths are
+appended to original path.
+
 Forking paths are represented as a list of :c:type:`CcPathNode` nodes connected
 via :c:member:`CcPathNode.fork`; they are "post-node" segments, i.e. each forking
 path segment is meant to be concatenated to the originating segment.
 For instance::
 
-    +---+   next    +---+   next    +---+
-    | A |  ------>  | B |  ------>  | C |
-    +---+           +---+           +---+
-                       \
-                        \  fork
-                         \
-                          V
-                        +----+
-                        | D0 |
-                        +----+
-                          |
-                          | alt
-                          V
-                        +----+   next    +---+
-                        | D1 |  ------>  | E |
-                        +----+           +---+
-                          |
-                          | alt
-                          V
-                        +----+
-                        | D2 |
-                        +----+
+    +---+
+    | A |
+    +---+
+       \
+        \  fork
+         \
+          V
+        +---+
+        | B |
+        +---+
+          |
+          | alt
+          V
+        +---+    sub    +---+
+        | C |  ------>  | E |
+        +---+           +---+
+          |
+          | alt
+          V
+        +---+
+        | D |
+        +---+
 
-beside default path::
+produces::
 
-    +---+   next    +---+   next    +---+
-    | A |  ------>  | B |  ------>  | C |
-    +---+           +---+           +---+
+    +---+   fork    +---+
+    | A |  ------>  | B |
+    +---+           +---+
 
-also produces::
+    +---+   fork    +---+
+    | A |  ------>  | C |
+    +---+           +---+
 
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | D0 |
-    +---+           +---+           +----+
+    +---+   fork    +-------+
+    | A |  ------>  | C < E |
+    +---+           +-------+
 
-    +---+   next    +---+   next    +----+   next    +---+
-    | A |  ------>  | B |  ------>  | D1 |  ------>  | E |
-    +---+           +---+           +----+           +---+
-
-    +---+   next    +---+   next    +----+
-    | A |  ------>  | B |  ------>  | D2 |
-    +---+           +---+           +----+
+    +---+   fork    +---+
+    | A |  ------>  | D |
+    +---+           +---+
 
 Note that :c:member:`CcPathNode.fork` link was used only once, all other
 alternative paths after divergence are linked via :c:member:`CcPathNode.alt`.
 
 It is possible to have subsequent nodes use :c:member:`CcPathNode.fork` link,
-if all their path segments end with divergence.
+if their path segments end with divergence.
 
-Forking paths are used after divergence; and also to facilitate multiple,
-independent paths from a starting position.
+For instance, ``A`` path segment could contain only starting position of a Serpent,
+different paths are then forks from that starting position; along a path Serpent
+could e.g. capture a Pawn (``A --> C``), or displace it (``A --> C < E``).
 
 .. _lbl-libcc-paths-pathsegmenttree-complete:
 
@@ -321,39 +332,39 @@ A complete path is built by traversing path tree from its origin :c:type:`CcPath
 node down to any terminal node; a legal ply is built by stitching path segments
 from those nodes, in order in which they were visited.
 
-For instance, this path in a path-tree::
+For instance, this path-tree::
 
-    +---+  next   +---+   alt    +---+   fork    +---+
+    +---+  fork   +---+   alt    +---+    sub    +---+
     | A | ------> | B |  ----->  | C |  ------>  | D |
     +---+         +---+          +---+           +---+
 
-      |             |              |               |
-      | steps       | steps        | steps         | steps
-      |             |              |               |
-      V             V              V               V
+      |             |              |
+      | steps       | steps        | steps
+      |             |              |
+      V             V              V
 
-    +----+        +----+         +----+          +----+
-    | a0 |        | b0 |         | c0 |          | d0 |
-    +----+        +----+         +----+          +----+
-      |             |              |               |
-      | next        | next         | next          | next
-      V             V              V               V
-    +----+        +----+         +----+          +----+
-    | a1 |        | b1 |         | c1 |          | d1 |
-    +----+        +----+         +----+          +----+
-      |             |              |               |
-      | next        | next         | next          | next
-      V             V              V               V
+    +----+        +----+         +----+
+    | a0 |        | b0 |         | c0 |
+    +----+        +----+         +----+
+      |             |              |
+      | next        | next         | next
+      V             V              V
+    +----+        +----+         +----+
+    | a1 |        | b1 |         | c1 |
+    +----+        +----+         +----+
+      |             |              |
+      | next        | next         | next
+      V             V              V
 
-      :             :              :               :
-      :             :              :               :
+      :             :              :
+      :             :              :
 
-      |             |              |               |
-      | next        | next         | next          | next
-      V             V              V               V
-    +----+        +----+         +----+          +----+
-    | ai |        | bj |         | ck |          | dl |
-    +----+        +----+         +----+          +----+
+      |             |              |
+      | next        | next         | next
+      V             V              V
+    +----+        +----+         +----+
+    | ai |        | bj |         | ck |
+    +----+        +----+         +----+
 
 gives a complete ply with steps ordered like so::
 
@@ -361,17 +372,29 @@ gives a complete ply with steps ordered like so::
     | a0 | ------> | a1 | ------> ... ------> | ai | ------> ...
     +----+         +----+                     +----+
 
-         next   +----+  next   +----+  next        next   +----+  next
-    ... ------> | b0 | ------> | b1 | ------> ... ------> | bj | ------> ...
+         next   +----+  next   +----+  next        next   +----+
+    ... ------> | b0 | ------> | b1 | ------> ... ------> | bj |
                 +----+         +----+                     +----+
 
-         next   +----+  next   +----+  next        next   +----+  next
-    ... ------> | c0 | ------> | c1 | ------> ... ------> | ck | ------> ...
-                +----+         +----+                     +----+
+another one like so::
+
+    +----+  next   +----+  next        next   +----+  next
+    | a0 | ------> | a1 | ------> ... ------> | ai | ------> ...
+    +----+         +----+                     +----+
 
          next   +----+  next   +----+  next        next   +----+
-    ... ------> | d0 | ------> | d1 | ------> ... ------> | dl |
+    ... ------> | c0 | ------> | c1 | ------> ... ------> | ck |
                 +----+         +----+                     +----+
+
+and finally::
+
+    +----+  next   +----+  next        next   +----+  next
+    | a0 | ------> | a1 | ------> ... ------> | ai | ------> ...
+    +----+         +----+                     +----+
+
+         next   +----+  next   +----+  next        next   +--------+
+    ... ------> | c0 | ------> | c1 | ------> ... ------> | ck < D |
+                +----+         +----+                     +--------+
 
 First step in a complete ply is initial position of a piece; second step might
 be repositioning.
