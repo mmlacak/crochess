@@ -31,7 +31,6 @@ typedef struct CcPathNode {
     struct CcPathNode * fork;
     struct CcPathNode * alt;
     struct CcPathNode * sub;
-    // struct CcPathNode * next; // TODO :: DELETE :: DOCS
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 

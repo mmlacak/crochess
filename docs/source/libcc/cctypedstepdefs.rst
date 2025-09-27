@@ -1087,26 +1087,26 @@ Step iterators
     :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_iter_typed_steps()`, :c:func:`cc_iter_monolith_steps()`
 
-.. c:function:: bool cc_fetch_piece_step( CcPieceTagType piece, CcPos pos, CcPieceTagType activator, cc_uint_t board_size, CcTypedStepLink * steps, size_t step_index, CcTypedStep * step__o )
+.. c:function:: CcTypedStep cc_fetch_piece_step( CcPieceTagType piece, CcPos pos, CcPieceTagType activator, cc_uint_t board_size, CcTypedStep step_1, CcTypedStep step_2 )
 
-    Function retrieves next step for a given piece based on its activator and current position.
+    Function returns next step for a given piece based on its activator and
+    current position.
 
-    For one-step pieces, function just returns the one step that was given; or,
-    fails if more then one step is contained in a given linked list.
+    For one-step pieces (and Waves activated by those), function returns the first
+    step that was given, i.e. :c:var:`step_1`.
 
-    For two-step pieces, function finds alternating step based on current position; or,
-    fails if two steps are not contained in a given linked list.
+    For two-step pieces (and Waves activated by those), function finds alternating
+    step based on current position, either :c:var:`step_1` or :c:var:`step_2`.
 
-    For many-step pieces, function returns next step based on a given index.
+    For other pieces, function fails with :c:macro:`CC_TYPED_STEP_CAST_INVALID`.
 
     :param piece: A piece.
     :param pos: Current position.
     :param activator: A piece, an activator.
     :param board_size: Board size.
-    :param steps: Steps, linked list.
-    :param step_index: Step index.
-    :param step__o: *Output*; a step.
-    :returns: :c:data:`true` while successful, :c:data:`false` otherwise.
+    :param step_1: Step.
+    :param step_2: Alternating step.
+    :returns: Next step if successful, :c:macro:`CC_TYPED_STEP_CAST_INVALID` otherwise.
     :seealso: :c:func:`cc_piece_is_one_step()`, :c:func:`cc_piece_is_two_step()`, :c:func:`cc_piece_is_many_steps()`,
 
 .. _lbl-libcc-cctypedstepdefs-sourcecodeheader:
