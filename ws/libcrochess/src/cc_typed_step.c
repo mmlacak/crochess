@@ -171,7 +171,7 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
     return pl_str__a;
 }
 
-// TODO :: DELETE
+// todo :: DELETE
 // //
 // // Typed step definition
 
@@ -248,4 +248,4 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link ) {
 // bool cc_typed_step_def_many( CcTypedStepLink ** steps__n, CcTypedStepDef * step_def__o ) {
 //     return cc_typed_step_def( CC_TYPED_STEP_CAST_INVALID, CC_TYPED_STEP_CAST_INVALID, steps__n, step_def__o );
 // }
-// TODO :: DELETE
+// todo :: DELETE

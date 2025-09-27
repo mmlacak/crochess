@@ -18,7 +18,7 @@
 
 // todo :: DOCS
 
-// TODO :: TEST :: DELETE ???
+// todo :: TEST :: DELETE ???
 //
 // bool cc_path_side_effects( CcPosDesc moving_from,
 //                            CcTypedStep last_step,
@@ -34,7 +34,7 @@
 //                       CcPathNode ** path_link__o_a,
 //                       CcPathSideEffectLink ** side_effect_link__o_a );
 //
-// TODO :: TEST :: DELETE ???
+// todo :: TEST :: DELETE ???
 
 
 bool cc_path_side_effects( CcPosDesc moving_from,

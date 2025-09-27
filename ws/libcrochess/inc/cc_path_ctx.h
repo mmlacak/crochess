@@ -21,8 +21,8 @@
 // Move context.
 
 typedef struct CcMoveContext {
-    CcPosDesc initial; // A piece starting current move, its initial position and tag. // TODO :: not really needed
-    CcPos current; // Current position of a piece which started current move. // TODO :: not really needed
+    CcPosDesc initial; // A piece starting current move, its initial position and tag. // todo :: not really needed
+    CcPos current; // Current position of a piece which started current move. // todo :: not really needed
     CcMultiStagePlyTypeEnum multi_stage; // Current stage in multi-stage (sub-)cascade.
     CcPosDesc pawn_sacrifice_serpent; // Serpent and its position where it initiated Pawn-sacrifice.
 } CcMoveContext;
@@ -53,7 +53,7 @@ typedef struct CcPlyContext {
     CcPosDesc initial; // Initial position, piece (and its tag), at the start of a ply.
     CcPos starting; // Starting position, if different from initial, i.e. in case of repositioning.
 
-    // TODO :: DOCS :: Cached, reference data to be stored in CcPathNode->act_desc while move, plies progresses.
+    // todo :: DOCS :: Cached, reference data to be stored in CcPathNode->act_desc while move, plies progresses.
     CcActivationDesc act_desc; // <i> Cached, reference data to be stored in CcPathNode->act_desc while move, plies progresses.
 
     bool is_first;
@@ -104,7 +104,7 @@ bool cc_path_context_is_legal( CcPathContext * path_ctx,
 // static bool _cc_path_context_init_ply( CcPathContext * path_ctx__io,
 //                                        CcPosDesc ply_init );
 
-// TODO :: DOCS :: either init move or init ply; but not both!
+// todo :: DOCS :: either init move or init ply; but not both!
 bool cc_path_context_init( CcPathContext * path_ctx__io,
                            CcPosDesc init_pos,
                            bool init_move_or_ply );

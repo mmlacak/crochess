@@ -10,7 +10,7 @@
 #include "cc_path_tree.h"
 
 
-// TODO :: TEST :: DELETE ???
+// todo :: TEST :: DELETE ???
 //
 // bool cc_path_side_effects( CcPosDesc moving_from,
 //                            CcTypedStep last_step,
@@ -52,7 +52,7 @@
 //         plnle = CC_PNLE_Next;
 //     }
 
-//     // TODO :: other terminating side-effects
+//     // todo :: other terminating side-effects
 
 //     //
 //     // Non-terminal side-effects.
@@ -84,16 +84,16 @@
 //     }
 
 
-//     // TODO :: FIX
+//     // todo :: FIX
 //     // if ( CC_MULTI_STAGE_PLY_TYPE_IS_TRANCE_CAPTURE( ms ) ) {
-//     //     // TODO
+//     //     // todo
 //     // } else if ( ms == CC_MSPTE_TJ_Displacing ) {
 //     //     if ( !CC_PIECE_IS_SHAMAN( moving_from.piece ) ) {
 //     //         cc_path_side_effect_link_free_all( &sel__t );
 //     //         return false;
 //     //     }
 
-//     //     CcPos displacement; // TODO :: FIX
+//     //     CcPos displacement; // todo :: FIX
 
 //     //     if ( CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( encounter.piece ) ) {
 //     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
@@ -106,7 +106,7 @@
 //     // } else if ( ms == CC_MSPTE_None ) {
 //     //     if ( CC_PIECE_CAN_DISPLACE( moving_from.piece ) &&
 //     //             CC_PIECE_CAN_BE_DISPLACED( encounter.piece ) ) {
-//     //         CcPos displacement; // TODO :: FIX
+//     //         CcPos displacement; // todo :: FIX
 
 //     //         CcSideEffect se = cc_side_effect_displacement( encounter.piece, displacement );
 //     //         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, CC_PNLE_Sub, se );
@@ -116,10 +116,10 @@
 //     //         }
 //     //     }
 //     // }
-//     // TODO :: FIX
+//     // todo :: FIX
 
 
-//     // TODO :: other non-terminating side-effects
+//     // todo :: other non-terminating side-effects
 
 
 
@@ -236,7 +236,7 @@
 //     return true;
 // }
 //
-// TODO :: TEST :: DELETE ???
+// todo :: TEST :: DELETE ???
 
 
 bool cc_path_side_effects( CcPosDesc moving_from,

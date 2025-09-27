@@ -5,11 +5,12 @@
 // // #include "cc_math.h"
 
 // #include "cc_pos_utils.h"
-// #include "cc_path_utils.h"
 // #include "cc_checks.h"
 
+// #include "cc_path_utils.h"
 
-// TODO :: DELETE
+
+// todo :: DELETE
 //
 // CcMaybeBoolEnum cc_path_side_effects( CcChessboard * cb,
 //                                      CcPosDesc moving,
@@ -63,10 +64,10 @@
 //     }
 //
 //
-//     // TODO
+//     // todo
 //
 //
-//     return CC_MBE_Void; // TODO :: FIX
+//     return CC_MBE_Void; // todo :: FIX
 // }
 //
-// TODO :: DELETE
+// todo :: DELETE

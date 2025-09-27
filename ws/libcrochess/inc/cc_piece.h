@@ -306,7 +306,7 @@
                                   || ( (pte) == CC_PTE_LightShaman )       \
                                   || ( (pte) == CC_PTE_LightStarchild ) )
 
-// TODO :: MAYBE :: Scout, Grenadier cannot diverge
+// todo :: MAYBE :: Scout, Grenadier cannot diverge
 #define CC_PIECE_CAN_BE_DIVERGED(pte)   ( CC_PIECE_IS_PAWN( (pte) )             \
                                        || CC_PIECE_IS_KNIGHT( (pte) )           \
                                        || CC_PIECE_IS_BISHOP( (pte) )           \

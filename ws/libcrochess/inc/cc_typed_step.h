@@ -134,24 +134,24 @@ size_t cc_typed_step_link_len( CcTypedStepLink * ts_link );
 
 char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link );
 
-// TODO :: DELETE
+// todo :: DELETE
 // //
 // // Typed step definition
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // typedef enum CcTypedStepDefEnum {
 //     CC_TSDE_One = 0,
 //     CC_TSDE_Two,
 //     CC_TSDE_Many,
 // } CcTypedStepDefEnum;
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // #define CC_TYPED_STEP_DEF_IS_ENUMERATOR(tsde) ( ( CC_TSDE_One <= (tsde) ) && ( (tsde) <= CC_TSDE_Many ) )
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // #define CC_TYPED_STEP_DEF_IS_VALID(tsde) ( CC_TYPED_STEP_DEF_IS_ENUMERATOR(tsde) ) // ( ( CC_TSDE_One <= (tsde) ) && ( (tsde) <= CC_TSDE_Many ) )
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // typedef struct CcTypedStepDef {
 //     CcTypedStepDefEnum type;
 
@@ -167,7 +167,7 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link );
 //     };
 // } CcTypedStepDef;
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // bool cc_typed_step_def( CcTypedStep step__d,
 //                         CcTypedStep step_2__d,
 //                         CcTypedStepLink ** steps__d_n,
@@ -180,15 +180,15 @@ char * cc_typed_step_link_to_string__new( CcTypedStepLink * ts_link );
 
 // // Convenience functions.
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // bool cc_typed_step_def_one( CcTypedStep step, CcTypedStepDef * step_def__o );
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // bool cc_typed_step_def_two( CcTypedStep step, CcTypedStep step_2, CcTypedStepDef * step_def__o );
 
-// // TODO :: DOCS
+// // todo :: DOCS
 // bool cc_typed_step_def_many( CcTypedStepLink ** steps__n, CcTypedStepDef * step_def__o );
-// TODO :: DELETE
+// todo :: DELETE
 
 
 #endif /* __CC_TYPED_STEP_H__ */
