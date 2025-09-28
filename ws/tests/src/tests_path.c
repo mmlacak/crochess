@@ -60,20 +60,20 @@ bool test_path( CcSideEffect side_effect,
     }
 
     bool result = true;
-    CcPathNode * pl__a = NULL;
+    CcPathNode * pn__a = NULL;
     // CcPathSideEffectLink * sel__a = NULL;
 
-    // if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a, &sel__a ) ) {
-    if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pl__a ) ) {
+    // if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pn__a, &sel__a ) ) {
+    if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pn__a ) ) {
         // cc_path_side_effect_link_free_all( &sel__a );
-        cc_path_node_free_all( &pl__a );
+        cc_path_node_free_all( &pn__a );
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
         return false;
     };
 
-    if ( pl__a ) {
-        char * pl_str__a = cc_path_node_to_string__new( 0, pl__a );
+    if ( pn__a ) {
+        char * pl_str__a = cc_path_node_to_string__new( 0, pn__a );
         printf( "Path link '%s' test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );
     } else {
@@ -96,7 +96,7 @@ bool test_path( CcSideEffect side_effect,
     printf( "-----------------------------------------------------------------------\n" );
 
     // cc_path_side_effect_link_free_all( &sel__a );
-    cc_path_node_free_all( &pl__a );
+    cc_path_node_free_all( &pn__a );
     cc_path_context_free_all( &path_ctx__a );
     cc_game_free_all( &game__a );
 

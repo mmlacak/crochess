@@ -31,7 +31,7 @@
 //                       CcTypedStep step_1,
 //                       CcTypedStep step_2,
 //                       CcPathContext * path_ctx__io,
-//                       CcPathNode ** path_link__o_a,
+//                       CcPathNode ** path_node__o_a,
 //                       CcPathSideEffectLink ** side_effect_link__o_a );
 //
 // todo :: TEST :: DELETE ???
@@ -42,14 +42,14 @@ bool cc_path_side_effects( CcPosDesc moving_from,
                            CcTypedStep step_2,
                            CcPosDesc encounter,
                            CcPathContext * path_ctx__io,
-                           CcPathNode ** path_link__o_a );
+                           CcPathNode ** path_node__o_a );
 
 bool cc_path_segment( CcSideEffect side_effect,
                       CcPosDesc moving_from,
                       CcTypedStep step_1,
                       CcTypedStep step_2,
                       CcPathContext * path_ctx__io,
-                      CcPathNode ** path_link__o_a );
+                      CcPathNode ** path_node__o_a );
 
 bool cc_path_tree( CcSideEffect side_effect,
                    CcPosDesc moving,
