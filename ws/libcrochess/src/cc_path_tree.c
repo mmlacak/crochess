@@ -280,7 +280,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     // Terminal side-effects.
 
     if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
-        if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) { // TODO :: FIX :: momentum in test is not updated
+        if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) { // TODO :: FIX :: momentum in tests is not updated
             cc_step_free_all( &steps__t );
             return false;
         }
@@ -304,7 +304,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         CcPosDesc moving_from_transparency = CC_POS_DESC_CAST( encounter.pos, moving_from.piece );
 
         if ( !is_encounter_step_appended ) {
-            if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) { // TODO :: FIX :: momentum in test is not updated
+            if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) { // TODO :: FIX :: momentum in tests is not updated
                 cc_step_free_all( &steps__t );
                 return false;
             }
@@ -381,7 +381,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         }
     }
 
-    if ( !cc_path_node_add_fork( path_link__io_a, &pl_next__t ) ) { // TODO :: FIX :: encounter tests 2, 3 fail
+    if ( pl_next__t && !cc_path_node_add_fork( path_link__io_a, &pl_next__t ) ) {
         cc_step_free_all( &steps__t );
         cc_path_node_free_all( &pl_next__t );
         return false;
