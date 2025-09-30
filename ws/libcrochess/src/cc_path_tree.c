@@ -271,8 +271,9 @@ bool cc_path_side_effects( CcPosDesc moving_from,
 
     CcStep * steps__t = NULL;
     bool is_encounter_step_appended = false;
+    CcActivationDesc ad_encounter_step_appended = *ad__w;
 
-    CcPathNode * pn__t = NULL;
+    CcPathNode * pn_step_over__t = NULL;
 
     #define STEP_COUNT (1)
 
@@ -280,10 +281,12 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     // Terminal side-effects.
 
     if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
-        if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) { // TODO :: FIX :: momentum in tests is not updated
+        if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) {
             cc_step_free_all( &steps__t );
             return false;
         }
+
+        ad_encounter_step_appended = *ad__w;
 
         CcStep * step__w = cc_step_capture_append( &steps__t, CC_SLTE_Next, encounter.pos, encounter.piece );
         if ( !step__w ) {
@@ -304,10 +307,12 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         CcPosDesc moving_from_transparency = CC_POS_DESC_CAST( encounter.pos, moving_from.piece );
 
         if ( !is_encounter_step_appended ) {
-            if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) { // TODO :: FIX :: momentum in tests is not updated
+            if ( cc_activation_desc_calc_momentum( ad__w, STEP_COUNT ) != CC_MBE_True ) {
                 cc_step_free_all( &steps__t );
                 return false;
             }
+
+            ad_encounter_step_appended = *ad__w;
 
             CcStep * step__w = cc_step_append_next_no_side_effect( &steps__t, encounter.pos );
             if ( !step__w ) {
@@ -318,8 +323,8 @@ bool cc_path_side_effects( CcPosDesc moving_from,
             is_encounter_step_appended = true;
         }
 
-        if ( !cc_path_segment( se, moving_from_transparency, step_1, step_2, path_ctx__a, &pn__t ) ) {
-            cc_path_node_free_all( &pn__t );
+        if ( !cc_path_segment( se, moving_from_transparency, step_1, step_2, path_ctx__a, &pn_step_over__t ) ) {
+            cc_path_node_free_all( &pn_step_over__t );
             return false;
         }
     }
@@ -376,22 +381,26 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         CcStep * step__w = cc_step_extend( &( (*path_node__io_a)->steps ), &steps__t );
         if ( !step__w ) {
             cc_step_free_all( &steps__t );
-            cc_path_node_free_all( &pn__t );
+            cc_path_node_free_all( &pn_step_over__t );
             return false;
         }
     }
 
-    if ( pn__t ) {
-        pn__t->act_desc = *ad__w; // TODO :: RETHINK :: is ok ? in all situations ?
+    if ( pn_step_over__t ) {
+        pn_step_over__t->act_desc = *ad__w; // TODO :: RETHINK :: is ok ? in all situations ?
 
-        if ( !cc_path_node_add_fork( path_node__io_a, &pn__t ) ) {
+        if ( !cc_path_node_add_fork( path_node__io_a, &pn_step_over__t ) ) { // Ownership transfer, do not free( pn_step_over__t ) afterwards.
             cc_step_free_all( &steps__t );
-            cc_path_node_free_all( &pn__t );
+            cc_path_node_free_all( &pn_step_over__t );
             return false;
         }
     }
 
     path_ctx__io->ply_ctx.act_desc = *ad__w; // path_ctx__a->ply_ctx.act_desc;
+
+    if ( is_encounter_step_appended ) {
+        ( *path_node__io_a )->act_desc = ad_encounter_step_appended;
+    }
 
     cc_path_context_free_all( &path_ctx__a );
 
