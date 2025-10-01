@@ -70,8 +70,15 @@ size_t cc_path_node_count( CcPathNode * path_node );
 
 size_t cc_path_node_count_all_segments( CcPathNode * path_node );
 
-char * cc_path_node_to_string__new( cc_uchar_t depth,
-                                    CcPathNode * path_node );
+// static char * _cc_path_node_to_string__new( cc_uchar_t depth,
+//                                             CcPathNode * path_node );
+
+// TODO :: DELETE
+// char * cc_path_node_to_string__new( cc_uchar_t depth,
+//                                     CcPathNode * path_node );
+
+// TODO :: DOCS
+char * cc_path_node_to_string__new( CcPathNode * path_node );
 
 // TODO :: rethink (maybe?)
 // char * cc_path_node_tree_to_string__new( CcPathNode * path_node );

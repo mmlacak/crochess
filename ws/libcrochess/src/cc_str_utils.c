@@ -541,7 +541,7 @@ char * cc_str_append_fmt_va__new( char ** str__d_f,
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
                                                      : (size_t)len;
 
-    char * str__t = (char *)malloc( len_min + 1 ); // +1 for '\0'
+    char * str__t = (char *)CC_MALLOC( len_min + 1 ); // +1 for '\0'
     if ( !str__t ) {
         va_end( tmp );
         return NULL;

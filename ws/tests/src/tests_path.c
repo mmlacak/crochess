@@ -73,7 +73,7 @@ bool test_path( CcSideEffect side_effect,
     };
 
     if ( pn__a ) {
-        char * pl_str__a = cc_path_node_to_string__new( 0, pn__a );
+        char * pl_str__a = cc_path_node_to_string__new( pn__a );
         printf( "Path link '%s' test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );
     } else {

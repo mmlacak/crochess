@@ -274,6 +274,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     CcActivationDesc ad_encounter_step_appended = *ad__w;
 
     CcPathNode * pn_step_over__t = NULL;
+    // todo :: add path nodes for other side-effects
 
     #define STEP_COUNT (1)
 

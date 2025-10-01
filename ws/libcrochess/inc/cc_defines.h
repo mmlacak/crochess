@@ -44,6 +44,9 @@ typedef unsigned long long cc_ull_t;
     *(ptr_ptr) = NULL;                  \
 }
 
+// TODO :: DOCS
+#define CC_MALLOC(size) calloc( 1, (size) )
+
 
 #ifdef __CC_DEBUG__
 
