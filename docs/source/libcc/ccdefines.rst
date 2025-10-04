@@ -135,7 +135,7 @@ Macros
     :param size: Size in bytes to allocate.
     :returns: A valid void pointer to allocated memory if successful,
         :c:data:`NULL` otherwise.
-    :seealso: :c:func:`calloc()`
+    :seealso: https://en.cppreference.com/w/c/memory/calloc.html
 
 .. c:macro:: CC_PRINTF(fmt,...)
 
@@ -147,7 +147,7 @@ Macros
     :param ...: Variadic input for a string format.
     :returns: An integer; number of characters written to output stream, or
         negative value if an error occurred.
-    :seealso: https://en.cppreference.com/w/c/io/fprintf
+    :seealso: https://en.cppreference.com/w/c/io/fprintf.html
 
 .. _lbl-libcc-ccdefines-maybebool:
 
