@@ -295,6 +295,8 @@ int main( void ) {
             }
         } else if ( cc_str_is_equal( token_start, token_end, "u", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "update", NULL, BUFSIZ ) ) {
+            // TODO :: FIX :: unrecognized tags are ignored
+            // e.g. "n cc" + "c" + "u Ra1R,Ke1R,bf3,ke4,Qh1", instead of ... + "u Ra1&,Ke1&,bf3,ke4,Qh1"
             CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, game__a );
 
             if ( !game__t )
