@@ -292,33 +292,16 @@ Linked path segments
     :param path_node: A path node.
     :returns: Count of all segments if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_path_node_to_string__new( cc_uchar_t depth, CcPathNode * path_node )
+.. c:function:: char * cc_path_node_to_string__new( CcPathNode * path_node )
 
     Function returns string containing user-readable representation of a given
-    path node.
+    path node, and all of its :c:member:`fork`, :c:member:`alt`, :c:member:`sub`
+    branches.
 
-    Path node depth is used to preface returned string with space-padding, which
-    corresponds to depth of a given node in a path hierarchy.
-
-    Depth is increased after a fork, but not for alternative, substitute paths,
-    or after continuing current path (by taking next node).
-
-    :param depth: Path node depth.
     :param path_node: A path node.
     :returns: A newly allocated, null-terminated (``'\0'``) string if
         successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_string()`
-
-.. .. TODO :: rethink (maybe?)
-.. .. c:function:: char * cc_path_node_to_string__new( CcPathNode * path_node )
-..
-..     Function returns string containing user-readable representation of a complete
-..     path tree, including :c:member:`fork`, :c:member:`alt` branches.
-..
-..     :param path_node: A path node.
-..     :returns: A newly allocated, null-terminated (``'\0'``) string if
-..         successful, :c:data:`NULL` otherwise.
-..     :seealso: :c:func:`cc_pos_to_string()`
 
 .. _lbl-libcc-ccpath-nodelinkage:
 

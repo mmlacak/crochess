@@ -128,6 +128,15 @@ Macros
     :param ptr_ptr: A pointer to pointer to allocated storage.
     :returns: Nothing.
 
+.. c:macro:: CC_MALLOC(size)
+
+    Macro to allocate and zero memory, via a call to :c:func:`calloc()` with a given size.
+
+    :param size: Size in bytes to allocate.
+    :returns: A valid void pointer to allocated memory if successful,
+        :c:data:`NULL` otherwise.
+    :seealso: :c:func:`calloc()`
+
 .. c:macro:: CC_PRINTF(fmt,...)
 
     Macro to call :c:func:`printf()`, depending on a compile-time constant.
