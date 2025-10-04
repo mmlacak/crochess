@@ -30,7 +30,7 @@ bool cc_str_clear( char * str__io, size_t size__d ) {
 
 char * cc_str_pad__new( char pad, size_t count ) {
     size_t size = count + 1; // + 1 for '\0'
-    char * pad__a = (char *)malloc( size );
+    char * pad__a = (char *)CC_MALLOC( size );
     if ( !pad__a ) return NULL;
 
     char * n = pad__a;
@@ -178,7 +178,7 @@ char * cc_str_to_case__new( char const * str,
     if ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED )
         len = CC_MIN( len, max_len__d );
 
-    char * lc__a = malloc( len + 1 );
+    char * lc__a = CC_MALLOC( len + 1 );
     if ( !lc__a ) return NULL;
 
     char * s = lc__a;
@@ -319,7 +319,7 @@ char * cc_str_copy__new( char const * start,
     if ( !start ) return NULL;
 
     size_t len = cc_str_len( start, end__d, max_len__d );
-    char * str__a = malloc( len + 1 );
+    char * str__a = CC_MALLOC( len + 1 );
     if ( !str__a ) return NULL;
 
     if ( !strncpy( str__a, start, len ) ) return NULL;
@@ -346,7 +346,7 @@ char * cc_str_fmt_va__new( size_t max_len__d,
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( (size_t)len, max_len__d )
                                                      : (size_t)len;
 
-    char * str__a = (char *)malloc( len_min + 1 );
+    char * str__a = (char *)CC_MALLOC( len_min + 1 );
     if ( !str__a ) {
         va_end( tmp );
         return NULL;
@@ -389,7 +389,7 @@ char * cc_str_duplicate__new( char const * str,
     if ( !str ) return NULL;
 
     size_t len = cc_str_len( str, NULL, max_len__d );
-    char * str__a = (char *)malloc( len + 1 ); // +1 for '\0'
+    char * str__a = (char *)CC_MALLOC( len + 1 ); // +1 for '\0'
     if ( !str__a ) return NULL;
 
     if ( len > 0 ) {
@@ -472,7 +472,7 @@ char * cc_str_append__new( char const * str_1__d,
         ( max_len__d != CC_MAX_LEN_ZERO_TERMINATED ) ? CC_MIN( len_1 + len_2, max_len__d )
                                                      : len_1 + len_2;
 
-    char * str__a = (char *)malloc( len + 1 ); // +1 for '\0'
+    char * str__a = (char *)CC_MALLOC( len + 1 ); // +1 for '\0'
     if ( !str__a ) return NULL;
 
     if ( len > 0 ) {

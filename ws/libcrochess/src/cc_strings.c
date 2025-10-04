@@ -14,7 +14,7 @@
 
 CcStrings * cc_strings__new( char const * str,
                              size_t max_len__d ) {
-    CcStrings * str__a = malloc( sizeof( CcStrings ) );
+    CcStrings * str__a = CC_MALLOC( sizeof( CcStrings ) );
     if ( !str__a ) return NULL;
 
     str__a->str = cc_str_duplicate__new( str, false, max_len__d );

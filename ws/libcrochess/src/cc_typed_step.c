@@ -28,7 +28,7 @@ bool cc_typed_step_is_equal( CcTypedStep ts_1, CcTypedStep ts_2 ) {
 // Linked typed steps.
 
 CcTypedStepLink * cc_typed_step_link__new( CcTypedStep step ) {
-    CcTypedStepLink * pl__a = malloc( sizeof( CcTypedStepLink ) );
+    CcTypedStepLink * pl__a = CC_MALLOC( sizeof( CcTypedStepLink ) );
     if ( !pl__a ) return NULL;
 
     pl__a->step = step;

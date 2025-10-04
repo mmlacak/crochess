@@ -22,7 +22,7 @@ char const CC_CHESSBOARD_SEPARATORS_SETUP_FROM_STRING[] = ",";
 
 
 CcChessboard * cc_chessboard__new( CcVariantType ve, bool do_setup ) {
-    CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
+    CcChessboard * cb__a = CC_MALLOC( sizeof( CcChessboard ) );
     if ( !cb__a ) return NULL;
 
     if ( !cc_chessboard_init( cb__a, ve, do_setup ) ) {
@@ -112,7 +112,7 @@ bool cc_chessboard_copy( CcChessboard * into__io,
 CcChessboard * cc_chessboard_duplicate__new( CcChessboard * from ) {
     if ( !from ) return NULL;
 
-    CcChessboard * cb__a = malloc( sizeof( CcChessboard ) );
+    CcChessboard * cb__a = CC_MALLOC( sizeof( CcChessboard ) );
     if ( !cb__a ) return NULL;
 
     cc_chessboard_init( cb__a, from->type, false );

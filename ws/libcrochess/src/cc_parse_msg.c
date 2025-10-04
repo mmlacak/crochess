@@ -13,7 +13,7 @@
 CcParseMsg * cc_parse_msg__new( CcParseMsgTypeEnum type,
                                 char const * msg,
                                 size_t max_len__d ) {
-    CcParseMsg * pm__a = malloc( sizeof( CcParseMsg ) );
+    CcParseMsg * pm__a = CC_MALLOC( sizeof( CcParseMsg ) );
     if ( !pm__a ) return NULL;
 
     pm__a->type = type;

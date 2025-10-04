@@ -15,7 +15,7 @@ CcMove * cc_move__new( char const * notation,
                        size_t max_len__d,
                        CcPly ** plies__d_n,
                        CcMoveStatusEnum status ) {
-    CcMove * mv__a = malloc( sizeof( CcMove ) );
+    CcMove * mv__a = CC_MALLOC( sizeof( CcMove ) );
     if ( !mv__a ) return NULL;
 
     mv__a->notation = cc_str_duplicate__new( notation, false, max_len__d );
@@ -187,7 +187,7 @@ char * cc_move_as_string__new( CcMove * move, bool is_score ) {
     size_t size = cc_move_all_notations_size( move, is_score );
     if ( size == 0 ) return NULL;
 
-    char * move_str__a = malloc( size );
+    char * move_str__a = CC_MALLOC( size );
     if ( !move_str__a ) return NULL;
 
     size_t i = 0;

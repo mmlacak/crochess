@@ -24,7 +24,7 @@ char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle ) {
 CcStep * cc_step__new( CcStepLinkTypeEnum link,
                        CcPos field,
                        CcSideEffect side_effect ) {
-    CcStep * step__a = malloc( sizeof( CcStep ) );
+    CcStep * step__a = CC_MALLOC( sizeof( CcStep ) );
     if ( !step__a ) return NULL;
 
     step__a->link = link;

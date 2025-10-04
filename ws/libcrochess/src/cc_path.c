@@ -18,7 +18,7 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
                                 CcPieceTagType encounter,
                                 CcActivationDesc act_desc ) {
-    CcPathNode * pl__t = malloc( sizeof( CcPathNode ) );
+    CcPathNode * pl__t = CC_MALLOC( sizeof( CcPathNode ) );
     if ( !pl__t ) return NULL;
 
     pl__t->side_effect = side_effect;
@@ -527,7 +527,10 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     char * pln_alt__t = NULL;
     char * pln_sub__t = NULL;
     char const * fmt = "\n%s\n%s\n%s";
-    cc_uint_t str_size_empty = 2 * ( depth + 1 );
+    cc_uint_t str_size_empty = 2 * ( depth + 1 ) + 1;
+    // 2* --> 2 spaces for each tabulation
+    // depth+1 --> all forks, alts, sub path nodes are sub-nodes
+    // +1 --> '\0', i.e. null-terminating char
 
     if ( path_node->fork ) {
         pln_fork__t = _cc_path_node_to_string__new( depth + 1, path_node->fork );
@@ -542,7 +545,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
            return NULL;
         }
 
-        *( pln_fork__t + str_size_empty - 2 ) = '>';
+        *( pln_fork__t + str_size_empty - 3 ) = '>';
     }
 
     if ( path_node->alt ) {
@@ -560,7 +563,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
 
-        *( pln_alt__t + str_size_empty - 2 ) = '^';
+        *( pln_alt__t + str_size_empty - 3 ) = '^';
     }
 
     if ( path_node->sub ) {
@@ -580,11 +583,11 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
 
-        *( pln_sub__t + str_size_empty - 2 ) = '.';
+        *( pln_sub__t + str_size_empty - 3 ) = '.';
     }
 
-    // pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
-    // Other strings do not have their ownership transferred, so do free() those.
+    // <!> pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
+    //     Other strings do not have their ownership transferred, so do free() those.
     char * pln_str__a = cc_str_append_fmt__new( &pln_str__t, CC_MAX_LEN_ZERO_TERMINATED, fmt, pln_fork__t, pln_alt__t, pln_sub__t );
 
     CC_FREE( pln_sub__t );
@@ -639,7 +642,7 @@ char const * cc_path_node_linkage_to_string( CcPathNode * path_node ) {
 
 CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathNodeLinkageEnum link,
                                                       CcSideEffect side_effect ) {
-    CcPathSideEffectLink * se__t = malloc( sizeof( CcPathSideEffectLink ) );
+    CcPathSideEffectLink * se__t = CC_MALLOC( sizeof( CcPathSideEffectLink ) );
     if ( !se__t ) return NULL;
 
     se__t->link = link;
@@ -755,7 +758,7 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
     // + 1 --> } (separator)
     // + 1 --> '\0'
 
-    char * str__a = malloc( size );
+    char * str__a = CC_MALLOC( size );
     if ( !str__a ) return NULL;
 
     if ( !cc_str_clear( str__a, size ) ) {

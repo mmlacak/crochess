@@ -180,7 +180,7 @@ bool cc_pos_to_string( CcPos pos, cc_char_8 * pos_str__o ) {
 // Linked positions.
 
 CcPosLink * cc_pos_link__new( CcPos pos ) {
-    CcPosLink * pl__t = malloc( sizeof( CcPosLink ) );
+    CcPosLink * pl__t = CC_MALLOC( sizeof( CcPosLink ) );
     if ( !pl__t ) return NULL;
 
     pl__t->pos = pos;
@@ -292,7 +292,7 @@ char * cc_pos_link_to_string__new( CcPosLink * pos_link ) {
 
     size_t pl_size = pl_len + 1; // +1, for '\0'
 
-    char * pl_str__a = malloc( pl_size );
+    char * pl_str__a = CC_MALLOC( pl_size );
     if ( !pl_str__a ) return NULL;
 
     char const * pl_end__w = pl_str__a + pl_size;
@@ -377,7 +377,7 @@ bool cc_pos_desc_to_string( CcPosDesc pd,
 // Linked position descriptor.
 
 CcPosDescLink * cc_pos_desc_link__new( CcPosDesc pd ) {
-    CcPosDescLink * pdl__t = malloc( sizeof( CcPosDescLink ) );
+    CcPosDescLink * pdl__t = CC_MALLOC( sizeof( CcPosDescLink ) );
     if ( !pdl__t ) return NULL;
 
     pdl__t->pd = pd;
@@ -491,7 +491,7 @@ char * cc_pos_desc_link_to_string__new( CcPosDescLink * pd_link ) {
 
     size_t pdl_size = pdl_len + 1; // +1, for '\0'
 
-    char * pdl_str__a = malloc( pdl_size );
+    char * pdl_str__a = CC_MALLOC( pdl_size );
     if ( !pdl_str__a ) return NULL;
 
     char const * pdl_end__w = pdl_str__a + pdl_size;

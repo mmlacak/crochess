@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 
+#include "cc_defines.h"
 #include "cc_token.h"
 
 
@@ -91,7 +92,7 @@ char * cc_trim_str__new( char const * str,
     if ( end == start ) return NULL;
 
     size_t len = end - start;
-    char * pos__a = malloc( len + 1 );
+    char * pos__a = CC_MALLOC( len + 1 );
     if ( !pos__a ) return NULL;
 
     strncpy( pos__a, start, len );

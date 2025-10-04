@@ -31,7 +31,7 @@ CcPly * cc_ply__new( CcPlyLinkTypeEnum link,
                      CcPieceTagType piece,
                      CcLosingTagType lost_tag,
                      CcStep ** steps__d_n ) {
-    CcPly * ply__a = malloc( sizeof( CcPly ) );
+    CcPly * ply__a = CC_MALLOC( sizeof( CcPly ) );
     if ( !ply__a ) return NULL;
 
     ply__a->link = link;

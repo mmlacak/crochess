@@ -10,7 +10,7 @@ CcPathContext * cc_path_context__new( CcGame * game ) {
     if ( !game ) return NULL;
     if ( !game->chessboard ) return NULL;
 
-    CcPathContext * px__a = malloc( sizeof( CcPathContext ) );
+    CcPathContext * px__a = CC_MALLOC( sizeof( CcPathContext ) );
     if ( !px__a ) return NULL;
 
     px__a->game__w = game; // Weak pointer, no ownership transferred.
