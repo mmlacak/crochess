@@ -305,6 +305,8 @@ int main( void ) {
             }
         } else if ( cc_str_is_equal( token_start, token_end, "s", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) ) {
+            // TODO :: FIX :: does not parse/apply variants
+            // TODO :: FIX :: switches to One variants, when none is given
             CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, NULL );
 
             if ( !game__t )
