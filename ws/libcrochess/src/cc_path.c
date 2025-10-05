@@ -527,13 +527,13 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     char * pln_alt__t = NULL;
     char * pln_sub__t = NULL;
     char const * fmt = "\n%s\n%s\n%s";
-    cc_uint_t str_size_empty = 2 * ( depth + 1 ) + 1;
+    cc_uchar_t new_depth = depth + 1; // depth + 1 --> all forks, alts, sub path nodes are sub-nodes
+    cc_uint_t str_size_empty = 2 * new_depth + 1;
     // 2* --> 2 spaces for each tabulation
-    // depth+1 --> all forks, alts, sub path nodes are sub-nodes
     // +1 --> '\0', i.e. null-terminating char
 
     if ( path_node->fork ) {
-        pln_fork__t = _cc_path_node_to_string__new( depth + 1, path_node->fork );
+        pln_fork__t = _cc_path_node_to_string__new( new_depth, path_node->fork );
         if ( !pln_fork__t ) {
            CC_FREE( pln_str__t );
            return NULL;
@@ -545,11 +545,11 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
            return NULL;
         }
 
-        *( pln_fork__t + str_size_empty - 3 ) = '>';
+        *( pln_fork__t + str_size_empty - 3 ) = '<';
     }
 
     if ( path_node->alt ) {
-        pln_alt__t = _cc_path_node_to_string__new( depth + 1, path_node->alt );
+        pln_alt__t = _cc_path_node_to_string__new( new_depth, path_node->alt );
         if ( !pln_alt__t ) {
             CC_FREE( pln_fork__t );
             CC_FREE( pln_str__t );
@@ -567,7 +567,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     }
 
     if ( path_node->sub ) {
-        pln_sub__t = _cc_path_node_to_string__new( depth + 1, path_node->sub );
+        pln_sub__t = _cc_path_node_to_string__new( new_depth, path_node->sub );
         if ( !pln_sub__t ) {
             CC_FREE( pln_alt__t );
             CC_FREE( pln_fork__t );
@@ -583,7 +583,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
 
-        *( pln_sub__t + str_size_empty - 3 ) = '.';
+        *( pln_sub__t + str_size_empty - 3 ) = '%';
     }
 
     // <!> pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
@@ -607,9 +607,9 @@ char * cc_path_node_to_string__new( CcPathNode * path_node ) {
 char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle ) {
     switch ( plnle ) {
         case CC_PNLE_NoLinkage : return "";
-        case CC_PNLE_Fork : return "* ";
-        case CC_PNLE_Alt : return "& ";
-        case CC_PNLE_Sub : return "~ ";
+        case CC_PNLE_Fork : return "< ";
+        case CC_PNLE_Alt : return "^ ";
+        case CC_PNLE_Sub : return "% ";
         default : return "? ";
     }
 }
@@ -773,7 +773,7 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
         *s++ = '{';
 
         switch ( sdl->link ) {
-            case CC_PNLE_NoLinkage : *s++ = '.'; break;
+            case CC_PNLE_NoLinkage : *s++ = ' '; break;
             case CC_PNLE_Fork : *s++ = '<'; break;
             case CC_PNLE_Alt : *s++ = '^'; break;
             case CC_PNLE_Sub : *s++ = '%'; break;
