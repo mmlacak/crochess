@@ -586,9 +586,15 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
         *( pln_sub__t + str_size_empty - 3 ) = '%';
     }
 
-    // <!> pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
-    //     Other strings do not have their ownership transferred, so do free() those.
-    char * pln_str__a = cc_str_append_fmt__new( &pln_str__t, CC_MAX_LEN_ZERO_TERMINATED, fmt, pln_fork__t, pln_alt__t, pln_sub__t );
+    char * pln_str__a = NULL;
+
+    if ( path_node->fork || path_node->alt || path_node->sub ) {
+        // <!> pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
+        //     Other strings do not have their ownership transferred, so do free() those.
+        pln_str__a = cc_str_append_fmt__new( &pln_str__t, CC_MAX_LEN_ZERO_TERMINATED, fmt, pln_fork__t, pln_alt__t, pln_sub__t );
+    } else {
+        pln_str__a = pln_str__t; // Ownership transfer, do not free( pln_str__t ).
+    }
 
     CC_FREE( pln_sub__t );
     CC_FREE( pln_alt__t );
