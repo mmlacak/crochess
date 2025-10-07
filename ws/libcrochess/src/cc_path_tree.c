@@ -425,8 +425,15 @@ bool cc_path_segment( CcSideEffect side_effect,
 
     cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
     CcPos pos = moving_from.pos;
-    CcStep * steps__t = cc_step_initial_no_side_effect__new( pos );
-    if ( !steps__t ) return false;
+
+    CcStep * steps__t = NULL;
+    // If side-effect is valid --> this is movement from encounter, not initial piece movement -->
+    // this step is already added to the parent path node steps, in cc_path_side_effects() --> skip it here.
+    bool skip_first = CC_SIDE_EFFECT_TYPE_IS_VALID( side_effect.type );
+    if ( !skip_first ) {
+        steps__t = cc_step_initial_no_side_effect__new( pos );
+        if ( !steps__t ) return false;
+    }
 
     bool is_starting_pos = path_ctx__io->ply_ctx.is_first;
     CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
