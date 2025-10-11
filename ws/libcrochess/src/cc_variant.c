@@ -98,6 +98,7 @@ size_t cc_variant_from_symbol( char const * str,
             } else { // "cc"
                 ve = CC_VE_ClassicalChess;
                 len = 2;
+                --s; // Has to point at last variant char, otherwise bails out at [1].
             }
         } else if ( *s == 't' ||  *s == 'T' ) {
             ++s;
@@ -122,6 +123,7 @@ size_t cc_variant_from_symbol( char const * str,
             } else { // "ct"
                 ve = CC_VE_CroatianTies;
                 len = 2;
+                --s; // Has to point at last variant char, otherwise bails out at [1].
             }
         } else if ( *s == 'o' ||  *s == 'O' ) {
             ++s;
@@ -167,7 +169,7 @@ size_t cc_variant_from_symbol( char const * str,
     }
 
     if ( CC_VARIANT_IS_VALID( ve ) ) {
-        if ( isalnum( *++s ) )
+        if ( isalnum( *++s ) ) // [1]
             return CC_LEN_VARIANT_SYMBOL_INVALID;
 
         *ve__o = (CcVariantType)ve;

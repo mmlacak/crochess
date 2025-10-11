@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.340:1519+20251007.184439"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.341:1520+20251011.024242"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -307,7 +307,6 @@ int main( void ) {
             }
         } else if ( cc_str_is_equal( token_start, token_end, "s", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "setup", NULL, BUFSIZ ) ) {
-            // TODO :: FIX :: does not parse/apply variants
             // TODO :: FIX :: switches to One variants, when none is given
             CcGame * game__t = cc_game_setup_from_string__new( token_end + 1, NULL );
 
