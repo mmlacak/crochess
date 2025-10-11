@@ -161,9 +161,12 @@ void print_help_tags( void ) {
     printf( "Displays current tags.\n"
             "Tags refer to pieces located at the same position as tag.\n"
             "\n"
-            "R -> Pawn can rush\n"
-            "C -> Rooks, Kings can castle\n"
-            "P -> Pawn tagged for promotion\n" );
+            "^ -> private can rush\n"
+            "; -> private rushed in this turn\n"
+            ": -> private rushed in previous turn\n"
+            "& -> Rooks, Kings can castle\n"
+            "= -> Pawn tagged for promotion\n"
+            "! -> piece without any tag\n" );
 }
 
 void print_help_about( void ) {
