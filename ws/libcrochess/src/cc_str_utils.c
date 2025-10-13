@@ -11,18 +11,18 @@
 #include "cc_str_utils.h"
 
 
-bool cc_str_clear( char * str__io, size_t size__d ) {
+bool cc_str_pad( char * str__io, char pad, size_t size__d ) {
     if ( !str__io ) return false;
 
     char * s = str__io;
 
     if ( size__d == CC_SIZE_IGNORE ) {
-        while ( *s ) *s++ = '\0';
+        while ( *s ) *s++ = pad;
     } else {
         size_t c = 0;
 
         while ( ( *s ) && ( c++ < size__d ) )
-            *s++ = '\0';
+            *s++ = pad;
     }
 
     return true;

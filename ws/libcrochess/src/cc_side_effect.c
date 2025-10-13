@@ -167,7 +167,7 @@ bool cc_side_effect_to_str( CcSideEffect se,
                             cc_char_16 * se_str__o ) {
     if ( !se_str__o ) return false;
 
-    if ( !cc_str_clear( *se_str__o, CC_SIZE_CHAR_16 ) )
+    if ( !cc_str_pad( *se_str__o, '\0', CC_SIZE_CHAR_16 ) )
         return false;
 
     if ( se.type == CC_SETE_None )

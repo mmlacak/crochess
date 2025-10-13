@@ -198,7 +198,7 @@ All arrays defined here have all their :c:`char`\s initialized to ``'\0'``.
 Functions
 ---------
 
-.. c:function:: bool cc_str_clear( char * str__io, size_t size__d )
+.. c:function:: bool cc_str_pad( char * str__io, size_t size__d )
 
     Function to clear string, or char array, by writing ``'\0'`` into every char.
 

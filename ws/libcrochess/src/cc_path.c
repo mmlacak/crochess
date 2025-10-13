@@ -430,7 +430,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     str_len += cc_str_len( plnle_str, NULL, CC_SIZE_PATH_NODE_LINKAGE_STRING );
     str_len += cc_str_len( steps_str__a, NULL, CC_SIZE_BUFFER );
     str_len += cc_str_len( se_str, NULL, CC_SIZE_CHAR_16 );
-    str_len += 2 + 1 + 1; // For .encounter (i.e. CcPieceTagType); +2 for ' @', +1 for piece symbol, +1 for tag char.
+    str_len += 2 + 1 + 1 + 2; // For .encounter (i.e. CcPieceTagType); +2 for ' @', +1 for piece symbol, +1 for tag char, +2 for '|'.
     str_len += 3 + CC_SIZE_CHAR_32; // For .act_desc (i.e. CcActivationDesc); +3 for ' #' preceeding act desc.
     str_len += 2; // +2 for new line char(s), any of \LF (Linux, ...), \CR\LF (Windows, ...), or \CR (others)
 
@@ -528,8 +528,11 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     char * pln_sub__t = NULL;
     char const * fmt = "\n%s\n%s\n%s";
     cc_uchar_t new_depth = depth + 1; // depth + 1 --> all forks, alts, sub path nodes are sub-nodes
-    cc_uint_t str_size_empty = 2 * new_depth + 1;
+
+    cc_uint_t str_len_empty = 2 * new_depth;
     // 2* --> 2 spaces for each tabulation
+
+    cc_uint_t str_size_empty = str_len_empty + 1;
     // +1 --> '\0', i.e. null-terminating char
 
     if ( path_node->fork ) {
@@ -545,7 +548,12 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
            return NULL;
         }
 
-        *( pln_fork__t + str_size_empty - 3 ) = '<';
+        if ( !cc_str_pad( pln_fork__t, ' ', str_len_empty ) ) {
+           CC_FREE( pln_str__t );
+           return NULL;
+        }
+
+        *( pln_fork__t + str_len_empty - 1 ) = '<';
     }
 
     if ( path_node->alt ) {
@@ -563,7 +571,13 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
 
-        *( pln_alt__t + str_size_empty - 3 ) = '^';
+        if ( !cc_str_pad( pln_alt__t, ' ', str_len_empty ) ) {
+            CC_FREE( pln_fork__t );
+            CC_FREE( pln_str__t );
+           return NULL;
+        }
+
+        *( pln_alt__t + str_len_empty - 1 ) = '^';
     }
 
     if ( path_node->sub ) {
@@ -583,7 +597,14 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
 
-        *( pln_sub__t + str_size_empty - 3 ) = '%';
+        if ( !cc_str_pad( pln_sub__t, ' ', str_len_empty ) ) {
+            CC_FREE( pln_alt__t );
+            CC_FREE( pln_fork__t );
+            CC_FREE( pln_str__t );
+           return NULL;
+        }
+
+        *( pln_sub__t + str_len_empty - 1 ) = '%';
     }
 
     char * pln_str__a = NULL;
@@ -767,7 +788,7 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
     char * str__a = CC_MALLOC( size );
     if ( !str__a ) return NULL;
 
-    if ( !cc_str_clear( str__a, size ) ) {
+    if ( !cc_str_pad( str__a, '\0', size ) ) {
         CC_FREE( str__a );
         return NULL;
     }
