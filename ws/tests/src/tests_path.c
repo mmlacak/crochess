@@ -86,7 +86,7 @@ bool test_path_segment( CcSideEffect side_effect,
             return false;
         }
 
-        char * pl_str__a = cc_path_node_to_string__new( path_node__a ); // TODO :: FIX :: no output
+        char * pl_str__a = cc_path_node_to_string__new( path_node__a );
         printf( "%s\nPath link test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );
     } else {
@@ -98,18 +98,9 @@ bool test_path_segment( CcSideEffect side_effect,
         }
     }
 
-    // if ( sel__a ) {
-    //     char * sel_str__a = cc_path_side_effect_link_to_string__new( sel__a );
-    //     printf( "Side-effects: %s.\n", sel_str__a );
-    //     CC_FREE( sel_str__a );
-    // } else {
-    //     printf( "Side-effects: none.\n" );
-    // }
-
     printf( "-----------------------------------------------------------------------\n" );
 
-    // cc_path_side_effect_link_free_all( &sel__a );
-    // cc_path_node_free_all( &path_node__t ); // Not really needed, ownership transferred at [1].
+    // cc_path_node_free_all( &path_node__t ); // Not needed, ownership transferred at [1].
     cc_path_node_free_all( &path_node__a );
     cc_path_context_free_all( &path_ctx__a );
     cc_game_free_all( &game__a );

@@ -606,8 +606,13 @@ bool cc_path_tree_init( CcGame * game,
 
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
+    CcStep * steps__t = cc_step_initial_no_side_effect__new( moving_from.pos );
+    if ( !steps__t ) {
+        cc_path_context_free_all( path_ctx__iod_a );
+        return false;
+    }
 
-    *path_node__iod_a = cc_path_node__new( se, NULL, moving_from.piece, ad ); // TODO :: FIX :: initialize steps
+    *path_node__iod_a = cc_path_node__new( se, &steps__t, moving_from.piece, ad );
     if ( !*path_node__iod_a ) {
         cc_path_context_free_all( path_ctx__iod_a );
         return false;

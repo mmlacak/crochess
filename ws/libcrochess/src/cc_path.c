@@ -407,7 +407,7 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RE
 }
 
 static char * _cc_path_node_to_string__new( cc_uchar_t depth,
-                                            CcPathNode * path_node ) {
+                                            CcPathNode * path_node ) { // TODO :: FIX :: remove extra empty lines + align output
     if ( !path_node ) return NULL;
 
     cc_uint_t tabs_len = 2 * depth; // Depth --> 2-spaces.
