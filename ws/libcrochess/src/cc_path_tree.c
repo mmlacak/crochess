@@ -417,15 +417,20 @@ bool cc_path_segment( CcSideEffect side_effect,
     if ( !path_node__o_a ) return false;
     if ( *path_node__o_a ) return false;
 
-    if ( !CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) return false;
     if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
 
-    if ( !cc_chessboard_is_pos_on_board( path_ctx__io->cb_current, moving_from.pos.i, moving_from.pos.j ) ) return false;
+    cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
+
+    if ( !CC_POS_DESC_IS_LEGAL( moving_from, board_size ) ) return false;
+
     if ( !cc_activation_desc_is_legal( path_ctx__io->ply_ctx.act_desc, moving_from.piece, path_ctx__io->ply_ctx.is_first ) ) return false;
 
-    cc_uint_t board_size = cc_variant_board_size( path_ctx__io->cb_current->type );
-    CcPos pos = moving_from.pos;
+    CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
 
+    if ( !cc_piece_is_one_step( moving_from.piece, act_desc.activator ) &&
+         !cc_piece_is_two_step( moving_from.piece, act_desc.activator ) ) return false;
+
+    CcPos pos = moving_from.pos;
     CcStep * steps__t = NULL;
     // If side-effect is valid --> this is movement from encounter, not initial piece movement -->
     // this step is already added to the parent path node steps, in cc_path_side_effects() --> skip it here.
@@ -436,7 +441,6 @@ bool cc_path_segment( CcSideEffect side_effect,
     }
 
     bool is_starting_pos = path_ctx__io->ply_ctx.is_first;
-    CcActivationDesc act_desc = path_ctx__io->ply_ctx.act_desc;
     CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
     CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
@@ -505,9 +509,10 @@ bool cc_path_segment( CcSideEffect side_effect,
 bool cc_path_tree( CcSideEffect side_effect,
                    CcPosDesc moving_from,
                    CcPathContext * path_ctx__io,
-                   CcPathNode * pl__io ) {
+                   CcPathNode ** path_node__o_a ) {
     if ( !path_ctx__io ) return false;
-    if ( !pl__io ) return false;
+    if ( !path_node__o_a ) return false;
+    if ( *path_node__o_a ) return false;
 
     if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false;
 
@@ -530,24 +535,27 @@ bool cc_path_tree( CcSideEffect side_effect,
     return false; // TODO :: FIX
 }
 
-bool cc_path_tree_init__new( CcGame * game,
-                             CcPosDesc moving_from,
-                             CcPathNode ** path_link__iod_a,
-                             CcPathContext ** path_ctx__iod_a ) {
+bool cc_path_tree_init( CcGame * game,
+                        CcPosDesc moving_from,
+                        CcPathContext ** path_ctx__iod_a,
+                        CcPathNode ** path_node__iod_a ) {
     if ( !game ) return false;
     if ( !game->chessboard ) return false;
-
-    cc_uint_t board_size = cc_chessboard_get_size( game->chessboard );
-    if ( !CC_POS_DESC_IS_LEGAL( moving_from, board_size ) ) return false;
 
     if ( !path_ctx__iod_a ) return false;
     if ( *path_ctx__iod_a ) return false;
 
-    if ( !path_link__iod_a ) return false;
-    if ( *path_link__iod_a ) return false;
+    if ( !path_node__iod_a ) return false;
+    if ( *path_node__iod_a ) return false;
 
-    if ( !CC_PIECE_IS_ACTIVE( moving_from.piece ) ) return false;
-    if ( !cc_chessboard_is_pos_on_board( game->chessboard, moving_from.pos.i, moving_from.pos.j ) ) return false;
+    if ( !CC_PIECE_IS_ACTIVE( moving_from.piece ) ) return false; // Only active piece can start a cascade.
+
+    cc_uint_t board_size = cc_chessboard_get_size( game->chessboard );
+    if ( !CC_POS_IS_LEGAL( moving_from.pos, board_size ) ) return false;
+
+    // For the first piece in a cascade moving_from piece, tag and its position is the same as found on the chessboard.
+    CcPieceTagType piece = cc_chessboard_get_piece( game->chessboard, moving_from.pos.i, moving_from.pos.j );
+    if ( piece != moving_from.piece ) return false;
 
     *path_ctx__iod_a = cc_path_context__new( game ); // Game ownership has not been transferred here.
     if ( !*path_ctx__iod_a ) return false;
@@ -557,15 +565,11 @@ bool cc_path_tree_init__new( CcGame * game,
         return false;
     }
 
-    // <!> Piece, and its tag, might not be at moving_from.pos position on chessboard,
-    //     e.g. if already activated (transitioning problem); for everything
-    //     else chessboard should be correct.
-
     CcSideEffect se = cc_side_effect_none();
     CcActivationDesc ad = CC_ACTIVATION_DESC_CAST_INITIAL; // Activation descriptor in path context is also initialized to the same.
 
-    *path_link__iod_a = cc_path_node__new( se, NULL, moving_from.piece, ad );
-    if ( !*path_link__iod_a ) {
+    *path_node__iod_a = cc_path_node__new( se, NULL, moving_from.piece, ad );
+    if ( !*path_node__iod_a ) {
         cc_path_context_free_all( path_ctx__iod_a );
         return false;
     }
