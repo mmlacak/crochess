@@ -407,7 +407,7 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RE
 }
 
 static char * _cc_path_node_to_string__new( cc_uchar_t depth,
-                                            CcPathNode * path_node ) { // TODO :: FIX :: remove extra empty lines + align output
+                                            CcPathNode * path_node ) {
     if ( !path_node ) return NULL;
 
     cc_uint_t tabs_len = 2 * depth; // Depth --> 2-spaces.
@@ -542,18 +542,13 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
            return NULL;
         }
     } else {
-        pln_fork__t = CC_MALLOC( str_size_empty );
+        pln_fork__t = cc_str_pad__new( ' ', str_size_empty );
         if ( !pln_fork__t ) {
            CC_FREE( pln_str__t );
            return NULL;
         }
 
-        if ( !cc_str_pad( pln_fork__t, ' ', str_len_empty ) ) {
-           CC_FREE( pln_str__t );
-           return NULL;
-        }
-
-        *( pln_fork__t + str_len_empty - 1 ) = '<';
+        *( pln_fork__t + str_len_empty ) = '<';
     }
 
     if ( path_node->alt ) {
@@ -564,20 +559,14 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
     } else {
-        pln_alt__t = CC_MALLOC( str_size_empty );
+        pln_alt__t = cc_str_pad__new( ' ', str_size_empty );
         if ( !pln_alt__t ) {
             CC_FREE( pln_fork__t );
             CC_FREE( pln_str__t );
             return NULL;
         }
 
-        if ( !cc_str_pad( pln_alt__t, ' ', str_len_empty ) ) {
-            CC_FREE( pln_fork__t );
-            CC_FREE( pln_str__t );
-           return NULL;
-        }
-
-        *( pln_alt__t + str_len_empty - 1 ) = '^';
+        *( pln_alt__t + str_len_empty ) = '^';
     }
 
     if ( path_node->sub ) {
@@ -589,7 +578,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
     } else {
-        pln_sub__t = CC_MALLOC( str_size_empty );
+        pln_sub__t = cc_str_pad__new( ' ', str_size_empty );
         if ( !pln_sub__t ) {
             CC_FREE( pln_alt__t );
             CC_FREE( pln_fork__t );
@@ -597,14 +586,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
             return NULL;
         }
 
-        if ( !cc_str_pad( pln_sub__t, ' ', str_len_empty ) ) {
-            CC_FREE( pln_alt__t );
-            CC_FREE( pln_fork__t );
-            CC_FREE( pln_str__t );
-           return NULL;
-        }
-
-        *( pln_sub__t + str_len_empty - 1 ) = '%';
+        *( pln_sub__t + str_len_empty ) = '%';
     }
 
     char * pln_str__a = NULL;
