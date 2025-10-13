@@ -42,7 +42,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
                            CcTypedStep step_2,
                            CcPosDesc encounter,
                            CcPathContext * path_ctx__io,
-                           CcPathNode ** path_node__o_a );
+                           CcPathNode ** path_node__io_a );
 
 bool cc_path_segment( CcSideEffect side_effect,
                       CcPosDesc moving_from,
@@ -51,10 +51,9 @@ bool cc_path_segment( CcSideEffect side_effect,
                       CcPathContext * path_ctx__io,
                       CcPathNode ** path_node__o_a );
 
-bool cc_path_tree( CcSideEffect side_effect,
-                   CcPosDesc moving,
+bool cc_path_tree( CcPosDesc moving,
                    CcPathContext * path_ctx__io,
-                   CcPathNode ** path_node__o_a );
+                   CcPathNode ** path_node__io_a );
 
 bool cc_path_tree_init( CcGame * game,
                         CcPosDesc moving_from,

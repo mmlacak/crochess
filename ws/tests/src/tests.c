@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.343:1522+20251013.012934"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.344:1523+20251013.023949"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -333,7 +333,7 @@ int main( void ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
             tests_misc( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "ta", NULL, BUFSIZ ) ||
-                    cc_str_is_equal( token_start, token_end, "test_path", NULL, BUFSIZ ) ) {
+                    cc_str_is_equal( token_start, token_end, "test_path_segment", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
             tests_path( test_number );
 #ifdef __WITH_LINE_NOISE__

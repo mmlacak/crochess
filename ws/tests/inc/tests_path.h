@@ -10,11 +10,11 @@
 #include "cc_path_ctx.h"
 
 
-bool test_path( CcSideEffect side_effect,
-                CcPosDesc move_from,
-                CcPosDesc ply_from,
-                CcTypedStep step,
-                char const * setup );
+bool test_path_segment( CcSideEffect side_effect,
+                        CcPosDesc move_from,
+                        CcPosDesc ply_from,
+                        CcTypedStep step,
+                        char const * setup );
 
 bool test_bishop_simple( char const * setup );
 

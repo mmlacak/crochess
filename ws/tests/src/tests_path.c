@@ -31,11 +31,11 @@
 #include "tests_move.h"
 
 
-bool test_path( CcSideEffect side_effect,
-                CcPosDesc move_from,
-                CcPosDesc ply_from,
-                CcTypedStep step,
-                char const * setup ) {
+bool test_path_segment( CcSideEffect side_effect,
+                        CcPosDesc move_from,
+                        CcPosDesc ply_from,
+                        CcTypedStep step,
+                        char const * setup ) {
     if ( !setup ) return false;
 
     CcGame * game__a = cc_game_setup_from_string__new( setup, NULL );
@@ -45,35 +45,48 @@ bool test_path( CcSideEffect side_effect,
     cc_chessboard_print( game__a->chessboard, true );
     // cc_chessboard_print( game__a->chessboard, false );
 
-    CcPathContext * path_ctx__a = cc_path_context__new( game__a );
-    if ( !path_ctx__a ) {
+    CcPathContext * path_ctx__a = NULL;
+    CcPathNode * path_node__a = NULL;
+
+    if ( !cc_path_tree_init( game__a, move_from, &path_ctx__a, &path_node__a ) ) {
         cc_game_free_all( &game__a );
         return false;
     }
 
-    bool is_first_ply = CC_POS_DESC_IS_EQUAL( move_from, ply_from );
+    // CcPathContext * path_ctx__a = cc_path_context__new( game__a );
+    // if ( !path_ctx__a ) {
+    //     cc_game_free_all( &game__a );
+    //     return false;
+    // }
 
-    if ( !cc_path_context_init( path_ctx__a, move_from, is_first_ply ) ) {
-        cc_path_context_free_all( &path_ctx__a );
-        cc_game_free_all( &game__a );
-        return false;
-    }
+    // bool is_first_ply = CC_POS_DESC_IS_EQUAL( move_from, ply_from );
+
+    // if ( !cc_path_context_init( path_ctx__a, move_from, is_first_ply ) ) {
+    //     cc_path_context_free_all( &path_ctx__a );
+    //     cc_game_free_all( &game__a );
+    //     return false;
+    // }
 
     bool result = true;
-    CcPathNode * pn__a = NULL;
-    // CcPathSideEffectLink * sel__a = NULL;
+    CcPathNode * path_node__t = NULL;
 
-    // if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pn__a, &sel__a ) ) {
-    if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &pn__a ) ) {
-        // cc_path_side_effect_link_free_all( &sel__a );
-        cc_path_node_free_all( &pn__a );
+    if ( !cc_path_segment( side_effect, ply_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__a, &path_node__t ) ) {
+        cc_path_node_free_all( &path_node__a );
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
         return false;
     };
 
-    if ( pn__a ) {
-        char * pl_str__a = cc_path_node_to_string__new( pn__a );
+    if ( path_node__t ) {
+        if ( !cc_path_node_add_fork( &path_node__a, &path_node__t ) ) { // Ownership transferred, if succesful. // [1]
+            cc_path_node_free_all( &path_node__t );
+            cc_path_node_free_all( &path_node__a );
+            cc_path_context_free_all( &path_ctx__a );
+            cc_game_free_all( &game__a );
+            return false;
+        }
+
+        char * pl_str__a = cc_path_node_to_string__new( path_node__a ); // TODO :: FIX :: no output
         printf( "%s\nPath link test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );
     } else {
@@ -96,7 +109,8 @@ bool test_path( CcSideEffect side_effect,
     printf( "-----------------------------------------------------------------------\n" );
 
     // cc_path_side_effect_link_free_all( &sel__a );
-    cc_path_node_free_all( &pn__a );
+    // cc_path_node_free_all( &path_node__t ); // Not really needed, ownership transferred at [1].
+    cc_path_node_free_all( &path_node__a );
     cc_path_context_free_all( &path_ctx__a );
     cc_game_free_all( &game__a );
 
@@ -110,7 +124,7 @@ bool test_bishop_simple( char const * setup ) {
     CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_CaptureOrMovement );
     // char const * setup = "O Bd6";
 
-    return test_path( se, move_from, ply_from, step, setup );
+    return test_path_segment( se, move_from, ply_from, step, setup );
 }
 
 bool tests_path( int test_number ) {
