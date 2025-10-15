@@ -464,6 +464,8 @@ for duration of a ply. So, Wave activated by King moves like a Queen.
 \label{fig:scn_mv_021_wave_activation_by_step_pawn}
 \end{figure}
 
+\TODO :: Wave cannot activate Pyramid, only material pieces
+
 \vspace*{-0.5\baselineskip}
 Pawn can activate Wave on its step-fields, from which Wave inherits its steps, a
 forward step and two diagonal steps.
@@ -482,6 +484,8 @@ does not have to activate Wave, and can continue rushing further instead.
 \caption{Wave activated on Pawn's step-field}
 \label{fig:scn_mv_022_wave_activated_by_step_pawn}
 \end{figure}
+
+\TODO :: Wave cannot activate Pyramid, only material pieces
 
 \vspace*{-0.5\baselineskip}
 Unlike Pawn, Wave can choose any step, including diagonal, even if that step-field
@@ -509,6 +513,8 @@ Wave activated by rushing Pawn behaves the same, except it receives more momentu
 \label{fig:scn_mv_023_wave_activation_by_capture_pawn}
 \end{figure}
 
+\TODO :: Wave cannot activate Pyramid, only material pieces
+
 \vspace*{-0.5\baselineskip}
 Wave can be activated by Pawn on its capture-field, with 1 momentum. Activated
 Wave inherits the same steps as if activated on Pawn's step-fields; i.e. it moves
@@ -528,6 +534,8 @@ momentum.
 \caption{Wave activated on Pawn's capture-field}
 \label{fig:scn_mv_024_wave_activated_by_capture_pawn}
 \end{figure}
+
+\TODO :: Wave cannot activate Pyramid, only material pieces
 
 \vspace*{-0.5\baselineskip}
 \hyperref[sec:Terms/Activator]{Activator} is material (non-Wave) piece from which
@@ -803,29 +811,34 @@ longest rush movement available in this variant.
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[7]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_038_not_activating_pyramid_by_wave.png}
 \vspace*{-1.4\baselineskip}
 \caption{Wave cannot activate Pyramid}
 \label{fig:scn_mv_038_not_activating_pyramid_by_wave}
 \end{wrapfigure}
-...
+Wave cannot activate Pyramid.
 
-\vspace*{14.4\baselineskip}
-% \vspace*{-0.4\baselineskip}
+Here, light Wave is about to be activated by light Bishop with 3 momentum.
+Light Wave can reach light Pyramid, but cannot interact with it; Wave can
+use its transparency, and move past Pyramid.
+
+\vspace*{7.7\baselineskip}
 \noindent
-\begin{wrapfigure}[1]{l}{0.4\textwidth}
+\begin{wrapfigure}[10]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.39375\textwidth, keepaspectratio=true]{examples/10_mv/scn_mv_039_activating_pyramid_cascade_pawn.png}
 \vspace*{-1.4\baselineskip}
-\caption{Pyramid can be activated}
+\caption{Activating Pyramid in a cascade}
 \label{fig:scn_mv_039_activating_pyramid_cascade_pawn}
 \end{wrapfigure}
-...
+Pyramid can be activated in a cascade by any material piece (i.e. any
+piece other than Wave).
 
-% \vspace*{15.4\baselineskip}
-% \TODO :: Wave cannot activate Pyramid, only material pieces
+Here, light Wave is about to be activated by light Bishop with 3 momentum,
+which can then activate light Pawn; Pawn can then activate Pyramid on its
+capture-field, with 2 momentum.
 
 % .................................................. Activating Pyramid
 \clearpage % ..........................................................
