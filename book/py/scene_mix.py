@@ -38,5 +38,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    'scn_mv_038_not_activating_pyramid_by_wave', \
+                    # 'scn_mv_038_not_activating_pyramid_by_wave', \
+                    'scn_mv_039_activating_pyramid_cascade_pawn', \
                 ]
