@@ -94,6 +94,8 @@
 #define CC_PIECE_IS_STARCHILD(pte) ( ( (pte) == CC_PTE_LightStarchild ) || ( (pte) == CC_PTE_DarkStarchild ) )
 
 
+// TODO :: Wave cannot activate Pyramid, only material pieces
+
 #define CC_PIECE_IS_TROOPER(pte) ( CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
 
 #define CC_PIECE_IS_PRIVATE(pte) ( CC_PIECE_IS_PAWN( (pte) ) || CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
@@ -162,6 +164,7 @@
                                    || ( (pte) == CC_PTE_LightWave )        \
                                    || ( (pte) == CC_PTE_LightStarchild ) )
 
+// TODO :: DOCS :: Wave cannot activate Pyramid, only material pieces
 #define CC_PIECE_CAN_BE_ACTIVATED(pte) ( ( (pte) != CC_PTE_DarkKing_CanCastle )     \
                                       && ( (pte) != CC_PTE_DarkKing )               \
                                       && ( (pte) != CC_PTE_None )                   \
