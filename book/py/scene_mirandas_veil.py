@@ -210,11 +210,215 @@ class SceneMirandasVeilMixin:
         return scene
 
     #
+    # Activating Pawn
+
+    def scn_mv_007_activating_rush_pawn_init(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_007_activating_rush_pawn_init', bt) # , width=5, height=8)
+
+        #
+        # 1 - momentum smaller than rush
+
+        startW1 = (4, 1)
+        startR1 = (4, 5)
+        startP1 = (2, 1)
+
+        scene.board.set_piece(1, 2, piece=-PieceType.Knight)
+        scene.board.set_piece(*startP1, piece=PieceType.Pawn)
+        scene.board.set_piece(*startW1, piece=PieceType.Wave)
+        scene.board.set_piece(*startR1, piece=PieceType.Rook)
+
+        # Rook, direction <0, -1>
+        coords = GS.gen_next( GS.gen_steps(start=startR1, rels=[(0, -1), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Wave, direction <-1, 0>
+        coords = GS.gen_next( GS.gen_steps(start=startW1, rels=[(-1, 0), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        scene.append_text("1", *startP1, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+
+        #
+        # 2 - momentum larger than rush
+
+        startW2 = (14, 1)
+        startR2 = (14, 14)
+        startP2 = (12, 1)
+
+        scene.board.set_piece(11, 2, piece=-PieceType.Rook)
+        scene.board.set_piece(*startP2, piece=PieceType.Pawn)
+        scene.board.set_piece(*startW2, piece=PieceType.Wave)
+        scene.board.set_piece(*startR2, piece=PieceType.Rook)
+
+        # Rook, direction <0, -1>
+        coords = GS.gen_next( GS.gen_steps(start=startR2, rels=[(0, -1), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Wave, direction <-1, 0>
+        coords = GS.gen_next( GS.gen_steps(start=startW2, rels=[(-1, 0), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        scene.append_text("2", *startP2, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
+
+        return scene
+
+    def scn_mv_008_activating_rush_pawn_end(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene('scn_mv_008_activating_rush_pawn_end', bt)
+
+        #
+        # 1 - momentum smaller than rush
+
+        startP1 = (2, 1)
+
+        scene.board.set_piece(1, 2, piece=-PieceType.Knight)
+        scene.board.set_piece(*startP1, piece=PieceType.Wave)
+        scene.board.set_piece(4, 1, piece=PieceType.Rook)
+
+        # Pawn, direction <-1, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(-1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Pawn, direction <1, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # Pawn, direction <0, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(0, 1), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        scene.append_text("1", *startP1, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+
+        #
+        # 2 - momentum larger than rush
+
+        startP2 = (12, 1)
+
+        scene.board.set_piece(11, 2, piece=-PieceType.Rook)
+        scene.board.set_piece(*startP2, piece=PieceType.Wave)
+        scene.board.set_piece(14, 1, piece=PieceType.Rook)
+
+        # Pawn, direction <-1, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(-1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+
+        # Pawn, direction <1, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(1, 1), ], include_prev=True) )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        # Pawn, direction <0, 1>
+        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(0, 1), ], include_prev=True) )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
+
+        scene.append_text("2", *startP2, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
+
+        return scene
+
+    #
+    # Activating Pyramid
+
+    def scn_mv_009_not_activating_pyramid_by_wave( self, bt=BoardType.MirandasVeil ):
+
+        scene = Scene( 'scn_mv_009_not_activating_pyramid_by_wave', bt, width=6.3, height=9.3 )
+
+        start_B = (1, 1)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W = (4, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_A = (2, 6)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        gen = GS.gen_steps( [(1, 1), ], start_B, include_prev=True, count=3 )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Action if index == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen = GS.gen_steps( [(-1, 1), ], start_W, include_prev=True, count=4 )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Illegal if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        return scene
+
+    def scn_mv_010_activating_pyramid_cascade_pawn(self, bt=BoardType.MirandasVeil):
+
+        scene = Scene( 'scn_mv_010_activating_pyramid_cascade_pawn', bt, width=6.3, height=9.3 )
+
+        start_B = (1, 1)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
+
+        start_W = (4, 4)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_P = (2, 6)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_A = (3, 7)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        gen = GS.gen_steps( [(1, 1), ], start_B, include_prev=True, count=3 )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Action if index == 2 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        gen = GS.gen_steps( [(-1, 1), ], start_W, include_prev=True, count=2 )
+        for index, coords in enumerate( gen() ):
+            mark_type = MarkType.Action if index == 1 else \
+                        MarkType.Legal
+            scene.append_arrow( *coords, mark_type=mark_type )
+
+        coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(1, 1), ], include_prev=True) )
+        # scene.append_arrow( *coords() )
+        scene.append_arrow( *coords(), mark_type=MarkType.Action )
+        # scene.append_arrow( *coords() )
+
+        return scene
+
+    #
     # Wave is transparent
 
-    def scn_mv_007_wave_is_transparent(self, bt=BoardType.MirandasVeil):
+    def scn_mv_011_wave_is_transparent(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_007_wave_is_transparent', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_011_wave_is_transparent', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_Q = (14, 1)
@@ -242,9 +446,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_008_wave_cant_be_pinned(self, bt=BoardType.MirandasVeil):
+    def scn_mv_012_wave_cant_be_pinned(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_008_wave_cant_be_pinned', bt) # , height=13.3) # , y=0.7, height=12.5)
+        scene = Scene('scn_mv_012_wave_cant_be_pinned', bt) # , height=13.3) # , y=0.7, height=12.5)
         rect = (0.05, 0.8, 0.65, 0.1)
 
         start_e = (9, 9)
@@ -269,9 +473,9 @@ class SceneMirandasVeilMixin:
     #
     # Castling is not blocked by Wave
 
-    def scn_mv_009_wave_no_block_castling_king(self, bt=BoardType.MirandasVeil):
+    def scn_mv_013_wave_no_block_castling_king(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene( 'scn_mv_009_wave_no_block_castling_king', bt, height=1.7 )
+        scene = Scene( 'scn_mv_013_wave_no_block_castling_king', bt, height=1.7 )
 
         start_K = (8, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -313,9 +517,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_010_wave_no_block_castling_rook(self, bt=BoardType.MirandasVeil):
+    def scn_mv_014_wave_no_block_castling_rook(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene( 'scn_mv_010_wave_no_block_castling_rook', bt, height=1.7 )
+        scene = Scene( 'scn_mv_014_wave_no_block_castling_rook', bt, height=1.7 )
 
         prev_K = (8, 0)
         start_K = (3, 0)
@@ -344,9 +548,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_011_wave_block_castling_rook(self, bt=BoardType.MirandasVeil):
+    def scn_mv_015_wave_block_castling_rook(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene( 'scn_mv_011_wave_block_castling_rook', bt, height=1.7 )
+        scene = Scene( 'scn_mv_015_wave_block_castling_rook', bt, height=1.7 )
 
         prev_K = (8, 0)
         start_K = (4, 0)
@@ -378,9 +582,9 @@ class SceneMirandasVeilMixin:
     #
     # Single-step pieces and transparency
 
-    def scn_mv_012_pawn_blocked_by_opponents_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_016_pawn_blocked_by_opponents_wave(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene( 'scn_mv_012_pawn_blocked_by_opponents_wave', bt, width=6.3, height=8.3 )
+        scene = Scene( 'scn_mv_016_pawn_blocked_by_opponents_wave', bt, width=6.3, height=8.3 )
 
         #
         # Pawn A
@@ -424,9 +628,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_013_pawn_not_blocked_by_opponents_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_017_pawn_not_blocked_by_opponents_wave(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene( 'scn_mv_013_pawn_not_blocked_by_opponents_wave', bt, width=6.3, height=8.3 )
+        scene = Scene( 'scn_mv_017_pawn_not_blocked_by_opponents_wave', bt, width=6.3, height=8.3 )
 
         #
         # Pawn A
@@ -469,9 +673,9 @@ class SceneMirandasVeilMixin:
     #
     # Piece blocked
 
-    def scn_mv_014_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):
+    def scn_mv_018_wave_no_activating_blocked_piece(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_014_wave_no_activating_blocked_piece', bt)
+        scene = Scene('scn_mv_018_wave_no_activating_blocked_piece', bt)
 
         scene.board.set_piece(6, 6, piece=PieceType.Knight)
         scene.board.set_piece(5, 4, piece=PieceType.Wave)
@@ -491,9 +695,9 @@ class SceneMirandasVeilMixin:
     #
     # Movement
 
-    def scn_mv_015_bishop_activating_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_019_bishop_activating_wave(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_015_bishop_activating_wave', bt)
+        scene = Scene('scn_mv_019_bishop_activating_wave', bt)
 
         start_B = (3, 6)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -510,9 +714,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_016_wave_activated_by_bishop(self, bt=BoardType.MirandasVeil):
+    def scn_mv_020_wave_activated_by_bishop(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_016_wave_activated_by_bishop', bt)
+        scene = Scene('scn_mv_020_wave_activated_by_bishop', bt)
 
         start_B = (7, 10)
         scene.board.set_piece(*start_B, piece=PieceType.Bishop)
@@ -552,9 +756,9 @@ class SceneMirandasVeilMixin:
     #
     # Activated by Knight
 
-    def scn_mv_017_knight_activating_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_021_knight_activating_wave(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_017_knight_activating_wave', bt)
+        scene = Scene('scn_mv_021_knight_activating_wave', bt)
 
         start_N = (3, 6)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
@@ -567,9 +771,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_018_wave_activated_by_knight(self, bt=BoardType.MirandasVeil):
+    def scn_mv_022_wave_activated_by_knight(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_018_wave_activated_by_knight', bt)
+        scene = Scene('scn_mv_022_wave_activated_by_knight', bt)
 
         start_N = (5, 7)
         scene.board.set_piece(*start_N, piece=PieceType.Knight)
@@ -584,9 +788,9 @@ class SceneMirandasVeilMixin:
     #
     # Activated by King
 
-    def scn_mv_019_king_activating_wave(self, bt=BoardType.MirandasVeil):
+    def scn_mv_023_king_activating_wave(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_019_king_activating_wave', bt)
+        scene = Scene('scn_mv_023_king_activating_wave', bt)
 
         start_K = (3, 6)
         scene.board.set_piece(*start_K, piece=PieceType.King)
@@ -599,9 +803,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_020_wave_activated_by_king(self, bt=BoardType.MirandasVeil):
+    def scn_mv_024_wave_activated_by_king(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_020_wave_activated_by_king', bt)
+        scene = Scene('scn_mv_024_wave_activated_by_king', bt)
 
         start_K = (4, 7)
         scene.board.set_piece(*start_K, piece=PieceType.King)
@@ -616,9 +820,9 @@ class SceneMirandasVeilMixin:
     #
     # Activated by stepping Pawn
 
-    def scn_mv_021_wave_activation_by_step_pawn( self, bt=BoardType.MirandasVeil ):
+    def scn_mv_025_wave_activation_by_step_pawn( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_021_wave_activation_by_step_pawn', bt )
+        scene = Scene( 'scn_mv_025_wave_activation_by_step_pawn', bt )
 
         start_P = (5, 2)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -648,9 +852,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_022_wave_activated_by_step_pawn( self, bt=BoardType.MirandasVeil ):
+    def scn_mv_026_wave_activated_by_step_pawn( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_022_wave_activated_by_step_pawn', bt )
+        scene = Scene( 'scn_mv_026_wave_activated_by_step_pawn', bt )
 
         # prev_P_A = (5, 2)
         start_P = (5, 3)
@@ -715,9 +919,9 @@ class SceneMirandasVeilMixin:
     #
     # Activated by capturing Pawn
 
-    def scn_mv_023_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_027_wave_activation_by_capture_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_023_wave_activation_by_capture_pawn', bt)
+        scene = Scene('scn_mv_027_wave_activation_by_capture_pawn', bt)
 
         start_P = (4, 2)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
@@ -743,9 +947,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_024_wave_activated_by_capture_pawn(self, bt=BoardType.MirandasVeil):
+    def scn_mv_028_wave_activated_by_capture_pawn(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_024_wave_activated_by_capture_pawn', bt)
+        scene = Scene('scn_mv_028_wave_activated_by_capture_pawn', bt)
 
         # prev_P_A = (5, 2)
         start_P = (5, 3)
@@ -810,9 +1014,9 @@ class SceneMirandasVeilMixin:
     #
     # Activated by Unicorn
 
-    def scn_mv_025_wave_same_color(self, bt=BoardType.MirandasVeil):
+    def scn_mv_029_wave_same_color(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_025_wave_same_color', bt, y=1, width=7, height=7)
+        scene = Scene('scn_mv_029_wave_same_color', bt, y=1, width=7, height=7)
 
         start = (3, 4)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -825,9 +1029,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_026_wave_opposite_color(self, bt=BoardType.MirandasVeil):
+    def scn_mv_030_wave_opposite_color(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_026_wave_opposite_color', bt, width=11, height=11)
+        scene = Scene('scn_mv_030_wave_opposite_color', bt, width=11, height=11)
 
         start = (5, 5)
         scene.board.set_piece(*start, piece=PieceType.Wave)
@@ -850,9 +1054,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_027_wave_activation_by_unicorn_first_step(self, bt=BoardType.MirandasVeil):
+    def scn_mv_031_wave_activation_by_unicorn_first_step(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_027_wave_activation_by_unicorn_first_step', bt)
+        scene = Scene('scn_mv_031_wave_activation_by_unicorn_first_step', bt)
 
         start = (6, 3)
         start_U = (2, 4)
@@ -880,9 +1084,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_028_wave_activation_by_unicorn_second_step(self, bt=BoardType.MirandasVeil):
+    def scn_mv_032_wave_activation_by_unicorn_second_step(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_028_wave_activation_by_unicorn_second_step', bt)
+        scene = Scene('scn_mv_032_wave_activation_by_unicorn_second_step', bt)
 
         start = (6, 3)
         start_W = (5, 5)
@@ -912,9 +1116,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_029_wave_activation_by_unicorn_complete(self, bt=BoardType.MirandasVeil):
+    def scn_mv_033_wave_activation_by_unicorn_complete(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_029_wave_activation_by_unicorn_complete', bt)
+        scene = Scene('scn_mv_033_wave_activation_by_unicorn_complete', bt)
 
         start = (6, 3)
         start_U = (2, 4)
@@ -975,9 +1179,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_030_wave_off_board(self, bt=BoardType.MirandasVeil):
+    def scn_mv_034_wave_off_board(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_030_wave_off_board', bt, x=4, y=1, reverse_off_board_field_colors=False)
+        scene = Scene('scn_mv_034_wave_off_board', bt, x=4, y=1, reverse_off_board_field_colors=False)
 
         rect = (0.05, 1.0, 0.6, 0.45)
 
@@ -1020,9 +1224,9 @@ class SceneMirandasVeilMixin:
     #
     # Cascading Waves
 
-    def scn_mv_031_wave_cascading_init(self, bt=BoardType.MirandasVeil):
+    def scn_mv_035_wave_cascading_init(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_031_wave_cascading_init', bt)
+        scene = Scene('scn_mv_035_wave_cascading_init', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -1056,9 +1260,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_032_wave_cascading_steps(self, bt=BoardType.MirandasVeil):
+    def scn_mv_036_wave_cascading_steps(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_032_wave_cascading_steps', bt)
+        scene = Scene('scn_mv_036_wave_cascading_steps', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -1120,9 +1324,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_033_wave_cascading_end(self, bt=BoardType.MirandasVeil):
+    def scn_mv_037_wave_cascading_end(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_033_wave_cascading_end', bt)
+        scene = Scene('scn_mv_037_wave_cascading_end', bt)
 
         start_B = (1, 4)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -1201,9 +1405,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_034_wave_no_momentum_no_activating(self, bt=BoardType.MirandasVeil):
+    def scn_mv_038_wave_no_momentum_no_activating(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_034_wave_no_momentum_no_activating', bt)
+        scene = Scene('scn_mv_038_wave_no_momentum_no_activating', bt)
 
         scene.board.set_piece( 8, 6, piece=PieceType.Bishop )
         scene.board.set_piece( 7, 5, piece=PieceType.Wave )
@@ -1223,9 +1427,9 @@ class SceneMirandasVeilMixin:
 
         return scene
 
-    def scn_mv_035_single_step_piece_momentum(self, bt=BoardType.MirandasVeil):
+    def scn_mv_039_single_step_piece_momentum(self, bt=BoardType.MirandasVeil):
 
-        scene = Scene('scn_mv_035_single_step_piece_momentum', bt)
+        scene = Scene('scn_mv_039_single_step_piece_momentum', bt)
 
         start_B = (6, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
@@ -1281,210 +1485,6 @@ class SceneMirandasVeilMixin:
         scene.append_text( "4", *start_N, corner=Corner.LowerRight, mark_type=MarkType.Action )
         scene.append_text( "3", *start_W_B, corner=Corner.LowerRight, mark_type=MarkType.Action )
         scene.append_text( "3", *start_R, corner=Corner.LowerRight, mark_type=MarkType.Action )
-
-        return scene
-
-    #
-    # Activating Pawn
-
-    def scn_mv_036_activating_rush_pawn_init(self, bt=BoardType.MirandasVeil):
-
-        scene = Scene('scn_mv_036_activating_rush_pawn_init', bt) # , width=5, height=8)
-
-        #
-        # 1 - momentum smaller than rush
-
-        startW1 = (4, 1)
-        startR1 = (4, 5)
-        startP1 = (2, 1)
-
-        scene.board.set_piece(1, 2, piece=-PieceType.Knight)
-        scene.board.set_piece(*startP1, piece=PieceType.Pawn)
-        scene.board.set_piece(*startW1, piece=PieceType.Wave)
-        scene.board.set_piece(*startR1, piece=PieceType.Rook)
-
-        # Rook, direction <0, -1>
-        coords = GS.gen_next( GS.gen_steps(start=startR1, rels=[(0, -1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # Wave, direction <-1, 0>
-        coords = GS.gen_next( GS.gen_steps(start=startW1, rels=[(-1, 0), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        scene.append_text("1", *startP1, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
-
-        #
-        # 2 - momentum larger than rush
-
-        startW2 = (14, 1)
-        startR2 = (14, 14)
-        startP2 = (12, 1)
-
-        scene.board.set_piece(11, 2, piece=-PieceType.Rook)
-        scene.board.set_piece(*startP2, piece=PieceType.Pawn)
-        scene.board.set_piece(*startW2, piece=PieceType.Wave)
-        scene.board.set_piece(*startR2, piece=PieceType.Rook)
-
-        # Rook, direction <0, -1>
-        coords = GS.gen_next( GS.gen_steps(start=startR2, rels=[(0, -1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # Wave, direction <-1, 0>
-        coords = GS.gen_next( GS.gen_steps(start=startW2, rels=[(-1, 0), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        scene.append_text("2", *startP2, corner=Corner.UpperLeft, mark_type=MarkType.Blocked)
-
-        return scene
-
-    def scn_mv_037_activating_rush_pawn_end(self, bt=BoardType.MirandasVeil):
-
-        scene = Scene('scn_mv_037_activating_rush_pawn_end', bt)
-
-        #
-        # 1 - momentum smaller than rush
-
-        startP1 = (2, 1)
-
-        scene.board.set_piece(1, 2, piece=-PieceType.Knight)
-        scene.board.set_piece(*startP1, piece=PieceType.Wave)
-        scene.board.set_piece(4, 1, piece=PieceType.Rook)
-
-        # Pawn, direction <-1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(-1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # Pawn, direction <1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-        # Pawn, direction <0, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startP1, rels=[(0, 1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-        scene.append_text("1", *startP1, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-
-        #
-        # 2 - momentum larger than rush
-
-        startP2 = (12, 1)
-
-        scene.board.set_piece(11, 2, piece=-PieceType.Rook)
-        scene.board.set_piece(*startP2, piece=PieceType.Wave)
-        scene.board.set_piece(14, 1, piece=PieceType.Rook)
-
-        # Pawn, direction <-1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(-1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-
-        # Pawn, direction <1, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(1, 1), ], include_prev=True) )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-        # Pawn, direction <0, 1>
-        coords = GS.gen_next( GS.gen_steps(start=startP2, rels=[(0, 1), ], include_prev=True) )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-        scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
-
-        scene.append_text("2", *startP2, mark_type=MarkType.Blocked, corner=Corner.UpperLeftFieldMarker)
-
-        return scene
-
-    #
-    # Activating Pyramid
-
-    def scn_mv_038_not_activating_pyramid_by_wave( self, bt=BoardType.MirandasVeil ):
-
-        scene = Scene( 'scn_mv_038_not_activating_pyramid_by_wave', bt, width=6.3, height=9.3 )
-
-        start_B = (1, 1)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
-
-        start_W = (4, 4)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_A = (2, 6)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
-
-        gen = GS.gen_steps( [(1, 1), ], start_B, include_prev=True, count=3 )
-        for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Action if index == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        gen = GS.gen_steps( [(-1, 1), ], start_W, include_prev=True, count=4 )
-        for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Illegal if index == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        return scene
-
-    def scn_mv_039_activating_pyramid_cascade_pawn(self, bt=BoardType.MirandasVeil):
-
-        scene = Scene( 'scn_mv_039_activating_pyramid_cascade_pawn', bt, width=6.3, height=9.3 )
-
-        start_B = (1, 1)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
-
-        start_W = (4, 4)
-        scene.board.set_piece( *start_W, piece=PieceType.Wave )
-
-        start_P = (2, 6)
-        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
-
-        start_A = (3, 7)
-        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
-
-        gen = GS.gen_steps( [(1, 1), ], start_B, include_prev=True, count=3 )
-        for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Action if index == 2 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        gen = GS.gen_steps( [(-1, 1), ], start_W, include_prev=True, count=2 )
-        for index, coords in enumerate( gen() ):
-            mark_type = MarkType.Action if index == 1 else \
-                        MarkType.Legal
-            scene.append_arrow( *coords, mark_type=mark_type )
-
-        coords = GS.gen_next( GS.gen_steps(start=start_P, rels=[(1, 1), ], include_prev=True) )
-        # scene.append_arrow( *coords() )
-        scene.append_arrow( *coords(), mark_type=MarkType.Action )
-        # scene.append_arrow( *coords() )
 
         return scene
 

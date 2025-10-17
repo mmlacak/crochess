@@ -156,7 +156,7 @@ Teleported Wave emerges from the other Star in the same color as the starting on
 Wave has to continue movement in the same direction as it did before teleportation,
 direction cannot be changed. Wave also retains momentum it had before teleportation,
 so here it can activate Pyramid, or
-\hyperref[fig:scn_mv_036_activating_rush_pawn_init]{rush light Pawn for 2 fields}.
+\hyperref[fig:scn_mv_007_activating_rush_pawn_init]{rush light Pawn for 2 fields}.
 
 % ---------------------------------------------------- Teleporting Wave
 \clearpage % ..........................................................
@@ -193,10 +193,10 @@ removed from chessboard, just like any other
 \end{figure}
 
 Here, light grey fields are virtual fields extending existing chessboard.
-\hyperref[fig:scn_mv_027_wave_activation_by_unicorn_first_step]{Wave activated by Unicorn}
+\hyperref[fig:scn_mv_031_wave_activation_by_unicorn_first_step]{Wave activated by Unicorn}
 has to choose 2 different steps at the beginning of its movement, and follow
 them for the remainder of a ply. Wave's movement is legal as long as its
-\hyperref[fig:scn_mv_030_wave_off_board]{ply ends on a chessboard}. So, light
+\hyperref[fig:scn_mv_034_wave_off_board]{ply ends on a chessboard}. So, light
 Wave can reach light Star and start teleporting, even though it stepped
 outside of a board.
 
@@ -251,7 +251,7 @@ teleporting step is also different (here, long jump) from previous example
 teleported Wave has to continue alternating between 2 initially chosen steps,
 according to a color of a current field, i.e. color of starting field of each
 step. Wave's movement is legal as long as its
-\hyperref[fig:scn_mv_030_wave_off_board]{ply ends on a chessboard}. So, dark
+\hyperref[fig:scn_mv_034_wave_off_board]{ply ends on a chessboard}. So, dark
 Wave can e.g. activate dark Pawn (with 1 momentum carried through teleportation),
 even though it stepped outside of a board.
 
@@ -387,10 +387,10 @@ the right step-field, and activate light Wave D, with one momentum.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-\hyperref[fig:scn_mv_015_bishop_activating_wave]{As before}, Wave inherits all steps
+\hyperref[fig:scn_mv_019_bishop_activating_wave]{As before}, Wave inherits all steps
 from its \hyperref[sec:Terms/Activator]{activator}. Wave activated by sideways Pawn
 can now move laterally in addition to
-\hyperref[fig:scn_mv_022_wave_activated_by_step_pawn]{straight and diagonally forward}.
+\hyperref[fig:scn_mv_026_wave_activated_by_step_pawn]{straight and diagonally forward}.
 Just like Pawn's, all Wave's lateral fields are just step-fields; Wave can't activate
 Pyramid located on any sideways field.\newline
 \indent
@@ -418,7 +418,7 @@ change direction once it starts moving; so, light Bishop is out of reach.
 Wave can be activated by sideways Pawn on its capture-field, with 1 momentum.
 Activated Wave moves the same as if activated on Pawn's step-fields; i.e. either
 forward or laterally, until the end of a chessboard.
-\hyperref[fig:scn_mv_022_wave_activated_by_step_pawn]{Forward movement} is the
+\hyperref[fig:scn_mv_026_wave_activated_by_step_pawn]{Forward movement} is the
 same as with ordinary, non-sideways Pawns, i.e. straight or diagonally forward,
 towards opponent's initial positions.
 
@@ -439,7 +439,7 @@ towards opponent's initial positions.
 Wave activated by sideways Pawn on its capture-field (now "in-the-air") can
 activate own Pyramid only on diagonal (capture-)fields (here, light Pyramid C);
 this is same as if activated by
-\hyperref[fig:scn_mv_024_wave_activated_by_capture_pawn]{ordinary, non-sideways Pawn}.
+\hyperref[fig:scn_mv_028_wave_activated_by_capture_pawn]{ordinary, non-sideways Pawn}.
 Pyramids on lateral and straight forward step-fields still cannot be activated
 (here, light Pyramids A and B).\newline
 \indent
@@ -520,7 +520,7 @@ Image above and the next one both have two examples presented in parallel, on th
 top, and to the bottom.
 
 Pawn
-\hyperref[fig:scn_mv_038_not_activating_pyramid_by_wave]{cannot activate Pyramid on its step-fields},
+\hyperref[fig:scn_mv_009_not_activating_pyramid_by_wave]{cannot activate Pyramid on its step-fields},
 only on capture-fields.
 Since side fields are also step-fields, Pyramid can't be activated by a sideways
 moving Pawn, neither directly (top) nor indirectly (bottom), regardless how many
@@ -539,7 +539,7 @@ Waves where used for indirection.
 \TODO :: Wave cannot activate Pyramid, only material pieces
 
 Similarly
-\hyperref[fig:scn_mv_039_activating_pyramid_cascade_pawn]{to previous example},
+\hyperref[fig:scn_mv_010_activating_pyramid_cascade_pawn]{to previous example},
 Pyramid can be activated if last active piece is not step-field moving Pawn, even
 if cascade contains one.
 
@@ -692,10 +692,10 @@ All other constraints from Classical Chess remains the same; namely, King and Ro
 can only castle on their first move, King cannot end its movement on attacked field,
 there must be no opaque pieces between castling King and Rook. %\newline
 % \indent
-Since \hyperref[fig:scn_mv_007_wave_is_transparent]{it's transparent}, Wave can be
+Since \hyperref[fig:scn_mv_011_wave_is_transparent]{it's transparent}, Wave can be
 positioned between castling pieces and their destination fields.
 Wave cannot be activated by castling pieces, so Wave cannot be positioned
-\hyperref[fig:scn_mv_011_wave_block_castling_rook]{onto their destination field}.
+\hyperref[fig:scn_mv_015_wave_block_castling_rook]{onto their destination field}.
 
 \vspace*{-0.7\baselineskip}
 \noindent
