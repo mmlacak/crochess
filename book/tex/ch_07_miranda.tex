@@ -34,11 +34,12 @@ A new piece is introduced, Wave.
 \label{fig:10_wave}
 \end{wrapfigure}
 Wave is passive piece, it has to be activated before it can move. Activation is done
-with own piece capturing field at which Wave is located, before Wave can move.
+with own piece capturing a field at which Wave is located, before Wave can move.
 
 Wave inherits step- and capture-fields from activating piece. Once initial step is
 made, Wave cannot change its direction. Activated Wave can continue moving in the
-initially chosen direction, if activated by a single-step piece (e.g. a Knight).
+initially chosen direction until the end of a chessboard is reached, even if
+activated by a single-step piece (e.g. a Knight).
 
 Wave does not use received momentum for moving, and so Wave can be activated even
 with no momentum. Wave can activate any own piece, except King and Pyramid, if it
@@ -47,8 +48,8 @@ no momentum. Wave transfers all of received momentum to a piece it activates.
 
 Wave is transparent; all other pieces can move past (step over) Wave, as if it
 isn't present on a chessboard. Other pieces are transparent to Wave; Wave can move
-past (step over) any piece, as if it isn't there. Transparency of Wave makes
-activation of Wave optional.
+past (step over) any piece, as if it isn't there. Transparency makes activation of
+Wave optional, and also prevents Wave to be pinned.
 
 Wave cannot capture any piece; and so cannot neither check nor checkmate opponent's
 King.
