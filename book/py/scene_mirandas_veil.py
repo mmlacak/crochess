@@ -629,8 +629,8 @@ class SceneMirandasVeilMixin:
         start_R = (2, 6)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        # start_A_B = (5, 9)
-        # scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+        start_A = (5, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
@@ -663,8 +663,8 @@ class SceneMirandasVeilMixin:
         start_R = (2, 6)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        # start_A_B = (5, 9)
-        # scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+        start_A = (5, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
@@ -725,11 +725,11 @@ class SceneMirandasVeilMixin:
         start_W = (5, 3)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_A_A = (2, 6)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+        start_R = (2, 6)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_A_B = (5, 9)
-        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+        start_A = (5, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
@@ -740,9 +740,6 @@ class SceneMirandasVeilMixin:
 
         # P(A) --> W
         scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
-
-        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
@@ -758,11 +755,11 @@ class SceneMirandasVeilMixin:
         start_W = prev_W
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_A_A = (2, 6)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+        start_R = (2, 6)
+        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
-        start_A_B = (5, 9)
-        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+        start_A = (5, 9)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
 
         scene.board.set_piece( 7, 5, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 11, piece=PieceType.Knight )
@@ -806,8 +803,7 @@ class SceneMirandasVeilMixin:
         for i, arrow in enumerate( coords_W_5_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
+        scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
 
         return scene
 

@@ -42,4 +42,6 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_039_activating_pyramid_cascade_pawn', \
                     'scn_mv_021_wave_activation_by_step_pawn', \
                     'scn_mv_022_wave_activated_by_step_pawn', \
+                    'scn_mv_023_wave_activation_by_capture_pawn', \
+                    'scn_mv_024_wave_activated_by_capture_pawn', \
                 ]

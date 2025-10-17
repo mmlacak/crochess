@@ -37,13 +37,13 @@ Wave is passive piece, it has to be activated before it can move. Activation is 
 with own piece capturing field at which Wave is located, before Wave can move.
 
 Wave inherits step- and capture-fields from activating piece. Once initial step is
-made, Wave cannot change its direction. Activated Wave can move over multiple fields,
-even if activated by a single-step piece (e.g. a Knight).
+made, Wave cannot change its direction. Activated Wave can continue moving in the
+initially chosen direction, if activated by a single-step piece (e.g. a Knight).
 
 Wave does not use received momentum for moving, and so Wave can be activated even
-with no momentum. Wave can activate any own piece, except King, if it has momentum.
-Wave can also activate other Wave, own or opponent's, even if it has no momentum.
-Wave transfers all of received momentum to a piece it activates.
+with no momentum. Wave can activate any own piece, except King and Pyramid, if it
+has momentum. Wave can also activate other Wave, own or opponent's, even if it has
+no momentum. Wave transfers all of received momentum to a piece it activates.
 
 Wave is transparent; all other pieces can move past (step over) Wave, as if it
 isn't present on a chessboard. Other pieces are transparent to Wave; Wave can move
@@ -466,11 +466,12 @@ for duration of a ply. So, Wave activated by King moves like a Queen.
 
 \vspace*{-0.5\baselineskip}
 Pawn can activate Wave on its step-fields, from which Wave inherits its steps, a
-forward step and two diagonal steps.
+straight forward step and two diagonal steps, towards opponent's initial positions.
 
-Even though Wave is transparent, single-step piece (like Pawn here) has to activate
-Wave encountered on its step-field. Rushing Pawn (just like other multi-step pieces)
-does not have to activate Wave, and can continue rushing further instead.
+Even though \hyperref[fig:scn_mv_007_wave_is_transparent]{Wave is transparent},
+single-step piece (like Pawn here) has to activate Wave encountered on its step-field.
+Rushing Pawn (just like other multi-step pieces) does not have to activate Wave, and
+can continue rushing further instead.
 
 \clearpage % ..........................................................
 
@@ -485,11 +486,11 @@ does not have to activate Wave, and can continue rushing further instead.
 
 \vspace*{-0.5\baselineskip}
 Unlike Pawn, Wave can choose any step, including diagonal, even if that step-field
-is empty. Wave activated by Pawn (now "in-the-air") can move straight forward or
-diagonally, towards opponent's initial positions, until the end of a chessboard.
-Activated Wave cannot change direction once it starts moving; so here, light Bishop
-is out of reach.
-
+is empty. Wave can continue its movement in a chosen direction until the end of a
+chessboard. Activated Wave (now "in-the-air") is transparent, so it can move past
+any pieces on its step-fields (e.g. light Pyramid). Wave cannot change direction
+once it starts moving; so here, light Bishop is out of reach.\newline
+\indent
 Wave activated by rushing Pawn behaves the same, except it receives more momentum.
 
 % .......................................... Activated by stepping Pawn
@@ -509,14 +510,13 @@ Wave activated by rushing Pawn behaves the same, except it receives more momentu
 \label{fig:scn_mv_023_wave_activation_by_capture_pawn}
 \end{figure}
 
-\TODO :: Wave cannot activate Pyramid, only material pieces
-
 \vspace*{-0.5\baselineskip}
-Wave can be activated by Pawn on its capture-field, with 1 momentum. Activated
-Wave inherits the same steps as if activated on Pawn's step-fields; i.e. it moves
-straight forward or diagonally, towards opponent's initial positions, until the
-end of a chessboard. As before, activated Wave cannot change direction once it
-starts moving; so, light Bishop in the very next example is out of reach.
+Wave activated by Pawn on its capture-field behaves the same as the one
+\hyperref[fig:scn_mv_021_wave_activation_by_step_pawn]{activated on its step-field}.
+
+Activated Wave inherits the same steps Pawn is having; i.e. a step straight forward
+or diagonally, towards opponent's initial positions.\newline
+\indent
 Here, light Pawn is about to activate Wave on its capture-field, giving Wave 1
 momentum.
 
@@ -531,17 +531,13 @@ momentum.
 \label{fig:scn_mv_024_wave_activated_by_capture_pawn}
 \end{figure}
 
-\TODO :: Wave cannot activate Pyramid, only material pieces
-
 \vspace*{-0.5\baselineskip}
-\hyperref[sec:Terms/Activator]{Activator} is material (non-Wave) piece from which
-Wave inherits its steps; here, this is light Pawn. Wave cannot capture opponent's
-pieces, all of its fields are steps-fields. When referring to Wave's capture-fields
-it actually means its activator's capture-fields; here, all fields on diagonals.\newline
-\indent
-Moving over its capture-fields allows Wave to activate own Pyramids. Here, light
-Wave (now "in-the-air") can activate light Pyramid A on its capture-field, but
-cannot activate light Pyramid B on its step-field.
+As before, Wave can choose any step, including diagonal, even if that step-field is
+empty. Wave can continue its movement in initially chosen direction until the end of
+a chessboard. \hyperref[fig:scn_mv_007_wave_is_transparent]{Wave is transparent}, so
+it can step over any pieces on its step-fields (here, e.g. light Pyramid). Activated
+Wave (now "in-the-air") cannot change direction once it starts moving; here, light
+Bishop is out of reach.
 
 % ......................................... Activated by capturing Pawn
 \clearpage % ..........................................................
