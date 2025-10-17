@@ -2629,8 +2629,8 @@ class SceneMirandasVeilMixin:
         start_W = (5, 10)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_A_A = (2, 7)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+        start_B = (2, 7)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         start_A_B = (5, 6)
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
@@ -2639,9 +2639,6 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( 13, 2, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 4, piece=PieceType.Knight )
         scene.board.set_piece( 5, 1, piece=-PieceType.Wave )
-
-        start_B = (9, 2)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # p --> w
         scene.append_arrow( *( start_p + start_w ), mark_type=MarkType.Action )
@@ -2652,9 +2649,6 @@ class SceneMirandasVeilMixin:
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
 
         return scene
 
@@ -2675,8 +2669,8 @@ class SceneMirandasVeilMixin:
         # start_W = (5, 10)
         # scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        start_A_A = (2, 7)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+        start_B = (2, 7)
+        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         start_A_B = (5, 6)
         scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
@@ -2685,9 +2679,6 @@ class SceneMirandasVeilMixin:
         scene.board.set_piece( 13, 2, piece=-PieceType.Pawn )
         scene.board.set_piece( 5, 4, piece=PieceType.Knight )
         scene.board.set_piece( 5, 1, piece=-PieceType.Wave )
-
-        start_B = (9, 2)
-        scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # W -->| (right-down)
         coords_W_rd_ = GS.gen_steps( start=prev_W, rels=[ (1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
@@ -2710,23 +2701,6 @@ class SceneMirandasVeilMixin:
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # W --> * (right-down)
-        start_ = (11, 4)
-
-        # W --> * --> (left-down)
-        coords_W__ld_ = GS.gen_steps( start=start_, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
-        for i, arrow in enumerate( coords_W__ld_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        # W --> * --> (down)
-        coords_W__d_ = GS.gen_steps( start=start_, rels=[ (0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=3 )
-        for i, arrow in enumerate( coords_W__d_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        scene.append_text( "A", *start_A_A, mark_type=MarkType.Blocked, corner=Corner.UpperRightFieldMarker )
-        scene.append_text( "B", *start_A_B, mark_type=MarkType.Blocked, corner=Corner.UpperRight )
-        scene.append_text( "C", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRight )
 
         return scene
 
