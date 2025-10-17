@@ -201,10 +201,9 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
+        scene.board.set_piece(15, 1, piece=-PieceType.Pawn)
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
-
-        scene.board.set_piece(15, 1, piece=PieceType.Pawn)
+        scene.board.set_piece(5, 6, piece=PieceType.Pawn)
 
         scene.board.set_piece(*start_W, piece=PieceType.Wave)
         scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
@@ -236,9 +235,9 @@ class SceneNineteenMixin:
         scene.board.set_piece(17, 0, piece=-PieceType.Star)
         scene.board.set_piece(0, 17, piece=-PieceType.Star)
 
-        scene.board.set_piece(15, 1, piece=PieceType.Pawn)
+        scene.board.set_piece(15, 1, piece=-PieceType.Pawn)
         scene.board.set_piece(4, 15, piece=-PieceType.Pawn)
-        scene.board.set_piece(5, 6, piece=-PieceType.Pawn)
+        scene.board.set_piece(5, 6, piece=PieceType.Pawn)
 
         scene.board.set_piece(*start_E, piece=PieceType.Pegasus)
         scene.board.set_piece(11, 3, piece=PieceType.Pyramid)
@@ -247,9 +246,9 @@ class SceneNineteenMixin:
         for index, coords in enumerate( gen_coords() ):
             mark_type = MarkType.Legal
             if index in [0, 2]:
-                mark_type = MarkType.Action
-            elif index == 5:
                 mark_type = MarkType.Blocked
+            elif index == 5:
+                mark_type = MarkType.Action
             scene.append_arrow( *coords, mark_type=mark_type )
 
         return scene
