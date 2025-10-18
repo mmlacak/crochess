@@ -46,6 +46,7 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_028_wave_activated_by_capture_pawn', \
                     # 'scn_mv_078_activating_opponents_wave', \
                     # 'scn_mv_079_activated_opponents_wave', \
-                    'scn_n_04_teleport_move_3', \
-                    'scn_n_05_teleport_end', \
+                    # 'scn_n_04_teleport_move_3', \
+                    # 'scn_n_05_teleport_end', \
+                    'scn_n_19_capture_pawn_activated_wave', \
                 ]

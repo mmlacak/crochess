@@ -776,7 +776,8 @@ class SceneNineteenMixin:
         # W --> (forward, right)
         coords_Wfr_ = GS.gen_steps( start=prev_W_D, rels=[(1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_Wfr_() ):
-            mark_type = MarkType.Action if i in [5, 9] else \
+            mark_type = MarkType.Blocked if i == 5 else \
+                        MarkType.Action if i == 9 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
