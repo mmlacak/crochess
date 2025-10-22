@@ -576,11 +576,8 @@ class SceneNineteenMixin:
         scene.append_arrow( *( GS.append_pos_rel( start_P, -1, 0 ) ) )
         scene.append_arrow( *( start_P + start_W_D ), mark_type=MarkType.Action )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -664,13 +661,10 @@ class SceneNineteenMixin:
         for i, arrow in enumerate( coords_Wfl_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        # scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
-        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        # # scene.append_text( "A", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
-        scene.append_text( "F", *start_, corner=Corner.LowerRight, mark_type=MarkType.Illegal )
+        scene.append_text( "C", *start_, corner=Corner.LowerRight, mark_type=MarkType.Illegal )
 
         return scene
 
@@ -714,11 +708,8 @@ class SceneNineteenMixin:
 
         scene.append_arrow( *( start_P + start_W_D ), mark_type=MarkType.Action )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -802,13 +793,10 @@ class SceneNineteenMixin:
         for i, arrow in enumerate( coords_Wfl_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        # scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
-        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        # # scene.append_text( "A", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Action )
 
-        scene.append_text( "F", *start_, corner=Corner.LowerRight, mark_type=MarkType.Illegal )
+        scene.append_text( "C", *start_, corner=Corner.LowerRight, mark_type=MarkType.Illegal )
 
         return scene
 
