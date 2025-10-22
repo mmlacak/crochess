@@ -855,14 +855,10 @@ class SceneNineteenMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
-        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "F", *start_w_F, corner=Corner.UpperLeft, mark_type=MarkType.Action )
-        scene.append_text( "G", *start_w_G, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "H", *start_a_H, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "D", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_w_F, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_w_G, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -920,7 +916,7 @@ class SceneNineteenMixin:
         # W(D) -->| (down-left)
         coords_WD__dl_ = GS.gen_steps( start=prev_W_D, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arrow in enumerate( coords_WD__dl_() ):
-            mark_type = MarkType.Action if i == 3 else \
+            mark_type = MarkType.Blocked if i == 3 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
@@ -960,15 +956,11 @@ class SceneNineteenMixin:
         for i, arrow in enumerate( coords__d_() ):
             scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "C", *start_A_C, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        # scene.append_text( "D", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
-        scene.append_text( "E", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "F", *start_w_F, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "G", *start_w_G, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "H", *start_a_H, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Blocked )
-        scene.append_text( "I", *start_, corner=Corner.UpperLeftFieldMarker, mark_type=MarkType.Illegal )
+        # # scene.append_text( "C", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
+        scene.append_text( "D", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "A", *start_w_F, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_w_G, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        scene.append_text( "E", *start_, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
 
         return scene
 
