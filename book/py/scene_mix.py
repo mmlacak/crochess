@@ -42,6 +42,7 @@ class SceneMix( SceneMixin, \
                     # 'scn_n_17_sideways_pawn_activated_wave', \
                     # 'scn_n_18_capture_pawn_init', \
                     # 'scn_n_19_capture_pawn_activated_wave', \
-                    'scn_n_20_activating_opponents_wave', \
-                    'scn_n_21_activated_opponents_wave', \
+                    # 'scn_n_20_activating_opponents_wave', \
+                    # 'scn_n_21_activated_opponents_wave', \
+                    'scn_n_22_sideways_pawn_does_not_activate_pyramid', \
                 ]
