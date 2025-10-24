@@ -538,6 +538,48 @@ class SceneNineteenMixin:
     #
     # Sideways Pawns
 
+    def scn_n_16_sideways_pawn( self, bt=BoardType.Nineteen ):
+
+        scene = Scene( 'scn_n_16_sideways_pawn', bt, width=7.2, height=3.3 )
+
+        start_P = (5, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        scene.append_arrow( *( GS.append_pos_rel( start_P, -1, 0 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_pos_rel( start_P,  1, 0 ) ), mark_type=MarkType.Legal )
+
+        return scene
+
+    def scn_n_17_sideways_pawn_cannot_activate_pyramid( self, bt=BoardType.Nineteen ):
+
+        scene = Scene( 'scn_n_17_sideways_pawn_cannot_activate_pyramid', bt, width=7.2, height=3.3 )
+
+        start_P = (5, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_A = (6, 1)
+        scene.board.set_piece( *start_A, piece=PieceType.Pyramid )
+
+        scene.append_arrow( *( GS.append_pos_rel( start_P, -1, 0 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_pos_rel( start_P,  1, 0 ) ), mark_type=MarkType.Blocked )
+
+        return scene
+
+    def scn_n_18_sideways_pawn_can_activate_wave( self, bt=BoardType.Nineteen ):
+
+        scene = Scene( 'scn_n_18_sideways_pawn_can_activate_wave', bt, width=7.2, height=3.3 )
+
+        start_P = (5, 1)
+        scene.board.set_piece( *start_P, piece=PieceType.Pawn )
+
+        start_W = (6, 1)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        scene.append_arrow( *( GS.append_pos_rel( start_P, -1, 0 ) ), mark_type=MarkType.Legal )
+        scene.append_arrow( *( GS.append_pos_rel( start_P,  1, 0 ) ), mark_type=MarkType.Action )
+
+        return scene
+
     def scn_n_16_sideways_pawn_init(self, bt=BoardType.Nineteen):
 
         scene = Scene('scn_n_16_sideways_pawn_init', bt)

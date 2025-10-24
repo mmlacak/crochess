@@ -357,22 +357,59 @@ of a chessboard, regardless if using Star of a matching or opposite color.
 \addcontentsline{toc}{section}{Sideways Pawns}
 \label{sec:Nineteen/Sideways Pawns}
 
-\vspace*{-1.5\baselineskip}
+% \vspace*{-1.5\baselineskip}
+% \noindent
+% \begin{figure}[!h]
+% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_16_sideways_pawn_init.png}
+% \vspace*{-1.4\baselineskip}
+% \caption{Sideways moving Pawn}
+% \label{fig:scn_n_16_sideways_pawn_init} % TODO :: FIX :: LaTeX Warning: There were undefined references.
+% \end{figure}
+
+% \vspace*{-0.5\baselineskip}
+% In this and all subsequent variants Pawn can move sideways for one field, onto a field
+% immediately to its left, or to its right. Side fields are just step-fields; destination
+% has to be empty, or it can host own Wave.
+
+% Here, light Pawn can make one step onto empty field to the left; or it can move onto
+% the right step-field, and activate light Wave A, with one momentum.
+
+\vspace*{-0.3\baselineskip}
 \noindent
-\begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_16_sideways_pawn_init.png}
+\begin{wrapfigure}[6]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/12_n/scn_n_16_sideways_pawn.png}
 \vspace*{-1.4\baselineskip}
-\caption{Sideways moving Pawn}
-\label{fig:scn_n_16_sideways_pawn_init}
-\end{figure}
-
-\vspace*{-0.5\baselineskip}
+\caption{Sideways Pawn}
+\label{fig:scn_n_16_sideways_pawn}
+\end{wrapfigure}
 In this and all subsequent variants Pawn can move sideways for one field, onto a field
-immediately to its left, or to its right. Side fields are just step-fields; destination
-has to be empty, or it can host own Wave.
+immediately to its left, or to its right. Side fields are just step-fields; Pawn cannot
+capture opponent's pieces on them.
 
-Here, light Pawn can make one step onto empty field to the left; or it can move onto
-the right step-field, and activate light Wave A, with one momentum.
+\vspace*{0.7\baselineskip}
+\noindent
+\begin{wrapfigure}[3]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/12_n/scn_n_17_sideways_pawn_cannot_activate_pyramid.png}
+\vspace*{-1.4\baselineskip}
+\caption{Sideways Pawn cannot activate Pyramid}
+\label{fig:scn_n_17_sideways_pawn_cannot_activate_pyramid}
+\end{wrapfigure}
+Sideways-moving Pawn cannot activate Pyramid, since Pyramid can be activated
+\hyperref[fig:scn_ma_04_pyramid_activation_by_pawn]{only on capture-fields}.
+
+\vspace*{4.7\baselineskip}
+\noindent
+\begin{wrapfigure}[3]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/12_n/scn_n_18_sideways_pawn_can_activate_wave.png}
+\vspace*{-1.4\baselineskip}
+\caption{Sideways Pawn can activate Wave}
+\label{fig:scn_n_18_sideways_pawn_can_activate_wave}
+\end{wrapfigure}
+Sideways-moving Pawn can activate Wave, since Wave can be activated
+\hyperref[fig:scn_mv_025_wave_activation_by_step_pawn]{on step-fields}.
 
 \clearpage % ..........................................................
 
