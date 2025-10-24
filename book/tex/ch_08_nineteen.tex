@@ -357,23 +357,6 @@ of a chessboard, regardless if using Star of a matching or opposite color.
 \addcontentsline{toc}{section}{Sideways Pawns}
 \label{sec:Nineteen/Sideways Pawns}
 
-% \vspace*{-1.5\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_16_sideways_pawn_init.png}
-% \vspace*{-1.4\baselineskip}
-% \caption{Sideways moving Pawn}
-% \label{fig:scn_n_16_sideways_pawn_init} % TODO :: FIX :: LaTeX Warning: There were undefined references.
-% \end{figure}
-
-% \vspace*{-0.5\baselineskip}
-% In this and all subsequent variants Pawn can move sideways for one field, onto a field
-% immediately to its left, or to its right. Side fields are just step-fields; destination
-% has to be empty, or it can host own Wave.
-
-% Here, light Pawn can make one step onto empty field to the left; or it can move onto
-% the right step-field, and activate light Wave A, with one momentum.
-
 \vspace*{-0.3\baselineskip}
 \noindent
 \begin{wrapfigure}[6]{l}{0.4\textwidth}
@@ -441,53 +424,6 @@ any Wave, but
 Activated Wave cannot change direction once it starts moving; so, light Bishop is out
 of reach.
 
-% \clearpage % ..........................................................
-% % Activating Wave -----------------------------------------------------
-
-% \subsection*{Activating Wave}
-% \addcontentsline{toc}{subsection}{Activating Wave}
-% \label{sec:Nineteen/Sideways Pawns/Activating Wave}
-
-% \vspace*{-1.4\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_18_capture_pawn_init.png}
-% \vspace*{-1.4\baselineskip}
-% \caption{Pawn activating Wave on capture-field}
-% \label{fig:scn_n_18_capture_pawn_init} % TODO :: FIX :: LaTeX Warning: There were undefined references.
-% \end{figure}
-
-% \vspace*{-0.5\baselineskip}
-% Wave activated by sideways Pawn on its capture-field moves and behaves the same
-% as the one
-% \hyperref[fig:scn_n_16_sideways_pawn_init]{activated on Pawn's step-fields}; for
-% instance, activated Wave cannot activate a Pyramid, but can step-over any
-% encountered.
-
-% Here, light Pawn is about to activate light Wave D on its capture-field, with one
-% momentum.
-
-% \clearpage % ..........................................................
-
-% \vspace*{-2.1\baselineskip}
-% \noindent
-% \begin{figure}[!h]
-% \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/12_n/scn_n_19_capture_pawn_activated_wave.png}
-% \vspace*{-1.4\baselineskip}
-% \caption{Wave activated by Pawn on capture-field}
-% \label{fig:scn_n_19_capture_pawn_activated_wave} % TODO :: FIX :: LaTeX Warning: There were undefined references.
-% \end{figure}
-
-% \vspace*{-0.5\baselineskip}
-% Activated Wave moves laterally, straight or diagonally forward, towards opponent's
-% initial positions, until the end of a chessboard.
-
-% Here, Wave activated by sideways Pawn on its capture-field (now "in-the-air") can
-% activate own pieces (here, e.g. light Knight) or any Wave (own or opponent's),
-% but none of Pyramids.
-% \hyperref[fig:scn_n_19_sideways_pawn_activated_wave]{As before}, activated Wave
-% cannot change its direction once it starts moving; so, light Bishop is out of reach.
-
 \clearpage % ..........................................................
 % Activating opponent's Wave ..........................................
 
@@ -508,9 +444,9 @@ of reach.
 \hyperref[fig:scn_mv_078_activating_opponents_wave]{The same as before},
 opponent's Wave can be activated indirectly, and it would inherit from its
 \hyperref[sec:Terms/Activator]{activator} all capture and movement steps. When
-\hyperref[fig:scn_n_18_capture_pawn_init]{activating piece is Pawn}, opponent's
-Wave would gain sideways steps, and also have movement direction swapped backwards,
-i.e. towards own initial positions.\newline
+\hyperref[fig:scn_n_19_sideways_pawn_activated_wave]{activating piece is Pawn},
+opponent's Wave would gain sideways steps, and also have movement direction
+swapped backwards, i.e. towards own initial positions.\newline
 \indent
 Here, dark Pawn is about to activate light Wave, indirectly, via dark Wave.
 
@@ -529,7 +465,7 @@ Here, dark Pawn is about to activate light Wave, indirectly, via dark Wave.
 Here, activated light Wave (now "in-the-air") can choose any dark Pawn's initial
 step as its direction of movement, i.e. laterally, straight or diagonally downwards;
 compare this pattern to light Wave
-\hyperref[fig:scn_n_19_capture_pawn_activated_wave]{activated by own, light Pawn}.\newline
+\hyperref[fig:scn_n_19_sideways_pawn_activated_wave]{activated by own, light Pawn}.\newline
 \indent
 Note also that activated light Wave retains its behavior, and cannot activate dark
 pieces, only light ones; with the only exception being dark Wave. Wave can always
@@ -650,7 +586,7 @@ forward.
 \vspace*{-0.5\baselineskip}
 In this and all subsequent variants, it's possible for multiple Pawns to be rushed
 in the same cascade, due to
-\hyperref[fig:scn_n_16_sideways_pawn_init]{lateral movement of Pawns} and
+\hyperref[fig:scn_n_16_sideways_pawn]{lateral movement of Pawns} and
 \hyperref[fig:scn_n_19_sideways_pawn_activated_wave]{Waves they activate}.\newline
 \indent
 Here, both light Pawns A and B are in their initial position, still tagged for
