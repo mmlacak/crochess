@@ -110,31 +110,31 @@ class SceneMayanAscendancyMixin:
     #
     # Pawn activating Pyramid
 
-    def scn_ma_04_pyramid_activation_by_pawn(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_04_pyramid_activation_by_pawn( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_activation_by_pawn
 
-        scene = Scene('scn_ma_04_pyramid_activation_by_pawn', bt)
+        scene = Scene( 'scn_ma_04_pyramid_activation_by_pawn', bt )
 
-        scene.board.set_piece(4, 2, piece=PieceType.Pawn)
-        scene.board.set_piece(3, 3, piece=PieceType.Pyramid)
+        scene.board.set_piece( 4, 2, piece=PieceType.Pawn )
+        scene.board.set_piece( 3, 3, piece=PieceType.Pyramid )
 
-        scene.board.set_piece(5, 6, piece=PieceType.Pawn)
-        scene.board.set_piece(5, 7, piece=PieceType.Pyramid)
+        scene.board.set_piece( 5, 6, piece=PieceType.Pawn )
+        scene.board.set_piece( 5, 7, piece=PieceType.Pyramid )
 
         start = (8, 1)
-        scene.board.set_piece(*start, piece=PieceType.Pawn)
-        scene.board.set_piece(8, 4, piece=PieceType.Pyramid)
+        scene.board.set_piece( *start, piece=PieceType.Pawn )
+        scene.board.set_piece( 8, 4, piece=PieceType.Pyramid )
 
         # capture-fields
-        scene.append_arrow(4, 2, 3, 3, mark_type=MarkType.Action)
-        scene.append_arrow(4, 2, 5, 3, mark_type=MarkType.Blocked)
+        scene.append_arrow( 4, 2, 3, 3, mark_type=MarkType.Action )
+        scene.append_arrow( 4, 2, 5, 3, mark_type=MarkType.Blocked )
 
-        scene.append_text("1", 4, 2, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked)
+        scene.append_text( "A", 4, 2, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
 
         # step-fields 1
-        scene.append_arrow(5, 6, 5, 7, mark_type=MarkType.Blocked)
+        scene.append_arrow( 5, 6, 5, 7, mark_type=MarkType.Blocked )
 
-        scene.append_text("2", 5, 6, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        scene.append_text( "B", 5, 6, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         # step-fields 2
         # direction <0, 1>
@@ -144,7 +144,7 @@ class SceneMayanAscendancyMixin:
         scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
         scene.append_arrow( *coords(), mark_type=MarkType.Blocked )
 
-        scene.append_text("3", *start, corner=Corner.UpperRight, mark_type=MarkType.Blocked)
+        scene.append_text( "C", *start, corner=Corner.UpperRight, mark_type=MarkType.Blocked )
 
         return scene
 
