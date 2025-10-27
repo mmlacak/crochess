@@ -666,9 +666,6 @@ class SceneNineteenMixin:
         scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
 
         # right
-        start_A_A = (11, 13)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
-
         start_W_E = (16, 13)
         scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
 
@@ -680,9 +677,6 @@ class SceneNineteenMixin:
         start_N = (6, 7)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_A_B = (6, 10)
-        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
-
         start_w_G = (6, 1)
         scene.board.set_piece( *start_w_G, piece=-PieceType.Wave )
 
@@ -691,7 +685,7 @@ class SceneNineteenMixin:
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
         # unreachable
-        start_B = (13, 2)
+        start_B = (11, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # p --> w(F)
@@ -729,9 +723,6 @@ class SceneNineteenMixin:
         # scene.board.set_piece( *start_W_D, piece=PieceType.Wave )
 
         # right
-        start_A_A = (11, 13)
-        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
-
         start_W_E = (16, 13)
         scene.board.set_piece( *start_W_E, piece=PieceType.Wave )
 
@@ -743,9 +734,6 @@ class SceneNineteenMixin:
         start_N = (6, 7)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_A_B = (6, 10)
-        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
-
         start_w_G = (6, 1)
         scene.board.set_piece( *start_w_G, piece=-PieceType.Wave )
 
@@ -754,7 +742,7 @@ class SceneNineteenMixin:
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
         # unreachable
-        start_B = (13, 2)
+        start_B = (11, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         # W(D) -->| (left)
@@ -792,24 +780,10 @@ class SceneNineteenMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # unreachable
-        start_ = (15, 4)
-
-        # * -->| (down-left)
-        coords__dl_ = GS.gen_steps( start=start_, rels=[(-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arrow in enumerate( coords__dl_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        # * -->| (down)
-        coords__d_ = GS.gen_steps( start=start_, rels=[(0, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arrow in enumerate( coords__d_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
         # # scene.append_text( "C", *start_W_D, corner=Corner.UpperLeft, mark_type=MarkType.Action )
         scene.append_text( "D", *start_W_E, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         scene.append_text( "A", *start_w_F, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
         scene.append_text( "B", *start_w_G, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "E", *start_, corner=Corner.UpperRight, mark_type=MarkType.Illegal )
 
         return scene
 
