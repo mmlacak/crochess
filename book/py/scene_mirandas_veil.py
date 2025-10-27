@@ -899,20 +899,20 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W --> *
-        start_ = (12, 10)
+        # # W --> *
+        # start_ = (12, 10)
 
-        # W --> * --> (forward)
-        coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        for i, arrow in enumerate( coords_W_4_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+        # # W --> * --> (forward)
+        # coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        # for i, arrow in enumerate( coords_W_4_() ):
+        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        # W --> * --> (left)
-        coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        for i, arrow in enumerate( coords_W_5_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+        # # W --> * --> (left)
+        # coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        # for i, arrow in enumerate( coords_W_5_() ):
+        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
+        # scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
 
         return scene
 
@@ -994,20 +994,20 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # W --> *
-        start_ = (12, 10)
+        # # W --> *
+        # start_ = (12, 10)
 
-        # W --> * --> (forward)
-        coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        for i, arrow in enumerate( coords_W_4_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+        # # W --> * --> (forward)
+        # coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        # for i, arrow in enumerate( coords_W_4_() ):
+        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        # W --> * --> (left)
-        coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        for i, arrow in enumerate( coords_W_5_() ):
-            scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
+        # # W --> * --> (left)
+        # coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
+        # for i, arrow in enumerate( coords_W_5_() ):
+        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
 
-        scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
+        # scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
 
         return scene
 
