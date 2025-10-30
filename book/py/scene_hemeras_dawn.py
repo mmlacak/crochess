@@ -684,6 +684,51 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
+    # Activating Pyramid
+
+    def scn_hd_23_activating_pyramid(self, bt=BoardType.HemerasDawn):
+
+        scene = Scene( 'scn_hd_23_activating_pyramid', bt, height=8.3 ) # width=8
+
+        start_O = (10, 2)
+        scene.board.set_piece( *start_O, piece=PieceType.Scout )
+
+        start_A_A = (11, 1)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
+
+        start_A_B = (7, 2)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
+
+        # O --> (right)
+        gen_O_r = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_O_r() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # O --> (forward)
+        gen_O_f = GS.gen_steps( start=start_O, rels=[ (0, 1), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_O_f() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+        # O --> (left)
+        gen_O_AB = GS.gen_steps( start=start_O, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_O_AB() ):
+            mt_O_AB = MarkType.Legal if i < 2 else \
+                      MarkType.Illegal if i == 2 else \
+                      MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_O_AB )
+
+        end_ = (9, 1)
+
+        scene.append_arrow( *( start_O + start_A_A ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_O + end_ ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Illegal )
+        scene.append_text( "C", *end_, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Illegal )
+
+        return scene
+
+    #
     # Activating Scout
 
     def scn_hd_23_activating_scout(self, bt=BoardType.HemerasDawn):

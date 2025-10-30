@@ -39,8 +39,8 @@ class SceneMix( SceneMixin, \
     def _get_recent_scene_method_names( self ):
         return  [
                     # 'scn_ma_04_pyramid_activation_by_pawn', \
-                    'scn_mv_026_wave_activated_by_step_pawn', \
-                    'scn_mv_028_wave_activated_by_capture_pawn', \
+                    # 'scn_mv_026_wave_activated_by_step_pawn', \
+                    # 'scn_mv_028_wave_activated_by_capture_pawn', \
                     # 'scn_n_16_sideways_pawn', \
                     # 'scn_n_17_sideways_pawn_cannot_activate_pyramid', \
                     # 'scn_n_18_sideways_pawn_can_activate_wave', \
@@ -48,4 +48,5 @@ class SceneMix( SceneMixin, \
                     # 'scn_n_20_activating_opponents_wave', \
                     # 'scn_n_21_activated_opponents_wave', \
                     # 'scn_n_22_sideways_pawns_and_activating_pyramid', \
+                    'scn_hd_23_activating_pyramid', \
                 ]
