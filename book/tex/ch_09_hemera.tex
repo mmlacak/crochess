@@ -431,7 +431,10 @@ reach destination field A), in addition to choosing between two forking steps.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-...
+Scout can activate own Pyramid only on its diagonal, capture-fields (here, Pyramid A).
+
+Scout cannot activate Pyramid on its step-fields, neither sideways nor forward fields,
+and is blocked from moving any further (here, Pyramid B).
 
 \clearpage % ..........................................................
 
@@ -442,22 +445,30 @@ reach destination field A), in addition to choosing between two forking steps.
 \vspace*{-1.3\baselineskip}
 \noindent
 \begin{figure}[!h]
-\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_23_activating_scout.png}
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_24_activating_scout_init.png}
 \vspace*{-1.3\baselineskip}
 \caption{Activating Scout}
-\label{fig:scn_hd_23_activating_scout}
+\label{fig:scn_hd_24_activating_scout_init}
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
 Activated Scout is limited by both count of steps it can make, and momentum it
 received, whichever is lower. In this variant, Scout can make at most 5 steps;
-limit depends on size of a chessboard. Here, light Scout is activated by own
-Queen via Wave. Wave C is out of reach for light Scout, even though it received
-11 momentum.
+limit depends on size of a chessboard for variant being played.\newline
+\indent
+Here, light Scout is about to be activated by own Queen via Wave, with 2 momentum.
 
-Activated Scout uses received momentum for movement, and transfers all of
-remaining momentum to the piece it activates. Here, light Scout can activate
-Wave B, and transfer to it remaining 7 momentum.
+\vspace*{-0.7\baselineskip}
+\noindent
+\begin{figure}[!h]
+\includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_25_activating_scout_end.png}
+\vspace*{-1.3\baselineskip}
+\caption{Scout activated}
+\label{fig:scn_hd_25_activating_scout_end}
+\end{figure}
+
+\vspace*{-0.5\baselineskip}
+...
 
 \clearpage % ..........................................................
 
