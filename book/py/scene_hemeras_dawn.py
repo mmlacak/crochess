@@ -805,9 +805,9 @@ class SceneHemerasDawnMixin:
     #
     # Activating Wave, Pyramid
 
-    def scn_hd_24_scout_activating_wave_step_fields_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_26_scout_activating_wave_step_fields_init(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_24_scout_activating_wave_step_fields_init', bt)
+        scene = Scene('scn_hd_26_scout_activating_wave_step_fields_init', bt)
 
         start_W = (9, 7)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -842,9 +842,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_25_scout_activating_wave_step_fields_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_27_scout_activating_wave_step_fields_end(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_25_scout_activating_wave_step_fields_end', bt)
+        scene = Scene('scn_hd_27_scout_activating_wave_step_fields_end', bt)
 
         prev_W = (9, 7)
         start_W = prev_W
@@ -924,9 +924,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_26_scout_activating_wave_capture_fields_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_28_scout_activating_wave_capture_fields_init(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_26_scout_activating_wave_capture_fields_init', bt)
+        scene = Scene('scn_hd_28_scout_activating_wave_capture_fields_init', bt)
 
         start_W = (9, 7)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
@@ -962,9 +962,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_27_scout_activating_wave_capture_fields_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_29_scout_activating_wave_capture_fields_end(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_27_scout_activating_wave_capture_fields_end', bt)
+        scene = Scene('scn_hd_29_scout_activating_wave_capture_fields_end', bt)
 
         prev_W = (9, 7)
         start_W = prev_W
@@ -1044,9 +1044,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_28_scout_en_passant(self, bt=BoardType.HemerasDawn):
+    def scn_hd_30_scout_en_passant(self, bt=BoardType.HemerasDawn):
 
-        scene = Scene('scn_hd_28_scout_en_passant', bt, width=5, height=10.7)
+        scene = Scene('scn_hd_30_scout_en_passant', bt, width=5, height=10.7)
 
         start_P = (2, 1)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
