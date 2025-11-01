@@ -313,21 +313,22 @@ each direction.
 
 \clearpage % ..........................................................
 
-\TODO :: diagonal steps are only for capturing !!!
-
-Scout can also capture opponent's pieces with its diagonal steps; unlike Pawn's,
-those are backwards steps, i.e. towards own initial positions.\newline
+Scout can also capture opponent's pieces with its diagonal steps. The same as Pawn's,
+these steps are capture-only, i.e. if destination field is empty, capture-step is
+unavailable. Also like Pawn, Scout can make only one step in chosen diagonal, regardless
+of size of a chessboard. Unlike Pawn's, these are backwards steps, i.e. towards own
+initial positions.\newline
 \indent
 Steps (arrows) are referred to by relative position of its end point (field).
 So, capture-steps for light Scout are down-left, down-right diagonals; and for
 dark Scout up-left, up-right diagonals.
 
-\vspace*{-0.3\baselineskip}
+\vspace*{-0.4\baselineskip}
 \noindent
 \begin{wrapfigure}[7]{l}{0.41\textwidth}
 \centering
 \includegraphics[width=0.4\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_16_scout_capturing.png}
-\vspace*{-0.5\baselineskip}
+\vspace*{-0.6\baselineskip}
 \caption{Scout capturing}
 \label{fig:scn_hd_16_scout_capturing}
 \end{wrapfigure}
@@ -337,17 +338,17 @@ first step, but cannot capture dark Bishop after it made 3 steps to the right.
 
 % \TODO :: fix lmodern
 
-\vspace*{-0.7\baselineskip}
+\vspace*{-0.8\baselineskip}
 \subsubsection*{Forking steps}
 \addcontentsline{toc}{subsubsection}{Forking steps}
 \label{sec:Hemera's Dawn/Scout/Movement/Forking steps}
 
-\vspace*{-0.7\baselineskip}
+\vspace*{-0.8\baselineskip}
 \noindent
 \begin{wrapfigure}[14]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_17_scout_forking_steps.png}
-\vspace*{-0.5\baselineskip}
+\vspace*{-0.6\baselineskip}
 \caption{Forking steps}
 \label{fig:scn_hd_17_scout_forking_steps}
 \end{wrapfigure}

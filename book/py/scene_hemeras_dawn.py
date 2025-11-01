@@ -450,9 +450,6 @@ class SceneHemerasDawnMixin:
         start_O_1 = (6, 2)
         scene.board.set_piece( *start_O_1, piece=PieceType.Scout )
 
-        start_p = (5, 1)
-        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
-
         start_n = (7, 1)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
@@ -461,9 +458,6 @@ class SceneHemerasDawnMixin:
 
         start_B = (12, 7)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
-
-        start_R = (14, 7)
-        scene.board.set_piece( *start_R, piece=PieceType.Rook )
 
         #
         # <-- <- O -> -->
@@ -480,7 +474,7 @@ class SceneHemerasDawnMixin:
         for i, arr in enumerate( arr() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *GS.append_pos_rel( start_O_1, -1, -1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_O_1, -1, -1 ), mark_type=MarkType.Illegal )
         scene.append_arrow( *GS.append_pos_rel( start_O_1, 1, -1 ), mark_type=MarkType.Action )
 
         #
@@ -499,7 +493,7 @@ class SceneHemerasDawnMixin:
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
         scene.append_arrow( *GS.append_pos_rel( start_o_1, -1, 1 ), mark_type=MarkType.Action )
-        scene.append_arrow( *GS.append_pos_rel( start_o_1, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_o_1, 1, 1 ), mark_type=MarkType.Illegal )
 
         return scene
 
