@@ -48,8 +48,10 @@ class SceneMix( SceneMixin, \
                     # 'scn_n_20_activating_opponents_wave', \
                     # 'scn_n_21_activated_opponents_wave', \
                     # 'scn_n_22_sideways_pawns_and_activating_pyramid', \
-                    'scn_hd_15_scout_movement', \
+                    # 'scn_hd_15_scout_movement', \
                     # 'scn_hd_23_activating_pyramid', \
                     # 'scn_hd_24_activating_scout_init', \
                     # 'scn_hd_25_activating_scout_end', \
+                    'scn_hd_26_scout_activating_wave_step_fields_init', \
+                    'scn_hd_27_scout_activating_wave_step_fields_end', \
                 ]
