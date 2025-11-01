@@ -52,6 +52,8 @@ class SceneMix( SceneMixin, \
                     # 'scn_hd_23_activating_pyramid', \
                     # 'scn_hd_24_activating_scout_init', \
                     # 'scn_hd_25_activating_scout_end', \
-                    'scn_hd_26_scout_activating_wave_step_fields_init', \
-                    'scn_hd_27_scout_activating_wave_step_fields_end', \
+                    # 'scn_hd_26_scout_activating_wave_step_fields_init', \
+                    # 'scn_hd_27_scout_activating_wave_step_fields_end', \
+                    'scn_hd_28_scout_activating_wave_capture_fields_init', \
+                    'scn_hd_29_scout_activating_wave_capture_fields_end', \
                 ]

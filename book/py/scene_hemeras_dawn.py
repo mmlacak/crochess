@@ -938,8 +938,8 @@ class SceneHemerasDawnMixin:
         #     scene.append_arrow( *arr, mark_type=mt_O_W )
         scene.append_arrow( *( start_O + start_W ), mark_type=MarkType.Action )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
@@ -991,7 +991,7 @@ class SceneHemerasDawnMixin:
         # W --> (diagonal left back)
         gen_W_4 = GS.gen_steps( start=start_W, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( gen_W_4() ):
-            mt_4 = MarkType.Action if i == 2 else \
+            mt_4 = MarkType.Blocked if i == 2 else \
                    MarkType.Action if i == 5 else \
                    MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt_4 )
@@ -1001,27 +1001,8 @@ class SceneHemerasDawnMixin:
         for i, arr in enumerate( gen_W_5() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        # W --> * --> P -->
-        start_ = (9, 18)
-
-        gen_W_6 = GS.gen_steps( start=start_, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_6() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Illegal )
-
-        gen_W_7 = GS.gen_steps( start=start_, rels=[ (1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_7() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Illegal )
-
-        gen_W_8 = GS.gen_steps( start=start_, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_8() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Illegal )
-
-        gen_W_9 = GS.gen_steps( start=start_, rels=[ (1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_9() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Illegal )
-
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 
