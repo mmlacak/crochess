@@ -905,6 +905,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    #
+    # Activating Wave on capture-fields
+
     def scn_hd_28_scout_activating_wave_capture_fields_init(self, bt=BoardType.HemerasDawn):
 
         scene = Scene('scn_hd_28_scout_activating_wave_capture_fields_init', bt)

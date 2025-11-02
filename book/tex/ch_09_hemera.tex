@@ -527,7 +527,11 @@ This is all similar to
 
 \clearpage % ..........................................................
 
-\vspace*{-2.3\baselineskip}
+\subsubsection*{Activating Wave on capture-fields}
+\addcontentsline{toc}{subsubsection}{Activating Wave on capture-fields}
+\label{sec:Hemera's Dawn/Scout/Activating Wave/Activating Wave on capture-fields}
+
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_28_scout_activating_wave_capture_fields_init.png}
@@ -537,15 +541,14 @@ This is all similar to
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave can be activated by Scout on its capture-field, with 1 momentum. The same as
-on step-fields, Wave activated on capture-fields can chose any direction Scout would
-be able to take at the beginning of its ply; this includes any capturing step, even
-if associated fields are empty.\newline
+Wave activated by Scout on its capture-field moves and behaves exactly the same
+as the one
+\hyperref[fig:scn_hd_26_scout_activating_wave_step_fields_init]{activated on Scout's step-field}.\newline
 \indent
-As before, activated Wave cannot change direction once it starts moving; so, light
-Pawn in the very next example is out of reach.
-
-% \TODO :: Wave cannot activate Pyramid, only material pieces
+Again, activated Wave can chose any direction Scout would be able to take; this
+includes any capturing step, even if destination fields are empty. Activated Wave
+cannot change direction once it starts moving; so, light Pawn in this example would
+remain out of reach.
 
 \clearpage % ..........................................................
 
@@ -559,14 +562,19 @@ Pawn in the very next example is out of reach.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave activated by Scout on its capture-fields moves the same as if activated on
-step-fields. Similar to
-\hyperref[fig:scn_mv_028_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-step},
-Wave can also activate Pyramid if chosen direction is Scout's capture-step, i.e.
-diagonally backwards, towards own initial positions.\newline
+Activated Wave can also take Scout's capture-step as its direction, and make multiple
+steps diagonally backwards, even though Scout can make only a single capturing step.
+Wave is not limited by received momentum, and so can move until end of a chessboard
+is reached.\newline
 \indent
-Here, activated Wave (now "in-the-air") can activate light Pyramid B with 1 momentum;
-light Pyramid A cannot be activated, as it's located on Scout's step-field.
+Wave
+\hyperref[fig:scn_mv_009_not_activating_pyramid_by_wave]{cannot activate a Pyramid},
+but can use
+\hyperref[fig:scn_mv_011_wave_is_transparent]{its own transparency} to reach pieces
+behind.\newline
+\indent
+This is similar to
+\hyperref[fig:scn_mv_027_wave_activation_by_capture_pawn]{Wave activated by Pawn on its capture-field}.
 
 \clearpage % ..........................................................
 
