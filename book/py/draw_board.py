@@ -70,6 +70,7 @@ class DrawBoard(DrawPiece):
         _i, _j = assert_floor_2(i, j)
         rev = False if self.board.is_on_board(_i, _j) else self.board_view.reverse_off_board_field_colors
         return xor( self.board.is_light(_i, _j), rev, default=False )
+        # return self.board.is_light(i, j) # TODO :: FIX :: in text / <action> light and dark interiors are switched, test on Hemera's Dawn
 
     def draw_field(self, i, j, cshade=None):
         assert isinstance(cshade, (ColorsShade, type(None)))

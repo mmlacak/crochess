@@ -332,7 +332,7 @@ class Colors( dict ):
                                                           '#0000FF', '#000000', '#E0E0E0', '#000000') ), \
                                             text=CM(     ('#00FF00', '#000000', '#00FF00', '#000000', \
                                                           '#FF0000', '#000000', '#FF0000', '#000000', \
-                                                          '#0000FF', '#000000', '#0000FF', '#000000', \
+                                                          '#9090FF', '#000000', '#0000FF', '#000000', \
                                                           '#E0E0E0', '#000000', '#101010', '#000000') ), \
                                             marker=CM(   ('#00FF00', '#000000', '#00FF00', '#000000', \
                                                           '#FF0000', '#000000', '#FF0000', '#000000', \
@@ -423,6 +423,8 @@ class Colors( dict ):
         #                            #   <action light interior>, <action light outline>, <action dark interior>, <action dark outline>, \
         #                            #   <blocked light interior>, <blocked light outline>, <blocked dark interior>, <blocked dark outline> )
         # CMS = ColorsMarkSimple.from_tuple # ( <legal interior>, <legal outline>, <illegal interior>, <illegal outline>, <action interior>, <action outline>, <blocked interior>, <blocked outline> )
+
+    # TODO :: FIX :: in text / <action> light and dark interiors are switched, test on Hemera's Dawn
 
     def fetch_colors(self, bt, enforce_bw=False):
         if enforce_bw:
