@@ -1619,6 +1619,81 @@ class SceneHemerasDawnMixin:
 
         return scene
 
+    def scn_hd_54_grenadier_close_quarters_activates_pyramid( self, bt=BoardType.HemerasDawn ):
+
+        scene = Scene( 'scn_hd_54_grenadier_close_quarters_activates_pyramid', bt, y=2, height=5.3 )
+
+        start_G = (9, 4)
+        scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
+
+        start_n = (10, 5)
+        scene.board.set_piece( *start_n, piece=-PieceType.Knight )
+
+        start_w = (10, 4)
+        scene.board.set_piece( *start_w, piece=-PieceType.Wave )
+
+        start_r = (8, 5)
+        scene.board.set_piece( *start_r, piece=-PieceType.Rook )
+
+        start_p = (10, 2)
+        scene.board.set_piece( *start_p, piece=-PieceType.Pawn )
+
+        start_a_A = (13, 3)
+        scene.board.set_piece( *start_a_A, piece=-PieceType.Pyramid )
+
+        start_a_B = (6, 4)
+        scene.board.set_piece( *start_a_B, piece=-PieceType.Pyramid )
+
+        start_a_C = (8, 3)
+        scene.board.set_piece( *start_a_C, piece=-PieceType.Pyramid )
+
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_Gr_() ):
+            mt_r = MarkType.Blocked if i == 0 else \
+                   MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt_r )
+
+            mt_rd_c = MarkType.Action if i == 2 else \
+                      MarkType.Illegal
+            scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=mt_rd_c )
+
+        gen_Gu_ = GS.gen_steps( start=start_G, rels=[ (0, 1), ], include_prev=True, count=1 )
+        for i, arr in enumerate( gen_Gu_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+            scene.append_arrow( *GS.add_end_rel( arr, 1, 1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=MarkType.Illegal )
+
+        gen_Gl_ = GS.gen_steps( start=start_G, rels=[ (-1, 0), ], include_prev=True, count=5 )
+        for i, arr in enumerate( gen_Gl_() ):
+            mt_l = MarkType.Legal if i < 2 else \
+                   MarkType.Blocked
+            scene.append_arrow( *arr, mark_type=mt_l )
+
+            mt_l_c = MarkType.Illegal if i < 2 else \
+                     MarkType.Blocked
+            scene.append_arrow( *GS.add_end_rel( arr, -1, 1 ), mark_type=mt_l_c )
+            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=mt_l_c )
+
+        gen_Gd_ = GS.gen_steps( start=start_G, rels=[ (0, -1), ], include_prev=True, count=1 )
+        for i, arr in enumerate( gen_Gd_() ):
+            scene.append_arrow( *arr, mark_type=MarkType.Legal )
+
+            scene.append_arrow( *GS.add_end_rel( arr, -1, -1 ), mark_type=MarkType.Illegal )
+            scene.append_arrow( *GS.add_end_rel( arr, 1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G, -1, -1 ), mark_type=MarkType.Action )
+        scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ), mark_type=MarkType.Illegal )
+
+        scene.append_text( "A", *start_a_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+        scene.append_text( "B", *start_a_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "C", *start_a_C, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
+
+        return scene
+
     #
     # Activating Wave
 
