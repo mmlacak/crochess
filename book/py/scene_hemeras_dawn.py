@@ -1577,11 +1577,11 @@ class SceneHemerasDawnMixin:
 
         scene = Scene( 'scn_hd_53_grenadier_activates_pyramid', bt, width=7.3, height=5.3 )
 
-        start_P_A = (1, 2)
-        scene.board.set_piece( *start_P_A, piece=PieceType.Pyramid )
+        start_A_A = (1, 2)
+        scene.board.set_piece( *start_A_A, piece=PieceType.Pyramid )
 
-        start_P_B = (4, 1)
-        scene.board.set_piece( *start_P_B, piece=PieceType.Pyramid )
+        start_A_B = (4, 1)
+        scene.board.set_piece( *start_A_B, piece=PieceType.Pyramid )
 
         start_G = (3, 2)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -1610,12 +1610,15 @@ class SceneHemerasDawnMixin:
         #     #        MarkType.Blocked
         #     scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        scene.append_arrow( *( start_G + start_P_B ), mark_type=MarkType.Action )
+        scene.append_arrow( *( start_G + start_A_B ), mark_type=MarkType.Action )
 
         # scene.append_arrow( *GS.append_pos_rel( start_G, 1, 1 ), mark_type=MarkType.Illegal )
         # scene.append_arrow( *GS.append_pos_rel( start_G, -1, 1 ), mark_type=MarkType.Illegal )
         # scene.append_arrow( *GS.append_pos_rel( start_G, -1, -1 ), mark_type=MarkType.Illegal )
         # scene.append_arrow( *GS.append_pos_rel( start_G, 1, -1 ), mark_type=MarkType.Action )
+
+        scene.append_text( "A", *start_A_A, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Blocked )
+        scene.append_text( "B", *start_A_B, corner=Corner.UpperRightFieldMarker, mark_type=MarkType.Action )
 
         return scene
 
@@ -1647,7 +1650,7 @@ class SceneHemerasDawnMixin:
         start_A_C = (8, 3)
         scene.board.set_piece( *start_A_C, piece=PieceType.Pyramid )
 
-        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=5 )
+        gen_Gr_ = GS.gen_steps( start=start_G, rels=[ (1, 0), ], include_prev=True, count=3 )
         for i, arr in enumerate( gen_Gr_() ):
             mt_r = MarkType.Blocked if i == 0 else \
                    MarkType.Legal
