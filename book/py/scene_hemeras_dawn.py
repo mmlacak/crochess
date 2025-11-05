@@ -1697,14 +1697,11 @@ class SceneHemerasDawnMixin:
         return scene
 
     #
-    # TODO :: REINDEX
-
-    #
     # Activating Wave
 
-    def scn_hd_53_grenadier_activating_wave_step_field( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_55_grenadier_activating_wave_step_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_53_grenadier_activating_wave_step_field', bt )
+        scene = Scene( 'scn_hd_55_grenadier_activating_wave_step_field', bt )
 
         start_G = (9, 5)
         scene.board.set_piece( *start_G, piece=PieceType.Grenadier )
@@ -1739,9 +1736,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_54_grenadier_activated_wave_step_field( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_56_grenadier_activated_wave_step_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_54_grenadier_activated_wave_step_field', bt )
+        scene = Scene( 'scn_hd_56_grenadier_activated_wave_step_field', bt )
 
         prev_G = (9, 2)
         prev_W = (9, 7)
@@ -1827,9 +1824,9 @@ class SceneHemerasDawnMixin:
     #
     # Activating Wave on capture-fields
 
-    def scn_hd_55_grenadier_activating_wave_capture_field( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_57_grenadier_activating_wave_capture_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_55_grenadier_activating_wave_capture_field', bt )
+        scene = Scene( 'scn_hd_57_grenadier_activating_wave_capture_field', bt )
 
         start_n = (7, 9)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
@@ -1868,9 +1865,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_56_grenadier_activated_wave_capture_field( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_58_grenadier_activated_wave_capture_field( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_56_grenadier_activated_wave_capture_field', bt )
+        scene = Scene( 'scn_hd_58_grenadier_activated_wave_capture_field', bt )
 
         start_n = (7, 9)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
@@ -1957,9 +1954,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_57_grenadier_en_passant( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_59_grenadier_en_passant( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_57_grenadier_en_passant', bt, width=8, height=10.3 )
+        scene = Scene( 'scn_hd_59_grenadier_en_passant', bt, width=8, height=10.3 )
 
         #
         # A
@@ -2007,9 +2004,9 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_58_grenadier_en_passant_self_extended( self, bt=BoardType.HemerasDawn ):
+    def scn_hd_60_grenadier_en_passant_self_extended( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_58_grenadier_en_passant_self_extended', bt, width=8, height=10.3 )
+        scene = Scene( 'scn_hd_60_grenadier_en_passant_self_extended', bt, width=8, height=10.3 )
 
         #
         # 1
