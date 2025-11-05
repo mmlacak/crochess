@@ -41,6 +41,6 @@ class SceneMix( SceneMixin, \
                     # 'scn_hd_50_grenadier_activated', \
                     # 'scn_hd_51_grenadier_close_quarters_activation', \
                     # 'scn_hd_52_grenadier_close_quarters_activated', \
-                    # 'scn_hd_53_grenadier_activates_pyramid', \
+                    'scn_hd_53_grenadier_activates_pyramid', \
                     'scn_hd_54_grenadier_close_quarters_activates_pyramid', \
                 ]
