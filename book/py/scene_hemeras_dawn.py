@@ -1856,10 +1856,13 @@ class SceneHemerasDawnMixin:
         start_ = (8, 8) # == start_G + (2, 0)
         scene.append_arrow( *GS.append_pos_rel( start_, 1, -1 ), mark_type=MarkType.Action )
 
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
+
+    #
+    # Activating Wave on capture-fields
 
     def scn_hd_58_grenadier_activated_wave_capture_field( self, bt=BoardType.HemerasDawn ):
 
@@ -1888,7 +1891,7 @@ class SceneHemerasDawnMixin:
         start_N = (3, 1)
         scene.board.set_piece( *start_N, piece=PieceType.Knight )
 
-        start_P = (7, 18)
+        start_P = (7, 16)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
 
         # W --> (right)
@@ -1924,7 +1927,8 @@ class SceneHemerasDawnMixin:
         # W --> (diagonal left back)
         gen_Wbl_ = GS.gen_steps( start=start_W, rels=[ (-1, -1), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
         for i, arr in enumerate( gen_Wbl_() ):
-            mt = MarkType.Action if i in [2, 5] else \
+            mt = MarkType.Blocked if i == 2 else \
+                 MarkType.Action if i == 5 else \
                  MarkType.Legal
             scene.append_arrow( *arr, mark_type=mt )
 
@@ -1938,15 +1942,8 @@ class SceneHemerasDawnMixin:
         for i, arr in enumerate( gen_Wbr_() ):
             scene.append_arrow( *arr, mark_type=MarkType.Legal )
 
-        # W --> * --> P -->
-        start_ = (9, 18)
-
-        gen_W_P_ = GS.gen_steps( start=start_, rels=[ (-1, 0), ], include_prev=True, bounds=scene.board_view.get_position_limits() )
-        for i, arr in enumerate( gen_W_P_() ):
-            scene.append_arrow( *arr, mark_type=MarkType.Illegal )
-
-        scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
-        scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "A", *start_A_A, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
+        # scene.append_text( "B", *start_A_B, corner=Corner.UpperLeft, mark_type=MarkType.Blocked )
 
         return scene
 

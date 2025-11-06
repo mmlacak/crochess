@@ -964,7 +964,7 @@ Grenadier cannot activate Pyramid on its step-fields, and is blocked from moving
 Grenadier can activate Wave on its step-fields. Activated Wave can choose any
 direction Grenadier would be able to take, including any immediate capturing step,
 even if associated fields are empty. Wave cannot take any
-\hyperref[fig:scn_hd_43_grenadier_forking_steps]{forking steps}, i.e. capturing
+\hyperref[fig:scn_hd_43_grenadier_forking_steps]{forking steps}, i.e. no capturing
 steps in
 \hyperref[fig:scn_hd_49_grenadier_close_quarters_pattern]{close quarters}.\newline
 \indent
@@ -1003,7 +1003,7 @@ This is similar to
 \addcontentsline{toc}{subsubsection}{Activating Wave on capture-fields}
 \label{sec:Hemera's Dawn/Grenadier/Activating Wave/Activating Wave on capture-fields}
 
-\vspace*{-2.1\baselineskip}
+\vspace*{-1.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_57_grenadier_activating_wave_capture_field.png}
@@ -1013,16 +1013,16 @@ This is similar to
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave can be activated by Grenadier on its capture-fields, regardless if activating
-Grenadier was in close quarters, or not. The same as on step-fields, Wave activated
-on capture-fields can choose any direction Grenadier would be able to take at the
-beginning of its ply; this includes any capturing step, even if associated fields
-are empty.\newline
+Wave activated by Grenadier on its capture-field moves and behaves exactly the same
+as the one
+\hyperref[fig:scn_hd_55_grenadier_activating_wave_step_field]{activated on a step-field},
+regardless if activating Grenadier was in close quarters, or not.\newline
 \indent
-As before, activated Wave cannot change direction once it starts moving; so, light
-Pawn in the very next example is out of reach.
-
-\TODO :: Wave cannot activate Pyramid, only material pieces
+Again, activated Wave can choose any direction Grenadier would be able to take; this
+includes any immediate capturing step, even if destination fields are empty; but no
+\hyperref[fig:scn_hd_43_grenadier_forking_steps]{forking steps}, i.e. no capturing
+steps in
+\hyperref[fig:scn_hd_49_grenadier_close_quarters_pattern]{close quarters}.
 
 \clearpage % ..........................................................
 
@@ -1036,15 +1036,16 @@ Pawn in the very next example is out of reach.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Wave activated by Grenadier on its capture-fields moves the same as if activated
-on step-fields; i.e. horizontal and vertical steps are all movement only steps,
-while diagonal steps are capturing ones. Similar to
-\hyperref[fig:scn_mv_028_wave_activated_by_capture_pawn]{Wave activated by Pawn on its capture-step},
-Wave can also activate Pyramid if chosen direction is Grenadier's capture-step,
-i.e. diagonal.\newline
-\indent
-Here, activated Wave (now "in-the-air") can activate light Pyramid B with 3 momentum;
-light Pyramid A cannot be activated, as it's located on Grenadier's step-field.
+Activated Wave (now "in-the-air") can also take Grenadier's immediate capture-step as
+its direction, and make multiple steps diagonally, even though Grenadier can make only
+a single capturing step. So, activated Wave moves the same as if activated by Queen.
+Activated Wave cannot change direction once it starts moving; so, light Pawn here remains
+out of reach. Wave
+\hyperref[fig:scn_mv_009_not_activating_pyramid_by_wave]{cannot activate a Pyramid},
+but can use
+\hyperref[fig:scn_mv_011_wave_is_transparent]{its own transparency} to reach pieces
+behind it. This is similar to
+\hyperref[fig:scn_mv_027_wave_activation_by_capture_pawn]{Wave activated by Pawn on its capture-field}.
 
 % ----------------------------------------------------- Activating Wave
 \clearpage % ..........................................................

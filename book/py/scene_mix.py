@@ -44,6 +44,8 @@ class SceneMix( SceneMixin, \
                     # 'scn_hd_52_grenadier_close_quarters_activated', \
                     # 'scn_hd_53_grenadier_activates_pyramid', \
                     # 'scn_hd_54_grenadier_close_quarters_activates_pyramid', \
-                    'scn_hd_55_grenadier_activating_wave_step_field', \
-                    'scn_hd_56_grenadier_activated_wave_step_field', \
+                    # 'scn_hd_55_grenadier_activating_wave_step_field', \
+                    # 'scn_hd_56_grenadier_activated_wave_step_field', \
+                    'scn_hd_57_grenadier_activating_wave_capture_field', \
+                    'scn_hd_58_grenadier_activated_wave_capture_field', \
                 ]
