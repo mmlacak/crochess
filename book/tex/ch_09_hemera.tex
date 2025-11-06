@@ -359,7 +359,7 @@ Forked steps are extension of a first step; so, e.g. after left step only left-u
 and left-down steps are available, but not right-up, right-down.\newline
 \indent
 Here are shown all forking steps for both light and dark Scout. Light Scout would
-use forking step after left, up, or right steps are taken; dark Scout would chose
+use forking step after left, up, or right steps are taken; dark Scout would choose
 forking step after left, down, or right steps.
 
 \clearpage % ..........................................................
@@ -495,7 +495,7 @@ these steps are only for capturing, but destination fields are empty.
 Scout can activate Wave on its step-fields. Activated Wave can choose any direction
 Scout would be able to take, including any capturing step, even if associated fields
 are empty. Wave cannot take any
-\hyperref[fig:scn_hd_17_scout_forking_steps]{forking steps}, or
+\hyperref[fig:scn_hd_17_scout_forking_steps]{forking steps}, or use
 \hyperref[fig:scn_hd_20_scout_rerouting]{rerouting}.\newline
 \indent
 Direction, once chosen, cannot be changed in a ply; so, light Pawn in this example
@@ -546,9 +546,9 @@ Wave activated by Scout on its capture-field moves and behaves exactly the same
 as the one
 \hyperref[fig:scn_hd_26_scout_activating_wave_step_fields_init]{activated on Scout's step-field}.\newline
 \indent
-Again, activated Wave can chose any direction Scout would be able to take; this
+Again, activated Wave can choose any direction Scout would be able to take; this
 includes any capturing step, even if destination fields are empty; but no
-\hyperref[fig:scn_hd_17_scout_forking_steps]{forking steps}, or
+\hyperref[fig:scn_hd_17_scout_forking_steps]{forking steps}, or use
 \hyperref[fig:scn_hd_20_scout_rerouting]{rerouting}.
 Activated Wave cannot change direction once it starts moving; so, light Pawn
 would remain out of reach.
@@ -740,10 +740,10 @@ won't gain (or lose) any steps, if it passes by opponent's piece.
 \noindent
 \begin{wrapfigure}[11]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_43_forking_steps.png}
+\includegraphics[width=0.35\textwidth, keepaspectratio=true]{examples/14_hd/scn_hd_43_grenadier_forking_steps.png}
 \vspace*{-0.5\baselineskip}
 \caption{Forking steps}
-\label{fig:scn_hd_43_forking_steps}
+\label{fig:scn_hd_43_grenadier_forking_steps}
 \end{wrapfigure}
 Forking steps refer to two diagonal capture-steps available after a step up, down,
 left or right is made.\newline
@@ -961,14 +961,15 @@ Grenadier cannot activate Pyramid on its step-fields, and is blocked from moving
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Grenadier can activate Wave on its step-fields. Activated Wave can chose any
-direction Grenadier would be able to take, including any capturing step, even if
-associated fields are empty.\newline
+Grenadier can activate Wave on its step-fields. Activated Wave can choose any
+direction Grenadier would be able to take, including any immediate capturing step,
+even if associated fields are empty. Wave cannot take any
+\hyperref[fig:scn_hd_43_grenadier_forking_steps]{forking steps}, i.e. capturing
+steps in
+\hyperref[fig:scn_hd_49_grenadier_close_quarters_pattern]{close quarters}.\newline
 \indent
 Direction, once chosen, cannot be changed for duration of a ply; so, light Pawn
 in this example would remain out of reach.
-
-\TODO :: Wave cannot activate Pyramid, only material pieces
 
 \clearpage % ..........................................................
 
@@ -982,14 +983,18 @@ in this example would remain out of reach.
 \end{figure}
 
 \vspace*{-0.5\baselineskip}
-Activated Wave (now "in-the-air") can move up, down, or laterally, to the left or
-to the right; these are all movement only steps. Wave can also choose Grenadier’s
-capture-step as its direction, and move diagonally.\newline
+Activated Wave (now "in-the-air") can move up, down, left or right. Wave can also
+choose Grenadier's immediate capture-step as its direction, and move diagonally.
+So, activated Wave moves the same as if activated by Queen.\newline
 \indent
 Activated Wave is not limited by received momentum, and so can move until end of
-a chessboard is reached. Wave activated on a step-field cannot activate any Pyramids.\newline
+a chessboard is reached. Wave
+\hyperref[fig:scn_mv_009_not_activating_pyramid_by_wave]{cannot activate a Pyramid},
+but can use
+\hyperref[fig:scn_mv_011_wave_is_transparent]{its own transparency} to reach pieces
+behind it.\newline
 \indent
-This is also similar to
+This is similar to
 \hyperref[fig:scn_n_19_sideways_pawn_activated_wave]{Wave activated by Pawn on its step-field}.
 
 \clearpage % ..........................................................
@@ -1010,7 +1015,7 @@ This is also similar to
 \vspace*{-0.5\baselineskip}
 Wave can be activated by Grenadier on its capture-fields, regardless if activating
 Grenadier was in close quarters, or not. The same as on step-fields, Wave activated
-on capture-fields can chose any direction Grenadier would be able to take at the
+on capture-fields can choose any direction Grenadier would be able to take at the
 beginning of its ply; this includes any capturing step, even if associated fields
 are empty.\newline
 \indent
