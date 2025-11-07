@@ -595,7 +595,8 @@ class SceneConquestOfTlalocanMixin:
             mark_type = MarkType.Legal
             for i, arr in enumerate( coords() ):
                 if rel_idx == 5:
-                    mark_type = MarkType.Action if i in [1, 3] else \
+                    mark_type = MarkType.Blocked if i == 1 else \
+                                MarkType.Action if i == 3 else \
                                 MarkType.Legal
                 scene.append_arrow( *arr, mark_type=mark_type )
 
