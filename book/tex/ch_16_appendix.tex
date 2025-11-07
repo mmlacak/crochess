@@ -1963,26 +1963,19 @@ present.
                                                         \cmidrule{3-4} % .............................................
                             &                           & \emph{any}\footnotemark[1]    & \emph{last}               \\
 \midrule % -----------------------------------------------------------------------------------------------------------
-\multirow{5}{*}{Wave}       & \multirow{5}{*}{step\footnotemark[2]-}
+\multirow{5}{*}{Wave}       & \parbox[b][1pt][s]{7ex}{~\vspace*{0.7\baselineskip}\\step-,\\capture-} % \multirow{5}{*}{step\footnotemark[2]-}
                                                         &                               & step, teleport,           \\
                             &                           & step,                         & activate any              \\
                             &                           & transparency,                 & Wave, own                 \\
-                            &                           & divergence\footnotemark[5]    & pieces except             \\
+                            &                           & divergence\footnotemark[3]    & pieces except             \\
                             &                           &                               & King, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Wave}       & \multirow{5}{*}{capture\footnotemark[3]-}
-                                                        &                               & step, teleport,           \\
-                            &                           & step,                         & activate any              \\
-                            &                           & transparency,                 & Wave, own                 \\
-                            &                           & divergence\footnotemark[5]    & pieces except             \\
-                            &                           &                               & King                      \\
-\cmidrule{1-4} % .....................................................................................................
-\multirow{5}{*}{Wave}       & \multirow{5}{*}{miracle\footnotemark[4]-}
+\multirow{5}{*}{Wave}       & \multirow{5}{*}{miracle\footnotemark[2]-}
                                                         & \multirow{5}{*}{---}          & step, teleport,           \\
                             &                           &                               & activate any              \\
                             &                           &                               & Wave, own                 \\
                             &                           &                               & pieces except             \\
-                            &                           &                               & King                      \\
+                            &                           &                               & King, Pyramid             \\
 \cmidrule{1-4} % .....................................................................................................
 Star                        & step-                     & ---                           & step                      \\
 % \cmidrule{1-4} % .....................................................................................................
@@ -1993,18 +1986,14 @@ Star                        & step-                     & ---                   
 \end{table}
 
 \footnotetext[1]{Any step, except the last one.}
-\footnotetext[2]{Activated on a step-field.}
-\footnotetext[3]{Activated on a capture--field.}
-\footnotetext[4]{Activated on a miracle-field.}
-\footnotetext[5]{Cannot diverge if activated by Unicorn, Centaur, or Serpent.}
+\footnotetext[2]{Activated on a miracle-field.}
+\footnotetext[3]{Cannot diverge if activated by Unicorn, Centaur, or Serpent.}
 
 Wave cannot capture, and so all fields it's traversing are actually step-fields.
 In the table above, \emph{fields} column for Wave notes over which kind of fields
 activating piece was traveling. For instance, if activated by rushing Pawn, Wave
 cannot activate Pyramid, because rushing Pawn moves over its own step-fields, and
 so first row applies.
-
-\TODO :: Wave cannot activate Pyramid, only material pieces
 
 \clearpage % ..........................................................
 
