@@ -2585,11 +2585,7 @@ teleporting piece (Star) is introduced.
 | <pawn-sacrifice-ply>
 
 <cascading-plies> =
-  [\{(\alg{~W}<wave-stepping> | \alg{~A}<stepping>)\}]
-  \{\alg{~W}<wave-stepping>\}
-  [ [\{((\alg{~}|\alg{|})\alg{W}<wave-stepping>
-       | \alg{~A}<stepping>)\}]
-    \{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\} ]
+  [\{\alg{~A}<stepping>\}]\{\alg{~W}<wave-stepping>\}
 \end{alltt}
 
 \clearpage % ..........................................................
@@ -2622,6 +2618,7 @@ teleporting piece (Star) is introduced.
   <activateable-piece-losing-tag><stepping>
 | \alg{S}<serpent-stepping>
 | \alg{H}<shaman-stepping>
+| \alg{A}<stepping>
 | <pawn-promotion-ply>
 | <passive-piece><stepping>
 | <pawn-sacrifice-ply>
