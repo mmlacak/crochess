@@ -134,6 +134,8 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false;
     if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // [1]
 
+// TODO :: Wave cannot activate Pyramid, only material pieces
+
     bool wave_moving = CC_PIECE_IS_WAVE( moving );
     bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
 
@@ -207,6 +209,8 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcStepTypeEnum step_type ) {
     if ( !cb ) return false;
     if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return false;
+
+// TODO :: Wave cannot activate Pyramid, only material pieces
 
     if ( !cc_activation_desc_is_legal( act_desc, moving, is_first_ply ) ) return false;
 
