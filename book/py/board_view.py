@@ -9,10 +9,10 @@ from board import BoardType, Board
 
 class Margin:
     def __init__( self, left=0.0, top=0.0, right=0.0, bottom=0.0 ):
-        assert isinstance(left, float)
-        assert isinstance(top, float)
-        assert isinstance(right, float)
-        assert isinstance(bottom, float)
+        assert isinstance( left, float )
+        assert isinstance( top, float )
+        assert isinstance( right, float )
+        assert isinstance( bottom, float )
 
         assert left >= 0.0
         assert top >= 0.0
@@ -34,19 +34,19 @@ class Margin:
 
 class BoardView:
     def __init__( self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_type=None, skip_if_rendering_board=None ):
-        assert isinstance(x, float)
-        assert isinstance(y, float)
-        assert isinstance(width, (float, type(None)))
-        assert isinstance(height, (float, type(None)))
+        assert isinstance( x, float )
+        assert isinstance( y, float )
+        assert isinstance( width, (float, type( None) ) )
+        assert isinstance( height, (float, type( None) ) )
 
-        assert isinstance(reverse_off_board_field_colors, bool)
-        assert isinstance(margin, (Margin, type(None)))
-        assert isinstance(skip_if_rendering_board, (list, type(None)))
+        assert isinstance( reverse_off_board_field_colors, bool )
+        assert isinstance( margin, (Margin, type( None) ) )
+        assert isinstance( skip_if_rendering_board, (list, type( None) ) )
 
         self.x = x
         self.y = y
 
-        bt = BoardType(board_type) if board_type is not None else None
+        bt = BoardType( board_type ) if board_type is not None else None
         self.width = width if width is not None else ( bt.get_size() if bt is not None else 1.0 )
         self.height = height if height is not None else ( bt.get_size() if bt is not None else 1.0 )
 

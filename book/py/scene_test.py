@@ -27,13 +27,13 @@ class SceneTest( SceneMixin ):
 
     def test_o_1( self, bt=BoardType.One ):
 
-        scene = Scene('test_o_1', bt)
+        scene = Scene( 'test_o_1', bt )
 
-        scene.board.set_piece(12, 12, PieceType.Starchild)
+        scene.board.set_piece( 12, 12, PieceType.Starchild )
 
-        scene.append_field_marker(13, 14, mark_type=MarkType.Action)
-        scene.append_field_marker(15, 14, mark_type=MarkType.Action)
-        scene.append_field_marker(13, 16, mark_type=MarkType.Action)
-        scene.append_field_marker(15, 16, mark_type=MarkType.Action)
+        scene.append_field_marker( 13, 14, mark_type=MarkType.Action )
+        scene.append_field_marker( 15, 14, mark_type=MarkType.Action )
+        scene.append_field_marker( 13, 16, mark_type=MarkType.Action )
+        scene.append_field_marker( 15, 16, mark_type=MarkType.Action )
 
         return scene

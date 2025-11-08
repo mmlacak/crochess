@@ -26,7 +26,7 @@ def split_cmd_git_args( argv ):
                 elif arg_sep_count == 2:
                     git_push_argv.append( a )
                 else:
-                    raise RuntimeError("Too many arg groups, expected: script.py <args> -*- <git commit args> -*- <git push args>,\nin cmd line: '%s'." % argv)
+                    raise RuntimeError( "Too many arg groups, expected: script.py <args> -*- <git commit args> -*- <git push args>,\nin cmd line: '%s'." % argv )
         else:
             arg_sep_count += 1
 
@@ -50,7 +50,7 @@ def is_committing_all_files( git_commit_argv ):
         return False
 
     for arg in git_commit_argv:
-        if arg.startswith('-') and not arg.startswith('--') and 'a' in arg:
+        if arg.startswith( '-') and not arg.startswith('--' ) and 'a' in arg:
             # Skip: --amend, --allow-empty, --allow-empty-message.
             return True
         elif arg == '--all':

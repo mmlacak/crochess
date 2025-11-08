@@ -17,7 +17,7 @@ class RenderingSizeEnum( int ):
         if RenderingSizeEnum._is_valid( value ):
             return super(RenderingSizeEnum, cls).__new__(cls, value)
         else:
-            raise ValueError("No such a rendering type, received '%s'." % (str(value), ))
+            raise ValueError( "No such a rendering type, received '%s'." % (str( value ), ) )
 
     @staticmethod
     def iter( include_none=False, include_info=True, do_construct=True ):
@@ -27,20 +27,20 @@ class RenderingSizeEnum( int ):
                 RenderingSizeEnum.Final ]
 
         if include_info:
-            lst.insert(0, RenderingSizeEnum.Info)
+            lst.insert( 0, RenderingSizeEnum.Info )
 
         if include_none:
-            lst.insert(0, RenderingSizeEnum.none)
+            lst.insert( 0, RenderingSizeEnum.none )
 
         lst.sort()
         return [ RenderingSizeEnum(rs) if do_construct else rs for rs in lst ]
 
     @staticmethod
     def _is_valid( rendering_size ):
-        return rendering_size in RenderingSizeEnum.iter(include_none=True, include_info=True, do_construct=False)
+        return rendering_size in RenderingSizeEnum.iter( include_none=True, include_info=True, do_construct=False )
 
     def needs_rendering( self ):
-        return self in RenderingSizeEnum.iter(include_none=False, include_info=False)
+        return self in RenderingSizeEnum.iter( include_none=False, include_info=False )
 
 
 class RenderingSizeItem( object ):
@@ -48,9 +48,9 @@ class RenderingSizeItem( object ):
                   board_width_pix, \
                   board_max_height_pix, \
                   piece_2_by_2_pix ):
-        assert isinstance(board_width_pix, int)
-        assert isinstance(board_max_height_pix, int)
-        assert isinstance(piece_2_by_2_pix, int)
+        assert isinstance( board_width_pix, int )
+        assert isinstance( board_max_height_pix, int )
+        assert isinstance( piece_2_by_2_pix, int )
 
         self.board_width_pix = board_width_pix
         self.board_max_height_pix = board_max_height_pix
@@ -100,6 +100,6 @@ RenderingSize = RenderingSize()
 
 
 def get_rendering_size_item( rs_enum ):
-    assert isinstance(rs_enum, RenderingSizeEnum)
+    assert isinstance( rs_enum, RenderingSizeEnum )
 
     return RenderingSize[rs_enum]

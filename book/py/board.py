@@ -35,7 +35,7 @@ class BoardType( int ):
         if BoardType._is_valid( value ):
             return super( BoardType, cls ).__new__( cls, value )
         else:
-            raise ValueError( "No such a board type, received '%s'." % ( str(value), ) )
+            raise ValueError( "No such a board type, received '%s'." % ( str( value ), ) )
 
     @staticmethod
     def iter( include_none=False,
@@ -268,7 +268,7 @@ class BoardType( int ):
         for pt in iterate( pts ):
             end = pt if pt > end else end
 
-        return piece_type in range(start, end+1)
+        return piece_type in range( start, end+1 )
 
     def get_position_limits( self ):
         limit = self.get_size() - 1
@@ -276,7 +276,7 @@ class BoardType( int ):
 
 
 def get_opposites( pieces ):
-    return [ PT(p).get_opposite() for p in pieces ]
+    return [ PT( p).get_opposite() for p in pieces ]
 
 def remove_pieces( pieces, to_remove=(PT.Queen, -PT.Queen) ):
     return [ PT(p) for p in pieces if p not in to_remove ]
@@ -288,7 +288,7 @@ def get_indexes( pieces, piece=PT.King ):
     if piece not in pieces:
         return None
 
-    return [ i for i, p in enumerate(pieces) if p == piece ]
+    return [ i for i, p in enumerate( pieces ) if p == piece ]
 
 
 class Board:
@@ -868,7 +868,7 @@ class Board:
         # gt = PT.Grenadier if is_light else -PT.Grenadier
 
         plst = [ pt for i in range( self.get_width() ) ]
-        # glst = [ gt for i in range(self.get_width()) ]
+        # glst = [ gt for i in range( self.get_width() ) ]
 
         # lst = glst if self.type >= BoardType.OddNineteen else plst
         row = 1 if is_light else self.get_height() - 2

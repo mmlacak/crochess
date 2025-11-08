@@ -17,7 +17,7 @@ PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 
 
 def main():
-    pre_git_argv, git_commit_argv, git_push_argv = RG.split_cmd_git_args(sys.argv)
+    pre_git_argv, git_commit_argv, git_push_argv = RG.split_cmd_git_args( sys.argv )
 
     is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], pre_git_argv) else False
     is_wet_run = True if not is_dry_run and RS.any_item_in( ['-w', '--wet-run'], pre_git_argv) else False
@@ -47,7 +47,7 @@ def main():
     auto_updated_files = []
 
     if not ( is_book or is_docs or is_major or is_minor or is_feature or is_commit or is_meta ):
-        # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit or --meta.")
+        # raise RuntimeError( "Specify at least one of --book, --major, --minor, --feature or --commit or --meta." )
         print( "Specify at least one of --book, --docs, --major, --minor, --feature, --commit or --meta to update version(s)." )
 
     if is_verbose:
@@ -55,7 +55,7 @@ def main():
         print( "Project root folder: '%s'." % PROJECT_ROOT_PATH )
 
         lib_ver = UV.get_current_lib_versions( PROJECT_ROOT_PATH, decompose_version=False )
-        print( "Library version: %s." % str(lib_ver) )
+        print( "Library version: %s." % str( lib_ver ) )
 
         now_version, now_short = UV.get_current_times()
         print( "New version meta: %s." % now_version )
@@ -70,7 +70,7 @@ def main():
         print( "" )
 
         if is_debug:
-            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s, meta: %s." % (str(is_book), str(is_docs), str(is_major), str(is_minor), str(is_feature), str(is_commit), str(is_meta)) )
+            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s, meta: %s." % (str( is_book), str(is_docs), str(is_major), str(is_minor), str(is_feature), str(is_commit), str(is_meta) ) )
 
         if not is_dry_run:
             auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_docs, is_major, is_minor, is_feature, is_commit, is_meta, count, breaks )

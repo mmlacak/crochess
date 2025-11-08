@@ -28,9 +28,9 @@ class PieceType( int ):
 
     def __new__( cls, value ):
         if PieceType._is_valid( value ):
-            return super(PieceType, cls).__new__(cls, value)
+            return super( PieceType, cls).__new__(cls, value )
         else:
-            raise ValueError("No such a piece type, received '%s'." % (str(value), ))
+            raise ValueError( "No such a piece type, received '%s'." % (str( value ), ) )
 
     @staticmethod
     def iter( include_none=False, include_light_pieces=True, include_dark_pieces=False, do_construct=True ):
@@ -56,21 +56,21 @@ class PieceType( int ):
                   PieceType.Starchild ]
 
         if include_light_pieces:
-            lst.extend(p_lst)
+            lst.extend( p_lst )
 
         if include_dark_pieces:
             l = [ -pt for pt in p_lst ]
             lst.extend(l)
 
         if include_none:
-            lst.insert(0, PieceType.none)
+            lst.insert( 0, PieceType.none )
 
         lst.sort()
         return [ PieceType(pt) if do_construct else pt for pt in lst ]
 
     @staticmethod
     def _is_valid( piece_type ):
-        return piece_type in PieceType.iter(include_none=True, include_dark_pieces=True, do_construct=False)
+        return piece_type in PieceType.iter( include_none=True, include_dark_pieces=True, do_construct=False )
 
     def get_symbol( self ):
         return { PieceType.none: '.',
@@ -126,10 +126,10 @@ class PieceType( int ):
         return self < PieceType.none
 
     def get_enumerated( self ):
-        return PieceType(abs(self))
+        return PieceType( abs( self ) )
 
     def get_opposite( self ):
-        return PieceType(-self)
+        return PieceType( -self )
 
     def get_light( self ):
         return self if self.is_light() else self.get_opposite()
@@ -138,11 +138,11 @@ class PieceType( int ):
         return self if self.is_dark() else self.get_opposite()
 
     def is_friend( self, other ):
-        o = PieceType(other)
+        o = PieceType( other )
         return (self.is_light() and o.is_light()) or (self.is_dark() and o.is_dark())
 
     def is_foe( self, other ):
-        o = PieceType(other)
+        o = PieceType( other )
         return (self.is_light() and o.is_dark()) or (self.is_dark() and o.is_light())
 
     def __str__( self ):

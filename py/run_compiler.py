@@ -30,7 +30,7 @@ def split_cmd_compiler_args( argv ):
                 elif arg_sep_count == 3:
                     exec_app_argv.append( a )
                 else:
-                    raise RuntimeError("Too many arg groups, expected: script.py <args> [-*- [<compile lib args>] [-*- [<compile app args>] [-*- [<run app args>]]]],\nin cmd line: '%s'." % argv)
+                    raise RuntimeError( "Too many arg groups, expected: script.py <args> [-*- [<compile lib args>] [-*- [<compile app args>] [-*- [<run app args>]]]],\nin cmd line: '%s'." % argv )
         else:
             arg_sep_count += 1
 

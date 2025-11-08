@@ -127,7 +127,7 @@ def get_compiler_optimization_options( compiler=DEFAULT_COMPILER, is_release_or_
         if is_consts:
             options += OPTIONS_CLANG_RELEASE_CONSTS if is_release_or_debug else OPTIONS_CLANG_DEBUG_CONSTS
     else:
-        raise RuntimeError("Unknown compiler '%s'." % compiler)
+        raise RuntimeError( "Unknown compiler '%s'." % compiler )
 
     return options
 
@@ -140,7 +140,7 @@ def get_compiler_build_options( compiler=DEFAULT_COMPILER, target=Target.LIB_CRO
         # elif target == Target.LIB_LINENOISE:
         #     return OPTIONS_GCC_LIBRARY_LINENOISE
         else:
-            raise RuntimeError("Unknown target '%s'." % str(target))
+            raise RuntimeError( "Unknown target '%s'." % str( target ) )
     elif compiler == COMPILER_CLANG:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
             return OPTIONS_CLANG_EXECUTABLE
@@ -149,9 +149,9 @@ def get_compiler_build_options( compiler=DEFAULT_COMPILER, target=Target.LIB_CRO
         # elif target == Target.LIB_LINENOISE:
         #     return OPTIONS_CLANG_LIBRARY_LINENOISE
         else:
-            raise RuntimeError("Unknown target '%s'." % str(target))
+            raise RuntimeError( "Unknown target '%s'." % str( target ) )
     else:
-        raise RuntimeError("Unknown compiler '%s'." % compiler)
+        raise RuntimeError( "Unknown compiler '%s'." % compiler )
 
 def get_compiler_build_dependencies( compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS ):
     if compiler == COMPILER_GCC:
@@ -162,7 +162,7 @@ def get_compiler_build_dependencies( compiler=DEFAULT_COMPILER, target=Target.LI
         # elif target == Target.LIB_LINENOISE:
         #     return OPTIONS_GCC_LIBRARY_LINENOISE_DEPENDENCIES
         else:
-            raise RuntimeError("Unknown target '%s'." % str(target))
+            raise RuntimeError( "Unknown target '%s'." % str( target ) )
     elif compiler == COMPILER_CLANG:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
             return OPTIONS_CLANG_EXECUTABLE_DEPENDENCIES
@@ -171,14 +171,14 @@ def get_compiler_build_dependencies( compiler=DEFAULT_COMPILER, target=Target.LI
         # elif target == Target.LIB_LINENOISE:
         #     return OPTIONS_CLANG_LIBRARY_LINENOISE_DEPENDENCIES
         else:
-            raise RuntimeError("Unknown target '%s'." % str(target))
+            raise RuntimeError( "Unknown target '%s'." % str( target ) )
     else:
-        raise RuntimeError("Unknown compiler '%s'." % compiler)
+        raise RuntimeError( "Unknown compiler '%s'." % compiler )
 
 
 def get_output_compiler_options( root_path, file_name, cwd_cmd, compiler=DEFAULT_COMPILER ):
-    out_file = get_build_file_path(root_path, file_name)
-    out_file = P.get_rel_path_or_abs(out_file, cwd_cmd)
+    out_file = get_build_file_path( root_path, file_name )
+    out_file = P.get_rel_path_or_abs( out_file, cwd_cmd )
 
     out_lst = []
     if compiler == COMPILER_GCC:
@@ -186,72 +186,72 @@ def get_output_compiler_options( root_path, file_name, cwd_cmd, compiler=DEFAULT
     elif compiler == COMPILER_CLANG:
         out_lst = ['-o', out_file, ]
     else:
-        raise RuntimeError("Unknown compiler '%s'." % compiler)
+        raise RuntimeError( "Unknown compiler '%s'." % compiler )
 
     return out_lst
 
 
 def get_app_dir( root_path ):
-    return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_APP_FOLDER)
+    return os.path.join( root_path, SOURCE_WS_FOLDER, SOURCE_APP_FOLDER )
 
 def get_app_src_dir( root_path ):
-    return os.path.join(get_app_dir(root_path), SOURCE_APP_SRC_FOLDER)
+    return os.path.join( get_app_dir( root_path ), SOURCE_APP_SRC_FOLDER )
 
 def get_app_header_dir( root_path ):
-    return os.path.join(get_app_dir(root_path), SOURCE_APP_HEADER_FOLDER)
+    return os.path.join( get_app_dir( root_path ), SOURCE_APP_HEADER_FOLDER )
 
 
 def get_lib_dir( root_path ):
-    return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_FOLDER)
+    return os.path.join( root_path, SOURCE_WS_FOLDER, SOURCE_LIB_FOLDER )
 
 def get_lib_src_dir( root_path ):
-    return os.path.join(get_lib_dir(root_path), SOURCE_LIB_SRC_FOLDER)
+    return os.path.join( get_lib_dir( root_path ), SOURCE_LIB_SRC_FOLDER )
 
 def get_lib_header_dir( root_path ):
-    return os.path.join(get_lib_dir(root_path), SOURCE_LIB_HEADER_FOLDER)
+    return os.path.join( get_lib_dir( root_path ), SOURCE_LIB_HEADER_FOLDER )
 
 
 # def get_lib_ln_dir( root_path ):
-#     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_LN_FOLDER)
+#     return os.path.join( root_path, SOURCE_WS_FOLDER, SOURCE_LIB_LN_FOLDER )
 
 # def get_lib_ln_src_dir( root_path ):
-#     return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_SRC_FOLDER)
+#     return os.path.join( get_lib_ln_dir( root_path ), SOURCE_LIB_LN_SRC_FOLDER )
 
 # def get_lib_ln_header_dir( root_path ):
-#     return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_HEADER_FOLDER)
+#     return os.path.join( get_lib_ln_dir( root_path ), SOURCE_LIB_LN_HEADER_FOLDER )
 
 
 def get_tests_dir( root_path ):
-    return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_TESTS_FOLDER)
+    return os.path.join( root_path, SOURCE_WS_FOLDER, SOURCE_TESTS_FOLDER )
 
 def get_tests_src_dir( root_path ):
-    return os.path.join(get_tests_dir(root_path), SOURCE_TESTS_SRC_FOLDER)
+    return os.path.join( get_tests_dir( root_path ), SOURCE_TESTS_SRC_FOLDER )
 
 def get_tests_header_dir( root_path ):
-    return os.path.join(get_tests_dir(root_path), SOURCE_TESTS_HEADER_FOLDER)
+    return os.path.join( get_tests_dir( root_path ), SOURCE_TESTS_HEADER_FOLDER )
 
 
 def get_build_dir( root_path ):
-    return os.path.join(root_path, SOURCE_WS_FOLDER, BUILD_BIN_FOLDER)
+    return os.path.join( root_path, SOURCE_WS_FOLDER, BUILD_BIN_FOLDER )
 
 def get_build_file_path( root_path, file_name ):
-    return os.path.join(get_build_dir(root_path), file_name)
+    return os.path.join( get_build_dir( root_path ), file_name )
 
 
 def get_source_path_list( cwd_cmd, src_dir, target=Target.LIB_CROCHESS ):
-    full_path = os.path.join(cwd_cmd, src_dir)
-    file_lst = os.listdir(full_path)
+    full_path = os.path.join( cwd_cmd, src_dir )
+    file_lst = os.listdir( full_path )
 
     # if target == Target.LIB_LINENOISE:
-    #     new_lst  = [ P.get_combed_path( os.path.join(src_dir, f) ) for f in file_lst
+    #     new_lst  = [ P.get_combed_path( os.path.join( src_dir, f ) ) for f in file_lst
     #                     if SOURCE_IGNORE_FILE_PATH not in f
-    #                         and os.path.isfile( os.path.join(full_path, f) )
+    #                         and os.path.isfile( os.path.join( full_path, f ) )
     #                         and os.path.splitext( os.path.basename(f) )[ 0 ] in SOURCE_LIB_LN_SRC_FILE_NAMES
     #                         and os.path.splitext(f)[ 1 ] == SOURCE_FILE_EXT ]
     # else:
-    new_lst  = [ P.get_combed_path( os.path.join(src_dir, f) ) for f in file_lst
+    new_lst  = [ P.get_combed_path( os.path.join( src_dir, f ) ) for f in file_lst
                     if SOURCE_IGNORE_FILE_PATH not in f
-                        and os.path.isfile( os.path.join(full_path, f) )
+                        and os.path.isfile( os.path.join( full_path, f ) )
                         and os.path.splitext(f)[ 1 ] == SOURCE_FILE_EXT ]
 
     return new_lst
@@ -260,60 +260,60 @@ def get_source_path_list( cwd_cmd, src_dir, target=Target.LIB_CROCHESS ):
 def get_compile_app_cmd( root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None ):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
+    cmd_lst += get_compiler_optimization_options( compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts )
 
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.EXE_CROCHESS)
+    cmd_lst += get_compiler_build_options( compiler=compiler, target=Target.EXE_CROCHESS )
 
     if adx_options_list is not None:
         cmd_lst += adx_options_list
 
-    cwd_app = get_app_src_dir(root_path)
-    src_dir = P.get_rel_path_or_abs(get_app_src_dir(root_path), cwd_app) # get_app_src_dir(root_path)
-    cmd_lst += get_source_path_list(cwd_app, src_dir, target=Target.EXE_CROCHESS)
+    cwd_app = get_app_src_dir( root_path )
+    src_dir = P.get_rel_path_or_abs( get_app_src_dir( root_path), cwd_app ) # get_app_src_dir(root_path )
+    cmd_lst += get_source_path_list( cwd_app, src_dir, target=Target.EXE_CROCHESS )
 
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.EXE_CROCHESS)
+    cmd_lst += get_compiler_build_dependencies( compiler=compiler, target=Target.EXE_CROCHESS )
 
-    cmd_lst += get_output_compiler_options(root_path, EXECUTABLE_FILE_NAME, cwd_app, compiler=compiler)
+    cmd_lst += get_output_compiler_options( root_path, EXECUTABLE_FILE_NAME, cwd_app, compiler=compiler )
 
     return cwd_app, cmd_lst
 
 def get_compile_lib_cmd( root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None ):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
+    cmd_lst += get_compiler_optimization_options( compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts )
 
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.LIB_CROCHESS)
+    cmd_lst += get_compiler_build_options( compiler=compiler, target=Target.LIB_CROCHESS )
 
     if adx_options_list is not None:
         cmd_lst += adx_options_list
 
-    cwd_lib = get_lib_src_dir(root_path)
-    src_dir = P.get_rel_path_or_abs(get_lib_src_dir(root_path), cwd_lib) # get_lib_src_dir(root_path)
-    cmd_lst += get_source_path_list(cwd_lib, src_dir, target=Target.LIB_CROCHESS)
+    cwd_lib = get_lib_src_dir( root_path )
+    src_dir = P.get_rel_path_or_abs( get_lib_src_dir( root_path), cwd_lib ) # get_lib_src_dir(root_path )
+    cmd_lst += get_source_path_list( cwd_lib, src_dir, target=Target.LIB_CROCHESS )
 
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.LIB_CROCHESS)
+    cmd_lst += get_compiler_build_dependencies( compiler=compiler, target=Target.LIB_CROCHESS )
 
-    cmd_lst += get_output_compiler_options(root_path, LIBRARY_FILE_NAME, cwd_lib, compiler=compiler)
+    cmd_lst += get_output_compiler_options( root_path, LIBRARY_FILE_NAME, cwd_lib, compiler=compiler )
 
     return cwd_lib, cmd_lst
 
 def get_compile_tests_cmd( root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None ):
     cmd_lst = [compiler, ]
 
-    cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
+    cmd_lst += get_compiler_optimization_options( compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts )
 
-    cmd_lst += get_compiler_build_options(compiler=compiler, target=Target.EXE_TESTS)
+    cmd_lst += get_compiler_build_options( compiler=compiler, target=Target.EXE_TESTS )
 
     if adx_options_list is not None:
         cmd_lst += adx_options_list
 
-    cwd_tests = get_tests_src_dir(root_path)
-    src_dir = P.get_rel_path_or_abs(get_tests_src_dir(root_path), cwd_tests) # get_app_src_dir(root_path)
-    cmd_lst += get_source_path_list(cwd_tests, src_dir, target=Target.EXE_TESTS)
+    cwd_tests = get_tests_src_dir( root_path )
+    src_dir = P.get_rel_path_or_abs( get_tests_src_dir( root_path), cwd_tests ) # get_app_src_dir(root_path )
+    cmd_lst += get_source_path_list( cwd_tests, src_dir, target=Target.EXE_TESTS )
 
-    cmd_lst += get_compiler_build_dependencies(compiler=compiler, target=Target.EXE_TESTS)
+    cmd_lst += get_compiler_build_dependencies( compiler=compiler, target=Target.EXE_TESTS )
 
-    cmd_lst += get_output_compiler_options(root_path, TESTS_FILE_NAME, cwd_tests, compiler=compiler)
+    cmd_lst += get_output_compiler_options( root_path, TESTS_FILE_NAME, cwd_tests, compiler=compiler )
 
     return cwd_tests, cmd_lst
 
@@ -330,7 +330,7 @@ def get_ls_cmd():
     return cmd_lst
 
 def get_run_exe_file_cmd( root_path, exe_name=EXECUTABLE_FILE_NAME, options_list=None ):
-    # cmd_str = get_build_file_path(root_path, exe_name)
+    # cmd_str = get_build_file_path( root_path, exe_name )
     # cmd_lst = [ cmd_str, ]
 
     # Not running with full path anymore, to simulate run from console, and use the same history file.

@@ -8,8 +8,8 @@ def p_( obj, msg="" ):
     print
     print( "-" * 42 )
     print( msg )
-    print( hex(id(obj)), type(obj) )
-    print( dir(obj) )
+    print( hex( id( obj) ), type(obj ) )
+    print( dir( obj ) )
     print( obj )
     print( "-" * 42 )
     print

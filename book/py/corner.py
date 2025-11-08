@@ -20,9 +20,9 @@ class Corner( int ):
 
     def __new__( cls, value ):
         if Corner._is_valid( value ):
-            return super(Corner, cls).__new__(cls, value)
+            return super( Corner, cls).__new__(cls, value )
         else:
-            raise ValueError("No such a corner, received '%s'." % (str(value), ))
+            raise ValueError( "No such a corner, received '%s'." % (str( value ), ) )
 
     @staticmethod
     def iter( do_construct=True ):
@@ -40,7 +40,7 @@ class Corner( int ):
 
     @staticmethod
     def _is_valid( corner ):
-        return corner in Corner.iter(do_construct=False)
+        return corner in Corner.iter( do_construct=False )
 
     def is_position( self ):
         return self == Corner.Position

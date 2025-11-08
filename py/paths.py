@@ -22,7 +22,7 @@ def get_combed_path( path ):
     return path
 
 def get_project_root_path( main_script_path ):
-    path = os.path.join(os.getcwd(), main_script_path)
+    path = os.path.join( os.getcwd(), main_script_path )
     path = os.path.dirname( path )
     path = get_abs_combed_path( path )
 
@@ -31,5 +31,5 @@ def get_project_root_path( main_script_path ):
 def get_rel_path_or_abs( path, start=None ):
     _path = path
     if start is not None:
-        _path = os.path.relpath(_path, start)
+        _path = os.path.relpath( _path, start )
     return _path

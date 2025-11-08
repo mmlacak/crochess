@@ -27,5 +27,5 @@ def get_docs_dir( root_path ):
 
 def get_compile_docs_cmd( root_path, docs_option=DOCS_OPTION_HTML ):
     cmd_lst = [DOCS_COMPILER, docs_option, ]
-    cwd_docs = get_docs_dir(root_path)
+    cwd_docs = get_docs_dir( root_path )
     return cwd_docs, cmd_lst

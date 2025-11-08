@@ -21,22 +21,22 @@ PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 
 
 def remove_build_files( root_path, all_files_or_obj_only=False ):
-    build_dir = BE.get_build_dir(root_path)
+    build_dir = BE.get_build_dir( root_path )
 
     if os.path.exists( build_dir ):
         file_paths = [  P.get_abs_combed_path( os.path.join( build_dir, f ) )
-                        for f in os.listdir(build_dir)
+                        for f in os.listdir( build_dir )
                         if all_files_or_obj_only
                             or RS.any_item_in( BE.OBJECT_FILE_EXTENSIONS, f ) ]
 
         for file_path in file_paths:
-            os.remove(file_path)
+            os.remove( file_path )
     else:
-        os.makedirs(build_dir)
+        os.makedirs( build_dir )
 
 
 def main():
-    script_argv, compile_lib_argv, compile_app_argv, executable_argv = RC.split_cmd_compiler_args(sys.argv)
+    script_argv, compile_lib_argv, compile_app_argv, executable_argv = RC.split_cmd_compiler_args( sys.argv )
 
     is_dry_run = True if RS.any_item_in( ['-n', '--dry-run'], script_argv) else False
     is_verbose = True if is_dry_run or RS.any_item_in( ['-v', '--verbose'], script_argv) else False
@@ -92,7 +92,7 @@ def main():
 
 
     def compile_docs( opt ):
-        cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, docs_option=opt)
+        cwd_docs, cmd_docs = DE.get_compile_docs_cmd( PROJECT_ROOT_PATH, docs_option=opt )
 
         if is_debug:
             print( "Compiling docs in: %s." % str( cwd_docs ) )
@@ -131,7 +131,7 @@ def main():
 
     if is_build:
         if not is_dry_run:
-            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=True)
+            remove_build_files( PROJECT_ROOT_PATH, all_files_or_obj_only=True )
 
         cwd_lib, compile_lib_cmd_lst = BE.get_compile_lib_cmd(PROJECT_ROOT_PATH,
                                                               compiler=compiler,
@@ -147,12 +147,12 @@ def main():
 
         if not is_dry_run:
             print( "." * 72 )
-            # os.chdir(cwd_app)
+            # os.chdir( cwd_app )
             result = RS.run_process( compile_lib_cmd_lst, cwd=cwd_lib )
             print( result )
             print( "-" * 72 )
 
-            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+            remove_build_files( PROJECT_ROOT_PATH, all_files_or_obj_only=False )
 
         cwd_app, compile_app_cmd_lst = BE.get_compile_app_cmd(PROJECT_ROOT_PATH,
                                                               compiler=compiler,
@@ -172,7 +172,7 @@ def main():
             print( result )
             print( "-" * 72 )
 
-            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+            remove_build_files( PROJECT_ROOT_PATH, all_files_or_obj_only=False )
 
         cwd_tests, compile_tests_cmd_lst = BE.get_compile_tests_cmd(PROJECT_ROOT_PATH,
                                                                     compiler=compiler,
@@ -192,7 +192,7 @@ def main():
             print( result )
             print( "-" * 72 )
 
-            remove_build_files(PROJECT_ROOT_PATH, all_files_or_obj_only=False)
+            remove_build_files( PROJECT_ROOT_PATH, all_files_or_obj_only=False )
 
     if is_build or is_run_app:
         ls_cmd_lst = BE.get_ls_cmd()
@@ -210,7 +210,7 @@ def main():
 
     if is_run_app or is_run_tests:
         exe_name = BE.EXECUTABLE_FILE_NAME if is_run_app else BE.TESTS_FILE_NAME
-        run_cmd_lst = BE.get_run_exe_file_cmd(PROJECT_ROOT_PATH, exe_name=exe_name, options_list=executable_argv)
+        run_cmd_lst = BE.get_run_exe_file_cmd( PROJECT_ROOT_PATH, exe_name=exe_name, options_list=executable_argv )
 
         if is_debug:
             print( "" )

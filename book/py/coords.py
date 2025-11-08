@@ -8,8 +8,8 @@
 class Pos( object ):
 
     def __init__( self, x, y ):
-        assert isinstance(x, (int, float))
-        assert isinstance(y, (int, float))
+        assert isinstance( x, (int, float) )
+        assert isinstance( y, (int, float) )
 
         assert type(x) is type(y)
 
@@ -27,12 +27,12 @@ class Pos( object ):
 class RectPos( object ):
 
     def __init__( self, left, top, right, bottom ):
-        assert isinstance(left, (int, float))
-        assert isinstance(top, (int, float))
-        assert isinstance(right, (int, float))
-        assert isinstance(bottom, (int, float))
+        assert isinstance( left, (int, float) )
+        assert isinstance( top, (int, float) )
+        assert isinstance( right, (int, float) )
+        assert isinstance( bottom, (int, float) )
 
-        assert type(left) is type(top) is type(right) is type(bottom)
+        assert type( left) is type(top) is type(right) is type(bottom )
 
         self.left = left
         self.top = top
