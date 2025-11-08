@@ -55,6 +55,15 @@ class SceneMix( SceneMixin, \
                     # 'scn_hd_46_grenadier_close_quarters_transition', \
                     # 'scn_hd_47_grenadier_blocked_steps', \
                     # 'scn_hd_48_grenadier_not_blocked_steps', \
-                    'scn_hd_59_grenadier_en_passant', \
-                    'scn_hd_60_grenadier_en_passant_self_extended', \
+                    # 'scn_hd_59_grenadier_en_passant', \
+                    # 'scn_hd_60_grenadier_en_passant_self_extended', \
+
+                    # 'scn_tr_01_serpent_diagonals', \
+                    # 'scn_tr_02_serpent_1', \
+                    # 'scn_tr_03_serpent_2', \
+                    # 'scn_tr_04_serpent_3', \
+                    # 'scn_tr_05_serpent_end', \
+                    # 'scn_tr_06_serpent_loop_illegal', \
+
+                    # 'scn_tr_30_ritual_starting_fields', \
                 ]
