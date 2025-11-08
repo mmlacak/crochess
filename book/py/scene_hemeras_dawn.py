@@ -445,7 +445,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_15_scout_movement( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_15_scout_movement', bt, height=9 )
+        scene = Scene( 'scn_hd_15_scout_movement', bt, height=9.3 )
 
         start_O_1 = (6, 2)
         scene.board.set_piece( *start_O_1, piece=PieceType.Scout )
@@ -499,15 +499,15 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_16_scout_capturing( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_16_scout_capturing', bt, width=8, height=4 )
+        scene = Scene( 'scn_hd_16_scout_capturing', bt, width=7.3, height=4.3 )
 
-        start_O = (1, 2)
+        start_O = (0, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_n = (2, 1)
+        start_n = (1, 1)
         scene.board.set_piece( *start_n, piece=-PieceType.Knight )
 
-        start_b = (5, 1)
+        start_b = (4, 1)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         arr = GS.gen_steps( start=start_O, rels=[ (1, 0), ], include_prev=True, count=5 )
@@ -525,7 +525,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_17_scout_forking_steps( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_17_scout_forking_steps', bt, width=7, height=10 )
+        scene = Scene( 'scn_hd_17_scout_forking_steps', bt, width=7.3, height=10.3 )
 
         #
         # dark Scout
@@ -576,12 +576,12 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_20_scout_rerouting( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_20_scout_rerouting', bt, width=8, height=5 )
+        scene = Scene( 'scn_hd_20_scout_rerouting', bt, width=7.3, height=5.3 )
 
-        start_O = (1, 2)
+        start_O = (0, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_b = (4, 2)
+        start_b = (3, 2)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
 
         adder_r = GS.adder( start_O, include_prev=True )
@@ -607,12 +607,12 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_21_scout_rerouting_first_step( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_21_scout_rerouting_first_step', bt, width=8, height=5 )
+        scene = Scene( 'scn_hd_21_scout_rerouting_first_step', bt, width=7.3, height=5.3 )
 
-        start_O = (1, 2)
+        start_O = (0, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_B = (2, 2)
+        start_B = (1, 2)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
         scene.append_arrow( *GS.append_pos_rel( start_O, 1, 0 ), mark_type=MarkType.Blocked )
@@ -639,18 +639,18 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_22_scout_rerouting_pawn_wall( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_22_scout_rerouting_pawn_wall', bt, width=8, height=6 )
+        scene = Scene( 'scn_hd_22_scout_rerouting_pawn_wall', bt, width=7.3, height=5.3 )
 
-        start_O = (1, 1)
+        start_O = (0, 1)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
 
-        start_P_1 = (3, 1)
+        start_P_1 = (2, 1)
         scene.board.set_piece( *start_P_1, piece=PieceType.Pawn )
 
-        start_p_2 = (4, 2)
+        start_p_2 = (3, 2)
         scene.board.set_piece( *start_p_2, piece=-PieceType.Pawn )
 
-        start_w = (5, 3)
+        start_w = (4, 3)
         scene.board.set_piece( *start_w, piece=-PieceType.Wave )
 
         adder = GS.adder( start_O, include_prev=True )
@@ -1011,7 +1011,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_30_scout_en_passant( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_30_scout_en_passant', bt, width=5, height=10.7 )
+        scene = Scene( 'scn_hd_30_scout_en_passant', bt, width=5.3, height=10.3 )
 
         start_P = (2, 1)
         scene.board.set_piece( *start_P, piece=PieceType.Pawn )
