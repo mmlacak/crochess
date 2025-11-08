@@ -17,7 +17,7 @@ from scene import Scene
 
 class SceneAgeOfAquariusMixin:
 
-    def scn_aoa_01_unicorn_same_color(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_01_unicorn_same_color( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_same_color
 
         scene = Scene('scn_aoa_01_unicorn_same_color', bt, x=1.0, y=0.0, width=5, height=5)
@@ -33,7 +33,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_02_unicorn_opposite_color(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_02_unicorn_opposite_color( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_opposite_color
 
         scene = Scene('scn_aoa_02_unicorn_opposite_color', bt)
@@ -62,7 +62,7 @@ class SceneAgeOfAquariusMixin:
     #
     # Delayed promotion
 
-    def scn_aoa_03_delayed_promo_init(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_03_delayed_promo_init( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_promo_init
 
         scene = Scene('scn_aoa_03_delayed_promo_init', bt)
@@ -100,7 +100,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_04_delayed_promo_pawn_2_tagged(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_04_delayed_promo_pawn_2_tagged( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_pawn_2_tagged
 
         scene = Scene('scn_aoa_04_delayed_promo_pawn_2_tagged', bt)
@@ -132,7 +132,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_05_delayed_promo_pawn_2_moved(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_05_delayed_promo_pawn_2_moved( self, bt=BoardType.AgeOfAquarius ):
         # scn_aoa_05_delayed_promo_pawn_1_to_promo
         # move_unicorn_pawn_1_to_promo
 
@@ -164,7 +164,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_06_delayed_promo_pawn_1_tagged(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_06_delayed_promo_pawn_1_tagged( self, bt=BoardType.AgeOfAquarius ):
         # scn_aoa_06_delayed_promo_pawn_1_tagged
         # move_unicorn_pawn_1_tagged
 
@@ -197,7 +197,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_07_delayed_promo_pawn_1_promoted(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_07_delayed_promo_pawn_1_promoted( self, bt=BoardType.AgeOfAquarius ):
         # scn_aoa_07_delayed_promo_pawn_2_attacked
         # move_unicorn_pawn_2_attacked
 
@@ -223,7 +223,7 @@ class SceneAgeOfAquariusMixin:
     #
     # Converting Pawn tagged for promotion --> loses its tag.
 
-    def scn_aoa_08_converting_tagged_pawn_init(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_08_converting_tagged_pawn_init( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_promo_init
 
         scene = Scene('scn_aoa_08_converting_tagged_pawn_init', bt)
@@ -260,7 +260,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_09_converting_tagged_pawn_end(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_09_converting_tagged_pawn_end( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_promo_init
 
         scene = Scene('scn_aoa_09_converting_tagged_pawn_end', bt)
@@ -293,7 +293,7 @@ class SceneAgeOfAquariusMixin:
 
         return scene
 
-    def scn_aoa_10_tagged_pawn_converted(self, bt=BoardType.AgeOfAquarius):
+    def scn_aoa_10_tagged_pawn_converted( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_promo_init
 
         scene = Scene('scn_aoa_10_tagged_pawn_converted', bt)

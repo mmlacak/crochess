@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-def split_cmd_compiler_args(argv):
+def split_cmd_compiler_args( argv ):
     arg_sep_count = 0 # 0 --> script argv, 1 --> compile lib argv, 2 --> compile app argv, 3 --> run app argv
     compiler_args = False
     linker_args = False
@@ -16,7 +16,7 @@ def split_cmd_compiler_args(argv):
     cc_app_argv = []
     exec_app_argv = []
 
-    for index, arg in enumerate(argv):
+    for index, arg in enumerate( argv ):
         if arg != '-*-':
             if index > 0: # index == 0 --> arg == '.../crochess/push.py', i.e. executing script, not an argument
                 a = arg

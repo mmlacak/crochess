@@ -108,33 +108,33 @@ html_favicon = 'crochess.ico'
 #     'externalrefs': True,
 
 #     # -- Options for HTML output, classic theme ----------------------------------
-#     'footerbgcolor' : "#171717", # (CSS color): Background color for the footer line.
-#     'footertextcolor' : "#FEFEFE", # (CSS color): Text color for the footer line.
+#     'footerbgcolor' : "#171717", # ( CSS color ): Background color for the footer line.
+#     'footertextcolor' : "#FEFEFE", # ( CSS color ): Text color for the footer line.
 
-#     'sidebarbgcolor' : "#202020", # (CSS color): Background color for the sidebar.
-#     'sidebarbtncolor' : "#FF6E3B", # (CSS color): Background color for the sidebar collapse button (used when collapsiblesidebar is True).
-#     'sidebartextcolor' : "#FEFEFE", # (CSS color): Text color for the sidebar.
-#     'sidebarlinkcolor' : "#FF6E3B", # (CSS color): Link color for the sidebar.
+#     'sidebarbgcolor' : "#202020", # ( CSS color ): Background color for the sidebar.
+#     'sidebarbtncolor' : "#FF6E3B", # ( CSS color ): Background color for the sidebar collapse button (used when collapsiblesidebar is True).
+#     'sidebartextcolor' : "#FEFEFE", # ( CSS color ): Text color for the sidebar.
+#     'sidebarlinkcolor' : "#FF6E3B", # ( CSS color ): Link color for the sidebar.
 
-#     'relbarbgcolor' : "#171717", # (CSS color): Background color for the relation bar.
-#     'relbartextcolor' : "#FEFEFE", # (CSS color): Text color for the relation bar.
-#     'relbarlinkcolor' : "#FF6E3B", # (CSS color): Link color for the relation bar.
+#     'relbarbgcolor' : "#171717", # ( CSS color ): Background color for the relation bar.
+#     'relbartextcolor' : "#FEFEFE", # ( CSS color ): Text color for the relation bar.
+#     'relbarlinkcolor' : "#FF6E3B", # ( CSS color ): Link color for the relation bar.
 
-#     'bgcolor' : "#303030", # (CSS color): Body background color.
-#     'textcolor' : "#FEFEFE", # (CSS color): Body text color.
-#     'linkcolor' : "#FF6E3B", # (CSS color): Body link color.
-#     'visitedlinkcolor' : "#b34d29", # (CSS color): Body color for visited links.
+#     'bgcolor' : "#303030", # ( CSS color ): Body background color.
+#     'textcolor' : "#FEFEFE", # ( CSS color ): Body text color.
+#     'linkcolor' : "#FF6E3B", # ( CSS color ): Body link color.
+#     'visitedlinkcolor' : "#b34d29", # ( CSS color ): Body color for visited links.
 
-#     'headbgcolor' : "#272727", # (CSS color): Background color for headings.
-#     'headtextcolor' : "#FEFEFE", # (CSS color): Text color for headings.
-#     'headlinkcolor' : "#FF6E3B", # (CSS color): Link color for headings.
+#     'headbgcolor' : "#272727", # ( CSS color ): Background color for headings.
+#     'headtextcolor' : "#FEFEFE", # ( CSS color ): Text color for headings.
+#     'headlinkcolor' : "#FF6E3B", # ( CSS color ): Link color for headings.
 
 #     # This doesn't work.
-#     # 'codebgcolor' : "#303030", # (CSS color): Background color for code blocks.
-#     # 'codetextcolor' : "#FEFEFE", # (CSS color): Default text color for code blocks, if not set differently by the highlighting style.
+#     # 'codebgcolor' : "#303030", # ( CSS color ): Background color for code blocks.
+#     # 'codetextcolor' : "#FEFEFE", # ( CSS color ): Default text color for code blocks, if not set differently by the highlighting style.
 
-#     'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for normal text.
-#     'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
+#     'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # ( CSS font-family ): Font for normal text.
+#     'headfont' : "DejaVu Sans,Verdana,sans-serif", # ( CSS font-family ): Font for headings.
 # }
 
 # # Light-grey 'classic' theme.
@@ -146,33 +146,33 @@ html_favicon = 'crochess.ico'
 #     'externalrefs': True,
 #
 #     # -- Options for HTML output, classic theme ----------------------------------
-#     'footerbgcolor' : "Gray", # (CSS color): Background color for the footer line.
-#     'footertextcolor' : "NavajoWhite", # (CSS color): Text color for the footer line.
+#     'footerbgcolor' : "Gray", # ( CSS color ): Background color for the footer line.
+#     'footertextcolor' : "NavajoWhite", # ( CSS color ): Text color for the footer line.
 #
-#     'sidebarbgcolor' : "DarkGray", # (CSS color): Background color for the sidebar.
-#     'sidebarbtncolor' : "SaddleBrown", # (CSS color): Background color for the sidebar collapse button (used when collapsiblesidebar is True).
-#     'sidebartextcolor' : "Black", # (CSS color): Text color for the sidebar.
-#     'sidebarlinkcolor' : "SaddleBrown", # (CSS color): Link color for the sidebar.
+#     'sidebarbgcolor' : "DarkGray", # ( CSS color ): Background color for the sidebar.
+#     'sidebarbtncolor' : "SaddleBrown", # ( CSS color ): Background color for the sidebar collapse button (used when collapsiblesidebar is True).
+#     'sidebartextcolor' : "Black", # ( CSS color ): Text color for the sidebar.
+#     'sidebarlinkcolor' : "SaddleBrown", # ( CSS color ): Link color for the sidebar.
 #
-#     'relbarbgcolor' : "DimGray", # (CSS color): Background color for the relation bar.
-#     'relbartextcolor' : "Black", # (CSS color): Text color for the relation bar.
-#     'relbarlinkcolor' : "NavajoWhite", # (CSS color): Link color for the relation bar.
+#     'relbarbgcolor' : "DimGray", # ( CSS color ): Background color for the relation bar.
+#     'relbartextcolor' : "Black", # ( CSS color ): Text color for the relation bar.
+#     'relbarlinkcolor' : "NavajoWhite", # ( CSS color ): Link color for the relation bar.
 #
-#     'bgcolor' : "Silver", # (CSS color): Body background color.
-#     'textcolor' : "Black", # (CSS color): Body text color.
-#     'linkcolor' : "SaddleBrown", # (CSS color): Body link color.
-#     'visitedlinkcolor' : "IndianRed", # (CSS color): Body color for visited links.
+#     'bgcolor' : "Silver", # ( CSS color ): Body background color.
+#     'textcolor' : "Black", # ( CSS color ): Body text color.
+#     'linkcolor' : "SaddleBrown", # ( CSS color ): Body link color.
+#     'visitedlinkcolor' : "IndianRed", # ( CSS color ): Body color for visited links.
 #
-#     'headbgcolor' : "LightGray", # (CSS color): Background color for headings.
-#     'headtextcolor' : "Black", # (CSS color): Text color for headings.
-#     'headlinkcolor' : "IndianRed", # (CSS color): Link color for headings.
+#     'headbgcolor' : "LightGray", # ( CSS color ): Background color for headings.
+#     'headtextcolor' : "Black", # ( CSS color ): Text color for headings.
+#     'headlinkcolor' : "IndianRed", # ( CSS color ): Link color for headings.
 #
 #     # This doesn't work.
-#     'codebgcolor' : "LightGray", # (CSS color): Background color for code blocks.
-#     'codetextcolor' : "Black", # (CSS color): Default text color for code blocks, if not set differently by the highlighting style.
+#     'codebgcolor' : "LightGray", # ( CSS color ): Background color for code blocks.
+#     'codetextcolor' : "Black", # ( CSS color ): Default text color for code blocks, if not set differently by the highlighting style.
 #
-#     'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for normal text.
-#     'headfont' : "DejaVu Sans,Verdana,sans-serif", # (CSS font-family): Font for headings.
+#     'bodyfont' : "DejaVu Sans,Verdana,sans-serif", # ( CSS font-family ): Font for normal text.
+#     'headfont' : "DejaVu Sans,Verdana,sans-serif", # ( CSS font-family ): Font for headings.
 # }
 
 # Read-the-docs theme.

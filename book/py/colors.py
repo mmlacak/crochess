@@ -95,7 +95,7 @@ class ColorsMark:
         self.action = action
         self.blocked = blocked
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return self.legal.as_tuple() + \
                self.illegal.as_tuple() + \
                self.action.as_tuple() + \
@@ -126,7 +126,7 @@ class ColorsMarkSimple:
         self.action = action
         self.blocked = blocked
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return self.legal.as_tuple() + \
                self.illegal.as_tuple() + \
                self.action.as_tuple() + \
@@ -426,7 +426,7 @@ class Colors( dict ):
 
     # TODO :: FIX :: in text / <action> light and dark interiors are switched, test on Hemera's Dawn
 
-    def fetch_colors(self, bt, enforce_bw=False):
+    def fetch_colors( self, bt, enforce_bw=False ):
         if enforce_bw:
             return self[ BoardType.Classical ]
 

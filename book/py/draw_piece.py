@@ -13,9 +13,9 @@ from colors import ColorsPair, ColorsPiece, ColorsItem
 from draw import Draw
 
 
-class DrawPiece(Draw):
+class DrawPiece( Draw ):
 
-    def draw_piece_polygon(self, points, rect, cpair=None, scale=1.0):
+    def draw_piece_polygon( self, points, rect, cpair=None, scale=1.0 ):
         assert isinstance(rect, Rectangle)
         assert isinstance(cpair, ColorsPair)
 
@@ -23,7 +23,7 @@ class DrawPiece(Draw):
         lw = rect.scale_length(DEFAULT_LINE_WIDTH)
         self.draw_polygon(_points, interior_str=cpair.interior, outline_str=cpair.outline, line_width=lw)
 
-    def draw_piece_lines(self, points, rect, cpair=None, scale=1.0):
+    def draw_piece_lines( self, points, rect, cpair=None, scale=1.0 ):
         assert isinstance(rect, Rectangle)
         assert isinstance(cpair, ColorsPair)
 
@@ -31,16 +31,16 @@ class DrawPiece(Draw):
         lw = rect.scale_length(DEFAULT_LINE_WIDTH)
         self.draw_lines(_points, color_str=cpair.outline, line_width=lw)
 
-    def draw_none(self, rect, cpiece=None):
+    def draw_none( self, rect, cpiece=None ):
         pass
 
-    def draw_pawn(self, rect, cpiece=None):
+    def draw_pawn( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         pawn = [(0.5, 0.5), (0.6, 0.6), (0.3, 0.9), (0.7, 0.9), (0.4, 0.6)]
         self.draw_piece_polygon(pawn, rect, cpair=cpiece.own)
 
-    def draw_bishop(self, rect, cpiece=None):
+    def draw_bishop( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         bishop = [(0.5, 0.6), (0.45, 0.65), (0.7, 0.9), (0.3, 0.9), (0.55, 0.65)]
@@ -55,7 +55,7 @@ class DrawPiece(Draw):
                (0.6, 0.5), (0.5, 0.6), (0.4, 0.5)]
         self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite)
 
-    def draw_knight(self, rect, cpiece=None, facing_left=True):
+    def draw_knight( self, rect, cpiece=None, facing_left=True ):
         assert isinstance(cpiece, ColorsPiece)
 
         knight = [(0.5, 0.3), (0.715, 0.39), (0.805, 0.6), (0.74, 0.9), (0.26, 0.9), (0.485, 0.625), \
@@ -66,7 +66,7 @@ class DrawPiece(Draw):
 
         self.draw_piece_polygon(knight, rect, cpair=cpiece.own)
 
-    def draw_rook(self, rect, cpiece=None):
+    def draw_rook( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         rook = [ (0.27, 0.3), (0.37, 0.3), # left merlon \
@@ -81,19 +81,19 @@ class DrawPiece(Draw):
 
         self.draw_piece_polygon(rook, rect, cpair=cpiece.own)
 
-    def draw_queen(self, rect, cpiece=None):
+    def draw_queen( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         queen = [(0.2, 0.3), (0.35, 0.65), (0.35, 0.25), (0.45, 0.6), (0.5, 0.2), (0.55, 0.6), \
                  (0.65, 0.25), (0.65, 0.65), (0.8, 0.3), (0.7, 0.9), (0.3, 0.9)]
         self.draw_piece_polygon(queen, rect, cpair=cpiece.own)
 
-    def draw_king(self, rect, cpiece=None):
+    def draw_king( self, rect, cpiece=None ):
         king = [(0.2, 0.4), (0.3, 0.7), (0.4, 0.4), (0.5, 0.7), (0.6, 0.4), (0.7, 0.7), (0.8, 0.4), \
                 (0.8, 0.9), (0.2, 0.9)]
         self.draw_piece_polygon(king, rect, cpair=cpiece.own)
 
-    def draw_pegasus(self, rect, cpiece=None):
+    def draw_pegasus( self, rect, cpiece=None ):
         self.draw_knight(rect, cpiece=cpiece)
 
         assert isinstance(cpiece, ColorsPiece)
@@ -102,7 +102,7 @@ class DrawPiece(Draw):
                 (0.84, 0.56), (0.66, 0.60), (0.75, 0.58), (0.75, 0.67), (0.57, 0.72), (0.5, 0.87)]
         self.draw_piece_polygon(wing, rect, cpair=cpiece.opposite)
 
-    def draw_pyramid(self, rect, cpiece=None):
+    def draw_pyramid( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         pyramid = [(0.1, 0.9), (0.15, 0.79), (0.2, 0.79), (0.25, 0.7), (0.3, 0.7), (0.35, 0.6), \
@@ -110,7 +110,7 @@ class DrawPiece(Draw):
                    (0.75, 0.7), (0.8, 0.79), (0.85, 0.79), (0.9, 0.9)]
         self.draw_piece_polygon(pyramid, rect, cpair=cpiece.own)
 
-    def draw_unicorn(self, rect, cpiece=None):
+    def draw_unicorn( self, rect, cpiece=None ):
         self.draw_knight(rect, cpiece=cpiece, facing_left=False)
 
         assert isinstance(cpiece, ColorsPiece)
@@ -120,7 +120,7 @@ class DrawPiece(Draw):
         horn = [(0.5, 0.3), (0.51, 0.36), (0.591, 0.361), (0.675, 0.1373)]
         self.draw_piece_polygon(horn, rect, cpair=cpiece.opposite)
 
-    def draw_wave(self, rect, cpiece=None):
+    def draw_wave( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         wave = [(0.2, 0.35), (0.25, 0.4), (0.25, 0.68), (0.3, 0.68), (0.3, 0.4), (0.4, 0.3), \
@@ -132,7 +132,7 @@ class DrawPiece(Draw):
                 (0.25, 0.8), (0.15, 0.7), (0.15, 0.4)]
         self.draw_piece_polygon(wave, rect, cpair=cpiece.own)
 
-    def draw_star(self, rect, cpiece=None, scale=1.0):
+    def draw_star( self, rect, cpiece=None, scale=1.0 ):
         assert isinstance(cpiece, ColorsPiece)
 
         hands = [(0.5, 0.4), (0.7, 0.3), (0.6, 0.5), (0.7, 0.7), (0.5, 0.6), (0.3, 0.7), (0.4, 0.5), \
@@ -143,7 +143,7 @@ class DrawPiece(Draw):
                 (0.2, 0.5), (0.43, 0.43)]
         self.draw_piece_polygon(star, rect, scale=scale, cpair=cpiece.own)
 
-    def draw_centaur(self, rect, cpiece=None):
+    def draw_centaur( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         horseshoe = [(0.5, 0.3), (0.7, 0.4), (0.8, 0.6), (0.7, 0.9), (0.58, 0.83), (0.65, 0.6), (0.6, 0.5), \
@@ -153,7 +153,7 @@ class DrawPiece(Draw):
         hat = [(0.7, 0.4), (0.65, 0.25), (0.8, 0.2), (0.85, 0.35)]
         self.draw_piece_polygon(hat, rect, cpair=cpiece.opposite)
 
-    def draw_scout(self, rect, cpiece=None):
+    def draw_scout( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         # binoculars = [(0.7, 0.6), (0.6, 0.7), (0.4, 0.5), (0.3, 0.6), (0.4, 0.7), (0.6, 0.5)]
@@ -167,7 +167,7 @@ class DrawPiece(Draw):
 
         self.draw_pawn(rect, cpiece=cpiece)
 
-    def draw_grenadier(self, rect, cpiece=None):
+    def draw_grenadier( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         # armor = [(0.6, 0.7), (0.5, 0.6), (0.4, 0.7), (0.5, 0.8)]
@@ -180,7 +180,7 @@ class DrawPiece(Draw):
         beret = [(0.5, 0.55), (0.6, 0.45), (0.6, 0.55), (0.3, 0.55), (0.5, 0.45)]
         self.draw_piece_polygon(beret, rect, cpair=cpiece.opposite)
 
-    def draw_serpent(self, rect, cpiece=None):
+    def draw_serpent( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         serpent = [# right skin
@@ -194,7 +194,7 @@ class DrawPiece(Draw):
                    (0.7, 0.35), (0.7, 0.25), (0.5, 0.25)]
         self.draw_piece_polygon(serpent, rect, cpair=cpiece.own)
 
-    def draw_shaman(self, rect, cpiece=None):
+    def draw_shaman( self, rect, cpiece=None ):
         assert isinstance(cpiece, ColorsPiece)
 
         drum = [(0.3, 0.3), (0.7, 0.3), (0.7, 0.5), (0.6, 0.9), (0.4, 0.9), (0.3, 0.5)]
@@ -206,11 +206,11 @@ class DrawPiece(Draw):
         string2 = [(0.3, 0.5), (0.4, 0.3), (0.5, 0.5), (0.6, 0.3), (0.7, 0.5)]
         self.draw_piece_lines(string2, rect, cpair=cpiece.own)
 
-    def draw_monolith(self, rect, cpair=None):
+    def draw_monolith( self, rect, cpair=None ):
         monolith = [(0.32, 0.095), (0.68, 0.095), (0.68, 0.905), (0.32, 0.905)]
         self.draw_piece_polygon(monolith, rect, cpair=cpair)
 
-    def draw_starchild(self, rect, cpiece=None, caura=None):
+    def draw_starchild( self, rect, cpiece=None, caura=None ):
         assert isinstance(cpiece, ColorsPiece)
         assert isinstance(cpiece.own, ColorsPair)
         assert isinstance(caura, ColorsPair)
@@ -226,7 +226,7 @@ class DrawPiece(Draw):
 
         self.draw_star(rect, cpiece=cpiece, scale=0.667)
 
-    def draw_piece(self, piece_type, rect, colors_item):
+    def draw_piece( self, piece_type, rect, colors_item ):
         pt = PieceType(piece_type)
         assert isinstance(rect, Rectangle)
         assert isinstance(colors_item, ColorsItem)
@@ -261,7 +261,7 @@ class DrawPiece(Draw):
             _draw(rect, cpiece=colors_item.piece.to_piece( pt.is_light() ))
 
 
-def test_piece(func_name, size=800):
+def test_piece( func_name, size=800 ):
 
     d = DrawPiece(size, size, size / 2, color_str='#EFEFEF')
 
@@ -275,7 +275,7 @@ def test_piece(func_name, size=800):
     cmonolith = ColorsPair.from_tuple( ('#000000', '#FFFFFF' ) )
     caura = ColorsPair.from_tuple( ('#FFBFFF', '#FFBFFF' ) )
 
-    def _call(rect, cpiece):
+    def _call( rect, cpiece ):
         # func is not d.draw_*, it is just func == d.draw_* (!?)
         if func == d.draw_monolith:
             func(rect, cpair=cmonolith)
@@ -301,7 +301,7 @@ def test_piece(func_name, size=800):
     d.save_image(file_path)
 
 
-def test_piece_contour(func_name, size=1200):
+def test_piece_contour( func_name, size=1200 ):
 
     d = DrawPiece(size, size, size / 2, color_str='#EFEFEF')
 
@@ -315,7 +315,7 @@ def test_piece_contour(func_name, size=1200):
     cmonolith = ColorsPair.from_tuple( ('#000000', '#CCCCCC' ) )
     caura = ColorsPair.from_tuple( ('#FFFFFF', '#CCCCCC' ) )
 
-    def _call(rect, cpiece):
+    def _call( rect, cpiece ):
         # func is not d.draw_*, it is just func == d.draw_* (!?)
         if func == d.draw_monolith:
             func(rect, cpair=cmonolith)

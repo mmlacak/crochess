@@ -15,9 +15,9 @@ from draw_mark import DrawMark
 from scene import Scene
 
 
-class DrawScene(DrawMark):
+class DrawScene( DrawMark ):
 
-    def __init__(self, scene, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF"):
+    def __init__( self, scene, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF" ):
         assert isinstance(scene, Scene)
         assert isinstance(scene.board, Board)
         assert isinstance(scene.board_view, BoardView)
@@ -26,7 +26,7 @@ class DrawScene(DrawMark):
 
         self.scene = scene
 
-    def draw_scene(self, colors_item, mark_def_item=None):
+    def draw_scene( self, colors_item, mark_def_item=None ):
         assert isinstance(colors_item, ColorsItem)
         assert isinstance(mark_def_item, (MarkDefItem, type(None)))
 
@@ -45,11 +45,11 @@ class DrawScene(DrawMark):
 TEST_BOARD_SIZE_PIX = 1200
 TEST_FIELD_SIZE_PIX = 200 # 100 # 400
 
-def test_scene(func_name, board_desc=None, name='', *args, **kwargs):
+def test_scene( func_name, board_desc=None, name='', *args, **kwargs ):
     sc = SceneCommon()
     func = getattr(sc, func_name)
 
-    for bt in BoardType.iter(include_none=False, include_even=True):
+    for bt in BoardType.iter( include_none=False, include_even=True ):
         scene = func(bt, *args, **kwargs)
 
         if func_name == 'intro_board':

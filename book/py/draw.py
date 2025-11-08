@@ -18,7 +18,7 @@ from utils import convert_to_rgb
 
 class Draw:
 
-    def __init__(self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24): # ARGB32
+    def __init__( self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24 ): # ARGB32
         assert isinstance(width_pix, int)
         assert isinstance(height_pix, int)
         assert isinstance(field_size_in_pix, float) # Scaling factor of device units (pixels), from user coords (== field size).
@@ -43,25 +43,25 @@ class Draw:
 
         self.clear_image(color_str=color_str)
 
-    def set_line(self, width=DEFAULT_LINE_WIDTH, join=cairo.LineJoin.ROUND, cap=cairo.LineCap.ROUND):
+    def set_line( self, width=DEFAULT_LINE_WIDTH, join=cairo.LineJoin.ROUND, cap=cairo.LineCap.ROUND ):
         self.context.set_line_join(join)
         self.context.set_line_cap(cap)
         self.context.set_line_width(width)
 
-    def set_clip(self, x, y, width, height):
+    def set_clip( self, x, y, width, height ):
         self.context.rectangle(x, y, width, height)
         self.context.clip()
 
-    def reset_clip(self):
+    def reset_clip( self ):
         self.context.reset_clip()
 
-    def save_image(self, file_path):
+    def save_image( self, file_path ):
         self.surface.write_to_png(file_path)
 
-    def clear_image(self, color_str="#FFFFFF"):
+    def clear_image( self, color_str="#FFFFFF" ):
         self.draw_rectangle(0.0, 0.0, self.width, self.height, interior_str=color_str)
 
-    def draw_last_path(self, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+    def draw_last_path( self, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH ):
 
         if interior_str:
             interior = convert_to_rgb(interior_str)
@@ -81,11 +81,11 @@ class Draw:
 
             self.context.stroke()
 
-    def draw_rectangle(self, x, y, width, height, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+    def draw_rectangle( self, x, y, width, height, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH ):
         self.context.rectangle(x, y, width, height)
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_lines(self, points, x=0.0, y=0.0, line_width=DEFAULT_LINE_WIDTH, color_str=None):
+    def draw_lines( self, points, x=0.0, y=0.0, line_width=DEFAULT_LINE_WIDTH, color_str=None ):
         x0, y0 = points[ 0 ]
         self.context.move_to(x+x0, y+y0)
 
@@ -94,7 +94,7 @@ class Draw:
 
         self.draw_last_path(line_width=line_width, interior_str=None, outline_str=color_str)
 
-    def draw_polygon(self, points, x=0.0, y=0.0, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+    def draw_polygon( self, points, x=0.0, y=0.0, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH ):
         x0, y0 = points[ 0 ]
         self.context.move_to(x+x0, y+y0)
 
@@ -104,11 +104,11 @@ class Draw:
 
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_arc(self, x, y, radius, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+    def draw_arc( self, x, y, radius, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH ):
         self.context.arc(x, y, radius, angle1, angle2)
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def draw_arc_pos(self, x, y, radius, rel_x=0.5, rel_y=0.5, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH):
+    def draw_arc_pos( self, x, y, radius, rel_x=0.5, rel_y=0.5, angle1=0.0, angle2=2*pi, interior_str=None, outline_str=None, line_width=DEFAULT_LINE_WIDTH ):
         self.draw_arc(x+rel_x, y+rel_y, radius, angle1=angle1, angle2=angle2, interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
     def draw_text(self, x, y, text, \
@@ -127,19 +127,19 @@ class Draw:
 
         self.draw_last_path(interior_str=interior_str, outline_str=outline_str, line_width=line_width)
 
-    def flip_horizontally(self, points_pct):
+    def flip_horizontally( self, points_pct ):
         return [ (1.0 - p[0], p[1]) for p in points_pct ]
 
-    def flip_vertically(self, points_pct):
+    def flip_vertically( self, points_pct ):
         return [ (p[0], 1.0 - p[1]) for p in points_pct ]
 
-    def rotate_clockwise(self, points_pct):
+    def rotate_clockwise( self, points_pct ):
         return [ (p[1], 1.0 - p[0]) for p in points_pct ]
 
-    def rotate_anticlockwise(self, points_pct):
+    def rotate_anticlockwise( self, points_pct ):
         return [ (1.0 - p[1], p[0]) for p in points_pct ]
 
-    def translate(self, points_pix, off_x_pix=0, off_y_pix=0):
+    def translate( self, points_pix, off_x_pix=0, off_y_pix=0 ):
         return [ (p[0] + off_x_pix, p[1] + off_y_pix) for p in points_pix ]
 
 

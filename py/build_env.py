@@ -30,7 +30,7 @@ import py.paths as P
 #
 
 
-class Target(E.Enum):
+class Target( E.Enum ):
     NONE = 0
     LIB_CROCHESS = 1
     # LIB_LINENOISE = 2
@@ -101,7 +101,7 @@ SOURCE_TESTS_SRC_FOLDER = 'src'
 SOURCE_TESTS_HEADER_FOLDER = 'inc'
 
 
-def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False):
+def get_compiler_optimization_options( compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False ):
     options = None
 
     if compiler == COMPILER_GCC:
@@ -131,7 +131,7 @@ def get_compiler_optimization_options(compiler=DEFAULT_COMPILER, is_release_or_d
 
     return options
 
-def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS):
+def get_compiler_build_options( compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS ):
     if compiler == COMPILER_GCC:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
             return OPTIONS_GCC_EXECUTABLE
@@ -153,7 +153,7 @@ def get_compiler_build_options(compiler=DEFAULT_COMPILER, target=Target.LIB_CROC
     else:
         raise RuntimeError("Unknown compiler '%s'." % compiler)
 
-def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS):
+def get_compiler_build_dependencies( compiler=DEFAULT_COMPILER, target=Target.LIB_CROCHESS ):
     if compiler == COMPILER_GCC:
         if target in [ Target.EXE_CROCHESS, Target.EXE_TESTS ]:
             return OPTIONS_GCC_EXECUTABLE_DEPENDENCIES
@@ -176,7 +176,7 @@ def get_compiler_build_dependencies(compiler=DEFAULT_COMPILER, target=Target.LIB
         raise RuntimeError("Unknown compiler '%s'." % compiler)
 
 
-def get_output_compiler_options(root_path, file_name, cwd_cmd, compiler=DEFAULT_COMPILER):
+def get_output_compiler_options( root_path, file_name, cwd_cmd, compiler=DEFAULT_COMPILER ):
     out_file = get_build_file_path(root_path, file_name)
     out_file = P.get_rel_path_or_abs(out_file, cwd_cmd)
 
@@ -191,54 +191,54 @@ def get_output_compiler_options(root_path, file_name, cwd_cmd, compiler=DEFAULT_
     return out_lst
 
 
-def get_app_dir(root_path):
+def get_app_dir( root_path ):
     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_APP_FOLDER)
 
-def get_app_src_dir(root_path):
+def get_app_src_dir( root_path ):
     return os.path.join(get_app_dir(root_path), SOURCE_APP_SRC_FOLDER)
 
-def get_app_header_dir(root_path):
+def get_app_header_dir( root_path ):
     return os.path.join(get_app_dir(root_path), SOURCE_APP_HEADER_FOLDER)
 
 
-def get_lib_dir(root_path):
+def get_lib_dir( root_path ):
     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_FOLDER)
 
-def get_lib_src_dir(root_path):
+def get_lib_src_dir( root_path ):
     return os.path.join(get_lib_dir(root_path), SOURCE_LIB_SRC_FOLDER)
 
-def get_lib_header_dir(root_path):
+def get_lib_header_dir( root_path ):
     return os.path.join(get_lib_dir(root_path), SOURCE_LIB_HEADER_FOLDER)
 
 
-# def get_lib_ln_dir(root_path):
+# def get_lib_ln_dir( root_path ):
 #     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_LIB_LN_FOLDER)
 
-# def get_lib_ln_src_dir(root_path):
+# def get_lib_ln_src_dir( root_path ):
 #     return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_SRC_FOLDER)
 
-# def get_lib_ln_header_dir(root_path):
+# def get_lib_ln_header_dir( root_path ):
 #     return os.path.join(get_lib_ln_dir(root_path), SOURCE_LIB_LN_HEADER_FOLDER)
 
 
-def get_tests_dir(root_path):
+def get_tests_dir( root_path ):
     return os.path.join(root_path, SOURCE_WS_FOLDER, SOURCE_TESTS_FOLDER)
 
-def get_tests_src_dir(root_path):
+def get_tests_src_dir( root_path ):
     return os.path.join(get_tests_dir(root_path), SOURCE_TESTS_SRC_FOLDER)
 
-def get_tests_header_dir(root_path):
+def get_tests_header_dir( root_path ):
     return os.path.join(get_tests_dir(root_path), SOURCE_TESTS_HEADER_FOLDER)
 
 
-def get_build_dir(root_path):
+def get_build_dir( root_path ):
     return os.path.join(root_path, SOURCE_WS_FOLDER, BUILD_BIN_FOLDER)
 
-def get_build_file_path(root_path, file_name):
+def get_build_file_path( root_path, file_name ):
     return os.path.join(get_build_dir(root_path), file_name)
 
 
-def get_source_path_list(cwd_cmd, src_dir, target=Target.LIB_CROCHESS):
+def get_source_path_list( cwd_cmd, src_dir, target=Target.LIB_CROCHESS ):
     full_path = os.path.join(cwd_cmd, src_dir)
     file_lst = os.listdir(full_path)
 
@@ -257,7 +257,7 @@ def get_source_path_list(cwd_cmd, src_dir, target=Target.LIB_CROCHESS):
     return new_lst
 
 
-def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None):
+def get_compile_app_cmd( root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None ):
     cmd_lst = [compiler, ]
 
     cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
@@ -277,7 +277,7 @@ def get_compile_app_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
 
     return cwd_app, cmd_lst
 
-def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None):
+def get_compile_lib_cmd( root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None ):
     cmd_lst = [compiler, ]
 
     cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
@@ -297,7 +297,7 @@ def get_compile_lib_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debu
 
     return cwd_lib, cmd_lst
 
-def get_compile_tests_cmd(root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None):
+def get_compile_tests_cmd( root_path, compiler=DEFAULT_COMPILER, is_release_or_debug=False, is_extra_warnings=False, is_silence=False, is_consts=False, adx_options_list=None ):
     cmd_lst = [compiler, ]
 
     cmd_lst += get_compiler_optimization_options(compiler=compiler, is_release_or_debug=is_release_or_debug, is_extra_warnings=is_extra_warnings, is_silence=is_silence, is_consts=is_consts)
@@ -329,7 +329,7 @@ def get_ls_cmd():
     cmd_lst = ['ls', '-Fal', ]
     return cmd_lst
 
-def get_run_exe_file_cmd(root_path, exe_name=EXECUTABLE_FILE_NAME, options_list=None):
+def get_run_exe_file_cmd( root_path, exe_name=EXECUTABLE_FILE_NAME, options_list=None ):
     # cmd_str = get_build_file_path(root_path, exe_name)
     # cmd_lst = [ cmd_str, ]
 

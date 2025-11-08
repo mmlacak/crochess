@@ -5,21 +5,21 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-class Map(dict):
-    def __getattr__(self, name):
+class Map( dict ):
+    def __getattr__( self, name ):
         return self[name]
 
-    def __setattr__(self, name, value):
+    def __setattr__( self, name, value ):
         self[name] = value
 
-    def __delattr__(self, name):
+    def __delattr__( self, name ):
         del self[name]
 
-#    def as_tuple(self):
+#    def as_tuple( self ):
 #        return tuple(self.itervalues())
 
 #    @staticmethod
-#    def from_tuple(tpl):
+#    def from_tuple( tpl ):
 #        raise NotImplementedError("from_tuple")
 
 

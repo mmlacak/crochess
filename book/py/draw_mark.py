@@ -16,14 +16,14 @@ from draw import Draw
 from draw_board import DrawBoard
 
 
-def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
+def get_mark_color_pair( cmark=None, mark_type=None, is_light=None ):
     if cmark is None:
         return None
 
     if mark_type is None:
         return None
 
-    if is_light is None and isinstance(cmark, ColorsMark):
+    if is_light is None and isinstance( cmark, ColorsMark ):
         return None
 
     assert isinstance(cmark, (ColorsMark, ColorsMarkSimple))
@@ -38,18 +38,18 @@ def get_mark_color_pair(cmark=None, mark_type=None, is_light=None):
 
     cpair = cshade = _map[ mark_type ]
 
-    if isinstance(cshade, ColorsShade):
+    if isinstance( cshade, ColorsShade ):
         cpair = cshade.light if is_light else cshade.dark
 
     return cpair
 
 
-class DrawMark(DrawBoard):
+class DrawMark( DrawBoard ):
 
     #
     # arrows
 
-    def calc_arrow(self, arrow, adef=None):
+    def calc_arrow( self, arrow, adef=None ):
         assert isinstance(arrow, Arrow)
         assert isinstance(adef, (dm.ArrowDef, type(None)))
 
@@ -68,7 +68,7 @@ class DrawMark(DrawBoard):
         arrow_size = pointy_bit_ratio * width
         line_division_ratio = abs((length - arrow_size) / arrow_size) # Shouldn't be negative, i.e. outside line segment.
 
-        def _calc_end(do_start):
+        def _calc_end( do_start ):
             if do_start:
                 _point, _other, _pointer = arrow.start, arrow.end, arrow.start_pointer
             else:
@@ -89,7 +89,7 @@ class DrawMark(DrawBoard):
         end_lst =  _calc_end(False)
         return start_lst + end_lst
 
-    def draw_arrow(self, arrow, cpair, adef=None):
+    def draw_arrow( self, arrow, cpair, adef=None ):
         # assert isinstance(arrow, Arrow)
         assert isinstance(cpair, ColorsPair)
         # assert isinstance(adef, (ArrowDef, type(None)))
@@ -97,7 +97,7 @@ class DrawMark(DrawBoard):
         points = self.calc_arrow(arrow, adef=adef)
         self.draw_polygon(points, interior_str=cpair.interior, outline_str=cpair.outline)
 
-    def draw_all_arrows(self, arrows, adef=None, cmark=None):
+    def draw_all_arrows( self, arrows, adef=None, cmark=None ):
         # assert isinstance(adef, (ArrowDef, type(None)))
         # assert isinstance(cmark, (ColorsMarkSimple, type(None)))
 
@@ -110,18 +110,18 @@ class DrawMark(DrawBoard):
     #
     # text
 
-    def get_font_def(self, fdef=None):
+    def get_font_def( self, fdef=None ):
         assert isinstance(fdef, (dm.FontDef, type(None)))
 
         _fdef = fdef or dm.MarkDef[ self.board.type ].font_def
         return _fdef
 
-    def get_font_size(self, fdef=None):
+    def get_font_size( self, fdef=None ):
         _fdef = self.get_font_def(fdef=fdef)
         size = 1.0 / _fdef.inv_size_ratio
         return size
 
-    def draw_text(self, text, cpair, fdef=None):
+    def draw_text( self, text, cpair, fdef=None ):
         assert isinstance(text, Text)
         assert isinstance(cpair, ColorsPair)
 
@@ -132,7 +132,7 @@ class DrawMark(DrawBoard):
 
         Draw.draw_text(self, x, y, text.text, font_family=_fdef.name, size=size, interior_str=cpair.interior, outline_str=cpair.outline)
 
-    def draw_all_texts(self, texts, fdef=None, cmark=None):
+    def draw_all_texts( self, texts, fdef=None, cmark=None ):
         assert isinstance(cmark, (ColorsMark, type(None)))
 
         self.clip_board()
@@ -145,7 +145,7 @@ class DrawMark(DrawBoard):
     #
     # field marker
 
-    def calc_field_marker(self, field_marker, fmdef=None):
+    def calc_field_marker( self, field_marker, fmdef=None ):
         assert isinstance(field_marker, FieldMarker)
         assert isinstance(fmdef, (dm.FieldMarkerDef, type(None)))
 
@@ -178,7 +178,7 @@ class DrawMark(DrawBoard):
 
         return [ upper_left_triangle, upper_right_triangle, lower_right_triangle, lower_left_triangle ]
 
-    def draw_field_marker(self, field_marker, cpair, fmdef=None):
+    def draw_field_marker( self, field_marker, cpair, fmdef=None ):
         # assert isinstance(field_marker, FieldMarker)
         assert isinstance(cpair, ColorsPair)
         # assert isinstance(fmdef, (dm.FieldMarkerDef, type(None)))
@@ -190,7 +190,7 @@ class DrawMark(DrawBoard):
             if points is not None:
                 self.draw_polygon(points, interior_str=cpair.interior) # outline_str=cpair.outline
 
-    def draw_all_field_markers(self, field_markers, fmdef=None, cmark=None):
+    def draw_all_field_markers( self, field_markers, fmdef=None, cmark=None ):
         assert isinstance(cmark, (ColorsMark, type(None)))
 
         self.clip_board()
@@ -204,7 +204,7 @@ class DrawMark(DrawBoard):
 
 TEST_BOARD_SIZE_PIX = 1200 # 2400 # 9600
 
-def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
+def test_1( board_type=BoardType.CroatianTies, board_view=None, name='' ):
     bt = BoardType(board_type)
     bv = board_view or BoardView(board_type=bt)
 
@@ -233,7 +233,7 @@ def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
     file_path = 'temp/arrows%s.IGNORE.png' % name
     d.save_image(file_path)
 
-def test_2(board_type=BoardType.CroatianTies, board_view=None, name=''):
+def test_2( board_type=BoardType.CroatianTies, board_view=None, name='' ):
     bt = BoardType(board_type)
     bv = board_view or BoardView(board_type=bt)
 
@@ -268,7 +268,7 @@ def test_2(board_type=BoardType.CroatianTies, board_view=None, name=''):
     file_path = 'temp/texts%s.IGNORE.png' % name
     d.save_image(file_path)
 
-def test_3(board_type=BoardType.CroatianTies, board_view=None, name=''):
+def test_3( board_type=BoardType.CroatianTies, board_view=None, name='' ):
     bt = BoardType(board_type)
     bv = board_view or BoardView(board_type=bt)
 

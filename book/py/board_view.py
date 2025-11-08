@@ -8,7 +8,7 @@ from board import BoardType, Board
 
 
 class Margin:
-    def __init__(self, left=0.0, top=0.0, right=0.0, bottom=0.0):
+    def __init__( self, left=0.0, top=0.0, right=0.0, bottom=0.0 ):
         assert isinstance(left, float)
         assert isinstance(top, float)
         assert isinstance(right, float)
@@ -24,16 +24,16 @@ class Margin:
         self.right = right
         self.bottom = bottom
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return (self.left, self.top, self.right, self.bottom)
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return Margin( *tpl[ 0 : 4 ] )
 
 
 class BoardView:
-    def __init__(self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_type=None, skip_if_rendering_board=None):
+    def __init__( self, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, board_type=None, skip_if_rendering_board=None ):
         assert isinstance(x, float)
         assert isinstance(y, float)
         assert isinstance(width, (float, type(None)))
@@ -57,12 +57,12 @@ class BoardView:
         self.margin = margin if margin is not None else Margin()
         self.skip_if_rendering_board = skip_if_rendering_board
 
-    def get_position_limits(self):
+    def get_position_limits( self ):
         return ((self.x, self.y), (self.x + self.width - 1, self.y + self.height - 1))
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return (self.x, self.y, self.width, self.height, self.reverse_off_board_field_colors, self.margin)
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return Margin( *tpl[ 0 : 6 ] )

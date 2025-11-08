@@ -17,7 +17,7 @@ from scene import Scene
 
 class SceneMayanAscendancyMixin:
 
-    def scn_ma_01_pyramid_activation_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_01_pyramid_activation_init( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_activation_init
 
         scene = Scene('scn_ma_01_pyramid_activation_init', bt)
@@ -44,7 +44,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_02_pyramid_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_02_pyramid_activated( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_activated
 
         scene = Scene('scn_ma_02_pyramid_activated', bt)
@@ -151,7 +151,7 @@ class SceneMayanAscendancyMixin:
     #
     # Promotion
 
-    def scn_ma_05_promo_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_05_promo_init( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_promo_init
 
         scene = Scene('scn_ma_05_promo_init', bt)
@@ -181,7 +181,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_06_promo_pyramid_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_06_promo_pyramid_activated( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_promo_activate
 
         scene = Scene('scn_ma_06_promo_pyramid_activated', bt)
@@ -247,7 +247,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_07_promo_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_07_promo_end( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_promo_end
 
         scene = Scene('scn_ma_07_promo_end', bt)
@@ -264,7 +264,7 @@ class SceneMayanAscendancyMixin:
     #
     # Conversion
 
-    def scn_ma_08_conversion_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_08_conversion_init( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_conversion_init
 
         scene = Scene('scn_ma_08_conversion_init', bt)
@@ -292,7 +292,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_09_conversion_pyramid_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_09_conversion_pyramid_activated( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_conversion_activated
 
         scene = Scene('scn_ma_09_conversion_pyramid_activated', bt)
@@ -356,7 +356,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_10_conversion_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_10_conversion_end( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_conversion_end
 
         scene = Scene('scn_ma_10_conversion_end', bt)
@@ -372,7 +372,7 @@ class SceneMayanAscendancyMixin:
     #
     # Converting Rooks
 
-    def scn_ma_11_converting_rook_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_11_converting_rook_init( self, bt=BoardType.MayanAscendancy ):
 
         scene = Scene('scn_ma_11_converting_rook_init', bt)
 
@@ -407,7 +407,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_12_converting_rook_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_12_converting_rook_end( self, bt=BoardType.MayanAscendancy ):
 
         scene = Scene('scn_ma_12_converting_rook_end', bt)
 
@@ -433,7 +433,7 @@ class SceneMayanAscendancyMixin:
                         MarkType.Legal
             scene.append_arrow( *coords, mark_type=mark_type )
 
-        for i in range(4, 1, -1):
+        for i in range( 4, 1, -1 ):
             scene.append_text(str(5 - i), i, 0, corner=Corner.UpperLeft, mark_type=MarkType.Illegal)
 
         return scene
@@ -441,7 +441,7 @@ class SceneMayanAscendancyMixin:
     #
     # Converting Pawns
 
-    def scn_ma_13_converting_pawn_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_13_converting_pawn_init( self, bt=BoardType.MayanAscendancy ):
 
         scene = Scene('scn_ma_13_converting_pawn_init', bt)
 
@@ -471,7 +471,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_14_converting_pawn_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_14_converting_pawn_end( self, bt=BoardType.MayanAscendancy ):
 
         scene = Scene('scn_ma_14_converting_pawn_end', bt)
 
@@ -492,7 +492,7 @@ class SceneMayanAscendancyMixin:
     #
     # Pyramid cascading
 
-    def scn_ma_15_cascading_init(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_15_cascading_init( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_cascading_init
 
         scene = Scene('scn_ma_15_cascading_init', bt)
@@ -534,7 +534,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_16_cascading_pyramid_1_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_16_cascading_pyramid_1_activated( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_cascading_activated_1
 
         scene = Scene('scn_ma_16_cascading_pyramid_1_activated', bt)
@@ -617,7 +617,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_17_cascading_pyramid_2_activated(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_17_cascading_pyramid_2_activated( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_cascading_activated_2
 
         scene = Scene('scn_ma_17_cascading_pyramid_2_activated', bt)
@@ -675,7 +675,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_18_cascading_end(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_18_cascading_end( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_cascading_end
 
         scene = Scene('scn_ma_18_cascading_end', bt)
@@ -703,7 +703,7 @@ class SceneMayanAscendancyMixin:
     #
     # Pyramid against royal powers (King free from actions, effects of passive pieces)
 
-    def scn_ma_19_pyramid_vs_king(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_19_pyramid_vs_king( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_vs_king
 
         scene = Scene('scn_ma_19_pyramid_vs_king', bt, width=12, height=3)
@@ -717,7 +717,7 @@ class SceneMayanAscendancyMixin:
 
         return scene
 
-    def scn_ma_20_pyramid_vs_bishop(self, bt=BoardType.MayanAscendancy):
+    def scn_ma_20_pyramid_vs_bishop( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_vs_bishop
 
         scene = Scene('scn_ma_20_pyramid_vs_bishop', bt, width=12, height=3)

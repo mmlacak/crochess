@@ -21,7 +21,7 @@ class SceneNineteenMixin:
     #
     # Portal-fields
 
-    def scn_n_01_portal_fields(self, bt=BoardType.Nineteen):
+    def scn_n_01_portal_fields( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_01_portal_fields', bt)
         rect = (0.10, 0.75, 0.6, 0.15)
@@ -52,7 +52,7 @@ class SceneNineteenMixin:
         gen_abs_pos_1 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_1, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_1() ):
-            if scene.board.is_on_board(*pos):
+            if scene.board.is_on_board( *pos ):
                 scene.append_text(str(i+1), *pos, corner=Corner.UpperRight, mark_type=MarkType.Action, rect=rect)
 
         #
@@ -60,7 +60,7 @@ class SceneNineteenMixin:
         gen_abs_pos_2 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_2, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_2() ):
-            if scene.board.is_on_board(*pos):
+            if scene.board.is_on_board( *pos ):
                 scene.append_text(str(i+1), *pos, corner=Corner.LowerLeft, mark_type=MarkType.Action, rect=rect)
 
         #
@@ -68,7 +68,7 @@ class SceneNineteenMixin:
         gen_abs_pos_3 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_3, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_3() ):
-            if scene.board.is_on_board(*pos):
+            if scene.board.is_on_board( *pos ):
                 scene.append_text(str(i+1), *pos, corner=Corner.UpperLeft, mark_type=MarkType.Legal, rect=rect)
 
         #
@@ -76,7 +76,7 @@ class SceneNineteenMixin:
         gen_abs_pos_4 = GS.gen_multi_steps(GS.DEFAULT_KING_MULTI_REL_MOVES, start=start_T_4, include_prev=False, count=1)
 
         for i, pos in enumerate( gen_abs_pos_4() ):
-            if scene.board.is_on_board(*pos):
+            if scene.board.is_on_board( *pos ):
                 scene.append_text(str(i+1), *pos, corner=Corner.LowerRight, mark_type=MarkType.Legal, rect=rect)
 
         return scene
@@ -84,7 +84,7 @@ class SceneNineteenMixin:
     #
     # Teleporting pieces
 
-    def scn_n_02_teleport_init(self, bt=BoardType.Nineteen):
+    def scn_n_02_teleport_init( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_02_teleport_init', bt)
         rect = (0.10, 0.75, 0.6, 0.15)
@@ -132,7 +132,7 @@ class SceneNineteenMixin:
     #
     # Teleportation blocked
 
-    def scn_n_03_teleport_move_2(self, bt=BoardType.Nineteen):
+    def scn_n_03_teleport_move_2( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_03_teleport_move_2', bt)
         rect = (0.10, 0.75, 0.75, 0.15)
@@ -188,7 +188,7 @@ class SceneNineteenMixin:
     #
     # Teleporting Wave
 
-    def scn_n_04_teleport_move_3(self, bt=BoardType.Nineteen):
+    def scn_n_04_teleport_move_3( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_04_teleport_move_3', bt)
 
@@ -222,7 +222,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_05_teleport_end(self, bt=BoardType.Nineteen):
+    def scn_n_05_teleport_end( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_05_teleport_end', bt)
 
@@ -256,7 +256,7 @@ class SceneNineteenMixin:
     #
     # Teleporting Wave blocked
 
-    def scn_n_06_teleport_wave_blocked(self, bt=BoardType.Nineteen):
+    def scn_n_06_teleport_wave_blocked( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_06_teleport_wave_blocked', bt)
 
@@ -284,7 +284,7 @@ class SceneNineteenMixin:
     #
     # Teleporting off-board
 
-    def scn_n_07_teleport_wave_init(self, bt=BoardType.Nineteen):
+    def scn_n_07_teleport_wave_init( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_07_teleport_wave_init', bt, x=4, y=1, reverse_off_board_field_colors=True)
 
@@ -324,7 +324,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_08_teleport_wave_end(self, bt=BoardType.Nineteen):
+    def scn_n_08_teleport_wave_end( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_08_teleport_wave_end', bt, x=-4, y=-1, reverse_off_board_field_colors=True)
 
@@ -355,7 +355,7 @@ class SceneNineteenMixin:
     #
     # Emerging off-board
 
-    def scn_n_09_teleport_wave_2_init(self, bt=BoardType.Nineteen):
+    def scn_n_09_teleport_wave_2_init( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_09_teleport_wave_2_init', bt, x=4, y=1, reverse_off_board_field_colors=True)
 
@@ -383,7 +383,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_10_teleport_wave_2_end(self, bt=BoardType.Nineteen):
+    def scn_n_10_teleport_wave_2_end( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_10_teleport_wave_2_end', bt, x=-4, y=-1, reverse_off_board_field_colors=True)
 
@@ -416,7 +416,7 @@ class SceneNineteenMixin:
     #
     # Teleporting Pawn
 
-    def scn_n_11_teleport_pawns_init(self, bt=BoardType.Nineteen):
+    def scn_n_11_teleport_pawns_init( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_11_teleport_pawns_init', bt)
 
@@ -441,7 +441,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_12_teleport_pawns_step_1(self, bt=BoardType.Nineteen):
+    def scn_n_12_teleport_pawns_step_1( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_12_teleport_pawns_step_1', bt)
 
@@ -464,7 +464,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_13_teleport_pawns_end(self, bt=BoardType.Nineteen):
+    def scn_n_13_teleport_pawns_end( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_13_teleport_pawns_end', bt)
 
@@ -490,7 +490,7 @@ class SceneNineteenMixin:
     #
     # Teleporting Bishop
 
-    def scn_n_14_teleport_bishop(self, bt=BoardType.Nineteen):
+    def scn_n_14_teleport_bishop( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_14_teleport_bishop', bt)
 
@@ -586,7 +586,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_19_sideways_pawn_activated_wave(self, bt=BoardType.Nineteen):
+    def scn_n_19_sideways_pawn_activated_wave( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_19_sideways_pawn_activated_wave', bt)
 
@@ -652,7 +652,7 @@ class SceneNineteenMixin:
     #
     # Activating opponent's Wave
 
-    def scn_n_20_activating_opponents_wave(self, bt=BoardType.Nineteen):
+    def scn_n_20_activating_opponents_wave( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_20_activating_opponents_wave', bt)
 
@@ -705,7 +705,7 @@ class SceneNineteenMixin:
 
         return scene
 
-    def scn_n_21_activated_opponents_wave(self, bt=BoardType.Nineteen):
+    def scn_n_21_activated_opponents_wave( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_21_activated_opponents_wave', bt)
 
@@ -790,7 +790,7 @@ class SceneNineteenMixin:
     #
     # Activating Pyramid
 
-    def scn_n_22_sideways_pawns_and_activating_pyramid(self, bt=BoardType.Nineteen):
+    def scn_n_22_sideways_pawns_and_activating_pyramid( self, bt=BoardType.Nineteen ):
 
         scene = Scene( 'scn_n_22_sideways_pawns_and_activating_pyramid', bt, height=7.3 )
 
@@ -843,7 +843,7 @@ class SceneNineteenMixin:
     #
     # Pawn ranks, rows
 
-    def scn_n_30_pawn_ranks(self, bt=BoardType.Nineteen):
+    def scn_n_30_pawn_ranks( self, bt=BoardType.Nineteen ):
 
         scene = Scene('scn_n_30_pawn_ranks', bt)
 
@@ -853,7 +853,7 @@ class SceneNineteenMixin:
         scene.append_arrow(0.7, 2.5, 17.3, 2.5, mark_type=MarkType.Action, start_pointer=True, end_pointer=True)
         scene.append_arrow(0.7, 1.5, 17.3, 1.5, mark_type=MarkType.Legal, start_pointer=True, end_pointer=True)
 
-        for i in range(0, 19):
+        for i in range( 0, 19 ):
             scene.append_text(str(i + 1), 0, i, mark_type=MarkType.Blocked)
 
         return scene

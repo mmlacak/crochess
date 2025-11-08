@@ -5,9 +5,9 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-class Pos(object):
+class Pos( object ):
 
-    def __init__(self, x, y):
+    def __init__( self, x, y ):
         assert isinstance(x, (int, float))
         assert isinstance(y, (int, float))
 
@@ -16,17 +16,17 @@ class Pos(object):
         self.x = x
         self.y = y
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return (self.x, self.y)
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return RectPos( *tpl[ 0 : 2 ] )
 
 
-class RectPos(object):
+class RectPos( object ):
 
-    def __init__(self, left, top, right, bottom):
+    def __init__( self, left, top, right, bottom ):
         assert isinstance(left, (int, float))
         assert isinstance(top, (int, float))
         assert isinstance(right, (int, float))
@@ -39,9 +39,9 @@ class RectPos(object):
         self.right = right
         self.bottom = bottom
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return (self.left, self.top, self.right, self.bottom)
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return RectPos( *tpl[ 0 : 4 ] )

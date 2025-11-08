@@ -11,45 +11,45 @@ import math
 """
 
 
-def is_any(itr, type_=float):
+def is_any( itr, type_=float ):
     return any( [ isinstance(x, type_) for x in itr ] )
 
-def round_float_to_int(pos):
+def round_float_to_int( pos ):
     return int(round(pos))
 
-def round_floats_to_int(itr):
+def round_floats_to_int( itr ):
     lst = [ int(round(itm)) for itm in itr ]
     cls = type(itr)
     return cls(lst)
 
-def round_coords_to_int(coords):
+def round_coords_to_int( coords ):
     lst = [ round_floats_to_int(coord) for coord in coords ]
     cls = type(coords)
     return cls(lst)
 
-def floatify_iterable(itr):
+def floatify_iterable( itr ):
     lst = [ float(itm) for itm in itr ]
     cls = type(itr)
     return cls(lst)
 
-def calc_rounded_str_value(num, digits=6):
+def calc_rounded_str_value( num, digits=6 ):
     n = round(float(num), digits)
     return str(n)
 
-def q_same_rounded_floats(num0, num1, digits=6):
+def q_same_rounded_floats( num0, num1, digits=6 ):
     n0 = calc_rounded_str_value(num0, digits=digits)
     n1 = calc_rounded_str_value(num1, digits=digits)
     return n0 == n1
 
-def assert_floor(ij):
+def assert_floor( ij ):
     # assert isinstance(ij, (int, float)) # Not necessary, floor() will raise exception.
     return math.floor(ij)
 
-def assert_floor_2(i, j):
+def assert_floor_2( i, j ):
     return ( assert_floor(i), assert_floor(j) )
 
 
-def scale_translate(x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0):
+def scale_translate( x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0 ):
     if scale == 1.0:
         # 1.0 == 1.0 + 1e-16 --> True
         return (x+trans_x, y+trans_y)
@@ -60,29 +60,29 @@ def scale_translate(x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, tr
         return (_x+trans_x, _y+trans_y)
 
 
-def calc_straight_line(start, end):
+def calc_straight_line( start, end ):
     x0, y0 = floatify_iterable(start)
     x1, y1 = floatify_iterable(end)
 
-    if q_same_rounded_floats(x1, x0):
+    if q_same_rounded_floats( x1, x0 ):
         return None
 
     a = (y1 - y0) / (x1 - x0)
     b = (-a) * x0 + y0
     return (a, b)
 
-def calc_inverse_line(straight_line, point):
+def calc_inverse_line( straight_line, point ):
     a, b = floatify_iterable(straight_line)
     x, y = floatify_iterable(point)
 
-    if q_same_rounded_floats(a, 0.0):
+    if q_same_rounded_floats( a, 0.0 ):
         return None
 
     a_inv = (-1) / a
     b_inv = y - a_inv * x
     return (a_inv, b_inv)
 
-def calc_distant_points_on_inverse_line(point, other, distance):
+def calc_distant_points_on_inverse_line( point, other, distance ):
     # Returns points in positive, i.e. anti-clockwise order.
 
     assert distance > 0.0
@@ -90,14 +90,14 @@ def calc_distant_points_on_inverse_line(point, other, distance):
     x0, y0 = floatify_iterable(point)
     x1, y1 = floatify_iterable(other)
 
-    if q_same_rounded_floats(x1, x0):
+    if q_same_rounded_floats( x1, x0 ):
         x0_left = x0 - distance
         x0_right = x0 + distance
         if y1 > y0:
             return [(x0_left, y0), (x0_right, y0)]
         else:
             return [(x0_right, y0), (x0_left, y0)]
-    elif q_same_rounded_floats(y1, y0):
+    elif q_same_rounded_floats( y1, y0 ):
         y0_up = y0 - distance
         y0_down = y0 + distance
         if x1 > x0:
@@ -131,7 +131,7 @@ def calc_distant_points_on_inverse_line(point, other, distance):
         else:
             return [(x_3, y_3), (x_2, y_2)]
 
-def calc_division_point(start, end, ratio):
+def calc_division_point( start, end, ratio ):
     x0, y0 = floatify_iterable(start)
     x1, y1 = floatify_iterable(end)
 
@@ -140,7 +140,7 @@ def calc_division_point(start, end, ratio):
 
     return (x, y)
 
-def calc_line_length(point, other):
+def calc_line_length( point, other ):
     x0, y0 = floatify_iterable(point)
     x1, y1 = floatify_iterable(other)
 
@@ -149,7 +149,7 @@ def calc_line_length(point, other):
 
 
 class Rectangle:
-    def __init__(self, x, y, width=1.0, height=1.0):
+    def __init__( self, x, y, width=1.0, height=1.0 ):
         assert isinstance(x, float)
         assert isinstance(y, float)
         assert isinstance(width, float)
@@ -160,14 +160,14 @@ class Rectangle:
         self.width = width
         self.height = height
 
-    def as_tuple(self):
+    def as_tuple( self ):
         return (self.x, self.y, self.width, self.height)
 
     @staticmethod
-    def from_tuple(tpl):
+    def from_tuple( tpl ):
         return Rectangle( *tpl[ 0 : 4 ] )
 
-    def calc_point(self, x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0):
+    def calc_point( self, x, y, scale=1.0, center_x=0.5, center_y=0.5, trans_x=0.0, trans_y=0.0 ):
         _x = x
         _y = y
 
@@ -180,7 +180,7 @@ class Rectangle:
         _y = self.y + _y * self.height
         return (_x+trans_x, _y+trans_y)
 
-    def scale_length(self, length):
+    def scale_length( self, length ):
         unit = min(self.width, self.height)
         return unit * length
 

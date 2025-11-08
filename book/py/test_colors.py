@@ -12,9 +12,9 @@ from def_render import RenderingSizeEnum
 from save_scene import SaveScene
 
 
-class TestColors(SaveScene):
+class TestColors( SaveScene ):
 
-    def save_colors(self, path_prefix=None):
+    def save_colors( self, path_prefix=None ):
         print
         print( "Test colors on all boards." )
 

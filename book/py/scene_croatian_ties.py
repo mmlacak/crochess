@@ -18,7 +18,7 @@ from scene import Scene
 
 class SceneCroatianTiesMixin:
 
-    def scn_ct_01_pegasus_initial(self, bt=BoardType.CroatianTies):
+    def scn_ct_01_pegasus_initial( self, bt=BoardType.CroatianTies ):
         # move_pegasus_initial
 
         scene = Scene('scn_ct_01_pegasus_initial', bt, x=1.0, y=0.0, width=5, height=5)
@@ -34,7 +34,7 @@ class SceneCroatianTiesMixin:
 
         return scene
 
-    def scn_ct_02_pegasus_direction(self, bt=BoardType.CroatianTies):
+    def scn_ct_02_pegasus_direction( self, bt=BoardType.CroatianTies ):
         # move_pegasus_direction
 
         scene = Scene('scn_ct_02_pegasus_direction', bt)
@@ -82,7 +82,7 @@ class SceneCroatianTiesMixin:
 
         return scene
 
-    def scn_ct_03_define_step_ply(self, bt=BoardType.CroatianTies):
+    def scn_ct_03_define_step_ply( self, bt=BoardType.CroatianTies ):
         # move_pegasus_step_ply
 
         scene = Scene('scn_ct_03_define_step_ply', bt)
@@ -124,7 +124,7 @@ class SceneCroatianTiesMixin:
 
         return scene
 
-    def scn_ct_04_pegasus_movement(self, bt=BoardType.CroatianTies):
+    def scn_ct_04_pegasus_movement( self, bt=BoardType.CroatianTies ):
         # move_pegasus
 
         scene = Scene('scn_ct_04_pegasus_movement', bt)

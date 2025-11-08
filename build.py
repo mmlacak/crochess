@@ -20,10 +20,10 @@ import py.docs_env as DE
 PROJECT_ROOT_PATH = P.get_project_root_path( sys.argv[ 0 ] )
 
 
-def remove_build_files(root_path, all_files_or_obj_only=False):
+def remove_build_files( root_path, all_files_or_obj_only=False ):
     build_dir = BE.get_build_dir(root_path)
 
-    if os.path.exists(build_dir):
+    if os.path.exists( build_dir ):
         file_paths = [  P.get_abs_combed_path( os.path.join( build_dir, f ) )
                         for f in os.listdir(build_dir)
                         if all_files_or_obj_only
@@ -91,7 +91,7 @@ def main():
         print( "Build dir: %s." % str( cmd_cwd ) )
 
 
-    def compile_docs(opt):
+    def compile_docs( opt ):
         cwd_docs, cmd_docs = DE.get_compile_docs_cmd(PROJECT_ROOT_PATH, docs_option=opt)
 
         if is_debug:

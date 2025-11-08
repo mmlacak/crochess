@@ -5,14 +5,14 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-class UNDEFINED(object):
-    def __nonzero__(self):
+class UNDEFINED( object ):
+    def __nonzero__( self ):
         return False
 
 UNDEFINED = UNDEFINED()
 
 
-def just_count(itr, default=UNDEFINED, default_few=UNDEFINED, default_many=UNDEFINED, count=1, unpack_one=True):
+def just_count( itr, default=UNDEFINED, default_few=UNDEFINED, default_many=UNDEFINED, count=1, unpack_one=True ):
     # Using UNDEFINEDs, so that defaults can be None.
 
     assert isinstance(count, int)
@@ -97,7 +97,7 @@ def in_range( v, min_v, max_v, include_min=True, include_max=True ):
     return True
 
 
-def convert_to_rgb(color_str):
+def convert_to_rgb( color_str ):
     assert isinstance(color_str, str)
     assert len(color_str) == 7
     assert color_str[0] == '#'
@@ -106,7 +106,7 @@ def convert_to_rgb(color_str):
     r, g, b = int(r_str, base=16), int(g_str, base=16), int(b_str, base=16)
     return ( r / 255.0, g / 255.0, b / 255.0 )
 
-def convert_to_rgba(color_str, default_a_str="FF"):
+def convert_to_rgba( color_str, default_a_str="FF" ):
     assert isinstance(color_str, str)
     assert len(color_str) in [7, 9]
     assert color_str[0] == '#'
@@ -118,7 +118,7 @@ def convert_to_rgba(color_str, default_a_str="FF"):
 
 def test_1():
 
-    def print_color_and_tuple(color_str):
+    def print_color_and_tuple( color_str ):
         print()
         print( color_str )
         print( convert_to_rgb( color_str ) )
@@ -135,7 +135,7 @@ def test_1():
 
 def test_2():
 
-    def print_color_and_tuple(color_str, default_a_str="FF"):
+    def print_color_and_tuple( color_str, default_a_str="FF" ):
         print()
         print( color_str )
         print( convert_to_rgba( color_str, default_a_str=default_a_str ) )

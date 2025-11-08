@@ -21,7 +21,7 @@ class SceneHemerasDawnMixin:
     #
     # Movement
 
-    def scn_hd_01_centaur_same_color(self, bt=BoardType.HemerasDawn):
+    def scn_hd_01_centaur_same_color( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_01_centaur_same_color', bt, y=1, width=7, height=7)
 
@@ -37,7 +37,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_02_centaur_opposite_color(self, bt=BoardType.HemerasDawn):
+    def scn_hd_02_centaur_opposite_color( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_02_centaur_opposite_color', bt, width=11, height=11)
 
@@ -64,7 +64,7 @@ class SceneHemerasDawnMixin:
         return scene
 
 
-    def scn_hd_03_centaur_multi_step_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_03_centaur_multi_step_init( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_03_centaur_multi_step_init', bt)
 
@@ -85,7 +85,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_04_centaur_multi_step_second(self, bt=BoardType.HemerasDawn):
+    def scn_hd_04_centaur_multi_step_second( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_04_centaur_multi_step_second', bt)
 
@@ -109,7 +109,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_05_centaur_multi_step(self, bt=BoardType.HemerasDawn):
+    def scn_hd_05_centaur_multi_step( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_05_centaur_multi_step', bt)
 
@@ -168,7 +168,7 @@ class SceneHemerasDawnMixin:
     #
     # Out of board steps
 
-    def scn_hd_06_centaur_off_board(self, bt=BoardType.HemerasDawn):
+    def scn_hd_06_centaur_off_board( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_06_centaur_off_board', bt, x=4, y=1)
 
@@ -208,7 +208,7 @@ class SceneHemerasDawnMixin:
     #
     # Activating Wave
 
-    def scn_hd_07_wave_activation_by_centaur_first_step(self, bt=BoardType.HemerasDawn):
+    def scn_hd_07_wave_activation_by_centaur_first_step( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_07_wave_activation_by_centaur_first_step', bt)
 
@@ -238,7 +238,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_08_wave_activation_by_centaur_second_step(self, bt=BoardType.HemerasDawn):
+    def scn_hd_08_wave_activation_by_centaur_second_step( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_08_wave_activation_by_centaur_second_step', bt)
 
@@ -270,7 +270,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_09_wave_activation_by_centaur_complete(self, bt=BoardType.HemerasDawn):
+    def scn_hd_09_wave_activation_by_centaur_complete( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_09_wave_activation_by_centaur_complete', bt)
 
@@ -334,7 +334,7 @@ class SceneHemerasDawnMixin:
     #
     # Out of board steps
 
-    def scn_hd_10_wave_activated_by_centaur_off_board(self, bt=BoardType.HemerasDawn):
+    def scn_hd_10_wave_activated_by_centaur_off_board( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_10_wave_activated_by_centaur_off_board', bt, x=4, y=1)
 
@@ -381,7 +381,7 @@ class SceneHemerasDawnMixin:
     #
     # Teleporting Wave
 
-    def scn_hd_11_wave_teleport(self, bt=BoardType.HemerasDawn):
+    def scn_hd_11_wave_teleport( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_11_wave_teleport', bt, x=4, y=1)
 
@@ -426,7 +426,7 @@ class SceneHemerasDawnMixin:
     #
     # Scout-fields
 
-    def scn_hd_14_scout_fields(self, bt=BoardType.HemerasDawn):
+    def scn_hd_14_scout_fields( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_14_scout_fields', bt, width=5, height=5 )
 
@@ -443,7 +443,7 @@ class SceneHemerasDawnMixin:
     #
     # Scout/Movement
 
-    def scn_hd_15_scout_movement(self, bt=BoardType.HemerasDawn):
+    def scn_hd_15_scout_movement( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_15_scout_movement', bt, height=9 )
 
@@ -497,7 +497,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_16_scout_capturing(self, bt=BoardType.HemerasDawn):
+    def scn_hd_16_scout_capturing( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_16_scout_capturing', bt, width=8, height=4 )
 
@@ -523,7 +523,7 @@ class SceneHemerasDawnMixin:
     #
     # Movement/Forking steps
 
-    def scn_hd_17_scout_forking_steps(self, bt=BoardType.HemerasDawn):
+    def scn_hd_17_scout_forking_steps( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_17_scout_forking_steps', bt, width=7, height=10 )
 
@@ -574,7 +574,7 @@ class SceneHemerasDawnMixin:
     #
     # Movement/Rerouting Scout
 
-    def scn_hd_20_scout_rerouting(self, bt=BoardType.HemerasDawn):
+    def scn_hd_20_scout_rerouting( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_20_scout_rerouting', bt, width=8, height=5 )
 
@@ -605,7 +605,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_21_scout_rerouting_first_step(self, bt=BoardType.HemerasDawn):
+    def scn_hd_21_scout_rerouting_first_step( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_21_scout_rerouting_first_step', bt, width=8, height=5 )
 
@@ -637,7 +637,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_22_scout_rerouting_pawn_wall(self, bt=BoardType.HemerasDawn):
+    def scn_hd_22_scout_rerouting_pawn_wall( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_22_scout_rerouting_pawn_wall', bt, width=8, height=6 )
 
@@ -680,7 +680,7 @@ class SceneHemerasDawnMixin:
     #
     # Activating Pyramid
 
-    def scn_hd_23_activating_pyramid(self, bt=BoardType.HemerasDawn):
+    def scn_hd_23_activating_pyramid( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_23_activating_pyramid', bt, height=8.3 ) # width=8
 
@@ -725,7 +725,7 @@ class SceneHemerasDawnMixin:
     #
     # Activating Scout
 
-    def scn_hd_24_activating_scout_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_24_activating_scout_init( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_24_activating_scout_init', bt, height=6.3 ) # width=8
 
@@ -755,7 +755,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_25_activating_scout_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_25_activating_scout_end( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene( 'scn_hd_25_activating_scout_end', bt, height=8.3 ) # width=8
 
@@ -805,7 +805,7 @@ class SceneHemerasDawnMixin:
     #
     # Activating Wave
 
-    def scn_hd_26_scout_activating_wave_step_fields_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_26_scout_activating_wave_step_fields_init( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_26_scout_activating_wave_step_fields_init', bt)
 
@@ -842,7 +842,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_27_scout_activating_wave_step_fields_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_27_scout_activating_wave_step_fields_end( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_27_scout_activating_wave_step_fields_end', bt)
 
@@ -908,7 +908,7 @@ class SceneHemerasDawnMixin:
     #
     # Activating Wave on capture-fields
 
-    def scn_hd_28_scout_activating_wave_capture_fields_init(self, bt=BoardType.HemerasDawn):
+    def scn_hd_28_scout_activating_wave_capture_fields_init( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_28_scout_activating_wave_capture_fields_init', bt)
 
@@ -946,7 +946,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_29_scout_activating_wave_capture_fields_end(self, bt=BoardType.HemerasDawn):
+    def scn_hd_29_scout_activating_wave_capture_fields_end( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_29_scout_activating_wave_capture_fields_end', bt)
 
@@ -1009,7 +1009,7 @@ class SceneHemerasDawnMixin:
 
         return scene
 
-    def scn_hd_30_scout_en_passant(self, bt=BoardType.HemerasDawn):
+    def scn_hd_30_scout_en_passant( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_30_scout_en_passant', bt, width=5, height=10.7)
 
@@ -1036,7 +1036,7 @@ class SceneHemerasDawnMixin:
     #
     # Scouts initial positions
 
-    def scn_hd_39_scout_initial_positions(self, bt=BoardType.HemerasDawn):
+    def scn_hd_39_scout_initial_positions( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_39_scout_initial_positions', bt)
 
@@ -2049,7 +2049,7 @@ class SceneHemerasDawnMixin:
     #
     # Grenadier/Initial positions
 
-    def scn_hd_61_grenadier_initial_positions(self, bt=BoardType.HemerasDawn):
+    def scn_hd_61_grenadier_initial_positions( self, bt=BoardType.HemerasDawn ):
 
         scene = Scene('scn_hd_61_grenadier_initial_positions', bt)
 

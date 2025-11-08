@@ -25,18 +25,18 @@ from def_mark import MarkDef
 from def_render import RenderingSizeEnum, get_rendering_size_item
 
 
-def sanitize(name):
+def sanitize( name ):
     assert isinstance(name, str)
     return name.replace('\'', '_').replace(' ', '_').lower()
 
 
 class SaveScene:
 
-    def __init__(self, rendering_size):
+    def __init__( self, rendering_size ):
         self.rendering_size = RenderingSizeEnum(rendering_size)
         self.rendering_size_item = get_rendering_size_item(self.rendering_size)
 
-    def get_default_size_pix(self, scene, max_width_pix=None, max_height_pix=None):
+    def get_default_size_pix( self, scene, max_width_pix=None, max_height_pix=None ):
         assert isinstance(scene, Scene)
 
         w_pix = max_width_pix if max_width_pix is not None else self.rendering_size_item.board_width_pix
@@ -50,7 +50,7 @@ class SaveScene:
 
         return assert_floor_2(w, h)
 
-    def save_scene(self, scene, file_path, max_width_pix=None, max_height_pix=None, line_width=DEFAULT_LINE_WIDTH, enforce_size=False, enforce_bw=False):
+    def save_scene( self, scene, file_path, max_width_pix=None, max_height_pix=None, line_width=DEFAULT_LINE_WIDTH, enforce_size=False, enforce_bw=False ):
         assert isinstance(scene, Scene)
         assert isinstance(file_path, str)
 
@@ -68,7 +68,7 @@ class SaveScene:
     #
     # boards
 
-    def get_board_file_path(self, board_type, path_prefix=None, file_ext=None):
+    def get_board_file_path( self, board_type, path_prefix=None, file_ext=None ):
         bt = BoardType(board_type)
 
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
@@ -79,7 +79,7 @@ class SaveScene:
         sanitized = sanitize(name)
         return '%s/boards/%02d_%s%s' % (path_prefix, index, sanitized, file_ext)
 
-    def render_all_boards(self, path_prefix=None):
+    def render_all_boards( self, path_prefix=None ):
         print()
         print( "Rendering all boards." if self.rendering_size.needs_rendering() else "Info all boards." )
 
@@ -98,7 +98,7 @@ class SaveScene:
     #
     # pieces
 
-    def get_piece_file_path(self, piece_type, board_type=None, path_prefix=None, pieces_folder='pieces', file_ext=None):
+    def get_piece_file_path( self, piece_type, board_type=None, path_prefix=None, pieces_folder='pieces', file_ext=None ):
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
@@ -111,7 +111,7 @@ class SaveScene:
         sanitized = sanitize(name)
         return '%s/%s/%02d_%s%s' % (path_prefix, pieces_folder, index, sanitized, file_ext)
 
-    def render_all_pieces(self, piece_type=None, path_prefix=None):
+    def render_all_pieces( self, piece_type=None, path_prefix=None ):
         is_rendering_one_piece = piece_type is not None
 
         piece_str = "all" if not is_rendering_one_piece else PieceType(piece_type).get_name()
@@ -147,7 +147,7 @@ class SaveScene:
     #
     # en passant
 
-    def get_en_passant_file_path(self, board_type, path_prefix=None, file_ext=None):
+    def get_en_passant_file_path( self, board_type, path_prefix=None, file_ext=None ):
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
@@ -156,7 +156,7 @@ class SaveScene:
         sanitized = sanitize(name)
         return '%s/en_passants/%02d_%s_en_passant%s' % (path_prefix, index, sanitized, file_ext)
 
-    def render_all_en_passant_scenes(self, path_prefix=None):
+    def render_all_en_passant_scenes( self, path_prefix=None ):
         print()
         print( "Rendering all en passant." if self.rendering_size.needs_rendering() else "Info all en passant." )
 
@@ -175,7 +175,7 @@ class SaveScene:
     #
     # rush
 
-    def get_rush_file_path(self, board_type, path_prefix=None, file_ext=None):
+    def get_rush_file_path( self, board_type, path_prefix=None, file_ext=None ):
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
@@ -184,7 +184,7 @@ class SaveScene:
         sanitized = sanitize(name)
         return '%s/rush/%02d_%s_rush%s' % (path_prefix, index, sanitized, file_ext)
 
-    def render_all_rush_scenes(self, path_prefix=None):
+    def render_all_rush_scenes( self, path_prefix=None ):
         print()
         print( "Rendering all rush." if self.rendering_size.needs_rendering() else "Info all rush." )
 
@@ -232,7 +232,7 @@ class SaveScene:
         else:
             return '%s/castlings/%s/%s_castling%s%s' % ( path_prefix, sf_name, sanitized, mk_str, file_ext )
 
-    def render_all_castling_scenes(self, path_prefix=None):
+    def render_all_castling_scenes( self, path_prefix=None ):
         print()
         print( "Rendering all castlings." if self.rendering_size.needs_rendering() else "Info all castlings." )
 
@@ -277,7 +277,7 @@ class SaveScene:
     #
     # scene
 
-    def get_scene_file_path(self, file_name, path_prefix=None, file_ext=None, subfolder_name=None):
+    def get_scene_file_path( self, file_name, path_prefix=None, file_ext=None, subfolder_name=None ):
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
 
@@ -286,7 +286,7 @@ class SaveScene:
         else:
             return '%s/examples/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
-    def render_example(self, scene, func, board_types=None, path_prefix=None, enforce_in_bw=[]):
+    def render_example( self, scene, func, board_types=None, path_prefix=None, enforce_in_bw=[] ):
         assert isinstance(scene, SceneMix)
         assert callable(func)
         assert isinstance(enforce_in_bw, list)
@@ -301,7 +301,7 @@ class SaveScene:
                 _enforce_bw = scene.board.type.in_variants( enforce_in_bw )
                 self.save_scene(scene, file_path, enforce_bw=_enforce_bw)
 
-    def render_examples(self, do_all_examples=False, board_types=None, path_prefix=None, enforce_in_bw=[]):
+    def render_examples( self, do_all_examples=False, board_types=None, path_prefix=None, enforce_in_bw=[] ):
         _str = "all" if do_all_examples else "recent"
         print()
         print( "Rendering %s examples." % _str if self.rendering_size.needs_rendering() else "Info %s examples." % _str )
@@ -321,7 +321,7 @@ class SaveScene:
     #
     # initial setup analysis
 
-    def get_isa_file_path(self, file_name, board_type, path_prefix=None, file_ext=None, subfolder_name=None):
+    def get_isa_file_path( self, file_name, board_type, path_prefix=None, file_ext=None, subfolder_name=None ):
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
         bt = BoardType(board_type)
@@ -331,7 +331,7 @@ class SaveScene:
         else:
             return '%s/isa/%s/isa_%02d_%s%s' % (path_prefix, subfolder_name, bt, file_name, file_ext)
 
-    def render_isa(self, scene, func, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_in_bw=[]):
+    def render_isa( self, scene, func, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_in_bw=[] ):
         assert isinstance(scene, SceneIsa)
         assert callable(func)
         assert isinstance(enforce_in_bw, list)
@@ -346,7 +346,7 @@ class SaveScene:
                 _enforce_bw = scene.board.type.in_variants( enforce_in_bw )
                 self.save_scene(scene, file_path, enforce_bw=_enforce_bw)
 
-    def render_ISAs(self, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_in_bw=[]):
+    def render_ISAs( self, do_centaur=False, do_patterns=False, board_types=None, path_prefix=None, enforce_in_bw=[] ):
         # _str = "all" if do_all_examples else "default"
         print()
         # print( "Rendering %s ISAs." % _str if self.rendering_size.needs_rendering() else "Info %s ISAs." % _str )
@@ -368,7 +368,7 @@ class SaveScene:
     #
     # tests
 
-    def get_test_file_path(self, file_name, path_prefix=None, file_ext=None, subfolder_name=None): # board_type
+    def get_test_file_path( self, file_name, path_prefix=None, file_ext=None, subfolder_name=None ): # board_type
         path_prefix = path_prefix or DEFAULT_IMAGE_FOLDER_REL_PATH
         file_ext = file_ext or DEFAULT_FILE_EXT
         # bt = BoardType(board_type)
@@ -378,7 +378,7 @@ class SaveScene:
         else:
             return '%s/test/%s/%s%s' % (path_prefix, subfolder_name, file_name, file_ext)
 
-    def render_test(self, scene, func, path_prefix=None, enforce_cot_in_bw=True):
+    def render_test( self, scene, func, path_prefix=None, enforce_cot_in_bw=True ):
         assert isinstance(scene, SceneTest)
         assert callable(func)
         assert isinstance(enforce_cot_in_bw, bool)
@@ -392,7 +392,7 @@ class SaveScene:
             enforce_bw = True # enforce_cot_in_bw and scene.board.type.is_variant( BoardType.ConquestOfTlalocan )
             self.save_scene(scene, file_path, enforce_bw=enforce_bw)
 
-    def render_tests(self, do_all_tests=True, path_prefix=None, enforce_cot_in_bw=True):
+    def render_tests( self, do_all_tests=True, path_prefix=None, enforce_cot_in_bw=True ):
         _str = "all" if do_all_tests else "recent"
         print()
         print( "Rendering %s tests." % _str if self.rendering_size.needs_rendering() else "Info %s tests." % _str )

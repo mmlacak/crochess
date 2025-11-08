@@ -53,7 +53,7 @@ def get_current_times():
     book_short = time.strftime('%Y-%m-%d', now) # e.g. '2020-05-17'
     return (book_version, book_short)
 
-def get_current_lib_versions(root_path, decompose_version=True):
+def get_current_lib_versions( root_path, decompose_version=True ):
     path = get_lib_src_file_path(root_path, LIB_VERSION_SRC_FILE_NAME)
 
     try:
@@ -86,31 +86,31 @@ def get_current_lib_versions(root_path, decompose_version=True):
 
     return (None, None, None, None, None, None, None, None) if decompose_version else None
 
-def get_full_tex_path(root_path, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX_FILE_NAME):
+def get_full_tex_path( root_path, tex_dir=BOOK_TEX_FOLDER, tex_name=BOOK_TEX_FILE_NAME ):
     path = os.path.join(root_path, tex_dir, tex_name)
     return path
 
-def get_full_docs_path(root_path, docs_config_dir=BE.DOCS_SOURCE_FOLDER, docs_config_name=SPHINX_CONFIG_FILE_NAME):
+def get_full_docs_path( root_path, docs_config_dir=BE.DOCS_SOURCE_FOLDER, docs_config_name=SPHINX_CONFIG_FILE_NAME ):
     path = os.path.join(root_path, docs_config_dir, docs_config_name)
     return path
 
-def get_full_readme_path(root_path, readme_name=README_FILE_NAME):
+def get_full_readme_path( root_path, readme_name=README_FILE_NAME ):
     path = os.path.join(root_path, readme_name)
     return path
 
-def get_app_src_file_path(root_path, file_name):
+def get_app_src_file_path( root_path, file_name ):
     path = os.path.join(BE.get_app_src_dir(root_path), file_name)
     return path
 
-def get_lib_src_file_path(root_path, file_name):
+def get_lib_src_file_path( root_path, file_name ):
     path = os.path.join(BE.get_lib_src_dir(root_path), file_name)
     return path
 
-def get_tests_src_file_path(root_path, file_name):
+def get_tests_src_file_path( root_path, file_name ):
     path = os.path.join(BE.get_tests_src_dir(root_path), file_name)
     return path
 
-def change_book_line_if_marked(line, git_version, book_version, book_short, is_book, is_docs, is_source):
+def change_book_line_if_marked( line, git_version, book_version, book_short, is_book, is_docs, is_source ):
     new = line
 
     if is_book:
@@ -123,7 +123,7 @@ def change_book_line_if_marked(line, git_version, book_version, book_short, is_b
 
     return new
 
-def change_docs_line_if_marked(line, git_version, book_version, book_short, is_book, is_docs, is_source):
+def change_docs_line_if_marked( line, git_version, book_version, book_short, is_book, is_docs, is_source ):
     new = line
 
     if is_docs:
@@ -135,7 +135,7 @@ def change_docs_line_if_marked(line, git_version, book_version, book_short, is_b
 
     return new
 
-def change_readme_line_if_marked(line, git_version, book_version, book_short, is_book, is_docs, is_source):
+def change_readme_line_if_marked( line, git_version, book_version, book_short, is_book, is_docs, is_source ):
     new = line
 
     if is_book:
@@ -151,7 +151,7 @@ def change_readme_line_if_marked(line, git_version, book_version, book_short, is
 
     return new
 
-def change_source_app_line_if_marked(line, git_version, book_version, book_short, is_book, is_docs, is_source):
+def change_source_app_line_if_marked( line, git_version, book_version, book_short, is_book, is_docs, is_source ):
     new = line
 
     if is_source:
@@ -160,7 +160,7 @@ def change_source_app_line_if_marked(line, git_version, book_version, book_short
 
     return new
 
-def change_source_lib_line_if_marked(line, git_version, book_version, book_short, is_book, is_docs, is_source):
+def change_source_lib_line_if_marked( line, git_version, book_version, book_short, is_book, is_docs, is_source ):
     new = line
 
     if is_source:
@@ -169,7 +169,7 @@ def change_source_lib_line_if_marked(line, git_version, book_version, book_short
 
     return new
 
-def change_source_tests_line_if_marked(line, git_version, book_version, book_short, is_book, is_docs, is_source):
+def change_source_tests_line_if_marked( line, git_version, book_version, book_short, is_book, is_docs, is_source ):
     new = line
 
     if is_source:
@@ -178,9 +178,9 @@ def change_source_tests_line_if_marked(line, git_version, book_version, book_sho
 
     return new
 
-def replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, func_change_line_if):
+def replace_entries( git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, func_change_line_if ):
 
-    if os.path.exists(ignore_path):
+    if os.path.exists( ignore_path ):
         os.remove(ignore_path)
 
     os.rename(orig_path, ignore_path)
@@ -193,49 +193,49 @@ def replace_entries(git_version, book_version, book_short, orig_path, ignore_pat
 
     return orig_path
 
-def replace_book_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
+def replace_book_entries( git_version, book_version, book_short, root_path, is_book, is_docs, is_source ):
 
     orig_path = get_full_tex_path(root_path)
     ignore_path = get_full_tex_path(root_path, tex_name=BOOK_IGNORE_TEX_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_book_line_if_marked)
 
-def replace_docs_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
+def replace_docs_entries( git_version, book_version, book_short, root_path, is_book, is_docs, is_source ):
 
     orig_path = get_full_docs_path(root_path)
     ignore_path = get_full_docs_path(root_path, docs_config_name=SPHINX_IGNORE_CONFIG_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_docs_line_if_marked)
 
-def replace_readme_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
+def replace_readme_entries( git_version, book_version, book_short, root_path, is_book, is_docs, is_source ):
 
     orig_path = get_full_readme_path(root_path)
     ignore_path = get_full_readme_path(root_path, readme_name=README_IGNORE_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_readme_line_if_marked)
 
-def replace_app_source_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
+def replace_app_source_entries( git_version, book_version, book_short, root_path, is_book, is_docs, is_source ):
 
     orig_path = get_app_src_file_path(root_path, APP_VERSION_SRC_FILE_NAME)
     ignore_path = get_app_src_file_path(root_path, APP_VERSION_SRC_IGNORE_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_source_app_line_if_marked)
 
-def replace_lib_source_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
+def replace_lib_source_entries( git_version, book_version, book_short, root_path, is_book, is_docs, is_source ):
 
     orig_path = get_lib_src_file_path(root_path, LIB_VERSION_SRC_FILE_NAME)
     ignore_path = get_lib_src_file_path(root_path, LIB_VERSION_SRC_IGNORE_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_source_lib_line_if_marked)
 
-def replace_tests_source_entries(git_version, book_version, book_short, root_path, is_book, is_docs, is_source):
+def replace_tests_source_entries( git_version, book_version, book_short, root_path, is_book, is_docs, is_source ):
 
     orig_path = get_tests_src_file_path(root_path, TESTS_VERSION_SRC_FILE_NAME)
     ignore_path = get_tests_src_file_path(root_path, TESTS_VERSION_SRC_IGNORE_FILE_NAME)
 
     return replace_entries(git_version, book_version, book_short, orig_path, ignore_path, is_book, is_docs, is_source, change_source_tests_line_if_marked)
 
-def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feature, is_commit, is_meta, count, breaks):
+def replace_all_entries( root_path, is_book, is_docs, is_major, is_minor, is_feature, is_commit, is_meta, count, breaks ):
     is_source = is_major or is_minor or is_feature or is_commit or is_meta
     assert is_book or is_docs or is_source
 
@@ -243,7 +243,7 @@ def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feat
     book_version, book_short = get_current_times()
     git_version = "0.1.0+%s" % book_version
 
-    def append_if_not_empty(path):
+    def append_if_not_empty( path ):
         if path:
             auto_updated_files.append(path)
 
@@ -319,7 +319,7 @@ def replace_all_entries(root_path, is_book, is_docs, is_major, is_minor, is_feat
         git_version += "+%s" % book_version
 
         if breaks is not None:
-            if not breaks.startswith('~'):
+            if not breaks.startswith( '~' ):
                 breakage = 4 if is_major else \
                            3 if is_minor else \
                            2 if is_feature else \

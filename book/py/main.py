@@ -23,7 +23,7 @@ def get_board_type_choices():
     lbls.extend( [ 'all', 'none', ] )
     return lbls
 
-def get_board_types(labels):
+def get_board_types( labels ):
     if labels is None:
         return None
 
@@ -47,7 +47,7 @@ def get_board_types(labels):
     bts = sorted( list( set( bts ) ) )
     return bts
 
-def get_board_labels(labels):
+def get_board_labels( labels ):
     if labels is None:
         return None
 

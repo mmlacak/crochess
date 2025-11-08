@@ -16,16 +16,16 @@ from scene_mixin import SceneMixin
 import gen_steps as GS
 
 
-class SceneTest(SceneMixin):
+class SceneTest( SceneMixin ):
 
     # overrides
-    def _get_recent_scene_method_names(self):
+    def _get_recent_scene_method_names( self ):
         return  [
                     'test_o_1', \
                 ]
 
 
-    def test_o_1(self, bt=BoardType.One):
+    def test_o_1( self, bt=BoardType.One ):
 
         scene = Scene('test_o_1', bt)
 

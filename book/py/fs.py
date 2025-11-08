@@ -80,18 +80,18 @@ SUBFOLDERS =    [   \
                 ]
 
 
-def find_subfolder(path=None):
+def find_subfolder( path=None ):
     if path is None:
         path = os.getcwd()
     return os.path.abspath(path)
 
-def mkdirs(folder_name):
+def mkdirs( folder_name ):
     path = os.path.normpath(os.path.abspath(folder_name))
-    if not os.path.isdir(path):
+    if not os.path.isdir( path ):
         print(folder_name)
         os.makedirs(path)
 
-def create_subfolders(path=None):
+def create_subfolders( path=None ):
     print
     old = os.getcwd()
     print("Old:", old)

@@ -29,10 +29,10 @@ DEFAULT_CORNER_MARGINS_WITH_FIELD_MARKER = RectPos( 0.0 + 2 * DEFAULT_FONT_SPACE
                                                     0.0 + 5 * DEFAULT_FONT_SPACER ) # left, top, right, bottom
 
 
-def get_coord_offset(coord, offset=0.5):
+def get_coord_offset( coord, offset=0.5 ):
     return float(coord + offset) if isinstance(coord, int) else float(coord)
 
-def recalc_arrow_ends(start_i, start_j, end_i, end_j):
+def recalc_arrow_ends( start_i, start_j, end_i, end_j ):
     starts_are_ints = bool(isinstance(start_i, int) and isinstance(start_j, int))
     starts_are_floats = bool(isinstance(start_i, float) and isinstance(start_j, float))
     assert xor(starts_are_ints, starts_are_floats, default=False), \
@@ -55,10 +55,10 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
         offset_x = 0.9 if diff_i > 0.0 else 0.1
         offset_y = 0.9 if diff_j > 0.0 else 0.1
 
-        if pm.q_same_rounded_floats(end_x, start_x):
+        if pm.q_same_rounded_floats( end_x, start_x ):
             start_y_off = get_coord_offset(start_j, offset=offset_y)
             end_y_off = get_coord_offset(end_j, offset=(1.0 - offset_y))
-        elif pm.q_same_rounded_floats(end_y, start_y):
+        elif pm.q_same_rounded_floats( end_y, start_y ):
             start_x_off = get_coord_offset(start_i, offset=offset_x)
             end_x_off = get_coord_offset(end_i, offset=(1.0 - offset_x))
         else:
@@ -90,13 +90,13 @@ def recalc_arrow_ends(start_i, start_j, end_i, end_j):
     return [start_x_off, start_y_off, end_x_off, end_y_off]
 
 
-def get_func_get_text_position(left=None, top=None, right=None, bottom=None):
+def get_func_get_text_position( left=None, top=None, right=None, bottom=None ):
     assert isinstance(left, (float, type(None)))
     assert isinstance(top, (float, type(None)))
     assert isinstance(right, (float, type(None)))
     assert isinstance(bottom, (float, type(None)))
 
-    def get_text_position(pos_i, pos_j, corner):
+    def get_text_position( pos_i, pos_j, corner ):
         assert isinstance(pos_i, (int, float))
         assert isinstance(pos_j, (int, float))
 
@@ -122,7 +122,7 @@ def get_func_get_text_position(left=None, top=None, right=None, bottom=None):
 
 class Scene:
 
-    def __init__(self, file_name, board_type, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, skip_if_rendering_board=None, board_view=None, *args, **kwargs):
+    def __init__( self, file_name, board_type, x=0.0, y=0.0, width=None, height=None, reverse_off_board_field_colors=False, margin=None, skip_if_rendering_board=None, board_view=None, *args, **kwargs ):
         assert isinstance(file_name, str)
 
         super(Scene, self).__init__(*args, **kwargs)
@@ -241,14 +241,14 @@ class Scene:
 
         return arw_mark
 
-    def new_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
+    def new_field_marker( self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal) ):
         # assert isinstance(mark_type, MarkType)
 
         fld_mark = FieldMarker(field_i, field_j, corner=corner, mark_type=mark_type)
 
         return fld_mark
 
-    def append_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal), force_unique=False):
+    def append_field_marker( self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal), force_unique=False ):
         # assert isinstance(mark_type, MarkType)
 
         fld_mark = self.new_field_marker(field_i, field_j, corner=corner, mark_type=mark_type)
@@ -262,7 +262,7 @@ class Scene:
 
         return fld_mark
 
-    def replace_field_marker(self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal)):
+    def replace_field_marker( self, field_i, field_j, corner=None, mark_type=MarkType(MarkType.Legal) ):
 
         fld_mark = self.new_field_marker(field_i, field_j, corner=corner, mark_type=mark_type)
 

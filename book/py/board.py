@@ -275,16 +275,16 @@ class BoardType( int ):
         return ((0, 0), (limit, limit))
 
 
-def get_opposites(pieces):
+def get_opposites( pieces ):
     return [ PT(p).get_opposite() for p in pieces ]
 
-def remove_pieces(pieces, to_remove=(PT.Queen, -PT.Queen)):
+def remove_pieces( pieces, to_remove=(PT.Queen, -PT.Queen) ):
     return [ PT(p) for p in pieces if p not in to_remove ]
 
-def filter_setup(pieces, to_remain=(PT.King, PT.Rook, PT.Star, -PT.Star)):
+def filter_setup( pieces, to_remain=(PT.King, PT.Rook, PT.Star, -PT.Star) ):
     return [ PT(p) if p in to_remain else PT(PT.none) for p in pieces ]
 
-def get_indexes(pieces, piece=PT.King):
+def get_indexes( pieces, piece=PT.King ):
     if piece not in pieces:
         return None
 

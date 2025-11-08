@@ -16,9 +16,9 @@ from colors import ColorsShade, ColorsItem, Colors
 from draw_piece import DrawPiece
 
 
-class DrawBoard(DrawPiece):
+class DrawBoard( DrawPiece ):
 
-    def __init__(self, board_or_type, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=None):
+    def __init__( self, board_or_type, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=None ):
         assert isinstance(board_or_type, (Board, BoardType))
         assert isinstance(board_view, (BoardView, type(None)))
 
@@ -29,32 +29,32 @@ class DrawBoard(DrawPiece):
         width_pix, height_pix = self.calc_total_size_pix(max_width_pix, max_height_pix, field_size_in_pix)
         super(DrawBoard, self).__init__(width_pix, height_pix, field_size_in_pix, line_width=line_width, color_str=color_str)
 
-    def calc_view_field_counts(self):
+    def calc_view_field_counts( self ):
         w = self.board_view.width
         h = self.board_view.height
         return (w, h)
 
-    def calc_total_field_counts(self):
+    def calc_total_field_counts( self ):
         w = self.board_view.margin.left + self.board_view.width + self.board_view.margin.right
         h = self.board_view.margin.top + self.board_view.height + self.board_view.margin.bottom
         return (w, h)
 
-    def calc_view_canvas_size_ratios(self):
+    def calc_view_canvas_size_ratios( self ):
         wf, hf = self.calc_view_field_counts()
         wt, ht = self.calc_total_field_counts()
         return (wf / wt, hf / ht)
 
-    def calc_view_canvas_size_pix(self, width_pix, height_pix):
+    def calc_view_canvas_size_pix( self, width_pix, height_pix ):
         w, h = self.calc_view_canvas_size_ratios()
         return ( w * width_pix, h * height_pix )
 
-    def calc_total_size_pix(self, width_pix, height_pix, field_size_in_pix):
+    def calc_total_size_pix( self, width_pix, height_pix, field_size_in_pix ):
         w, h = self.calc_total_field_counts()
         w2 = min( w * field_size_in_pix, width_pix )
         h2 = min( h * field_size_in_pix, height_pix )
         return ( math.floor(w2), math.floor(h2) )
 
-    def get_field_size_pix(self, width_pix, height_pix):
+    def get_field_size_pix( self, width_pix, height_pix ):
         w, h = self.calc_view_canvas_size_pix(width_pix, height_pix)
         i, j = self.calc_view_field_counts()
 
@@ -62,17 +62,17 @@ class DrawBoard(DrawPiece):
         y = h / j
         return min(x, y)
 
-    def get_field_start(self, i, j):
+    def get_field_start( self, i, j ):
         _i, _j = assert_floor_2(i, j)
         return self.convert_field_to_user_coords(_i, _j + 1.0)
 
-    def is_light(self, i, j):
+    def is_light( self, i, j ):
         _i, _j = assert_floor_2(i, j)
         rev = False if self.board.is_on_board(_i, _j) else self.board_view.reverse_off_board_field_colors
         return xor( self.board.is_light(_i, _j), rev, default=False )
         # return self.board.is_light(i, j) # TODO :: FIX :: in text / <action> light and dark interiors are switched, test on Hemera's Dawn
 
-    def draw_field(self, i, j, cshade=None):
+    def draw_field( self, i, j, cshade=None ):
         assert isinstance(cshade, (ColorsShade, type(None)))
 
         x, y = self.get_field_start(i, j)
@@ -80,43 +80,43 @@ class DrawBoard(DrawPiece):
         color = cs.light if self.is_light(i, j) else cs.dark
         self.draw_rectangle(x, y, 1.0, 1.0, interior_str=color.interior)
 
-    def calc_view_fields_range(self):
+    def calc_view_fields_range( self ):
         x = math.floor(self.board_view.x)
         y = math.floor(self.board_view.y)
         w = math.ceil(self.board_view.width)
         h = math.ceil(self.board_view.height)
         return (x, y, w, h)
 
-    def draw_all_fields(self, cshade=None, skip_if_rendering_board=None):
+    def draw_all_fields( self, cshade=None, skip_if_rendering_board=None ):
         x, y, w, h = self.calc_view_fields_range()
 
-        for j in range(y, y + h + 1):
-            for i in range(x, x + w + 1):
+        for j in range( y, y + h + 1 ):
+            for i in range( x, x + w + 1 ):
                 if not skip_if_rendering_board or (i, j) not in skip_if_rendering_board:
                     self.draw_field(i, j, cshade=cshade)
 
-    def draw_piece_at_field(self, i, j, colors_item):
+    def draw_piece_at_field( self, i, j, colors_item ):
         x, y = self.get_field_start(i, j)
         p = self.board.get_piece(i, j)
         dr = Rectangle(x, y, 1.0, 1.0)
         self.draw_piece(p, dr, colors_item)
 
-    def draw_all_pieces(self, colors_item, skip_if_rendering_board=None):
+    def draw_all_pieces( self, colors_item, skip_if_rendering_board=None ):
         x, y, w, h = self.calc_view_fields_range()
 
-        for j in range(y, y + h + 1):
-            for i in range(x, x + w + 1):
+        for j in range( y, y + h + 1 ):
+            for i in range( x, x + w + 1 ):
                 if not skip_if_rendering_board or (i, j) not in skip_if_rendering_board:
                     self.draw_piece_at_field(i, j, colors_item)
 
-    def clip_board(self):
+    def clip_board( self ):
         x = self.board_view.margin.left
         y = self.board_view.margin.top
         w = self.board_view.width
         h = self.board_view.height
         self.set_clip(x, y, w, h)
 
-    def draw_board(self, colors_item, skip_if_rendering_board=None):
+    def draw_board( self, colors_item, skip_if_rendering_board=None ):
         assert isinstance(colors_item, ColorsItem)
 
         sirb = skip_if_rendering_board or self.board_view.skip_if_rendering_board
@@ -126,13 +126,13 @@ class DrawBoard(DrawPiece):
         self.draw_all_pieces(colors_item, skip_if_rendering_board=sirb)
         self.reset_clip()
 
-    def convert_field_to_user_coords(self, x, y):
+    def convert_field_to_user_coords( self, x, y ):
         _x = self.board_view.margin.left + x - self.board_view.x
         _y = self.board_view.margin.top + self.board_view.height - y + self.board_view.y
         return (_x, _y)
 
 
-def test_1(board_type=BoardType.CroatianTies, board_view=None, name=''):
+def test_1( board_type=BoardType.CroatianTies, board_view=None, name='' ):
     bt = BoardType(board_type)
     bv = board_view or BoardView(board_type=bt)
 

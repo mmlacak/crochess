@@ -15,7 +15,7 @@ from scene import Scene
 
 class SceneCommon:
 
-    def intro_piece(self, bt, piece_type=None):
+    def intro_piece( self, bt, piece_type=None ):
         bt = BoardType(bt)
         scene = Scene('intro_piece', bt, width=2, height=2)
 
@@ -29,7 +29,7 @@ class SceneCommon:
 
         return scene
 
-    def intro_board(self, bt):
+    def intro_board( self, bt ):
         bt = BoardType(bt)
         scene = Scene('intro_board', bt)
 
@@ -107,7 +107,7 @@ class SceneCommon:
 
         return scene
 
-    def intro_en_passant(self, bt):
+    def intro_en_passant( self, bt ):
         bt = BoardType(bt)
         is_classic = BoardType.is_simple( bt, include_old=True, include_new=True )
 
@@ -136,7 +136,7 @@ class SceneCommon:
             scene.append_arrow(1, 2, 1, 3, mark_type=MarkType.Legal) # Pawn A
             scene.append_arrow(4, 1, 4, 2, mark_type=MarkType.Legal) # Pawn B
 
-            for i in range(4, size):
+            for i in range( 4, size ):
                 scene.append_arrow(1, i-1, 1, i, mark_type=MarkType.Legal)
                 scene.append_text(str(i-3), 1, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -145,7 +145,7 @@ class SceneCommon:
             scene.board.set_piece(2, j, PieceType(-PieceType.Pawn))
             scene.append_arrow(2, j, 1, j-1, mark_type=MarkType.Action)
 
-            for i in range(3, size):
+            for i in range( 3, size ):
                 scene.append_arrow(4, i-1, 4, i, mark_type=MarkType.Legal)
                 scene.append_text(str(i-2), 4, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -164,7 +164,7 @@ class SceneCommon:
                 scene.append_arrow(8, 4, 8, 5, mark_type=MarkType.Legal) # Scout C
                 scene.append_arrow(11, 3, 11, 4, mark_type=MarkType.Legal) # Scout D
 
-                for i in range(6, size):
+                for i in range( 6, size ):
                     scene.append_arrow(8, i-1, 8, i, mark_type=MarkType.Legal)
                     scene.append_text(str(i-5), 8, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -173,7 +173,7 @@ class SceneCommon:
                 scene.board.set_piece(9, j, PieceType(-PieceType.Pawn))
                 scene.append_arrow(9, j, 8, j-1, mark_type=MarkType.Action)
 
-                for i in range(5, size):
+                for i in range( 5, size ):
                     scene.append_arrow(11, i-1, 11, i, mark_type=MarkType.Legal)
                     scene.append_text(str(i-4), 11, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -192,7 +192,7 @@ class SceneCommon:
                 scene.append_arrow(15, 2, 15, 3, mark_type=MarkType.Legal) # Grenadier E
                 scene.append_arrow(18, 1, 18, 2, mark_type=MarkType.Legal) # Grenadier F
 
-                for i in range(4, size):
+                for i in range( 4, size ):
                     scene.append_arrow(15, i-1, 15, i, mark_type=MarkType.Legal)
                     scene.append_text(str(i-3), 15, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -201,7 +201,7 @@ class SceneCommon:
                 scene.board.set_piece(16, j, PieceType(-PieceType.Pawn))
                 scene.append_arrow(16, j, 15, j-1, mark_type=MarkType.Action)
 
-                for i in range(3, size):
+                for i in range( 3, size ):
                     scene.append_arrow(18, i-1, 18, i, mark_type=MarkType.Legal)
                     scene.append_text(str(i-2), 18, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -216,7 +216,7 @@ class SceneCommon:
 
             scene.append_arrow(1, 1, 1, 2, mark_type=MarkType.Legal) # Pawn
 
-            for i in range(3, size):
+            for i in range( 3, size ):
                 scene.append_arrow(1, i-1, 1, i, mark_type=MarkType.Legal)
                 scene.append_text(str(i-2), 1, i, corner=Corner.UpperLeft, rect=rect)
 
@@ -227,7 +227,7 @@ class SceneCommon:
 
         return scene
 
-    def intro_rush(self, bt):
+    def intro_rush( self, bt ):
         bt = BoardType(bt)
         rect = (0.15, 0.55, 0.5, 0.05)
 
@@ -237,7 +237,7 @@ class SceneCommon:
         scene.board.set_piece(1, 0, PieceType(PieceType.Knight))
         scene.board.set_piece(1, 1, PieceType(PieceType.Pawn))
 
-        for i in range(2, size):
+        for i in range( 2, size ):
             scene.append_arrow(1, i-1, 1, i)
 
             if i > 2:

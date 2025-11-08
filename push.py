@@ -46,7 +46,7 @@ def main():
 
     auto_updated_files = []
 
-    if not (is_book or is_docs or is_major or is_minor or is_feature or is_commit or is_meta):
+    if not ( is_book or is_docs or is_major or is_minor or is_feature or is_commit or is_meta ):
         # raise RuntimeError("Specify at least one of --book, --major, --minor, --feature or --commit or --meta.")
         print( "Specify at least one of --book, --docs, --major, --minor, --feature, --commit or --meta to update version(s)." )
 
@@ -83,8 +83,8 @@ def main():
             print( "" )
 
             if not is_wet_run and auto_updated_files:
-                if not RG.is_committing_all_files(git_commit_argv):
-                    if RG.is_committing_specified_files(git_commit_argv):
+                if not RG.is_committing_all_files( git_commit_argv ):
+                    if RG.is_committing_specified_files( git_commit_argv ):
                         git_commit_argv.extend( auto_updated_files )
                     else:
                         git_add = ['git', 'add', '--', ]

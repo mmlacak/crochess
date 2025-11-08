@@ -5,7 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 
-def split_cmd_git_args(argv):
+def split_cmd_git_args( argv ):
     arg_sep_count = 0 # 0 --> script argv, 1 --> git commit argv, 2 --> git push argv
     git_commit_args = False
     git_push_args = False
@@ -14,7 +14,7 @@ def split_cmd_git_args(argv):
     git_commit_argv = []
     git_push_argv = []
 
-    for index, arg in enumerate(argv):
+    for index, arg in enumerate( argv ):
         if arg != '-*-':
             if index > 0: # index == 0 --> arg == '.../crochess/push.py', i.e. executing script, not an argument
                 a = arg
@@ -45,7 +45,7 @@ def split_cmd_git_args(argv):
 
     return (pre_git_argv, git_commit_argv, git_push_argv)
 
-def is_committing_all_files(git_commit_argv):
+def is_committing_all_files( git_commit_argv ):
     if not git_commit_argv:
         return False
 
@@ -58,7 +58,7 @@ def is_committing_all_files(git_commit_argv):
 
     return False
 
-def is_committing_specified_files(git_commit_argv):
+def is_committing_specified_files( git_commit_argv ):
     if not git_commit_argv:
         return False
 
