@@ -46,5 +46,7 @@ class SceneMix( SceneMixin, \
                     # 'scn_mv_014_wave_no_block_castling_rook', \
                     # 'scn_mv_015_wave_block_castling_rook', \
                     # 'scn_mv_029_wave_same_color', \
-                    'scn_mv_030_wave_opposite_color', \
+                    # 'scn_mv_030_wave_opposite_color', \
+                    # 'scn_hd_01_centaur_same_color', \
+                    'scn_hd_02_centaur_opposite_color', \
                 ]

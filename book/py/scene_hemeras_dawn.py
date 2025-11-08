@@ -23,7 +23,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_01_centaur_same_color( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_01_centaur_same_color', bt, y=1, width=7, height=7 )
+        scene = Scene( 'scn_hd_01_centaur_same_color', bt, x=0.7, y=1.7, width=5.6, height=5.6 )
 
         start = (3, 4)
         scene.board.set_piece( *start, piece=PieceType.Centaur )
@@ -39,7 +39,7 @@ class SceneHemerasDawnMixin:
 
     def scn_hd_02_centaur_opposite_color( self, bt=BoardType.HemerasDawn ):
 
-        scene = Scene( 'scn_hd_02_centaur_opposite_color', bt, width=11, height=11 )
+        scene = Scene( 'scn_hd_02_centaur_opposite_color', bt, x=0.7, y=0.7, width=9.6, height=9.6 )
 
         start = (5, 5)
         scene.board.set_piece( *start, piece=PieceType.Centaur )
