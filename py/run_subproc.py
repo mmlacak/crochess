@@ -20,7 +20,7 @@ def one_or_none( lst ):
         raise RuntimeError( "List too long, expected single element at most, got '%s'." % str( lst ) )
 
 def capture_option( starts_with, str_lst ):
-    return one_or_none( [ i[ len(sw) : ] for sw in starts_with for i in str_lst if i.startswith(sw) ] )
+    return one_or_none( [ i[ len( sw ) : ] for sw in starts_with for i in str_lst if i.startswith( sw ) ] )
 
 def run_process( cmd_args_list, cwd=None ):
     output_str = ""

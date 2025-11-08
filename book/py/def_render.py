@@ -15,7 +15,7 @@ class RenderingSizeEnum( int ):
 
     def __new__( cls, value ):
         if RenderingSizeEnum._is_valid( value ):
-            return super(RenderingSizeEnum, cls).__new__(cls, value)
+            return super( RenderingSizeEnum, cls ).__new__( cls, value )
         else:
             raise ValueError( "No such a rendering type, received '%s'." % (str( value ), ) )
 

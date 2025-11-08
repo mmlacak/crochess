@@ -20,7 +20,7 @@ class DrawBoard( DrawPiece ):
 
     def __init__( self, board_or_type, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=None ):
         assert isinstance( board_or_type, (Board, BoardType) )
-        assert isinstance( board_view, (BoardView, type(None)) )
+        assert isinstance( board_view, (BoardView, type( None )) )
 
         self.board = board_or_type if isinstance( board_or_type, Board) else Board(board_or_type )
         self.board_view = board_view or BoardView( board_type=self.board.type )
@@ -73,7 +73,7 @@ class DrawBoard( DrawPiece ):
         # return self.board.is_light( i, j ) # TODO :: FIX :: in text / <action> light and dark interiors are switched, test on Hemera's Dawn
 
     def draw_field( self, i, j, cshade=None ):
-        assert isinstance( cshade, (ColorsShade, type(None)) )
+        assert isinstance( cshade, (ColorsShade, type( None )) )
 
         x, y = self.get_field_start( i, j )
         cs = cshade if self.board.is_on_board( i, j ) else Colors[ BoardType.none ].field

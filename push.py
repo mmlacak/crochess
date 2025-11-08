@@ -70,7 +70,7 @@ def main():
         print( "" )
 
         if is_debug:
-            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s, meta: %s." % (str( is_book), str(is_docs), str(is_major), str(is_minor), str(is_feature), str(is_commit), str(is_meta) ) )
+            print( "Updating versions of book: %s, docs: %s, major: %s, minor: %s, feature: %s, commit: %s, meta: %s." % (str( is_book ), str( is_docs ), str( is_major ), str( is_minor ), str( is_feature ), str( is_commit ), str( is_meta )) )
 
         if not is_dry_run:
             auto_updated_files = UV.replace_all_entries( PROJECT_ROOT_PATH, is_book, is_docs, is_major, is_minor, is_feature, is_commit, is_meta, count, breaks )

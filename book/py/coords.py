@@ -11,7 +11,7 @@ class Pos( object ):
         assert isinstance( x, (int, float) )
         assert isinstance( y, (int, float) )
 
-        assert type(x) is type(y)
+        assert type( x ) is type( y )
 
         self.x = x
         self.y = y
@@ -32,7 +32,7 @@ class RectPos( object ):
         assert isinstance( right, (int, float) )
         assert isinstance( bottom, (int, float) )
 
-        assert type( left) is type(top) is type(right) is type(bottom )
+        assert type( left ) is type( top ) is type( right ) is type( bottom )
 
         self.left = left
         self.top = top

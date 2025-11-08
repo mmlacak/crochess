@@ -33,15 +33,15 @@ def get_coord_offset( coord, offset=0.5 ):
     return float( coord + offset) if isinstance( coord, int ) else float(coord )
 
 def recalc_arrow_ends( start_i, start_j, end_i, end_j ):
-    starts_are_ints = bool( isinstance(start_i, int) and isinstance(start_j, int) )
-    starts_are_floats = bool( isinstance(start_i, float) and isinstance(start_j, float) )
+    starts_are_ints = bool( isinstance( start_i, int ) and isinstance( start_j, int ) )
+    starts_are_floats = bool( isinstance( start_i, float ) and isinstance( start_j, float ) )
     assert xor( starts_are_ints, starts_are_floats, default=False ), \
-           "Unexpected types for starting i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type( start_i), type( start_j ) )
+           "Unexpected types for starting i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type( start_i ), type( start_j ))
 
-    ends_are_ints = bool( isinstance(end_i, int) and isinstance(end_j, int) )
-    ends_are_floats = bool( (isinstance(end_i, float) and isinstance(end_j, float)) )
+    ends_are_ints = bool( isinstance( end_i, int ) and isinstance( end_j, int ) )
+    ends_are_floats = bool( (isinstance( end_i, float ) and isinstance( end_j, float )) )
     assert xor( ends_are_ints, ends_are_floats, default=False ), \
-           "Unexpected types for ending i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type( end_i), type( end_j ) )
+           "Unexpected types for ending i and j (or, x and y), found ('%s', '%s'), expected both to be either ints or floats." % (type( end_i ), type( end_j ))
 
     if starts_are_ints or ends_are_ints:
         diff_i = end_i - start_i
@@ -134,7 +134,7 @@ class Scene:
 
         w = float( width ) if width is not None else None
         h = float( height ) if height is not None else None
-        self.board_view = board_view or BoardView( x=float(x), y=float(y), width=w, height=h, reverse_off_board_field_colors=reverse_off_board_field_colors, margin=margin, board_type=bt, skip_if_rendering_board=skip_if_rendering_board )
+        self.board_view = board_view or BoardView( x=float( x ), y=float( y ), width=w, height=h, reverse_off_board_field_colors=reverse_off_board_field_colors, margin=margin, board_type=bt, skip_if_rendering_board=skip_if_rendering_board )
 
         self.arrows = [] # :: [ mark.Arrow, ... ]
         self.texts = [] # :: [ mark.Text, ... ]
@@ -156,7 +156,7 @@ class Scene:
         crnr = Corner( corner )
         _default = DEFAULT_CORNER_MARGINS_WITH_FIELD_MARKER if crnr.is_with_field_marker() else DEFAULT_CORNER_MARGINS
         _rect = rect if rect is not None else _default
-        left, top, right, bottom = _rect.as_tuple() if isinstance(_rect, RectPos) else _rect
+        left, top, right, bottom = _rect.as_tuple() if isinstance( _rect, RectPos ) else _rect
 
         get_text_position = get_func_get_text_position( left=left, top=top, right=right, bottom=bottom )
         pos_x, pos_y = get_text_position( pos_i, pos_j, crnr )

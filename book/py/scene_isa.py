@@ -32,7 +32,7 @@ class SceneIsa( SceneMixin ):
         return scene
 
     def find_piece( self, scene, piece_type, search_light=True, search_queen_side=True ):
-        pos_0, pos_max = scene.board.get_position_limits() # ((0, 0), (w, h) )
+        pos_0, pos_max = scene.board.get_position_limits() # ((0, 0), (w, h))
 
         # pos +1 and -1, because range() does not include end limit into iteration.
         i_start, i_end, i_diff = (pos_0[0], pos_max[0]+1, 1) if search_queen_side else (pos_max[0], pos_0[0]-1, -1)
@@ -160,7 +160,7 @@ class SceneIsa( SceneMixin ):
                     # empty field
                     if  scene.board.is_on_board( *next_ ):
                         scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
-                    elif ( pt.is_dark() and current[1] < 5) or (pt.is_light() and current[1] > scene.board.get_height() - 5 ):
+                    elif ( pt.is_dark() and current[ 1 ] < 5) or (pt.is_light() and current[ 1 ] > scene.board.get_height() - 5 ):
                         # close to opponent's initial positions
                         for _i, r in enumerate( rel_capture ):
                             n = GS.add_step( r, previous )
@@ -261,8 +261,8 @@ class SceneIsa( SceneMixin ):
                             new_scene.append_arrow( *(current + next_), mark_type=MarkType.Legal )
                             scene_has_content = True
                     else:
-                        diff = 2 + 4 if self.check_centaur_rel_move(rel) else 2 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
-                        if ( pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > scene.board.get_height() - diff ):
+                        diff = 2 + 4 if self.check_centaur_rel_move( rel ) else 2 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
+                        if ( pt.is_dark() and current[ 1 ] < diff) or (pt.is_light() and current[ 1 ] > scene.board.get_height() - diff):
                             # close to opponent's initial positions
                             if rel_previous is not None:
                                 prev = GS.sub_step( current, rel_previous )
@@ -289,7 +289,7 @@ class SceneIsa( SceneMixin ):
                     current = next_
 
                 if scene_has_content:
-                    new_scene.file_name = "%s_%02d_%02d_%02d_%02d_%02d" % (pt.get_label(), i, rel_1[0], rel_1[1], rel_2[0], rel_2[1])
+                    new_scene.file_name = "%s_%02d_%02d_%02d_%02d_%02d" % (pt.get_label(), i, rel_1[ 0 ], rel_1[ 1 ], rel_2[ 0 ], rel_2[ 1 ])
                     yield new_scene
 
     def pattern_centaur_dir( self, scene, piece_type ):
@@ -347,8 +347,8 @@ class SceneIsa( SceneMixin ):
                                 # empty field
                                 scene_has_content = False
                         else:
-                            diff = 2 + 4 if self.check_centaur_rel_move(rel) else 2 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
-                            if ( pt.is_dark() and current[1] < diff) or (pt.is_light() and current[1] > new_scene.board.get_height() - diff ):
+                            diff = 2 + 4 if self.check_centaur_rel_move( rel ) else 2 + 1 # 2 default ranks (figures + Pawns) + max vertical step + 1 for strict check
+                            if ( pt.is_dark() and current[ 1 ] < diff) or (pt.is_light() and current[1] > new_scene.board.get_height() - diff ):
                                 # close to opponent's initial positions
                                 if rel_previous is not None:
                                     prev = GS.sub_step( current, rel_previous )

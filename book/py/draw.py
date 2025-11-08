@@ -21,7 +21,7 @@ class Draw:
     def __init__( self, width_pix, height_pix, field_size_in_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", color_space=cairo.Format.RGB24 ): # ARGB32
         assert isinstance( width_pix, int )
         assert isinstance( height_pix, int )
-        assert isinstance(field_size_in_pix, float) # Scaling factor of device units (pixels), from user coords (== field size).
+        assert isinstance( field_size_in_pix, float ) # Scaling factor of device units (pixels), from user coords (== field size).
         assert isinstance( color_space, cairo.Format )
 
         # Device coords.
@@ -30,7 +30,7 @@ class Draw:
         self.field_size_in_pix = field_size_in_pix
 
         self.surface = cairo.ImageSurface( color_space, width_pix, height_pix )
-        self.surface.set_device_scale(field_size_in_pix, field_size_in_pix) # Device coords (pixels) are scaled against user units == field size.
+        self.surface.set_device_scale( field_size_in_pix, field_size_in_pix ) # Device coords (pixels) are scaled against user units == field size.
 
         # User coords.
         self.width = self.width_pix / self.field_size_in_pix

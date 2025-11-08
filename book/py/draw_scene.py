@@ -22,13 +22,13 @@ class DrawScene( DrawMark ):
         assert isinstance( scene.board, Board )
         assert isinstance( scene.board_view, BoardView )
 
-        super(DrawScene, self).__init__(scene.board, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=scene.board_view)
+        super( DrawScene, self ).__init__( scene.board, max_width_pix, max_height_pix, line_width=DEFAULT_LINE_WIDTH, color_str="#FFFFFF", board_view=scene.board_view )
 
         self.scene = scene
 
     def draw_scene( self, colors_item, mark_def_item=None ):
         assert isinstance( colors_item, ColorsItem )
-        assert isinstance( mark_def_item, (MarkDefItem, type(None)) )
+        assert isinstance( mark_def_item, (MarkDefItem, type( None )) )
 
         self.draw_board( colors_item )
 

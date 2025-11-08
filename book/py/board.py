@@ -276,7 +276,7 @@ class BoardType( int ):
 
 
 def get_opposites( pieces ):
-    return [ PT( p).get_opposite() for p in pieces ]
+    return [ PT(p).get_opposite() for p in pieces ]
 
 def remove_pieces( pieces, to_remove=(PT.Queen, -PT.Queen) ):
     return [ PT(p) for p in pieces if p not in to_remove ]

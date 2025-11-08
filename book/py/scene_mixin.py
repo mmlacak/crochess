@@ -11,7 +11,7 @@ class SceneMixin:
         raise NotImplementedError( '_get_recent_scene_method_names' )
 
     def _get_all_scene_method_names( self, prefix='scn_' ):
-        return [ n for n in dir(self) if n.startswith(prefix) ] # or n.startswith('move_')
+        return [ n for n in dir( self ) if n.startswith( prefix ) ] # or n.startswith( 'move_' )
 
     def _get_attributes( self, names ):
         return [ getattr( self, a ) for a in names ]

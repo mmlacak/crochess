@@ -112,7 +112,7 @@ def convert_to_rgba( color_str, default_a_str="FF" ):
     assert color_str[0] == '#'
 
     r_str, g_str, b_str, a_str = color_str[1:3], color_str[3:5], color_str[5:7], color_str[7:9] if len( color_str ) == 9 else default_a_str
-    r, g, b, a = int( r_str, base=16), int(g_str, base=16), int(b_str, base=16), int(a_str, base=16 )
+    r, g, b, a = int( r_str, base=16), int( g_str, base=16 ), int( b_str, base=16 ), int( a_str, base=16 )
     return ( r / 255.0, g / 255.0, b / 255.0, a / 255.0 )
 
 
