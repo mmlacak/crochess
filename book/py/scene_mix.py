@@ -38,15 +38,6 @@ class SceneMix( SceneMixin, \
     # overrides
     def _get_recent_scene_method_names( self ):
         return  [
-                    # 'scn_ct_01_pegasus_initial', \
-                    # 'scn_ma_19_pyramid_vs_king', \
-                    # 'scn_ma_20_pyramid_vs_bishop', \
-                    # 'scn_aoa_01_unicorn_same_color', \
-                    # 'scn_mv_013_wave_no_block_castling_king', \
-                    # 'scn_mv_014_wave_no_block_castling_rook', \
-                    # 'scn_mv_015_wave_block_castling_rook', \
-                    # 'scn_mv_029_wave_same_color', \
-                    # 'scn_mv_030_wave_opposite_color', \
                     # 'scn_hd_01_centaur_same_color', \
                     # 'scn_hd_02_centaur_opposite_color', \
                     # 'scn_hd_15_scout_movement', \
@@ -55,5 +46,15 @@ class SceneMix( SceneMixin, \
                     # 'scn_hd_20_scout_rerouting', \
                     # 'scn_hd_21_scout_rerouting_first_step', \
                     # 'scn_hd_22_scout_rerouting_pawn_wall', \
-                    'scn_hd_30_scout_en_passant', \
+                    # 'scn_hd_30_scout_en_passant', \
+                    # 'scn_hd_40_grenadier_fields', \
+                    # 'scn_hd_42_grenadier_movement_transition', \
+                    # 'scn_hd_43_grenadier_forking_steps', \
+                    # 'scn_hd_44_grenadier_vertical_steps', \
+                    # 'scn_hd_45_grenadier_horizontal_steps', \
+                    # 'scn_hd_46_grenadier_close_quarters_transition', \
+                    # 'scn_hd_47_grenadier_blocked_steps', \
+                    # 'scn_hd_48_grenadier_not_blocked_steps', \
+                    'scn_hd_59_grenadier_en_passant', \
+                    'scn_hd_60_grenadier_en_passant_self_extended', \
                 ]
