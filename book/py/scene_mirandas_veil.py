@@ -475,7 +475,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_013_wave_no_block_castling_king( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_013_wave_no_block_castling_king', bt, height=1.7 )
+        scene = Scene( 'scn_mv_013_wave_no_block_castling_king', bt, height=1.3 )
 
         start_K = (8, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -519,7 +519,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_014_wave_no_block_castling_rook( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_014_wave_no_block_castling_rook', bt, height=1.7 )
+        scene = Scene( 'scn_mv_014_wave_no_block_castling_rook', bt, height=1.3 )
 
         prev_K = (8, 0)
         start_K = (3, 0)
@@ -550,7 +550,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_015_wave_block_castling_rook( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_015_wave_block_castling_rook', bt, height=1.7 )
+        scene = Scene( 'scn_mv_015_wave_block_castling_rook', bt, height=1.3 )
 
         prev_K = (8, 0)
         start_K = (4, 0)
@@ -843,12 +843,8 @@ class SceneMirandasVeilMixin:
         start_B = (9, 13)
         scene.board.set_piece( *start_B, piece=PieceType.Bishop )
 
-        # start_ = (12, 10)
-
         # P(A) --> W
         scene.append_arrow( *( start_P + start_W ), mark_type=MarkType.Action )
-
-        # scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
 
         return scene
 
@@ -898,21 +894,6 @@ class SceneMirandasVeilMixin:
             mark_type = MarkType.Action if i == 2 else \
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
-
-        # # W --> *
-        # start_ = (12, 10)
-
-        # # W --> * --> (forward)
-        # coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        # for i, arrow in enumerate( coords_W_4_() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        # # W --> * --> (left)
-        # coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        # for i, arrow in enumerate( coords_W_5_() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        # scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
 
         return scene
 
@@ -994,21 +975,6 @@ class SceneMirandasVeilMixin:
                         MarkType.Legal
             scene.append_arrow( *arrow, mark_type=mark_type )
 
-        # # W --> *
-        # start_ = (12, 10)
-
-        # # W --> * --> (forward)
-        # coords_W_4_ = GS.gen_steps( start=start_, rels=[ (0, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        # for i, arrow in enumerate( coords_W_4_() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        # # W --> * --> (left)
-        # coords_W_5_ = GS.gen_steps( start=start_, rels=[ (-1, 1), ], include_prev=True, bounds=scene.board_view.get_position_limits() ) # , count=4 )
-        # for i, arrow in enumerate( coords_W_5_() ):
-        #     scene.append_arrow( *arrow, mark_type=MarkType.Illegal )
-
-        # scene.append_text( "A", *start_, mark_type=MarkType.Illegal, corner=Corner.UpperRightFieldMarker )
-
         return scene
 
     #
@@ -1016,7 +982,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_029_wave_same_color( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_029_wave_same_color', bt, y=1, width=7, height=7 )
+        scene = Scene( 'scn_mv_029_wave_same_color', bt, x=0.7, y=1.7, width=5.6, height=5.6 )
 
         start = (3, 4)
         scene.board.set_piece( *start, piece=PieceType.Wave )
@@ -1031,7 +997,7 @@ class SceneMirandasVeilMixin:
 
     def scn_mv_030_wave_opposite_color( self, bt=BoardType.MirandasVeil ):
 
-        scene = Scene( 'scn_mv_030_wave_opposite_color', bt, width=11, height=11 )
+        scene = Scene( 'scn_mv_030_wave_opposite_color', bt, x=0.7, y=0.7, width=9.6, height=9.6 )
 
         start = (5, 5)
         scene.board.set_piece( *start, piece=PieceType.Wave )

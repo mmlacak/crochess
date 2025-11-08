@@ -20,9 +20,9 @@ class SceneAgeOfAquariusMixin:
     def scn_aoa_01_unicorn_same_color( self, bt=BoardType.AgeOfAquarius ):
         # move_unicorn_same_color
 
-        scene = Scene( 'scn_aoa_01_unicorn_same_color', bt, x=1.0, y=0.0, width=5, height=5 )
+        scene = Scene( 'scn_aoa_01_unicorn_same_color', bt, x=1.7, y=0.7, width=5.6, height=5.6 )
 
-        start = (3, 2)
+        start = (4, 3)
         scene.board.set_piece( *start, piece=PieceType.Unicorn )
 
         gen_abs_pos = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=scene.board_view.get_position_limits() )
