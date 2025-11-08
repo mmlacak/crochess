@@ -21,9 +21,9 @@ class SceneCroatianTiesMixin:
     def scn_ct_01_pegasus_initial( self, bt=BoardType.CroatianTies ):
         # move_pegasus_initial
 
-        scene = Scene( 'scn_ct_01_pegasus_initial', bt, x=1.0, y=0.0, width=5, height=5 )
+        scene = Scene( 'scn_ct_01_pegasus_initial', bt, x=1.7, y=0.7, width=5.6, height=5.6 )
 
-        start = (3, 2)
+        start = (4, 3)
         scene.board.set_piece( *start, piece=PieceType.Pegasus )
 
         gen_abs_pos = GS.gen_multi_steps( GS.DEFAULT_KNIGHT_MULTI_REL_MOVES, start=start, bounds=scene.board_view.get_position_limits() )

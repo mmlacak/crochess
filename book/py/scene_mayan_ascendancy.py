@@ -706,7 +706,7 @@ class SceneMayanAscendancyMixin:
     def scn_ma_19_pyramid_vs_king( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_vs_king
 
-        scene = Scene( 'scn_ma_19_pyramid_vs_king', bt, width=12, height=3 )
+        scene = Scene( 'scn_ma_19_pyramid_vs_king', bt, width=12, height=3.3 )
 
         scene.board.set_piece( 4, 0, -PieceType.King )
         scene.board.set_piece( 3, 0, PieceType.Pyramid )
@@ -720,7 +720,7 @@ class SceneMayanAscendancyMixin:
     def scn_ma_20_pyramid_vs_bishop( self, bt=BoardType.MayanAscendancy ):
         # move_pyramid_vs_bishop
 
-        scene = Scene( 'scn_ma_20_pyramid_vs_bishop', bt, width=12, height=3 )
+        scene = Scene( 'scn_ma_20_pyramid_vs_bishop', bt, width=12, height=3.3 )
 
         scene.board.set_piece( 4, 0, -PieceType.Bishop )
         scene.board.set_piece( 3, 0, PieceType.Pyramid )
