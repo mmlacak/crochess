@@ -83,5 +83,30 @@ class SceneMix( SceneMixin, \
                     # 'scn_cot_077_stop_sign_pattern', \
                     # 'scn_cot_080_stop_sign_pattern_unwind', \
 
-                    'scn_d_10_monolith_rerouting_scout', \
+                    # 'scn_d_10_monolith_rerouting_scout', \
+
+                    # 'scn_o_01_starchild_movement', \
+                    # 'scn_o_02_starchild_activating_own_starchild', \
+                    # 'scn_o_03_starchild_activating_own_wave', \
+                    # 'scn_o_05_miracle_fields', \
+                    # 'scn_o_09_starchild_moving_star_init', \
+                    # 'scn_o_10_starchild_moving_star_end', \
+                    # 'scn_o_11_starchild_moving_star_activating', \
+                    # 'scn_o_12_star_movement_blocked_init', \
+                    # 'scn_o_13_star_movement_blocked_end', \
+                    # 'scn_o_14_star_rerouting_scout', \
+                    # 'scn_o_20_starchild_activated_wave_not_teleporting_init', \
+                    # 'scn_o_21_starchild_activated_wave_not_teleporting_end', \
+                    # 'scn_o_32_activating_piece_surplus_momentum', \
+                    # 'scn_o_33_diverging_piece_surplus_momentum', \
+                    # 'scn_o_34_starchild_cannot_diverge', \
+                    # 'scn_o_35_wave_cannot_diverge', \
+                    # 'scn_o_40_uplifting_fields', \
+                    # 'scn_o_41_uplifting_init', \
+                    # 'scn_o_42_uplifting_step', \
+                    # 'scn_o_43_uplifting_activated', \
+                    # 'scn_o_44_shaman_initiated_uplifting', \
+                    'scn_o_60_king_castling_not_blocked', \
+                    'scn_o_61_rook_castling_not_blocked', \
+                    'scn_o_62_castling_blocked', \
                 ]

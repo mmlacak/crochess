@@ -23,7 +23,7 @@ class SceneOneMixin:
 
     def scn_o_01_starchild_movement( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_01_starchild_movement', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_01_starchild_movement', bt, width=9.3, height=6.3 )
 
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -44,7 +44,7 @@ class SceneOneMixin:
 
     def scn_o_02_starchild_activating_own_starchild( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_02_starchild_activating_own_starchild', bt, width=9, height=4 )
+        scene = Scene( 'scn_o_02_starchild_activating_own_starchild', bt, width=9.3, height=4.3 )
 
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -58,7 +58,7 @@ class SceneOneMixin:
 
     def scn_o_03_starchild_activating_own_wave( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_03_starchild_activating_own_wave', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_03_starchild_activating_own_wave', bt, width=9.3, height=6.3 )
 
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -75,7 +75,7 @@ class SceneOneMixin:
 
     def scn_o_05_miracle_fields( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_05_miracle_fields', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_05_miracle_fields', bt, width=5.3, height=5.3 )
 
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -139,7 +139,7 @@ class SceneOneMixin:
 
     def scn_o_09_starchild_moving_star_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_09_starchild_moving_star_init', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_09_starchild_moving_star_init', bt, width=5.3, height=5.3 )
 
         start_I = (0, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -174,7 +174,7 @@ class SceneOneMixin:
 
     def scn_o_10_starchild_moving_star_end( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_10_starchild_moving_star_end', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_10_starchild_moving_star_end', bt, width=5.3, height=5.3 )
 
         start_I = (0, 0)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -208,7 +208,7 @@ class SceneOneMixin:
 
     def scn_o_11_starchild_moving_star_activating( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_11_starchild_moving_star_activating', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_11_starchild_moving_star_activating', bt, width=5.3, height=5.3 )
 
         start_I = (0, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -254,7 +254,7 @@ class SceneOneMixin:
 
     def scn_o_12_star_movement_blocked_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_12_star_movement_blocked_init', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_12_star_movement_blocked_init', bt, width=5.3, height=5.3 )
 
         start_I = (0, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -300,7 +300,7 @@ class SceneOneMixin:
 
     def scn_o_13_star_movement_blocked_end( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_13_star_movement_blocked_end', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_13_star_movement_blocked_end', bt, width=5.3, height=5.3 )
 
         start_R_A = (0, 3)
         scene.board.set_piece( *start_R_A, piece=PieceType.Rook )
@@ -349,7 +349,7 @@ class SceneOneMixin:
 
     def scn_o_14_star_rerouting_scout( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_14_star_rerouting_scout', bt, width=10, height=5 )
+        scene = Scene( 'scn_o_14_star_rerouting_scout', bt, width=10.3, height=5.3 )
 
         start_O = (8, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )
@@ -508,7 +508,7 @@ class SceneOneMixin:
 
     def scn_o_20_starchild_activated_wave_not_teleporting_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_20_starchild_activated_wave_not_teleporting_init', bt, width=8, height=8 )
+        scene = Scene( 'scn_o_20_starchild_activated_wave_not_teleporting_init', bt, width=8.3, height=8.3 )
 
         start_I = (5, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -538,7 +538,7 @@ class SceneOneMixin:
 
     def scn_o_21_starchild_activated_wave_not_teleporting_end( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_21_starchild_activated_wave_not_teleporting_end', bt, width=8, height=8 )
+        scene = Scene( 'scn_o_21_starchild_activated_wave_not_teleporting_end', bt, width=8.3, height=8.3 )
 
         start_I = (3, 6)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -703,7 +703,7 @@ class SceneOneMixin:
 
     def scn_o_32_activating_piece_surplus_momentum( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_32_activating_piece_surplus_momentum', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_32_activating_piece_surplus_momentum', bt, width=9.3, height=8.3 )
 
         start_R = (7, 6)
         scene.board.set_piece( *start_R, piece=PieceType.Rook )
@@ -737,7 +737,7 @@ class SceneOneMixin:
 
     def scn_o_33_diverging_piece_surplus_momentum( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_33_diverging_piece_surplus_momentum', bt, width=9, height=8 )
+        scene = Scene( 'scn_o_33_diverging_piece_surplus_momentum', bt, width=9.3, height=8.3 )
 
         prev_R = (7, 6)
         prev_W = (7, 1)
@@ -771,7 +771,7 @@ class SceneOneMixin:
 
     def scn_o_34_starchild_cannot_diverge( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_34_starchild_cannot_diverge', bt, width=9, height=8 ) # , height=5.3 )
+        scene = Scene( 'scn_o_34_starchild_cannot_diverge', bt, width=9.3, height=8.3 ) # , height=5.3 )
 
         # step-field
 
@@ -804,7 +804,7 @@ class SceneOneMixin:
 
     def scn_o_35_wave_cannot_diverge( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_35_wave_cannot_diverge', bt, width=9, height=8 ) # , height=5.3 )
+        scene = Scene( 'scn_o_35_wave_cannot_diverge', bt, width=9.3, height=8.3 ) # , height=5.3 )
 
         # step-field
 
@@ -886,7 +886,7 @@ class SceneOneMixin:
 
     def scn_o_40_uplifting_fields( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_40_uplifting_fields', bt, width=5, height=5 )
+        scene = Scene( 'scn_o_40_uplifting_fields', bt, width=5.3, height=5.3 )
 
         start_I = (2, 2)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -900,7 +900,7 @@ class SceneOneMixin:
 
     def scn_o_41_uplifting_init( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_41_uplifting_init', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_41_uplifting_init', bt, width=9.3, height=6.3 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -925,7 +925,7 @@ class SceneOneMixin:
 
     def scn_o_42_uplifting_step( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_42_uplifting_step', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_42_uplifting_step', bt, width=9.3, height=6.3 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -946,7 +946,7 @@ class SceneOneMixin:
 
     def scn_o_43_uplifting_activated( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_43_uplifting_activated', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_43_uplifting_activated', bt, width=9.3, height=6.3 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -991,7 +991,7 @@ class SceneOneMixin:
 
     def scn_o_44_shaman_initiated_uplifting( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_44_shaman_initiated_uplifting', bt, width=9, height=6 )
+        scene = Scene( 'scn_o_44_shaman_initiated_uplifting', bt, width=9.3, height=6.3 )
 
         start_b = (2, 4)
         scene.board.set_piece( *start_b, piece=-PieceType.Bishop )
@@ -1556,7 +1556,7 @@ class SceneOneMixin:
 
     def scn_o_60_king_castling_not_blocked( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_60_king_castling_not_blocked', bt, height=1.7 )
+        scene = Scene( 'scn_o_60_king_castling_not_blocked', bt, height=1.3 )
 
         start_K = (13, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
@@ -1600,7 +1600,7 @@ class SceneOneMixin:
 
     def scn_o_61_rook_castling_not_blocked( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_61_rook_castling_not_blocked', bt, height=1.7 )
+        scene = Scene( 'scn_o_61_rook_castling_not_blocked', bt, height=1.3 )
 
         prev_K = (13, 0)
         prev_R_A = (1, 0)
@@ -1637,7 +1637,7 @@ class SceneOneMixin:
 
     def scn_o_62_castling_blocked( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_62_castling_blocked', bt, height=1.7 )
+        scene = Scene( 'scn_o_62_castling_blocked', bt, height=1.3 )
 
         prev_K = (13, 0)
         prev_R_A = (1, 0)
