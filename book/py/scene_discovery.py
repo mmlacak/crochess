@@ -492,7 +492,7 @@ class SceneDiscoveryMixin:
 
     def scn_d_10_monolith_rerouting_scout( self, bt=BoardType.Discovery ):
 
-        scene = Scene( 'scn_d_10_monolith_rerouting_scout', bt, width=9, height=5 )
+        scene = Scene( 'scn_d_10_monolith_rerouting_scout', bt, width=9.3, height=5.3 )
 
         start_O = (1, 2)
         scene.board.set_piece( *start_O, piece=PieceType.Scout )

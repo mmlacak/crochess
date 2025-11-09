@@ -74,12 +74,14 @@ class SceneMix( SceneMixin, \
                     # 'scn_cot_049_diverging_activated_shaman', \
                     # 'scn_cot_050_cannot_diverge_activated_shaman', \
                     # 'scn_cot_070_trance_fields', \
-                    'scn_cot_071_entrancement_init', \
-                    'scn_cot_072_entrancement_step', \
-                    'scn_cot_073_entrancement_activated', \
-                    'scn_cot_074_entrancement_repositioning', \
-                    'scn_cot_075_entrancement_cascade', \
-                    'scn_cot_076_knight_directions', \
-                    'scn_cot_077_stop_sign_pattern', \
-                    'scn_cot_080_stop_sign_pattern_unwind', \
+                    # 'scn_cot_071_entrancement_init', \
+                    # 'scn_cot_072_entrancement_step', \
+                    # 'scn_cot_073_entrancement_activated', \
+                    # 'scn_cot_074_entrancement_repositioning', \
+                    # 'scn_cot_075_entrancement_cascade', \
+                    # 'scn_cot_076_knight_directions', \
+                    # 'scn_cot_077_stop_sign_pattern', \
+                    # 'scn_cot_080_stop_sign_pattern_unwind', \
+
+                    'scn_d_10_monolith_rerouting_scout', \
                 ]
