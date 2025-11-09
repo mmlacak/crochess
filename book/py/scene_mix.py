@@ -66,4 +66,20 @@ class SceneMix( SceneMixin, \
                     # 'scn_tr_06_serpent_loop_illegal', \
 
                     # 'scn_tr_30_ritual_starting_fields', \
+
+                    # 'scn_cot_003_light_shaman_step_ply_no_capture', \
+                    # 'scn_cot_044_king_cannot_diverge', \
+                    # 'scn_cot_045_diverging_stepping_shaman', \
+                    # 'scn_cot_046_diverging_capturing_shaman', \
+                    # 'scn_cot_049_diverging_activated_shaman', \
+                    # 'scn_cot_050_cannot_diverge_activated_shaman', \
+                    # 'scn_cot_070_trance_fields', \
+                    'scn_cot_071_entrancement_init', \
+                    'scn_cot_072_entrancement_step', \
+                    'scn_cot_073_entrancement_activated', \
+                    'scn_cot_074_entrancement_repositioning', \
+                    'scn_cot_075_entrancement_cascade', \
+                    'scn_cot_076_knight_directions', \
+                    'scn_cot_077_stop_sign_pattern', \
+                    'scn_cot_080_stop_sign_pattern_unwind', \
                 ]
