@@ -2362,20 +2362,17 @@ teleporting piece (Star) is introduced.
                       | <new-active-figure>
                       | <passive-figure>
 
-<activateable-piece> =
-  <activateable-figure> | <pawn>
-
 <disposable-figure> =
 <promote-to-figure> =
   <activateable-figure>
+
+<disposable-piece> =
+  <disposable-figure> | <pawn>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<disposable-piece> =
-  <disposable-figure> | <pawn>
-
 <piece-transparent-to-wave> =
   <disposable-piece> | \alg{K} | \alg{T}
 
@@ -2404,25 +2401,29 @@ teleporting piece (Star) is introduced.
 <private-losing-tag> =
   <pawn-losing-tag>
 | <trooper>[<losing-rushing-tag>]
+
+<active-piece-losing-tag> =
+  <active-figure>
+| \alg{R}[<losing-castling-tag>]
+| <private-losing-tag>
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
-<active-piece-losing-tag> =
-  <active-figure>
-| \alg{R}[<losing-castling-tag>]
-| <private-losing-tag>
-
 <capturing-active-figure-losing-tag> =
   <capturing-active-figure>
 | \alg{R}[<losing-castling-tag>]
-| <trooper><losing-rushing-tag>
+| <trooper>[<losing-rushing-tag>]
+
+<capturing-piece-losing-tag> =
+  <capturing-active-figure-losing-tag>
+| <pawn-losing-tag>
 
 <activateable-piece-losing-tag> =
   <activateable-figure>
 | <capturing-active-figure-losing-tag>
-| <private-losing-tag>
+| <pawn-losing-tag>
 
 <disposable-figure-losing-tag> =
   <disposable-figure>
@@ -2430,7 +2431,7 @@ teleporting piece (Star) is introduced.
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
-| <private-losing-tag>
+| <pawn-losing-tag>
 
 <capturing-side-effect> =
   [\alg{*}[<disposable-piece-losing-tag>]]
@@ -2490,30 +2491,30 @@ teleporting piece (Star) is introduced.
 <stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>[<transparency-side-effect>
-          | <divergence-side-effect>]\}
+  \{<step>[ <transparency-side-effect>
+          | <divergence-side-effect> ]\}
   (<step> | \alg{-}<field>)
 
 <wave-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>[<wave-transparency-side-effect>
-          | <divergence-side-effect>]\}
+  \{<step>[ <wave-transparency-side-effect>
+          | <divergence-side-effect> ]\}
   (<step> | \alg{-}<field>)
 
 <serpent-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>[<pawn-displacement-side-effect>
-          | <transparency-side-effect>]\}
+  \{<step>[ <pawn-displacement-side-effect>
+          | <transparency-side-effect> ]\}
   (<step> | \alg{-}<field>)
 
 <shaman-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
-  \{<step>[<transparency-side-effect>
+  \{<step>[ <transparency-side-effect>
           | <divergence-side-effect>
-          | <capturing-side-effect>]\}
+          | <capturing-side-effect> ]\}
   (<step> | \alg{-}<field>)
 \end{alltt}
 
@@ -2565,6 +2566,41 @@ teleporting piece (Star) is introduced.
   <pawn-sacrifice-init>
   [<pawn-sacrifice-steps>]
 
+<trance-journey-init> =
+  \alg{H}<stepping-no-side-effects>
+
+<journey-start> =
+  [<disambiguation>][\alg{\textbackslash}<field>]
+
+<trance-journey> =
+  <trance-journey-init>\alg{@H}<journey-start>
+  \{<step>
+    [(\alg{<}[<disposable-piece-losing-tag>]<field>
+      | \alg{*}[<disposable-piece-losing-tag>])]\}
+| <trance-journey-init>\alg{@H}
+    [<disambiguation>]<field>
+| <trance-journey-init>\alg{@@}
+  [<disposable-piece-losing-tag>[<field>]
+    [\{,<disposable-piece-losing-tag>
+      [<field>]\}]]
+| <trance-journey-init>\alg{@@@}[\alg{H}]
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<sense-journey-init> =
+  (\alg{I}|\alg{H})<stepping-no-side-effects>
+  \alg{~I}<stepping-no-side-effects>
+
+<sense-journey> =
+  <sense-journey-init>\alg{"}
+  <activateable-piece-losing-tag>
+  <journey-start>
+  <stepping-no-side-effects>
+| <sense-journey-init>\alg{'}
+  [<activateable-piece-losing-tag>]
+
 <starting-ply> =
   <active-piece-losing-tag><stepping>
 | \alg{S}<serpent-stepping>
@@ -2586,20 +2622,23 @@ teleporting piece (Star) is introduced.
 \begin{alltt}
 <stand-alone-ply> =
   <capturing-piece-losing-tag><stepping>
-  [(<capturing-side-effect>
+  [ ( <capturing-side-effect>
     | <teleportation-ply>
-    | <pyramid-cascading-plies>)]
+    | <pyramid-cascading-plies> ) ]
 | <private-losing-tag><stepping>
-  [(<en-passant-side-effect>
-    | <teleportation-ply>)]
+  [<en-passant-side-effect>]
 | \alg{S}<serpent-stepping>
-  [(<capturing-side-effect>
-    | <teleportation-ply>)]
+  [ ( <capturing-side-effect>
+    | <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
 | \alg{H}<shaman-stepping>
-  [(<capturing-side-effect>
-    | <teleportation-ply>)]
+  [ ( <capturing-side-effect>
+    | <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
 | <capturing-pawn-promotion-ply>
-| <pawn-sacrifice-ply>[<teleportation-ply>]
+| <pawn-sacrifice-ply>
+  [ ( <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
 
 <terminating-ply> =
   <stand-alone-ply>
@@ -2615,41 +2654,6 @@ teleporting piece (Star) is introduced.
 | <pawn-promotion-ply>
 | <passive-piece><stepping>
 | <pawn-sacrifice-ply>
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<trance-journey-init> =
-  \alg{H}<stepping-no-side-effects>
-
-<journey-start> =
-  [<disambiguation>][\alg{\textbackslash}<field>]
-
-<trance-journey> =
-  <trance-journey-init>\alg{@H}<journey-start>
-  \{<step>
-    [(\alg{<}[<disposable-piece-losing-tag>]<field>
-      | \alg{*}[<disposable-piece-losing-tag>])]\}
-| <trance-journey-init>\alg{@H}
-    [<disambiguation>]<field>
-| <trance-journey-init>\alg{@@}
-  [<disposable-piece-losing-tag>[<field>]
-    [\{,<disposable-piece-losing-tag>
-      [<field>]\}]]
-| <trance-journey-init>\alg{@@@}[\alg{H}]
-
-<sense-journey-init> =
-  (\alg{I}|\alg{H})<stepping-no-side-effects>
-  \alg{~I}<stepping-no-side-effects>
-
-<sense-journey> =
-  <sense-journey-init>\alg{"}
-  <activateable-piece-losing-tag>
-  <journey-start>
-  <stepping-no-side-effects>
-| <sense-journey-init>\alg{'}
-  [<activateable-piece-losing-tag>]
 \end{alltt}
 
 \clearpage % ..........................................................
