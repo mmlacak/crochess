@@ -2601,64 +2601,6 @@ teleporting piece (Star) is introduced.
 | <sense-journey-init>\alg{'}
   [<activateable-piece-losing-tag>]
 
-<starting-ply> =
-  <active-piece-losing-tag><stepping>
-| \alg{S}<serpent-stepping>
-| \alg{H}<shaman-stepping>
-| <pawn-promotion-ply>
-| \alg{K}<losing-castling-tag><stepping>
-| \alg{I}<stepping-no-side-effects>
-    [<resurrecting-side-effect>]
-| <pawn-sacrifice-ply>
-
-<cascading-plies> =
-  [\{\alg{~A}<stepping>\}]
-  \{\alg{~W}<wave-stepping>\}
-  [\{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\}]
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
-<stand-alone-ply> =
-  <capturing-piece-losing-tag><stepping>
-  [ ( <capturing-side-effect>
-    | <teleportation-ply>
-    | <pyramid-cascading-plies> ) ]
-| <private-losing-tag><stepping>
-  [<en-passant-side-effect>]
-| \alg{S}<serpent-stepping>
-  [ ( <capturing-side-effect>
-    | <teleportation-ply>
-    | <pyramid-cascading-plies> ) ]
-| \alg{H}<shaman-stepping>
-  [ ( <capturing-side-effect>
-    | <teleportation-ply>
-    | <pyramid-cascading-plies> ) ]
-| <capturing-pawn-promotion-ply>
-| <pawn-sacrifice-ply>
-  [ ( <teleportation-ply>
-    | <pyramid-cascading-plies> ) ]
-
-<terminating-ply> =
-  <stand-alone-ply>
-| <activateable-piece-losing-tag><stepping>
-  [<teleportation-ply>]
-| <pyramid-promoting-ply>
-| <pyramid-converting-ply>
-
-<cascaded-ply> =
-  <activateable-piece-losing-tag><stepping>
-| \alg{S}<serpent-stepping>
-| \alg{H}<shaman-stepping>
-| <pawn-promotion-ply>
-| <passive-piece><stepping>
-| <pawn-sacrifice-ply>
-\end{alltt}
-
-\clearpage % ..........................................................
-
-\begin{alltt}
 <star-movement-ply> =
   \alg{I}<stepping-no-side-effects>
     [<resurrecting-side-effect>]
@@ -2678,6 +2620,68 @@ teleporting piece (Star) is introduced.
 <king-castling-ply> =
   \alg{K}(<file> | <stepping-no-side-effects>)
   <castling-side-effect>
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<starting-ply> =
+( <active-piece-losing-tag><stepping>
+| \alg{S}<serpent-stepping>
+| \alg{H}<shaman-stepping>
+| <pawn-promotion-ply>
+| \alg{K}<losing-castling-tag><stepping>
+| <pawn-sacrifice-ply> )
+  [<pyramid-cascading-plies>]
+| \alg{I}<stepping-no-side-effects>
+    [<resurrecting-side-effect>]
+
+<stand-alone-ply> =
+  <capturing-piece-losing-tag><stepping>
+  [ ( <capturing-side-effect>
+    | <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
+| <private-losing-tag><stepping>
+  [<en-passant-side-effect>]
+| \alg{S}<serpent-stepping>
+  [ ( <capturing-side-effect>
+    | <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
+| \alg{H}<shaman-stepping>
+  [ ( <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
+| <capturing-pawn-promotion-ply>
+| <pawn-sacrifice-ply>
+  [ ( <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
+
+<cascading-plies> =
+  [\{\alg{~A}<stepping>\}]
+  \{\alg{~W}<wave-stepping>\}
+  [\{(\alg{~}|\alg{|})\alg{W}<wave-stepping>\}]
+\end{alltt}
+
+\clearpage % ..........................................................
+
+\begin{alltt}
+<terminating-ply> =
+  <stand-alone-ply>
+| <activateable-piece-losing-tag><stepping>
+  [ ( <teleportation-ply>
+    | <pyramid-cascading-plies> ) ]
+| <pyramid-promoting-ply>
+| <pyramid-converting-ply>
+
+<cascaded-ply> =
+  <activateable-piece-losing-tag><stepping>
+  [<pyramid-cascading-plies>]
+| \alg{S}<serpent-stepping>
+  [<pyramid-cascading-plies>]
+| \alg{H}<shaman-stepping>
+  [<pyramid-cascading-plies>]
+| <pawn-promotion-ply>
+| <passive-piece><stepping>
+| <pawn-sacrifice-ply>
 
 <cascade> =
   <stand-alone-ply>
