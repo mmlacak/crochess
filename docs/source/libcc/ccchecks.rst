@@ -177,12 +177,12 @@ Positional checks
     :param rook_dest: Rook's destination field after castling.
     :returns: :c:data:`true` if pieces can castle from given position, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_find_en_passant_target( CcChessboard * cb, CcPieceTagType private, CcActivationDesc act_desc, bool is_first_ply, CcPos destination, CcPosDesc * target__o )
+.. c:function:: bool cc_find_en_passant_target( CcChessboard * cb, CcPieceTagType capturing, CcActivationDesc act_desc, bool is_first_ply, CcPos destination, CcPosDesc * target__o )
 
     Function finds a private to be captured by en passant, its location and tag.
 
     :param cb: Current chessboard.
-    :param private: A moving private, capturing en passant.
+    :param capturing: A moving private, capturing en passant.
     :param act_desc: An activation descriptor.
     :param is_first_ply: Flag, if current ply is first in a cascade.
     :param destination: Destination of a :c:var:`private`, where activation takes place.

@@ -81,7 +81,7 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
                                     CcPos rook_dest );
 
 bool cc_find_en_passant_target( CcChessboard * cb,
-                                CcPieceTagType private,
+                                CcPieceTagType capturing,
                                 CcActivationDesc act_desc,
                                 bool is_first_ply,
                                 CcPos destination,

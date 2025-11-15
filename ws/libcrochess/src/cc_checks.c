@@ -307,7 +307,7 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
 }
 
 bool cc_find_en_passant_target( CcChessboard * cb,
-                                CcPieceTagType private,
+                                CcPieceTagType capturing,
                                 CcActivationDesc act_desc,
                                 bool is_first_ply,
                                 CcPos destination,
@@ -315,15 +315,15 @@ bool cc_find_en_passant_target( CcChessboard * cb,
     if ( !cb ) return false;
     if ( !target__o ) return false;
 
-    if ( !CC_PIECE_IS_VALID( private ) ) return false;
-    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( private ) ) return false;
+    if ( !CC_PIECE_IS_VALID( capturing ) ) return false;
+    if ( !CC_PIECE_CAN_CAPTURE_EN_PASSANT( capturing ) ) return false;
 
     // Do not remove, cc_chessboard_get_piece() returns empty field if position is outside chessboard.
     if ( !cc_chessboard_is_pos_on_board( cb, destination.i, destination.j ) ) return false;
 
-    bool is_piece_light = CC_PIECE_IS_LIGHT( private );
+    bool is_capturing_piece_light = CC_PIECE_IS_LIGHT( capturing );
 
-    if ( is_piece_light ) { // En passant can only be done on opposite side of a chessboard.
+    if ( is_capturing_piece_light ) { // En passant can only be done on opposite side of a chessboard.
         if ( cc_chessboard_is_field_on_light_side( cb, destination.j ) ) return false;
     } else {
         if ( cc_chessboard_is_field_on_dark_side( cb, destination.j ) ) return false;
@@ -333,16 +333,16 @@ bool cc_find_en_passant_target( CcChessboard * cb,
     CcPieceTagType encounter = cc_chessboard_get_piece( cb, destination.i, destination.j );
     if ( encounter != CC_PTE_None ) {
         // Function checks its arguments, and -by extension- ours act_desc.
-        if ( !cc_check_piece_can_activate_at( cb, private, act_desc, is_first_ply, destination, CC_STE_CaptureOnly ) ) return false;
+        if ( !cc_check_piece_can_activate_at( cb, capturing, act_desc, is_first_ply, destination, CC_STE_CaptureOnly ) ) return false;
     }
 
-    int diff = is_piece_light ? -1 : 1;
+    int j_diff = is_capturing_piece_light ? -1 : 1;
     CcPos pos = destination;
     CcPieceTagType target = CC_PTE_None;
     bool found = false;
 
     do {
-        pos = cc_pos_add( pos, 0, diff );
+        pos = cc_pos_add( pos, 0, j_diff );
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;
 
         target = cc_chessboard_get_piece( cb, pos.i, pos.j );
@@ -352,7 +352,7 @@ bool cc_find_en_passant_target( CcChessboard * cb,
         }
     } while ( !found );
 
-    if ( found && cc_piece_has_different_owner( private, target ) ) {
+    if ( found && cc_piece_has_different_owner( capturing, target ) ) {
         *target__o = (CcPosDesc){ .pos = pos, .piece = target };
         return true;
     }
