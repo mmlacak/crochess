@@ -196,7 +196,7 @@ Positional checks
     :returns: :c:data:`true` if target private was found, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_check_piece_can_activate_at()`
 
-.. c:function:: bool cc_find_first_piece( CcChessboard * cb, CcPieceTagType piece, CcPos start, CcPos step, CcPosDesc * found__o )
+.. c:function:: bool cc_find_first_piece( CcChessboard * cb, CcPieceTagType piece, CcPos start, CcPos step, bool ignore_tags, CcPosDesc * found__o )
 
     Function searches for a given :c:var:`piece`, starting from :c:var:`start` position,
     and advancing in :c:var:`step` direction.
@@ -205,14 +205,17 @@ Positional checks
 
     Piece and its position, if found, is returned via *output* parameter :c:var:`found__o`.
 
-    Given and encountered pieces are compared exactly (tags are significant),
-    e.g. function won't find :c:enumerator:`CC_PTE_LightKing_CanCastle`, if
-    :c:enumerator:`CC_PTE_LightKing` was given.
+    Given and encountered pieces are compared exactly (tags are significant) if :c:var:`ignore_tags`
+    is :c:data:`false`, otherwise tags are stripped and only base piece types are compared.
+
+    For instance, function will find :c:enumerator:`CC_PTE_LightKing_CanCastle` for a given
+    :c:enumerator:`CC_PTE_LightKing` only if :c:var:`ignore_tags` was :c:data:`true`.
 
     :param cb: A chessboard.
     :param piece: A piece to find.
     :param start: Search starting position.
     :param step: A step.
+    :param ignore_tags: A flag, whether tags are compared, or stripped.
     :param found__o: An *output*; piece and its position, if found.
     :returns: :c:data:`true` if piece was found, :c:data:`false` otherwise.
 

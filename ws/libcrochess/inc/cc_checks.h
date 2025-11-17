@@ -90,11 +90,11 @@ bool cc_find_en_passant_target( CcChessboard * cb,
 //
 // Finders
 
-// TODO :: DOCS
 bool cc_find_first_piece( CcChessboard * cb,
                           CcPieceTagType piece,
                           CcPos start,
                           CcPos step,
+                          bool ignore_tags,
                           CcPosDesc * found__o );
 
 

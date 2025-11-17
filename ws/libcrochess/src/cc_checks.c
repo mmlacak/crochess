@@ -364,12 +364,15 @@ bool cc_find_first_piece( CcChessboard * cb,
                           CcPieceTagType piece,
                           CcPos start,
                           CcPos step,
+                          bool ignore_tags,
                           CcPosDesc * found__o ) {
     if ( !cb ) return false;
     if ( !found__o ) return false;
 
     if ( !CC_PIECE_IS_VALID( piece ) ) return false;
 
+    CcPieceTagType p = ignore_tags ? cc_piece_strip_tag( piece )
+                                   : piece;
     CcPos pos = start;
     CcPieceTagType ptt = CC_PTE_None;
     bool found = false;
@@ -379,7 +382,10 @@ bool cc_find_first_piece( CcChessboard * cb,
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;
 
         ptt = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        if ( ptt == piece ) {
+        if ( ignore_tags )
+            ptt = cc_piece_strip_tag( ptt );
+
+        if ( ptt == p ) {
             found = true;
             break;
         }
