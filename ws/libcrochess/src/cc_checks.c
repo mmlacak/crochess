@@ -306,6 +306,9 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
     return true;
 }
 
+//
+// Finders
+
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType capturing,
                                 CcActivationDesc act_desc,
@@ -364,37 +367,38 @@ bool cc_find_first_piece( CcChessboard * cb,
                           CcPieceTagType piece,
                           CcPos start,
                           CcPos step,
-                          bool ignore_tags,
+                          bool check_start_pos,
+                          bool compare_tags,
                           CcPosDesc * found__o ) {
     if ( !cb ) return false;
     if ( !found__o ) return false;
 
     if ( !CC_PIECE_IS_VALID( piece ) ) return false;
+    if ( !cc_chessboard_is_pos_on_board( cb, start.i, start.j ) ) return false;
 
-    CcPieceTagType p = ignore_tags ? cc_piece_strip_tag( piece )
-                                   : piece;
-    CcPos pos = start;
+    CcPieceTagType p = compare_tags ? piece
+                                    : cc_piece_strip_tag( piece );
+    CcPieceTagType encounter = CC_PTE_None;
     CcPieceTagType ptt = CC_PTE_None;
-    bool found = false;
 
-    while ( !found ) {
-        pos = cc_pos_add_steps( pos, step, 1 );
+    CcPos pos = check_start_pos ? start
+                                : cc_pos_add_steps( pos, step, 1 );
+
+    do {
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;
 
-        ptt = cc_chessboard_get_piece( cb, pos.i, pos.j );
-        if ( ignore_tags )
-            ptt = cc_piece_strip_tag( ptt );
+        ptt = encounter = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        if ( !compare_tags )
+            ptt = cc_piece_strip_tag( encounter );
 
         if ( ptt == p ) {
-            found = true;
-            break;
+            found__o->piece = encounter;
+            found__o->pos = pos;
+            return true;
         }
-    };
 
-    if ( found ) {
-        found__o->piece = ptt;
-        found__o->pos = pos;
-    }
+        pos = cc_pos_add_steps( pos, step, 1 );
+    } while ( true );
 
-    return found;
+    return false;
 }

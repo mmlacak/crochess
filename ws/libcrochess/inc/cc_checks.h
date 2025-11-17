@@ -80,6 +80,9 @@ bool cc_check_castling_step_fields( CcChessboard * cb,
                                     CcPos rook_start,
                                     CcPos rook_dest );
 
+//
+// Finders
+
 bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPieceTagType capturing,
                                 CcActivationDesc act_desc,
@@ -87,14 +90,12 @@ bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPos destination,
                                 CcPosDesc * target__o );
 
-//
-// Finders
-
 bool cc_find_first_piece( CcChessboard * cb,
                           CcPieceTagType piece,
                           CcPos start,
                           CcPos step,
-                          bool ignore_tags,
+                          bool check_start_pos,
+                          bool compare_tags,
                           CcPosDesc * found__o );
 
 

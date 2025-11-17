@@ -177,15 +177,21 @@ Positional checks
     :param rook_dest: Rook's destination field after castling.
     :returns: :c:data:`true` if pieces can castle from given position, :c:data:`false` otherwise.
 
+.. _lbl-libcc-ccchecks-functions-finders:
+
+Finders
+^^^^^^^
+
 .. c:function:: bool cc_find_en_passant_target( CcChessboard * cb, CcPieceTagType capturing, CcActivationDesc act_desc, bool is_first_ply, CcPos destination, CcPosDesc * target__o )
 
     Function finds a private to be captured by en passant, its location and tag.
 
     .. note::
 
-        Function assumes that it's called when :c:var:`capturing` private is "in-the-air",
-        but all other pieces are still in their original positions, including encountered piece
-        at :c:var:`destination` capture-field, and target (i.e. to be captured) private.
+        Function assumes that it's called when :c:var:`capturing` private is
+        "in-the-air", but all other pieces are still in their original positions,
+        including encountered piece at :c:var:`destination` capture-field, and
+        target (i.e. to be captured) private.
 
     :param cb: Current chessboard.
     :param capturing: A moving private, capturing en passant.
@@ -196,27 +202,30 @@ Positional checks
     :returns: :c:data:`true` if target private was found, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_check_piece_can_activate_at()`
 
-.. c:function:: bool cc_find_first_piece( CcChessboard * cb, CcPieceTagType piece, CcPos start, CcPos step, bool ignore_tags, CcPosDesc * found__o )
+.. c:function:: bool cc_find_first_piece( CcChessboard * cb, CcPieceTagType piece, CcPos start, CcPos step, bool check_start_pos, bool compare_tags, CcPosDesc * found__o )
 
-    Function searches for a given :c:var:`piece`, starting from :c:var:`start` position,
-    and advancing in :c:var:`step` direction.
+    Function searches for a given :c:var:`piece`, starting from :c:var:`start`
+    position, and advancing in :c:var:`step` direction. Starting position is
+    checked depending on :c:var:`check_start_pos` flag.
 
-    Starting position is not checked.
+    Given and encountered pieces are compared exactly (tags are significant) if
+    :c:var:`compare_tags` is :c:data:`true`, otherwise tags are stripped and only
+    base piece types are compared.
 
-    Piece and its position, if found, is returned via *output* parameter :c:var:`found__o`.
+    For instance, function will find :c:enumerator:`CC_PTE_LightKing_CanCastle`
+    for a given :c:enumerator:`CC_PTE_LightKing` only if :c:var:`compare_tags`
+    was :c:data:`false`.
 
-    Given and encountered pieces are compared exactly (tags are significant) if :c:var:`ignore_tags`
-    is :c:data:`false`, otherwise tags are stripped and only base piece types are compared.
-
-    For instance, function will find :c:enumerator:`CC_PTE_LightKing_CanCastle` for a given
-    :c:enumerator:`CC_PTE_LightKing` only if :c:var:`ignore_tags` was :c:data:`true`.
+    If found, encountered piece, its tag and position are returned via *output*
+    parameter :c:var:`found__o`.
 
     :param cb: A chessboard.
     :param piece: A piece to find.
     :param start: Search starting position.
     :param step: A step.
-    :param ignore_tags: A flag, whether tags are compared, or stripped.
-    :param found__o: An *output*; piece and its position, if found.
+    :param check_start_pos: A flag, whether :c:var:`start` position is also checked, or not.
+    :param compare_tags: A flag, whether tags are compared, or stripped.
+    :param found__o: An *output*; an encountered piece, its tag and position, if found.
     :returns: :c:data:`true` if piece was found, :c:data:`false` otherwise.
 
 .. _lbl-libcc-ccchecks-sourcecodeheader:

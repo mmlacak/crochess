@@ -336,6 +336,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
         if ( cc_find_en_passant_target( cb, moving_from.piece, *ad__w, path_ctx__a->ply_ctx.is_first, encounter.pos, &en_passant ) ) {
             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
 
+            // TODO :: FINISH THIS !!!
         }
     }
 
