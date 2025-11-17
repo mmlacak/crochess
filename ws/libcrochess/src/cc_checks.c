@@ -359,3 +359,36 @@ bool cc_find_en_passant_target( CcChessboard * cb,
 
     return false;
 }
+
+bool cc_find_first_piece( CcChessboard * cb,
+                          CcPieceTagType piece,
+                          CcPos start,
+                          CcPos step,
+                          CcPosDesc * found__o ) {
+    if ( !cb ) return false;
+    if ( !found__o ) return false;
+
+    if ( !CC_PIECE_IS_VALID( piece ) ) return false;
+
+    CcPos pos = start;
+    CcPieceTagType ptt = CC_PTE_None;
+    bool found = false;
+
+    while ( !found ) {
+        pos = cc_pos_add_steps( pos, step, 1 );
+        if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;
+
+        ptt = cc_chessboard_get_piece( cb, pos.i, pos.j );
+        if ( ptt == piece ) {
+            found = true;
+            break;
+        }
+    };
+
+    if ( found ) {
+        found__o->piece = ptt;
+        found__o->pos = pos;
+    }
+
+    return found;
+}

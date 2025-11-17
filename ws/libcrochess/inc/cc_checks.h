@@ -87,5 +87,15 @@ bool cc_find_en_passant_target( CcChessboard * cb,
                                 CcPos destination,
                                 CcPosDesc * target__o );
 
+//
+// Finders
+
+// TODO :: DOCS
+bool cc_find_first_piece( CcChessboard * cb,
+                          CcPieceTagType piece,
+                          CcPos start,
+                          CcPos step,
+                          CcPosDesc * found__o );
+
 
 #endif /* __CC_CHECKS_H__ */
