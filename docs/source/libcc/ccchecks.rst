@@ -196,6 +196,26 @@ Positional checks
     :returns: :c:data:`true` if target private was found, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_check_piece_can_activate_at()`
 
+.. c:function:: bool cc_find_first_piece( CcChessboard * cb, CcPieceTagType piece, CcPos start, CcPos step, CcPosDesc * found__o )
+
+    Function searches for a given :c:var:`piece`, starting from :c:var:`start` position,
+    and advancing in :c:var:`step` direction.
+
+    Starting position is not checked.
+
+    Piece and its position, if found, is returned via *output* parameter :c:var:`found__o`.
+
+    Given and encountered pieces are compared exactly (tags are significant),
+    e.g. function won't find :c:enumerator:`CC_PTE_LightKing_CanCastle`, if
+    :c:enumerator:`CC_PTE_LightKing` was given.
+
+    :param cb: A chessboard.
+    :param piece: A piece to find.
+    :param start: Search starting position.
+    :param step: A step.
+    :param found__o: An *output*; piece and its position, if found.
+    :returns: :c:data:`true` if piece was found, :c:data:`false` otherwise.
+
 .. _lbl-libcc-ccchecks-sourcecodeheader:
 
 Header file
