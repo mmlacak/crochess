@@ -330,6 +330,7 @@ bool tests_transparencies( void ) {
                     expect_step_over_1 = EXPECTED[ z ][ 5 ];
 
                     found = true;
+                    break;
                 }
             };
 
