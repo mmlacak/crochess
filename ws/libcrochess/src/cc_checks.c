@@ -131,10 +131,8 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
 
-    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false;
-    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // [1]
-
-// TODO :: Wave cannot activate Pyramid, only material pieces
+    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false; // [1] Stars and Monolith can't activate anything.
+    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // [2] Kings and Monoliths can't be activated.
 
     bool wave_moving = CC_PIECE_IS_WAVE( moving );
     bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
@@ -147,29 +145,25 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
 
     if ( starchild_moving ) {
         if ( step_type == CC_STE_Miracle ) {
-            return ( CC_PIECE_IS_STAR( encounter ) && positive_momentum ) ? true
-                                                                          : false;
+            return ( CC_PIECE_IS_STAR( encounter ) && positive_momentum );
         } else if ( step_type == CC_STE_Uplifting ) {
-            // Kings and Monoliths can't be activated at all, already filtered-out at [1].
-            return ( !CC_PIECE_IS_WAVE( encounter ) && !CC_PIECE_IS_STAR( encounter ) ) ? true
-                                                                                        : false;
+            return ( !wave_encounter && !CC_PIECE_IS_STAR( encounter ) ); // Kings and Monoliths already filtered-out at [2].
         }
     }
 
     if ( CC_PIECE_IS_SHAMAN( moving ) ) {
         if ( step_type == CC_STE_Entrancement ) {
-            return ( CC_PIECE_IS_SHAMAN( encounter ) || starchild_encounter ) ? true
-                                                                              : false;
+            return ( CC_PIECE_IS_SHAMAN( encounter ) || starchild_encounter );
         }
     }
 
     if ( !cc_piece_has_same_owner( moving, encounter ) ) return false;
 
     if ( CC_PIECE_IS_PYRAMID( encounter ) ) {
-        return ( CC_STEP_TYPE_IS_CAPTURE( step_type ) && positive_momentum );
+        return ( positive_momentum && !wave_moving && CC_STEP_TYPE_IS_CAPTURE( step_type ) ); // Wave cannot activate Pyramid, only material pieces.
     }
 
-    if ( wave_moving || wave_encounter ) return true; // King encounter already filtered-out at [1].
+    if ( wave_moving || wave_encounter ) return true; // King encounter already filtered-out at [2].
 
     if ( starchild_moving && starchild_encounter ) return true;
 
@@ -209,8 +203,6 @@ bool cc_check_piece_can_activate_at( CcChessboard * cb,
                                      CcStepTypeEnum step_type ) {
     if ( !cb ) return false;
     if ( !CC_POS_IS_LEGAL( destination, cc_chessboard_get_size( cb ) ) ) return false;
-
-// TODO :: Wave cannot activate Pyramid, only material pieces
 
     if ( !cc_activation_desc_is_legal( act_desc, moving, is_first_ply ) ) return false;
 
@@ -382,7 +374,7 @@ bool cc_find_first_piece( CcChessboard * cb,
     CcPieceTagType ptt = CC_PTE_None;
 
     CcPos pos = check_start_pos ? start
-                                : cc_pos_add_steps( pos, step, 1 );
+                                : cc_pos_add_steps( start, step, 1 );
 
     do {
         if ( !cc_chessboard_is_pos_on_board( cb, pos.i, pos.j ) ) break;

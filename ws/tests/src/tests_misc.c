@@ -255,30 +255,40 @@ bool tests_pos_desc_link( void ) {
 }
 
 bool tests_transparencies( void ) {
-    #define PIECES_SIZE (4)
+    #define PIECES_SIZE (5)
 
-    CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
+    CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightPyramid, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
 
     #define EXPECTED_SIZE (PIECES_SIZE * PIECES_SIZE)
     #define RESULTS_SIZE (2 + PIECES_SIZE)
 
     int const EXPECTED[ EXPECTED_SIZE ][ RESULTS_SIZE ] = {
         { CC_PTE_LightBishop, CC_PTE_LightBishop, true, true, false, false },
+        { CC_PTE_LightBishop, CC_PTE_LightPyramid, true, true, false, false },
         { CC_PTE_LightBishop, CC_PTE_LightWave, true, false, false, true },
         { CC_PTE_LightBishop, CC_PTE_Monolith, true, true, false, false },
         { CC_PTE_LightBishop, CC_PTE_LightStarchild, true, false, false, true },
 
+        { CC_PTE_LightPyramid, CC_PTE_LightBishop, true, true, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_LightPyramid, true, true, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_LightWave, true, false, false, true },
+        { CC_PTE_LightPyramid, CC_PTE_Monolith, true, true, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_LightStarchild, true, false, false, true },
+
         { CC_PTE_LightWave, CC_PTE_LightBishop, false, false, true, true },
+        { CC_PTE_LightWave, CC_PTE_LightPyramid, false, false, true, true },
         { CC_PTE_LightWave, CC_PTE_LightWave, false, false, true, true },
         { CC_PTE_LightWave, CC_PTE_Monolith, true, true, false, false },
         { CC_PTE_LightWave, CC_PTE_LightStarchild, false, false, true, true },
 
         { CC_PTE_Monolith, CC_PTE_LightBishop, true, true, false, false },
+        { CC_PTE_Monolith, CC_PTE_LightPyramid, true, true, false, false },
         { CC_PTE_Monolith, CC_PTE_LightWave, true, true, false, false },
         { CC_PTE_Monolith, CC_PTE_Monolith, true, true, false, false },
         { CC_PTE_Monolith, CC_PTE_LightStarchild, true, false, false, true },
 
         { CC_PTE_LightStarchild, CC_PTE_LightBishop, false, false, true, true },
+        { CC_PTE_LightStarchild, CC_PTE_LightPyramid, false, false, true, true },
         { CC_PTE_LightStarchild, CC_PTE_LightWave, false, false, true, true },
         { CC_PTE_LightStarchild, CC_PTE_Monolith, false, false, true, true },
         { CC_PTE_LightStarchild, CC_PTE_LightStarchild, false, false, true, true },
@@ -339,29 +349,41 @@ bool tests_transparencies( void ) {
     }
     printf( "---------------------\n" );
 
+    // > tx 8
     // ---------------------
     // moving -> encounter: results block 0, 1, step over 0, 1 <-- expected block 0, 1, step over 0, 1 == result.
     // .....................
     // B --> B: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // B --> A: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
     // B --> W: 1, 0, 0, 1 <-- 1, 0, 0, 1 == 1.
     // B --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
     // B --> I: 1, 0, 0, 1 <-- 1, 0, 0, 1 == 1.
     // .....................
+    // A --> B: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // A --> A: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // A --> W: 1, 0, 0, 1 <-- 1, 0, 0, 1 == 1.
+    // A --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // A --> I: 1, 0, 0, 1 <-- 1, 0, 0, 1 == 1.
+    // .....................
     // W --> B: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
+    // W --> A: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // W --> W: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // W --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
     // W --> I: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // .....................
     // M --> B: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
+    // M --> A: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
     // M --> W: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
     // M --> M: 1, 1, 0, 0 <-- 1, 1, 0, 0 == 1.
     // M --> I: 1, 0, 0, 1 <-- 1, 0, 0, 1 == 1.
     // .....................
     // I --> B: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
+    // I --> A: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // I --> W: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // I --> M: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // I --> I: 0, 0, 1, 1 <-- 0, 0, 1, 1 == 1.
     // ---------------------
+    // Finished: '1'.
 
     return result;
 }
