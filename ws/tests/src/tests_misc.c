@@ -255,14 +255,20 @@ bool tests_pos_desc_link( void ) {
 }
 
 bool tests_transparencies( void ) {
-    #define PIECES_SIZE (5)
+    #define TEST_TRANSPARENCY_PIECES_SIZE (5)
 
-    CcPieceTagType const PIECES[ PIECES_SIZE ] = { CC_PTE_LightBishop, CC_PTE_LightPyramid, CC_PTE_LightWave, CC_PTE_Monolith, CC_PTE_LightStarchild };
+    CcPieceTagType const TEST_TRANSPARENCY_PIECES[ TEST_TRANSPARENCY_PIECES_SIZE ] = {
+        CC_PTE_LightBishop,
+        CC_PTE_LightPyramid,
+        CC_PTE_LightWave,
+        CC_PTE_Monolith,
+        CC_PTE_LightStarchild,
+    };
 
-    #define EXPECTED_SIZE (PIECES_SIZE * PIECES_SIZE)
-    #define RESULTS_SIZE (2 + PIECES_SIZE)
+    #define TEST_TRANSPARENCY_EXPECTED_SIZE (TEST_TRANSPARENCY_PIECES_SIZE * TEST_TRANSPARENCY_PIECES_SIZE)
+    #define TEST_TRANSPARENCY_RESULTS_SIZE (2 + 4)
 
-    int const EXPECTED[ EXPECTED_SIZE ][ RESULTS_SIZE ] = {
+    int const TEST_TRANSPARENCY_EXPECTED[ TEST_TRANSPARENCY_EXPECTED_SIZE ][ TEST_TRANSPARENCY_RESULTS_SIZE ] = {
         { CC_PTE_LightBishop, CC_PTE_LightBishop, true, true, false, false },
         { CC_PTE_LightBishop, CC_PTE_LightPyramid, true, true, false, false },
         { CC_PTE_LightBishop, CC_PTE_LightWave, true, false, false, true },
@@ -299,12 +305,12 @@ bool tests_transparencies( void ) {
 
     printf( "---------------------\n" );
     printf( "moving -> encounter: results block 0, 1, step over 0, 1 <-- expected block 0, 1, step over 0, 1 == result.\n" );
-    for ( int i = 0; i < PIECES_SIZE; ++i ) {
+    for ( int i = 0; i < TEST_TRANSPARENCY_PIECES_SIZE; ++i ) {
         printf( ".....................\n" );
 
-        for ( int j = 0; j < PIECES_SIZE; ++j ) {
-            CcPieceTagType moving = PIECES[ i ];
-            CcPieceTagType encounter = PIECES[ j ];
+        for ( int j = 0; j < TEST_TRANSPARENCY_PIECES_SIZE; ++j ) {
+            CcPieceTagType moving = TEST_TRANSPARENCY_PIECES[ i ];
+            CcPieceTagType encounter = TEST_TRANSPARENCY_PIECES[ j ];
 
             bool is_blocking_0 = cc_check_piece_is_blocked( moving, encounter, 0 );
             bool is_blocking_1 = cc_check_piece_is_blocked( moving, encounter, 1 );
@@ -319,15 +325,15 @@ bool tests_transparencies( void ) {
             bool expect_step_over_0 = false;
             bool expect_step_over_1 = false;
 
-            for ( int z = 0; z < EXPECTED_SIZE; ++z ) {
-                CcPieceTagType m = EXPECTED[ z ][ 0 ];
-                CcPieceTagType e = EXPECTED[ z ][ 1 ];
+            for ( int z = 0; z < TEST_TRANSPARENCY_EXPECTED_SIZE; ++z ) {
+                CcPieceTagType m = TEST_TRANSPARENCY_EXPECTED[ z ][ 0 ];
+                CcPieceTagType e = TEST_TRANSPARENCY_EXPECTED[ z ][ 1 ];
 
                 if ( m == moving && e == encounter ) {
-                    expect_blocking_0 = EXPECTED[ z ][ 2 ];
-                    expect_blocking_1 = EXPECTED[ z ][ 3 ];
-                    expect_step_over_0 = EXPECTED[ z ][ 4 ];
-                    expect_step_over_1 = EXPECTED[ z ][ 5 ];
+                    expect_blocking_0 = TEST_TRANSPARENCY_EXPECTED[ z ][ 2 ];
+                    expect_blocking_1 = TEST_TRANSPARENCY_EXPECTED[ z ][ 3 ];
+                    expect_step_over_0 = TEST_TRANSPARENCY_EXPECTED[ z ][ 4 ];
+                    expect_step_over_1 = TEST_TRANSPARENCY_EXPECTED[ z ][ 5 ];
 
                     found = true;
                     break;
@@ -389,9 +395,205 @@ bool tests_transparencies( void ) {
     return result;
 }
 
+bool tests_activations( void ) {
+    #define TEST_ACTIVATIONS_PIECES_SIZE (7)
+
+    CcPieceTagType const TEST_ACTIVATIONS_PIECES[ TEST_ACTIVATIONS_PIECES_SIZE ] = {
+        CC_PTE_LightShaman,
+        CC_PTE_LightPyramid,
+        CC_PTE_LightWave,
+        CC_PTE_Monolith,
+        CC_PTE_LightStarchild,
+        CC_PTE_DarkShaman,
+        CC_PTE_DarkWave,
+    };
+
+    #define TEST_ACTIVATIONS_EXPECTED_SIZE (TEST_ACTIVATIONS_PIECES_SIZE * TEST_ACTIVATIONS_PIECES_SIZE)
+    #define TEST_ACTIVATIONS_RESULTS_SIZE (2 + 4)
+
+    int const TEST_ACTIVATIONS_EXPECTED[ TEST_ACTIVATIONS_EXPECTED_SIZE ][ TEST_ACTIVATIONS_RESULTS_SIZE ] = {
+        // { moving, encounter, 0/step, 1/step, 0/capture, 1/capture } || momentum/step_type
+        { CC_PTE_LightShaman, CC_PTE_LightShaman, false, false, false, false },
+        { CC_PTE_LightShaman, CC_PTE_LightPyramid, false, false, false, true },
+        { CC_PTE_LightShaman, CC_PTE_LightWave, true, true, true, true },
+        { CC_PTE_LightShaman, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_LightShaman, CC_PTE_LightStarchild, true, true, true, true },
+        { CC_PTE_LightShaman, CC_PTE_DarkShaman, false, false, false, false },
+        { CC_PTE_LightShaman, CC_PTE_DarkWave, false, false, false, false },
+
+        { CC_PTE_LightPyramid, CC_PTE_LightShaman, false, false, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_LightPyramid, false, false, false, true },
+        { CC_PTE_LightPyramid, CC_PTE_LightWave, true, true, true, true },
+        { CC_PTE_LightPyramid, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_LightStarchild, false, false, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_DarkShaman, false, false, false, false },
+        { CC_PTE_LightPyramid, CC_PTE_DarkWave, false, false, false, false },
+
+        { CC_PTE_LightWave, CC_PTE_LightShaman, false, true, false, true },
+        { CC_PTE_LightWave, CC_PTE_LightPyramid, false, false, false, false },
+        { CC_PTE_LightWave, CC_PTE_LightWave, true, true, true, true },
+        { CC_PTE_LightWave, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_LightWave, CC_PTE_LightStarchild, true, true, true, true },
+        { CC_PTE_LightWave, CC_PTE_DarkShaman, false, false, false, false },
+        { CC_PTE_LightWave, CC_PTE_DarkWave, true, true, true, true },
+
+        { CC_PTE_Monolith, CC_PTE_LightShaman, false, false, false, false },
+        { CC_PTE_Monolith, CC_PTE_LightPyramid, false, false, false, false },
+        { CC_PTE_Monolith, CC_PTE_LightWave, false, false, false, false },
+        { CC_PTE_Monolith, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_Monolith, CC_PTE_LightStarchild, false, false, false, false },
+        { CC_PTE_Monolith, CC_PTE_DarkShaman, false, false, false, false },
+        { CC_PTE_Monolith, CC_PTE_DarkWave, false, false, false, false },
+
+        { CC_PTE_LightStarchild, CC_PTE_LightShaman, false, false, false, false },
+        { CC_PTE_LightStarchild, CC_PTE_LightPyramid, false, false, false, false },
+        { CC_PTE_LightStarchild, CC_PTE_LightWave, true, true, false, false },
+        { CC_PTE_LightStarchild, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_LightStarchild, CC_PTE_LightStarchild, true, true, true, true },
+        { CC_PTE_LightStarchild, CC_PTE_DarkShaman, false, false, false, false },
+        { CC_PTE_LightStarchild, CC_PTE_DarkWave, false, false, false, false },
+
+        { CC_PTE_DarkShaman, CC_PTE_LightShaman, false, false, false, false },
+        { CC_PTE_DarkShaman, CC_PTE_LightPyramid, false, false, false, false },
+        { CC_PTE_DarkShaman, CC_PTE_LightWave, false, false, false, false },
+        { CC_PTE_DarkShaman, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_DarkShaman, CC_PTE_LightStarchild, false, false, false, false },
+        { CC_PTE_DarkShaman, CC_PTE_DarkShaman, false, false, false, false },
+        { CC_PTE_DarkShaman, CC_PTE_DarkWave, true, true, true, true },
+
+        { CC_PTE_DarkWave, CC_PTE_LightShaman, false, false, false, false },
+        { CC_PTE_DarkWave, CC_PTE_LightPyramid, false, false, false, false },
+        { CC_PTE_DarkWave, CC_PTE_LightWave, true, true, true, true },
+        { CC_PTE_DarkWave, CC_PTE_Monolith, false, false, false, false },
+        { CC_PTE_DarkWave, CC_PTE_LightStarchild, false, false, false, false },
+        { CC_PTE_DarkWave, CC_PTE_DarkShaman, false, false, false, true },
+        { CC_PTE_DarkWave, CC_PTE_DarkWave, true, true, true, true },
+        // { moving, encounter, 0/step, 1/step, 0/capture, 1/capture } || momentum/step_type
+    };
+
+    bool result = true;
+    bool found = false;
+
+    printf( "---------------------\n" );
+    printf( "moving -> encounter [momentum/step_type: 0/step, 1/step, 0/capture, 1/capture]: results <-- expected == result.\n" );
+    for ( int i = 0; i < TEST_ACTIVATIONS_PIECES_SIZE; ++i ) {
+        printf( ".....................\n" );
+
+        for ( int j = 0; j < TEST_ACTIVATIONS_PIECES_SIZE; ++j ) {
+            CcPieceTagType moving = TEST_ACTIVATIONS_PIECES[ i ];
+            CcPieceTagType encounter = TEST_ACTIVATIONS_PIECES[ j ];
+
+            bool is_step_0 = cc_check_piece_can_activate( moving, encounter, 0, CC_STE_MovementOnly );
+            bool is_step_1 = cc_check_piece_can_activate( moving, encounter, 1, CC_STE_MovementOnly );
+            bool is_capture_0 = cc_check_piece_can_activate( moving, encounter, 0, CC_STE_CaptureOnly );
+            bool is_capture_1 = cc_check_piece_can_activate( moving, encounter, 1, CC_STE_CaptureOnly );
+
+            char moving_chr = cc_piece_as_char( moving );
+            char encounter_chr = cc_piece_as_char( encounter );
+
+            bool expect_step_0 = false;
+            bool expect_step_1 = false;
+            bool expect_capture_0 = false;
+            bool expect_capture_1 = false;
+
+            for ( int z = 0; z < TEST_ACTIVATIONS_EXPECTED_SIZE; ++z ) {
+                CcPieceTagType m = TEST_ACTIVATIONS_EXPECTED[ z ][ 0 ];
+                CcPieceTagType e = TEST_ACTIVATIONS_EXPECTED[ z ][ 1 ];
+
+                if ( m == moving && e == encounter ) {
+                    expect_step_0 = TEST_ACTIVATIONS_EXPECTED[ z ][ 2 ];
+                    expect_step_1 = TEST_ACTIVATIONS_EXPECTED[ z ][ 3 ];
+                    expect_capture_0 = TEST_ACTIVATIONS_EXPECTED[ z ][ 4 ];
+                    expect_capture_1 = TEST_ACTIVATIONS_EXPECTED[ z ][ 5 ];
+
+                    found = true;
+                    break;
+                }
+            };
+
+            if ( found ) {
+                bool r = ( is_step_0 == expect_step_0 ) &&
+                         ( is_step_1 == expect_step_1 ) &&
+                         ( is_capture_0 == expect_capture_0 ) &&
+                         ( is_capture_1 == expect_capture_1 );
+
+                printf( "%c --> %c: %d, %d, %d, %d <-- %d, %d, %d, %d == %d.\n", moving_chr, encounter_chr, is_step_0, is_step_1, is_capture_0, is_capture_1, expect_step_0, expect_step_1, expect_capture_0, expect_capture_1, r );
+                result = r && result;
+            } else {
+                printf( "Unhandled test case: %c --> %c.\n", moving_chr, encounter_chr );
+                result = false;
+            }
+        }
+    }
+    printf( "---------------------\n" );
+
+    // > tx 9
+    // ---------------------
+    // moving -> encounter [momentum/step_type: 0/step, 1/step, 0/capture, 1/capture]: results <-- expected == result.
+    // .....................
+    // H --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // H --> A: 0, 0, 0, 1 <-- 0, 0, 0, 1 == 1.
+    // H --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // H --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // H --> I: 0, 0, 0, 0 <-- 1, 1, 1, 1 == 0.
+    // H --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // H --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // .....................
+    // A --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // A --> A: 0, 0, 0, 1 <-- 0, 0, 0, 1 == 1.
+    // A --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // A --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // A --> I: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // A --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // A --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // .....................
+    // W --> H: 1, 1, 1, 1 <-- 0, 1, 0, 1 == 0.
+    // W --> A: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // W --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // W --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // W --> I: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // W --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // W --> w: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // .....................
+    // M --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // M --> A: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // M --> W: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // M --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // M --> I: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // M --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // M --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // .....................
+    // I --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // I --> A: 0, 0, 0, 1 <-- 0, 0, 0, 0 == 0.
+    // I --> W: 1, 1, 1, 1 <-- 1, 1, 0, 0 == 0.
+    // I --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // I --> I: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // I --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // I --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // .....................
+    // h --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // h --> A: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // h --> W: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // h --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // h --> I: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // h --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // h --> w: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // .....................
+    // w --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // w --> A: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // w --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // w --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // w --> I: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // w --> h: 1, 1, 1, 1 <-- 0, 0, 0, 1 == 0.
+    // w --> w: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
+    // ---------------------
+    // Finished: '0'.
+
+    return result;
+}
 
 bool tests_misc( int test_number ) {
-    if ( ( test_number < TEST_ALL_MOVES ) || ( 8 < test_number ) ) {
+    if ( ( test_number < TEST_ALL_MOVES ) || ( 9 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false;
     }
@@ -422,6 +624,9 @@ bool tests_misc( int test_number ) {
 
     if ( ( test_number == 8 ) || do_all_tests )
         result = tests_transparencies() && result;
+
+    if ( ( test_number == 9 ) || do_all_tests )
+        result = tests_activations() && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;
