@@ -160,10 +160,11 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     if ( !cc_piece_has_same_owner( moving, encounter ) ) return false;
 
     if ( CC_PIECE_IS_PYRAMID( encounter ) ) {
-        return ( positive_momentum && !wave_moving && CC_STEP_TYPE_IS_CAPTURE( step_type ) ); // Wave cannot activate Pyramid, only material pieces.
+        return ( positive_momentum && CC_PIECE_CAN_ACTIVATE_PYRAMID( moving ) && CC_STEP_TYPE_IS_CAPTURE( step_type ) ); // Wave, Starchild cannot activate Pyramid, only material pieces can.
     }
 
-    if ( wave_moving || wave_encounter ) return true; // King encounter already filtered-out at [2].
+    if ( wave_moving || wave_encounter ) // King encounter already filtered-out at [2].
+        return CC_PIECE_IS_WEIGHTLESS( encounter ) || positive_momentum;
 
     if ( starchild_moving && starchild_encounter ) return true;
 

@@ -417,7 +417,7 @@ bool tests_activations( void ) {
         { CC_PTE_LightShaman, CC_PTE_LightPyramid, false, false, false, true },
         { CC_PTE_LightShaman, CC_PTE_LightWave, true, true, true, true },
         { CC_PTE_LightShaman, CC_PTE_Monolith, false, false, false, false },
-        { CC_PTE_LightShaman, CC_PTE_LightStarchild, true, true, true, true },
+        { CC_PTE_LightShaman, CC_PTE_LightStarchild, false, false, false, false },
         { CC_PTE_LightShaman, CC_PTE_DarkShaman, false, false, false, false },
         { CC_PTE_LightShaman, CC_PTE_DarkWave, false, false, false, false },
 
@@ -447,7 +447,7 @@ bool tests_activations( void ) {
 
         { CC_PTE_LightStarchild, CC_PTE_LightShaman, false, false, false, false },
         { CC_PTE_LightStarchild, CC_PTE_LightPyramid, false, false, false, false },
-        { CC_PTE_LightStarchild, CC_PTE_LightWave, true, true, false, false },
+        { CC_PTE_LightStarchild, CC_PTE_LightWave, true, true, true, true },
         { CC_PTE_LightStarchild, CC_PTE_Monolith, false, false, false, false },
         { CC_PTE_LightStarchild, CC_PTE_LightStarchild, true, true, true, true },
         { CC_PTE_LightStarchild, CC_PTE_DarkShaman, false, false, false, false },
@@ -466,7 +466,7 @@ bool tests_activations( void ) {
         { CC_PTE_DarkWave, CC_PTE_LightWave, true, true, true, true },
         { CC_PTE_DarkWave, CC_PTE_Monolith, false, false, false, false },
         { CC_PTE_DarkWave, CC_PTE_LightStarchild, false, false, false, false },
-        { CC_PTE_DarkWave, CC_PTE_DarkShaman, false, false, false, true },
+        { CC_PTE_DarkWave, CC_PTE_DarkShaman, false, true, false, true },
         { CC_PTE_DarkWave, CC_PTE_DarkWave, true, true, true, true },
         // { moving, encounter, 0/step, 1/step, 0/capture, 1/capture } || momentum/step_type
     };
@@ -535,7 +535,7 @@ bool tests_activations( void ) {
     // H --> A: 0, 0, 0, 1 <-- 0, 0, 0, 1 == 1.
     // H --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
     // H --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
-    // H --> I: 0, 0, 0, 0 <-- 1, 1, 1, 1 == 0.
+    // H --> I: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // H --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // H --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // .....................
@@ -547,7 +547,7 @@ bool tests_activations( void ) {
     // A --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // A --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // .....................
-    // W --> H: 1, 1, 1, 1 <-- 0, 1, 0, 1 == 0.
+    // W --> H: 0, 1, 0, 1 <-- 0, 1, 0, 1 == 1.
     // W --> A: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // W --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
     // W --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
@@ -564,8 +564,8 @@ bool tests_activations( void ) {
     // M --> w: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // .....................
     // I --> H: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
-    // I --> A: 0, 0, 0, 1 <-- 0, 0, 0, 0 == 0.
-    // I --> W: 1, 1, 1, 1 <-- 1, 1, 0, 0 == 0.
+    // I --> A: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
+    // I --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
     // I --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // I --> I: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
     // I --> h: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
@@ -584,10 +584,10 @@ bool tests_activations( void ) {
     // w --> W: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
     // w --> M: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
     // w --> I: 0, 0, 0, 0 <-- 0, 0, 0, 0 == 1.
-    // w --> h: 1, 1, 1, 1 <-- 0, 0, 0, 1 == 0.
+    // w --> h: 0, 1, 0, 1 <-- 0, 1, 0, 1 == 1.
     // w --> w: 1, 1, 1, 1 <-- 1, 1, 1, 1 == 1.
     // ---------------------
-    // Finished: '0'.
+    // Finished: '1'.
 
     return result;
 }

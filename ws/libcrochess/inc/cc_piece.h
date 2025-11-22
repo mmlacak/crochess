@@ -116,52 +116,60 @@
 
 #define CC_PIECE_HAS_OPPOSITE(pte) ( ( (pte) != CC_PTE_None ) && ( CC_PTE_DimStar <= (pte) ) && ( (pte) < CC_PTE_Monolith ) )
 
-#define CC_PIECE_HAS_OWNER(pte) ( ( (pte) != CC_PTE_DimStar )              \
-                               && ( (pte) != CC_PTE_BrightStar )           \
+#define CC_PIECE_HAS_OWNER(pte) ( ( (pte) != CC_PTE_DimStar )               \
+                               && ( (pte) != CC_PTE_BrightStar )            \
                                && ( (pte) != CC_PTE_Monolith ) )
 
-#define CC_PIECE_IS_ACTIVATOR(pte) ( ( (pte) != CC_PTE_DimStar )           \
-                                  && ( (pte) != CC_PTE_DarkWave )          \
-                                  && ( (pte) != CC_PTE_LightWave )         \
-                                  && ( (pte) != CC_PTE_BrightStar )        \
+#define CC_PIECE_IS_ACTIVATOR(pte) ( ( (pte) != CC_PTE_DimStar )            \
+                                  && ( (pte) != CC_PTE_DarkWave )           \
+                                  && ( (pte) != CC_PTE_LightWave )          \
+                                  && ( (pte) != CC_PTE_BrightStar )         \
                                   && ( (pte) != CC_PTE_Monolith ) )
 
-#define CC_PIECE_CAN_ACTIVATE(pte) ( ( (pte) != CC_PTE_DimStar )           \
-                                  && ( (pte) != CC_PTE_BrightStar )        \
+#define CC_PIECE_CAN_ACTIVATE(pte) ( ( (pte) != CC_PTE_DimStar )            \
+                                  && ( (pte) != CC_PTE_BrightStar )         \
                                   && ( (pte) != CC_PTE_Monolith ) )
+
+#define CC_PIECE_CAN_ACTIVATE_PYRAMID(pte) ( ( (pte) != CC_PTE_DarkStarchild )     \
+                                          && ( (pte) != CC_PTE_DimStar )           \
+                                          && ( (pte) != CC_PTE_DarkWave )          \
+                                          && ( (pte) != CC_PTE_LightWave )         \
+                                          && ( (pte) != CC_PTE_BrightStar )        \
+                                          && ( (pte) != CC_PTE_LightStarchild )    \
+                                          && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_ACTIVATE_STAR(pte) ( ( (pte) == CC_PTE_DarkStarchild )        \
                                        || ( (pte) == CC_PTE_LightStarchild ) )
 
-#define CC_PIECE_CAN_CAPTURE(pte) ( ( (pte) != CC_PTE_DarkStarchild )      \
-                                 && ( (pte) != CC_PTE_DimStar )            \
-                                 && ( (pte) != CC_PTE_DarkWave )           \
-                                 && ( (pte) != CC_PTE_LightWave )          \
-                                 && ( (pte) != CC_PTE_BrightStar )         \
-                                 && ( (pte) != CC_PTE_LightStarchild )     \
+#define CC_PIECE_CAN_CAPTURE(pte) ( ( (pte) != CC_PTE_DarkStarchild )       \
+                                 && ( (pte) != CC_PTE_DimStar )             \
+                                 && ( (pte) != CC_PTE_DarkWave )            \
+                                 && ( (pte) != CC_PTE_LightWave )           \
+                                 && ( (pte) != CC_PTE_BrightStar )          \
+                                 && ( (pte) != CC_PTE_LightStarchild )      \
                                  && ( (pte) != CC_PTE_Monolith ) )
 
 #define CC_PIECE_CAN_CAPTURE_EN_PASSANT(pte) ( CC_PIECE_IS_PRIVATE( (pte) ) )
 
 #define CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT(pte) ( CC_PIECE_IS_PRIVATE( (pte) ) )
 
-#define CC_PIECE_IS_PASIVE(pte) ( ( (pte) == CC_PTE_DimStar )              \
-                               || ( (pte) == CC_PTE_DarkWave )             \
-                               || ( (pte) == CC_PTE_DarkPyramid )          \
-                               || ( (pte) == CC_PTE_LightPyramid )         \
-                               || ( (pte) == CC_PTE_LightWave )            \
+#define CC_PIECE_IS_PASIVE(pte) ( ( (pte) == CC_PTE_DimStar )               \
+                               || ( (pte) == CC_PTE_DarkWave )              \
+                               || ( (pte) == CC_PTE_DarkPyramid )           \
+                               || ( (pte) == CC_PTE_LightPyramid )          \
+                               || ( (pte) == CC_PTE_LightWave )             \
                                || ( (pte) == CC_PTE_BrightStar ) )
 
-#define CC_PIECE_IS_ACTIVE(pte) ( ( (pte) != CC_PTE_DimStar )              \
-                               && ( (pte) != CC_PTE_DarkWave )             \
-                               && ( (pte) != CC_PTE_DarkPyramid )          \
-                               && ( (pte) != CC_PTE_LightPyramid )         \
-                               && ( (pte) != CC_PTE_LightWave )            \
+#define CC_PIECE_IS_ACTIVE(pte) ( ( (pte) != CC_PTE_DimStar )               \
+                               && ( (pte) != CC_PTE_DarkWave )              \
+                               && ( (pte) != CC_PTE_DarkPyramid )           \
+                               && ( (pte) != CC_PTE_LightPyramid )          \
+                               && ( (pte) != CC_PTE_LightWave )             \
                                && ( (pte) != CC_PTE_BrightStar ) )
 
-#define CC_PIECE_IS_WEIGHTLESS(pte) ( ( (pte) == CC_PTE_DarkStarchild )    \
-                                   || ( (pte) == CC_PTE_DarkWave )         \
-                                   || ( (pte) == CC_PTE_LightWave )        \
+#define CC_PIECE_IS_WEIGHTLESS(pte) ( ( (pte) == CC_PTE_DarkStarchild )     \
+                                   || ( (pte) == CC_PTE_DarkWave )          \
+                                   || ( (pte) == CC_PTE_LightWave )         \
                                    || ( (pte) == CC_PTE_LightStarchild ) )
 
 // TODO :: DOCS :: Wave cannot activate Pyramid, only material pieces

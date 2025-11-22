@@ -398,6 +398,13 @@ Features
     :param pte: A piece, :c:type:`CcPieceTagEnum` value.
     :returns: :c:data:`true` if piece can activate other piece, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_CAN_ACTIVATE_PYRAMID(pte)
+
+    Macro to check if given piece can activate a Pyramid.
+
+    :param pte: A piece, :c:type:`CcPieceTagEnum` value.
+    :returns: :c:data:`true` if piece can activate a Pyramid, :c:data:`false` otherwise.
+
 .. c:macro:: CC_PIECE_CAN_ACTIVATE_STAR(pte)
 
     Macro to check if given piece can activate a Star.
