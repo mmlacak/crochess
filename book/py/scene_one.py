@@ -42,9 +42,32 @@ class SceneOneMixin:
     #
     # Activating on step-fields
 
-    def scn_o_02_starchild_activating_own_starchild( self, bt=BoardType.One ):
+    def scn_o_02_wave_activating_starchild( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_02_starchild_activating_own_starchild', bt, width=9.3, height=4.3 )
+        scene = Scene( 'scn_o_02_wave_activating_starchild', bt, width=9.3, height=4.3 )
+
+        start_N = (0, 2)
+        scene.board.set_piece( *start_N, piece=PieceType.Knight )
+
+        start_W = (1, 0)
+        scene.board.set_piece( *start_W, piece=PieceType.Wave )
+
+        start_I = (7, 3)
+        scene.board.set_piece( *start_I, piece=PieceType.Starchild )
+
+        scene.append_arrow( *(start_N + start_W), mark_type=MarkType.Legal )
+
+        gen_W_I = GS.gen_steps( [(2, 1), ], start_W, include_prev=True, count=3 )
+        for i, arr in enumerate( gen_W_I() ):
+            mt = MarkType.Action if i == 2 else \
+                 MarkType.Legal
+            scene.append_arrow( *arr, mark_type=mt )
+
+        return scene
+
+    def scn_o_03_starchild_activating_own_starchild( self, bt=BoardType.One ):
+
+        scene = Scene( 'scn_o_03_starchild_activating_own_starchild', bt, width=9.3, height=4.3 )
 
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
@@ -52,21 +75,21 @@ class SceneOneMixin:
         start_W = (7, 2)
         scene.board.set_piece( *start_W, piece=PieceType.Starchild )
 
-        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Action )
 
         return scene
 
-    def scn_o_03_starchild_activating_own_wave( self, bt=BoardType.One ):
+    def scn_o_04_starchild_activating_own_wave( self, bt=BoardType.One ):
 
-        scene = Scene( 'scn_o_03_starchild_activating_own_wave', bt, width=9.3, height=6.3 )
+        scene = Scene( 'scn_o_04_starchild_activating_own_wave', bt, width=9.3, height=4.3 )
 
         start_I = (1, 1)
         scene.board.set_piece( *start_I, piece=PieceType.Starchild )
 
-        start_W = (7, 4)
+        start_W = (7, 2)
         scene.board.set_piece( *start_W, piece=PieceType.Wave )
 
-        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Legal )
+        scene.append_arrow( *(start_I + start_W), mark_type=MarkType.Action )
 
         return scene
 

@@ -74,6 +74,7 @@ Star colors in this variant are the opposite of colors of other pieces.
 \begin{wrapfigure}[9]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.357692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_01_starchild_movement.png}
+\vspace*{-0.4\baselineskip}
 \caption{Starchild movement}
 \label{fig:scn_o_01_starchild_movement}
 \end{wrapfigure}
@@ -89,35 +90,50 @@ starting and destination field.
 
 \vspace*{-0.9\baselineskip}
 \noindent
-\begin{wrapfigure}[7]{l}{0.4\textwidth}
+\begin{wrapfigure}[6]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.357692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_starchild_activating_own_starchild.png}
-\caption{Activating Starchild}
-\label{fig:scn_o_02_starchild_activating_own_starchild}
+\includegraphics[width=0.357692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_02_wave_activating_starchild.png}
+\vspace*{-0.4\baselineskip}
+\caption{Activating Starchild by Wave}
+\label{fig:scn_o_02_wave_activating_starchild}
 \end{wrapfigure}
-Starchild can activate own Starchilds on its step-fields, with 1 momentum. Activated
-Starchild moves the same as activating Starchild. Activated Starchild does not spend
-momentum for its movement.
+Wave can activate own Starchild; Wave itself can be activated by any piece (here,
+light Knight).\newline
+\indent
+Activated Starchild does not spend momentum for its movement.
 
-% \vspace*{-0.9\baselineskip}
+\vspace*{1.1\baselineskip}
 \noindent
-\begin{wrapfigure}[10]{l}{0.4\textwidth}
+\begin{wrapfigure}[4]{l}{0.4\textwidth}
 \centering
-\includegraphics[width=0.357692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_activating_own_wave.png}
-\caption{Activating Wave}
-\label{fig:scn_o_03_starchild_activating_own_wave}
+\includegraphics[width=0.357692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_03_starchild_activating_own_starchild.png}
+\vspace*{-0.4\baselineskip}
+\caption{Activating Starchild}
+\label{fig:scn_o_03_starchild_activating_own_starchild}
 \end{wrapfigure}
-Starchild can activate own Waves on its step-fields, with 1 momentum. Activated Wave
-moves the same as Starchild, i.e. to any empty field in opposite color to its starting
-field, without being limited by distance to its destination.\newline
+Starchild can activate own Starchilds on its step-fields.
+
+\clearpage % ..........................................................
+
+% \vspace*{-2.1\baselineskip}
+\noindent
+\begin{wrapfigure}[9]{l}{0.4\textwidth}
+\centering
+\includegraphics[width=0.357692308\textwidth, keepaspectratio=true]{examples/22_o/scn_o_04_starchild_activating_own_wave.png}
+\vspace*{-0.4\baselineskip}
+\caption{Activating Wave}
+\label{fig:scn_o_04_starchild_activating_own_wave}
+\end{wrapfigure}
+Starchild can activate own Waves on its step-fields. Activated Wave moves the same
+as Starchild, i.e. to any empty field in opposite color to its starting field, without
+being limited by distance to its destination.\newline
 \indent
 Activated Wave can also activate opponent's Waves in addition to own Starchilds and
 Waves.
 
-\TODO :: CLARIFY :: Starchild can be activated by any own Wave, which was activated by any piece, not neccessary other Starchild
+% \clearpage % ..........................................................
 
-\clearpage % ..........................................................
-
+% \vspace*{-0.9\baselineskip}
 \subsubsection*{Miracle-fields}
 \addcontentsline{toc}{subsubsection}{Miracle-fields}
 \label{sec:One/Starchild/Movement/Miracle-fields}
@@ -134,7 +150,9 @@ Waves.
 Miracle-fields are all fields immediately surrounding Starchild horizontally,
 vertically and diagonally. They are the same as step-fields of a King.
 
-\vspace*{1.1\baselineskip}
+\clearpage % ..........................................................
+
+% \vspace*{-2.1\baselineskip}
 \subsubsection*{Starchild cannot teleport}
 \addcontentsline{toc}{subsubsection}{Starchild cannot teleport}
 \label{sec:One/Starchild/Movement/Starchild cannot teleport}
@@ -258,7 +276,7 @@ cannot be activated; instead, Starchild is oblationed.
 \begin{wrapfigure}[8]{l}{0.4\textwidth}
 \centering
 \includegraphics[width=0.396153846\textwidth, keepaspectratio=true]{examples/22_o/scn_o_14_star_rerouting_scout.png}
-\vspace*{-0.4\baselineskip}
+\vspace*{-1.4\baselineskip}
 \caption{Rerouting Scout}
 \label{fig:scn_o_14_star_rerouting_scout}
 \end{wrapfigure}
@@ -370,7 +388,7 @@ up, left, and down from Starchild's position.
 
 Wave activated by a Starchild on its neighboring step-field cannot activate
 a Star, and can only
-\hyperref[fig:scn_o_03_starchild_activating_own_wave]{activate own Starchilds, own and opponent's Waves}.
+\hyperref[fig:scn_o_04_starchild_activating_own_wave]{activate own Starchilds, own and opponent's Waves}.
 
 \clearpage % ..........................................................
 
