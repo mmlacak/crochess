@@ -231,9 +231,7 @@ bool cc_check_piece_can_diverge_at( CcChessboard * cb,
     if ( momentum == 0 ) return false;
 
     if ( CC_PIECE_IS_WAVE( moving ) ) {
-        // Not needed, checked within CC_WAVE_CAN_BE_DIVERGED() below.
-        // if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
-
+        if ( !CC_PIECE_IS_ACTIVATOR( activator ) ) return false;
         if ( !CC_WAVE_CAN_BE_DIVERGED( activator ) ) return false;
     } else {
         if ( !CC_PIECE_CAN_BE_DIVERGED( moving ) ) return false;

@@ -472,9 +472,10 @@ Features
 
     Macro to check if Pawn can be promoted to a given piece.
 
-    .. note::
+    Pawn can only be promoted to a piece without any tags.
 
-        Pawn can only be promoted to a piece without any tags.
+    For instance, promoting Pawn to a Rook does not grant castling tag,
+    regardless at which field it was promoted.
 
     :param pte: A piece, :c:type:`CcPieceTagEnum` value.
     :returns: :c:data:`true` if piece can be promoted to, :c:data:`false` otherwise.
@@ -656,16 +657,12 @@ Features
 
     Macro to check if given piece can be diverged.
 
-    .. note::
+    Some pieces can be diverged only sometimes. For instance, Wave can be
+    diverged if it's not activated by e.g. Centaur.
 
-        Some pieces can be diverged only sometimes. For instance, Wave can be
-        diverged if it's not activated by e.g. Centaur.
-
-    .. note::
-
-        All activated pieces when diverging are also restricted by momentum.
-        For instance, Rook normally can diverge, except if it has no momentum
-        when it encounters own Shaman.
+    All activated pieces when diverging are also restricted by momentum.
+    For instance, Rook normally can diverge, except if it has no momentum
+    when it encounters own Shaman.
 
     :param pte: A piece, :c:type:`CcPieceTagEnum` value.
     :returns: :c:data:`true` if piece can be diverged, :c:data:`false` otherwise.
@@ -674,12 +671,16 @@ Features
 
     Macro to check if Wave can be diverged, based on its :term:`activator`.
 
+    Wave can be diverged only if it's not activated by Unicorn, Centaur, or Serpent.
+
     .. note::
 
-        Wave can be diverged only if it's not activated by Unicorn, Centaur, or Serpent.
+        Macro does **not** check if a given :term:`activator` is actually that,
+        use :c:macro:`CC_PIECE_IS_ACTIVATOR()` macro to do that.
 
     :param activator: An :term:`activator`, :c:type:`CcPieceTagType` value.
     :returns: :c:data:`true` if Wave can be diverged, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_PIECE_IS_ACTIVATOR()`
 
 .. c:macro:: CC_PIECE_IS_SINGLE_STEP(pte)
 

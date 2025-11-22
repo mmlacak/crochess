@@ -175,7 +175,6 @@
 // TODO :: DOCS :: Wave cannot activate Pyramid, only material pieces
 #define CC_PIECE_CAN_BE_ACTIVATED(pte) ( ( (pte) != CC_PTE_DarkKing_CanCastle )     \
                                       && ( (pte) != CC_PTE_DarkKing )               \
-                                      && ( (pte) != CC_PTE_None )                   \
                                       && ( (pte) != CC_PTE_LightKing )              \
                                       && ( (pte) != CC_PTE_LightKing_CanCastle )    \
                                       && ( (pte) != CC_PTE_Monolith ) )
@@ -334,11 +333,9 @@
 #define CC_WAVE_CAN_BE_DIVERGED(activator) ( ( (activator) != CC_PTE_DarkCentaur )       \
                                           && ( (activator) != CC_PTE_DarkSerpent )       \
                                           && ( (activator) != CC_PTE_DarkUnicorn )       \
-                                          && ( (activator) != CC_PTE_None )              \
                                           && ( (activator) != CC_PTE_LightUnicorn )      \
                                           && ( (activator) != CC_PTE_LightSerpent )      \
-                                          && ( (activator) != CC_PTE_LightCentaur )      \
-                                          && ( CC_PIECE_IS_ACTIVATOR( (activator) ) ) )
+                                          && ( (activator) != CC_PTE_LightCentaur ) )
 
 #define CC_PIECE_IS_SINGLE_STEP(pte) ( CC_PIECE_IS_PAWN(pte)             \
                                     || CC_PIECE_IS_KNIGHT(pte)           \
