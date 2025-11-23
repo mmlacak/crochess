@@ -149,6 +149,23 @@ Macros
         negative value if an error occurred.
     :seealso: https://en.cppreference.com/w/c/io/fprintf.html
 
+.. c:macro:: CC_CONCAT(token1,token2)
+
+    Macro to concatenate 2 tokens, after arguments expansion.
+
+    :param token1: Valid C token.
+    :param token2: Valid C token.
+    :returns: A concatenated valid C token.
+    :seealso: https://gcc.gnu.org/onlinedocs/cpp/Concatenation.html
+
+.. c:macro:: CC_STRINGIFY(token)
+
+    Macro to stringify given token, after argument expansion.
+
+    :param token: Valid C token.
+    :returns: A stringified valid C token.
+    :seealso: https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html
+
 .. _lbl-libcc-ccdefines-maybebool:
 
 Maybe bool

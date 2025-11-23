@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.357:1536+20251122.022356"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.358:1537+20251123.035405"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -91,9 +91,17 @@ char const * get_game_status_label( CcGameStatusEnum gse ) {
     }
 }
 
+char const * test_error() {
+    return ERROR( "Test failed successfully!" );
+}
+
 
 int main( void ) {
     print_app_intro( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
+
+    // char const * error = ERROR( "Hello world of bugs!" );
+    // printf( "%s\n", error ); // Prints "tests.c[98]: Hello world of bugs!".
+    // printf( "%s\n", test_error() ); // Prints "tests.c[95]: Test failed successfully!".
 
 
 // // DEBUG

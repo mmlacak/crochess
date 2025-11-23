@@ -28,6 +28,8 @@ bool print_all_moves( CcMove * moves, bool is_score );
 
 char const * get_game_status_label( CcGameStatusEnum gse );
 
+char const * test_error();
+
 
 int main(void);
 
