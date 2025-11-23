@@ -166,6 +166,26 @@ Macros
     :returns: A stringified valid C token.
     :seealso: https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html
 
+.. c:macro:: ERROR(msg)
+
+    Macro to concatenate given message after current file name and line number.
+
+    Macro produces compile-time error message which is not allocated,
+    so it's suitable as a return value from functions when they fail.
+
+    .. note::
+
+        Given :c:var:`msg` must be valid compile-time string,
+        i.e. constant, non-:c:data:`NULL` pointer to null-terminated string.
+
+    .. warning::
+
+        Produced error message is not allocated, do not :c:func:`free()` it.
+
+    :param msg: Compile-time, constant string.
+    :returns: A compile-time error message.
+    :seealso: https://en.cppreference.com/w/c/preprocessor/replace.html
+
 .. _lbl-libcc-ccdefines-maybebool:
 
 Maybe bool
