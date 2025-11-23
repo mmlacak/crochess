@@ -166,12 +166,37 @@ Macros
     :returns: A stringified valid C token.
     :seealso: https://gcc.gnu.org/onlinedocs/cpp/Stringizing.html
 
-.. c:macro:: ERROR(msg)
+.. c:macro:: CC_ERROR(msg)
 
-    Macro to concatenate given message after current file name and line number.
+    Macro to concatenate given message after current file name and line number,
+    e.g. :c:`"tests.c[95]: Test failed successfully!"`.
 
-    Macro produces compile-time error message which is not allocated,
-    so it's suitable as a return value from functions when they fail.
+    Macro produces compile-time error message which is not allocated, so it's
+    suitable as a return value from functions returning strings instead of
+    :c:`bool`\eans when they fail.
+
+    For instance, instead of function returning :c:`bool` value to indicate
+    success:
+
+    .. code-block:: C
+        :force:
+
+        bool foo( ... ) {
+            bool result = /* Do something here, and set result. */;
+            return result;
+        }
+
+    it could be rewriten to return :c:`const`\ant string pointer, where
+    :c:data:`NULL` indicates success, and non-:c:data:`NULL` return value
+    is error message:
+
+    .. code-block:: C
+        :force:
+
+        char const * foo( ... ) {
+            bool result = /* Do something here, and set result. */;
+            return result ? NULL : CC_ERROR( "Foo failed!" );
+        }
 
     .. note::
 

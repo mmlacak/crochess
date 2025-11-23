@@ -92,15 +92,15 @@ char const * get_game_status_label( CcGameStatusEnum gse ) {
 }
 
 char const * test_error() {
-    return ERROR( "Test failed successfully!" );
+    return CC_ERROR( "Test failed successfully!" );
 }
 
 
 int main( void ) {
     print_app_intro( CC_LIB_VERSION, CROCHESS_TESTS_VERSION );
 
-    // char const * error = ERROR( "Hello world of bugs!" );
-    // printf( "%s\n", error ); // Prints "tests.c[98]: Hello world of bugs!".
+    // char const * error = CC_ERROR( "Hello world of bugs!" );
+    // printf( "%s\n", error ); // Prints "tests.c[102]: Hello world of bugs!".
     // printf( "%s\n", test_error() ); // Prints "tests.c[95]: Test failed successfully!".
 
 

@@ -65,7 +65,7 @@ typedef unsigned long long cc_ull_t;
 #define CC_STRINGIFY(token) __CC_STRINGIFY__( token )
 
 
-#define ERROR(msg) __FILE__ "[" CC_STRINGIFY( __LINE__ ) "]: " msg
+#define CC_ERROR(msg) __FILE__ "[" CC_STRINGIFY( __LINE__ ) "]: " msg
 
 
 typedef enum CcMaybeBoolEnum {
