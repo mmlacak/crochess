@@ -112,7 +112,7 @@ bool test_bishop_simple( char const * setup ) {
     CcSideEffect se = cc_side_effect_none();
     CcPosDesc move_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
     CcPosDesc ply_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
-    CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_CaptureOrMovement );
+    CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_MovementOrCapture );
     // char const * setup = "O Bd6";
 
     return test_path_segment( se, move_from, ply_from, step, setup );

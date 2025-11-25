@@ -546,7 +546,7 @@ bool cc_path_tree( CcPosDesc moving_from,
 
     // TODO :: DEBUG :: DELETE
     //
-    CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_CaptureOrMovement );
+    CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_MovementOrCapture );
     CcPathNode * path_node__t = NULL;
     CcSideEffect se = cc_side_effect_none();
 

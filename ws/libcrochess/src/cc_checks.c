@@ -34,6 +34,16 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
 //
 // Piece checks
 
+bool cc_check_piece_can_step( CcPieceTagType ptt,
+                              CcStepTypeEnum step_type,
+                              bool strict_check ) {
+    if ( !CC_PIECE_IS_VALID( ptt ) ) return false;
+    if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
+
+
+    return false; // TODO :: FIX
+}
+
 bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,
                                   CcLosingTagType ltt,
                                   bool compare_tag_and_losing_tag ) {

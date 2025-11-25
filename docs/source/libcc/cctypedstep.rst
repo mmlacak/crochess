@@ -158,7 +158,7 @@ Step type enum
 
         Just a step, movement. It can still cause side-effects other than capture.
 
-    .. c:enumerator:: CC_STE_CaptureOrMovement
+    .. c:enumerator:: CC_STE_MovementOrCapture
 
         Capturing step, i.e. movement + capture.
 
@@ -208,7 +208,7 @@ Step type enum
 .. c:macro:: CC_STEP_TYPE_IS_MOVEMENT(ste)
 
     Macro to check if given step type is a movement, i.e. either
-    :c:enumerator:`CC_STE_MovementOnly` or :c:enumerator:`CC_STE_CaptureOrMovement`.
+    :c:enumerator:`CC_STE_MovementOnly` or :c:enumerator:`CC_STE_MovementOrCapture`.
 
     :param ste: Step type, :c:type:`CcStepTypeEnum` value.
     :returns: :c:data:`true` if movement, :c:data:`false` otherwise.
@@ -216,7 +216,7 @@ Step type enum
 .. c:macro:: CC_STEP_TYPE_IS_CAPTURE(ste)
 
     Macro to check if given step type is a movement, i.e. either
-    :c:enumerator:`CC_STE_CaptureOrMovement` or :c:enumerator:`CC_STE_CaptureOnly`.
+    :c:enumerator:`CC_STE_MovementOrCapture` or :c:enumerator:`CC_STE_CaptureOnly`.
 
     :param ste: Step type, :c:type:`CcStepTypeEnum` value.
     :returns: :c:data:`true` if capture, :c:data:`false` otherwise.

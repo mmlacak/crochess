@@ -56,110 +56,104 @@ CcTypedStep const CC_STEPS_DARK_SIDEWAYS_PAWN[ CC_STEPS_SIDEWAYS_PAWN_SIZE ] = {
 
 
 CcTypedStep const CC_STEPS_KNIGHT[ CC_STEPS_KNIGHT_SIZE ] = {
-    { .step = { .i =  2, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j =  2 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  2, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j =  2 }, .type = CC_STE_MovementOrCapture },
 
-    { .step = { .i = -1, .j =  2 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -2, .j =  1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -1, .j =  2 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -2, .j =  1 }, .type = CC_STE_MovementOrCapture },
 
-    { .step = { .i = -2, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j = -2 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -2, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j = -2 }, .type = CC_STE_MovementOrCapture },
 
-    { .step = { .i =  1, .j = -2 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  2, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j = -2 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  2, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_BISHOP[ CC_STEPS_BISHOP_SIZE ] = {
-    { .step = { .i =  1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_ROOK[ CC_STEPS_ROOK_SIZE ] = {
-    { .step = { .i =  1, .j =  0 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  0, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j =  0 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  0, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_QUEEN[ CC_STEPS_QUEEN_SIZE ] = {
-    { .step = { .i =  1, .j =  0 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  0, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j =  0 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  0, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_LONG_UNICORN[ CC_STEPS_LONG_UNICORN_SIZE ] = {
-    { .step = { .i =  4, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  3, .j =  2 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  2, .j =  3 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j =  4 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  4, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  3, .j =  2 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  2, .j =  3 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j =  4 }, .type = CC_STE_MovementOrCapture },
 
-    { .step = { .i = -1, .j =  4 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -2, .j =  3 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -3, .j =  2 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -4, .j =  1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -1, .j =  4 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -2, .j =  3 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -3, .j =  2 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -4, .j =  1 }, .type = CC_STE_MovementOrCapture },
 
-    { .step = { .i = -4, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -3, .j = -2 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -2, .j = -3 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i = -1, .j = -4 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -4, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -3, .j = -2 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -2, .j = -3 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i = -1, .j = -4 }, .type = CC_STE_MovementOrCapture },
 
-    { .step = { .i =  1, .j = -4 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  2, .j = -3 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  3, .j = -2 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  4, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i =  1, .j = -4 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  2, .j = -3 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  3, .j = -2 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  4, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_SERPENT_LEFT[ CC_STEPS_DIAGONAL_SERPENT_SIZE ] = {
-    { .step = { .i = -1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_SERPENT_RIGHT[ CC_STEPS_DIAGONAL_SERPENT_SIZE ] = {
-    { .step = { .i = -1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_MovementOrCapture },
 
     CC_TYPED_STEP_INVALID,
 };
 
 CcTypedStep const CC_STEPS_ALL_SERPENT[ CC_STEPS_ALL_SERPENT_SIZE ] = {
     // Left diagonal steps
-    { .step = { .i = -1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -1, .j =  1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j = -1 }, .type = CC_STE_MovementOrCapture },
 
     // Right diagonal steps
-    { .step = { .i = -1, .j = -1 }, .type = CC_STE_CaptureOrMovement },
-    { .step = { .i =  1, .j =  1 }, .type = CC_STE_CaptureOrMovement },
+    { .step = { .i = -1, .j = -1 }, .type = CC_STE_MovementOrCapture },
+    { .step = { .i =  1, .j =  1 }, .type = CC_STE_MovementOrCapture },
 
     // Color-changing steps
     { .step = { .i =  1, .j =  0 }, .type = CC_STE_ColorChange },
     { .step = { .i =  0, .j =  1 }, .type = CC_STE_ColorChange },
     { .step = { .i = -1, .j =  0 }, .type = CC_STE_ColorChange },
     { .step = { .i =  0, .j = -1 }, .type = CC_STE_ColorChange },
-
-    // Pawn displacement steps
-    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Displacement },
-    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Displacement },
-    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Displacement },
-    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Displacement },
 
     CC_TYPED_STEP_INVALID,
 };
@@ -299,6 +293,16 @@ CcTypedStep const CC_STEPS_MIRACLE_STARCHILD[ CC_STEPS_MIRACLE_STARCHILD_SIZE ] 
     { .step = { .i = -1, .j = -1 }, .type = CC_STE_Miracle },
     { .step = { .i =  0, .j = -1 }, .type = CC_STE_Miracle },
     { .step = { .i =  1, .j = -1 }, .type = CC_STE_Miracle },
+
+    CC_TYPED_STEP_INVALID,
+};
+
+CcTypedStep const CC_STEPS_PAWN_DISPLACEMENT[ CC_STEPS_PAWN_DISPLACEMENT_SIZE ] = {
+    // displacement by Serpent
+    { .step = { .i =  1, .j =  0 }, .type = CC_STE_Displacement },
+    { .step = { .i =  0, .j =  1 }, .type = CC_STE_Displacement },
+    { .step = { .i = -1, .j =  0 }, .type = CC_STE_Displacement },
+    { .step = { .i =  0, .j = -1 }, .type = CC_STE_Displacement },
 
     CC_TYPED_STEP_INVALID,
 };
