@@ -146,6 +146,10 @@ Lengths
     Equals to :c:macro:`CC_STEPS_KNIGHT_LEN`.
 
 
+.. c:macro:: CC_STEPS_PAWN_DISPLACEMENT_LEN
+
+    Equals to ``4``.
+
 .. c:macro:: CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_LEN
 
     Equals to ``44``.
@@ -254,6 +258,10 @@ Piece step sizes
 
     Equals to :c:macro:`CC_STEPS_STARTING_MONOLITH_LEN` + 1.
 
+
+.. c:macro:: CC_STEPS_PAWN_DISPLACEMENT_SIZE
+
+    Equals to :c:macro:`CC_STEPS_PAWN_DISPLACEMENT_LEN` + 1.
 
 .. c:macro:: CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE
 
@@ -393,6 +401,10 @@ similar to null-terminating strings; terminating position is
     Steps array for Monolith, for all variants; equals to
     :c:macro:`CC_STEPS_KNIGHT`.
 
+
+.. c:type:: CcTypedStep const CC_STEPS_PAWN_DISPLACEMENT[ CC_STEPS_PAWN_DISPLACEMENT_SIZE ]
+
+    Displacement steps array for Pawn, initiated by Serpent, for all variants.
 
 .. c:type:: CcTypedStep const CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY[ CC_STEPS_DISPLACEMENT_TRANCE_JOURNEY_SIZE ]
 
