@@ -1762,8 +1762,8 @@ change its movement to horizontal once it started moving diagonally.
 
 Wave can take any initial step, even those activating piece could not. For instance,
 \hyperref[fig:scn_hd_27_scout_activating_wave_step_fields_end]{Wave activated by Scout}
-can take diagonal step, even if Scout itself would not be able to because diagonal
-field does not host opponent's piece.
+can take diagonal step, even if Scout itself would not be able to because e.g.
+diagonal field does not host opponent's piece.
 
 \hyperref[fig:scn_mv_031_wave_activation_by_unicorn_first_step]{Wave activated by Unicorn}
 moves similar to Centaur, it has to keep alternating between two initially chosen
@@ -1795,9 +1795,7 @@ but, only the former can activate Pyramids, if moving diagonally, over its
 capture-fields.
 
 \hyperref[fig:scn_hd_56_grenadier_activated_wave_step_field]{Wave activated by Grenadier}
-moves like a Queen; difference is that only diagonal steps are capture-steps, both
-horizontal and vertical steps are just movement steps.
-
+moves like a Queen.
 Wave cannot be activated by a Star or a Monolith. Wave can teleport, if activated
 by any piece, but Starchild. Wave activated by Starchild cannot neither teleport,
 nor activate a Star.
@@ -1819,6 +1817,86 @@ activated Wave, and on which (step- or capture-) field:
     \vspace*{-0.7\baselineskip}
     \item Wave transfers all of received momentum to a piece it activates.
 \end{itemize}
+
+\clearpage % ..........................................................
+
+\subsection*{Piece steps}
+\addcontentsline{toc}{subsection}{Piece steps}
+\label{sec:Appendix/Piece steps}
+
+% \begin{table}[!h]
+% \centering
+% \begin{tabular}{ ll }
+% \toprule % ===============================================================
+% \textbf{Piece}              & \textbf{Steps}                            \\
+% \midrule % ---------------------------------------------------------------
+% Pawn                        & capture-\footnotemark[1]                  \\
+% Knight                      & capture-                                  \\
+% Bishop                      & capture-                                  \\
+% Rook                        & capture-                                  \\
+% Queen                       & capture-                                  \\
+% King                        & capture-                                  \\
+% \cmidrule{1-2} % .........................................................
+% Pegasus                     & capture-                                  \\
+% Pyramid                     & capture-                                  \\
+% Unicorn                     & capture-                                  \\
+% Wave                        & ---                                       \\
+% Star                        & ---                                       \\
+% Centaur                     & capture-                                  \\
+% Scout                       & capture-\footnotemark[1]                  \\
+% Grenadier                   & capture-\footnotemark[1]                  \\
+% Serpent                     & capture-                                  \\
+% \cmidrule{1-2} % .........................................................
+% \multirow{3}{*}{Shaman}     & capture-\footnotemark[1],                 \\
+%                             & entrancing-,                              \\
+%                             & entranced-                                \\
+% \cmidrule{1-2} % .........................................................
+% Monolith                    & ---                                       \\
+% \cmidrule{1-2} % .........................................................
+% \multirow{2}{*}{Starchild}  & miracle-,                                 \\
+%                             & uplifting-                                \\
+% \bottomrule % ============================================================
+% \end{tabular}
+% \caption{Piece steps}
+% \label{tbl:Appendix/Piece steps}
+% \end{table}
+
+\begin{table}[!h]
+\centering
+\begin{tabular}{ ll }
+\toprule % ===============================================================
+\textbf{Piece}              & \textbf{Steps}                            \\
+\midrule % ---------------------------------------------------------------
+Pawn                        & capture-\footnotemark[1]                  \\
+Knight                      & capture-                                  \\
+Bishop                      & capture-                                  \\
+Rook                        & capture-                                  \\
+Queen                       & capture-                                  \\
+King                        & capture-                                  \\
+\cmidrule{1-2} % .........................................................
+Pegasus                     & capture-                                  \\
+Pyramid                     & capture-                                  \\
+Unicorn                     & capture-                                  \\
+Wave                        & ---                                       \\
+Star                        & ---                                       \\
+Centaur                     & capture-                                  \\
+Scout                       & capture-\footnotemark[1]                  \\
+Grenadier                   & capture-\footnotemark[1]                  \\
+Serpent                     & capture-                                  \\
+Shaman                      & capture-\footnotemark[1], entrancing-, entranced- \\
+Monolith                    & ---                                       \\
+Starchild                   & miracle-, uplifting-                      \\
+\bottomrule % ============================================================
+\end{tabular}
+\caption{Piece steps (beside movement)}
+\label{tbl:Appendix/Piece steps}
+\end{table}
+
+\footnotetext[1]{Movement and capture-steps are separated.}
+
+Table above lists all different steps a piece have in addition to movement step;
+Wave, Star and Monolith don't have any beside movement, and so are denoted with
+\emph{---} (long dash).
 
 \clearpage % ..........................................................
 
