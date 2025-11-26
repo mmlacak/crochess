@@ -35,13 +35,56 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
 // Piece checks
 
 bool cc_check_piece_can_step( CcPieceTagType ptt,
-                              CcStepTypeEnum step_type,
-                              bool strict_check ) {
+                              CcStepTypeEnum step_type ) {
     if ( !CC_PIECE_IS_VALID( ptt ) ) return false;
-    if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
+    // if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false; // Not really needed, default in switch at [1] handles invalid values.
 
+    switch ( step_type ) {
+        case CC_STE_MovementOnly : // Intentional fall-through.
+            return CC_PIECE_IS_PAWN( ptt ) ||
+                   CC_PIECE_IS_WAVE( ptt ) ||
+                   CC_PIECE_IS_SCOUT( ptt ) ||
+                   CC_PIECE_IS_GRENADIER( ptt ) ||
+                   CC_PIECE_IS_SHAMAN( ptt ) ||
+                   CC_PIECE_IS_STAR( ptt ) ||
+                   CC_PIECE_IS_STARCHILD( ptt ) ||
+                   CC_PIECE_IS_MONOLITH( ptt );
 
-    return false; // TODO :: FIX
+        case CC_STE_CaptureOnly :
+            return CC_PIECE_IS_PAWN( ptt ) ||
+                   CC_PIECE_IS_SCOUT( ptt ) ||
+                   CC_PIECE_IS_GRENADIER( ptt ) ||
+                   CC_PIECE_IS_SHAMAN( ptt );
+
+        case CC_STE_MovementOrCapture :
+            return CC_PIECE_IS_KNIGHT( ptt ) ||
+                   CC_PIECE_IS_BISHOP( ptt ) ||
+                   CC_PIECE_IS_ROOK( ptt ) ||
+                   CC_PIECE_IS_QUEEN( ptt ) ||
+                   CC_PIECE_IS_KING( ptt ) ||
+                   CC_PIECE_IS_PEGASUS( ptt ) ||
+                   CC_PIECE_IS_PYRAMID( ptt ) ||
+                   CC_PIECE_IS_UNICORN( ptt ) ||
+                   CC_PIECE_IS_CENTAUR( ptt ) ||
+                   CC_PIECE_IS_SERPENT( ptt );
+
+        case CC_STE_Displacement :
+            return !CC_PIECE_IS_KING( ptt ) &&
+                   !CC_PIECE_IS_STAR( ptt ) &&
+                   !CC_PIECE_IS_MONOLITH( ptt );
+
+        case CC_STE_ColorChange :
+            return CC_PIECE_IS_SERPENT( ptt );
+
+        case CC_STE_Entrancement :
+            return CC_PIECE_IS_SHAMAN( ptt );
+
+        case CC_STE_Uplifting : // Intentional fall-through.
+        case CC_STE_Miracle :
+            return CC_PIECE_IS_STARCHILD( ptt );
+
+        default : return false; // [1]
+    }
 }
 
 bool cc_check_piece_can_lose_tag( CcPieceTagType ptt,

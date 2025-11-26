@@ -45,6 +45,18 @@ Functions
 Piece checks
 ^^^^^^^^^^^^
 
+.. c:function:: bool cc_check_piece_can_step( CcPieceTagType ptt, CcStepTypeEnum step_type )
+
+    Function checks if a piece can use given step type.
+
+    Displacement step is different; a piece can be displaced, but can never take it;
+    so, :c:data:`true` is returned for pieces that can be displaced.
+
+    :param ptt: A piece.
+    :param step_type: A step type.
+    :returns: :c:data:`true` if piece can use given step type,
+        :c:data:`false` otherwise.
+
 .. c:function:: bool cc_check_piece_can_lose_tag( CcPieceTagType piece, CcLosingTagType ltt )
 
     Function checks if a piece can lose given tag.
