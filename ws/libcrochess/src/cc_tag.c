@@ -15,7 +15,7 @@ char cc_tag_as_char( CcPieceTagType ptt ) {
     else if ( CC_PIECE_RUSHED_PREVIOUS( ptt ) ) return CC_TAG_CHAR_RUSHED_PREVIOUS;
     else if ( CC_PIECE_RUSHED_CURRENT( ptt ) ) return CC_TAG_CHAR_RUSHED_CURRENT;
     else
-        return ( CC_PIECE_IS_VALID( ptt ) ) ? CC_TAG_CHAR_PIECE
+        return ( CC_PIECE_IS_VALID( ptt ) ) ? CC_TAG_CHAR_JUST_PIECE
                                             : CC_TAG_CHAR_INVALID;
 }
 

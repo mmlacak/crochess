@@ -40,23 +40,23 @@ console.
     Equals to :c:`'?'`, used for displaying chessboard, if invalid piece and/or
     tag encountered.
 
-.. c:macro:: CC_TAG_CHAR_PIECE
+.. c:macro:: CC_TAG_CHAR_JUST_PIECE
 
     Equals to :c:`'!'`; when displaying tags, used to denote piece without tag.
 
 .. c:macro:: CC_TAG_CHAR_CAN_RUSH
 
-    Equals to ``'^'``, sets-up private which can rush. When displaying tags, it's
+    Equals to :c:`'|'`, sets-up private which can rush. When displaying tags, it's
     used for privates with can rush tag.
 
 .. c:macro:: CC_TAG_CHAR_CAN_CASTLE
 
-    Equals to ``'&'``, sets-up Rook or King which can castle. When displaying tags,
+    Equals to :c:`'&'`, sets-up Rook or King which can castle. When displaying tags,
     it's used for Rooks and Kings which can castle.
 
 .. c:macro:: CC_TAG_CHAR_DELAYED_PROMOTION
 
-    Equals to ``'='``, sets-up Pawn which can be promoted later. When displaying
+    Equals to :c:`'='`, sets-up Pawn which can be promoted later. When displaying
     tags, it's used for Pawn with delayed promotion tag.
 
 .. c:macro:: CC_TAG_CHAR_RUSHED_PREVIOUS
@@ -79,7 +79,8 @@ Functions
     Function returning :term:`tag` char, based on tag enum.
 
     :param ptt: :c:type:`CcPieceTagType` value.
-    :returns: Tag char, one of :c:`CC_TAG_CHAR_*` constants.
+    :returns: Tag type :c:`char`\acter, one of :c:`CC_TAG_CHAR_*`
+        :ref:`lbl-libcc-cctags-characters` constants.
 
 .. _lbl-libcc-cctags-losingtagvalidity:
 

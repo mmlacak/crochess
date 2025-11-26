@@ -46,7 +46,7 @@ static char const * const _end_simple = "o Bh5,Bl1,bd9";
 static char const * const _setup_cascading = "O Bd1,Bd9,Wh5,Rk2";
 static char const * const _end_cascading = "o Bh5,Bd9,Wk2,Ro2";
 
-static char const * const _setup_tags = "O Ra1&,Pa2^,Pb23=,bc24,Pc7,pd8,Pf11E";
+static char const * const _setup_tags = "O Ra1&,Pa2|,Pb23=,bc24,Pc7,pd8,Pf11E";
 // static char const * const _end_tags = "O Bh5,Bd9,Wk2,Ro2";
 
 static char const * const _setup_shaman = "O Hc11,pg10,pk9,po8,As7,Wk15";
@@ -104,12 +104,12 @@ TestArgs const TEST_ARGS_ARRAY[ ] = {
     TEST_ARGS( "B1h5~Wk2~Rr2", _setup_cascading, NULL, _setup_cascading, TEST_FAIL ), // Rook moved for more than received momentum.
 
     // simple losing tags
-    TEST_ARGS( "Rl1", _setup_tags, NULL, "o Rl1,Pa2^,Pb23=,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "R&&l1", _setup_tags, NULL, "o Rl1,Pa2^,Pb23=,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "Rl1", _setup_tags, NULL, "o Rl1,Pa2|,Pb23=,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "R&&l1", _setup_tags, NULL, "o Rl1,Pa2|,Pb23=,bc24,Pc7,pd8,Pf11", TEST_OK ),
     TEST_ARGS( "a9", _setup_tags, NULL, "o Ra1&,Pa9,Pb23=,bc24,Pc7,pd8,Pf11", TEST_OK ),
     TEST_ARGS( "::a9", _setup_tags, NULL, "o Ra1&,Pa9,Pb23=,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "c23", _setup_tags, NULL, "o Ra1&,Pa2^,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
-    TEST_ARGS( "==c23", _setup_tags, NULL, "o Ra1&,Pa2^,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "c23", _setup_tags, NULL, "o Ra1&,Pa2|,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
+    TEST_ARGS( "==c23", _setup_tags, NULL, "o Ra1&,Pa2|,Pc23,bc24,Pc7,pd8,Pf11", TEST_OK ),
 
     // simple losing tags, failures
     TEST_ARGS( "R::l1", _setup_tags, NULL, _setup_tags, TEST_FAIL ), // Wrong losing tag.

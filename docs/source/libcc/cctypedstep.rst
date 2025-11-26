@@ -146,6 +146,59 @@ Multi-stage ply type enum
 Step type enum
 --------------
 
+.. _lbl-libcc-cctypedstep-steptypeenum-characters:
+
+Characters
+^^^^^^^^^^
+
+All :c:`CC_STEP_TYPE_CHAR_*` macro constants are used to represent step type
+a piece can make.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_NONE
+
+    Equals to :c:`' '`, used when there is no step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_INVALID
+
+    Equals to :c:`'?'`, used for displaying invalid step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_MOVEMENT_ONLY
+
+    Equals to :c:`'='`; used for displaying movement-only step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_MOVEMENT_OR_CAPTURE
+
+    Equals to :c:`'#'`; used for displaying movement-or-capture step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_CAPTURE_ONLY
+
+    Equals to :c:`'*'`; used for displaying capture-only step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_DISPLACEMENT
+
+    Equals to :c:`'<'`; used for displaying displacement step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_COLOR_CHANGE
+
+    Equals to :c:`'='`; used for displaying color-change step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_ENTRANCEMENT
+
+    Equals to :c:`'+'`; used for displaying entrancement step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_UPLIFTING
+
+    Equals to :c:`'^'`; used for displaying uplifting step type.
+
+.. c:macro:: CC_STEP_TYPE_CHAR_MIRACLE
+
+    Equals to :c:`'@'`; used for displaying miracle step type.
+
+.. _lbl-libcc-cctypedstep-steptypeenum-enum:
+
+Enum
+^^^^
+
 .. c:enum:: CcStepTypeEnum
 
     Step types enumeration.
@@ -220,6 +273,14 @@ Step type enum
 
     :param ste: Step type, :c:type:`CcStepTypeEnum` value.
     :returns: :c:data:`true` if capture, :c:data:`false` otherwise.
+
+.. c:function:: char cc_step_type_as_char( CcStepTypeEnum ste )
+
+    Function returning step type :c:`char`\acter, based on a given enumerator.
+
+    :param ste: A step type, :c:type:`CcStepTypeEnum` value.
+    :returns: Step type :c:`char`\acter, one of :c:`CC_STEP_TYPE_CHAR_*`
+        :ref:`lbl-libcc-cctypedstep-steptypeenum-characters` constants.
 
 .. _lbl-libcc-cctypedstep-typedstepmacros:
 

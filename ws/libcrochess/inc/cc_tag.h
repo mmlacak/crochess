@@ -13,9 +13,9 @@
 
 #define CC_TAG_CHAR_NONE ' '
 #define CC_TAG_CHAR_INVALID '?'
-#define CC_TAG_CHAR_PIECE '!'
+#define CC_TAG_CHAR_JUST_PIECE '!'
 
-#define CC_TAG_CHAR_CAN_RUSH '|' // TODO :: DOCS
+#define CC_TAG_CHAR_CAN_RUSH '|'
 #define CC_TAG_CHAR_CAN_CASTLE '&'
 #define CC_TAG_CHAR_DELAYED_PROMOTION '='
 
