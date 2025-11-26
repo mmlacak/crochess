@@ -28,7 +28,6 @@ bool cc_check_valid_draw_offer_exists( CcMove * moves,
 //
 // Piece checks
 
-// TODO :: DOCS
 bool cc_check_piece_can_step( CcPieceTagType ptt,
                               CcStepTypeEnum step_type );
 

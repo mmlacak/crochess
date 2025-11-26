@@ -12,6 +12,27 @@
 
 
 //
+// Typed step enum
+
+char cc_step_type_as_char( CcStepTypeEnum ste ) {
+    switch ( ste ) {
+        case CC_STE_None : return CC_STEP_TYPE_CHAR_NONE;
+
+        case CC_STE_MovementOnly : return CC_STEP_TYPE_CHAR_MOVEMENT_ONLY;
+        case CC_STE_MovementOrCapture : return CC_STEP_TYPE_CHAR_MOVEMENT_OR_CAPTURE;
+        case CC_STE_CaptureOnly : return CC_STEP_TYPE_CHAR_CAPTURE_ONLY;
+
+        case CC_STE_Displacement : return CC_STEP_TYPE_CHAR_DISPLACEMENT;
+        case CC_STE_ColorChange : return CC_STEP_TYPE_CHAR_COLOR_CHANGE;
+        case CC_STE_Entrancement : return CC_STEP_TYPE_CHAR_ENTRANCEMENT;
+        case CC_STE_Uplifting : return CC_STEP_TYPE_CHAR_UPLIFTING;
+        case CC_STE_Miracle : return CC_STEP_TYPE_CHAR_MIRACLE;
+
+        default : return CC_STEP_TYPE_CHAR_INVALID;
+    }
+}
+
+//
 // Typed step
 
 CcTypedStep cc_typed_step( CcPos step, CcStepTypeEnum type ) {

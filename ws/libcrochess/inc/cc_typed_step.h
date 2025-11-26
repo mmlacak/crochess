@@ -65,6 +65,21 @@ typedef enum CcMultiStagePlyTypeEnum {
 //
 // Typed step
 
+// TODO :: DOCS
+#define CC_STEP_TYPE_CHAR_NONE ' '
+#define CC_STEP_TYPE_CHAR_INVALID '?'
+
+#define CC_STEP_TYPE_CHAR_MOVEMENT_ONLY '-'
+#define CC_STEP_TYPE_CHAR_MOVEMENT_OR_CAPTURE '#'
+#define CC_STEP_TYPE_CHAR_CAPTURE_ONLY '*'
+
+#define CC_STEP_TYPE_CHAR_DISPLACEMENT '<'
+#define CC_STEP_TYPE_CHAR_COLOR_CHANGE '='
+#define CC_STEP_TYPE_CHAR_ENTRANCEMENT '+'
+#define CC_STEP_TYPE_CHAR_UPLIFTING '^'
+#define CC_STEP_TYPE_CHAR_MIRACLE '@'
+// TODO :: DOCS
+
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0,
     CC_STE_MovementOnly,
@@ -88,6 +103,9 @@ typedef enum CcStepTypeEnum {
 #define CC_TYPED_STEP_INVALID { .step = CC_POS_INVALID, .type = CC_STE_None }
 
 #define CC_TYPED_STEP_STATIC { .step = CC_POS_STATIC_STEP, .type = CC_STE_None }
+
+// TODO :: DOCS
+char cc_step_type_as_char( CcStepTypeEnum ste );
 
 typedef struct CcTypedStep {
     CcPos step; /* Step, relative position. */
