@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.363:1542+20251126.175417"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.364:1543+20251126.235557"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -51,6 +51,8 @@ int get_integer_from_cli_arg( char const * str,
                               char const ** end_io ) {
     int number = default_num;
     cc_char_16 num = CC_CHAR_16_EMPTY;
+
+// TODO :: FIX :: after first token is found invalid, all subsequent calls should also default
 
     if ( cc_iter_token( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) ) {
         if ( *first_io >= *end_io ) return default_num;
@@ -339,7 +341,10 @@ int main( void ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tx", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
-            tests_misc( test_number );
+            int moving = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
+            int encounter = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
+            printf( "Inputs: %d --> %d\n", moving, encounter ); // TODO :: DEBUG :: DELETE
+            tests_misc( test_number, moving, encounter );
         } else if ( cc_str_is_equal( token_start, token_end, "ta", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_path_segment", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );

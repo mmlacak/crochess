@@ -25,9 +25,15 @@ bool tests_iter_monolith_steps( void );
 bool tests_iter_piece_steps( void );
 bool tests_pos_desc_link( void );
 bool tests_transparencies( void );
-bool tests_activations( void );
 
-bool tests_misc( int test_number );
+bool tests_activation( CcPieceTagType moving,
+                       CcPieceTagType encounter );
+bool tests_activations( CcPieceTagType moving,
+                        CcPieceTagType encounter );
+
+bool tests_misc( int test_number,
+                 int moving,
+                 int encounter );
 
 
 #endif /* __TESTS_MISC_H__ */

@@ -395,41 +395,72 @@ bool tests_transparencies( void ) {
     return result;
 }
 
-bool tests_activations( void ) {
+bool tests_activation( CcPieceTagType moving,
+                       CcPieceTagType encounter ) {
+    bool cumulative_result = true;
+
+    for ( CcStepTypeEnum step_type = CC_STE_MovementOnly; step_type <= CC_STE_Miracle; ++step_type ) {
+        bool expected_1 = cc_check_piece_can_step( moving, step_type )
+                        && ( !CC_PIECE_IS_WAVE( moving ) && !CC_PIECE_IS_PYRAMID( encounter ) )
+                        && !CC_PIECE_IS_NONE( moving )
+                        && !CC_PIECE_IS_NONE( encounter );
+
+        bool expected_0 = expected_1
+                        && ( CC_PIECE_IS_WAVE( moving ) && ( CC_PIECE_IS_WAVE( encounter ) || CC_PIECE_IS_STARCHILD( encounter ) ) );
+
+        bool result_0 = cc_check_piece_can_activate( moving, encounter, 0, step_type );
+        bool result_1 = cc_check_piece_can_activate( moving, encounter, 1, step_type );
+        bool result = ( result_0 == expected_0 ) && ( result_1 == expected_1 );
+
+        char moving_chr = cc_piece_as_char( moving );
+        char moving_tag = cc_tag_as_char( moving );
+        char encounter_chr = cc_piece_as_char( encounter );
+        char encounter_tag = cc_tag_as_char( encounter );
+        char step_type_chr = cc_step_type_as_char( step_type );
+
+        printf( "%c%c --%c--> %c%c: %d, %d <-- %d, %d == %d.\n", moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag, result_0, result_1, expected_0, expected_1, result );
+
+        cumulative_result = cumulative_result && result;
+    }
+
+    return cumulative_result;
+}
+
+bool tests_activations( CcPieceTagType moving,
+                        CcPieceTagType encounter ) {
     bool cumulative_result = true;
     bool first = true;
+    bool result = false;
+
+    bool is_moving_enumerator = CC_PIECE_IS_ENUMERATOR( moving );
+    bool is_encounter_enumerator = CC_PIECE_IS_ENUMERATOR( encounter );
 
     printf( "---------------------\n" );
-    for ( CcPieceTagType moving = CC_PTE_DimStar; moving <= CC_PTE_Monolith; ++moving ) {
-        for ( CcPieceTagType encounter = CC_PTE_DimStar; encounter <= CC_PTE_Monolith; ++encounter ) {
+    if ( is_moving_enumerator && is_encounter_enumerator ) {
+        result = tests_activation( moving, encounter );
+        cumulative_result = cumulative_result && result;
+    } else if ( is_moving_enumerator ) {
+        for ( CcPieceTagType e = CC_PTE_DimStar; e <= CC_PTE_Monolith; ++e ) {
             if ( !first ) printf( ".....................\n" );
-
-            for ( CcStepTypeEnum step_type = CC_STE_MovementOnly; step_type <= CC_STE_Miracle; ++step_type ) {
-
-                bool expected_1 = cc_check_piece_can_step( moving, step_type )
-                               && ( !CC_PIECE_IS_WAVE( moving ) && !CC_PIECE_IS_PYRAMID( encounter ) )
-                               && !CC_PIECE_IS_NONE( moving )
-                               && !CC_PIECE_IS_NONE( encounter );
-
-                bool expected_0 = expected_1
-                               && ( CC_PIECE_IS_WAVE( moving ) && ( CC_PIECE_IS_WAVE( encounter ) || CC_PIECE_IS_STARCHILD( encounter ) ) );
-
-                bool result_0 = cc_check_piece_can_activate( moving, encounter, 0, step_type );
-                bool result_1 = cc_check_piece_can_activate( moving, encounter, 1, step_type );
-                bool result = ( result_0 == expected_0 ) && ( result_1 == expected_1 );
-
-                char moving_chr = cc_piece_as_char( moving );
-                char moving_tag = cc_tag_as_char( moving );
-                char encounter_chr = cc_piece_as_char( encounter );
-                char encounter_tag = cc_tag_as_char( encounter );
-                char step_type_chr = cc_step_type_as_char( step_type );
-
-                printf( "%c%c --%c--> %c%c: %d, %d <-- %d, %d == %d.\n", moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag, result_0, result_1, expected_0, expected_1, result );
-
-                cumulative_result = cumulative_result && result;
-            }
-
+            result = tests_activation( moving, e );
+            cumulative_result = cumulative_result && result;
             first = false;
+        }
+    } else if ( is_encounter_enumerator ) {
+        for ( CcPieceTagType m = CC_PTE_DimStar; m <= CC_PTE_Monolith; ++m ) {
+            if ( !first ) printf( ".....................\n" );
+            result = tests_activation( m, encounter );
+            cumulative_result = cumulative_result && result;
+            first = false;
+        }
+    } else {
+        for ( CcPieceTagType m = CC_PTE_DimStar; m <= CC_PTE_Monolith; ++m ) {
+            for ( CcPieceTagType e = CC_PTE_DimStar; e <= CC_PTE_Monolith; ++e ) {
+                if ( !first ) printf( ".....................\n" );
+                result = tests_activation( m, e );
+                cumulative_result = cumulative_result && result;
+                first = false;
+            }
         }
     }
     printf( "---------------------\n" );
@@ -437,7 +468,9 @@ bool tests_activations( void ) {
     return cumulative_result;
 }
 
-bool tests_misc( int test_number ) {
+bool tests_misc( int test_number,
+                 int moving,
+                 int encounter ) {
     if ( ( test_number < TEST_ALL_MOVES ) || ( 9 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false;
@@ -471,7 +504,8 @@ bool tests_misc( int test_number ) {
         result = tests_transparencies() && result;
 
     if ( ( test_number == 9 ) || do_all_tests )
-        result = tests_activations() && result;
+        result = tests_activations( (CcPieceTagType)moving,
+                                    (CcPieceTagType)encounter ) && result;
 
     printf( "Finished: '%d'.\n", result );
     return result;
