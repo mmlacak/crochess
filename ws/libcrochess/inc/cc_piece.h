@@ -216,12 +216,12 @@
                                      || ( (pte) == CC_PTE_LightScout_RushedPrevious )             \
                                      || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
 
-#define CC_PIECE_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedPrevious )           \
-                                    || ( (pte) == CC_PTE_DarkScout_RushedPrevious )               \
-                                    || ( (pte) == CC_PTE_DarkPawn_RushedPrevious )                \
-                                    || ( (pte) == CC_PTE_LightPawn_RushedPrevious )               \
-                                    || ( (pte) == CC_PTE_LightScout_RushedPrevious )              \
-                                    || ( (pte) == CC_PTE_LightGrenadier_RushedPrevious ) )
+#define CC_PIECE_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent )           \
+                                    || ( (pte) == CC_PTE_DarkScout_RushedCurrent )               \
+                                    || ( (pte) == CC_PTE_DarkPawn_RushedCurrent )                \
+                                    || ( (pte) == CC_PTE_LightPawn_RushedCurrent )               \
+                                    || ( (pte) == CC_PTE_LightScout_RushedCurrent )              \
+                                    || ( (pte) == CC_PTE_LightGrenadier_RushedCurrent ) )
 
 #define CC_PIECE_RUSHED(pte) ( ( CC_PIECE_RUSHED_PREVIOUS( (pte) ) )        \
                             || ( CC_PIECE_RUSHED_CURRENT( (pte) ) ) )
