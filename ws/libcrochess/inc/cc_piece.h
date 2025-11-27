@@ -367,85 +367,85 @@
 typedef enum CcPieceTagEnum {
     CC_PTE_DimStar = -29,
 
-    CC_PTE_DarkStarchild,
-    CC_PTE_DarkShaman,
-    CC_PTE_DarkSerpent,
+    CC_PTE_DarkStarchild, // -28
+    CC_PTE_DarkShaman, // -27
+    CC_PTE_DarkSerpent, // -26
 
-    CC_PTE_DarkGrenadier_RushedCurrent,
-    CC_PTE_DarkGrenadier_RushedPrevious,
-    CC_PTE_DarkGrenadier_CanRush,
-    CC_PTE_DarkGrenadier,
+    CC_PTE_DarkGrenadier_RushedCurrent, // -25
+    CC_PTE_DarkGrenadier_RushedPrevious, // -24
+    CC_PTE_DarkGrenadier_CanRush, // -23
+    CC_PTE_DarkGrenadier, // -22
 
-    CC_PTE_DarkScout_RushedCurrent,
-    CC_PTE_DarkScout_RushedPrevious,
-    CC_PTE_DarkScout_CanRush,
-    CC_PTE_DarkScout,
+    CC_PTE_DarkScout_RushedCurrent, // -21
+    CC_PTE_DarkScout_RushedPrevious, // -20
+    CC_PTE_DarkScout_CanRush, // -19
+    CC_PTE_DarkScout, // -18
 
-    CC_PTE_DarkCentaur,
-    CC_PTE_DarkWave,
-    CC_PTE_DarkUnicorn,
-    CC_PTE_DarkPyramid,
-    CC_PTE_DarkPegasus,
+    CC_PTE_DarkCentaur, // -17
+    CC_PTE_DarkWave, // -16
+    CC_PTE_DarkUnicorn, // -15
+    CC_PTE_DarkPyramid, // -14
+    CC_PTE_DarkPegasus, // -13
 
-    CC_PTE_DarkKing_CanCastle,
-    CC_PTE_DarkKing,
+    CC_PTE_DarkKing_CanCastle, // -12
+    CC_PTE_DarkKing, // -11
 
-    CC_PTE_DarkQueen,
+    CC_PTE_DarkQueen, // -10
 
-    CC_PTE_DarkRook_CanCastle,
-    CC_PTE_DarkRook,
+    CC_PTE_DarkRook_CanCastle, // -9
+    CC_PTE_DarkRook, // -8
 
-    CC_PTE_DarkBishop,
-    CC_PTE_DarkKnight,
+    CC_PTE_DarkBishop, // -7
+    CC_PTE_DarkKnight, // -6
 
-    CC_PTE_DarkPawn_DelayedPromotion,
-    CC_PTE_DarkPawn_RushedCurrent,
-    CC_PTE_DarkPawn_RushedPrevious,
-    CC_PTE_DarkPawn_CanRush,
-    CC_PTE_DarkPawn,
+    CC_PTE_DarkPawn_DelayedPromotion, // -5
+    CC_PTE_DarkPawn_RushedCurrent, // -4
+    CC_PTE_DarkPawn_RushedPrevious, // -3
+    CC_PTE_DarkPawn_CanRush, // -2
+    CC_PTE_DarkPawn, // -1
 
     CC_PTE_None = 0,
 
-    CC_PTE_LightPawn,
-    CC_PTE_LightPawn_CanRush,
-    CC_PTE_LightPawn_RushedPrevious,
-    CC_PTE_LightPawn_RushedCurrent,
-    CC_PTE_LightPawn_DelayedPromotion,
+    CC_PTE_LightPawn, // 1
+    CC_PTE_LightPawn_CanRush, // 2
+    CC_PTE_LightPawn_RushedPrevious, // 3
+    CC_PTE_LightPawn_RushedCurrent, // 4
+    CC_PTE_LightPawn_DelayedPromotion, // 5
 
-    CC_PTE_LightKnight,
-    CC_PTE_LightBishop,
+    CC_PTE_LightKnight, // 6
+    CC_PTE_LightBishop, // 7
 
-    CC_PTE_LightRook,
-    CC_PTE_LightRook_CanCastle,
+    CC_PTE_LightRook, // 8
+    CC_PTE_LightRook_CanCastle, // 9
 
-    CC_PTE_LightQueen,
+    CC_PTE_LightQueen, // 10
 
-    CC_PTE_LightKing,
-    CC_PTE_LightKing_CanCastle,
+    CC_PTE_LightKing, // 11
+    CC_PTE_LightKing_CanCastle, // 12
 
-    CC_PTE_LightPegasus,
-    CC_PTE_LightPyramid,
-    CC_PTE_LightUnicorn,
-    CC_PTE_LightWave,
-    CC_PTE_LightCentaur,
+    CC_PTE_LightPegasus, // 13
+    CC_PTE_LightPyramid, // 14
+    CC_PTE_LightUnicorn, // 15
+    CC_PTE_LightWave, // 16
+    CC_PTE_LightCentaur, // 17
 
-    CC_PTE_LightScout,
-    CC_PTE_LightScout_CanRush,
-    CC_PTE_LightScout_RushedPrevious,
-    CC_PTE_LightScout_RushedCurrent,
+    CC_PTE_LightScout, // 18
+    CC_PTE_LightScout_CanRush, // 19
+    CC_PTE_LightScout_RushedPrevious, // 20
+    CC_PTE_LightScout_RushedCurrent, // 21
 
-    CC_PTE_LightGrenadier,
-    CC_PTE_LightGrenadier_CanRush,
-    CC_PTE_LightGrenadier_RushedPrevious,
-    CC_PTE_LightGrenadier_RushedCurrent,
+    CC_PTE_LightGrenadier, // 22
+    CC_PTE_LightGrenadier_CanRush, // 23
+    CC_PTE_LightGrenadier_RushedPrevious, // 24
+    CC_PTE_LightGrenadier_RushedCurrent, // 25
 
-    CC_PTE_LightSerpent,
-    CC_PTE_LightShaman,
-    CC_PTE_LightStarchild,
+    CC_PTE_LightSerpent, // 26
+    CC_PTE_LightShaman, // 27
+    CC_PTE_LightStarchild, // 28
 
     CC_PTE_BrightStar = 29,
 
-    CC_PTE_Monolith,
+    CC_PTE_Monolith, // 30
 } CcPieceTagEnum;
 
 typedef signed char CcPieceTagType;
