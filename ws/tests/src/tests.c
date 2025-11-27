@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.364:1543+20251126.235557"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.365:1544+20251127.002006"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -47,20 +47,20 @@ char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
 
 int get_integer_from_cli_arg( char const * str,
                               int default_num,
-                              char const ** first_io,
+                              char const ** start_io,
                               char const ** end_io ) {
     int number = default_num;
     cc_char_16 num = CC_CHAR_16_EMPTY;
 
 // TODO :: FIX :: after first token is found invalid, all subsequent calls should also default
 
-    if ( cc_iter_token( str, CC_TOKEN_SEPARATORS_WHITESPACE, first_io, end_io ) ) {
-        if ( *first_io >= *end_io ) return default_num;
+    if ( cc_iter_token( str, CC_TOKEN_SEPARATORS_WHITESPACE, start_io, end_io ) ) {
+        if ( *start_io >= *end_io ) return default_num;
 
-        size_t len = *end_io - *first_io;
+        size_t len = *end_io - *start_io;
         if ( len > CC_MAX_LEN_CHAR_16 - 1 ) return default_num;
 
-        memcpy( num, *first_io, len );
+        memcpy( num, *start_io, len );
         number = atoi( num );
     }
 

@@ -21,7 +21,7 @@ extern char const CROCHESS_TESTS_HISTORY_FILE_NAME[];
 
 int get_integer_from_cli_arg( char const * str,
                               int default_num,
-                              char const ** first_io,
+                              char const ** start_io,
                               char const ** end_io );
 
 bool print_all_moves( CcMove * moves, bool is_score );
