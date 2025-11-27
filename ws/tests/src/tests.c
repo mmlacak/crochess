@@ -38,7 +38,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.365:1544+20251127.002006"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.366:1545+20251127.013100"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -52,10 +52,12 @@ int get_integer_from_cli_arg( char const * str,
     int number = default_num;
     cc_char_16 num = CC_CHAR_16_EMPTY;
 
-// TODO :: FIX :: after first token is found invalid, all subsequent calls should also default
+    if ( !start_io || !end_io || ( *start_io >= *end_io ) )
+        return default_num;
 
     if ( cc_iter_token( str, CC_TOKEN_SEPARATORS_WHITESPACE, start_io, end_io ) ) {
-        if ( *start_io >= *end_io ) return default_num;
+        if ( !start_io || !end_io || ( *start_io >= *end_io ) )
+            return default_num;
 
         size_t len = *end_io - *start_io;
         if ( len > CC_MAX_LEN_CHAR_16 - 1 ) return default_num;
