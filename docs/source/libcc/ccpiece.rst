@@ -595,6 +595,13 @@ Features
     :param pte: A piece, :c:type:`CcPieceTagEnum` value.
     :returns: :c:data:`true` if piece can be resurrected, :c:data:`false` otherwise.
 
+.. c:macro:: CC_PIECE_CAN_BE_UPLIFTED(pte)
+
+    Macro to check if given piece can be uplifted.
+
+    :param pte: A piece, :c:type:`CcPieceTagEnum` value.
+    :returns: :c:data:`true` if piece can be uplifted, :c:data:`false` otherwise.
+
 .. c:macro:: CC_PIECE_IS_TELEPORTER(pte)
 
     Macro to check if given piece can teleport other pieces.

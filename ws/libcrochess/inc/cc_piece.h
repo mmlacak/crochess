@@ -281,6 +281,16 @@
                                         && ( (pte) != CC_PTE_BrightStar )           \
                                         && ( (pte) != CC_PTE_Monolith ) )
 
+#define CC_PIECE_CAN_BE_UPLIFTED(pte) ( ( (pte) != CC_PTE_DimStar )                 \
+                                     && ( (pte) != CC_PTE_DarkWave )                \
+                                     && ( (pte) != CC_PTE_DarkKing_CanCastle )      \
+                                     && ( (pte) != CC_PTE_DarkKing )                \
+                                     && ( (pte) != CC_PTE_LightKing )               \
+                                     && ( (pte) != CC_PTE_LightKing_CanCastle )     \
+                                     && ( (pte) != CC_PTE_LightWave )               \
+                                     && ( (pte) != CC_PTE_BrightStar )              \
+                                     && ( (pte) != CC_PTE_Monolith ) )
+
 #define CC_PIECE_IS_TELEPORTER(pte) ( ( (pte) == CC_PTE_DimStar )               \
                                    || ( (pte) == CC_PTE_BrightStar )            \
                                    || ( (pte) == CC_PTE_Monolith ) )

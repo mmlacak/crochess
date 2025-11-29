@@ -395,18 +395,75 @@ bool tests_transparencies( void ) {
     return result;
 }
 
+static bool _expected_activation( CcPieceTagType moving,
+                                  CcPieceTagType encounter,
+                                  CcStepTypeEnum step_type,
+                                  cc_uint_t momentum ) {
+    if ( !CC_PIECE_IS_VALID( moving ) ) return false;
+    if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
+    if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
+
+    if ( ( step_type == CC_STE_Displacement ) || ( step_type == CC_STE_ColorChange ) ) return false; // Steps that cannot be taken and activate a piece at the same time.
+
+    if ( CC_PIECE_IS_KING( encounter ) || CC_PIECE_IS_MONOLITH( encounter ) ) return false; // Cannot be activated.
+    if ( CC_PIECE_IS_STAR( moving ) || CC_PIECE_IS_MONOLITH( moving ) ) return false; // Cannot activate anything at all.
+    if ( CC_PIECE_IS_WAVE( moving ) && CC_PIECE_IS_PYRAMID( encounter ) ) return false; // Wave cannot activate Pyramid.
+
+    if ( !cc_check_piece_can_step( moving, step_type ) ) return false;
+
+    bool is_momentum_positive = ( momentum > 0 );
+    bool is_encounter_weightless = CC_PIECE_IS_WEIGHTLESS( encounter ); // Wave or Starchild.
+
+    if ( CC_PIECE_IS_STARCHILD( moving ) ) {
+        if ( step_type == CC_STE_Miracle ) {
+            return is_momentum_positive && CC_PIECE_IS_STAR( encounter );
+        } else if ( step_type == CC_STE_Uplifting ) {
+            return CC_PIECE_CAN_BE_UPLIFTED( encounter ); // Sense-journey can be taken even with no momentum.
+        } else if ( step_type == CC_STE_MovementOnly ) {
+            return is_encounter_weightless
+                   && cc_piece_has_same_owner( moving, encounter );
+        } else
+            return false;
+    }
+
+    bool is_own_wave_pyramid = ( CC_PIECE_IS_WAVE( encounter )
+                               || ( is_momentum_positive
+                                    && CC_PIECE_IS_PYRAMID( encounter ) ) )
+                               && cc_piece_has_same_owner( moving, encounter );
+
+    if ( CC_PIECE_IS_SHAMAN( moving ) ) {
+        if ( step_type == CC_STE_Entrancement ) {
+            return CC_PIECE_IS_SHAMAN( encounter )
+                   || CC_PIECE_IS_STARCHILD( encounter ); // Trance-journey can be taken even with no momentum.
+        } else if ( step_type == CC_STE_MovementOrCapture ) {
+            return is_own_wave_pyramid;
+        } else
+            return false;
+    }
+
+    if ( CC_PIECE_IS_PAWN( moving ) ) {
+        if ( step_type == CC_STE_CaptureOnly ) {
+            return is_own_wave_pyramid;
+        } else if ( step_type == CC_STE_CaptureOnly ) {
+            return CC_PIECE_IS_WAVE( encounter );
+        } else
+            return false;
+    }
+
+    if ( step_type == CC_STE_MovementOrCapture ) {
+        return is_own_wave_pyramid;
+    }
+
+    return false;
+}
+
 bool tests_activation( CcPieceTagType moving,
                        CcPieceTagType encounter ) {
     bool cumulative_result = true;
 
     for ( CcStepTypeEnum step_type = CC_STE_MovementOnly; step_type <= CC_STE_Miracle; ++step_type ) {
-        bool expected_1 = cc_check_piece_can_step( moving, step_type )
-                        && ( !CC_PIECE_IS_WAVE( moving ) && !CC_PIECE_IS_PYRAMID( encounter ) )
-                        && !CC_PIECE_IS_NONE( moving )
-                        && !CC_PIECE_IS_NONE( encounter ); // TODO :: FIX
-
-        bool expected_0 = expected_1
-                        && ( CC_PIECE_IS_WAVE( moving ) && ( CC_PIECE_IS_WAVE( encounter ) || CC_PIECE_IS_STARCHILD( encounter ) ) ); // TODO :: FIX
+        bool expected_0 = _expected_activation( moving, encounter, step_type, 0 );
+        bool expected_1 = _expected_activation( moving, encounter, step_type, 1 );
 
         bool result_0 = cc_check_piece_can_activate( moving, encounter, 0, step_type );
         bool result_1 = cc_check_piece_can_activate( moving, encounter, 1, step_type );
