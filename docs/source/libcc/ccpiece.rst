@@ -456,10 +456,10 @@ Features
 
 .. c:macro:: CC_PIECE_CAN_BE_ACTIVATED(pte)
 
-    Macro to check if given piece can be actived.
+    Macro to check if given piece can be activated.
 
     :param pte: A piece, :c:type:`CcPieceTagEnum` value.
-    :returns: :c:data:`true` if piece can be actived, :c:data:`false` otherwise.
+    :returns: :c:data:`true` if piece can be activated, :c:data:`false` otherwise.
 
 .. c:macro:: CC_PIECE_CAN_BE_CAPTURED(pte)
 

@@ -7,12 +7,17 @@
 #include <stdbool.h>
 
 
+//
+// Validity
+
 #define CC_PIECE_IS_ENUMERATOR(pte) ( ( CC_PTE_DimStar <= (pte) ) && ( (pte) <= CC_PTE_Monolith ) )
 
 #define CC_PIECE_IS_VALID(pte) ( ( (pte) != CC_PTE_None ) && ( CC_PTE_DimStar <= (pte) ) && ( (pte) <= CC_PTE_Monolith ) )
 
 #define CC_PIECE_IS_NONE(pte) ( (pte) == CC_PTE_None )
 
+//
+// Values
 
 #define CC_PIECE_IS_JUST_PAWN(pte) ( ( (pte) == CC_PTE_LightPawn ) || ( (pte) == CC_PTE_DarkPawn ) )
 
@@ -93,9 +98,6 @@
 
 #define CC_PIECE_IS_STARCHILD(pte) ( ( (pte) == CC_PTE_LightStarchild ) || ( (pte) == CC_PTE_DarkStarchild ) )
 
-
-// TODO :: Wave cannot activate Pyramid, only material pieces
-
 #define CC_PIECE_IS_TROOPER(pte) ( CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
 
 #define CC_PIECE_IS_PRIVATE(pte) ( CC_PIECE_IS_PAWN( (pte) ) || CC_PIECE_IS_SCOUT( (pte) ) || CC_PIECE_IS_GRENADIER( (pte) ) )
@@ -108,6 +110,9 @@
                                   || ( (pte) == CC_PTE_LightWave )         \
                                   || ( (pte) == CC_PTE_LightStarchild )    \
                                   || ( (pte) == CC_PTE_Monolith ) )
+
+//
+// Features
 
 #define CC_PIECE_IS_DARK(pte) ( ( CC_PTE_DarkStarchild <= (pte) ) && ( (pte) <= CC_PTE_DarkPawn ) )
 
@@ -172,7 +177,6 @@
                                    || ( (pte) == CC_PTE_LightWave )         \
                                    || ( (pte) == CC_PTE_LightStarchild ) )
 
-// TODO :: DOCS :: Wave cannot activate Pyramid, only material pieces
 #define CC_PIECE_CAN_BE_ACTIVATED(pte) ( ( (pte) != CC_PTE_DarkKing_CanCastle )     \
                                       && ( (pte) != CC_PTE_DarkKing )               \
                                       && ( (pte) != CC_PTE_LightKing )              \
@@ -373,6 +377,8 @@
                                               || CC_PIECE_IS_SCOUT(pte)           \
                                               || CC_PIECE_IS_MONOLITH(pte) )
 
+//
+// Types
 
 typedef enum CcPieceTagEnum {
     CC_PTE_DimStar = -29,
@@ -460,8 +466,13 @@ typedef enum CcPieceTagEnum {
 
 typedef signed char CcPieceTagType;
 
+//
+// Interfaces
 
 typedef char (*cc_piece_fp_char_value_t)( CcPieceTagType ptt );
+
+//
+// Functions
 
 CcPieceTagType cc_piece_from_symbol( char symbol, bool is_light );
 
