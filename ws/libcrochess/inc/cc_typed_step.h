@@ -80,14 +80,14 @@ typedef enum CcMultiStagePlyTypeEnum {
 
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0,
-    CC_STE_MovementOnly,
-    CC_STE_MovementOrCapture,
-    CC_STE_CaptureOnly,
-    CC_STE_Displacement,
-    CC_STE_ColorChange,
-    CC_STE_Entrancement,
-    CC_STE_Uplifting,
-    CC_STE_Miracle,
+    CC_STE_MovementOnly, // 1
+    CC_STE_MovementOrCapture, // 2
+    CC_STE_CaptureOnly, // 3
+    CC_STE_Displacement, // 4
+    CC_STE_ColorChange, // 5
+    CC_STE_Entrancement, // 6
+    CC_STE_Uplifting, // 7
+    CC_STE_Miracle, // 8
 } CcStepTypeEnum;
 
 #define CC_STEP_TYPE_IS_ENUMERATOR(ste) ( ( CC_STE_None <= (ste) ) && ( (ste) <= CC_STE_Miracle ) )

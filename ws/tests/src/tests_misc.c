@@ -12,7 +12,6 @@
 
 #include "cc_version.h"
 #include "cc_token.h"
-#include "cc_piece.h"
 #include "cc_chessboard.h"
 #include "cc_pos.h"
 #include "cc_typed_step_defs.h"
@@ -468,27 +467,40 @@ static bool _expected_activation( CcPieceTagType moving,
     return false;
 }
 
+static bool _tests_activation( CcPieceTagType moving,
+                               CcStepTypeEnum step_type,
+                               CcPieceTagType encounter ) {
+    bool expected_0 = _expected_activation( moving, encounter, step_type, 0 );
+    bool expected_1 = _expected_activation( moving, encounter, step_type, 1 );
+
+    bool result_0 = cc_check_piece_can_activate( moving, encounter, 0, step_type );
+    bool result_1 = cc_check_piece_can_activate( moving, encounter, 1, step_type );
+    bool result = ( result_0 == expected_0 ) && ( result_1 == expected_1 );
+
+    char moving_chr = cc_piece_as_char( moving );
+    char moving_tag = cc_tag_as_char( moving );
+    char encounter_chr = cc_piece_as_char( encounter );
+    char encounter_tag = cc_tag_as_char( encounter );
+    char step_type_chr = cc_step_type_as_char( step_type );
+
+    printf( "%c%c --%c--> %c%c: %d, %d <-- %d, %d == %d.\n", moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag, result_0, result_1, expected_0, expected_1, result );
+
+    return result;
+}
+
 bool tests_activation( CcPieceTagType moving,
+                       CcStepTypeEnum step_type,
                        CcPieceTagType encounter ) {
     bool cumulative_result = true;
 
-    for ( CcStepTypeEnum step_type = CC_STE_MovementOnly; step_type <= CC_STE_Miracle; ++step_type ) {
-        bool expected_0 = _expected_activation( moving, encounter, step_type, 0 );
-        bool expected_1 = _expected_activation( moving, encounter, step_type, 1 );
+    bool is_step_type_enumerator = CC_STEP_TYPE_IS_ENUMERATOR( step_type );
 
-        bool result_0 = cc_check_piece_can_activate( moving, encounter, 0, step_type );
-        bool result_1 = cc_check_piece_can_activate( moving, encounter, 1, step_type );
-        bool result = ( result_0 == expected_0 ) && ( result_1 == expected_1 );
-
-        char moving_chr = cc_piece_as_char( moving );
-        char moving_tag = cc_tag_as_char( moving );
-        char encounter_chr = cc_piece_as_char( encounter );
-        char encounter_tag = cc_tag_as_char( encounter );
-        char step_type_chr = cc_step_type_as_char( step_type );
-
-        printf( "%c%c --%c--> %c%c: %d, %d <-- %d, %d == %d.\n", moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag, result_0, result_1, expected_0, expected_1, result );
-
-        cumulative_result = cumulative_result && result;
+    if ( is_step_type_enumerator ) {
+        cumulative_result = _tests_activation( moving, step_type, encounter ) && cumulative_result;
+    } else {
+        for ( CcStepTypeEnum st = CC_STE_MovementOnly; st <= CC_STE_Miracle; ++st ) {
+            cumulative_result = _tests_activation( moving, st, encounter ) && cumulative_result;
+        }
     }
 
     return cumulative_result;
@@ -579,33 +591,37 @@ bool tests_activation( CcPieceTagType moving,
 // } CcPieceTagEnum;
 
 bool tests_activations( CcPieceTagType moving,
+                        CcStepTypeEnum step_type,
                         CcPieceTagType encounter ) {
     bool first = true;
     bool result = true;
 
     bool is_moving_enumerator = CC_PIECE_IS_ENUMERATOR( moving );
+    bool is_step_type_enumerator = CC_STEP_TYPE_IS_ENUMERATOR( step_type );
     bool is_encounter_enumerator = CC_PIECE_IS_ENUMERATOR( encounter );
+
+    bool divider = !first || !is_step_type_enumerator;
 
     printf( "---------------------\n" );
     if ( is_moving_enumerator && is_encounter_enumerator ) {
-        result = tests_activation( moving, encounter ) && result;
+        result = tests_activation( moving, step_type, encounter ) && result;
     } else if ( is_moving_enumerator ) {
         for ( CcPieceTagType e = CC_PTE_DimStar; e <= CC_PTE_Monolith; ++e ) {
-            if ( !first ) printf( ".....................\n" );
-            result = tests_activation( moving, e ) && result;
+            if ( divider ) printf( ".....................\n" );
+            result = tests_activation( moving, step_type, e ) && result;
             first = false;
         }
     } else if ( is_encounter_enumerator ) {
         for ( CcPieceTagType m = CC_PTE_DimStar; m <= CC_PTE_Monolith; ++m ) {
-            if ( !first ) printf( ".....................\n" );
-            result = tests_activation( m, encounter ) && result;
+            if ( divider ) printf( ".....................\n" );
+            result = tests_activation( m, step_type, encounter ) && result;
             first = false;
         }
     } else {
         for ( CcPieceTagType m = CC_PTE_DimStar; m <= CC_PTE_Monolith; ++m ) {
             for ( CcPieceTagType e = CC_PTE_DimStar; e <= CC_PTE_Monolith; ++e ) {
-                if ( !first ) printf( ".....................\n" );
-                result = tests_activation( m, e ) && result;
+                if ( divider ) printf( ".....................\n" );
+                result = tests_activation( m, step_type, e ) && result;
                 first = false;
             }
         }
@@ -617,6 +633,7 @@ bool tests_activations( CcPieceTagType moving,
 
 bool tests_misc( int test_number,
                  int moving,
+                 int step_type,
                  int encounter ) {
     if ( ( test_number < TEST_ALL_MOVES ) || ( 9 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
@@ -652,6 +669,7 @@ bool tests_misc( int test_number,
 
     if ( ( test_number == 9 ) || do_all_tests )
         result = tests_activations( (CcPieceTagType)moving,
+                                    (CcStepTypeEnum)step_type,
                                     (CcPieceTagType)encounter ) && result;
 
     printf( "Finished: '%d'.\n", result );

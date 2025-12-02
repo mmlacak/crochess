@@ -27,6 +27,8 @@
 #include "cc_parse_utils.h"
 #include "cc_parse_msg.h"
 #include "cc_parse_move.h"
+#include "cc_typed_step.h"
+#include "cc_typed_step_defs.h"
 
 #include "hlp_msgs.h"
 #include "test_msgs.h"
@@ -38,7 +40,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.368:1547+20251130.060223"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.369:1548+20251202.042623"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -344,9 +346,20 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
             int moving = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
+            int step_type = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
             int encounter = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
-            printf( "Inputs: %d --> %d\n", moving, encounter ); // TODO :: DEBUG :: DELETE
-            tests_misc( test_number, moving, encounter );
+
+            // TODO :: DEBUG :: DELETE
+            char moving_chr = cc_piece_as_char( moving );
+            char moving_tag = cc_tag_as_char( moving );
+            char encounter_chr = cc_piece_as_char( encounter );
+            char encounter_tag = cc_tag_as_char( encounter );
+            char step_type_chr = cc_step_type_as_char( step_type );
+
+            printf( "Inputs: %d --%d--> %d ==> %c%c --%c--> %c%c \n", moving, step_type, encounter, moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag );
+            // TODO :: DEBUG :: DELETE
+
+            tests_misc( test_number, moving, step_type, encounter );
         } else if ( cc_str_is_equal( token_start, token_end, "ta", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_path_segment", NULL, BUFSIZ ) ) {
             int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );

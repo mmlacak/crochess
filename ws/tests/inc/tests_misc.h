@@ -4,6 +4,9 @@
 #ifndef __TESTS_MISC_H__
 #define __TESTS_MISC_H__
 
+#include "cc_piece.h"
+#include "cc_typed_step.h"
+
 
 void test_gcd( int x, int y );
 void test_pos_step( int i1, int j1, int i2, int j2 );
@@ -27,12 +30,15 @@ bool tests_pos_desc_link( void );
 bool tests_transparencies( void );
 
 bool tests_activation( CcPieceTagType moving,
+                       CcStepTypeEnum step_type,
                        CcPieceTagType encounter );
 bool tests_activations( CcPieceTagType moving,
+                        CcStepTypeEnum step_type,
                         CcPieceTagType encounter );
 
 bool tests_misc( int test_number,
                  int moving,
+                 int step_type,
                  int encounter );
 
 
