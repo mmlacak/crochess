@@ -1683,8 +1683,8 @@ Shaman                                  & trance-                       & any Sh
 Starchild                               & step-                         & own Wave, Starchild           \\
 Starchild                               & miracle-                      & any Star                      \\
 \cmidrule{1-3} % .........................................................................................
-\multirow{2}{*}{Starchild}              & \multirow{2}{*}{uplifting-}   & any\footnotemark[4] except King, Wave, \\
-                                        &                               & Monolith, any Star            \\
+\multirow{2}{*}{Starchild}              & \multirow{2}{*}{uplifting-}   & any\footnotemark[4] except King, Pyramid, \\
+                                        &                               & Wave, Monolith, any Star      \\
 \bottomrule % ============================================================================================
 \end{tabular}
 \caption{Piece activations}
@@ -2422,7 +2422,9 @@ teleporting piece (Star) is introduced.
 
 \begin{alltt}
 <pawn> = [\alg{P}]
-<classic-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{K}
+<classic-disposable-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q}
+<classic-figure> = \alg{K}
+                 | <classic-disposable-figure>
 <trooper> = \alg{O} | \alg{G}
 <private> = <pawn> | <trooper>
 <passive-figure> = \alg{A} | \alg{W}
@@ -2439,19 +2441,16 @@ teleporting piece (Star) is introduced.
 <active-figure> =
   <capturing-active-figure> | \alg{I}
 
-<active-piece> =
-  <active-figure> | <pawn>
+<upliftable-figure> =
+  <classic-disposable-figure>
+| <new-active-figure>
 
-<capturing-piece> =
-  <capturing-active-piece> | \alg{A}
-
-<activateable-figure> = \alg{N} | \alg{B} | \alg{R} | \alg{Q} | \alg{I}
-                      | <new-active-figure>
+<activateable-figure> = \alg{I}
+                      | <upliftable-figure>
                       | <passive-figure>
 
 <disposable-figure> =
-<promote-to-figure> =
-  <activateable-figure>
+<promote-to-figure> = <activateable-figure>
 
 <disposable-piece> =
   <disposable-figure> | <pawn>
@@ -2505,12 +2504,12 @@ teleporting piece (Star) is introduced.
 
 <capturing-piece-losing-tag> =
   <capturing-active-figure-losing-tag>
-| <pawn-losing-tag>
+| <private-losing-tag>
 
 <activateable-piece-losing-tag> =
   <activateable-figure>
 | <capturing-active-figure-losing-tag>
-| <pawn-losing-tag>
+| <private-losing-tag>
 
 <disposable-figure-losing-tag> =
   <disposable-figure>
@@ -2518,21 +2517,26 @@ teleporting piece (Star) is introduced.
 
 <disposable-piece-losing-tag> =
   <disposable-figure-losing-tag>
-| <pawn-losing-tag>
+| <private-losing-tag>
+
+<upliftable-piece-losing-tag> =
+  <upliftable-figure>
+| \alg{R}[<losing-castling-tag>]
+| <private-losing-tag>
 
 <capturing-side-effect> =
   [\alg{*}[<disposable-piece-losing-tag>]]
-
-<en-passant-side-effect> =
-  [\alg{:}[[<private>](<rank> | <field>)]]
-
-<castling-side-effect> =
-  \alg{&}[[\alg{R}](<file> | <field>)]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<en-passant-side-effect> =
+  [\alg{:}[[<private>](<rank> | <field>)]]
+
+<castling-side-effect> =
+  \alg{&}[[\alg{R}](<file> | <field>)]
+
 <promoting-side-effect> =
   [\alg{=}]<promote-to-figure>
 
@@ -2560,16 +2564,16 @@ teleporting piece (Star) is introduced.
     <disambiguation>
 | \alg{>}<disposable-figure-losing-tag>
     [<disambiguation>]
-
-<resurrecting-side-effect> =
-  \alg{$}[\alg{$}]<disposable-piece>
-| \alg{$}[\alg{$}](\alg{W}|\alg{I})<field>
-| [\alg{$$$}]
 \end{alltt}
 
 \clearpage % ..........................................................
 
 \begin{alltt}
+<resurrecting-side-effect> =
+  \alg{$}[\alg{$}]<disposable-piece>
+| \alg{$}[\alg{$}](\alg{W}|\alg{I})<field>
+| [\alg{$$$}]
+
 <stepping-no-side-effects> =
   [<disambiguation>]<field>
 | [<disambiguation>]\{<step>\}[\alg{-}<field>]
@@ -2595,7 +2599,11 @@ teleporting piece (Star) is introduced.
   \{<step>[ <pawn-displacement-side-effect>
           | <transparency-side-effect> ]\}
   (<step> | \alg{-}<field>)
+\end{alltt}
 
+\clearpage % ..........................................................
+
+\begin{alltt}
 <shaman-stepping> =
   <stepping-no-side-effects>
 | [<disambiguation>]
@@ -2603,11 +2611,7 @@ teleporting piece (Star) is introduced.
           | <divergence-side-effect>
           | <capturing-side-effect> ]\}
   (<step> | \alg{-}<field>)
-\end{alltt}
 
-\clearpage % ..........................................................
-
-\begin{alltt}
 <pawn-promotion-ply> =
   <pawn>[<losing-promotion-tag>]<stepping>
   (<promoting-side-effect>
@@ -2682,11 +2686,11 @@ teleporting piece (Star) is introduced.
 
 <sense-journey> =
   <sense-journey-init>\alg{"}
-  <activateable-piece-losing-tag>
+  <upliftable-piece-losing-tag>
   <journey-start>
   <stepping-no-side-effects>
 | <sense-journey-init>\alg{'}
-  [<activateable-piece-losing-tag>]
+  [<upliftable-piece-losing-tag>]
 
 <star-movement-ply> =
   \alg{I}<stepping-no-side-effects>
