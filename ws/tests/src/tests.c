@@ -40,7 +40,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.369:1548+20251202.042623"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.370:1549+20251202.053946"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -356,7 +356,7 @@ int main( void ) {
             char encounter_tag = cc_tag_as_char( encounter );
             char step_type_chr = cc_step_type_as_char( step_type );
 
-            printf( "Inputs: %d --%d--> %d ==> %c%c --%c--> %c%c \n", moving, step_type, encounter, moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag );
+            printf( "Inputs: %d ~~%d~~> %d ==> %c%c --%c--> %c%c \n", moving, step_type, encounter, moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag );
             // TODO :: DEBUG :: DELETE
 
             tests_misc( test_number, moving, step_type, encounter );

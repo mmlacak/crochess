@@ -470,6 +470,10 @@ static bool _expected_activation( CcPieceTagType moving,
 static bool _tests_activation( CcPieceTagType moving,
                                CcStepTypeEnum step_type,
                                CcPieceTagType encounter ) {
+    if ( !CC_PIECE_IS_ENUMERATOR( moving ) ) return false;
+    if ( !CC_STEP_TYPE_IS_ENUMERATOR( step_type ) ) return false;
+    if ( !CC_PIECE_IS_ENUMERATOR( encounter ) ) return false;
+
     bool expected_0 = _expected_activation( moving, encounter, step_type, 0 );
     bool expected_1 = _expected_activation( moving, encounter, step_type, 1 );
 
@@ -491,6 +495,9 @@ static bool _tests_activation( CcPieceTagType moving,
 bool tests_activation( CcPieceTagType moving,
                        CcStepTypeEnum step_type,
                        CcPieceTagType encounter ) {
+    if ( !CC_PIECE_IS_ENUMERATOR( moving ) ) return false;
+    if ( !CC_PIECE_IS_ENUMERATOR( encounter ) ) return false;
+
     bool cumulative_result = true;
 
     bool is_step_type_enumerator = CC_STEP_TYPE_IS_ENUMERATOR( step_type );

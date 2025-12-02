@@ -73,10 +73,10 @@ typedef enum CcMultiStagePlyTypeEnum {
 #define CC_STEP_TYPE_CHAR_CAPTURE_ONLY '*'
 
 #define CC_STEP_TYPE_CHAR_DISPLACEMENT '<'
-#define CC_STEP_TYPE_CHAR_COLOR_CHANGE '='
-#define CC_STEP_TYPE_CHAR_ENTRANCEMENT '+'
+#define CC_STEP_TYPE_CHAR_COLOR_CHANGE '%'
+#define CC_STEP_TYPE_CHAR_ENTRANCEMENT '@'
 #define CC_STEP_TYPE_CHAR_UPLIFTING '^'
-#define CC_STEP_TYPE_CHAR_MIRACLE '@'
+#define CC_STEP_TYPE_CHAR_MIRACLE '"'
 
 typedef enum CcStepTypeEnum {
     CC_STE_None = 0,
