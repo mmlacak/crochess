@@ -424,8 +424,7 @@ static bool _expected_activation( CcPieceTagType moving,
                    || ( CC_PIECE_CAN_BE_UPLIFTED( encounter )
                         && is_same_owner ); // Sense-journey can be taken even with no momentum.
         } else if ( step_type == CC_STE_MovementOnly ) {
-            return is_encounter_weightless
-                   && cc_piece_has_same_owner( moving, encounter );
+            return is_encounter_weightless && is_same_owner;
         } else
             return false;
     }
