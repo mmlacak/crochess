@@ -429,6 +429,17 @@ static bool _expected_activation( CcPieceTagType moving,
             return false;
     }
 
+    if ( CC_PIECE_IS_WAVE( moving ) ) {
+        if ( step_type == CC_STE_MovementOnly ) {
+            if ( is_same_owner ) {
+                return is_encounter_weightless || is_momentum_positive;
+            } else {
+                return CC_PIECE_IS_WAVE( encounter );
+            }
+        } else
+            return false;
+    }
+
     bool is_own_wave = CC_PIECE_IS_WAVE( encounter )
                        && is_same_owner;
 
