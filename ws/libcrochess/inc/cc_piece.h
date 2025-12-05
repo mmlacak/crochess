@@ -29,10 +29,11 @@
 
 #define CC_PIECE_IS_PAWN_DELAYED_PROMOTION(pte) ( ( (pte) == CC_PTE_LightPawn_DelayedPromotion ) || ( (pte) == CC_PTE_DarkPawn_DelayedPromotion ) )
 
-#define CC_PIECE_IS_PAWN(pte) ( CC_PIECE_IS_JUST_PAWN( (pte) ) ||                               \
-                                CC_PIECE_IS_PAWN_CAN_RUSH( (pte) ) ||                           \
-                                CC_PIECE_IS_PAWN_RUSHED_PREVIOUS( (pte) ) ||                    \
-                                CC_PIECE_IS_PAWN_RUSHED_CURRENT( (pte) ) )
+#define CC_PIECE_IS_PAWN(pte) ( CC_PIECE_IS_JUST_PAWN( (pte) )                              \
+                                || CC_PIECE_IS_PAWN_CAN_RUSH( (pte) )                       \
+                                || CC_PIECE_IS_PAWN_RUSHED_PREVIOUS( (pte) )                \
+                                || CC_PIECE_IS_PAWN_RUSHED_CURRENT( (pte) )                 \
+                                || CC_PIECE_IS_PAWN_DELAYED_PROMOTION( (pte) ) )
 
 #define CC_PIECE_IS_KNIGHT(pte) ( ( (pte) == CC_PTE_LightKnight ) || ( (pte) == CC_PTE_DarkKnight ) )
 
@@ -72,10 +73,10 @@
 
 #define CC_PIECE_IS_SCOUT_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightScout_RushedCurrent ) || ( (pte) == CC_PTE_DarkScout_RushedCurrent ) )
 
-#define CC_PIECE_IS_SCOUT(pte) ( CC_PIECE_IS_JUST_SCOUT( (pte) ) ||                             \
-                                 CC_PIECE_IS_SCOUT_CAN_RUSH( (pte) ) ||                         \
-                                 CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS( (pte) ) ||                  \
-                                 CC_PIECE_IS_SCOUT_RUSHED_CURRENT( (pte) ) )
+#define CC_PIECE_IS_SCOUT(pte) ( CC_PIECE_IS_JUST_SCOUT( (pte) )                            \
+                                 || CC_PIECE_IS_SCOUT_CAN_RUSH( (pte) )                     \
+                                 || CC_PIECE_IS_SCOUT_RUSHED_PREVIOUS( (pte) )              \
+                                 || CC_PIECE_IS_SCOUT_RUSHED_CURRENT( (pte) ) )
 
 #define CC_PIECE_IS_JUST_GRENADIER(pte) ( ( (pte) == CC_PTE_LightGrenadier ) || ( (pte) == CC_PTE_DarkGrenadier ) )
 
@@ -85,10 +86,10 @@
 
 #define CC_PIECE_IS_GRENADIER_RUSHED_CURRENT(pte) ( ( (pte) == CC_PTE_LightGrenadier_RushedCurrent ) || ( (pte) == CC_PTE_DarkGrenadier_RushedCurrent ) )
 
-#define CC_PIECE_IS_GRENADIER(pte) ( CC_PIECE_IS_JUST_GRENADIER( (pte) ) ||                     \
-                                     CC_PIECE_IS_GRENADIER_CAN_RUSH( (pte) ) ||                 \
-                                     CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS( (pte) ) ||          \
-                                     CC_PIECE_IS_GRENADIER_RUSHED_CURRENT( (pte) ) )
+#define CC_PIECE_IS_GRENADIER(pte) ( CC_PIECE_IS_JUST_GRENADIER( (pte) )                    \
+                                     || CC_PIECE_IS_GRENADIER_CAN_RUSH( (pte) )             \
+                                     || CC_PIECE_IS_GRENADIER_RUSHED_PREVIOUS( (pte) )      \
+                                     || CC_PIECE_IS_GRENADIER_RUSHED_CURRENT( (pte) ) )
 
 #define CC_PIECE_IS_SERPENT(pte) ( ( (pte) == CC_PTE_LightSerpent ) || ( (pte) == CC_PTE_DarkSerpent ) )
 

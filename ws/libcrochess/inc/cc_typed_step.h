@@ -65,7 +65,7 @@ typedef enum CcMultiStagePlyTypeEnum {
 //
 // Typed step
 
-#define CC_STEP_TYPE_CHAR_NONE ' '
+#define CC_STEP_TYPE_CHAR_NONE '0'
 #define CC_STEP_TYPE_CHAR_INVALID '?'
 
 #define CC_STEP_TYPE_CHAR_MOVEMENT_ONLY '-'

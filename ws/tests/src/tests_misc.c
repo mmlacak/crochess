@@ -515,7 +515,7 @@ bool tests_activation( CcPieceTagType moving,
     if ( is_step_type_enumerator ) {
         cumulative_result = _tests_activation( moving, step_type, encounter ) && cumulative_result;
     } else {
-        for ( CcStepTypeEnum st = CC_STE_MovementOnly; st <= CC_STE_Miracle; ++st ) {
+        for ( CcStepTypeEnum st = CC_STE_None; st <= CC_STE_Miracle; ++st ) {
             cumulative_result = _tests_activation( moving, st, encounter ) && cumulative_result;
         }
     }
