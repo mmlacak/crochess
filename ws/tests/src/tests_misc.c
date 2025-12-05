@@ -499,8 +499,21 @@ static bool _tests_activation( CcPieceTagType moving,
 
     printf( "%c%c --%c--> %c%c: %d, %d <-- %d, %d == %d.\n", moving_chr, moving_tag, step_type_chr, encounter_chr, encounter_tag, result_0, result_1, expected_0, expected_1, result );
 
-    return result;
+    // TODO :: FIX :: do make results visualisation (instead of testing with the same function)
+    return false; // result;
 }
+
+// typedef enum CcStepTypeEnum {
+//     CC_STE_None = 0,
+//     CC_STE_MovementOnly, // 1
+//     CC_STE_MovementOrCapture, // 2
+//     CC_STE_CaptureOnly, // 3
+//     CC_STE_Displacement, // 4
+//     CC_STE_ColorChange, // 5
+//     CC_STE_Entrancement, // 6
+//     CC_STE_Uplifting, // 7
+//     CC_STE_Miracle, // 8
+// } CcStepTypeEnum;
 
 bool tests_activation( CcPieceTagType moving,
                        CcStepTypeEnum step_type,
@@ -520,7 +533,8 @@ bool tests_activation( CcPieceTagType moving,
         }
     }
 
-    return cumulative_result;
+    // TODO :: FIX :: do make results visualisation (instead of testing with the same function)
+    return false; // cumulative_result;
 }
 
 // typedef enum CcPieceTagEnum {
@@ -645,7 +659,8 @@ bool tests_activations( CcPieceTagType moving,
     }
     printf( "---------------------\n" );
 
-    return result;
+    // TODO :: FIX :: do make results visualisation (instead of testing with the same function)
+    return false; // result;
 }
 
 bool tests_misc( int test_number,

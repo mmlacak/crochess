@@ -185,44 +185,77 @@ bool cc_check_piece_can_activate( CcPieceTagType moving,
     if ( !CC_PIECE_IS_VALID( encounter ) ) return false;
     if ( !CC_STEP_TYPE_IS_VALID( step_type ) ) return false;
 
-    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false; // [1] Stars and Monolith can't activate anything.
-    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // [2] Kings and Monoliths can't be activated.
+    if ( ( step_type == CC_STE_Displacement ) || ( step_type == CC_STE_ColorChange ) ) return false; // Steps that cannot be taken and activate a piece at the same time.
+
+    if ( !CC_PIECE_CAN_ACTIVATE( moving ) ) return false; // [1] Stars, Monolith cannot activate anything.
+    if ( !CC_PIECE_CAN_BE_ACTIVATED( encounter ) ) return false; // Kings, Monolith cannot be activated.
+
+    if ( !CC_PIECE_CAN_ACTIVATE_PYRAMID( moving ) && CC_PIECE_IS_PYRAMID( encounter ) ) return false; // Wave, Starchild cannot activate Pyramid at all; others (Star, Monolith) were filtered-out above, at [1].
+    if ( !CC_PIECE_CAN_ACTIVATE_STAR( moving ) && CC_PIECE_IS_STAR( encounter ) ) return false; // Only Starchild can activate Star.
 
     if ( !cc_check_piece_can_step( moving, step_type ) ) return false;
 
-    bool wave_moving = CC_PIECE_IS_WAVE( moving );
-    bool wave_encounter = CC_PIECE_IS_WAVE( encounter );
+    bool is_momentum_positive = ( momentum > 0 );
+    bool is_encounter_weightless = CC_PIECE_IS_WEIGHTLESS( encounter ); // Wave or Starchild.
+    bool is_same_owner = cc_piece_has_same_owner( moving, encounter );
 
-    if ( wave_moving && wave_encounter ) return true;
-
-    bool starchild_moving = CC_PIECE_IS_STARCHILD( moving );
-    bool starchild_encounter = CC_PIECE_IS_STARCHILD( encounter );
-    bool positive_momentum = ( momentum > 0 );
-
-    if ( starchild_moving ) {
+    if ( CC_PIECE_IS_STARCHILD( moving ) ) {
         if ( step_type == CC_STE_Miracle ) {
-            return ( CC_PIECE_IS_STAR( encounter ) && positive_momentum );
+            return is_momentum_positive && CC_PIECE_IS_STAR( encounter );
         } else if ( step_type == CC_STE_Uplifting ) {
-            return ( !wave_encounter && !CC_PIECE_IS_STAR( encounter ) ); // Kings and Monoliths already filtered-out at [2].
-        }
+            return CC_PIECE_IS_STARCHILD( encounter )
+                   || ( CC_PIECE_CAN_BE_UPLIFTED( encounter )
+                        && is_same_owner ); // Sense-journey can be taken even with no momentum.
+        } else if ( step_type == CC_STE_MovementOnly ) {
+            return is_encounter_weightless && is_same_owner;
+        } else
+            return false;
     }
+
+    if ( CC_PIECE_IS_WAVE( moving ) ) {
+        if ( step_type == CC_STE_MovementOnly ) {
+            if ( is_same_owner ) {
+                return is_encounter_weightless || is_momentum_positive;
+            } else {
+                return CC_PIECE_IS_WAVE( encounter );
+            }
+        } else
+            return false;
+    }
+
+    bool is_own_wave = CC_PIECE_IS_WAVE( encounter )
+                       && is_same_owner;
+
+    bool is_own_pyramid = is_momentum_positive
+                          && CC_PIECE_IS_PYRAMID( encounter )
+                          && is_same_owner;
 
     if ( CC_PIECE_IS_SHAMAN( moving ) ) {
         if ( step_type == CC_STE_Entrancement ) {
-            return ( CC_PIECE_IS_SHAMAN( encounter ) || starchild_encounter );
-        }
+            return CC_PIECE_IS_SHAMAN( encounter )
+                   || CC_PIECE_IS_STARCHILD( encounter ); // Trance-journey can be taken even with no momentum.
+        } else if ( step_type == CC_STE_CaptureOnly ) {
+            return is_own_wave || is_own_pyramid;
+        } else if ( step_type == CC_STE_MovementOnly ) {
+            return is_own_wave;
+        } else
+            return false;
     }
 
-    if ( !cc_piece_has_same_owner( moving, encounter ) ) return false;
-
-    if ( CC_PIECE_IS_PYRAMID( encounter ) ) {
-        return ( positive_momentum && CC_PIECE_CAN_ACTIVATE_PYRAMID( moving ) && CC_STEP_TYPE_IS_CAPTURE( step_type ) ); // Wave, Starchild cannot activate Pyramid, only material pieces can.
+    if ( CC_PIECE_IS_PAWN( moving )
+            || CC_PIECE_IS_SCOUT( moving )
+            || CC_PIECE_IS_GRENADIER( moving ) ) {
+        if ( step_type == CC_STE_CaptureOnly ) {
+            return is_own_wave || is_own_pyramid;
+        } else if ( step_type == CC_STE_MovementOnly ) {
+            return is_own_wave;
+        } else
+            return false;
     }
 
-    if ( wave_moving || wave_encounter ) // King encounter already filtered-out at [2].
-        return CC_PIECE_IS_WEIGHTLESS( encounter ) || positive_momentum;
-
-    if ( starchild_moving && starchild_encounter ) return true;
+    if ( step_type == CC_STE_MovementOrCapture ) {
+        return is_own_wave || is_own_pyramid;
+    }
 
     return false;
 }
