@@ -1127,7 +1127,17 @@ class Board:
         row = 1 if is_light else self.get_height() - 2
         self.set_row( row, plst ) # lst)
 
-        if self.is_simple( include_old=False, include_new=True, include_mirrored=True, include_symmetrical=True ):
+        is_croatian_random = self.type in [ BoardType.Croatian_14_Mirrored,
+                                            BoardType.Croatian_20_Mirrored,
+                                            BoardType.Croatian_26_Mirrored,
+                                            BoardType.Croatian_14_Symmetrical,
+                                            BoardType.Croatian_20_Symmetrical,
+                                            BoardType.Croatian_26_Symmetrical, ]
+
+        if self.is_simple( include_old=False,
+                           include_new=True,
+                           include_mirrored=True,
+                           include_symmetrical=True ) and not is_croatian_random:
             return
         elif self.type > BoardType.MirandasVeil:
             row_2 = 2 if is_light else self.get_height() - 3
@@ -1140,7 +1150,10 @@ class Board:
     def _setup_scouts( self, is_light ):
         assert isinstance( is_light, bool )
 
-        if self.is_simple( include_old=False, include_new=True, include_mirrored=True, include_symmetrical=True ):
+        if self.is_simple( include_old=False,
+                           include_new=True,
+                           include_mirrored=True,
+                           include_symmetrical=True ):
             return
         elif self.type > BoardType.Nineteen:
             # pt = PT.Pawn if is_light else -PT.Pawn
@@ -1160,7 +1173,10 @@ class Board:
     def _setup_grenadiers( self, is_light ):
         assert isinstance( is_light, bool )
 
-        if self.is_simple( include_old=False, include_new=True, include_mirrored=True, include_symmetrical=True ):
+        if self.is_simple( include_old=False,
+                           include_new=True,
+                           include_mirrored=True,
+                           include_symmetrical=True ):
             return
         elif self.type > BoardType.Nineteen:
             pt = PT.Grenadier if is_light else -PT.Grenadier
