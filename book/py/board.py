@@ -5,6 +5,7 @@
 # Licensed under GNU GPL v3+ license. See LICENSING, COPYING files for details.
 
 import math
+import random
 
 from utils import just_count, iterate
 from pixel_math import assert_floor, assert_floor_2
@@ -24,12 +25,27 @@ class BoardType( int ):
     ConquestOfTlalocan = 18
     Discovery = 20
     One = 22
+
     Classic_14 = 24
     Classic_20 = 26
     Classic_26 = 28
     Croatian_14 = 30
     Croatian_20 = 32
     Croatian_26 = 34
+
+    Classic_14_Mirrored = 36
+    Classic_20_Mirrored = 38
+    Classic_26_Mirrored = 40
+    Croatian_14_Mirrored = 42
+    Croatian_20_Mirrored = 44
+    Croatian_26_Mirrored = 46
+
+    Classic_14_Symmetrical = 48
+    Classic_20_Symmetrical = 50
+    Classic_26_Symmetrical = 52
+    Croatian_14_Symmetrical = 54
+    Croatian_20_Symmetrical = 56
+    Croatian_26_Symmetrical = 58
 
     def __new__( cls, value ):
         if BoardType._is_valid( value ):
@@ -41,17 +57,19 @@ class BoardType( int ):
     def iter( include_none=False,
               include_even=True,
               include_simple=True,
+              include_mirrored=True,
+              include_symmetrical=True,
               do_construct=True ):
-        l_even =  [ BoardType.Classical, \
-                    BoardType.CroatianTies, \
-                    BoardType.MayanAscendancy, \
-                    BoardType.AgeOfAquarius, \
-                    BoardType.MirandasVeil, \
-                    BoardType.Nineteen, \
-                    BoardType.HemerasDawn, \
-                    BoardType.TamoanchanRevisited, \
-                    BoardType.ConquestOfTlalocan, \
-                    BoardType.Discovery, \
+        l_even =  [ BoardType.Classical,
+                    BoardType.CroatianTies,
+                    BoardType.MayanAscendancy,
+                    BoardType.AgeOfAquarius,
+                    BoardType.MirandasVeil,
+                    BoardType.Nineteen,
+                    BoardType.HemerasDawn,
+                    BoardType.TamoanchanRevisited,
+                    BoardType.ConquestOfTlalocan,
+                    BoardType.Discovery,
                     BoardType.One, ]
 
         lst = [ ]
@@ -63,12 +81,28 @@ class BoardType( int ):
             lst.insert( 0, BoardType.none )
 
         if include_simple:
-            lst.extend( [ BoardType.Classic_14,  \
-                          BoardType.Classic_20,  \
-                          BoardType.Classic_26,  \
-                          BoardType.Croatian_14, \
-                          BoardType.Croatian_20, \
+            lst.extend( [ BoardType.Classic_14,
+                          BoardType.Classic_20,
+                          BoardType.Classic_26,
+                          BoardType.Croatian_14,
+                          BoardType.Croatian_20,
                           BoardType.Croatian_26, ] )
+
+        if include_mirrored:
+            lst.extend( [ BoardType.Classic_14_Mirrored,
+                          BoardType.Classic_20_Mirrored,
+                          BoardType.Classic_26_Mirrored,
+                          BoardType.Croatian_14_Mirrored,
+                          BoardType.Croatian_20_Mirrored,
+                          BoardType.Croatian_26_Mirrored, ] )
+
+        if include_symmetrical:
+            lst.extend( [ BoardType.Classic_14_Symmetrical,
+                          BoardType.Classic_20_Symmetrical,
+                          BoardType.Classic_26_Symmetrical,
+                          BoardType.Croatian_14_Symmetrical,
+                          BoardType.Croatian_20_Symmetrical,
+                          BoardType.Croatian_26_Symmetrical, ] )
 
         lst.sort()
         return [ BoardType( bt ) if do_construct else bt for bt in lst ]
@@ -78,6 +112,8 @@ class BoardType( int ):
         return board_type in BoardType.iter( include_none=True,
                                              include_even=True,
                                              include_simple=True,
+                                             include_mirrored=True,
+                                             include_symmetrical=True,
                                              do_construct=False )
 
     def is_variant( self, bt ):
@@ -88,7 +124,11 @@ class BoardType( int ):
         return self in bts
 
     @staticmethod
-    def is_simple( board_type, include_old=True, include_new=True ):
+    def is_simple( board_type,
+                   include_old=True,
+                   include_new=True,
+                   include_mirrored=True,
+                   include_symmetrical=True ):
         if include_old:
             if board_type == BoardType.Classical:
                 return True
@@ -100,6 +140,24 @@ class BoardType( int ):
                                BoardType.Croatian_14,
                                BoardType.Croatian_20,
                                BoardType.Croatian_26, ]:
+                return True
+
+        if include_mirrored:
+            if board_type in [ BoardType.Classic_14_Mirrored,
+                               BoardType.Classic_20_Mirrored,
+                               BoardType.Classic_26_Mirrored,
+                               BoardType.Croatian_14_Mirrored,
+                               BoardType.Croatian_20_Mirrored,
+                               BoardType.Croatian_26_Mirrored, ]:
+                return True
+
+        if include_symmetrical:
+            if board_type in [ BoardType.Classic_14_Symmetrical,
+                               BoardType.Classic_20_Symmetrical,
+                               BoardType.Classic_26_Symmetrical,
+                               BoardType.Croatian_14_Symmetrical,
+                               BoardType.Croatian_20_Symmetrical,
+                               BoardType.Croatian_26_Symmetrical, ]:
                 return True
 
         return False
@@ -117,12 +175,27 @@ class BoardType( int ):
                  BoardType.ConquestOfTlalocan: 'Conquest Of Tlalocan',
                  BoardType.Discovery: 'Discovery',
                  BoardType.One: 'One',
-                 BoardType.Classic_14: 'Classic14',
-                 BoardType.Classic_20: 'Classic20',
-                 BoardType.Classic_26: 'Classic26',
-                 BoardType.Croatian_14: 'Croatian14',
-                 BoardType.Croatian_20: 'Croatian20',
-                 BoardType.Croatian_26: 'Croatian26', }[ self ]
+
+                 BoardType.Classic_14: 'Classical 14',
+                 BoardType.Classic_20: 'Classical 20',
+                 BoardType.Classic_26: 'Classical 26',
+                 BoardType.Croatian_14: 'Croatian Ties 14',
+                 BoardType.Croatian_20: 'Croatian Ties 20',
+                 BoardType.Croatian_26: 'Croatian Ties 26',
+
+                 BoardType.Classic_14_Mirrored: 'Classical 14 Mirrored',
+                 BoardType.Classic_20_Mirrored: 'Classical 20 Mirrored',
+                 BoardType.Classic_26_Mirrored: 'Classical 26 Mirrored',
+                 BoardType.Croatian_14_Mirrored: 'Croatian Ties 14 Mirrored',
+                 BoardType.Croatian_20_Mirrored: 'Croatian Ties 20 Mirrored',
+                 BoardType.Croatian_26_Mirrored: 'Croatian Ties 26 Mirrored',
+
+                 BoardType.Classic_14_Symmetrical: 'Classical 14 Symmetrical',
+                 BoardType.Classic_20_Symmetrical: 'Classical 20 Symmetrical',
+                 BoardType.Classic_26_Symmetrical: 'Classical 26 Symmetrical',
+                 BoardType.Croatian_14_Symmetrical: 'Croatian Ties 14 Symmetrical',
+                 BoardType.Croatian_20_Symmetrical: 'Croatian Ties 20 Symmetrical',
+                 BoardType.Croatian_26_Symmetrical: 'Croatian Ties 26 Symmetrical', }[ self ]
 
     def get_symbol( self ):
         return { BoardType.none: '',
@@ -137,12 +210,27 @@ class BoardType( int ):
                  BoardType.ConquestOfTlalocan: 'COT',
                  BoardType.Discovery: 'D',
                  BoardType.One: 'O',
+
                  BoardType.Classic_14: 'C14',
                  BoardType.Classic_20: 'C20',
                  BoardType.Classic_26: 'C26',
                  BoardType.Croatian_14: 'CT14',
                  BoardType.Croatian_20: 'CT20',
-                 BoardType.Croatian_26: 'CT26', }[ self ]
+                 BoardType.Croatian_26: 'CT26',
+
+                 BoardType.Classic_14_Mirrored: 'C14M',
+                 BoardType.Classic_20_Mirrored: 'C20M',
+                 BoardType.Classic_26_Mirrored: 'C26M',
+                 BoardType.Croatian_14_Mirrored: 'CT14M',
+                 BoardType.Croatian_20_Mirrored: 'CT20M',
+                 BoardType.Croatian_26_Mirrored: 'CT26M',
+
+                 BoardType.Classic_14_Symmetrical: 'C14S',
+                 BoardType.Classic_20_Symmetrical: 'C20S',
+                 BoardType.Classic_26_Symmetrical: 'C26S',
+                 BoardType.Croatian_14_Symmetrical: 'CT14S',
+                 BoardType.Croatian_20_Symmetrical: 'CT20S',
+                 BoardType.Croatian_26_Symmetrical: 'CT26S', }[ self ]
 
     def get_label( self ):
         return self.get_symbol().lower()
@@ -161,12 +249,27 @@ class BoardType( int ):
                  'COT':  BoardType.ConquestOfTlalocan,
                  'D':    BoardType.Discovery,
                  'O':    BoardType.One,
+
                  'C14':  BoardType.Classic_14,
                  'C20':  BoardType.Classic_20,
                  'C26':  BoardType.Classic_26,
                  'CT14': BoardType.Croatian_14,
                  'CT20': BoardType.Croatian_20,
-                 'CT26': BoardType.Croatian_26, }
+                 'CT26': BoardType.Croatian_26,
+
+                 'C14M':  BoardType.Classic_14_Mirrored,
+                 'C20M':  BoardType.Classic_20_Mirrored,
+                 'C26M':  BoardType.Classic_26_Mirrored,
+                 'CT14M': BoardType.Croatian_14_Mirrored,
+                 'CT20M': BoardType.Croatian_20_Mirrored,
+                 'CT26M': BoardType.Croatian_26_Mirrored,
+
+                 'C14S':  BoardType.Classic_14_Symmetrical,
+                 'C20S':  BoardType.Classic_20_Symmetrical,
+                 'C26S':  BoardType.Classic_26_Symmetrical,
+                 'CT14S': BoardType.Croatian_14_Symmetrical,
+                 'CT20S': BoardType.Croatian_20_Symmetrical,
+                 'CT26S': BoardType.Croatian_26_Symmetrical, }
 
         lbl = label.upper() if case_insensitive else label
 
@@ -180,6 +283,8 @@ class BoardType( int ):
         return list( BoardType.iter( include_none=False,
                                      include_even=True,
                                      include_simple=True,
+                                     include_mirrored=True,
+                                     include_symmetrical=True,
                                      do_construct=do_construct ) )
 
     @staticmethod
@@ -187,6 +292,8 @@ class BoardType( int ):
         return list( BoardType.iter( include_none=include_none,
                                      include_even=True,
                                      include_simple=True,
+                                     include_mirrored=True,
+                                     include_symmetrical=True,
                                      do_construct=do_construct ) )
 
     def get_size( self ):
@@ -202,12 +309,27 @@ class BoardType( int ):
                  BoardType.ConquestOfTlalocan: 24,
                  BoardType.Discovery: 24,
                  BoardType.One: 26,
+
                  BoardType.Classic_14: 14,
                  BoardType.Classic_20: 20,
                  BoardType.Classic_26: 26,
                  BoardType.Croatian_14: 14,
                  BoardType.Croatian_20: 20,
-                 BoardType.Croatian_26: 26, }[ self ]
+                 BoardType.Croatian_26: 26,
+
+                 BoardType.Classic_14_Mirrored: 14,
+                 BoardType.Classic_20_Mirrored: 20,
+                 BoardType.Classic_26_Mirrored: 26,
+                 BoardType.Croatian_14_Mirrored: 14,
+                 BoardType.Croatian_20_Mirrored: 20,
+                 BoardType.Croatian_26_Mirrored: 26,
+
+                 BoardType.Classic_14_Symmetrical: 14,
+                 BoardType.Classic_20_Symmetrical: 20,
+                 BoardType.Classic_26_Symmetrical: 26,
+                 BoardType.Croatian_14_Symmetrical: 14,
+                 BoardType.Croatian_20_Symmetrical: 20,
+                 BoardType.Croatian_26_Symmetrical: 26, }[ self ]
 
     def get_newly_introduced_pieces( self, include_classical=False ):
         pts = { BoardType.none: None,
@@ -224,12 +346,27 @@ class BoardType( int ):
                 BoardType.ConquestOfTlalocan: [ PT.Shaman, ],
                 BoardType.Discovery: [ PT.Monolith, ],
                 BoardType.One: [ PT.Starchild, ],
+
                 BoardType.Classic_14: None,
                 BoardType.Classic_20: None,
                 BoardType.Classic_26: None,
                 BoardType.Croatian_14: None,
                 BoardType.Croatian_20: None,
-                BoardType.Croatian_26: None, }[ self ]
+                BoardType.Croatian_26: None,
+
+                BoardType.Classic_14_Mirrored: None,
+                BoardType.Classic_20_Mirrored: None,
+                BoardType.Classic_26_Mirrored: None,
+                BoardType.Croatian_14_Mirrored: None,
+                BoardType.Croatian_20_Mirrored: None,
+                BoardType.Croatian_26_Mirrored: None,
+
+                BoardType.Classic_14_Symmetrical: None,
+                BoardType.Classic_20_Symmetrical: None,
+                BoardType.Classic_26_Symmetrical: None,
+                BoardType.Croatian_14_Symmetrical: None,
+                BoardType.Croatian_20_Symmetrical: None,
+                BoardType.Croatian_26_Symmetrical: None, }[ self ]
         return  [ PT(pt) for pt in iterate( pts ) ] if pts is not None else \
                 None
 
@@ -323,10 +460,16 @@ class Board:
     def is_dark( self, i, j ):
         return not self.is_light( i, j )
 
-    def is_simple( self, include_old=True, include_new=True ):
+    def is_simple( self,
+                  include_old=True,
+                  include_new=True,
+                  include_mirrored=True,
+                  include_symmetrical=True ):
         return BoardType.is_simple( self.type,
                                     include_old=include_old,
-                                    include_new=include_new )
+                                    include_new=include_new,
+                                    include_mirrored=include_mirrored,
+                                    include_symmetrical=include_symmetrical )
 
     def clear( self ):
         for j in range( self.get_height() ):
@@ -413,11 +556,11 @@ class Board:
     # Defining initial position
 
     @staticmethod
-    def _get_none_row():
+    def _get_none_row( board_type=BoardType.none ):
         return []
 
     @staticmethod
-    def _get_classic_row():
+    def _get_classic_row( board_type=BoardType.Classical ):
         lst =   [ \
                     PT.Rook, \
                     PT.Knight, \
@@ -431,7 +574,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_croatian_ties_row():
+    def _get_croatian_ties_row( board_type=BoardType.CroatianTies ):
         lst =   [ \
                     PT.Rook, \
                     PT.Pegasus, \
@@ -447,7 +590,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_mayan_ascendancy_row():
+    def _get_mayan_ascendancy_row( board_type=BoardType.MayanAscendancy ):
         lst =   [ \
                     PT.Rook, \
                     PT.Pegasus, \
@@ -465,7 +608,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_age_of_aquarius_row():
+    def _get_age_of_aquarius_row( board_type=BoardType.AgeOfAquarius ):
         lst =   [ \
                     PT.Rook, \
                     PT.Pegasus, \
@@ -485,7 +628,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_mirandas_veil_row():
+    def _get_mirandas_veil_row( board_type=BoardType.MirandasVeil ):
         lst =   [
                     PT.Rook, \
                     PT.Pegasus, \
@@ -507,7 +650,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_nineteen_row():
+    def _get_nineteen_row( board_type=BoardType.Nineteen ):
         lst =   [
                     PT.Star, \
                     PT.Rook, \
@@ -531,7 +674,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_hemeras_dawn_row():
+    def _get_hemeras_dawn_row( board_type=BoardType.HemerasDawn ):
         lst =   [
                     PT.Star, \
                     PT.Rook, \
@@ -557,7 +700,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_tamoanchan_revisited_row():
+    def _get_tamoanchan_revisited_row( board_type=BoardType.TamoanchanRevisited ):
         lst =   [
                     PT.Star, \
                     PT.Rook, \
@@ -585,37 +728,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_conquest_of_tlalocan_row():
-        lst =   [
-                    PT.Star, \
-                    PT.Rook, \
-                    PT.Knight, \
-                    PT.Bishop, \
-                    PT.Serpent, \
-                    PT.Centaur, \
-                    PT.Unicorn, \
-                    PT.Wave, \
-                    PT.Pegasus, \
-                    PT.Pyramid, \
-                    PT.Shaman, \
-                    PT.Queen, \
-                    PT.King, \
-                    PT.Shaman, \
-                    PT.Pyramid, \
-                    PT.Pegasus, \
-                    PT.Wave, \
-                    PT.Unicorn, \
-                    PT.Centaur, \
-                    PT.Serpent, \
-                    PT.Bishop, \
-                    PT.Knight, \
-                    PT.Rook, \
-                    -PT.Star
-                ]
-        return lst
-
-    @staticmethod
-    def _get_discovery_row():
+    def _get_conquest_of_tlalocan_row( board_type=BoardType.ConquestOfTlalocan ):
         lst =   [
                     PT.Star, \
                     PT.Rook, \
@@ -645,7 +758,37 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_one_row():
+    def _get_discovery_row( board_type=BoardType.Discovery ):
+        lst =   [
+                    PT.Star, \
+                    PT.Rook, \
+                    PT.Knight, \
+                    PT.Bishop, \
+                    PT.Serpent, \
+                    PT.Centaur, \
+                    PT.Unicorn, \
+                    PT.Wave, \
+                    PT.Pegasus, \
+                    PT.Pyramid, \
+                    PT.Shaman, \
+                    PT.Queen, \
+                    PT.King, \
+                    PT.Shaman, \
+                    PT.Pyramid, \
+                    PT.Pegasus, \
+                    PT.Wave, \
+                    PT.Unicorn, \
+                    PT.Centaur, \
+                    PT.Serpent, \
+                    PT.Bishop, \
+                    PT.Knight, \
+                    PT.Rook, \
+                    -PT.Star
+                ]
+        return lst
+
+    @staticmethod
+    def _get_one_row( board_type=BoardType.One ):
         lst =   [
                     PT.Star, \
                     PT.Rook, \
@@ -677,7 +820,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_classic_14_row():
+    def _get_classic_14_row( board_type=BoardType.Classic_14 ):
         lst =   [ \
                     PT.Rook, \
                     PT.Knight, \
@@ -697,7 +840,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_classic_20_row():
+    def _get_classic_20_row( board_type=BoardType.Classic_20 ):
         lst =   [ \
                     PT.Rook, \
                     PT.Knight, \
@@ -723,7 +866,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_classic_26_row():
+    def _get_classic_26_row( board_type=BoardType.Classic_26 ):
         lst =   [ \
                     PT.Rook, \
                     PT.Knight, \
@@ -755,7 +898,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_croatian_14_row():
+    def _get_croatian_14_row( board_type=BoardType.Croatian_14 ):
         lst =   [ \
                     PT.Rook, \
                     PT.Pegasus, \
@@ -775,7 +918,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_croatian_20_row():
+    def _get_croatian_20_row( board_type=BoardType.Croatian_20 ):
         lst =   [ \
                     PT.Rook, \
                     PT.Pegasus, \
@@ -801,7 +944,7 @@ class Board:
         return lst
 
     @staticmethod
-    def _get_croatian_26_row():
+    def _get_croatian_26_row( board_type=BoardType.Croatian_26 ):
         lst =   [ \
                     PT.Rook, \
                     PT.Pegasus, \
@@ -830,6 +973,101 @@ class Board:
                     PT.Pegasus, \
                     PT.Rook, \
                 ]
+        return lst
+
+    @staticmethod
+    def _get_random_row( board_type ):
+        bt = BoardType( board_type )
+        if not bt.in_variants( BoardType.iter( include_none=False,
+                                               include_even=False,
+                                               include_simple=False,
+                                               include_mirrored=True,
+                                               include_symmetrical=True ) ):
+            return None
+
+        size = bt.get_size()
+        half = size // 2
+        ixs = [ i for i in range( 0, size ) ]
+        lst = [ PT.none for i in range( 0, size ) ]
+
+        count = int( ( size - 2 ) // 3 ) # Number of pieces, e.g. Rooks
+        # - 2 == King + Queen
+        #\ // 3 == Bishop + Knight + Rook #\ Because without it VS Code renders // non-readable (striked- and blacked-out --> C code renderer?).
+
+        # Bishops on light fields
+        bls = [ 2 * i + 1 for i in range( 0, size // 2 ) ]
+        for b in range( count // 2 ): #\ // 2 == Bishops, but only on light fields
+            i = random.choice( bls )
+            lst[ i ] = PT.Bishop
+            # print( "Removing: '%d'." % i )
+            bls.remove( i )
+            ixs.remove( i )
+
+        # Bishops on dark fields
+        bds = [ 2 * i for i in range( 0, size // 2 ) ]
+        for b in range( count // 2 ): #\ // 2 == Bishops, but only on dark fields
+            i = random.choice( bds )
+            lst[ i ] = PT.Bishop
+            # print( "Removing: '%d'." % i )
+            bds.remove( i )
+            ixs.remove( i )
+
+        jumper = PT.Pegasus if bt in [ BoardType.Croatian_14_Mirrored,
+                                       BoardType.Croatian_20_Mirrored,
+                                       BoardType.Croatian_26_Mirrored,
+                                       BoardType.Croatian_14_Symmetrical,
+                                       BoardType.Croatian_20_Symmetrical,
+                                       BoardType.Croatian_26_Symmetrical, ] else \
+                 PT.Knight
+
+        # Rooks, Knights or Pegasuses
+        for p in [ PT.Rook, jumper ]:
+            for c in range( count ):
+                i = random.choice( ixs )
+                lst[ i ] = p
+                # print( "Removing: '%d'." % i )
+                ixs.remove( i )
+
+        # Queen
+        i = random.choice( ixs )
+        lst[ i ] = PT.Queen
+        # print( "Removing: '%d'." % i )
+        ixs.remove( i )
+
+        # King
+        i = ixs[ 0 ]
+        lst[ i ] = PT.King
+
+        return lst
+
+    @staticmethod
+    def _get_classic_14_random_row( board_type=BoardType.Classic_14_Mirrored ):
+        lst = Board._get_random_row( board_type )
+        return lst
+
+    @staticmethod
+    def _get_classic_20_random_row( board_type=BoardType.Classic_20_Mirrored ):
+        lst = Board._get_random_row( board_type )
+        return lst
+
+    @staticmethod
+    def _get_classic_26_random_row( board_type=BoardType.Classic_26_Mirrored ):
+        lst = Board._get_random_row( board_type )
+        return lst
+
+    @staticmethod
+    def _get_croatian_14_random_row( board_type=BoardType.Croatian_14_Mirrored ):
+        lst = Board._get_random_row( board_type )
+        return lst
+
+    @staticmethod
+    def _get_croatian_20_random_row( board_type=BoardType.Croatian_20_Mirrored ):
+        lst = Board._get_random_row( board_type )
+        return lst
+
+    @staticmethod
+    def _get_croatian_26_random_row( board_type=BoardType.Croatian_26_Mirrored ):
+        lst = Board._get_random_row( board_type )
         return lst
 
     @staticmethod
@@ -848,14 +1086,29 @@ class Board:
               BoardType.ConquestOfTlalocan: Board._get_conquest_of_tlalocan_row,
               BoardType.Discovery: Board._get_discovery_row,
               BoardType.One: Board._get_one_row,
+
               BoardType.Classic_14: Board._get_classic_14_row,
               BoardType.Classic_20: Board._get_classic_20_row,
               BoardType.Classic_26: Board._get_classic_26_row,
               BoardType.Croatian_14: Board._get_croatian_14_row,
               BoardType.Croatian_20: Board._get_croatian_20_row,
-              BoardType.Croatian_26: Board._get_croatian_26_row, }[ bt ]
+              BoardType.Croatian_26: Board._get_croatian_26_row,
 
-        light_pieces = f()
+              BoardType.Classic_14_Mirrored: Board._get_classic_14_random_row,
+              BoardType.Classic_20_Mirrored: Board._get_classic_20_random_row,
+              BoardType.Classic_26_Mirrored: Board._get_classic_26_random_row,
+              BoardType.Croatian_14_Mirrored: Board._get_croatian_14_random_row,
+              BoardType.Croatian_20_Mirrored: Board._get_croatian_20_random_row,
+              BoardType.Croatian_26_Mirrored: Board._get_croatian_26_random_row,
+
+              BoardType.Classic_14_Symmetrical: Board._get_classic_14_random_row,
+              BoardType.Classic_20_Symmetrical: Board._get_classic_20_random_row,
+              BoardType.Classic_26_Symmetrical: Board._get_classic_26_random_row,
+              BoardType.Croatian_14_Symmetrical: Board._get_croatian_14_random_row,
+              BoardType.Croatian_20_Symmetrical: Board._get_croatian_20_random_row,
+              BoardType.Croatian_26_Symmetrical: Board._get_croatian_26_random_row, }[ bt ]
+
+        light_pieces = f( bt )
         return light_pieces
 
     # -----------------------------------------------------------------
@@ -874,7 +1127,7 @@ class Board:
         row = 1 if is_light else self.get_height() - 2
         self.set_row( row, plst ) # lst)
 
-        if self.is_simple( include_old=False, include_new=True ):
+        if self.is_simple( include_old=False, include_new=True, include_mirrored=True, include_symmetrical=True ):
             return
         elif self.type > BoardType.MirandasVeil:
             row_2 = 2 if is_light else self.get_height() - 3
@@ -887,7 +1140,7 @@ class Board:
     def _setup_scouts( self, is_light ):
         assert isinstance( is_light, bool )
 
-        if self.is_simple( include_old=False, include_new=True ):
+        if self.is_simple( include_old=False, include_new=True, include_mirrored=True, include_symmetrical=True ):
             return
         elif self.type > BoardType.Nineteen:
             # pt = PT.Pawn if is_light else -PT.Pawn
@@ -907,7 +1160,7 @@ class Board:
     def _setup_grenadiers( self, is_light ):
         assert isinstance( is_light, bool )
 
-        if self.is_simple( include_old=False, include_new=True ):
+        if self.is_simple( include_old=False, include_new=True, include_mirrored=True, include_symmetrical=True ):
             return
         elif self.type > BoardType.Nineteen:
             pt = PT.Grenadier if is_light else -PT.Grenadier
@@ -938,6 +1191,13 @@ class Board:
         self.set_row( 0, light_pieces )
 
         dark = get_opposites( light_pieces )
+        if self.type in [ BoardType.Classic_14_Symmetrical,
+                          BoardType.Classic_20_Symmetrical,
+                          BoardType.Classic_26_Symmetrical,
+                          BoardType.Croatian_14_Symmetrical,
+                          BoardType.Croatian_20_Symmetrical,
+                          BoardType.Croatian_26_Symmetrical, ]:
+            dark.reverse()
         self.set_row( self.get_height() - 1, dark )
 
         # Keep order! # --> Scouts --> Grenadiers
@@ -1041,6 +1301,30 @@ class Board:
         light = Board._get_croatian_26_row()
         self._setup_board( light )
 
+    def _setup_classic_14_random( self ):
+        light = Board._get_classic_14_random_row()
+        self._setup_board( light )
+
+    def _setup_classic_20_random( self ):
+        light = Board._get_classic_20_random_row()
+        self._setup_board( light )
+
+    def _setup_classic_26_random( self ):
+        light = Board._get_classic_26_random_row()
+        self._setup_board( light )
+
+    def _setup_croatian_14_random( self ):
+        light = Board._get_croatian_14_random_row()
+        self._setup_board( light )
+
+    def _setup_croatian_20_random( self ):
+        light = Board._get_croatian_20_random_row()
+        self._setup_board( light )
+
+    def _setup_croatian_26_random( self ):
+        light = Board._get_croatian_26_random_row()
+        self._setup_board( light )
+
     def setup( self ):
         f = { BoardType.none: self._setup_none,
               BoardType.Classical: self._setup_classic,
@@ -1054,12 +1338,27 @@ class Board:
               BoardType.ConquestOfTlalocan: self._setup_conquest_of_tlalocan,
               BoardType.Discovery: self._setup_discovery,
               BoardType.One: self._setup_one,
+
               BoardType.Classic_14: self._setup_classic_14,
               BoardType.Classic_20: self._setup_classic_20,
               BoardType.Classic_26: self._setup_classic_26,
               BoardType.Croatian_14: self._setup_croatian_14,
               BoardType.Croatian_20: self._setup_croatian_20,
-              BoardType.Croatian_26: self._setup_croatian_26, }[ self.type ]
+              BoardType.Croatian_26: self._setup_croatian_26,
+
+              BoardType.Classic_14_Mirrored: self._setup_classic_14_random,
+              BoardType.Classic_20_Mirrored: self._setup_classic_20_random,
+              BoardType.Classic_26_Mirrored: self._setup_classic_26_random,
+              BoardType.Croatian_14_Mirrored: self._setup_croatian_14_random,
+              BoardType.Croatian_20_Mirrored: self._setup_croatian_20_random,
+              BoardType.Croatian_26_Mirrored: self._setup_croatian_26_random,
+
+              BoardType.Classic_14_Symmetrical: self._setup_classic_14_random,
+              BoardType.Classic_20_Symmetrical: self._setup_classic_20_random,
+              BoardType.Classic_26_Symmetrical: self._setup_classic_26_random,
+              BoardType.Croatian_14_Symmetrical: self._setup_croatian_14_random,
+              BoardType.Croatian_20_Symmetrical: self._setup_croatian_20_random,
+              BoardType.Croatian_26_Symmetrical: self._setup_croatian_26_random, }[ self.type ]
 
         f()
 
@@ -1138,13 +1437,13 @@ def test_5():
     # % (1, 7)
     # % (24, 18)
 
-    for bt in [BoardType.Discovery, BoardType.One]:
-        bx = BoardType( bt )
+    for board_type in [ BoardType.Discovery, BoardType.One ]:
+        bt = BoardType( board_type )
         b = Board( bt )
         # b.setup()
 
         print()
-        print( bx.get_name() )
+        print( bt.get_name() )
         print( b._calc_monolith_init_pos( PT.Monolith ) )
         print( b._calc_monolith_init_pos( -PT.Monolith ) )
 

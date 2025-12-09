@@ -416,6 +416,30 @@ class Colors( dict ):
 
         self[ BoardType.Croatian_26 ] = self[ BoardType.CroatianTies ]
 
+        self[ BoardType.Classic_14_Mirrored ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Classic_20_Mirrored ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Classic_26_Mirrored ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Croatian_14_Mirrored ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Croatian_20_Mirrored ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Croatian_26_Mirrored ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Classic_14_Symmetrical] = self[ BoardType.Classical ]
+
+        self[ BoardType.Classic_20_Symmetrical ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Classic_26_Symmetrical ] = self[ BoardType.Classical ]
+
+        self[ BoardType.Croatian_14_Symmetrical ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Croatian_20_Symmetrical ] = self[ BoardType.CroatianTies ]
+
+        self[ BoardType.Croatian_26_Symmetrical ] = self[ BoardType.CroatianTies ]
+
         # CP = ColorsPair.from_tuple # (<interior>, <outline>)
         # CS = ColorsShade.from_tuple # (<light interior>, <light outline>, <dark interior>, <dark outline>)
         # CM = ColorsMark.from_tuple # ( <legal light interior>, <legal light outline>, <legal dark interior>, <legal dark outline>, \

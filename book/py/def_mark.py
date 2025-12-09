@@ -163,4 +163,52 @@ class MarkDef( dict ):
                                              arrow_def=AD( 12.0, 1.5 ), \
                                              field_mark_def=FMD( 5.0 ) )
 
+        self[ BoardType.Classic_14_Mirrored ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                     arrow_def=AD( 12.0, 1.5 ), \
+                                                     field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Classic_20_Mirrored ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                     arrow_def=AD( 12.0, 1.5 ), \
+                                                     field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Classic_26_Mirrored ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                     arrow_def=AD( 12.0, 1.5 ), \
+                                                     field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Croatian_14_Mirrored ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                      arrow_def=AD( 12.0, 1.5 ), \
+                                                      field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Croatian_20_Mirrored ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                      arrow_def=AD( 12.0, 1.5 ), \
+                                                      field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Croatian_26_Mirrored ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                      arrow_def=AD( 12.0, 1.5 ), \
+                                                      field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Classic_14_Symmetrical ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                        arrow_def=AD( 12.0, 1.5 ), \
+                                                        field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Classic_20_Symmetrical ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                        arrow_def=AD( 12.0, 1.5 ), \
+                                                        field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Classic_26_Symmetrical ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                        arrow_def=AD( 12.0, 1.5 ), \
+                                                        field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Croatian_14_Symmetrical ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                         arrow_def=AD( 12.0, 1.5 ), \
+                                                         field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Croatian_20_Symmetrical ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                         arrow_def=AD( 12.0, 1.5 ), \
+                                                         field_mark_def=FMD( 5.0 ) )
+
+        self[ BoardType.Croatian_26_Symmetrical ] = MDI( font_def=FD( 'sans bold', 5.0 ), \
+                                                         arrow_def=AD( 12.0, 1.5 ), \
+                                                         field_mark_def=FMD( 5.0 ) )
+
 MarkDef = MarkDef()
