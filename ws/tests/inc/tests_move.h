@@ -7,11 +7,11 @@
 #include "cc_game.h"
 
 
-bool test_move( char const * an_str,
-                char const * setup__d,
-                char const * check_setup__d,
-                char const * check_end__d,
-                CcGame ** game__iodr );
+cc_ull_t test_move( char const * an_str,
+                    char const * setup__d,
+                    char const * check_setup__d,
+                    char const * check_end__d,
+                    CcGame ** game__iodr );
 
 bool tests_move( int test_number );
 
