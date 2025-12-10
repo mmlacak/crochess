@@ -29,18 +29,18 @@ SUBFOLDERS =    [   \
                     'castlings/30_ct14', \
                     'castlings/32_ct20', \
                     'castlings/34_ct26', \
-                    'castlings/24_c14m', \
-                    'castlings/26_c20m', \
-                    'castlings/28_c26m', \
-                    'castlings/30_ct14m', \
-                    'castlings/32_ct20m', \
-                    'castlings/34_ct26m', \
-                    'castlings/24_c14s', \
-                    'castlings/26_c20s', \
-                    'castlings/28_c26s', \
-                    'castlings/30_ct14s', \
-                    'castlings/32_ct20s', \
-                    'castlings/34_ct26s', \
+                    'castlings/36_c14m', \
+                    'castlings/38_c20m', \
+                    'castlings/40_c26m', \
+                    'castlings/42_ct14m', \
+                    'castlings/44_ct20m', \
+                    'castlings/46_ct26m', \
+                    'castlings/48_c14s', \
+                    'castlings/50_c20s', \
+                    'castlings/52_c26s', \
+                    'castlings/54_ct14s', \
+                    'castlings/56_ct20s', \
+                    'castlings/58_ct26s', \
                     \
                     'en_passants', \
                     \
@@ -62,18 +62,18 @@ SUBFOLDERS =    [   \
                     'examples/30_ct14', \
                     'examples/32_ct20', \
                     'examples/34_ct26', \
-                    'examples/24_c14m', \
-                    'examples/26_c20m', \
-                    'examples/28_c26m', \
-                    'examples/30_ct14m', \
-                    'examples/32_ct20m', \
-                    'examples/34_ct26m', \
-                    'examples/24_c14s', \
-                    'examples/26_c20s', \
-                    'examples/28_c26s', \
-                    'examples/30_ct14s', \
-                    'examples/32_ct20s', \
-                    'examples/34_ct26s', \
+                    'examples/36_c14m', \
+                    'examples/38_c20m', \
+                    'examples/40_c26m', \
+                    'examples/42_ct14m', \
+                    'examples/44_ct20m', \
+                    'examples/46_ct26m', \
+                    'examples/48_c14s', \
+                    'examples/50_c20s', \
+                    'examples/52_c26s', \
+                    'examples/54_ct14s', \
+                    'examples/56_ct20s', \
+                    'examples/58_ct26s', \
                     \
                     'pieces', \
                     'pieces/bishop', \
@@ -99,18 +99,18 @@ SUBFOLDERS =    [   \
                     'isa/30_ct14', \
                     'isa/32_ct20', \
                     'isa/34_ct26', \
-                    'isa/24_c14m', \
-                    'isa/26_c20m', \
-                    'isa/28_c26m', \
-                    'isa/30_ct14m', \
-                    'isa/32_ct20m', \
-                    'isa/34_ct26m', \
-                    'isa/24_c14s', \
-                    'isa/26_c20s', \
-                    'isa/28_c26s', \
-                    'isa/30_ct14s', \
-                    'isa/32_ct20s', \
-                    'isa/34_ct26s', \
+                    'isa/36_c14m', \
+                    'isa/38_c20m', \
+                    'isa/40_c26m', \
+                    'isa/42_ct14m', \
+                    'isa/44_ct20m', \
+                    'isa/46_ct26m', \
+                    'isa/48_c14s', \
+                    'isa/50_c20s', \
+                    'isa/52_c26s', \
+                    'isa/54_ct14s', \
+                    'isa/56_ct20s', \
+                    'isa/58_ct26s', \
                     \
                     'test', \
                 ]
