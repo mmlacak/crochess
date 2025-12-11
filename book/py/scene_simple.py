@@ -198,7 +198,7 @@ class SceneSimpleMixin:
         scene.append_text( "K", *start_K, corner=Corner.UpperRight, mark_type=MarkType.Action ) # UpperRightFieldMarker
 
         # K --> R(C)
-        start_K_RA = GS.gen_steps( start=start_K, rels=[ (1, 0), ], include_prev=False, count=9 )
+        start_K_RA = GS.gen_steps( start=start_K, rels=[ (1, 0), ], include_prev=False, count=3 )
         for i, coord in enumerate( start_K_RA() ):
             mark_type = MarkType.Legal if i <= 2 else \
                         MarkType.Blocked
