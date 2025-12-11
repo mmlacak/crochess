@@ -592,16 +592,25 @@ King can now castle for only one field to the left or right, up to, and
 including, a field occupied by a castling Rook, regardless of their relative
 positions.
 \hyperref[sec:Simple variants/Classical Chess variants/Castling]{As before},
-King can castle only with the closest Rook on the chosen side of castling,
-left or right.
+King can castle only with the closest Rook on the chosen side of castling.
 
 All other constraints from Classical Chess (see \algfmt{FIDE 3.8.2}) still
 holds true for all simple and randomized variants; namely, all fields between
 King and the castling Rook has to be empty, King must not be in check, all
-fields which King is traversing and its destination must not be under attack.
+fields which King is traversing and its destination must not be under attack;
+castling Rook and all fields only it is traversing can be under attack.
+
+In all cases, after castling Rook ends up at field immediately next to its
+King; on the right if King castled left, and on the left if King castled
+right.
 
 \clearpage % ..........................................................
 
+In the following examples initial position of light King is labeled K, other labels
+are used to mark Rooks A, B, C and D. Possible King's destinations are enumerated
+1, 2, 3, ...
+
+% \vspace*{-0.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_01_castling_init.png}
@@ -610,8 +619,13 @@ fields which King is traversing and its destination must not be under attack.
 \label{fig:scn_c14m_01_castling_init}
 \end{figure}
 
-. . .
+% \vspace*{-0.4\baselineskip}
+In the initial setup above, light King can castle for just one field to the right,
+on to destination currently occupied by Rook B. Light King can also castle to the
+left with Rook A, for up to two fields. Rooks C and D are blocked from castling by
+Rook B.
 
+% \vspace*{-0.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_02_castled_right_1.png}
@@ -620,8 +634,11 @@ fields which King is traversing and its destination must not be under attack.
 \label{fig:scn_c14m_02_castled_right_1}
 \end{figure}
 
-. . .
+% \vspace*{-0.4\baselineskip}
+Here, light King castled right to the very next field; so, Rook B has been castled
+to a field immediately to the left of King, onto its initial position.
 
+% \vspace*{-0.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_03_castled_left_2.png}
@@ -630,8 +647,14 @@ fields which King is traversing and its destination must not be under attack.
 \label{fig:scn_c14m_03_castled_left_2}
 \end{figure}
 
-. . .
+% \vspace*{-0.4\baselineskip}
+Here, light King castled to the left, for two fields, onto destination which was
+occupied by Rook A; so, Rook A has been castled onto field immediately to the right
+of King.
 
+\clearpage % ..........................................................
+
+\vspace*{-2.1\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_04_castled_left_1.png}
@@ -640,8 +663,12 @@ fields which King is traversing and its destination must not be under attack.
 \label{fig:scn_c14m_04_castled_left_1}
 \end{figure}
 
-. . .
+% \vspace*{-0.4\baselineskip}
+Here, light King castled for just one field to the left with Rook A; again, Rook
+A has been castled onto field immediately to the right of King, onto its initial
+position.
 
+% \vspace*{-0.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_05_castling_right_3.png}
@@ -650,8 +677,16 @@ fields which King is traversing and its destination must not be under attack.
 \label{fig:scn_c14m_05_castling_right_3}
 \end{figure}
 
-. . .
+% \vspace*{-0.4\baselineskip}
+If Rook B had been removed from initial setup, light King would be able to castle
+to the right with Rook C for at least one field, and up to 3 fields, including the
+one currently occupied by Rook C. Since King is castling to the right, Rook C would
+end up on a field immediately to the left of its King.\newline
+\indent
+King can only castle with the closest Rook on the chosen side; so, Rook D is still
+blocked from castling.
 
+% \vspace*{-0.4\baselineskip}
 \noindent
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_06_castling_right_9.png}
@@ -660,7 +695,11 @@ fields which King is traversing and its destination must not be under attack.
 \label{fig:scn_c14m_06_castling_right_9}
 \end{figure}
 
-. . .
+% \vspace*{-0.4\baselineskip}
+If Rook C had been also removed from initial setup, light King would be able to castle
+to the right with Rook D for at least one field, and up to 9 fields, including the
+one currently occupied by Rook D. Again, Rook D would end up on a field immediately
+to the left of light King, regardless of its destination.
 
 \clearpage % ..........................................................
 % Initial setups ......................................................
