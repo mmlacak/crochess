@@ -189,9 +189,6 @@ class SceneSimpleMixin:
         start_K = (2, 0)
         scene.board.set_piece( *start_K, piece=PieceType.King )
 
-        # start_R_B = (3, 0)
-        # scene.board.set_piece( *start_R_B, piece=PieceType.Rook )
-
         start_R_C = (5, 0)
         scene.board.set_piece( *start_R_C, piece=PieceType.Rook )
 

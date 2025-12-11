@@ -581,9 +581,26 @@ except they introduce extended castling.
 \addcontentsline{toc}{subsubsection}{Castling}
 \label{sec:Simple variants/Randomized variants/Classical Chess variants/Castling}
 
-Classical Chess 14 mirrored
+The following castling examples are presented in Classical Chess 14 mirrored
+variant, but everything discussed here applies to all randomized variants.
 
-. . .
+Due to randomized initial position of a King, and relative position to his
+Queen, castling sides are no longer referred to as King- or Queen-sided, but
+as left- or right-sided, depending on to which side King is castling.
+
+King can now castle for only one field to the left or right, up to, and
+including, a field occupied by a castling Rook, regardless of their relative
+positions.
+\hyperref[sec:Simple variants/Classical Chess variants/Castling]{As before},
+King can castle only with the closest Rook on the chosen side of castling,
+left or right.
+
+All other constraints from Classical Chess (see \algfmt{FIDE 3.8.2}) still
+holds true for all simple and randomized variants; namely, all fields between
+King and the castling Rook has to be empty, King must not be in check, all
+fields which King is traversing and its destination must not be under attack.
+
+\clearpage % ..........................................................
 
 \noindent
 \begin{figure}[!h]
@@ -629,7 +646,7 @@ Classical Chess 14 mirrored
 \begin{figure}[!h]
 \includegraphics[width=1.0\textwidth, keepaspectratio=true]{examples/36_c14m/scn_c14m_05_castling_right_3.png}
 \vspace*{-1.4\baselineskip}
-\caption{Castling to the right, for 3 fields}
+\caption{Castling to the right, for up to 3 fields}
 \label{fig:scn_c14m_05_castling_right_3}
 \end{figure}
 
