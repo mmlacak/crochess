@@ -238,7 +238,7 @@ class SaveScene:
 
         sc = SceneCommon()
 
-        for bt in BoardType.iter():
+        for bt in BoardType.iter( include_mirrored=False, include_symmetrical=False ):
             king_moves = []
 
             file_king, files_rooks_l, files_rooks_r = Board.get_castling_files( bt )
