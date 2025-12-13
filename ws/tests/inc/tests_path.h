@@ -16,6 +16,9 @@ bool test_path_segment( CcSideEffect side_effect,
                         CcTypedStep step,
                         char const * setup );
 
+bool test_path_tree( CcPosDesc move_from,
+                     char const * setup );
+
 bool test_bishop_simple( char const * setup );
 
 bool tests_path( int test_number );

@@ -108,14 +108,76 @@ bool test_path_segment( CcSideEffect side_effect,
     return result;
 }
 
-bool test_bishop_simple( char const * setup ) {
-    CcSideEffect se = cc_side_effect_none();
-    CcPosDesc move_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
-    CcPosDesc ply_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
-    CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_MovementOrCapture );
-    // char const * setup = "O Bd6";
+bool test_path_tree( CcPosDesc move_from,
+                     char const * setup ) {
+    if ( !setup ) return false;
 
-    return test_path_segment( se, move_from, ply_from, step, setup );
+    CcGame * game__a = cc_game_setup_from_string__new( setup, NULL );
+    if ( !game__a ) return false;
+
+    // TEMP :: DEBUG :: un/comment (?)
+    cc_chessboard_print( game__a->chessboard, true );
+    // cc_chessboard_print( game__a->chessboard, false );
+
+    CcPathContext * path_ctx__a = NULL;
+    CcPathNode * path_node__a = NULL;
+
+    if ( !cc_path_tree_init( game__a, move_from, &path_ctx__a, &path_node__a ) ) {
+        cc_game_free_all( &game__a );
+        return false;
+    }
+
+    bool result = true;
+    CcPathNode * path_node__t = NULL;
+
+    if ( !cc_path_tree( move_from, path_ctx__a, &path_node__t ) ) {
+        cc_path_node_free_all( &path_node__a );
+        cc_path_context_free_all( &path_ctx__a );
+        cc_game_free_all( &game__a );
+        return false;
+    };
+
+    if ( path_node__t ) {
+        if ( !cc_path_node_add_forks( &path_node__a, &path_node__t ) ) { // Ownership transferred, if succesful. // [1]
+            cc_path_node_free_all( &path_node__t );
+            cc_path_node_free_all( &path_node__a );
+            cc_path_context_free_all( &path_ctx__a );
+            cc_game_free_all( &game__a );
+            return false;
+        }
+
+        char * pl_str__a = cc_path_node_to_string__new( path_node__a );
+        printf( "%s\nPath link test ok.\n", pl_str__a );
+        CC_FREE( pl_str__a );
+    } else {
+        result = false;
+        cc_char_16 moving_from_str = CC_CHAR_16_EMPTY;
+
+        if ( cc_pos_desc_to_string( move_from, &moving_from_str ) ) {
+            printf( "Path '%s' failed.\n", moving_from_str ); // TODO :: add typed step
+        }
+    }
+
+    printf( "-----------------------------------------------------------------------\n" );
+
+    // cc_path_node_free_all( &path_node__t ); // Not needed, ownership transferred at [1].
+    cc_path_node_free_all( &path_node__a );
+    cc_path_context_free_all( &path_ctx__a );
+    cc_game_free_all( &game__a );
+
+    return result;
+}
+
+bool test_bishop_simple( char const * setup ) {
+    // CcSideEffect se = cc_side_effect_none();
+    CcPosDesc move_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
+    // CcPosDesc ply_from = CC_POS_DESC_COORDS_CAST( 3, 5, CC_PTE_LightBishop );
+    // CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_MovementOrCapture );
+    // // char const * setup = "O Bd6";
+
+    // return test_path_segment( se, move_from, ply_from, step, setup );
+
+    return test_path_tree( move_from, setup );
 }
 
 bool tests_path( int test_number ) {

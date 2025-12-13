@@ -524,53 +524,31 @@ bool cc_path_tree( CcPosDesc moving_from,
 
     if ( !cc_path_context_is_legal( path_ctx__io, true, false ) ) return false; // [1]
 
-    // TODO :: DEBUG :: REVERT
-    //
-    // bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx__io->game__w->chessboard->type );
-    // bool is_same_color = cc_pos_piece_are_same_color( moving_from.pos, moving_from.piece );
-    //
-    // CcTypedStep const * step__w = NULL;
-    //
-    // if ( CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) {
-    //     while ( cc_iter_piece_steps( moving_from.piece,
-    //                                  sideways_pawns,
-    //                                  is_same_color, // Filler, Unicorn and Centaur are not one-step pieces.
-    //                                  CC_SDE_BothDiagonals, // Filler, Serpent is not one-step piece.
-    //                                  CC_STE_None, // No filtering by step types.
-    //                                  &step__w ) ) {
+    bool sideways_pawns = CC_VARIANT_HAS_SIDEWAYS_PAWNS( path_ctx__io->game__w->chessboard->type );
+    bool is_same_color = cc_pos_piece_are_same_color( moving_from.pos, moving_from.piece );
 
-    //     }
-    // } // TODO :: other (types of) pieces
-    //
-    // TODO :: DEBUG :: REVERT
-
-    // TODO :: DEBUG :: DELETE
-    //
-    CcTypedStep step = CC_TYPED_STEP_CAST( 1, -1, CC_STE_MovementOrCapture );
     CcPathNode * path_node__t = NULL;
+    CcTypedStep const * step__w = NULL;
     CcSideEffect se = cc_side_effect_none();
 
-    if ( (*path_node__io_a)->back__w ) {
-        CcPieceTagType encounter = cc_chessboard_get_piece( path_ctx__io->cb_current,
-                                                            moving_from.pos.i,
-                                                            moving_from.pos.j );
+    if ( CC_PIECE_IS_ONE_STEP( moving_from.piece ) ) {
+        while ( cc_iter_piece_steps( moving_from.piece,
+                                     sideways_pawns,
+                                     is_same_color, // Filler, Unicorn and Centaur are not one-step pieces.
+                                     CC_SDE_BothDiagonals, // Filler, Serpent is not one-step piece.
+                                     CC_STE_None, // No filtering by step types.
+                                     &step__w ) ) {
+            if ( !cc_path_segment( se, moving_from, *step__w, CC_TYPED_STEP_CAST_INVALID, path_ctx__io, &path_node__t ) ) {
+                // cc_path_node_free_all( &path_node__t ); // Not needed, path node is set only after everything passes ok.
+                return false;
+            }
 
-        if ( !CC_PIECE_IS_DIVERGENT( encounter ) ) return false;
-
-        se = cc_side_effect_diversion( encounter );
-    }
-
-    if ( !cc_path_segment( se, moving_from, step, CC_TYPED_STEP_CAST_INVALID, path_ctx__io, &path_node__t ) ) {
-        // cc_path_node_free_all( &path_node__t ); // Not needed, path node is set only after everything passes ok.
-        return false;
-    }
-
-    if ( cc_path_node_add_forks( path_node__io_a, &path_node__t ) ) {
-        cc_path_node_free_all( &path_node__t );
-        return false;
-    }
-    //
-    // TODO :: DEBUG :: DELETE
+            if ( cc_path_node_add_forks( path_node__io_a, &path_node__t ) ) {
+                cc_path_node_free_all( &path_node__t );
+                return false;
+            }
+        }
+    } // TODO :: other (types of) pieces
 
     return true;
 }
