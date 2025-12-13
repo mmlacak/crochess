@@ -391,7 +391,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
     if ( pn_step_over__t ) {
         pn_step_over__t->act_desc = *ad__w; // TODO :: RETHINK :: is ok ? in all situations ?
 
-        if ( !cc_path_node_add_fork( path_node__io_a, &pn_step_over__t ) ) { // Ownership transfer, do not free( pn_step_over__t ) afterwards.
+        if ( !cc_path_node_add_forks( path_node__io_a, &pn_step_over__t ) ) { // Ownership transfer, do not free( pn_step_over__t ) afterwards.
             cc_step_free_all( &steps__t );
             cc_path_node_free_all( &pn_step_over__t );
             return false;
@@ -565,7 +565,7 @@ bool cc_path_tree( CcPosDesc moving_from,
         return false;
     }
 
-    if ( cc_path_node_add_fork( path_node__io_a, &path_node__t ) ) {
+    if ( cc_path_node_add_forks( path_node__io_a, &path_node__t ) ) {
         cc_path_node_free_all( &path_node__t );
         return false;
     }

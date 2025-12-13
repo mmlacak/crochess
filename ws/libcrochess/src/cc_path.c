@@ -41,8 +41,8 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
     return pl__t;
 }
 
-CcPathNode * cc_path_node_add_fork( CcPathNode ** pn_step__a,
-                                    CcPathNode ** pn_fork__n ) {
+CcPathNode * cc_path_node_add_forks( CcPathNode ** pn_step__a,
+                                     CcPathNode ** pn_fork__n ) {
     if ( !pn_step__a ) return NULL;
     if ( !*pn_step__a ) return NULL;
 
@@ -74,8 +74,8 @@ CcPathNode * cc_path_node_add_fork( CcPathNode ** pn_step__a,
     return pl__w;
 }
 
-CcPathNode * cc_path_node_add_alter( CcPathNode ** pn_step__a,
-                                     CcPathNode ** pn_alt__n ) {
+CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
+                                      CcPathNode ** pn_alt__n ) {
     if ( !pn_step__a ) return NULL;
     if ( !*pn_step__a ) return NULL;
 

@@ -87,12 +87,12 @@ root node or otherwise, might be repositioning.
 
     Any :c:type:`CcPathNode` node with its path continued by :c:member:`CcPathNode.fork` or
     :c:member:`CcPathNode.alt` members **must** also have path segment
-    (i.e. :c:member:`CcPathNode.steps`) defined.
+    (i.e. :c:member:`CcPathNode.steps`) defined, except for leaf nodes.
 
 .. warning::
 
     Any :c:type:`CcPathNode` node with substitute path (i.e. pointed by :c:member:`CcPathNode.sub`
-    member) **must** not have path segment (i.e. :c:member:`CcPathNode.steps`) defined.
+    member) **must not** have path segment (i.e. :c:member:`CcPathNode.steps`) defined.
 
 .. note::
 

@@ -144,7 +144,7 @@ Linked path segments
     :returns: Pointer to a newly allocated path link if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathNode * cc_path_node_add_fork( CcPathNode ** pn_step__a, CcPathNode ** pn_fork__n )
+.. c:function:: CcPathNode * cc_path_node_add_forks( CcPathNode ** pn_step__a, CcPathNode ** pn_fork__n )
 
     Function extends forking paths of a given path step (:c:`pn_step__a`) with a
     path node (:c:`pn_fork__n`), as an additional alternative path (i.e. appends
@@ -164,7 +164,7 @@ Linked path segments
     :returns: Weak pointer to alternative path if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function:: CcPathNode * cc_path_node_add_alter( CcPathNode ** pn_step__a, CcPathNode ** pn_alt__n )
+.. c:function:: CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a, CcPathNode ** pn_alt__n )
 
     Function extends alternating paths of a given path step (:c:`pn_step__a`) with
     path node (:c:`pn_alt__n`), i.e. appends to :c:`pn_step__a->alt` linked list.

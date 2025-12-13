@@ -39,11 +39,11 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
                                 CcPieceTagType encounter,
                                 CcActivationDesc act_desc );
 
-CcPathNode * cc_path_node_add_fork( CcPathNode ** pn_step__a,
-                                    CcPathNode ** pn_fork__n );
+CcPathNode * cc_path_node_add_forks( CcPathNode ** pn_step__a,
+                                     CcPathNode ** pn_fork__n );
 
-CcPathNode * cc_path_node_add_alter( CcPathNode ** pn_step__a,
-                                     CcPathNode ** pn_alt__n );
+CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
+                                      CcPathNode ** pn_alt__n );
 
 // static CcMaybeBoolEnum _cc_path_node_subs_is_valid( CcPathNode * pn_subs );
 

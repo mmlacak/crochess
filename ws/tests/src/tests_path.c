@@ -78,7 +78,7 @@ bool test_path_segment( CcSideEffect side_effect,
     };
 
     if ( path_node__t ) {
-        if ( !cc_path_node_add_fork( &path_node__a, &path_node__t ) ) { // Ownership transferred, if succesful. // [1]
+        if ( !cc_path_node_add_forks( &path_node__a, &path_node__t ) ) { // Ownership transferred, if succesful. // [1]
             cc_path_node_free_all( &path_node__t );
             cc_path_node_free_all( &path_node__a );
             cc_path_context_free_all( &path_ctx__a );
