@@ -434,18 +434,6 @@ bool cc_path_segment( CcSideEffect side_effect,
     CcPos pos = moving_from.pos;
     CcStep * steps__t = NULL;
 
-    // TODO :: DELETE :: after cc_path_tree_init(), cc_path_tree() is plugged-in
-    //
-    // If side-effect is valid --> this is movement from encounter, not initial piece movement -->
-    // this step is already added to the parent path node steps, in cc_path_side_effects() --> skip it here.
-    // bool skip_first = CC_SIDE_EFFECT_TYPE_IS_VALID( side_effect.type );
-    // if ( !skip_first ) {
-    //     steps__t = cc_step_initial_no_side_effect__new( pos );
-    //     if ( !steps__t ) return false;
-    // }
-    //
-    // TODO :: DELETE :: after cc_path_tree_init(), cc_path_tree() is plugged-in
-
     bool is_starting_pos = path_ctx__io->ply_ctx.is_first;
     CcActivationDesc ad = act_desc;
     CcPieceTagType encounter = CC_PTE_None;
@@ -495,7 +483,7 @@ bool cc_path_segment( CcSideEffect side_effect,
     pn__t->encounter = encounter;
     pn__t->act_desc = act_desc;
 
-    path_ctx__io->ply_ctx.act_desc = act_desc; // TODO :: RETHINK :: FIX :: do update AD, from a transparency fork
+    path_ctx__io->ply_ctx.act_desc = act_desc;
 
     if ( !CC_PIECE_IS_NONE( encounter ) ) {
         CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
