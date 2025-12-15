@@ -495,11 +495,9 @@ bool cc_path_segment( CcSideEffect side_effect,
     pn__t->encounter = encounter;
     pn__t->act_desc = act_desc;
 
-    // path_ctx__io->ply_ctx.act_desc = act_desc; // TODO :: RETHINK :: FIX :: do update AD, from a transparency fork
+    path_ctx__io->ply_ctx.act_desc = act_desc; // TODO :: RETHINK :: FIX :: do update AD, from a transparency fork
 
     if ( !CC_PIECE_IS_NONE( encounter ) ) {
-        path_ctx__io->ply_ctx.act_desc = act_desc; // TODO :: RETHINK :: FIX :: do update AD, from a transparency fork
-
         CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
 
         if ( !cc_path_side_effects( moving_from, step_1, step_2, encounter_pd, path_ctx__io, &pn__t ) ) {
@@ -541,8 +539,13 @@ bool cc_path_tree( CcPosDesc moving_from,
                                      CC_SDE_BothDiagonals, // Filler, Serpent is not one-step piece.
                                      CC_STE_None, // No filtering by step types.
                                      &step__w ) ) {
+            if ( !cc_path_context_reset( path_ctx__io ) ) {
+                cc_path_node_free_all( &path_node__t );
+                return false;
+            }
+
             if ( !cc_path_segment( se, moving_from, *step__w, CC_TYPED_STEP_CAST_INVALID, path_ctx__io, &path_node__t ) ) {
-                // cc_path_node_free_all( &path_node__t ); // Not needed, path node is set only after everything passes ok.
+                cc_path_node_free_all( &path_node__t );
                 return false;
             }
 

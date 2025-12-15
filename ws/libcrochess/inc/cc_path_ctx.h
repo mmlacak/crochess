@@ -109,5 +109,7 @@ bool cc_path_context_init( CcPathContext * path_ctx__io,
                            CcPosDesc init_pos,
                            bool init_move_or_ply );
 
+bool cc_path_context_reset( CcPathContext * path_ctx__io );
+
 
 #endif /* __CC_PATH_DEFS_H__ */

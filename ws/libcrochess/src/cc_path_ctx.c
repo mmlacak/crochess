@@ -182,3 +182,14 @@ bool cc_path_context_init( CcPathContext * path_ctx__io,
     return init_move_or_ply ? _cc_path_context_init_move( path_ctx__io, init_pos )
                             : _cc_path_context_init_ply( path_ctx__io, init_pos );
 }
+
+bool cc_path_context_reset( CcPathContext * path_ctx__io ) {
+    if ( !path_ctx__io ) return false;
+
+    if ( !cc_path_context_is_legal( path_ctx__io, true, true ) ) return false;
+
+    path_ctx__io->ply_ctx.act_desc = CC_ACTIVATION_DESC_CAST_INITIAL;
+    path_ctx__io->ply_ctx.is_first = true;
+
+    return true;
+}
