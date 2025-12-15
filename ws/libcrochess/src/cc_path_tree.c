@@ -438,11 +438,11 @@ bool cc_path_segment( CcSideEffect side_effect,
     //
     // If side-effect is valid --> this is movement from encounter, not initial piece movement -->
     // this step is already added to the parent path node steps, in cc_path_side_effects() --> skip it here.
-    bool skip_first = CC_SIDE_EFFECT_TYPE_IS_VALID( side_effect.type );
-    if ( !skip_first ) {
-        steps__t = cc_step_initial_no_side_effect__new( pos );
-        if ( !steps__t ) return false;
-    }
+    // bool skip_first = CC_SIDE_EFFECT_TYPE_IS_VALID( side_effect.type );
+    // if ( !skip_first ) {
+    //     steps__t = cc_step_initial_no_side_effect__new( pos );
+    //     if ( !steps__t ) return false;
+    // }
     //
     // TODO :: DELETE :: after cc_path_tree_init(), cc_path_tree() is plugged-in
 
@@ -508,6 +508,7 @@ bool cc_path_segment( CcSideEffect side_effect,
     }
 
     *path_node__o_a = pn__t; // Ownership transfer, do not free( pn__t ).
+    // pn__t = NULL; // Not needed, not used anymore.
 
     return true;
 }
@@ -543,7 +544,7 @@ bool cc_path_tree( CcPosDesc moving_from,
                 return false;
             }
 
-            if ( cc_path_node_add_forks( path_node__io_a, &path_node__t ) ) {
+            if ( !cc_path_node_add_forks( path_node__io_a, &path_node__t ) ) {
                 cc_path_node_free_all( &path_node__t );
                 return false;
             }

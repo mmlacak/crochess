@@ -127,25 +127,16 @@ bool test_path_tree( CcPosDesc move_from,
         return false;
     }
 
-    bool result = true;
-    CcPathNode * path_node__t = NULL;
-
-    if ( !cc_path_tree( move_from, path_ctx__a, &path_node__t ) ) {
+    if ( !cc_path_tree( move_from, path_ctx__a, &path_node__a ) ) {
         cc_path_node_free_all( &path_node__a );
         cc_path_context_free_all( &path_ctx__a );
         cc_game_free_all( &game__a );
         return false;
     };
 
-    if ( path_node__t ) {
-        if ( !cc_path_node_add_forks( &path_node__a, &path_node__t ) ) { // Ownership transferred, if succesful. // [1]
-            cc_path_node_free_all( &path_node__t );
-            cc_path_node_free_all( &path_node__a );
-            cc_path_context_free_all( &path_ctx__a );
-            cc_game_free_all( &game__a );
-            return false;
-        }
+    bool result = true;
 
+    if ( path_node__a ) {
         char * pl_str__a = cc_path_node_to_string__new( path_node__a );
         printf( "%s\nPath link test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );
@@ -154,7 +145,7 @@ bool test_path_tree( CcPosDesc move_from,
         cc_char_16 moving_from_str = CC_CHAR_16_EMPTY;
 
         if ( cc_pos_desc_to_string( move_from, &moving_from_str ) ) {
-            printf( "Path '%s' failed.\n", moving_from_str ); // TODO :: add typed step
+            printf( "Path tree from '%s' in '%s' failed.\n", moving_from_str, setup );
         }
     }
 
