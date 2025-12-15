@@ -495,9 +495,11 @@ bool cc_path_segment( CcSideEffect side_effect,
     pn__t->encounter = encounter;
     pn__t->act_desc = act_desc;
 
-    path_ctx__io->ply_ctx.act_desc = act_desc;
+    // path_ctx__io->ply_ctx.act_desc = act_desc; // TODO :: RETHINK :: FIX :: do update AD, from a transparency fork
 
     if ( !CC_PIECE_IS_NONE( encounter ) ) {
+        path_ctx__io->ply_ctx.act_desc = act_desc; // TODO :: RETHINK :: FIX :: do update AD, from a transparency fork
+
         CcPosDesc encounter_pd = CC_POS_DESC_CAST( pos, encounter );
 
         if ( !cc_path_side_effects( moving_from, step_1, step_2, encounter_pd, path_ctx__io, &pn__t ) ) {
