@@ -334,11 +334,11 @@ static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
 CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
     if ( !path_node ) return NULL;
 
-    CcPathNode * from = path_node;
+    CcPathNode * pn = path_node;
 
-    CC_REWIND_BY( from, from->back__w );
+    CC_REWIND_BY( pn, pn->back__w );
 
-    return _cc_path_node_duplicate_all__new( path_node );
+    return _cc_path_node_duplicate_all__new( pn );
 }
 
 static bool _cc_path_node_free_all( CcPathNode ** pl__f ) {
@@ -463,6 +463,8 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RE
 static char * _cc_path_node_to_string__new( cc_uchar_t depth,
                                             CcPathNode * path_node ) {
     if ( !path_node ) return NULL;
+
+    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
 
     cc_uint_t tabs_len = 2 * depth; // Depth --> 2-spaces.
     char * tabs_str__a = cc_str_pad__new( ' ', tabs_len );
