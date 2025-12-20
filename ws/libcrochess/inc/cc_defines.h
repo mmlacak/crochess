@@ -158,11 +158,11 @@ typedef enum CcMaybeBoolEnum {
             (ptr_var_lst) = (ptr_var_lst)->next;            \
 }
 
-#define CC_REWIND_BY(ptr_var_seq,ptr_item)                  \
+#define CC_REWIND_BY(ptr_var_seq,ptr_back_expr)             \
 {                                                           \
     if ( (ptr_var_seq) )                                    \
-        while ( (ptr_item) )                                \
-            (ptr_var_seq) = (ptr_item);                     \
+        while ( (ptr_back_expr) )                           \
+            (ptr_var_seq) = (ptr_back_expr);                \
 }
 
 // <!> Does not work for array parameters --> converted into pointers!

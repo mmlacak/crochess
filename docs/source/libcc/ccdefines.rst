@@ -525,17 +525,17 @@ Navigation
     :param ptr_var_lst: A list pointer variable.
     :returns: Nothing.
 
-.. c:macro:: CC_REWIND_BY(ptr_var_seq,ptr_item)
+.. c:macro:: CC_REWIND_BY(ptr_var_seq,ptr_back_expr)
 
     Macro to rewind sequence pointer variable by one of its members; if pointer
     is :c:data:`NULL`, nothing happens.
 
     .. warning::
 
-        Pointer to sequence :c:`ptr_var_seq` must be valid variable, not expression.
+        Pointer to sequence :c:`ptr_var_seq` must be valid variable, not an expression.
 
     :param ptr_var_seq: A sequence pointer variable.
-    :param ptr_item: Pointer, member to iterate over.
+    :param ptr_back_expr: Pointer expression, member to iterate over.
     :returns: Nothing.
 
 .. c:macro:: CC_ARRAY_SIZE(array)

@@ -84,10 +84,10 @@ CcPly * cc_ply_duplicate_all__new( CcPly * plies ) {
         }
 
         CcPly * ply__w = cc_ply_append( &ply__a,
-                                                     from->link,
-                                                     from->piece,
-                                                     from->lost_tag,
-                                                     &steps__t );
+                                        from->link,
+                                        from->piece,
+                                        from->lost_tag,
+                                        &steps__t );
         if ( !ply__w ) {
             cc_step_free_all( &steps__t ); // Failed append --> ownership not transferred ...
             cc_ply_free_all( &ply__a );
