@@ -210,6 +210,8 @@ static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps ) {
 
     CcPathNode * pl = path_node;
 
+    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( pl->side_effect.type ) ) {
@@ -277,12 +279,13 @@ bool cc_path_node_is_valid( CcPathNode * path_node ) {
     return true;
 }
 
-CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
+static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
     if ( !path_node ) return NULL;
-    if ( path_node->back__w ) return NULL;
 
     CcPathNode * pl__a = NULL;
     CcPathNode * from = path_node;
+
+    // CC_REWIND_BY( from, from->back__w ); // <!> Do not use, func call itself recursively!
 
     if ( from ) {
         CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
@@ -298,7 +301,7 @@ CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
         }
 
         if ( from->fork ) {
-            if ( ( pl__a->fork = cc_path_node_duplicate_all__new( from->fork ) ) ) {
+            if ( ( pl__a->fork = _cc_path_node_duplicate_all__new( from->fork ) ) ) {
                 pl__a->fork->back__w = pl__a;
             } else {
                 cc_path_node_free_all( &pl__a );
@@ -307,7 +310,7 @@ CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
         }
 
         if ( from->alt ) {
-            if ( ( pl__a->alt = cc_path_node_duplicate_all__new( from->alt ) ) ) {
+            if ( ( pl__a->alt = _cc_path_node_duplicate_all__new( from->alt ) ) ) {
                 pl__a->alt->back__w = pl__a;
             } else {
                 cc_path_node_free_all( &pl__a );
@@ -316,7 +319,7 @@ CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
         }
 
         if ( from->sub ) {
-            if ( ( pl__a->sub = cc_path_node_duplicate_all__new( from->sub ) ) ) {
+            if ( ( pl__a->sub = _cc_path_node_duplicate_all__new( from->sub ) ) ) {
                 pl__a->sub->back__w = pl__a;
             } else {
                 cc_path_node_free_all( &pl__a );
@@ -328,24 +331,36 @@ CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
     return pl__a;
 }
 
-bool cc_path_node_free_all( CcPathNode ** pl__f ) {
+CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
+
+    CcPathNode * from = path_node;
+
+    CC_REWIND_BY( from, from->back__w );
+
+    return _cc_path_node_duplicate_all__new( path_node );
+}
+
+static bool _cc_path_node_free_all( CcPathNode ** pl__f ) {
     if ( !pl__f ) return false;
     if ( !*pl__f ) return true;
 
-    CcPathNode * pl = *pl__f;
     bool result = true;
+    CcPathNode * pl = *pl__f;
+
+    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
 
     if ( pl ) {
         result = cc_step_free_all( &( pl->steps ) ) && result;
 
         if ( pl->fork )
-            result = cc_path_node_free_all( &( pl->fork ) ) && result;
+            result = _cc_path_node_free_all( &( pl->fork ) ) && result;
 
         if ( pl->alt )
-            result = cc_path_node_free_all( &( pl->alt ) ) && result;
+            result = _cc_path_node_free_all( &( pl->alt ) ) && result;
 
         if ( pl->sub )
-            result = cc_path_node_free_all( &( pl->sub ) ) && result;
+            result = _cc_path_node_free_all( &( pl->sub ) ) && result;
 
         // <!> pl->back__w is weak pointer, not an owner, so it must not be free()-ed.
 
@@ -356,26 +371,80 @@ bool cc_path_node_free_all( CcPathNode ** pl__f ) {
     return result;
 }
 
-size_t cc_path_node_count( CcPathNode * path_node ) {
+bool cc_path_node_free_all( CcPathNode ** pl__f ) {
+    if ( !pl__f ) return false;
+    if ( !*pl__f ) return true;
+
+    CcPathNode * pl = *pl__f;
+
+    CC_REWIND_BY( pl, pl->back__w );
+
+    bool result = _cc_path_node_free_all( &pl );
+
+    *pl__f = NULL;
+    return result;
+}
+
+static size_t _cc_path_node_count( CcPathNode * path_node ) {
     if ( !path_node ) return 0;
 
     size_t count = 0;
     CcPathNode * pl = path_node;
 
+    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+
     if ( pl ) {
         ++count;
 
         if ( pl->fork ) {
-            count += cc_path_node_count( pl->fork );
+            count += _cc_path_node_count( pl->fork );
         }
 
         if ( pl->alt ) {
-            count += cc_path_node_count( pl->alt );
+            count += _cc_path_node_count( pl->alt );
         }
 
         if ( pl->sub ) {
-            count += cc_path_node_count( pl->sub );
+            count += _cc_path_node_count( pl->sub );
         }
+    }
+
+    return count;
+}
+
+size_t cc_path_node_count( CcPathNode * path_node ) {
+    if ( !path_node ) return 0;
+
+    CcPathNode * pl = path_node;
+
+    CC_REWIND_BY( pl, pl->back__w );
+
+    return _cc_path_node_count( pl );
+}
+
+static size_t _cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RETHINK :: ???
+    if ( !path_node ) return 0;
+
+    CcPathNode * pl = path_node;
+
+    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+
+    size_t count = ( pl->steps ) ? 1 : 0; // TODO :: RETHINK :: length of steps ???
+
+    if ( pl ) {
+        if ( pl->fork ) {
+            count += _cc_path_node_count_all_segments( pl->fork );
+        }
+
+        if ( pl->alt ) {
+            count += _cc_path_node_count_all_segments( pl->alt );
+        }
+
+        // Substitute paths should not contain path segments.
+        //
+        // if ( pl->sub ) {
+        //     count += _cc_path_node_count_all_segments( pl->sub );
+        // }
     }
 
     return count;
@@ -385,25 +454,10 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RE
     if ( !path_node ) return 0;
 
     CcPathNode * pl = path_node;
-    size_t count = ( pl->steps ) ? 1 : 0;
 
-    if ( pl ) {
-        if ( pl->fork ) {
-            count += cc_path_node_count_all_segments( pl->fork );
-        }
+    CC_REWIND_BY( pl, pl->back__w );
 
-        if ( pl->alt ) {
-            count += cc_path_node_count_all_segments( pl->alt );
-        }
-
-        // Substitute paths should not contain path segments.
-        //
-        // if ( pl->sub ) {
-        //     count += cc_path_node_count_all_segments( pl->sub );
-        // }
-    }
-
-    return count;
+    return _cc_path_node_count_all_segments( pl );
 }
 
 static char * _cc_path_node_to_string__new( cc_uchar_t depth,
@@ -607,7 +661,13 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
 }
 
 char * cc_path_node_to_string__new( CcPathNode * path_node ) {
-    return _cc_path_node_to_string__new( 0, path_node );
+    if ( !path_node ) return NULL;
+
+    CcPathNode * pn = path_node;
+
+    CC_REWIND_BY( pn, pn->back__w );
+
+    return _cc_path_node_to_string__new( 0, pn );
 }
 
 //

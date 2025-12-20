@@ -46,7 +46,6 @@ CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
                                       CcPathNode ** pn_alt__n );
 
 // static CcMaybeBoolEnum _cc_path_node_subs_is_valid( CcPathNode * pn_subs );
-
 CcPathNode * cc_path_node_add_subs( CcPathNode ** pn_step__a,
                                     CcPathNode ** pn_sub__n );
 
@@ -57,22 +56,22 @@ CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_no
 CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
-
 // static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps );
-
 bool cc_path_node_is_valid( CcPathNode * path_node );
 
+// static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node );
 CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node );
 
+// static bool _cc_path_node_free_all( CcPathNode ** pl__f );
 bool cc_path_node_free_all( CcPathNode ** pl__f );
 
+// static size_t _cc_path_node_count( CcPathNode * path_node );
 size_t cc_path_node_count( CcPathNode * path_node );
 
 size_t cc_path_node_count_all_segments( CcPathNode * path_node );
 
 // static char * _cc_path_node_to_string__new( cc_uchar_t depth,
 //                                             CcPathNode * path_node );
-
 char * cc_path_node_to_string__new( CcPathNode * path_node );
 
 //
