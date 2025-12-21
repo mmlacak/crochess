@@ -59,20 +59,57 @@ CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 // static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps );
 bool cc_path_node_is_valid( CcPathNode * path_node );
 
-// static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node );
+// static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_root );
 CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node );
 
-// static bool _cc_path_node_free_all( CcPathNode ** pl__f );
-bool cc_path_node_free_all( CcPathNode ** pl__f );
+// static bool _cc_path_node_free_all( CcPathNode ** path_root__f );
+bool cc_path_node_free_all( CcPathNode ** path_node__f );
 
-// static size_t _cc_path_node_count( CcPathNode * path_node );
+// static size_t _cc_path_node_count( CcPathNode * path_root );
 size_t cc_path_node_count( CcPathNode * path_node );
 
 size_t cc_path_node_count_all_segments( CcPathNode * path_node );
 
 // static char * _cc_path_node_to_string__new( cc_uchar_t depth,
-//                                             CcPathNode * path_node );
+//                                             CcPathNode * path_root );
 char * cc_path_node_to_string__new( CcPathNode * path_node );
+
+//
+// Path linked list.
+
+// TODO :: DOCS
+typedef struct CcPathLink {
+    struct CcPathNode * node__w;
+    struct CcPathLink * next;
+} CcPathLink;
+
+// TODO :: DOCS
+CcPathLink * cc_path_link__new( CcPathNode * path_node );
+
+// TODO :: DOCS
+CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
+                                  CcPathNode * path_node );
+
+// TODO :: DOCS
+CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
+
+// TODO :: DOCS
+CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
+                                  CcPathLink ** path_link__n );
+
+// TODO :: DOCS
+bool cc_path_link_free_all( CcPathLink ** path_link__f );
+
+// TODO :: DOCS
+size_t cc_path_link_len( CcPathLink * path_link );
+
+// static bool _cc_path_node_walk_to_leaf( CcPathNode * path_root,
+//                                         CcPathLink ** root_to_leaf__iod );
+// static bool _cc_path_node_iter_to_leaf( CcPathNode * path_root,
+//                                         CcPathLink ** root_to_leaf__iod );
+// TODO :: DOCS
+bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
+                                CcPathLink ** root_to_leaf__iod );
 
 //
 // Node linkage.
