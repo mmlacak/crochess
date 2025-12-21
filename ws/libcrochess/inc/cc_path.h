@@ -55,6 +55,14 @@ CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_no
 
 CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 
+CcPathNode * cc_path_node_get_root( CcPathNode * path_node );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
+
+// TODO :: DOCS
+CcPathNode * cc_path_node_get_root( CcPathNode * path_node );
+
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
 // static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps );
 bool cc_path_node_is_valid( CcPathNode * path_node );
@@ -102,6 +110,9 @@ bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
 // TODO :: DOCS
 size_t cc_path_link_len( CcPathLink * path_link );
+
+//
+// Path tree iterator.
 
 // static bool _cc_path_node_walk_to_leaf( CcPathNode * path_root,
 //                                         CcPathLink ** root_to_leaf__iod );

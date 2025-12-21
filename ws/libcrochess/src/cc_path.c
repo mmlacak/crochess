@@ -188,6 +188,22 @@ CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node ) {
     return CC_MBE_True;
 }
 
+CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node ) {
+    if ( !path_node ) return CC_MBE_Void;
+
+    return path_node->back__w ? CC_MBE_False
+                              : CC_MBE_True;
+}
+
+CcPathNode * cc_path_node_get_root( CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
+
+    CcPathNode * pn = path_node;
+
+    CC_REWIND_BY( pn, pn->back__w );
+
+    return pn;
+}
 
 static bool _cc_path_node_steps_are_valid( CcStep * steps ) {
     if ( !steps ) return false;
@@ -780,6 +796,9 @@ size_t cc_path_link_len( CcPathLink * path_link ) {
     return len;
 }
 
+//
+// Path tree iterator.
+
 static bool _cc_path_node_walk_to_leaf( CcPathNode * path_root,
                                         CcPathLink ** root_to_leaf__iod ) {
     // <!> Not really needed, already checked in caller.
@@ -804,11 +823,11 @@ bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
                                 CcPathLink ** root_to_leaf__iod ) {
     if ( !path_node ) return false;
     if ( !root_to_leaf__iod ) return false;
-    if ( *root_to_leaf__iod ) return false;
+    if ( *root_to_leaf__iod ) return false; // TODO :: FIX :: not in iterator !!!
 
     CcPathNode * pn = path_node;
 
-    CC_REWIND_BY( pn, pn->back__w );
+    CC_REWIND_BY( pn, pn->back__w ); // TODO :: FIX :: not in iterator !!!
 
     return _cc_path_node_iter_to_leaf( pn, root_to_leaf__iod );
 }
