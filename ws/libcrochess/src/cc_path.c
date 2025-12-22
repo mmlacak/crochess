@@ -12,7 +12,42 @@
 
 
 //
-// Linked path segments.
+// Path node linkage.
+
+char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle ) {
+    switch ( plnle ) {
+        case CC_PNLE_NoLinkage : return "";
+        case CC_PNLE_Fork : return "< ";
+        case CC_PNLE_Alt : return "^ ";
+        case CC_PNLE_Sub : return "% ";
+        default : return "? ";
+    }
+}
+
+CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
+    if ( !path_node ) return CC_PNLE_NoLinkage;
+
+    CcPathNode * pln = path_node->back__w;
+
+    if ( !pln ) return CC_PNLE_NoLinkage;
+
+    if ( pln->fork == path_node )
+        return CC_PNLE_Fork;
+    else if ( pln->alt == path_node )
+        return CC_PNLE_Alt;
+    else if ( pln->sub == path_node )
+        return CC_PNLE_Sub;
+    else
+        return CC_PNLE_NoLinkage;
+}
+
+char const * cc_path_node_linkage_to_string( CcPathNode * path_node ) {
+    CcPathNodeLinkageEnum plnle = cc_path_node_linkage( path_node );
+    return cc_path_node_linkage_as_string( plnle );
+}
+
+//
+// Path node functions.
 
 CcPathNode * cc_path_node__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
@@ -830,41 +865,6 @@ bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
     CC_REWIND_BY( pn, pn->back__w ); // TODO :: FIX :: not in iterator !!!
 
     return _cc_path_node_iter_to_leaf( pn, root_to_leaf__iod );
-}
-
-//
-// Node linkage.
-
-char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle ) {
-    switch ( plnle ) {
-        case CC_PNLE_NoLinkage : return "";
-        case CC_PNLE_Fork : return "< ";
-        case CC_PNLE_Alt : return "^ ";
-        case CC_PNLE_Sub : return "% ";
-        default : return "? ";
-    }
-}
-
-CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
-    if ( !path_node ) return CC_PNLE_NoLinkage;
-
-    CcPathNode * pln = path_node->back__w;
-
-    if ( !pln ) return CC_PNLE_NoLinkage;
-
-    if ( pln->fork == path_node )
-        return CC_PNLE_Fork;
-    else if ( pln->alt == path_node )
-        return CC_PNLE_Alt;
-    else if ( pln->sub == path_node )
-        return CC_PNLE_Sub;
-    else
-        return CC_PNLE_NoLinkage;
-}
-
-char const * cc_path_node_linkage_to_string( CcPathNode * path_node ) {
-    CcPathNodeLinkageEnum plnle = cc_path_node_linkage( path_node );
-    return cc_path_node_linkage_as_string( plnle );
 }
 
 

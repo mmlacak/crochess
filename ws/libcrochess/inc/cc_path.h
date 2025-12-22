@@ -17,7 +17,7 @@
 
 
 //
-// Linked path segments.
+// Path node segments.
 
 typedef struct CcPathNode {
     CcSideEffect side_effect; /* A possible side-effect on previous step, mostly on previously encountered piece. */
@@ -33,6 +33,33 @@ typedef struct CcPathNode {
     struct CcPathNode * sub;
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
+
+//
+// Path node linkage.
+
+typedef enum CcPathNodeLinkageEnum {
+    CC_PNLE_NoLinkage,
+    CC_PNLE_Fork,
+    CC_PNLE_Alt,
+    CC_PNLE_Sub,
+} CcPathNodeLinkageEnum;
+
+#define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(plnle) ( ( CC_PNLE_NoLinkage <= (plnle) ) && ( (plnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
+
+#define CC_PATH_NODE_LINKAGE_IS_VALID(plnle) CC_PATH_NODE_LINKAGE_IS_ENUMERATOR( (plnle) ) // All enumerations are also valid.
+
+#define CC_MAX_LEN_PATH_NODE_LINKAGE_STRING (4)
+
+#define CC_SIZE_PATH_NODE_LINKAGE_STRING (CC_MAX_LEN_PATH_NODE_LINKAGE_STRING + 1)
+
+char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle );
+
+CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node );
+
+char const * cc_path_node_linkage_to_string( CcPathNode * path_node );
+
+//
+// Path node functions.
 
 CcPathNode * cc_path_node__new( CcSideEffect side_effect,
                                 CcStep ** steps__d_n,
@@ -110,30 +137,6 @@ size_t cc_path_link_len( CcPathLink * path_link );
 // TODO :: DOCS
 bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
                                 CcPathLink ** root_to_leaf__iod );
-
-//
-// Node linkage.
-
-typedef enum CcPathNodeLinkageEnum {
-    CC_PNLE_NoLinkage,
-    CC_PNLE_Fork,
-    CC_PNLE_Alt,
-    CC_PNLE_Sub,
-} CcPathNodeLinkageEnum;
-
-#define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(plnle) ( ( CC_PNLE_NoLinkage <= (plnle) ) && ( (plnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
-
-#define CC_PATH_NODE_LINKAGE_IS_VALID(plnle) CC_PATH_NODE_LINKAGE_IS_ENUMERATOR( (plnle) ) // All enumerations are also valid.
-
-#define CC_MAX_LEN_PATH_NODE_LINKAGE_STRING (4)
-
-#define CC_SIZE_PATH_NODE_LINKAGE_STRING (CC_MAX_LEN_PATH_NODE_LINKAGE_STRING + 1)
-
-char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle );
-
-CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node );
-
-char const * cc_path_node_linkage_to_string( CcPathNode * path_node );
 
 //
 // Linked path side-effects.
