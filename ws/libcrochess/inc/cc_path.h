@@ -55,12 +55,8 @@ CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_no
 
 CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 
-CcPathNode * cc_path_node_get_root( CcPathNode * path_node );
-
-// TODO :: DOCS
 CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
 
-// TODO :: DOCS
 CcPathNode * cc_path_node_get_root( CcPathNode * path_node );
 
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
@@ -85,30 +81,23 @@ char * cc_path_node_to_string__new( CcPathNode * path_node );
 //
 // Path linked list.
 
-// TODO :: DOCS
 typedef struct CcPathLink {
     struct CcPathNode * node__w;
     struct CcPathLink * next;
 } CcPathLink;
 
-// TODO :: DOCS
 CcPathLink * cc_path_link__new( CcPathNode * path_node );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
                                   CcPathNode * path_node );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 
-// TODO :: DOCS
 CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
                                   CcPathLink ** path_link__n );
 
-// TODO :: DOCS
 bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
-// TODO :: DOCS
 size_t cc_path_link_len( CcPathLink * path_link );
 
 //

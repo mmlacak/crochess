@@ -248,6 +248,28 @@ Linked path segments
         * :c:enumerator:`CC_MBE_False` if given path node is not a leaf,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
+.. c:function:: CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node )
+
+    Function checks if a given path node is a root node.
+
+    Root node is one without :c:member:`CcPathNode.back__w` valid (non-:c:data:`NULL`) links.
+
+    :param path_node: A path node.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if given path node is root,
+        * :c:enumerator:`CC_MBE_False` if given path node is not root,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
+.. c:function:: CcPathNode * cc_path_node_get_root( CcPathNode * path_node )
+
+    Function returns root node for any given path node in a tree.
+
+    :param path_node: A path node.
+    :returns: A pointer to root path node if successful,
+              :c:data:`NULL` otherwise.
+    :seealso: :c:func:`cc_path_node_is_root()`
+
 .. c:function:: bool cc_path_node_is_valid( CcPathNode * path_node )
 
     Checks if given path node is valid; by checking if all positions are valid
@@ -302,6 +324,96 @@ Linked path segments
     :returns: A newly allocated, null-terminated (``'\0'``) string if
         successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_string()`
+
+.. _lbl-libcc-ccpath-pathlinkedlist:
+
+Path linked list
+^^^^^^^^^^^^^^^^
+
+.. c:struct:: CcPathLink
+
+    Linked path nodes :c:`struct`\ure, linked list.
+
+    .. c:member:: struct CcPathNode * node__w
+
+        A weak pointer to path node.
+
+    .. c:member:: struct CcPathLink * next
+
+        Next linked path node in a linked list.
+
+    :c:`struct` is tagged with the same :c:struct:`CcPathLink` name.
+
+.. c:function:: CcPathLink * cc_path_link__new( CcPathNode * path_node )
+
+    Function returns a newly allocated path link, with a weak link to a given path node.
+
+    :param path_node: A path node to be weak-linked.
+    :returns: A pointer to newly allocated path link if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a, CcPathNode * path_node )
+
+    Appends a newly allocated path link to a given linked list.
+
+    If linked list :c:`*path_link__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated path link as its only element.
+
+    :param path_link__iod_a: **Ownership**, *optional* *input/output* parameter;
+        linked list of path nodes to which a new path is appended, inner pointer
+        can be :c:data:`NULL`.
+    :param path_node: A path node.
+    :returns: A weak pointer to newly allocated path link if successful,
+        :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link )
+
+    Duplicates all links in a given path linked list into a newly allocated linked list.
+
+    :param path_link: Linked list to duplicate.
+    :returns: A newly allocated linked list if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a, CcPathLink ** path_link__n )
+
+    Extends given linked list with another.
+
+    If linked list to extend (:c:`path_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`path_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`path_link__n` has its ownership transferred to
+        extended linked list :c:`path_link__iod_a`; as a result, inner pointer
+        :c:`*path_link__n` is :c:data:`NULL`\ed.
+
+    :param path_link__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
+    :param path_link__n: **Ownership transfer**, *optional*; linked list with which to extend existing one.
+    :returns: Weak pointer to extended portion of a linked list if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_path_link_free_all( CcPathLink ** path_link__f )
+
+    Frees all path links in a linked list.
+
+    :param pos_link__f: Linked list to :c:func:`free()`.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: size_t cc_path_link_len( CcPathLink * path_link )
+
+    Function returning length of linked list of path links.
+
+    :param pos_link: Linked list of path links.
+    :returns: Length if successful, ``0`` otherwise.
+
+.. _lbl-libcc-ccpath-pathtreeiterator:
+
+Path tree iterator
+^^^^^^^^^^^^^^^^^^
+
+.. todo::
+
+    TODO
 
 .. _lbl-libcc-ccpath-nodelinkage:
 
