@@ -136,7 +136,7 @@ Path node linkage
     Enumerates all node links in a path node, i.e. all different pointers a node
     can use to have a link to another node, see :c:struct:`CcPathNode`.
 
-    .. c:enumerator:: CC_PNLE_NoLinkage
+    .. c:enumerator:: CC_PNLE_None
 
     .. c:enumerator:: CC_PNLE_Fork
 
@@ -146,23 +146,20 @@ Path node linkage
 
     :c:`enum` is tagged with the same :c:enum:`CcPathNodeLinkageEnum` name.
 
-.. c:macro:: CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(plnle)
+.. c:macro:: CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(pnle)
 
     Macro to check if given variant value is an enumerator, i.e. between
-    :c:enumerator:`CC_PNLE_NoLinkage` and :c:enumerator:`CC_PNLE_Sub` values.
+    :c:enumerator:`CC_PNLE_None` and :c:enumerator:`CC_PNLE_Sub` values.
 
-    :param plnle: Variant (integer) value.
+    :param pnle: Linkage (integer) value.
     :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
 
-.. c:macro:: CC_PATH_NODE_LINKAGE_IS_VALID(plnle)
+.. c:macro:: CC_PATH_NODE_LINKAGE_IS_VALID(pnle)
 
     Macro to check if given variant value is a valid enumerator, i.e. between
-    :c:enumerator:`CC_PNLE_NoLinkage` and :c:enumerator:`CC_PNLE_Sub` values.
+    :c:enumerator:`CC_PNLE_Fork` and :c:enumerator:`CC_PNLE_Sub` values.
 
-    This macro is the same as :c:macro:`CC_PATH_NODE_LINKAGE_IS_ENUMERATOR`, since
-    :c:enum:`CcPathNodeLinkageEnum` does not feature *null* (or *void*, or *empty*) value.
-
-    :param plnle: Variant (integer) value.
+    :param pnle: Linkage (integer) value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
 .. c:macro:: CC_MAX_LEN_PATH_NODE_LINKAGE_STRING
@@ -174,7 +171,7 @@ Path node linkage
     Maximum size a node linkage string can be, equals to
     :c:macro:`CC_MAX_LEN_PATH_NODE_LINKAGE_STRING` + ``1``.
 
-.. c:function:: char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle )
+.. c:function:: char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum pnle )
 
     Function returns string containing user-readable representation of a given
     path node linkage.
@@ -183,7 +180,7 @@ Path node linkage
 
         Returned string is not :c:func:`alloc()`\ated, do not :c:func:`free()` it.
 
-    :param plnle: A node linkage, :c:enum:`CcPathNodeLinkageEnum` value.
+    :param pnle: A node linkage, :c:enum:`CcPathNodeLinkageEnum` value.
     :returns: Pointer to a non-allocated, null-terminated (``'\0'``) string if successful,
         :c:data:`NULL` otherwise.
 
@@ -324,7 +321,7 @@ Path node functions
 
     Function checks if a given path node is a leaf node.
 
-    Leaf node is one without any of  :c:member:`CcPathNode.fork`,
+    Leaf node is one without any of :c:member:`CcPathNode.fork`,
     :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub`
     valid (non-:c:data:`NULL`) links.
 
@@ -348,14 +345,24 @@ Path node functions
         * :c:enumerator:`CC_MBE_False` if given path node is not root,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcPathNode * cc_path_node_get_root( CcPathNode * path_node )
+.. c:function:: CcPathNode * cc_path_node_get_node( CcPathNode * path_node, CcPathNodeLinkageEnum preference )
 
-    Function returns root node for any given path node in a tree.
+    Function returns root or leaf node for any given path node in a tree,
+    based on :c:var:`preference`
+    as follows:
+
+        * :c:enumerator:`CC_PNLE_None` root node, following :c:member:`CcPathNode.back__w` links
+        * :c:enumerator:`CC_PNLE_Fork` leaf node, following :c:member:`CcPathNode.fork` links
+        * :c:enumerator:`CC_PNLE_Alt` leaf node, following :c:member:`CcPathNode.alt` links
+        * :c:enumerator:`CC_PNLE_Sub` leaf node, following :c:member:`CcPathNode.sub` links
+
+    is returned.
 
     :param path_node: A path node.
-    :returns: A pointer to root path node if successful,
+    :param preference: An :c:enum:`CcPathNodeLinkageEnum` (integer) value.
+    :returns: A pointer to root or leaf path node if successful,
               :c:data:`NULL` otherwise.
-    :seealso: :c:func:`cc_path_node_is_root()`
+    :seealso: :c:func:`cc_path_node_is_leaf()`, :c:func:`cc_path_node_is_root()`
 
 .. c:function:: bool cc_path_node_is_valid( CcPathNode * path_node )
 

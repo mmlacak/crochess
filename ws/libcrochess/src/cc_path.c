@@ -14,9 +14,9 @@
 //
 // Path node linkage.
 
-char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle ) {
-    switch ( plnle ) {
-        case CC_PNLE_NoLinkage : return "";
+char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum pnle ) {
+    switch ( pnle ) {
+        case CC_PNLE_None : return "";
         case CC_PNLE_Fork : return "< ";
         case CC_PNLE_Alt : return "^ ";
         case CC_PNLE_Sub : return "% ";
@@ -25,11 +25,11 @@ char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle ) {
 }
 
 CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
-    if ( !path_node ) return CC_PNLE_NoLinkage;
+    if ( !path_node ) return CC_PNLE_None;
 
     CcPathNode * pln = path_node->back__w;
 
-    if ( !pln ) return CC_PNLE_NoLinkage;
+    if ( !pln ) return CC_PNLE_None;
 
     if ( pln->fork == path_node )
         return CC_PNLE_Fork;
@@ -38,12 +38,12 @@ CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
     else if ( pln->sub == path_node )
         return CC_PNLE_Sub;
     else
-        return CC_PNLE_NoLinkage;
+        return CC_PNLE_None;
 }
 
 char const * cc_path_node_linkage_to_string( CcPathNode * path_node ) {
-    CcPathNodeLinkageEnum plnle = cc_path_node_linkage( path_node );
-    return cc_path_node_linkage_as_string( plnle );
+    CcPathNodeLinkageEnum pnle = cc_path_node_linkage( path_node );
+    return cc_path_node_linkage_as_string( pnle );
 }
 
 //
@@ -230,12 +230,23 @@ CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node ) {
                               : CC_MBE_True;
 }
 
-CcPathNode * cc_path_node_get_root( CcPathNode * path_node ) {
+CcPathNode * cc_path_node_get_node( CcPathNode * path_node,
+                                    CcPathNodeLinkageEnum preference ) {
     if ( !path_node ) return NULL;
+    if ( !CC_PATH_NODE_LINKAGE_IS_ENUMERATOR( preference ) ) return NULL;
 
     CcPathNode * pn = path_node;
 
-    CC_REWIND_BY( pn, pn->back__w );
+    if ( preference == CC_PNLE_None ) {
+        CC_REWIND_BY( pn, pn->back__w );
+    } else if ( preference == CC_PNLE_Fork ) {
+        CC_REWIND_BY( pn, pn->fork );
+    } else if ( preference == CC_PNLE_Alt ) {
+        CC_REWIND_BY( pn, pn->alt );
+    } else if ( preference == CC_PNLE_Sub ) {
+        CC_REWIND_BY( pn, pn->sub );
+    } else
+        return NULL;
 
     return pn;
 }
@@ -1004,7 +1015,7 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
         *s++ = '{';
 
         switch ( sdl->link ) {
-            case CC_PNLE_NoLinkage : *s++ = ' '; break;
+            case CC_PNLE_None : *s++ = ' '; break;
             case CC_PNLE_Fork : *s++ = '<'; break;
             case CC_PNLE_Alt : *s++ = '^'; break;
             case CC_PNLE_Sub : *s++ = '%'; break;

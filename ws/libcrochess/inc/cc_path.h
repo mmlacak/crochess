@@ -38,21 +38,21 @@ typedef struct CcPathNode {
 // Path node linkage.
 
 typedef enum CcPathNodeLinkageEnum {
-    CC_PNLE_NoLinkage,
+    CC_PNLE_None,
     CC_PNLE_Fork,
     CC_PNLE_Alt,
     CC_PNLE_Sub,
 } CcPathNodeLinkageEnum;
 
-#define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(plnle) ( ( CC_PNLE_NoLinkage <= (plnle) ) && ( (plnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
+#define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(pnle) ( ( CC_PNLE_None <= (pnle) ) && ( (pnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
 
-#define CC_PATH_NODE_LINKAGE_IS_VALID(plnle) CC_PATH_NODE_LINKAGE_IS_ENUMERATOR( (plnle) ) // All enumerations are also valid.
+#define CC_PATH_NODE_LINKAGE_IS_VALID(pnle) ( ( CC_PNLE_None < (pnle) ) && ( (pnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
 
 #define CC_MAX_LEN_PATH_NODE_LINKAGE_STRING (4)
 
 #define CC_SIZE_PATH_NODE_LINKAGE_STRING (CC_MAX_LEN_PATH_NODE_LINKAGE_STRING + 1)
 
-char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum plnle );
+char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum pnle );
 
 CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node );
 
@@ -84,7 +84,8 @@ CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 
 CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
 
-CcPathNode * cc_path_node_get_root( CcPathNode * path_node );
+CcPathNode * cc_path_node_get_node( CcPathNode * path_node,
+                                    CcPathNodeLinkageEnum preference );
 
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
 // static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps );

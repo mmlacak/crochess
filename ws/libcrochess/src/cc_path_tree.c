@@ -37,19 +37,19 @@
 //     if ( !cc_chessboard_is_pos_on_board( cb, encounter.pos.i, encounter.pos.j ) ) return false;
 
 //     CcPathSideEffectLink * sel__t = NULL;
-//     CcPathNodeLinkageEnum plnle = CC_PNLE_NoLinkage; // CC_PNLE_Next;
+//     CcPathNodeLinkageEnum pnle = CC_PNLE_None; // CC_PNLE_Next;
 
 //     //
 //     // Terminal side-effects.
 
 //     if ( cc_check_piece_can_capture( moving_from.piece, encounter.piece ) ) {
 //         CcSideEffect se = cc_side_effect_capture( encounter.piece );
-//         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, plnle, se );
+//         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, pnle, se );
 //         if ( !se__w ) {
 //             cc_path_side_effect_link_free_all( &sel__t );
 //             return false;
 //         }
-//         plnle = CC_PNLE_Next;
+//         pnle = CC_PNLE_Next;
 //     }
 
 //     // todo :: other terminating side-effects
@@ -57,16 +57,16 @@
 //     //
 //     // Non-terminal side-effects.
 
-//     plnle = CC_PNLE_Next;
+//     pnle = CC_PNLE_Next;
 
 //     if ( cc_check_piece_can_step_over( moving_from.piece, encounter.piece, act_desc.momentum ) ) {
 //         CcSideEffect se = cc_side_effect_transparency( encounter.piece );
-//         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, plnle, se );
+//         CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, pnle, se );
 //         if ( !se__w ) {
 //             cc_path_side_effect_link_free_all( &sel__t );
 //             return false;
 //         }
-//         plnle = CC_PNLE_Fork;
+//         pnle = CC_PNLE_Fork;
 //     }
 
 //     if ( CC_PIECE_CAN_CAPTURE_EN_PASSANT( moving_from.piece ) &&
@@ -74,12 +74,12 @@
 //         CcPosDesc en_passant = CC_POS_DESC_CAST_INVALID;
 //         if ( cc_find_en_passant_target( cb, moving_from.piece, act_desc, path_ctx__io->ply_ctx.is_first, encounter.pos, &en_passant ) ) {
 //             CcSideEffect se = cc_side_effect_en_passant( en_passant.piece, en_passant.pos );
-//             CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, plnle, se );
+//             CcPathSideEffectLink * se__w = cc_path_side_effect_link_append( &sel__t, pnle, se );
 //             if ( !se__w ) {
 //                 cc_path_side_effect_link_free_all( &sel__t );
 //                 return false;
 //             }
-//             plnle = CC_PNLE_Fork;
+//             pnle = CC_PNLE_Fork;
 //         }
 //     }
 
