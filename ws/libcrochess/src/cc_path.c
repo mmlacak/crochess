@@ -202,16 +202,17 @@ CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node ) {
     return &( s->side_effect );
 }
 
-CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_node ) {
+CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_valid( CcPathNode * path_node,
+                                                             bool include_none ) {
     if ( !path_node ) return CC_MBE_Void;
 
     CcSideEffect * se__w = cc_path_node_last_step_side_effect( path_node );
     if ( !se__w ) return CC_MBE_Void;
 
-    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( se__w->type ) ) return CC_MBE_Void;
+    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( se__w->type ) ) return CC_MBE_False;
 
-    return ( se__w->type == CC_SETE_None ) ? CC_MBE_True
-                                           : CC_MBE_False;
+    return include_none ? CC_MBE_True
+                        : CC_BOOL_TO_MAYBE( se__w->type != CC_SETE_None );
 }
 
 CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node ) {
@@ -230,8 +231,9 @@ CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node ) {
                               : CC_MBE_True;
 }
 
-CcPathNode * cc_path_node_get_node( CcPathNode * path_node,
-                                    CcPathNodeLinkageEnum preference ) {
+// TODO :: REDO
+CcPathNode * cc_path_node_rewind_to( CcPathNode * path_node,
+                                     CcPathNodeLinkageEnum preference ) {
     if ( !path_node ) return NULL;
     if ( !CC_PATH_NODE_LINKAGE_IS_ENUMERATOR( preference ) ) return NULL;
 
@@ -249,6 +251,65 @@ CcPathNode * cc_path_node_get_node( CcPathNode * path_node,
         return NULL;
 
     return pn;
+}
+
+// TODO :: REDO
+CcPathNode * cc_path_node_next( CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
+
+    CcMaybeBoolEnum is_leaf = cc_path_node_is_leaf( path_node );
+
+    if ( is_leaf == CC_MBE_False ) { // [1]
+        if ( path_node->fork )
+            return cc_path_node_rewind_to( path_node, CC_PNLE_Fork );
+        else if ( path_node->alt )
+            return cc_path_node_rewind_to( path_node, CC_PNLE_Alt );
+        else if ( path_node->sub )
+            return cc_path_node_rewind_to( path_node, CC_PNLE_Sub );
+        else
+            return NULL; // Error, should not happen, path_node is not leaf @ [1].
+    } else if ( is_leaf == CC_MBE_True ) {
+        CcPathNode * parent = path_node->back__w;
+        if ( !parent ) return NULL; // Error, all leafs should have at least one (grand)parent.
+
+        CcPathNodeLinkageEnum preference = CC_PNLE_Fork;
+
+        if ( parent->fork == path_node ) {
+            preference = CC_PNLE_Alt;
+        } else if ( parent->alt == path_node ) {
+            preference = CC_PNLE_Sub;
+        } else if ( parent->sub == path_node ) {
+            preference = CC_PNLE_None;
+        } else
+            return NULL; // Error, path_node has parent, but no link to it.
+
+        switch ( preference ) {
+            case CC_PNLE_Fork :
+                if ( parent->fork )
+                    return cc_path_node_rewind_to( parent, CC_PNLE_Fork );
+
+            // fall through
+            case CC_PNLE_Alt :
+                if ( parent->alt )
+                    return cc_path_node_rewind_to( parent, CC_PNLE_Alt );
+
+            // fall through
+            case CC_PNLE_Sub :
+                if ( parent->sub )
+                    return cc_path_node_rewind_to( parent, CC_PNLE_Sub );
+
+            // fall through
+            case CC_PNLE_None :
+                if ( parent->back__w )
+                    return cc_path_node_next( parent->back__w );
+
+            // fall through
+            default : return NULL;
+        }
+    } else // Error.
+        return NULL;
+
+    return NULL; // TODO :: FIX
 }
 
 static bool _cc_path_node_steps_are_valid( CcStep * steps ) {

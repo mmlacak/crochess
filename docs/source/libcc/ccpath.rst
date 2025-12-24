@@ -300,10 +300,11 @@ Path node functions
     :returns: Weak pointer to side-effect if successful,
               :c:data:`NULL` otherwise.
 
-.. c:function:: CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_node )
+.. c:function:: CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_valid( CcPathNode * path_node, bool include_none )
 
-    Function checks if side-effect type of a last step in a given path node is
-    :c:enumerator:`CC_SETE_None`.
+    Function checks if side-effect type of a last step in a given path node is valid;
+    given :c:var:`include_none` argument controls if :c:enumerator:`CC_SETE_None` is
+    considered valid.
 
     .. note::
 
@@ -311,10 +312,11 @@ Path node functions
         :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub` links are followed.
 
     :param path_node: A path node.
+    :param include_none: Flag, whether :c:enumerator:`CC_SETE_None` is considered valid, or not.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
-        * :c:enumerator:`CC_MBE_True` if side-effect is none,
-        * :c:enumerator:`CC_MBE_False` if side-effect is not none
+        * :c:enumerator:`CC_MBE_True` if side-effect is valid,
+        * :c:enumerator:`CC_MBE_False` if side-effect is not valid,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node )
@@ -345,7 +347,7 @@ Path node functions
         * :c:enumerator:`CC_MBE_False` if given path node is not root,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcPathNode * cc_path_node_get_node( CcPathNode * path_node, CcPathNodeLinkageEnum preference )
+.. c:function:: CcPathNode * cc_path_node_rewind_to( CcPathNode * path_node, CcPathNodeLinkageEnum preference )
 
     Function returns root or leaf node for any given path node in a tree,
     based on :c:var:`preference`

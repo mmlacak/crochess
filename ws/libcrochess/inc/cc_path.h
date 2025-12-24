@@ -78,14 +78,18 @@ CcPathNode * cc_path_node_add_subs( CcPathNode ** pn_step__a,
 
 CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node );
 
-CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_none( CcPathNode * path_node );
+CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_valid( CcPathNode * path_node,
+                                                             bool include_none );
 
 CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 
 CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
 
-CcPathNode * cc_path_node_get_node( CcPathNode * path_node,
-                                    CcPathNodeLinkageEnum preference );
+CcPathNode * cc_path_node_rewind_to( CcPathNode * path_node,
+                                     CcPathNodeLinkageEnum preference );
+
+// TODO :: DOCS
+CcPathNode * cc_path_node_next( CcPathNode * path_node );
 
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
 // static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps );
