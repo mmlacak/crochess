@@ -68,6 +68,8 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
 
     pl__t->act_desc = act_desc;
 
+    pl__t->visited = false;
+
     pl__t->fork = NULL;
     pl__t->alt = NULL;
     pl__t->sub = NULL;
@@ -231,26 +233,36 @@ CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node ) {
                               : CC_MBE_True;
 }
 
-// TODO :: REDO
-CcPathNode * cc_path_node_rewind_to( CcPathNode * path_node,
-                                     CcPathNodeLinkageEnum preference ) {
-    if ( !path_node ) return NULL;
-    if ( !CC_PATH_NODE_LINKAGE_IS_ENUMERATOR( preference ) ) return NULL;
+bool _cc_path_node_set_all_visited( CcPathNode * path_node__io, bool visited ) {
+    if ( !path_node__io ) return false;
 
-    CcPathNode * pn = path_node;
+    CcPathNode * pn = path_node__io;
+    bool result = true;
 
-    if ( preference == CC_PNLE_None ) {
-        CC_REWIND_BY( pn, pn->back__w );
-    } else if ( preference == CC_PNLE_Fork ) {
-        CC_REWIND_BY( pn, pn->fork );
-    } else if ( preference == CC_PNLE_Alt ) {
-        CC_REWIND_BY( pn, pn->alt );
-    } else if ( preference == CC_PNLE_Sub ) {
-        CC_REWIND_BY( pn, pn->sub );
-    } else
-        return NULL;
+    if ( pn ) {
+        pn->visited = visited;
 
-    return pn;
+        if ( pn->fork )
+            result = _cc_path_node_set_all_visited( pn->fork, visited ) && result;
+
+        if ( pn->alt )
+            result = _cc_path_node_set_all_visited( pn->alt, visited ) && result;
+
+        if ( pn->sub )
+            result = _cc_path_node_set_all_visited( pn->sub, visited ) && result;
+    }
+
+    return result;
+}
+
+bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited ) {
+    if ( !path_tree__io ) return false;
+
+    CcPathNode * root = path_tree__io;
+
+    CC_REWIND_BY( root, root->back__w );
+
+    return _cc_path_node_set_all_visited( root, visited );
 }
 
 // TODO :: REDO
@@ -258,56 +270,6 @@ CcPathNode * cc_path_node_next( CcPathNode * path_node ) {
     if ( !path_node ) return NULL;
 
     CcMaybeBoolEnum is_leaf = cc_path_node_is_leaf( path_node );
-
-    if ( is_leaf == CC_MBE_False ) { // [1]
-        if ( path_node->fork )
-            return cc_path_node_rewind_to( path_node, CC_PNLE_Fork );
-        else if ( path_node->alt )
-            return cc_path_node_rewind_to( path_node, CC_PNLE_Alt );
-        else if ( path_node->sub )
-            return cc_path_node_rewind_to( path_node, CC_PNLE_Sub );
-        else
-            return NULL; // Error, should not happen, path_node is not leaf @ [1].
-    } else if ( is_leaf == CC_MBE_True ) {
-        CcPathNode * parent = path_node->back__w;
-        if ( !parent ) return NULL; // Error, all leafs should have at least one (grand)parent.
-
-        CcPathNodeLinkageEnum preference = CC_PNLE_Fork;
-
-        if ( parent->fork == path_node ) {
-            preference = CC_PNLE_Alt;
-        } else if ( parent->alt == path_node ) {
-            preference = CC_PNLE_Sub;
-        } else if ( parent->sub == path_node ) {
-            preference = CC_PNLE_None;
-        } else
-            return NULL; // Error, path_node has parent, but no link to it.
-
-        switch ( preference ) {
-            case CC_PNLE_Fork :
-                if ( parent->fork )
-                    return cc_path_node_rewind_to( parent, CC_PNLE_Fork );
-
-            // fall through
-            case CC_PNLE_Alt :
-                if ( parent->alt )
-                    return cc_path_node_rewind_to( parent, CC_PNLE_Alt );
-
-            // fall through
-            case CC_PNLE_Sub :
-                if ( parent->sub )
-                    return cc_path_node_rewind_to( parent, CC_PNLE_Sub );
-
-            // fall through
-            case CC_PNLE_None :
-                if ( parent->back__w )
-                    return cc_path_node_next( parent->back__w );
-
-            // fall through
-            default : return NULL;
-        }
-    } else // Error.
-        return NULL;
 
     return NULL; // TODO :: FIX
 }
@@ -328,12 +290,10 @@ static bool _cc_path_node_steps_are_valid( CcStep * steps ) {
     return true;
 }
 
-static bool _cc_path_node_is_valid( CcPathNode * path_root, bool has_steps ) {
-    if ( !path_root ) return false;
+static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps ) {
+    if ( !path_node ) return false;
 
-    CcPathNode * pl = path_root;
-
-    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+    CcPathNode * pl = path_node;
 
     if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
 
@@ -388,10 +348,10 @@ static bool _cc_path_node_is_valid( CcPathNode * path_root, bool has_steps ) {
     return true;
 }
 
-bool cc_path_node_is_valid( CcPathNode * path_node ) {
-    if ( !path_node ) return false;
+bool cc_path_node_is_valid( CcPathNode * path_tree ) {
+    if ( !path_tree ) return false;
 
-    CcPathNode * root = path_node;
+    CcPathNode * root = path_tree;
 
     CC_REWIND_BY( root, root->back__w );
 
@@ -402,13 +362,11 @@ bool cc_path_node_is_valid( CcPathNode * path_node ) {
     return true;
 }
 
-static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_root ) {
-    if ( !path_root ) return NULL;
+static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
 
     CcPathNode * pl__a = NULL;
-    CcPathNode * from = path_root;
-
-    // CC_REWIND_BY( from, from->back__w ); // <!> Do not use, func call itself recursively!
+    CcPathNode * from = path_node;
 
     if ( from ) {
         CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
@@ -454,24 +412,22 @@ static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_root ) {
     return pl__a;
 }
 
-CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
-    if ( !path_node ) return NULL;
+CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_tree ) {
+    if ( !path_tree ) return NULL;
 
-    CcPathNode * pn = path_node;
+    CcPathNode * pn = path_tree;
 
     CC_REWIND_BY( pn, pn->back__w );
 
     return _cc_path_node_duplicate_all__new( pn );
 }
 
-static bool _cc_path_node_free_all( CcPathNode ** path_root__f ) {
-    if ( !path_root__f ) return false;
-    if ( !*path_root__f ) return true;
+static bool _cc_path_node_free_all( CcPathNode ** path_node__f ) {
+    if ( !path_node__f ) return false;
+    if ( !*path_node__f ) return true;
 
     bool result = true;
-    CcPathNode * pl = *path_root__f;
-
-    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+    CcPathNode * pl = *path_node__f;
 
     if ( pl ) {
         result = cc_step_free_all( &( pl->steps ) ) && result;
@@ -490,31 +446,29 @@ static bool _cc_path_node_free_all( CcPathNode ** path_root__f ) {
         CC_FREE( pl );
     }
 
-    *path_root__f = NULL;
+    *path_node__f = NULL;
     return result;
 }
 
-bool cc_path_node_free_all( CcPathNode ** path_node__f ) {
-    if ( !path_node__f ) return false;
-    if ( !*path_node__f ) return true;
+bool cc_path_node_free_all( CcPathNode ** path_tree__f ) {
+    if ( !path_tree__f ) return false;
+    if ( !*path_tree__f ) return true;
 
-    CcPathNode * pl = *path_node__f;
+    CcPathNode * pl = *path_tree__f;
 
     CC_REWIND_BY( pl, pl->back__w );
 
     bool result = _cc_path_node_free_all( &pl );
 
-    *path_node__f = NULL;
+    *path_tree__f = NULL;
     return result;
 }
 
-static size_t _cc_path_node_count( CcPathNode * path_root ) {
-    if ( !path_root ) return 0;
+static size_t _cc_path_node_count( CcPathNode * path_node ) {
+    if ( !path_node ) return 0;
 
     size_t count = 0;
-    CcPathNode * pl = path_root;
-
-    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+    CcPathNode * pl = path_node;
 
     if ( pl ) {
         ++count;
@@ -535,22 +489,20 @@ static size_t _cc_path_node_count( CcPathNode * path_root ) {
     return count;
 }
 
-size_t cc_path_node_count( CcPathNode * path_node ) {
-    if ( !path_node ) return 0;
+size_t cc_path_node_count( CcPathNode * path_tree ) {
+    if ( !path_tree ) return 0;
 
-    CcPathNode * pl = path_node;
+    CcPathNode * pl = path_tree;
 
     CC_REWIND_BY( pl, pl->back__w );
 
     return _cc_path_node_count( pl );
 }
 
-static size_t _cc_path_node_count_all_segments( CcPathNode * path_root ) { // TODO :: RETHINK :: ???
-    if ( !path_root ) return 0;
+static size_t _cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RETHINK :: ???
+    if ( !path_node ) return 0;
 
-    CcPathNode * pl = path_root;
-
-    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+    CcPathNode * pl = path_node;
 
     size_t count = ( pl->steps ) ? 1 : 0; // TODO :: RETHINK :: length of steps ???
 
@@ -573,10 +525,10 @@ static size_t _cc_path_node_count_all_segments( CcPathNode * path_root ) { // TO
     return count;
 }
 
-size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RETHINK :: ???
-    if ( !path_node ) return 0;
+size_t cc_path_node_count_all_segments( CcPathNode * path_tree ) { // TODO :: RETHINK :: ???
+    if ( !path_tree ) return 0;
 
-    CcPathNode * pl = path_node;
+    CcPathNode * pl = path_tree;
 
     CC_REWIND_BY( pl, pl->back__w );
 
@@ -584,22 +536,20 @@ size_t cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RE
 }
 
 static char * _cc_path_node_to_string__new( cc_uchar_t depth,
-                                            CcPathNode * path_root ) {
-    if ( !path_root ) return NULL;
-
-    // CC_REWIND_BY( pl, pl->back__w ); // <!> Do not use, func call itself recursively!
+                                            CcPathNode * path_node ) {
+    if ( !path_node ) return NULL;
 
     cc_uint_t tabs_len = 2 * depth; // Depth --> 2-spaces.
     char * tabs_str__a = cc_str_pad__new( ' ', tabs_len );
     if ( !tabs_str__a ) return NULL;
 
-    char const * plnle_str = cc_path_node_linkage_to_string( path_root );
+    char const * plnle_str = cc_path_node_linkage_to_string( path_node );
     cc_char_16 se_str = CC_CHAR_16_EMPTY;
 
-    if ( !cc_side_effect_to_str( path_root->side_effect, &se_str ) )
+    if ( !cc_side_effect_to_str( path_node->side_effect, &se_str ) )
         return NULL;
 
-    char * steps_str__a = cc_step_all_to_string__new( path_root->steps );
+    char * steps_str__a = cc_step_all_to_string__new( path_node->steps );
     if ( !steps_str__a ) {
         CC_FREE( tabs_str__a );
         return NULL;
@@ -666,8 +616,8 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     pln_str = (char *)end_steps__w;
 
     // Encountered piece and its tag.
-    char piece_symbol = cc_piece_as_char( path_root->encounter );
-    char tag_chr = cc_tag_as_char( path_root->encounter );
+    char piece_symbol = cc_piece_as_char( path_node->encounter );
+    char tag_chr = cc_tag_as_char( path_node->encounter );
 
     *pln_str++ = '|';
     *pln_str++ = '@';
@@ -678,7 +628,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     // Activation descriptor.
     cc_char_32 act_desc_str = CC_CHAR_32_EMPTY;
 
-    if ( !cc_activation_desc_as_string( path_root->act_desc, &act_desc_str ) ) {
+    if ( !cc_activation_desc_as_string( path_node->act_desc, &act_desc_str ) ) {
         CC_FREE( tabs_str__a );
         CC_FREE( steps_str__a );
         CC_FREE( pln_str__t );
@@ -714,8 +664,8 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     cc_uint_t str_size_empty = str_len_empty + 1;
     // +1 --> '\0', i.e. null-terminating char
 
-    if ( path_root->fork ) {
-        pln_fork__t = _cc_path_node_to_string__new( new_depth, path_root->fork );
+    if ( path_node->fork ) {
+        pln_fork__t = _cc_path_node_to_string__new( new_depth, path_node->fork );
         if ( !pln_fork__t ) {
            CC_FREE( pln_str__t );
            return NULL;
@@ -730,8 +680,8 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
         *( pln_fork__t + str_len_empty ) = '<';
     }
 
-    if ( path_root->alt ) {
-        pln_alt__t = _cc_path_node_to_string__new( new_depth, path_root->alt );
+    if ( path_node->alt ) {
+        pln_alt__t = _cc_path_node_to_string__new( new_depth, path_node->alt );
         if ( !pln_alt__t ) {
             CC_FREE( pln_fork__t );
             CC_FREE( pln_str__t );
@@ -748,8 +698,8 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
         *( pln_alt__t + str_len_empty ) = '^';
     }
 
-    if ( path_root->sub ) {
-        pln_sub__t = _cc_path_node_to_string__new( new_depth, path_root->sub );
+    if ( path_node->sub ) {
+        pln_sub__t = _cc_path_node_to_string__new( new_depth, path_node->sub );
         if ( !pln_sub__t ) {
             CC_FREE( pln_alt__t );
             CC_FREE( pln_fork__t );
@@ -770,7 +720,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
 
     char * pln_str__a = NULL;
 
-    if ( path_root->fork || path_root->alt || path_root->sub ) {
+    if ( path_node->fork || path_node->alt || path_node->sub ) {
         // <!> pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
         //     Other strings do not have their ownership transferred, so do free() those.
         pln_str__a = cc_str_append_fmt__new( &pln_str__t, CC_MAX_LEN_ZERO_TERMINATED, fmt, pln_fork__t, pln_alt__t, pln_sub__t );
@@ -785,10 +735,10 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     return pln_str__a;
 }
 
-char * cc_path_node_to_string__new( CcPathNode * path_node ) {
-    if ( !path_node ) return NULL;
+char * cc_path_node_to_string__new( CcPathNode * path_tree ) {
+    if ( !path_tree ) return NULL;
 
-    CcPathNode * pn = path_node;
+    CcPathNode * pn = path_tree;
 
     CC_REWIND_BY( pn, pn->back__w );
 
@@ -906,20 +856,20 @@ size_t cc_path_link_len( CcPathLink * path_link ) {
 //
 // Path tree iterator.
 
-static bool _cc_path_node_walk_to_leaf( CcPathNode * path_root,
+static bool _cc_path_node_walk_to_leaf( CcPathNode * path_node,
                                         CcPathLink ** root_to_leaf__iod ) {
     // <!> Not really needed, already checked in caller.
-    // if ( !path_root ) return false;
+    // if ( !path_node ) return false;
     // if ( !root_to_leaf__iod ) return false;
     // if ( *root_to_leaf__iod ) return false;
 
     return false; // TODO :: FIX
 }
 
-static bool _cc_path_node_iter_to_leaf( CcPathNode * path_root,
+static bool _cc_path_node_iter_to_leaf( CcPathNode * path_node,
                                         CcPathLink ** root_to_leaf__iod ) {
     // <!> Not really needed, already checked in caller.
-    // if ( !path_root ) return false;
+    // if ( !path_node ) return false;
     // if ( !root_to_leaf__iod ) return false;
     // if ( *root_to_leaf__iod ) return false;
 

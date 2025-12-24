@@ -77,6 +77,11 @@ Path node segments
         This is non-cached, stored data of :c:member:`CcPlyContext.act_desc` as move,
         its plies progresses.
 
+    .. c:member:: bool visited
+
+        Housekeeping flag, to help ensure each node in a tree is visited (and
+        corresponding path emitted) only once.
+
     .. c:member:: struct CcPathNode * fork
 
         Link to forking paths.
@@ -347,76 +352,66 @@ Path node functions
         * :c:enumerator:`CC_MBE_False` if given path node is not root,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: CcPathNode * cc_path_node_rewind_to( CcPathNode * path_node, CcPathNodeLinkageEnum preference )
+.. c:function:: bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited )
 
-    Function returns root or leaf node for any given path node in a tree,
-    based on :c:var:`preference`
-    as follows:
+    Sets :c:member:`CcPathNode.visited` flags of all path nodes in a given tree
+    to a given :c:var:`visited` flag.
 
-        * :c:enumerator:`CC_PNLE_None` root node, following :c:member:`CcPathNode.back__w` links
-        * :c:enumerator:`CC_PNLE_Fork` leaf node, following :c:member:`CcPathNode.fork` links
-        * :c:enumerator:`CC_PNLE_Alt` leaf node, following :c:member:`CcPathNode.alt` links
-        * :c:enumerator:`CC_PNLE_Sub` leaf node, following :c:member:`CcPathNode.sub` links
+    :param path_tree__io: A node in a path tree.
+    :param visited: Flag to set.
+    :returns: :c:data:`true` if all flags in a complete path tree has been successfully set,
+              :c:data:`false` otherwise.
 
-    is returned.
-
-    :param path_node: A path node.
-    :param preference: An :c:enum:`CcPathNodeLinkageEnum` (integer) value.
-    :returns: A pointer to root or leaf path node if successful,
-              :c:data:`NULL` otherwise.
-    :seealso: :c:func:`cc_path_node_is_leaf()`, :c:func:`cc_path_node_is_root()`
-
-.. c:function:: bool cc_path_node_is_valid( CcPathNode * path_node )
+.. c:function:: bool cc_path_node_is_valid( CcPathNode * path_tree )
 
     Checks if given path node is valid; by checking if all positions are valid
     (i.e. not :c:data:`CC_INVALID_COORD`), and if all back-links are valid (e.g.
     if :c:`pl->fork` is non-:c:data:`NULL`, then :c:`pl->fork->back__w` must point
     back to :c:`pl`).
 
-    :param path_node: A path node.
+    :param path_tree: A node in a path tree.
     :returns: :c:data:`true` if given path node is valid,
               :c:data:`false` otherwise.
 
-.. c:function:: CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_node )
+.. c:function:: CcPathNode * cc_path_node_duplicate_all__new( CcPathNode * path_tree )
 
-    Duplicates complete linked tree of a given path node into a newly
-    allocated one.
+    Duplicates complete path tree into a newly allocated one.
 
-    :param path_node: A path node.
-    :returns: A pointer to newly allocated path node if successful,
+    :param path_tree: A node in a path tree.
+    :returns: A pointer to root node of newly allocated path tree if successful,
               :c:data:`NULL` otherwise.
 
-.. c:function:: bool cc_path_node_free_all( CcPathNode ** pl__f )
+.. c:function:: bool cc_path_node_free_all( CcPathNode ** path_tree__f )
 
-    Frees all path links from complete linked tree of a given path node.
+    Frees all nodes from complete path tree.
 
-    :param pl__f: A path node to :c:func:`free()`.
+    :param path_tree__f: A node in a path tree to :c:func:`free()`.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
-.. c:function:: size_t cc_path_node_count( CcPathNode * path_node )
+.. c:function:: size_t cc_path_node_count( CcPathNode * path_tree )
 
     Function returns count of all nodes in a given path tree; includes
     :c:member:`fork`, :c:member:`alt`, :c:member:`sub` branches.
 
-    :param path_node: A path node.
+    :param path_tree: A node in a path tree.
     :returns: Length of a given path tree if successful, ``0`` otherwise.
 
-.. c:function:: size_t cc_path_node_count_all_segments( CcPathNode * path_node )
+.. c:function:: size_t cc_path_node_count_all_segments( CcPathNode * path_tree )
 
     Function returns count of all segments, including :c:member:`fork`,
     :c:member:`alt` ones; substitute paths (i.e. all nodes linked via :c:member:`sub`)
     should not have path segments (i.e. :c:member:`steps`).
 
-    :param path_node: A path node.
+    :param path_tree: A node in a path tree.
     :returns: Count of all segments if successful, ``0`` otherwise.
 
-.. c:function:: char * cc_path_node_to_string__new( CcPathNode * path_node )
+.. c:function:: char * cc_path_node_to_string__new( CcPathNode * path_tree )
 
     Function returns string containing user-readable representation of a given
-    path node, and all of its :c:member:`fork`, :c:member:`alt`, :c:member:`sub`
-    branches.
+    path tree, including all of its :c:member:`fork`, :c:member:`alt`,
+    :c:member:`sub` branches.
 
-    :param path_node: A path node.
+    :param path_tree: A node in a path tree.
     :returns: A newly allocated, null-terminated (``'\0'``) string if
         successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_pos_to_string()`
