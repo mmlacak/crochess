@@ -265,13 +265,59 @@ bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited ) {
     return _cc_path_node_set_all_visited( root, visited );
 }
 
-// TODO :: REDO
-CcPathNode * cc_path_node_next( CcPathNode * path_node ) {
-    if ( !path_node ) return NULL;
+bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
+    if ( !path_node__io ) return false;
+    if ( !*path_node__io ) return false;
 
-    CcMaybeBoolEnum is_leaf = cc_path_node_is_leaf( path_node );
+    CcPathNode * root = *path_node__io;
 
-    return NULL; // TODO :: FIX
+    CC_REWIND_BY( root, root->back__w );
+
+    *path_node__io = root;
+
+    return cc_path_node_set_all_visited( *path_node__io, false );
+}
+
+CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
+    if ( !path_node__io ) return CC_MBE_Void;
+    if ( !*path_node__io ) return CC_MBE_Void;
+
+    CcPathNode * pn = *path_node__io;
+
+    if ( !pn->visited ) {
+        pn->visited = true;
+        if ( !pn->fork && !pn->alt && !pn->sub ) return CC_MBE_True;
+        CcMaybeBoolEnum has_side_effect = cc_path_node_last_step_side_effect_is_valid( pn, false );
+        if ( has_side_effect != CC_MBE_False ) return has_side_effect;
+    }
+
+    CcMaybeBoolEnum result = CC_MBE_Void;
+
+    if ( pn->fork ) {
+        path_node__io = &( pn->fork );
+        result = cc_path_node_iter_next( path_node__io );
+        if ( result != CC_MBE_False ) return result;
+    }
+
+    if ( pn->alt ) {
+        path_node__io = &( pn->alt );
+        result = cc_path_node_iter_next( path_node__io );
+        if ( result != CC_MBE_False ) return result;
+    }
+
+    if ( pn->sub ) {
+        path_node__io = &( pn->sub );
+        result = cc_path_node_iter_next( path_node__io );
+        if ( result != CC_MBE_False ) return result;
+    }
+
+    if ( pn->back__w ) {
+        path_node__io = &( pn->back__w );
+        result = cc_path_node_iter_next( path_node__io );
+        if ( result != CC_MBE_False ) return result;
+    }
+
+    return CC_MBE_False;
 }
 
 static bool _cc_path_node_steps_are_valid( CcStep * steps ) {

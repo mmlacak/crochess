@@ -91,7 +91,10 @@ CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
 bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited );
 
 // TODO :: DOCS
-CcPathNode * cc_path_node_next( CcPathNode * path_node );
+bool cc_path_node_iter_init( CcPathNode ** path_node__io );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io );
 
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
 // static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps );
