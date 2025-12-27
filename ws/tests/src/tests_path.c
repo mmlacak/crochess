@@ -140,6 +140,18 @@ bool test_path_tree( CcPosDesc move_from,
         char * pl_str__a = cc_path_node_to_string__new( path_node__a );
         printf( "%s\nPath link test ok.\n", pl_str__a );
         CC_FREE( pl_str__a );
+
+        printf( ".......................................................................\n" );
+
+        CcPathNode * pn = path_node__a;
+
+        if ( cc_path_node_iter_init( &pn ) ) {
+            while ( CC_MBE_True == cc_path_node_iter_next( &pn ) ) {
+                printf( "Node: %p.\n", (void*)pn );
+            };
+        } else {
+            printf( "cc_path_node_iter_init() failed.\n" );
+        }
     } else {
         result = false;
         cc_char_16 moving_from_str = CC_CHAR_16_EMPTY;
