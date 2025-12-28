@@ -294,25 +294,25 @@ CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
     CcMaybeBoolEnum result = CC_MBE_Void;
 
     if ( pn->fork ) {
-        path_node__io = &( pn->fork );
+        *path_node__io = pn->fork;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
     if ( pn->alt ) {
-        path_node__io = &( pn->alt );
+        *path_node__io = pn->alt;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
     if ( pn->sub ) {
-        path_node__io = &( pn->sub );
+        *path_node__io = pn->sub;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
     if ( pn->back__w ) {
-        path_node__io = &( pn->back__w );
+        *path_node__io = pn->back__w;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }

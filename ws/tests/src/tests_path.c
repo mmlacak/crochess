@@ -146,8 +146,12 @@ bool test_path_tree( CcPosDesc move_from,
         CcPathNode * pn = path_node__a;
 
         if ( cc_path_node_iter_init( &pn ) ) {
+            char * pn_steps_str__a = cc_step_all_to_string__new( pn->steps );
+            printf( "Root: %p->'%s'.\n", (void*)pn, pn_steps_str__a );
+
             while ( CC_MBE_True == cc_path_node_iter_next( &pn ) ) {
-                printf( "Node: %p.\n", (void*)pn );
+                pn_steps_str__a = cc_step_all_to_string__new( pn->steps );
+                printf( "Node: %p->'%s'.\n", (void*)pn, pn_steps_str__a );
             };
         } else {
             printf( "cc_path_node_iter_init() failed.\n" );
