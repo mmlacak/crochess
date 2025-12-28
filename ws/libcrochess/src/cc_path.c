@@ -278,34 +278,63 @@ bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
     return cc_path_node_set_all_visited( *path_node__io, false );
 }
 
+static bool _cc_path_node_are_all_visited( CcPathNode * path_tree ) { // TODO :: MAYBE :: RETHINK :: double recursion
+    if ( !path_tree ) return true; // true == nothing to visit here ~= already visited
+
+    if ( !path_tree->visited ) return false;
+
+    if ( path_tree->fork )
+        if ( !_cc_path_node_are_all_visited( path_tree->fork ) )
+            return false;
+
+    if ( path_tree->alt )
+        if ( !_cc_path_node_are_all_visited( path_tree->alt ) )
+            return false;
+
+    if ( path_tree->sub )
+        if ( !_cc_path_node_are_all_visited( path_tree->sub ) )
+            return false;
+
+    return true;
+}
+
 CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
     if ( !path_node__io ) return CC_MBE_Void;
     if ( !*path_node__io ) return CC_MBE_Void;
 
     CcPathNode * pn = *path_node__io;
 
+    #ifdef __CC_DEBUG__
+    {
+        char * steps_str__a = cc_step_all_to_string__new( pn->steps );
+        printf( "%p->%d|%d|%d|'%s'.\n", (void*)pn, CC_PATH_NODE_IS_PARENT( pn ), pn->visited, _cc_path_node_are_all_visited( pn ), steps_str__a );
+        CC_FREE_AND_NULL( &steps_str__a );
+    }
+    #endif // __CC_DEBUG__
+
     if ( !pn->visited ) {
         pn->visited = true;
-        if ( !pn->fork && !pn->alt && !pn->sub ) return CC_MBE_True;
+        // if ( !pn->fork && !pn->alt && !pn->sub ) return CC_MBE_True;
+        if ( !CC_PATH_NODE_IS_PARENT( pn ) ) return CC_MBE_True;
         CcMaybeBoolEnum has_side_effect = cc_path_node_last_step_side_effect_is_valid( pn, false );
         if ( has_side_effect != CC_MBE_False ) return has_side_effect;
     }
 
     CcMaybeBoolEnum result = CC_MBE_Void;
 
-    if ( pn->fork ) {
+    if ( pn->fork && !_cc_path_node_are_all_visited( pn->fork ) ) {
         *path_node__io = pn->fork;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->alt ) {
+    if ( pn->alt && !_cc_path_node_are_all_visited( pn->alt ) ) {
         *path_node__io = pn->alt;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->sub ) {
+    if ( pn->sub && !_cc_path_node_are_all_visited( pn->sub ) ) {
         *path_node__io = pn->sub;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;

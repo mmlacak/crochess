@@ -36,6 +36,10 @@ typedef struct CcPathNode {
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 
+// TODO :: DOCS
+#define CC_PATH_NODE_IS_PARENT(path_node) ( (path_node)->fork || (path_node)-> alt || (path_node)->sub )
+
+
 //
 // Path node linkage.
 
@@ -93,6 +97,7 @@ bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited );
 // TODO :: DOCS
 bool cc_path_node_iter_init( CcPathNode ** path_node__io );
 
+// static bool _cc_path_node_are_all_visited( CcPathNode * path_tree );
 // TODO :: DOCS
 CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io );
 
