@@ -29,6 +29,7 @@ typedef struct CcPathNode {
     CcActivationDesc act_desc; /* <i> Non-cached, stored data of CcPlyContext->act_desc as move, its plies progresses. */ /* Activation descriptor for a moving piece, its momentum usage and momentum it had after all performed steps. */
 
     bool visited; // TODO :: DOCS
+    bool yielded; // TODO :: DOCS
 
     struct CcPathNode * fork;
     struct CcPathNode * alt;
@@ -37,7 +38,10 @@ typedef struct CcPathNode {
 } CcPathNode;
 
 // TODO :: DOCS
-#define CC_PATH_NODE_IS_PARENT(path_node) ( (path_node)->fork || (path_node)-> alt || (path_node)->sub )
+#define CC_PATH_NODE_IS_PARENT(path_node) ( (path_node)->fork || (path_node)->alt || (path_node)->sub )
+
+// TODO :: DOCS
+#define CC_PATH_NODE_IS_LEAF(path_node) ( !CC_PATH_NODE_IS_PARENT( (path_node) ) )
 
 
 //
@@ -91,13 +95,19 @@ CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 
 CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
 
-// bool _cc_path_node_set_all_visited( CcPathNode * path_node__io, bool visited );
-bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited );
+// static bool _cc_path_node_set_all_flags( CcPathNode * path_node__io, bool visited, bool emitted );
+// TODO :: DOCS
+bool cc_path_node_set_all_flags( CcPathNode * path_tree__io,
+                                 bool visited,
+                                 bool emitted );
+
+// TODO :: DOCS
+#define CC_PATH_NODE_RESET_ALL_FLAGS(path_tree__io) ( cc_path_node_set_all_flags( path_tree__io, false, false ) )
 
 // TODO :: DOCS
 bool cc_path_node_iter_init( CcPathNode ** path_node__io );
 
-// static bool _cc_path_node_are_all_visited( CcPathNode * path_tree );
+// static bool _cc_path_node_check_all_flags( CcPathNode * path_tree, bool check_yielded );
 // TODO :: DOCS
 CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io );
 

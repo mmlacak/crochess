@@ -352,7 +352,7 @@ Path node functions
         * :c:enumerator:`CC_MBE_False` if given path node is not root,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited )
+.. c:function:: bool cc_path_node_set_all_flags( CcPathNode * path_tree__io, bool visited )
 
     Sets :c:member:`CcPathNode.visited` flags of all path nodes in a given tree
     to a given :c:var:`visited` flag.

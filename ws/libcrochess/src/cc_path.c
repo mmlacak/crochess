@@ -69,6 +69,7 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
     pl__t->act_desc = act_desc;
 
     pl__t->visited = false;
+    pl__t->yielded = false;
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
@@ -220,7 +221,8 @@ CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_valid( CcPathNode * path_n
 CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node ) {
     if ( !path_node ) return CC_MBE_Void;
 
-    if ( path_node->fork || path_node->alt || path_node->sub )
+    // if ( path_node->fork || path_node->alt || path_node->sub )
+    if ( CC_PATH_NODE_IS_PARENT( path_node ) )
         return CC_MBE_False;
 
     return CC_MBE_True;
@@ -233,7 +235,7 @@ CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node ) {
                               : CC_MBE_True;
 }
 
-bool _cc_path_node_set_all_visited( CcPathNode * path_node__io, bool visited ) {
+static bool _cc_path_node_set_all_flags( CcPathNode * path_node__io, bool visited, bool emitted ) {
     if ( !path_node__io ) return false;
 
     CcPathNode * pn = path_node__io;
@@ -241,28 +243,31 @@ bool _cc_path_node_set_all_visited( CcPathNode * path_node__io, bool visited ) {
 
     if ( pn ) {
         pn->visited = visited;
+        pn->yielded = visited && emitted;
 
         if ( pn->fork )
-            result = _cc_path_node_set_all_visited( pn->fork, visited ) && result;
+            result = _cc_path_node_set_all_flags( pn->fork, visited, emitted ) && result;
 
         if ( pn->alt )
-            result = _cc_path_node_set_all_visited( pn->alt, visited ) && result;
+            result = _cc_path_node_set_all_flags( pn->alt, visited, emitted ) && result;
 
         if ( pn->sub )
-            result = _cc_path_node_set_all_visited( pn->sub, visited ) && result;
+            result = _cc_path_node_set_all_flags( pn->sub, visited, emitted ) && result;
     }
 
     return result;
 }
 
-bool cc_path_node_set_all_visited( CcPathNode * path_tree__io, bool visited ) {
+bool cc_path_node_set_all_flags( CcPathNode * path_tree__io,
+                                 bool visited,
+                                 bool emitted ) {
     if ( !path_tree__io ) return false;
 
     CcPathNode * root = path_tree__io;
 
     CC_REWIND_BY( root, root->back__w );
 
-    return _cc_path_node_set_all_visited( root, visited );
+    return _cc_path_node_set_all_flags( root, visited, emitted );
 }
 
 bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
@@ -275,24 +280,30 @@ bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
 
     *path_node__io = root;
 
-    return cc_path_node_set_all_visited( *path_node__io, false );
+    return CC_PATH_NODE_RESET_ALL_FLAGS( *path_node__io );
 }
 
-static bool _cc_path_node_are_all_visited( CcPathNode * path_tree ) { // TODO :: MAYBE :: RETHINK :: double recursion
-    if ( !path_tree ) return true; // true == nothing to visit here ~= already visited
+static bool _cc_path_node_check_all_flags( CcPathNode * path_tree, bool check_yielded ) { // TODO :: MAYBE :: RETHINK :: double recursion
+    if ( !path_tree ) return true; // true == nothing to visit here ~=~ already visited
 
-    if ( !path_tree->visited ) return false;
+    if ( check_yielded ) {
+        if ( !path_tree->yielded )
+            return false;
+    } else {
+        if ( !path_tree->visited )
+            return false;
+    }
 
     if ( path_tree->fork )
-        if ( !_cc_path_node_are_all_visited( path_tree->fork ) )
+        if ( !_cc_path_node_check_all_flags( path_tree->fork, check_yielded ) )
             return false;
 
     if ( path_tree->alt )
-        if ( !_cc_path_node_are_all_visited( path_tree->alt ) )
+        if ( !_cc_path_node_check_all_flags( path_tree->alt, check_yielded ) )
             return false;
 
     if ( path_tree->sub )
-        if ( !_cc_path_node_are_all_visited( path_tree->sub ) )
+        if ( !_cc_path_node_check_all_flags( path_tree->sub, check_yielded ) )
             return false;
 
     return true;
@@ -307,34 +318,40 @@ CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
     #ifdef __CC_DEBUG__
     {
         char * steps_str__a = cc_step_all_to_string__new( pn->steps );
-        printf( "%p->%d|%d|%d|'%s'.\n", (void*)pn, CC_PATH_NODE_IS_PARENT( pn ), pn->visited, _cc_path_node_are_all_visited( pn ), steps_str__a );
+        printf( "%p->%d|%d|%d|%d|'%s'.\n", (void*)pn, CC_PATH_NODE_IS_LEAF( pn ), pn->visited, pn->yielded, _cc_path_node_check_all_flags( pn, true ), steps_str__a );
         CC_FREE_AND_NULL( &steps_str__a );
     }
     #endif // __CC_DEBUG__
 
-    if ( !pn->visited ) {
+    if ( !pn->visited || !pn->yielded ) {
         pn->visited = true;
-        // if ( !pn->fork && !pn->alt && !pn->sub ) return CC_MBE_True;
-        if ( !CC_PATH_NODE_IS_PARENT( pn ) ) return CC_MBE_True;
+        if ( CC_PATH_NODE_IS_LEAF( pn ) ) {
+            pn->yielded = true;
+            return CC_MBE_True;
+        }
+
         CcMaybeBoolEnum has_side_effect = cc_path_node_last_step_side_effect_is_valid( pn, false );
-        if ( has_side_effect != CC_MBE_False ) return has_side_effect;
+        if ( has_side_effect != CC_MBE_False ) {
+            pn->yielded = true;
+            return has_side_effect;
+        }
     }
 
     CcMaybeBoolEnum result = CC_MBE_Void;
 
-    if ( pn->fork && !_cc_path_node_are_all_visited( pn->fork ) ) {
+    if ( pn->fork && !_cc_path_node_check_all_flags( pn->fork, true ) ) {
         *path_node__io = pn->fork;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->alt && !_cc_path_node_are_all_visited( pn->alt ) ) {
+    if ( pn->alt && !_cc_path_node_check_all_flags( pn->alt, true ) ) {
         *path_node__io = pn->alt;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->sub && !_cc_path_node_are_all_visited( pn->sub ) ) {
+    if ( pn->sub && !_cc_path_node_check_all_flags( pn->sub, true ) ) {
         *path_node__io = pn->sub;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
