@@ -284,7 +284,7 @@ bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
 }
 
 bool cc_path_node_check_subflags( CcPathNode * path_node, bool check_yielded ) { // todo :: MAYBE :: RETHINK :: recursion while yielding
-    if ( !path_node ) return true; // true == nothing to visit here ~=~ already visited
+    if ( !path_node ) return false;
 
     if ( check_yielded ) {
         if ( !path_node->yielded )

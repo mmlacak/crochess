@@ -187,14 +187,9 @@ Path node macros
     valid are checked :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and
     :c:member:`CcPathNode.sub` sub-nodes.
 
-    .. note::
-
-        Macro returns :c:data:`true` in case of error, e.g. if :c:var:`path_node` is
-        :c:data:`NULL`.
-
     :param path_node: Path node.
-    :returns: :c:data:`false` if not all of path sub-nodes are visited,
-        :c:data:`true` otherwise.
+    :returns: :c:data:`true` if all :c:member:`CcPathNode.visited` flags in a
+        sub-tree are set, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_path_node_check_subflags()`
 
 .. c:macro:: CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED(path_node)
@@ -203,14 +198,9 @@ Path node macros
     valid are checked :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and
     :c:member:`CcPathNode.sub` sub-nodes.
 
-    .. note::
-
-        Macro returns :c:data:`true` in case of error, e.g. if :c:var:`path_node` is
-        :c:data:`NULL`.
-
     :param path_node: Path node.
-    :returns: :c:data:`false` if not all of path sub-nodes are yielded,
-        :c:data:`true` otherwise.
+    :returns: :c:data:`true` if all :c:member:`CcPathNode.yielded` flags in a
+        sub-tree are set, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_path_node_check_subflags()`
 
 .. _lbl-libcc-ccpath-pathnodelinkage:
@@ -473,16 +463,11 @@ Path node functions
     :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and :c:member:`CcPathNode.sub`
     nodes.
 
-    .. note::
-
-        Function returns :c:data:`true` in case of error, e.g. if :c:var:`path_node` is
-        :c:data:`NULL`.
-
     :param path_node: A path node.
     :param check_yielded: A flag, whether to check :c:member:`CcPathNode.yielded` (if :c:data:`true`),
         or :c:member:`CcPathNode.visited` (if :c:data:`false`).
-    :returns: :c:data:`false` if any flag in a sub-tree is not set,
-              :c:data:`true` otherwise.
+    :returns: :c:data:`true` if all flags in a sub-tree are set,
+              :c:data:`false` otherwise.
 
 .. c:function:: CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io )
 
