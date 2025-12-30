@@ -43,6 +43,9 @@ typedef struct CcPathNode {
 // TODO :: DOCS
 #define CC_PATH_NODE_IS_LEAF(path_node) ( !CC_PATH_NODE_IS_PARENT( (path_node) ) )
 
+// TODO :: DOCS
+#define CC_PATH_NODE_HAS_CONTINUATION(path_node) ( (bool)((path_node)->fork) ) // ->alt replaces node, ->sub replaces side-effect of the last step in a node
+
 
 //
 // Path node linkage.
@@ -107,7 +110,7 @@ bool cc_path_node_set_all_flags( CcPathNode * path_tree__io,
 // TODO :: DOCS
 bool cc_path_node_iter_init( CcPathNode ** path_node__io );
 
-// static bool _cc_path_node_check_all_flags( CcPathNode * path_tree, bool check_yielded );
+// static bool _cc_path_node_check_sub_flags( CcPathNode * path_node, bool check_yielded );
 // TODO :: DOCS
 CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io );
 
