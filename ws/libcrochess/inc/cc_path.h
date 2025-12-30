@@ -28,8 +28,8 @@ typedef struct CcPathNode {
 
     CcActivationDesc act_desc; /* <i> Non-cached, stored data of CcPlyContext->act_desc as move, its plies progresses. */ /* Activation descriptor for a moving piece, its momentum usage and momentum it had after all performed steps. */
 
-    bool visited; // TODO :: DOCS
-    bool yielded; // TODO :: DOCS
+    bool visited;
+    bool yielded;
 
     struct CcPathNode * fork;
     struct CcPathNode * alt;
@@ -37,15 +37,11 @@ typedef struct CcPathNode {
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 
-// TODO :: DOCS
 #define CC_PATH_NODE_IS_PARENT(path_node) ( (path_node)->fork || (path_node)->alt || (path_node)->sub )
 
-// TODO :: DOCS
 #define CC_PATH_NODE_IS_LEAF(path_node) ( !CC_PATH_NODE_IS_PARENT( (path_node) ) )
 
-// TODO :: DOCS
-#define CC_PATH_NODE_HAS_CONTINUATION(path_node) ( (bool)((path_node)->fork) ) // ->alt replaces node, ->sub replaces side-effect of the last step in a node
-
+#define CC_PATH_NODE_HAS_CONTINUATION(path_node) ( (bool)((path_node)->fork) ) // ->alt replaces node, ->sub replaces side-effect of the last step in the current node
 
 //
 // Path node linkage.
@@ -99,12 +95,10 @@ CcMaybeBoolEnum cc_path_node_is_leaf( CcPathNode * path_node );
 CcMaybeBoolEnum cc_path_node_is_root( CcPathNode * path_node );
 
 // static bool _cc_path_node_set_all_flags( CcPathNode * path_node__io, bool visited, bool emitted );
-// TODO :: DOCS
 bool cc_path_node_set_all_flags( CcPathNode * path_tree__io,
                                  bool visited,
                                  bool emitted );
 
-// TODO :: DOCS
 #define CC_PATH_NODE_RESET_ALL_FLAGS(path_tree__io) ( cc_path_node_set_all_flags( path_tree__io, false, false ) )
 
 // TODO :: DOCS

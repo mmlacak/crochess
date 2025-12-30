@@ -79,8 +79,11 @@ Path node segments
 
     .. c:member:: bool visited
 
-        Housekeeping flag, to help ensure each node in a tree is visited (and
-        corresponding path emitted) only once.
+        Housekeeping flag, to help ensure each node in a tree is visited only once.
+
+    .. c:member:: bool yielded
+
+        Housekeeping flag, to help ensure each node in a tree is yielded only once.
 
     .. c:member:: struct CcPathNode * fork
 
@@ -130,6 +133,53 @@ Path node segments
         :c:member:`fork`, :c:member:`alt`, or :c:member:`sub`.
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathNode` name.
+
+.. _lbl-libcc-ccpath-pathnodemacros:
+
+Path node macros
+^^^^^^^^^^^^^^^^
+
+.. c:macro:: CC_PATH_NODE_IS_PARENT(path_node)
+
+    Macro to check if given path node is a parent, i.e. if it has, at least, one of
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or :c:member:`CcPathNode.sub`
+    valid sub-nodes.
+
+    :param path_node: Path node.
+    :returns: :c:data:`true` if parent, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PATH_NODE_IS_LEAF(path_node)
+
+    Macro to check if given path node is a leaf, i.e. if it does not have any of
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or :c:member:`CcPathNode.sub`
+    sub-nodes.
+
+    :param path_node: Path node.
+    :returns: :c:data:`true` if parent, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PATH_NODE_HAS_CONTINUATION(path_node)
+
+    Macro to check if given path node has its path continued, i.e. if it has
+    valid :c:member:`CcPathNode.fork` sub-node.
+
+    Note, :c:member:`CcPathNode.alt` replaces current path node with different
+    path, while :c:member:`CcPathNode.sub` replaces side-effect of the last step
+    in the current node.
+
+    :param path_node: Path node.
+    :returns: :c:data:`true` if path is continued, :c:data:`false` otherwise.
+
+.. c:macro:: CC_PATH_NODE_RESET_ALL_FLAGS(path_tree__io)
+
+    Macro to reset all flags in a complete path tree, for any given path node.
+
+    Flags reset are both :c:member:`CcPathNode.visited` and :c:member:`CcPathNode.yielded`;
+    sub-nodes are any of :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`
+    or :c:member:`CcPathNode.sub`.
+
+    :param path_tree__io: *Input/output* parameter, path node in a tree.
+    :returns: :c:data:`true` if all flags had beed reset, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_path_node_set_all_flags()`
 
 .. _lbl-libcc-ccpath-pathnodelinkage:
 
@@ -352,15 +402,28 @@ Path node functions
         * :c:enumerator:`CC_MBE_False` if given path node is not root,
         * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
-.. c:function:: bool cc_path_node_set_all_flags( CcPathNode * path_tree__io, bool visited )
+.. c:function:: bool cc_path_node_set_all_flags( CcPathNode * path_tree__io, bool visited, bool emitted )
 
     Sets :c:member:`CcPathNode.visited` flags of all path nodes in a given tree
     to a given :c:var:`visited` flag.
 
+    .. note::
+
+        Flag :c:var:`emitted` does not set :c:member:`CcPathNode.yielded` directly;
+        rather, it's a combination of both :c:var:`visited` and :c:var:`emitted`
+        flags, like so:
+
+        .. code-block:: C
+            :force:
+
+            path_tree__io->yielded = visited && emitted;
+
     :param path_tree__io: A node in a path tree.
-    :param visited: Flag to set.
+    :param visited: Visited flag to set.
+    :param emitted: Emitted flag.
     :returns: :c:data:`true` if all flags in a complete path tree has been successfully set,
               :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_PATH_NODE_RESET_ALL_FLAGS()`
 
 .. c:function:: bool cc_path_node_is_valid( CcPathNode * path_tree )
 
