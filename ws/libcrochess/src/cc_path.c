@@ -283,7 +283,7 @@ bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
     return CC_PATH_NODE_RESET_ALL_FLAGS( *path_node__io );
 }
 
-static bool _cc_path_node_check_sub_flags( CcPathNode * path_node, bool check_yielded ) { // TODO :: MAYBE :: RETHINK :: double recursion
+bool cc_path_node_check_subflags( CcPathNode * path_node, bool check_yielded ) { // todo :: MAYBE :: RETHINK :: recursion while yielding
     if ( !path_node ) return true; // true == nothing to visit here ~=~ already visited
 
     if ( check_yielded ) {
@@ -295,15 +295,15 @@ static bool _cc_path_node_check_sub_flags( CcPathNode * path_node, bool check_yi
     }
 
     if ( path_node->fork )
-        if ( !_cc_path_node_check_sub_flags( path_node->fork, check_yielded ) )
+        if ( !cc_path_node_check_subflags( path_node->fork, check_yielded ) )
             return false;
 
     if ( path_node->alt )
-        if ( !_cc_path_node_check_sub_flags( path_node->alt, check_yielded ) )
+        if ( !cc_path_node_check_subflags( path_node->alt, check_yielded ) )
             return false;
 
     if ( path_node->sub )
-        if ( !_cc_path_node_check_sub_flags( path_node->sub, check_yielded ) )
+        if ( !cc_path_node_check_subflags( path_node->sub, check_yielded ) )
             return false;
 
     return true;
@@ -318,7 +318,11 @@ CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
     #ifdef __CC_DEBUG__
     {
         char * steps_str__a = cc_step_all_to_string__new( pn->steps );
-        printf( "%p->%d|%d|%d|%d|'%s'.\n", (void*)pn, CC_PATH_NODE_HAS_CONTINUATION( pn ), pn->visited, pn->yielded, _cc_path_node_check_sub_flags( pn, true ), steps_str__a );
+        printf( "%p->%d|%d:%d|%d:%d|'%s'.\n",
+                (void*)pn, !CC_PATH_NODE_HAS_CONTINUATION( pn ),
+                pn->visited, CC_PATH_NODE_ALL_SUBNODES_ARE_VISITED( pn ),
+                pn->yielded, CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn ),
+                steps_str__a );
         CC_FREE_AND_NULL( &steps_str__a );
     }
     #endif // __CC_DEBUG__
@@ -335,23 +339,26 @@ CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
             pn->yielded = true;
             return has_side_effect;
         }
+    } else {
+        if ( CC_PATH_NODE_ALL_SUBNODES_ARE_VISITED( pn ) )
+            return CC_MBE_False;
     }
 
     CcMaybeBoolEnum result = CC_MBE_Void;
 
-    if ( pn->fork && !_cc_path_node_check_sub_flags( pn->fork, true ) ) {
+    if ( pn->fork && !CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->fork ) ) {
         *path_node__io = pn->fork;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->alt && !_cc_path_node_check_sub_flags( pn->alt, true ) ) {
+    if ( pn->alt && !CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->alt ) ) {
         *path_node__io = pn->alt;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->sub && !_cc_path_node_check_sub_flags( pn->sub, true ) ) {
+    if ( pn->sub && !CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->sub ) ) {
         *path_node__io = pn->sub;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
