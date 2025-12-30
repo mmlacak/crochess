@@ -181,6 +181,38 @@ Path node macros
     :returns: :c:data:`true` if all flags had beed reset, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_path_node_set_all_flags()`
 
+.. c:macro:: CC_PATH_NODE_ALL_SUBNODES_ARE_VISITED(path_node)
+
+    Macro to check if a given path node and all of its sub-nodes are visited; all
+    valid are checked :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and
+    :c:member:`CcPathNode.sub` sub-nodes.
+
+    .. note::
+
+        Macro returns :c:data:`true` in case of error, e.g. if :c:var:`path_node` is
+        :c:data:`NULL`.
+
+    :param path_node: Path node.
+    :returns: :c:data:`false` if not all of path sub-nodes are visited,
+        :c:data:`true` otherwise.
+    :seealso: :c:func:`cc_path_node_check_subflags()`
+
+.. c:macro:: CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED(path_node)
+
+    Macro to check if a given path node and all of its sub-nodes are yielded; all
+    valid are checked :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and
+    :c:member:`CcPathNode.sub` sub-nodes.
+
+    .. note::
+
+        Macro returns :c:data:`true` in case of error, e.g. if :c:var:`path_node` is
+        :c:data:`NULL`.
+
+    :param path_node: Path node.
+    :returns: :c:data:`false` if not all of path sub-nodes are yielded,
+        :c:data:`true` otherwise.
+    :seealso: :c:func:`cc_path_node_check_subflags()`
+
 .. _lbl-libcc-ccpath-pathnodelinkage:
 
 Path node linkage
@@ -423,7 +455,71 @@ Path node functions
     :param emitted: Emitted flag.
     :returns: :c:data:`true` if all flags in a complete path tree has been successfully set,
               :c:data:`false` otherwise.
+
+.. c:function:: bool cc_path_node_iter_init( CcPathNode ** path_node__io )
+
+    Prepares path tree for iterator, by rewinding a given node to the root of a path tree,
+    and by resetting all flags in a complete path tree; both :c:member:`CcPathNode.visited`
+    and :c:member:`CcPathNode.yielded` flags are reset.
+
+    :param path_node__io: *Input/output* parameter, a path node.
+    :returns: :c:data:`true` if rewinding to root and resetting all flags has been successful,
+              :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_PATH_NODE_RESET_ALL_FLAGS()`
+
+.. c:function:: bool cc_path_node_check_subflags( CcPathNode * path_node, bool check_yielded )
+
+    Checks all flags in a given path node, and all of its sub-nodes, i.e. all of valid
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and :c:member:`CcPathNode.sub`
+    nodes.
+
+    .. note::
+
+        Function returns :c:data:`true` in case of error, e.g. if :c:var:`path_node` is
+        :c:data:`NULL`.
+
+    :param path_node: A path node.
+    :param check_yielded: A flag, whether to check :c:member:`CcPathNode.yielded` (if :c:data:`true`),
+        or :c:member:`CcPathNode.visited` (if :c:data:`false`).
+    :returns: :c:data:`false` if any flag in a sub-tree is not set,
+              :c:data:`true` otherwise.
+
+.. c:function:: CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io )
+
+    Iterates over a complete path tree, for any given path node.
+
+    Before iteration can take place, path tree has to be prepared by :c:func:`cc_path_node_iter_init()`.
+
+    Function iterates over a given path tree, by setting inner pointer of *input/output*
+    parameter to next suitable path node, and then returning :c:enumerator:`CC_MBE_True`.
+
+    Suitable path nodes are all leaf nodes (i.e. the ones without any valid
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or :c:member:`CcPathNode.sub`
+    sub-nodes), and also all path nodes that have valid side-effect in their last step.
+
+    When all suitable path nodes from a complete path tree are exhausted,
+    function returns :c:enumerator:`CC_MBE_False`.
+
+    Typical useage:
+
+    .. code-block:: C
+        :force:
+
+        CcPathNode * pn = path_node__a; // Preserves pointer with ownership by setting-up iterator variable.
+
+        if ( cc_path_node_iter_init( &pn ) ) { // Prepares path tree for iteration.
+            while ( CC_MBE_True == cc_path_node_iter_next( &pn ) ) { // Iterates over complete path tree.
+                // ... use found path node ...
+            }
+        }
+
+    :param path_node__io: *Input/output* parameter, a path node.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if next suitable path node was found,
+        * :c:enumerator:`CC_MBE_False` if no suitable path node was found,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+    :seealso: :c:func:`cc_path_node_iter_init()`
 
 .. c:function:: bool cc_path_node_is_valid( CcPathNode * path_tree )
 

@@ -101,19 +101,14 @@ bool cc_path_node_set_all_flags( CcPathNode * path_tree__io,
 
 #define CC_PATH_NODE_RESET_ALL_FLAGS(path_tree__io) ( cc_path_node_set_all_flags( path_tree__io, false, false ) )
 
-// TODO :: DOCS
 bool cc_path_node_iter_init( CcPathNode ** path_node__io );
 
-// TODO :: DOCS
 bool cc_path_node_check_subflags( CcPathNode * path_node, bool check_yielded );
 
-// TODO :: DOCS
 #define CC_PATH_NODE_ALL_SUBNODES_ARE_VISITED(path_node) ( cc_path_node_check_subflags( (path_node), false ) )
 
-// TODO :: DOCS
 #define CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED(path_node) ( cc_path_node_check_subflags( (path_node), true ) )
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io );
 
 // static bool _cc_path_node_steps_are_valid( CcStep * steps );
