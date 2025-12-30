@@ -596,6 +596,22 @@ Path linked list
     :returns: A pointer to newly allocated path link if successful,
               :c:data:`NULL` otherwise.
 
+.. c:function:: CcPathLink * cc_path_link_prepend( CcPathLink ** path_link__iod_a, CcPathNode * path_node )
+
+    Prepends a newly allocated path link to a given linked list; inner pointer of
+    linked list (i.e. :c:`*path_link__iod_a`) is updated to point to newly prepended
+    path link.
+
+    If linked list :c:`*path_link__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated path link as its only element.
+
+    :param path_link__iod_a: **Ownership**, *optional* *input/output* parameter;
+        linked list of path nodes to which a new path is prepended, inner pointer
+        can be :c:data:`NULL`.
+    :param path_node: A path node.
+    :returns: A weak pointer to newly allocated path link if successful,
+        :c:data:`NULL` otherwise.
+
 .. c:function:: CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a, CcPathNode * path_node )
 
     Appends a newly allocated path link to a given linked list.

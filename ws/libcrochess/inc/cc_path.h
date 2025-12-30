@@ -140,6 +140,9 @@ typedef struct CcPathLink {
 
 CcPathLink * cc_path_link__new( CcPathNode * path_node );
 
+CcPathLink * cc_path_link_prepend( CcPathLink ** path_link__iod_a,
+                                   CcPathNode * path_node ); // TODO :: DOCS
+
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
                                   CcPathNode * path_node );
 

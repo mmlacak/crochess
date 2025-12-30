@@ -859,6 +859,24 @@ CcPathLink * cc_path_link__new( CcPathNode * path_node ) {
     return pl__t;
 }
 
+CcPathLink * cc_path_link_prepend( CcPathLink ** path_link__iod_a,
+                                   CcPathNode * path_node ) {
+    if ( !path_link__iod_a ) return NULL;
+
+    CcPathLink * pl__t = cc_path_link__new( path_node );
+    if ( !pl__t ) return NULL;
+
+    if ( !*path_link__iod_a ) {
+        *path_link__iod_a = pl__t; // Ownership transfer.
+    } else {
+        CcPathLink * pl = *path_link__iod_a;
+        pl__t->next = pl; // Prepend.
+        *path_link__iod_a = pl__t; // Ownership transfer.
+    }
+
+    return pl__t; // Weak pointer.
+}
+
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
                                   CcPathNode * path_node ) {
     if ( !path_link__iod_a ) return NULL;
