@@ -188,9 +188,12 @@ Path node macros
     :c:member:`CcPathNode.sub` sub-nodes.
 
     :param path_node: Path node.
-    :returns: :c:data:`true` if all :c:member:`CcPathNode.visited` flags in a
-        sub-tree are set, :c:data:`false` otherwise.
-    :seealso: :c:func:`cc_path_node_check_subflags()`
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if all :c:member:`CcPathNode.visited` flags in a given path sub-tree were set,
+        * :c:enumerator:`CC_MBE_False` if any :c:member:`CcPathNode.visited` flag in a given path sub-tree were reset,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+    :seealso: :c:func:`cc_path_node_subflags_are_all_set()`
 
 .. c:macro:: CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED(path_node)
 
@@ -199,9 +202,12 @@ Path node macros
     :c:member:`CcPathNode.sub` sub-nodes.
 
     :param path_node: Path node.
-    :returns: :c:data:`true` if all :c:member:`CcPathNode.yielded` flags in a
-        sub-tree are set, :c:data:`false` otherwise.
-    :seealso: :c:func:`cc_path_node_check_subflags()`
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if all :c:member:`CcPathNode.yielded` flags in a given path sub-tree were set,
+        * :c:enumerator:`CC_MBE_False` if any :c:member:`CcPathNode.yielded` flag in a given path sub-tree were reset,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+    :seealso: :c:func:`cc_path_node_subflags_are_all_set()`
 
 .. _lbl-libcc-ccpath-pathnodelinkage:
 
@@ -457,7 +463,7 @@ Path node functions
               :c:data:`false` otherwise.
     :seealso: :c:macro:`CC_PATH_NODE_RESET_ALL_FLAGS()`
 
-.. c:function:: bool cc_path_node_check_subflags( CcPathNode * path_node, bool check_yielded )
+.. c:function:: bool cc_path_node_subflags_are_all_set( CcPathNode * path_node, bool check_yielded )
 
     Checks all flags in a given path node, and all of its sub-nodes, i.e. all of valid
     :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and :c:member:`CcPathNode.sub`
@@ -466,8 +472,11 @@ Path node functions
     :param path_node: A path node.
     :param check_yielded: A flag, whether to check :c:member:`CcPathNode.yielded` (if :c:data:`true`),
         or :c:member:`CcPathNode.visited` (if :c:data:`false`).
-    :returns: :c:data:`true` if all flags in a sub-tree are set,
-              :c:data:`false` otherwise.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if all flags in a given path sub-tree were set,
+        * :c:enumerator:`CC_MBE_False` if any flag in a given path sub-tree were reset,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
 
 .. c:function:: CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io )
 

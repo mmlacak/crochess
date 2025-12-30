@@ -283,30 +283,30 @@ bool cc_path_node_iter_init( CcPathNode ** path_node__io ) {
     return CC_PATH_NODE_RESET_ALL_FLAGS( *path_node__io );
 }
 
-bool cc_path_node_check_subflags( CcPathNode * path_node, bool check_yielded ) { // todo :: MAYBE :: RETHINK :: recursion while yielding
-    if ( !path_node ) return false;
+CcMaybeBoolEnum cc_path_node_subflags_are_all_set( CcPathNode * path_node, bool check_yielded ) { // todo :: MAYBE :: RETHINK :: recursion while yielding
+    if ( !path_node ) return CC_MBE_Void;
 
     if ( check_yielded ) {
         if ( !path_node->yielded )
-            return false;
+            return CC_MBE_False;
     } else {
         if ( !path_node->visited )
-            return false;
+            return CC_MBE_False;
     }
 
     if ( path_node->fork )
-        if ( !cc_path_node_check_subflags( path_node->fork, check_yielded ) )
-            return false;
+        if ( !cc_path_node_subflags_are_all_set( path_node->fork, check_yielded ) )
+            return CC_MBE_False;
 
     if ( path_node->alt )
-        if ( !cc_path_node_check_subflags( path_node->alt, check_yielded ) )
-            return false;
+        if ( !cc_path_node_subflags_are_all_set( path_node->alt, check_yielded ) )
+            return CC_MBE_False;
 
     if ( path_node->sub )
-        if ( !cc_path_node_check_subflags( path_node->sub, check_yielded ) )
-            return false;
+        if ( !cc_path_node_subflags_are_all_set( path_node->sub, check_yielded ) )
+            return CC_MBE_False;
 
-    return true;
+    return CC_MBE_True;
 }
 
 CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
@@ -346,19 +346,19 @@ CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
 
     CcMaybeBoolEnum result = CC_MBE_Void;
 
-    if ( pn->fork && !CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->fork ) ) {
+    if ( pn->fork && ( CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->fork ) != CC_MBE_True ) ) {
         *path_node__io = pn->fork;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->alt && !CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->alt ) ) {
+    if ( pn->alt && ( CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->alt ) != CC_MBE_True ) ) {
         *path_node__io = pn->alt;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
     }
 
-    if ( pn->sub && !CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->sub ) ) {
+    if ( pn->sub && ( CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED( pn->sub ) != CC_MBE_True ) ) {
         *path_node__io = pn->sub;
         result = cc_path_node_iter_next( path_node__io );
         if ( result != CC_MBE_False ) return result;
