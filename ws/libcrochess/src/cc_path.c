@@ -954,7 +954,7 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
 
     while ( pn ) {
         if ( !cc_path_link_prepend( &pl__t, pn ) ) {
-            CC_FREE( pl__t );
+            cc_path_link_free_all( &pl__t );
             return false;
         }
 
