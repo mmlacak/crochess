@@ -141,7 +141,7 @@ typedef struct CcPathLink {
 CcPathLink * cc_path_link__new( CcPathNode * path_node );
 
 CcPathLink * cc_path_link_prepend( CcPathLink ** path_link__iod_a,
-                                   CcPathNode * path_node ); // TODO :: DOCS
+                                   CcPathNode * path_node );
 
 CcPathLink * cc_path_link_append( CcPathLink ** path_link__iod_a,
                                   CcPathNode * path_node );
@@ -151,6 +151,9 @@ CcPathLink * cc_path_link_duplicate_all__new( CcPathLink * path_link );
 CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
                                   CcPathLink ** path_link__n );
 
+bool cc_path_link_from_nodes( CcPathNode * path_node,
+                              CcPathLink ** path_link__od_a );
+
 bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
 size_t cc_path_link_len( CcPathLink * path_link );
@@ -158,13 +161,11 @@ size_t cc_path_link_len( CcPathLink * path_link );
 //
 // Path tree iterator.
 
-// static bool _cc_path_node_walk_to_leaf( CcPathNode * path_node,
-//                                         CcPathLink ** root_to_leaf__iod );
-// static bool _cc_path_node_iter_to_leaf( CcPathNode * path_node,
-//                                         CcPathLink ** root_to_leaf__iod );
-// TODO :: DOCS
-bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
-                                CcPathLink ** root_to_leaf__iod );
+// TODO :: DELETE :: DOCS :: ???
+// // TODO :: DOCS
+// bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
+//                                 CcPathLink ** root_to_leaf__iod );
+// TODO :: DELETE :: DOCS :: ???
 
 //
 // Linked path side-effects.

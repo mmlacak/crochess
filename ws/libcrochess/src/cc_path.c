@@ -939,6 +939,36 @@ CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
     return last->next;
 }
 
+bool cc_path_link_from_nodes( CcPathNode * path_node,
+                              CcPathLink ** path_link__od_a ) {
+    if ( !path_node ) return false;
+    if ( !path_link__od_a ) return false;
+    if ( *path_link__od_a ) return false;
+
+    if ( CC_PATH_NODE_IS_PARENT( path_node ) &&
+         !cc_path_node_last_step_side_effect_is_valid( path_node, false ) )
+            return false;
+
+    CcPathNode * pn = path_node;
+    CcPathLink * pl__t = NULL;
+
+    while ( pn ) {
+        if ( !cc_path_link_prepend( &pl__t, pn ) ) {
+            CC_FREE( pl__t );
+            return false;
+        }
+
+        pn = pn->back__w;
+    }
+
+    if ( pl__t ) {
+        *path_link__od_a = pl__t; // Ownership transfer.
+        return true;
+    }
+
+    return false;
+}
+
 bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
     if ( !path_link__f ) return false;
     if ( !*path_link__f ) return true;
@@ -973,38 +1003,20 @@ size_t cc_path_link_len( CcPathLink * path_link ) {
 //
 // Path tree iterator.
 
-static bool _cc_path_node_walk_to_leaf( CcPathNode * path_node,
-                                        CcPathLink ** root_to_leaf__iod ) {
-    // <!> Not really needed, already checked in caller.
-    // if ( !path_node ) return false;
-    // if ( !root_to_leaf__iod ) return false;
-    // if ( *root_to_leaf__iod ) return false;
+// TODO :: DELETE :: DOCS :: ???
+// bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
+//                                 CcPathLink ** root_to_leaf__iod ) {
+//     if ( !path_node ) return false;
+//     if ( !root_to_leaf__iod ) return false;
+//     if ( *root_to_leaf__iod ) return false; // TODO :: FIX :: not in iterator !!!
 
-    return false; // TODO :: FIX
-}
+//     CcPathNode * pn = path_node;
 
-static bool _cc_path_node_iter_to_leaf( CcPathNode * path_node,
-                                        CcPathLink ** root_to_leaf__iod ) {
-    // <!> Not really needed, already checked in caller.
-    // if ( !path_node ) return false;
-    // if ( !root_to_leaf__iod ) return false;
-    // if ( *root_to_leaf__iod ) return false;
+//     CC_REWIND_BY( pn, pn->back__w ); // TODO :: FIX :: not in iterator !!!
 
-    return false; // TODO :: FIX
-}
-
-bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
-                                CcPathLink ** root_to_leaf__iod ) {
-    if ( !path_node ) return false;
-    if ( !root_to_leaf__iod ) return false;
-    if ( *root_to_leaf__iod ) return false; // TODO :: FIX :: not in iterator !!!
-
-    CcPathNode * pn = path_node;
-
-    CC_REWIND_BY( pn, pn->back__w ); // TODO :: FIX :: not in iterator !!!
-
-    return _cc_path_node_iter_to_leaf( pn, root_to_leaf__iod );
-}
+//     return _cc_path_node_iter_to_leaf( pn, root_to_leaf__iod );
+// }
+// TODO :: DELETE :: DOCS :: ???
 
 
 //

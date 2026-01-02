@@ -652,6 +652,24 @@ Path linked list
     :returns: Weak pointer to extended portion of a linked list if successful,
               :c:data:`NULL` otherwise.
 
+.. c:function:: bool cc_path_link_from_nodes( CcPathNode * path_node, CcPathLink ** path_link__od_a )
+
+    Function allocates a new linked list containing pointers from root of a path tree,
+    all the way to a given path node.
+
+    Given path node (i.e. :c:var:`path_node`) has to be suitable; either a leaf node
+    (without any valid :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or
+    :c:member:`CcPathNode.sub` sub-nodes), or a path node with valid side-effect in
+    their last step.
+
+    *Output* parameter has to have its inner pointer (i.e. :c:expr:`*path_link__od_a`)
+    :c:data:`NULL`\-ed, before it can be used to return newly allocated linked list.
+
+    :param path_node: Path node, a leaf or suitable one.
+    :param path_link__od_a: **Ownership**, *optional* *output*; newly allocated linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+    :seealso: :c:func:`cc_path_node_iter_next()`
+
 .. c:function:: bool cc_path_link_free_all( CcPathLink ** path_link__f )
 
     Frees all path links in a linked list.
