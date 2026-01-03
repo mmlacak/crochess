@@ -92,6 +92,9 @@ Data
 
         Side-effect structure.
 
+    .. c:member:: CcSideEffectLink * tentative
+
+        Possible side-effects (e.g. displacements when building a path), a linked list.
 
     .. c:member:: struct CcStep * next
 

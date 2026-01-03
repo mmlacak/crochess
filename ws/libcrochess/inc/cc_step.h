@@ -36,6 +36,8 @@ typedef struct CcStep {
     CcPos field; /* Field of a step. */
     CcSideEffect side_effect; /* Side-effect structure. */
 
+    CcSideEffectLink * tentative; /* Possible side-effects (e.g. displacements when building a path), a linked list. */
+
     struct CcStep * next; /* Next step in a linked list. */
 } CcStep;
 

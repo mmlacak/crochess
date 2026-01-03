@@ -31,6 +31,8 @@ CcStep * cc_step__new( CcStepLinkTypeEnum link,
     step__a->field = field;
     step__a->side_effect = side_effect;
 
+    step__a->tentative = NULL;
+
     step__a->next = NULL;
 
     return step__a;
@@ -211,15 +213,20 @@ bool cc_step_free_all( CcStep ** steps__f ) {
     if ( !*steps__f ) return true;
 
     CcStep * s = *steps__f;
+    bool result = true;
 
     while ( s ) {
         CcStep * tmp = s->next;
+
+        if ( s->tentative )
+            result = cc_side_effect_link_free_all( &( s->tentative ) ) && result;
+
         CC_FREE( s );
         s = tmp;
     }
 
     *steps__f = NULL;
-    return true;
+    return result;
 }
 
 char * cc_step_all_to_string__new( CcStep * steps ) {
