@@ -26,7 +26,7 @@ CcChessboard * cc_chessboard__new( CcVariantType ve, bool do_setup ) {
     if ( !cb__a ) return NULL;
 
     if ( !cc_chessboard_init( cb__a, ve, do_setup ) ) {
-        CC_FREE( cb__a );
+        cc_chessboard_free_all( &cb__a );
         return NULL;
     }
 
@@ -118,7 +118,7 @@ CcChessboard * cc_chessboard_duplicate__new( CcChessboard * from ) {
     cc_chessboard_init( cb__a, from->type, false );
 
     if ( !cc_chessboard_copy( cb__a, from ) ) {
-        CC_FREE( cb__a );
+        cc_chessboard_free_all( &cb__a );
         return NULL;
     }
 

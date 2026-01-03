@@ -52,7 +52,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 
     gm__a->chessboard = cc_chessboard__new( ve, do_setup );
     if ( !gm__a->chessboard ) {
-        CC_FREE( gm__a );
+        cc_game_free_all( &gm__a );
         return NULL;
     }
 
@@ -79,16 +79,16 @@ CcGame * cc_game__new( CcGameStatusEnum status,
 //         pt = _pdl->pd.piece;
 //
 //         if ( !cc_chessboard_set_piece( cb__t, pos.i, pos.j, pt ) ) {
-//             CC_FREE( cb__t );
+//             cc_chessboard_free_all( &cb__t );
 //             return false;
 //         }
 //
 //         _pdl = _pdl->next;
 //     }
 //
-//     CC_FREE( game__io->chessboard );
+//     cc_chessboard_free_all( &( game__io->chessboard ) );
 //     game__io->chessboard = cb__t; // Ownership transfer.
-//     CC_FREE( cb__t );
+//     cc_chessboard_free_all( &cb__t );
 //
 //     return true;
 // }

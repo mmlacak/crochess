@@ -20,7 +20,7 @@ CcMove * cc_move__new( char const * notation,
 
     mv__a->notation = cc_str_duplicate__new( notation, false, max_len__d );
     if ( notation && ( !mv__a->notation ) ) {
-        CC_FREE( mv__a );
+        cc_move_free_all( &mv__a );
         return NULL;
     }
 
