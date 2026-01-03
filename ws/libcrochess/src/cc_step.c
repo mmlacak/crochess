@@ -229,15 +229,39 @@ bool cc_step_free_all( CcStep ** steps__f ) {
     return result;
 }
 
+static size_t _cc_step_sum_len_all_side_effects( CcStep * steps ) {
+    if ( !steps ) return 0;
+
+    size_t len = 0;
+    CcStep * s = steps;
+
+    while ( s ) {
+        if ( s->tentative ) {
+            len += cc_side_effect_link_len( s->tentative );
+        }
+
+        s = s->next;
+    }
+
+    return len;
+}
+
 char * cc_step_all_to_string__new( CcStep * steps ) {
     if ( !steps ) return NULL;
 
+    size_t se_len = _cc_step_sum_len_all_side_effects( steps );
+
     // unused len is certainly > 0, because steps != NULL
     size_t steps_len = cc_step_count( steps ) *
-                       ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 );
+                       ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) +
                        // CC_MAX_LEN_CHAR_8, for position
                        // + CC_MAX_LEN_CHAR_16, for side-effect
                        // + 2, for step links, e.g. ".." before step
+                       ( se_len * ( CC_MAX_LEN_CHAR_16 + 1 ) + 2 );
+                       // se_len, length of all tentative side-effects linked lists
+                       // CC_MAX_LEN_CHAR_16, for each side-effect
+                       // + 1, for ',' between every two side-effects
+                       // + 2, for '{' and '}' enclosing tentative side-effects list
 
     size_t steps_size = steps_len + 1; // +1, for '\0'
 
@@ -287,6 +311,28 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
             return NULL;
         }
         steps_str = (char *)se_end__w;
+
+        if ( s->tentative ) {
+            char * sel_end__a = cc_side_effect_link_to_string__new( s->tentative );
+            if ( !sel_end__a ) {
+                CC_FREE( steps_str__a );
+                return NULL;
+            }
+
+            *steps_str++ = '{';
+
+            char const * se_list__w = cc_str_append_into( steps_str, steps_end__w, CC_SIZE_IGNORE, sel_end__a, NULL, CC_MAX_LEN_ZERO_TERMINATED );
+            if ( !se_list__w ) {
+                CC_FREE( sel_end__a );
+                CC_FREE( steps_str__a );
+                return NULL;
+            }
+            steps_str = (char *)sel_end__a;
+
+            *steps_str++ = '}';
+
+            CC_FREE( sel_end__a );
+        }
 
         s = s->next;
     }
