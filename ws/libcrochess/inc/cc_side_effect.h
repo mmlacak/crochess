@@ -13,6 +13,8 @@
 #include "cc_tag.h"
 #include "cc_pos.h"
 
+//
+// Side-effect.
 
 #define CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR(sete) ( ( CC_SETE_None <= (sete) ) && ( (sete) <= CC_SETE_FailedResurrection ) )
 
@@ -158,6 +160,30 @@ CcSideEffect cc_side_effect_diversion( CcPieceTagType piece );
 CcSideEffect cc_side_effect_demote( CcPieceTagType piece, CcPos distant );
 CcSideEffect cc_side_effect_resurrect( CcPieceTagType piece, CcPos destination );
 CcSideEffect cc_side_effect_failed_resurrection( void );
+
+//
+// Side-effect linked list.
+
+typedef struct CcSideEffectLink {
+    CcSideEffect side_effect;
+    struct CcSideEffectLink * next;
+} CcSideEffectLink; // TODO :: DOCS
+
+CcSideEffectLink * cc_side_effect_link__new( CcSideEffect side_effect ); // TODO :: DOCS
+
+CcSideEffectLink * cc_side_effect_link_append( CcSideEffectLink ** se_link__iod_a,
+                                               CcSideEffect side_effect ); // TODO :: DOCS
+
+CcSideEffectLink * cc_side_effect_link_duplicate_all__new( CcSideEffectLink * se_link ); // TODO :: DOCS
+
+CcSideEffectLink * cc_side_effect_link_extend( CcSideEffectLink ** se_link__iod_a,
+                                               CcSideEffectLink ** se_link__n ); // TODO :: DOCS
+
+bool cc_side_effect_link_free_all( CcSideEffectLink ** se_link__f ); // TODO :: DOCS
+
+size_t cc_side_effect_link_len( CcSideEffectLink * se_link ); // TODO :: DOCS
+
+// char * cc_side_effect_link_to_string__new( CcSideEffectLink * se_link ); // TODO :: DOCS
 
 
 #endif /* __CC_SIDE_EFFECT_H__ */

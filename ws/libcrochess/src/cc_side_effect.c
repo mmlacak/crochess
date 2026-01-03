@@ -6,6 +6,8 @@
 #include "cc_defines.h"
 #include "cc_side_effect.h"
 
+//
+// Side-effect.
 
 char const * cc_side_effect_type_symbol( CcSideEffectTypeEnum sete ) {
     switch ( sete ) {
@@ -327,4 +329,110 @@ CcSideEffect cc_side_effect_failed_resurrection( void ) {
                            CC_POS_CAST_INVALID,
                            CC_POS_CAST_INVALID,
                            CC_PTE_None );
+}
+
+//
+// Side-effect linked list.
+
+CcSideEffectLink * cc_side_effect_link__new( CcSideEffect side_effect ) {
+    CcSideEffectLink * sel__t = CC_MALLOC( sizeof( CcSideEffectLink ) );
+    if ( !sel__t ) return NULL;
+
+    sel__t->side_effect = side_effect;
+    sel__t->next = NULL;
+
+    return sel__t;
+}
+
+CcSideEffectLink * cc_side_effect_link_append( CcSideEffectLink ** se_link__iod_a,
+                                               CcSideEffect side_effect ) {
+    if ( !se_link__iod_a ) return NULL;
+
+    CcSideEffectLink * sel__t = cc_side_effect_link__new( side_effect );
+    if ( !sel__t ) return NULL;
+
+    if ( !*se_link__iod_a ) {
+        *se_link__iod_a = sel__t; // Ownership transfer.
+    } else {
+        CcSideEffectLink * sel = *se_link__iod_a;
+        CC_FASTFORWARD( sel );
+        sel->next = sel__t; // Append + ownership transfer.
+    }
+
+    return sel__t; // Weak pointer.
+}
+
+CcSideEffectLink * cc_side_effect_link_duplicate_all__new( CcSideEffectLink * se_link ) {
+    if ( !se_link ) return NULL;
+
+    CcSideEffectLink * se_link__a = NULL;
+    CcSideEffectLink * from = se_link;
+
+    while ( from ) {
+        CcSideEffectLink * sel__w = cc_side_effect_link_append( &se_link__a, from->side_effect );
+        if ( !sel__w ) { // Failed append --> ownership not transferred ...
+            cc_side_effect_link_free_all( &se_link__a );
+            return NULL;
+        }
+
+        from = from->next;
+    }
+
+    return se_link__a;
+}
+
+CcSideEffectLink * cc_side_effect_link_extend( CcSideEffectLink ** se_link__iod_a,
+                                               CcSideEffectLink ** se_link__n ) {
+    if ( !se_link__iod_a ) return NULL;
+    if ( !se_link__n ) return NULL;
+
+    if ( !*se_link__n ) return *se_link__iod_a;
+
+    if ( !*se_link__iod_a ) {
+        // Ownership transfer.
+        *se_link__iod_a = *se_link__n;
+        *se_link__n = NULL;
+
+        return *se_link__iod_a;
+    }
+
+    CcSideEffectLink * last = *se_link__iod_a;
+    CC_FASTFORWARD( last );
+
+    // Ownership transfer.
+    last->next = *se_link__n;
+    *se_link__n = NULL;
+
+    return last->next;
+}
+
+bool cc_side_effect_link_free_all( CcSideEffectLink ** se_link__f ) {
+    if ( !se_link__f ) return false;
+    if ( !*se_link__f ) return true;
+
+    CcSideEffectLink * sel = *se_link__f;
+    CcSideEffectLink * tmp = NULL;
+
+    while ( sel ) {
+        tmp = sel->next;
+        CC_FREE( sel );
+        sel = tmp;
+    }
+
+    *se_link__f = NULL;
+    return true;
+}
+
+size_t cc_side_effect_link_len( CcSideEffectLink * se_link ) {
+    if ( !se_link ) return 0;
+
+    size_t len = 0;
+    CcSideEffectLink * sel = se_link;
+
+    while ( sel ) {
+        ++len;
+        sel = sel->next;
+    }
+
+    return len;
 }
