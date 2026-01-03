@@ -154,6 +154,9 @@ CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
 bool cc_path_link_from_nodes( CcPathNode * path_node,
                               CcPathLink ** path_link__o_a );
 
+bool cc_path_link_to_steps( CcPathLink * path_link,
+                            CcStep ** steps__o_a ); // TODO :: DOCS
+
 bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
 size_t cc_path_link_len( CcPathLink * path_link );

@@ -969,6 +969,64 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
     return false;
 }
 
+bool cc_path_link_to_steps( CcPathLink * path_link,
+                            CcStep ** steps__o_a ) {
+    if ( !path_link ) return false;
+    if ( !steps__o_a ) return false;
+    if ( *steps__o_a ) return false;
+
+    CcPathLink * pl = path_link;
+    CcPathNode * pn = NULL;
+    CcPathNode * sub = NULL;
+
+    CcStep * s = NULL;
+    CcStep * steps = NULL;
+    CcStep * steps__t = NULL;
+    CcSideEffectLink * sel__t = NULL;
+
+    while ( pl ) {
+        pn = pl->node__w;
+        steps = pn->steps;
+
+        // TODO :: overwrite last side-effect in previous node with the one in this node
+
+        if ( !cc_step_extend( &steps__t, &steps ) ) {
+            cc_side_effect_link_free_all( &sel__t );
+            cc_step_free_all( &steps__t );
+            return false;
+        }
+
+        sub = pn->sub;
+        sel__t = NULL;
+
+        while ( sub ) {
+            if ( !cc_side_effect_link_append( &sel__t, sub->side_effect ) ) {
+                cc_side_effect_link_free_all( &sel__t );
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+
+            sub = sub->sub;
+        }
+
+        if ( sel__t ) {
+            s = steps;
+            CC_FASTFORWARD( s );
+            s->tentative = sel__t; // Owhership transfer, sel__t is now weak pointer.
+            // sel__t = NULL; // Not really needed, not (re)used afterwards.
+        }
+
+        pl = pl->next;
+    }
+
+    if ( steps__t ) {
+        *steps__o_a = steps__t;
+        return true;
+    }
+
+    return false;
+}
+
 bool cc_path_link_free_all( CcPathLink ** path_link__f ) {
     if ( !path_link__f ) return false;
     if ( !*path_link__f ) return true;
