@@ -436,3 +436,41 @@ size_t cc_side_effect_link_len( CcSideEffectLink * se_link ) {
 
     return len;
 }
+
+char * cc_side_effect_link_to_string__new( CcSideEffectLink * se_link ) {
+    if ( !se_link ) return NULL;
+
+    size_t len = cc_side_effect_link_len( se_link );
+    size_t size = len * ( CC_SIZE_CHAR_16 + 1 ); // +1 == ',' between each 2 side-effects
+
+    char * se_str__a = calloc( 1, size );
+    if ( !se_str__a ) return NULL;
+
+    char * se = se_str__a;
+    CcSideEffectLink * sel = se_link;
+    cc_char_16 se_str = CC_CHAR_16_EMPTY;
+
+    while ( sel ) {
+        if ( !cc_side_effect_to_str( sel->side_effect, &se_str ) ) {
+            CC_FREE( se_str__a );
+            return NULL;
+        }
+
+        se = cc_str_append_into( se, se_str__a + size, CC_SIZE_IGNORE, se_str, NULL, CC_SIZE_CHAR_16 );
+        if ( !se ) {
+            CC_FREE( se_str__a );
+            return NULL;
+        }
+
+        if ( sel->next ) *se++ = ',';
+
+        if ( !cc_str_pad( se_str, '\0', CC_SIZE_CHAR_16 ) ) {
+            CC_FREE( se_str__a );
+            return NULL;
+        }
+
+        sel = sel->next;
+    }
+
+    return se_str__a;
+}

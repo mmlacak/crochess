@@ -940,10 +940,10 @@ CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
 }
 
 bool cc_path_link_from_nodes( CcPathNode * path_node,
-                              CcPathLink ** path_link__od_a ) {
+                              CcPathLink ** path_link__o_a ) { // TODO :: better tokens for path_link__o_a ?
     if ( !path_node ) return false;
-    if ( !path_link__od_a ) return false;
-    if ( *path_link__od_a ) return false;
+    if ( !path_link__o_a ) return false;
+    if ( *path_link__o_a ) return false;
 
     if ( CC_PATH_NODE_IS_PARENT( path_node ) &&
          !cc_path_node_last_step_side_effect_is_valid( path_node, false ) )
@@ -962,7 +962,7 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
     }
 
     if ( pl__t ) {
-        *path_link__od_a = pl__t; // Ownership transfer.
+        *path_link__o_a = pl__t; // Ownership transfer.
         return true;
     }
 

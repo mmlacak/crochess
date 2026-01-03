@@ -183,7 +183,7 @@ bool cc_side_effect_link_free_all( CcSideEffectLink ** se_link__f );
 
 size_t cc_side_effect_link_len( CcSideEffectLink * se_link );
 
-// char * cc_side_effect_link_to_string__new( CcSideEffectLink * se_link ); // TODO :: DOCS
+char * cc_side_effect_link_to_string__new( CcSideEffectLink * se_link );
 
 
 #endif /* __CC_SIDE_EFFECT_H__ */

@@ -463,6 +463,16 @@ Linked side-effects
     :param se_link: Linked list of side-effects.
     :returns: Length if successful, ``0`` otherwise.
 
+.. c:function:: char * cc_side_effect_link_to_string__new( CcSideEffectLink * se_link )
+
+    Function returns a newly allocated string, containing user-readable
+    representation of side-effects in a given linked list, separated by
+    ``','`` (comma); e.g. ``"<b8,<c9,<d8,<c7"``.
+
+    :param se_link: Linked list of side-effects.
+    :returns: A newly allocated, null-terminated string if successful,
+              :c:data:`NULL` otherwise
+
 .. _lbl-libcc-ccsideeffect-sourcecodeheader:
 
 Header file
