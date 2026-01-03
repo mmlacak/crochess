@@ -940,7 +940,7 @@ CcPathLink * cc_path_link_extend( CcPathLink ** path_link__iod_a,
 }
 
 bool cc_path_link_from_nodes( CcPathNode * path_node,
-                              CcPathLink ** path_link__o_a ) { // TODO :: better tokens for path_link__o_a ?
+                              CcPathLink ** path_link__o_a ) {
     if ( !path_node ) return false;
     if ( !path_link__o_a ) return false;
     if ( *path_link__o_a ) return false;

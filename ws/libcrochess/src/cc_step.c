@@ -229,7 +229,7 @@ bool cc_step_free_all( CcStep ** steps__f ) {
     return result;
 }
 
-static size_t _cc_step_sum_len_all_side_effects( CcStep * steps ) {
+static size_t _cc_step_sum_len_all_tentative( CcStep * steps ) {
     if ( !steps ) return 0;
 
     size_t len = 0;
@@ -249,7 +249,7 @@ static size_t _cc_step_sum_len_all_side_effects( CcStep * steps ) {
 char * cc_step_all_to_string__new( CcStep * steps ) {
     if ( !steps ) return NULL;
 
-    size_t se_len = _cc_step_sum_len_all_side_effects( steps );
+    size_t se_len = _cc_step_sum_len_all_tentative( steps ); // length of all tentative side-effects in a complete linked list
 
     // unused len is certainly > 0, because steps != NULL
     size_t steps_len = cc_step_count( steps ) *
@@ -258,7 +258,6 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
                        // + CC_MAX_LEN_CHAR_16, for side-effect
                        // + 2, for step links, e.g. ".." before step
                        ( se_len * ( CC_MAX_LEN_CHAR_16 + 1 ) + 2 );
-                       // se_len, length of all tentative side-effects linked lists
                        // CC_MAX_LEN_CHAR_16, for each side-effect
                        // + 1, for ',' between every two side-effects
                        // + 2, for '{' and '}' enclosing tentative side-effects list

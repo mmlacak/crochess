@@ -78,7 +78,7 @@ CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps );
 
 bool cc_step_free_all( CcStep ** steps__f );
 
-// static size_t _cc_step_sum_len_all_side_effects( CcStep * steps );
+// static size_t _cc_step_sum_len_all_tentative( CcStep * steps );
 char * cc_step_all_to_string__new( CcStep * steps );
 
 
