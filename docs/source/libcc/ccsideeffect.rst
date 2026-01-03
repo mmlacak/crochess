@@ -383,6 +383,86 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_failed_resurrection( void )
 
+.. _lbl-libcc-ccsideeffect-linkedsideeffects:
+
+Linked side-effects
+-------------------
+
+.. c:struct:: CcSideEffectLink
+
+    Linked side-effects :c:`struct`\ure, linked list.
+
+    .. c:member:: CcSideEffect side_effect
+
+        A side-effect.
+
+    .. c:member:: struct CcSideEffectLink * next
+
+        Next side-effect in a linked list.
+
+    :c:`struct` is tagged with the same :c:struct:`CcSideEffectLink` name.
+
+.. c:function:: CcSideEffectLink * cc_side_effect_link__new( CcSideEffect side_effect )
+
+    Returns a newly allocated side-effect link.
+
+    :param side_effect: A side-effect.
+    :returns: A newly allocated side-effect link if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcSideEffectLink * cc_side_effect_link_append( CcSideEffectLink ** se_link__iod_a, CcSideEffect side_effect )
+
+    Appends a newly allocated side-effect link to a given linked list.
+
+    If linked list :c:`*se_link__iod_a` is :c:data:`NULL`, it will be initialized
+    with a newly allocated side-effect link as its only element.
+
+    :param se_link__iod_a: **Ownership**, *optional* *input/output* parameter;
+        linked list of side-effects to which a new side-effect is appended, inner pointer
+        can be :c:data:`NULL`.
+    :param side_effect: A side-effect.
+    :returns: A weak pointer to newly allocated side-effect link if successful,
+        :c:data:`NULL` otherwise.
+
+.. c:function:: CcSideEffectLink * cc_side_effect_link_duplicate_all__new( CcSideEffectLink * se_link )
+
+    Duplicates all given side-effects into a newly allocated linked list.
+
+    :param se_link: Linked list to duplicate.
+    :returns: A newly allocated linked list if successful, :c:data:`NULL` otherwise.
+
+.. c:function:: CcSideEffectLink * cc_side_effect_link_extend( CcSideEffectLink ** se_link__iod_a, CcSideEffectLink ** se_link__n )
+
+    Extends given linked list of side-effects with another.
+
+    If linked list to extend (:c:`se_link__iod_a`) hasn't been allocated yet,
+    this will initialize it with content of an extending linked list, i.e.
+    :c:`se_link__n`.
+
+    .. note::
+
+        Extending linked list :c:`se_link__n` has its ownership transferred to
+        extended linked list :c:`se_link__iod_a`; as a result, inner pointer
+        :c:`*se_link__n` is :c:data:`NULL`\ed.
+
+    :param se_link__iod_a: **Ownership**, *optional* *input/output*; linked list to extend.
+    :param se_link__n: **Ownership transfer**, *optional*; linked list to extend existing side-effects.
+    :returns: Weak pointer to extended portion of a linked list if successful,
+              :c:data:`NULL` otherwise.
+
+.. c:function:: bool cc_side_effect_link_free_all( CcSideEffectLink ** se_link__f )
+
+    Frees all side-effects in a linked list.
+
+    :param se_link__f: Linked list of side-effects.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
+.. c:function:: size_t cc_side_effect_link_len( CcSideEffectLink * se_link )
+
+    Function returning length of linked list of side-effects.
+
+    :param se_link: Linked list of side-effects.
+    :returns: Length if successful, ``0`` otherwise.
+
 .. _lbl-libcc-ccsideeffect-sourcecodeheader:
 
 Header file

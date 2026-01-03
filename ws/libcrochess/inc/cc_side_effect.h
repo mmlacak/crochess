@@ -167,21 +167,21 @@ CcSideEffect cc_side_effect_failed_resurrection( void );
 typedef struct CcSideEffectLink {
     CcSideEffect side_effect;
     struct CcSideEffectLink * next;
-} CcSideEffectLink; // TODO :: DOCS
+} CcSideEffectLink;
 
-CcSideEffectLink * cc_side_effect_link__new( CcSideEffect side_effect ); // TODO :: DOCS
+CcSideEffectLink * cc_side_effect_link__new( CcSideEffect side_effect );
 
 CcSideEffectLink * cc_side_effect_link_append( CcSideEffectLink ** se_link__iod_a,
-                                               CcSideEffect side_effect ); // TODO :: DOCS
+                                               CcSideEffect side_effect );
 
-CcSideEffectLink * cc_side_effect_link_duplicate_all__new( CcSideEffectLink * se_link ); // TODO :: DOCS
+CcSideEffectLink * cc_side_effect_link_duplicate_all__new( CcSideEffectLink * se_link );
 
 CcSideEffectLink * cc_side_effect_link_extend( CcSideEffectLink ** se_link__iod_a,
-                                               CcSideEffectLink ** se_link__n ); // TODO :: DOCS
+                                               CcSideEffectLink ** se_link__n );
 
-bool cc_side_effect_link_free_all( CcSideEffectLink ** se_link__f ); // TODO :: DOCS
+bool cc_side_effect_link_free_all( CcSideEffectLink ** se_link__f );
 
-size_t cc_side_effect_link_len( CcSideEffectLink * se_link ); // TODO :: DOCS
+size_t cc_side_effect_link_len( CcSideEffectLink * se_link );
 
 // char * cc_side_effect_link_to_string__new( CcSideEffectLink * se_link ); // TODO :: DOCS
 
