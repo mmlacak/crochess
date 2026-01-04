@@ -988,7 +988,13 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
         pn = pl->node__w;
         steps = pn->steps;
 
-        // TODO :: overwrite last side-effect in previous node with the one in this node
+        if ( steps__t ) {
+            s = steps__t;
+            CC_FASTFORWARD( s );
+
+            // Overwrite last side-effect in previous node with the one in this node.
+            s->side_effect = steps->side_effect;
+        }
 
         if ( !cc_step_extend( &steps__t, &steps ) ) {
             cc_side_effect_link_free_all( &sel__t );

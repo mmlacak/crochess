@@ -670,6 +670,26 @@ Path linked list
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
     :seealso: :c:func:`cc_path_node_iter_next()`
 
+.. c:function:: bool cc_path_link_to_steps( CcPathLink * path_link, CcStep ** steps__o_a )
+
+    Function returns a newly allocated linked list of steps, built from all path
+    nodes in a given linked list.
+
+    Function also overwrites side-effect of the last step (accumulated so far in
+    an *output* linked list), with the side-effect of the current path node.
+
+    Additionaly, function also builds linked list of tentative side-effects, if
+    there are valid :c:member:`CcPathNode.sub` nodes of the current path node;
+    list built is then assigned to :c:member:`CcStep.tentative` pointer of the
+    last step of the current path node.
+
+    *Output* parameter has to have its inner pointer (i.e. :c:expr:`*steps__o_a`)
+    :c:data:`NULL`\-ed, before it can be used to return newly allocated linked list.
+
+    :param path_link: Path linked list.
+    :param steps__o_a: **Ownership**, *output*; newly allocated linked list.
+    :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
+
 .. c:function:: bool cc_path_link_free_all( CcPathLink ** path_link__f )
 
     Frees all path links in a linked list.

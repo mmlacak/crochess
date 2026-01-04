@@ -155,7 +155,7 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
                               CcPathLink ** path_link__o_a );
 
 bool cc_path_link_to_steps( CcPathLink * path_link,
-                            CcStep ** steps__o_a ); // TODO :: DOCS
+                            CcStep ** steps__o_a );
 
 bool cc_path_link_free_all( CcPathLink ** path_link__f );
 
