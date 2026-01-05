@@ -945,9 +945,11 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
     if ( !path_link__o_a ) return false;
     if ( *path_link__o_a ) return false;
 
-    if ( CC_PATH_NODE_IS_PARENT( path_node ) &&
+    // TODO :: RETHINK (???)
+    if ( CC_PATH_NODE_HAS_CONTINUATION( path_node ) && // CC_PATH_NODE_IS_PARENT( path_node ) &&
          !cc_path_node_last_step_side_effect_is_valid( path_node, false ) )
             return false;
+    // TODO :: RETHINK (???)
 
     CcPathNode * pn = path_node;
     CcPathLink * pl__t = NULL;
@@ -996,12 +998,13 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
             s->side_effect = steps->side_effect;
         }
 
-        if ( !cc_step_extend( &steps__t, &steps ) ) {
+        if ( !cc_step_extend( &steps__t, &steps ) ) { // [1]
             cc_side_effect_link_free_all( &sel__t );
             cc_step_free_all( &steps__t );
             return false;
         }
 
+        steps = pn->steps; // <!> All extend funcs NULL extending, i.e. 2nd linked list @ [1].
         sub = pn->sub;
         sel__t = NULL;
 
@@ -1026,7 +1029,8 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
     }
 
     if ( steps__t ) {
-        *steps__o_a = steps__t;
+        *steps__o_a = steps__t; // Owhership transfer, steps__t is now weak pointer.
+        // steps__t = NULL; // Not really needed, not (re)used afterwards.
         return true;
     }
 
