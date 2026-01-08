@@ -33,11 +33,11 @@ typedef struct CcPathNode {
 
     struct CcPathNode * fork;
     struct CcPathNode * alt;
-    struct CcPathNode * sub; // TODO :: convert into CcSideEffectLink *
+    struct CcSideEffectLink * sub; // TODO :: DOCS :: converted CcPathNode * --> CcSideEffectLink *
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 
-#define CC_PATH_NODE_IS_PARENT(path_node) ( (path_node)->fork || (path_node)->alt || (path_node)->sub )
+#define CC_PATH_NODE_IS_PARENT(path_node) ( (path_node)->fork || (path_node)->alt )
 
 #define CC_PATH_NODE_IS_LEAF(path_node) ( !CC_PATH_NODE_IS_PARENT( (path_node) ) )
 
@@ -46,16 +46,18 @@ typedef struct CcPathNode {
 //
 // Path node linkage.
 
+// TODO :: DOCS :: remove CC_PNLE_Sub
 typedef enum CcPathNodeLinkageEnum {
     CC_PNLE_None,
     CC_PNLE_Fork,
     CC_PNLE_Alt,
-    CC_PNLE_Sub,
 } CcPathNodeLinkageEnum;
 
-#define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(pnle) ( ( CC_PNLE_None <= (pnle) ) && ( (pnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
+// TODO :: DOCS :: remove CC_PNLE_Sub
+#define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(pnle) ( ( CC_PNLE_None <= (pnle) ) && ( (pnle) <= CC_PNLE_Alt ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
 
-#define CC_PATH_NODE_LINKAGE_IS_VALID(pnle) ( ( CC_PNLE_None < (pnle) ) && ( (pnle) <= CC_PNLE_Sub ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
+// TODO :: DOCS :: remove CC_PNLE_Sub
+#define CC_PATH_NODE_LINKAGE_IS_VALID(pnle) ( ( CC_PNLE_None < (pnle) ) && ( (pnle) <= CC_PNLE_Alt ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
 
 #define CC_MAX_LEN_PATH_NODE_LINKAGE_STRING (4)
 
@@ -84,9 +86,9 @@ CcPathNode * cc_path_node_add_forks( CcPathNode ** pn_step__a,
 CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
                                       CcPathNode ** pn_alt__n );
 
-// static CcMaybeBoolEnum _cc_path_node_subs_is_valid( CcPathNode * pn_subs );
-CcPathNode * cc_path_node_add_subs( CcPathNode ** pn_step__a,
-                                    CcPathNode ** pn_sub__n );
+// TODO :: DOCS :: converted CcPathNode * --> CcSideEffectLink *
+CcSideEffectLink * cc_path_node_add_subs( CcPathNode ** pn_step__a,
+                                          CcSideEffectLink ** sel_sub__n );
 
 CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node );
 
