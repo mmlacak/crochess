@@ -33,7 +33,7 @@ typedef struct CcPathNode {
 
     struct CcPathNode * fork;
     struct CcPathNode * alt;
-    struct CcPathNode * sub;
+    struct CcPathNode * sub; // TODO :: convert into CcSideEffectLink *
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 
@@ -64,6 +64,9 @@ typedef enum CcPathNodeLinkageEnum {
 char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum pnle );
 
 CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_path_node_apply_parent( CcPathNode * path_node );
 
 char const * cc_path_node_linkage_to_string( CcPathNode * path_node );
 

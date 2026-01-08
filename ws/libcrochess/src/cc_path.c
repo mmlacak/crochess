@@ -41,6 +41,24 @@ CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
         return CC_PNLE_None;
 }
 
+CcMaybeBoolEnum cc_path_node_apply_parent( CcPathNode * path_node ) {
+    if ( !path_node ) return CC_MBE_Void;
+
+    // TODO :: REDO
+
+    CcPathNode * pn = path_node->back__w;
+
+    if ( !pn ) return CC_MBE_True;
+
+    if ( pn->fork == path_node ) return CC_MBE_True;
+
+    if ( pn->alt == path_node ) return CC_MBE_False;
+
+    if ( pn->sub == path_node ) return CC_MBE_False;
+
+    return CC_MBE_Void;
+}
+
 char const * cc_path_node_linkage_to_string( CcPathNode * path_node ) {
     CcPathNodeLinkageEnum pnle = cc_path_node_linkage( path_node );
     return cc_path_node_linkage_as_string( pnle );
@@ -951,13 +969,46 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
             return false;
     // TODO :: RETHINK (???)
 
-    CcPathNode * pn = path_node;
     CcPathLink * pl__t = NULL;
 
+    // CcMaybeBoolEnum append = cc_path_node_apply_parent( path_node );
+    // if ( !CC_MAYBE_BOOL_IS_VALID( append ) )
+    //     return false;
+
+    if ( !cc_path_link_prepend( &pl__t, path_node ) ) {
+        cc_path_link_free_all( &pl__t );
+        return false;
+    }
+
+    CcPathNode * pn = path_node;
+
     while ( pn ) {
-        if ( !cc_path_link_prepend( &pl__t, pn ) ) {
-            cc_path_link_free_all( &pl__t );
-            return false;
+        CcPathNodeLinkageEnum pnle = cc_path_node_linkage( pn );
+
+        switch ( pnle ) {
+            case CC_PNLE_Fork : {
+                if ( !cc_path_link_prepend( &pl__t, pn ) ) {
+                    cc_path_link_free_all( &pl__t );
+                    return false;
+                }
+            };
+
+            case CC_PNLE_Alt :
+            case CC_PNLE_Sub :
+                break;
+
+            case CC_PNLE_None : {
+                if ( pn->back__w ) {
+                    cc_path_link_free_all( &pl__t );
+                    return false;
+                }
+                break;
+            }
+
+            default : {
+                cc_path_link_free_all( &pl__t );
+                return false;
+            }
         }
 
         pn = pn->back__w;
