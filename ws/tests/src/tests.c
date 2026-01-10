@@ -40,7 +40,7 @@
 #include "tests.h"
 
 
-char const CROCHESS_TESTS_VERSION[] = "0.0.1.414:1593+20260108.230105"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CROCHESS_TESTS_VERSION[] = "0.0.1.415:1594+20260110.023756"; // source-new-crochess-tests-version-major-minor-feature-commit+meta~breaks-place-marker
 
 #ifdef __WITH_LINE_NOISE__
 char const CROCHESS_TESTS_HISTORY_FILE_NAME[] = "history_tests.txt";
@@ -331,20 +331,20 @@ int main( void ) {
                     cc_str_is_equal( token_start, token_end, "test_book", NULL, BUFSIZ ) ) {
         } else if ( cc_str_is_equal( token_start, token_end, "tt", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_temp", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TESTS_DO_ALL, &token_start, &token_end );
             tests_skip_disambiguation( test_number );
             // tests_next_ply_link( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tp", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_parse", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TESTS_DO_ALL, &token_start, &token_end );
             tests_parse( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tm", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_move", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TESTS_DO_ALL, &token_start, &token_end );
             tests_move( test_number );
         } else if ( cc_str_is_equal( token_start, token_end, "tx", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_misc", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TESTS_DO_ALL, &token_start, &token_end );
             int moving = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
             int step_type = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
             int encounter = get_integer_from_cli_arg( line, CHAR_MIN, &token_start, &token_end );
@@ -360,7 +360,7 @@ int main( void ) {
             tests_misc( test_number, moving, step_type, encounter );
         } else if ( cc_str_is_equal( token_start, token_end, "ta", NULL, BUFSIZ ) ||
                     cc_str_is_equal( token_start, token_end, "test_path_segment", NULL, BUFSIZ ) ) {
-            int test_number = get_integer_from_cli_arg( line, TEST_ALL_MOVES, &token_start, &token_end );
+            int test_number = get_integer_from_cli_arg( line, TESTS_DO_ALL, &token_start, &token_end );
             tests_path( test_number );
 #ifdef __WITH_LINE_NOISE__
         } else if ( cc_str_is_equal( token_start, token_end, "kc", NULL, BUFSIZ ) ||

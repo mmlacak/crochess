@@ -9,7 +9,7 @@
 #include "cc_defines.h"
 
 
-#define TEST_ALL_MOVES (0)
+#define TESTS_DO_ALL (0)
 
 typedef struct TestArgs {
     char const * an_str;

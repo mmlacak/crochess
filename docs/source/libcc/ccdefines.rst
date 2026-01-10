@@ -260,6 +260,59 @@ Maybe bool
     :param bool_val: Boolean value.
     :returns: `CcMaybeBoolEnum` value.
 
+.. c:macro:: CC_MAYBE_BOOL_NOT(mbe)
+
+    Macro to negate given :c:enum:`CcMaybeBoolEnum` value.
+
+    :param mbe: Maybe bool, integer value.
+    :returns: `CcMaybeBoolEnum` value.
+
+.. c:macro:: CC_MAYBE_BOOL_AND(mbe1,mbe2)
+
+    Macro to compute logical and between two given :c:enum:`CcMaybeBoolEnum` values.
+    Example:
+
+    .. code-block:: C
+        :force:
+
+        CcMaybeBoolEnum m1 = CC_MBE_False;
+        CcMaybeBoolEnum m2 = CC_MBE_True;
+
+        CcMaybeBoolEnum r = CC_MAYBE_BOOL_AND( m1, m2 ); // r == CC_MBE_False
+
+    Any invalid data will produce :c:enumerator:`CC_MBE_Void`, see also
+    :c:macro:`CC_MAYBE_BOOL_IS_VALID()`.
+
+    :param mbe1: Maybe bool, integer value.
+    :param mbe2: Maybe bool, integer value.
+    :returns: `CcMaybeBoolEnum` value.
+
+    .. (i.e. :c:`mbe1 && mbe2`)
+    ..  :c:expr:`mbe1 && mbe2`
+
+.. c:macro:: CC_MAYBE_BOOL_OR(bool_val)
+
+    Macro to compute logical or between two given :c:enum:`CcMaybeBoolEnum` values.
+    Example:
+
+    .. code-block:: C
+        :force:
+
+        CcMaybeBoolEnum m1 = CC_MBE_False;
+        CcMaybeBoolEnum m2 = CC_MBE_True;
+
+        CcMaybeBoolEnum r = CC_MAYBE_BOOL_OR( m1, m2 ); // r == CC_MBE_True
+
+    Any invalid data will produce :c:enumerator:`CC_MBE_Void`, see also
+    :c:macro:`CC_MAYBE_BOOL_IS_VALID()`.
+
+    :param mbe1: Maybe bool, integer value.
+    :param mbe2: Maybe bool, integer value.
+    :returns: `CcMaybeBoolEnum` value.
+
+    .. :c:expr:`mbe1 || mbe2`
+    .. (i.e. :c:`mbe1 || mbe2`)
+
 .. _lbl-libcc-ccdefines-coordinates:
 
 Coordinates

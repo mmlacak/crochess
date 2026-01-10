@@ -185,6 +185,72 @@ bool tests_str_len( void ) {
     return result;
 }
 
+bool tests_maybe_bool( void ) {
+    printf( "---------------------\n" );
+    bool result = true;
+
+    for ( int a = -2; a < 2; ++a ) {
+        int not = CC_MAYBE_BOOL_NOT( a );
+        CcMaybeBoolEnum rnot = ( a == CC_MBE_True ) ? CC_MBE_False
+                                                    : ( a == CC_MBE_False ) ? CC_MBE_True
+                                                                            : CC_MBE_Void;
+        result = ( not == rnot ) && result;
+
+        for ( int b = -2; b < 2; ++b ) {
+            int and = CC_MAYBE_BOOL_AND( a, b );
+            int or = CC_MAYBE_BOOL_OR( a, b );
+
+            CcMaybeBoolEnum rand = \
+                ( a != CC_MBE_True && a != CC_MBE_False ) || ( b != CC_MBE_True && b != CC_MBE_False ) ? CC_MBE_Void
+                                                                                                       : ( a == CC_MBE_True && b == CC_MBE_True ) ? CC_MBE_True
+                                                                                                                                                  : CC_MBE_False;
+
+            result = ( and == rand ) && result;
+
+            CcMaybeBoolEnum ror = \
+                ( a != CC_MBE_True && a != CC_MBE_False ) || ( b != CC_MBE_True && b != CC_MBE_False ) ? CC_MBE_Void
+                                                                                                       : ( a == CC_MBE_True || b == CC_MBE_True ) ? CC_MBE_True
+                                                                                                                                                  : CC_MBE_False;
+
+            result = ( or == ror ) && result;
+
+            printf( "a: %i | b: %i --> !a: %i | a && b: %i | a || b: %i <-- %i : %i : %i : %i.\n", a, b, not, and, or, rnot, rand, ror, result );
+        }
+
+        printf( ".....................\n" );
+    }
+
+    printf( "---------------------\n" );
+
+    // > tx 5
+    // Inputs: -128 ~~-128~~> -128 ==> ?? --?--> ??
+    // ---------------------
+    // a: -2 | b: -2 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // a: -2 | b: -1 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // a: -2 | b: 0 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // a: -2 | b: 1 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // .....................
+    // a: -1 | b: -2 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // a: -1 | b: -1 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // a: -1 | b: 0 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // a: -1 | b: 1 --> !a: -1 | a && b: -1 | a || b: -1 <-- -1 : -1 : -1 : 1.
+    // .....................
+    // a: 0 | b: -2 --> !a: 1 | a && b: -1 | a || b: -1 <-- 1 : -1 : -1 : 1.
+    // a: 0 | b: -1 --> !a: 1 | a && b: -1 | a || b: -1 <-- 1 : -1 : -1 : 1.
+    // a: 0 | b: 0 --> !a: 1 | a && b: 0 | a || b: 0 <-- 1 : 0 : 0 : 1.
+    // a: 0 | b: 1 --> !a: 1 | a && b: 0 | a || b: 1 <-- 1 : 0 : 1 : 1.
+    // .....................
+    // a: 1 | b: -2 --> !a: 0 | a && b: -1 | a || b: -1 <-- 0 : -1 : -1 : 1.
+    // a: 1 | b: -1 --> !a: 0 | a && b: -1 | a || b: -1 <-- 0 : -1 : -1 : 1.
+    // a: 1 | b: 0 --> !a: 0 | a && b: 0 | a || b: 1 <-- 0 : 0 : 1 : 1.
+    // a: 1 | b: 1 --> !a: 0 | a && b: 1 | a || b: 1 <-- 0 : 1 : 1 : 1.
+    // .....................
+    // ---------------------
+    // Finished: '1'.
+
+    return true;
+}
+
 bool tests_iter_monolith_steps( void ) {
     bool result = true;
     CcTypedStep step = CC_TYPED_STEP_CAST_INVALID;
@@ -667,12 +733,12 @@ bool tests_misc( int test_number,
                  int moving,
                  int step_type,
                  int encounter ) {
-    if ( ( test_number < TEST_ALL_MOVES ) || ( 9 < test_number ) ) {
+    if ( ( test_number < TESTS_DO_ALL ) || ( 10 < test_number ) ) {
         printf( "No such a misc test: '%d'.\n", test_number );
         return false;
     }
 
-    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+    bool do_all_tests = ( test_number == TESTS_DO_ALL );
     bool result = true;
 
     if ( ( test_number == 1 ) || do_all_tests )
@@ -688,18 +754,21 @@ bool tests_misc( int test_number,
         result = tests_str_len() && result;
 
     if ( ( test_number == 5 ) || do_all_tests )
-        result = tests_iter_monolith_steps() && result;
+        result = tests_maybe_bool() && result;
 
     if ( ( test_number == 6 ) || do_all_tests )
-        result = tests_iter_piece_steps() && result;
+        result = tests_iter_monolith_steps() && result;
 
     if ( ( test_number == 7 ) || do_all_tests )
-        result = tests_pos_desc_link() && result;
+        result = tests_iter_piece_steps() && result;
 
     if ( ( test_number == 8 ) || do_all_tests )
-        result = tests_transparencies() && result;
+        result = tests_pos_desc_link() && result;
 
     if ( ( test_number == 9 ) || do_all_tests )
+        result = tests_transparencies() && result;
+
+    if ( ( test_number == 10 ) || do_all_tests )
         result = tests_activations( (CcPieceTagType)moving,
                                     (CcStepTypeEnum)step_type,
                                     (CcPieceTagType)encounter ) && result;

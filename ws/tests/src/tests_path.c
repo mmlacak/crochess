@@ -246,12 +246,12 @@ bool test_bishop_simple( char const * setup ) {
 }
 
 bool tests_path( int test_number ) {
-    if ( ( test_number < TEST_ALL_MOVES ) || ( 5 < test_number ) ) {
+    if ( ( test_number < TESTS_DO_ALL ) || ( 5 < test_number ) ) {
         printf( "No such a path test: '%d'.\n", test_number );
         return false;
     }
 
-    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+    bool do_all_tests = ( test_number == TESTS_DO_ALL );
     bool result = true;
 
     if ( ( test_number == 1 ) || do_all_tests )

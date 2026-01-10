@@ -38,10 +38,9 @@ CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
         return CC_PNLE_None;
 }
 
+// TODO :: REDO
 CcMaybeBoolEnum cc_path_node_apply_parent( CcPathNode * path_node ) {
     if ( !path_node ) return CC_MBE_Void;
-
-    // TODO :: REDO
 
     CcPathNode * pn = path_node->back__w;
 

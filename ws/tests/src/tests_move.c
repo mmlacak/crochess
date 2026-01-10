@@ -118,10 +118,10 @@ cc_ull_t test_move( char const * an_str,
 
 
 bool tests_move( int test_number ) {
-    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+    bool do_all_tests = ( test_number == TESTS_DO_ALL );
 
     if ( !do_all_tests ) {
-        if ( ( test_number < TEST_ALL_MOVES ) || ( TEST_ARGS_ARRAY_SIZE <= (size_t)test_number ) ) {
+        if ( ( test_number < TESTS_DO_ALL ) || ( TEST_ARGS_ARRAY_SIZE <= (size_t)test_number ) ) {
             printf( "No such a move test: '%d'.\n", test_number );
             return false;
         }

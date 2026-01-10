@@ -118,10 +118,10 @@ bool test_parse( char const * an_str,
 }
 
 bool tests_parse( int test_number ) {
-    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+    bool do_all_tests = ( test_number == TESTS_DO_ALL );
 
     if ( !do_all_tests ) {
-        if ( ( test_number < TEST_ALL_MOVES ) || ( TEST_ARGS_ARRAY_SIZE <= (size_t)test_number ) ) {
+        if ( ( test_number < TESTS_DO_ALL ) || ( TEST_ARGS_ARRAY_SIZE <= (size_t)test_number ) ) {
             printf( "No such a parse test: '%d'.\n", test_number );
             return false;
         }
@@ -149,7 +149,7 @@ bool tests_parse( int test_number ) {
 }
 
 bool tests_skip_disambiguation( int test_number ) {
-    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+    bool do_all_tests = ( test_number == TESTS_DO_ALL );
 
     char const * ans[] = { "..b0",
                            "z..b1",
@@ -193,7 +193,7 @@ bool tests_skip_disambiguation( int test_number ) {
 }
 
 bool tests_next_ply_link( int test_number ) {
-    bool do_all_tests = ( test_number == TEST_ALL_MOVES );
+    bool do_all_tests = ( test_number == TESTS_DO_ALL );
 
     char const * ans[] = { "b1",
                            "Rb1",

@@ -24,6 +24,7 @@ bool tests_gcds( void );
 bool tests_pos_steps( void );
 bool tests_str_append_into( void );
 bool tests_str_len( void );
+bool tests_maybe_bool( void );
 bool tests_iter_monolith_steps( void );
 bool tests_iter_piece_steps( void );
 bool tests_pos_desc_link( void );

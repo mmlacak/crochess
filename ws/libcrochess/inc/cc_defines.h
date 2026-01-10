@@ -80,19 +80,16 @@ typedef enum CcMaybeBoolEnum {
 
 #define CC_BOOL_TO_MAYBE(bool_val) ( (bool_val) ? CC_MBE_True : CC_MBE_False ) // ( (CcMaybeBoolEnum)(bool_val) )
 
-// TODO :: DOCS
 // #define CC_MAYBE_BOOL_NOT(mbe) ( ( (mbe) == CC_MBE_True ) ? CC_MBE_False \
 //                                                           : ( (mbe) == CC_MBE_False ) ? CC_MBE_True \
 //                                                                                       : CC_MBE_Void )
 #define CC_MAYBE_BOOL_NOT(mbe) ( CC_MAYBE_BOOL_IS_VALID( (mbe) ) ? CC_BOOL_TO_MAYBE( !( (bool)(mbe) ) ) \
                                                                  : CC_MBE_Void )
 
-// TODO :: DOCS
 #define CC_MAYBE_BOOL_AND(mbe1,mbe2) \
     ( ( CC_MAYBE_BOOL_IS_VALID( (mbe1) ) && CC_MAYBE_BOOL_IS_VALID( (mbe2) ) ) ? \
         CC_BOOL_TO_MAYBE( ( (bool)(mbe1) ) && ( (bool)(mbe2) ) ) : CC_MBE_Void )
 
-// TODO :: DOCS
 #define CC_MAYBE_BOOL_OR(mbe1,mbe2) \
     ( ( CC_MAYBE_BOOL_IS_VALID( (mbe1) ) && CC_MAYBE_BOOL_IS_VALID( (mbe2) ) ) ? \
         CC_BOOL_TO_MAYBE( ( (bool)(mbe1) ) || ( (bool)(mbe2) ) ) : CC_MBE_Void )
