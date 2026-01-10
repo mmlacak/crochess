@@ -115,13 +115,13 @@ Path node segments
 
             :ref:`lbl-libcc-paths-pathsegmenttree-alternativepaths`
 
-    .. c:member:: struct CcPathNode * sub
+    .. c:member:: struct CcSideEffectLink * sub
 
-        Link to substitute side-effect to originating path node.
+        Substitute side-effects to last step of an originating path node.
 
-        Substitute paths are used when there are multiple possible side-effects
-        (interactions with encountered piece), which do not alter path of a
-        moving piece.
+        Substitute side-effects are used when there are multiple possible
+        side-effects (interactions with encountered piece), which do not
+        alter path of a moving piece.
 
         .. seealso::
 
@@ -225,14 +225,12 @@ Path node linkage
 
     .. c:enumerator:: CC_PNLE_Alt
 
-    .. c:enumerator:: CC_PNLE_Sub
-
     :c:`enum` is tagged with the same :c:enum:`CcPathNodeLinkageEnum` name.
 
 .. c:macro:: CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(pnle)
 
     Macro to check if given variant value is an enumerator, i.e. between
-    :c:enumerator:`CC_PNLE_None` and :c:enumerator:`CC_PNLE_Sub` values.
+    :c:enumerator:`CC_PNLE_None` and :c:enumerator:`CC_PNLE_Alt` values.
 
     :param pnle: Linkage (integer) value.
     :returns: :c:data:`true` if enumerator, :c:data:`false` otherwise.
@@ -240,7 +238,7 @@ Path node linkage
 .. c:macro:: CC_PATH_NODE_LINKAGE_IS_VALID(pnle)
 
     Macro to check if given variant value is a valid enumerator, i.e. between
-    :c:enumerator:`CC_PNLE_Fork` and :c:enumerator:`CC_PNLE_Sub` values.
+    :c:enumerator:`CC_PNLE_Fork` and :c:enumerator:`CC_PNLE_Alt` values.
 
     :param pnle: Linkage (integer) value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
@@ -350,24 +348,24 @@ Path node functions
     :returns: Weak pointer to alternative path if successful,
         :c:data:`NULL` otherwise.
 
-.. c:function::CcPathNode * cc_path_node_add_subs( CcPathNode ** pn_step__a, CcPathNode ** pn_sub__n )
+.. c:function:: CcSideEffectLink * cc_path_node_add_subs( CcPathNode ** pn_step__a, CcSideEffectLink ** sel_sub__n )
 
-    Function extends substitute paths of a given path step (:c:`pn_step__a`) with
-    path node (:c:`pn_sub__n`), i.e. appends to :c:`pn_step__a->sub` linked list.
+    Function extends substitute side-effects of a given path node (:c:`pn_step__a`) with
+    a linked list (:c:`sel_sub__n`), i.e. appends to :c:`pn_step__a->sub` linked list.
 
-    If a given path step doesn't have substitute path yet (i.e. if :c:`pn_step__a->sub == NULL`),
-    function initializes it with a given substitute path.
+    If a given path node doesn't have substitute path yet (i.e. if :c:`pn_step__a->sub == NULL`),
+    function initializes it with a given substitute side-effects.
 
     .. note::
 
-        Extending path node :c:`pn_sub__n` has its ownership transferred to
-        path node :c:`pn_step__a`; as a result, inner pointer :c:`*pn_sub__n`
+        Extending path node :c:`sel_sub__n` has its ownership transferred to
+        path node :c:`pn_step__a`; as a result, inner pointer :c:`*sel_sub__n`
         is :c:data:`NULL`\ed.
 
-    :param pn_step__a: **Ownership**; a path step to which to add substitute
+    :param pn_step__a: **Ownership**; a path node to which to extend substitute
         side-effect.
-    :param pn_sub__n: **Ownership transfer**; substituting path.
-    :returns: Weak pointer to substitute path if successful,
+    :param sel_sub__n: **Ownership transfer**; substitute side-effects.
+    :returns: Weak pointer to substitute side-effects if successful,
         :c:data:`NULL` otherwise.
 
 .. c:function:: CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node )

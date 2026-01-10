@@ -60,16 +60,23 @@ tag.
 If there are interaction(s) possible with encountered piece, step onto that piece is
 added to path segment as the last one; then, terminal side-effect (e.g. a capture) is
 stored in this last step. All other choices are stored in :c:member:`CcPathNode.side_effect`
-in the next path nodes, either forked or substituted.
+in the next path nodes, either forked or alternated.
 
 Complete such a path tree is represented by :c:type:`CcPathNode` nodes linked via
-:c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`, and :c:member:`CcPathNode.sub`
-members; its :c:member:`CcPathNode.steps` contain a path segment.
+:c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` members; its
+:c:member:`CcPathNode.sub` member contains substitute side-effects, and
+:c:member:`CcPathNode.steps` contain a path segment.
 
-Path node side-effect (i.e. :c:member:`CcPathNode.side_effect`) is applied to last step
-in path segment (i.e. :c:member:`CcPathNode.steps`) of a parent node
+Path node side-effect (i.e. :c:member:`CcPathNode.side_effect`) is applied to the
+last step in path segment (i.e. :c:member:`CcPathNode.steps`) of a *parent* node
 (i.e. :c:member:`CcPathNode.back__w`), when complete path is built from root node down
 to any leaf.
+
+Substitute side-effects (.e. :c:member:`CcPathNode.sub`) are meant to be applied to
+the last step in path segment (i.e. :c:member:`CcPathNode.steps`) of a *current* node;
+usually, they are transferred verbatim to :c:member:`CcStep.tentative`, since any of
+them can be side-effect played in a cascade, and it's not known in advance which one
+it is.
 
 .. note::
 
@@ -88,11 +95,6 @@ root node or otherwise, might be repositioning.
     Any :c:type:`CcPathNode` node with its path continued by :c:member:`CcPathNode.fork` or
     :c:member:`CcPathNode.alt` members **must** also have path segment
     (i.e. :c:member:`CcPathNode.steps`) defined, except for leaf nodes.
-
-.. warning::
-
-    Any :c:type:`CcPathNode` node with substitute path (i.e. pointed by :c:member:`CcPathNode.sub`
-    member) **must not** have path segment (i.e. :c:member:`CcPathNode.steps`) defined.
 
 .. note::
 
@@ -200,24 +202,20 @@ Alternative paths are almost never used alone, but together with
 Substitute paths
 ^^^^^^^^^^^^^^^^
 
-Substitute paths are used to replace side-effect of an origin node, without altering
-path (its segment) in any other way. As such, substitute paths don't contain path
-segment on their own; they also don't continue path, except to another substitute
-path.
+Substitute paths are used to replace side-effect of an origin node (side-effect of
+its last step), without altering path segment (i.e. path taken by a piece) in any
+other way.
 
 Substitute paths are used primarily for displacements, when there are many possible
 displacement fields, none of which alters current path; e.g. a Shaman displacing
 pieces along predetermined path in a trance-journey. Another example, a Serpent
 displacing Pawns encountered on its path.
 
-Substitute paths are represented as a list of :c:type:`CcPathNode` nodes connected
-via :c:member:`CcPathNode.sub`; they only contain side-effect, and can contain link
-to another substitute path (i.e. :c:member:`CcPathNode.sub`), but neither path
-segment (i.e. :c:member:`CcPathNode.steps`), nor any other path continuations (i.e.
-any of :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`).
+Substitute paths are represented as a linked list of :c:type:`CcSideEffectLink`
+nodes connected via :c:member:`CcSideEffectLink.next` member.
 
 To generate complete paths from a tree containing substitute nodes, every side-effect
-from those nodes overrides side-effect of the last step in a originating node.
+from those nodes overrides side-effect of the last step in an originating node.
 For instance::
 
     +---+
@@ -227,13 +225,13 @@ For instance::
       | sub
       V
     +---+
-    | B |
+    | b |
     +---+
       |
-      | sub
+      | next
       V
     +---+
-    | C |
+    | c |
     +---+
 
 beside default path::
@@ -245,16 +243,16 @@ beside default path::
 also produces default paths with substituted side-effects::
 
     +-------+
-    | A < B |
+    | A < b |
     +-------+
 
     +-------+
-    | A < C |
+    | A < c |
     +-------+
 
-Here, starting node of substitute paths is ``A``. Substitute side-effects node
-``A < B`` represents starting node ``A`` with side-effect of its last step
-overridden by side-effect from ``B`` node.
+Here, starting node is ``A``, linked list of substitute side-effects contain nodes
+``b`` and ``c``. So, new path node ``A < b`` represents starting node ``A`` with
+side-effect of its last step overridden by side-effect from linked list ``b`` node.
 
 .. divergence is covered in :ref:`lbl-libcc-paths-pathsegmenttree-forkingpaths`, below.
 
@@ -286,7 +284,7 @@ For instance::
           | alt
           V
         +---+    sub    +---+
-        | C |  ------>  | E |
+        | C |  ------>  | e |
         +---+           +---+
           |
           | alt
@@ -306,7 +304,7 @@ produces::
     +---+           +---+
 
     +---+   fork    +-------+
-    | A |  ------>  | C < E |
+    | A |  ------>  | C < e |
     +---+           +-------+
 
     +---+   fork    +---+
@@ -321,7 +319,7 @@ if their path segments end with divergence.
 
 For instance, ``A`` path segment could contain only starting position of a Serpent,
 different paths are then forks from that starting position; along a path Serpent
-could e.g. capture a Pawn (``A --> C``), or displace it (``A --> C < E``).
+could e.g. capture a Pawn (``A --> C``), or displace it (``A --> C < e``).
 
 .. _lbl-libcc-paths-pathsegmenttree-complete:
 
@@ -335,7 +333,7 @@ from those nodes, in order in which they were visited.
 For instance, this path-tree::
 
     +---+  fork   +---+   alt    +---+    sub    +---+
-    | A | ------> | B |  ----->  | C |  ------>  | D |
+    | A | ------> | B |  ----->  | C |  ------>  | d |
     +---+         +---+          +---+           +---+
 
       |             |              |
@@ -393,7 +391,7 @@ and finally::
     +----+         +----+                     +----+
 
          next   +----+  next   +----+  next        next   +--------+
-    ... ------> | c0 | ------> | c1 | ------> ... ------> | ck < D |
+    ... ------> | c0 | ------> | c1 | ------> ... ------> | ck < d |
                 +----+         +----+                     +--------+
 
 First step in a complete ply is initial position of a piece; second step might
@@ -405,4 +403,6 @@ of a current node replaces side-effect in last step found in :c:member:`CcPathNo
 of the previous node (i.e. the one accessed via :c:member:`CcPathNode.back__w.steps`).
 
 This is always done, regardless if next node has been linked via :c:member:`CcPathNode.fork`,
-:c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub`.
+or :c:member:`CcPathNode.alt`.
+
+.. :c:member:`CcPathNode.sub`

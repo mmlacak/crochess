@@ -33,7 +33,7 @@ typedef struct CcPathNode {
 
     struct CcPathNode * fork;
     struct CcPathNode * alt;
-    struct CcSideEffectLink * sub; // TODO :: DOCS :: converted CcPathNode * --> CcSideEffectLink *
+    struct CcSideEffectLink * sub;
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 
@@ -46,17 +46,14 @@ typedef struct CcPathNode {
 //
 // Path node linkage.
 
-// TODO :: DOCS :: remove CC_PNLE_Sub
 typedef enum CcPathNodeLinkageEnum {
     CC_PNLE_None,
     CC_PNLE_Fork,
     CC_PNLE_Alt,
 } CcPathNodeLinkageEnum;
 
-// TODO :: DOCS :: remove CC_PNLE_Sub
 #define CC_PATH_NODE_LINKAGE_IS_ENUMERATOR(pnle) ( ( CC_PNLE_None <= (pnle) ) && ( (pnle) <= CC_PNLE_Alt ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
 
-// TODO :: DOCS :: remove CC_PNLE_Sub
 #define CC_PATH_NODE_LINKAGE_IS_VALID(pnle) ( ( CC_PNLE_None < (pnle) ) && ( (pnle) <= CC_PNLE_Alt ) ) // <!> Keep in-sync with CcPathNodeLinkageEnum.
 
 #define CC_MAX_LEN_PATH_NODE_LINKAGE_STRING (4)
@@ -86,7 +83,6 @@ CcPathNode * cc_path_node_add_forks( CcPathNode ** pn_step__a,
 CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
                                       CcPathNode ** pn_alt__n );
 
-// TODO :: DOCS :: converted CcPathNode * --> CcSideEffectLink *
 CcSideEffectLink * cc_path_node_add_subs( CcPathNode ** pn_step__a,
                                           CcSideEffectLink ** sel_sub__n );
 
