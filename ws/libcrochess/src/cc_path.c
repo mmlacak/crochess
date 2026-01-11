@@ -893,17 +893,11 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
     if ( !path_link__o_a ) return false;
     if ( *path_link__o_a ) return false;
 
-    // TODO :: RETHINK (???)
-    if ( CC_PATH_NODE_HAS_CONTINUATION( path_node ) && // CC_PATH_NODE_IS_PARENT( path_node ) &&
-         !cc_path_node_last_step_side_effect_is_valid( path_node, false ) )
+    if ( CC_PATH_NODE_HAS_CONTINUATION( path_node ) && // CC_PATH_NODE_IS_PARENT() is wrong here, since ->alt just replaces current path node.
+         !cc_path_node_last_step_side_effect_is_valid( path_node, false ) ) // So, there is a fork, but no terminal side-effect. Should it be enforced? // TODO :: COMPARE :: cc_path_node_iter_next(), if block under CC_PATH_NODE_HAS_CONTINUATION().
             return false;
-    // TODO :: RETHINK (???)
 
     CcPathLink * pl__t = NULL;
-
-    // CcMaybeBoolEnum append = cc_path_node_apply_parent( path_node );
-    // if ( !CC_MAYBE_BOOL_IS_VALID( append ) )
-    //     return false;
 
     if ( !cc_path_link_prepend( &pl__t, path_node ) ) {
         cc_path_link_free_all( &pl__t );
@@ -911,28 +905,22 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
     }
 
     CcPathNode * pn = path_node;
+    CcPathNode * parent = pn->back__w;
 
-    while ( pn ) {
-        CcPathNodeLinkageEnum pnle = cc_path_node_linkage( pn );
+    while ( parent ) {
+        CcMaybeBoolEnum prepend = cc_path_node_apply_parent( pn );
 
-        switch ( pnle ) {
-            case CC_PNLE_Fork : {
-                if ( !cc_path_link_prepend( &pl__t, pn ) ) {
+        switch ( prepend ) {
+            case CC_MBE_True : {
+                if ( !cc_path_link_prepend( &pl__t, parent ) ) {
                     cc_path_link_free_all( &pl__t );
                     return false;
                 }
-            };
 
-            case CC_PNLE_Alt :
-                break;
-
-            case CC_PNLE_None : {
-                if ( pn->back__w ) {
-                    cc_path_link_free_all( &pl__t );
-                    return false;
-                }
                 break;
             }
+
+            case CC_MBE_False : break;
 
             default : {
                 cc_path_link_free_all( &pl__t );
@@ -940,7 +928,8 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
             }
         }
 
-        pn = pn->back__w;
+        pn = parent;
+        parent = parent->back__w;
     }
 
     if ( pl__t ) {
