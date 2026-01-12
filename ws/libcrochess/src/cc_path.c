@@ -951,7 +951,7 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
 
     while ( pl ) {
         CcPathNode * pn__w = pl->node__w;
-        if ( !pn__w ) {
+        if ( !pn__w || !pn__w->steps ) {
             cc_step_free_all( &steps__t );
             return false;
         }
@@ -960,9 +960,28 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
             CcStep * s = steps__t;
             CC_FASTFORWARD( s );
 
-            if ( pn__w->steps )
-                // Overwrite last side-effect in previous node with the one in this node.
-                s->side_effect = pn__w->steps->side_effect;
+            #ifdef __CC_DEBUG__
+            {
+                printf( "+++\n" );
+
+                cc_char_16 sse = CC_CHAR_16_EMPTY;
+
+                if ( !cc_side_effect_to_str( s->side_effect, &sse ) )
+                    printf( "Stringifying s->side_effect failed.\n" );
+
+                cc_char_16 steps_sse = CC_CHAR_16_EMPTY;
+
+                if ( !cc_side_effect_to_str( pn__w->side_effect, &steps_sse ) )
+                    printf( "Stringifying pn__w->side_effect failed.\n" );
+
+                printf( "%s --> %s.\n", steps_sse, sse );
+
+                printf( "---\n" );
+            }
+            #endif // __CC_DEBUG__
+
+            // Overwrite last side-effect in previous node with the one in this node.
+            s->side_effect = pn__w->side_effect;
         }
 
         CcStep * extending__t = NULL;
@@ -977,36 +996,6 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
             cc_step_free_all( &steps__t );
             return false;
         }
-
-        // CcSideEffectLink * sub = pn__w->sub;
-
-        // if ( sub ) {
-        //     CcSideEffectLink * sel__t = NULL;
-
-        //     if ( ( sel__t = cc_side_effect_link_duplicate_all__new( sub ) ) ) {
-        //         CcStep * s = steps__t;
-        //         CC_FASTFORWARD( s );
-
-        //         if ( !s->tentative__d )
-        //             s->tentative__d = sel__t; // Owhership transfer, sel__t is now weak pointer.
-        //             // sel__t = NULL; // Not really needed, not (re)used afterwards.
-        //         else {
-        //             cc_step_free_all( &steps__t );
-        //             return false;
-        //         }
-
-        //         // CcSideEffectLink * t = s->tentative__d;
-        //         //
-        //         // if ( !cc_side_effect_link_extend( &t, &sel__t ) ) {
-        //         //     cc_step_free_all( &sel__t ); // If cc_step_extend() fails, ownership is not transferred.
-        //         //     cc_step_free_all( &steps__t );
-        //         //     return false;
-        //         // }
-        //     } else {
-        //         cc_step_free_all( &steps__t );
-        //         return false;
-        //     }
-        // }
 
         pl = pl->next;
     }

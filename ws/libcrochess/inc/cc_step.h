@@ -64,7 +64,7 @@ CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a,
                                              CcPos field );
 
 CcStep * cc_step_duplicate_all__new( CcStep * steps,
-                                     bool include_tentative ); // TODO :: DOCS :: include_tentative
+                                     bool include_tentative );
 
 CcStep * cc_step_extend( CcStep ** steps__iod_a,
                          CcStep ** steps__d_n );
