@@ -947,49 +947,47 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
     if ( *steps__o_a ) return false;
 
     CcPathLink * pl = path_link;
-    CcPathNode * pn = NULL;
-    CcSideEffectLink * sub = NULL;
-
-    CcStep * s = NULL;
-    CcStep * steps = NULL;
     CcStep * steps__t = NULL;
-    CcSideEffectLink * sel__t = NULL;
 
     while ( pl ) {
-        pn = pl->node__w;
-        steps = pn->steps;
+        CcPathNode * pn__w = pl->node__w;
+        // CcStep * extending = pn__w->steps;
 
         if ( steps__t ) {
-            s = steps__t;
+            CcStep * s = steps__t;
             CC_FASTFORWARD( s );
 
             // Overwrite last side-effect in previous node with the one in this node.
-            s->side_effect = steps->side_effect;
+            s->side_effect = pn__w->steps->side_effect;
         }
 
-        if ( !cc_step_extend( &steps__t, &steps ) ) { // [1]
-            cc_side_effect_link_free_all( &sel__t );
+        CcStep * extending__t = NULL;
+
+        if ( ( extending__t = cc_step_duplicate_all__new( pn__w->steps ) ) ) {
+            if ( !cc_step_extend( &steps__t, &extending__t ) ) {
+                cc_step_free_all( &steps__t );
+                return false;
+            }
+        } else {
             cc_step_free_all( &steps__t );
             return false;
         }
 
-        steps = pn->steps; // <!> All extend funcs NULL extending, i.e. 2nd linked list @ [1].
-        sub = pn->sub; // <!> Do not optimize away sub, otherwise cc_side_effect_link_extend() below will NULL-ify pn->sub, at [1].
-        sel__t = NULL;
+        // extending = pn__w->steps;
+        CcSideEffectLink * sub = pn__w->sub;
 
         if ( sub ) {
-            if ( !cc_side_effect_link_extend( &sel__t, &sub ) ) { // [1]
-                cc_side_effect_link_free_all( &sel__t );
+            CcSideEffectLink * sel__t = NULL;
+
+            if ( ( sel__t = cc_side_effect_link_duplicate_all__new( sub ) ) ) {
+                CcStep * s = steps__t; // pn__w->steps;
+                CC_FASTFORWARD( s );
+                s->tentative = sel__t; // Owhership transfer, sel__t is now weak pointer.
+                // sel__t = NULL; // Not really needed, not (re)used afterwards.
+            } else {
                 cc_step_free_all( &steps__t );
                 return false;
             }
-        }
-
-        if ( sel__t ) {
-            s = steps;
-            CC_FASTFORWARD( s );
-            s->tentative = sel__t; // Owhership transfer, sel__t is now weak pointer.
-            // sel__t = NULL; // Not really needed, not (re)used afterwards.
         }
 
         pl = pl->next;

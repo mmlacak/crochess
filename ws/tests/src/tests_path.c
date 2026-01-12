@@ -191,24 +191,22 @@ bool test_path_tree( CcPosDesc move_from,
                 }
                 #endif // __CC_DEBUG__
 
-                // TODO :: DEBUG :: LATER
-                // CcStep * steps__a = NULL;
+                CcStep * steps__a = NULL;
 
-                // if ( !cc_path_link_to_steps( pl__a, &steps__a ) ) {
-                //     cc_step_free_all( &steps__a );
-                //     cc_path_link_free_all( &pl__a );
-                //     cc_path_node_free_all( &path_node__a );
-                //     cc_path_context_free_all( &path_ctx__a );
-                //     cc_game_free_all( &game__a );
-                //     return false;
-                // }
+                if ( !cc_path_link_to_steps( pl__a, &steps__a ) ) {
+                    cc_step_free_all( &steps__a );
+                    cc_path_link_free_all( &pl__a );
+                    cc_path_node_free_all( &path_node__a );
+                    cc_path_context_free_all( &path_ctx__a );
+                    cc_game_free_all( &game__a );
+                    return false;
+                }
 
-                // char * steps_str__a = cc_step_all_to_string__new( steps__a );
-                // printf( "Steps: '%s'.\n", steps_str__a );
-                // CC_FREE_AND_NULL( &steps_str__a );
+                char * steps_str__a = cc_step_all_to_string__new( steps__a );
+                printf( "Steps: '%s'.\n", steps_str__a );
+                CC_FREE_AND_NULL( &steps_str__a );
 
-                // cc_step_free_all( &steps__a );
-                // TODO :: DEBUG :: LATER
+                cc_step_free_all( &steps__a );
                 cc_path_link_free_all( &pl__a );
             };
         } else {
