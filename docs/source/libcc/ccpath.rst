@@ -678,7 +678,7 @@ Path linked list
 
     Additionaly, function also builds linked list of tentative side-effects, if
     there are valid :c:member:`CcPathNode.sub` nodes of the current path node;
-    list built is then assigned to :c:member:`CcStep.tentative` pointer of the
+    list built is then assigned to :c:member:`CcStep.tentative__d` pointer of the
     last step of the current path node.
 
     *Output* parameter has to have its inner pointer (i.e. :c:expr:`*steps__o_a`)

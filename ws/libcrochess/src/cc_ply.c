@@ -77,7 +77,7 @@ CcPly * cc_ply_duplicate_all__new( CcPly * plies ) {
     CcPly * from = plies;
 
     do {
-        CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
+        CcStep * steps__t = cc_step_duplicate_all__new( from->steps, false );
         if ( !steps__t ) {
             cc_ply_free_all( &ply__a );
             return NULL;

@@ -74,7 +74,7 @@ to any leaf.
 
 Substitute side-effects (.e. :c:member:`CcPathNode.sub`) are meant to be applied to
 the last step in path segment (i.e. :c:member:`CcPathNode.steps`) of a *current* node;
-usually, they are transferred verbatim to :c:member:`CcStep.tentative`, since any of
+usually, they are transferred verbatim to :c:member:`CcStep.tentative__d`, since any of
 them can be side-effect played in a cascade, and it's not known in advance which one
 it is.
 

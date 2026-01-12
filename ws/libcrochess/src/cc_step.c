@@ -31,7 +31,7 @@ CcStep * cc_step__new( CcStepLinkTypeEnum link,
     step__a->field = field;
     step__a->side_effect = side_effect;
 
-    step__a->tentative = NULL;
+    step__a->tentative__d = NULL;
 
     step__a->next = NULL;
 
@@ -81,7 +81,8 @@ CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a,
     return cc_step_append( steps__iod_a, CC_SLTE_Next, field, cc_side_effect_none() );
 }
 
-CcStep * cc_step_duplicate_all__new( CcStep * steps ) {
+CcStep * cc_step_duplicate_all__new( CcStep * steps,
+                                     bool include_tentative ) {
     if ( !steps ) return NULL;
 
     CcStep * steps__a = NULL;
@@ -95,6 +96,20 @@ CcStep * cc_step_duplicate_all__new( CcStep * steps ) {
         if ( !step__w ) { // Failed append --> ownership not transferred ...
             cc_step_free_all( &steps__a );
             return NULL;
+        }
+
+        if ( include_tentative && from->tentative__d ) {
+            CcSideEffectLink * sel__t = cc_side_effect_link_duplicate_all__new( from->tentative__d );
+            if ( !sel__t ) {
+                cc_step_free_all( &steps__a );
+                return NULL;
+            }
+
+            if ( !cc_side_effect_link_extend( &( step__w->tentative__d ), &sel__t ) ) {
+                cc_side_effect_link_free_all( &sel__t ); // If cc_side_effect_link_extend() failed, ownership was not transferred.
+                cc_step_free_all( &steps__a );
+                return NULL;
+            }
         }
 
         from = from->next;
@@ -218,8 +233,8 @@ bool cc_step_free_all( CcStep ** steps__f ) {
     while ( s ) {
         CcStep * tmp = s->next;
 
-        if ( s->tentative )
-            result = cc_side_effect_link_free_all( &( s->tentative ) ) && result;
+        if ( s->tentative__d )
+            result = cc_side_effect_link_free_all( &( s->tentative__d ) ) && result;
 
         CC_FREE( s );
         s = tmp;
@@ -236,8 +251,8 @@ static size_t _cc_step_sum_len_all_tentative( CcStep * steps ) {
     CcStep * s = steps;
 
     while ( s ) {
-        if ( s->tentative ) {
-            len += cc_side_effect_link_len( s->tentative );
+        if ( s->tentative__d ) {
+            len += cc_side_effect_link_len( s->tentative__d );
         }
 
         s = s->next;
@@ -249,7 +264,7 @@ static size_t _cc_step_sum_len_all_tentative( CcStep * steps ) {
 char * cc_step_all_to_string__new( CcStep * steps ) {
     if ( !steps ) return NULL;
 
-    size_t se_len = _cc_step_sum_len_all_tentative( steps ); // length of all tentative side-effects in a complete linked list
+    size_t se_len = _cc_step_sum_len_all_tentative( steps ); // length of all tentative__d side-effects in a complete linked list
 
     // unused len is certainly > 0, because steps != NULL
     size_t steps_len = cc_step_count( steps ) *
@@ -260,7 +275,7 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
                        ( se_len * ( CC_MAX_LEN_CHAR_16 + 1 ) + 2 );
                        // CC_MAX_LEN_CHAR_16, for each side-effect
                        // + 1, for ',' between every two side-effects
-                       // + 2, for '{' and '}' enclosing tentative side-effects list
+                       // + 2, for '{' and '}' enclosing tentative__d side-effects list
 
     size_t steps_size = steps_len + 1; // +1, for '\0'
 
@@ -311,8 +326,8 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
         }
         steps_str = (char *)se_end__w;
 
-        if ( s->tentative ) {
-            char * sel_end__a = cc_side_effect_link_to_string__new( s->tentative );
+        if ( s->tentative__d ) {
+            char * sel_end__a = cc_side_effect_link_to_string__new( s->tentative__d );
             if ( !sel_end__a ) {
                 CC_FREE( steps_str__a );
                 return NULL;

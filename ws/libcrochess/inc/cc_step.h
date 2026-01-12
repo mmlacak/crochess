@@ -36,7 +36,7 @@ typedef struct CcStep {
     CcPos field; /* Field of a step. */
     CcSideEffect side_effect; /* Side-effect structure. */
 
-    CcSideEffectLink * tentative; /* Possible side-effects (e.g. displacements when building a path), a linked list. */
+    CcSideEffectLink * tentative__d; /* Possible side-effects (e.g. displacements when building a path), a linked list. */
 
     struct CcStep * next; /* Next step in a linked list. */
 } CcStep;
@@ -63,7 +63,8 @@ CcStep * cc_step_append( CcStep ** steps__iod_a,
 CcStep * cc_step_append_next_no_side_effect( CcStep ** steps__iod_a,
                                              CcPos field );
 
-CcStep * cc_step_duplicate_all__new( CcStep * steps );
+CcStep * cc_step_duplicate_all__new( CcStep * steps,
+                                     bool include_tentative ); // TODO :: DOCS :: include_tentative
 
 CcStep * cc_step_extend( CcStep ** steps__iod_a,
                          CcStep ** steps__d_n );

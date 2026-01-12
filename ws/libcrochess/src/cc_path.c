@@ -427,7 +427,7 @@ static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
     CcPathNode * from = path_node;
 
     if ( from ) {
-        CcStep * steps__t = cc_step_duplicate_all__new( from->steps );
+        CcStep * steps__t = cc_step_duplicate_all__new( from->steps, true );
         if ( !steps__t ) return NULL;
 
         pl__a = cc_path_node__new( from->side_effect,
@@ -951,20 +951,25 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
 
     while ( pl ) {
         CcPathNode * pn__w = pl->node__w;
-        // CcStep * extending = pn__w->steps;
+        if ( !pn__w ) {
+            cc_step_free_all( &steps__t );
+            return false;
+        }
 
         if ( steps__t ) {
             CcStep * s = steps__t;
             CC_FASTFORWARD( s );
 
-            // Overwrite last side-effect in previous node with the one in this node.
-            s->side_effect = pn__w->steps->side_effect;
+            if ( pn__w->steps )
+                // Overwrite last side-effect in previous node with the one in this node.
+                s->side_effect = pn__w->steps->side_effect;
         }
 
         CcStep * extending__t = NULL;
 
-        if ( ( extending__t = cc_step_duplicate_all__new( pn__w->steps ) ) ) {
+        if ( ( extending__t = cc_step_duplicate_all__new( pn__w->steps, true ) ) ) {
             if ( !cc_step_extend( &steps__t, &extending__t ) ) {
+                cc_step_free_all( &extending__t ); // If cc_step_extend() fails, ownership is not transferred.
                 cc_step_free_all( &steps__t );
                 return false;
             }
@@ -973,22 +978,35 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
             return false;
         }
 
-        // extending = pn__w->steps;
-        CcSideEffectLink * sub = pn__w->sub;
+        // CcSideEffectLink * sub = pn__w->sub;
 
-        if ( sub ) {
-            CcSideEffectLink * sel__t = NULL;
+        // if ( sub ) {
+        //     CcSideEffectLink * sel__t = NULL;
 
-            if ( ( sel__t = cc_side_effect_link_duplicate_all__new( sub ) ) ) {
-                CcStep * s = steps__t; // pn__w->steps;
-                CC_FASTFORWARD( s );
-                s->tentative = sel__t; // Owhership transfer, sel__t is now weak pointer.
-                // sel__t = NULL; // Not really needed, not (re)used afterwards.
-            } else {
-                cc_step_free_all( &steps__t );
-                return false;
-            }
-        }
+        //     if ( ( sel__t = cc_side_effect_link_duplicate_all__new( sub ) ) ) {
+        //         CcStep * s = steps__t;
+        //         CC_FASTFORWARD( s );
+
+        //         if ( !s->tentative__d )
+        //             s->tentative__d = sel__t; // Owhership transfer, sel__t is now weak pointer.
+        //             // sel__t = NULL; // Not really needed, not (re)used afterwards.
+        //         else {
+        //             cc_step_free_all( &steps__t );
+        //             return false;
+        //         }
+
+        //         // CcSideEffectLink * t = s->tentative__d;
+        //         //
+        //         // if ( !cc_side_effect_link_extend( &t, &sel__t ) ) {
+        //         //     cc_step_free_all( &sel__t ); // If cc_step_extend() fails, ownership is not transferred.
+        //         //     cc_step_free_all( &steps__t );
+        //         //     return false;
+        //         // }
+        //     } else {
+        //         cc_step_free_all( &steps__t );
+        //         return false;
+        //     }
+        // }
 
         pl = pl->next;
     }

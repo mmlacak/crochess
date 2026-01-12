@@ -92,7 +92,7 @@ Data
 
         Side-effect structure.
 
-    .. c:member:: CcSideEffectLink * tentative
+    .. c:member:: CcSideEffectLink * tentative__d
 
         Possible side-effects (e.g. displacements when building a path), a linked list.
 
@@ -186,11 +186,12 @@ Functions
     :returns: A weak pointer to newly allocated step if successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_step_append()`
 
-.. c:function:: CcStep * cc_step_duplicate_all__new( CcStep * steps )
+.. c:function:: CcStep * cc_step_duplicate_all__new( CcStep * steps, bool include_tentative )
 
     Duplicates all given steps into a newly allocated linked list.
 
     :param sle: Linked list to duplicate.
+    :param include_tentative: Flag, whether :c:member:`CcStep.tentative__d` should also be duplicated, or not.
     :returns: A newly allocated steps if successful, :c:data:`NULL` otherwise.
 
 .. c:function:: CcStep * cc_step_extend( CcStep ** steps__iod_a, CcStep ** steps__d_n )
