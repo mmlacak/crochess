@@ -960,25 +960,25 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
             CcStep * s = steps__t;
             CC_FASTFORWARD( s );
 
-            #ifdef __CC_DEBUG__
-            {
-                printf( "+++\n" );
+            // #ifdef __CC_DEBUG__
+            // {
+            //     printf( "+++\n" );
 
-                cc_char_16 sse = CC_CHAR_16_EMPTY;
+            //     cc_char_16 sse = CC_CHAR_16_EMPTY;
 
-                if ( !cc_side_effect_to_str( s->side_effect, &sse ) )
-                    printf( "Stringifying s->side_effect failed.\n" );
+            //     if ( !cc_side_effect_to_str( s->side_effect, &sse ) )
+            //         printf( "Stringifying s->side_effect failed.\n" );
 
-                cc_char_16 steps_sse = CC_CHAR_16_EMPTY;
+            //     cc_char_16 steps_sse = CC_CHAR_16_EMPTY;
 
-                if ( !cc_side_effect_to_str( pn__w->side_effect, &steps_sse ) )
-                    printf( "Stringifying pn__w->side_effect failed.\n" );
+            //     if ( !cc_side_effect_to_str( pn__w->side_effect, &steps_sse ) )
+            //         printf( "Stringifying pn__w->side_effect failed.\n" );
 
-                printf( "%s --> %s.\n", steps_sse, sse );
+            //     printf( "%s --> %s.\n", steps_sse, sse );
 
-                printf( "---\n" );
-            }
-            #endif // __CC_DEBUG__
+            //     printf( "---\n" );
+            // }
+            // #endif // __CC_DEBUG__
 
             // Overwrite last side-effect in previous node with the one in this node.
             s->side_effect = pn__w->side_effect;
