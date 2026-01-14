@@ -34,10 +34,10 @@ Path node segments
 
     .. warning::
 
-        All :c:member:`fork`, :c:member:`alt`, and :c:member:`sub` members are
-        owners of the remainder of a path tree they are pointing to; and must
-        always be a singular pointer (owner) within a path tree to their
-        respective forking, alternating, substitute, or subsequent path.
+        All :c:member:`fork` and :c:member:`alt` members are owners of the
+        remainder of a path tree they are pointing to; and must always be a
+        singular pointer (owner) within a path tree to their respective
+        forking, alternating, substitute, or subsequent path.
 
         Any two pointers pointing to the same node, any back-references within
         a path tree, or shared among them are not allowed, and will likely cause
@@ -115,22 +115,10 @@ Path node segments
 
             :ref:`lbl-libcc-paths-pathsegmenttree-alternativepaths`
 
-    .. c:member:: struct CcSideEffectLink * sub
-
-        Substitute side-effects to last step of an originating path node.
-
-        Substitute side-effects are used when there are multiple possible
-        side-effects (interactions with encountered piece), which do not
-        alter path of a moving piece.
-
-        .. seealso::
-
-            :ref:`lbl-libcc-paths-pathsegmenttree-substitutepaths`
-
     .. c:member:: struct CcPathNode * back__w
 
         Weak back-link to parent path node, regardless if pointed-to by
-        :c:member:`fork`, :c:member:`alt`, or :c:member:`sub`.
+        :c:member:`fork` or :c:member:`alt`.
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathNode` name.
 
@@ -272,6 +260,22 @@ Path node linkage
     :param path_node: A path node.
     :returns: Path node linkage, :c:enum:`CcPathNodeLinkageEnum` value.
 
+.. c:function:: CcMaybeBoolEnum cc_path_node_apply_parent( CcPathNode * path_node )
+
+    Function returns if a parent of a given path node is to be applied when
+    constructing complete path.
+
+    Parents linked via :c:member:`fork` to a given path node are included in
+    complete path, those linked via :c:member:`alt` are replaced by some later
+    parent, or root node.
+
+    :param path_node: A path node.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if parent node is to be applied,
+        * :c:enumerator:`CC_MBE_False` if parent node is not to be applied,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
 .. c:function:: char const * cc_path_node_linkage_to_string( CcPathNode * path_node )
 
     Function returns string containing user-readable linkage representation
@@ -346,26 +350,6 @@ Path node functions
     :param pn_step__a: **Ownership**; a path step from which to fork.
     :param pn_alt__n: **Ownership transfer**; alternating path.
     :returns: Weak pointer to alternative path if successful,
-        :c:data:`NULL` otherwise.
-
-.. c:function:: CcSideEffectLink * cc_path_node_add_subs( CcPathNode ** pn_step__a, CcSideEffectLink ** sel_sub__n )
-
-    Function extends substitute side-effects of a given path node (:c:`pn_step__a`) with
-    a linked list (:c:`sel_sub__n`), i.e. appends to :c:`pn_step__a->sub` linked list.
-
-    If a given path node doesn't have substitute path yet (i.e. if :c:`pn_step__a->sub == NULL`),
-    function initializes it with a given substitute side-effects.
-
-    .. note::
-
-        Extending path node :c:`sel_sub__n` has its ownership transferred to
-        path node :c:`pn_step__a`; as a result, inner pointer :c:`*sel_sub__n`
-        is :c:data:`NULL`\ed.
-
-    :param pn_step__a: **Ownership**; a path node to which to extend substitute
-        side-effect.
-    :param sel_sub__n: **Ownership transfer**; substitute side-effects.
-    :returns: Weak pointer to substitute side-effects if successful,
         :c:data:`NULL` otherwise.
 
 .. c:function:: CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node )
@@ -542,7 +526,7 @@ Path node functions
 .. c:function:: size_t cc_path_node_count( CcPathNode * path_tree )
 
     Function returns count of all nodes in a given path tree; includes
-    :c:member:`fork`, :c:member:`alt`, :c:member:`sub` branches.
+    :c:member:`fork`, :c:member:`alt` branches.
 
     :param path_tree: A node in a path tree.
     :returns: Length of a given path tree if successful, ``0`` otherwise.
@@ -550,8 +534,8 @@ Path node functions
 .. c:function:: size_t cc_path_node_count_all_segments( CcPathNode * path_tree )
 
     Function returns count of all segments, including :c:member:`fork`,
-    :c:member:`alt` ones; substitute paths (i.e. all nodes linked via :c:member:`sub`)
-    should not have path segments (i.e. :c:member:`steps`).
+    :c:member:`alt` ones; i.e. it counts path nodes with valid :c:member:`steps`
+    members.
 
     :param path_tree: A node in a path tree.
     :returns: Count of all segments if successful, ``0`` otherwise.
@@ -559,8 +543,7 @@ Path node functions
 .. c:function:: char * cc_path_node_to_string__new( CcPathNode * path_tree )
 
     Function returns string containing user-readable representation of a given
-    path tree, including all of its :c:member:`fork`, :c:member:`alt`,
-    :c:member:`sub` branches.
+    path tree, including all of its :c:member:`fork`, :c:member:`alt` branches.
 
     :param path_tree: A node in a path tree.
     :returns: A newly allocated, null-terminated (``'\0'``) string if
@@ -717,9 +700,8 @@ Linked path backtracking
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
 For a given path node, :c:member:`fork` member concatenate to existing path; other
-members provide list of alternative (:c:member:`alt`), or substitute paths
-(:c:member:`sub`), and so has to find path node to replace, or alter; this is mostly
-the first node of a list of alternative, substitute paths.
+members provide list of alternative (:c:member:`alt`) paths, and so has to find path
+node to replace, or alter; this is mostly the first node of a list of alternative paths.
 
 Starting node is to be found by using :c:member:`back__w`, and checking if parent
 node points to a current node, e.g. if :c:expr:`current->back__w->alt == current`
@@ -729,10 +711,6 @@ If node was in a list of alternative paths, starting node is then replaced by no
 from a list, if an alternative list was started with immediate :c:member:`alt`. If
 an alternative list was started with :c:member:`fork`, then node from an alternative
 list is concatenated to starting node.
-
-Backtracking is also similar for substitute paths, except check for parent node is
-:c:expr:`current->back__w->sub == current`. Once found, side-effect of the last step
-in starting node is overridden by a side-effect from a node in a substitute list.
 
 Root node can be found by backtracking until :c:member:`back__w` is :c:data:`NULL`.
 

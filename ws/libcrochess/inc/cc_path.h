@@ -33,7 +33,6 @@ typedef struct CcPathNode {
 
     struct CcPathNode * fork;
     struct CcPathNode * alt;
-    struct CcSideEffectLink * sub;
     struct CcPathNode * back__w; /* Back-link to parent node. */
 } CcPathNode;
 
@@ -82,9 +81,6 @@ CcPathNode * cc_path_node_add_forks( CcPathNode ** pn_step__a,
 
 CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
                                       CcPathNode ** pn_alt__n );
-
-CcSideEffectLink * cc_path_node_add_subs( CcPathNode ** pn_step__a,
-                                          CcSideEffectLink ** sel_sub__n );
 
 CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node );
 

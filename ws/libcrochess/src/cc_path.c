@@ -38,7 +38,6 @@ CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node ) {
         return CC_PNLE_None;
 }
 
-// TODO :: REDO
 CcMaybeBoolEnum cc_path_node_apply_parent( CcPathNode * path_node ) {
     if ( !path_node ) return CC_MBE_Void;
 
@@ -85,7 +84,6 @@ CcPathNode * cc_path_node__new( CcSideEffect side_effect,
 
     pl__t->fork = NULL;
     pl__t->alt = NULL;
-    pl__t->sub = NULL;
     pl__t->back__w = NULL;
 
     return pl__t;
@@ -149,27 +147,6 @@ CcPathNode * cc_path_node_add_alters( CcPathNode ** pn_step__a,
     *pn_alt__n = NULL;
 
     return pl__w;
-}
-
-CcSideEffectLink * cc_path_node_add_subs( CcPathNode ** pn_step__a,
-                                          CcSideEffectLink ** sel_sub__n ) {
-    if ( !pn_step__a ) return NULL;
-    if ( !*pn_step__a ) return NULL;
-
-    if ( !sel_sub__n ) return NULL;
-    if ( !*sel_sub__n ) return NULL;
-
-    CcPathNode * pl__w = *pn_step__a;
-    CcSideEffectLink * sel__w = pl__w->sub;
-
-    CC_REWIND_BY( sel__w, sel__w->next );
-
-    // Ownership transfer.
-    sel__w->next = *sel_sub__n;
-
-    *sel_sub__n = NULL;
-
-    return sel__w;
 }
 
 CcSideEffect * cc_path_node_last_step_side_effect( CcPathNode * path_node ) {
@@ -456,14 +433,6 @@ static CcPathNode * _cc_path_node_duplicate_all__new( CcPathNode * path_node ) {
                 return NULL;
             }
         }
-
-        if ( from->sub ) {
-            pl__a->sub = cc_side_effect_link_duplicate_all__new( from->sub );
-            if ( !pl__a->sub ) {
-                cc_path_node_free_all( &pl__a );
-                return NULL;
-            }
-        }
     }
 
     return pl__a;
@@ -494,9 +463,6 @@ static bool _cc_path_node_free_all( CcPathNode ** path_node__f ) {
 
         if ( pl->alt )
             result = _cc_path_node_free_all( &( pl->alt ) ) && result;
-
-        if ( pl->sub )
-            result = cc_side_effect_link_free_all( &( pl->sub ) ) && result;
 
         // <!> pl->back__w is weak pointer, not an owner, so it must not be free()-ed.
 
@@ -701,8 +667,7 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
     // Recursive stuff.
     char * pln_fork__t = NULL;
     char * pln_alt__t = NULL;
-    char * pln_sub__t = NULL;
-    char const * fmt = "\n%s\n%s\n%s";
+    char const * fmt = "\n%s\n%s";
     cc_uchar_t new_depth = depth + 1; // depth + 1 --> all forks, alts, sub path nodes are sub-nodes
 
     cc_uint_t str_len_empty = 2 * new_depth;
@@ -745,37 +710,16 @@ static char * _cc_path_node_to_string__new( cc_uchar_t depth,
         *( pln_alt__t + str_len_empty ) = '^';
     }
 
-    if ( path_node->sub ) {
-        pln_sub__t = cc_side_effect_link_to_string__new( path_node->sub ); // TODO :: new_depth + '{' + pln_sub__t + '}'
-        if ( !pln_sub__t ) {
-            CC_FREE( pln_alt__t );
-            CC_FREE( pln_fork__t );
-            CC_FREE( pln_str__t );
-            return NULL;
-        }
-    } else {
-        pln_sub__t = cc_str_pad__new( ' ', str_size_empty );
-        if ( !pln_sub__t ) {
-            CC_FREE( pln_alt__t );
-            CC_FREE( pln_fork__t );
-            CC_FREE( pln_str__t );
-            return NULL;
-        }
-
-        *( pln_sub__t + str_len_empty ) = '%';
-    }
-
     char * pln_str__a = NULL;
 
-    if ( path_node->fork || path_node->alt || path_node->sub ) {
+    if ( path_node->fork || path_node->alt ) {
         // <!> pln_str__t ownership is transferred in-function, do not free( pln_str__t ) afterwards.
         //     Other strings do not have their ownership transferred, so do free() those.
-        pln_str__a = cc_str_append_fmt__new( &pln_str__t, CC_MAX_LEN_ZERO_TERMINATED, fmt, pln_fork__t, pln_alt__t, pln_sub__t );
+        pln_str__a = cc_str_append_fmt__new( &pln_str__t, CC_MAX_LEN_ZERO_TERMINATED, fmt, pln_fork__t, pln_alt__t );
     } else {
         pln_str__a = pln_str__t; // Ownership transfer, do not free( pln_str__t ).
     }
 
-    CC_FREE( pln_sub__t );
     CC_FREE( pln_alt__t );
     CC_FREE( pln_fork__t );
 
@@ -959,26 +903,6 @@ bool cc_path_link_to_steps( CcPathLink * path_link,
         if ( steps__t ) {
             CcStep * s = steps__t;
             CC_FASTFORWARD( s );
-
-            // #ifdef __CC_DEBUG__
-            // {
-            //     printf( "+++\n" );
-
-            //     cc_char_16 sse = CC_CHAR_16_EMPTY;
-
-            //     if ( !cc_side_effect_to_str( s->side_effect, &sse ) )
-            //         printf( "Stringifying s->side_effect failed.\n" );
-
-            //     cc_char_16 steps_sse = CC_CHAR_16_EMPTY;
-
-            //     if ( !cc_side_effect_to_str( pn__w->side_effect, &steps_sse ) )
-            //         printf( "Stringifying pn__w->side_effect failed.\n" );
-
-            //     printf( "%s --> %s.\n", steps_sse, sse );
-
-            //     printf( "---\n" );
-            // }
-            // #endif // __CC_DEBUG__
 
             // Overwrite last side-effect in previous node with the one in this node.
             s->side_effect = pn__w->side_effect;
@@ -1198,7 +1122,6 @@ char * cc_path_side_effect_link_to_string__new( CcPathSideEffectLink * side_effe
             case CC_PNLE_None : *s++ = ' '; break;
             case CC_PNLE_Fork : *s++ = '<'; break;
             case CC_PNLE_Alt : *s++ = '^'; break;
-            // case CC_PNLE_Sub : *s++ = '%'; break; // TODO :: handle elsewhere
             default : *s++ = '?'; break;
         }
 
