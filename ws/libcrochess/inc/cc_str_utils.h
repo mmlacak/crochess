@@ -199,7 +199,6 @@ typedef char cc_char_512 [ CC_SIZE_CHAR_512 ];
                             '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0' }
 
 
-// TODO :: DOCS
 bool cc_str_pad( char * str__io, char pad, size_t size__d );
 
 char * cc_str_pad__new( char pad, size_t count );

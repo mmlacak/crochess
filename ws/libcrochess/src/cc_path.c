@@ -965,25 +965,6 @@ size_t cc_path_link_len( CcPathLink * path_link ) {
 }
 
 //
-// Path tree iterator.
-
-// TODO :: DELETE :: DOCS :: ???
-// bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
-//                                 CcPathLink ** root_to_leaf__iod ) {
-//     if ( !path_node ) return false;
-//     if ( !root_to_leaf__iod ) return false;
-//     if ( *root_to_leaf__iod ) return false; // TODO :: FIX :: not in iterator !!!
-
-//     CcPathNode * pn = path_node;
-
-//     CC_REWIND_BY( pn, pn->back__w ); // TODO :: FIX :: not in iterator !!!
-
-//     return _cc_path_node_iter_to_leaf( pn, root_to_leaf__iod );
-// }
-// TODO :: DELETE :: DOCS :: ???
-
-
-//
 // Linked path side-effects.
 
 CcPathSideEffectLink * cc_path_side_effect_link__new( CcPathNodeLinkageEnum link,

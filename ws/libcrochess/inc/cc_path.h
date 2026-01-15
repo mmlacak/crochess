@@ -158,15 +158,6 @@ bool cc_path_link_free_all( CcPathLink ** path_link__f );
 size_t cc_path_link_len( CcPathLink * path_link );
 
 //
-// Path tree iterator.
-
-// TODO :: DELETE :: DOCS :: ???
-// // TODO :: DOCS
-// bool cc_path_node_iter_to_leaf( CcPathNode * path_node,
-//                                 CcPathLink ** root_to_leaf__iod );
-// TODO :: DELETE :: DOCS :: ???
-
-//
 // Linked path side-effects.
 
 typedef struct CcPathSideEffectLink {

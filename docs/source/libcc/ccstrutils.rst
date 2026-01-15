@@ -198,16 +198,17 @@ All arrays defined here have all their :c:`char`\s initialized to ``'\0'``.
 Functions
 ---------
 
-.. c:function:: bool cc_str_pad( char * str__io, size_t size__d )
+.. c:function:: bool cc_str_pad( char * str__io, char pad, size_t size__d )
 
-    Function to clear string, or char array, by writing ``'\0'`` into every char.
+    Function to clear string, or char array, by writing :c:var:`pad` into every char.
 
     .. note::
 
         If *optional* size is not supplied (i.e. is :c:macro:`CC_SIZE_IGNORE`),
         given string must be null-terminated.
 
-    :param str__io: *Input/output*, string to overwrite with zeros.
+    :param str__io: *Input/output*, string to overwrite.
+    :param pad: A pad character.
     :param size__d: *Optional*, maximum size to overwrite.
     :returns: :c:data:`true` if successful, :c:data:`false` otherwise.
 
@@ -216,8 +217,10 @@ Functions
     Function returns newly allocated, null-terminated string, containing :c:`pad`
     character repeated :c:`count` times.
 
-    Allocated string is greater than :c:`count` by ``1``, for null-terminating
-    :c:`char`, i.e. ``'\0'``.
+    .. note::
+
+        Allocated string is greater than :c:`count` by ``1``, for
+        null-terminating :c:`char`, i.e. ``'\0'``.
 
     :param pad: A pad character.
     :param count: Count of padding characters in a returned string.
