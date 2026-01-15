@@ -47,7 +47,7 @@ CcGame * cc_game__new( CcGameStatusEnum status,
                        CcVariantType ve,
                        bool do_setup );
 
-// TODO :: FIX :: CcPosDescLink * pdl --> CcChessboard * cb
+// todo :: fix :: CcPosDescLink * pdl --> CcChessboard * cb
 // bool cc_game_update_chessboard( CcGame * game__io, CcPosDescLink * pdl );
 
 bool cc_game_free_all( CcGame ** game__f );

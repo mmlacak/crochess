@@ -85,7 +85,7 @@ typedef struct CcSideEffect
         } displacement; /* Displacement, used during light Shaman's trance-journey. */
 
         struct {
-            CcPieceTagType pawn; /* Pawn which has been captured. */
+            CcPieceTagType private; /* Private which has been captured. */ // TODO :: DOCS :: pawn --> private
             CcPos distant; /* Position at which Pawn has been captured. */
         } en_passant; /* En passant. */
 
@@ -141,6 +141,8 @@ CcPos cc_side_effect_destination( CcSideEffect se );
 bool cc_side_effect_has_destination( CcSideEffect se );
 
 // TODO :: check side-effect validity --> _cc_path_node_steps_are_valid()
+// TODO :: DOCS
+bool cc_side_effect_is_valid( CcSideEffect se, bool include_none );
 
 bool cc_side_effect_to_str( CcSideEffect se,
                             cc_char_16 * se_str__o );
@@ -149,7 +151,7 @@ bool cc_side_effect_to_str( CcSideEffect se,
 CcSideEffect cc_side_effect_none( void );
 CcSideEffect cc_side_effect_capture( CcPieceTagType piece );
 CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destination );
-CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant );
+CcSideEffect cc_side_effect_en_passant( CcPieceTagType private, CcPos distant ); // TODO :: DOCS
 CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination );
 CcSideEffect cc_side_effect_promote( CcPieceTagType captured, CcPieceTagType promoted_to );
 CcSideEffect cc_side_effect_tag_for_promotion( CcPieceTagType captured );

@@ -377,9 +377,9 @@ CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field,
 }
 
 CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field,
-                                  CcPieceTagType pawn,
+                                  CcPieceTagType private,
                                   CcPos distant ) {
-    CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
+    CcSideEffect se = cc_side_effect_en_passant( private, distant );
     return cc_step__new( link, field, se );
 }
 
@@ -464,9 +464,9 @@ CcStep * cc_step_displacement_append( CcStep ** steps__iod_a,
 CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a,
                                     CcStepLinkTypeEnum link,
                                     CcPos field,
-                                    CcPieceTagType pawn,
+                                    CcPieceTagType private,
                                     CcPos distant ) {
-    CcSideEffect se = cc_side_effect_en_passant( pawn, distant );
+    CcSideEffect se = cc_side_effect_en_passant( private, distant );
     return cc_step_append( steps__iod_a, link, field, se );
 }
 

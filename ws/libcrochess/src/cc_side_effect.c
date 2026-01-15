@@ -66,7 +66,7 @@ CcSideEffect cc_side_effect( CcSideEffectTypeEnum type,
         sse.displacement.piece = piece;
         sse.displacement.destination = destination;
     } else if ( sse.type == CC_SETE_EnPassant ) {
-        sse.en_passant.pawn = piece;
+        sse.en_passant.private = piece;
         sse.en_passant.distant = destination;
     } else if ( sse.type == CC_SETE_Castle ) {
         sse.castle.rook = piece;
@@ -102,7 +102,7 @@ CcPieceTagType cc_side_effect_piece( CcSideEffect se ) {
         case CC_SETE_None : return CC_PTE_None;
         case CC_SETE_Capture : return se.capture.piece;
         case CC_SETE_Displacement : return se.displacement.piece;
-        case CC_SETE_EnPassant : return se.en_passant.pawn;
+        case CC_SETE_EnPassant : return se.en_passant.private;
         case CC_SETE_Castle : return se.castle.rook;
         case CC_SETE_Promotion : return se.promote.promoted_to;
         case CC_SETE_TagForPromotion : return CC_PTE_None;
@@ -161,6 +161,101 @@ bool cc_side_effect_has_destination( CcSideEffect se ) {
     }
 }
 
+bool cc_side_effect_is_valid( CcSideEffect se, bool include_none ) {
+    if ( include_none ) {
+        if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( se.type ) ) return false;
+    } else {
+        if ( !CC_SIDE_EFFECT_TYPE_IS_VALID( se.type ) ) return false;
+    }
+
+    switch ( se.type ) {
+        case CC_SETE_None : return true;
+
+        case CC_SETE_Capture : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.capture.piece ) ) return false;
+            if ( !CC_PIECE_CAN_BE_CAPTURED( se.capture.piece ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_Displacement : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.displacement.piece ) ) return false;
+            if ( !( CC_PIECE_CAN_BE_DISPLACED( se.displacement.piece )
+                    || CC_PIECE_CAN_BE_DISPLACED_TRANCE_JOURNEY( se.displacement.piece ) ) )
+                        return false;
+            if ( !CC_POS_IS_VALID( se.displacement.destination ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_EnPassant : {
+            // if ( !CC_PIECE_IS_ENUMERATOR( se.en_passant.private ) ) return false; // Not needed, CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT() enumerates privates.
+            if ( !CC_PIECE_CAN_BE_CAPTURED_EN_PASSANT( se.en_passant.private ) ) return false;
+            if ( !CC_POS_IS_VALID( se.en_passant.distant ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_Castle : {
+            // if ( !CC_PIECE_IS_ENUMERATOR( se.castle.rook ) ) return false; // Not needed, CC_PIECE_IS_ROOK() enumerates Rooks.
+            if ( !CC_PIECE_IS_ROOK( se.castle.rook ) ) return false;
+            if ( !CC_POS_IS_VALID( se.castle.start ) ) return false;
+            if ( !CC_POS_IS_VALID( se.castle.destination ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_Promotion : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.promote.captured ) ) return false;
+            if ( !( ( se.promote.captured == CC_PTE_None )
+                      || CC_PIECE_CAN_BE_CAPTURED( se.promote.captured ) ) )
+                        return false;
+            if ( !CC_PIECE_IS_VALID( se.promote.promoted_to ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_TagForPromotion : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.tag_for_promotion.captured ) ) return false;
+            if ( !( ( se.tag_for_promotion.captured == CC_PTE_None )
+                      || CC_PIECE_CAN_BE_CAPTURED( se.tag_for_promotion.captured ) ) )
+                        return false;
+            return true;
+        }
+
+        case CC_SETE_Conversion : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.convert.piece ) ) return false;
+            if ( !CC_PIECE_CAN_BE_CONVERTED( se.convert.piece ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_FailedConversion : return true;
+
+        case CC_SETE_Transparency : {
+            // if ( !CC_PIECE_IS_ENUMERATOR( se.transparency.piece ) ) return false; // Not needed, CC_PIECE_IS_TRANSPARENT() enumerates transparent pieces.
+            if ( !CC_PIECE_IS_TRANSPARENT( se.transparency.piece ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_Divergence : {
+            // if ( !CC_PIECE_IS_ENUMERATOR( se.diversion.piece ) ) return false; // Not needed, CC_PIECE_IS_DIVERGENT() enumerates divergent pieces.
+            if ( !CC_PIECE_IS_DIVERGENT( se.diversion.piece ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_DemoteToPawn : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.demote.piece ) ) return false;
+            if ( !CC_PIECE_CAN_BE_DEMOTED( se.demote.piece ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_Resurrection :
+        case CC_SETE_ResurrectingOpponent : {
+            if ( !CC_PIECE_IS_ENUMERATOR( se.resurrect.piece ) ) return false;
+            if ( !CC_PIECE_CAN_BE_RESURRECTED( se.resurrect.piece ) ) return false;
+            return true;
+        }
+
+        case CC_SETE_FailedResurrection : return true;
+
+        default : return false;
+    }
+}
 
 //
 // User-readable representation of a side-effect.
@@ -254,8 +349,8 @@ CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destinatio
                            CC_PTE_None );
 }
 
-CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant ) {
-    return cc_side_effect( CC_SETE_EnPassant, pawn,
+CcSideEffect cc_side_effect_en_passant( CcPieceTagType private, CcPos distant ) {
+    return cc_side_effect( CC_SETE_EnPassant, private,
                            CC_POS_CAST_INVALID,
                            distant,
                            CC_PTE_None );

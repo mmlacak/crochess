@@ -518,12 +518,12 @@ size_t cc_path_node_count( CcPathNode * path_tree ) {
     return _cc_path_node_count( pl );
 }
 
-static size_t _cc_path_node_count_all_segments( CcPathNode * path_node ) { // TODO :: RETHINK :: ???
+static size_t _cc_path_node_count_all_segments( CcPathNode * path_node ) { // todo :: rethink :: ???
     if ( !path_node ) return 0;
 
     CcPathNode * pl = path_node;
 
-    size_t count = ( pl->steps ) ? 1 : 0; // TODO :: RETHINK :: length of steps ???
+    size_t count = ( pl->steps ) ? 1 : 0; // todo :: rethink :: length of steps ???
 
     if ( pl ) {
         if ( pl->fork ) {
@@ -538,7 +538,7 @@ static size_t _cc_path_node_count_all_segments( CcPathNode * path_node ) { // TO
     return count;
 }
 
-size_t cc_path_node_count_all_segments( CcPathNode * path_tree ) { // TODO :: RETHINK :: ???
+size_t cc_path_node_count_all_segments( CcPathNode * path_tree ) { // todo :: rethink :: ???
     if ( !path_tree ) return 0;
 
     CcPathNode * pl = path_tree;
