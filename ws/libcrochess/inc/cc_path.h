@@ -63,7 +63,6 @@ char const * cc_path_node_linkage_as_string( CcPathNodeLinkageEnum pnle );
 
 CcPathNodeLinkageEnum cc_path_node_linkage( CcPathNode * path_node );
 
-// TODO :: DOCS
 CcMaybeBoolEnum cc_path_node_apply_parent( CcPathNode * path_node );
 
 char const * cc_path_node_linkage_to_string( CcPathNode * path_node );

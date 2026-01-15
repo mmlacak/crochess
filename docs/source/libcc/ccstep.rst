@@ -94,7 +94,14 @@ Data
 
     .. c:member:: CcSideEffectLink * tentative__d
 
-        Possible side-effects (e.g. displacements when building a path), a linked list.
+        Possible side-effects, a linked list; it's used for displacements
+        when building a path tree. Usually, it's not used, so it's denoted
+        as *optional*.
+
+        .. note::
+
+            Even though this linked list is *optional*, pointer does have
+            ownership when linked list is present.
 
     .. c:member:: struct CcStep * next
 
