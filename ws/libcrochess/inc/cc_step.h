@@ -92,7 +92,6 @@ CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field,
                                     CcPieceTagType piece,
                                     CcPos destination );
 
-// TODO :: DOCS :: pawn --> private
 CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field,
                                   CcPieceTagType private,
                                   CcPos distant );
@@ -140,7 +139,6 @@ CcStep * cc_step_displacement_append( CcStep ** steps__iod_a,
                                       CcPieceTagType piece,
                                       CcPos destination );
 
-// TODO :: DOCS :: pawn --> private
 CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a,
                                     CcStepLinkTypeEnum link,
                                     CcPos field,

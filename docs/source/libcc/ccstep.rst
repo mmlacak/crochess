@@ -295,7 +295,7 @@ New step functions
 
 .. c:function:: CcStep * cc_step_displacement__new( CcStepLinkTypeEnum link, CcPos field, CcPieceTagType piece, CcPos destination )
 
-.. c:function:: CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field, CcPieceTagType pawn, CcPos distant )
+.. c:function:: CcStep * cc_step_en_passant__new( CcStepLinkTypeEnum link, CcPos field, CcPieceTagType private, CcPos distant )
 
 .. c:function:: CcStep * cc_step_castle__new( CcStepLinkTypeEnum link, CcPos field, CcPieceTagType rook, CcPos start, CcPos destination )
 
@@ -331,7 +331,7 @@ Append step functions
 
 .. c:function:: CcStep * cc_step_displacement_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceTagType piece, CcPos destination )
 
-.. c:function:: CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceTagType pawn, CcPos distant )
+.. c:function:: CcStep * cc_step_en_passant_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceTagType private, CcPos distant )
 
 .. c:function:: CcStep * cc_step_castle_append( CcStep ** steps__iod_a, CcStepLinkTypeEnum link, CcPos field, CcPieceTagType rook, CcPos start, CcPos destination )
 

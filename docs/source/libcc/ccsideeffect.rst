@@ -182,9 +182,9 @@ Data
 
             En passant.
 
-            .. c:member:: CcPieceTagType pawn
+            .. c:member:: CcPieceTagType private
 
-                Pawn which has been captured.
+                Private which has been captured.
 
             .. c:member:: CcPos distant
 
@@ -335,6 +335,15 @@ Functions
     :param se: A side-effect.
     :returns: :c:data:`true` if destination is present, :c:data:`false` otherwise.
 
+.. c:function:: bool cc_side_effect_is_valid( CcSideEffect se, bool include_none )
+
+    Function checks if a given side-effect is valid.
+
+    :param se: A side-effect.
+    :param include_none: Flag, whether an :c:enumerator:`CC_SETE_None` side-effect
+        should be included as valid, or not.
+    :returns: :c:data:`true` if side-effect is valid, :c:data:`false` otherwise.
+
 .. c:function:: bool cc_side_effect_to_str( CcSideEffect se, cc_char_16 * se_str__o )
 
     Function returns string, containing user-readable representation
@@ -361,7 +370,7 @@ Functions
 
 .. c:function:: CcSideEffect cc_side_effect_displacement( CcPieceTagType piece, CcPos destination )
 
-.. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceTagType pawn, CcPos distant )
+.. c:function:: CcSideEffect cc_side_effect_en_passant( CcPieceTagType private, CcPos distant )
 
 .. c:function:: CcSideEffect cc_side_effect_castle( CcPieceTagType rook, CcPos start, CcPos destination )
 
