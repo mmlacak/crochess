@@ -282,7 +282,7 @@ CcMaybeBoolEnum cc_path_node_iter_next( CcPathNode ** path_node__io ) {
             return CC_MBE_True;
         }
 
-        CcMaybeBoolEnum has_side_effect = cc_path_node_last_step_side_effect_is_valid( pn, false );
+        CcMaybeBoolEnum has_side_effect = cc_path_node_last_step_side_effect_is_valid( pn, false ); // todo :: false --> true yields root node :: check :: cc_path_link_from_nodes(), if-block under CC_PATH_NODE_HAS_CONTINUATION. Handle path node witout terminal side-effect, followed by displacements in the fork (not even the 1st step).
         if ( has_side_effect != CC_MBE_False ) {
             pn->yielded = true;
             return has_side_effect;
@@ -838,7 +838,8 @@ bool cc_path_link_from_nodes( CcPathNode * path_node,
     if ( *path_link__o_a ) return false;
 
     if ( CC_PATH_NODE_HAS_CONTINUATION( path_node ) && // CC_PATH_NODE_IS_PARENT() is wrong here, since ->alt just replaces current path node.
-         !cc_path_node_last_step_side_effect_is_valid( path_node, false ) ) // So, there is a fork, but no terminal side-effect. Should it be enforced? // TODO :: COMPARE :: cc_path_node_iter_next(), if block under CC_PATH_NODE_HAS_CONTINUATION().
+         !cc_path_node_last_step_side_effect_is_valid( path_node, true ) ) // Fork without terminal side-effect could be followed by displacements in next path node, not neccessary in the first step.
+         // todo :: compare :: cc_path_node_iter_next(), if block under CC_PATH_NODE_HAS_CONTINUATION().
             return false;
 
     CcPathLink * pl__t = NULL;
