@@ -436,5 +436,3 @@ of the previous node (i.e. the one accessed via :c:member:`CcPathNode.back__w.st
 
 This is always done, regardless if next node has been linked via :c:member:`CcPathNode.fork`,
 or :c:member:`CcPathNode.alt`.
-
-.. :c:member:`CcPathNode.sub`

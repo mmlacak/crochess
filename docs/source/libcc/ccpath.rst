@@ -28,13 +28,13 @@ Path node segments
     First step in a root node is initial position of a piece. Second step either
     in root node or otherwise might be repositioning.
 
-    Forking :term:`path`\s are introduced by single :c:member:`fork` path; all
+    Forking :term:`path`\s are introduced by single :c:member:`CcPathNode.fork` path; all
     other possible :term:`path`\s after the same e.g. divergence are then linked
-    by :c:member:`alt`.
+    by :c:member:`CcPathNode.alt`.
 
     .. warning::
 
-        All :c:member:`fork` and :c:member:`alt` members are owners of the
+        All :c:member:`CcPathNode.fork` and :c:member:`CcPathNode.alt` members are owners of the
         remainder of a path tree they are pointing to; and must always be a
         singular pointer (owner) within a path tree to their respective
         forking, alternating, substitute, or subsequent path.
@@ -94,7 +94,7 @@ Path node segments
 
         Every forking path has this step as its starting position.
 
-        One forking path links to another via :c:member:`alt` member.
+        One forking path links to another via :c:member:`CcPathNode.alt` member.
 
         .. seealso::
 
@@ -108,8 +108,8 @@ Path node segments
         encountered piece.
 
         This link should be set only after divergence, or if part of alternative
-        paths, i.e. if this step has been pointed-to by either :c:member:`fork`,
-        or :c:member:`alt`.
+        paths, i.e. if this step has been pointed-to by either :c:member:`CcPathNode.fork`,
+        or :c:member:`CcPathNode.alt`.
 
         .. seealso::
 
@@ -118,7 +118,7 @@ Path node segments
     .. c:member:: struct CcPathNode * back__w
 
         Weak back-link to parent path node, regardless if pointed-to by
-        :c:member:`fork` or :c:member:`alt`.
+        :c:member:`CcPathNode.fork` or :c:member:`CcPathNode.alt`.
 
     :c:`Struct` is tagged with the same :c:struct:`CcPathNode` name.
 
@@ -130,8 +130,7 @@ Path node macros
 .. c:macro:: CC_PATH_NODE_IS_PARENT(path_node)
 
     Macro to check if given path node is a parent, i.e. if it has, at least, one of
-    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or :c:member:`CcPathNode.sub`
-    valid sub-nodes.
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` valid sub-nodes.
 
     :param path_node: Path node.
     :returns: :c:data:`true` if parent, :c:data:`false` otherwise.
@@ -139,8 +138,7 @@ Path node macros
 .. c:macro:: CC_PATH_NODE_IS_LEAF(path_node)
 
     Macro to check if given path node is a leaf, i.e. if it does not have any of
-    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or :c:member:`CcPathNode.sub`
-    sub-nodes.
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` sub-nodes.
 
     :param path_node: Path node.
     :returns: :c:data:`true` if parent, :c:data:`false` otherwise.
@@ -151,8 +149,7 @@ Path node macros
     valid :c:member:`CcPathNode.fork` sub-node.
 
     Note, :c:member:`CcPathNode.alt` replaces current path node with different
-    path, while :c:member:`CcPathNode.sub` replaces side-effect of the last step
-    in the current node.
+    one.
 
     :param path_node: Path node.
     :returns: :c:data:`true` if path is continued, :c:data:`false` otherwise.
@@ -162,8 +159,7 @@ Path node macros
     Macro to reset all flags in a complete path tree, for any given path node.
 
     Flags reset are both :c:member:`CcPathNode.visited` and :c:member:`CcPathNode.yielded`;
-    sub-nodes are any of :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`
-    or :c:member:`CcPathNode.sub`.
+    sub-nodes are any of :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt`.
 
     :param path_tree__io: *Input/output* parameter, path node in a tree.
     :returns: :c:data:`true` if all flags had beed reset, :c:data:`false` otherwise.
@@ -172,8 +168,8 @@ Path node macros
 .. c:macro:: CC_PATH_NODE_ALL_SUBNODES_ARE_VISITED(path_node)
 
     Macro to check if a given path node and all of its sub-nodes are visited; all
-    valid are checked :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and
-    :c:member:`CcPathNode.sub` sub-nodes.
+    valid :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` sub-nodes are
+    checked.
 
     :param path_node: Path node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
@@ -186,8 +182,8 @@ Path node macros
 .. c:macro:: CC_PATH_NODE_ALL_SUBNODES_ARE_YIELDED(path_node)
 
     Macro to check if a given path node and all of its sub-nodes are yielded; all
-    valid are checked :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and
-    :c:member:`CcPathNode.sub` sub-nodes.
+    valid :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` sub-nodes are
+    checked.
 
     :param path_node: Path node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
@@ -265,9 +261,9 @@ Path node linkage
     Function returns if a parent of a given path node is to be applied when
     constructing complete path.
 
-    Parents linked via :c:member:`fork` to a given path node are included in
-    complete path, those linked via :c:member:`alt` are replaced by some later
-    parent, or root node.
+    Parents linked via :c:member:`CcPathNode.fork` to a given path node are included
+    in complete path, those linked via :c:member:`CcPathNode.alt` are replaced by some
+    later parent, or root node.
 
     :param path_node: A path node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
@@ -359,7 +355,7 @@ Path node functions
     .. note::
 
         Path node is not traversed, i.e. none of :c:member:`CcPathNode.fork`,
-        :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub` links are followed.
+        :c:member:`CcPathNode.alt` links are followed.
 
     :param path_node: A path node.
     :returns: Weak pointer to side-effect if successful,
@@ -368,16 +364,17 @@ Path node functions
 .. c:function:: CcMaybeBoolEnum cc_path_node_last_step_side_effect_is_valid( CcPathNode * path_node, bool include_none )
 
     Function checks if side-effect type of a last step in a given path node is valid;
-    given :c:var:`include_none` argument controls if :c:enumerator:`CC_SETE_None` is
-    considered valid.
+    given :c:var:`include_none` argument controls if :c:enumerator:`CC_SETE_None`
+    side-effect is considered valid.
 
     .. note::
 
         Path node is not traversed, i.e. none of :c:member:`CcPathNode.fork`,
-        :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub` links are followed.
+        :c:member:`CcPathNode.alt` links are followed.
 
     :param path_node: A path node.
-    :param include_none: Flag, whether :c:enumerator:`CC_SETE_None` is considered valid, or not.
+    :param include_none: Flag, whether :c:enumerator:`CC_SETE_None` side-effect is
+        considered valid, or not.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
 
         * :c:enumerator:`CC_MBE_True` if side-effect is valid,
@@ -389,8 +386,7 @@ Path node functions
     Function checks if a given path node is a leaf node.
 
     Leaf node is one without any of :c:member:`CcPathNode.fork`,
-    :c:member:`CcPathNode.alt`, or :c:member:`CcPathNode.sub`
-    valid (non-:c:data:`NULL`) links.
+    :c:member:`CcPathNode.alt` valid (non-:c:data:`NULL`) links.
 
     :param path_node: A path node.
     :returns: One of :c:enum:`CcMaybeBoolEnum` values:
@@ -448,8 +444,7 @@ Path node functions
 .. c:function:: bool cc_path_node_subflags_are_all_set( CcPathNode * path_node, bool check_yielded )
 
     Checks all flags in a given path node, and all of its sub-nodes, i.e. all of valid
-    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` and :c:member:`CcPathNode.sub`
-    nodes.
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` nodes in a given sub-tree.
 
     :param path_node: A path node.
     :param check_yielded: A flag, whether to check :c:member:`CcPathNode.yielded` (if :c:data:`true`),
@@ -470,8 +465,8 @@ Path node functions
     parameter to next suitable path node, and then returning :c:enumerator:`CC_MBE_True`.
 
     Suitable path nodes are all leaf nodes (i.e. the ones without any valid
-    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or :c:member:`CcPathNode.sub`
-    sub-nodes), and also all path nodes that have valid side-effect in their last step.
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` sub-nodes), and
+    also all path nodes that have valid side-effect in their last step.
 
     When all suitable path nodes from a complete path tree are exhausted,
     function returns :c:enumerator:`CC_MBE_False`.
@@ -526,15 +521,15 @@ Path node functions
 .. c:function:: size_t cc_path_node_count( CcPathNode * path_tree )
 
     Function returns count of all nodes in a given path tree; includes
-    :c:member:`fork`, :c:member:`alt` branches.
+    :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` branches.
 
     :param path_tree: A node in a path tree.
     :returns: Length of a given path tree if successful, ``0`` otherwise.
 
 .. c:function:: size_t cc_path_node_count_all_segments( CcPathNode * path_tree )
 
-    Function returns count of all segments, including :c:member:`fork`,
-    :c:member:`alt` ones; i.e. it counts path nodes with valid :c:member:`steps`
+    Function returns count of all segments, including :c:member:`CcPathNode.fork`,
+    :c:member:`CcPathNode.alt` ones; i.e. it counts path nodes with valid :c:member:`steps`
     members.
 
     :param path_tree: A node in a path tree.
@@ -543,7 +538,7 @@ Path node functions
 .. c:function:: char * cc_path_node_to_string__new( CcPathNode * path_tree )
 
     Function returns string containing user-readable representation of a given
-    path tree, including all of its :c:member:`fork`, :c:member:`alt` branches.
+    path tree, including all of its :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` branches.
 
     :param path_tree: A node in a path tree.
     :returns: A newly allocated, null-terminated (``'\0'``) string if
@@ -639,9 +634,8 @@ Path linked list
     all the way to a given path node.
 
     Given path node (i.e. :c:var:`path_node`) has to be suitable; either a leaf node
-    (without any valid :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` or
-    :c:member:`CcPathNode.sub` sub-nodes), or a path node with valid side-effect in
-    their last step.
+    (without any valid :c:member:`CcPathNode.fork`, :c:member:`CcPathNode.alt` sub-nodes),
+    or a path node with valid side-effect in their last step.
 
     *Output* parameter has to have its inner pointer (i.e. :c:expr:`*path_link__o_a`)
     :c:data:`NULL`\-ed, before it can be used to return newly allocated linked list.
@@ -658,11 +652,6 @@ Path linked list
 
     Function also overwrites side-effect of the last step (accumulated so far in
     an *output* linked list), with the side-effect of the current path node.
-
-    Additionaly, function also builds linked list of tentative side-effects, if
-    there are valid :c:member:`CcPathNode.sub` nodes of the current path node;
-    list built is then assigned to :c:member:`CcStep.tentative__d` pointer of the
-    last step of the current path node.
 
     *Output* parameter has to have its inner pointer (i.e. :c:expr:`*steps__o_a`)
     :c:data:`NULL`\-ed, before it can be used to return newly allocated linked list.
@@ -699,8 +688,8 @@ Path tree iterator
 Linked path backtracking
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-For a given path node, :c:member:`fork` member concatenate to existing path; other
-members provide list of alternative (:c:member:`alt`) paths, and so has to find path
+For a given path node, :c:member:`CcPathNode.fork` member concatenate to existing path; other
+members provide list of alternative (:c:member:`CcPathNode.alt`) paths, and so has to find path
 node to replace, or alter; this is mostly the first node of a list of alternative paths.
 
 Starting node is to be found by using :c:member:`back__w`, and checking if parent
@@ -708,8 +697,8 @@ node points to a current node, e.g. if :c:expr:`current->back__w->alt == current
 still holds true; once it doesn't, this is starting node.
 
 If node was in a list of alternative paths, starting node is then replaced by node
-from a list, if an alternative list was started with immediate :c:member:`alt`. If
-an alternative list was started with :c:member:`fork`, then node from an alternative
+from a list, if an alternative list was started with immediate :c:member:`CcPathNode.alt`. If
+an alternative list was started with :c:member:`CcPathNode.fork`, then node from an alternative
 list is concatenated to starting node.
 
 Root node can be found by backtracking until :c:member:`back__w` is :c:data:`NULL`.
