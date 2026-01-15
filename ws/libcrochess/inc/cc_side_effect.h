@@ -140,7 +140,6 @@ CcPos cc_side_effect_destination( CcSideEffect se );
 
 bool cc_side_effect_has_destination( CcSideEffect se );
 
-// TODO :: check side-effect validity --> _cc_path_node_steps_are_valid()
 bool cc_side_effect_is_valid( CcSideEffect se, bool include_none );
 
 bool cc_side_effect_to_str( CcSideEffect se,

@@ -323,7 +323,7 @@ static bool _cc_path_node_steps_are_valid( CcStep * steps ) {
     while ( s ) {
         if ( !CC_STEP_LINK_TYPE_IS_VALID( s->link ) ) return false;
         if ( !CC_POS_IS_VALID( s->field ) ) return false;
-        if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( s->side_effect.type ) ) return false;
+        if ( !cc_side_effect_is_valid( s->side_effect, true ) ) return false;
 
         s = s->next;
     }
@@ -336,7 +336,7 @@ static bool _cc_path_node_is_valid( CcPathNode * path_node, bool has_steps ) {
 
     CcPathNode * pl = path_node;
 
-    if ( !CC_SIDE_EFFECT_TYPE_IS_ENUMERATOR( pl->side_effect.type ) ) return false;
+    if ( !cc_side_effect_is_valid( pl->side_effect, true ) ) return false;
 
     if ( CC_SIDE_EFFECT_TYPE_TERMINATES_PLY( pl->side_effect.type ) ) {
         // If path isn't actually terminating ...
