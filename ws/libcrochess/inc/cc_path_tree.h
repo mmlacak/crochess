@@ -15,8 +15,8 @@
 #include "cc_path_ctx.h"
 #include "cc_path.h"
 
-
 // todo :: DOCS
+
 
 // todo :: TEST :: DELETE ???
 //
@@ -37,6 +37,7 @@
 // todo :: TEST :: DELETE ???
 
 
+// todo :: DOCS
 bool cc_path_side_effects( CcPosDesc moving_from,
                            CcTypedStep step_1,
                            CcTypedStep step_2,
@@ -44,6 +45,7 @@ bool cc_path_side_effects( CcPosDesc moving_from,
                            CcPathContext * path_ctx__io,
                            CcPathNode ** path_node__io_a );
 
+// todo :: DOCS
 bool cc_path_segment( CcSideEffect side_effect,
                       CcPosDesc moving_from,
                       CcTypedStep step_1,
@@ -51,10 +53,12 @@ bool cc_path_segment( CcSideEffect side_effect,
                       CcPathContext * path_ctx__io,
                       CcPathNode ** path_node__o_a );
 
+// todo :: DOCS
 bool cc_path_tree( CcPosDesc moving,
                    CcPathContext * path_ctx__io,
                    CcPathNode ** path_node__io_a );
 
+// todo :: DOCS
 bool cc_path_tree_init( CcGame * game,
                         CcPosDesc moving_from,
                         CcPathContext ** path_ctx__iod_a,
