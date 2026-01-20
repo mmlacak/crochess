@@ -390,7 +390,7 @@ bool cc_path_node_is_valid( CcPathNode * path_tree ) {
 
     CC_REWIND_BY( root, root->back__w );
 
-    bool has_steps = ( cc_step_count( root->steps ) > 1 ); // Initial step should not be the only one, if root is the only node.
+    bool has_steps = ( cc_step_count( root->steps, false ) > 1 ); // Initial step should not be the only one, if root is the only node.
 
     if ( !_cc_path_node_is_valid( root, has_steps ) ) return false;
 

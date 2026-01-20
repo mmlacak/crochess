@@ -12,10 +12,12 @@
 
 CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
                                            CcStep * path_steps,
-                                           CcPathContext * path_ctx ) {
+                                           CcPathContext * path_ctx,
+                                           CcParseMsg ** parse_msgs__iod ) {
     if ( !ply ) return CC_MBE_Void;
     if ( !path_steps ) return CC_MBE_Void;
     if ( !path_ctx ) return CC_MBE_Void;
+    if ( !parse_msgs__iod ) return CC_MBE_Void;
 
 
 
@@ -25,12 +27,14 @@ CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
 CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
                                          CcPathNode * path_ply,
                                          CcPathContext * path_ctx,
-                                         CcStep ** steps__o_a ) {
+                                         CcStep ** steps__o_a,
+                                         CcParseMsg ** parse_msgs__iod ) {
     if ( !ply ) return CC_MBE_Void;
     if ( !path_ply ) return CC_MBE_Void;
     if ( !path_ctx ) return CC_MBE_Void;
     if ( !steps__o_a ) return CC_MBE_Void;
     if ( *steps__o_a ) return CC_MBE_Void;
+    if ( !parse_msgs__iod ) return CC_MBE_Void;
 
     CcPathLink * pl__a = NULL;
 
@@ -46,7 +50,7 @@ CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
 
     cc_path_link_free_all( &pl__a );
 
-    CcMaybeBoolEnum result = cc_path_cmp_compare_steps( ply, steps__t, path_ctx );
+    CcMaybeBoolEnum result = cc_path_cmp_compare_steps( ply, steps__t, path_ctx, parse_msgs__iod );
 
     if ( result == CC_MBE_True ) {
         *steps__o_a = steps__t; // Ownership transfer, steps__t is now weak pointer.
@@ -56,13 +60,15 @@ CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
     return result;
 }
 
-CcMaybeBoolEnum cc_path_cmp_compare_all_paths( CcPly * ply,
+CcMaybeBoolEnum cc_path_cmp_compare_all_plies( CcPly * ply,
                                                CcPathNode ** path_node__io,
-                                               CcPathContext * path_ctx ) {
+                                               CcPathContext * path_ctx,
+                                               CcParseMsg ** parse_msgs__iod ) {
     if ( !ply ) return CC_MBE_Void;
     if ( !path_node__io ) return CC_MBE_Void;
     if ( !*path_node__io ) return CC_MBE_Void;
     if ( !path_ctx ) return CC_MBE_Void;
+    if ( !parse_msgs__iod ) return CC_MBE_Void;
 
     CcPathNode * pn = *path_node__io;
 
@@ -76,7 +82,7 @@ CcMaybeBoolEnum cc_path_cmp_compare_all_paths( CcPly * ply,
     CcStep * steps__a = NULL;
 
     while ( CC_MBE_True == ( loop = cc_path_node_iter_next( &pn ) ) ) {
-        cond = cc_path_cmp_compare_ply( ply, pn, path_ctx, &steps__a );
+        cond = cc_path_cmp_compare_ply( ply, pn, path_ctx, &steps__a, parse_msgs__iod );
 
         if ( cond == CC_MBE_Void ) break;
 

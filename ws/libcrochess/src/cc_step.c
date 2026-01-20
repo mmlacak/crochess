@@ -143,15 +143,31 @@ CcStep * cc_step_extend( CcStep ** steps__iod_a,
     return last->next;
 }
 
-size_t cc_step_count( CcStep * steps ) {
+size_t cc_step_count( CcStep * steps, bool do_momentum ) {
     if ( !steps ) return 0;
 
     size_t count = 0;
     CcStep * s = steps;
 
-    while ( s ) {
-        ++count;
-        s = s->next;
+    if ( do_momentum ) {
+        if ( s->link == CC_SLTE_InitialPosition )
+            s = s->next;
+
+        if ( s && s->link == CC_SLTE_Reposition )
+            s = s->next;
+
+        while ( s ) {
+            if ( s->link == CC_SLTE_Next ) {
+                ++count;
+                s = s->next;
+            } else
+                return 0;
+        }
+    } else {
+        while ( s ) {
+            ++count;
+            s = s->next;
+        }
     }
 
     return count;
@@ -267,7 +283,7 @@ char * cc_step_all_to_string__new( CcStep * steps ) {
     size_t se_len = _cc_step_sum_len_all_tentative( steps ); // length of all tentative__d side-effects in a complete linked list
 
     // unused len is certainly > 0, because steps != NULL
-    size_t steps_len = cc_step_count( steps ) *
+    size_t steps_len = cc_step_count( steps, false ) *
                        ( CC_MAX_LEN_CHAR_8 + CC_MAX_LEN_CHAR_16 + 2 ) +
                        // CC_MAX_LEN_CHAR_8, for position
                        // + CC_MAX_LEN_CHAR_16, for side-effect

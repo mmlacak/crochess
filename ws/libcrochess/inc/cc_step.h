@@ -69,7 +69,8 @@ CcStep * cc_step_duplicate_all__new( CcStep * steps,
 CcStep * cc_step_extend( CcStep ** steps__iod_a,
                          CcStep ** steps__d_n );
 
-size_t cc_step_count( CcStep * steps );
+// TODO :: DOCS
+size_t cc_step_count( CcStep * steps, bool do_momentum );
 
 CcStep * cc_step_fetch_initial( CcStep * steps );
 

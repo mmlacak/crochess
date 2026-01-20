@@ -228,7 +228,7 @@ char * cc_ply_all_to_string__new( CcPly * plies ) {
 
     while ( p_count ) {
         ++count_plies;
-        count_steps += cc_step_count( p_count->steps );
+        count_steps += cc_step_count( p_count->steps, false );
 
         p_count = p_count->next;
     }

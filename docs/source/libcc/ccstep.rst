@@ -220,11 +220,18 @@ Functions
     :returns: Weak pointer to extended portion of a linked list if successful,
               :c:data:`NULL` otherwise.
 
-.. c:function:: size_t cc_step_count( CcStep * steps )
+.. c:function:: size_t cc_step_count( CcStep * steps, bool do_momentum )
 
-    Function returning count of steps.
+    Function returning count of steps, or momentum, depending on a given flag.
+
+    For momentum, given :c:var:`steps` has to be linked as next, i.e. with
+    :c:enumerator:`CC_SLTE_Next` link type; and only those steps are counted
+    towards momentum. First step can be initial one (i.e. has
+    :c:enumerator:`CC_SLTE_InitialPosition` link type), and second can be
+    repositioning step (i.e. :c:enumerator:`CC_SLTE_Reposition`).
 
     :param steps: Linked list of steps.
+    :param do_momentum: Flag, whether to count momentum, or any steps.
     :returns: Count of steps if successful, ``0`` otherwise.
 
 .. c:function:: CcStep * cc_step_fetch_initial( CcStep * steps )
