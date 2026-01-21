@@ -90,7 +90,7 @@ CcMaybeBoolEnum cc_path_cmp_compare_all_plies( CcPly * ply,
 
     CcMaybeBoolEnum loop = CC_MBE_Void;
     CcMaybeBoolEnum cmp = CC_MBE_Void;
-    CcMaybeBoolEnum result = CC_MBE_True;
+    CcMaybeBoolEnum result = CC_MBE_False; // <!> True here would mask when comparison fails, because results are OR'ed.
 
     size_t momentum = 0;
     CcStep * steps__t = NULL;
