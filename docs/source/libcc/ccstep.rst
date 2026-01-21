@@ -226,7 +226,7 @@ Functions
 
     For momentum, given :c:var:`steps` has to be linked as next, i.e. with
     :c:enumerator:`CC_SLTE_Next` link type; and only those steps are counted
-    towards momentum. First step can be initial one (i.e. has
+    towards momentum. First step has to be initial one (i.e. has to have
     :c:enumerator:`CC_SLTE_InitialPosition` link type), and second can be
     repositioning step (i.e. :c:enumerator:`CC_SLTE_Reposition`).
 
