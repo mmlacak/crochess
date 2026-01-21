@@ -13,15 +13,25 @@
 CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
                                            CcStep * path_steps,
                                            CcPathContext * path_ctx,
-                                           size_t * momentum__o,
+                                           size_t * momentum_diff__o,
                                            CcParseMsg ** parse_msgs__iod ) {
     if ( !ply ) return CC_MBE_Void;
     if ( !path_steps ) return CC_MBE_Void;
     if ( !path_ctx ) return CC_MBE_Void;
-    if ( !momentum__o ) return CC_MBE_Void;
+    if ( !momentum_diff__o ) return CC_MBE_Void;
     if ( !parse_msgs__iod ) return CC_MBE_Void;
 
-    // ply->piece
+    if ( !path_ctx->cb_current ) return CC_MBE_Void;
+
+    size_t mom_diff = cc_step_count( path_steps, true ); // Also checks if 1st step is initial, 2nd might be repositioning, all others are linked as next (i.e. immediate) steps.
+    if ( mom_diff == 0 ) return CC_MBE_False;
+
+    CcPieceTagEnum pte = cc_chessboard_get_piece( path_ctx->cb_current, path_steps->field.i, path_steps->field.j );
+
+    if ( !cc_piece_has_same_type( ply->piece, pte, false ) ) return CC_MBE_False;
+
+
+
 
 
     return CC_MBE_Void; // TODO :: FIX
@@ -31,14 +41,14 @@ CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
                                          CcPathNode * path_ply,
                                          CcPathContext * path_ctx,
                                          CcStep ** steps__o_a,
-                                         size_t * momentum__o,
+                                         size_t * momentum_diff__o,
                                          CcParseMsg ** parse_msgs__iod ) {
     if ( !ply ) return CC_MBE_Void;
     if ( !path_ply ) return CC_MBE_Void;
     if ( !path_ctx ) return CC_MBE_Void;
     if ( !steps__o_a ) return CC_MBE_Void;
     if ( *steps__o_a ) return CC_MBE_Void;
-    if ( !momentum__o ) return CC_MBE_Void;
+    if ( !momentum_diff__o ) return CC_MBE_Void;
     if ( !parse_msgs__iod ) return CC_MBE_Void;
 
     CcPathLink * pl__a = NULL;
@@ -55,7 +65,7 @@ CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
 
     cc_path_link_free_all( &pl__a );
 
-    CcMaybeBoolEnum result = cc_path_cmp_compare_steps( ply, steps__t, path_ctx, momentum__o, parse_msgs__iod );
+    CcMaybeBoolEnum result = cc_path_cmp_compare_steps( ply, steps__t, path_ctx, momentum_diff__o, parse_msgs__iod );
 
     if ( result == CC_MBE_True ) {
         if ( steps__t )
