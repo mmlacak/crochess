@@ -6,4 +6,4 @@
 #include "cc_version.h"
 
 
-char const CC_LIB_VERSION[] = "0.0.1.429:1608+20260121.041054"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker
+char const CC_LIB_VERSION[] = "0.0.1.430:1609+20260121.094940"; // source-new-libcrochess-version-major-minor-feature-commit+meta~breaks-place-marker

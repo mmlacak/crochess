@@ -21,6 +21,7 @@ CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
     if ( !momentum__o ) return CC_MBE_Void;
     if ( !parse_msgs__iod ) return CC_MBE_Void;
 
+    // ply->piece
 
 
     return CC_MBE_Void; // TODO :: FIX
@@ -57,7 +58,12 @@ CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
     CcMaybeBoolEnum result = cc_path_cmp_compare_steps( ply, steps__t, path_ctx, momentum__o, parse_msgs__iod );
 
     if ( result == CC_MBE_True ) {
-        *steps__o_a = steps__t; // Ownership transfer, steps__t is now weak pointer.
+        if ( steps__t )
+            *steps__o_a = steps__t; // Ownership transfer, steps__t is now weak pointer.
+        else {
+            cc_step_free_all( &steps__t ); // Result was true, but no steps --> error.
+            return CC_MBE_Void;
+        }
     } else
         cc_step_free_all( &steps__t );
 

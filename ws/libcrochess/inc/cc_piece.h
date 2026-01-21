@@ -505,7 +505,9 @@ bool cc_piece_has_congruent_type( char symbol, CcPieceTagType ptt );
 
 bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt );
 
-bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
+bool cc_piece_has_same_type( CcPieceTagType ptt_1,
+                             CcPieceTagType ptt_2,
+                             bool include_opponent );
 
 bool cc_piece_has_same_color( CcPieceTagType ptt_1, CcPieceTagType ptt_2 );
 

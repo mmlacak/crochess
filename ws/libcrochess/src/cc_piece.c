@@ -510,13 +510,16 @@ bool cc_piece_is_equal( char symbol, bool is_light, CcPieceTagType ptt ) {
     return ( piece == ptt );
 }
 
-bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 ) {
-    if ( ptt_1 == ptt_2 ) return true;
-    if ( ptt_1 == cc_piece_opposite( ptt_2 ) ) return true;
-
+bool cc_piece_has_same_type( CcPieceTagType ptt_1,
+                             CcPieceTagType ptt_2,
+                             bool include_opponent ) {
     CcPieceTagType p_1 = cc_piece_strip_tag( ptt_1 );
     CcPieceTagType p_2 = cc_piece_strip_tag( ptt_2 );
     if ( p_1 == p_2 ) return true;
+
+    if ( include_opponent )
+        if ( p_1 == cc_piece_opposite( p_2 ) )
+            return true;
 
     return false;
 }

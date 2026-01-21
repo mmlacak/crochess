@@ -1039,12 +1039,15 @@ Functions
     :param ptt: A piece.
     :returns: :c:data:`true` if the same, :c:data:`false` otherwise.
 
-.. c:function:: bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
+.. c:function:: bool cc_piece_has_same_type( CcPieceTagType ptt_1, CcPieceTagType ptt_2, bool include_opponent )
 
     Function checks if two given pieces are the same type.
 
+    Pieces are stripped of any tag they might have prior to comparison.
+
     :param ptt_1: A piece.
     :param ptt_2: The other piece.
+    :param include_opponent: A flag, whether opponent's pieces of the same type are included, or not.
     :returns: :c:data:`true` if given pieces have the same type, :c:data:`false` otherwise.
 
 .. c:function:: bool cc_piece_has_same_color( CcPieceTagType ptt_1, CcPieceTagType ptt_2 )
