@@ -206,7 +206,7 @@ typedef struct CcActivationDesc {
 
 #define CC_ACTIVATION_DESC_IS_EQUAL(ad_1,ad_2) ( ( (ad_1).activator == (ad_2).activator ) && \
                                                  ( (ad_1).momentum == (ad_2).momentum ) && \
-                                                 ( (ad_1).usage == (ad_2).usage ))
+                                                 ( (ad_1).usage == (ad_2).usage ) )
 
 bool cc_activation_desc_is_legal( CcActivationDesc act_desc,
                                   CcPieceTagType moving,

@@ -150,11 +150,17 @@ size_t cc_step_count( CcStep * steps, bool do_momentum ) {
     CcStep * s = steps;
 
     if ( do_momentum ) {
-        if ( s->link == CC_SLTE_InitialPosition )
+        if ( s->link == CC_SLTE_InitialPosition ) {
             s = s->next;
 
-        if ( s && s->link == CC_SLTE_Reposition )
-            s = s->next;
+            if ( !s ) return 0;
+
+            if ( s->link == CC_SLTE_Reposition ) {
+                s = s->next;
+            } else if ( s->link != CC_SLTE_Next )
+                return 0;
+        } else
+            return 0;
 
         while ( s ) {
             if ( s->link == CC_SLTE_Next ) {
