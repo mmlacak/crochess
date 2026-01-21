@@ -23,6 +23,7 @@
 CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
                                            CcStep * path_steps,
                                            CcPathContext * path_ctx,
+                                           size_t * momentum__o,
                                            CcParseMsg ** parse_msgs__iod );
 
 // todo :: DOCS
@@ -30,12 +31,15 @@ CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
                                          CcPathNode * path_ply,
                                          CcPathContext * path_ctx,
                                          CcStep ** steps__o_a,
+                                         size_t * momentum__o,
                                          CcParseMsg ** parse_msgs__iod );
 
 // todo :: DOCS
 CcMaybeBoolEnum cc_path_cmp_compare_all_plies( CcPly * ply,
                                                CcPathNode ** path_node__io,
                                                CcPathContext * path_ctx,
+                                               CcStep ** shortest__o_a,
+                                               CcStep ** longest__o_a,
                                                CcParseMsg ** parse_msgs__iod );
 
 
