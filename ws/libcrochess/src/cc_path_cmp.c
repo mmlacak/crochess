@@ -31,13 +31,18 @@ CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
 
     if ( !cc_piece_has_same_type( ply->piece, pte, false ) ) return CC_MBE_False;
 
-    CcStep * s = path_steps->next;
+    CcStep * s = ply->steps;
     if ( !s ) return CC_MBE_Void;
 
-    if ( s->link == CC_SLTE_Reposition )
-        s = s->next;
+    CcStep * ps = path_steps;
+    if ( !ps ) return CC_MBE_Void;
 
-    // if ( !s ) return CC_MBE_Void;
+
+
+    // if ( ps->link == CC_SLTE_Reposition )
+    //     ps = ps->next;
+
+    // if ( !ps ) return CC_MBE_Void;
 
     while ( s ) {
 

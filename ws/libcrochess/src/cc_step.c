@@ -7,8 +7,8 @@
 #include "cc_step.h"
 
 
-char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle ) {
-    switch ( sle ) {
+char const * cc_step_link_type_symbol( CcStepLinkTypeEnum slte ) {
+    switch ( slte ) {
         case CC_SLTE_None : return NULL;
         case CC_SLTE_InitialPosition : return "";
         case CC_SLTE_Reposition : return "\\";
@@ -20,6 +20,33 @@ char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle ) {
         default : return NULL;
     }
 }
+
+CcMaybeBoolEnum cc_step_link_type_is_congruent( CcStepLinkTypeEnum slte_1,
+                                                CcStepLinkTypeEnum slte_2 ) {
+    if ( !CC_STEP_LINK_TYPE_IS_ENUMERATOR( slte_2 ) ) return CC_MBE_Void;
+    if ( slte_2 == CC_SLTE_None ) return CC_MBE_False;
+
+    switch ( slte_1 ) {
+        case CC_SLTE_None : return CC_MBE_False;
+
+        case CC_SLTE_InitialPosition : return CC_BOOL_TO_MAYBE( slte_2 == CC_SLTE_InitialPosition );
+
+        case CC_SLTE_Reposition : return CC_BOOL_TO_MAYBE( slte_2 == CC_SLTE_Reposition );
+
+        case CC_SLTE_Next :
+        case CC_SLTE_Distant :
+        case CC_SLTE_Destination :
+        case CC_SLTE_JustDestination : {
+            return CC_BOOL_TO_MAYBE( slte_2 == CC_SLTE_Next || \
+                                     slte_2 == CC_SLTE_Distant || \
+                                     slte_2 == CC_SLTE_Destination || \
+                                     slte_2 == CC_SLTE_JustDestination );
+        }
+
+        default : return CC_MBE_Void;
+    }
+}
+
 
 CcStep * cc_step__new( CcStepLinkTypeEnum link,
                        CcPos field,
@@ -243,6 +270,17 @@ CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps ) {
     if ( !last ) return NULL;
 
     return &( last->side_effect );
+}
+
+CcMaybeBoolEnum cc_step_is_congruent( CcStep * step_1, CcStep * step_2 ) {
+    if ( !step_1 ) return CC_MBE_Void;
+    if ( !step_2 ) return CC_MBE_Void;
+
+    if ( step_1->link != step_2->link ) return CC_MBE_False;
+
+
+
+    return CC_MBE_False; // TODO :: FIX
 }
 
 bool cc_step_free_all( CcStep ** steps__f ) {

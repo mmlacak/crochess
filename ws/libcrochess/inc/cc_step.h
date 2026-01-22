@@ -26,7 +26,12 @@ typedef enum CcStepLinkTypeEnum {
     CC_SLTE_JustDestination, /* Just destination field, no separators, no other steps. */
 } CcStepLinkTypeEnum;
 
-char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle );
+// TODO :: DOCS :: param name
+char const * cc_step_link_type_symbol( CcStepLinkTypeEnum slte );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_step_link_type_is_congruent( CcStepLinkTypeEnum slte_1,
+                                                CcStepLinkTypeEnum slte_2 );
 
 #define CC_MAX_LEN_STEP_LINK_TYPE_SYMBOL (2)
 
@@ -76,6 +81,9 @@ CcStep * cc_step_fetch_initial( CcStep * steps );
 CcStep * cc_step_fetch_destination( CcStep * steps );
 
 CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps );
+
+// TODO :: DOCS
+CcMaybeBoolEnum cc_step_is_congruent( CcStep * step_1, CcStep * step_2 );
 
 bool cc_step_free_all( CcStep ** steps__f );
 
