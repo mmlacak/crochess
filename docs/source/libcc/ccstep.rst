@@ -114,15 +114,32 @@ Data
 Functions
 ---------
 
-.. c:function:: char const * cc_step_link_type_symbol( CcStepLinkTypeEnum sle )
+.. c:function:: char const * cc_step_link_type_symbol( CcStepLinkTypeEnum slte )
 
     Function returns string symbol, as used in algebraic notation,
     for a given step link.
 
     Returned string is not allocated, so do not :c:func:`free()` it.
 
-    :param sle: A step linkage.
+    :param slte: A step linkage.
     :returns: String symbol if link is valid, :c:data:`NULL` otherwise.
+
+.. c:function:: CcMaybeBoolEnum cc_step_link_type_is_congruent( CcStepLinkTypeEnum slte_1, CcStepLinkTypeEnum slte_2 )
+
+    Function checks if two given step linkages are congruent.
+
+    For movement linkages (i.e. :c:enumerator:`CC_SLTE_Next`, :c:enumerator:`CC_SLTE_Distant`,
+    :c:enumerator:`CC_SLTE_Destination`, :c:enumerator:`CC_SLTE_JustDestination`), given
+    enumerators have to be in the same group; for all other linkages enumerators have
+    to be the same.
+
+    :param slte_1: A step linkage.
+    :param slte_2: Other step linkage.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if given enumerators are congruent,
+        * :c:enumerator:`CC_MBE_False` if given enumerators are not congruent,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, invalid data given.
 
 .. c:function:: CcStep * cc_step__new( CcStepLinkTypeEnum link, CcPos field, CcSideEffect side_effect )
 
