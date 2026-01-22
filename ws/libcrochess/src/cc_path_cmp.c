@@ -21,16 +21,29 @@ CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
     if ( !momentum_diff__o ) return CC_MBE_Void;
     if ( !parse_msgs__iod ) return CC_MBE_Void;
 
-    if ( !path_ctx->cb_current ) return CC_MBE_Void;
+    // if ( !path_ctx->cb_current ) return CC_MBE_Void; // Not needed, checked at [1].
+    if ( !cc_path_context_is_legal( path_ctx, true, true ) ) return CC_MBE_Void; // [1].
 
     size_t mom_diff = cc_step_count( path_steps, true ); // Also checks if 1st step is initial, 2nd might be repositioning, all others are linked as next (i.e. immediate) steps.
     if ( mom_diff == 0 ) return CC_MBE_False;
 
-    CcPieceTagEnum pte = cc_chessboard_get_piece( path_ctx->cb_current, path_steps->field.i, path_steps->field.j );
+    CcPieceTagEnum pte = path_ctx->ply_ctx.initial.piece;
 
     if ( !cc_piece_has_same_type( ply->piece, pte, false ) ) return CC_MBE_False;
 
+    CcStep * s = path_steps->next;
+    if ( !s ) return CC_MBE_Void;
 
+    if ( s->link == CC_SLTE_Reposition )
+        s = s->next;
+
+    // if ( !s ) return CC_MBE_Void;
+
+    while ( s ) {
+
+
+        s = s->next;
+    }
 
 
 
