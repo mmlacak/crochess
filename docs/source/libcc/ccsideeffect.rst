@@ -344,6 +344,21 @@ Functions
         should be included as valid, or not.
     :returns: :c:data:`true` if side-effect is valid, :c:data:`false` otherwise.
 
+.. c:function:: CcMaybeBoolEnum cc_side_effect_is_congruent( CcSideEffect se_1, CcSideEffect se_2 )
+
+    Function checks if a given side-effects are congruent.
+
+    Side-effects are congruent if they are the same in type, all positions,
+    while pieces can differ in tags (but not in types or colors).
+
+    :param se_1: A side-effect.
+    :param se_2: Other side-effect.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if given side-effects are congruent,
+        * :c:enumerator:`CC_MBE_False` if given side-effects are not congruent,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, invalid data given.
+
 .. c:function:: bool cc_side_effect_to_str( CcSideEffect se, cc_char_16 * se_str__o )
 
     Function returns string, containing user-readable representation
