@@ -276,8 +276,15 @@ CcMaybeBoolEnum cc_step_is_congruent( CcStep * step_1, CcStep * step_2 ) {
     if ( !step_1 ) return CC_MBE_Void;
     if ( !step_2 ) return CC_MBE_Void;
 
-    if ( step_1->link != step_2->link ) return CC_MBE_False;
+    CcMaybeBoolEnum result = cc_step_link_type_is_congruent( step_1->link, step_2->link );
+    if ( result != CC_MBE_True ) return result;
 
+    if ( !cc_pos_is_congruent( step_1->field, step_2->field ) ) return CC_MBE_False;
+
+    result = cc_side_effect_is_congruent( step_1->side_effect, step_2->side_effect );
+    if ( result != CC_MBE_True ) return result; // TODO :: FIX :: handle tentative!
+
+    // step_1->tentative__d
 
 
     return CC_MBE_False; // TODO :: FIX

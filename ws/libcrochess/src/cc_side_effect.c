@@ -257,6 +257,84 @@ bool cc_side_effect_is_valid( CcSideEffect se, bool include_none ) {
     }
 }
 
+CcMaybeBoolEnum cc_side_effect_is_congruent( CcSideEffect se_1, CcSideEffect se_2 ) {
+    if ( !cc_side_effect_is_valid( se_1, true ) ) return CC_MBE_Void;
+    if ( !cc_side_effect_is_valid( se_2, true ) ) return CC_MBE_Void;
+
+    if ( se_1.type != se_2.type ) return CC_MBE_False; // [1]
+
+    switch ( se_1.type ) {
+        case CC_SETE_None : return CC_MBE_True; // se_2.type is also CC_SETE_None, checked at [1].
+
+        case CC_SETE_Capture : {
+            if ( !cc_piece_has_same_type( se_1.capture.piece, se_2.capture.piece, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_Displacement : {
+            if ( !cc_piece_has_same_type( se_1.displacement.piece, se_2.displacement.piece, false ) ) return CC_MBE_False;
+            if ( !CC_POS_IS_EQUAL( se_1.displacement.destination, se_2.displacement.destination ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_EnPassant : {
+            if ( !cc_piece_has_same_type( se_1.en_passant.private, se_2.en_passant.private, false ) ) return CC_MBE_False;
+            if ( !CC_POS_IS_EQUAL( se_1.en_passant.distant, se_2.en_passant.distant ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_Castle : {
+            if ( !cc_piece_has_same_type( se_1.castle.rook, se_2.castle.rook, false ) ) return CC_MBE_False;
+            if ( !CC_POS_IS_EQUAL( se_1.castle.start, se_2.castle.start ) ) return CC_MBE_False;
+            if ( !CC_POS_IS_EQUAL( se_1.castle.destination, se_2.castle.destination ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_Promotion : {
+            if ( !cc_piece_has_same_type( se_1.promote.captured, se_2.promote.captured, false ) ) return CC_MBE_False;
+            if ( !cc_piece_has_same_type( se_1.promote.promoted_to, se_2.promote.promoted_to, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_TagForPromotion : {
+            if ( !cc_piece_has_same_type( se_1.tag_for_promotion.captured, se_2.tag_for_promotion.captured, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_Conversion : {
+            if ( !cc_piece_has_same_type( se_1.convert.piece, se_2.convert.piece, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_FailedConversion : return CC_MBE_True; // se_2.type is also CC_SETE_FailedConversion, checked at [1].
+
+        case CC_SETE_Transparency : {
+            if ( !cc_piece_has_same_type( se_1.transparency.piece, se_2.transparency.piece, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_Divergence : {
+            if ( !cc_piece_has_same_type( se_1.diversion.piece, se_2.diversion.piece, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_DemoteToPawn : {
+            if ( !cc_piece_has_same_type( se_1.demote.piece, se_1.demote.piece, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_Resurrection :
+        case CC_SETE_ResurrectingOpponent : {
+            if ( !cc_piece_has_same_type( se_1.resurrect.piece, se_2.resurrect.piece, false ) ) return CC_MBE_False;
+            return CC_MBE_True;
+        }
+
+        case CC_SETE_FailedResurrection : return CC_MBE_True; // se_2.type is also CC_SETE_FailedResurrection, checked at [1].
+
+        default : return CC_MBE_Void;
+    }
+}
+
 //
 // User-readable representation of a side-effect.
 

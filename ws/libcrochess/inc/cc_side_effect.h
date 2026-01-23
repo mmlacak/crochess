@@ -142,6 +142,9 @@ bool cc_side_effect_has_destination( CcSideEffect se );
 
 bool cc_side_effect_is_valid( CcSideEffect se, bool include_none );
 
+// TODO :: DOCS
+CcMaybeBoolEnum cc_side_effect_is_congruent( CcSideEffect se_1, CcSideEffect se_2 );
+
 bool cc_side_effect_to_str( CcSideEffect se,
                             cc_char_16 * se_str__o );
 
