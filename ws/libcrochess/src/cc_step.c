@@ -272,22 +272,36 @@ CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps ) {
     return &( last->side_effect );
 }
 
-CcMaybeBoolEnum cc_step_is_congruent( CcStep * step_1, CcStep * step_2 ) {
-    if ( !step_1 ) return CC_MBE_Void;
-    if ( !step_2 ) return CC_MBE_Void;
+CcMaybeBoolEnum cc_step_is_congruent( CcStep * step, CcStep * step_path ) {
+    if ( !step ) return CC_MBE_Void;
+    if ( !step_path ) return CC_MBE_Void;
 
-    CcMaybeBoolEnum result = cc_step_link_type_is_congruent( step_1->link, step_2->link );
+    // Tentative side-effects are used only for displacements, when building complete
+    // path a piece can make; they have no place in a step parsed from user notation.
+    if ( step->tentative__d ) return CC_MBE_Void;
+
+    CcMaybeBoolEnum result = cc_step_link_type_is_congruent( step->link, step_path->link );
     if ( result != CC_MBE_True ) return result;
 
-    if ( !cc_pos_is_congruent( step_1->field, step_2->field ) ) return CC_MBE_False;
+    if ( !cc_pos_is_congruent( step->field, step_path->field ) ) return CC_MBE_False;
 
-    result = cc_side_effect_is_congruent( step_1->side_effect, step_2->side_effect );
-    if ( result != CC_MBE_True ) return result; // TODO :: FIX :: handle tentative!
+    result = cc_side_effect_is_congruent( step->side_effect, step_path->side_effect );
+    if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) return CC_MBE_Void;
+    if ( result == CC_MBE_True ) return CC_MBE_True;
 
-    // step_1->tentative__d
+    if ( step_path->tentative__d ) {
+        CcSideEffectLink * sel = step_path->tentative__d;
+        result = CC_MBE_False;
 
+        while ( sel ) {
+            result = cc_side_effect_is_congruent( step->side_effect, sel->side_effect );
+            if ( !CC_MAYBE_BOOL_IS_VALID( result ) ) return CC_MBE_Void;
+            if ( result == CC_MBE_True ) break;
+            sel = sel->next;
+        }
+    }
 
-    return CC_MBE_False; // TODO :: FIX
+    return result;
 }
 
 bool cc_step_free_all( CcStep ** steps__f ) {
