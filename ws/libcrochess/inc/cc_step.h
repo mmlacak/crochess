@@ -80,8 +80,7 @@ CcStep * cc_step_fetch_destination( CcStep * steps );
 
 CcSideEffect * cc_step_fetch_last_side_effect( CcStep * steps );
 
-// TODO :: DOCS
-CcMaybeBoolEnum cc_step_is_congruent( CcStep * step_1, CcStep * step_2 );
+CcMaybeBoolEnum cc_step_is_congruent( CcStep * step, CcStep * step_path );
 
 bool cc_step_free_all( CcStep ** steps__f );
 

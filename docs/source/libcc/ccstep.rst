@@ -279,6 +279,32 @@ Functions
     :returns: Side-effect if successful, :c:data:`NULL` otherwise.
     :seealso: :c:func:`cc_step_fetch_destination()`
 
+.. c:function:: CcMaybeBoolEnum cc_step_is_congruent( CcStep * step, CcStep * step_path )
+
+    Function checks if a given :c:var:`step_path` is congruent with :c:var:`step`.
+
+    Steps are congruent if they are congruent in their link types, positions and
+    side-effects.
+
+    Step parsed from user notation (i.e. :c:var:`step`) should not contain
+    :c:member:`CcStep.tentative__d`; step from generated path (i.e. :c:var:`step_path`)
+    can contain tentative side-effects.
+
+    Side-effect from :c:var:`step` is compared with the one from :c:var:`step_path`.
+    If not congruent, then the first side-effect is compared against all tentative
+    side-effects from :c:var:`step_path`.
+
+    :param step: A parsed step, from user notation.
+    :param step_path: A step in a generated path a piece can take.
+    :returns: One of :c:enum:`CcMaybeBoolEnum` values:
+
+        * :c:enumerator:`CC_MBE_True` if given steps are congruent,
+        * :c:enumerator:`CC_MBE_False` if given steps are not congruent,
+        * :c:enumerator:`CC_MBE_Void` in case of an error, insufficient data given.
+
+    :seealso: :c:func:`cc_step_link_type_is_congruent()`, :c:func:`cc_pos_is_congruent()`,
+        :c:func:`cc_side_effect_is_congruent()`
+
 .. c:function:: bool cc_step_free_all( CcStep ** steps__f )
 
     Frees all steps in a linked list.
