@@ -14,7 +14,13 @@
 
 #define CC_STEP_LINK_TYPE_IS_VALID(sle) ( ( CC_SLTE_None < (sle) ) && ( (sle) <= CC_SLTE_JustDestination ) )
 
+// TODO :: DOCS
+#define CC_STEP_LINK_TYPE_IS_JUST_STEP(sle) ( ( (sle) == CC_SLTE_Next ) || ( (sle) == CC_SLTE_Distant ) )
+
 #define CC_STEP_LINK_TYPE_IS_DESTINATION(sle) ( ( (sle) == CC_SLTE_Destination ) || ( (sle) == CC_SLTE_JustDestination ) )
+
+// TODO :: DOCS
+#define CC_STEP_LINK_TYPE_IS_MOVEMENT(sle) ( CC_STEP_LINK_TYPE_IS_JUST_STEP(sle) || CC_STEP_LINK_TYPE_IS_DESTINATION(sle) )
 
 typedef enum CcStepLinkTypeEnum {
     CC_SLTE_None, /* Step link not found, uninitialized, not parsed yet, or error happened. */

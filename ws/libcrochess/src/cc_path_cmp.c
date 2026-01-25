@@ -27,9 +27,9 @@ CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
     size_t mom_diff = cc_step_count( path_steps, true ); // Also checks if 1st step is initial, 2nd might be repositioning, all others are linked as next (i.e. immediate) steps.
     if ( mom_diff == 0 ) return CC_MBE_False;
 
-    CcPieceTagEnum pte = path_ctx->ply_ctx.initial.piece;
+    CcPosDesc init = path_ctx->ply_ctx.initial;
 
-    if ( !cc_piece_has_same_type( ply->piece, pte, false ) ) return CC_MBE_False;
+    if ( !cc_piece_has_same_type( ply->piece, init.piece, false ) ) return CC_MBE_False;
 
     CcStep * s = ply->steps;
     if ( !s ) return CC_MBE_Void;
@@ -37,22 +37,55 @@ CcMaybeBoolEnum cc_path_cmp_compare_steps( CcPly * ply,
     CcStep * ps = path_steps;
     if ( !ps ) return CC_MBE_Void;
 
+    if ( ps->link == CC_SLTE_InitialPosition ) {
+        if ( !CC_POS_IS_EQUAL( ps->field, init.pos ) ) return CC_MBE_False;
 
+        if ( s->link == CC_SLTE_InitialPosition ) {
+            if ( !CC_POS_IS_EQUAL( s->field, init.pos ) ) return CC_MBE_False;
+            s = s->next;
+        }
 
-    // if ( ps->link == CC_SLTE_Reposition )
-    //     ps = ps->next;
-
-    // if ( !ps ) return CC_MBE_Void;
-
-    while ( s ) {
-
-
-        s = s->next;
+        ps = ps->next;
     }
 
+    if ( ps->link == CC_SLTE_Reposition ) {
+        if ( s->link == CC_SLTE_Reposition ) {
+            if ( !CC_POS_IS_EQUAL( s->field, ps->field ) ) return CC_MBE_False;
+            s = s->next;
+        }
 
+        ps = ps->next;
+    }
 
-    return CC_MBE_Void; // TODO :: FIX
+    CcMaybeBoolEnum cumulative_result = CC_MBE_True;
+    CcMaybeBoolEnum result = CC_MBE_True;
+
+    while ( ps && s ) {
+        if ( !CC_STEP_LINK_TYPE_IS_MOVEMENT( ps->link ) ) return CC_MBE_False;
+        if ( !CC_STEP_LINK_TYPE_IS_MOVEMENT( s->link ) ) return CC_MBE_False;
+
+        if ( CC_STEP_LINK_TYPE_IS_DESTINATION( ps->link ) ) {
+            // No steps are allowed after destination.
+            if ( ps->next ) return CC_MBE_False;
+            if ( s->next ) return CC_MBE_False;
+        }
+
+        result = cc_step_is_congruent( s, ps );
+
+        if ( result == CC_MBE_True ) {
+            s = s->next;
+        } else if ( result == CC_MBE_False ) {
+            // Nothing to do here.
+        } else // result is not valid --> error
+            return result;
+
+        cumulative_result = CC_MAYBE_BOOL_OR( result, cumulative_result );
+        ps = ps->next;
+    }
+
+    if ( s && !ps ) return CC_MBE_Void; // Some of user notation has been left over --> error.
+
+    return cumulative_result;
 }
 
 CcMaybeBoolEnum cc_path_cmp_compare_ply( CcPly * ply,
