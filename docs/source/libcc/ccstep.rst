@@ -31,12 +31,30 @@ Data
     :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
     :returns: :c:data:`true` if valid enumerator, :c:data:`false` otherwise.
 
+.. c:macro:: CC_STEP_LINK_TYPE_IS_JUST_STEP(sle)
+
+    Macro to check if a given step link is just a step, either immediate or
+    distant step.
+
+    :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
+    :returns: :c:data:`true` if just a step, :c:data:`false` otherwise.
+
 .. c:macro:: CC_STEP_LINK_TYPE_IS_DESTINATION(sle)
 
     Macro to check if a given step link is destination.
 
     :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
     :returns: :c:data:`true` if destination, :c:data:`false` otherwise.
+
+.. c:macro:: CC_STEP_LINK_TYPE_IS_MOVEMENT(sle)
+
+    Macro to check if a given step link is a movement, either just a step
+    or a destination.
+
+    :param sle: Step link enumeration, :c:enum:`CcStepLinkTypeEnum` value.
+    :returns: :c:data:`true` if movement, :c:data:`false` otherwise.
+    :seealso: :c:macro:`CC_STEP_LINK_TYPE_IS_JUST_STEP()`,
+        :c:macro:`CC_STEP_LINK_TYPE_IS_DESTINATION()`
 
 .. c:enum:: CcStepLinkTypeEnum
 
