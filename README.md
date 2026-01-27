@@ -2,9 +2,7 @@
 
 **This repository will not receive any further updates.**
 
-<hr />
-<hr />
-<br />
+<hr /><br />
 
 <span class="badge-adobe-acrobat-reader"><a href="https://github.com/mmlacak/crochess/raw/master/crochess.pdf" title="Download the book!"><img src="https://img.shields.io/badge/The_book-Download!-EC1C24.svg?logo=adobe-acrobat-reader&style=for-the-badge" alt="Download the book!" /></a></span>
 <span class="github"><a href="https://github.com/sponsors/mmlacak" title="Thank you for your donations!"><img src="https://img.shields.io/badge/GitHub-Thank_you!-F5F5F5.svg?logo=github&style=for-the-badge" alt="Thank you for your donations!" /></a></span>
